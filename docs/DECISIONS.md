@@ -96,3 +96,12 @@ in the existing `rg-corp` zone. Cache purge uses an OIDC federated app
 (`gh-amyweb-frontdoor-purge`) role-scoped to the Front Door profile only —
 no publish-profile secrets, no broader access. Budget: $60/mo subscription
 budget, alerts at 50%/80% actual and 100% forecast.
+
+## 2026-07-07 — Interim placeholder restyled black + "Under construction"
+
+Co-founder request via the operator: black background, construction-site
+message, brand-pink caution tape (operator chose pink over hazard yellow).
+**Decision:** restyle the Phase A placeholder only (BaseLayout body + home
+page; black-background logo variant). Not a Phase B pre-decision — the §5
+design process still runs; the black-background preference is recorded as a
+Phase B design input.

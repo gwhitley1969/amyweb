@@ -84,3 +84,15 @@ is set; the verify + approvals gates always run. Setting the variable after
 Front Door provisioning "arms" production deploys. Rejected: a dummy FDID
 default (would ship an origin lockdown that trusts a nonexistent Front Door —
 or worse, mask a misconfiguration).
+
+## 2026-07-07 — Region eastus2; infra names; OIDC purge identity
+
+`{{AZURE_REGION}}` was unresolved when the operator asked for the backend to
+be built. **Decision:** SWA in `eastus2` (closest SWA region to the Charlotte
+market; SWA serves globally regardless — the region holds config only, and a
+later move is a redeploy, not a migration). Names: `rg-needlegirlie-web`,
+`stapp-needlegirlie`, `afd-needlegirlie` (endpoint `needlegirlie`); DNS stays
+in the existing `rg-corp` zone. Cache purge uses an OIDC federated app
+(`gh-amyweb-frontdoor-purge`) role-scoped to the Front Door profile only —
+no publish-profile secrets, no broader access. Budget: $60/mo subscription
+budget, alerts at 50%/80% actual and 100% forecast.

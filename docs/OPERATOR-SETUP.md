@@ -2,6 +2,10 @@
 
 One-time configuration the pipeline expects. Names must match exactly.
 
+> **Status: fully configured 2026-07-07.** All secrets/variables below are
+> set and verified working (preview + production deploys + cache purge).
+> This document remains the reference for rotation or rebuild.
+
 ## GitHub repository secrets (Settings → Secrets and variables → Actions → Secrets)
 
 | Secret | Value | Used by |

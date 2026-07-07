@@ -26,6 +26,9 @@ pass.
 
 ## Layout
 
-See the repo map in `.claude/CLAUDE.md`. Operational wiring (secrets,
-variables, preview password) is documented in `docs/OPERATOR-SETUP.md`;
-technical decisions are logged in `docs/DECISIONS.md`.
+See the repo map in `.claude/CLAUDE.md`. Key references:
+
+- `docs/RUNBOOK.md` — deploy, rollback, cache purge, previews, troubleshooting
+- `docs/OPERATOR-SETUP.md` — GitHub/Azure wiring (secrets, variables)
+- `docs/BRAND-ASSETS.md` — logo sources and the export pipeline
+- `docs/DECISIONS.md` — decision log (append-only)

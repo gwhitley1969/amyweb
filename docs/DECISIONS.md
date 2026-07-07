@@ -116,3 +116,16 @@ Apex needlegirl.com deliberately left untouched pending operator decision.
 
 **Update (same day):** operator decided apex needlegirl.com is covered too —
 same Front Door custom domain + 301 pattern, alias A record at the zone apex.
+
+## 2026-07-07 — Logo provenance: HTML sources are the masters; variants are exports
+
+The logo was made by Claude Design; the operator recovered the original
+HTML documents (vector: Playfair Display text + CSS/SVG). **Decision:**
+archive them at `src/assets/brand/source/` as canonical masters; produce
+every raster variant by rendering them in headless Chrome at high device
+scale (`scripts/export-logo.mjs`), never by editing/tracing/upscaling
+rasters. Replaced the ~400px-art legacy PNG derivative with 4x exports
+(~1850px art). Rejected: AI upscaling and hand-rebuilt SVG (both redraw the
+mark, violating CLAUDE.md §3 brand-fidelity intent). Consequence: crisp
+rendering at all display sizes; the low-res first-delivery PNGs remain only
+as historical artifacts.

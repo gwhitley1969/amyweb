@@ -18,15 +18,10 @@ if (!existsSync(resolve(root, 'dist'))) {
   process.exit(1);
 }
 
+const { findChrome } = await import('./lib/chrome.mjs');
 const env = { ...process.env };
-if (!env.CHROME_PATH) {
-  try {
-    const puppeteer = require('puppeteer');
-    env.CHROME_PATH = puppeteer.executablePath();
-  } catch {
-    // fine — chrome-launcher will look for a system Chrome
-  }
-}
+const chrome = findChrome();
+if (chrome) env.CHROME_PATH = chrome;
 
 const pkgJsonPath = require.resolve('@lhci/cli/package.json', { paths: [root] });
 const pkgJson = require(pkgJsonPath);

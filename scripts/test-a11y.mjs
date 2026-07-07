@@ -5,9 +5,11 @@
  * against the routes in .pa11yci.json. Requires `npm run build` first.
  */
 import { spawn } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
 import { createRequire } from 'node:module';
+import { tmpdir } from 'node:os';
 import { resolve, dirname, join } from 'node:path';
+import { findChrome } from './lib/chrome.mjs';
 
 const require = createRequire(import.meta.url);
 const root = resolve(import.meta.dirname, '..');
@@ -45,13 +47,21 @@ async function waitForServer() {
   throw new Error('astro preview did not start within 30s');
 }
 
+// Point pa11y at a known-good Chrome (see scripts/lib/chrome.mjs) by merging
+// the executable path into the checked-in config at runtime.
+const config = JSON.parse(readFileSync(resolve(root, '.pa11yci.json'), 'utf8'));
+const chrome = findChrome();
+if (chrome) config.defaults.chromeLaunchConfig.executablePath = chrome;
+const configPath = join(mkdtempSync(join(tmpdir(), 'pa11y-')), 'config.json');
+writeFileSync(configPath, JSON.stringify(config));
+
 let exitCode = 1;
 try {
   await waitForServer();
   exitCode = await new Promise((resolvePromise) => {
     const pa11y = spawn(
       process.execPath,
-      [binPath('pa11y-ci'), '--config', resolve(root, '.pa11yci.json')],
+      [binPath('pa11y-ci'), '--config', configPath],
       { cwd: root, stdio: 'inherit' },
     );
     pa11y.on('close', (code) => resolvePromise(code ?? 1));

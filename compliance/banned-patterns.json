@@ -1,0 +1,91 @@
+{
+  "$comment": "Compliance banned-pattern registry (CLAUDE.md hard constraint 3, BUILD_SPEC §8). Patterns are case-insensitive JS regexes applied to every line of every file under src/content/** and src/pages/**. THIS LIST ONLY EVER GROWS — removing or loosening an entry requires the human operator. Keep patterns precise: a false positive costs a review; a false negative costs a compliance violation.",
+  "categories": [
+    {
+      "name": "dosing",
+      "description": "Doses, units, quantities, reconstitution, frequency/protocols, titration — banned in any form, anywhere (BUILD_SPEC §8.1).",
+      "patterns": [
+        "\\b\\d+(?:\\.\\d+)?\\s*(?:mg|mcg|iu|ml|cc)s?\\b",
+        "\\b\\d+(?:\\.\\d+)?\\s*(?:milligram|microgram|unit)s?\\b",
+        "\\bdos(?:e|es|ing|age|ages)\\b",
+        "reconstitut\\w*",
+        "titrat\\w*",
+        "\\b(?:weekly|daily|monthly|biweekly|nightly)\\s+(?:injection|shot|dose)s?\\b",
+        "\\binjections?\\s+(?:every|per|each)\\b",
+        "\\bprotocols?\\b"
+      ]
+    },
+    {
+      "name": "disease-claims",
+      "description": "Treat/cure/prevent/diagnose language and disease names in any context (BUILD_SPEC §8.2, §7.7 glutathione rule). 'treats' is banned; 'treatment' as a noun is fine.",
+      "patterns": [
+        "\\btreats\\b",
+        "\\bcur(?:e|es|ed|ing)\\b",
+        "\\bprevent(?:s|ed|ing)?\\b",
+        "\\bdiagnos\\w+",
+        "\\bheal(?:s|ed|ing)?\\b",
+        "\\balzheimer\\w*",
+        "\\bparkinson\\w*",
+        "\\bcancer\\b",
+        "chemotherap\\w*",
+        "\\bdiabet\\w*",
+        "\\bdementia\\b",
+        "neuroprotect\\w*",
+        "\\bautoimmune\\b",
+        "\\barthritis\\b"
+      ]
+    },
+    {
+      "name": "outcome-promises",
+      "description": "Guarantees, proven/specific results, before/after implications (BUILD_SPEC §8.3, §8.9).",
+      "patterns": [
+        "guarantee\\w*",
+        "\\bproven\\b",
+        "\\bpowerful\\s+results?\\b",
+        "\\bresults?\\s+(?:guaranteed|you\\s+can\\s+see|in\\s+\\d)",
+        "\\bbefore\\s*(?:and|&|\\/|-)\\s*after\\b",
+        "\\btestimonials?\\b",
+        "\\bpermanent(?:ly)?\\b"
+      ]
+    },
+    {
+      "name": "superiority",
+      "description": "Unsubstantiated superiority claims (BUILD_SPEC §8.4). '#1' stays banned pending {{EVOLUS_CLAIM}}.",
+      "patterns": [
+        "(?:^|[\\s(>\"'])#\\s?1\\b",
+        "\\b(?:number|no\\.)\\s?one\\b",
+        "\\bbest\\b",
+        "\\btop[- ]rated\\b",
+        "\\baward[- ]winning\\b",
+        "\\bworld[- ]class\\b"
+      ]
+    },
+    {
+      "name": "banned-angles",
+      "description": "Per-line banned angles from BUILD_SPEC §7: GLP-1 weight/blood-sugar/appetite promises, peptide recovery/anti-aging claims, immunity-benefit extensions, investigational-as-approved framing.",
+      "patterns": [
+        "blood[- ]sugar",
+        "hypoglycemi\\w*",
+        "\\blose\\s+\\d+\\s*(?:lbs?|pounds?|kg)\\b",
+        "appetite\\s+suppress\\w*",
+        "\\bfat[- ]burn\\w*",
+        "\\banti[- ]aging\\b",
+        "\\banti[- ]inflammatory\\b",
+        "\\bperformance[- ]enhanc\\w*",
+        "\\b(?:boost(?:s|ed|ing)?)\\s+(?:your\\s+)?immun\\w*",
+        "\\bimmune[- ]boost\\w*",
+        "(?<!not[- ])fda[- ]approved",
+        "\\bsafe\\s+and\\s+effective\\b"
+      ]
+    },
+    {
+      "name": "credential-inflation",
+      "description": "Amy is an FNP — never imply physician status (BUILD_SPEC §8.8).",
+      "patterns": [
+        "\\bdr\\.?\\s+(?:amy|palacios)\\b",
+        "\\bphysician\\b",
+        "\\bdoctor\\b"
+      ]
+    }
+  ]
+}

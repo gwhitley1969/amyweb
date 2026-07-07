@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../lib/siteConfig';
 // Derivative of the operator-supplied logo: blank border cropped but with a
 // black margin kept so the baked-in glow fades out inside the image (art
 // untouched). Native art is only ~400px wide — browser upscaling is
@@ -33,6 +34,12 @@ import logo from '../assets/brand/needle-girlie-logo-on-black-trimmed.png';
     <p class="max-w-prose text-balance">
       The dedicated home of Amy Palacios, FNP — medical aesthetics in
       Harrisburg, NC.
+    </p>
+    <p class="max-w-prose">
+      Call us:
+      <a href={siteConfig.phoneTel} class="font-semibold text-[#F9A8D4] underline underline-offset-4">
+        {siteConfig.phone}
+      </a>
     </p>
   </section>
 </BaseLayout>

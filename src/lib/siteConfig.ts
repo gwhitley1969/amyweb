@@ -7,7 +7,8 @@ export const siteConfig = {
   domain: 'needlegirlie.com',
   url: 'https://needlegirlie.com',
   address: '{{ADDRESS_DISPLAY}}',
-  phone: '{{PHONE}}',
+  phone: '704-579-7108', // {{PHONE}} resolved by operator 2026-07-07
+  phoneTel: 'tel:+17045797108',
   hours: '{{HOURS}}',
   booking: {
     vagaroUrl: '{{VAGARO_URL}}',

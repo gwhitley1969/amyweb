@@ -113,3 +113,6 @@ records can't issue certificates or redirects, so the hostname was added as
 a Front Door custom domain (managed TLS, no added cost) with an edge rule:
 301 straight to the canonical apex (skipping the www.needlegirlie.com hop).
 Apex needlegirl.com deliberately left untouched pending operator decision.
+
+**Update (same day):** operator decided apex needlegirl.com is covered too —
+same Front Door custom domain + 301 pattern, alias A record at the zone apex.

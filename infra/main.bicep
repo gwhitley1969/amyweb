@@ -51,8 +51,10 @@ module dnsNeedlegirl 'dns-needlegirl.bicep' = {
   scope: resourceGroup(dnsZoneResourceGroup)
   name: 'dns-needlegirl'
   params: {
+    endpointId: frontdoor.outputs.endpointId
     endpointHostname: frontdoor.outputs.endpointHostname
     wwwValidationToken: frontdoor.outputs.legacyWwwValidationToken
+    apexValidationToken: frontdoor.outputs.legacyApexValidationToken
   }
 }
 

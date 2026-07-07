@@ -5,8 +5,10 @@ param swaDefaultHostname string
 
 var apexHost = 'needlegirlie.com'
 var wwwHost = 'www.needlegirlie.com'
-// Legacy domain Amy owns; redirects to the canonical apex (BUILD_SPEC §2).
+// Legacy domain Amy owns; both hosts redirect to the canonical apex
+// (BUILD_SPEC §2).
 var legacyWwwHost = 'www.needlegirl.com'
+var legacyApexHost = 'needlegirl.com'
 
 resource profile 'Microsoft.Cdn/profiles@2024-02-01' = {
   name: 'afd-needlegirlie'
@@ -89,6 +91,18 @@ resource legacyWwwDomain 'Microsoft.Cdn/profiles/customDomains@2024-02-01' = {
   }
 }
 
+resource legacyApexDomain 'Microsoft.Cdn/profiles/customDomains@2024-02-01' = {
+  parent: profile
+  name: 'apex-needlegirl-com'
+  properties: {
+    hostName: legacyApexHost
+    tlsSettings: {
+      certificateType: 'ManagedCertificate'
+      minimumTlsVersion: 'TLS12'
+    }
+  }
+}
+
 // www -> apex 301 (apex is canonical, BUILD_SPEC §2).
 resource ruleSet 'Microsoft.Cdn/profiles/ruleSets@2024-02-01' = {
   parent: profile
@@ -139,7 +153,7 @@ resource legacyWwwToApex 'Microsoft.Cdn/profiles/ruleSets/rules@2024-02-01' = {
         parameters: {
           typeName: 'DeliveryRuleHostNameConditionParameters'
           operator: 'Equal'
-          matchValues: [legacyWwwHost]
+          matchValues: [legacyWwwHost, legacyApexHost]
           transforms: ['Lowercase']
         }
       }
@@ -175,6 +189,7 @@ resource route 'Microsoft.Cdn/profiles/afdEndpoints/routes@2024-02-01' = {
       { id: apexDomain.id }
       { id: wwwDomain.id }
       { id: legacyWwwDomain.id }
+      { id: legacyApexDomain.id }
     ]
     ruleSets: [
       { id: ruleSet.id }
@@ -210,3 +225,4 @@ output endpointId string = endpoint.id
 output apexValidationToken string = apexDomain.properties.validationProperties.validationToken
 output wwwValidationToken string = wwwDomain.properties.validationProperties.validationToken
 output legacyWwwValidationToken string = legacyWwwDomain.properties.validationProperties.validationToken
+output legacyApexValidationToken string = legacyApexDomain.properties.validationProperties.validationToken

@@ -1,7 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import logo from '../assets/brand/needle-girlie-logo-on-black.png';
+// Trimmed derivative of the operator-supplied logo (blank border cropped,
+// art untouched). Native art is only 388px wide — browser upscaling to
+// ~600px is acceptable for the interim placeholder; Phase B needs
+// higher-resolution exports.
+import logo from '../assets/brand/needle-girlie-logo-on-black-trimmed.png';
 ---
 
 <BaseLayout
@@ -9,15 +13,21 @@ import logo from '../assets/brand/needle-girlie-logo-on-black.png';
   description="Needle Girlie — the medical-aesthetics practice of Amy Palacios, FNP, in Harrisburg, NC. The site is under construction."
 >
   <section class="flex min-h-dvh flex-col items-center justify-center gap-8 px-6 text-center">
-    <Image
-      src={logo}
-      alt="Needle Girlie"
-      widths={[460, 924]}
-      sizes="(max-width: 700px) 90vw, 640px"
-      class="w-full max-w-[640px]"
-      loading="eager"
-      fetchpriority="high"
-    />
+    <div class="relative w-full max-w-[720px]">
+      <Image
+        src={logo}
+        alt="Needle Girlie"
+        class="w-full"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <!-- feathers the crop edge of the baked-in glow into the page black -->
+      <div
+        class="pointer-events-none absolute inset-0 [box-shadow:inset_0_0_28px_28px_#000]"
+        aria-hidden="true"
+      >
+      </div>
+    </div>
     <div class="w-full max-w-[640px]">
       <div class="caution-tape" aria-hidden="true"></div>
       <h1 class="my-6 text-3xl font-bold uppercase tracking-[0.2em] sm:text-4xl">

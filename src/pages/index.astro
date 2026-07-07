@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import logo from '../assets/brand/needle-girlie-logo-on-white.png';
+---
+
+<BaseLayout
+  title="Needle Girlie | Medical Aesthetics in Harrisburg, NC"
+  description="Needle Girlie — the medical-aesthetics practice of Amy Palacios, FNP, in Harrisburg, NC. Full site coming soon."
+>
+  <section class="flex min-h-dvh flex-col items-center justify-center gap-6 px-6 text-center">
+    <Image
+      src={logo}
+      alt="Needle Girlie"
+      widths={[460, 924]}
+      sizes="(max-width: 700px) 90vw, 640px"
+      class="w-full max-w-[640px]"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <h1 class="text-2xl font-semibold">hello, Needle Girlie</h1>
+    <p class="max-w-prose text-balance">
+      The dedicated home of Amy Palacios, FNP — medical aesthetics in
+      Harrisburg, NC. The full site is on its way.
+    </p>
+  </section>
+</BaseLayout>

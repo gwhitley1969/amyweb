@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://needlegirlie.com/sitemap-index.xml

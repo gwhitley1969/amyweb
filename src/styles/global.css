@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+
+/*
+ * Brand design tokens land here in Phase B, after the design plan is approved
+ * (BUILD_SPEC §5). Every text/background token pair added must be
+ * contrast-verified >= 4.5:1 and the verified pairs recorded in comments.
+ * Do not use raw brand hot pink for body-size text.
+ */
+:root {
+  /* placeholder neutral ink until Phase B tokens are approved */
+  --ng-ink-900: #221820;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

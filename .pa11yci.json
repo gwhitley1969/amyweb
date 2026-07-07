@@ -1,0 +1,14 @@
+{
+  "defaults": {
+    "runners": ["axe"],
+    "standard": "WCAG2AA",
+    "timeout": 60000,
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-dev-shm-usage"]
+    }
+  },
+  "urls": [
+    "http://localhost:4325/",
+    "http://localhost:4325/404.html"
+  ]
+}

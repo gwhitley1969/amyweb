@@ -1,0 +1,59 @@
+name: PR preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: read
+
+jobs:
+  verify-and-deploy:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    env:
+      PUBLIC_ENV: preview
+      SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Verify (build, check, claims lint, a11y, perf budgets)
+        run: npm run verify
+
+      # Deploys the pre-verified dist/ as-is; the SWA action must never build
+      # on its own, or it would bypass the quality gates above.
+      - name: Deploy preview to Azure Static Web Apps
+        if: env.SWA_TOKEN != ''
+        id: deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          action: upload
+          app_location: dist
+          skip_app_build: true
+
+      - name: Preview URL
+        if: env.SWA_TOKEN != ''
+        run: |
+          echo "### Preview deployed" >> "$GITHUB_STEP_SUMMARY"
+          echo "${{ steps.deploy.outputs.static_web_app_url }}" >> "$GITHUB_STEP_SUMMARY"
+
+  close-preview:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    env:
+      SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+    steps:
+      - name: Tear down preview environment
+        if: env.SWA_TOKEN != ''
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          action: close

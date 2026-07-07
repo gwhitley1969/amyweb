@@ -29,3 +29,5 @@ pass.
 See the repo map in `.claude/CLAUDE.md`. Operational wiring (secrets,
 variables, preview password) is documented in `docs/OPERATOR-SETUP.md`;
 technical decisions are logged in `docs/DECISIONS.md`.
+
+<!-- Phase A acceptance: exercises the PR preview pipeline. -->

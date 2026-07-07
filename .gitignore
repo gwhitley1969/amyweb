@@ -17,6 +17,7 @@ npm-debug.log*
 # local tooling (cloned skill marketplaces, local settings — not project code)
 .claude/skills/
 .claude/settings.local.json
+claude-skills/
 
 # OS
 Thumbs.db

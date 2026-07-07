@@ -2,10 +2,9 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../lib/siteConfig';
-// Derivative of the operator-supplied logo: blank border cropped but with a
-// black margin kept so the baked-in glow fades out inside the image (art
-// untouched). Native art is only ~400px wide — browser upscaling is
-// acceptable for the interim placeholder; Phase B needs hi-res exports.
+// Derivative of the original Claude-designed logo, rendered at 4x from the
+// canonical HTML source (src/assets/brand/source/) and cropped with a black
+// margin so the glow fades out inside the image. Art untouched.
 import logo from '../assets/brand/needle-girlie-logo-on-black-trimmed.png';
 ---
 
@@ -17,6 +16,8 @@ import logo from '../assets/brand/needle-girlie-logo-on-black-trimmed.png';
     <Image
       src={logo}
       alt="Needle Girlie"
+      widths={[480, 800, 1560]}
+      sizes="(max-width: 820px) 94vw, 780px"
       class="w-full max-w-[780px]"
       loading="eager"
       fetchpriority="high"

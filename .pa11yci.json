@@ -4,7 +4,7 @@
     "standard": "WCAG2AA",
     "timeout": 60000,
     "chromeLaunchConfig": {
-      "args": ["--no-sandbox", "--disable-dev-shm-usage"]
+      "args": ["--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu"]
     }
   },
   "urls": [

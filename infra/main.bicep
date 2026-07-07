@@ -47,6 +47,15 @@ module dns 'dns.bicep' = {
   }
 }
 
+module dnsNeedlegirl 'dns-needlegirl.bicep' = {
+  scope: resourceGroup(dnsZoneResourceGroup)
+  name: 'dns-needlegirl'
+  params: {
+    endpointHostname: frontdoor.outputs.endpointHostname
+    wwwValidationToken: frontdoor.outputs.legacyWwwValidationToken
+  }
+}
+
 module budget 'budget.bicep' = {
   name: 'budget'
   params: {

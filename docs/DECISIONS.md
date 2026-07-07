@@ -105,3 +105,11 @@ message, brand-pink caution tape (operator chose pink over hazard yellow).
 page; black-background logo variant). Not a Phase B pre-decision — the §5
 design process still runs; the black-background preference is recorded as a
 Phase B design input.
+
+## 2026-07-07 — www.needlegirl.com 301 via Front Door (not DNS alone)
+
+Operator asked for www.needlegirl.com to "point to" needlegirlie.com. DNS
+records can't issue certificates or redirects, so the hostname was added as
+a Front Door custom domain (managed TLS, no added cost) with an edge rule:
+301 straight to the canonical apex (skipping the www.needlegirlie.com hop).
+Apex needlegirl.com deliberately left untouched pending operator decision.

@@ -5,6 +5,8 @@ param swaDefaultHostname string
 
 var apexHost = 'needlegirlie.com'
 var wwwHost = 'www.needlegirlie.com'
+// Legacy domain Amy owns; redirects to the canonical apex (BUILD_SPEC §2).
+var legacyWwwHost = 'www.needlegirl.com'
 
 resource profile 'Microsoft.Cdn/profiles@2024-02-01' = {
   name: 'afd-needlegirlie'
@@ -75,6 +77,18 @@ resource wwwDomain 'Microsoft.Cdn/profiles/customDomains@2024-02-01' = {
   }
 }
 
+resource legacyWwwDomain 'Microsoft.Cdn/profiles/customDomains@2024-02-01' = {
+  parent: profile
+  name: 'www-needlegirl-com'
+  properties: {
+    hostName: legacyWwwHost
+    tlsSettings: {
+      certificateType: 'ManagedCertificate'
+      minimumTlsVersion: 'TLS12'
+    }
+  }
+}
+
 // www -> apex 301 (apex is canonical, BUILD_SPEC §2).
 resource ruleSet 'Microsoft.Cdn/profiles/ruleSets@2024-02-01' = {
   parent: profile
@@ -112,6 +126,38 @@ resource wwwToApex 'Microsoft.Cdn/profiles/ruleSets/rules@2024-02-01' = {
   }
 }
 
+resource legacyWwwToApex 'Microsoft.Cdn/profiles/ruleSets/rules@2024-02-01' = {
+  parent: ruleSet
+  name: 'needlegirlwwwtoapex'
+  dependsOn: [wwwToApex] // rules in a set must be created serially
+  properties: {
+    order: 2
+    matchProcessingBehavior: 'Stop'
+    conditions: [
+      {
+        name: 'HostName'
+        parameters: {
+          typeName: 'DeliveryRuleHostNameConditionParameters'
+          operator: 'Equal'
+          matchValues: [legacyWwwHost]
+          transforms: ['Lowercase']
+        }
+      }
+    ]
+    actions: [
+      {
+        name: 'UrlRedirect'
+        parameters: {
+          typeName: 'DeliveryRuleUrlRedirectActionParameters'
+          redirectType: 'Moved'
+          destinationProtocol: 'Https'
+          customHostname: apexHost
+        }
+      }
+    ]
+  }
+}
+
 resource route 'Microsoft.Cdn/profiles/afdEndpoints/routes@2024-02-01' = {
   parent: endpoint
   name: 'default'
@@ -128,6 +174,7 @@ resource route 'Microsoft.Cdn/profiles/afdEndpoints/routes@2024-02-01' = {
     customDomains: [
       { id: apexDomain.id }
       { id: wwwDomain.id }
+      { id: legacyWwwDomain.id }
     ]
     ruleSets: [
       { id: ruleSet.id }
@@ -162,3 +209,4 @@ output endpointHostname string = endpoint.properties.hostName
 output endpointId string = endpoint.id
 output apexValidationToken string = apexDomain.properties.validationProperties.validationToken
 output wwwValidationToken string = wwwDomain.properties.validationProperties.validationToken
+output legacyWwwValidationToken string = legacyWwwDomain.properties.validationProperties.validationToken

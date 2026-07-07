@@ -19,6 +19,9 @@ npm-debug.log*
 .claude/settings.local.json
 claude-skills/
 
+# debug screenshots dropped in the repo root (source images live in src/assets)
+/*.png
+
 # OS
 Thumbs.db
 .DS_Store

@@ -9,13 +9,20 @@ import DisclaimerBlock from '../components/DisclaimerBlock.astro';
 import InvestigationalNotice from '../components/InvestigationalNotice.astro';
 import BioteDisclaimer from '../components/BioteDisclaimer.astro';
 import DraftBanner from '../components/DraftBanner.astro';
+import AtAGlance from '../components/AtAGlance.astro';
+import VisitSteps from '../components/VisitSteps.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import TrustChips from '../components/TrustChips.astro';
 
 /**
- * Treatment page template (approved design plan). The compliance order is
- * FIXED here — pages cannot reorder or opt out (CLAUDE.md hard constraint 3):
- *   breadcrumbs -> H1 + underline run -> intro -> products ->
- *   flag-driven notices ADJACENT to products -> body -> consult router ->
- *   DisclaimerBlock (light surface) -> seam -> noir CTA band.
+ * Treatment page template (approved design plan + Mobbin-review addendum).
+ * The compliance order is FIXED here — pages cannot reorder or opt out
+ * (CLAUDE.md hard constraint 3):
+ *   breadcrumbs -> H1 + underline run -> lead -> at-a-glance -> intro ->
+ *   products -> flag-driven notices ADJACENT to products -> body ->
+ *   visit steps -> FAQ (only when items provided) -> pricing ->
+ *   consult router -> DisclaimerBlock (light surface, NEVER collapsed) ->
+ *   seam -> noir CTA band + trust chips.
  */
 interface Props {
   title: string;
@@ -27,6 +34,8 @@ interface Props {
   pricingDisplay: 'none' | 'consult' | 'startingAt';
   clinicianApproved: boolean;
   investigationalProduct?: string;
+  /** Editorial Q&A only — compliance text never goes in an accordion. */
+  faq?: { q: string; a: string }[];
   seo: { title: string; description: string };
 }
 
@@ -40,6 +49,7 @@ const {
   pricingDisplay,
   clinicianApproved,
   investigationalProduct,
+  faq = [],
   seo,
 } = Astro.props;
 
@@ -62,6 +72,10 @@ const crumbs = [
     <ChevronRun variant="underline" />
     <p class="lead mt-6">{summary}</p>
 
+    <div class="mt-8">
+      <AtAGlance />
+    </div>
+
     <slot name="intro" />
 
     {
@@ -83,6 +97,18 @@ const crumbs = [
 
     <slot />
 
+    <div class="mt-12">
+      <VisitSteps />
+    </div>
+
+    {
+      faq.length > 0 && (
+        <div class="mt-12">
+          <FaqAccordion items={faq} />
+        </div>
+      )
+    }
+
     {
       pricingDisplay === 'consult' && (
         <p class="mt-8">Pricing is individual and discussed during your consultation.</p>
@@ -103,9 +129,12 @@ const crumbs = [
   <div class="surface" data-surface="noir">
     <div class="mx-auto max-w-3xl px-6 py-12">
       <ChevronRun variant="seam" />
-      <h2 class="heading-2 mt-8">Ready when you are</h2>
+      <h2 class="heading-2 mt-8">Ready <span class="display-accent">when you are</span></h2>
       <div class="mt-6">
         {ctaType === 'book' ? <CTAButton variant="book" /> : <CTAButton variant="consult" />}
+      </div>
+      <div class="mt-6">
+        <TrustChips />
       </div>
     </div>
   </div>

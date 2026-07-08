@@ -4,6 +4,8 @@
 export const siteConfig = {
   name: 'Needle Girlie',
   legalName: 'Needle Girlie — Amy Palacios, FNP',
+  provider: 'Amy Palacios, FNP', // established business fact (CLAUDE.md)
+  locality: 'Harrisburg, NC', // established business fact (CLAUDE.md)
   domain: 'needlegirlie.com',
   url: 'https://needlegirlie.com',
   address: '{{ADDRESS_DISPLAY}}',

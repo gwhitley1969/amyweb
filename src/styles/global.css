@@ -58,6 +58,13 @@
   font-size: 1.25rem; /* 20px */
   line-height: 1.6;
 }
+/* Two-tone display headlines: wrap the accented phrase in a span.
+ * ONLY inside display-1/display-2/heading-2 (>= 39px — large-text contrast
+ * pairs verified in tokens.css) and only on white or noir surfaces.
+ * Grep for `display-accent` to audit misuse. */
+@utility display-accent {
+  color: var(--ng-display-accent);
+}
 
 /* Paints the current surface tokens; pair with data-surface="noir" on the
  * same element to flip a section dark (tokens.css re-scopes the vars). */

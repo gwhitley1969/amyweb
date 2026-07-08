@@ -14,6 +14,11 @@ import InvestigationalNotice from '../../components/InvestigationalNotice.astro'
 import BioteDisclaimer from '../../components/BioteDisclaimer.astro';
 import DraftBanner from '../../components/DraftBanner.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import AtAGlance from '../../components/AtAGlance.astro';
+import VisitSteps from '../../components/VisitSteps.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import TrustChips from '../../components/TrustChips.astro';
+import { siteConfig } from '../../lib/siteConfig';
 
 // Preview-only (approved design plan): production builds emit no styleguide.
 export function getStaticPaths() {
@@ -23,6 +28,18 @@ export function getStaticPaths() {
 
 const { all } = Astro.params;
 const isTreatmentDemo = all === 'treatment-demo';
+
+// Demo-only editorial Q&A (real FAQ copy is Phase C, clinician-approved).
+const demoFaq = [
+  {
+    q: 'Do I need a consultation first?',
+    a: 'Yes — new treatments start with a consultation, so any plan is individual to you.',
+  },
+  {
+    q: 'How do I book?',
+    a: `Call ${siteConfig.phone} to schedule an appointment.`,
+  },
+];
 
 const swatches = [
   { name: '--ng-neon-500', hex: '#FE019A', role: 'the neon — glows, dark only, never text' },
@@ -48,6 +65,7 @@ const swatches = [
       bioteDisclaimer={true}
       pricingDisplay="consult"
       clinicianApproved={false}
+      faq={demoFaq}
       seo={{
         title: 'Treatment template demo | Needle Girlie styleguide',
         description: 'Preview-only demonstration of the treatment page template.',
@@ -103,6 +121,18 @@ const swatches = [
         </section>
 
         <section>
+          <h2 class="heading-2">Two-tone display headline</h2>
+          <p class="mt-4">
+            Accent span for display sizes (≥39px) only, on white or noir — never on blush
+            (tokens.css contrast table).
+          </p>
+          <p class="heading-2 mt-6">Premium and playful, <span class="display-accent">on purpose</span></p>
+          <div class="surface mt-6 p-6" data-surface="noir">
+            <p class="heading-2">Premium and playful, <span class="display-accent">on purpose</span></p>
+          </div>
+        </section>
+
+        <section>
           <h2 class="heading-2">Signature: the chevron run</h2>
           <p class="mt-4">Seam (9) on light, then on noir with its glow; underline (5) below.</p>
           <div class="mt-6 space-y-6">
@@ -149,6 +179,44 @@ const swatches = [
         <section class="grid gap-6 sm:grid-cols-2">
           <LocationCard />
           <GetTheApp />
+        </section>
+
+        <section>
+          <h2 class="heading-2">At a glance</h2>
+          <p class="mt-4">Fact card injected near the top of every treatment page.</p>
+          <div class="mt-6 max-w-2xl">
+            <AtAGlance />
+          </div>
+        </section>
+
+        <section>
+          <h2 class="heading-2">Visit steps</h2>
+          <p class="mt-4">Process-only walkthrough injected on every treatment page.</p>
+          <div class="mt-6 max-w-2xl">
+            <VisitSteps />
+          </div>
+        </section>
+
+        <section>
+          <h2 class="heading-2">FAQ accordion</h2>
+          <p class="mt-4">
+            Native <code>&lt;details&gt;</code>, zero JS. Editorial Q&amp;A only — compliance text
+            never goes inside an accordion.
+          </p>
+          <div class="mt-6 max-w-2xl">
+            <FaqAccordion items={demoFaq} />
+          </div>
+        </section>
+
+        <section>
+          <h2 class="heading-2">Trust chips</h2>
+          <p class="mt-4">Credential and process facts only, on both surfaces.</p>
+          <div class="mt-6">
+            <TrustChips />
+          </div>
+          <div class="surface mt-6 p-6" data-surface="noir">
+            <TrustChips />
+          </div>
         </section>
 
         <section>

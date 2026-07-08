@@ -1,0 +1,58 @@
+---
+import { siteConfig } from '../lib/siteConfig';
+
+/**
+ * Compact fact card near the top of every treatment page (adopted from the
+ * Mobbin review — the Hims spec-card pattern, docs/DECISIONS.md). Facts
+ * come from siteConfig only — nothing page-specific, nothing invented.
+ * Language convention (§6): "appointment" = booking, "consultation" =
+ * clinical routing.
+ */
+const facts = [
+  { label: 'Provider', value: siteConfig.provider },
+  { label: 'Location', value: siteConfig.locality },
+  { label: 'Appointments', value: `Call ${siteConfig.phone}` },
+  { label: 'New clients', value: 'Start with a consultation' },
+];
+---
+
+<dl class="at-a-glance" aria-label="At a glance">
+  {
+    facts.map((f) => (
+      <div class="at-a-glance__row">
+        <dt>{f.label}</dt>
+        <dd>{f.value}</dd>
+      </div>
+    ))
+  }
+</dl>
+
+<style is:global>
+  /* Same anatomy as .treatment-card: flat blush, magenta edge rule, no shadow. */
+  .at-a-glance {
+    background: var(--ng-blush-50);
+    border-left: 1px solid var(--ng-magenta-600);
+    padding: 1.5rem;
+  }
+  .at-a-glance__row {
+    display: grid;
+    grid-template-columns: minmax(8rem, auto) 1fr;
+    column-gap: 1.5rem;
+    padding-block: 0.5rem;
+  }
+  .at-a-glance__row + .at-a-glance__row {
+    /* decorative hairline between rows (non-text) */
+    border-top: 1px solid color-mix(in srgb, var(--ng-pink-300) 50%, transparent);
+  }
+  .at-a-glance dt {
+    font-weight: 600;
+  }
+  .at-a-glance dd {
+    margin: 0;
+  }
+  @media (max-width: 400px) {
+    .at-a-glance__row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

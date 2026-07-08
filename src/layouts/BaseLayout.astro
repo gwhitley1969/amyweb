@@ -1,17 +1,21 @@
 ---
+import '@fontsource-variable/playfair-display';
+import '@fontsource-variable/figtree';
+import playfairWoff2 from '@fontsource-variable/playfair-display/files/playfair-display-latin-wght-normal.woff2?url';
 import '../styles/global.css';
+import SeoHead from '../components/SeoHead.astro';
+import { localBusiness } from '../lib/schema';
 
 interface Props {
   title: string;
   description: string;
+  /** Page surface: light "studio" (default) or dark "sign" (BUILD_SPEC §5 plan). */
+  surface?: 'light' | 'noir';
+  ogImage?: string | undefined;
 }
 
-const { title, description } = Astro.props;
-
-// Preview/local builds are never indexable (BUILD_SPEC §4). Only a build
-// explicitly stamped PUBLIC_ENV=production may be crawled.
-const isProduction = import.meta.env.PUBLIC_ENV === 'production';
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const { title, description, surface = 'light', ogImage } = Astro.props;
+const jsonLd = JSON.stringify(localBusiness());
 ---
 
 <!doctype html>
@@ -19,14 +23,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    {!isProduction && <meta name="robots" content="noindex, nofollow" />}
-    <link rel="canonical" href={canonical} />
+    <SeoHead title={title} description={description} ogImage={ogImage} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="generator" content={Astro.generator} />
+    {/* Display face only (§13: preload the display weight); Figtree relies on swap + metric fallbacks. */}
+    <link rel="preload" href={playfairWoff2} as="font" type="font/woff2" crossorigin />
+    <script type="application/ld+json" set:html={jsonLd} />
   </head>
-  <body class="min-h-dvh bg-black text-white">
+  <body class="min-h-dvh" data-surface={surface === 'noir' ? 'noir' : undefined}>
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-white focus:p-3 focus:text-black focus:underline"

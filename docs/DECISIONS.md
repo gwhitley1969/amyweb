@@ -129,3 +129,32 @@ rasters. Replaced the ~400px-art legacy PNG derivative with 4x exports
 mark, violating CLAUDE.md §3 brand-fidelity intent). Consequence: crisp
 rendering at all display sizes; the low-res first-delivery PNGs remain only
 as historical artifacts.
+
+## 2026-07-08 — Phase B design-system decisions (per approved design plan)
+
+- **Playfair Display over Fraunces** (display face): it is the wordmark's
+  actual typeface (from the canonical HTML source) — exact harmony beats
+  the spec's default suggestion. Restricted to h1/h2/hero (≥39px);
+  Figtree everywhere else. Fonts self-hosted via @fontsource-variable.
+- **fontaine** (devDependency, build-time only) generates metric-adjusted
+  fallback faces; the fallback families are referenced explicitly in the
+  @theme font stacks because fontaine does not rewrite custom properties.
+- **Noir stays #000000 by choice, not constraint:** the --transparent logo
+  export from the vector source works (glow composites cleanly on any
+  surface), so alpha assets removed the old baked-background limitation.
+  True black keeps the neon-sign read.
+- **Noir header sitewide**; header/page edge is a hard cut (never a seam).
+- **Button fills are ink-pink only** — white-on-magenta measured 4.53:1,
+  failing the 4.7:1 headroom rule from the design plan. Magenta remains
+  for accents/hovers/edge rules (4.15:1 non-text).
+- **JSON-LD pairing:** LocalBusiness typed [MedicalBusiness,
+  HealthAndBeautyBusiness]; builders omit unresolved {{TOKEN}} fields.
+- **Styleguide is preview-only** via getStaticPaths returning [] in
+  production-stamped builds; /styleguide and /styleguide/treatment-demo
+  added to the pa11y + Lighthouse URL lists (gates enumerate URLs).
+- **Mobile nav: native Popover API** (0 JS; Esc/light-dismiss native;
+  support floor Safari 17/2023 — unsupported browsers ignore the attribute
+  and show the nav expanded).
+- **{{BIOTE_FDA_DISCLAIMER}} proposed as a §17 registry addition** —
+  BioteDisclaimer renders the token visibly until the operator supplies
+  Biote's exact required wording.

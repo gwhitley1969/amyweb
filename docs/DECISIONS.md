@@ -220,3 +220,26 @@ as historical artifacts.
   metric fallbacks, same as Figtree did.
 - **Consequence:** BUILD_SPEC §5's "e.g., Figtree" example stands as
   written (it was illustrative); this entry records the concrete choice.
+
+## 2026-07-08 — Design amendment: "turn on the sign, warm the studio" (client)
+
+- **Context:** Amy's direction — the site should be fun, not clinical.
+  Operator calibration chose two levers: motion & sparkle, more pink /
+  less white. (Sassy microcopy and a kiss-mark motif were offered and
+  not selected.)
+- **Motion (amends "nothing animates"):** a fixed vocabulary of exactly
+  three CSS-only moves — hero neon *ignites* once on load (2 brightness
+  dips max, WCAG 2.3.1-safe; opacity floor 0.5 preserves LCP), the noir
+  seam glow *breathes* (4s, subtle; neon-500 stays the only glow), and
+  link chevrons *nudge* 3px on hover (amends the earlier "no hover
+  nudge" rule). All stilled by the global reduced-motion override.
+  Nothing else animates — the cap is the rule.
+- **Color (inverts the light neutral hierarchy):** ambient light surface
+  is now blush-50; cards and compliance blocks are white (--ng-card,
+  surface-scoped) so disclosures read MORE conspicuous, not less.
+  Display accent on light deepens pink-500 → magenta-600 (4.53:1 white /
+  4.15:1 blush, large-text bar 3.2 — pink-500's 3.23 on blush was too
+  thin). The "no white text on magenta fills" rule is untouched.
+- **Consequences:** 0 KB JS holds; all contrast pairs recomputed and
+  recorded in tokens.css; noir scopes --ng-card to transparent so dark
+  modules keep their outline look.

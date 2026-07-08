@@ -122,14 +122,15 @@ body {
   }
 }
 
-/* The one sanctioned glow, gently breathing (noir seams only). */
+/* The one sanctioned glow, breathing (noir seams only). Peak widened from
+ * 10px to 14px after client review — 6->10 was imperceptible on phones. */
 @keyframes ng-breathe {
   0%,
   100% {
     filter: drop-shadow(0 0 6px var(--ng-neon-500));
   }
   50% {
-    filter: drop-shadow(0 0 10px var(--ng-neon-500));
+    filter: drop-shadow(0 0 14px var(--ng-neon-500)) drop-shadow(0 0 3px var(--ng-neon-500));
   }
 }
 
@@ -140,6 +141,7 @@ body {
 }
 :where(a, button):hover .chev-nudge,
 :where(a, button):focus-visible .chev-nudge,
+:where(a, button):active .chev-nudge, /* touch devices: nudge on tap */
 .treatment-card:hover .chev-nudge,
 .treatment-card:focus-within .chev-nudge {
   translate: 3px 0;

@@ -98,6 +98,26 @@ const swatches = [
         </section>
 
         <section>
+          <h2 class="heading-2">Motion</h2>
+          <p class="mt-4">
+            Exactly three sanctioned moves, all CSS, all stilled under reduced-motion: the sign
+            below <em>ignites</em> as the page loads (reload to replay), the noir seam glow
+            <em>breathes</em>, and button chevrons <em>nudge</em> on hover or tap.
+          </p>
+        </section>
+      </div>
+
+      {/* The sign sits at the top so the load-time ignition happens in view —
+          on the real home page (Phase C) the hero is first anyway.
+          Promise line: operator/Amy-selected 2026-07-08 (replaced "signed
+          with a kiss" per Amy). Final wording re-confirmed in Phase C. */}
+      <Hero promise="Medical aesthetics, made personal.">
+        <CTAButton variant="book" href="#" />
+        <CTAButton variant="call" />
+      </Hero>
+
+      <div class="mx-auto max-w-6xl space-y-16 px-6 py-12">
+        <section>
           <h2 class="heading-2">Palette</h2>
           <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
             {swatches.map((s) => (
@@ -137,16 +157,6 @@ const swatches = [
         </section>
 
         <section>
-          <h2 class="heading-2">Motion</h2>
-          <p class="mt-4">
-            Exactly three sanctioned moves, all CSS, all stilled under reduced-motion: the hero
-            sign <em>ignites</em> once on page load (see the Hero below — reload to replay), the
-            noir seam glow <em>breathes</em> (next section), and link chevrons <em>nudge</em> on
-            hover (try any button).
-          </p>
-        </section>
-
-        <section>
           <h2 class="heading-2">Signature: the chevron run</h2>
           <p class="mt-4">Seam (9) on light, then on noir with its breathing glow; underline (5) below.</p>
           <div class="mt-6 space-y-6">
@@ -172,19 +182,6 @@ const swatches = [
           </div>
         </section>
 
-        <section>
-          <h2 class="heading-2">Hero</h2>
-        </section>
-      </div>
-
-      {/* Promise line: operator/Amy-selected 2026-07-08 (replaced "signed
-          with a kiss" per Amy). Final wording re-confirmed in Phase C. */}
-      <Hero promise="Medical aesthetics, made personal.">
-        <CTAButton variant="book" href="#" />
-        <CTAButton variant="call" />
-      </Hero>
-
-      <div class="mx-auto max-w-6xl space-y-16 px-6 py-12">
         <section>
           <h2 class="heading-2">Service-line grid</h2>
           <div class="mt-6">

@@ -158,3 +158,32 @@ as historical artifacts.
 - **{{BIOTE_FDA_DISCLAIMER}} proposed as a §17 registry addition** —
   BioteDisclaimer renders the token visibly until the operator supplies
   Biote's exact required wording.
+
+## 2026-07-08 — Mobbin design-pattern review of the treatment template (Phase B addendum)
+
+- **Context:** operator requested an external-pattern check of the treatment
+  template before merging PR #2, via the Mobbin MCP (regulated telehealth
+  — Hims/Hers; med-spa booking — Fresha; premium wellness — Function,
+  Superpower; luxury retail).
+- **Outcome — order validated:** the fixed compliance order matches what
+  the most-lawyered treatment marketers converge on (disclosures adjacent
+  to the products they qualify; consultation-first routing; factual tone).
+  No structural change.
+- **Adopted (operator-approved):** VisitSteps ("your visit, step by step",
+  process-only copy, display-size Playfair counters), AtAGlance fact card
+  (siteConfig facts only), FaqAccordion (native details/summary, 0 JS;
+  editorial Q&A only — real copy is Phase C), TrustChips (credential and
+  process facts), two-tone display-accent utility (pink-500 on white
+  3.53:1, pink-300 on noir 11.58:1; blush banned at 3.23:1 — 0.03 above
+  the headroom bar is too thin).
+- **Rejected:** sticky desktop booking rail (breaks the single-column
+  studio measure; duplicates existing CTAs) and mobile fixed bottom CTA
+  bar (reads commercial; WCAG 2.2 focus-not-obscured burden). Revisit in
+  Phase D with analytics evidence.
+- **New standing rule:** compliance text (disclaimers/disclosures) is
+  NEVER placed inside an accordion or any collapsed container — Hims
+  collapses "important safety information"; we deliberately do not.
+- **Gate strengthened:** lint:claims now scans src/components, src/layouts,
+  src/lib, and src/styles in addition to content and pages (§8 applies to
+  all text; component copy was previously unscanned). Scope, like the
+  pattern list, only ever grows.

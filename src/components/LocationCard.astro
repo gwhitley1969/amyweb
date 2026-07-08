@@ -1,0 +1,46 @@
+---
+import { siteConfig } from '../lib/siteConfig';
+
+/**
+ * NAP display + directions link-out (BUILD_SPEC §9/§10 — maps are
+ * link-outs, never embedded iframes). Values come from siteConfig only;
+ * unresolved {{TOKEN}}s render visibly until the operator supplies them.
+ */
+const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  `Needle Girlie ${siteConfig.address}`,
+)}`;
+---
+
+<div class="location-card">
+  <h3 class="heading-4">Visit Amy</h3>
+  <p class="mt-2">
+    {siteConfig.legalName}<br />
+    {siteConfig.address}
+  </p>
+  <p class="mt-2">
+    Hours: {siteConfig.hours}
+  </p>
+  <p class="mt-2">
+    <a href={siteConfig.phoneTel} data-event="call_click">{siteConfig.phone}</a>
+  </p>
+  <p class="mt-4">
+    <a href={directionsHref} target="_blank" rel="noopener" data-event="directions_click">
+      Get directions
+      <span aria-hidden="true">&rsaquo;</span>
+      <span class="sr-only">(opens in new tab)</span>
+    </a>
+  </p>
+</div>
+
+<style is:global>
+  .location-card {
+    background: var(--ng-card);
+    border-left: 1px solid var(--ng-magenta-600);
+    padding: 1.5rem;
+  }
+  .location-card a {
+    color: var(--ng-link);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+</style>

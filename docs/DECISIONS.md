@@ -129,3 +129,132 @@ rasters. Replaced the ~400px-art legacy PNG derivative with 4x exports
 mark, violating CLAUDE.md §3 brand-fidelity intent). Consequence: crisp
 rendering at all display sizes; the low-res first-delivery PNGs remain only
 as historical artifacts.
+
+## 2026-07-08 — Phase B design-system decisions (per approved design plan)
+
+- **Playfair Display over Fraunces** (display face): it is the wordmark's
+  actual typeface (from the canonical HTML source) — exact harmony beats
+  the spec's default suggestion. Restricted to h1/h2/hero (≥39px);
+  Figtree everywhere else. Fonts self-hosted via @fontsource-variable.
+- **fontaine** (devDependency, build-time only) generates metric-adjusted
+  fallback faces; the fallback families are referenced explicitly in the
+  @theme font stacks because fontaine does not rewrite custom properties.
+- **Noir stays #000000 by choice, not constraint:** the --transparent logo
+  export from the vector source works (glow composites cleanly on any
+  surface), so alpha assets removed the old baked-background limitation.
+  True black keeps the neon-sign read.
+- **Noir header sitewide**; header/page edge is a hard cut (never a seam).
+- **Button fills are ink-pink only** — white-on-magenta measured 4.53:1,
+  failing the 4.7:1 headroom rule from the design plan. Magenta remains
+  for accents/hovers/edge rules (4.15:1 non-text).
+- **JSON-LD pairing:** LocalBusiness typed [MedicalBusiness,
+  HealthAndBeautyBusiness]; builders omit unresolved {{TOKEN}} fields.
+- **Styleguide is preview-only** via getStaticPaths returning [] in
+  production-stamped builds; /styleguide and /styleguide/treatment-demo
+  added to the pa11y + Lighthouse URL lists (gates enumerate URLs).
+- **Mobile nav: native Popover API** (0 JS; Esc/light-dismiss native;
+  support floor Safari 17/2023 — unsupported browsers ignore the attribute
+  and show the nav expanded).
+- **{{BIOTE_FDA_DISCLAIMER}} proposed as a §17 registry addition** —
+  BioteDisclaimer renders the token visibly until the operator supplies
+  Biote's exact required wording.
+
+## 2026-07-08 — Mobbin design-pattern review of the treatment template (Phase B addendum)
+
+- **Context:** operator requested an external-pattern check of the treatment
+  template before merging PR #2, via the Mobbin MCP (regulated telehealth
+  — Hims/Hers; med-spa booking — Fresha; premium wellness — Function,
+  Superpower; luxury retail).
+- **Outcome — order validated:** the fixed compliance order matches what
+  the most-lawyered treatment marketers converge on (disclosures adjacent
+  to the products they qualify; consultation-first routing; factual tone).
+  No structural change.
+- **Adopted (operator-approved):** VisitSteps ("your visit, step by step",
+  process-only copy, display-size Playfair counters), AtAGlance fact card
+  (siteConfig facts only), FaqAccordion (native details/summary, 0 JS;
+  editorial Q&A only — real copy is Phase C), TrustChips (credential and
+  process facts), two-tone display-accent utility (pink-500 on white
+  3.53:1, pink-300 on noir 11.58:1; blush banned at 3.23:1 — 0.03 above
+  the headroom bar is too thin).
+- **Rejected:** sticky desktop booking rail (breaks the single-column
+  studio measure; duplicates existing CTAs) and mobile fixed bottom CTA
+  bar (reads commercial; WCAG 2.2 focus-not-obscured burden). Revisit in
+  Phase D with analytics evidence.
+- **New standing rule:** compliance text (disclaimers/disclosures) is
+  NEVER placed inside an accordion or any collapsed container — Hims
+  collapses "important safety information"; we deliberately do not.
+- **Gate strengthened:** lint:claims now scans src/components, src/layouts,
+  src/lib, and src/styles in addition to content and pages (§8 applies to
+  all text; component copy was previously unscanned). Scope, like the
+  pattern list, only ever grows.
+
+## 2026-07-08 — Voice rule: Amy, never "we" (operator)
+
+- **Context:** operator review of the Phase B preview — the template read
+  too much like the multi-provider location's site
+  (yourmobileaesthetics.com). This site spotlights Amy and only Amy.
+- **Decision:** first-person plural ("we", "our", "us", "let's") never
+  appears in rendered site text. Copy is Amy-centric ("What Amy offers",
+  "Visit Amy") or speaks to the visitor. Also reinforces hard
+  constraint 2: a "we" implies a team; a team implies the location's
+  other providers.
+- **Enforcement:** new gate `lint:voice` (scripts/lint-voice.mjs) scans
+  the BUILT dist HTML — rendered text, meta descriptions, and JSON-LD —
+  so code comments never false-positive. Self-tested like lint:claims;
+  wired into `npm run verify`. Lowercase-only "us" matching keeps the
+  country abbreviation legal. Gate scope only ever grows.
+- **Alternatives rejected:** source-scanning (comments false-positive);
+  review-only enforcement (not durable).
+
+## 2026-07-08 — Body font: Figtree → DM Sans (client)
+
+- **Context:** Amy reviewed the styleguide and vetoed Figtree outright.
+  Playfair Display stays — it is the wordmark's own face and was not
+  questioned.
+- **Decision:** DM Sans (variable, latin, @fontsource-variable/dm-sans)
+  is the body/UI face — warm geometric, strong at small UI sizes, pairs
+  cleanly with Playfair. Operator selected it from four staged candidates
+  (Outfit, Manrope, Nunito Sans rejected without a comparison build).
+  Figtree dependency removed; two-family cap holds; DM Sans is not
+  preloaded (§13: display face only) and relies on swap + fontaine
+  metric fallbacks, same as Figtree did.
+- **Consequence:** BUILD_SPEC §5's "e.g., Figtree" example stands as
+  written (it was illustrative); this entry records the concrete choice.
+
+## 2026-07-08 — Design amendment: "turn on the sign, warm the studio" (client)
+
+- **Context:** Amy's direction — the site should be fun, not clinical.
+  Operator calibration chose two levers: motion & sparkle, more pink /
+  less white. (Sassy microcopy and a kiss-mark motif were offered and
+  not selected.)
+- **Motion (amends "nothing animates"):** a fixed vocabulary of exactly
+  three CSS-only moves — hero neon *ignites* once on load (2 brightness
+  dips max, WCAG 2.3.1-safe; opacity floor 0.5 preserves LCP), the noir
+  seam glow *breathes* (4s, subtle; neon-500 stays the only glow), and
+  link chevrons *nudge* 3px on hover (amends the earlier "no hover
+  nudge" rule). All stilled by the global reduced-motion override.
+  Nothing else animates — the cap is the rule.
+- **Color (inverts the light neutral hierarchy):** ambient light surface
+  is now blush-50; cards and compliance blocks are white (--ng-card,
+  surface-scoped) so disclosures read MORE conspicuous, not less.
+  Display accent on light deepens pink-500 → magenta-600 (4.53:1 white /
+  4.15:1 blush, large-text bar 3.2 — pink-500's 3.23 on blush was too
+  thin). The "no white text on magenta fills" rule is untouched.
+- **Consequences:** 0 KB JS holds; all contrast pairs recomputed and
+  recorded in tokens.css; noir scopes --ng-card to transparent so dark
+  modules keep their outline look.
+
+## 2026-07-08 — Motion follow-up: the sign hums (client-verified miss)
+
+- **Context:** operator and Amy could not see the motion on two devices.
+  Root cause was design, not delivery (animation verified live via frame
+  capture): a one-shot load animation races image download, tab focus,
+  and attention — real reviewers missed a 2-second show.
+- **Decision:** the hero sign gains a perpetual **neon hum** — a 3.2s
+  glow pulse (2.7px↔25px drop-shadow, verified by computed-style
+  sampling) that is visible whenever the visitor looks. Ignition dips
+  deepened (floor 0.35, LCP-safe). The lockup IS the neon, so the hum
+  shares the seam's glow sanction: the neon remains the only thing that
+  glows. Reduced-motion stills everything, unchanged.
+- **Lesson recorded:** lab-verified ≠ perceived; continuous motion for
+  the signature moment, one-shot only as garnish.

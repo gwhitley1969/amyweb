@@ -1,0 +1,88 @@
+---
+import { siteConfig } from '../lib/siteConfig';
+
+/**
+ * Conversion CTA (BUILD_SPEC §5/§6/§9). The variant enforces the site-wide
+ * language convention: "appointment" = booking, "consultation" = clinical
+ * routing. Analytics are declarative data-event attributes (§11 event
+ * names) read by Phase D's cookieless script — no JS ships now.
+ */
+interface Props {
+  variant: 'book' | 'consult' | 'call';
+  href?: string;
+  /** Override sparingly — defaults keep the §6 language convention. */
+  label?: string;
+}
+
+const { variant, href, label } = Astro.props;
+
+const defaults: Record<
+  Props['variant'],
+  { label: string; href: string; event?: string; style: 'solid' | 'outline' }
+> = {
+  book: {
+    label: 'Book an appointment',
+    href: siteConfig.booking.vagaroUrl,
+    event: 'book_click',
+    style: 'solid',
+  },
+  consult: {
+    label: 'Request a consultation',
+    href: '/book',
+    style: 'outline',
+  },
+  call: {
+    label: `Call ${siteConfig.phone}`,
+    href: siteConfig.phoneTel,
+    event: 'call_click',
+    style: 'outline',
+  },
+};
+
+const cfg = defaults[variant];
+const finalHref = href ?? cfg.href;
+const external = /^https?:/i.test(finalHref);
+---
+
+<a
+  href={finalHref}
+  class:list={['cta', cfg.style === 'solid' ? 'cta--solid' : 'cta--outline']}
+  data-event={cfg.event}
+  {...external ? { target: '_blank', rel: 'noopener' } : {}}
+>
+  {label ?? cfg.label}
+  {/* plain punctuation chevron — explicitly NOT the signature motif;
+      nudges on hover (the sanctioned third motion move) */}
+  <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
+  {external && <span class="sr-only">(opens in new tab)</span>}
+</a>
+
+<style is:global>
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 3rem; /* WCAG 2.2 target size with room to spare */
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  /* Solid fills are ink-pink ONLY — magenta failed the 4.7:1 headroom bar
+   * for white text (see tokens.css contrast table). */
+  .cta--solid {
+    background: var(--ng-ink-pink);
+    color: var(--ng-paper);
+  }
+  .cta--solid:hover {
+    /* darken (never toward magenta — white text there fails the headroom rule) */
+    background: color-mix(in srgb, var(--ng-ink-pink) 85%, black);
+  }
+  .cta--outline {
+    border: 2px solid var(--ng-link);
+    color: var(--ng-link);
+  }
+  .cta--outline:hover {
+    background: color-mix(in srgb, var(--ng-link) 10%, transparent);
+  }
+</style>

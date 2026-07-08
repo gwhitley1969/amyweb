@@ -1,0 +1,77 @@
+---
+/**
+ * FAQ accordion on native <details>/<summary> — zero JS by design; browsers
+ * without support have no such gap (details is universal since 2020), and
+ * with JS disabled it still opens/closes.
+ *
+ * COMPLIANCE RULE (docs/DECISIONS.md): disclaimers, disclosures, and any
+ * §8-required text are NEVER placed inside an accordion — collapsed
+ * compliance text is not conspicuous. Editorial Q&A only. The marker
+ * chevron is plain text-colored punctuation, NOT the signature motif.
+ */
+interface Props {
+  heading?: string;
+  items: { q: string; a: string }[];
+}
+
+const { heading = 'Have questions?', items } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <section class="faq" aria-labelledby="faq-title">
+      <h2 class="heading-3" id="faq-title">
+        {heading}
+      </h2>
+      <div class="faq__list mt-4">
+        {items.map((item) => (
+          <details class="faq__item">
+            <summary class="faq__q">
+              {item.q}
+              <span class="faq__marker" aria-hidden="true">
+                &rsaquo;
+              </span>
+            </summary>
+            <p class="faq__a">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<style is:global>
+  .faq__item {
+    border-top: 1px solid color-mix(in srgb, var(--ng-pink-300) 50%, transparent);
+  }
+  .faq__item:last-child {
+    border-bottom: 1px solid color-mix(in srgb, var(--ng-pink-300) 50%, transparent);
+  }
+  .faq__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3rem; /* WCAG 2.2 target size */
+    padding-block: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none; /* hide the default triangle... */
+  }
+  .faq__q::-webkit-details-marker {
+    display: none; /* ...and Safari's vendor marker */
+  }
+  .faq__marker {
+    color: var(--ng-link);
+    font-size: 1.5rem;
+    line-height: 1;
+    transition: rotate 150ms ease;
+  }
+  .faq__item[open] .faq__marker {
+    rotate: 90deg;
+  }
+  .faq__a {
+    padding-block: 0 1rem;
+    max-width: 65ch;
+  }
+</style>

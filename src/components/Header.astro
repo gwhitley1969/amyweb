@@ -1,0 +1,127 @@
+---
+import { Image } from 'astro:assets';
+import wordmark from '../assets/brand/needle-girlie-wordmark-alpha.png';
+
+/**
+ * Noir sitewide header (approved design plan). Mobile nav uses the native
+ * Popover API — zero JS: the browser handles toggling, Esc-close, and
+ * light-dismiss. Browsers without support (pre-Safari 17) ignore the
+ * attribute, so the nav simply renders expanded — graceful degradation.
+ * The header/page edge is a hard cut: chrome, not a content boundary —
+ * it never takes a chevron seam.
+ */
+const nav = [
+  { label: 'Services', href: '/services' },
+  { label: 'About', href: '/about' },
+  { label: 'Visit', href: '/visit' },
+  { label: 'Book', href: '/book' },
+];
+---
+
+<div class="surface site-header" data-surface="noir">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3 sm:py-4">
+    <a href="/" class="shrink-0">
+      {/* Big by design — operator/client direction: the brand leads. */}
+      <Image
+        src={wordmark}
+        alt="Needle Girlie — home"
+        width={280}
+        densities={[1, 2, 3]}
+        class="h-auto w-[210px] sm:w-[280px]"
+      />
+    </a>
+    <nav aria-label="Primary">
+      {/* desktop */}
+      <ul class="hidden items-center gap-6 sm:flex">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="site-nav-link">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      {/* mobile: popover toggle */}
+      <button popovertarget="mobile-nav" class="site-nav-toggle" type="button">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+          <path
+            d="M4 7h16M4 12h16M4 17h16"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></path>
+        </svg>
+        <span class="sr-only">Menu</span>
+      </button>
+      <ul id="mobile-nav" popover="auto" class="surface site-nav-popover" data-surface="noir">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="site-nav-link block px-6 py-3">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<style is:global>
+  .site-header {
+    border-bottom: 1px solid color-mix(in srgb, var(--ng-pink-300) 25%, transparent);
+  }
+  .site-nav-link {
+    color: var(--ng-text);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .site-nav-link:hover {
+    color: var(--ng-link);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .site-nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    min-height: 3rem;
+    color: var(--ng-text);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  /* desktop: the inline list is visible, so the toggle goes away — kept in
+   * component CSS because the base display rule above would out-cascade a
+   * Tailwind sm:hidden utility */
+  @media (min-width: 640px) {
+    .site-nav-toggle {
+      display: none;
+    }
+  }
+  .site-nav-popover {
+    /* popover-open state */
+    position: fixed;
+    inset: auto 1rem auto auto;
+    top: 4.5rem;
+    min-width: 12rem;
+    margin: 0;
+    padding: 0.5rem 0;
+    border: 1px solid var(--ng-pink-300);
+    border-radius: 0.5rem;
+    list-style: none;
+  }
+  /* Browsers without Popover support ignore the attribute; the list then
+   * flows inline — give it sane inline styling instead of the overlay's. */
+  @supports not selector(:popover-open) {
+    .site-nav-popover {
+      position: static;
+      border: none;
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+</style>

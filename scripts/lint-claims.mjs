@@ -2,9 +2,11 @@
 /**
  * Compliance linter (CLAUDE.md hard constraint 3, BUILD_SPEC §8).
  *
- * Scans every text file under src/content/** and src/pages/** against the
- * banned-pattern registry in compliance/banned-patterns.json, then runs
- * inverse checks on treatment content:
+ * Scans every text file under src/** (content, pages, components, layouts,
+ * lib, styles — §8 applies to ALL text, including component copy and
+ * comments) against the banned-pattern registry in
+ * compliance/banned-patterns.json, then runs inverse checks on treatment
+ * content:
  *   - investigational: true  -> the investigational disclosure must be present
  *   - retatrutide mentioned  -> investigational: true is required
  *   - symptom-awareness language -> bioteDisclaimer: true is required (the
@@ -23,7 +25,9 @@ const root = resolve(import.meta.dirname, '..');
 const registryPath = resolve(root, 'compliance', 'banned-patterns.json');
 const registry = JSON.parse(readFileSync(registryPath, 'utf8'));
 
-const SCAN_DIRS = ['src/content', 'src/pages'];
+// Scope only ever grows (like the pattern list): narrowing it needs the
+// human operator.
+const SCAN_DIRS = ['src/content', 'src/pages', 'src/components', 'src/layouts', 'src/lib', 'src/styles'];
 const TEXT_EXTENSIONS = new Set(['.md', '.mdx', '.astro', '.ts', '.js', '.mjs', '.json', '.html', '.txt']);
 
 const categories = registry.categories.map((cat) => ({

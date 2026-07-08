@@ -1,0 +1,78 @@
+---
+/**
+ * "Your visit, step by step" — the process walkthrough adopted from the
+ * Mobbin review (docs/DECISIONS.md). Copy is process-only — nothing about
+ * timing, frequency, regimens, or outcomes (CLAUDE.md hard constraint 3) —
+ * and it routes decisions to the consultation. The numerals are real <ol>
+ * markers rendered via CSS counter at display size — the one place
+ * Playfair appears outside heading-2+, allowed because it is display-scale
+ * (49px) per the type rules.
+ */
+const steps = [
+  {
+    title: 'Consultation',
+    body: 'It starts with a conversation — your questions, your history, and what you would like to address.',
+  },
+  {
+    title: 'Personalized plan',
+    body: 'Amy walks you through your options, and together you decide what — if anything — comes next.',
+  },
+  {
+    title: 'Treatment visit',
+    body: 'Book your appointment when you are ready. Every visit includes time for questions before anything begins.',
+  },
+  {
+    title: 'Aftercare guidance',
+    body: 'You leave with clear aftercare guidance and a direct way to reach out if questions come up.',
+  },
+];
+---
+
+<section class="visit-steps" aria-labelledby="visit-steps-title">
+  <h2 class="heading-3" id="visit-steps-title">Your visit, step by step</h2>
+  <ol class="visit-steps__list mt-8" role="list">
+    {
+      steps.map((s) => (
+        <li class="visit-steps__step">
+          <div>
+            <h3 class="heading-4">{s.title}</h3>
+            <p class="mt-2">{s.body}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style is:global>
+  .visit-steps__list {
+    counter-reset: visit-step;
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 2rem;
+  }
+  .visit-steps__step {
+    counter-increment: visit-step;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1.25rem;
+  }
+  .visit-steps__step::before {
+    content: counter(visit-step, decimal-leading-zero);
+    font-family: var(--font-display);
+    font-size: 3.0625rem; /* 49px — display-size, the Playfair floor */
+    line-height: 1;
+    font-weight: 600;
+    /* surface-scoped display accent — magenta-600 holds >=4.15:1 on both
+     * light surfaces (tokens.css contrast table) */
+    color: var(--ng-display-accent);
+    min-width: 2ch;
+  }
+  @media (max-width: 400px) {
+    .visit-steps__step {
+      grid-template-columns: 1fr;
+      row-gap: 0.5rem;
+    }
+  }
+</style>

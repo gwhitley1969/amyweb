@@ -1,0 +1,21 @@
+---
+/**
+ * Visible marker for unapproved treatment content (BUILD_SPEC §7).
+ * TreatmentLayout renders this whenever clinicianApproved is false; the
+ * production deploy separately fails via scripts/check-approvals.mjs, so
+ * this banner should only ever be seen on previews.
+ */
+---
+
+<div class="draft-banner" role="status">Draft — pending clinician review</div>
+
+<style is:global>
+  .draft-banner {
+    /* ink-pink fill: white text verified 6.71:1 (magenta fails headroom) */
+    background: var(--ng-ink-pink);
+    color: var(--ng-paper);
+    text-align: center;
+    font-weight: 600;
+    padding: 0.625rem 1rem;
+  }
+</style>

@@ -1,0 +1,88 @@
+/*
+ * Needle Girlie design tokens — Phase B (BUILD_SPEC §5).
+ * Palette extracted from the canonical logo sources
+ * (src/assets/brand/source/). Do not add colors without a contrast entry.
+ *
+ * VERIFIED CONTRAST PAIRS (WCAG 2.x relative luminance, computed 2026-07-08
+ * via scripts — see docs/DECISIONS.md "Phase B tokens"):
+ *   PASS 17.22:1 (min 4.5) ink-900 on white          — body text
+ *   PASS 15.77:1 (min 4.5) ink-900 on blush-50       — body text
+ *   PASS  6.71:1 (min 4.5) ink-pink on white         — links / small accents
+ *   PASS  6.14:1 (min 4.5) ink-pink on blush-50      — links / small accents
+ *   PASS  6.71:1 (min 4.5) white on ink-pink         — button fills
+ *   FAIL  4.53:1 (min 4.7) white on magenta-600      — RULE FIRED: magenta is
+ *         BANNED for button fills / text backgrounds (headroom rule).
+ *         Magenta is accents, hovers, and edge rules only.
+ *   PASS 21.00:1 (min 4.5) white on noir             — body text on dark
+ *   PASS 11.58:1 (min 4.5) pink-300 on noir          — body text on dark
+ *   PASS  5.95:1 (min 3.0) pink-500 on noir          — LARGE text only
+ *   PASS  3.53:1 (min 3.0) pink-500 on white         — LARGE text only
+ *   PASS  3.23:1 (min 3.2 w/ headroom) pink-500 on blush-50 — margin is
+ *         0.03: too thin, which is why the LIGHT display accent moved to
+ *         magenta-600 in the "warm the studio" amendment (below).
+ *   PASS  4.53:1 (min 3.2 large) magenta-600 on white   — display accent
+ *   PASS  4.15:1 (min 3.2 large) magenta-600 on blush-50 — display accent
+ *   (display-accent pairs: magenta-600 on light 4.53/4.15, pink-300 on
+ *    noir 11.58 — computed 2026-07-08, same script as above.
+ *    NOTE the fills rule is untouched: white TEXT ON magenta still fails
+ *    the 4.7 headroom bar; magenta as large text ON light is a different,
+ *    verified pair.)
+ *
+ * SURFACE INVERSION ("warm the studio" amendment, 2026-07-08, per client):
+ *   the light ambient surface is BLUSH-50 (not white); cards and
+ *   compliance blocks are WHITE (--ng-card) so they read as elevated and
+ *   conspicuous. All light-surface text pairs re-verified on blush above.
+ *   PASS  6.71:1 (min 3.0) focus ring ink-pink on white/blush (6.14)
+ *   PASS 11.58:1 (min 3.0) focus ring pink-300 on noir
+ *   PASS  4.15:1 (min 3.0) magenta-600 edge rule on blush-50 (non-text)
+ *
+ * USAGE RULES (from the approved design plan):
+ *   - neon-500 glows; dark surfaces only; never text; the ONLY glowing thing.
+ *   - pink-500: display text >= 24px bold and graphics; never body-size on light.
+ *   - ink-pink: light surfaces only (fails 3:1 on noir — focus rings switch).
+ *   - Decorative brand moments use the non-stock trio (neon-500 / chev-mid /
+ *     chev-pale-alt); Tailwind-coincident hexes are surfaces/text/tints only.
+ */
+:root {
+  /* brand */
+  --ng-neon-500: #fe019a;
+  --ng-pink-500: #ec4899;
+  --ng-magenta-600: #d6337e;
+  --ng-pink-300: #f9a8d4;
+  --ng-blush-50: #fdf2f8;
+  --ng-ink-pink: #b01366;
+
+  /* neutrals */
+  --ng-noir: #000000; /* pure black by design choice — the neon-sign read (logged) */
+  --ng-ink-900: #221820;
+  --ng-paper: #ffffff;
+
+  /* chevron cycle (source order: neon -> mid -> pale; pale-alt appears occasionally) */
+  --ng-chev-neon: #fe019a;
+  --ng-chev-mid: #f45fab;
+  --ng-chev-pale: #f9a8d4;
+  --ng-chev-pale-alt: #f97cbe;
+
+  /* semantic, surface-scoped (see [data-surface='noir'] below).
+   * "Warm the studio": blush ambient, white cards. */
+  --ng-surface: var(--ng-blush-50);
+  --ng-card: var(--ng-paper);
+  --ng-text: var(--ng-ink-900);
+  --ng-link: var(--ng-ink-pink);
+  --ng-focus-ring: var(--ng-ink-pink);
+  /* two-tone display headlines (display sizes >= 39px ONLY — see
+   * contrast table; magenta holds >=4.15:1 on both light surfaces) */
+  --ng-display-accent: var(--ng-magenta-600);
+  /* card hover: paler than the blush ambient so cards stay distinct */
+  --ng-card-hover: color-mix(in srgb, var(--ng-paper) 55%, var(--ng-blush-50));
+}
+
+[data-surface='noir'] {
+  --ng-surface: var(--ng-noir);
+  --ng-card: transparent; /* noir modules keep their outline-on-dark look */
+  --ng-text: var(--ng-paper);
+  --ng-link: var(--ng-pink-300);
+  --ng-focus-ring: var(--ng-pink-300);
+  --ng-display-accent: var(--ng-pink-300);
+  --ng-card-hover: transparent;
+}

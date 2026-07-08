@@ -1,0 +1,151 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ChevronRun from '../components/ChevronRun.astro';
+import CTAButton from '../components/CTAButton.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import InvestigationalNotice from '../components/InvestigationalNotice.astro';
+import BioteDisclaimer from '../components/BioteDisclaimer.astro';
+import DraftBanner from '../components/DraftBanner.astro';
+import AtAGlance from '../components/AtAGlance.astro';
+import VisitSteps from '../components/VisitSteps.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import TrustChips from '../components/TrustChips.astro';
+
+/**
+ * Treatment page template (approved design plan + Mobbin-review addendum).
+ * The compliance order is FIXED here — pages cannot reorder or opt out
+ * (CLAUDE.md hard constraint 3):
+ *   breadcrumbs -> H1 + underline run -> lead -> at-a-glance -> intro ->
+ *   products -> flag-driven notices ADJACENT to products -> body ->
+ *   visit steps -> FAQ (only when items provided) -> pricing ->
+ *   consult router -> DisclaimerBlock (light surface, NEVER collapsed) ->
+ *   seam -> noir CTA band + trust chips.
+ */
+interface Props {
+  title: string;
+  summary: string;
+  products: string[];
+  ctaType: 'book' | 'consult' | 'shop';
+  investigational: boolean;
+  bioteDisclaimer: boolean;
+  pricingDisplay: 'none' | 'consult' | 'startingAt';
+  clinicianApproved: boolean;
+  investigationalProduct?: string;
+  /** Editorial Q&A only — compliance text never goes in an accordion. */
+  faq?: { q: string; a: string }[];
+  seo: { title: string; description: string };
+}
+
+const {
+  title,
+  summary,
+  products,
+  ctaType,
+  investigational,
+  bioteDisclaimer,
+  pricingDisplay,
+  clinicianApproved,
+  investigationalProduct,
+  faq = [],
+  seo,
+} = Astro.props;
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: title, href: Astro.url.pathname },
+];
+---
+
+<BaseLayout title={seo.title} description={seo.description}>
+  <Fragment slot="header">
+    {!clinicianApproved && <DraftBanner />}
+    <Header />
+  </Fragment>
+
+  <article class="mx-auto max-w-3xl px-6 py-12">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="heading-2 md:display-2 mt-6">{title}</h1>
+    <ChevronRun variant="underline" />
+    <p class="lead mt-6">{summary}</p>
+
+    <div class="mt-8">
+      <AtAGlance />
+    </div>
+
+    <slot name="intro" />
+
+    {
+      products.length > 0 && (
+        <>
+          <h2 class="heading-3 mt-10">What Amy offers</h2>
+          <ul class="mt-3 list-disc space-y-1 pl-6">
+            {products.map((p) => (
+              <li>{p}</li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    {/* Disclosures sit ADJACENT to the products they qualify — never below the fold of the copy. */}
+    {investigational && <InvestigationalNotice productName={investigationalProduct} />}
+    {bioteDisclaimer && <BioteDisclaimer />}
+
+    <slot />
+
+    <div class="mt-12">
+      <VisitSteps />
+    </div>
+
+    {
+      faq.length > 0 && (
+        <div class="mt-12">
+          <FaqAccordion items={faq} />
+        </div>
+      )
+    }
+
+    {
+      pricingDisplay === 'consult' && (
+        <p class="mt-8">Pricing is individual and discussed during your consultation.</p>
+      )
+    }
+
+    <div class="router-card mt-10">
+      <h2 class="heading-4">Wondering if this fits you?</h2>
+      <p class="mt-2">That answer is personal — talk it through with Amy.</p>
+      <div class="mt-4">
+        <CTAButton variant="consult" />
+      </div>
+    </div>
+
+    <DisclaimerBlock />
+  </article>
+
+  <div class="surface" data-surface="noir">
+    <div class="mx-auto max-w-3xl px-6 py-12">
+      <ChevronRun variant="seam" />
+      <h2 class="heading-2 mt-8">Ready <span class="display-accent">when you are</span></h2>
+      <div class="mt-6">
+        {ctaType === 'book' ? <CTAButton variant="book" /> : <CTAButton variant="consult" />}
+      </div>
+      <div class="mt-6">
+        <TrustChips />
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style is:global>
+  .router-card {
+    background: var(--ng-card);
+    border-left: 1px solid var(--ng-magenta-600);
+    padding: 1.5rem;
+  }
+</style>

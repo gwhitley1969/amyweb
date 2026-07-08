@@ -81,6 +81,11 @@ silently following it. Known superseded points from earlier briefs:
      descriptions, alt text, structured data, OG tags, and microcopy.
    - Language convention: **"consultation"** only for clinical routing;
      **"appointment"** only for booking/conversion.
+   - Voice convention (operator rule, 2026-07-08): the site speaks as
+     **Amy**, never as a collective. First-person plural — "we", "our",
+     "us", "let's" — never appears in rendered site text (a "we" implies
+     a team, which implies the other providers at the location — see
+     constraint 2). Enforced by `npm run lint:voice` over the built HTML.
 
 4. **Clinician approval gates production.** Treatment content ships with
    `clinicianApproved: false` until Amy signs off. The production pipeline

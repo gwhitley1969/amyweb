@@ -1,0 +1,14 @@
+---
+/**
+ * FDA disclaimer required alongside Biote symptom-awareness language
+ * (CLAUDE.md hard constraint 3; BUILD_SPEC §7.8). Injected by
+ * TreatmentLayout when content flags `bioteDisclaimer: true`. The exact
+ * disclaimer text is the one Biote itself uses — supplied by the operator
+ * as {{BIOTE_FDA_DISCLAIMER}} (proposed §17 registry addition); the token
+ * renders visibly until resolved so a missing value is never silent.
+ */
+---
+
+<aside class="notice" role="note" aria-label="FDA disclosure">
+  <p>{'{{BIOTE_FDA_DISCLAIMER}}'}</p>
+</aside>

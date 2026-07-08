@@ -1,0 +1,27 @@
+---
+import TreatmentCard from './TreatmentCard.astro';
+import { serviceLines } from '../lib/serviceLines';
+
+/**
+ * The 9 service lines (BUILD_SPEC §6). All-equal by default; which lines
+ * lead ("featured") is a Phase C business decision with the operator.
+ */
+interface Props {
+  featuredSlugs?: string[];
+}
+
+const { featuredSlugs = [] } = Astro.props;
+---
+
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {
+    serviceLines.map((line) => (
+      <TreatmentCard
+        title={line.title}
+        summary={line.summary}
+        href={line.href}
+        featured={featuredSlugs.includes(line.slug)}
+      />
+    ))
+  }
+</div>

@@ -12,10 +12,11 @@
     "build": "astro build && node scripts/generate-swa-config.mjs",
     "check": "astro check",
     "lint:claims": "node scripts/lint-claims.mjs --self-test && node scripts/lint-claims.mjs",
+    "lint:voice": "node scripts/lint-voice.mjs --self-test && node scripts/lint-voice.mjs",
     "check:approvals": "node scripts/check-approvals.mjs --self-test && node scripts/check-approvals.mjs",
     "test:a11y": "node scripts/test-a11y.mjs",
     "test:perf": "node scripts/test-perf.mjs",
-    "verify": "npm run build && npm run check && npm run lint:claims && npm run test:a11y && npm run test:perf"
+    "verify": "npm run build && npm run check && npm run lint:claims && npm run lint:voice && npm run test:a11y && npm run test:perf"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",

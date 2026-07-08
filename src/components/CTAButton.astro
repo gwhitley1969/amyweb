@@ -51,8 +51,9 @@ const external = /^https?:/i.test(finalHref);
   {...external ? { target: '_blank', rel: 'noopener' } : {}}
 >
   {label ?? cfg.label}
-  {/* plain punctuation chevron — explicitly NOT the signature motif */}
-  <span aria-hidden="true">&rsaquo;</span>
+  {/* plain punctuation chevron — explicitly NOT the signature motif;
+      nudges on hover (the sanctioned third motion move) */}
+  <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
   {external && <span class="sr-only">(opens in new tab)</span>}
 </a>
 

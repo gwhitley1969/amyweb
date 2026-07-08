@@ -18,10 +18,20 @@
  *   PASS  5.95:1 (min 3.0) pink-500 on noir          — LARGE text only
  *   PASS  3.53:1 (min 3.0) pink-500 on white         — LARGE text only
  *   PASS  3.23:1 (min 3.2 w/ headroom) pink-500 on blush-50 — margin is
- *         0.03: display-accent is limited to white and noir surfaces;
- *         display headings never sit on blush cards anyway.
- *   (display-accent pairs: pink-500 on white 3.53, pink-300 on noir 11.58
- *    — computed 2026-07-08, same script as above)
+ *         0.03: too thin, which is why the LIGHT display accent moved to
+ *         magenta-600 in the "warm the studio" amendment (below).
+ *   PASS  4.53:1 (min 3.2 large) magenta-600 on white   — display accent
+ *   PASS  4.15:1 (min 3.2 large) magenta-600 on blush-50 — display accent
+ *   (display-accent pairs: magenta-600 on light 4.53/4.15, pink-300 on
+ *    noir 11.58 — computed 2026-07-08, same script as above.
+ *    NOTE the fills rule is untouched: white TEXT ON magenta still fails
+ *    the 4.7 headroom bar; magenta as large text ON light is a different,
+ *    verified pair.)
+ *
+ * SURFACE INVERSION ("warm the studio" amendment, 2026-07-08, per client):
+ *   the light ambient surface is BLUSH-50 (not white); cards and
+ *   compliance blocks are WHITE (--ng-card) so they read as elevated and
+ *   conspicuous. All light-surface text pairs re-verified on blush above.
  *   PASS  6.71:1 (min 3.0) focus ring ink-pink on white/blush (6.14)
  *   PASS 11.58:1 (min 3.0) focus ring pink-300 on noir
  *   PASS  4.15:1 (min 3.0) magenta-600 edge rule on blush-50 (non-text)
@@ -53,20 +63,26 @@
   --ng-chev-pale: #f9a8d4;
   --ng-chev-pale-alt: #f97cbe;
 
-  /* semantic, surface-scoped (see [data-surface='noir'] below) */
-  --ng-surface: var(--ng-paper);
+  /* semantic, surface-scoped (see [data-surface='noir'] below).
+   * "Warm the studio": blush ambient, white cards. */
+  --ng-surface: var(--ng-blush-50);
+  --ng-card: var(--ng-paper);
   --ng-text: var(--ng-ink-900);
   --ng-link: var(--ng-ink-pink);
   --ng-focus-ring: var(--ng-ink-pink);
-  /* two-tone display headlines (display sizes >= 39px ONLY; white/noir
-   * surfaces only — see contrast table) */
-  --ng-display-accent: var(--ng-pink-500);
+  /* two-tone display headlines (display sizes >= 39px ONLY — see
+   * contrast table; magenta holds >=4.15:1 on both light surfaces) */
+  --ng-display-accent: var(--ng-magenta-600);
+  /* card hover: paler than the blush ambient so cards stay distinct */
+  --ng-card-hover: color-mix(in srgb, var(--ng-paper) 55%, var(--ng-blush-50));
 }
 
 [data-surface='noir'] {
   --ng-surface: var(--ng-noir);
+  --ng-card: transparent; /* noir modules keep their outline-on-dark look */
   --ng-text: var(--ng-paper);
   --ng-link: var(--ng-pink-300);
   --ng-focus-ring: var(--ng-pink-300);
   --ng-display-accent: var(--ng-pink-300);
+  --ng-card-hover: transparent;
 }

@@ -50,8 +50,11 @@ const width = (count - 1) * STEP + 22;
     height: 0.875rem;
     margin-top: 0.5rem;
   }
-  /* Glow only when the seam sits on noir — the single glowing element. */
+  /* Glow only when the seam sits on noir — the single glowing element.
+   * It breathes gently (ng-breathe in global.css; stilled by the global
+   * reduced-motion override). */
   [data-surface='noir'] .chevron-run--seam {
     filter: drop-shadow(0 0 6px var(--ng-neon-500));
+    animation: ng-breathe 4s ease-in-out infinite;
   }
 </style>

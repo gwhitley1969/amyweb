@@ -43,10 +43,14 @@ const demoFaq = [
 
 const swatches = [
   { name: '--ng-neon-500', hex: '#FE019A', role: 'the neon — glows, dark only, never text' },
-  { name: '--ng-pink-500', hex: '#EC4899', role: 'display ≥24px bold + graphics' },
-  { name: '--ng-magenta-600', hex: '#D6337E', role: 'accents, hovers, edge rules (no text fills)' },
-  { name: '--ng-pink-300', hex: '#F9A8D4', role: 'tints; body text on noir' },
-  { name: '--ng-blush-50', hex: '#FDF2F8', role: 'light surfaces' },
+  { name: '--ng-pink-500', hex: '#EC4899', role: 'wordmark pink — graphics; large text on noir' },
+  {
+    name: '--ng-magenta-600',
+    hex: '#D6337E',
+    role: 'edge rules + display-accent text on light (never a fill behind white text)',
+  },
+  { name: '--ng-pink-300', hex: '#F9A8D4', role: 'tints; body text + accent on noir' },
+  { name: '--ng-blush-50', hex: '#FDF2F8', role: 'the ambient light surface (page background)' },
   { name: '--ng-ink-pink', hex: '#B01366', role: 'links + button fills on light' },
   { name: '--ng-ink-900', hex: '#221820', role: 'body text on light' },
   { name: '--ng-noir', hex: '#000000', role: 'dark surfaces (the sign)' },
@@ -123,7 +127,7 @@ const swatches = [
         <section>
           <h2 class="heading-2">Two-tone display headline</h2>
           <p class="mt-4">
-            Accent span for display sizes (≥39px) only, on white or noir — never on blush
+            Accent span for display sizes (≥39px) only — magenta on light, pink-300 on noir
             (tokens.css contrast table).
           </p>
           <p class="heading-2 mt-6">Premium and playful, <span class="display-accent">on purpose</span></p>
@@ -133,8 +137,18 @@ const swatches = [
         </section>
 
         <section>
+          <h2 class="heading-2">Motion</h2>
+          <p class="mt-4">
+            Exactly three sanctioned moves, all CSS, all stilled under reduced-motion: the hero
+            sign <em>ignites</em> once on page load (see the Hero below — reload to replay), the
+            noir seam glow <em>breathes</em> (next section), and link chevrons <em>nudge</em> on
+            hover (try any button).
+          </p>
+        </section>
+
+        <section>
           <h2 class="heading-2">Signature: the chevron run</h2>
-          <p class="mt-4">Seam (9) on light, then on noir with its glow; underline (5) below.</p>
+          <p class="mt-4">Seam (9) on light, then on noir with its breathing glow; underline (5) below.</p>
           <div class="mt-6 space-y-6">
             <ChevronRun variant="seam" />
             <div class="surface p-6" data-surface="noir">

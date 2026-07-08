@@ -91,6 +91,60 @@ body {
   color: var(--ng-ink-900);
 }
 
+/* ---- Motion vocabulary ("turn on the sign" amendment) ----------------
+ * EXACTLY three sanctioned moves: ignite (hero, once), breathe (seam glow
+ * on noir), nudge (link chevrons on hover). Nothing else animates. All
+ * are opacity/filter/transform only (no layout), and the global
+ * prefers-reduced-motion override below stills every one of them. */
+
+/* Neon tube warming up: two brightness dips max (WCAG 2.3.1 — stays well
+ * under three flashes per second), opacity floor 0.5 so the hero image
+ * still registers as the LCP on first paint. Plays once. */
+@keyframes ng-ignite {
+  0% {
+    opacity: 0.5;
+  }
+  10% {
+    opacity: 1;
+  }
+  16% {
+    opacity: 0.62;
+  }
+  26% {
+    opacity: 1;
+  }
+  38% {
+    opacity: 0.78;
+  }
+  52%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* The one sanctioned glow, gently breathing (noir seams only). */
+@keyframes ng-breathe {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px var(--ng-neon-500));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px var(--ng-neon-500));
+  }
+}
+
+/* Link-chevron hover nudge (the punctuation chevron, not the motif). */
+.chev-nudge {
+  display: inline-block;
+  transition: translate 150ms ease;
+}
+:where(a, button):hover .chev-nudge,
+:where(a, button):focus-visible .chev-nudge,
+.treatment-card:hover .chev-nudge,
+.treatment-card:focus-within .chev-nudge {
+  translate: 3px 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

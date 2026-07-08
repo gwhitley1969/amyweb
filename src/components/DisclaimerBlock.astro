@@ -19,8 +19,11 @@
 <style is:global>
   .disclaimer {
     margin-top: 3rem;
-    border-top: 1px solid var(--ng-pink-300);
-    padding-top: 1.5rem;
+    /* white card on the blush ambient — the disclaimer must not fade
+     * into the page (conspicuousness rule, see DECISIONS) */
+    background: var(--ng-card);
+    border-top: 2px solid var(--ng-pink-300);
+    padding: 1.5rem;
     font-size: 0.9375rem;
     color: var(--ng-ink-900);
   }

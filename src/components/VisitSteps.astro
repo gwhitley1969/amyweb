@@ -64,9 +64,9 @@ const steps = [
     font-size: 3.0625rem; /* 49px — display-size, the Playfair floor */
     line-height: 1;
     font-weight: 600;
-    /* pink-500 at display size only — 3.53:1 on white passes the 3:1
-     * large-text bar (tokens.css contrast table) */
-    color: var(--ng-pink-500);
+    /* surface-scoped display accent — magenta-600 holds >=4.15:1 on both
+     * light surfaces (tokens.css contrast table) */
+    color: var(--ng-display-accent);
     min-width: 2ch;
   }
   @media (max-width: 400px) {

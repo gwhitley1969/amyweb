@@ -19,7 +19,7 @@ const { title, summary, href, featured = false } = Astro.props;
   <h3 class="heading-4">
     <a href={href} class="treatment-card__link">
       {title}
-      <span aria-hidden="true">&rsaquo;</span>
+      <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
     </a>
   </h3>
   <p class="mt-2">{summary}</p>
@@ -28,14 +28,14 @@ const { title, summary, href, featured = false } = Astro.props;
 <style is:global>
   .treatment-card {
     position: relative;
-    background: var(--ng-blush-50);
+    background: var(--ng-card);
     border-left: 1px solid var(--ng-magenta-600);
     padding: 1.5rem;
     transition: background-color 150ms ease;
   }
   .treatment-card:hover,
   .treatment-card:focus-within {
-    background: var(--ng-paper);
+    background: var(--ng-card-hover);
     /* thicken the edge without layout shift */
     box-shadow: inset 3px 0 0 var(--ng-magenta-600);
   }

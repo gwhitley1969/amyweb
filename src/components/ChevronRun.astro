@@ -9,11 +9,9 @@
  */
 interface Props {
   variant?: 'seam' | 'underline';
-  /** Neon marquee: chevrons brighten in sequence (ng-chase keyframes). */
-  chase?: boolean;
 }
 
-const { variant = 'seam', chase = false } = Astro.props;
+const { variant = 'seam' } = Astro.props;
 const count = variant === 'seam' ? 9 : 5;
 const cycle = ['var(--ng-chev-neon)', 'var(--ng-chev-mid)', 'var(--ng-chev-pale)'];
 const STEP = 24;
@@ -21,7 +19,7 @@ const width = (count - 1) * STEP + 22;
 ---
 
 <svg
-  class:list={['chevron-run', `chevron-run--${variant}`, chase && 'chevron-run--chase']}
+  class:list={['chevron-run', `chevron-run--${variant}`]}
   viewBox={`0 0 ${width} 32`}
   aria-hidden="true"
   fill="none"
@@ -34,7 +32,6 @@ const width = (count - 1) * STEP + 22;
         stroke-width="8"
         stroke-linecap="round"
         stroke-linejoin="round"
-        style={chase ? `animation-delay: ${(i * 0.15).toFixed(2)}s` : undefined}
       />
     ))
   }
@@ -59,9 +56,5 @@ const width = (count - 1) * STEP + 22;
   [data-surface='noir'] .chevron-run--seam {
     filter: drop-shadow(0 0 6px var(--ng-neon-500));
     animation: ng-breathe 4s ease-in-out infinite;
-  }
-  /* Marquee chase (ng-chase in global.css; delays set inline per chevron). */
-  .chevron-run--chase polyline {
-    animation: ng-chase 1.8s ease-in-out infinite;
   }
 </style>

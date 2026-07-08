@@ -127,9 +127,6 @@ body {
 /* The sign's perpetual neon hum — clearly visible whenever you look, on
  * any device, with no load-timing race. The lockup IS the neon, so this
  * glow shares the seam's sanction (the neon is the only thing that glows). */
-.neon-hum {
-  animation: ng-hum 3.2s ease-in-out infinite;
-}
 @keyframes ng-hum {
   0%,
   100% {
@@ -151,19 +148,6 @@ body {
   }
   50% {
     filter: drop-shadow(0 0 14px var(--ng-neon-500)) drop-shadow(0 0 3px var(--ng-neon-500));
-  }
-}
-
-/* Neon marquee chase: each chevron in a chase-enabled run brightens in
- * sequence (per-chevron delays are set inline by ChevronRun.astro).
- * Smooth opacity wave — no flashing (WCAG 2.3.1). Neon-family move. */
-@keyframes ng-chase {
-  0%,
-  100% {
-    opacity: 0.45;
-  }
-  25% {
-    opacity: 1;
   }
 }
 

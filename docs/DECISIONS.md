@@ -258,15 +258,3 @@ as historical artifacts.
   glows. Reduced-motion stills everything, unchanged.
 - **Lesson recorded:** lab-verified ≠ perceived; continuous motion for
   the signature moment, one-shot only as garnish.
-
-## 2026-07-08 — Placeholder gets the neon treatment (client)
-
-- **Context:** operator asked for pulsating chevrons on the live
-  placeholder after approving the motion amendment.
-- **Decision:** the placeholder logo swaps to the transparent lockup
-  (glow traces the art, not a rectangle) with the perpetual neon hum;
-  a live ChevronRun gains a `chase` prop — chevrons brighten in
-  sequence (per-chevron inline delays, ng-chase keyframes) like a neon
-  marquee, pointing toward the phone number. Third sanctioned placement
-  of the run (placeholder marquee; temporary Phase A artifact page).
-  Hum/chase are neon-family moves; reduced-motion stills both. 0 KB JS.

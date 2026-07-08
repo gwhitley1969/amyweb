@@ -1,13 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ChevronRun from '../components/ChevronRun.astro';
 import { siteConfig } from '../lib/siteConfig';
-// Transparent lockup rendered at 4x from the canonical HTML source
-// (src/assets/brand/source/). Alpha background so the neon-hum glow
-// traces the artwork silhouette, not a rectangle; renders identically
-// on the noir page. Art untouched.
-import logo from '../assets/brand/needle-girlie-lockup-alpha.png';
+// Derivative of the original Claude-designed logo, rendered at 4x from the
+// canonical HTML source (src/assets/brand/source/) and cropped with a black
+// margin so the glow fades out inside the image. Art untouched.
+import logo from '../assets/brand/needle-girlie-logo-on-black-trimmed.png';
 ---
 
 <BaseLayout
@@ -19,16 +17,12 @@ import logo from '../assets/brand/needle-girlie-lockup-alpha.png';
     <Image
       src={logo}
       alt="Needle Girlie"
-      widths={[480, 800, 1200, 1879]}
+      widths={[480, 800, 1560]}
       sizes="(max-width: 820px) 94vw, 780px"
-      class="neon-hum w-full max-w-[780px]"
+      class="w-full max-w-[780px]"
       loading="eager"
       fetchpriority="high"
     />
-    {/* neon marquee: the chase points visitors down toward the phone number */}
-    <div class="marquee" aria-hidden="true">
-      <ChevronRun variant="seam" chase />
-    </div>
     <div class="w-full max-w-[640px]">
       <div class="caution-tape" aria-hidden="true"></div>
       <h1 class="my-6 text-3xl font-bold uppercase tracking-[0.2em] sm:text-4xl">
@@ -53,11 +47,6 @@ import logo from '../assets/brand/needle-girlie-lockup-alpha.png';
 </BaseLayout>
 
 <style>
-  /* marquee scale for this page only (the seam's default is content-column
-   * sized; here it is a centerpiece under the sign) */
-  .marquee :global(.chevron-run--seam) {
-    height: 2rem;
-  }
   .caution-tape {
     height: 2rem;
     border-top: 1px solid #f9a8d4;

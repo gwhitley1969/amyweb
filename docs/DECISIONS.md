@@ -243,3 +243,18 @@ as historical artifacts.
 - **Consequences:** 0 KB JS holds; all contrast pairs recomputed and
   recorded in tokens.css; noir scopes --ng-card to transparent so dark
   modules keep their outline look.
+
+## 2026-07-08 — Motion follow-up: the sign hums (client-verified miss)
+
+- **Context:** operator and Amy could not see the motion on two devices.
+  Root cause was design, not delivery (animation verified live via frame
+  capture): a one-shot load animation races image download, tab focus,
+  and attention — real reviewers missed a 2-second show.
+- **Decision:** the hero sign gains a perpetual **neon hum** — a 3.2s
+  glow pulse (2.7px↔25px drop-shadow, verified by computed-style
+  sampling) that is visible whenever the visitor looks. Ignition dips
+  deepened (floor 0.35, LCP-safe). The lockup IS the neon, so the hum
+  shares the seam's glow sanction: the neon remains the only thing that
+  glows. Reduced-motion stills everything, unchanged.
+- **Lesson recorded:** lab-verified ≠ perceived; continuous motion for
+  the signature moment, one-shot only as garnish.

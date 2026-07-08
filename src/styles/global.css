@@ -18,7 +18,7 @@
    * not rewrite custom-property stacks. */
   --font-display:
     'Playfair Display Variable', 'Playfair Display Variable fallback', Georgia, serif;
-  --font-body: 'Figtree Variable', 'Figtree Variable fallback', Arial, sans-serif;
+  --font-body: 'DM Sans Variable', 'DM Sans Variable fallback', Arial, sans-serif;
 }
 
 /* Type scale, 1.25 ratio (16 -> 20 / 25 / 31 / 39 / 49 / 61).

@@ -1,6 +1,6 @@
 ---
 import '@fontsource-variable/playfair-display';
-import '@fontsource-variable/figtree';
+import '@fontsource-variable/dm-sans';
 import playfairWoff2 from '@fontsource-variable/playfair-display/files/playfair-display-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 import SeoHead from '../components/SeoHead.astro';
@@ -26,7 +26,7 @@ const jsonLd = JSON.stringify(localBusiness());
     <SeoHead title={title} description={description} ogImage={ogImage} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="generator" content={Astro.generator} />
-    {/* Display face only (§13: preload the display weight); Figtree relies on swap + metric fallbacks. */}
+    {/* Display face only (§13: preload the display weight); DM Sans relies on swap + metric fallbacks. */}
     <link rel="preload" href={playfairWoff2} as="font" type="font/woff2" crossorigin />
     <script type="application/ld+json" set:html={jsonLd} />
   </head>

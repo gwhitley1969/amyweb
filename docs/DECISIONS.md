@@ -205,3 +205,18 @@ as historical artifacts.
   country abbreviation legal. Gate scope only ever grows.
 - **Alternatives rejected:** source-scanning (comments false-positive);
   review-only enforcement (not durable).
+
+## 2026-07-08 — Body font: Figtree → DM Sans (client)
+
+- **Context:** Amy reviewed the styleguide and vetoed Figtree outright.
+  Playfair Display stays — it is the wordmark's own face and was not
+  questioned.
+- **Decision:** DM Sans (variable, latin, @fontsource-variable/dm-sans)
+  is the body/UI face — warm geometric, strong at small UI sizes, pairs
+  cleanly with Playfair. Operator selected it from four staged candidates
+  (Outfit, Manrope, Nunito Sans rejected without a comparison build).
+  Figtree dependency removed; two-family cap holds; DM Sans is not
+  preloaded (§13: display face only) and relies on swap + fontaine
+  metric fallbacks, same as Figtree did.
+- **Consequence:** BUILD_SPEC §5's "e.g., Figtree" example stands as
+  written (it was illustrative); this entry records the concrete choice.

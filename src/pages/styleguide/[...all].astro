@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TreatmentLayout from '../../layouts/TreatmentLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Hero from '../../components/Hero.astro';
+import ChevronRun from '../../components/ChevronRun.astro';
+import CTAButton from '../../components/CTAButton.astro';
+import ServiceLineGrid from '../../components/ServiceLineGrid.astro';
+import LocationCard from '../../components/LocationCard.astro';
+import GetTheApp from '../../components/GetTheApp.astro';
+import DisclaimerBlock from '../../components/DisclaimerBlock.astro';
+import InvestigationalNotice from '../../components/InvestigationalNotice.astro';
+import BioteDisclaimer from '../../components/BioteDisclaimer.astro';
+import DraftBanner from '../../components/DraftBanner.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+// Preview-only (approved design plan): production builds emit no styleguide.
+export function getStaticPaths() {
+  if (import.meta.env.PUBLIC_ENV === 'production') return [];
+  return [{ params: { all: undefined } }, { params: { all: 'treatment-demo' } }];
+}
+
+const { all } = Astro.params;
+const isTreatmentDemo = all === 'treatment-demo';
+
+const swatches = [
+  { name: '--ng-neon-500', hex: '#FE019A', role: 'the neon — glows, dark only, never text' },
+  { name: '--ng-pink-500', hex: '#EC4899', role: 'display ≥24px bold + graphics' },
+  { name: '--ng-magenta-600', hex: '#D6337E', role: 'accents, hovers, edge rules (no text fills)' },
+  { name: '--ng-pink-300', hex: '#F9A8D4', role: 'tints; body text on noir' },
+  { name: '--ng-blush-50', hex: '#FDF2F8', role: 'light surfaces' },
+  { name: '--ng-ink-pink', hex: '#B01366', role: 'links + button fills on light' },
+  { name: '--ng-ink-900', hex: '#221820', role: 'body text on light' },
+  { name: '--ng-noir', hex: '#000000', role: 'dark surfaces (the sign)' },
+];
+---
+
+{
+  isTreatmentDemo ? (
+    <TreatmentLayout
+      title="Sample Treatment Line"
+      summary="A demonstration of the treatment template with placeholder copy, shown in its unapproved (draft) state."
+      products={['Sample Product A', 'Sample Product B']}
+      ctaType="consult"
+      investigational={true}
+      investigationalProduct="Sample Product B"
+      bioteDisclaimer={true}
+      pricingDisplay="consult"
+      clinicianApproved={false}
+      seo={{
+        title: 'Treatment template demo | Needle Girlie styleguide',
+        description: 'Preview-only demonstration of the treatment page template.',
+      }}
+    >
+      <p class="mt-6">
+        Body copy flows here in Phase C, drafted from the BUILD_SPEC §7 briefs: what it is, who it
+        is generally for, individualized under clinician supervision.
+      </p>
+    </TreatmentLayout>
+  ) : (
+    <BaseLayout
+      title="Styleguide | Needle Girlie"
+      description="Preview-only design-system reference for needlegirlie.com."
+    >
+      <Header slot="header" />
+
+      <div class="mx-auto max-w-6xl space-y-16 px-6 py-12">
+        <section>
+          <h1 class="display-2">Styleguide</h1>
+          <p class="lead mt-4">
+            Preview-only reference for the Phase B design system. Also see the
+            <a href="/styleguide/treatment-demo" class="underline underline-offset-4" style="color: var(--ng-link)">
+              treatment template demo</a>.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="heading-2">Palette</h2>
+          <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {swatches.map((s) => (
+              <div class="border border-pink-tint/40 p-3">
+                <div class="h-14 w-full border border-ink/10" style={`background:${s.hex}`} />
+                <p class="mt-2 font-mono text-xs">{s.name}</p>
+                <p class="font-mono text-xs">{s.hex}</p>
+                <p class="mt-1 text-xs">{s.role}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 class="heading-2">Type scale</h2>
+          <div class="mt-6 space-y-4">
+            <p class="display-1">Display 1 — Playfair 61</p>
+            <p class="display-2">Display 2 — Playfair 49</p>
+            <p class="heading-2">Heading 2 — Playfair 39</p>
+            <p class="heading-3">Heading 3 — Figtree 31</p>
+            <p class="heading-4">Heading 4 — Figtree 25</p>
+            <p class="lead">Lead — Figtree 20</p>
+            <p>Body — Figtree 16, line-height 1.6.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="heading-2">Signature: the chevron run</h2>
+          <p class="mt-4">Seam (9) on light, then on noir with its glow; underline (5) below.</p>
+          <div class="mt-6 space-y-6">
+            <ChevronRun variant="seam" />
+            <div class="surface p-6" data-surface="noir">
+              <ChevronRun variant="seam" />
+            </div>
+            <ChevronRun variant="underline" />
+          </div>
+        </section>
+
+        <section>
+          <h2 class="heading-2">CTA buttons</h2>
+          <div class="mt-6 flex flex-wrap items-center gap-4">
+            <CTAButton variant="book" href="#" />
+            <CTAButton variant="consult" href="#" />
+            <CTAButton variant="call" />
+          </div>
+          <div class="surface mt-6 flex flex-wrap items-center gap-4 p-6" data-surface="noir">
+            <CTAButton variant="book" href="#" />
+            <CTAButton variant="consult" href="#" />
+            <CTAButton variant="call" />
+          </div>
+        </section>
+
+        <section>
+          <h2 class="heading-2">Hero</h2>
+        </section>
+      </div>
+
+      <Hero promise="Medical aesthetics, signed with a kiss.">
+        <CTAButton variant="book" href="#" />
+        <CTAButton variant="call" />
+      </Hero>
+
+      <div class="mx-auto max-w-6xl space-y-16 px-6 py-12">
+        <section>
+          <h2 class="heading-2">Service-line grid</h2>
+          <div class="mt-6">
+            <ServiceLineGrid />
+          </div>
+        </section>
+
+        <section class="grid gap-6 sm:grid-cols-2">
+          <LocationCard />
+          <GetTheApp />
+        </section>
+
+        <section>
+          <h2 class="heading-2">Compliance blocks</h2>
+          <div class="mt-6 space-y-6">
+            <DraftBanner />
+            <InvestigationalNotice productName="Sample Product" />
+            <BioteDisclaimer />
+            <DisclaimerBlock />
+          </div>
+        </section>
+
+        <section>
+          <h2 class="heading-2">Breadcrumbs</h2>
+          <div class="mt-6">
+            <Breadcrumbs
+              items={[
+                { name: 'Home', href: '/' },
+                { name: 'Services', href: '/services' },
+                { name: 'Current page', href: '#' },
+              ]}
+            />
+          </div>
+        </section>
+      </div>
+
+      <Footer slot="footer" />
+    </BaseLayout>
+  )
+}

@@ -35,9 +35,14 @@ symptom is a faint rectangle around the chevrons, or dimmed art near edges.
 
 | File | Size | Used by |
 |---|---|---|
-| `needle-girlie-logo-on-black-trimmed.png` | 1879×907 | home page (dark placeholder) |
-| `needle-girlie-logo-on-white-trimmed.png` | 1848×878 | reserved for Phase B light pages |
+| `needle-girlie-lockup-alpha.png` | 1879×908, transparent | Hero component — composites onto any surface (glow carries real alpha) |
+| `needle-girlie-wordmark-alpha.png` | 1604×342, transparent | Header/Footer compact lockup |
+| `needle-girlie-logo-on-black-trimmed.png` | 1879×907 | interim placeholder home |
+| `needle-girlie-logo-on-white-trimmed.png` | 1848×878 | reserved for light-surface uses |
 | `needle-girlie-logo-on-black.png` / `-on-white.png` | 924×525 | legacy first-delivery PNGs; art only ~400px wide — do not use for display ≥ ~400 CSS px |
+
+Transparent exports use the `--transparent` flag (clears full-bleed black
+container backgrounds only — art shapes are never touched).
 
 ## Still needed for Phase B
 

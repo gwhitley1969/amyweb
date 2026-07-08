@@ -1,5 +1,5 @@
 {
-  "$comment": "Compliance banned-pattern registry (CLAUDE.md hard constraint 3, BUILD_SPEC §8). Patterns are case-insensitive JS regexes applied to every line of every file under src/content/** and src/pages/**. THIS LIST ONLY EVER GROWS — removing or loosening an entry requires the human operator. Keep patterns precise: a false positive costs a review; a false negative costs a compliance violation.",
+  "$comment": "Compliance banned-pattern registry (CLAUDE.md hard constraint 3, BUILD_SPEC §8). Patterns are case-insensitive JS regexes applied to every line of every text file under src/ (content, pages, components, layouts, lib, styles — see SCAN_DIRS in scripts/lint-claims.mjs). THIS LIST ONLY EVER GROWS — removing or loosening an entry requires the human operator. Keep patterns precise: a false positive costs a review; a false negative costs a compliance violation.",
   "categories": [
     {
       "name": "dosing",

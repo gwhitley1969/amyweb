@@ -16,13 +16,14 @@ const { promise } = Astro.props;
 ---
 
 <section class="surface" data-surface="noir">
-  <div class="mx-auto flex max-w-5xl flex-col items-center gap-8 px-6 py-16 text-center">
+  <div class="mx-auto flex max-w-6xl flex-col items-center gap-8 px-6 py-16 text-center">
+    {/* Near-full-bleed by design — client direction: "it's got to be big." */}
     <Image
       src={lockup}
       alt="Needle Girlie"
-      widths={[480, 800, 1560]}
-      sizes="(max-width: 820px) 94vw, 780px"
-      class="w-full max-w-[780px]"
+      widths={[480, 800, 1200, 1879]}
+      sizes="(max-width: 1100px) 94vw, 1040px"
+      class="w-full max-w-[1040px]"
       loading="eager"
       fetchpriority="high"
     />

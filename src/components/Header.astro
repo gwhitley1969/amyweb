@@ -19,9 +19,16 @@ const nav = [
 ---
 
 <div class="surface site-header" data-surface="noir">
-  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3 sm:py-4">
     <a href="/" class="shrink-0">
-      <Image src={wordmark} alt="Needle Girlie — home" width={188} densities={[1, 2, 3]} />
+      {/* Big by design — operator/client direction: the brand leads. */}
+      <Image
+        src={wordmark}
+        alt="Needle Girlie — home"
+        width={280}
+        densities={[1, 2, 3]}
+        class="h-auto w-[210px] sm:w-[280px]"
+      />
     </a>
     <nav aria-label="Primary">
       {/* desktop */}

@@ -258,3 +258,13 @@ as historical artifacts.
   glows. Reduced-motion stills everything, unchanged.
 - **Lesson recorded:** lab-verified ≠ perceived; continuous motion for
   the signature moment, one-shot only as garnish.
+
+## 2026-07-08 — Placeholder neon REVERTED (client)
+
+- Shipped, seen live, rejected: the live marquee sat directly under the
+  logo's own (much larger) baked-in chevron run — it read as a shrunken
+  duplicate, not a marquee. Client called it; full revert to the prior
+  placeholder (static trimmed lockup, no hum, no marquee).
+- Lesson: the logo already contains the motif at hero scale — never
+  place a second run adjacent to the lockup. The chase capability lives
+  on in git history (commit 8c6a584) if a right home appears later.

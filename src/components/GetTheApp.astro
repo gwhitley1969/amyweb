@@ -1,0 +1,27 @@
+---
+import { siteConfig } from '../lib/siteConfig';
+
+/**
+ * Get-the-App module (BUILD_SPEC §9): feature-flagged OFF in v1. The
+ * coming-soon state is text only — official store badges are prohibited
+ * until real store links exist (badge guidelines). At activation (later
+ * phase): official badge artwork + app_badge_click events.
+ */
+---
+
+{
+  !siteConfig.appLinks.enabled && (
+    <div class="get-the-app">
+      <p class="font-semibold">The Needle Girlie app is coming</p>
+      <p class="mt-1">Look for it on the App Store and Google Play.</p>
+    </div>
+  )
+}
+
+<style is:global>
+  .get-the-app {
+    border: 1px dashed var(--ng-pink-300);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+  }
+</style>

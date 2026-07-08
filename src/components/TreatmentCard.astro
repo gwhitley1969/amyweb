@@ -1,0 +1,65 @@
+---
+/**
+ * Service-line card per the approved anatomy: flat blush surface, NO drop
+ * shadow, 1px magenta edge rule (left), Figtree title, hover/focus =
+ * edge-rule thickens + background shifts white. No scale/shadow transforms.
+ * The link text is the treatment title (descriptive link text, §10).
+ */
+interface Props {
+  title: string;
+  summary: string;
+  href: string;
+  featured?: boolean;
+}
+
+const { title, summary, href, featured = false } = Astro.props;
+---
+
+<article class:list={['treatment-card', featured && 'treatment-card--featured']}>
+  <h3 class="heading-4">
+    <a href={href} class="treatment-card__link">
+      {title}
+      <span aria-hidden="true">&rsaquo;</span>
+    </a>
+  </h3>
+  <p class="mt-2">{summary}</p>
+</article>
+
+<style is:global>
+  .treatment-card {
+    position: relative;
+    background: var(--ng-blush-50);
+    border-left: 1px solid var(--ng-magenta-600);
+    padding: 1.5rem;
+    transition: background-color 150ms ease;
+  }
+  .treatment-card:hover,
+  .treatment-card:focus-within {
+    background: var(--ng-paper);
+    /* thicken the edge without layout shift */
+    box-shadow: inset 3px 0 0 var(--ng-magenta-600);
+  }
+  .treatment-card__link {
+    color: var(--ng-ink-900);
+    text-decoration: none;
+  }
+  .treatment-card__link:hover {
+    color: var(--ng-ink-pink);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  /* stretch the card's click target to the whole card */
+  .treatment-card__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .treatment-card--featured {
+    grid-column: span 2;
+  }
+  @media (max-width: 640px) {
+    .treatment-card--featured {
+      grid-column: span 1;
+    }
+  }
+</style>

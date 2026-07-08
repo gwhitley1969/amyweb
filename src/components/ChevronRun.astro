@@ -1,0 +1,57 @@
+---
+/**
+ * THE signature element (approved design plan): the logo's chevron-run
+ * motif, echoed at fixed counts. Two placements only:
+ *   - seam (9 chevrons):    dark<->light content boundaries; glows on noir
+ *   - underline (5 chevrons): treatment-page H1 accent; always flat
+ * Always decorative. The only element on the site allowed to glow.
+ * Colors cycle the canonical source order: neon -> mid -> pale.
+ */
+interface Props {
+  variant?: 'seam' | 'underline';
+}
+
+const { variant = 'seam' } = Astro.props;
+const count = variant === 'seam' ? 9 : 5;
+const cycle = ['var(--ng-chev-neon)', 'var(--ng-chev-mid)', 'var(--ng-chev-pale)'];
+const STEP = 24;
+const width = (count - 1) * STEP + 22;
+---
+
+<svg
+  class:list={['chevron-run', `chevron-run--${variant}`]}
+  viewBox={`0 0 ${width} 32`}
+  aria-hidden="true"
+  fill="none"
+>
+  {
+    Array.from({ length: count }, (_, i) => (
+      <polyline
+        points={`${i * STEP + 5},5 ${i * STEP + 17},16 ${i * STEP + 5},27`}
+        stroke={cycle[i % 3]}
+        stroke-width="8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    ))
+  }
+</svg>
+
+<style is:global>
+  .chevron-run {
+    display: block;
+    width: auto;
+  }
+  .chevron-run--seam {
+    /* ~ one h3 cap height (heading-3 is 31px) */
+    height: 1.375rem;
+  }
+  .chevron-run--underline {
+    height: 0.875rem;
+    margin-top: 0.5rem;
+  }
+  /* Glow only when the seam sits on noir — the single glowing element. */
+  [data-surface='noir'] .chevron-run--seam {
+    filter: drop-shadow(0 0 6px var(--ng-neon-500));
+  }
+</style>

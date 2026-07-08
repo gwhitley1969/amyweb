@@ -1,0 +1,27 @@
+---
+/**
+ * The medical disclaimer every treatment page carries (CLAUDE.md hard
+ * constraint 3). Injected by TreatmentLayout unconditionally — pages
+ * cannot opt out. Rendered on the LIGHT surface, before the closing dark
+ * band, so it never dissolves into the footer.
+ */
+---
+
+<aside class="disclaimer" aria-label="Medical disclaimer">
+  <p>
+    <strong>Medical disclaimer.</strong> The content on this page is general information and
+    education. It is not medical advice, and it does not replace an in-person evaluation. Whether a
+    treatment fits your needs is decided together with Amy Palacios, FNP, during a consultation.
+    Individual experiences vary.
+  </p>
+</aside>
+
+<style is:global>
+  .disclaimer {
+    margin-top: 3rem;
+    border-top: 1px solid var(--ng-pink-300);
+    padding-top: 1.5rem;
+    font-size: 0.9375rem;
+    color: var(--ng-ink-900);
+  }
+</style>

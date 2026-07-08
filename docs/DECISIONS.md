@@ -187,3 +187,21 @@ as historical artifacts.
   src/lib, and src/styles in addition to content and pages (§8 applies to
   all text; component copy was previously unscanned). Scope, like the
   pattern list, only ever grows.
+
+## 2026-07-08 — Voice rule: Amy, never "we" (operator)
+
+- **Context:** operator review of the Phase B preview — the template read
+  too much like the multi-provider location's site
+  (yourmobileaesthetics.com). This site spotlights Amy and only Amy.
+- **Decision:** first-person plural ("we", "our", "us", "let's") never
+  appears in rendered site text. Copy is Amy-centric ("What Amy offers",
+  "Visit Amy") or speaks to the visitor. Also reinforces hard
+  constraint 2: a "we" implies a team; a team implies the location's
+  other providers.
+- **Enforcement:** new gate `lint:voice` (scripts/lint-voice.mjs) scans
+  the BUILT dist HTML — rendered text, meta descriptions, and JSON-LD —
+  so code comments never false-positive. Self-tested like lint:claims;
+  wired into `npm run verify`. Lowercase-only "us" matching keeps the
+  country abbreviation legal. Gate scope only ever grows.
+- **Alternatives rejected:** source-scanning (comments false-positive);
+  review-only enforcement (not durable).

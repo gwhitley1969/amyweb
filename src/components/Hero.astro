@@ -36,8 +36,11 @@ const { promise } = Astro.props;
 
 <style is:global>
   /* "Turn on the sign": the neon ignites once on load (keyframes +
-   * reduced-motion handling in global.css). */
+   * reduced-motion handling in global.css). The 0.4s delay + backwards
+   * fill shows the sign DIM first, then igniting — reads like a real
+   * neon tube and widens the window so slow connections (phone
+   * cellular) see the show even if the image arrives late. */
   .hero-sign {
-    animation: ng-ignite 1.2s ease-out 1 backwards;
+    animation: ng-ignite 1.8s ease-out 0.4s 1 backwards;
   }
 </style>

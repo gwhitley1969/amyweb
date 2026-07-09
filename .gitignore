@@ -18,6 +18,7 @@ npm-debug.log*
 .claude/skills/
 .claude/settings.local.json
 claude-skills/
+.superpowers/
 
 # debug screenshots dropped in the repo root (source images live in src/assets)
 /*.png

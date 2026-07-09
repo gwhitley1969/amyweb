@@ -268,3 +268,24 @@ as historical artifacts.
 - Lesson: the logo already contains the motif at hero scale — never
   place a second run adjacent to the lockup. The chase capability lives
   on in git history (commit 8c6a584) if a right home appears later.
+
+## 2026-07-09 — Construction page: taped caricature window (Concept A)
+
+- **Context:** the client supplied a commissioned caricature of Amy in
+  the studio for the construction page. Three compositions were mocked
+  with the real assets (browser mockups); the operator chose the
+  "taped-off peek" — the caricature behind an arched, taped-off studio
+  window. The operator saw the flag on the artwork's Mobile Aesthetics
+  signage and explicitly accepted it (site-copy rules unchanged).
+- **Decision:** new reusable `CaricatureWindow.astro` (arched frame,
+  hairline pink border, STATIC neon halo scoped to noir, optional
+  `taped` strips). Logo keeps its full 780px and regains the approved
+  ignite+hum; caution tape moves off the heading onto the window; the
+  story line "Amy's inside, getting the studio ready." replaces
+  "Pardon the dust". Spec: docs/superpowers/specs/2026-07-09-*.
+- **Alternatives rejected:** polaroid snapshot (least bold); noir/blush
+  diptych (previewed Phase C best — offered as the recommendation, not
+  chosen).
+- **Consequences:** the arch becomes a reusable motif (untaped, light
+  surfaces) for Phase C; the halo is static so nothing competes with the
+  sign (adjacency lesson); 0 KB JS holds; ships via PR preview first.

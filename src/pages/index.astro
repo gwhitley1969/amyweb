@@ -1,11 +1,15 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CaricatureWindow from '../components/CaricatureWindow.astro';
 import { siteConfig } from '../lib/siteConfig';
 // Derivative of the original Claude-designed logo, rendered at 4x from the
 // canonical HTML source (src/assets/brand/source/) and cropped with a black
 // margin so the glow fades out inside the image. Art untouched.
 import logo from '../assets/brand/needle-girlie-logo-on-black-trimmed.png';
+// Commissioned caricature of Amy in the studio — the "she's inside getting
+// it ready" moment (docs/superpowers/specs/2026-07-09-caricature-*.md).
+import caricature from '../assets/brand/amy-caricature.png';
 ---
 
 <BaseLayout
@@ -13,26 +17,30 @@ import logo from '../assets/brand/needle-girlie-logo-on-black-trimmed.png';
   description="Needle Girlie — the medical-aesthetics practice of Amy Palacios, FNP, in Harrisburg, NC. The site is under construction."
   surface="noir"
 >
-  <section class="flex min-h-dvh flex-col items-center justify-center gap-8 px-6 text-center">
+  <section class="flex min-h-dvh flex-col items-center gap-8 px-6 py-12 text-center">
     <Image
       src={logo}
       alt="Needle Girlie"
       widths={[480, 800, 1560]}
       sizes="(max-width: 820px) 94vw, 780px"
-      class="w-full max-w-[780px]"
+      class="construction-sign w-full max-w-[780px]"
       loading="eager"
       fetchpriority="high"
     />
-    <div class="w-full max-w-[640px]">
-      <div class="caution-tape" aria-hidden="true"></div>
-      <h1 class="my-6 text-3xl font-bold uppercase tracking-[0.2em] sm:text-4xl">
+    <CaricatureWindow
+      image={caricature}
+      alt="Illustrated caricature of Amy Palacios, FNP, seated on a studio counter"
+      taped
+      class="w-full max-w-[520px]"
+    />
+    <div class="max-w-prose">
+      <h1 class="text-3xl font-bold uppercase tracking-[0.2em] sm:text-4xl">
         Under construction
       </h1>
-      <div class="caution-tape" aria-hidden="true"></div>
+      <p class="lead mt-3 text-balance text-pink-tint">
+        Amy's inside, getting the studio ready.
+      </p>
     </div>
-    <p class="max-w-prose text-balance">
-      Pardon the dust — the full Needle Girlie experience is being built.
-    </p>
     <p class="max-w-prose text-balance">
       The dedicated home of Amy Palacios, FNP — medical aesthetics in
       Harrisburg, NC.
@@ -46,17 +54,13 @@ import logo from '../assets/brand/needle-girlie-logo-on-black-trimmed.png';
   </section>
 </BaseLayout>
 
-<style>
-  .caution-tape {
-    height: 2rem;
-    border-top: 1px solid #f9a8d4;
-    border-bottom: 1px solid #f9a8d4;
-    background: repeating-linear-gradient(
-      45deg,
-      #ec4899,
-      #ec4899 24px,
-      #000 24px,
-      #000 48px
-    );
+<style is:global>
+  /* The sign performs its approved routine (styleguide-verified,
+   * docs/DECISIONS.md 2026-07-08): ignite once on load, then hum forever.
+   * Keyframes + reduced-motion handling live in global.css. */
+  .construction-sign {
+    animation:
+      ng-ignite 1.8s ease-out 0.4s 1 backwards,
+      ng-hum 3.2s ease-in-out 2.2s infinite;
   }
 </style>

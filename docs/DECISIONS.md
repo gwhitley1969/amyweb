@@ -290,6 +290,27 @@ as historical artifacts.
   surfaces) for Phase C; the halo is static so nothing competes with the
   sign (adjacency lesson); 0 KB JS holds; ships via PR preview first.
 
+## 2026-07-18 — Phase C runs on a long-lived `phase-c` integration branch (C0)
+
+- **Context:** the pivot (PR #4) is merged and production-deployed; Phase C
+  now accumulates nine `clinicianApproved: false` treatment drafts, which
+  by design make `main` undeployable (check:approvals runs on every main
+  push) — but the construction placeholder must stay hotfixable in
+  production throughout the phase.
+- **Decision:** all Phase C work lands on `phase-c` via sub-PRs; ONE
+  persistent DRAFT PR (`phase-c` → `main`) provides a single stable
+  password-protected preview URL for operator/Amy review, redeploying on
+  every merge into the branch. Verified: pr-preview.yml has no
+  base-branch filter (sub-PRs get their own ephemeral previews);
+  check:approvals runs only on main pushes.
+- **Rules:** the persistent PR stays DRAFT and merges only in Phase E,
+  after the operator flips approvals following Amy's written sign-off;
+  merge `main` → `phase-c` promptly after any main change; keep few
+  sub-PRs open (SWA caps staging environments at 10).
+- **Alternatives rejected:** treatment files as `draft: true` on main
+  (excluded from builds — previews could never show them); accepting a
+  red main (blocks placeholder hotfixes).
+
 ## 2026-07-18 — Design pivot: serious glamour ("dim the neon, dress the studio") (client)
 
 - **Context:** the operator reviewed four competitors (Moksha Aesthetics,

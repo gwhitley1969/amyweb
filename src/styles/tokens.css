@@ -80,7 +80,9 @@
   --ng-ink-900: #221820;
   --ng-paper: #ffffff;
 
-  /* chevron cycle (source order: neon -> mid -> pale; pale-alt appears occasionally) */
+  /* chevron cycle (source order: neon -> mid -> pale; pale-alt appears
+   * occasionally). RETIRED from the UI 2026-07-18 (client) — the motif
+   * lives on only inside the logo artwork; tokens kept as palette record. */
   --ng-chev-neon: #fe019a;
   --ng-chev-mid: #f45fab;
   --ng-chev-pale: #f9a8d4;

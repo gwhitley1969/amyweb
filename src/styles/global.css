@@ -136,8 +136,8 @@ body {
  *   rise/trace — scroll-driven reveal (below): scrubs with scroll and
  *     replays on re-entry (the one-shot lesson, DECISIONS 2026-07-08).
  *   nudge — the 3px link-chevron hover translate (unchanged).
- *   aura — the STATIC halo (.ng-aura) on seams and as the sign's
- *     reduced-motion/resting state.
+ *   aura — the STATIC halo (.ng-aura), the sign's reduced-motion and
+ *     resting state.
  * The glow that moves lives in exactly two places — the sign and the
  * accent phrase; nothing else animates — the cap is the rule. All moves
  * are opacity/filter/transform/text-shadow only (no layout).

@@ -35,6 +35,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   fenced as legacy in global.css until the real home page replaces it.
 - Still 0 KB client JavaScript; all new derived color pairs
   contrast-verified and recorded in tokens.css.
+- **Chevrons retired; address live (same day):** the chevron-run motif
+  is removed from the UI at the client's direction (it remains inside
+  the logo artwork); the eyebrow + accent-rule opener is the signature
+  element now. The practice address resolved into siteConfig — footer,
+  location card, and structured data now carry the full NAP.
 - **Concept round (same day):** photography-led "After Dark" home
   concept at /styleguide/concept (client: "much better"). Hero promise
   confirmed. Business-fact correction: consultations are optional and

@@ -378,6 +378,20 @@ as historical artifacts.
   duplication: the wordmark asset, unlike the lockup, has no baked-in
   chevrons (adjacency lesson).
 
+- **Update (same day) — chevron motif retired from the UI (client);
+  {{ADDRESS_DISPLAY}} resolved:** the client removed the chevron run
+  entirely ("we just don't like them") after seeing the full-width
+  header band. ChevronRun.astro deleted (git history keeps it, marquee
+  precedent); treatment H1 underline → rule-accent; the noir CTA band
+  seam removed; styleguide section removed; the small `›` button
+  punctuation (chev-nudge) is NOT the motif and stays pending client
+  word. The chevron motif now lives only inside the logo artwork
+  (never redrawn). The section-opener signature (eyebrow + rule-accent
+  + ng-trace) is THE signature element going forward. Separately the
+  operator supplied the display address (4350 Main Street, Suite 224,
+  Harrisburg, NC 28075) — siteConfig updated; footer NAP, LocationCard,
+  and LocalBusiness JSON-LD unlock automatically.
+
 - **Update (same day) — italic accent dropped by its own perf gate:** on
   CI, the italic face (swap, no fontaine italic metric fallback) raced
   the Lighthouse trace and produced an intermittent CLS failure on

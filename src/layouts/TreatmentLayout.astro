@@ -3,7 +3,6 @@ import BaseLayout from './BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import ChevronRun from '../components/ChevronRun.astro';
 import CTAButton from '../components/CTAButton.astro';
 import DisclaimerBlock from '../components/DisclaimerBlock.astro';
 import InvestigationalNotice from '../components/InvestigationalNotice.astro';
@@ -69,7 +68,7 @@ const crumbs = [
   <article class="mx-auto max-w-3xl px-6 py-12">
     <Breadcrumbs items={crumbs} />
     <h1 class="heading-2 md:display-2 mt-6">{title}</h1>
-    <ChevronRun variant="underline" />
+    <hr class="rule-accent mt-4" />
     <p class="lead mt-6">{summary}</p>
 
     <div class="mt-8">
@@ -128,8 +127,7 @@ const crumbs = [
 
   <div class="surface" data-surface="noir">
     <div class="mx-auto max-w-3xl px-6 py-12">
-      <ChevronRun variant="seam" />
-      <h2 class="heading-2 mt-8">
+      <h2 class="heading-2">
         Ready <span class="display-accent ng-shimmer">when you are</span>
       </h2>
       <div class="mt-6">

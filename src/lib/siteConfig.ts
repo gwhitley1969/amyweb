@@ -8,7 +8,8 @@ export const siteConfig = {
   locality: 'Harrisburg, NC', // established business fact (CLAUDE.md)
   domain: 'needlegirlie.com',
   url: 'https://needlegirlie.com',
-  address: '{{ADDRESS_DISPLAY}}',
+  // {{ADDRESS_DISPLAY}} resolved by operator 2026-07-18
+  address: '4350 Main Street, Suite 224, Harrisburg, NC 28075',
   phone: '704-579-7108', // {{PHONE}} resolved by operator 2026-07-07
   phoneTel: 'tel:+17045797108',
   hours: '{{HOURS}}',

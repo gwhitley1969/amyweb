@@ -151,13 +151,13 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
       read pixels); it is Amy's own published wording, riding her
       ownership of the post. ---- */}
   <section class="nc-blush">
-    <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 md:grid-cols-[5fr_6fr] md:gap-16">
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 md:grid-cols-[6fr_5fr] md:gap-16">
       <div class="nc-post ng-rise">
         <Image
           src={igPost}
           alt="A post from Amy's Instagram — Amy in a lavender blazer, hair in motion, with her note on practicing the craft behind the needle, signed Needle Girlie"
           widths={[480, 720, 1080]}
-          sizes="(max-width: 900px) 88vw, 40vw"
+          sizes="(max-width: 900px) 92vw, 48vw"
           loading="lazy"
         />
       </div>
@@ -343,7 +343,8 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
   /* The framed print: white matte + hairline, a slight scrapbook tilt.
    * No shadow (flat-card anatomy holds); the tilt supplies the lift. */
   .nc-post {
-    max-width: 26rem;
+    /* sized so the post's baked-in caption reads comfortably (client) */
+    max-width: 34rem;
     justify-self: center;
     background: var(--ng-paper);
     border: 1px solid var(--ng-hairline);

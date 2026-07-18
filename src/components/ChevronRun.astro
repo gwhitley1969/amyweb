@@ -13,10 +13,13 @@
  */
 interface Props {
   variant?: 'seam' | 'underline';
+  /** Override the variant's fixed count (e.g. the header brand run spans
+   * the full wordmark, N-to-e, per client direction 2026-07-18). */
+  count?: number;
 }
 
-const { variant = 'seam' } = Astro.props;
-const count = variant === 'seam' ? 9 : 5;
+const { variant = 'seam', count: countOverride } = Astro.props;
+const count = countOverride ?? (variant === 'seam' ? 9 : 5);
 const cycle = ['var(--ng-chev-neon)', 'var(--ng-chev-mid)', 'var(--ng-chev-pale)'];
 const STEP = 24;
 const width = (count - 1) * STEP + 22;

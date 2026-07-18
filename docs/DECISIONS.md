@@ -343,17 +343,20 @@ as historical artifacts.
   and ink-pink read "burgundy" against the logo's hot pink. Changes, all
   contrast-verified: the sign **breathes again** at a luxury tempo
   (`ng-bloom`, 5.6s aura swell — the retired 3.2s hum was carnival; this
-  is the same life, slower and deeper); a **satin sheen** sweeps noir
-  display-accent phrases (`ng-sheen`, ≥39px only, every stop ≥11.58:1 on
-  noir); **solid CTAs go brand pink** — pink-500 fill with ink-900 text
+  is the same life, slower and deeper); the noir **accent phrase shimmers**
+  with a soft neon halo (`ng-shimmer`, ≥39px only, text-shadow only so the
+  computed text color/contrast is untouched — a background-clip satin
+  sheen was trialed first and REPLACED because transparent fill colors
+  fail the axe gate; the gate stays, the effect got re-engineered);
+  **solid CTAs go brand pink** — pink-500 fill with ink-900 text
   (4.88:1, clears the 4.7 headroom bar; supersedes "fills are ink-pink
   only"; the white-text-on-pink/magenta ban is unchanged); header
   wordmark 280→336 with larger nav; the noir hairline brightens to
   pink-500@55% (pink-300@30% composited to a muddy wine — the "burgundy"
-  they saw). "Nothing pulses" is replaced by: the sign is the only thing
-  that breathes; the sheen is the only gradient motion. Small-text pink
+  they saw). "Nothing pulses" is replaced by: the glow that moves lives
+  in exactly two places — the sign and the accent phrase. Small-text pink
   remains ink-pink by contrast law — brand pink now arrives via fills,
-  the hairline, the sheen, and the sign.
+  the hairline, the shimmer, and the sign.
 
 - **Update (same day) — italic accent dropped by its own perf gate:** on
   CI, the italic face (swap, no fontaine italic metric fallback) raced

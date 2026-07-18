@@ -36,11 +36,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - Still 0 KB client JavaScript; all new derived color pairs
   contrast-verified and recorded in tokens.css.
 - **Client review round (same day):** the sign breathes again at a
-  luxury tempo (5.6s aura swell), satin sheen sweeps the big noir accent
-  phrases, solid CTAs switch to brand-pink fills with ink text (4.88:1
-  verified), the header wordmark and nav scale up, and the noir hairline
-  brightens to true brand pink. "Nothing pulses" became "only the sign
-  breathes; only the sheen sweeps."
+  luxury tempo (5.6s aura swell), the big noir accent phrases shimmer
+  with a soft neon halo (a clip-text satin sheen was trialed and
+  re-engineered — transparent fills fail the axe gate), solid CTAs
+  switch to brand-pink fills with ink text (4.88:1 verified), the header
+  wordmark and nav scale up, and the noir hairline brightens to true
+  brand pink. "Nothing pulses" became "the glow that moves lives in two
+  places: the sign and the accent phrase."
 
 ## Construction page (`/` — src/pages/index.astro)
 

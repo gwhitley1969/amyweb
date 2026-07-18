@@ -130,18 +130,17 @@ body {
  *   bloom — the sign BREATHES: a slow, deep aura swell on the hero
  *     lockup only (5.6s — luxury tempo, not the retired 3.2s hum).
  *     Continuous, so it is perceivable whenever the visitor looks.
- *   sheen — satin light sweeps across noir display-accent phrases
- *     (>=39px only; every gradient stop is pink-300..white, so any
- *     frozen frame holds >=11.58:1 on noir). The only gradient motion.
+ *   shimmer — the accent phrase breathes a soft neon halo (noir
+ *     display-accent phrases >=39px only; text-shadow only, computed
+ *     text color untouched).
  *   rise/trace — scroll-driven reveal (below): scrubs with scroll and
  *     replays on re-entry (the one-shot lesson, DECISIONS 2026-07-08).
  *   nudge — the 3px link-chevron hover translate (unchanged).
  *   aura — the STATIC halo (.ng-aura) on seams and as the sign's
  *     reduced-motion/resting state.
- * The sign is the only thing that breathes; the sheen is the only
- * gradient motion; nothing else animates — the cap is the rule. All
- * moves are opacity/filter/transform/background-position only (no
- * layout).
+ * The glow that moves lives in exactly two places — the sign and the
+ * accent phrase; nothing else animates — the cap is the rule. All moves
+ * are opacity/filter/transform/text-shadow only (no layout).
  *
  * COMPLIANCE RULE: ng-rise / ng-trace are NEVER applied to
  * DisclaimerBlock, InvestigationalNotice, BioteDisclaimer, or DraftBanner
@@ -211,34 +210,25 @@ body {
   animation: ng-bloom 5.6s ease-in-out infinite;
 }
 
-/* Satin sheen — noir display-accent phrases (>=39px) ONLY. All stops sit
- * between pink-300 (11.58:1 on noir) and white (21:1), so any frozen
- * frame — including the reduced-motion state — keeps large-text contrast
- * with wide margin. */
-@keyframes ng-sheen {
-  from {
-    background-position: 200% 0;
+/* Neon shimmer — the accent phrase carries a soft breathing halo: the
+ * sign's glow language at word scale. Noir display-accent phrases
+ * (>=39px) ONLY. text-shadow only — the computed text color is untouched
+ * (pink-300 on noir 11.58:1), so contrast and its tooling are unaffected,
+ * and the reduced-motion state is simply the un-shadowed text.
+ * (A background-clip satin sheen was trialed first and failed the axe
+ * gate — transparent fill colors are unauditable; the gate stays, the
+ * effect got re-engineered.) */
+@keyframes ng-shimmer {
+  0%,
+  100% {
+    text-shadow: 0 0 10px color-mix(in srgb, var(--ng-neon-500) 35%, transparent);
   }
-  to {
-    background-position: -100% 0;
+  50% {
+    text-shadow: 0 0 26px color-mix(in srgb, var(--ng-neon-500) 70%, transparent);
   }
 }
-.ng-sheen {
-  background-image: linear-gradient(
-    105deg,
-    var(--ng-pink-300) 0%,
-    var(--ng-pink-300) 38%,
-    var(--ng-paper) 50%,
-    var(--ng-pink-300) 62%,
-    var(--ng-pink-300) 100%
-  );
-  background-size: 250% 100%;
-  background-position: 200% 0;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  animation: ng-sheen 7s linear infinite;
+.ng-shimmer {
+  animation: ng-shimmer 5.6s ease-in-out infinite;
 }
 
 /* Link-chevron hover nudge (the punctuation chevron, not the motif). */

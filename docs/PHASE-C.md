@@ -1,5 +1,33 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-18 (read before executing this checklist —
+> several items below are superseded; DECISIONS.md 2026-07-18 governs):**
+>
+> - The **"serious glamour" pivot + photography-led concept** (PR #4,
+>   `/styleguide/concept`) supersede this file's home-page sketch: the
+>   real home page is built from the concept (cinema hero, editorial
+>   sections, framed Instagram post, framed noir closing), not the
+>   "two seams" composition below.
+> - **The chevron motif is retired from the UI** — ignore every "seam" /
+>   "ChevronRun" reference below; the section-opener signature is
+>   eyebrow + rule-accent.
+> - **Consultations are optional and free** (operator) — the
+>   "consultation-first" framing below is retired; suitability routing
+>   to consultation (§8.7) is unchanged.
+> - **Book CTAs read "Book with Amy"**; the header "Book" links straight
+>   to Vagaro; /book remains the consultation-routing page.
+> - **Resolved from the §0 table:** `{{VAGARO_URL}}`,
+>   `{{ADDRESS_DISPLAY}}`, `{{SOCIAL_LINKS}}` (FB/IG/Yelp — §9
+>   shared-location flag recorded), and the hero promise ("Medical
+>   aesthetics, made personal." — confirmed). Still open: `{{HOURS}}`,
+>   `{{AMY_BIO}}`, `{{SKINBETTER_URL}}`, `{{PEPTIDES_PUBLIC_LIST}}`,
+>   `{{NEUROMOD_LIST}}`, Biote/Retatrutide/Evolus/media items, featured
+>   service lines.
+> - **New a11y build rules for photo-led pages** (from the concept
+>   build): text over photos needs opaque plates; no pseudo-element or
+>   SVG-text decorations near audited text; noir is declared per
+>   section, never on body; the claims linter scans code comments.
+>
 > BUILD_SPEC §18: "all §6 pages; treatment copy drafted from §7 briefs (all
 > `clinicianApproved: false`, DraftBanners visible); legal-page drafts;
 > integrations wired with placeholders."

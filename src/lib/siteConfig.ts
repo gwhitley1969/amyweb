@@ -8,16 +8,26 @@ export const siteConfig = {
   locality: 'Harrisburg, NC', // established business fact (CLAUDE.md)
   domain: 'needlegirlie.com',
   url: 'https://needlegirlie.com',
-  address: '{{ADDRESS_DISPLAY}}',
+  // {{ADDRESS_DISPLAY}} resolved by operator 2026-07-18
+  address: '4350 Main Street, Suite 224, Harrisburg, NC 28075',
   phone: '704-579-7108', // {{PHONE}} resolved by operator 2026-07-07
   phoneTel: 'tel:+17045797108',
   hours: '{{HOURS}}',
   booking: {
-    vagaroUrl: '{{VAGARO_URL}}',
+    // {{VAGARO_URL}} supplied by operator 2026-07-18. FLAG (BUILD_SPEC §9,
+    // recorded in DECISIONS): this appears to be the shared location's
+    // handle, not an Amy-specific page — operator confirmed it is where
+    // her bookings take place; revisit at the §16 launch checklist.
+    vagaroUrl: 'https://www.vagaro.com/mobileaestheticshealthandbeautyassociates',
   },
   skinbetterUrl: '{{SKINBETTER_URL}}',
   social: {
-    // Populated from {{SOCIAL_LINKS}} when supplied.
+    // {{SOCIAL_LINKS}} supplied by operator 2026-07-18. FLAG: the Yelp
+    // listing is the location's (not Amy-specific) — same §9 note as the
+    // Vagaro handle above.
+    facebook: 'https://www.facebook.com/MobileAestheticsNP704',
+    instagram: 'https://www.instagram.com/amypalaciosnp.mobileaesthetics/',
+    yelp: 'https://www.yelp.com/biz/mobile-aesthetics-harrisburg',
   },
   appLinks: {
     // Get-the-App module is feature-flagged off in v1 (BUILD_SPEC §9).

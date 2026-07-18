@@ -10,12 +10,12 @@
  */
 const steps = [
   {
-    title: 'Consultation',
-    body: 'It starts with a conversation — your questions, your history, and what you would like to address.',
+    title: 'Book — or ask first',
+    body: 'Book an appointment whenever you are ready, or request a free consultation and talk it through before anything is scheduled.',
   },
   {
     title: 'Personalized plan',
-    body: 'Amy walks you through your options, and together you decide what — if anything — comes next.',
+    body: 'Every visit begins with a conversation — your history, your questions, what you would like to address — and together you decide what, if anything, comes next.',
   },
   {
     title: 'Treatment visit',
@@ -33,7 +33,7 @@ const steps = [
   <ol class="visit-steps__list mt-8" role="list">
     {
       steps.map((s) => (
-        <li class="visit-steps__step">
+        <li class="visit-steps__step ng-rise">
           <div>
             <h3 class="heading-4">{s.title}</h3>
             <p class="mt-2">{s.body}</p>
@@ -58,12 +58,17 @@ const steps = [
     grid-template-columns: auto 1fr;
     column-gap: 1.25rem;
   }
+  /* Hairline rules separate the steps (editorial table rhythm). */
+  .visit-steps__step + .visit-steps__step {
+    border-top: 1px solid var(--ng-hairline);
+    padding-top: 2rem;
+  }
   .visit-steps__step::before {
     content: counter(visit-step, decimal-leading-zero);
     font-family: var(--font-display);
     font-size: 3.0625rem; /* 49px — display-size, the Playfair floor */
     line-height: 1;
-    font-weight: 600;
+    font-weight: 500; /* matches the softened display weights */
     /* surface-scoped display accent — magenta-600 holds >=4.15:1 on both
      * light surfaces (tokens.css contrast table) */
     color: var(--ng-display-accent);

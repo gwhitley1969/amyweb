@@ -1,21 +1,25 @@
 ---
 /**
- * Service-line card per the approved anatomy: flat blush surface, NO drop
- * shadow, 1px magenta edge rule (left), body-sans title, hover/focus =
- * edge-rule thickens + background shifts white. No scale/shadow transforms.
- * The link text is the treatment title (descriptive link text, §10).
+ * Service-line card ("serious glamour" anatomy): flat blush card on the
+ * paper ambient, NO drop shadow, hairline border with a 1px magenta edge
+ * rule (left), body-sans title, hover/focus = edge-rule thickens +
+ * background deepens toward pink (card-hover token). No scale/shadow
+ * transforms. The link text is the treatment title (descriptive link
+ * text, §10).
  */
 interface Props {
   title: string;
   summary: string;
   href: string;
   featured?: boolean;
+  /** Extra classes (e.g. ng-rise from ServiceLineGrid). */
+  class?: string;
 }
 
-const { title, summary, href, featured = false } = Astro.props;
+const { title, summary, href, featured = false, class: className } = Astro.props;
 ---
 
-<article class:list={['treatment-card', featured && 'treatment-card--featured']}>
+<article class:list={['treatment-card', featured && 'treatment-card--featured', className]}>
   <h3 class="heading-4">
     <a href={href} class="treatment-card__link">
       {title}
@@ -29,6 +33,7 @@ const { title, summary, href, featured = false } = Astro.props;
   .treatment-card {
     position: relative;
     background: var(--ng-card);
+    border: 1px solid var(--ng-hairline);
     border-left: 1px solid var(--ng-magenta-600);
     padding: 1.5rem;
     transition: background-color 150ms ease;

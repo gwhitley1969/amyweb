@@ -289,3 +289,173 @@ as historical artifacts.
 - **Consequences:** the arch becomes a reusable motif (untaped, light
   surfaces) for Phase C; the halo is static so nothing competes with the
   sign (adjacency lesson); 0 KB JS holds; ships via PR preview first.
+
+## 2026-07-18 — Design pivot: serious glamour ("dim the neon, dress the studio") (client)
+
+- **Context:** the operator reviewed four competitors (Moksha Aesthetics,
+  Flawless Chattanooga, The Modern Aesthetic — Charlotte, The Perfect
+  Dose) and re-directed the tone from "fun" to **serious and glamorous**;
+  Amy agreed. The palette is unchanged — this re-voices the system, it
+  does not rebrand. Supersedes the 2026-07-08 "fun, not clinical"
+  amendment and the "warm the studio" surface inversion (both were
+  client-approved; both are reversed by this client decision).
+- **Decisions:**
+  - **Surfaces:** noir shell + light interiors. Ambient light surface
+    back to paper; blush demoted to card tint — pink is jewelry in
+    bounded shapes, white space carries the luxury.
+  - **Motion:** ignite/hum/breathe retired. New vocabulary: `ng-rise` /
+    `ng-trace` (CSS scroll-driven reveal, `@supports`-guarded, scrubs
+    with scroll and replays on re-entry — the "continuous beats one-shot"
+    lesson holds; only the register changed) plus the static `.ng-aura`.
+    Scroll-timeline animations ignore duration-based reduced-motion
+    overrides, so the global block now also sets `animation: none` on
+    them explicitly. Compliance components NEVER take a reveal (an
+    opacity-0 initial state de-emphasizes compliance text).
+  - **Type:** display weights 600→500 with tight tracking; new `eyebrow`,
+    `display-0` (76px, home hero only, responsive), `rule-hairline`,
+    `rule-accent` utilities. A Playfair italic accent was built
+    perf-gated and its gate FIRED — see the same-day update below.
+  - **Components:** CTAButton squared (pill retired); ChevronRun at
+    hairline weight with a static seam aura; TrustChips pills → an
+    editorial middot credential line; the new `--ng-hairline` token
+    replaces five hand-rolled border mixes; GetTheApp dashed → solid.
+  - **Construction page:** unchanged in production — `ng-ignite`/`ng-hum`
+    keyframes fenced as LEGACY in global.css until Phase C sub-PR C8
+    rebuilds index.astro (verified: the placeholder consumes nothing else
+    the pivot touches).
+- **Alternatives rejected:** all-dark site à la the Charlotte competitor
+  (approved strategy is noir shell + light interiors); keeping the hum
+  but slower (still reads fairground); new hexes (banned); JS-driven
+  reveals (0 KB rule).
+- **Consequences:** 0 KB JS holds; new derived contrast pairs computed
+  2026-07-18 and recorded in tokens.css (card-hover 14.87 / 5.79 / 3.91;
+  hairlines decorative-only); pa11y/Lighthouse audits should force
+  reduced motion so revealed content is audited in its final state
+  (wired in Phase C gates work); BUILD_SPEC §5's "medical-grade playful"
+  paragraph and CLAUDE.md's "premium + playful" goal line now lag the
+  executed direction — proposed amendment text delivered to the operator
+  in the pivot PR (spec edits are operator-gated); this entry is the
+  traceability bridge until it is applied.
+
+- **Update (same day) — client review round: "too conservative, too
+  clinical; needs a WOW":** operator + Amy reviewed the first preview.
+  Verdict: the register was right but over-stilled, the header too small,
+  and ink-pink read "burgundy" against the logo's hot pink. Changes, all
+  contrast-verified: the sign **breathes again** at a luxury tempo
+  (`ng-bloom`, 5.6s aura swell — the retired 3.2s hum was carnival; this
+  is the same life, slower and deeper); the noir **accent phrase shimmers**
+  with a soft neon halo (`ng-shimmer`, ≥39px only, text-shadow only so the
+  computed text color/contrast is untouched — a background-clip satin
+  sheen was trialed first and REPLACED because transparent fill colors
+  fail the axe gate; the gate stays, the effect got re-engineered);
+  **solid CTAs go brand pink** — pink-500 fill with ink-900 text
+  (4.88:1, clears the 4.7 headroom bar; supersedes "fills are ink-pink
+  only"; the white-text-on-pink/magenta ban is unchanged); header
+  wordmark 280→336 with larger nav; the noir hairline brightens to
+  pink-500@55% (pink-300@30% composited to a muddy wine — the "burgundy"
+  they saw). "Nothing pulses" is replaced by: the glow that moves lives
+  in exactly two places — the sign and the accent phrase. Small-text pink
+  remains ink-pink by contrast law — brand pink now arrives via fills,
+  the hairline, the shimmer, and the sign.
+
+- **Update (same day) — concept validated; business-fact correction
+  (operator):** the photography-led "After Dark" concept mock landed
+  ("much better"). Three client directions executed: (1) **the hero
+  promise "Medical aesthetics, made personal." is CONFIRMED** (resolves
+  the pending reconfirmation from the Phase C operator-input list);
+  (2) **consultations are optional and FREE — Amy does not require
+  them.** The "Consultation-first" framing was factually wrong and is
+  retired sitewide: TrustChips chip → "Free consultation upon request"
+  (operator's wording), VisitSteps step 1 → "Book — or ask first",
+  AtAGlance new-clients row → "Book directly — free consultation on
+  request", styleguide demo FAQ answer corrected, concept pull-section
+  → "Your plan, your pace." The §8.7 rule is untouched: suitability
+  questions still always route to a consultation — routing is a
+  compliance requirement, not a booking prerequisite. "Consultations
+  are free" is treated as operator-confirmed business fact.
+  (3) Header brand block enlarged again (wordmark 336→440) and the
+  chevron run joins it as a flourish under the wordmark — no motif
+  duplication: the wordmark asset, unlike the lockup, has no baked-in
+  chevrons (adjacency lesson).
+
+- **Update (same day) — book CTA label: "Book with Amy" (client):** the
+  solid booking button reads "Book with Amy" sitewide (Amy-singular
+  conversion language; the §6 appointment/consultation convention still
+  governs prose). The consult button stays "Request a consultation" —
+  §8.7 requires suitability contexts to route through consultation
+  language; flagged to the operator rather than changed.
+
+- **Update (same day) — {{VAGARO_URL}} + {{SOCIAL_LINKS}} supplied
+  (operator), with a standing §9 flag:** booking now points at
+  vagaro.com/mobileaestheticshealthandbeautyassociates and the footer
+  carries monochrome Facebook / Instagram / Yelp marks (inline SVG,
+  aria-labeled, 44px targets). **FLAG, raised once per CLAUDE.md:**
+  BUILD_SPEC §9 requires "Amy's OWN booking link, not the shared
+  location handle" and "Amy's own handles only" — the Vagaro handle and
+  the Yelp listing are the multi-provider location's, not Amy-specific;
+  the operator supplied them knowingly ("Vagaro is where the bookings
+  take place"). Facebook and Instagram are Amy's own accounts. Both
+  shared-location links resurface at the §16 launch checklist; each is
+  a one-line swap in siteConfig if Amy-specific pages appear.
+
+- **Update (same day) — chevron motif retired from the UI (client);
+  {{ADDRESS_DISPLAY}} resolved:** the client removed the chevron run
+  entirely ("we just don't like them") after seeing the full-width
+  header band. ChevronRun.astro deleted (git history keeps it, marquee
+  precedent); treatment H1 underline → rule-accent; the noir CTA band
+  seam removed; styleguide section removed; the small `›` button
+  punctuation (chev-nudge) is NOT the motif and stays pending client
+  word. The chevron motif now lives only inside the logo artwork
+  (never redrawn). The section-opener signature (eyebrow + rule-accent
+  + ng-trace) is THE signature element going forward. Separately the
+  operator supplied the display address (4350 Main Street, Suite 224,
+  Harrisburg, NC 28075) — siteConfig updated; footer NAP, LocationCard,
+  and LocalBusiness JSON-LD unlock automatically.
+
+- **Update (same day) — spec amendments APPLIED (operator authorization):**
+  the operator authorized the governing-doc edits: BUILD_SPEC §1 goal and
+  §5 brand-direction paragraph now read "serious glamour" (updated to the
+  photography-led direction as executed, not the pre-photography draft
+  from the PR body); §5's signature-motif paragraph reflects the chevron
+  retirement and the eyebrow + accent-rule opener; CLAUDE.md's goal line
+  reads "premium + glamorous". The traceability bridge is closed — spec
+  and executed direction now agree.
+
+- **Update (same day) — concept refinement rounds (client):** a run of
+  operator-directed refinements after the concept validated:
+  - **"In her own words" section:** Amy's own Instagram post
+    (operator-supplied clean version → src/assets/photos/amy-ig-post.jpg)
+    framed as a white-matted, hairline-bordered print with a slight tilt,
+    beside an editorial block linking her Instagram — the compliance-safe
+    founder-voice equivalent of competitors' testimonials. Enlarged to a
+    34rem cap on client request so the baked-in caption reads. STANDING
+    FLAG: the caption text is invisible to lint:claims/lint:voice (pixels)
+    — it rides on being Amy's own published post; her sign-off gates it.
+  - **Header "Book" → Vagaro direct:** the nav item pointed at the
+    not-yet-built /book page (404 on preview). Now an external booking
+    link (new tab, noopener, book_click) — the med-spa conversion
+    pattern; the Phase C /book page keeps its consultation-routing role
+    without the nav depending on it.
+  - **Visit-section CTA → "Book with Amy":** soft routing, not
+    §8.7-mandated consultation routing (that stays on treatment pages).
+    Mock-era href="#" overrides removed — every concept book button now
+    opens the live Vagaro page.
+  - **Arch brightening + a real bug:** the mirror-moment arch swaps the
+    cinema-noir multiply grade for a 10% magenta wash + brightness lift
+    (the full grade read "like sunglasses" on the blush band — client).
+    Diagnosis also found .nc-band::before had lost its positioned
+    ancestor in the band restructure and was blend-darkening the top of
+    the page — re-anchored as .nc-band__media::before. Grade rule going
+    forward: the cinema grade belongs to noir sections; photos on light
+    bands wear a light wash.
+
+- **Update (same day) — italic accent dropped by its own perf gate:** on
+  CI, the italic face (swap, no fontaine italic metric fallback) raced
+  the Lighthouse trace and produced an intermittent CLS failure on
+  /styleguide — the exact failure mode the "droppable if Lighthouse
+  dips" gate anticipated. Removed (BaseLayout import, `display-italic`
+  utility, both usages). Revisit in Phase D only with a proper italic
+  fallback (fontaine italic override or a preloaded italic subset).
+  A separate single-run TBT blip (205 ms vs 200 on the zero-JS
+  placeholder) did not reproduce — noted as Lighthouse single-run
+  variance to watch; the budget is unchanged.

@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { siteConfig } from '../lib/siteConfig';
 import wordmark from '../assets/brand/needle-girlie-wordmark-alpha.png';
 
 /**
@@ -10,34 +11,47 @@ import wordmark from '../assets/brand/needle-girlie-wordmark-alpha.png';
  * The header/page edge is a hard cut: chrome, not a content boundary —
  * it never takes a chevron seam.
  */
-const nav = [
+/* "Book" goes straight to Vagaro (conversion pattern; client 2026-07-18)
+ * — the Phase C /book page remains the consultation-routing target but
+ * the nav does not depend on it. */
+const nav: { label: string; href: string; external?: boolean }[] = [
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
   { label: 'Visit', href: '/visit' },
-  { label: 'Book', href: '/book' },
+  { label: 'Book', href: siteConfig.booking.vagaroUrl, external: true },
 ];
 ---
 
 <div class="surface site-header" data-surface="noir">
-  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3 sm:py-4">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4 sm:py-6">
     <a href="/" class="shrink-0">
-      {/* Big by design — operator/client direction: the brand leads. */}
+      {/* Big by design — operator/client direction: the brand leads.
+          Scaled up twice per client review 2026-07-18. Chevron motif
+          retired from the UI same day (client) — it lives on only inside
+          the logo artwork itself. */}
       <Image
         src={wordmark}
         alt="Needle Girlie — home"
-        width={280}
+        width={440}
         densities={[1, 2, 3]}
-        class="h-auto w-[210px] sm:w-[280px]"
+        class="h-auto w-[300px] sm:w-[440px]"
       />
     </a>
     <nav aria-label="Primary">
       {/* desktop */}
-      <ul class="hidden items-center gap-6 sm:flex">
+      <ul class="hidden items-center gap-8 sm:flex">
         {
           nav.map((item) => (
             <li>
-              <a href={item.href} class="site-nav-link">
+              <a
+                href={item.href}
+                class="site-nav-link"
+                {...(item.external
+                  ? { target: '_blank', rel: 'noopener', 'data-event': 'book_click' }
+                  : {})}
+              >
                 {item.label}
+                {item.external && <span class="sr-only">(opens in new tab)</span>}
               </a>
             </li>
           ))
@@ -58,8 +72,15 @@ const nav = [
         {
           nav.map((item) => (
             <li>
-              <a href={item.href} class="site-nav-link block px-6 py-3">
+              <a
+                href={item.href}
+                class="site-nav-link block px-6 py-3"
+                {...(item.external
+                  ? { target: '_blank', rel: 'noopener', 'data-event': 'book_click' }
+                  : {})}
+              >
                 {item.label}
+                {item.external && <span class="sr-only">(opens in new tab)</span>}
               </a>
             </li>
           ))
@@ -71,11 +92,16 @@ const nav = [
 
 <style is:global>
   .site-header {
-    border-bottom: 1px solid color-mix(in srgb, var(--ng-pink-300) 25%, transparent);
+    border-bottom: 1px solid var(--ng-hairline);
   }
+  /* Editorial nav: uppercase tracked labels (eyebrow grammar at nav size).
+   * Sized up per client review 2026-07-18. */
   .site-nav-link {
     color: var(--ng-text);
-    font-weight: 600;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     text-decoration: none;
   }
   .site-nav-link:hover {
@@ -106,12 +132,12 @@ const nav = [
     /* popover-open state */
     position: fixed;
     inset: auto 1rem auto auto;
-    top: 4.5rem;
+    top: 7rem; /* clears the enlarged brand block */
     min-width: 12rem;
     margin: 0;
     padding: 0.5rem 0;
-    border: 1px solid var(--ng-pink-300);
-    border-radius: 0.5rem;
+    border: 1px solid var(--ng-hairline);
+    border-radius: 0.25rem;
     list-style: none;
   }
   /* Browsers without Popover support ignore the attribute; the list then

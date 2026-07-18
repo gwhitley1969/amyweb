@@ -11,6 +11,7 @@
     "http://localhost:4325/",
     "http://localhost:4325/404.html",
     "http://localhost:4325/styleguide",
-    "http://localhost:4325/styleguide/treatment-demo"
+    "http://localhost:4325/styleguide/treatment-demo",
+    "http://localhost:4325/styleguide/concept"
   ]
 }

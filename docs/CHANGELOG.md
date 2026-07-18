@@ -4,6 +4,71 @@ Human-readable record of what shipped, newest first. The *why* behind each
 change lives in `docs/DECISIONS.md`; design specs live in
 `docs/superpowers/specs/`. Commit hashes are the audit trail.
 
+## Design system — "serious glamour" pivot (`feat/glamour-pivot`)
+
+### 2026-07-18 — The studio dresses up
+
+- Sitewide tonal pivot from "medical-grade playful" to **serious and
+  glamorous** (client direction after competitor review; palette
+  unchanged — DECISIONS 2026-07-18). Ships preview-first; production
+  continues to serve only the untouched construction placeholder.
+- Motion: the ignite flicker and perpetual neon hum are retired. New
+  vocabulary: content **rises** into place on scroll (pure CSS
+  scroll-driven animation, replays on re-entry), accent rules **trace**
+  in under section openers, and the sign holds a **static aura** —
+  nothing pulses. Reduced-motion stills everything (including the
+  scroll-driven moves, which need an explicit `animation: none`).
+- Surfaces: white/paper ambient returns; blush becomes the card tint;
+  new hairline border token across cards, header, footer, FAQ, and
+  visit steps.
+- Type: display weights soften to 500 with tight tracking; new eyebrow
+  labels and a 76px display-0 for the future home hero. (A Playfair
+  italic accent was trialed and removed the same day — its perf gate
+  fired on CI; DECISIONS 2026-07-18 update.)
+- Components: squared CTA buttons (pill retired), hairline chevron runs
+  with a static seam aura, middot-separated trust line (pills retired),
+  solid-border Get-the-App card.
+- Styleguide: live rise/trace demo at the top, swatches now parsed from
+  tokens.css at build time (they can no longer drift), new type/utility
+  sections, and glam demo copy.
+- Construction page (`/`): pixel-identical — its two keyframes are
+  fenced as legacy in global.css until the real home page replaces it.
+- Still 0 KB client JavaScript; all new derived color pairs
+  contrast-verified and recorded in tokens.css.
+- **Concept refinements (same day):** Amy's own Instagram post joins the
+  concept home as a framed print ("In her own words") with a follow
+  link, sized so its caption reads; the header "Book" goes straight to
+  Vagaro (the /book page stays a Phase C consultation-routing target);
+  the visit section's CTA becomes "Book with Amy" and every concept
+  book button now opens the live Vagaro page; the mirror-moment arch
+  brightens to a light wash (the cinema grade stays noir-only) and a
+  stray band overlay that was darkening the top of the page is
+  re-anchored.
+- **Booking + socials live; "Book with Amy" (same day):** the booking
+  button reads "Book with Amy" and now points at the operator-supplied
+  Vagaro page; the footer carries Facebook, Instagram, and Yelp marks.
+  The Vagaro handle and Yelp listing are the location's (not
+  Amy-specific) — flagged in DECISIONS for the launch checklist.
+- **Chevrons retired; address live (same day):** the chevron-run motif
+  is removed from the UI at the client's direction (it remains inside
+  the logo artwork); the eyebrow + accent-rule opener is the signature
+  element now. The practice address resolved into siteConfig — footer,
+  location card, and structured data now carry the full NAP.
+- **Concept round (same day):** photography-led "After Dark" home
+  concept at /styleguide/concept (client: "much better"). Hero promise
+  confirmed. Business-fact correction: consultations are optional and
+  free — "Consultation-first" retired across TrustChips, VisitSteps,
+  AtAGlance, and the demo FAQ. Header wordmark up to 440px with the
+  chevron run as its flourish.
+- **Client review round (same day):** the sign breathes again at a
+  luxury tempo (5.6s aura swell), the big noir accent phrases shimmer
+  with a soft neon halo (a clip-text satin sheen was trialed and
+  re-engineered — transparent fills fail the axe gate), solid CTAs
+  switch to brand-pink fills with ink text (4.88:1 verified), the header
+  wordmark and nav scale up, and the noir hairline brightens to true
+  brand pink. "Nothing pulses" became "the glow that moves lives in two
+  places: the sign and the accent phrase."
+
 ## Construction page (`/` — src/pages/index.astro)
 
 The public placeholder while the full site is built (Phases A–B complete

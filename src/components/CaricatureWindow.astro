@@ -42,7 +42,7 @@ const { image, alt, taped = false, class: className } = Astro.props;
 
 <style is:global>
   /* is:global because the noir scope lives on an ancestor outside this
-   * component (same pattern as ChevronRun). All selectors are cw-*
+   * component. All selectors are cw-*
    * namespaced. */
   .caricature-window {
     position: relative;

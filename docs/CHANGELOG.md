@@ -22,8 +22,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   new hairline border token across cards, header, footer, FAQ, and
   visit steps.
 - Type: display weights soften to 500 with tight tracking; new eyebrow
-  labels, a 76px display-0 for the future home hero, and a Playfair
-  italic accent (perf-gated).
+  labels and a 76px display-0 for the future home hero. (A Playfair
+  italic accent was trialed and removed the same day — its perf gate
+  fired on CI; DECISIONS 2026-07-18 update.)
 - Components: squared CTA buttons (pill retired), hairline chevron runs
   with a static seam aura, middot-separated trust line (pills retired),
   solid-border Get-the-App card.

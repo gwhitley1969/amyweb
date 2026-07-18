@@ -79,13 +79,6 @@
 @utility display-accent {
   color: var(--ng-display-accent);
 }
-/* Playfair italic accent phrase — same >=39px audit rule as
- * display-accent (grep for `display-italic`). The italic face is
- * imported in BaseLayout (same @fontsource package; swap; NOT preloaded;
- * perf-gated and droppable per DECISIONS 2026-07-18). */
-@utility display-italic {
-  font-style: italic;
-}
 /* Editorial eyebrow/kicker — the section-opener label. Body-size text on
  * --ng-link: ink-pink 6.71:1 on light, pink-300 11.58:1 on noir. */
 @utility eyebrow {

@@ -312,9 +312,9 @@ as historical artifacts.
     them explicitly. Compliance components NEVER take a reveal (an
     opacity-0 initial state de-emphasizes compliance text).
   - **Type:** display weights 600→500 with tight tracking; new `eyebrow`,
-    `display-0` (76px, home hero only, responsive), `display-italic`
-    (adds the Playfair italic variable face — swap, not preloaded,
-    perf-gated and droppable), `rule-hairline`, `rule-accent` utilities.
+    `display-0` (76px, home hero only, responsive), `rule-hairline`,
+    `rule-accent` utilities. A Playfair italic accent was built
+    perf-gated and its gate FIRED — see the same-day update below.
   - **Components:** CTAButton squared (pill retired); ChevronRun at
     hairline weight with a static seam aura; TrustChips pills → an
     editorial middot credential line; the new `--ng-hairline` token
@@ -336,3 +336,14 @@ as historical artifacts.
   executed direction — proposed amendment text delivered to the operator
   in the pivot PR (spec edits are operator-gated); this entry is the
   traceability bridge until it is applied.
+
+- **Update (same day) — italic accent dropped by its own perf gate:** on
+  CI, the italic face (swap, no fontaine italic metric fallback) raced
+  the Lighthouse trace and produced an intermittent CLS failure on
+  /styleguide — the exact failure mode the "droppable if Lighthouse
+  dips" gate anticipated. Removed (BaseLayout import, `display-italic`
+  utility, both usages). Revisit in Phase D only with a proper italic
+  fallback (fontaine italic override or a preloaded italic subset).
+  A separate single-run TBT blip (205 ms vs 200 on the zero-JS
+  placeholder) did not reproduce — noted as Lighthouse single-run
+  variance to watch; the budget is unchanged.

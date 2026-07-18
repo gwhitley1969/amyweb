@@ -238,8 +238,7 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
     overflow: hidden;
   }
   .nc-hero__media::after,
-  .nc-arch::after,
-  .nc-band::before,
+  .nc-band__media::before,
   .nc-close__media::after {
     content: '';
     position: absolute;
@@ -326,12 +325,26 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
     color: var(--ng-ink-900);
   }
 
-  /* The arch — the caricature window's geometry, grown up. */
+  /* The arch — the caricature window's geometry, grown up. It wears a
+   * light warm wash, NOT the cinema grade: it sits on the bright blush
+   * band, where the full multiply overlay read "like sunglasses"
+   * (client, 2026-07-18). */
   .nc-arch {
     border-radius: 999px 999px 16px 16px;
     border: 1px solid var(--ng-magenta-600);
     max-width: 26rem;
     justify-self: center;
+  }
+  .nc-arch::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+  }
+  .nc-arch .nc-photo {
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
   }
   .nc-arch img {
     display: block;

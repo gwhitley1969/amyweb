@@ -35,6 +35,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
   fenced as legacy in global.css until the real home page replaces it.
 - Still 0 KB client JavaScript; all new derived color pairs
   contrast-verified and recorded in tokens.css.
+- **Concept round (same day):** photography-led "After Dark" home
+  concept at /styleguide/concept (client: "much better"). Hero promise
+  confirmed. Business-fact correction: consultations are optional and
+  free — "Consultation-first" retired across TrustChips, VisitSteps,
+  AtAGlance, and the demo FAQ. Header wordmark up to 440px with the
+  chevron run as its flourish.
 - **Client review round (same day):** the sign breathes again at a
   luxury tempo (5.6s aura swell), the big noir accent phrases shimmer
   with a soft neon halo (a clip-text satin sheen was trialed and

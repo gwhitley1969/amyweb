@@ -358,6 +358,26 @@ as historical artifacts.
   remains ink-pink by contrast law — brand pink now arrives via fills,
   the hairline, the shimmer, and the sign.
 
+- **Update (same day) — concept validated; business-fact correction
+  (operator):** the photography-led "After Dark" concept mock landed
+  ("much better"). Three client directions executed: (1) **the hero
+  promise "Medical aesthetics, made personal." is CONFIRMED** (resolves
+  the pending reconfirmation from the Phase C operator-input list);
+  (2) **consultations are optional and FREE — Amy does not require
+  them.** The "Consultation-first" framing was factually wrong and is
+  retired sitewide: TrustChips chip → "Free consultation upon request"
+  (operator's wording), VisitSteps step 1 → "Book — or ask first",
+  AtAGlance new-clients row → "Book directly — free consultation on
+  request", styleguide demo FAQ answer corrected, concept pull-section
+  → "Your plan, your pace." The §8.7 rule is untouched: suitability
+  questions still always route to a consultation — routing is a
+  compliance requirement, not a booking prerequisite. "Consultations
+  are free" is treated as operator-confirmed business fact.
+  (3) Header brand block enlarged again (wordmark 336→440) and the
+  chevron run joins it as a flourish under the wordmark — no motif
+  duplication: the wordmark asset, unlike the lockup, has no baked-in
+  chevrons (adjacency lesson).
+
 - **Update (same day) — italic accent dropped by its own perf gate:** on
   CI, the italic face (swap, no fontaine italic metric fallback) raced
   the Lighthouse trace and produced an intermittent CLS failure on

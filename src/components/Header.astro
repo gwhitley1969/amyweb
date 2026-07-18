@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import ChevronRun from './ChevronRun.astro';
 import wordmark from '../assets/brand/needle-girlie-wordmark-alpha.png';
 
 /**
@@ -22,14 +23,19 @@ const nav = [
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4 sm:py-6">
     <a href="/" class="shrink-0">
       {/* Big by design — operator/client direction: the brand leads.
-          Scaled up again per client review 2026-07-18. */}
+          Scaled up twice per client review 2026-07-18; the chevron run
+          joins the brand block (the wordmark asset has no baked-in
+          chevrons, so no motif duplication — adjacency lesson). */}
       <Image
         src={wordmark}
         alt="Needle Girlie — home"
-        width={336}
+        width={440}
         densities={[1, 2, 3]}
-        class="h-auto w-[248px] sm:w-[336px]"
+        class="h-auto w-[300px] sm:w-[440px]"
       />
+      <div class="site-brand-chevrons" aria-hidden="true">
+        <ChevronRun variant="underline" />
+      </div>
     </a>
     <nav aria-label="Primary">
       {/* desktop */}
@@ -74,6 +80,14 @@ const nav = [
   .site-header {
     border-bottom: 1px solid var(--ng-hairline);
   }
+  /* The brand's chevron flourish under the wordmark. */
+  .site-brand-chevrons {
+    margin-top: 0.375rem;
+  }
+  .site-brand-chevrons .chevron-run--underline {
+    height: 0.625rem;
+    margin-top: 0;
+  }
   /* Editorial nav: uppercase tracked labels (eyebrow grammar at nav size).
    * Sized up per client review 2026-07-18. */
   .site-nav-link {
@@ -112,7 +126,7 @@ const nav = [
     /* popover-open state */
     position: fixed;
     inset: auto 1rem auto auto;
-    top: 4.5rem;
+    top: 7rem; /* clears the enlarged brand block */
     min-width: 12rem;
     margin: 0;
     padding: 0.5rem 0;

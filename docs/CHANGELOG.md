@@ -4,6 +4,37 @@ Human-readable record of what shipped, newest first. The *why* behind each
 change lives in `docs/DECISIONS.md`; design specs live in
 `docs/superpowers/specs/`. Commit hashes are the audit trail.
 
+## Design system — "serious glamour" pivot (`feat/glamour-pivot`)
+
+### 2026-07-18 — The studio dresses up
+
+- Sitewide tonal pivot from "medical-grade playful" to **serious and
+  glamorous** (client direction after competitor review; palette
+  unchanged — DECISIONS 2026-07-18). Ships preview-first; production
+  continues to serve only the untouched construction placeholder.
+- Motion: the ignite flicker and perpetual neon hum are retired. New
+  vocabulary: content **rises** into place on scroll (pure CSS
+  scroll-driven animation, replays on re-entry), accent rules **trace**
+  in under section openers, and the sign holds a **static aura** —
+  nothing pulses. Reduced-motion stills everything (including the
+  scroll-driven moves, which need an explicit `animation: none`).
+- Surfaces: white/paper ambient returns; blush becomes the card tint;
+  new hairline border token across cards, header, footer, FAQ, and
+  visit steps.
+- Type: display weights soften to 500 with tight tracking; new eyebrow
+  labels, a 76px display-0 for the future home hero, and a Playfair
+  italic accent (perf-gated).
+- Components: squared CTA buttons (pill retired), hairline chevron runs
+  with a static seam aura, middot-separated trust line (pills retired),
+  solid-border Get-the-App card.
+- Styleguide: live rise/trace demo at the top, swatches now parsed from
+  tokens.css at build time (they can no longer drift), new type/utility
+  sections, and glam demo copy.
+- Construction page (`/`): pixel-identical — its two keyframes are
+  fenced as legacy in global.css until the real home page replaces it.
+- Still 0 KB client JavaScript; all new derived color pairs
+  contrast-verified and recorded in tokens.css.
+
 ## Construction page (`/` — src/pages/index.astro)
 
 The public placeholder while the full site is built (Phases A–B complete

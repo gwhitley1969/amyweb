@@ -289,3 +289,50 @@ as historical artifacts.
 - **Consequences:** the arch becomes a reusable motif (untaped, light
   surfaces) for Phase C; the halo is static so nothing competes with the
   sign (adjacency lesson); 0 KB JS holds; ships via PR preview first.
+
+## 2026-07-18 — Design pivot: serious glamour ("dim the neon, dress the studio") (client)
+
+- **Context:** the operator reviewed four competitors (Moksha Aesthetics,
+  Flawless Chattanooga, The Modern Aesthetic — Charlotte, The Perfect
+  Dose) and re-directed the tone from "fun" to **serious and glamorous**;
+  Amy agreed. The palette is unchanged — this re-voices the system, it
+  does not rebrand. Supersedes the 2026-07-08 "fun, not clinical"
+  amendment and the "warm the studio" surface inversion (both were
+  client-approved; both are reversed by this client decision).
+- **Decisions:**
+  - **Surfaces:** noir shell + light interiors. Ambient light surface
+    back to paper; blush demoted to card tint — pink is jewelry in
+    bounded shapes, white space carries the luxury.
+  - **Motion:** ignite/hum/breathe retired. New vocabulary: `ng-rise` /
+    `ng-trace` (CSS scroll-driven reveal, `@supports`-guarded, scrubs
+    with scroll and replays on re-entry — the "continuous beats one-shot"
+    lesson holds; only the register changed) plus the static `.ng-aura`.
+    Scroll-timeline animations ignore duration-based reduced-motion
+    overrides, so the global block now also sets `animation: none` on
+    them explicitly. Compliance components NEVER take a reveal (an
+    opacity-0 initial state de-emphasizes compliance text).
+  - **Type:** display weights 600→500 with tight tracking; new `eyebrow`,
+    `display-0` (76px, home hero only, responsive), `display-italic`
+    (adds the Playfair italic variable face — swap, not preloaded,
+    perf-gated and droppable), `rule-hairline`, `rule-accent` utilities.
+  - **Components:** CTAButton squared (pill retired); ChevronRun at
+    hairline weight with a static seam aura; TrustChips pills → an
+    editorial middot credential line; the new `--ng-hairline` token
+    replaces five hand-rolled border mixes; GetTheApp dashed → solid.
+  - **Construction page:** unchanged in production — `ng-ignite`/`ng-hum`
+    keyframes fenced as LEGACY in global.css until Phase C sub-PR C8
+    rebuilds index.astro (verified: the placeholder consumes nothing else
+    the pivot touches).
+- **Alternatives rejected:** all-dark site à la the Charlotte competitor
+  (approved strategy is noir shell + light interiors); keeping the hum
+  but slower (still reads fairground); new hexes (banned); JS-driven
+  reveals (0 KB rule).
+- **Consequences:** 0 KB JS holds; new derived contrast pairs computed
+  2026-07-18 and recorded in tokens.css (card-hover 14.87 / 5.79 / 3.91;
+  hairlines decorative-only); pa11y/Lighthouse audits should force
+  reduced motion so revealed content is audited in its final state
+  (wired in Phase C gates work); BUILD_SPEC §5's "medical-grade playful"
+  paragraph and CLAUDE.md's "premium + playful" goal line now lag the
+  executed direction — proposed amendment text delivered to the operator
+  in the pivot PR (spec edits are operator-gated); this entry is the
+  traceability bridge until it is applied.

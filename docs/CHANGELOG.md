@@ -35,6 +35,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   fenced as legacy in global.css until the real home page replaces it.
 - Still 0 KB client JavaScript; all new derived color pairs
   contrast-verified and recorded in tokens.css.
+- **Booking + socials live; "Book with Amy" (same day):** the booking
+  button reads "Book with Amy" and now points at the operator-supplied
+  Vagaro page; the footer carries Facebook, Instagram, and Yelp marks.
+  The Vagaro handle and Yelp listing are the location's (not
+  Amy-specific) — flagged in DECISIONS for the launch checklist.
 - **Chevrons retired; address live (same day):** the chevron-run motif
   is removed from the UI at the client's direction (it remains inside
   the logo artwork); the eyebrow + accent-rule opener is the signature

@@ -21,7 +21,10 @@ const defaults: Record<
   { label: string; href: string; event?: string; style: 'solid' | 'outline' }
 > = {
   book: {
-    label: 'Book an appointment',
+    /* "Book with Amy" (client, 2026-07-18) — conversion language, Amy-
+     * singular. The §6 convention still governs prose: "appointment" =
+     * booking contexts, "consultation" = clinical routing. */
+    label: 'Book with Amy',
     href: siteConfig.booking.vagaroUrl,
     event: 'book_click',
     style: 'solid',

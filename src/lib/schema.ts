@@ -33,11 +33,18 @@ export function localBusiness() {
       name: siteConfig.name,
       url: siteConfig.url,
       telephone: '+17045797108',
-      address: undefined, // unlocked when {{ADDRESS_DISPLAY}} resolves (structured PostalAddress)
+      // {{ADDRESS_DISPLAY}} resolved 2026-07-18 (matches siteConfig.address)
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '4350 Main Street, Suite 224',
+        addressLocality: 'Harrisburg',
+        addressRegion: 'NC',
+        postalCode: '28075',
+        addressCountry: 'US',
+      },
       openingHours: siteConfig.hours,
-      sameAs: Object.values(siteConfig.social).filter(
-        (v): v is string => typeof v === 'string' && isResolved(v),
-      ),
+      // social values are literal types now — no widening predicate needed
+      sameAs: Object.values(siteConfig.social).filter((v) => isResolved(v)),
     }),
   };
 }

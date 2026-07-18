@@ -378,6 +378,26 @@ as historical artifacts.
   duplication: the wordmark asset, unlike the lockup, has no baked-in
   chevrons (adjacency lesson).
 
+- **Update (same day) — book CTA label: "Book with Amy" (client):** the
+  solid booking button reads "Book with Amy" sitewide (Amy-singular
+  conversion language; the §6 appointment/consultation convention still
+  governs prose). The consult button stays "Request a consultation" —
+  §8.7 requires suitability contexts to route through consultation
+  language; flagged to the operator rather than changed.
+
+- **Update (same day) — {{VAGARO_URL}} + {{SOCIAL_LINKS}} supplied
+  (operator), with a standing §9 flag:** booking now points at
+  vagaro.com/mobileaestheticshealthandbeautyassociates and the footer
+  carries monochrome Facebook / Instagram / Yelp marks (inline SVG,
+  aria-labeled, 44px targets). **FLAG, raised once per CLAUDE.md:**
+  BUILD_SPEC §9 requires "Amy's OWN booking link, not the shared
+  location handle" and "Amy's own handles only" — the Vagaro handle and
+  the Yelp listing are the multi-provider location's, not Amy-specific;
+  the operator supplied them knowingly ("Vagaro is where the bookings
+  take place"). Facebook and Instagram are Amy's own accounts. Both
+  shared-location links resurface at the §16 launch checklist; each is
+  a one-line swap in siteConfig if Amy-specific pages appear.
+
 - **Update (same day) — chevron motif retired from the UI (client);
   {{ADDRESS_DISPLAY}} resolved:** the client removed the chevron run
   entirely ("we just don't like them") after seeing the full-width

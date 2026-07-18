@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { siteConfig } from '../lib/siteConfig';
 import wordmark from '../assets/brand/needle-girlie-wordmark-alpha.png';
 
 /**
@@ -10,11 +11,14 @@ import wordmark from '../assets/brand/needle-girlie-wordmark-alpha.png';
  * The header/page edge is a hard cut: chrome, not a content boundary —
  * it never takes a chevron seam.
  */
-const nav = [
+/* "Book" goes straight to Vagaro (conversion pattern; client 2026-07-18)
+ * — the Phase C /book page remains the consultation-routing target but
+ * the nav does not depend on it. */
+const nav: { label: string; href: string; external?: boolean }[] = [
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
   { label: 'Visit', href: '/visit' },
-  { label: 'Book', href: '/book' },
+  { label: 'Book', href: siteConfig.booking.vagaroUrl, external: true },
 ];
 ---
 
@@ -39,8 +43,15 @@ const nav = [
         {
           nav.map((item) => (
             <li>
-              <a href={item.href} class="site-nav-link">
+              <a
+                href={item.href}
+                class="site-nav-link"
+                {...(item.external
+                  ? { target: '_blank', rel: 'noopener', 'data-event': 'book_click' }
+                  : {})}
+              >
                 {item.label}
+                {item.external && <span class="sr-only">(opens in new tab)</span>}
               </a>
             </li>
           ))
@@ -61,8 +72,15 @@ const nav = [
         {
           nav.map((item) => (
             <li>
-              <a href={item.href} class="site-nav-link block px-6 py-3">
+              <a
+                href={item.href}
+                class="site-nav-link block px-6 py-3"
+                {...(item.external
+                  ? { target: '_blank', rel: 'noopener', 'data-event': 'book_click' }
+                  : {})}
+              >
                 {item.label}
+                {item.external && <span class="sr-only">(opens in new tab)</span>}
               </a>
             </li>
           ))

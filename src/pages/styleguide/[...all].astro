@@ -20,15 +20,21 @@ import FaqAccordion from '../../components/FaqAccordion.astro';
 import TrustChips from '../../components/TrustChips.astro';
 import { siteConfig } from '../../lib/siteConfig';
 import tokensRaw from '../../styles/tokens.css?raw';
+import ConceptHome from '../../components/ConceptHome.astro';
 
 // Preview-only (approved design plan): production builds emit no styleguide.
 export function getStaticPaths() {
   if (import.meta.env.PUBLIC_ENV === 'production') return [];
-  return [{ params: { all: undefined } }, { params: { all: 'treatment-demo' } }];
+  return [
+    { params: { all: undefined } },
+    { params: { all: 'treatment-demo' } },
+    { params: { all: 'concept' } },
+  ];
 }
 
 const { all } = Astro.params;
 const isTreatmentDemo = all === 'treatment-demo';
+const isConcept = all === 'concept';
 
 // Demo-only editorial Q&A (real FAQ copy is Phase C, clinician-approved).
 const demoFaq = [
@@ -71,7 +77,9 @@ const swatches = Object.entries(roles)
 ---
 
 {
-  isTreatmentDemo ? (
+  isConcept ? (
+    <ConceptHome />
+  ) : isTreatmentDemo ? (
     <TreatmentLayout
       title="Sample Treatment Line"
       summary="A demonstration of the treatment template with placeholder copy, shown in its unapproved (draft) state."

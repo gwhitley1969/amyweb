@@ -1,0 +1,361 @@
+---
+import { Image } from 'astro:assets';
+/* Italic face rides ONLY this concept page (per-page CSS bundle): the
+ * magazine-mix headline needs true Playfair italics. Not on any
+ * Lighthouse-gated route, so the italic-swap CLS risk (DECISIONS
+ * 2026-07-18) does not apply here. If the concept is adopted, italics
+ * ship properly in Phase D with an italic metric fallback. */
+import '@fontsource-variable/playfair-display/wght-italic.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import CTAButton from './CTAButton.astro';
+import TrustChips from './TrustChips.astro';
+import ServiceLineGrid from './ServiceLineGrid.astro';
+import amyAtWork from '../assets/photos/amy-at-work.jpg';
+import mirrorMoment from '../assets/photos/mirror-moment.jpg';
+import glovesDetail from '../assets/photos/pink-gloves-detail.jpg';
+import studioWide from '../assets/photos/studio-wide.jpg';
+
+/**
+ * CONCEPT MOCK — "After Dark: the Neon Editorial" (preview-only route).
+ * A composed home-page concept built from Amy's real photography, for
+ * operator/client direction review. Not production content: photo usage
+ * pending {{MEDIA_SCOPE}} + patient releases (flagged in PR #4).
+ * All copy is claim-clean and Amy-singular; the compliance gates scan
+ * this file like any other.
+ */
+---
+
+{/* Light body (default): the token system scopes noir per-SECTION —
+    there is no inverse "light" override, so a noir body would leak dark
+    link/text tokens into the light bands (the a11y gate caught exactly
+    that). Hero + closing carry their own data-surface="noir". */}
+<BaseLayout
+  title="Concept: the Neon Editorial | Needle Girlie styleguide"
+  description="Preview-only home-page concept mock built from the practice's photography."
+>
+  <Header slot="header" />
+
+  {/* ---- HERO: cinema noir, Amy mid-treatment under the neon ---- */}
+  <section class="nc-hero surface" data-surface="noir">
+    <div class="nc-hero__media" aria-hidden="true">
+      <Image
+        src={amyAtWork}
+        alt=""
+        widths={[640, 960, 1400]}
+        sizes="(max-width: 900px) 100vw, 58vw"
+        class="nc-photo nc-hero__img"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="nc-hero__copy">
+      <p class="eyebrow">Harrisburg, NC · By appointment</p>
+      <h1 class="nc-display mt-5">
+        Medical aesthetics,
+        <span class="nc-ital ng-shimmer">made personal.</span>
+      </h1>
+      <p class="lead mt-6 max-w-prose">
+        The dedicated practice of Amy Palacios, FNP — clinician-led aesthetics,
+        considered down to the detail, since 2017.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <CTAButton variant="book" href="#" />
+        <CTAButton variant="call" />
+      </div>
+      <div class="mt-8">
+        <TrustChips />
+      </div>
+    </div>
+  </section>
+
+  {/* ---- EDITORIAL INTRO: paper, magazine pull-line ---- */}
+  <section class="surface">
+    <div class="mx-auto grid max-w-6xl gap-10 px-6 py-20 md:grid-cols-[5fr_4fr] md:gap-16">
+      <div>
+        <p class="eyebrow">The practice</p>
+        <hr class="rule-accent ng-trace mt-2" />
+        <h2 class="heading-2 md:display-2 mt-6">
+          Consultation first. <span class="nc-ital display-accent">Always.</span>
+        </h2>
+      </div>
+      <div class="ng-rise self-end">
+        <p class="lead">
+          No two plans are alike. A first visit is a conversation — your history, your
+          questions, what you would like to address — and every decision after it is
+          made together, under clinician supervision.
+        </p>
+        <p class="eyebrow mt-6">Amy Palacios, FNP</p>
+      </div>
+    </div>
+  </section>
+
+  {/* ---- THE VISIT: blush band, the arch holds the mirror moment ---- */}
+  <section class="nc-blush">
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 md:grid-cols-[4fr_5fr] md:gap-16">
+      <div class="nc-arch ng-rise">
+        <Image
+          src={mirrorMoment}
+          alt="Amy Palacios sharing a hand mirror with a smiling patient in the treatment chair"
+          widths={[480, 720, 1000]}
+          sizes="(max-width: 900px) 88vw, 42vw"
+          class="nc-photo"
+          loading="lazy"
+        />
+      </div>
+      <div>
+        <p class="eyebrow">The visit</p>
+        <hr class="rule-accent ng-trace mt-2" />
+        <h2 class="heading-3 mt-6">Unhurried, explained, and yours to decide.</h2>
+        <p class="mt-4 max-w-prose">
+          Time to talk before anything begins, and a mirror in your hand before you
+          leave.
+        </p>
+        <div class="mt-8">
+          <CTAButton variant="consult" href="#" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---- DETAIL BAND: full-bleed pink gloves, ghost word ---- */}
+  {/* Pure full-bleed image band — the section's accessible name comes
+      from aria-label; no visible text sits near the duotone overlays,
+      whose pseudo-elements make neighboring text unauditable for axe. */}
+  <section class="nc-band surface" data-surface="noir" aria-label="In the studio">
+    <div class="nc-band__media">
+      <Image
+        src={glovesDetail}
+        alt=""
+        widths={[768, 1200, 1800]}
+        sizes="100vw"
+        class="nc-photo nc-band__img"
+        loading="lazy"
+      />
+      {/* Ghost-word overlay ("girlie" in outlined Playfair italic) cut
+          from the mock: pseudo-content makes the section unauditable for
+          axe (messageKey pseudoContent -> gate abstention). If the
+          concept is adopted, it returns as real artwork — a transparent
+          PNG rendered via the existing scripts/export-logo.mjs pipeline,
+          which axe regards as a decorative image. */}
+    </div>
+  </section>
+
+  {/* ---- SERVICES: paper, the real grid ---- */}
+  <section class="surface">
+    <div class="mx-auto max-w-6xl px-6 py-20">
+      <p class="eyebrow">Services</p>
+      <hr class="rule-accent ng-trace mt-2" />
+      <h2 class="heading-2 mt-6">What Amy offers</h2>
+      <div class="mt-10">
+        <ServiceLineGrid />
+      </div>
+    </div>
+  </section>
+
+  {/* ---- CLOSING: noir, the studio fading to black ---- */}
+  <section class="nc-close surface" data-surface="noir">
+    <div class="nc-close__media" aria-hidden="true">
+      <Image
+        src={studioWide}
+        alt=""
+        widths={[768, 1200, 1800]}
+        sizes="100vw"
+        class="nc-photo nc-close__img"
+        loading="lazy"
+      />
+    </div>
+    <div class="nc-close__copy">
+      <h2 class="heading-2 md:display-2">
+        Ready <span class="display-accent ng-shimmer">when you are</span>
+      </h2>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <CTAButton variant="book" href="#" />
+        <CTAButton variant="call" />
+      </div>
+      <div class="mt-8 flex justify-center">
+        <TrustChips />
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style is:global>
+  /* ---- Concept-scoped styles (nc-*) — none of this touches the design
+   * system until the direction is approved. ---- */
+
+  /* The house grade: every photo becomes brand film — slight desaturate,
+   * then a noir->magenta multiply wash unifies mixed lighting. */
+  .nc-photo {
+    filter: grayscale(30%) contrast(1.06) brightness(0.96);
+  }
+  .nc-hero__media,
+  .nc-arch,
+  .nc-band,
+  .nc-close__media {
+    position: relative;
+    overflow: hidden;
+  }
+  .nc-hero__media::after,
+  .nc-arch::after,
+  .nc-band::before,
+  .nc-close__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--ng-noir) 34%, transparent) 0%,
+      color-mix(in srgb, var(--ng-magenta-600) 26%, transparent) 55%,
+      color-mix(in srgb, var(--ng-noir) 44%, transparent) 100%
+    );
+    mix-blend-mode: multiply;
+  }
+  /* Neon boost: a screen-blended pink bloom where the sign lives. */
+  .nc-hero__media::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(
+      42% 30% at 68% 12%,
+      color-mix(in srgb, var(--ng-neon-500) 38%, transparent),
+      transparent 70%
+    );
+    mix-blend-mode: screen;
+  }
+
+  /* HERO — split editorial: type left, cinema right; stacked on mobile. */
+  .nc-hero {
+    display: grid;
+  }
+  .nc-hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* keep Amy + the glow; let the sign's script crop past the top edge
+     * (it names the location brand — flagged for operator review) */
+    object-position: 50% 22%;
+  }
+  .nc-hero__copy {
+    padding: 3rem 1.5rem 4rem;
+  }
+  @media (max-width: 899px) {
+    .nc-hero__media {
+      height: 58vh;
+      /* photo melts into the noir text block below */
+      mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
+    }
+  }
+  @media (min-width: 900px) {
+    .nc-hero {
+      grid-template-columns: 45% 55%;
+      align-items: center;
+      min-height: 88vh;
+    }
+    .nc-hero__copy {
+      order: 0;
+      padding: 5rem 3rem 5rem 4rem;
+    }
+    .nc-hero__media {
+      order: 1;
+      height: 88vh;
+      mask-image: linear-gradient(to right, transparent 0%, black 14%);
+    }
+  }
+
+  /* Magazine headline: bigger than display-0, mixes roman + italic. */
+  .nc-display {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.75rem, 7.2vw, 6.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+  .nc-ital {
+    font-style: italic;
+  }
+
+  /* Blush band */
+  .nc-blush {
+    background: var(--ng-blush-50);
+    color: var(--ng-ink-900);
+  }
+
+  /* The arch — the caricature window's geometry, grown up. */
+  .nc-arch {
+    border-radius: 999px 999px 16px 16px;
+    border: 1px solid var(--ng-magenta-600);
+    max-width: 26rem;
+    justify-self: center;
+  }
+  .nc-arch img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Full-bleed detail band. */
+  .nc-band__media {
+    position: relative;
+    overflow: hidden;
+  }
+  .nc-band__img {
+    display: block;
+    width: 100%;
+    height: 64vh;
+    object-fit: cover;
+    object-position: 50% 38%;
+    opacity: 0.92;
+  }
+
+  /* Closing band: studio wide-shot sinking into noir. */
+  .nc-close {
+    position: relative;
+  }
+  .nc-close__media {
+    position: absolute;
+    inset: 0;
+  }
+  .nc-close__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.38; /* photo as atmosphere; text contrast carried by noir */
+  }
+  .nc-close__media::after {
+    background:
+      linear-gradient(
+        to bottom,
+        var(--ng-noir) 0%,
+        transparent 30%,
+        transparent 60%,
+        var(--ng-noir) 100%
+      );
+    mix-blend-mode: normal;
+  }
+  .nc-close__copy {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    /* Opaque noir plate framed in the pink hairline: the closing copy
+     * floats as a card on the studio atmosphere — and every text pair
+     * inside sits on solid noir (auditable, certain). */
+    background: var(--ng-noir);
+    border: 1px solid var(--ng-hairline);
+    border-radius: 4px;
+    padding: 4rem 2rem;
+    max-width: 52rem;
+    margin-inline: auto;
+  }
+  .nc-close {
+    padding: 6rem 1.5rem;
+  }
+</style>

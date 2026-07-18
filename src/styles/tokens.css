@@ -47,8 +47,17 @@
  *   PASS  3.91:1 (min 3.0) magenta-600 on card-hover — edge rules (non-text)
  *   --ng-hairline is DECORATIVE ONLY (borders/rules, never text):
  *   light: ink-900 14% over paper -> ~#e0dfe0 (1.33:1 vs paper)
- *   noir:  pink-300 30% over noir -> ~#4b3240 (1.83:1 vs noir)
+ *   noir:  pink-500 55% over noir -> ~#822854 (2.38:1 vs noir) — brightened
+ *          per client review (pink-300 30% composited to a muddy wine)
  *   --ng-aura-glow (neon-500 25%) is a drop-shadow color, never text.
+ *
+ * BRAND-PINK FILLS (client round, computed 2026-07-18, same script):
+ *   PASS  4.88:1 (min 4.7) ink-900 on pink-500       — solid CTA fill text
+ *   PASS  6.08:1 (min 4.7) ink-900 on #f16aae        — CTA hover fill
+ *          (pink-300 35% into pink-500)
+ *   The white-text bans are UNCHANGED: white on magenta-600 (4.53) and
+ *   white on pink-500 both fail the headroom bar. Brand-pink fills are
+ *   legal ONLY with ink-900 text.
  *
  * USAGE RULES (from the approved design plan):
  *   - neon-500 glows; dark surfaces only; never text; the ONLY glowing thing.
@@ -105,5 +114,7 @@
   --ng-focus-ring: var(--ng-pink-300);
   --ng-display-accent: var(--ng-pink-300);
   --ng-card-hover: transparent;
-  --ng-hairline: color-mix(in srgb, var(--ng-pink-300) 30%, transparent);
+  /* vivid brand-pink hairline on noir (client round — 30% pink-300
+   * composited to a muddy wine under the header) */
+  --ng-hairline: color-mix(in srgb, var(--ng-pink-500) 55%, transparent);
 }

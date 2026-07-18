@@ -35,6 +35,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
   fenced as legacy in global.css until the real home page replaces it.
 - Still 0 KB client JavaScript; all new derived color pairs
   contrast-verified and recorded in tokens.css.
+- **Client review round (same day):** the sign breathes again at a
+  luxury tempo (5.6s aura swell), satin sheen sweeps the big noir accent
+  phrases, solid CTAs switch to brand-pink fills with ink text (4.88:1
+  verified), the header wordmark and nav scale up, and the noir hairline
+  brightens to true brand pink. "Nothing pulses" became "only the sign
+  breathes; only the sheen sweeps."
 
 ## Construction page (`/` — src/pages/index.astro)
 

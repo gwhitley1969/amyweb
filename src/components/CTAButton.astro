@@ -71,15 +71,16 @@ const external = /^https?:/i.test(finalHref);
     letter-spacing: 0.02em;
     text-decoration: none;
   }
-  /* Solid fills are ink-pink ONLY — magenta failed the 4.7:1 headroom bar
-   * for white text (see tokens.css contrast table). */
+  /* Solid fills are BRAND PINK with ink text (4.88:1, tokens.css — client
+   * round 2026-07-18). White text on pink/magenta fills remains banned
+   * (fails the 4.7 headroom bar); the pink is legal only under ink-900. */
   .cta--solid {
-    background: var(--ng-ink-pink);
-    color: var(--ng-paper);
+    background: var(--ng-pink-500);
+    color: var(--ng-ink-900);
   }
   .cta--solid:hover {
-    /* darken (never toward magenta — white text there fails the headroom rule) */
-    background: color-mix(in srgb, var(--ng-ink-pink) 85%, black);
+    /* brighten toward pink-300 — 6.08:1 with ink text (verified) */
+    background: color-mix(in srgb, var(--ng-pink-300) 35%, var(--ng-pink-500));
   }
   .cta--outline {
     border: 1px solid var(--ng-link);

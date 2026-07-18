@@ -125,16 +125,23 @@ body {
   color: var(--ng-ink-900);
 }
 
-/* ---- Motion vocabulary ("serious glamour", DECISIONS 2026-07-18) ------
- * EXACTLY one bold move, one micro-move, and one static treatment:
- *   rise/trace — scroll-driven reveal (below), the signature. It is
- *     CONTINUOUS: it scrubs with scroll and replays on re-entry, so it is
- *     perceivable on every visit (the one-shot lesson, DECISIONS
- *     2026-07-08 still applies — only the register changed).
+/* ---- Motion vocabulary ("serious glamour" + same-day client round) ----
+ * EXACTLY these sanctioned moves (DECISIONS 2026-07-18):
+ *   bloom — the sign BREATHES: a slow, deep aura swell on the hero
+ *     lockup only (5.6s — luxury tempo, not the retired 3.2s hum).
+ *     Continuous, so it is perceivable whenever the visitor looks.
+ *   sheen — satin light sweeps across noir display-accent phrases
+ *     (>=39px only; every gradient stop is pink-300..white, so any
+ *     frozen frame holds >=11.58:1 on noir). The only gradient motion.
+ *   rise/trace — scroll-driven reveal (below): scrubs with scroll and
+ *     replays on re-entry (the one-shot lesson, DECISIONS 2026-07-08).
  *   nudge — the 3px link-chevron hover translate (unchanged).
- *   aura — a STATIC neon halo (.ng-aura). Nothing pulses anymore.
- * Nothing else animates — the cap is the rule. All moves are
- * opacity/filter/transform only (no layout).
+ *   aura — the STATIC halo (.ng-aura) on seams and as the sign's
+ *     reduced-motion/resting state.
+ * The sign is the only thing that breathes; the sheen is the only
+ * gradient motion; nothing else animates — the cap is the rule. All
+ * moves are opacity/filter/transform/background-position only (no
+ * layout).
  *
  * COMPLIANCE RULE: ng-rise / ng-trace are NEVER applied to
  * DisclaimerBlock, InvestigationalNotice, BioteDisclaimer, or DraftBanner
@@ -185,6 +192,53 @@ body {
  * surfaces only; neon-500 is still the ONLY glowing color. */
 .ng-aura {
   filter: drop-shadow(0 0 28px var(--ng-aura-glow));
+}
+
+/* The sign breathes — hero lockup ONLY. Pair with .ng-aura so reduced
+ * motion (animation off) falls back to the static halo. */
+@keyframes ng-bloom {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 14px color-mix(in srgb, var(--ng-neon-500) 30%, transparent))
+      brightness(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 48px color-mix(in srgb, var(--ng-neon-500) 55%, transparent))
+      brightness(1.06);
+  }
+}
+.ng-aura-live {
+  animation: ng-bloom 5.6s ease-in-out infinite;
+}
+
+/* Satin sheen — noir display-accent phrases (>=39px) ONLY. All stops sit
+ * between pink-300 (11.58:1 on noir) and white (21:1), so any frozen
+ * frame — including the reduced-motion state — keeps large-text contrast
+ * with wide margin. */
+@keyframes ng-sheen {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+.ng-sheen {
+  background-image: linear-gradient(
+    105deg,
+    var(--ng-pink-300) 0%,
+    var(--ng-pink-300) 38%,
+    var(--ng-paper) 50%,
+    var(--ng-pink-300) 62%,
+    var(--ng-pink-300) 100%
+  );
+  background-size: 250% 100%;
+  background-position: 200% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: ng-sheen 7s linear infinite;
 }
 
 /* Link-chevron hover nudge (the punctuation chevron, not the motif). */

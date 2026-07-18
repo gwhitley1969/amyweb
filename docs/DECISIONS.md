@@ -412,6 +412,34 @@ as historical artifacts.
   Harrisburg, NC 28075) — siteConfig updated; footer NAP, LocationCard,
   and LocalBusiness JSON-LD unlock automatically.
 
+- **Update (same day) — concept refinement rounds (client):** a run of
+  operator-directed refinements after the concept validated:
+  - **"In her own words" section:** Amy's own Instagram post
+    (operator-supplied clean version → src/assets/photos/amy-ig-post.jpg)
+    framed as a white-matted, hairline-bordered print with a slight tilt,
+    beside an editorial block linking her Instagram — the compliance-safe
+    founder-voice equivalent of competitors' testimonials. Enlarged to a
+    34rem cap on client request so the baked-in caption reads. STANDING
+    FLAG: the caption text is invisible to lint:claims/lint:voice (pixels)
+    — it rides on being Amy's own published post; her sign-off gates it.
+  - **Header "Book" → Vagaro direct:** the nav item pointed at the
+    not-yet-built /book page (404 on preview). Now an external booking
+    link (new tab, noopener, book_click) — the med-spa conversion
+    pattern; the Phase C /book page keeps its consultation-routing role
+    without the nav depending on it.
+  - **Visit-section CTA → "Book with Amy":** soft routing, not
+    §8.7-mandated consultation routing (that stays on treatment pages).
+    Mock-era href="#" overrides removed — every concept book button now
+    opens the live Vagaro page.
+  - **Arch brightening + a real bug:** the mirror-moment arch swaps the
+    cinema-noir multiply grade for a 10% magenta wash + brightness lift
+    (the full grade read "like sunglasses" on the blush band — client).
+    Diagnosis also found .nc-band::before had lost its positioned
+    ancestor in the band restructure and was blend-darkening the top of
+    the page — re-anchored as .nc-band__media::before. Grade rule going
+    forward: the cinema grade belongs to noir sections; photos on light
+    bands wear a light wash.
+
 - **Update (same day) — italic accent dropped by its own perf gate:** on
   CI, the italic face (swap, no fontaine italic metric fallback) raced
   the Lighthouse trace and produced an intermittent CLS failure on

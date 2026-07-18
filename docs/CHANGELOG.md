@@ -35,6 +35,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
   fenced as legacy in global.css until the real home page replaces it.
 - Still 0 KB client JavaScript; all new derived color pairs
   contrast-verified and recorded in tokens.css.
+- **Concept refinements (same day):** Amy's own Instagram post joins the
+  concept home as a framed print ("In her own words") with a follow
+  link, sized so its caption reads; the header "Book" goes straight to
+  Vagaro (the /book page stays a Phase C consultation-routing target);
+  the visit section's CTA becomes "Book with Amy" and every concept
+  book button now opens the live Vagaro page; the mirror-moment arch
+  brightens to a light wash (the cinema grade stays noir-only) and a
+  stray band overlay that was darkening the top of the page is
+  re-anchored.
 - **Booking + socials live; "Book with Amy" (same day):** the booking
   button reads "Book with Amy" and now points at the operator-supplied
   Vagaro page; the footer carries Facebook, Instagram, and Yelp marks.

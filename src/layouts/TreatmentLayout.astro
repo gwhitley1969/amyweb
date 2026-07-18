@@ -116,8 +116,8 @@ const crumbs = [
     }
 
     <div class="router-card mt-10">
-      <h2 class="heading-4">Wondering if this fits you?</h2>
-      <p class="mt-2">That answer is personal — talk it through with Amy.</p>
+      <h2 class="heading-4">The right fit is a conversation.</h2>
+      <p class="mt-2">Every plan is personal — decided with Amy, in consultation.</p>
       <div class="mt-4">
         <CTAButton variant="consult" />
       </div>
@@ -129,7 +129,9 @@ const crumbs = [
   <div class="surface" data-surface="noir">
     <div class="mx-auto max-w-3xl px-6 py-12">
       <ChevronRun variant="seam" />
-      <h2 class="heading-2 mt-8">Ready <span class="display-accent">when you are</span></h2>
+      <h2 class="heading-2 mt-8">
+        Ready <span class="display-accent display-italic">when you are</span>
+      </h2>
       <div class="mt-6">
         {ctaType === 'book' ? <CTAButton variant="book" /> : <CTAButton variant="consult" />}
       </div>
@@ -145,6 +147,7 @@ const crumbs = [
 <style is:global>
   .router-card {
     background: var(--ng-card);
+    border: 1px solid var(--ng-hairline);
     border-left: 1px solid var(--ng-magenta-600);
     padding: 1.5rem;
   }

@@ -28,9 +28,11 @@ const facts = [
 </dl>
 
 <style is:global>
-  /* Same anatomy as .treatment-card: flat white card, magenta edge rule, no shadow. */
+  /* Same anatomy as .treatment-card: flat card (blush on light), hairline
+   * border, magenta edge rule, no shadow. */
   .at-a-glance {
     background: var(--ng-card);
+    border: 1px solid var(--ng-hairline);
     border-left: 1px solid var(--ng-magenta-600);
     padding: 1.5rem;
   }
@@ -42,7 +44,7 @@ const facts = [
   }
   .at-a-glance__row + .at-a-glance__row {
     /* decorative hairline between rows (non-text) */
-    border-top: 1px solid color-mix(in srgb, var(--ng-pink-300) 50%, transparent);
+    border-top: 1px solid var(--ng-hairline);
   }
   .at-a-glance dt {
     font-weight: 600;

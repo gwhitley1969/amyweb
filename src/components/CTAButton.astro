@@ -58,14 +58,17 @@ const external = /^https?:/i.test(finalHref);
 </a>
 
 <style is:global>
+  /* Squared editorial corners ("serious glamour", DECISIONS 2026-07-18) —
+   * the pill retired with the playful register. */
   .cta {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
     min-height: 3rem; /* WCAG 2.2 target size with room to spare */
     padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
+    border-radius: 2px;
     font-weight: 600;
+    letter-spacing: 0.02em;
     text-decoration: none;
   }
   /* Solid fills are ink-pink ONLY — magenta failed the 4.7:1 headroom bar
@@ -79,7 +82,7 @@ const external = /^https?:/i.test(finalHref);
     background: color-mix(in srgb, var(--ng-ink-pink) 85%, black);
   }
   .cta--outline {
-    border: 2px solid var(--ng-link);
+    border: 1px solid var(--ng-link);
     color: var(--ng-link);
   }
   .cta--outline:hover {

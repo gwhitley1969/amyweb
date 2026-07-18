@@ -21,6 +21,7 @@ const { featuredSlugs = [] } = Astro.props;
         summary={line.summary}
         href={line.href}
         featured={featuredSlugs.includes(line.slug)}
+        class="ng-rise"
       />
     ))
   }

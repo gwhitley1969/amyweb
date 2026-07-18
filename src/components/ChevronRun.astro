@@ -1,10 +1,14 @@
 ---
 /**
- * THE signature element (approved design plan): the logo's chevron-run
- * motif, echoed at fixed counts. Two placements only:
- *   - seam (9 chevrons):    dark<->light content boundaries; glows on noir
+ * THE signature element, refined ("serious glamour", DECISIONS
+ * 2026-07-18): the logo's chevron-run motif at hairline weight — etched
+ * jewelry, not signage. The logo itself still carries the motif at full
+ * weight (adjacency lesson, 2026-07-08), so the echoes can be finer than
+ * the source. Two placements only:
+ *   - seam (9 chevrons):    dark<->light content boundaries; static aura on noir
  *   - underline (5 chevrons): treatment-page H1 accent; always flat
- * Always decorative. The only element on the site allowed to glow.
+ * Always decorative. The only element on the site allowed to glow — and
+ * the glow is now static (nothing pulses).
  * Colors cycle the canonical source order: neon -> mid -> pale.
  */
 interface Props {
@@ -29,7 +33,7 @@ const width = (count - 1) * STEP + 22;
       <polyline
         points={`${i * STEP + 5},5 ${i * STEP + 17},16 ${i * STEP + 5},27`}
         stroke={cycle[i % 3]}
-        stroke-width="8"
+        stroke-width="4"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
@@ -47,14 +51,12 @@ const width = (count - 1) * STEP + 22;
     height: 1.375rem;
   }
   .chevron-run--underline {
-    height: 0.875rem;
+    height: 0.75rem;
     margin-top: 0.5rem;
   }
-  /* Glow only when the seam sits on noir — the single glowing element.
-   * It breathes gently (ng-breathe in global.css; stilled by the global
-   * reduced-motion override). */
+  /* Glow only when the seam sits on noir — the single glowing element,
+   * held STATIC (the pulse retired with the glamour pivot). */
   [data-surface='noir'] .chevron-run--seam {
-    filter: drop-shadow(0 0 6px var(--ng-neon-500));
-    animation: ng-breathe 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 6px var(--ng-aura-glow));
   }
 </style>

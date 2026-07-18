@@ -17,9 +17,10 @@ about who a visitor is booking with.
 
 The site must:
 
-1. Look **premium and playful** — "medical-grade playful": Starface/Drybar/Peachy
-   energy carried by a licensed clinician's credibility. Never clinical-sterile,
-   never cheap-cute.
+1. Look **premium and glamorous** — "serious glamour": luxury-editorial
+   presence carried by a licensed clinician's credibility. Never
+   clinical-sterile, never cheap-cute. (Amended 2026-07-18 per client
+   direction — see docs/DECISIONS.md.)
 2. **Convert** — every page routes cleanly to booking an appointment (Vagaro
    handoff) or requesting a consultation.
 3. **Be found** — local SEO for treatment searches near Charlotte / Harrisburg, NC.
@@ -133,17 +134,24 @@ accent; broadsheet hairlines) — none of them fit this brand anyway.
 
 ### Brand direction
 
-**Medical-grade playful.** The brand is bold, pink, confident, a little cheeky
-— the name is *Needle Girlie* and the logo puts a syringe in the "L" with a
-lipstick-kiss mark. It must simultaneously read as a licensed clinician's
-practice: generous white space, disciplined type, real credentials presented
-plainly. The playfulness lives in color, the signature motif, and voice — not
-in clutter.
+**Serious glamour.** (Amended 2026-07-18 per client direction — see
+docs/DECISIONS.md; supersedes "medical-grade playful.") The brand is bold,
+pink, and composed — luxury-editorial carried by a licensed clinician's
+credibility and her own photography. A noir shell (header / hero / CTA
+bands / footer) with light editorial interiors; generous white space;
+oversized Playfair display; uppercase tracked eyebrow labels. Pink is
+jewelry, not atmosphere: brand-pink CTA fills under ink text, hairline
+rules, a static neon aura on the sign, and a soft shimmer on the noir
+accent phrase. Photography wears a house grade — cinema-noir on dark
+bands, a light wash on light bands. Motion is scroll-driven and sparse;
+nothing pulses except the sign's slow breath. Playfulness is retired from
+the design language; personality lives in the type, the photography, and
+Amy's singular voice.
 
-**Signature motif candidates** (choose in the design plan): the logo's chevron
-run (`>>>>>`) as a section-divider / momentum motif; or the syringe-letterform
-as a recurring bullet/accent. Spend the boldness in one place; keep the rest
-quiet.
+**Signature elements:** the section opener — an eyebrow label over a short
+magenta accent rule that traces in — and the sign's static aura. The
+logo's chevron run remains inside the logo artwork only; the motif is
+retired from UI chrome (client, 2026-07-18 — see docs/DECISIONS.md).
 
 ### Color tokens (provisional — verify by pixel-sampling the logo PNGs)
 

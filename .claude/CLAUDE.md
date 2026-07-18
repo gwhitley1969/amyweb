@@ -11,7 +11,7 @@ Amy Palacios, FNP, a medical-aesthetics nurse practitioner in Harrisburg, NC
 client** under a signed engagement. This is a **static Astro site** deployed
 to **Azure Static Web Apps (Standard)** behind **Azure Front Door (Standard)**
 in the client's Azure subscription (needlegirlie.onmicrosoft.com tenant).
-Goals: premium + playful brand presence, conversion to consultations and
+Goals: premium + glamorous brand presence, conversion to consultations and
 bookings (Vagaro handoff), local SEO, WCAG 2.2 AA, fast.
 
 ## How to operate

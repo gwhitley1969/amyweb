@@ -412,6 +412,15 @@ as historical artifacts.
   Harrisburg, NC 28075) — siteConfig updated; footer NAP, LocationCard,
   and LocalBusiness JSON-LD unlock automatically.
 
+- **Update (same day) — spec amendments APPLIED (operator authorization):**
+  the operator authorized the governing-doc edits: BUILD_SPEC §1 goal and
+  §5 brand-direction paragraph now read "serious glamour" (updated to the
+  photography-led direction as executed, not the pre-photography draft
+  from the PR body); §5's signature-motif paragraph reflects the chevron
+  retirement and the eyebrow + accent-rule opener; CLAUDE.md's goal line
+  reads "premium + glamorous". The traceability bridge is closed — spec
+  and executed direction now agree.
+
 - **Update (same day) — concept refinement rounds (client):** a run of
   operator-directed refinements after the concept validated:
   - **"In her own words" section:** Amy's own Instagram post

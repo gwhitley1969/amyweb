@@ -503,3 +503,22 @@ as historical artifacts.
 - **Consequences:** `draft: true` entries are excluded from the build
   entirely; unapproved entries build with a visible DraftBanner and
   `check:approvals` keeps them out of production (unchanged).
+
+## 2026-07-19 — C6: /about built; `{{AMY_BIO}}` resolved from an operator-supplied source
+
+- **Context:** the About page was blocked on bio facts. Mid-build, the
+  operator supplied a screenshot of Amy's public provider-directory
+  listing (Amy About.jpg) and directed its use.
+- **Decision:** career facts extracted and used: two decades of nursing
+  (much of it critical care), medical aesthetics since 2017, nurse
+  practitioner since 2018, credentials NP/BSN (site standard remains
+  "Amy Palacios, FNP"). The Evolus context of the source page is NOT
+  used ({{EVOLUS_CLAIM}} still open); the listing's informal service
+  shorthand ("Tox", laser, microneedling) is not carried onto the site
+  — §6 governs the service list. The multi-provider location gets its
+  one factual line, nothing more (constraint 2). Portrait: the
+  mirror-moment frame, riding the same open client-release flag as the
+  concept (preview-only).
+- **Consequences:** Amy's confirmation of the career-facts wording is
+  flagged for review on the preview; {{AMY_BIO}} is no longer rendered
+  as a token.

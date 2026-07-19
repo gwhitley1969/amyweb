@@ -8,7 +8,7 @@ import { siteConfig } from '../lib/siteConfig';
  * names) read by Phase D's cookieless script — no JS ships now.
  */
 interface Props {
-  variant: 'book' | 'consult' | 'call';
+  variant: 'book' | 'consult' | 'call' | 'shop';
   href?: string;
   /** Override sparingly — defaults keep the §6 language convention. */
   label?: string;
@@ -39,6 +39,16 @@ const defaults: Record<
     href: siteConfig.phoneTel,
     event: 'call_click',
     style: 'outline',
+  },
+  shop: {
+    /* Skinbetter storefront link-out (§9). Until {{SKINBETTER_URL}}
+     * resolves, the href renders the visible token — a conspicuous dead
+     * link on draft-gated pages only; the external attrs kick in
+     * automatically once the real URL lands. */
+    label: 'Shop Skinbetter Science',
+    href: siteConfig.skinbetterUrl,
+    event: 'skinbetter_click',
+    style: 'solid',
   },
 };
 

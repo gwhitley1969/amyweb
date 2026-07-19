@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ServiceLineGrid from '../../components/ServiceLineGrid.astro';
+import CTAButton from '../../components/CTAButton.astro';
+import TrustChips from '../../components/TrustChips.astro';
+
+/**
+ * /services index (§6, Phase C5) — built after C3/C4 so the grid has
+ * zero dead links. All nine lines render equal; the featured variant
+ * waits on Amy's pick (a §0 business decision, not a build task).
+ */
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+];
+---
+
+<BaseLayout
+  title="Medical Aesthetic Services in Harrisburg & Charlotte, NC | Needle Girlie"
+  description="Nine service lines with Amy Palacios, FNP — injectables, IV therapy, hormone optimization, weight management, and skincare in Harrisburg, NC."
+>
+  <Header slot="header" />
+
+  <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow mt-8">Services</p>
+    <hr class="rule-accent mt-4" aria-hidden="true" />
+    <h1 class="display-2 mt-6">Nine lines. One clinician.</h1>
+    <p class="lead mt-6 max-w-prose">
+      Every service below is planned and performed by Amy Palacios, FNP.
+      Start where your curiosity is — each page says plainly what the
+      treatment is, who it generally suits, and how to begin.
+    </p>
+    <div class="mt-10">
+      <ServiceLineGrid />
+    </div>
+  </section>
+
+  <section class="surface" data-surface="noir">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+      <p class="eyebrow">Not sure where to start?</p>
+      <h2 class="display-2 mt-4">
+        Ready <span class="display-accent ng-shimmer">when you are</span>.
+      </h2>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <CTAButton variant="book" />
+        <CTAButton variant="consult" />
+      </div>
+      <div class="mt-8">
+        <TrustChips />
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

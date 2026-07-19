@@ -484,12 +484,12 @@ Use these tokens verbatim in code/content. Never invent values for them.
 
 | Token | What it is | Status |
 |---|---|---|
-| `{{VAGARO_URL}}` | Amy's own Vagaro booking URL (NOT the shared location handle) | Operator to supply |
+| `{{VAGARO_URL}}` | Amy's own Vagaro booking URL (NOT the shared location handle) | RESOLVED 2026-07-18 (siteConfig) — supplied handle is the shared location's; §9 flag stands, revisit at §16 |
 | `{{VAGARO_SERVICE_LINKS}}` | Optional per-service deep links | Operator to supply |
 | `{{SKINBETTER_URL}}` | Amy's partner storefront URL | Operator to supply |
-| `{{PHONE}}` / `{{HOURS}}` / `{{ADDRESS_DISPLAY}}` | NAP details as displayed | Operator to supply |
-| `{{SOCIAL_LINKS}}` | Verified handles (IG, FB, YouTube, Yelp, TikTok) | Operator to supply |
-| `{{AMY_BIO}}` | Approved bio facts & credentials | Operator to supply |
+| `{{PHONE}}` / `{{HOURS}}` / `{{ADDRESS_DISPLAY}}` | NAP details as displayed | PHONE resolved 2026-07-07; ADDRESS resolved 2026-07-18; HOURS still open |
+| `{{SOCIAL_LINKS}}` | Verified handles (IG, FB, YouTube, Yelp, TikTok) | RESOLVED 2026-07-18 (FB/IG/Yelp only; Yelp is the location's — flagged) |
+| `{{AMY_BIO}}` | Approved bio facts & credentials | RESOLVED 2026-07-19 (operator-supplied listing; Amy's wording confirmation pending — DECISIONS) |
 | `{{PEPTIDES_PUBLIC_LIST}}` | Which peptides appear publicly | Open decision |
 | `{{NEUROMOD_LIST}}` | Confirmed neuromodulator products | Operator to confirm |
 | `{{PRICING_DISPLAY_MODE}}` | none / consult / startingAt (default: consult) | Open decision |

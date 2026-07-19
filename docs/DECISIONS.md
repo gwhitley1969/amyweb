@@ -564,3 +564,32 @@ as historical artifacts.
   locally, both green; probe test confirmed budgets bite). A deliberate
   regression now fails on exact bytes before it ever reaches a
   statistical metric.
+
+## 2026-07-19 — Same-day decisions from C1/C5/C7 not previously logged
+
+- **C1, /404 surface:** body-level noir kept (BaseLayout `surface` prop)
+  — the per-section-noir rule protects light sections from dark link
+  tokens, and the 404 has none. The plan's Services link on the 404 was
+  deferred to C5 so it never shipped dead; it should be added now that
+  /services exists (small follow-up, C8 window).
+- **C1→ /book portrait (operator picks, three rounds):** concept-hero
+  frame → gloves detail (8K0A1120) → **final: 8K0A1011** (Amy + client
+  beneath the neon, top-anchored crop keeping the sign whole). Carries
+  BOTH open photo flags (client release + neon signage) — preview-only,
+  same standing as the concept. Alt text names no location branding.
+- **C5, open naming flag:** the services-grid card reads "Neuromodulators"
+  (§6 title in serviceLines.ts); the page it opens reads "Wrinkle
+  Relaxers" (§7 consumer name). Operator picks which name wins; one-line
+  change either way.
+- **C7, legal drafts in the safe lexicon:** the genre's standard
+  boilerplate ("not intended to diagnose/treat/cure/prevent",
+  "guarantee") is banned by our own claims linter by design. Drafts use:
+  as-is/without-warranties, no-provider-relationship, 911 lines, and the
+  DisclaimerBlock's vetted framing expanded. DraftBanner gained a
+  `label` prop ("Draft — pending counsel review"); the clinician default
+  is untouched. A North Carolina governing-law clause awaits counsel.
+- **Docs sync (this entry's commit):** §17 registry statuses updated
+  (VAGARO_URL/PHONE/ADDRESS/SOCIAL_LINKS/AMY_BIO marked resolved with
+  dates and standing flags); PHASE-C.md checklist ticked through C7 with
+  a 2026-07-19 status block; RUNBOOK gained the phantom-metric
+  troubleshooting entry and the new ~6-minute verify expectation.

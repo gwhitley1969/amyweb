@@ -1,5 +1,28 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-19 — C0–C7 MERGED; only C8 remains:**
+>
+> - Built, verified, and merged to `phase-c` (PRs #6–#12): `/book` (with
+>   the operator-picked 8K0A1011 portrait), `/visit`, branded `/404`,
+>   the treatment machinery (collection route, `faq` schema field —
+>   operator-approved, JSON-LD, shop CTA), **all nine treatment drafts**
+>   (every one `clinicianApproved: false` with a visible DraftBanner),
+>   `/services`, `/about`, and the legal trio (counsel-review banners).
+> - **`{{AMY_BIO}}` RESOLVED** (operator-supplied provider-directory
+>   listing; Amy's wording confirmation pending on the preview).
+> - **Perf gate rearchitected** (PR #13, operator-approved): byte-exact
+>   resource budgets (third-party = 0 now CI-enforced) + median-of-3
+>   metrics + escalation rule — DECISIONS 2026-07-19.
+> - **C8 (real home from ConceptHome.astro; deletes the legacy keyframe
+>   fence) is gated on operator + Amy approving the concept on the
+>   stable preview.** Open flag from C5: the services-grid card says
+>   "Neuromodulators", its page says "Wrinkle Relaxers" — operator picks
+>   which name wins.
+> - Still open from §0: `{{HOURS}}`, parking note, `{{SKINBETTER_URL}}`,
+>   `{{PEPTIDES_PUBLIC_LIST}}`, `{{NEUROMOD_LIST}}`, featured service
+>   lines, Biote/Retatrutide/Evolus/media items, photo flags (releases,
+>   neon, Evolus scrubs), Amy's caption + bio-wording sign-offs.
+
 > **STATUS UPDATE 2026-07-18 (read before executing this checklist —
 > several items below are superseded; DECISIONS.md 2026-07-18 governs):**
 >
@@ -73,48 +96,48 @@ every string):
       `{{AMY_BIO}}`), ServiceLineGrid (9 lines; featured variant per Amy's
       pick), location strip (NAP + directions link-out), Get-the-App slot
       (flag stays off), closing noir CTA band. Two seams max (design rule).
-- [ ] `/services` — index: short factual intro per line → 9 detail links.
-- [ ] `/about` — Amy's story + credentials from `{{AMY_BIO}}`; factual
+- [x] `/services` — index: short factual intro per line → 9 detail links.
+- [x] `/about` — Amy's story + credentials from `{{AMY_BIO}}`; factual
       note that she practices within a multi-provider location (hard
       constraint 2 — nothing more); Evolus relationship only per
       `{{EVOLUS_CLAIM}}`. Candidate design: founder split-card (Mobbin
       parking lot, Kalstore pattern). CTA: Request a consultation.
-- [ ] `/book` — Vagaro handoff explanation + button (`{{VAGARO_URL}}`,
+- [x] `/book` — Vagaro handoff explanation + button (`{{VAGARO_URL}}`,
       new tab, noopener), phone fallback. CTA language: "appointment".
-- [ ] `/visit` — `{{ADDRESS_DISPLAY}}`, `{{HOURS}}`, parking note,
+- [x] `/visit` — `{{ADDRESS_DISPLAY}}`, `{{HOURS}}`, parking note,
       Get-directions link-out (never an embedded map).
-- [ ] `/privacy`, `/terms`, `/medical-disclaimer` — legal DRAFTS, clearly
+- [x] `/privacy`, `/terms`, `/medical-disclaimer` — legal DRAFTS, clearly
       marked "draft pending counsel review". (Footer already links these
       routes.)
-- [ ] `/404` — branded (currently minimal), routes home/book. (§18 puts
+- [x] `/404` — branded (currently minimal), routes home/book. (§18 puts
       404 polish in Phase D; create the branded version whenever cheap.)
 
 Treatment pages — 9 content files in `src/content/treatments/` rendered
 through TreatmentLayout (schema already in `src/content.config.ts`;
 `clinicianApproved: false` on ALL of them, DraftBanner visible):
 
-- [ ] `weight-loss-glp-1` — Semaglutide, Tirzepatide (+ Retatrutide ONLY
+- [x] `weight-loss-glp-1` — Semaglutide, Tirzepatide (+ Retatrutide ONLY
       per `{{RETATRUTIDE_COUNSEL}}`; if published: `investigational: true`,
       factual naming, zero benefit language). ctaType: consult.
-- [ ] `peptide-therapy` — publish only `{{PEPTIDES_PUBLIC_LIST}}`. No
+- [x] `peptide-therapy` — publish only `{{PEPTIDES_PUBLIC_LIST}}`. No
       recovery/healing/anti-aging/performance claims. ctaType: consult.
-- [ ] `wrinkle-relaxers` — `{{NEUROMOD_LIST}}`; treatment areas factually
+- [x] `wrinkle-relaxers` — `{{NEUROMOD_LIST}}`; treatment areas factually
       (forehead, frown lines, crow's feet). ctaType: book/consult.
-- [ ] `dermal-fillers` — Revanesse Versa, Evolus Evolysse; areas factually
+- [x] `dermal-fillers` — Revanesse Versa, Evolus Evolysse; areas factually
       (lips, cheeks, jawline, chin, under-eyes). ctaType: book/consult.
-- [ ] `biostimulators` — PDO Threads, Radiesse; category described
+- [x] `biostimulators` — PDO Threads, Radiesse; category described
       factually, no lifting-results promises. ctaType: consult.
-- [ ] `regenerative` — PRP & PRF, PDRN, Illuma/VAMP/Rejuran; what they
+- [x] `regenerative` — PRP & PRF, PDRN, Illuma/VAMP/Rejuran; what they
       are, no healing/repair outcomes. ctaType: consult.
-- [ ] `iv-therapy` — Myers' Cocktail, Immunity IV, vitamin shots,
+- [x] `iv-therapy` — Myers' Cocktail, Immunity IV, vitamin shots,
       Glutathione, B12, NAD IV. **Glutathione: no disease claims in any
       form; "Immunity IV" is a product name — never extend it into immune
       benefits.** ctaType: book.
-- [ ] `hormone-optimization` — Biote BHRT; symptom-awareness framing ONLY
+- [x] `hormone-optimization` — Biote BHRT; symptom-awareness framing ONLY
       with `bioteDisclaimer: true` (layout injects `{{BIOTE_FDA_DISCLAIMER}}`);
       text-only re: Biote branding until `{{BIOTE_PERMISSION}}`.
       ctaType: consult.
-- [ ] `skincare` — Skinbetter Science overview + storefront link-out
+- [x] `skincare` — Skinbetter Science overview + storefront link-out
       (`{{SKINBETTER_URL}}`, new tab). ctaType: shop.
 
 Copy pattern for every treatment page (§7): *what it is → who it's
@@ -124,24 +147,24 @@ they ride the same clinician-approval gate as the rest of the page.
 
 ## 2. Integrations to wire (§9 — all outbound, tokens until resolved)
 
-- [ ] Vagaro booking CTA target (`{{VAGARO_URL}}`; per-service deep links
+- [x] Vagaro booking CTA target (`{{VAGARO_URL}}`; per-service deep links
       if `{{VAGARO_SERVICE_LINKS}}` provided)
-- [ ] Skinbetter storefront link-out
-- [ ] Social links in footer (`{{SOCIAL_LINKS}}`)
-- [ ] Directions link-outs (LocationCard exists — reuse)
-- [ ] Get-the-App remains `enabled: false` (no store badges before real
+- [x] Skinbetter storefront link-out (wired; token renders until resolved)
+- [x] Social links in footer (`{{SOCIAL_LINKS}}`)
+- [x] Directions link-outs (LocationCard exists — reuse)
+- [x] Get-the-App remains `enabled: false` (no store badges before real
       links — badge guidelines)
-- [ ] `data-event` attributes on all outbound CTAs (already the CTAButton
+- [x] `data-event` attributes on all outbound CTAs (already the CTAButton
       pattern; the analytics script itself is Phase D)
 
 ## 3. SEO in Phase C (foundation only — hardening is Phase D)
 
-- [ ] Unique per-page `<title>` (pattern:
+- [x] Unique per-page `<title>` (pattern:
       `{Treatment} in Harrisburg & Charlotte, NC | Needle Girlie`) and
       claim-clean meta description via SeoHead (exists)
-- [ ] Wire `service()` + `breadcrumbList()` JSON-LD builders
+- [x] Wire `service()` + `breadcrumbList()` JSON-LD builders
       (`src/lib/schema.ts` — already built, unused) into TreatmentLayout
-- [ ] Local-intent mention (Harrisburg/Charlotte) once or twice per
+- [x] Local-intent mention (Harrisburg/Charlotte) once or twice per
       treatment page — natural, no stuffing
 - [ ] Deferred to Phase D: OG images, FAQPage JSON-LD, robots.txt polish,
       analytics script

@@ -104,6 +104,14 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
 - **CI fails in pa11y/Lighthouse with Chrome crashes:** the gates prefer the
   runner's system Chrome (`scripts/lib/chrome.mjs`); puppeteer's downloaded
   build has crashed on ubuntu-24.04 runners before.
+- **CI fails a Lighthouse METRIC while every resource-summary budget
+  passes:** likely a shared-runner phantom (three known cases were TBT on
+  zero-JS pages; local TBT measures 0 ms). The gate already asserts the
+  median of 3 runs (DECISIONS 2026-07-19). If a phantom still gets through:
+  rerun once; if the identical code passes, the pre-agreed escalation rule
+  applies — flag the operator with the evidence before touching any
+  assertion. Expected verify wall time is ~6 minutes (3 Lighthouse runs
+  per URL).
 - **Production build fails with "FRONT_DOOR_ID is missing":** intentional —
   a production artifact must never ship without the origin lockdown GUID.
 - **Stale page after a deploy:** hard refresh (Ctrl+F5); remember the 5-min

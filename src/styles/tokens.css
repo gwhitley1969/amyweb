@@ -16,6 +16,10 @@
  *   PASS 21.00:1 (min 4.5) white on noir             — body text on dark
  *   PASS 11.58:1 (min 4.5) pink-300 on noir          — body text on dark
  *   PASS  5.95:1 (min 3.0) pink-500 on noir          — LARGE text only
+ *   PASS  5.95:1 (min 4.5) pink-500 on noir          — small text on NOIR
+ *         only (header credential line, 2026-07-19). Same computed value
+ *         as the row above, asserted against the body-text bar. The
+ *         light-surface body-size ban is UNCHANGED (3.53 fails 4.5).
  *   PASS  3.53:1 (min 3.0) pink-500 on white         — LARGE text only
  *   PASS  3.23:1 (min 3.2 w/ headroom) pink-500 on blush-50 — margin is
  *         0.03: too thin, which is why the LIGHT display accent moved to
@@ -61,7 +65,9 @@
  *
  * USAGE RULES (from the approved design plan):
  *   - neon-500 glows; dark surfaces only; never text; the ONLY glowing thing.
- *   - pink-500: display text >= 24px bold and graphics; never body-size on light.
+ *   - pink-500: display text >= 24px bold and graphics; never body-size on
+ *     light. Body-size on NOIR is legal (5.95:1 — verified 2026-07-19 for
+ *     the header credential line).
  *   - ink-pink: light surfaces only (fails 3:1 on noir — focus rings switch).
  *   - Decorative brand moments use the non-stock trio (neon-500 / chev-mid /
  *     chev-pale-alt); Tailwind-coincident hexes are surfaces/text/tints only.

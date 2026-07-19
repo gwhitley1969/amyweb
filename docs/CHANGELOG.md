@@ -6,6 +6,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-19 — Header credential line
+
+- "Amy Palacios, FNP" now sits beneath the wordmark on every page —
+  uppercase tracked, brand pink-500 (new verified small-text-on-noir
+  contrast pair, 5.95:1; DECISIONS 2026-07-19). The header grows to fit;
+  the mobile nav popover clearance moved down to match.
+
 ### 2026-07-19 — The perf gate grows up: deterministic budgets + median-of-3
 
 - Three phantom TBT failures on zero-JS pages exposed the real defect: a

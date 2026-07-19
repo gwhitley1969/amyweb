@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTAButton from '../components/CTAButton.astro';
+import LocationCard from '../components/LocationCard.astro';
+
+/**
+ * /visit — location page (§6, Phase C1). NAP + directions live in
+ * LocationCard (maps are link-outs, never embedded — §9/§10). {{HOURS}}
+ * renders visibly until the operator supplies it; the parking note waits
+ * on operator wording (a new registry item, not yet in §17).
+ */
+---
+
+<BaseLayout
+  title="Visit Amy | Needle Girlie"
+  description="Needle Girlie — Amy Palacios, FNP, at 4350 Main Street, Suite 224, Harrisburg, NC 28075. Directions and contact."
+>
+  <Header slot="header" />
+
+  <section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    <p class="eyebrow">The studio</p>
+    <hr class="rule-accent mt-4" aria-hidden="true" />
+    <h1 class="display-2 mt-6">Visit Amy</h1>
+    <p class="lead mt-6">
+      Amy sees clients in Harrisburg, North Carolina, just northeast of
+      Charlotte. Directions, contact, and hours are below.
+    </p>
+    <div class="mt-10">
+      <LocationCard heading={'Location & hours'} headingLevel="h2" />
+    </div>
+  </section>
+
+  <section class="surface" data-surface="noir">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+      <div class="ng-rise">
+        <p class="eyebrow">Appointments</p>
+        <h2 class="display-2 mt-4">
+          Ready <span class="display-accent ng-shimmer">when you are</span>.
+        </h2>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <CTAButton variant="book" />
+          <CTAButton variant="call" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

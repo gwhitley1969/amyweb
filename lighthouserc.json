@@ -2,7 +2,11 @@
   "ci": {
     "collect": {
       "staticDistDir": "./dist",
-      "url": ["http://localhost/index.html", "http://localhost/styleguide/index.html"],
+      "url": [
+        "http://localhost/index.html",
+        "http://localhost/styleguide/index.html",
+        "http://localhost/book/index.html"
+      ],
       "numberOfRuns": 1,
       "settings": {
         "skipAudits": ["is-crawlable"]

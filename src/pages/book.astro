@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTAButton from '../components/CTAButton.astro';
+import AtAGlance from '../components/AtAGlance.astro';
+
+/**
+ * /book — single-purpose conversion page (§6, Phase C1). Booking happens
+ * on Vagaro; this page explains the handoff and keeps the phone fallback
+ * one tap away. Consultation routing here is prose + the call CTA —
+ * never the consult CTAButton, whose default href IS this page.
+ * Language convention (§6): "appointment" = booking, "consultation" =
+ * clinical routing. No closing band by design: every path off this page
+ * is book, call, or ask.
+ */
+---
+
+<BaseLayout
+  title="Book an appointment | Needle Girlie"
+  description="Book an appointment with Amy Palacios, FNP in Harrisburg, NC — online through Vagaro, or by phone. A free consultation is available on request."
+>
+  <Header slot="header" />
+
+  <section class="mx-auto max-w-3xl px-6 pt-16 sm:pt-20">
+    <p class="eyebrow">Booking</p>
+    <hr class="rule-accent mt-4" aria-hidden="true" />
+    <h1 class="display-2 mt-6">Book an appointment</h1>
+    <p class="lead mt-6">
+      Appointments with Amy are scheduled through Vagaro, an online booking
+      site. Choose a service and a time that works for you — the button
+      below opens Vagaro in a new tab.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <CTAButton variant="book" />
+      <CTAButton variant="call" />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    <div class="ng-rise">
+      <h2 class="heading-3">New to Amy&rsquo;s care?</h2>
+      <p class="mt-3 max-w-prose">
+        A consultation is never required to book, and one is free on
+        request. If you&rsquo;d like to talk through your options before
+        choosing a service, ask when you book — or call and request a
+        consultation.
+      </p>
+    </div>
+    <div class="mt-10 ng-rise">
+      <AtAGlance />
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

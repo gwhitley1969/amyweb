@@ -611,3 +611,32 @@ display-only rule); enlarging the wordmark itself (already sized up twice
 by client direction — the ask was an addition, not another scale-up).
 Consequence: every page's header carries the clinician's name and
 credential — supports the "Amy, the clinician" positioning sitewide.
+
+## 2026-07-19 — Vagaro service alignment (menu-driven content update)
+
+Operator supplied scans of the live Vagaro booking menu (C:\Amy\scans\
+Vagaro) and directed the site's services toward consistency with it.
+**Decisions (operator-selected):** (1) `{{NEUROMOD_LIST}}` resolved to
+**Jeuveau, Xeomin, Daxxify** — each has its own Vagaro category; settles
+the old two-vs-three source conflict. (2) Weight loss broadens to
+**Semaglutide, Tirzepatide, Phentermine, Retatrutide**; Retatrutide
+ships behind `investigational: true` with the notice now naming it via
+the new optional `investigationalProduct` schema field (route
+pass-through added — the notice previously could not name a compound).
+Phentermine is named, never described by mechanism (appetite-language
+ban). (3) Two new consult-routed lines: **Skin Rejuvenation** (Pixel8
+RF microneedling + medical-grade chemical peels) and **Body Contouring**
+(Evolve, described by intended design only — tightening/toning, no
+outcome or body-fat language). SERVICE_LINES enum → 11; §6/§7 briefs
+added; /services headline and pa11y URL set updated. (4) **Regenerative
+trimmed** to the Vagaro menu: PRP and PRP-with-microneedling; PRF,
+PDRN, Illuma, VAMP, Rejuran come off until Amy confirms them.
+**Deliberately excluded from the site:** Vagaro's per-medication mg
+tiers (dosing — hard constraint 3), per-med pricing notes, and
+half-syringe pricing granularity. **Rejected:** one page per Vagaro
+category (twelve flat pages — index sprawl); folding peels into
+Skincare (that line is a shop link-out, not a procedure page).
+**Consequences:** all touched pages remain `clinicianApproved: false`
+awaiting Amy's sign-off round; the peptide list (`{{PEPTIDES_PUBLIC_
+LIST}}`) stays open — Vagaro shows no peptide category; the C5
+Neuromodulators-vs-Wrinkle-Relaxers naming flag is unchanged.

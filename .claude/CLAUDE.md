@@ -51,8 +51,9 @@ silently following it. Known superseded points from earlier briefs:
 - The domain is **already registered** (needlegirlie.com; DNS in Azure).
 - There is **no APIM** anywhere in this project — the website has no API at all.
 - Analytics is **cookieless** — no GA4, no ad/retargeting pixels.
-- The neuromodulator product list is **unresolved** (`{{NEUROMOD_LIST}}` —
-  older sources disagree: Jeuveau/Xeomin/Daxxify vs. Jeuveau/Daxxify).
+- The neuromodulator product list is **resolved** (2026-07-19, from the
+  live Vagaro menu, operator-confirmed): **Jeuveau, Xeomin, Daxxify** —
+  the older Jeuveau/Daxxify-only brief is superseded.
 
 ## Hard constraints — never violate, never work around
 

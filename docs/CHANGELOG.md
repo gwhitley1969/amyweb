@@ -6,6 +6,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-19 — C2: the treatment-page machinery
+
+- `/services/{slug}` collection route: every file in
+  `src/content/treatments/` now renders through TreatmentLayout with its
+  compliance order fixed; `draft: true` entries never build.
+- Treatments schema gains `faq` (editorial Q&A only, clinician-gated —
+  operator-approved schema change, flagged in the C2 PR).
+- Structured data: treatment pages emit Service + BreadcrumbList JSON-LD
+  through a new BaseLayout `jsonLd` prop.
+- CTAButton gains the `shop` variant for the Skinbetter storefront
+  link-out (visible `{{SKINBETTER_URL}}` token until resolved).
+
 ### 2026-07-19 — C1: booking, visiting, and a branded 404
 
 - `/book` — single-purpose conversion page: the Vagaro handoff explained,

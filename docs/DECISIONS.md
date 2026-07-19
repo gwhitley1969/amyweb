@@ -480,3 +480,26 @@ as historical artifacts.
   A separate single-run TBT blip (205 ms vs 200 on the zero-JS
   placeholder) did not reproduce — noted as Lighthouse single-run
   variance to watch; the budget is unchanged.
+
+## 2026-07-19 — C2: treatment-page infrastructure; the schema gains `faq`
+
+- **Context:** Phase C needs the collection route and integration wiring in
+  place before the nine §7 content drafts land (C3/C4).
+- **Decision:** `src/pages/services/[slug].astro` renders the treatments
+  collection through TreatmentLayout (fixed compliance order untouched —
+  it lives in the layout, not the route). BaseLayout gains a `jsonLd`
+  prop; the route builds `service()` + `breadcrumbList()` (§10 builders,
+  previously unused) and passes them down. CTAButton gains the `shop`
+  variant (`skinbetter_click`; `{{SKINBETTER_URL}}` renders as a visible
+  dead link on draft-gated pages until the operator resolves it). The
+  treatments schema gains `faq` — editorial Q&A only (process, logistics,
+  credentials; suitability questions answer "decided in a consultation");
+  compliance text never rides an accordion; the field is gated by the same
+  clinician approval as the page. Schema changes are operator-gated:
+  flagged in the C2 PR body; the operator's merge is the approval.
+- **Alternatives rejected:** building JSON-LD inside TreatmentLayout (the
+  route owns the canonical URL; the layout stays presentational);
+  FAQPage JSON-LD now (Phase D per §10).
+- **Consequences:** `draft: true` entries are excluded from the build
+  entirely; unapproved entries build with a visible DraftBanner and
+  `check:approvals` keeps them out of production (unchanged).

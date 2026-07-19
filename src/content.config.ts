@@ -1,7 +1,9 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// The 9 service lines (BUILD_SPEC §6/§7). Slugs match the /services/* routes.
+// The 11 service lines (BUILD_SPEC §6/§7; skin-rejuvenation and
+// body-contouring added in the 2026-07-19 Vagaro alignment — operator
+// approved). Slugs match the /services/* routes.
 export const SERVICE_LINES = [
   'weight-loss-glp-1',
   'peptide-therapy',
@@ -9,6 +11,8 @@ export const SERVICE_LINES = [
   'dermal-fillers',
   'biostimulators',
   'regenerative',
+  'skin-rejuvenation',
+  'body-contouring',
   'iv-therapy',
   'hormone-optimization',
   'skincare',
@@ -25,6 +29,10 @@ const treatments = defineCollection({
     products: z.array(z.string()).default([]),
     ctaType: z.enum(['book', 'consult', 'shop']),
     investigational: z.boolean().default(false),
+    // Names the compound inside InvestigationalNotice so the disclosure
+    // is unambiguous on pages that list several products (added in the
+    // 2026-07-19 Vagaro alignment — operator-approved schema change).
+    investigationalProduct: z.string().optional(),
     bioteDisclaimer: z.boolean().default(false),
     pricingDisplay: z.enum(['none', 'consult', 'startingAt']).default('consult'),
     // Editorial Q&A only (§7): process, logistics, credentials. Suitability

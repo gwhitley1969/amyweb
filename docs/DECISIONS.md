@@ -522,3 +522,45 @@ as historical artifacts.
 - **Consequences:** Amy's confirmation of the career-facts wording is
   flagged for review on the preview; {{AMY_BIO}} is no longer rendered
   as a token.
+
+## 2026-07-19 — Perf gate rearchitected: deterministic budgets + median-of-3 (operator-approved)
+
+- **Context:** three CI failures were phantom TBT readings (205/1027/709 ms)
+  on zero-JS pages — one URL failing while six siblings in the same job
+  passed, identical code passing on rerun. Local measurement: TBT = 0 ms on
+  every page. Defect: asserting an inherently variable lab metric as a
+  single-sample binary gate on shared runners. Larger runners are an
+  org-plan feature (repo is personal); self-hosted fails cost/simplicity.
+- **Decision — three layers (plan-mode approved by operator):**
+  1. *Deterministic invariants* (new, byte-exact, cannot flake) in
+     lighthouserc: third-party requests = 0 (CI-enforces hard constraint 5),
+     script ≤ 30 KiB (unchanged), total ≤ 350 KiB, image ≤ 240 KiB,
+     font ≤ 120 KiB / ≤ 4 requests, stylesheet ≤ 16 KiB, document ≤ 16 KiB.
+     Measured 2026-07-19 transfer-size maxima across the 7 gated URLs:
+     total 211,993 (/about) · image 124,997 (3 req) · font 75,946 (2 req,
+     the two-family discipline visible in data) · css 8,117 · doc 7,941 ·
+     script 0 · third-party 0. Headroom ~40–100%, sized so C8's photo-led
+     home fits without touching budgets. Budgets only tighten without
+     operator approval; loosening is operator-gated.
+  2. *Statistical metrics treated statistically:* numberOfRuns 3 with
+     aggregationMethod "median" set EXPLICITLY on every assertion — the
+     LHCI default is "optimistic" (best-of-N), which would silently weaken
+     the gate. All thresholds unchanged (4× categories ≥ 0.95, LCP ≤ 2500,
+     CLS ≤ 0.1, TBT ≤ 200).
+  3. *Escalation rule (pre-agreed, not executed):* if a metric assertion
+     fails while all Layer-1 budgets pass and an identical-code rerun
+     passes, that is a proven phantom → retire the TBT stand-in (script
+     budget already guards JS deterministically), executed only after
+     flagging the operator with the evidence. §13's INP < 200 ms remains a
+     field commitment (CrUX / Phase D analytics — the only place INP is
+     measurable). Note: §13 delegates lab budgets to this config; TBT's
+     number was never spec text.
+- **Alternatives rejected:** naive numberOfRuns:3 (silent optimistic
+  default = weakening); dropping TBT today (do it on evidence via the
+  rule, not preemptively); paid larger runners (unavailable +
+  cost); self-hosted runner (ops burden, workstation fragility);
+  skipAudits on TBT (score-computation hack — actual patchwork).
+- **Consequences:** verify wall time +~2 min (measured 347 s / 349 s
+  locally, both green; probe test confirmed budgets bite). A deliberate
+  regression now fails on exact bytes before it ever reaches a
+  statistical metric.

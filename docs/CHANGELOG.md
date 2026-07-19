@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-19 — The perf gate grows up: deterministic budgets + median-of-3
+
+- Three phantom TBT failures on zero-JS pages exposed the real defect: a
+  variable lab metric asserted as a single sample on shared CI runners.
+  New three-layer design (operator-approved; DECISIONS 2026-07-19):
+  byte-exact resource budgets as the primary tripwires (including
+  **third-party requests = 0** — the privacy architecture is now
+  CI-enforced), Lighthouse metrics asserted on the median of 3 runs with
+  every threshold unchanged, and a pre-agreed escalation rule.
+- Verify wall time +~2 minutes; a probe test proved the budgets bite.
+
 ### 2026-07-19 — C7: the legal drafts
 
 - `/privacy`, `/terms`, `/medical-disclaimer` through a new LegalLayout

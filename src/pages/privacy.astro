@@ -1,0 +1,51 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { siteConfig } from '../lib/siteConfig';
+
+/**
+ * Privacy draft (§6, Phase C7) — describes the privacy-by-architecture
+ * reality (CLAUDE.md hard constraint 5): no cookies, no forms, no
+ * tracking. Counsel review gates the final version.
+ */
+---
+
+<LegalLayout
+  heading="Privacy"
+  title="Privacy | Needle Girlie"
+  description="How needlegirlie.com handles privacy: no cookies, no forms, no tracking. Draft pending counsel review."
+>
+  <p>
+    Needle Girlie respects the privacy of every visitor, and this website
+    is built to collect as little as possible.
+  </p>
+
+  <h2>What this website collects</h2>
+  <ul>
+    <li>This website sets no cookies.</li>
+    <li>It contains no forms and collects no personal information.</li>
+    <li>It uses no advertising or retargeting pixels and no third-party trackers.</li>
+    <li>
+      It currently runs no analytics. If privacy-preserving, cookieless
+      analytics are added later, they will measure aggregate page visits
+      only, and this page will be updated first.
+    </li>
+  </ul>
+
+  <h2>Where you leave this website</h2>
+  <p>
+    Some links open other companies' services, and their privacy
+    practices apply there — not this policy:
+  </p>
+  <ul>
+    <li>Booking happens on Vagaro, a third-party scheduling service.</li>
+    <li>Skincare purchases happen on the Skinbetter Science storefront.</li>
+    <li>Social links open Facebook, Instagram, and Yelp.</li>
+    <li>"Get directions" opens your map provider.</li>
+  </ul>
+
+  <h2>Questions</h2>
+  <p>
+    Questions about this policy can be directed to Needle Girlie by phone
+    at <a href={siteConfig.phoneTel}>{siteConfig.phone}</a>.
+  </p>
+</LegalLayout>

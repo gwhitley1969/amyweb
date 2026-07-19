@@ -98,7 +98,9 @@ const crumbs = [
     {investigational && <InvestigationalNotice productName={investigationalProduct} />}
     {bioteDisclaimer && <BioteDisclaimer />}
 
-    <slot />
+    <div class="treatment-body">
+      <slot />
+    </div>
 
     <div class="mt-12">
       <VisitSteps />
@@ -160,5 +162,18 @@ const crumbs = [
     border: 1px solid var(--ng-hairline);
     border-left: 1px solid var(--ng-magenta-600);
     padding: 1.5rem;
+  }
+  /* Element styles for MDX body content (C3): headings mirror the
+   * heading-3 utility so collection prose sits on the type scale. */
+  .treatment-body h2 {
+    font-family: var(--font-body);
+    font-size: 1.9375rem;
+    line-height: 1.25;
+    font-weight: 600;
+    margin-top: 2.5rem;
+  }
+  .treatment-body p {
+    margin-top: 0.75rem;
+    max-width: 65ch;
   }
 </style>

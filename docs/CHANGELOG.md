@@ -6,6 +6,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-19 — C6: /about — Amy's page, with real facts
+
+- `/about` — founder-forward: "Amy Palacios, FNP", career facts
+  resolved from an operator-supplied public listing (two decades of
+  nursing, aesthetics since 2017, NP since 2018 — Amy's wording
+  confirmation flagged), blush credentials card, studio portrait,
+  consult CTA, noir band. Evolus mention omitted pending
+  `{{EVOLUS_CLAIM}}`; the multi-provider location gets one factual
+  line, nothing more.
+- Gates: `/about` joins pa11y and Lighthouse. Header's About link now
+  resolves — the nav is fully live.
+
 ### 2026-07-19 — C5: the /services index
 
 - `/services` — editorial opener ("Nine lines. One clinician."), the

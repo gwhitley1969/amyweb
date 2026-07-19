@@ -593,3 +593,21 @@ as historical artifacts.
   dates and standing flags); PHASE-C.md checklist ticked through C7 with
   a 2026-07-19 status block; RUNBOOK gained the phantom-metric
   troubleshooting entry and the new ~6-minute verify expectation.
+
+## 2026-07-19 — Header credential line under the wordmark
+
+Operator directed: "Amy Palacios, FNP" beneath the Needle Girlie wordmark,
+in the brand pinks, header grows to fit. **Decision:** a `.site-brand`
+lockup — wordmark plus an uppercase tracked credential line in DM Sans
+(the header's existing nav grammar; Playfair stays display-only per the
+global.css contract) colored **pink-500**. New verified contrast entry in
+tokens.css: pink-500 on noir 5.95:1 also clears the 4.5:1 body-text bar —
+small pink-500 text is now legal on NOIR only (the light-surface ban is
+untouched). Mobile popover clearance moved 7rem → 8.5rem for the taller
+block. Rejected: pink-300 (passes easily at 11.58:1 but reads pastel —
+the operator asked for the logo's pinks, and the wordmark letters are the
+pink-500/magenta family); Playfair for the line (violates the
+display-only rule); enlarging the wordmark itself (already sized up twice
+by client direction — the ask was an addition, not another scale-up).
+Consequence: every page's header carries the clinician's name and
+credential — supports the "Amy, the clinician" positioning sitewide.

@@ -4,6 +4,23 @@ Human-readable record of what shipped, newest first. The *why* behind each
 change lives in `docs/DECISIONS.md`; design specs live in
 `docs/superpowers/specs/`. Commit hashes are the audit trail.
 
+## Phase C — pages & content drafts (`phase-c`)
+
+### 2026-07-19 — C1: booking, visiting, and a branded 404
+
+- `/book` — single-purpose conversion page: the Vagaro handoff explained,
+  "Book with Amy" + call CTAs, free-consultation-on-request routing, and
+  the at-a-glance fact card. No closing band by design — every path off
+  the page is book, call, or ask.
+- `/visit` — "Visit Amy": address, visible `{{HOURS}}` placeholder,
+  get-directions link-out (maps are never embedded), closing noir
+  book/call band. Parking note waits on operator wording.
+- `/404` — dressed in the brand: noir with full site chrome, editorial
+  headline, routes to home and booking (a services link lands with
+  `/services` in C5).
+- Gates: `/book` and `/visit` join the pa11y URL list; `/book` joins the
+  Lighthouse set.
+
 ## Design system — "serious glamour" pivot (`feat/glamour-pivot`)
 
 ### 2026-07-18 — The studio dresses up

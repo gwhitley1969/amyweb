@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-19 — C4: treatment drafts, batch 2 — all nine lines drafted
+
+- The remaining five treatment pages, all `clinicianApproved: false`
+  with visible DraftBanners: weight-loss-glp-1 (Retatrutide omitted
+  entirely pending counsel), peptide-therapy (visible
+  `{{PEPTIDES_PUBLIC_LIST}}` token), iv-therapy (book CTA; Immunity IV
+  named, never extended), hormone-optimization (`bioteDisclaimer: true`
+  — the visible `{{BIOTE_FDA_DISCLAIMER}}` token renders adjacent to
+  the symptom-awareness copy), and skincare (shop CTA; visible
+  `{{SKINBETTER_URL}}` token). One `content:` commit per file.
+- Gates: five URLs join pa11y (16 total); hormone-optimization joins
+  Lighthouse.
+
 ### 2026-07-19 — C3: treatment drafts, batch 1
 
 - First four treatment pages drafted from their §7 briefs, all

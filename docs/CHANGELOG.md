@@ -17,6 +17,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
   every threshold unchanged, and a pre-agreed escalation rule.
 - Verify wall time +~2 minutes; a probe test proved the budgets bite.
 
+### 2026-07-19 — C7: the legal drafts
+
+- `/privacy`, `/terms`, `/medical-disclaimer` through a new LegalLayout
+  — every page carries a visible "Draft — pending counsel review"
+  banner (DraftBanner gained a label prop; the clinician default is
+  unchanged). Claims-safe lexicon throughout; third-person voice. The
+  footer's legal links now resolve.
+- Gates: all three join pa11y (21 URLs total).
+
 ### 2026-07-19 — C6: /about — Amy's page, with real facts
 
 - `/about` — founder-forward: "Amy Palacios, FNP", career facts

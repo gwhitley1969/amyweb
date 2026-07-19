@@ -13,15 +13,22 @@
 > - **Perf gate rearchitected** (PR #13, operator-approved): byte-exact
 >   resource budgets (third-party = 0 now CI-enforced) + median-of-3
 >   metrics + escalation rule — DECISIONS 2026-07-19.
+> - **Vagaro service alignment merged** (PR #16, 2026-07-19): the catalog
+>   is now **eleven lines** — skin-rejuvenation and body-contouring added
+>   from the live Vagaro menu; `{{NEUROMOD_LIST}}` RESOLVED (Jeuveau,
+>   Xeomin, Daxxify); weight loss broadened (Retatrutide behind the
+>   named investigational notice); regenerative trimmed to PRP /
+>   PRP-with-microneedling pending Amy's confirmation of the rest.
 > - **C8 (real home from ConceptHome.astro; deletes the legacy keyframe
 >   fence) is gated on operator + Amy approving the concept on the
 >   stable preview.** Open flag from C5: the services-grid card says
 >   "Neuromodulators", its page says "Wrinkle Relaxers" — operator picks
 >   which name wins.
 > - Still open from §0: `{{HOURS}}`, parking note, `{{SKINBETTER_URL}}`,
->   `{{PEPTIDES_PUBLIC_LIST}}`, `{{NEUROMOD_LIST}}`, featured service
->   lines, Biote/Retatrutide/Evolus/media items, photo flags (releases,
->   neon, Evolus scrubs), Amy's caption + bio-wording sign-offs.
+>   `{{PEPTIDES_PUBLIC_LIST}}`, featured service lines,
+>   Biote/Retatrutide/Evolus/media items, photo flags (releases, neon,
+>   Evolus scrubs), Amy's caption + bio-wording sign-offs.
+>   (`{{NEUROMOD_LIST}}` came off this list 2026-07-19 — PR #16.)
 
 > **STATUS UPDATE 2026-07-18 (read before executing this checklist —
 > several items below are superseded; DECISIONS.md 2026-07-18 governs):**
@@ -93,10 +100,11 @@ every string):
 
 - [ ] `/` — Home: Hero (lockup + confirmed promise + Book CTA), "Meet Amy"
       trust block (FNP, since 2017, Biote-certified — facts from
-      `{{AMY_BIO}}`), ServiceLineGrid (9 lines; featured variant per Amy's
-      pick), location strip (NAP + directions link-out), Get-the-App slot
+      `{{AMY_BIO}}`), ServiceLineGrid (11 lines since PR #16; featured
+      variant per Amy's pick), location strip (NAP + directions link-out), Get-the-App slot
       (flag stays off), closing noir CTA band. Two seams max (design rule).
-- [x] `/services` — index: short factual intro per line → 9 detail links.
+- [x] `/services` — index: short factual intro per line → 11 detail
+      links (9 at C5; grew with PR #16).
 - [x] `/about` — Amy's story + credentials from `{{AMY_BIO}}`; factual
       note that she practices within a multi-provider location (hard
       constraint 2 — nothing more); Evolus relationship only per

@@ -5,7 +5,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
 import AtAGlance from '../components/AtAGlance.astro';
-import amyAtWork from '../assets/photos/amy-at-work.jpg';
+import pinkGloves from '../assets/photos/pink-gloves-detail.jpg';
 
 /**
  * /book — single-purpose conversion page (§6, Phase C1). Booking happens
@@ -16,10 +16,12 @@ import amyAtWork from '../assets/photos/amy-at-work.jpg';
  * clinical routing. No closing band by design: every path off this page
  * is book, call, or ask.
  *
- * The portrait reuses the concept-hero frame (8K0A1211) under the same
- * OPEN flags (client release, signage, scrubs — DECISIONS 2026-07-18);
- * preview-only until the operator clears them. Light-wash grade per the
- * light-band rule — the cinema grade stays on noir bands.
+ * The portrait is the gloves detail (8K0A1120, operator pick 2026-07-19
+ * — replaces the concept-hero frame so /book adds no client-release
+ * exposure). No client in frame; the crop cuts the tray signage at the
+ * bottom; the Evolus scrubs embroidery remains (open flag, same as the
+ * concept). Light-wash grade per the light-band rule — the cinema grade
+ * stays on noir bands.
  */
 ---
 
@@ -47,8 +49,8 @@ import amyAtWork from '../assets/photos/amy-at-work.jpg';
       </div>
       <figure class="book-portrait">
         <Image
-          src={amyAtWork}
-          alt="Amy Palacios, FNP, at work in the studio."
+          src={pinkGloves}
+          alt="Amy's pink-gloved hands preparing for a treatment in the studio."
           widths={[480, 760, 1080]}
           sizes="(min-width: 768px) 40vw, 90vw"
           loading="eager"
@@ -92,9 +94,9 @@ import amyAtWork from '../assets/photos/amy-at-work.jpg';
     height: auto;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    /* window sits below the location's neon script (open §9 flag —
-     * same crop discipline as the concept hero) */
-    object-position: 50% 85%;
+    /* window features the gloved hands and ends above the tray's
+     * location signage (same crop discipline as the concept hero) */
+    object-position: 50% 30%;
     filter: grayscale(15%) contrast(1.03) brightness(1.05);
   }
   .book-portrait::after {

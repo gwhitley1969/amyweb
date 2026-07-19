@@ -6,6 +6,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-19 — C5: the /services index
+
+- `/services` — editorial opener ("Nine lines. One clinician."), the
+  full nine-line grid (no featured picks until Amy chooses), noir
+  closing band. The header's Services link now resolves sitewide.
+- Gates: `/services` joins pa11y and Lighthouse.
+
 ### 2026-07-19 — C4: treatment drafts, batch 2 — all nine lines drafted
 
 - The remaining five treatment pages, all `clinicianApproved: false`

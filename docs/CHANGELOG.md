@@ -6,6 +6,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-19 — C3: treatment drafts, batch 1
+
+- First four treatment pages drafted from their §7 briefs, all
+  `clinicianApproved: false` with visible DraftBanners:
+  wrinkle-relaxers and dermal-fillers (book CTA), biostimulators and
+  regenerative (consult CTA). One `content:` commit per file — the
+  clinician audit trail.
+- `{{NEUROMOD_LIST}}` renders as a visible token on wrinkle-relaxers
+  until the operator confirms the product list.
+- TreatmentLayout sets MDX body prose on the type scale.
+- Gates: four URLs join pa11y; wrinkle-relaxers joins Lighthouse.
+
 ### 2026-07-19 — C2: the treatment-page machinery
 
 - `/services/{slug}` collection route: every file in

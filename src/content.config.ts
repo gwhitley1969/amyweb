@@ -27,6 +27,12 @@ const treatments = defineCollection({
     investigational: z.boolean().default(false),
     bioteDisclaimer: z.boolean().default(false),
     pricingDisplay: z.enum(['none', 'consult', 'startingAt']).default('consult'),
+    // Editorial Q&A only (§7): process, logistics, credentials. Suitability
+    // questions always answer "that's decided in a consultation". Compliance
+    // text NEVER goes in an accordion. Rides the clinician-approval gate
+    // with the rest of the page. (Field added in C2 — operator-approved
+    // schema change, flagged in the PR.)
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
     // Only the human operator ever sets this to true (CLAUDE.md hard constraint 4).
     clinicianApproved: z.boolean().default(false),
     draft: z.boolean().default(false),

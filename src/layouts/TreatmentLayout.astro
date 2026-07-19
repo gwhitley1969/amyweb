@@ -36,6 +36,9 @@ interface Props {
   /** Editorial Q&A only — compliance text never goes in an accordion. */
   faq?: { q: string; a: string }[];
   seo: { title: string; description: string };
+  /** Page JSON-LD (service + breadcrumbs) built by the route via
+   * src/lib/schema.ts — forwarded to BaseLayout untouched. */
+  jsonLd?: object[];
 }
 
 const {
@@ -50,6 +53,7 @@ const {
   investigationalProduct,
   faq = [],
   seo,
+  jsonLd = [],
 } = Astro.props;
 
 const crumbs = [
@@ -59,7 +63,7 @@ const crumbs = [
 ];
 ---
 
-<BaseLayout title={seo.title} description={seo.description}>
+<BaseLayout title={seo.title} description={seo.description} jsonLd={jsonLd}>
   <Fragment slot="header">
     {!clinicianApproved && <DraftBanner />}
     <Header />
@@ -131,7 +135,15 @@ const crumbs = [
         Ready <span class="display-accent ng-shimmer">when you are</span>
       </h2>
       <div class="mt-6">
-        {ctaType === 'book' ? <CTAButton variant="book" /> : <CTAButton variant="consult" />}
+        {
+          ctaType === 'book' ? (
+            <CTAButton variant="book" />
+          ) : ctaType === 'shop' ? (
+            <CTAButton variant="shop" />
+          ) : (
+            <CTAButton variant="consult" />
+          )
+        }
       </div>
       <div class="mt-6">
         <TrustChips />

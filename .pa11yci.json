@@ -21,6 +21,8 @@
     "http://localhost:4325/services/dermal-fillers",
     "http://localhost:4325/services/biostimulators",
     "http://localhost:4325/services/regenerative",
+    "http://localhost:4325/services/skin-rejuvenation",
+    "http://localhost:4325/services/body-contouring",
     "http://localhost:4325/services/weight-loss-glp-1",
     "http://localhost:4325/services/peptide-therapy",
     "http://localhost:4325/services/iv-therapy",

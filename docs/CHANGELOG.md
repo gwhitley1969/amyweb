@@ -6,6 +6,22 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-19 — Vagaro service alignment
+
+- The services catalog now matches Amy's live Vagaro menu (operator
+  scans + four operator decisions; DECISIONS 2026-07-19). The
+  neuromodulator list is resolved — Jeuveau, Xeomin, Daxxify. Weight
+  loss adds Phentermine and Retatrutide (the latter behind the
+  investigational notice, which can now name its compound). Two new
+  consult-routed lines: Skin Rejuvenation (Pixel8 RF microneedling +
+  medical-grade chemical peels) and Body Contouring (Evolve). The
+  Regenerative page trims to PRP and PRP-with-microneedling pending
+  Amy's confirmation of the rest. Hormone Optimization gains the
+  lab-draw-first and pellet-delivery process facts. /services now reads
+  "Eleven lines. One clinician." Vagaro's mg tiers and pricing
+  granularity stay off the site by hard constraint. All touched pages
+  remain `clinicianApproved: false`.
+
 ### 2026-07-19 — Header credential line
 
 - "Amy Palacios, FNP" now sits beneath the wordmark on every page —

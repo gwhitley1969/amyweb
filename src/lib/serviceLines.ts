@@ -10,12 +10,13 @@ export interface ServiceLine {
   href: string;
 }
 
-// Titles per BUILD_SPEC §6; summaries drafted from the §7 briefs only.
+// Titles per BUILD_SPEC §6 (+ the 2026-07-19 Vagaro alignment);
+// summaries drafted from the §7 briefs only.
 export const serviceLines: ServiceLine[] = [
   {
     slug: 'weight-loss-glp-1',
     title: 'Weight Loss & GLP-1 Therapy',
-    summary: 'Prescription GLP-1 medications in a medically supervised weight-management program.',
+    summary: 'Prescription weight-management medications in a medically supervised program.',
     href: '/services/weight-loss-glp-1',
   },
   {
@@ -45,8 +46,20 @@ export const serviceLines: ServiceLine[] = [
   {
     slug: 'regenerative',
     title: 'Regenerative Treatments',
-    summary: 'PRP & PRF, PDRN, and related regenerative treatment options.',
+    summary: 'PRP treatments — on their own, or combined with microneedling.',
     href: '/services/regenerative',
+  },
+  {
+    slug: 'skin-rejuvenation',
+    title: 'Skin Rejuvenation',
+    summary: 'Pixel8 RF microneedling and medical-grade chemical peels.',
+    href: '/services/skin-rejuvenation',
+  },
+  {
+    slug: 'body-contouring',
+    title: 'Body Contouring',
+    summary: 'Evolve — a non-invasive device treatment designed for skin tightening and muscle toning.',
+    href: '/services/body-contouring',
   },
   {
     slug: 'iv-therapy',

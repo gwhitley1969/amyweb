@@ -201,14 +201,16 @@ layout shift from fonts or images.
 
 | Route | Page | Purpose / key content | Primary CTA |
 |---|---|---|---|
-| `/` | Home | Hero (brand thesis — see below); "Meet Amy" trust block (FNP, since 2017, Biote-certified); service-line overview cards (9); location strip; Get-the-App slot (coming-soon) | Book an appointment |
-| `/services` | Services index | Short factual intro per line, linking to the 9 detail pages | Per-line → detail |
+| `/` | Home | Hero (brand thesis — see below); "Meet Amy" trust block (FNP, since 2017, Biote-certified); service-line overview cards (11); location strip; Get-the-App slot (coming-soon) | Book an appointment |
+| `/services` | Services index | Short factual intro per line, linking to the 11 detail pages | Per-line → detail |
 | `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Request a consultation |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |
 | `/services/wrinkle-relaxers` | Neuromodulators | §7 brief | Book / Consult |
 | `/services/dermal-fillers` | Dermal Fillers | §7 brief | Book / Consult |
 | `/services/biostimulators` | Biostimulators | §7 brief | Request a consultation |
 | `/services/regenerative` | Regenerative Treatments | §7 brief | Request a consultation |
+| `/services/skin-rejuvenation` | Skin Rejuvenation | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
+| `/services/body-contouring` | Body Contouring | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
@@ -235,11 +237,12 @@ No claims in the hero (no outcomes, no "#1" until substantiated).
 ```ts
 {
   title: string,
-  line: enum(9 lines),
+  line: enum(11 lines),
   summary: string,            // 1–2 sentences, factual
   products: string[],         // named products only, from this spec
   ctaType: 'book' | 'consult' | 'shop',
   investigational: boolean,   // true → InvestigationalNotice REQUIRED (layout enforces)
+  investigationalProduct?: string, // names the compound in the notice (2026-07-19)
   bioteDisclaimer: boolean,   // true → BioteDisclaimer REQUIRED (layout enforces)
   pricingDisplay: 'none' | 'consult' | 'startingAt',   // default 'consult' — see {{PRICING_DISPLAY_MODE}}
   clinicianApproved: boolean, // default false — ONLY the human operator flips this
@@ -266,30 +269,38 @@ All copy pattern: *what it is → who it's generally for, in general factual
 terms → individualized under clinician supervision → CTA*. No mechanisms-of-
 action hype, no outcomes, no dosing, ever.
 
-1. **Weight Loss & GLP-1 Therapy** — prescription GLP-1 medications offered in
+1. **Weight Loss & GLP-1 Therapy** — prescription medications offered in
    a medically supervised weight-management program: **Semaglutide**,
-   **Tirzepatide**, and **Retatrutide**. Retatrutide is **investigational
-   (not FDA-approved)** — if published, `investigational: true`, factual
-   naming only, no benefit claims of any kind, consult routing; final wording
-   subject to attorney review (`{{RETATRUTIDE_COUNSEL}}`). Banned angles:
-   weight-loss numbers, "powerful results", blood-sugar/hypoglycemia claims,
-   appetite mechanics as promises.
+   **Tirzepatide**, **Phentermine**, and **Retatrutide** (menu confirmed
+   against the live Vagaro listing, operator decision 2026-07-19; the
+   Vagaro mg tiers are dosing and NEVER appear on the site). Retatrutide
+   is **investigational (not FDA-approved)** — if published,
+   `investigational: true`, factual naming only, no benefit claims of any
+   kind, consult routing; final wording subject to attorney review
+   (`{{RETATRUTIDE_COUNSEL}}`). Phentermine: factual naming only — never
+   describe its mechanism (the appetite-language ban applies). Banned
+   angles: weight-loss numbers, "powerful results",
+   blood-sugar/hypoglycemia claims, appetite mechanics as promises.
 2. **Peptide Therapy** — publish only `{{PEPTIDES_PUBLIC_LIST}}` (candidates
    from the current public site: Glow Stack, GHK-Cu, NAD). Factual
    descriptions of what each is; **no** recovery, healing, anti-inflammatory,
    anti-aging-outcome, or performance claims; no off-label positioning.
 3. **Neuromodulators ("wrinkle relaxers")** — prescription injectable
-   treatments for temporary softening of dynamic lines: `{{NEUROMOD_LIST}}`
-   (confirm: Jeuveau, Daxxify). Common treatment areas may be listed
-   factually (forehead, frown lines, crow's feet).
+   treatments for temporary softening of dynamic lines: **Jeuveau**,
+   **Xeomin**, **Daxxify** (`{{NEUROMOD_LIST}}` RESOLVED 2026-07-19 from
+   the live Vagaro menu — each has its own booking category). Common
+   treatment areas may be listed factually (forehead, frown lines,
+   crow's feet).
 4. **Dermal Fillers** — injectable gel fillers for volume/contour:
    Revanesse Versa, Evolus Evolysse; common areas factually (lips, cheeks,
    jawline, chin, under-eyes).
 5. **Biostimulators** — collagen-stimulating treatments: PDO Threads,
    Radiesse. Factual description of category; no "lifting results" promises.
-6. **Regenerative Treatments** — PRP & PRF, PDRN (salmon DNA),
-   Illuma/VAMP/Rejuran. Describe what the treatments are; no healing/repair
-   outcome claims.
+6. **Regenerative Treatments** — PRP, and PRP with microneedling
+   (trimmed to the live Vagaro menu, operator decision 2026-07-19; PRF,
+   PDRN, Illuma, VAMP, and Rejuran return only if Amy confirms them as
+   current offerings). Describe what the treatments are; no
+   healing/repair outcome claims.
 7. **IV Therapy & Vitamin Support** — Myers' Cocktail, Immunity IV, vitamin
    shots, Glutathione, B12, NAD IV. **Glutathione: absolutely no disease
    claims** (no neuroprotective / Alzheimer's / Parkinson's / chemotherapy
@@ -302,6 +313,16 @@ action hype, no outcomes, no dosing, ever.
    co-marketing usage pending `{{BIOTE_PERMISSION}}` — text-only until then.
 9. **Skincare (Skinbetter Science)** — medical-grade skincare available
    through Amy's partner storefront; shop link-out (`{{SKINBETTER_URL}}`).
+10. **Skin Rejuvenation** *(added 2026-07-19, Vagaro alignment)* —
+    Pixel8 RF microneedling (a microneedling device pairing fine needles
+    with radiofrequency energy) and medical-grade chemical peels
+    (clinician-applied exfoliating solutions). Factual device/procedure
+    descriptions only; no resurfacing/anti-aging outcome claims; consult
+    routing.
+11. **Body Contouring** *(added 2026-07-19, Vagaro alignment)* — Evolve,
+    a non-invasive device-based treatment; describe by intended design
+    (skin tightening, muscle toning) only — never as outcomes. No
+    body-fat or measurement language of any kind. Consult routing.
 
 ## 8. Content compliance rulebook (governs every string in the repo)
 
@@ -491,7 +512,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{SOCIAL_LINKS}}` | Verified handles (IG, FB, YouTube, Yelp, TikTok) | RESOLVED 2026-07-18 (FB/IG/Yelp only; Yelp is the location's — flagged) |
 | `{{AMY_BIO}}` | Approved bio facts & credentials | RESOLVED 2026-07-19 (operator-supplied listing; Amy's wording confirmation pending — DECISIONS) |
 | `{{PEPTIDES_PUBLIC_LIST}}` | Which peptides appear publicly | Open decision |
-| `{{NEUROMOD_LIST}}` | Confirmed neuromodulator products | Operator to confirm |
+| `{{NEUROMOD_LIST}}` | Confirmed neuromodulator products | RESOLVED 2026-07-19 (live Vagaro menu, operator-confirmed: Jeuveau, Xeomin, Daxxify) |
 | `{{PRICING_DISPLAY_MODE}}` | none / consult / startingAt (default: consult) | Open decision |
 | `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | Open decision |
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |

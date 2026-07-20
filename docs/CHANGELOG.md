@@ -6,6 +6,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-20 — Editorial deck replaces the fact card on service pages
+
+- The Provider/Location/Appointments fact card is gone from all eleven
+  treatment pages (operator direction; /book keeps its copy, where
+  booking facts belong). In its place: a per-treatment editorial
+  statement card — one short display line in the blush card anatomy
+  (DECISIONS 2026-07-20). Eleven new deck lines ship for Amy's review;
+  `clinicianApproved` unchanged.
+
 ### 2026-07-20 — GLP-1 product cards with pricing
 
 - The weight-loss page now carries per-product cards built from the

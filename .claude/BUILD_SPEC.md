@@ -239,6 +239,7 @@ No claims in the hero (no outcomes, no "#1" until substantiated).
   title: string,
   line: enum(11 lines),
   summary: string,            // 1–2 sentences, factual
+  deck?: string,              // editorial standfirst card (2026-07-20, replaced AtAGlance); §8 applies
   products: string[],         // named products only, from this spec
   ctaType: 'book' | 'consult' | 'shop',
   investigational: boolean,   // true → InvestigationalNotice REQUIRED (layout enforces)

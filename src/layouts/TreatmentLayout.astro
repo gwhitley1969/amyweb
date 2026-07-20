@@ -8,7 +8,6 @@ import DisclaimerBlock from '../components/DisclaimerBlock.astro';
 import InvestigationalNotice from '../components/InvestigationalNotice.astro';
 import BioteDisclaimer from '../components/BioteDisclaimer.astro';
 import DraftBanner from '../components/DraftBanner.astro';
-import AtAGlance from '../components/AtAGlance.astro';
 import ProductDetailCards from '../components/ProductDetailCards.astro';
 import VisitSteps from '../components/VisitSteps.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
@@ -18,8 +17,9 @@ import TrustChips from '../components/TrustChips.astro';
  * Treatment page template (approved design plan + Mobbin-review addendum).
  * The compliance order is FIXED here — pages cannot reorder or opt out
  * (CLAUDE.md hard constraint 3):
- *   breadcrumbs -> H1 + underline run -> lead -> at-a-glance -> intro ->
- *   products -> flag-driven notices ADJACENT to products -> body ->
+ *   breadcrumbs -> H1 + underline run -> lead -> deck statement card
+ *   (optional; replaced AtAGlance 2026-07-20, operator direction) ->
+ *   intro -> products -> flag-driven notices ADJACENT to products -> body ->
  *   visit steps -> FAQ (only when items provided) -> pricing ->
  *   consult router -> DisclaimerBlock (light surface, NEVER collapsed) ->
  *   seam -> noir CTA band + trust chips.
@@ -27,6 +27,9 @@ import TrustChips from '../components/TrustChips.astro';
 interface Props {
   title: string;
   summary: string;
+  /** Editorial standfirst — one short, claims-clean display line shown
+   * as the blush statement card under the lead. */
+  deck?: string;
   products: string[];
   ctaType: 'book' | 'consult' | 'shop';
   investigational: boolean;
@@ -53,6 +56,7 @@ interface Props {
 const {
   title,
   summary,
+  deck,
   products,
   ctaType,
   investigational,
@@ -85,9 +89,7 @@ const crumbs = [
     <hr class="rule-accent mt-4" />
     <p class="lead mt-6">{summary}</p>
 
-    <div class="mt-8">
-      <AtAGlance />
-    </div>
+    {deck && <p class="deck mt-8">{deck}</p>}
 
     <slot name="intro" />
 
@@ -179,6 +181,20 @@ const crumbs = [
     border: 1px solid var(--ng-hairline);
     border-left: 1px solid var(--ng-magenta-600);
     padding: 1.5rem;
+  }
+  /* Editorial standfirst: the blush "jewelry" card carrying one display
+   * line — replaced the AtAGlance fact table (2026-07-20). Upright
+   * Playfair only (no italic face is loaded — keeps the font budget
+   * untouched); ink-900 on blush 15.77:1, magenta edge 4.15:1 non-text
+   * (tokens.css table). */
+  .deck {
+    background: var(--ng-card);
+    border: 1px solid var(--ng-hairline);
+    border-left: 2px solid var(--ng-magenta-600);
+    padding: 1.5rem 1.75rem;
+    font-family: var(--font-display);
+    font-size: 1.5625rem;
+    line-height: 1.4;
   }
   /* Element styles for MDX body content (C3): headings mirror the
    * heading-3 utility so collection prose sits on the type scale. */

@@ -26,6 +26,11 @@ const treatments = defineCollection({
     title: z.string(),
     line: z.enum(SERVICE_LINES),
     summary: z.string(),
+    // Optional editorial standfirst (2026-07-20 — replaced the AtAGlance
+    // fact card at operator direction): one short, claims-clean display
+    // line rendered as the blush statement card under the lead. §8
+    // applies to it like any other string.
+    deck: z.string().optional(),
     products: z.array(z.string()).default([]),
     // Optional per-product cards (2026-07-20 GLP-1 alignment — operator-
     // approved schema change): upgrades the products bullet list in the

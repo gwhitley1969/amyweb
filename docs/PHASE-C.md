@@ -1,5 +1,32 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-20 (evening) — polish increments merged to
+> `phase-c` (PRs #19–#25), all deployed to the stable preview:**
+>
+> - **Retatrutide badge off / Phentermine wording / client weigh-in
+>   photo** (PR #19) and the **framed-print media-row** presentation
+>   (PR #20) — DECISIONS 2026-07-20.
+> - **Editorial deck card replaces AtAGlance** on all eleven treatment
+>   pages (PR #21): optional `deck` frontmatter renders a blush
+>   statement card; /book keeps the fact card by design.
+> - **Amy's portrait on the weight-loss page** (PR #22): first
+>   Amy-solo frame (8K0A0206) as a mirrored framed print
+>   (`.media-row--flip`, reusable). The operator-requested tray frame
+>   (8K0A9740) was rejected as non-compliant; full pro-shoot survey
+>   recorded in DECISIONS. Skinbetter frames 8K0A9881/9922 noted for
+>   the Skincare page.
+> - **All conversion buttons now read "Book with Amy"** (PR #23,
+>   operator directive) — consult variant keeps `/book` + outline;
+>   §6 convention still governs prose (BUILD_SPEC §6 amended).
+> - **Trust-chip credential corrected** to "Licensed family nurse
+>   practitioner" (PR #24, Amy's direction).
+> - **Price tiers reformatted** to "20mg vial: $675" style (PR #25,
+>   client direction) — like-for-like swap of the five registry
+>   allowlist strings; gate self-test unchanged in mechanism.
+> - Everything treatment-facing remains `clinicianApproved: false`
+>   pending Amy's sign-off. **C8 still gated** on operator + Amy
+>   approving the concept home on the stable preview.
+
 > **STATUS UPDATE 2026-07-19 — C0–C7 MERGED; only C8 remains:**
 >
 > - Built, verified, and merged to `phase-c` (PRs #6–#12): `/book` (with
@@ -114,7 +141,8 @@ every string):
       note that she practices within a multi-provider location (hard
       constraint 2 — nothing more); Evolus relationship only per
       `{{EVOLUS_CLAIM}}`. Candidate design: founder split-card (Mobbin
-      parking lot, Kalstore pattern). CTA: Request a consultation.
+      parking lot, Kalstore pattern). CTA: consult-routed (label is
+      "Book with Amy" sitewide since 2026-07-20).
 - [x] `/book` — Vagaro handoff explanation + button (`{{VAGARO_URL}}`,
       new tab, noopener), phone fallback. CTA language: "appointment".
 - [x] `/visit` — `{{ADDRESS_DISPLAY}}`, `{{HOURS}}`, parking note,

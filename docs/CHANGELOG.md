@@ -20,7 +20,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - Later the same day: the redundant "Investigational" badge came off
   the Retatrutide card (operator-directed; DECISIONS 2026-07-20). The
   mandatory disclosures — adjacent notice, in-card sentence, FAQ — are
-  unchanged.
+  unchanged. The Phentermine card now notes short-term use — the
+  compliant no-mechanism wording, operator-chosen after the
+  appetite-language flag.
 
 ### 2026-07-19 — Vagaro service alignment
 

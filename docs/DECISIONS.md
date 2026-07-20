@@ -681,3 +681,8 @@ InvestigationalNotice naming Retatrutide, the card's own
 wording all remain, and the lint inverse checks still enforce them.
 Flagged at execution: anything beyond the badge (the notice or the
 disclosure wording) is hard constraint 3 and not removable.
+Same day: the operator asked for Phentermine described as appetite
+suppression for short-term weight loss; flagged against brief 1's
+no-mechanism rule and the appetite-language ban, and the operator chose
+the compliant variant — "for short-term use in a supervised
+weight-management plan" — over an override. The rule stands.

@@ -6,6 +6,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-20 — GLP-1 product cards with pricing
+
+- The weight-loss page now carries per-product cards built from the
+  operator-vetted facts in the client's product sheet: receptor-class
+  descriptions (single / dual / triple agonist), an Investigational tag
+  on Retatrutide, and the five mg-keyed price tiers the client directed —
+  an operator-authorized override of the mg ban, scoped to exact
+  allowlist strings in the compliance registry (DECISIONS 2026-07-20).
+  A new FAQ explains how the three GLP-1 medications differ. Dosing,
+  reconstitution, and tolerability claims from the sheet stay off the
+  site. `clinicianApproved` remains false.
+
 ### 2026-07-19 — Vagaro service alignment
 
 - The services catalog now matches Amy's live Vagaro menu (operator

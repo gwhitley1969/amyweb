@@ -42,6 +42,7 @@ seo:
 
 import { Image } from 'astro:assets';
 import weighIn from '../../assets/photos/supervised-weigh-in.jpg';
+import amyPortrait from '../../assets/photos/amy-palacios-fnp.jpg';
 
 ## What it is
 
@@ -53,12 +54,27 @@ not FDA-approved, as the disclosure above states. Every one of these
 is a prescription medication, and every one belongs inside a
 supervised plan — never on its own.
 
+<section class="media-row media-row--flip">
+  <div class="media-copy">
+
 ## Who it's generally for
 
 Adults considering medical support for weight management. Prescription
 care is never one-size-fits-all: whether any of these medications
 belongs in your plan — and which one — is a clinical decision Amy makes
 with you in consultation, with your history in front of her.
+
+  </div>
+  <figure class="media-figure">
+    <Image
+      src={amyPortrait}
+      alt="Amy Palacios, FNP, in her embroidered clinic scrubs — arms crossed and smiling."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+    <figcaption class="eyebrow">Your clinician</figcaption>
+  </figure>
+</section>
 
 <section class="media-row">
   <figure class="media-figure">

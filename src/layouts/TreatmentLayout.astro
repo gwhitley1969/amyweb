@@ -222,6 +222,14 @@ const crumbs = [
     .treatment-body .media-row {
       grid-template-columns: 2fr 3fr;
     }
+    .treatment-body .media-row--flip {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+  /* Mirrored variant: copy first in DOM, figure on the right, opposite
+   * lean — successive prints on a page tilt toward each other. */
+  .treatment-body .media-row--flip .media-figure {
+    transform: rotate(1.5deg);
   }
   .treatment-body .media-figure {
     justify-self: center;

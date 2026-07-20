@@ -724,3 +724,27 @@ tracked treatment pages). Rejected: an on-page table of contents
 architecture); deleting the component (/book uses it). Consequence:
 eleven new copy lines await Amy's sign-off like all treatment content
 (clinicianApproved unchanged, false).
+
+## 2026-07-20 — Second weight-loss photo: Amy's portrait, not the requested frame
+
+Operator asked for 8K0A9740.jpg on the GLP-1 page. Viewed first-hand,
+that frame is a neuromodulator prep tray — site-labeled pre-drawn
+syringes, unit-marked toxin boxes, Evolus campaign brochures, location
+branding on the tray. Flagged as unusable there: it implies the wrong
+treatment on a weight-loss page, photographs a dosing workflow (the
+image form of banned content), and republishes third-party marketing.
+Operator accepted the flag and chose a survey of the full pro-shoot
+set instead (subagent pre-screen, every candidate re-verified
+first-hand). No weight-loss-specific frame exists in the set; the
+operator selected 8K0A0206 — the first Amy-solo portrait we have
+(embroidered scrubs, seamless backdrop; no client release needed, no
+products, no signage; the embroidery "Amy Palacios NP / Mobile
+Aesthetics" was verified at full resolution and is factual identity,
+clear of hard constraint 2). **Build:** new `.media-row--flip` layout
+variant (copy-first DOM, figure right, opposite tilt) so successive
+prints lean toward each other; the portrait wraps "Who it's generally
+for," captioned "Your clinician." Rejected: 8K0A9862 (vial in hand —
+injectable ambiguity on a weight-loss page, label unverified);
+mirror-moment frames (client release unconfirmed, facial-treatment
+read). Noted for later: 8K0A9881/9922 are Skincare-page-ready product
+frames.

@@ -39,8 +39,8 @@ const categories = registry.categories.map((cat) => ({
 // Operator-authorized allowlist (see $allowlistComment in the registry and
 // docs/DECISIONS.md 2026-07-20): EXACT strings stripped from a line before
 // the banned categories run. The boundary guards keep partial overlaps
-// scannable — "120mg @ $675" is NOT stripped by "20mg @ $675". Changing
-// the list requires the human operator.
+// scannable — "120mg vial: $675" is NOT stripped by "20mg vial: $675".
+// Changing the list requires the human operator.
 const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const allowedStringPatterns = (registry.allowedStrings ?? []).map(
   (s) => new RegExp(`(?<![\\d.])${escapeRegExp(s)}(?!\\d)`, 'g'),

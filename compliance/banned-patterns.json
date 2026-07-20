@@ -1,12 +1,12 @@
 {
   "$comment": "Compliance banned-pattern registry (CLAUDE.md hard constraint 3, BUILD_SPEC §8). Patterns are case-insensitive JS regexes applied to every line of every text file under src/ (content, pages, components, layouts, lib, styles — see SCAN_DIRS in scripts/lint-claims.mjs). THIS LIST ONLY EVER GROWS — removing or loosening an entry requires the human operator. Keep patterns precise: a false positive costs a review; a false negative costs a compliance violation.",
-  "$allowlistComment": "Operator-authorized exception (2026-07-20, recorded in docs/DECISIONS.md): the client directed publication of mg-keyed GLP-1 price tiers, and the operator confirmed the override after the full compliance flag (FDA's 2026 warning-letter campaign on compounded-GLP-1 advertising was presented). These EXACT strings — and nothing else — are stripped from a line before the banned categories are applied; the categories themselves are untouched, and a quantity that merely contains one of these strings (e.g. a longer number) still fails. Adding, changing, or removing a string requires the human operator.",
+  "$allowlistComment": "Operator-authorized exception (2026-07-20, recorded in docs/DECISIONS.md): the client directed publication of mg-keyed GLP-1 price tiers, and the operator confirmed the override after the full compliance flag (FDA's 2026 warning-letter campaign on compounded-GLP-1 advertising was presented). These EXACT strings — and nothing else — are stripped from a line before the banned categories are applied; the categories themselves are untouched, and a quantity that merely contains one of these strings (e.g. a longer number) still fails. Adding, changing, or removing a string requires the human operator. Reformatted later the same day at the client's direction ('@' → 'vial:'); same five tiers, same prices — a like-for-like swap, not an expansion.",
   "allowedStrings": [
-    "20mg @ $675",
-    "30mg @ $575",
-    "60mg @ $825",
-    "24mg @ $600",
-    "50mg @ $850"
+    "20mg vial: $675",
+    "30mg vial: $575",
+    "60mg vial: $825",
+    "24mg vial: $600",
+    "50mg vial: $850"
   ],
   "categories": [
     {

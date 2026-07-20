@@ -6,6 +6,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-20 — GLP-1 price tiers reformatted
+
+- The five authorized price tiers on the weight-loss page now read
+  "20mg vial: $675" style instead of "20mg @ $675" (client direction).
+  Registry allowlist and page changed together; same tiers, same
+  prices (DECISIONS 2026-07-20).
+
 ### 2026-07-20 — Trust-chip credential corrected
 
 - The credential line at conversion points now reads "Licensed family

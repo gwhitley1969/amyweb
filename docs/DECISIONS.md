@@ -763,3 +763,18 @@ now both read "Book with Amy" with different destinations (/book vs
 Vagaro); both funnel to booking, and the external one announces its
 new tab. BUILD_SPEC §6 amended to record that the route table's
 "Request a consultation" cells describe routing intent, not the label.
+
+## 2026-07-20 — Price-tier strings reformatted: "@" → "vial:"
+
+Client direction via the operator: the five authorized GLP-1 price
+tiers now read "20mg vial: $675" (etc.) instead of "20mg @ $675." A
+like-for-like swap of the enumerated allowlist strings — same five
+tiers, same prices, no expansion — executed as one operation across
+`compliance/banned-patterns.json` `allowedStrings` and the page's
+`priceLines` (the registry and the rendered text must always change
+together; the operator's directive is the required registry
+authorization, noted in the registry's own comment). The linter
+self-test derives its cases from the registry, so the gate stays
+self-proving: each new string passes, every longer-quantity variant
+("120mg vial: $675") still fails dosing. "vial" matches no banned
+pattern outside the stripped strings.

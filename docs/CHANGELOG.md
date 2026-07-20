@@ -27,6 +27,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   (operator-supplied; signed release confirmed on file — DECISIONS
   2026-07-20). Aftercare signage cropped out; neutral filename and alt
   text; responsive + lazy via astro:assets.
+- The photo's presentation was reworked the same day (operator asked
+  for smaller + less bland): a framed-print figure — paper mat,
+  hairline border, soft shadow, slight tilt, eyebrow caption — in a
+  two-column editorial row beside the "Individualized, with Amy" copy,
+  echoing the concept page's framed-post motif. Pure CSS, zero JS.
 
 ### 2026-07-19 — Vagaro service alignment
 

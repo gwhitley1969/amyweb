@@ -193,15 +193,39 @@ const crumbs = [
     margin-top: 0.75rem;
     max-width: 65ch;
   }
-  /* Inline photo figures in MDX bodies (astro:assets — width/height
-   * attributes set by the pipeline, so no CLS; lazy below the fold). */
-  .treatment-body .body-figure {
+  /* Editorial media row for MDX bodies: framed-print figure beside copy —
+   * echoes the concept page's framed-post motif. Static, zero JS; the
+   * astro:assets pipeline sets width/height (no CLS) and lazy-loads. */
+  .treatment-body .media-row {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
     margin-top: 2.5rem;
   }
-  .treatment-body .body-figure img {
-    width: 100%;
-    max-width: 28rem;
-    height: auto;
+  @media (min-width: 40rem) {
+    .treatment-body .media-row {
+      grid-template-columns: 2fr 3fr;
+    }
+  }
+  .treatment-body .media-figure {
+    justify-self: center;
+    width: min(18rem, 100%);
+    background: var(--ng-paper);
     border: 1px solid var(--ng-hairline);
+    padding: 0.625rem;
+    box-shadow: 0 14px 28px -16px color-mix(in srgb, var(--ng-ink-900) 40%, transparent);
+    transform: rotate(-1.5deg);
+  }
+  .treatment-body .media-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .treatment-body .media-figure figcaption {
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+  .treatment-body .media-copy h2 {
+    margin-top: 0;
   }
 </style>

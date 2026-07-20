@@ -17,6 +17,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   A new FAQ explains how the three GLP-1 medications differ. Dosing,
   reconstitution, and tolerability claims from the sheet stay off the
   site. `clinicianApproved` remains false.
+- Later the same day: the redundant "Investigational" badge came off
+  the Retatrutide card (operator-directed; DECISIONS 2026-07-20). The
+  mandatory disclosures — adjacent notice, in-card sentence, FAQ — are
+  unchanged.
 
 ### 2026-07-19 — Vagaro service alignment
 

@@ -669,3 +669,15 @@ documented, client-accepted regulatory exposure rides with the page;
 any new tier requires an operator-visible registry edit;
 `{{RETATRUTIDE_COUNSEL}}` now also covers the priced Retatrutide card;
 `clinicianApproved` stays false pending Amy's sign-off.
+
+## 2026-07-20 — Retatrutide card badge removed (operator-directed)
+
+The "Investigational" tag badge on the Retatrutide product card comes
+off at the operator's direction (relayed same-day, after PR #18). The
+badge was a redundant visual reinforcement, not the disclosure itself:
+the mandatory architecture is unchanged — the adjacent
+InvestigationalNotice naming Retatrutide, the card's own
+"Investigational and not FDA-approved" detail sentence, and the FAQ
+wording all remain, and the lint inverse checks still enforce them.
+Flagged at execution: anything beyond the badge (the notice or the
+disclosure wording) is hard constraint 3 and not removable.

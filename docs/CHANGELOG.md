@@ -6,6 +6,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-20 — Trust-chip credential corrected
+
+- The credential line at conversion points now reads "Licensed family
+  nurse practitioner" (was missing "family" — Amy's direction, matching
+  her FNP credential as stated everywhere else on the site).
+
 ### 2026-07-20 — All conversion buttons say "Book with Amy"
 
 - The "Request a consultation" label is retired (operator directive):

@@ -2,9 +2,11 @@
 import { siteConfig } from '../lib/siteConfig';
 
 /**
- * Conversion CTA (BUILD_SPEC §5/§6/§9). The variant enforces the site-wide
- * language convention: "appointment" = booking, "consultation" = clinical
- * routing. Analytics are declarative data-event attributes (§11 event
+ * Conversion CTA (BUILD_SPEC §5/§6/§9). Labels are unified to "Book with
+ * Amy" (operator, 2026-07-20); the variant still encodes routing — book
+ * goes to Vagaro, consult to /book — and the §6 language convention
+ * ("appointment" = booking, "consultation" = clinical routing) governs
+ * prose. Analytics are declarative data-event attributes (§11 event
  * names) read by Phase D's cookieless script — no JS ships now.
  */
 interface Props {
@@ -30,7 +32,11 @@ const defaults: Record<
     style: 'solid',
   },
   consult: {
-    label: 'Request a consultation',
+    /* "Book with Amy" here too (operator, 2026-07-20) — one conversion
+     * label sitewide. Routing intent is unchanged: this variant still
+     * points at /book, and "consultation" remains the word prose uses
+     * for clinical routing (§6). */
+    label: 'Book with Amy',
     href: '/book',
     style: 'outline',
   },

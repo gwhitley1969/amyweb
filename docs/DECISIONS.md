@@ -640,3 +640,32 @@ Skincare (that line is a shop link-out, not a procedure page).
 awaiting Amy's sign-off round; the peptide list (`{{PEPTIDES_PUBLIC_
 LIST}}`) stays open — Vagaro shows no peptide category; the C5
 Neuromodulators-vs-Wrinkle-Relaxers naming flag is unchanged.
+
+## 2026-07-20 — GLP-1 product cards + mg-tier pricing (operator override)
+
+Operator supplied the client's product sheet (GLP-1 tab) and directed its
+use on the weight-loss page. The sheet is a hard-constraint-8-class
+internal document — read view-only, never committed; its Reconstitution
+and Dosing columns are prohibited content, its Duration wording ("well
+tolerated for …") is a safety claim, and its Uses wording contains
+lint-banned angles — so the publishable facts reduce to receptor classes
+and prices. **Build decision:** a reusable `productDetails` schema field
++ `ProductDetailCards` component upgrades the "What Amy offers" list in
+the same slot of the fixed compliance order; the later Peptides work
+reuses it. **Override decision:** the client directed publication of the
+five mg-keyed price tiers. Flagged in full before execution: mg amounts
+are hard constraint 3, and FDA's 2026 enforcement wave (≈80 warning
+letters through June 2026, incl. letters to clinics advertising
+retatrutide by quantity and price) cites exactly this pattern. The
+operator confirmed the override ("Full mg tiers") and separately chose
+equal card billing for Retatrutide. **Mechanism:** an `allowedStrings`
+registry entry stripped before category scans — exact strings only,
+boundary-guarded (a longer quantity containing a tier string still
+fails), covered by the linter self-test, changeable only by the
+operator. **Rejected:** loosening the mg regex (a context exception
+would admit unenumerated quantities); "from $X" prices with a Vagaro
+menu link-out (operator declined after the flag). **Consequences:**
+documented, client-accepted regulatory exposure rides with the page;
+any new tier requires an operator-visible registry edit;
+`{{RETATRUTIDE_COUNSEL}}` now also covers the priced Retatrutide card;
+`clinicianApproved` stays false pending Amy's sign-off.

@@ -1,0 +1,74 @@
+---
+/**
+ * Per-product detail cards — upgrades the "What Amy offers" bullet list on
+ * treatment pages whose frontmatter provides productDetails (added
+ * 2026-07-20 for the GLP-1 alignment; reusable by later lines). Copy rules
+ * are BUILD_SPEC §7/§8: `detail` is factual and claim-free; `priceLines`
+ * may contain ONLY the operator-authorized allowlist strings in
+ * compliance/banned-patterns.json. Zero JS; light surfaces only.
+ */
+interface Props {
+  items: readonly {
+    name: string;
+    detail: string;
+    tag?: string;
+    priceLines?: readonly string[];
+  }[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul role="list" class="mt-4 grid gap-4 sm:grid-cols-2">
+  {
+    items.map((item) => (
+      <li class="product-card">
+        <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+          <h3 class="product-name">{item.name}</h3>
+          {item.tag && <span class="eyebrow product-tag">{item.tag}</span>}
+        </div>
+        <p class="mt-2">{item.detail}</p>
+        {item.priceLines && item.priceLines.length > 0 && (
+          <ul role="list" class="price-lines mt-3">
+            {item.priceLines.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .product-card {
+    background: var(--ng-card);
+    border: 1px solid var(--ng-hairline);
+    border-left: 1px solid var(--ng-magenta-600);
+    padding: 1.25rem;
+  }
+  .product-name {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+  /* eyebrow color is --ng-link: ink-pink holds 6.14:1 on blush-50
+   * (tokens.css table) — passes the 4.5:1 small-text bar at this size. */
+  .product-tag {
+    font-size: 0.6875rem;
+  }
+  .product-card p {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    max-width: 55ch;
+  }
+  .price-lines {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+  .price-lines li + li {
+    margin-top: 0.25rem;
+  }
+</style>

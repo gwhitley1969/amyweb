@@ -9,6 +9,7 @@ import InvestigationalNotice from '../components/InvestigationalNotice.astro';
 import BioteDisclaimer from '../components/BioteDisclaimer.astro';
 import DraftBanner from '../components/DraftBanner.astro';
 import AtAGlance from '../components/AtAGlance.astro';
+import ProductDetailCards from '../components/ProductDetailCards.astro';
 import VisitSteps from '../components/VisitSteps.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import TrustChips from '../components/TrustChips.astro';
@@ -33,6 +34,14 @@ interface Props {
   pricingDisplay: 'none' | 'consult' | 'startingAt';
   clinicianApproved: boolean;
   investigationalProduct?: string;
+  /** When provided, renders ProductDetailCards in place of the products
+   * bullet list — same slot in the fixed compliance order. */
+  productDetails?: readonly {
+    name: string;
+    detail: string;
+    tag?: string;
+    priceLines?: readonly string[];
+  }[];
   /** Editorial Q&A only — compliance text never goes in an accordion. */
   faq?: { q: string; a: string }[];
   seo: { title: string; description: string };
@@ -51,6 +60,7 @@ const {
   pricingDisplay,
   clinicianApproved,
   investigationalProduct,
+  productDetails = [],
   faq = [],
   seo,
   jsonLd = [],
@@ -82,15 +92,22 @@ const crumbs = [
     <slot name="intro" />
 
     {
-      products.length > 0 && (
+      productDetails.length > 0 ? (
         <>
           <h2 class="heading-3 mt-10">What Amy offers</h2>
-          <ul class="mt-3 list-disc space-y-1 pl-6">
-            {products.map((p) => (
-              <li>{p}</li>
-            ))}
-          </ul>
+          <ProductDetailCards items={productDetails} />
         </>
+      ) : (
+        products.length > 0 && (
+          <>
+            <h2 class="heading-3 mt-10">What Amy offers</h2>
+            <ul class="mt-3 list-disc space-y-1 pl-6">
+              {products.map((p) => (
+                <li>{p}</li>
+              ))}
+            </ul>
+          </>
+        )
       )
     }
 

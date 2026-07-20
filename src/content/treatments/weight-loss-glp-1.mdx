@@ -7,6 +7,21 @@ products:
   - "Tirzepatide"
   - "Phentermine"
   - "Retatrutide"
+# priceLines: operator-authorized allowlist strings ONLY (2026-07-20
+# override — see compliance/banned-patterns.json and docs/DECISIONS.md).
+productDetails:
+  - name: "Semaglutide"
+    detail: "A first-generation GLP-1 medication — a single-receptor agonist, the one that introduced the class."
+    priceLines: ["20mg @ $675"]
+  - name: "Tirzepatide"
+    detail: "A dual agonist, acting on GLP-1 and GIP receptor pathways."
+    priceLines: ["30mg @ $575", "60mg @ $825"]
+  - name: "Phentermine"
+    detail: "An oral prescription medication, offered where it fits a supervised plan."
+  - name: "Retatrutide"
+    detail: "A triple agonist — GLP-1, GIP, and glucagon receptor pathways. Investigational and not FDA-approved."
+    tag: "Investigational"
+    priceLines: ["24mg @ $600", "50mg @ $850"]
 ctaType: consult
 investigational: true
 investigationalProduct: "Retatrutide"
@@ -14,6 +29,8 @@ pricingDisplay: consult
 clinicianApproved: false
 draft: false
 faq:
+  - q: "What's the difference between Semaglutide, Tirzepatide, and Retatrutide?"
+    a: "How many receptor pathways they act on. Semaglutide is a single agonist, Tirzepatide is a dual agonist (GLP-1 and GIP), and Retatrutide — which is investigational and not FDA-approved — is a triple agonist (GLP-1, GIP, and glucagon). Which one, if any, belongs in your plan is decided in consultation."
   - q: "Can I book GLP-1 therapy directly?"
     a: "This program starts with a consultation — free, as always — because prescription decisions need your history and a clinical assessment first. Request one online or by phone."
   - q: "Who supervises the program?"

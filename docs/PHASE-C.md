@@ -19,6 +19,11 @@
 >   Xeomin, Daxxify); weight loss broadened (Retatrutide behind the
 >   named investigational notice); regenerative trimmed to PRP /
 >   PRP-with-microneedling pending Amy's confirmation of the rest.
+> - **GLP-1 product cards merged** (2026-07-20): the weight-loss page
+>   carries per-product cards (receptor-class facts + the five mg-keyed
+>   price tiers — operator override of the mg ban, scoped to exact
+>   registry allowlist strings; DECISIONS 2026-07-20). `productDetails`
+>   + `ProductDetailCards` are reusable for the pending Peptides work.
 > - **C8 (real home from ConceptHome.astro; deletes the legacy keyframe
 >   fence) is gated on operator + Amy approving the concept on the
 >   stable preview.** Open flag from C5: the services-grid card says

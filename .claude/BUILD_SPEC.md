@@ -272,9 +272,20 @@ action hype, no outcomes, no dosing, ever.
 1. **Weight Loss & GLP-1 Therapy** — prescription medications offered in
    a medically supervised weight-management program: **Semaglutide**,
    **Tirzepatide**, **Phentermine**, and **Retatrutide** (menu confirmed
-   against the live Vagaro listing, operator decision 2026-07-19; the
-   Vagaro mg tiers are dosing and NEVER appear on the site). Retatrutide
-   is **investigational (not FDA-approved)** — if published,
+   against the live Vagaro listing, operator decision 2026-07-19).
+   Authorized product facts (2026-07-20, vetted from the client's product
+   sheet — the sheet itself is a hard-constraint-8-class document:
+   view-only, never committed or quoted): receptor-class descriptions
+   (Semaglutide first-generation single agonist; Tirzepatide dual
+   agonist, GLP-1 + GIP; Retatrutide triple agonist, GLP-1 + GIP +
+   glucagon) and the mg-keyed price tiers enumerated in
+   `compliance/banned-patterns.json` `allowedStrings` (operator override
+   2026-07-20 — supersedes the earlier "mg tiers never appear" note for
+   those EXACT strings only; every other quantity stays banned). The
+   sheet's reconstitution and dosing columns are prohibited content; its
+   duration/tolerability wording is a safety claim — banned; its Uses
+   wording contains banned angles — receptor-class facts only.
+   Retatrutide is **investigational (not FDA-approved)** — if published,
    `investigational: true`, factual naming only, no benefit claims of any
    kind, consult routing; final wording subject to attorney review
    (`{{RETATRUTIDE_COUNSEL}}`). Phentermine: factual naming only — never
@@ -329,7 +340,11 @@ action hype, no outcomes, no dosing, ever.
 **Never, anywhere** (page copy, meta, alt text, JSON-LD, OG, microcopy):
 
 1. Dosing in any form: doses, units, mg/mcg quantities, reconstitution,
-   frequency, duration protocols, titration.
+   frequency, duration protocols, titration. *Scoped exception
+   (2026-07-20, operator override after the compliance flag — DECISIONS
+   2026-07-20): the exact price-tier strings enumerated in
+   `compliance/banned-patterns.json` `allowedStrings` may appear as
+   product pricing; nothing else.*
 2. Disease claims: treat / cure / prevent / diagnose; disease names in benefit
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).
 3. Efficacy/outcome promises: guarantees, specific results, numbers,
@@ -356,7 +371,11 @@ banned product angles). Inverse checks: `investigational: true` files must
 contain the investigational disclosure string; `bioteDisclaimer: true` files
 must not contain symptom lists unless the disclaimer component is present.
 Runs in `npm run verify` and CI. The banned list only ever grows; loosening it
-requires the human operator.
+requires the human operator. The registry's `allowedStrings` entry
+(2026-07-20 override) strips its exact strings from a line before the
+categories run — boundary-guarded and self-tested so any quantity beyond
+the enumerated strings still fails; the entry changes only by operator
+action.
 
 ## 9. Integrations (all outbound; no data exchange)
 

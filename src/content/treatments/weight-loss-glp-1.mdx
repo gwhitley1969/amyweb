@@ -17,10 +17,9 @@ productDetails:
     detail: "A dual agonist, acting on GLP-1 and GIP receptor pathways."
     priceLines: ["30mg @ $575", "60mg @ $825"]
   - name: "Phentermine"
-    detail: "An oral prescription medication, offered where it fits a supervised plan."
+    detail: "An oral prescription medication for short-term use in a supervised weight-management plan."
   - name: "Retatrutide"
     detail: "A triple agonist — GLP-1, GIP, and glucagon receptor pathways. Investigational and not FDA-approved."
-    tag: "Investigational"
     priceLines: ["24mg @ $600", "50mg @ $850"]
 ctaType: consult
 investigational: true
@@ -40,6 +39,9 @@ seo:
   description: "A medically supervised weight-management program anchored by GLP-1 therapy — Amy Palacios, FNP, in Harrisburg, NC. Consultation comes first."
 ---
 
+import { Image } from 'astro:assets';
+import weighIn from '../../assets/photos/supervised-weigh-in.jpg';
+
 ## What it is
 
 This is a medically supervised weight-management program built around
@@ -56,6 +58,15 @@ Adults considering medical support for weight management. Prescription
 care is never one-size-fits-all: whether any of these medications
 belongs in your plan — and which one — is a clinical decision Amy makes
 with you in consultation, with your history in front of her.
+
+<figure class="body-figure">
+  <Image
+    src={weighIn}
+    alt="A client stands on a body-composition scale during a supervised weigh-in at the studio."
+    widths={[480, 720, 960]}
+    sizes="(min-width: 48rem) 28rem, 100vw"
+  />
+</figure>
 
 ## Individualized, with Amy
 

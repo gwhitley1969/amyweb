@@ -686,3 +686,21 @@ suppression for short-term weight loss; flagged against brief 1's
 no-mechanism rule and the appetite-language ban, and the operator chose
 the compliant variant — "for short-term use in a supervised
 weight-management plan" — over an override. The rule stands.
+
+## 2026-07-20 — Client weigh-in photo on the weight-loss page
+
+Operator supplied a client photo (weigh-in on the studio's InBody
+body-composition scale) and directed its use on the weight-loss page.
+**Publication basis:** operator confirmed a signed release covering
+website marketing use is on file — recorded here; publication was
+blocked on that confirmation. **Compliance handling:** the
+procedure-aftercare sign in frame ("results take 10-14 days" —
+claim-adjacent text baked into an image) is cropped out; the neon
+reflection in the mirror was inspected at full resolution and is
+illegible (no shared-location naming — hard constraint 2 clear); the
+shipped filename (supervised-weigh-in.jpg) and alt text avoid the
+client's name. **Build:** inline `figure` in the MDX body via
+astro:assets (responsive widths, lazy, dimensions set — no CLS); no
+layout hero capability added. The weight-loss page is outside the
+Lighthouse URL set, so image budgets are unaffected; pa11y covers the
+page.

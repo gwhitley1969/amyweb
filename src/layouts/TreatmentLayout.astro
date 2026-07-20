@@ -193,4 +193,15 @@ const crumbs = [
     margin-top: 0.75rem;
     max-width: 65ch;
   }
+  /* Inline photo figures in MDX bodies (astro:assets — width/height
+   * attributes set by the pipeline, so no CLS; lazy below the fold). */
+  .treatment-body .body-figure {
+    margin-top: 2.5rem;
+  }
+  .treatment-body .body-figure img {
+    width: 100%;
+    max-width: 28rem;
+    height: auto;
+    border: 1px solid var(--ng-hairline);
+  }
 </style>

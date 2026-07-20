@@ -36,6 +36,16 @@ const categories = registry.categories.map((cat) => ({
   patterns: cat.patterns,
 }));
 
+// Operator-authorized allowlist (see $allowlistComment in the registry and
+// docs/DECISIONS.md 2026-07-20): EXACT strings stripped from a line before
+// the banned categories run. The boundary guards keep partial overlaps
+// scannable — "120mg @ $675" is NOT stripped by "20mg @ $675". Changing
+// the list requires the human operator.
+const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const allowedStringPatterns = (registry.allowedStrings ?? []).map(
+  (s) => new RegExp(`(?<![\\d.])${escapeRegExp(s)}(?!\\d)`, 'g'),
+);
+
 const SYMPTOM_LANGUAGE =
   /\b(?:fatigue|low\s+energy|night\s+sweats|hot\s+flashes|brain\s+fog|libido|mood\s+swings|trouble\s+sleeping|poor\s+sleep|weight\s+gain)\b/iu;
 const INVESTIGATIONAL_FLAG = /^\s*investigational:\s*true\s*$/m;
@@ -61,6 +71,9 @@ function scanText(text) {
   const violations = [];
   const lines = text.split(/\r?\n/);
   lines.forEach((lineText, i) => {
+    for (const allowed of allowedStringPatterns) {
+      lineText = lineText.replace(allowed, '');
+    }
     for (const cat of categories) {
       for (const re of cat.regexes) {
         const m = lineText.match(re);
@@ -187,6 +200,21 @@ function runSelfTest() {
   if (inverseChecks(compliantBiote).length !== 0) {
     console.error('self-test: biote check false positive on compliant file');
     failed = true;
+  }
+
+  // Allowlist carve-out: every enumerated string must pass, and a quantity
+  // that merely contains one (different leading digits) must still be
+  // caught by the dosing category — proves the exception is exact.
+  const rawAllowed = registry.allowedStrings ?? [];
+  for (const sample of rawAllowed) {
+    if (scanText(`priceLines: ["${sample}"]`).length !== 0) {
+      console.error(`self-test: allowlisted string "${sample}" was flagged`);
+      failed = true;
+    }
+    if (scanText(`1${sample}`).filter((v) => v.category === 'dosing').length === 0) {
+      console.error(`self-test: quantity variant "1${sample}" was NOT flagged — the allowlist is too loose`);
+      failed = true;
+    }
   }
 
   if (failed) {

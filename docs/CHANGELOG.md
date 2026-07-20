@@ -6,6 +6,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-20 — Amy's portrait joins the weight-loss page
+
+- A second framed print on the GLP-1 page: Amy's solo portrait in her
+  embroidered scrubs, mirrored against the weigh-in photo (new
+  `.media-row--flip` layout variant — opposite tilt, "Your clinician"
+  caption). The operator's first-choice frame (a neuromodulator prep
+  tray) was flagged as non-compliant for this page; the portrait came
+  out of a full pro-shoot survey instead (DECISIONS 2026-07-20).
+  `clinicianApproved` unchanged.
+
 ### 2026-07-20 — Editorial deck replaces the fact card on service pages
 
 - The Provider/Location/Appointments fact card is gone from all eleven

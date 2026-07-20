@@ -6,6 +6,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-20 — All conversion buttons say "Book with Amy"
+
+- The "Request a consultation" label is retired (operator directive):
+  every conversion button sitewide now reads "Book with Amy." Consult-
+  variant buttons keep their `/book` destination and outline style;
+  prose keeps the consultation language (DECISIONS 2026-07-20).
+
 ### 2026-07-20 — Amy's portrait joins the weight-loss page
 
 - A second framed print on the GLP-1 page: Amy's solo portrait in her

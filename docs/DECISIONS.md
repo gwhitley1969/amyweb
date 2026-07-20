@@ -748,3 +748,18 @@ injectable ambiguity on a weight-loss page, label unverified);
 mirror-moment frames (client release unconfirmed, facial-treatment
 read). Noted for later: 8K0A9881/9922 are Skincare-page-ready product
 frames.
+
+## 2026-07-20 — One conversion label: "Book with Amy" replaces "Request a consultation"
+
+Operator directive: every button that said "Request a consultation"
+now says "Book with Amy." Implemented as a label-only change to
+CTAButton's consult variant — the button still points at `/book`, the
+outline style still distinguishes it from the solid Vagaro button, and
+the §6 language convention still governs prose (router cards, FAQs,
+and pricing lines keep saying "consultation," so clinical routing
+survives in copy). Known trade-off, flagged and accepted: on
+direct-booking treatment pages the router card and the closing band
+now both read "Book with Amy" with different destinations (/book vs
+Vagaro); both funnel to booking, and the external one announces its
+new tab. BUILD_SPEC §6 amended to record that the route table's
+"Request a consultation" cells describe routing intent, not the label.

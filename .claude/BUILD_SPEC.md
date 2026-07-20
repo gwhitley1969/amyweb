@@ -225,6 +225,12 @@ for clinical-routing contexts ("is this right for me → request a
 consultation"); **"appointment"** is used for booking/conversion contexts
 ("book an appointment"). Do not mix them.
 
+CTA label amendment (operator, 2026-07-20): every conversion button is
+labeled **"Book with Amy"**, including consult-routed ones. The table's
+"Request a consultation" cells describe routing intent, not the label:
+consult-variant buttons still point at `/book`, and the consultation
+language convention continues to govern prose.
+
 Home hero: open with the most characteristic thing in this brand's world — the
 Needle Girlie identity itself (wordmark energy, the chevron/syringe motif, a
 confident one-line promise about *her* care), not a generic stock-spa hero.

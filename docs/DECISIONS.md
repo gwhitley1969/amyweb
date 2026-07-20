@@ -704,3 +704,23 @@ astro:assets (responsive widths, lazy, dimensions set — no CLS); no
 layout hero capability added. The weight-loss page is outside the
 Lighthouse URL set, so image budgets are unaffected; pa11y covers the
 page.
+
+## 2026-07-20 — AtAGlance retired from treatment pages; editorial deck replaces it
+
+Operator: no one likes the fact card (Provider / Location /
+Appointments / New clients) on the service pages — remove it and put
+something better there. Decision: the card comes off TreatmentLayout
+only; /book keeps its copy (provider/phone facts are contextually right
+on a booking page), so AtAGlance.astro survives. In its place an
+optional `deck` frontmatter field renders a blush statement card — one
+short, claims-clean Playfair display line per treatment, in the same
+card anatomy family (blush, hairline, magenta edge; ink-900 on blush
+15.77:1). Upright face only — no italic font file is added, so the
+Layer-1 font byte budget is untouched. All eleven pages populated in
+one pass; §8 applies to deck strings and the lines rode lint:claims,
+lint:voice, and the full verify (Lighthouse CLS median held on both
+tracked treatment pages). Rejected: an on-page table of contents
+(bureaucratic for short pages); third-party embeds (privacy
+architecture); deleting the component (/book uses it). Consequence:
+eleven new copy lines await Amy's sign-off like all treatment content
+(clinicianApproved unchanged, false).

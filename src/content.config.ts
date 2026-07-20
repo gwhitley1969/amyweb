@@ -27,6 +27,21 @@ const treatments = defineCollection({
     line: z.enum(SERVICE_LINES),
     summary: z.string(),
     products: z.array(z.string()).default([]),
+    // Optional per-product cards (2026-07-20 GLP-1 alignment — operator-
+    // approved schema change): upgrades the products bullet list in the
+    // layout. `detail` is one factual, claim-free sentence (§7/§8);
+    // `priceLines` may hold ONLY the operator-authorized allowlist strings
+    // in compliance/banned-patterns.json.
+    productDetails: z
+      .array(
+        z.object({
+          name: z.string(),
+          detail: z.string(),
+          tag: z.string().optional(),
+          priceLines: z.array(z.string()).default([]),
+        }),
+      )
+      .default([]),
     ctaType: z.enum(['book', 'consult', 'shop']),
     investigational: z.boolean().default(false),
     // Names the compound inside InvestigationalNotice so the disclosure

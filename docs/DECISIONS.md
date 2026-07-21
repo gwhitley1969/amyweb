@@ -805,3 +805,22 @@ gate-breaking); hiding the statement in non-rendered text (hollow
 gate pass). **Consequences:** the disclosure now appears exactly once
 (verified in built HTML, phrase unsplit); {{RETATRUTIDE_COUNSEL}}
 still governs final wording; clinicianApproved stays false.
+
+## 2026-07-21 — Weight-loss page books directly (operator)
+
+The operator saw "Book with Amy" on the weight-loss preview routing to
+/book and directed it link Amy's Vagaro page. Not a bug — the line was
+consult-routed by §6/§7 design — so this is a routing change, executed
+with the copy aligned in the same content commit: ctaType → book (the
+closing band now opens Vagaro in a new tab, matching wrinkle-relaxers
+and dermal-fillers), the FAQ answer flips from "starts with a
+consultation" to "book anytime — free consultation available first,"
+the body drops "consultation-routed by design," and the meta
+description follows. Kept: suitability language still routes to
+consultation (§8.7), Retatrutide stays consultation-introduced via the
+disclosure line, and the router card still offers the /book path — the
+accepted two-destination pattern from the 2026-07-20 label decision.
+BUILD_SPEC §6 route table + §7 brief 1 amended on the operator's
+directive. Rejected: overriding the consult button's href only on this
+page (forks the variant's meaning sitewide). clinicianApproved stays
+false; Amy reviews the new copy with the rest.

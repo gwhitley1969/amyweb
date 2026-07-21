@@ -203,7 +203,7 @@ layout shift from fonts or images.
 |---|---|---|---|
 | `/` | Home | Hero (brand thesis — see below); "Meet Amy" trust block (FNP, since 2017, Biote-certified); service-line overview cards (11); location strip; Get-the-App slot (coming-soon) | Book an appointment |
 | `/services` | Services index | Short factual intro per line, linking to the 11 detail pages | Per-line → detail |
-| `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Request a consultation |
+| `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Book / Consult (2026-07-21, operator — was consult-routed) |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |
 | `/services/wrinkle-relaxers` | Neuromodulators | §7 brief | Book / Consult |
 | `/services/dermal-fillers` | Dermal Fillers | §7 brief | Book / Consult |
@@ -230,6 +230,12 @@ labeled **"Book with Amy"**, including consult-routed ones. The table's
 "Request a consultation" cells describe routing intent, not the label:
 consult-variant buttons still point at `/book`, and the consultation
 language convention continues to govern prose.
+
+Routing amendment (operator, 2026-07-21): the weight-loss line books
+directly (its closing-band CTA opens the Vagaro page) — the operator
+directed this after seeing the consult-routed button on the preview.
+Suitability language on the page still routes to consultation, and
+Retatrutide remains consultation-introduced in copy (§7 brief 1).
 
 Home hero: open with the most characteristic thing in this brand's world — the
 Needle Girlie identity itself (wordmark energy, the chevron/syringe motif, a
@@ -294,8 +300,10 @@ action hype, no outcomes, no dosing, ever.
    wording contains banned angles — receptor-class facts only.
    Retatrutide is **investigational (not FDA-approved)** — if published,
    `investigational: true`, factual naming only, no benefit claims of any
-   kind, consult routing; final wording subject to attorney review
-   (`{{RETATRUTIDE_COUNSEL}}`). Phentermine: factual naming only — never
+   kind, consultation-introduced in copy (the disclosure line routes it
+   to consultation; the page-level CTA may book directly — operator
+   routing amendment 2026-07-21); final wording subject to attorney
+   review (`{{RETATRUTIDE_COUNSEL}}`). Phentermine: factual naming only — never
    describe its mechanism (the appetite-language ban applies). Banned
    angles: weight-loss numbers, "powerful results",
    blood-sugar/hypoglycemia claims, appetite mechanics as promises.

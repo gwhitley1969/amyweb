@@ -3,7 +3,10 @@
 > **STATUS UPDATE 2026-07-21:** the weight-loss page's Retatrutide
 > disclosure consolidated to a single calm notice line (Amy's
 > direction after the compliance flag; new `investigationalNote`
-> schema field — DECISIONS 2026-07-21). Everything else below stands.
+> schema field — DECISIONS 2026-07-21). Same day: the page switched
+> to direct booking — ctaType: book, consultation-first copy aligned
+> (operator direction; BUILD_SPEC §6/§7 amended — DECISIONS
+> 2026-07-21). Everything else below stands.
 
 > **STATUS UPDATE 2026-07-20 (evening) — polish increments merged to
 > `phase-c` (PRs #19–#25), all deployed to the stable preview:**

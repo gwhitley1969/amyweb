@@ -1095,3 +1095,14 @@ than the password, for a solo reviewer); leaving Bicep as-was (silent
 re-enable drift). Consequences: anyone with a preview link can view
 drafts (client-accepted); the clinician-approval gate remains the
 production safeguard; re-enabling is one ARM PUT if ever wanted.
+
+## 2026-07-21 — BUILD_SPEC §7.5 amended: Radiesse classified as a biostimulator
+
+Context: the filler-vs-biostimulator question recurred (Radiesse is FDA-indicated
+as a dermal filler but is a collagen biostimulator by mechanism); the resolution
+lived only in the biostimulators-page entry above. Decision (operator-approved):
+amend §7.5 to state Radiesse is a biostimulator, not a filler, for this catalog —
+it belongs on /services/biostimulators, not /services/dermal-fillers — citing
+radiesse.com's own "injectable biostimulator" positioning. Consequence: the spec
+now settles placement so the confusion can't resurface; the marketing superlatives
+("first and only", "FDA-approved") stay off-site per §8. Docs-only change.

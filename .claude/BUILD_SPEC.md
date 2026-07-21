@@ -359,6 +359,11 @@ action hype, no outcomes, no dosing, ever.
    overrides.
 5. **Biostimulators** — collagen-stimulating treatments: PDO Threads,
    Radiesse. Factual description of category; no "lifting results" promises.
+   Radiesse is a **biostimulator, not a dermal filler**, for this catalog —
+   it lives on this page, not Dermal Fillers (operator-confirmed 2026-07-21
+   via radiesse.com, which markets it as "the first and only injectable
+   biostimulator"). That superlative and "FDA-approved" stay off-site (§8);
+   PDO threads are the VSoft Lift line.
 6. **Regenerative Treatments** — PRP, and PRP with microneedling
    (trimmed to the live Vagaro menu, operator decision 2026-07-19; PRF,
    PDRN, Illuma, VAMP, and Rejuran return only if Amy confirms them as

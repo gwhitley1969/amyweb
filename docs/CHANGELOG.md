@@ -6,6 +6,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — BUILD_SPEC §7.5 clarified: Radiesse is a biostimulator
+
+- Encoded the filler-vs-biostimulator resolution into the spec brief: Radiesse
+  lives on the Biostimulators page, not Dermal Fillers (operator-confirmed via
+  radiesse.com). Keeps the recurring confusion from resurfacing. (DECISIONS
+  2026-07-21.)
+
 ### 2026-07-21 — Biostimulators: distinct clinician photo + Radiesse biostimulator label
 
 - Media-row photo swapped off the shared `amy-palacios-fnp.jpg` (also on GLP-1)

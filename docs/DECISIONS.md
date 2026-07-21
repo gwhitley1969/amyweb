@@ -1149,3 +1149,17 @@ conflict and the "will suit everyone" suitability claim — is RETIRED;
 the image now carries no sentence-level text at all, and the FAQ item
 listing the six styles remains the descriptive text alternative. The
 as-is override for the Evolus film is unaffected.
+
+## 2026-07-21 — First clinician approval: Dermal Fillers
+
+Context: Amy reviewed /services/dermal-fillers on the stable preview
+(post-PR #38 state: film, cards, syringe pricing, Evolus ranking
+sentence, text-free style guide) and approved the content; the operator
+relayed the approval and confirmed its scope via AskUserQuestion
+(dermal-fillers only — not the home-page concept, not other pages).
+Decision: clinicianApproved flips true for this one page — the flag
+edit made by the operator's own hand per hard constraint 4. The first
+page to clear the clinician gate; its draft banner comes down and the
+production approvals check will pass it. Consequence: any future edit
+to the page's content resets the flag in the same commit (constraint
+4); the remaining ten treatment pages stay clinicianApproved: false.

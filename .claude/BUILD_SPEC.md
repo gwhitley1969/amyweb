@@ -217,7 +217,7 @@ layout shift from fonts or images.
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
-| `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; Evolus relationship per `{{EVOLUS_CLAIM}}` | Request a consultation |
+| `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; Evolus relationship factual only — About stays ranking-free (operator placement decision 2026-07-21; the resolved `{{EVOLUS_CLAIM}}` sentence lives on the two Evolus product pages, §8.4) | Request a consultation |
 | `/book` | RETIRED (2026-07-21, operator) | Was the Vagaro-handoff explainer; every "Book with Amy" now opens Vagaro directly, so the page was deleted before ever serving in production | — |
 | `/visit` | Visit Us | Address, hours (`{{HOURS}}`), parking note, "Get directions" link-out (no map iframe) | Directions / Book |
 | `/privacy`, `/terms`, `/medical-disclaimer` | Legal | Provider-drafted for attorney review; clearly marked drafts until counsel approves | — |
@@ -338,7 +338,8 @@ action hype, no outcomes, no dosing, ever.
    strings enumerated in `allowedStrings` (operator override
    2026-07-21). The sheet's "FDA-approved" phrasing stays banned —
    render it as "prescription"; "neurotoxin" normalizes to
-   "neuromodulator".
+   "neuromodulator". The §8.4 Evolus ranking sentence is authorized on
+   this page (once, Jeuveau context — DECISIONS 2026-07-21).
 4. **Dermal Fillers** — injectable gel fillers for volume/contour:
    Evolysse Smooth & Form (Evolus) and Revanesse Versa+ & Lips+
    (Prollenium); common areas factually (lips, cheeks, jawline, chin,
@@ -354,9 +355,10 @@ action hype, no outcomes, no dosing, ever.
    price string "$650 or $325 (half-syringe)" (trips no banned pattern —
    published with no allowlist entry). Brochure dosing tables, trial
    statistics, testimonials, award claims, and "FDA-approved" phrasing
-   stay out — render "prescription". The Evolus film and the supplied
-   lip style-guide graphic ship under the DECISIONS 2026-07-21
-   overrides.
+   stay out — render "prescription". The Evolus film and the lip
+   style-guide graphic (text-free version since 2026-07-21) ship under
+   the DECISIONS 2026-07-21 overrides. The §8.4 Evolus ranking sentence
+   is authorized on this page (once, Evolysse context).
 5. **Biostimulators** — collagen-stimulating treatments: PDO Threads,
    Radiesse. Factual description of category; no "lifting results" promises.
    Radiesse is a **biostimulator, not a dermal filler**, for this catalog —

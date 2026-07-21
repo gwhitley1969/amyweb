@@ -970,6 +970,37 @@ the GLP-1 decision; any new tier requires an operator-visible registry
 edit; the operator's merge of this PR is the written override
 approval.
 
+## 2026-07-21 — Biostimulators page: factual category, prices shown, consult-first
+
+Context: built /services/biostimulators from `C:\Amy\scans\Radiesse\Radiesse.md`
+(Merz brochure, $900/syringe) and `C:\Amy\scans\VSoft\VSoft.md` (VSoft Lift PDO
+threads), plus the operator's PDO price ($350 for 10 threads). Both brochures are
+saturated with §8 violations — Radiesse's FIRMS/TIGHTENS/REVERSES, "23x more
+collagen," 78%/98% stats, "reverses signs of aging," "lasts 2 years"; VSoft's
+"strongest"/"best," "Amazing Results" before/afters, "FDA-cleared" as a selling
+point. **Decision:** publish only factual category identity + mechanism per
+BUILD_SPEC §7.5 ("collagen-stimulating treatments … no 'lifting results'
+promises") — each product a name + one factual class line (Radiesse = injectable
+calcium hydroxylapatite; PDO Threads = dissolvable polydioxanone, VSoft Lift line)
++ the collagen-stimulation mechanism the category is named for, then route to
+consult. **Prices shown** (operator-confirmed): "$900 per syringe", "$350 for 10
+threads" — flat, non-mg, non-unit strings that pass the dosing regex untouched, so
+no `banned-patterns.json` allowlist entry is needed (unlike the GLP-1 mg-tiers and
+the neuromodulator per-unit prices). First consultation-first page to show
+per-product prices (siblings Regenerative / Skin Rejuvenation keep pricing to the
+consult); operator provided the figures and confirmed display. **CTA:** `consult`,
+not `book` — mandated by BUILD_SPEC §6 (line 210, "Request a consultation") and
+appropriate for injectable/thread procedures. **Rejected:** any FIRMS/TIGHTENS/
+REVERSES, stat, or before/after language (§8); "FDA-cleared" reassurance
+(regulatory status as a selling point); the word "permanent" even negated (the
+outcome-promises regex has no negative lookbehind, so "not permanent" fails —
+longevity routes to the consult instead); a separate "thread lift" product (VSoft
+Lift read as the PDO-thread brand Amy uses — one line, $350/10). **Consequences:**
+`clinicianApproved: false` until Amy signs off; Radiesse sits on Biostimulators
+per §7.5, not Dermal Fillers (the concurrent session's page — Revanesse Versa /
+Evolysse per §7.4), though Radiesse is FDA-*indicated* as a filler — flagged so it
+is not double-listed.
+
 ## 2026-07-21 — Dermal Fillers rebuild: Evolus film override + supplied lip style guide
 
 Context: the operator directed a rebuild of /services/dermal-fillers

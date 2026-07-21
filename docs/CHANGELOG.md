@@ -22,6 +22,23 @@ change lives in `docs/DECISIONS.md`; design specs live in
   captions track); `/media/*` cache route added to both SWA templates.
 - `clinicianApproved: false` — awaiting Amy's sign-off.
 
+### 2026-07-21 — Biostimulators page (Radiesse + PDO Threads, prices, consult-first)
+
+- The placeholder Biostimulators page is now Amy's real two-treatment menu:
+  **Radiesse** (injectable calcium hydroxylapatite, $900 per syringe) and **PDO
+  Threads** (dissolvable polydioxanone, the VSoft Lift line, $350 for 10
+  threads), built to the treatment template — per-product cards with one factual
+  class line, the collagen-stimulation mechanism the category is named for, and a
+  logistics-only FAQ.
+- Compliance: both source brochures (Merz Radiesse; VSoft Lift) are drafted only
+  as factual category identity + mechanism per BUILD_SPEC §7.5 — every
+  FIRMS/TIGHTENS/REVERSES, "23x more collagen," 78%/98% stat, "reverses signs of
+  aging," "strongest/best," and before/after was dropped. Prices are flat
+  (non-mg, non-unit), so no banned-patterns allowlist entry was needed.
+- CTA is **consult**, per BUILD_SPEC §6; `clinicianApproved: false` (Amy's gate).
+  Media-row reuses the existing studio portrait. All gates green (claims, voice,
+  a11y 22/22, Lighthouse). (DECISIONS 2026-07-21.)
+
 ### 2026-07-21 — Treatment pages gain a Call button
 
 - Every treatment page's closing band now pairs its primary button with

@@ -6,6 +6,39 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — Treatment pages gain a Call button
+
+- Every treatment page's closing band now pairs its primary button with
+  "Call 704-579-7108" (reusing the existing CTAButton call variant),
+  matching the /services, /about, and /visit bands. Prompted by the
+  peptide-therapy review; applied in the shared TreatmentLayout so all ten
+  pages stay consistent (DECISIONS 2026-07-21).
+
+### 2026-07-21 — Peptide Therapy page (real menu, prices, direct booking)
+
+- The placeholder Peptides page is now Amy's real nine-peptide menu,
+  resolving `{{PEPTIDES_PUBLIC_LIST}}`: BPC-157/TB-500, GHK-Cu, GLOW,
+  Glutathione, Ipamorelin, MOTS-c, NAD+, Sermorelin, Tesamorelin. Built to
+  the GLP-1 template — per-product cards with one factual biochemical-class
+  line and a flat price, direct Vagaro booking, and a logistics-only FAQ.
+- Compliance: the product sheet's Uses column (anti-aging, healing, recovery,
+  blood-sugar, disease names, "FDA-approved for visceral fat") is
+  non-publishable, so each peptide is described by class only — GHK-Cu is
+  "a copper-binding peptide," Ipamorelin "a growth-hormone-releasing peptide"
+  — with everything else routed to consultation, the same reduction the GLP-1
+  page made. Dosing, reconstitution, and the cycling schedules stay off the
+  site. Prices are flat (not mg-keyed), so no compliance-registry change was
+  needed. No page disclosure (operator choice; recorded exposure).
+  `clinicianApproved` stays false.
+- Photo: a cropped pink-scrubs solo clinician portrait (8K0A9734 above the
+  counter — no products, signage, or clients). NAD+ now shows $200
+  (operator-provided); MOTS-c stays unpriced (DECISIONS 2026-07-21).
+- Enriched within the compliance rules (operator direction): a fuller "what a
+  peptide is" passage, a factual families framing, richer per-card identity
+  lines, a "delivered and supervised" section, and an expanded logistics FAQ —
+  all with zero benefit/efficacy claims. The sheet's marketing "Uses" stay off
+  the site; suitability still routes to consultation (DECISIONS 2026-07-21).
+
 ### 2026-07-21 — Wrinkle Relaxers rebuilt: cards, prices, photography
 
 - The neuromodulators page now carries per-product cards — Jeuveau,

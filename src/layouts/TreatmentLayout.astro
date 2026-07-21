@@ -160,7 +160,9 @@ const crumbs = [
       <h2 class="heading-2">
         Ready <span class="display-accent ng-shimmer">when you are</span>
       </h2>
-      <div class="mt-6">
+      {/* Primary CTA + Call, matching the /services, /about, and /visit
+        * closing bands (the call variant is a tel: link, outline style). */}
+      <div class="mt-6 flex flex-wrap items-center gap-4">
         {
           ctaType === 'book' ? (
             <CTAButton variant="book" />
@@ -170,6 +172,7 @@ const crumbs = [
             <CTAButton variant="consult" />
           )
         }
+        <CTAButton variant="call" />
       </div>
       <div class="mt-6">
         <TrustChips />

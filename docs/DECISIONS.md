@@ -857,6 +857,94 @@ marked retired. Consequences: pa11y audits 22 URLs, Lighthouse 6; the
 free-consultation and phone messaging live on in trust chips, FAQs,
 and call CTAs.
 
+## 2026-07-21 — Peptide Therapy page built; `{{PEPTIDES_PUBLIC_LIST}}` resolved (operator)
+
+Operator directed the Peptides page be built from the client product
+sheet (Peptides tab), using the weight-loss-glp-1 page as the template.
+`{{PEPTIDES_PUBLIC_LIST}}` **resolved** to Amy's nine-item injectable-peptide
+menu: BPC-157/TB-500, GHK-Cu, GLOW (a GHK-Cu/BPC-157/TB-500 blend),
+Glutathione, Ipamorelin, MOTS-c, NAD+, Sermorelin, Tesamorelin.
+
+**Core decision — compliance reduction.** The sheet's Uses column is almost
+entirely non-publishable: anti-aging, anti-inflammatory, healing, recovery,
+blood-sugar, "prevents muscle loss," and Glutathione's chemotherapy/
+Alzheimer's/Parkinson's/neuroprotective claims all hit the claims linter or
+the §7 peptide brief ("no recovery/healing/anti-aging/performance claims"),
+and Tesamorelin's "only FDA-approved drug for visceral fat" hits both the
+fda-approved and superiority patterns. Reconstitution and Dosing are excluded
+by the operator; Duration is a cycling protocol (hard constraint 3) and is
+also excluded despite being nominally offered. So — exactly as the GLP-1 page
+did with its own sheet (DECISIONS 2026-07-20) — publishable facts reduce to
+**product name + factual biochemical class + price + route-to-consultation**
+(e.g. GHK-Cu = "a copper-binding peptide"; Ipamorelin = a growth-hormone-
+releasing peptide; Sermorelin/Tesamorelin = growth-hormone-releasing hormone
+analog). Class descriptors are factual identity only, mirroring GLP-1's
+accepted receptor-class framing; verified clean against every linter category.
+Rendered through the existing `productDetails` / `ProductDetailCards`
+machinery — no schema or component change.
+
+**Operator decisions (full GLP-1 parity).** (1) Show the flat per-product
+prices — and unlike the GLP-1 mg tiers these are not mg-keyed, so they trip no
+dosing pattern and need **no `banned-patterns.json` allowlist entry**. (2)
+`ctaType: book` — the closing band opens Vagaro directly. (3) **No page-level
+non-FDA-approved disclosure.** Flagged before execution — most listed peptides
+are compounded and not FDA-approved, and advertising them by name with prices
+is the same FDA warning-letter pattern flagged for priced Retatrutide — and
+the operator declined a disclosure. Verified this breaks no gate: no linter
+inverse check requires a disclosure absent an `investigational` flag or biote
+symptom language, and neither is present. Recorded as operator-accepted
+regulatory exposure. NAD+ price omitted (the sheet's only NAD+ price is the IV
+price, which belongs to /iv-therapy); Glutathione and NAD+ appear on both
+pages (different delivery), kept on both.
+
+**Rejected:** publishing the Uses benefits (non-compliant, unbuildable — the
+inverse checks and category scans would fail it); a disclosure (operator
+declined); editing `banned-patterns.json` (flat prices need no carve-out).
+**Consequences:** `{{PEPTIDES_PUBLIC_LIST}}` resolved (BUILD_SPEC §17 status
+flip is operator-gated — flagged, not edited here); `clinicianApproved` stays
+false pending Amy's sign-off. Page photo is the reused solo portrait (8K0A0206)
+as a safe placeholder — the one peptide-specific solo frame (8K0A9862, gloved
+clinician presenting a vial) needs a crop to remove legible "Mobile Aesthetics"
+neon, flagged for the operator's pick on the preview.
+
+**Update (2026-07-21) — photo chosen; NAD+ priced.** Operator ruled out the
+reused 0206 portrait (already on the weight-loss page). Photo is now a cropped
+**8K0A9734** — a pink-scrubs solo clinician portrait, cropped above the counter
+to drop the product boxes / syringe tray / marketing brochures; no client, no
+signage, no dosing workflow (sharp crop, top 56%). Rejected en route: 8K0A0069
+(Amy holding a "Mobile Aesthetics" location sign beside Evolysse filler boxes —
+constraint 2 + third-party marketing + wrong treatment). NAD+ now shows
+**$200** (operator-provided — the sheet listed only an "IV NAD" price, so it was
+initially omitted); MOTS-c stays unpriced pending a price.
+
+**Update (2026-07-21) — enriched within compliance (operator, Option A).** After
+the operator flagged the page as too thin (the compliance reduction had left it
+sparse), enriched it with **zero added exposure**: a fuller factual "what a
+peptide is" passage, a families framing (copper peptides / growth-hormone-
+releasing peptides / a synthetic blend / compounds the body makes on its own),
+richer per-card identity lines, a "Delivered, and always supervised" section
+(route of administration + prescription + supervision — no dosing/frequency),
+and an expanded logistics FAQ (how peptides are given, how Amy decides). Cards
+reordered to match the families. Still **no benefit or efficacy claims** — the
+sheet's Uses column stays off, and suitability still routes to consultation. The
+operator declined the Option-B benefit-language override for now; it remains
+available (same posture as the GLP-1 pricing override) if directed later.
+
+## 2026-07-21 — Treatment closing bands gain the Call button (operator)
+
+The operator noted, reviewing peptide-therapy, that its closing band lacked
+the "Call 704-579-7108" button that /services carries. That band lives in
+**TreatmentLayout** (shared), so the fix adds `<CTAButton variant="call" />`
+beside the primary book/consult/shop button there — bringing **all ten
+treatment pages** in line with the /services, /about, and /visit closing bands
+(book + call), rather than scoping one page. The call variant already existed
+(tel: link, outline style, `call_click` event) — no new component, no schema
+change. **Rejected:** a per-page frontmatter flag (an operator-gated schema
+change for a worse, inconsistent result — one treatment page with a call
+button, nine without). **Consequence:** every treatment page's noir band now
+offers its primary CTA plus Call; only the mdx changed per page is untouched
+(the change is layout-level).
+
 ## 2026-07-21 — Neuromodulator product cards + per-unit pricing override
 
 Context: the operator directed a rebuild of /services/wrinkle-relaxers

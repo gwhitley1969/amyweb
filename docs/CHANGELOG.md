@@ -6,13 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
-### 2026-07-21 — Weight-loss page books directly
+### 2026-07-21 — "Book with Amy" means Vagaro, everywhere
 
-- "Book with Amy" on the weight-loss page now opens Amy's Vagaro page
-  (operator direction — the line was consult-routed by design; the
-  routing changed, and the consultation-first copy changed with it in
-  the same commit). Free-and-optional consultation language stays;
-  suitability still routes to consultation (DECISIONS 2026-07-21).
+- The weight-loss page's CTA now opens Amy's Vagaro page (operator
+  direction — the line was consult-routed by design; the
+  consultation-first copy changed with it in the same commit). On the
+  operator's follow-up, the /book double-hop retired sitewide: every
+  "Book with Amy" button — router cards, consult-routed closing bands,
+  /about, /services — books directly. The /book page stays built as
+  the how-booking-works explainer, no longer wired to any button.
+  Free-and-optional consultation language stays; suitability still
+  routes to consultation (DECISIONS 2026-07-21).
 
 ### 2026-07-21 — Retatrutide disclosure: one calm line
 

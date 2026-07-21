@@ -227,15 +227,20 @@ consultation"); **"appointment"** is used for booking/conversion contexts
 
 CTA label amendment (operator, 2026-07-20): every conversion button is
 labeled **"Book with Amy"**, including consult-routed ones. The table's
-"Request a consultation" cells describe routing intent, not the label:
-consult-variant buttons still point at `/book`, and the consultation
-language convention continues to govern prose.
+"Request a consultation" cells describe routing intent in prose, not
+button behavior; consult-variant buttons pointed at `/book` until the
+2026-07-21 routing amendment below.
 
-Routing amendment (operator, 2026-07-21): the weight-loss line books
-directly (its closing-band CTA opens the Vagaro page) — the operator
-directed this after seeing the consult-routed button on the preview.
-Suitability language on the page still routes to consultation, and
-Retatrutide remains consultation-introduced in copy (§7 brief 1).
+Routing amendment (operator, 2026-07-21): a button reading "Book with
+Amy" always opens the Vagaro booking page directly. The weight-loss
+line flipped first (operator direction after seeing the consult-routed
+button on the preview); the operator then retired the `/book`
+double-hop sitewide — the consult variant keeps its outline emphasis
+but books directly. The `/book` page stays built as the
+how-booking-works / phone / free-consultation explainer with no button
+routing to it. Suitability language in prose still routes to
+consultation, and Retatrutide remains consultation-introduced in copy
+(§7 brief 1).
 
 Home hero: open with the most characteristic thing in this brand's world — the
 Needle Girlie identity itself (wordmark energy, the chevron/syringe motif, a

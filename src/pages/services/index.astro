@@ -47,9 +47,13 @@ const crumbs = [
       <h2 class="display-2 mt-4">
         Ready <span class="display-accent ng-shimmer">when you are</span>.
       </h2>
+      {/* book + call, matching the About/Visit closing bands. This band
+        * paired book + consult until 2026-07-21: once every "Book with
+        * Amy" opened Vagaro (PR #28), the pair rendered as two identical
+        * buttons — operator caught it on the preview. */}
       <div class="mt-8 flex flex-wrap justify-center gap-4">
         <CTAButton variant="book" />
-        <CTAButton variant="consult" />
+        <CTAButton variant="call" />
       </div>
       <div class="mt-8">
         <TrustChips />

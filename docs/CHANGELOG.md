@@ -6,6 +6,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — /services closing band: duplicate button fixed
+
+- The /services closing band paired the `book` and `consult` CTA
+  variants — distinct offers until the direct-booking change made them
+  identical (same label, same Vagaro destination), leaving two "Book
+  with Amy" buttons side by side. Operator caught it on the preview.
+  The second button is now the Call button, matching the About and
+  Visit closing bands.
+
 ### 2026-07-21 — /book retired
 
 - The booking-explainer page is deleted (operator decision, following

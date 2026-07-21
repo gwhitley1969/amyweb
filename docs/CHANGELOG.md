@@ -6,6 +6,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — Biostimulators: distinct clinician photo + Radiesse biostimulator label
+
+- Media-row photo swapped off the shared `amy-palacios-fnp.jpg` (also on GLP-1)
+  to a new `amy-studio-portrait.jpg` — a solo pink-scrubs portrait cropped from
+  8K0A9750 with the product/prep table removed (the shoot has no clean solo
+  frame; ~74 pics screened first-hand).
+- Radiesse's product card now reads "an injectable biostimulator" — operator
+  confirmed via radiesse.com; "first and only" / "FDA approved" from the source
+  banner were not imported (superiority / banned). (DECISIONS 2026-07-21.)
+
 ### 2026-07-21 — Dermal Fillers rebuilt: film, cards, prices, lip styles
 
 - /services/dermal-fillers now carries the Evolus-produced Evolysse film

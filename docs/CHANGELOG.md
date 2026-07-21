@@ -6,6 +6,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — Dermal Fillers: first clinician approval
+
+- Amy reviewed and approved /services/dermal-fillers on the stable
+  preview; `clinicianApproved: true` — the flag edit made by the
+  operator personally (hard constraint 4). First page to clear the
+  clinician gate; its draft banner comes down. Also: BUILD_SPEC §7
+  briefs 3/4 and the §6 About row now cross-reference the resolved
+  Evolus-sentence placement (documentation-completeness sweep).
+  (DECISIONS 2026-07-21.)
+
 ### 2026-07-21 — BUILD_SPEC §7.5 clarified: Radiesse is a biostimulator
 
 - Encoded the filler-vs-biostimulator resolution into the spec brief: Radiesse

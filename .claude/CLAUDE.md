@@ -132,9 +132,10 @@ silently following it. Known superseded points from earlier briefs:
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.
 - **Images** through `astro:assets` (responsive, AVIF/WebP, lazy below fold).
-- **Deploy:** GitHub Actions → SWA (per-PR preview environments,
-  password-protected) → production behind Front Door with cache purge on
-  release.
+- **Deploy:** GitHub Actions → SWA (per-PR preview environments — public
+  and noindexed; password protection removed at operator direction,
+  DECISIONS 2026-07-21) → production behind Front Door with cache purge
+  on release.
 - `staticwebapp.config.json` is **generated at build time** from
   `config/swa/` templates: Front Door lockdown in production builds only, so
   PR previews stay reachable (BUILD_SPEC §14).

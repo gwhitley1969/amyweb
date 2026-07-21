@@ -1074,3 +1074,24 @@ biostimulator …". **Rejected from the source banner:** "first and only"
 (superiority, §8.4) and "FDA approved" (banned regex) — only the factual
 "injectable biostimulator" identity was taken. Consequence: `clinicianApproved:
 false` stays; nothing else on the page changed.
+
+## 2026-07-21 — Preview passwords removed; previews are public + noindexed
+
+Context: the SWA Standard basicAuth cookie looped constantly in Chrome
+for Windows (stale-cookie re-prompt with the correct password), and each
+per-PR hostname needed its own login; the operator lost review time to
+it repeatedly and directed removal ("get rid of the passwords"). Flag
+shown: preview URLs are guessable and carry unapproved draft
+medical-marketing content. Decision (operator, after the flag): disable
+password protection entirely — applied immediately via ARM
+(basicAuth/default → SpecifiedEnvironments, no environments; both live
+previews verified serving 200 with no gate), with the repo synced in
+the same day: the basicAuth resource and previewPassword parameter
+removed from infra Bicep (redeploying infra must NOT silently re-enable
+it), and preview.json gains `X-Robots-Tag: noindex, nofollow` so drafts
+never enter search indexes (also closes the §16 "previews noindexed"
+checklist item). Rejected: Entra-based staging auth (more login friction
+than the password, for a solo reviewer); leaving Bicep as-was (silent
+re-enable drift). Consequences: anyone with a preview link can view
+drafts (client-accepted); the clinician-approval gate remains the
+production safeguard; re-enabling is one ARM PUT if ever wanted.

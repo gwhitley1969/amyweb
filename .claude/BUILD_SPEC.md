@@ -60,8 +60,9 @@ Canonicalization: **apex `needlegirlie.com` is canonical**; `www` 301-redirects
 to apex at Front Door (Azure DNS alias record supports apex → Front Door).
 All HTTP → HTTPS at the edge.
 
-SWA notes: Standard tier (per-PR preview environments, password protection for
-non-production environments, 99.95% SLA). Deployment size limit ~500 MB — if
+SWA notes: Standard tier (per-PR preview environments — public since
+2026-07-21 at operator direction, noindexed via preview.json header;
+99.95% SLA). Deployment size limit ~500 MB — if
 the media library decision (`{{MEDIA_SCOPE}}`) brings heavy assets on-site,
 a dedicated Blob `/media/*` origin behind the same Front Door is the escape
 valve; do not build it until instructed.
@@ -98,8 +99,10 @@ templates in `config/swa/`:
   - `forwardingGateway.requiredHeaders["X-Azure-FDID"] = {{FRONT_DOOR_ID}}`
   - `forwardingGateway.allowedForwardedHosts = ["needlegirlie.com", "www.needlegirlie.com"]`
 - **preview.json** — **no** lockdown (PR previews must stay reachable);
-  previews are protected instead by SWA Standard's environment password
-  (set in the portal; give Amy the password for review).
+  previews are PUBLIC (password protection removed at operator direction,
+  DECISIONS 2026-07-21 — the auth cookie looped in Chrome and blocked
+  reviews) and carry `X-Robots-Tag: noindex, nofollow` so unapproved
+  drafts never index. Share preview links with Amy directly.
 
 Both variants set:
 
@@ -570,7 +573,8 @@ operator may provision manually; if asked to write Bicep, produce:
       noindexed, production indexable.
 - [ ] 404 page works at the edge.
 - [ ] Runbook written: deploy, roll back, purge cache, edit content, the
-      approval workflow, and the preview-password process for Amy's reviews.
+      approval workflow, and the preview-link process for Amy's reviews
+      (previews are public + noindexed since 2026-07-21).
 
 ## 17. Placeholder registry
 

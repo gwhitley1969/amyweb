@@ -778,3 +778,30 @@ self-test derives its cases from the registry, so the gate stays
 self-proving: each new string passes, every longer-quantity variant
 ("120mg vial: $675") still fails dosing. "vial" matches no banned
 pattern outside the stripped strings.
+
+## 2026-07-21 — Retatrutide disclosure consolidated to one calm line (client direction, scoped)
+
+Amy directed (via the operator) that ALL "investigational / not
+FDA-approved" references come off the weight-loss page — she covers
+this in consultation and finds it too alarming on the page. Flagged
+before execution: the page advertises Retatrutide by name **with
+prices**, and advertising an unapproved compound with no disclosure is
+the exact pattern in FDA's 2026 warning-letter wave — removal while
+the product stays advertised is misleading advertising, and the
+linter's inverse checks (non-removable gates) fail it by design. Two
+compliant paths offered: remove Retatrutide from the page entirely
+(recommended — matches "she covers it in consultation"), or keep it
+and collapse the four repetitions (bolded notice, card sentence, FAQ
+clause, body sentence) to a single matter-of-fact line. **Operator
+chose consolidation.** Mechanism: new optional `investigationalNote`
+schema field — the page supplies the calm sentence, rendered inside
+the adjacent InvestigationalNotice; the wording lives in the content
+file so lint:claims keeps enforcing the statement on the page that
+advertises the compound and the clinician audit trail carries the
+exact sentence. The component's bolded default remains the fallback
+for any future investigational page. **Rejected:** full removal with
+the product still advertised (declined as unbuildable — deceptive and
+gate-breaking); hiding the statement in non-rendered text (hollow
+gate pass). **Consequences:** the disclosure now appears exactly once
+(verified in built HTML, phrase unsplit); {{RETATRUTIDE_COUNSEL}}
+still governs final wording; clinicianApproved stays false.

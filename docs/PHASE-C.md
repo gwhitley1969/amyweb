@@ -1,5 +1,10 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-21:** the weight-loss page's Retatrutide
+> disclosure consolidated to a single calm notice line (Amy's
+> direction after the compliance flag; new `investigationalNote`
+> schema field — DECISIONS 2026-07-21). Everything else below stands.
+
 > **STATUS UPDATE 2026-07-20 (evening) — polish increments merged to
 > `phase-c` (PRs #19–#25), all deployed to the stable preview:**
 >

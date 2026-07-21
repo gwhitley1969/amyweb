@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — Retatrutide disclosure: one calm line
+
+- The weight-loss page said "investigational and not FDA-approved" four
+  times (bolded notice, product card, FAQ, body copy); at Amy's
+  direction — after the compliance flag that the statement itself
+  cannot come off while Retatrutide is advertised with prices — the
+  operator chose consolidation: a single matter-of-fact sentence in the
+  adjacent notice, supplied from the content file via the new
+  `investigationalNote` field (DECISIONS 2026-07-21).
+  `clinicianApproved` unchanged.
+
 ### 2026-07-20 — GLP-1 price tiers reformatted
 
 - The five authorized price tiers on the weight-loss page now read

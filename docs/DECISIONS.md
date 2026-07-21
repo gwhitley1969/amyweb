@@ -1054,6 +1054,27 @@ all limits); zero run-rate impact; the page stays out of the LHCI URL
 set (deliberate — adding it offered to the operator as a pure
 tightening).
 
+## 2026-07-21 — Biostimulators: solo clinician photo + Radiesse biostimulator identity
+
+Follow-up to the biostimulators build (PR #34, merged). Two operator-driven
+changes. **(1) Photo swap:** the media-row reused `amy-palacios-fnp.jpg`
+(8K0A0206), already on the GLP-1 page; the operator asked for a distinct frame.
+The shoot has no clean solo portrait — every solo frame carries the
+"MobileAesthetics" neon sign, a held product box, or a prep tray (all ~74 pics
+re-screened first-hand) — so a new asset `amy-studio-portrait.jpg` was cropped
+from 8K0A9750 (Amy alone, chin on hands, pink scrubs), keeping only the region
+above the table and removing the Evolysse/Jeuveau boxes, vials, and pen tray.
+Same manufacture-a-clean-frame technique used for the peptides photo (8K0A9734).
+**(2) Radiesse = biostimulator, made explicit:** the operator confirmed via
+radiesse.com that Radiesse is "the first and only injectable biostimulator" and
+"RADIESSE … are biostimulators", settling the filler-vs-biostimulator question
+and confirming the §7.5 placement here (not on Dermal Fillers, which shipped
+Evolysse + Revanesse, no Radiesse). The product card now reads "An injectable
+biostimulator …". **Rejected from the source banner:** "first and only"
+(superiority, §8.4) and "FDA approved" (banned regex) — only the factual
+"injectable biostimulator" identity was taken. Consequence: `clinicianApproved:
+false` stays; nothing else on the page changed.
+
 ## 2026-07-21 — Preview passwords removed; previews are public + noindexed
 
 Context: the SWA Standard basicAuth cookie looped constantly in Chrome

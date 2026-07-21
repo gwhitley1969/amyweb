@@ -6,6 +6,25 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — Peptide Therapy page (real menu, prices, direct booking)
+
+- The placeholder Peptides page is now Amy's real nine-peptide menu,
+  resolving `{{PEPTIDES_PUBLIC_LIST}}`: BPC-157/TB-500, GHK-Cu, GLOW,
+  Glutathione, Ipamorelin, MOTS-c, NAD+, Sermorelin, Tesamorelin. Built to
+  the GLP-1 template — per-product cards with one factual biochemical-class
+  line and a flat price, direct Vagaro booking, and a logistics-only FAQ.
+- Compliance: the product sheet's Uses column (anti-aging, healing, recovery,
+  blood-sugar, disease names, "FDA-approved for visceral fat") is
+  non-publishable, so each peptide is described by class only — GHK-Cu is
+  "a copper-binding peptide," Ipamorelin "a growth-hormone-releasing peptide"
+  — with everything else routed to consultation, the same reduction the GLP-1
+  page made. Dosing, reconstitution, and the cycling schedules stay off the
+  site. Prices are flat (not mg-keyed), so no compliance-registry change was
+  needed. No page disclosure (operator choice; recorded exposure).
+  `clinicianApproved` stays false.
+- Photo: the reused solo portrait as a placeholder; a peptide-specific frame
+  is flagged for the operator to pick on the preview (DECISIONS 2026-07-21).
+
 ### 2026-07-21 — /services closing band: duplicate button fixed
 
 - The /services closing band paired the `book` and `consult` CTA

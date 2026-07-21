@@ -856,3 +856,53 @@ weakening — a kept entry would fail on 404). Kept: AtAGlance.astro
 marked retired. Consequences: pa11y audits 22 URLs, Lighthouse 6; the
 free-consultation and phone messaging live on in trust chips, FAQs,
 and call CTAs.
+
+## 2026-07-21 — Peptide Therapy page built; `{{PEPTIDES_PUBLIC_LIST}}` resolved (operator)
+
+Operator directed the Peptides page be built from the client product
+sheet (Peptides tab), using the weight-loss-glp-1 page as the template.
+`{{PEPTIDES_PUBLIC_LIST}}` **resolved** to Amy's nine-item injectable-peptide
+menu: BPC-157/TB-500, GHK-Cu, GLOW (a GHK-Cu/BPC-157/TB-500 blend),
+Glutathione, Ipamorelin, MOTS-c, NAD+, Sermorelin, Tesamorelin.
+
+**Core decision — compliance reduction.** The sheet's Uses column is almost
+entirely non-publishable: anti-aging, anti-inflammatory, healing, recovery,
+blood-sugar, "prevents muscle loss," and Glutathione's chemotherapy/
+Alzheimer's/Parkinson's/neuroprotective claims all hit the claims linter or
+the §7 peptide brief ("no recovery/healing/anti-aging/performance claims"),
+and Tesamorelin's "only FDA-approved drug for visceral fat" hits both the
+fda-approved and superiority patterns. Reconstitution and Dosing are excluded
+by the operator; Duration is a cycling protocol (hard constraint 3) and is
+also excluded despite being nominally offered. So — exactly as the GLP-1 page
+did with its own sheet (DECISIONS 2026-07-20) — publishable facts reduce to
+**product name + factual biochemical class + price + route-to-consultation**
+(e.g. GHK-Cu = "a copper-binding peptide"; Ipamorelin = a growth-hormone-
+releasing peptide; Sermorelin/Tesamorelin = growth-hormone-releasing hormone
+analog). Class descriptors are factual identity only, mirroring GLP-1's
+accepted receptor-class framing; verified clean against every linter category.
+Rendered through the existing `productDetails` / `ProductDetailCards`
+machinery — no schema or component change.
+
+**Operator decisions (full GLP-1 parity).** (1) Show the flat per-product
+prices — and unlike the GLP-1 mg tiers these are not mg-keyed, so they trip no
+dosing pattern and need **no `banned-patterns.json` allowlist entry**. (2)
+`ctaType: book` — the closing band opens Vagaro directly. (3) **No page-level
+non-FDA-approved disclosure.** Flagged before execution — most listed peptides
+are compounded and not FDA-approved, and advertising them by name with prices
+is the same FDA warning-letter pattern flagged for priced Retatrutide — and
+the operator declined a disclosure. Verified this breaks no gate: no linter
+inverse check requires a disclosure absent an `investigational` flag or biote
+symptom language, and neither is present. Recorded as operator-accepted
+regulatory exposure. NAD+ price omitted (the sheet's only NAD+ price is the IV
+price, which belongs to /iv-therapy); Glutathione and NAD+ appear on both
+pages (different delivery), kept on both.
+
+**Rejected:** publishing the Uses benefits (non-compliant, unbuildable — the
+inverse checks and category scans would fail it); a disclosure (operator
+declined); editing `banned-patterns.json` (flat prices need no carve-out).
+**Consequences:** `{{PEPTIDES_PUBLIC_LIST}}` resolved (BUILD_SPEC §17 status
+flip is operator-gated — flagged, not edited here); `clinicianApproved` stays
+false pending Amy's sign-off. Page photo is the reused solo portrait (8K0A0206)
+as a safe placeholder — the one peptide-specific solo frame (8K0A9862, gloved
+clinician presenting a vial) needs a crop to remove legible "Mobile Aesthetics"
+neon, flagged for the operator's pick on the preview.

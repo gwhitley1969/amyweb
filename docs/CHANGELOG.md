@@ -16,6 +16,22 @@ change lives in `docs/DECISIONS.md`; design specs live in
   unapproved drafts never index. Amy's review links now open directly
   (DECISIONS 2026-07-21).
 
+### 2026-07-21 — Dermal Fillers rebuilt: film, cards, prices, lip styles
+
+- /services/dermal-fillers now carries the Evolus-produced Evolysse film
+  (the site's first video — self-hosted MP4, click-to-play, captioned),
+  product cards for Evolysse Smooth, Evolysse Form, and the Revanesse
+  family (Versa+ & Lips+) with real pricing — "$650 or $325
+  (half-syringe)", which trips no banned pattern, so no compliance
+  carve-out was needed — two vetted studio photos of Amy with the
+  Evolysse packaging, the client-supplied lip style guide, an "After
+  weight loss" cross-link to the GLP-1 page, and an expanded FAQ.
+  Operator overrides for the manufacturer film and the style-guide
+  graphic: DECISIONS 2026-07-21.
+- New TreatmentVideo component (zero JS, native controls, required
+  captions track); `/media/*` cache route added to both SWA templates.
+- `clinicianApproved: false` — awaiting Amy's sign-off.
+
 ### 2026-07-21 — Biostimulators page (Radiesse + PDO Threads, prices, consult-first)
 
 - The placeholder Biostimulators page is now Amy's real two-treatment menu:

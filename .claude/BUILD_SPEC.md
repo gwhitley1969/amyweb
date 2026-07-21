@@ -340,8 +340,23 @@ action hype, no outcomes, no dosing, ever.
    render it as "prescription"; "neurotoxin" normalizes to
    "neuromodulator".
 4. **Dermal Fillers** — injectable gel fillers for volume/contour:
-   Revanesse Versa, Evolus Evolysse; common areas factually (lips, cheeks,
-   jawline, chin, under-eyes).
+   Evolysse Smooth & Form (Evolus) and Revanesse Versa+ & Lips+
+   (Prollenium); common areas factually (lips, cheeks, jawline, chin,
+   under-eyes). Authorized facts (2026-07-21, from the operator's filler
+   briefs in C:\Amy\scans\Fillers — constraint-8-class, view-only, never
+   committed): hyaluronic-acid gels; Evolysse cold-temperature
+   processing designed to preserve the HA molecule (never claim
+   "first"); Smooth softens and smooths lines, Form is designed to lift
+   and support; Revanesse formulated with lidocaine — Versa+ for facial
+   lines and folds, Lips+ for lip augmentation; adults 22 and older;
+   Evolysse duration ONLY as the hedged label fact ("labeled for results
+   lasting up to a year — how long it holds varies person to person");
+   price string "$650 or $325 (half-syringe)" (trips no banned pattern —
+   published with no allowlist entry). Brochure dosing tables, trial
+   statistics, testimonials, award claims, and "FDA-approved" phrasing
+   stay out — render "prescription". The Evolus film and the supplied
+   lip style-guide graphic ship under the DECISIONS 2026-07-21
+   overrides.
 5. **Biostimulators** — collagen-stimulating treatments: PDO Threads,
    Radiesse. Factual description of category; no "lifting results" promises.
 6. **Regenerative Treatments** — PRP, and PRP with microneedling
@@ -387,6 +402,10 @@ action hype, no outcomes, no dosing, ever.
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).
 3. Efficacy/outcome promises: guarantees, specific results, numbers,
    before/after implications, "powerful results", "proven results".
+   *Scoped exception (operator override — DECISIONS 2026-07-21): the
+   Evolus-produced Evolysse film on /services/dermal-fillers is carried
+   as-is, manufacturer safety information intact; its captions transcribe
+   the manufacturer narration faithfully. Nothing else.*
 4. Unsubstantiated superiority: "#1", "best", "top-rated" — pending
    `{{EVOLUS_CLAIM}}`. Until resolved, describe the Evolus relationship
    factually or omit.

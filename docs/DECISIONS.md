@@ -1163,3 +1163,29 @@ page to clear the clinician gate; its draft banner comes down and the
 production approvals check will pass it. Consequence: any future edit
 to the page's content resets the flag in the same commit (constraint
 4); the remaining ten treatment pages stay clinicianApproved: false.
+
+## 2026-07-21 — Evolus ICON event film on Wrinkle Relaxers (as-is override)
+
+Context: the operator directed adding evolus02.mov — Evolus's "ICON, an
+Evolus HQ Experience" event recap (87s, Instagram-watermarked, Amy
+among the attendees) — to /services/wrinkle-relaxers. The flag was
+stronger than the Evolysse film's: the piece contains the CMO's spoken
+comparative-efficacy segment ("Compared to Botox… we saw a statistical
+difference of superiority", with Nuceiva-vs-Vistabel charts), three
+named third-party providers with practices (a cosmetic surgeon, an RN,
+an APRN), Evolus corporate speakers, and NO safety information — an
+event recap, not a DTC ad. Recommended path (rep-cleared cut) and skip
+were both offered; the operator chose publish as-is — the fourth
+override, recorded here; the operator's merge of this PR is the written
+approval. Mechanics: HEVC source required a real H.264 transcode (CRF
+20, faststart, audio copied) — the first non-lossless video conversion;
+captions were built from the film's own burned-in caption text (Whisper
+degraded badly on the music-and-crowd mix; the burned-in captions are
+the authoritative transcript and mirror the manufacturer's own wording,
+including the comparative remarks) with speaker labels for
+accessibility. CLAUDE.md constraint 3 and BUILD_SPEC §8.3/§8.4/§7.3
+carry the extended exception. Consequences: documented, client-accepted
+exposure on comparative-efficacy and third-party-provider content the
+text gates cannot scan; the reusable TreatmentVideo component carried
+the whole feature with zero component changes; wrinkle-relaxers remains
+clinicianApproved: false (Amy's gate still ahead of production).

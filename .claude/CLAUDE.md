@@ -80,11 +80,15 @@ silently following it. Known superseded points from earlier briefs:
      outcome promises, before/after implications, or unsubstantiated
      superiority claims ("#1", "best"). *Scoped exceptions (operator
      overrides after the compliance flags — DECISIONS 2026-07-21): the
-     Evolus-produced Evolysse film embedded on /services/dermal-fillers,
-     carried as-is with manufacturer safety information intact; and the
-     exact sentence "Charlotte's #1 Evolus provider" enumerated in
+     Evolus-produced Evolysse film on /services/dermal-fillers (carried
+     as-is, manufacturer safety information intact); the Evolus ICON
+     event film on /services/wrinkle-relaxers (carried as-is —
+     manufacturer comparative-efficacy remarks, named third-party
+     providers, and no safety information, all operator-accepted); and
+     the exact sentence "Charlotte's #1 Evolus provider" enumerated in
      `allowedStrings`, on the wrinkle-relaxers and dermal-fillers pages
-     only. Nothing else; extending either requires the human operator.*
+     only. Nothing else; extending any of these requires the human
+     operator.*
    - **Never** answer "is this right for me" in copy — route to a consultation.
    - Retatrutide (if published) **must** carry the investigational /
      not-FDA-approved disclosure. Biote symptom language **must** carry the

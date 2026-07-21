@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — Wrinkle Relaxers gains the Evolus ICON film
+
+- The page's second Evolus artifact: the ICON HQ-event recap (87s,
+  H.264 transcode of the operator's HEVC source, click-to-play,
+  captioned from the film's own burned-in text with speaker labels)
+  under a new "Inside Evolus" section pairing with the #1-provider
+  line. Published as-is by operator override — the flag covered the
+  comparative-efficacy segment, named third-party providers, and
+  absent safety information (DECISIONS 2026-07-21). Reused
+  TreatmentVideo unchanged. clinicianApproved stays false.
+
 ### 2026-07-21 — Dermal Fillers: first clinician approval
 
 - Amy reviewed and approved /services/dermal-fillers on the stable

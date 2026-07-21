@@ -339,7 +339,9 @@ action hype, no outcomes, no dosing, ever.
    2026-07-21). The sheet's "FDA-approved" phrasing stays banned —
    render it as "prescription"; "neurotoxin" normalizes to
    "neuromodulator". The §8.4 Evolus ranking sentence is authorized on
-   this page (once, Jeuveau context — DECISIONS 2026-07-21).
+   this page (once, Jeuveau context — DECISIONS 2026-07-21), and the
+   Evolus ICON event film ships here under the §8.3/§8.4 override
+   (as-is; DECISIONS 2026-07-21).
 4. **Dermal Fillers** — injectable gel fillers for volume/contour:
    Evolysse Smooth & Form (Evolus) and Revanesse Versa+ & Lips+
    (Prollenium); common areas factually (lips, cheeks, jawline, chin,
@@ -409,10 +411,12 @@ action hype, no outcomes, no dosing, ever.
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).
 3. Efficacy/outcome promises: guarantees, specific results, numbers,
    before/after implications, "powerful results", "proven results".
-   *Scoped exception (operator override — DECISIONS 2026-07-21): the
-   Evolus-produced Evolysse film on /services/dermal-fillers is carried
-   as-is, manufacturer safety information intact; its captions transcribe
-   the manufacturer narration faithfully. Nothing else.*
+   *Scoped exceptions (operator overrides — DECISIONS 2026-07-21): the
+   Evolus-produced Evolysse film on /services/dermal-fillers (carried
+   as-is, manufacturer safety information intact) and the Evolus ICON
+   event film on /services/wrinkle-relaxers (carried as-is; its
+   comparative-efficacy remarks are the manufacturer's own and its
+   captions transcribe the event speech faithfully). Nothing else.*
 4. Unsubstantiated superiority: "#1", "best", "top-rated" — banned.
    *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator
    override after the flag — DECISIONS): the exact sentence

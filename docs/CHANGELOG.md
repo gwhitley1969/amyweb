@@ -25,6 +25,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - Photo: a cropped pink-scrubs solo clinician portrait (8K0A9734 above the
   counter — no products, signage, or clients). NAD+ now shows $200
   (operator-provided); MOTS-c stays unpriced (DECISIONS 2026-07-21).
+- Enriched within the compliance rules (operator direction): a fuller "what a
+  peptide is" passage, a factual families framing, richer per-card identity
+  lines, a "delivered and supervised" section, and an expanded logistics FAQ —
+  all with zero benefit/efficacy claims. The sheet's marketing "Uses" stay off
+  the site; suitability still routes to consultation (DECISIONS 2026-07-21).
 
 ### 2026-07-21 — /services closing band: duplicate button fixed
 

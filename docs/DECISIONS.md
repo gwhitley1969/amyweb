@@ -916,3 +916,16 @@ signage, no dosing workflow (sharp crop, top 56%). Rejected en route: 8K0A0069
 constraint 2 + third-party marketing + wrong treatment). NAD+ now shows
 **$200** (operator-provided — the sheet listed only an "IV NAD" price, so it was
 initially omitted); MOTS-c stays unpriced pending a price.
+
+**Update (2026-07-21) — enriched within compliance (operator, Option A).** After
+the operator flagged the page as too thin (the compliance reduction had left it
+sparse), enriched it with **zero added exposure**: a fuller factual "what a
+peptide is" passage, a families framing (copper peptides / growth-hormone-
+releasing peptides / a synthetic blend / compounds the body makes on its own),
+richer per-card identity lines, a "Delivered, and always supervised" section
+(route of administration + prescription + supervision — no dosing/frequency),
+and an expanded logistics FAQ (how peptides are given, how Amy decides). Cards
+reordered to match the families. Still **no benefit or efficacy claims** — the
+sheet's Uses column stays off, and suitability still routes to consultation. The
+operator declined the Option-B benefit-language override for now; it remains
+available (same posture as the GLP-1 pricing override) if directed later.

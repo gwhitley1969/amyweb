@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — Call button joins the treatment closing bands
+
+- Every treatment page's noir closing band now pairs its primary CTA
+  with the Call button (operator request, starting from the
+  wrinkle-relaxers page). The treatment bands were the last on the
+  site without the phone option — About, Visit, and /services already
+  had it.
+
 ### 2026-07-21 — Wrinkle Relaxers rebuilt: cards, prices, photography
 
 - The neuromodulators page now carries per-product cards — Jeuveau,

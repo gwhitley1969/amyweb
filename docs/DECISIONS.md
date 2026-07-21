@@ -881,3 +881,19 @@ client-accepted exposure on quantity-keyed pricing, consistent with
 the GLP-1 decision; any new tier requires an operator-visible registry
 edit; the operator's merge of this PR is the written override
 approval.
+
+## 2026-07-21 — Call button on the treatment closing bands
+
+Context: the operator asked for the /services band's Call button on
+the wrinkle-relaxers page. That band is rendered by TreatmentLayout,
+shared by all eleven treatment pages. Decision: add the Call button
+to the shared band unconditionally — every treatment page now pairs
+its primary CTA (book / shop / consult) with Call, matching the
+About, Visit, and /services bands; the treatment pages were the last
+closing bands on the site without the phone option. Alternative
+rejected: a per-page schema flag scoped to wrinkle-relaxers — more
+machinery for an inconsistent result, against the site's
+one-pattern trajectory (PRs #23/#28/#30). Consequences:
+consult-routed pages show two outline-weight buttons side by side
+(accepted; routing unchanged); if per-page CTA control is ever
+needed, it requires the schema flag this decision declined to add.

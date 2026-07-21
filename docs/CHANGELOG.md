@@ -16,6 +16,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   personally). The linter self-test's exactness proof generalized to
   any-category in the same change; naked "#1"/"best" remain banned
   everywhere else, probe-verified (DECISIONS 2026-07-21).
+- Also in this change: the dermal-fillers lip style guide swapped to the
+  operator's text-free version (names only) — the baked-in "We add
+  volume…" and "will suit everyone" exposure from the original as-is
+  decision is retired (DECISIONS 2026-07-21).
 
 ### 2026-07-21 — Biostimulators: distinct clinician photo + Radiesse biostimulator label
 

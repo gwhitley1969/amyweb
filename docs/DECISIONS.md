@@ -1125,3 +1125,16 @@ existing public claim; the Evolus rep email remains the recommended
 substantiation upgrade and would also unlock attributed wording; both
 touched pages remain clinicianApproved: false; the operator's merge of
 this PR is the written override approval.
+
+## 2026-07-21 — Lip style guide swapped for the text-free version
+
+Context: the operator supplied Lip_Styles_no_text.png — the same
+six-style graphic with every baked-in description removed; only the
+style names remain (large, legible at mobile sizes). Decision
+(operator-directed): replace the original as-is graphic on
+/services/dermal-fillers. Consequence: the exposure recorded in the
+earlier style-guide decision — the baked "We add volume…" voice-rule
+conflict and the "will suit everyone" suitability claim — is RETIRED;
+the image now carries no sentence-level text at all, and the FAQ item
+listing the six styles remains the descriptive text alternative. The
+as-is override for the Evolus film is unaffected.

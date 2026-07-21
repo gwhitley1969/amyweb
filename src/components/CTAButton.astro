@@ -3,11 +3,13 @@ import { siteConfig } from '../lib/siteConfig';
 
 /**
  * Conversion CTA (BUILD_SPEC §5/§6/§9). Labels are unified to "Book with
- * Amy" (operator, 2026-07-20); the variant still encodes routing — book
- * goes to Vagaro, consult to /book — and the §6 language convention
- * ("appointment" = booking, "consultation" = clinical routing) governs
- * prose. Analytics are declarative data-event attributes (§11 event
- * names) read by Phase D's cookieless script — no JS ships now.
+ * Amy" (operator, 2026-07-20) and so are destinations (operator,
+ * 2026-07-21): book and consult both open the Vagaro page directly —
+ * the /book double-hop is retired; consult keeps the outline emphasis.
+ * The §6 language convention ("appointment" = booking, "consultation" =
+ * clinical routing) governs prose. Analytics are declarative data-event
+ * attributes (§11 event names) read by Phase D's cookieless script — no
+ * JS ships now.
  */
 interface Props {
   variant: 'book' | 'consult' | 'call' | 'shop';
@@ -32,12 +34,15 @@ const defaults: Record<
     style: 'solid',
   },
   consult: {
-    /* "Book with Amy" here too (operator, 2026-07-20) — one conversion
-     * label sitewide. Routing intent is unchanged: this variant still
-     * points at /book, and "consultation" remains the word prose uses
-     * for clinical routing (§6). */
+    /* One label AND one destination (operator, 2026-07-21): a button
+     * reading "Book with Amy" always opens the Vagaro page — the
+     * /book hop was retired after the operator saw it on the preview.
+     * "consultation" remains the word prose uses for clinical
+     * routing (§6); the outline style keeps this the secondary
+     * emphasis next to the solid book button. */
     label: 'Book with Amy',
-    href: '/book',
+    href: siteConfig.booking.vagaroUrl,
+    event: 'book_click',
     style: 'outline',
   },
   call: {

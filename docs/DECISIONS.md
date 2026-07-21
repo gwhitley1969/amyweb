@@ -805,3 +805,34 @@ gate-breaking); hiding the statement in non-rendered text (hollow
 gate pass). **Consequences:** the disclosure now appears exactly once
 (verified in built HTML, phrase unsplit); {{RETATRUTIDE_COUNSEL}}
 still governs final wording; clinicianApproved stays false.
+
+## 2026-07-21 — Weight-loss page books directly (operator)
+
+The operator saw "Book with Amy" on the weight-loss preview routing to
+/book and directed it link Amy's Vagaro page. Not a bug — the line was
+consult-routed by §6/§7 design — so this is a routing change, executed
+with the copy aligned in the same content commit: ctaType → book (the
+closing band now opens Vagaro in a new tab, matching wrinkle-relaxers
+and dermal-fillers), the FAQ answer flips from "starts with a
+consultation" to "book anytime — free consultation available first,"
+the body drops "consultation-routed by design," and the meta
+description follows. Kept: suitability language still routes to
+consultation (§8.7), and Retatrutide stays consultation-introduced via
+the disclosure line. BUILD_SPEC §6 route table + §7 brief 1 amended on
+the operator's directive. Rejected: overriding the consult button's
+href only on this page (forks the variant's meaning sitewide).
+clinicianApproved stays false; Amy reviews the new copy with the rest.
+
+**Update (same session) — the /book double-hop retired sitewide:**
+shown the first cut, the operator rejected the surviving pattern
+("Book with Amy" on the router card → /book → click "Book with Amy"
+again to reach Vagaro) outright. Decision: one label, one destination
+— the consult variant's default href is now the Vagaro URL (outline
+emphasis kept, book_click event added, new-tab affordances automatic).
+This supersedes the two-destination trade-off accepted with the
+2026-07-20 label unification; the operator's reaction proved the flag
+right. Consequence: the /book page has no inbound links (header Book
+went Vagaro-direct 2026-07-18) — kept built as the how-booking-works /
+phone explainer and stays in the pa11y/Lighthouse URL sets; retiring
+it is the operator's call, flagged for the Phase E launch checklist.
+Prose consultation routing (§8.7) is untouched.

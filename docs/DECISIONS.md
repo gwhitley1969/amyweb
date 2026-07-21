@@ -906,3 +906,13 @@ false pending Amy's sign-off. Page photo is the reused solo portrait (8K0A0206)
 as a safe placeholder — the one peptide-specific solo frame (8K0A9862, gloved
 clinician presenting a vial) needs a crop to remove legible "Mobile Aesthetics"
 neon, flagged for the operator's pick on the preview.
+
+**Update (2026-07-21) — photo chosen; NAD+ priced.** Operator ruled out the
+reused 0206 portrait (already on the weight-loss page). Photo is now a cropped
+**8K0A9734** — a pink-scrubs solo clinician portrait, cropped above the counter
+to drop the product boxes / syringe tray / marketing brochures; no client, no
+signage, no dosing workflow (sharp crop, top 56%). Rejected en route: 8K0A0069
+(Amy holding a "Mobile Aesthetics" location sign beside Evolysse filler boxes —
+constraint 2 + third-party marketing + wrong treatment). NAD+ now shows
+**$200** (operator-provided — the sheet listed only an "IV NAD" price, so it was
+initially omitted); MOTS-c stays unpriced pending a price.

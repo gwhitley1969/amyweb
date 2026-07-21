@@ -22,8 +22,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   site. Prices are flat (not mg-keyed), so no compliance-registry change was
   needed. No page disclosure (operator choice; recorded exposure).
   `clinicianApproved` stays false.
-- Photo: the reused solo portrait as a placeholder; a peptide-specific frame
-  is flagged for the operator to pick on the preview (DECISIONS 2026-07-21).
+- Photo: a cropped pink-scrubs solo clinician portrait (8K0A9734 above the
+  counter — no products, signage, or clients). NAD+ now shows $200
+  (operator-provided); MOTS-c stays unpriced (DECISIONS 2026-07-21).
 
 ### 2026-07-21 — /services closing band: duplicate button fixed
 

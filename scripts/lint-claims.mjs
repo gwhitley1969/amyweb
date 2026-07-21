@@ -202,17 +202,20 @@ function runSelfTest() {
     failed = true;
   }
 
-  // Allowlist carve-out: every enumerated string must pass, and a quantity
-  // that merely contains one (different leading digits) must still be
-  // caught by the dosing category — proves the exception is exact.
+  // Allowlist carve-out: every enumerated string must pass, and a near-miss
+  // variant (digit-prefixed, so the boundary guard blocks the strip) must
+  // still be caught by SOME banned category — proves the exception is exact.
+  // Generalized from dosing-only 2026-07-21 when the third authorization
+  // added the first superiority-class string (its variant trips superiority,
+  // not dosing); price-string variants still trip dosing as before.
   const rawAllowed = registry.allowedStrings ?? [];
   for (const sample of rawAllowed) {
     if (scanText(`priceLines: ["${sample}"]`).length !== 0) {
       console.error(`self-test: allowlisted string "${sample}" was flagged`);
       failed = true;
     }
-    if (scanText(`1${sample}`).filter((v) => v.category === 'dosing').length === 0) {
-      console.error(`self-test: quantity variant "1${sample}" was NOT flagged — the allowlist is too loose`);
+    if (scanText(`1${sample}`).length === 0) {
+      console.error(`self-test: near-miss variant "1${sample}" was NOT flagged — the allowlist is too loose`);
       failed = true;
     }
   }

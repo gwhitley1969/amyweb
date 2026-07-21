@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — "Charlotte's #1 Evolus provider" published ({{EVOLUS_CLAIM}} resolved)
+
+- The Evolus ranking sentence — long tracked by the placeholder registry
+  and already public on the practice's own site — now appears on the
+  Wrinkle Relaxers (Jeuveau) and Dermal Fillers (Evolysse) pages, via
+  the third operator-authorized allowlist entry (the first
+  superiority-class string; the operator added the registry line
+  personally). The linter self-test's exactness proof generalized to
+  any-category in the same change; naked "#1"/"best" remain banned
+  everywhere else, probe-verified (DECISIONS 2026-07-21).
+
 ### 2026-07-21 — Preview passwords removed (previews public + noindexed)
 
 - SWA preview password protection is off (operator direction — the auth

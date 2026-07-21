@@ -37,6 +37,10 @@ interface Props {
   pricingDisplay: 'none' | 'consult' | 'startingAt';
   clinicianApproved: boolean;
   investigationalProduct?: string;
+  /** Page-supplied disclosure wording rendered inside InvestigationalNotice
+   * — a single calm line from the content file; the component's bolded
+   * default renders when absent. */
+  investigationalNote?: string;
   /** When provided, renders ProductDetailCards in place of the products
    * bullet list — same slot in the fixed compliance order. */
   productDetails?: readonly {
@@ -64,6 +68,7 @@ const {
   pricingDisplay,
   clinicianApproved,
   investigationalProduct,
+  investigationalNote,
   productDetails = [],
   faq = [],
   seo,
@@ -114,7 +119,7 @@ const crumbs = [
     }
 
     {/* Disclosures sit ADJACENT to the products they qualify — never below the fold of the copy. */}
-    {investigational && <InvestigationalNotice productName={investigationalProduct} />}
+    {investigational && <InvestigationalNotice productName={investigationalProduct} note={investigationalNote} />}
     {bioteDisclaimer && <BioteDisclaimer />}
 
     <div class="treatment-body">

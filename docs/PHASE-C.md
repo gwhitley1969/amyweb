@@ -6,9 +6,11 @@
 > schema field — DECISIONS 2026-07-21). Same day: the page switched
 > to direct booking — ctaType: book, consultation-first copy aligned —
 > and the operator then retired the /book double-hop SITEWIDE: every
-> "Book with Amy" button opens Vagaro directly; /book is kept but
-> unlinked (operator direction; BUILD_SPEC §6/§7 amended — DECISIONS
-> 2026-07-21). Everything else below stands.
+> "Book with Amy" button opens Vagaro directly — and **/book is
+> RETIRED** (deleted before ever serving in production; gate lists
+> synced to 22 pa11y / 6 Lighthouse URLs; its checklist entry below is
+> historical). Operator direction; BUILD_SPEC §6/§7 amended —
+> DECISIONS 2026-07-21. Everything else below stands.
 
 > **STATUS UPDATE 2026-07-20 (evening) — polish increments merged to
 > `phase-c` (PRs #19–#25), all deployed to the stable preview:**
@@ -153,8 +155,9 @@ every string):
       `{{EVOLUS_CLAIM}}`. Candidate design: founder split-card (Mobbin
       parking lot, Kalstore pattern). CTA: consult-routed (label is
       "Book with Amy" sitewide since 2026-07-20).
-- [x] `/book` — Vagaro handoff explanation + button (`{{VAGARO_URL}}`,
-      new tab, noopener), phone fallback. CTA language: "appointment".
+- [x] `/book` — built in C1, RETIRED 2026-07-21 (operator): every
+      "Book with Amy" opens Vagaro directly, so the handoff explainer
+      page was deleted before production ever served it.
 - [x] `/visit` — `{{ADDRESS_DISPLAY}}`, `{{HOURS}}`, parking note,
       Get-directions link-out (never an embedded map).
 - [x] `/privacy`, `/terms`, `/medical-disclaimer` — legal DRAFTS, clearly

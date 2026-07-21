@@ -836,3 +836,23 @@ went Vagaro-direct 2026-07-18) — kept built as the how-booking-works /
 phone explainer and stays in the pa11y/Lighthouse URL sets; retiring
 it is the operator's call, flagged for the Phase E launch checklist.
 Prose consultation routing (§8.7) is untouched.
+
+## 2026-07-21 — /book retired (operator)
+
+The flag above resolved same-day: asked whether any use remained, the
+recommendation was deletion — the only surviving purpose (cushioning
+the brand handoff to the Vagaro page, which carries the location's
+name, not Needle Girlie's) is a one-line microcopy job, not a page,
+and the operator declined even that. Deleted now rather than at Phase
+E because the page never served in production and nothing links to it
+— no bookmarks, no search entries, no redirect debt; that stays true
+only while it stays unshipped. Removed: src/pages/book.astro and its
+photo under-the-neon.jpg (used nowhere else — conveniently the one
+frame carrying BOTH open photo flags, client release + neon signage,
+now off the site entirely); the /book URLs came out of the pa11y and
+Lighthouse lists (syncing the enumerated sets to the sitemap, not
+weakening — a kept entry would fail on 404). Kept: AtAGlance.astro
+(styleguide demo still renders it). BUILD_SPEC §6 route table row
+marked retired. Consequences: pa11y audits 22 URLs, Lighthouse 6; the
+free-consultation and phone messaging live on in trust chips, FAQs,
+and call CTAs.

@@ -13,6 +13,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
   radiesse.com). Keeps the recurring confusion from resurfacing. (DECISIONS
   2026-07-21.)
 
+### 2026-07-21 — "Charlotte's #1 Evolus provider" published ({{EVOLUS_CLAIM}} resolved)
+
+- The Evolus ranking sentence — long tracked by the placeholder registry
+  and already public on the practice's own site — now appears on the
+  Wrinkle Relaxers (Jeuveau) and Dermal Fillers (Evolysse) pages, via
+  the third operator-authorized allowlist entry (the first
+  superiority-class string; the operator added the registry line
+  personally). The linter self-test's exactness proof generalized to
+  any-category in the same change; naked "#1"/"best" remain banned
+  everywhere else, probe-verified (DECISIONS 2026-07-21).
+- Also in this change: the dermal-fillers lip style guide swapped to the
+  operator's text-free version (names only) — the baked-in "We add
+  volume…" and "will suit everyone" exposure from the original as-is
+  decision is retired (DECISIONS 2026-07-21).
+
 ### 2026-07-21 — Biostimulators: distinct clinician photo + Radiesse biostimulator label
 
 - Media-row photo swapped off the shared `amy-palacios-fnp.jpg` (also on GLP-1)

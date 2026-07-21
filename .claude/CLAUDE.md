@@ -78,11 +78,13 @@ silently following it. Known superseded points from earlier briefs:
      that list requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
-     superiority claims ("#1", "best"). *Scoped exception (operator
-     override after the compliance flag — DECISIONS 2026-07-21): the
-     Evolus-produced Evolysse film embedded on /services/dermal-fillers
-     is carried as-is, manufacturer safety information intact. Nothing
-     else; extending this requires the human operator.*
+     superiority claims ("#1", "best"). *Scoped exceptions (operator
+     overrides after the compliance flags — DECISIONS 2026-07-21): the
+     Evolus-produced Evolysse film embedded on /services/dermal-fillers,
+     carried as-is with manufacturer safety information intact; and the
+     exact sentence "Charlotte's #1 Evolus provider" enumerated in
+     `allowedStrings`, on the wrinkle-relaxers and dermal-fillers pages
+     only. Nothing else; extending either requires the human operator.*
    - **Never** answer "is this right for me" in copy — route to a consultation.
    - Retatrutide (if published) **must** carry the investigational /
      not-FDA-approved disclosure. Biote symptom language **must** carry the

@@ -411,9 +411,15 @@ action hype, no outcomes, no dosing, ever.
    Evolus-produced Evolysse film on /services/dermal-fillers is carried
    as-is, manufacturer safety information intact; its captions transcribe
    the manufacturer narration faithfully. Nothing else.*
-4. Unsubstantiated superiority: "#1", "best", "top-rated" — pending
-   `{{EVOLUS_CLAIM}}`. Until resolved, describe the Evolus relationship
-   factually or omit.
+4. Unsubstantiated superiority: "#1", "best", "top-rated" — banned.
+   *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator
+   override after the flag — DECISIONS): the exact sentence
+   "Charlotte's #1 Evolus provider", enumerated in `allowedStrings`,
+   published unattributed at the operator's direction on the
+   wrinkle-relaxers and dermal-fillers pages only. Basis: operator's
+   confirmation that the designation comes from Evolus + the same claim
+   live on the practice's own site; the recommended Evolus rep email
+   remains the outstanding substantiation upgrade. Nothing else.*
 5. Off-label promotion (e.g., positioning any product for an unapproved use).
 6. Presenting investigational compounds as approved, safe, or effective.
 7. Medical advice or suitability answers — "is this right for me" always
@@ -596,7 +602,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{PEPTIDES_PUBLIC_LIST}}` | Which peptides appear publicly | Open decision |
 | `{{NEUROMOD_LIST}}` | Confirmed neuromodulator products | RESOLVED 2026-07-19 (live Vagaro menu, operator-confirmed: Jeuveau, Xeomin, Daxxify) |
 | `{{PRICING_DISPLAY_MODE}}` | none / consult / startingAt (default: consult) | Open decision |
-| `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | Open decision |
+| `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | RESOLVED 2026-07-21 (operator override — exact sentence in `allowedStrings`, two Evolus product pages; §8.4) |
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |
 | `{{RETATRUTIDE_COUNSEL}}` | Attorney-approved investigational wording | Open decision |
 | `{{MEDIA_SCOPE}}` | How much photo/video goes on-site | Open decision |

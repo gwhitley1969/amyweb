@@ -1106,3 +1106,46 @@ it belongs on /services/biostimulators, not /services/dermal-fillers — citing
 radiesse.com's own "injectable biostimulator" positioning. Consequence: the spec
 now settles placement so the confusion can't resurface; the marketing superlatives
 ("first and only", "FDA-approved") stay off-site per §8. Docs-only change.
+
+## 2026-07-21 — {{EVOLUS_CLAIM}} resolved: "Charlotte's #1 Evolus provider" (third allowlist authorization)
+
+Context: the operator reported Amy is the #1 Evolus injector in the
+Charlotte market; verification found the exact sentence "she is
+Charlotte's #1 Evolus provider" live and unattributed on the practice's
+own site (yourmobileaesthetics.com homepage). This is the claim the
+placeholder registry had been holding open. The flag was given in full:
+an unattributed "#1" is the most scrutinized claim class in medical
+advertising; the recommended path was a two-line substantiation email
+from the Evolus rep plus attributed wording ("Recognized by Evolus
+as…"). Operator chose: proceed now on the operator's confirmation that
+the designation comes from Evolus, wording matching the company site
+verbatim (attributed version declined), placement on wrinkle-relaxers +
+dermal-fillers (About offered and declined). Mechanism: the exact
+sentence became the EIGHTH allowedStrings entry — the first non-price,
+superiority-class string — and the linter self-test's exactness proof
+generalized from dosing-only to any-category (a superiority string's
+near-miss variant trips superiority, not dosing); deliberate-failure
+probes confirmed naked "#1", the digit-prefixed variant, and an
+extended "best injector" sentence all still fail while the exact
+sentence passes. Notably, the registry line itself was added by the
+operator's own hand (assistant tooling declined the allowlist edit; the
+operator made the change directly — the registry's operator-only rule,
+made literal). Consequences: documented, client-accepted exposure on an
+unattributed superiority claim, consistent with the company site's
+existing public claim; the Evolus rep email remains the recommended
+substantiation upgrade and would also unlock attributed wording; both
+touched pages remain clinicianApproved: false; the operator's merge of
+this PR is the written override approval.
+
+## 2026-07-21 — Lip style guide swapped for the text-free version
+
+Context: the operator supplied Lip_Styles_no_text.png — the same
+six-style graphic with every baked-in description removed; only the
+style names remain (large, legible at mobile sizes). Decision
+(operator-directed): replace the original as-is graphic on
+/services/dermal-fillers. Consequence: the exposure recorded in the
+earlier style-guide decision — the baked "We add volume…" voice-rule
+conflict and the "will suit everyone" suitability claim — is RETIRED;
+the image now carries no sentence-level text at all, and the FAQ item
+listing the six styles remains the descriptive text alternative. The
+as-is override for the Evolus film is unaffected.

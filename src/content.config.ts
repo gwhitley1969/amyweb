@@ -53,6 +53,12 @@ const treatments = defineCollection({
     // is unambiguous on pages that list several products (added in the
     // 2026-07-19 Vagaro alignment — operator-approved schema change).
     investigationalProduct: z.string().optional(),
+    // Page-supplied wording for InvestigationalNotice (2026-07-21 —
+    // operator-approved consolidation to a single calm disclosure line).
+    // The sentence must still state the compound is investigational and
+    // not FDA-approved; lint:claims' inverse check enforces that on this
+    // file's own text, so the wording lives here in the audit trail.
+    investigationalNote: z.string().optional(),
     bioteDisclaimer: z.boolean().default(false),
     pricingDisplay: z.enum(['none', 'consult', 'startingAt']).default('consult'),
     // Editorial Q&A only (§7): process, logistics, credentials. Suitability

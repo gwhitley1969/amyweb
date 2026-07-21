@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — Treatment pages gain a Call button
+
+- Every treatment page's closing band now pairs its primary button with
+  "Call 704-579-7108" (reusing the existing CTAButton call variant),
+  matching the /services, /about, and /visit bands. Prompted by the
+  peptide-therapy review; applied in the shared TreatmentLayout so all ten
+  pages stay consistent (DECISIONS 2026-07-21).
+
 ### 2026-07-21 — Peptide Therapy page (real menu, prices, direct booking)
 
 - The placeholder Peptides page is now Amy's real nine-peptide menu,

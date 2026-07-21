@@ -929,3 +929,18 @@ reordered to match the families. Still **no benefit or efficacy claims** — the
 sheet's Uses column stays off, and suitability still routes to consultation. The
 operator declined the Option-B benefit-language override for now; it remains
 available (same posture as the GLP-1 pricing override) if directed later.
+
+## 2026-07-21 — Treatment closing bands gain the Call button (operator)
+
+The operator noted, reviewing peptide-therapy, that its closing band lacked
+the "Call 704-579-7108" button that /services carries. That band lives in
+**TreatmentLayout** (shared), so the fix adds `<CTAButton variant="call" />`
+beside the primary book/consult/shop button there — bringing **all ten
+treatment pages** in line with the /services, /about, and /visit closing bands
+(book + call), rather than scoping one page. The call variant already existed
+(tel: link, outline style, `call_click` event) — no new component, no schema
+change. **Rejected:** a per-page frontmatter flag (an operator-gated schema
+change for a worse, inconsistent result — one treatment page with a call
+button, nine without). **Consequence:** every treatment page's noir band now
+offers its primary CTA plus Call; only the mdx changed per page is untouched
+(the change is layout-level).

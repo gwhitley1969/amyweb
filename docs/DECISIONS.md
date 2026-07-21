@@ -1000,3 +1000,56 @@ Lift read as the PDO-thread brand Amy uses — one line, $350/10). **Consequence
 per §7.5, not Dermal Fillers (the concurrent session's page — Revanesse Versa /
 Evolysse per §7.4), though Radiesse is FDA-*indicated* as a filler — flagged so it
 is not double-listed.
+
+## 2026-07-21 — Dermal Fillers rebuild: Evolus film override + supplied lip style guide
+
+Context: the operator directed a rebuild of /services/dermal-fillers
+from the supplied filler briefs (Evolysse Smooth/Form; Revanesse
+Versa+/Lips+ — constraint-8-class, view-only) and two client-supplied
+assets: the Evolus-produced co-branded film ("Mobile EVOLYSSE OPTION
+3_2_1", on-screen piece code US-EVY-2600017)
+and the lip style-guide graphic. The film contains a before/after
+segment (hard-constraint-3 territory), Mobile Aesthetics co-branding
+with the location's phone number (704-368-3759 — not Amy's line) and a
+QR code to a location-branded Evolus microsite, plus a "Nurse
+Practicioner" typo on Amy's title card; the graphic bakes in "We add
+volume…" (voice rule) and "will suit everyone" (suitability). All
+flags were shown. Operator chose: publish the film as-is and ship the
+graphic as-is. Rejected: skipping the video; trimming the segment
+(editing a manufacturer's regulated piece); rebuilding the graphic as
+native HTML cards. Also decided: Revanesse renders as one family card
+(Versa+ & Lips+ — matches the "Versa lips or face" Vagaro booking);
+Evolysse duration ships only as the hedged label fact (Daxxify
+pattern). The filler price string ("$650 or $325 (half-syringe)")
+trips no banned pattern — the first quantity-keyed price published
+with NO registry change. Captions: the film has narration, so the
+WebVTT transcript was machine-drafted (scratchpad-local Whisper, no
+repo dependency) with two flagged corrections ("evalese"→"Evolysse",
+"Soft and"→"Soften"); the operator verifies the transcript against
+the video pre-merge. Captions render manufacturer speech (including
+"doctor" phrasing) that the src/ gates do not scan — accepted under
+the same override. Consequences: the page carries manufacturer video
+content the text gates cannot scan (documented, client-accepted); the
+poster frame inherits the approved co-branding; the location's number
+appears inside the film while every site CTA still routes to Amy's own
+booking and phone; the operator's merge of this PR is the written
+override approval.
+
+## 2026-07-21 — Self-hosted video: static MP4 under /media/
+
+Context: the Evolysse film needed a home; constraint 5 permits
+youtube-nocookie embeds, but a third-party player means iframes and
+external requests for a 30-second asset on a zero-tracker site.
+Decision: self-host — lossless remux of the client's H.264/AAC .mov to
+a faststart MP4 (8.6 MB) in public/media/, rendered by the new
+TreatmentVideo component: click-to-play `<video controls
+preload="none">`, astro:assets poster, required WebVTT captions track
+(axe video-caption), zero client-side JS, no autoplay. `/media/*`
+gains a 24-hour cache route in BOTH SWA templates (the global default
+is 5 minutes). Rejected: YouTube nocookie (third-party surface,
+off-brand chrome); hashing the video through the asset pipeline
+(public/ passthrough is simpler; Front Door purge covers releases).
+Consequences: the repo gains its largest binary (8.6 MB, well under
+all limits); zero run-rate impact; the page stays out of the LHCI URL
+set (deliberate — adding it offered to the operator as a pure
+tightening).

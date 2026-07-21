@@ -181,8 +181,10 @@ through TreatmentLayout (schema already in `src/content.config.ts`;
       recovery/healing/anti-aging/performance claims. ctaType: consult.
 - [x] `wrinkle-relaxers` — `{{NEUROMOD_LIST}}`; treatment areas factually
       (forehead, frown lines, crow's feet). ctaType: book/consult.
-- [x] `dermal-fillers` — Revanesse Versa, Evolus Evolysse; areas factually
-      (lips, cheeks, jawline, chin, under-eyes). ctaType: book/consult.
+- [x] `dermal-fillers` — rebuilt 2026-07-21: Evolysse Smooth/Form and
+      Revanesse (Versa+ & Lips+) cards with syringe pricing, the Evolus
+      film (the site's first video, operator-overridden as-is), lip style
+      guide, weight-loss cross-link. ctaType: book.
 - [x] `biostimulators` — PDO Threads, Radiesse; category described
       factually, no lifting-results promises. ctaType: consult.
 - [x] `regenerative` — PRP & PRF, PDRN, Illuma/VAMP/Rejuran; what they

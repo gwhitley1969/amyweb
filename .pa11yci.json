@@ -10,7 +10,6 @@
   "urls": [
     "http://localhost:4325/",
     "http://localhost:4325/404.html",
-    "http://localhost:4325/book",
     "http://localhost:4325/visit",
     "http://localhost:4325/about",
     "http://localhost:4325/privacy",

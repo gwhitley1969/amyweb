@@ -6,6 +6,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — /book retired
+
+- The booking-explainer page is deleted (operator decision, following
+  the sitewide direct-booking change that left it unlinked). It never
+  served in production, so there is no redirect debt. Its photo — the
+  one frame carrying both open photo flags — leaves the site with it;
+  the gate URL lists synced (pa11y 22, Lighthouse 6). Free-consultation
+  and phone messaging already live elsewhere (DECISIONS 2026-07-21).
+
 ### 2026-07-21 — "Book with Amy" means Vagaro, everywhere
 
 - The weight-loss page's CTA now opens Amy's Vagaro page (operator

@@ -215,7 +215,7 @@ layout shift from fonts or images.
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
 | `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; Evolus relationship per `{{EVOLUS_CLAIM}}` | Request a consultation |
-| `/book` | Book an Appointment | Vagaro handoff explanation + button (`{{VAGARO_URL}}`), phone (`{{PHONE}}`) | Book (Vagaro, new tab) |
+| `/book` | RETIRED (2026-07-21, operator) | Was the Vagaro-handoff explainer; every "Book with Amy" now opens Vagaro directly, so the page was deleted before ever serving in production | — |
 | `/visit` | Visit Us | Address, hours (`{{HOURS}}`), parking note, "Get directions" link-out (no map iframe) | Directions / Book |
 | `/privacy`, `/terms`, `/medical-disclaimer` | Legal | Provider-drafted for attorney review; clearly marked drafts until counsel approves | — |
 | `/404` | Not found | Branded, routes home/book | — |
@@ -236,11 +236,12 @@ Amy" always opens the Vagaro booking page directly. The weight-loss
 line flipped first (operator direction after seeing the consult-routed
 button on the preview); the operator then retired the `/book`
 double-hop sitewide — the consult variant keeps its outline emphasis
-but books directly. The `/book` page stays built as the
-how-booking-works / phone / free-consultation explainer with no button
-routing to it. Suitability language in prose still routes to
-consultation, and Retatrutide remains consultation-introduced in copy
-(§7 brief 1).
+but books directly. The `/book` page, left with no inbound links, was
+then retired the same day (operator decision, microcopy cushion
+declined) — deleted before ever serving in production, its URL removed
+from the pa11y/Lighthouse gate lists. Suitability language in prose
+still routes to consultation, and Retatrutide remains
+consultation-introduced in copy (§7 brief 1).
 
 Home hero: open with the most characteristic thing in this brand's world — the
 Needle Girlie identity itself (wordmark energy, the chevron/syringe motif, a

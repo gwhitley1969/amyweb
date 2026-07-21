@@ -39,6 +39,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
   all with zero benefit/efficacy claims. The sheet's marketing "Uses" stay off
   the site; suitability still routes to consultation (DECISIONS 2026-07-21).
 
+### 2026-07-21 — Wrinkle Relaxers rebuilt: cards, prices, photography
+
+- The neuromodulators page now carries per-product cards — Jeuveau,
+  Xeomin, and Daxxify with manufacturer and formulation facts, and the
+  product sheet's per-unit pricing verbatim (operator override; the
+  compliance registry gained per-unit dosing patterns and the two exact
+  price strings in the same change). Three released studio frames land
+  as framed-print media rows, including the new "Not just for women"
+  section. The grid card now says "Wrinkle Relaxers", matching the page
+  (naming flag resolved). FAQ and SEO description name all three
+  brands. Content awaits Amy's sign-off (clinicianApproved: false).
+
 ### 2026-07-21 — /services closing band: duplicate button fixed
 
 - The /services closing band paired the `book` and `consult` CTA

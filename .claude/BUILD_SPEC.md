@@ -205,7 +205,7 @@ layout shift from fonts or images.
 | `/services` | Services index | Short factual intro per line, linking to the 11 detail pages | Per-line → detail |
 | `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Book / Consult (2026-07-21, operator — was consult-routed) |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |
-| `/services/wrinkle-relaxers` | Neuromodulators | §7 brief | Book / Consult |
+| `/services/wrinkle-relaxers` | Wrinkle Relaxers | §7 brief | Book / Consult |
 | `/services/dermal-fillers` | Dermal Fillers | §7 brief | Book / Consult |
 | `/services/biostimulators` | Biostimulators | §7 brief | Request a consultation |
 | `/services/regenerative` | Regenerative Treatments | §7 brief | Request a consultation |
@@ -322,7 +322,20 @@ action hype, no outcomes, no dosing, ever.
    **Xeomin**, **Daxxify** (`{{NEUROMOD_LIST}}` RESOLVED 2026-07-19 from
    the live Vagaro menu — each has its own booking category). Common
    treatment areas may be listed factually (forehead, frown lines,
-   crow's feet).
+   crow's feet). Authorized product facts (2026-07-21, vetted from the
+   client's product sheet, Neuromodulators tab — same
+   hard-constraint-8-class source rules as brief 1): manufacturer names
+   (Evolus / Merz / Revance), indication-style phrasing ("used to
+   temporarily smooth moderate to severe frown lines / facial
+   wrinkles"), public formulation facts (Jeuveau developed specifically
+   for aesthetics; Xeomin purified down to the bare active protein;
+   Daxxify peptide-stabilized), Daxxify's duration ONLY as the hedged
+   label fact ("labeled for results lasting up to six months — how
+   long it holds varies person to person"), and the two per-unit price
+   strings enumerated in `allowedStrings` (operator override
+   2026-07-21). The sheet's "FDA-approved" phrasing stays banned —
+   render it as "prescription"; "neurotoxin" normalizes to
+   "neuromodulator".
 4. **Dermal Fillers** — injectable gel fillers for volume/contour:
    Revanesse Versa, Evolus Evolysse; common areas factually (lips, cheeks,
    jawline, chin, under-eyes).
@@ -361,10 +374,11 @@ action hype, no outcomes, no dosing, ever.
 **Never, anywhere** (page copy, meta, alt text, JSON-LD, OG, microcopy):
 
 1. Dosing in any form: doses, units, mg/mcg quantities, reconstitution,
-   frequency, duration protocols, titration. *Scoped exception
-   (2026-07-20, operator override after the compliance flag — DECISIONS
-   2026-07-20): the exact price-tier strings enumerated in
-   `compliance/banned-patterns.json` `allowedStrings` may appear as
+   frequency, duration protocols, titration. *Scoped exceptions
+   (operator overrides after the compliance flags — DECISIONS
+   2026-07-20 and 2026-07-21): the exact price strings enumerated in
+   `compliance/banned-patterns.json` `allowedStrings` — mg-keyed GLP-1
+   vial tiers and per-unit neuromodulator prices — may appear as
    product pricing; nothing else.*
 2. Disease claims: treat / cure / prevent / diagnose; disease names in benefit
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).

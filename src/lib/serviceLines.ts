@@ -27,7 +27,7 @@ export const serviceLines: ServiceLine[] = [
   },
   {
     slug: 'wrinkle-relaxers',
-    title: 'Neuromodulators',
+    title: 'Wrinkle Relaxers',
     summary: 'Prescription injectable treatments for temporary softening of dynamic lines.',
     href: '/services/wrinkle-relaxers',
   },

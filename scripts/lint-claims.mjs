@@ -143,7 +143,7 @@ function runSelfTest() {
   // Known-bad samples per category, assembled from fragments (see header).
   const j = (...parts) => parts.join('');
   const badSamples = {
-    dosing: [j('take 1', '0 m', 'g every week'), j('reconstitu', 'tion steps'), j('weekly injec', 'tions every month')],
+    dosing: [j('take 1', '0 m', 'g every week'), j('reconstitu', 'tion steps'), j('weekly injec', 'tions every month'), j('$12 / un', 'it special'), j('priced per un', 'it')],
     'disease-claims': [j('this trea', 'ts wrinkles'), j('supports patients with Alzhei', "mer's"), j('preven', 'ts illness')],
     'outcome-promises': [j('results guaran', 'teed'), j('pro', 'ven results'), j('see the before and af', 'ter')],
     superiority: [j('the #', '1 provider'), j('the be', 'st injector in town'), j('top-ra', 'ted med spa')],

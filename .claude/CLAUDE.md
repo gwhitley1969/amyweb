@@ -70,11 +70,12 @@ silently following it. Known superseded points from earlier briefs:
    medical treatments. The full rulebook is BUILD_SPEC §8. Core rules:
    - **Never** include dosing, doses, units, mg/mcg amounts, reconstitution,
      injection frequency, protocols, or titration — anywhere, in any file.
-     *Scoped exception (2026-07-20, operator override after the compliance
-     flag — DECISIONS 2026-07-20):* the exact mg-keyed price-tier strings
-     enumerated in `compliance/banned-patterns.json` `allowedStrings` may
-     appear as product pricing. Nothing else; changing that list requires
-     the human operator.
+     *Scoped exceptions (operator overrides after the compliance flags —
+     DECISIONS 2026-07-20 and 2026-07-21):* the exact price strings
+     enumerated in `compliance/banned-patterns.json` `allowedStrings` —
+     the mg-keyed GLP-1 vial tiers and the per-unit neuromodulator
+     prices — may appear as product pricing. Nothing else; changing
+     that list requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
      superiority claims ("#1", "best").

@@ -856,3 +856,28 @@ weakening — a kept entry would fail on 404). Kept: AtAGlance.astro
 marked retired. Consequences: pa11y audits 22 URLs, Lighthouse 6; the
 free-consultation and phone messaging live on in trust chips, FAQs,
 and call CTAs.
+
+## 2026-07-21 — Neuromodulator product cards + per-unit pricing override
+
+Context: the operator directed a rebuild of /services/wrinkle-relaxers
+from the client's product sheet (Neuromodulators tab: Jeuveau, Xeomin,
+Daxxify) plus released studio photography. Per-unit pricing touches
+hard constraint 3 ("units" is enumerated in the dosing ban), so the
+flag was raised; the operator chose verbatim sheet pricing ("$400 or
+$10 / unit", "$500 or $12 / unit") over the compliant alternatives
+(starting-at prices; consult-only). Mechanism mirrors the mg-tier
+override: two exact strings in `allowedStrings`, and the dosing
+category GREW two per-unit patterns ("/ unit", "per unit") in the same
+change — the carve-out opens only after the ban widens, and the linter
+self-test proves both. Also decided: Daxxify duration ships only as
+the hedged label fact (not a promise); "Wrinkle Relaxers" naming wins
+(C5 flag closed — grid card updated to match the page); releases
+confirmed for all three photo subjects (8K0A9550/9591 female client,
+9637 male client, 9397 alternate — unused for now). Rejected:
+publishing "FDA-approved" (lint-banned; renders as "prescription");
+frame 9542 (legible Jeuveau campaign banner); frames 9734/9742
+(product-box and prep-tray scenes). Consequences: documented,
+client-accepted exposure on quantity-keyed pricing, consistent with
+the GLP-1 decision; any new tier requires an operator-visible registry
+edit; the operator's merge of this PR is the written override
+approval.

@@ -63,11 +63,15 @@
 >   price tiers — operator override of the mg ban, scoped to exact
 >   registry allowlist strings; DECISIONS 2026-07-20). `productDetails`
 >   + `ProductDetailCards` are reusable for the pending Peptides work.
+> - **Wrinkle Relaxers rebuilt (2026-07-21):** per-product cards
+>   (Jeuveau / Xeomin / Daxxify) with the sheet's per-unit pricing
+>   verbatim (second scoped constraint-3 override — DECISIONS
+>   2026-07-21), three released studio frames as media rows, and the
+>   C5 naming flag RESOLVED: operator picked "Wrinkle Relaxers"; the
+>   grid card now matches the page.
 > - **C8 (real home from ConceptHome.astro; deletes the legacy keyframe
 >   fence) is gated on operator + Amy approving the concept on the
->   stable preview.** Open flag from C5: the services-grid card says
->   "Neuromodulators", its page says "Wrinkle Relaxers" — operator picks
->   which name wins.
+>   stable preview.**
 > - Still open from §0: `{{HOURS}}`, parking note, `{{SKINBETTER_URL}}`,
 >   `{{PEPTIDES_PUBLIC_LIST}}`, featured service lines,
 >   Biote/Retatrutide/Evolus/media items, photo flags (releases, neon,

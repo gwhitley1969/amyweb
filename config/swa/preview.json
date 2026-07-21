@@ -1,7 +1,8 @@
 {
-  "$comment": "SWA config for PR PREVIEW environments (BUILD_SPEC §4/§14). No Front Door lockdown — previews must stay reachable and are protected by the SWA Standard environment password set in the portal. Shared headers/caching must stay in sync with production.json.",
+  "$comment": "SWA config for PR PREVIEW environments (BUILD_SPEC §4/§14). No Front Door lockdown — previews must stay reachable. Previews are PUBLIC (password protection removed at operator direction, DECISIONS 2026-07-21); X-Robots-Tag keeps unapproved drafts out of search indexes and must never be copied to production.json. Other shared headers/caching must stay in sync with production.json.",
   "trailingSlash": "never",
   "globalHeaders": {
+    "X-Robots-Tag": "noindex, nofollow",
     "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
     "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
     "X-Content-Type-Options": "nosniff",

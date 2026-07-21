@@ -6,6 +6,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-21 — Preview passwords removed (previews public + noindexed)
+
+- SWA preview password protection is off (operator direction — the auth
+  cookie looped in Chrome and blocked reviews; applied immediately via
+  ARM, verified). The basicAuth resource and previewPassword parameter
+  leave the Bicep so an infra redeploy cannot silently re-enable it, and
+  preview builds now send `X-Robots-Tag: noindex, nofollow` so
+  unapproved drafts never index. Amy's review links now open directly
+  (DECISIONS 2026-07-21).
+
 ### 2026-07-21 — Biostimulators page (Radiesse + PDO Threads, prices, consult-first)
 
 - The placeholder Biostimulators page is now Amy's real two-treatment menu:

@@ -1316,3 +1316,85 @@ card moved from blank to priced. Ingredients are named as composition
 only and carry no immune framing — §7.7's product-name rule is
 unaffected. Note glutathione now appears twice on the page: as an
 ingredient of the Immunity IV, and as a standalone shot.
+
+## 2026-07-22 — The FDA disclaimer the compliance gate was blocking
+
+Context: /services/hormone-optimization shipped `bioteDisclaimer: true`
+while `BioteDisclaimer.astro` rendered the literal string
+`{{BIOTE_FDA_DISCLAIMER}}` — braces visible — immediately above
+symptom-awareness copy. The one disclosure §7.8 makes mandatory had
+never actually been shown. The operator supplied Biote's printed
+patient materials, which carry the exact wording. Decision: resolve the
+token with Biote's own sentence, and enumerate that sentence verbatim in
+`compliance/banned-patterns.json` `allowedStrings`. The problem is that
+the disclaimer's force comes from naming the four verbs the
+`disease-claims` category exists to ban, so hardcoding it failed
+lint:claims three times over — the gate was blocking the compliance
+text. Alternatives rejected: loosening or adding a lookbehind to the
+`disease-claims` patterns (CLAUDE.md forbids weakening a gate, and the
+patterns are correct — it is the exception that is unusual); moving the
+component outside SCAN_DIRS (hiding text from the linter to make it
+pass is the same sin wearing a different hat); leaving the token in
+place and dropping symptom language instead (would have silently
+narrowed a permission §7.8 grants, and left a broken placeholder on a
+live page). This is the **fourth** allowlist authorization and the first
+different in kind: entries one through three permit copy the client
+wants to publish; this one permits text a regulator effectively
+requires. No pattern was modified — the list only grew. Exactness proved
+before trusting it: the exact sentence passes, "illness" for "disease"
+fails, a shortened variant fails, the verbs reused as real marketing
+copy fail, and a line-wrapped disclaimer fails. That last case is a real
+hazard rather than a hypothetical — `lint-claims.mjs` strips allowed
+strings and applies patterns per line, so a 150-character sentence
+wrapped by an editor or a formatter matches nothing and trips every verb
+in it. Both editing rules (one line; never restate the verbs elsewhere
+in the file) are recorded in the component header, because the next
+person to touch it will not have this context. Consequences: the
+symptom-awareness permission is usable for the first time; §17 records
+the token RESOLVED; the stripping is global across scanned lines, which
+is harmless only because nothing else contains that exact sentence.
+
+## 2026-07-22 — Hormone Optimization built on the Biote pellet line
+
+Context: the page was a placeholder — 2 FAQ items, no cards, no prices.
+Decision: scope from Amy's Vagaro menu (`Hormones/Biote` = Hormone lab
+draw, Pellets; the category's IV item belongs to the IV page), drafted
+from the operator-supplied Biote transcription — manufacturer patient
+marketing, treated view-only and never committed, the same handling as
+the Rohrer brief behind §7.10. Operator decisions via AskUserQuestion:
+resolve the disclaimer and take the full symptom framing; **two separate
+pellet cards** (Women $450, Men $750) rather than one card with two
+price lines, accepting the orphan card in the two-column grid; and a
+**dedicated men's section**. On that last point I had warned the men's
+section would be thin, and corrected upward before building: the
+linter's symptom vocabulary — low energy, poor sleep, libido — is
+exactly what `bioteDisclaimer: true` unlocks, so the section stands on
+permitted language rather than scraps. Women's pellets are deliberately
+**not** described as estrogen: the source says pellets contain
+testosterone or estrogen and are patient-specific, and women's plans may
+include testosterone, so naming one would be an invention (constraint 7).
+Alternatives rejected: the entire post-procedure timeline — insertion
+intervals, procedures per year, lab cadence — which is frequency and
+protocol material banned by constraint 3 and is aftercare for existing
+patients rather than marketing; "precision dosing" and the proprietary
+platform wording (the concept survives as "measured from your labs", the
+word does not); every disease name in the source (heart disease,
+diabetes, osteoporosis, anxiety, depression, PTSD, bone density,
+cognition, prostate) — **the disclaimer unlocks symptom framing, never
+disease claims**, and that is the sharpest line on the page; quantified
+efficacy (8.3% bone mass per year, 2–3% testosterone yearly, 10%
+decline); superiority ("world's #1 trusted hormone optimization
+company", 85 years, 4 million insertions); all three testimonials; the
+marketed outcome lists; the DIM SGS+ supplement, a structure/function
+claim for a product not on Amy's menu; and "takes less than a minute and
+is unnoticeable" as a comfort promise — available if the operator wants
+it, omitted by default on the same reasoning as "no downtime" on Body
+Contouring. `pricingDisplay` stays `consult`, unlike IV Therapy: here
+the layout's "pricing is individual" line is true, since the prices are
+per-insertion and the plan follows from labs. No imagery — §7.8 keeps
+Biote branding text-only pending `{{BIOTE_PERMISSION}}`, and no in-repo
+photo depicts pellet care (`pink-gloves-detail.jpg` carries legible
+"Mobile Aesthetics" tray branding, the constraint-2 reason
+`amy-at-work.jpg` was rejected for IV Therapy). Consequences: page ships
+clinicianApproved: false behind the DraftBanner; the men's price makes
+the line explicitly non-gendered for the first time on the site.

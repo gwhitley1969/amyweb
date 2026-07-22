@@ -1,5 +1,21 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-22:** **Body Contouring built on Evolve.**
+> Scoped from Amy's live Vagaro menu, which lists the category
+> **Evolve** with one service beneath it: **"Tighten and tone"** —
+> InMode's Tite (bipolar RF → skin) and Tone (EMS → muscle), **not**
+> Trim (RF + vacuum → adipose). Competitor copy supplied with the
+> request ("destroy fat… surgery-like results") was rejected on
+> **accuracy first** — it advertises a service Amy does not offer —
+> and BUILD_SPEC §7.11 second; **no override sought**. Two cards for
+> the two ways it sells: a course of six ($1,500) and a single session
+> ($275) — count-keyed, so `banned-patterns.json` was untouched.
+> Placement areas and ~30–60 min sessions named per operator decision
+> (the first session length stated on the site). Ships **without
+> imagery** (operator decision — nothing in the library depicts Evolve
+> or the room, and body imagery here reads as a before/after
+> implication). `clinicianApproved: false` — DECISIONS 2026-07-22.
+
 > **STATUS UPDATE 2026-07-22:** **Skin Rejuvenation rebuilt** to the
 > card standard — PiXel8-RF (Rohrer, FDA-cleared, 4 MHz RF
 > microneedling; bare $1,500 per operator decision) + medical-grade
@@ -200,6 +216,16 @@ through TreatmentLayout (schema already in `src/content.config.ts`;
       factually, no lifting-results promises. ctaType: consult.
 - [x] `regenerative` — PRP & PRF, PDRN, Illuma/VAMP/Rejuran; what they
       are, no healing/repair outcomes. ctaType: consult.
+- [x] `skin-rejuvenation` *(added 2026-07-19, Vagaro alignment)* —
+      PiXel8-RF microneedling + medical-grade chemical peels. Factual
+      device/procedure descriptions only; no resurfacing/anti-aging
+      outcome claims. Peel menu tracked open as
+      `{{CHEMICAL_PEELS_MENU}}`. ctaType: consult.
+- [x] `body-contouring` *(added 2026-07-19, Vagaro alignment)* — Evolve,
+      scoped to **tighten and tone** per Amy's Vagaro menu (InMode Tite +
+      Tone; **not** Trim). Describe by intended design only — never as
+      outcomes, and **no body-fat or measurement language of any kind**
+      (§7.11). ctaType: consult.
 - [x] `iv-therapy` — Myers' Cocktail, Immunity IV, vitamin shots,
       Glutathione, B12, NAD IV. **Glutathione: no disease claims in any
       form; "Immunity IV" is a product name — never extend it into immune

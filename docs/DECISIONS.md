@@ -1189,3 +1189,27 @@ exposure on comparative-efficacy and third-party-provider content the
 text gates cannot scan; the reusable TreatmentVideo component carried
 the whole feature with zero component changes; wrinkle-relaxers remains
 clinicianApproved: false (Amy's gate still ahead of production).
+
+## 2026-07-22 — Skin Rejuvenation rebuild: PiXel8-RF + chemical-peels placeholder
+
+Context: the operator supplied a Rohrer Aesthetics PiXel8-RF brief
+(C:\Amy\scans\Pixel8 — constraint-8-class, view-only) and two prices
+(PiXel8-RF $1,500; chemical peels starting at $180), with peel details
+incomplete. Decision: rebuild /services/skin-rejuvenation to the
+biostimulators standard now — product cards, mechanism-design copy
+("designed to prompt the skin's own collagen and elastin"),
+appearance-hedged indication areas, FDA-cleared stated as the accurate
+device term — with the peel section written as a compliant placeholder
+tracked by the new {{CHEMICAL_PEELS_MENU}} registry token. Operator
+decisions via AskUserQuestion: price shows as bare $1,500 (basis
+explained at consultation); no photo for now (no PiXel8 assets exist;
+amy-at-work/pink-gloves-detail remain available). Alternatives
+rejected: waiting for the complete peel menu (blocks a finished line
+indefinitely); showing a price basis the operator hadn't confirmed.
+Excluded per §8: needle depths/pin counts, session schedules, results
+timelines, downtime promises, PIH claims, "first and only 4 MHz"
+superiority, brochure before/after cases and their named med-spas.
+Both price strings pass lint:claims untouched — no allowlist change.
+Consequences: page ships clinicianApproved: false behind the
+DraftBanner; peels deepen when the token resolves; brochure scans
+never enter the repo.

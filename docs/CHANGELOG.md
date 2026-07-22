@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-22 — Skin Rejuvenation rebuilt around PiXel8-RF
+
+- Product cards arrive: PiXel8-RF microneedling (Rohrer Aesthetics,
+  FDA-cleared, 4 MHz RF — bare $1,500 per operator decision) and
+  medical-grade chemical peels (Starting at $180). Mechanism-design
+  copy, appearance-hedged indication areas, expanded FAQ, and a
+  biostimulators cross-link. The peel section is a deliberate
+  compliant placeholder — `{{CHEMICAL_PEELS_MENU}}` (BUILD_SPEC §17)
+  tracks the missing menu. No photo yet; clinicianApproved stays
+  false. (DECISIONS 2026-07-22.)
+
 ### 2026-07-21 — Wrinkle Relaxers gains the Evolus ICON film
 
 - The page's second Evolus artifact: the ICON HQ-event recap (87s,

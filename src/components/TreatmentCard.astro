@@ -3,9 +3,10 @@
  * Service-line card ("serious glamour" anatomy, client-recolored
  * 2026-07-22): flat brand-pink card on the paper ambient, NO drop shadow,
  * hairline border with a 1px ink-pink edge rule (left), body-sans title.
- * Hover/focus = background lightens (card-hover token) + a 2px ink-pink
- * ring on all four sides. No scale/shadow transforms. The link text is
- * the treatment title (descriptive link text, §10).
+ * Hover/focus = background deepens (card-hover token) + a 2px ring on
+ * all four sides (ring/title color under client trial — see below). No
+ * scale/shadow transforms. The link text is the treatment title
+ * (descriptive link text, §10).
  */
 interface Props {
   title: string;
@@ -44,20 +45,24 @@ const { title, summary, href, featured = false, class: className } = Astro.props
   .treatment-card:hover,
   .treatment-card:focus-within {
     background: var(--ng-card-hover);
-    /* client candidate 2026-07-22: plum ring + title letters. Passes AA:
-     * 4.08:1 on the highlight bg (bars 3.0 non-text / 3.2 large text),
-     * 5.95:1 vs the page. Tokenize + header-table entry on adoption. */
-    border-color: #a83b71;
+    /* CLIENT TRIAL 2026-07-22 (round 3) — NOT production-cleared: the
+     * logo-lips neon (--ng-neon-500) as ring + title letters measures
+     * 2.10:1 on the #efb1d5 highlight bg (WCAG AA needs 3:1 for both),
+     * and the token's own rule says neon never renders as text. Ships
+     * only with a recorded operator override; verified fallback is
+     * var(--ng-ink-pink) (3.81:1). */
+    border-color: var(--ng-neon-500);
     /* 2px ring on all four sides, no layout shift */
-    box-shadow: inset 0 0 0 1px #a83b71;
+    box-shadow: inset 0 0 0 1px var(--ng-neon-500);
   }
   .treatment-card__link {
     color: var(--ng-ink-900);
     text-decoration: none;
   }
   .treatment-card__link:hover {
-    /* client candidate 2026-07-22 — same passing pair as the ring above */
-    color: #a83b71;
+    /* CLIENT TRIAL 2026-07-22 (round 3) — see the ring note above; same
+     * failing pair, same override requirement. */
+    color: var(--ng-neon-500);
     text-decoration: underline;
     text-underline-offset: 4px;
   }

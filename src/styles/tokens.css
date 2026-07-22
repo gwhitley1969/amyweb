@@ -49,15 +49,17 @@
  *   cards — computed same script/method, sanity check reproduced 17.22
  *   exactly; supersedes the 2026-07-18 card-hover #fde9f4 pairs, retired
  *   with that value):
- *   PASS  9.77:1 (min 4.5) ink-900 on card-rest #efb1d5   — body text
- *   PASS 11.80:1 (min 4.5) ink-900 on card-hover #f4cae2  — body text
- *   PASS  4.60:1 (min 3.2 large) ink-pink on card-hover   — card titles
- *         (heading-4, 25px) on highlight
- *   PASS  3.81:1 (min 3.0) ink-pink edge on card-rest     — non-text
- *   PASS  4.60:1 (min 3.0) ink-pink ring on card-hover    — non-text
- *   RULE FIRED: magenta-600 fails non-text on card-rest (2.57; 3.11 on
- *   card-hover is margin-thin) — the service-card edge rule and highlight
- *   ring moved to ink-pink.
+ *   (roles reversed at client direction 2026-07-22 — rest is now the
+ *   lighter #f4cae2, highlight the deeper #efb1d5; pairs re-labeled):
+ *   PASS 11.80:1 (min 4.5) ink-900 on card-rest #f4cae2   — body text
+ *   PASS  9.77:1 (min 4.5) ink-900 on card-hover #efb1d5  — body text
+ *   PASS  4.60:1 (min 3.0) ink-pink edge on card-rest     — non-text
+ *   PASS  3.81:1 (min 3.0) ink-pink on card-hover #efb1d5 — non-text /
+ *         large-text fallback pair for the highlight ring + titles
+ *   RULE FIRED: magenta-600 fails non-text on #efb1d5 (2.57) — never
+ *   use it for the card edge/ring. The highlight ring + title color is
+ *   under client trial in TreatmentCard.astro (numbers there); ink-pink
+ *   is the verified fallback.
  *   --ng-hairline is DECORATIVE ONLY (borders/rules, never text):
  *   light: ink-900 14% over paper -> ~#e0dfe0 (1.33:1 vs paper)
  *   noir:  pink-500 55% over noir -> ~#822854 (2.38:1 vs noir) — brightened
@@ -114,13 +116,13 @@
   /* two-tone display headlines (display sizes >= 39px ONLY — see
    * contrast table; magenta holds >=4.15:1 on both light surfaces) */
   --ng-display-accent: var(--ng-magenta-600);
-  /* service-card state pair (client-picked exact hexes, 2026-07-22):
-   * brand-family pink at rest, lighter lift when highlighted; the dark
-   * state ring lives in the card component (ink-pink — see header table,
-   * magenta-600 fails non-text on the rest pink). Semantically-scoped
-   * client picks, not logo-derived ramp values. */
-  --ng-card-rest: #efb1d5;
-  --ng-card-hover: #f4cae2;
+  /* service-card state pair (client-picked exact hexes, 2026-07-22;
+   * roles reversed at client direction later the same day): lighter
+   * pink at rest, deeper pink when highlighted. The state ring lives
+   * in the card component. Semantically-scoped client picks, not
+   * logo-derived ramp values. */
+  --ng-card-rest: #f4cae2;
+  --ng-card-hover: #efb1d5;
   /* hairline rules/borders — decorative only, never text */
   --ng-hairline: color-mix(in srgb, var(--ng-ink-900) 14%, transparent);
   /* the one sanctioned glow color (static aura, dark surfaces only) */

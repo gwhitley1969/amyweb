@@ -45,10 +45,19 @@
  *
  * DERIVED PAIRS (glamour pivot, computed 2026-07-18, same script/method —
  * sanity checks reproduced 15.77 and 17.22 exactly):
- *   --ng-card-hover resolves to #fde9f4 (pink-300 12% into blush-50):
- *   PASS 14.87:1 (min 4.5) ink-900 on card-hover     — body text
- *   PASS  5.79:1 (min 4.7) ink-pink on card-hover    — links (headroom ok)
- *   PASS  3.91:1 (min 3.0) magenta-600 on card-hover — edge rules (non-text)
+ *   CLIENT CARD PINKS (client-picked exact hexes 2026-07-22, service
+ *   cards — computed same script/method, sanity check reproduced 17.22
+ *   exactly; supersedes the 2026-07-18 card-hover #fde9f4 pairs, retired
+ *   with that value):
+ *   PASS  9.77:1 (min 4.5) ink-900 on card-rest #efb1d5   — body text
+ *   PASS 11.80:1 (min 4.5) ink-900 on card-hover #f4cae2  — body text
+ *   PASS  4.60:1 (min 3.2 large) ink-pink on card-hover   — card titles
+ *         (heading-4, 25px) on highlight
+ *   PASS  3.81:1 (min 3.0) ink-pink edge on card-rest     — non-text
+ *   PASS  4.60:1 (min 3.0) ink-pink ring on card-hover    — non-text
+ *   RULE FIRED: magenta-600 fails non-text on card-rest (2.57; 3.11 on
+ *   card-hover is margin-thin) — the service-card edge rule and highlight
+ *   ring moved to ink-pink.
  *   --ng-hairline is DECORATIVE ONLY (borders/rules, never text):
  *   light: ink-900 14% over paper -> ~#e0dfe0 (1.33:1 vs paper)
  *   noir:  pink-500 55% over noir -> ~#822854 (2.38:1 vs noir) — brightened
@@ -105,9 +114,13 @@
   /* two-tone display headlines (display sizes >= 39px ONLY — see
    * contrast table; magenta holds >=4.15:1 on both light surfaces) */
   --ng-display-accent: var(--ng-magenta-600);
-  /* card hover: blush deepened toward pink so hover reads as warmth,
-   * not elevation (pairs verified in the header table) */
-  --ng-card-hover: color-mix(in srgb, var(--ng-pink-300) 12%, var(--ng-blush-50));
+  /* service-card state pair (client-picked exact hexes, 2026-07-22):
+   * brand-family pink at rest, lighter lift when highlighted; the dark
+   * state ring lives in the card component (ink-pink — see header table,
+   * magenta-600 fails non-text on the rest pink). Semantically-scoped
+   * client picks, not logo-derived ramp values. */
+  --ng-card-rest: #efb1d5;
+  --ng-card-hover: #f4cae2;
   /* hairline rules/borders — decorative only, never text */
   --ng-hairline: color-mix(in srgb, var(--ng-ink-900) 14%, transparent);
   /* the one sanctioned glow color (static aura, dark surfaces only) */
@@ -121,6 +134,7 @@
   --ng-link: var(--ng-pink-300);
   --ng-focus-ring: var(--ng-pink-300);
   --ng-display-accent: var(--ng-pink-300);
+  --ng-card-rest: transparent;
   --ng-card-hover: transparent;
   /* vivid brand-pink hairline on noir (client round — 30% pink-300
    * composited to a muddy wine under the header) */

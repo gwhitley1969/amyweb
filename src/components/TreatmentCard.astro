@@ -1,11 +1,11 @@
 ---
 /**
- * Service-line card ("serious glamour" anatomy): flat blush card on the
- * paper ambient, NO drop shadow, hairline border with a 1px magenta edge
- * rule (left), body-sans title, hover/focus = edge-rule thickens +
- * background deepens toward pink (card-hover token). No scale/shadow
- * transforms. The link text is the treatment title (descriptive link
- * text, §10).
+ * Service-line card ("serious glamour" anatomy, client-recolored
+ * 2026-07-22): flat brand-pink card on the paper ambient, NO drop shadow,
+ * hairline border with a 1px ink-pink edge rule (left), body-sans title.
+ * Hover/focus = background lightens (card-hover token) + a 2px ink-pink
+ * ring on all four sides. No scale/shadow transforms. The link text is
+ * the treatment title (descriptive link text, §10).
  */
 interface Props {
   title: string;
@@ -32,17 +32,21 @@ const { title, summary, href, featured = false, class: className } = Astro.props
 <style is:global>
   .treatment-card {
     position: relative;
-    background: var(--ng-card);
+    background: var(--ng-card-rest);
     border: 1px solid var(--ng-hairline);
-    border-left: 1px solid var(--ng-magenta-600);
+    border-left: 1px solid var(--ng-ink-pink);
     padding: 1.5rem;
-    transition: background-color 150ms ease;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      box-shadow 150ms ease;
   }
   .treatment-card:hover,
   .treatment-card:focus-within {
     background: var(--ng-card-hover);
-    /* thicken the edge without layout shift */
-    box-shadow: inset 3px 0 0 var(--ng-magenta-600);
+    border-color: var(--ng-ink-pink);
+    /* 2px dark ring on all four sides, no layout shift */
+    box-shadow: inset 0 0 0 1px var(--ng-ink-pink);
   }
   .treatment-card__link {
     color: var(--ng-ink-900);

@@ -1264,3 +1264,26 @@ Both price strings pass lint:claims untouched — no allowlist change.
 Consequences: page ships clinicianApproved: false behind the
 DraftBanner; peels deepen when the token resolves; brochure scans
 never enter the repo.
+
+## 2026-07-22 — /services cards recolored to client-picked pinks; edge rule moves to ink-pink
+
+Context: Amy reviewed /services and directed new card-state colors,
+relayed by the operator as exact hexes (third iteration of the picks;
+lighten-on-highlight confirmed via question after the pair inverted the
+original darken direction): #efb1d5 at rest, #f4cae2 highlighted, and a
+darker color on all four sides when highlighted. Decision: new semantic
+tokens --ng-card-rest/--ng-card-hover carry the two hexes, scoped to
+.treatment-card only; the highlight state adds a 2px ink-pink ring
+(1px border-color flip + 1px inset shadow — no layout shift); the
+signature left edge rule and the ring move magenta-600 → ink-pink
+because magenta-600 fails the 3.0:1 non-text bar on the rest pink
+(2.57:1; 3.11:1 on the highlight pink is margin-thin). All new pairs
+computed with the house WCAG script (sanity pair 17.22 reproduced) and
+recorded in the tokens.css header. Alternatives rejected: repointing the
+shared --ng-card token (nine other consumers — would restyle
+disclaimers, product cards, the location card sitewide); keeping the
+magenta-600 edge (fails the non-text bar on the new rest background).
+Consequences: /services cards are now a deeper brand pink than the
+blush-50 blocks elsewhere (extendable on request); the 2026-07-18
+card-hover #fde9f4 derived pairs are retired with the value; no gate,
+linter, or content changes — clinicianApproved flags untouched.

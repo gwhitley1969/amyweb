@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-22 — /services cards recolored to Amy's picks
+
+- The service-line cards now rest on a client-picked brand pink
+  (`#efb1d5`) and **lighten** to `#f4cae2` when highlighted, with a 2px
+  dark ring on all four sides replacing the old left-edge thickening.
+  Exact hexes supplied by the operator; lighten-on-highlight confirmed.
+- The card edge rule and ring use ink-pink instead of magenta-600 —
+  magenta fails the WCAG non-text contrast bar on the new rest pink.
+  All new pairs verified and recorded in the `tokens.css` header table.
+- Scoped to `.treatment-card` (/services + styleguide); the shared
+  `--ng-card` blush blocks elsewhere are unchanged. No content, gate,
+  or config changes.
+
 ### 2026-07-22 — Body Contouring built on Evolve
 
 - The placeholder becomes a real page, scoped from Amy's live Vagaro

@@ -1,5 +1,23 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-22:** **IV Therapy & Vitamin Support built.**
+> Scope taken from Amy's live Vagaro menu (IV category = **NAD,
+> Immunity boost, Myers cocktail**) plus the two vitamin shots named in
+> §7.7. **Five cards** grouped by `tag` into IV infusion (3) and Shot
+> (2). Prices shown only where verified — **Myers' $125**, **NAD IV
+> $200**, **Glutathione $25 per shot** (carried unchanged from
+> peptide-therapy); **Immunity IV and B12 carry no price line** rather
+> than an invented one. The operator-supplied `scans/peptides` cards are
+> **constraint-8 internal product cards** (reconstitution, dosing,
+> duration) whose Glutathione "Uses" text runs into chemotherapy /
+> Alzheimer's / Parkinson's language — §7.7's named absolute — so card
+> copy states what each substance **is**, never what it does. **The
+> quoted half passes `lint:claims` cleanly**: this was a judgment
+> exclusion, not a gate catch. `pricingDisplay` **consult → none** (the
+> `consult` line contradicts a book-direct page with fixed prices);
+> `ctaType` stays **`book`** per the §6 route table. Adds
+> `studio-wide.jpg`. `clinicianApproved: false` — DECISIONS 2026-07-22.
+
 > **STATUS UPDATE 2026-07-22:** **Body Contouring built on Evolve.**
 > Scoped from Amy's live Vagaro menu, which lists the category
 > **Evolve** with one service beneath it: **"Tighten and tone"** —
@@ -229,7 +247,14 @@ through TreatmentLayout (schema already in `src/content.config.ts`;
 - [x] `iv-therapy` — Myers' Cocktail, Immunity IV, vitamin shots,
       Glutathione, B12, NAD IV. **Glutathione: no disease claims in any
       form; "Immunity IV" is a product name — never extend it into immune
-      benefits.** ctaType: book.
+      benefits.** ctaType: book. Built 2026-07-22 from the live Vagaro
+      menu: five cards tagged **IV infusion** / **Shot**; identity-only
+      copy (what each substance *is*, never what it does); prices only
+      where verified (Myers' $125, NAD IV $200, Glutathione $25 per shot
+      — Immunity IV and B12 deliberately blank). `pricingDisplay: none`,
+      since the `consult` line contradicts a book-direct page with fixed
+      prices. Glutathione and NAD prices are **duplicated in
+      `peptide-therapy.mdx` and must move together**.
 - [x] `hormone-optimization` — Biote BHRT; symptom-awareness framing ONLY
       with `bioteDisclaimer: true` (layout injects `{{BIOTE_FDA_DISCLAIMER}}`);
       text-only re: Biote branding until `{{BIOTE_PERMISSION}}`.

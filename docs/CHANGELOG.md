@@ -6,6 +6,28 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-22 — Body Contouring built on Evolve
+
+- The placeholder becomes a real page, scoped from Amy's live Vagaro
+  menu: the **Evolve** category carries one service, "Tighten and
+  tone" — InMode's Tite (RF → skin) and Tone (EMS → muscle), not Trim
+  (→ adipose). Competitor copy supplied with the request ("destroy
+  fat… surgery-like results") was rejected on accuracy first — it
+  advertises a service Amy doesn't offer — and BUILD_SPEC §7.11
+  second. No override sought (DECISIONS 2026-07-22).
+- Two product cards for the two ways Evolve is sold: a course of six
+  ($1,500) and a single session ($275). Count-keyed prices, so no
+  banned pattern matches and `banned-patterns.json` is untouched — no
+  allowlist entry needed.
+- Body carries the two-energy mechanism in manufacturer-factual terms,
+  plus placement areas (abdomen, flanks, thighs, arms, buttocks) and
+  ~30–60 minute sessions — the first session length stated on the
+  site. Six logistics-only FAQ items; suitability routes to consult.
+- First treatment page to ship **without imagery**: nothing in the
+  photo library depicts Evolve or the room, and body imagery here
+  reads as a before/after implication. `ctaType: consult` per the §6
+  route table; clinicianApproved stays false.
+
 ### 2026-07-21 — Wrinkle Relaxers gains the Evolus ICON film
 
 - The page's second Evolus artifact: the ICON HQ-event recap (87s,

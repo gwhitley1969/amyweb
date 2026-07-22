@@ -187,18 +187,20 @@ const crumbs = [
   .router-card {
     background: var(--ng-card);
     border: 1px solid var(--ng-hairline);
-    border-left: 1px solid var(--ng-magenta-600);
+    /* ink-pink edges on all boxes since 2026-07-22 (tokens.css
+     * SITE-WIDE BOXES — magenta-600 is margin-thin on the card pink) */
+    border-left: 1px solid var(--ng-ink-pink);
     padding: 1.5rem;
   }
-  /* Editorial standfirst: the blush "jewelry" card carrying one display
+  /* Editorial standfirst: the "jewelry" card carrying one display
    * line — replaced the AtAGlance fact table (2026-07-20). Upright
    * Playfair only (no italic face is loaded — keeps the font budget
-   * untouched); ink-900 on blush 15.77:1, magenta edge 4.15:1 non-text
-   * (tokens.css table). */
+   * untouched); ink-900 on the card pink 11.80:1, ink-pink edge 4.60:1
+   * non-text (tokens.css SITE-WIDE BOXES). */
   .deck {
     background: var(--ng-card);
     border: 1px solid var(--ng-hairline);
-    border-left: 2px solid var(--ng-magenta-600);
+    border-left: 2px solid var(--ng-ink-pink);
     padding: 1.5rem 1.75rem;
     font-family: var(--font-display);
     font-size: 1.5625rem;

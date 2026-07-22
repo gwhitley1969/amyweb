@@ -35,10 +35,11 @@
  * SURFACE DIRECTION ("serious glamour" pivot, 2026-07-18, per client — see
  * docs/DECISIONS.md; supersedes the 2026-07-08 "warm the studio" inversion):
  *   the light ambient surface is PAPER (white space is the luxury signal);
- *   cards and compliance blocks are BLUSH-50 (--ng-card) — bounded pink
- *   shapes on white read as jewelry and stay conspicuous. All blush and
- *   white text pairs above were verified for BOTH arrangements and carry
- *   over unchanged.
+ *   cards and compliance blocks were BLUSH-50 (--ng-card) until
+ *   2026-07-22 (client): every box now wears the service-card resting
+ *   pink #f4cae2 — see CLIENT CARD PINKS below. Blush-50 remains for
+ *   ambient bands only (ConceptHome). All blush and white text pairs
+ *   above were verified for BOTH arrangements and carry over unchanged.
  *   PASS  6.71:1 (min 3.0) focus ring ink-pink on white/blush (6.14)
  *   PASS 11.58:1 (min 3.0) focus ring pink-300 on noir
  *   PASS  4.15:1 (min 3.0) magenta-600 edge rule on blush-50 (non-text)
@@ -62,6 +63,20 @@
  *   the same day: #ff4f8b (2.13 FAIL), neon-500 lips #fe019a (2.10
  *   FAIL — and neon never renders as text), plum #a83b71 (4.08 PASS,
  *   client passed on the look).
+ *   SITE-WIDE BOXES (client direction 2026-07-22, later the same day:
+ *   every box matches the /services cards — --ng-card now points at
+ *   card-rest #f4cae2; computed same script, sanity pairs reproduced
+ *   15.77/4.15 exactly):
+ *   PASS 11.80:1 (min 4.5) ink-900 on card #f4cae2       — box body text
+ *   PASS  4.60:1 (min 3.0) ink-pink box edges on card    — non-text;
+ *         ALL box edge rules moved magenta-600 -> ink-pink (magenta is
+ *         3.11 on #f4cae2, margin-thin) and the disclaimer's pink-300
+ *         top rule moved too (1.24 — near-invisible on the new pink)
+ *   PASS  4.60:1 ink-pink links/tags INSIDE boxes on card — passes the
+ *         WCAG 4.5 hard bar; sits under the house 4.7 link-headroom
+ *         bar. OPERATOR-ACCEPTED exception (2026-07-22, chosen over a
+ *         darker in-box pink after the flag; DECISIONS same date).
+ *         The 4.7 headroom bar is UNCHANGED everywhere else.
  *   --ng-hairline is DECORATIVE ONLY (borders/rules, never text):
  *   light: ink-900 14% over paper -> ~#e0dfe0 (1.33:1 vs paper)
  *   noir:  pink-500 55% over noir -> ~#822854 (2.38:1 vs noir) — brightened
@@ -111,7 +126,10 @@
    * "Serious glamour" (2026-07-18): paper ambient, blush cards — pink is
    * jewelry in bounded shapes, white space carries the luxury. */
   --ng-surface: var(--ng-paper);
-  --ng-card: var(--ng-blush-50);
+  /* every box wears the service-card resting pink (client direction
+   * 2026-07-22 — "all boxes on every page match /services"); blush-50
+   * remains for ambient bands only. Defined via --ng-card-rest below. */
+  --ng-card: var(--ng-card-rest);
   --ng-text: var(--ng-ink-900);
   --ng-link: var(--ng-ink-pink);
   --ng-focus-ring: var(--ng-ink-pink);

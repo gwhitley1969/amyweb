@@ -44,16 +44,22 @@ const { title, summary, href, featured = false, class: className } = Astro.props
   .treatment-card:hover,
   .treatment-card:focus-within {
     background: var(--ng-card-hover);
-    border-color: var(--ng-ink-pink);
-    /* 2px dark ring on all four sides, no layout shift */
-    box-shadow: inset 0 0 0 1px var(--ng-ink-pink);
+    /* CLIENT TRIAL 2026-07-22 — NOT production-cleared: #ff4f8b ring +
+     * title letters on the highlight bg measure 2.13:1 (WCAG AA needs
+     * 3:1 for both). Ships only with a recorded operator override;
+     * otherwise revert to var(--ng-ink-pink) (4.6:1). */
+    border-color: #ff4f8b;
+    /* 2px ring on all four sides, no layout shift */
+    box-shadow: inset 0 0 0 1px #ff4f8b;
   }
   .treatment-card__link {
     color: var(--ng-ink-900);
     text-decoration: none;
   }
   .treatment-card__link:hover {
-    color: var(--ng-ink-pink);
+    /* CLIENT TRIAL 2026-07-22 — see the ring note above; same failing
+     * pair, same override requirement. */
+    color: #ff4f8b;
     text-decoration: underline;
     text-underline-offset: 4px;
   }

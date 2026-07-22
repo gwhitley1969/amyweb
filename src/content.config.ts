@@ -35,8 +35,12 @@ const treatments = defineCollection({
     // Optional per-product cards (2026-07-20 GLP-1 alignment — operator-
     // approved schema change): upgrades the products bullet list in the
     // layout. `detail` is one factual, claim-free sentence (§7/§8);
-    // `priceLines` may hold ONLY the operator-authorized allowlist strings
-    // in compliance/banned-patterns.json.
+    // `priceLines` holds operator-supplied price strings only. A string
+    // that would trip a banned category (mg-keyed, per-unit, …)
+    // additionally requires an exact allowlist entry in
+    // compliance/banned-patterns.json — operator-only. (Comment aligned
+    // with merged practice 2026-07-22: plain-dollar strings like
+    // "$900 per syringe" ship without allowlisting.)
     productDetails: z
       .array(
         z.object({

@@ -385,10 +385,25 @@ action hype, no outcomes, no dosing, ever.
    co-marketing usage pending `{{BIOTE_PERMISSION}}` — text-only until then.
 9. **Skincare (Skinbetter Science)** — medical-grade skincare available
    through Amy's partner storefront; shop link-out (`{{SKINBETTER_URL}}`).
-10. **Skin Rejuvenation** *(added 2026-07-19, Vagaro alignment)* —
-    Pixel8 RF microneedling (a microneedling device pairing fine needles
-    with radiofrequency energy) and medical-grade chemical peels
-    (clinician-applied exfoliating solutions). Factual device/procedure
+10. **Skin Rejuvenation** *(added 2026-07-19, Vagaro alignment; expanded
+    2026-07-22 from the operator-supplied Rohrer brief — a constraint-8-class
+    view-only source, never committed)* — **PiXel8-RF** (Rohrer Aesthetics):
+    an FDA-cleared device pairing fine microneedles with 4 MHz
+    radiofrequency energy; mechanism stated as design ("designed to prompt
+    the skin's own collagen and elastin production"); indication areas
+    appearance-hedged (appearance of skin laxity/crepiness, uneven tone and
+    texture, acne scarring, stretch marks; face, neck, and body); "designed
+    for all skin types and tones" permitted as a manufacturer design fact
+    (never "safe and effective"). Price shows as bare **$1,500** (operator
+    decision 2026-07-22 — no per-treatment/per-series basis; explained at
+    consultation). **Medical-grade chemical peels** (clinician-applied
+    exfoliating solutions) — **starting at $180**; the peel section is a
+    compliant placeholder until `{{CHEMICAL_PEELS_MENU}}` resolves.
+    Line-specific exclusions: no needle depths/pin counts/tip specs
+    (dosing-class), no session counts or scheduling intervals
+    (protocol-class), no results timelines or downtime promises, no PIH
+    claims, no "first and only"/MHz comparisons (superiority), no
+    third-party med-spa names from the brochure. Factual device/procedure
     descriptions only; no resurfacing/anti-aging outcome claims; consult
     routing.
 11. **Body Contouring** *(added 2026-07-19, Vagaro alignment)* — Evolve,
@@ -608,6 +623,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{PEPTIDES_PUBLIC_LIST}}` | Which peptides appear publicly | Open decision |
 | `{{NEUROMOD_LIST}}` | Confirmed neuromodulator products | RESOLVED 2026-07-19 (live Vagaro menu, operator-confirmed: Jeuveau, Xeomin, Daxxify) |
 | `{{PRICING_DISPLAY_MODE}}` | none / consult / startingAt (default: consult) | Open decision |
+| `{{CHEMICAL_PEELS_MENU}}` | Peel menu from Amy (brands, tiers, per-peel pricing beyond the $180 start) | Open — page carries a compliant placeholder (2026-07-22) |
 | `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | RESOLVED 2026-07-21 (operator override — exact sentence in `allowedStrings`, two Evolus product pages; §8.4) |
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |
 | `{{RETATRUTIDE_COUNSEL}}` | Attorney-approved investigational wording | Open decision |

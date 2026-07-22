@@ -184,6 +184,19 @@ table). Client-trialed and rejected for the ring/title role: `#ff4f8b`
 and plum `#a83b71` (passes, declined on looks). These exact hexes are
 client decisions: do not re-derive them from the palette ramp.
 
+**Site-wide boxes (client direction, 2026-07-22, later the same day):**
+every box on every page wears the service-card resting pink —
+`--ng-card` points at `--ng-card-rest` `#f4cae2` (product cards, deck,
+router card, disclaimer block, investigational notice, location card,
+about facts). All box edge rules moved magenta-600 → ink-pink
+(magenta is 3.11:1 on the card pink, margin-thin against the 3.0
+non-text bar; the disclaimer's pink-300 top rule was 1.24:1). Ink-pink
+links/tags inside boxes hold 4.60:1 — passes the WCAG 4.5 hard bar;
+the house 4.7 link-headroom bar carries an operator-accepted exception
+for in-box links only (chosen over a darker in-box pink after the
+flag, DECISIONS same date). Blush-50 remains for ambient bands only
+(ConceptHome); noir boxes stay transparent-outlined.
+
 ### Typography
 
 Two families, self-hosted (@fontsource), WOFF2, `font-display: swap`, preload

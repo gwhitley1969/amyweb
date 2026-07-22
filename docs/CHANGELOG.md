@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-22 — Every box now matches the /services card pink
+
+- Client direction: all boxes on every page wear the /services resting
+  pink `#f4cae2` — one token repoint (`--ng-card` → `--ng-card-rest`)
+  recolors product cards, the deck and router cards, the medical
+  disclaimer block, the investigational notice, the location card, and
+  the about-page facts box.
+- Every box edge rule moved magenta-600 → ink-pink (margin-thin on the
+  new pink), matching the /services cards; the disclaimer's pink-300 top
+  rule (near-invisible on the new pink) moved with them.
+- In-box pink links/tags hold 4.60:1 — WCAG AA passes; the house 4.7
+  link-headroom bar carries an operator-accepted in-box exception
+  (DECISIONS same date). Ambient blush bands and noir boxes unchanged.
+
 ### 2026-07-22 — Compliance docs brought in line with the code
 
 Documentation-only sweep after the disclaimer work. No behaviour changes.

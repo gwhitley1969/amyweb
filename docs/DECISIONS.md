@@ -1494,3 +1494,30 @@ Consequences: the README now states plainly that a green `lint:claims` is a
 floor and not a verdict, since the judgment exclusions accumulating in this
 phase — the Glutathione "Uses" text, "menopause", "Low T", "no downtime" —
 are all things the regex permits and the rulebook does not.
+
+## 2026-07-22 — Every box wears the /services card pink
+
+Context: after approving the /services card recolor, the client directed
+that all boxes on every page match the /services boxes. Decision: repoint
+the shared `--ng-card` token at `--ng-card-rest` (#f4cae2) — one token
+change recolors all eight light-surface consumers (product cards, deck,
+router card, disclaimer block, investigational notice, location card,
+about facts, styleguide demos) — and move every box edge rule from
+magenta-600 to ink-pink, matching the /services cards exactly: computed
+first-hand (sanity pairs reproduced 15.77/4.15), magenta-600 is 3.11:1 on
+the card pink (margin-thin vs the 3.0 non-text bar) and the disclaimer's
+pink-300 top rule drops to 1.24:1 (near-invisible), so both retire from
+box roles. In-box ink-pink links/tags (product tags, location-card phone/
+directions links, outline CTA labels) hold 4.60:1 — passes the WCAG AA
+4.5 hard bar but sits under the house 4.7 link-headroom bar; flagged with
+a computed alternative (#a91162, 4.89:1) and the operator chose to keep
+ink-pink everywhere — a documented in-box-links-only exception; the 4.7
+bar is unchanged elsewhere. Alternatives rejected: recoloring per
+component (eight edits that can drift; the token exists precisely for
+this); the darker in-box pink (operator preferred uniformity).
+Deliberately unchanged: the ConceptHome blush band (an ambient section,
+not a box — blush-50 stays for bands), noir boxes (transparent-outlined
+by design), the H1 accent rule and photo washes (magenta on white/photo,
+not on boxes). Consequences: ink-900 box text holds 11.80:1 everywhere;
+body text and non-text bars pass with margin; tokens.css header gains the
+SITE-WIDE BOXES block; axe/Pa11y re-verified over the built site.

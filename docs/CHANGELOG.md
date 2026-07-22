@@ -6,6 +6,41 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-22 — IV Therapy & Vitamin Support built on the live menu
+
+- The placeholder becomes a real page. Scope taken from Amy's Vagaro
+  booking menu — the IV category carries exactly three services (NAD,
+  Immunity boost, Myers cocktail) — plus the two vitamin shots named in
+  BUILD_SPEC §7.7. Five product cards, grouped by the `tag` field into
+  **IV infusion** (3) and **Shot** (2).
+- Prices shown only where verified: **Myers' Cocktail $125**,
+  **Immunity IV $125**, **NAD IV $200** (operator-supplied; NAD
+  corroborated by Amy's own handwritten annotation), **Glutathione $25
+  per shot** carried over unchanged from the shipped peptide-therapy
+  page. **Vitamin B12 carries no price line** rather than an invented
+  one. Immunity IV's ingredients (vitamin C, vitamin B12, B-complex,
+  zinc sulfate, glutathione) are named as composition only — §7.7's
+  rule against extending the product name into immune benefits stands.
+- Card copy states what each substance **is**, not what it does. The
+  operator-supplied `scans/peptides` cards are constraint-8 internal
+  product cards (reconstitution, dosing, duration) whose Glutathione
+  "Uses" text runs into chemotherapy / Alzheimer's / Parkinson's
+  language — the exact content §7.7 bans by name. Excluded in full,
+  along with the company site's benefit copy ("Immune and recovery
+  boost", "Cellular repair and mental clarity", "Detox and skin
+  brightening"). **The quoted half passes lint:claims cleanly** — a
+  judgment exclusion, not a gate catch (DECISIONS 2026-07-22).
+- `pricingDisplay` **consult → none**: the `consult` value injects
+  "Pricing is individual and discussed during your consultation",
+  which contradicts a book-direct page showing three fixed prices.
+  Already in the schema enum and shipped on skincare.mdx.
+- `ctaType` stays **`book`** per the §6 route table — one of only two
+  book-routed treatment pages. Adds `studio-wide.jpg` (previously
+  unused in-repo asset) in a media row.
+- `banned-patterns.json` untouched — all three price strings are plain
+  dollar amounts, so no allowlist entry was needed.
+- Ships `clinicianApproved: false` behind the DraftBanner.
+
 ### 2026-07-22 — Body Contouring built on Evolve
 
 - The placeholder becomes a real page, scoped from Amy's live Vagaro

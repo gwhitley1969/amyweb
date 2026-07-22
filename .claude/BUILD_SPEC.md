@@ -161,7 +161,7 @@ retired from UI chrome (client, 2026-07-18 — see docs/DECISIONS.md).
 | Token | Provisional value | Role |
 |---|---|---|
 | `--ng-pink-500` | `#EC4899`-range (sample logo) | Brand hot pink — display text ≥ 24px bold, graphics, motifs only |
-| `--ng-magenta-600` | `#D6127D`-range (sample logo) | Deep brand magenta — large accents, hover states |
+| `--ng-magenta-600` | `#D6127D`-range (sample logo) | Deep brand magenta — large accents, display-accent text on light (service-card edge/ring role retired 2026-07-22 — fails non-text contrast on the client card pinks) |
 | `--ng-pink-300` | `#F9A8D4`-range | Tints, chevrons, decorative |
 | `--ng-blush-50` | `#FDF2F8`-range | Soft section backgrounds |
 | `--ng-ink-900` | near-black w/ warm cast (e.g. `#221820`) | Body text |
@@ -172,6 +172,17 @@ Body-size pink text uses `--ng-ink-pink` only. Buttons: white text on
 `--ng-magenta-600`/`--ng-ink-pink` fills, verified ≥ 4.5:1. Every token pair
 used for text is contrast-verified before use; record the verified pairs in
 `src/styles/tokens.css` comments.
+
+**Service-card state pair (client-picked, 2026-07-22 — final after a
+four-round preview iteration, DECISIONS same date):** the /services
+cards rest on `--ng-card-rest: #f4cae2` and deepen to
+`--ng-card-hover: #efb1d5` when highlighted; the highlight draws a 2px
+`--ng-ink-pink` ring on all four sides and colors the title the same
+(3.81:1 on the highlight pink — every pair in the tokens.css header
+table). Client-trialed and rejected for the ring/title role: `#ff4f8b`
+(2.13:1) and the logo-lips neon `#fe019a` (2.10:1) — both fail WCAG —
+and plum `#a83b71` (passes, declined on looks). These exact hexes are
+client decisions: do not re-derive them from the palette ramp.
 
 ### Typography
 

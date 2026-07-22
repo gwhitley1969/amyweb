@@ -196,7 +196,9 @@ every string):
       variant per Amy's pick), location strip (NAP + directions link-out), Get-the-App slot
       (flag stays off), closing noir CTA band. Two seams max (design rule).
 - [x] `/services` — index: short factual intro per line → 11 detail
-      links (9 at C5; grew with PR #16).
+      links (9 at C5; grew with PR #16). Card colors client-picked
+      2026-07-22: rest `#f4cae2`, highlight `#efb1d5` + ink-pink
+      ring/titles (DECISIONS same date).
 - [x] `/about` — Amy's story + credentials from `{{AMY_BIO}}`; factual
       note that she practices within a multi-provider location (hard
       constraint 2 — nothing more); Evolus relationship only per

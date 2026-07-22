@@ -215,8 +215,8 @@ layout shift from fonts or images.
 
 | Route | Page | Purpose / key content | Primary CTA |
 |---|---|---|---|
-| `/` | Home | Hero (brand thesis — see below); "Meet Amy" trust block (FNP, since 2017, Biote-certified); service-line overview cards (11); location strip; Get-the-App slot (coming-soon) | Book an appointment |
-| `/services` | Services index | Short factual intro per line, linking to the 11 detail pages | Per-line → detail |
+| `/` | Home | Hero (brand thesis — see below); "Meet Amy" trust block (FNP, since 2017, Biote-certified); service-line overview cards (12); location strip; Get-the-App slot (coming-soon) | Book an appointment |
+| `/services` | Services index | Short factual intro per line, linking to the 12 detail pages | Per-line → detail |
 | `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Book / Consult (2026-07-21, operator — was consult-routed) |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |
 | `/services/wrinkle-relaxers` | Wrinkle Relaxers | §7 brief | Book / Consult |
@@ -225,6 +225,7 @@ layout shift from fonts or images.
 | `/services/regenerative` | Regenerative Treatments | §7 brief | Request a consultation |
 | `/services/skin-rejuvenation` | Skin Rejuvenation | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
 | `/services/body-contouring` | Body Contouring | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
+| `/services/laser-treatments` | Laser Treatments | §7 brief (added 2026-07-22, Venus Versa) | Request a consultation |
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
@@ -269,7 +270,7 @@ No claims in the hero (no outcomes, no "#1" until substantiated).
 ```ts
 {
   title: string,
-  line: enum(11 lines),
+  line: enum(12 lines),
   summary: string,            // 1–2 sentences, factual
   deck?: string,              // editorial standfirst card (2026-07-20, replaced AtAGlance); §8 applies
   products: string[],         // named products only, from this spec
@@ -432,6 +433,30 @@ action hype, no outcomes, no dosing, ever.
     a non-invasive device-based treatment; describe by intended design
     (skin tightening, muscle toning) only — never as outcomes. No
     body-fat or measurement language of any kind. Consult routing.
+12. **Laser Treatments** *(added 2026-07-22, from the operator-supplied
+    Venus Versa brochures — a constraint-8-class view-only source, never
+    committed)* — **Venus Versa** (Venus Concept), a device platform.
+    The line title "Laser Treatments" is the operator's naming choice
+    (2026-07-22, chosen after the accuracy flag: the applicators are
+    intense pulsed light and radiofrequency, not laser — body copy
+    states the physics factually as the mitigation). Three
+    applications, all appearance-hedged, mechanism as design intent:
+    **NanoFractional RF resurfacing** (appearance of wrinkles, enlarged
+    pores, uneven texture, scarring; "designed for all skin types and
+    tones" permitted as a manufacturer design fact — never "safe and
+    effective"); **IPL photo-rejuvenation** (appearance of sun damage,
+    brown spots, small capillaries, redness; applicators stated as
+    FDA-cleared — the accurate device term, no indication lists);
+    **Multi-Polar RF + PEMF** (appearance of facial fine lines and
+    wrinkles; FDA-cleared applicator). Line-specific exclusions: the
+    manufacturer's marketing name for the third application (a banned
+    angle) never appears anywhere in the repo; no session counts or
+    scheduling intervals (protocol-class); no downtime or
+    results-timeline promises; no "lesions"/Fitzpatrick indication
+    detail; no pin counts or device-spec figures; no brochure
+    before/after cases or their named med-spas; no blanket
+    platform-clearance claim. No pricing — consult routing; the menu is
+    tracked by `{{VENUS_VERSA_MENU}}`.
 
 ## 8. Content compliance rulebook (governs every string in the repo)
 
@@ -646,6 +671,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{NEUROMOD_LIST}}` | Confirmed neuromodulator products | RESOLVED 2026-07-19 (live Vagaro menu, operator-confirmed: Jeuveau, Xeomin, Daxxify) |
 | `{{PRICING_DISPLAY_MODE}}` | none / consult / startingAt (default: consult) | Open decision |
 | `{{CHEMICAL_PEELS_MENU}}` | Peel menu from Amy (brands, tiers, per-peel pricing beyond the $180 start) | Open — page carries a compliant placeholder (2026-07-22) |
+| `{{VENUS_VERSA_MENU}}` | Laser-treatments menu from Amy (which Venus Versa applications are priced, and how) | Open — page is consult-routed with no prices (2026-07-22) |
 | `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | RESOLVED 2026-07-21 (operator override — exact sentence in `allowedStrings`, two Evolus product pages; §8.4) |
 | `{{BIOTE_FDA_DISCLAIMER}}` | Biote's exact required FDA wording, rendered by `BioteDisclaimer` | RESOLVED 2026-07-22 (operator-authorized — Biote's own printed brochure wording; exact sentence in `allowedStrings`, fourth authorization. Had been shipping as a *visible placeholder token* on the hormone page; §7.8) |
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |

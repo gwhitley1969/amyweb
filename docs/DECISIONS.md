@@ -1303,9 +1303,14 @@ not a gate change. `ctaType` stays `book` per the §6 route table.
 Naming: the page uses the §7.7 name **"Immunity IV"**, not Vagaro's
 booking label "Immunity boost" — the latter reads as a benefit though
 it trips no pattern (wrong word order; "immunity" ≠ "immune").
-Imagery: `studio-wide.jpg`, previously unused in-repo — Amy is the only
-provider in frame and no location signage is legible, and an infusion
-page is the one place the room itself is the story. Consequences: page
+Imagery: `studio-wide.jpg`, already in-repo and not previously used on
+any treatment page — Amy is the only provider in frame and no location
+signage is legible, and an infusion page is the one place the room
+itself is the story. *(Correction 2026-07-22: this entry and the
+matching CHANGELOG line originally called the file "previously unused
+in-repo", which overstated it — `ConceptHome.astro` imports it for the
+`/styleguide/concept` demo. The reasoning is unaffected; no new asset
+was added either way.)* Consequences: page
 ships clinicianApproved: false behind the DraftBanner; Glutathione and
 NAD prices now live in two files and must move together; the Vitamin B12
 price remains the one open blank (registry token proposed, not added —
@@ -1417,3 +1422,34 @@ photo depicts pellet care (`pink-gloves-detail.jpg` carries legible
 `amy-at-work.jpg` was rejected for IV Therapy). Consequences: page ships
 clinicianApproved: false behind the DraftBanner; the men's price makes
 the line explicitly non-gendered for the first time on the site.
+
+## 2026-07-22 — Compliance documentation reconciled with the linter
+
+Context: after resolving {{BIOTE_FDA_DISCLAIMER}} the operator asked for a
+documentation check. Auditing rather than answering from memory turned up
+three gaps, one of which predates this session's work. Decision: fix all
+three in a docs-only change. (1) `compliance/README.md` stated the linter
+scans `src/content/**` and `src/pages/**`; `SCAN_DIRS` is six directories
+including `src/components` and `src/layouts`. That error is directly
+implicated in the disclaimer problem — a reader would conclude a disclosure
+component is exempt from the banned patterns, which is the opposite of the
+truth and the whole reason hardcoding the FDA sentence failed the gate. (2)
+The same file documented no allowlist whatsoever, though `allowedStrings`
+now holds nine entries and is the only sanctioned route for publishing text
+a category would otherwise catch; the per-line stripping hazard was recorded
+nowhere a maintainer would look. (3) `.claude/CLAUDE.md` enumerates the
+scoped exceptions to hard constraint 3 and listed only three, so the
+governing document contradicted what had shipped — a future session could
+reasonably have read the disclaimer entry as unauthorized and removed it.
+Alternatives rejected: leaving CLAUDE.md alone on the grounds that it is
+operator-governed (the operator authorized the exception; the file is the
+record of such authorizations, and leaving it stale is the riskier act);
+documenting the allowlist only in DECISIONS (nobody reads a 1400-line log
+before editing a component). Also corrected a claim of my own: the IV
+Therapy entries described `studio-wide.jpg` as "previously unused in-repo"
+when `ConceptHome.astro` imports it for the styleguide demo — it was unused
+by any *treatment page*. The reasoning it supported is unaffected.
+Consequences: the README now states plainly that a green `lint:claims` is a
+floor and not a verdict, since the judgment exclusions accumulating in this
+phase — the Glutathione "Uses" text, "menopause", "Low T", "no downtime" —
+are all things the regex permits and the rulebook does not.

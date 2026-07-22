@@ -89,6 +89,19 @@ silently following it. Known superseded points from earlier briefs:
      `allowedStrings`, on the wrinkle-relaxers and dermal-fillers pages
      only. Nothing else; extending any of these requires the human
      operator.*
+     *Fourth scoped exception, and the only one that is not marketing
+     copy (operator authorization, DECISIONS 2026-07-22): Biote's FDA
+     disclaimer sentence — "These statements have not been evaluated
+     by…" — enumerated in `allowedStrings` and rendered by
+     `BioteDisclaimer` wherever content sets `bioteDisclaimer: true`.
+     It necessarily contains all four banned disease verbs, because
+     naming them is what the disclaimer does; that is why the
+     `disease-claims` category flagged it and why the exception exists
+     at all. **The four verbs stay banned everywhere outside this one
+     exact sentence.** Two editing rules: the sentence must live on a
+     single source line (the linter strips allowed strings per line, so
+     a wrapped copy matches nothing and trips every verb), and those
+     verbs must never be restated elsewhere in the same file.*
    - **Never** answer "is this right for me" in copy — route to a consultation.
    - Retatrutide (if published) **must** carry the investigational /
      not-FDA-approved disclosure. Biote symptom language **must** carry the

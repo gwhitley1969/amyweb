@@ -1190,6 +1190,57 @@ text gates cannot scan; the reusable TreatmentVideo component carried
 the whole feature with zero component changes; wrinkle-relaxers remains
 clinicianApproved: false (Amy's gate still ahead of production).
 
+## 2026-07-22 — Body Contouring built on Evolve, scoped to tighten-and-tone
+
+Context: the operator commissioned the Body Contouring page and supplied
+Evolve pricing ($1,500 / six sessions, $275 / one) plus competitor copy
+from a third-party med-spa site — "destroy fat, treat cellulite,
+increase muscle strength & tone… real surgery-like results after only a
+few treatments" — and open permission to research the device on the web.
+Amy's live Vagaro menu (`scans/Vagaro/Chemical peel - Evolve.png`)
+settled the scope: the category **Evolve** carries exactly one service,
+**"Tighten and tone."** InMode's platform splits into Tite (bipolar RF →
+skin), Tone (EMS → muscle) and Trim (RF + vacuum → adipose); Amy sells
+Tite + Tone. Decision: the page describes only what she sells. The
+competitor copy was rejected on **accuracy first** — it advertises Trim,
+a service she does not offer — and on BUILD_SPEC §7.11 second ("describe
+by intended design … never as outcomes. No body-fat or measurement
+language of any kind"). No override was sought, and none should be: the
+four prior as-is overrides all covered *manufacturer-produced* assets,
+whereas this is an unsubstantiated third party's marketing prose.
+Publishable substrate is InMode's own mechanism wording (uniform heating
+to the skin and the layer beneath it; EMS prompting involuntary muscle
+contractions), which carries no outcome claim and passes every category.
+Alternatives rejected: a Trim-inclusive page (misrepresents the
+practice); an operator override to carry the competitor claims (would
+advertise a service Amy cannot deliver — a worse exposure than the
+compliance one). Pricing: shown, per operator direction. Both strings
+are **count-keyed, not mg- or unit-keyed**, so no pattern in the
+registry matches and **no `allowedStrings` entry was added** — the same
+shape as the shipped "$350 for 10 threads"; `compliance/banned-patterns.json`
+is untouched. A "course of six" is treated as a **unit of sale**, not a
+prescribed regimen: it carries no frequency and no interval, unlike the
+biostimulator Duration column (2 months on / 1 month off) excluded
+earlier as a cycling protocol. Two further operator calls: placement
+areas (abdomen, flanks, thighs, arms, buttocks) and session length
+(~30–60 minutes) are named — the **first session length stated anywhere
+on the site**, admitted as a scheduling fact rather than a duration
+protocol; and the page **ships without imagery**, because a photo screen
+of `C:\Amy\pics` found nothing depicting Evolve or the treatment room
+(the shoot is entirely facial/injectable/skincare; the one wide frame is
+the multi-provider group shot, constraint 2), and body imagery on a
+body-contouring page reads as a before/after implication. Deliberately
+**not** written: "no downtime" — unbanned by regex and arguably
+procedural, but still a promise about the patient's experience; the page
+says "nothing is injected and nothing is cut" instead. Consequences: the
+page is the first treatment page with no media row, so the deck card,
+two product cards, a two-energy list and a six-item FAQ carry the visual
+weight; `ctaType` stays `consult` per the §6 route table;
+clinicianApproved stays false. A §7.11 spec note recording the
+Tite+Tone scope is proposed separately (operator-gated), on the model of
+the §7.5 Radiesse clarification, to stop a future session
+re-introducing fat framing.
+
 ## 2026-07-22 — Skin Rejuvenation rebuild: PiXel8-RF + chemical-peels placeholder
 
 Context: the operator supplied a Rohrer Aesthetics PiXel8-RF brief

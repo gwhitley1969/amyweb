@@ -1265,6 +1265,58 @@ Consequences: page ships clinicianApproved: false behind the
 DraftBanner; peels deepen when the token resolves; brochure scans
 never enter the repo.
 
+## 2026-07-22 — IV Therapy built on the live menu; source cards rejected
+
+Context: the placeholder needed a real page. The operator supplied
+pricing (Myers' $125, NAD IV $200) and pointed at two source folders —
+`scans/Vagaro` and `scans/peptides` — quoting the Glutathione "Uses"
+line as intended copy. Decision: scope taken from Amy's Vagaro booking
+menu (IV category = NAD, Immunity boost, Myers cocktail) plus the two
+shots named in §7.7; five cards grouped by the `tag` field into IV
+infusions and shots. Card copy states what each substance **is**, never
+what it does. The `scans/peptides` cards are constraint-8 internal
+product cards (reconstitution, dosing, duration) whose Glutathione
+"Uses" sentence continues into chemotherapy / Alzheimer's / Parkinson's
+language — the exact content §7.7 bans by name — and whose NAD+ card
+reads "Chronic fatigue reduction". Handled like the Rohrer brief behind
+§7.10: read to identify, never committed; the single nugget taken was
+corroboration, Amy's handwritten "IV NAD $200". Alternatives rejected:
+carrying the quoted half of the "Uses" line (it passes lint:claims
+cleanly — "liver support", "detoxification", "antioxidant", "oxidative
+stress" trip nothing — so this is a judgment exclusion, not a gate
+catch, and §7.7 is written as an absolute for Glutathione); the company
+site's copy ("Immune and recovery boost", "Cellular repair and mental
+clarity", "Detox and skin brightening"), all outcome claims and the
+first an explicit §7.7 violation; inventing a price for Vitamin B12 (it
+carries no price line instead); a sixth "vitamin shots" card
+duplicating the two cards that already are shots. Operator decisions
+via AskUserQuestion: $125 is the Myers' Cocktail with those five as its
+ingredients (not six separate items — corroborated by Vagaro listing
+only three IVs); identity-plus-ingredients card depth; silence on
+unverified prices; Glutathione and NAD+ carried on **both** this page
+and peptide-therapy with identical price strings. Also: `pricingDisplay`
+consult → none, because the `consult` value injects "Pricing is
+individual and discussed during your consultation" — contradictory on a
+book-direct page showing four fixed prices; `none` is already in the
+schema enum and shipped on skincare.mdx, so this is an accuracy fix,
+not a gate change. `ctaType` stays `book` per the §6 route table.
+Naming: the page uses the §7.7 name **"Immunity IV"**, not Vagaro's
+booking label "Immunity boost" — the latter reads as a benefit though
+it trips no pattern (wrong word order; "immunity" ≠ "immune").
+Imagery: `studio-wide.jpg`, previously unused in-repo — Amy is the only
+provider in frame and no location signage is legible, and an infusion
+page is the one place the room itself is the story. Consequences: page
+ships clinicianApproved: false behind the DraftBanner; Glutathione and
+NAD prices now live in two files and must move together; the Vitamin B12
+price remains the one open blank (registry token proposed, not added —
+BUILD_SPEC edits are operator-gated). Correction the same day, before
+merge: the operator supplied Immunity IV's price ($125) and contents
+(vitamin C, vitamin B12, B-complex, zinc sulfate, glutathione), so that
+card moved from blank to priced. Ingredients are named as composition
+only and carry no immune framing — §7.7's product-name rule is
+unaffected. Note glutathione now appears twice on the page: as an
+ingredient of the Immunity IV, and as a standalone shot.
+
 ## 2026-07-22 — /services cards recolored to client-picked pinks; edge rule moves to ink-pink
 
 Context: Amy reviewed /services and directed new card-state colors,

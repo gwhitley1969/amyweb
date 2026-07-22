@@ -8,16 +8,56 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ### 2026-07-22 — /services cards recolored to Amy's picks
 
-- The service-line cards now rest on a client-picked brand pink
-  (`#efb1d5`) and **lighten** to `#f4cae2` when highlighted, with a 2px
-  dark ring on all four sides replacing the old left-edge thickening.
-  Exact hexes supplied by the operator; lighten-on-highlight confirmed.
-- The card edge rule and ring use ink-pink instead of magenta-600 —
-  magenta fails the WCAG non-text contrast bar on the new rest pink.
-  All new pairs verified and recorded in the `tokens.css` header table.
+- The service-line cards now rest on a client-picked lighter pink
+  (`#f4cae2`) and **deepen** to `#efb1d5` when highlighted, with a 2px
+  ring on all four sides replacing the old left-edge thickening. Exact
+  hexes supplied by the operator; the shade roles were reversed at
+  client direction after the first preview round.
+- The highlight ring + title color is in client trial on the PR
+  preview (currently the logo-lips neon `#fe019a`, which fails the
+  WCAG non-text/large-text bars at 2.10:1 and needs a recorded
+  operator override to ship; the verified fallback is ink-pink at
+  3.81:1). magenta-600 is ruled out — it fails the non-text bar on
+  the highlight pink. All measured pairs live in the `tokens.css`
+  header table.
 - Scoped to `.treatment-card` (/services + styleguide); the shared
   `--ng-card` blush blocks elsewhere are unchanged. No content, gate,
   or config changes.
+
+### 2026-07-22 — IV Therapy & Vitamin Support built on the live menu
+
+- The placeholder becomes a real page. Scope taken from Amy's Vagaro
+  booking menu — the IV category carries exactly three services (NAD,
+  Immunity boost, Myers cocktail) — plus the two vitamin shots named in
+  BUILD_SPEC §7.7. Five product cards, grouped by the `tag` field into
+  **IV infusion** (3) and **Shot** (2).
+- Prices shown only where verified: **Myers' Cocktail $125**,
+  **Immunity IV $125**, **NAD IV $200** (operator-supplied; NAD
+  corroborated by Amy's own handwritten annotation), **Glutathione $25
+  per shot** carried over unchanged from the shipped peptide-therapy
+  page. **Vitamin B12 carries no price line** rather than an invented
+  one. Immunity IV's ingredients (vitamin C, vitamin B12, B-complex,
+  zinc sulfate, glutathione) are named as composition only — §7.7's
+  rule against extending the product name into immune benefits stands.
+- Card copy states what each substance **is**, not what it does. The
+  operator-supplied `scans/peptides` cards are constraint-8 internal
+  product cards (reconstitution, dosing, duration) whose Glutathione
+  "Uses" text runs into chemotherapy / Alzheimer's / Parkinson's
+  language — the exact content §7.7 bans by name. Excluded in full,
+  along with the company site's benefit copy ("Immune and recovery
+  boost", "Cellular repair and mental clarity", "Detox and skin
+  brightening"). **The quoted half passes lint:claims cleanly** — a
+  judgment exclusion, not a gate catch (DECISIONS 2026-07-22).
+- `pricingDisplay` **consult → none**: the `consult` value injects
+  "Pricing is individual and discussed during your consultation",
+  which contradicts a book-direct page showing three fixed prices.
+  Already in the schema enum and shipped on skincare.mdx.
+- `ctaType` stays **`book`** per the §6 route table — one of only two
+  book-routed treatment pages. Adds `studio-wide.jpg` (previously
+  unused in-repo asset) in a media row.
+- `banned-patterns.json` untouched — all three price strings are plain
+  dollar amounts, so no allowlist entry was needed.
+- Ships `clinicianApproved: false` behind the DraftBanner.
 
 ### 2026-07-22 — Body Contouring built on Evolve
 

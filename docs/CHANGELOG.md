@@ -23,6 +23,56 @@ change lives in `docs/DECISIONS.md`; design specs live in
   `--ng-card` blush blocks elsewhere are unchanged. No content, gate,
   or config changes.
 
+### 2026-07-22 — Hormone Optimization built; the FDA disclaimer now renders
+
+- **Fixed a live defect.** `/services/hormone-optimization` shipped
+  `bioteDisclaimer: true` while `BioteDisclaimer.astro` rendered the
+  literal string `{{BIOTE_FDA_DISCLAIMER}}` — braces visible — directly
+  above symptom-awareness copy. The one disclosure BUILD_SPEC §7.8 makes
+  mandatory was never actually shown. Resolved with Biote's own printed
+  brochure wording.
+- **The compliance gate had been blocking the compliance text.** The
+  disclaimer names the four verbs the `disease-claims` category bans, so
+  hardcoding it failed `lint:claims` three times over. Fixed the
+  sanctioned way — the exact sentence is now in `allowedStrings`
+  (**fourth authorization**, and the first for text a regulator requires
+  rather than copy the client wants). **No pattern was modified; the list
+  only grew.**
+- Proved exact before trusting it: the exact sentence passes; "illness"
+  for "disease" fails; a shortened variant fails; the verbs reused as
+  real copy fail; and a **line-wrapped** disclaimer fails. Stripping is
+  per line, so the sentence must stay on one source line — recorded in
+  the component header alongside a second rule never to restate those
+  verbs elsewhere in that file.
+- **Page rebuilt** from Amy's Vagaro menu (`Hormones/Biote` = lab draw,
+  Pellets) plus the operator-supplied Biote source, treated view-only and
+  never committed. Three cards — **Pellets — Women $450**, **Pellets —
+  Men $750**, **Hormone lab draw** (no price) — and six sections
+  including **parallel "For women" and "For men" sections**, per operator
+  decision. That pairing is a restructure, not an append: "Who it's
+  generally for" had carried hot flashes and night sweats, so it *was*
+  the women's section unnamed, which made "For men" read as an appendix
+  to a female default. It is now a universal frame, with the gendered
+  vocabulary moved into the two sections beneath it.
+- **"Menopause" is deliberately absent**, as "Low T" already was. Neither
+  is a banned pattern and neither is a disease, so the linter permits
+  both — but naming a condition the pellets are *for* contradicts the
+  disclaimer two paragraphs above, and the rule has to apply evenly to
+  both sections.
+- Symptom-awareness vocabulary is in play here **and nowhere else on the
+  site**. Disease names — heart disease, diabetes, osteoporosis, anxiety,
+  depression, PTSD, bone density, cognition, prostate — stay banned
+  regardless of the disclaimer, as does Biote's entire post-procedure
+  timeline (intervals, procedures per year, lab cadence: protocol
+  material). Also excluded: quantified efficacy, "world's #1", 85 years,
+  4 million insertions, all three testimonials, the outcome lists, and
+  the DIM supplement.
+- `pricingDisplay` stays `consult` — unlike IV Therapy, that line is true
+  here. No imagery: §7.8 keeps Biote text-only pending
+  `{{BIOTE_PERMISSION}}`.
+- BUILD_SPEC §17 records `{{BIOTE_FDA_DISCLAIMER}}` **RESOLVED**; §7.8
+  gains the scope note. Ships `clinicianApproved: false`.
+
 ### 2026-07-22 — IV Therapy & Vitamin Support built on the live menu
 
 - The placeholder becomes a real page. Scope taken from Amy's Vagaro

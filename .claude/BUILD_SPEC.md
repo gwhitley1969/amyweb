@@ -394,6 +394,17 @@ action hype, no outcomes, no dosing, ever.
    framing (fatigue, sleep, mood, etc.) is permitted **only** with the FDA
    disclaimer Biote itself uses, rendered via `BioteDisclaimer`. Logo /
    co-marketing usage pending `{{BIOTE_PERMISSION}}` — text-only until then.
+   *(Updated 2026-07-22 — `{{BIOTE_FDA_DISCLAIMER}}` RESOLVED §17. The
+   disclaimer had been rendering as a visible placeholder token, so the
+   symptom-awareness permission was never actually usable; it is now.
+   The permission covers the linter's symptom vocabulary — fatigue, low
+   energy, night sweats, hot flashes, brain fog, libido, mood swings,
+   trouble sleeping, poor sleep, weight gain. It does **not** extend to
+   disease names: heart disease, diabetes, osteoporosis, anxiety,
+   depression, PTSD, cognition and bone-density claims stay banned here
+   exactly as everywhere else, disclaimer or not. Biote's post-procedure
+   timeline — insertion intervals, procedures per year, lab cadence — is
+   frequency/protocol material and never appears on the site.)*
 9. **Skincare (Skinbetter Science)** — medical-grade skincare available
    through Amy's partner storefront; shop link-out (`{{SKINBETTER_URL}}`).
 10. **Skin Rejuvenation** *(added 2026-07-19, Vagaro alignment; expanded
@@ -636,6 +647,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{PRICING_DISPLAY_MODE}}` | none / consult / startingAt (default: consult) | Open decision |
 | `{{CHEMICAL_PEELS_MENU}}` | Peel menu from Amy (brands, tiers, per-peel pricing beyond the $180 start) | Open — page carries a compliant placeholder (2026-07-22) |
 | `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | RESOLVED 2026-07-21 (operator override — exact sentence in `allowedStrings`, two Evolus product pages; §8.4) |
+| `{{BIOTE_FDA_DISCLAIMER}}` | Biote's exact required FDA wording, rendered by `BioteDisclaimer` | RESOLVED 2026-07-22 (operator-authorized — Biote's own printed brochure wording; exact sentence in `allowedStrings`, fourth authorization. Had been shipping as a *visible placeholder token* on the hormone page; §7.8) |
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |
 | `{{RETATRUTIDE_COUNSEL}}` | Attorney-approved investigational wording | Open decision |
 | `{{MEDIA_SCOPE}}` | How much photo/video goes on-site | Open decision |

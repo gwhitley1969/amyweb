@@ -1,9 +1,10 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// The 11 service lines (BUILD_SPEC §6/§7; skin-rejuvenation and
-// body-contouring added in the 2026-07-19 Vagaro alignment — operator
-// approved). Slugs match the /services/* routes.
+// The 12 service lines (BUILD_SPEC §6/§7; skin-rejuvenation and
+// body-contouring added in the 2026-07-19 Vagaro alignment,
+// laser-treatments added 2026-07-22 — operator approved). Slugs match
+// the /services/* routes.
 export const SERVICE_LINES = [
   'weight-loss-glp-1',
   'peptide-therapy',
@@ -13,6 +14,7 @@ export const SERVICE_LINES = [
   'regenerative',
   'skin-rejuvenation',
   'body-contouring',
+  'laser-treatments',
   'iv-therapy',
   'hormone-optimization',
   'skincare',

@@ -42,6 +42,23 @@ Documentation-only sweep after the disclaimer work. No behaviour changes.
   for the styleguide concept demo; it was unused *by any treatment page*.
   Reasoning unaffected — no new asset was added either way.
 
+### 2026-07-22 — /services cards recolored to Amy's picks
+
+- The service-line cards now rest on a client-picked lighter pink
+  (`#f4cae2`) and **deepen** to `#efb1d5` when highlighted, with a 2px
+  ring on all four sides replacing the old left-edge thickening. Exact
+  hexes supplied by the operator; the shade roles were reversed at
+  client direction after the first preview round.
+- The highlight ring + title letters settled on ink-pink (`#b01366`,
+  3.81:1 — passes AA) after three client trials the same day: hot
+  pink `#ff4f8b` and the logo-lips neon `#fe019a` both failed the
+  WCAG bars, plum `#a83b71` passed but lost on looks. magenta-600 is
+  ruled out — it fails the non-text bar on the highlight pink. All
+  measured pairs live in the `tokens.css` header table.
+- Scoped to `.treatment-card` (/services + styleguide); the shared
+  `--ng-card` blush blocks elsewhere are unchanged. No content, gate,
+  or config changes.
+
 ### 2026-07-22 — Hormone Optimization built; the FDA disclaimer now renders
 
 - **Fixed a live defect.** `/services/hormone-optimization` shipped

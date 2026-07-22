@@ -13,11 +13,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
   Immunity boost, Myers cocktail) — plus the two vitamin shots named in
   BUILD_SPEC §7.7. Five product cards, grouped by the `tag` field into
   **IV infusion** (3) and **Shot** (2).
-- Prices shown only where verified: **Myers' Cocktail $125**, **NAD IV
-  $200** (operator-supplied; NAD corroborated by Amy's own handwritten
-  annotation), **Glutathione $25 per shot** carried over unchanged from
-  the shipped peptide-therapy page. **Immunity IV and Vitamin B12 carry
-  no price line** rather than an invented one.
+- Prices shown only where verified: **Myers' Cocktail $125**,
+  **Immunity IV $125**, **NAD IV $200** (operator-supplied; NAD
+  corroborated by Amy's own handwritten annotation), **Glutathione $25
+  per shot** carried over unchanged from the shipped peptide-therapy
+  page. **Vitamin B12 carries no price line** rather than an invented
+  one. Immunity IV's ingredients (vitamin C, vitamin B12, B-complex,
+  zinc sulfate, glutathione) are named as composition only — §7.7's
+  rule against extending the product name into immune benefits stands.
 - Card copy states what each substance **is**, not what it does. The
   operator-supplied `scans/peptides` cards are constraint-8 internal
   product cards (reconstitution, dosing, duration) whose Glutathione

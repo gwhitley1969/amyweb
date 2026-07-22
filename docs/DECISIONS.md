@@ -1287,8 +1287,8 @@ stress" trip nothing — so this is a judgment exclusion, not a gate
 catch, and §7.7 is written as an absolute for Glutathione); the company
 site's copy ("Immune and recovery boost", "Cellular repair and mental
 clarity", "Detox and skin brightening"), all outcome claims and the
-first an explicit §7.7 violation; inventing prices for Immunity IV and
-B12 (they carry no price line instead); a sixth "vitamin shots" card
+first an explicit §7.7 violation; inventing a price for Vitamin B12 (it
+carries no price line instead); a sixth "vitamin shots" card
 duplicating the two cards that already are shots. Operator decisions
 via AskUserQuestion: $125 is the Myers' Cocktail with those five as its
 ingredients (not six separate items — corroborated by Vagaro listing
@@ -1297,7 +1297,7 @@ unverified prices; Glutathione and NAD+ carried on **both** this page
 and peptide-therapy with identical price strings. Also: `pricingDisplay`
 consult → none, because the `consult` value injects "Pricing is
 individual and discussed during your consultation" — contradictory on a
-book-direct page showing three fixed prices; `none` is already in the
+book-direct page showing four fixed prices; `none` is already in the
 schema enum and shipped on skincare.mdx, so this is an accuracy fix,
 not a gate change. `ctaType` stays `book` per the §6 route table.
 Naming: the page uses the §7.7 name **"Immunity IV"**, not Vagaro's
@@ -1307,6 +1307,12 @@ Imagery: `studio-wide.jpg`, previously unused in-repo — Amy is the only
 provider in frame and no location signage is legible, and an infusion
 page is the one place the room itself is the story. Consequences: page
 ships clinicianApproved: false behind the DraftBanner; Glutathione and
-NAD prices now live in two files and must move together; Immunity IV
-contents and the two blank prices remain open (registry tokens proposed,
-not added — BUILD_SPEC edits are operator-gated).
+NAD prices now live in two files and must move together; the Vitamin B12
+price remains the one open blank (registry token proposed, not added —
+BUILD_SPEC edits are operator-gated). Correction the same day, before
+merge: the operator supplied Immunity IV's price ($125) and contents
+(vitamin C, vitamin B12, B-complex, zinc sulfate, glutathione), so that
+card moved from blank to priced. Ingredients are named as composition
+only and carry no immune framing — §7.7's product-name rule is
+unaffected. Note glutathione now appears twice on the page: as an
+ingredient of the Immunity IV, and as a standalone shot.

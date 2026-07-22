@@ -4,10 +4,10 @@
 > Scope taken from Amy's live Vagaro menu (IV category = **NAD,
 > Immunity boost, Myers cocktail**) plus the two vitamin shots named in
 > §7.7. **Five cards** grouped by `tag` into IV infusion (3) and Shot
-> (2). Prices shown only where verified — **Myers' $125**, **NAD IV
-> $200**, **Glutathione $25 per shot** (carried unchanged from
-> peptide-therapy); **Immunity IV and B12 carry no price line** rather
-> than an invented one. The operator-supplied `scans/peptides` cards are
+> (2). Prices shown only where verified — **Myers' $125**, **Immunity
+> IV $125**, **NAD IV $200**, **Glutathione $25 per shot** (carried
+> unchanged from peptide-therapy); **only Vitamin B12 carries no price
+> line**, rather than an invented one. The operator-supplied `scans/peptides` cards are
 > **constraint-8 internal product cards** (reconstitution, dosing,
 > duration) whose Glutathione "Uses" text runs into chemotherapy /
 > Alzheimer's / Parkinson's language — §7.7's named absolute — so card
@@ -250,8 +250,10 @@ through TreatmentLayout (schema already in `src/content.config.ts`;
       benefits.** ctaType: book. Built 2026-07-22 from the live Vagaro
       menu: five cards tagged **IV infusion** / **Shot**; identity-only
       copy (what each substance *is*, never what it does); prices only
-      where verified (Myers' $125, NAD IV $200, Glutathione $25 per shot
-      — Immunity IV and B12 deliberately blank). `pricingDisplay: none`,
+      where verified (Myers' $125, Immunity IV $125, NAD IV $200,
+      Glutathione $25 per shot — **only B12 left blank**, still open).
+      Immunity IV's ingredients are named as composition only; the
+      product-name rule above is unaffected. `pricingDisplay: none`,
       since the `consult` line contradicts a book-direct page with fixed
       prices. Glutathione and NAD prices are **duplicated in
       `peptide-therapy.mdx` and must move together**.

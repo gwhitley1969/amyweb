@@ -1339,3 +1339,21 @@ Consequences: /services cards are now a deeper brand pink than the
 blush-50 blocks elsewhere (extendable on request); the 2026-07-18
 card-hover #fde9f4 derived pairs are retired with the value; no gate,
 linter, or content changes — clinicianApproved flags untouched.
+
+## 2026-07-22 — Services-card colors settled: reversed shades, ink-pink highlight accent
+
+Context: the recolor iterated four rounds on the PR #47 preview in one
+day. Round 1 (deeper #efb1d5 at rest, lighter #f4cae2 highlight,
+ink-pink ring) was reversed at client direction — rest is now the
+lighter #f4cae2, highlight deepens to #efb1d5. For the highlight ring +
+title letters the client trialed hot pink #ff4f8b (2.13:1 — fails the
+3:1 WCAG bars, flagged), plum #a83b71 (4.08:1 — passes, declined on
+looks), and the logo-lips neon #fe019a = --ng-neon-500 (2.10:1 — fails,
+plus the token's never-as-text rule, flagged), then chose to return to
+ink-pink (#b01366, 3.81:1 on the highlight bg — passes AA). Decision:
+ship the reversed shades with the ink-pink ring + title letters — fully
+compliant, no override needed. Alternatives rejected: the three trial
+colors (two fail WCAG, one declined); magenta-600 (2.57:1 non-text on
+#efb1d5). Consequences: every shipped pair is recorded in the tokens.css
+header table; the trial history lives there too so the failing colors
+are not re-tried; no gate or content changes.

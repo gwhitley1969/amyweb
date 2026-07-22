@@ -13,13 +13,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
   ring on all four sides replacing the old left-edge thickening. Exact
   hexes supplied by the operator; the shade roles were reversed at
   client direction after the first preview round.
-- The highlight ring + title color is in client trial on the PR
-  preview (currently the logo-lips neon `#fe019a`, which fails the
-  WCAG non-text/large-text bars at 2.10:1 and needs a recorded
-  operator override to ship; the verified fallback is ink-pink at
-  3.81:1). magenta-600 is ruled out — it fails the non-text bar on
-  the highlight pink. All measured pairs live in the `tokens.css`
-  header table.
+- The highlight ring + title letters settled on ink-pink (`#b01366`,
+  3.81:1 — passes AA) after three client trials the same day: hot
+  pink `#ff4f8b` and the logo-lips neon `#fe019a` both failed the
+  WCAG bars, plum `#a83b71` passed but lost on looks. magenta-600 is
+  ruled out — it fails the non-text bar on the highlight pink. All
+  measured pairs live in the `tokens.css` header table.
 - Scoped to `.treatment-card` (/services + styleguide); the shared
   `--ng-card` blush blocks elsewhere are unchanged. No content, gate,
   or config changes.

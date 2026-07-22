@@ -6,6 +6,42 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-22 — Compliance docs brought in line with the code
+
+Documentation-only sweep after the disclaimer work. No behaviour changes.
+
+- **`compliance/README.md` misdescribed the linter's scope.** It said every
+  string in `src/content/**` and `src/pages/**` is scanned; `SCAN_DIRS` is
+  actually **six** directories including `src/components` and `src/layouts`.
+  A pre-existing error, and precisely the one that makes the Biote disclaimer
+  problem confusing — the README implied a disclosure component was exempt,
+  when scanning it is exactly why hardcoding the FDA sentence failed. Now
+  lists all six and calls out the components/layouts case explicitly.
+- **`compliance/README.md` documented no allowlist at all**, despite
+  `allowedStrings` holding nine entries and being the only sanctioned route
+  for publishing something a category would catch. Added: exact-match
+  semantics and digit-boundary guards, operator-gating, the three
+  marketing entries versus the fourth regulator-required one, and the
+  **per-line stripping hazard** — a re-wrapped sentence matches nothing and
+  trips every banned term inside it.
+- **`compliance/README.md` overstated the Biote inverse check.** It claimed
+  the flag "makes the treatment layout inject the FDA disclaimer" — true only
+  since 2026-07-22; before that the flag was enforced while its payload was
+  an unresolved token. Now dated, with a note on what the flag does **not**
+  unlock: disease names, and condition names the treatment is positioned as
+  being *for*. The linter cannot enforce that second half — "menopause" and
+  "Low T" trip no pattern — so it is flagged as editorial judgment. **A green
+  `lint:claims` is a floor, not a verdict.**
+- **`.claude/CLAUDE.md` enumerated only three scoped exceptions.** The FDA
+  disclaimer is a fourth and necessarily contains all four verbs constraint 3
+  bans, so the governing document contradicted what shipped. Added, with both
+  editing rules and an explicit restatement that the verbs stay banned
+  everywhere outside that one exact sentence.
+- **Correction:** the IV Therapy entries called `studio-wide.jpg` a
+  "previously unused in-repo asset". It is imported by `ConceptHome.astro`
+  for the styleguide concept demo; it was unused *by any treatment page*.
+  Reasoning unaffected — no new asset was added either way.
+
 ### 2026-07-22 — /services cards recolored to Amy's picks
 
 - The service-line cards now rest on a client-picked lighter pink
@@ -102,8 +138,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   which contradicts a book-direct page showing three fixed prices.
   Already in the schema enum and shipped on skincare.mdx.
 - `ctaType` stays **`book`** per the §6 route table — one of only two
-  book-routed treatment pages. Adds `studio-wide.jpg` (previously
-  unused in-repo asset) in a media row.
+  book-routed treatment pages. Adds `studio-wide.jpg` (already in-repo;
+  not previously used on any treatment page — corrected 2026-07-22 from
+  "previously unused", which overstated it) in a media row.
 - `banned-patterns.json` untouched — all three price strings are plain
   dollar amounts, so no allowlist entry was needed.
 - Ships `clinicianApproved: false` behind the DraftBanner.

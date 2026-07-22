@@ -1369,7 +1369,26 @@ price lines, accepting the orphan card in the two-column grid; and a
 section would be thin, and corrected upward before building: the
 linter's symptom vocabulary — low energy, poor sleep, libido — is
 exactly what `bioteDisclaimer: true` unlocks, so the section stands on
-permitted language rather than scraps. Women's pellets are deliberately
+permitted language rather than scraps. **Revised the same day, before
+merge, at the operator's direction:** a matching *For women* section was
+added, and this was a restructure rather than an append. "Who it's
+generally for" had carried hot flashes and night sweats — the
+specifically female symptoms — so it *was* the women's section in all
+but name, which is precisely why "For men" read as an appendix to a
+female default. That section is now a genuinely universal frame holding
+the "a pattern is a reason for a conversation, not a conclusion"
+caveat, with the gendered vocabulary moved down into two parallel
+sections. Women first, matching card order. **"Menopause" and
+"perimenopause" are deliberately absent** — neither is a banned pattern
+and neither is a disease, so the linter would allow both, but naming a
+condition the pellets are *for* contradicts the disclaimer rendering two
+paragraphs above it. The deciding argument was evenness: "Low T" was
+already excluded from the men's section on the same reasoning, and the
+page cannot police male condition-naming while waving through the
+female equivalent. "Weight gain" was also left out despite sitting on
+the permitted symptom list — in a hormone section it implies a
+weight-loss outcome by association, and that line has its own page.
+Women's pellets are deliberately
 **not** described as estrogen: the source says pellets contain
 testosterone or estrogen and are patient-specific, and women's plans may
 include testosterone, so naming one would be an invention (constraint 7).

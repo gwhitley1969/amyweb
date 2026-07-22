@@ -31,7 +31,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
   Pellets) plus the operator-supplied Biote source, treated view-only and
   never committed. Three cards — **Pellets — Women $450**, **Pellets —
   Men $750**, **Hormone lab draw** (no price) — and six sections
-  including a **dedicated men's section**, per operator decision.
+  including **parallel "For women" and "For men" sections**, per operator
+  decision. That pairing is a restructure, not an append: "Who it's
+  generally for" had carried hot flashes and night sweats, so it *was*
+  the women's section unnamed, which made "For men" read as an appendix
+  to a female default. It is now a universal frame, with the gendered
+  vocabulary moved into the two sections beneath it.
+- **"Menopause" is deliberately absent**, as "Low T" already was. Neither
+  is a banned pattern and neither is a disease, so the linter permits
+  both — but naming a condition the pellets are *for* contradicts the
+  disclaimer two paragraphs above, and the rule has to apply evenly to
+  both sections.
 - Symptom-awareness vocabulary is in play here **and nowhere else on the
   site**. Disease names — heart disease, diabetes, osteoporosis, anxiety,
   depression, PTSD, bone density, cognition, prostate — stay banned

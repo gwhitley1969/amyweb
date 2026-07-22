@@ -15,8 +15,13 @@
 > fails, the verbs as real copy fail, and a line-wrapped disclaimer
 > fails (stripping is per line, so the sentence must stay on one source
 > line). Page: three cards (Pellets — Women $450, Pellets — Men $750,
-> lab draw unpriced), six sections including a dedicated men's section,
-> no imagery (§7.8 text-only pending `{{BIOTE_PERMISSION}}`).
+> lab draw unpriced), seven sections including **parallel For women /
+> For men** sections ("Who it's generally for" was restructured into a
+> universal frame — it had been carrying the female symptoms, making the
+> men's section read as an appendix). **"Menopause" is excluded exactly
+> as "Low T" is**: neither trips a pattern, but naming a condition the
+> pellets are *for* contradicts the disclaimer above it. No imagery
+> (§7.8 text-only pending `{{BIOTE_PERMISSION}}`).
 > `clinicianApproved: false` — DECISIONS 2026-07-22.
 
 > **STATUS UPDATE 2026-07-22:** **IV Therapy & Vitamin Support built.**
@@ -285,10 +290,14 @@ through TreatmentLayout (schema already in `src/content.config.ts`;
       `{{BIOTE_FDA_DISCLAIMER}}` placeholder** — resolved in the same PR,
       which is what made the symptom-awareness permission usable at all.
       Three cards: Pellets — Women $450, Pellets — Men $750, Hormone lab
-      draw (no price). Dedicated men's section per operator decision.
-      Symptom vocabulary is in play here **and nowhere else**; disease
-      names and Biote's post-procedure interval material stay out
-      regardless of the disclaimer.
+      draw (no price). **Parallel For women / For men sections** per
+      operator decision — "Who it's generally for" was restructured into
+      a universal frame rather than having a women's section appended
+      under it. Symptom vocabulary is in play here **and nowhere else**;
+      disease names and Biote's post-procedure interval material stay out
+      regardless of the disclaimer, and **condition names are out too**
+      ("menopause" and "Low T" both trip no pattern, but naming what the
+      pellets are *for* contradicts the disclaimer above them).
 - [x] `skincare` — Skinbetter Science overview + storefront link-out
       (`{{SKINBETTER_URL}}`, new tab). ctaType: shop.
 

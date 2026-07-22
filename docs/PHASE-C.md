@@ -1,5 +1,29 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-22:** **Hormone Optimization built — and the
+> FDA disclaimer now actually renders.** The page shipped
+> `bioteDisclaimer: true` while `BioteDisclaimer.astro` output the
+> literal string `{{BIOTE_FDA_DISCLAIMER}}`, braces visible, directly
+> above symptom copy: the one disclosure §7.8 makes mandatory was never
+> shown. Resolved with Biote's own brochure wording. **That sentence
+> names the four verbs `disease-claims` bans, so hardcoding it failed
+> `lint:claims` — the gate was blocking the compliance text.** Fixed via
+> the sanctioned route: exact sentence added to `allowedStrings`
+> (**fourth authorization**, and the first for text a regulator requires
+> rather than copy the client wants); **no pattern was modified**.
+> Proved exact — "illness" for "disease" fails, a shortened variant
+> fails, the verbs as real copy fail, and a line-wrapped disclaimer
+> fails (stripping is per line, so the sentence must stay on one source
+> line). Page: three cards (Pellets — Women $450, Pellets — Men $750,
+> lab draw unpriced), seven sections including **parallel For women /
+> For men** sections ("Who it's generally for" was restructured into a
+> universal frame — it had been carrying the female symptoms, making the
+> men's section read as an appendix). **"Menopause" is excluded exactly
+> as "Low T" is**: neither trips a pattern, but naming a condition the
+> pellets are *for* contradicts the disclaimer above it. No imagery
+> (§7.8 text-only pending `{{BIOTE_PERMISSION}}`).
+> `clinicianApproved: false` — DECISIONS 2026-07-22.
+
 > **STATUS UPDATE 2026-07-22:** **IV Therapy & Vitamin Support built.**
 > Scope taken from Amy's live Vagaro menu (IV category = **NAD,
 > Immunity boost, Myers cocktail**) plus the two vitamin shots named in
@@ -176,7 +200,7 @@ these. From the §17 registry:
 | `{{PEPTIDES_PUBLIC_LIST}}` (candidates: Glow Stack, GHK-Cu, NAD) | peptide-therapy page | Operator + Amy |
 | `{{NEUROMOD_LIST}}` (confirm: Jeuveau, Daxxify — sources disagree) | wrinkle-relaxers page | Operator + Amy |
 | `{{PRICING_DISPLAY_MODE}}` (default 'consult') | all treatment pages | Operator |
-| `{{BIOTE_FDA_DISCLAIMER}}` (Biote's exact required wording) | hormone-optimization page | Operator |
+| ~~`{{BIOTE_FDA_DISCLAIMER}}` (Biote's exact required wording)~~ | ~~hormone-optimization page~~ | **RESOLVED 2026-07-22** — Biote's own brochure wording; exact sentence in `allowedStrings` (fourth authorization) |
 | `{{BIOTE_PERMISSION}}` (logo/co-marketing) | text-only until resolved | Operator |
 | `{{RETATRUTIDE_COUNSEL}}` (attorney wording) | publishing Retatrutide at all | Operator + counsel |
 | `{{EVOLUS_CLAIM}}` (substantiation) | /about Evolus mention; "#1" stays banned until resolved | Operator |
@@ -260,7 +284,20 @@ through TreatmentLayout (schema already in `src/content.config.ts`;
 - [x] `hormone-optimization` — Biote BHRT; symptom-awareness framing ONLY
       with `bioteDisclaimer: true` (layout injects `{{BIOTE_FDA_DISCLAIMER}}`);
       text-only re: Biote branding until `{{BIOTE_PERMISSION}}`.
-      ctaType: consult.
+      ctaType: consult. Built 2026-07-22 from the Vagaro menu
+      (Hormones/Biote = lab draw, Pellets) plus the operator-supplied
+      Biote source. **The disclaimer had been rendering as a visible
+      `{{BIOTE_FDA_DISCLAIMER}}` placeholder** — resolved in the same PR,
+      which is what made the symptom-awareness permission usable at all.
+      Three cards: Pellets — Women $450, Pellets — Men $750, Hormone lab
+      draw (no price). **Parallel For women / For men sections** per
+      operator decision — "Who it's generally for" was restructured into
+      a universal frame rather than having a women's section appended
+      under it. Symptom vocabulary is in play here **and nowhere else**;
+      disease names and Biote's post-procedure interval material stay out
+      regardless of the disclaimer, and **condition names are out too**
+      ("menopause" and "Low T" both trip no pattern, but naming what the
+      pellets are *for* contradicts the disclaimer above them).
 - [x] `skincare` — Skinbetter Science overview + storefront link-out
       (`{{SKINBETTER_URL}}`, new tab). ctaType: shop.
 

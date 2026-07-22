@@ -1,5 +1,15 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-22:** **Skin Rejuvenation rebuilt** to the
+> card standard — PiXel8-RF (Rohrer, FDA-cleared, 4 MHz RF
+> microneedling; bare $1,500 per operator decision) + medical-grade
+> chemical peels (Starting at $180) as a **compliant placeholder**:
+> the peel menu is tracked open as `{{CHEMICAL_PEELS_MENU}}` (§17) and
+> the section deepens when Amy supplies it. No photo yet (operator
+> decision — no PiXel8 assets exist). Prose-only page, no media, no
+> gate changes; both price strings pass lint:claims untouched.
+> `clinicianApproved: false` — DECISIONS 2026-07-22.
+
 > **STATUS UPDATE 2026-07-21:** the weight-loss page's Retatrutide
 > disclosure consolidated to a single calm notice line (Amy's
 > direction after the compliance flag; new `investigationalNote`

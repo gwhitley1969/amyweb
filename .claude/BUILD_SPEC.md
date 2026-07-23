@@ -660,8 +660,9 @@ operator may provision manually; if asked to write Bicep, produce:
 - [ ] Manual a11y pass done (keyboard + screen reader spot-check).
 - [ ] All outbound handoffs verified to **Amy's** destinations (Vagaro URL is
       hers, not the shared location's; Skinbetter partner link correct).
-      Satisfied 2026-07-23 — Mobile Aesthetics is Amy's own practice (sole
-      owner; DECISIONS 2026-07-23).
+      Ownership clause satisfied 2026-07-23 — Mobile Aesthetics is Amy's own
+      practice (sole owner; DECISIONS 2026-07-23); link reachability is
+      still verified at launch.
 - [ ] Analytics events verified firing in the provider dashboard.
 - [ ] Front Door lockdown verified: SWA default hostname returns 403 direct;
       site serves only via needlegirlie.com; www → apex 301; HTTP → HTTPS.

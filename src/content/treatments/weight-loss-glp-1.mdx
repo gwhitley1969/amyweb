@@ -1,0 +1,100 @@
+---
+title: Weight Loss & GLP-1 Therapy
+line: weight-loss-glp-1
+summary: "Prescription weight-management medications — anchored by GLP-1 therapy — within a medically supervised program."
+deck: "Weight management, practiced as medicine — prescription therapy, a real plan, and supervision from the first conversation."
+products:
+  - "Semaglutide"
+  - "Tirzepatide"
+  - "Phentermine"
+  - "Retatrutide"
+# priceLines: operator-authorized allowlist strings ONLY (2026-07-20
+# override — see compliance/banned-patterns.json and docs/DECISIONS.md).
+productDetails:
+  - name: "Semaglutide"
+    detail: "A first-generation GLP-1 medication — a single-receptor agonist, the one that introduced the class."
+    priceLines: ["20mg vial: $675"]
+  - name: "Tirzepatide"
+    detail: "A dual agonist, acting on GLP-1 and GIP receptor pathways."
+    priceLines: ["30mg vial: $575", "60mg vial: $825"]
+  - name: "Phentermine"
+    detail: "An oral prescription medication for short-term use in a supervised weight-management plan."
+  - name: "Retatrutide"
+    detail: "A triple agonist — GLP-1, GIP, and glucagon receptor pathways."
+    priceLines: ["24mg vial: $600", "50mg vial: $850"]
+ctaType: book
+investigational: true
+investigationalProduct: "Retatrutide"
+# The page's single disclosure line (operator-approved consolidation,
+# 2026-07-21 — DECISIONS). Must keep "not FDA-approved" intact on one line.
+investigationalNote: "Retatrutide is an investigational medication and is not FDA-approved — Amy covers what that means during your consultation."
+pricingDisplay: consult
+clinicianApproved: false
+draft: false
+faq:
+  - q: "What's the difference between Semaglutide, Tirzepatide, and Retatrutide?"
+    a: "How many receptor pathways they act on. Semaglutide is a single agonist, Tirzepatide is a dual agonist (GLP-1 and GIP), and Retatrutide is a triple agonist (GLP-1, GIP, and glucagon). Which one, if any, belongs in your plan is decided in consultation."
+  - q: "Can I book GLP-1 therapy directly?"
+    a: "Yes — book online with Amy anytime, or call. A free consultation is always available first if you'd like to talk things through, and every program still begins the same way: your history, your goals, and a clinical assessment with Amy."
+  - q: "Who supervises the program?"
+    a: "Amy Palacios, FNP — a licensed family nurse practitioner. Every visit is with Amy herself."
+seo:
+  title: "Weight Loss & GLP-1 Therapy in Harrisburg & Charlotte, NC | Needle Girlie"
+  description: "A medically supervised weight-management program anchored by GLP-1 therapy — Amy Palacios, FNP, in Harrisburg, NC. Book online, or start with a free consultation."
+---
+
+import { Image } from 'astro:assets';
+import weighIn from '../../assets/photos/supervised-weigh-in.jpg';
+import amyPortrait from '../../assets/photos/amy-palacios-fnp.jpg';
+
+## What it is
+
+This is a medically supervised weight-management program built around
+prescription medications. GLP-1 therapy — Semaglutide and Tirzepatide —
+anchors the program, and Phentermine is also offered where it fits a
+plan. Retatrutide is on the menu as well. Every one of these is a
+prescription medication, and every one belongs inside a supervised
+plan — never on its own.
+
+<section class="media-row media-row--flip">
+  <div class="media-copy">
+
+## Who it's generally for
+
+Adults considering medical support for weight management. Prescription
+care is never one-size-fits-all: whether any of these medications
+belongs in your plan — and which one — is a clinical decision Amy makes
+with you in consultation, with your history in front of her.
+
+  </div>
+  <figure class="media-figure">
+    <Image
+      src={amyPortrait}
+      alt="Amy Palacios, FNP, in her embroidered clinic scrubs — arms crossed and smiling."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+    <figcaption class="eyebrow">Your clinician</figcaption>
+  </figure>
+</section>
+
+<section class="media-row">
+  <figure class="media-figure">
+    <Image
+      src={weighIn}
+      alt="A client stands on a body-composition scale during a supervised weigh-in at the studio."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+    <figcaption class="eyebrow">In the studio</figcaption>
+  </figure>
+  <div class="media-copy">
+
+## Individualized, with Amy
+
+Amy Palacios, FNP, plans and supervises every program individually at
+her Harrisburg studio — minutes from Charlotte. Book directly, or ask
+for a free consultation first — whichever you prefer.
+
+  </div>
+</section>

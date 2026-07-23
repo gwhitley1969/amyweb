@@ -1,0 +1,144 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ServiceLineGrid from '../../components/ServiceLineGrid.astro';
+import CTAButton from '../../components/CTAButton.astro';
+import TrustChips from '../../components/TrustChips.astro';
+import foreheadTreatment from '../../assets/photos/forehead-treatment.jpg';
+import lipFillerDetail from '../../assets/photos/lip-filler-detail.jpg';
+import maleClientTreatment from '../../assets/photos/male-client-treatment.jpg';
+
+/**
+ * /services index (§6, Phase C5; line count updated in the 2026-07-19
+ * Vagaro alignment and again 2026-07-22 for laser-treatments) — built
+ * after C3/C4 so the grid has zero dead links. Since 2026-07-23 the grid
+ * renders as the categorized editorial menu (Injectables · Skin & Body ·
+ * Wellness — client direction). All twelve lines render equal; the
+ * featured variant waits on Amy's pick (a §0 business decision, not a
+ * build task). "One expert clinician." is the operator's wording
+ * (2026-07-22, chosen after the flag).
+ *
+ * Studio strip (client direction 2026-07-23): three vetted frames of Amy
+ * at work between the lead and the menu — both pictured clients are the
+ * released subjects already on the live site (operator confirmed the
+ * releases cover same-shoot frames; DECISIONS same date). Frames wear
+ * the house light-wash grade (§5); no text overlays, so no plate rules
+ * apply. All three load lazy and render 3-across at every breakpoint —
+ * thumbnail-weight images that never contend with the H1 for LCP (see
+ * the comment on the strip div).
+ */
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+];
+---
+
+<BaseLayout
+  title="Medical Aesthetic Services in Harrisburg & Charlotte, NC | Needle Girlie"
+  description="Twelve service lines with Amy Palacios, FNP — injectables, laser treatments, skin rejuvenation, body contouring, IV therapy, hormone optimization, weight management, and skincare in Harrisburg, NC."
+>
+  <Header slot="header" />
+
+  <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow mt-8">Services</p>
+    <hr class="rule-accent mt-4" aria-hidden="true" />
+    <h1 class="display-2 mt-6">Twelve lines. One expert clinician.</h1>
+    <p class="lead mt-6 max-w-prose">
+      Every service below is planned and performed by Amy Palacios, FNP.
+      Start where your curiosity is — each page says plainly what the
+      treatment is, who it generally suits, and how to begin.
+    </p>
+    {/* 3-across at EVERY breakpoint (a filmstrip on phones): stacked
+      * full-width mobile images pulled 960w variants (image budget blown)
+      * and put a lazy image in the initial viewport as LCP (2558ms >
+      * 2500). Small thumbs keep the H1 as LCP and the strip ~40KB on
+      * mobile. */}
+    <div class="mt-12 grid grid-cols-3 gap-3 sm:gap-5">
+      <figure class="strip-frame ng-rise">
+        <Image
+          src={foreheadTreatment}
+          alt="Amy Palacios, FNP, performing an injectable treatment at a client's forehead in bright window light"
+          widths={[280, 400, 640, 760]}
+          sizes="(min-width: 1200px) 355px, 31vw"
+          loading="lazy"
+        />
+      </figure>
+      <figure class="strip-frame ng-rise">
+        <Image
+          src={lipFillerDetail}
+          alt="Close-up of a dermal filler treatment — Amy's gloved hands guiding a fine syringe at a client's lips"
+          widths={[280, 400, 640, 760]}
+          sizes="(min-width: 1200px) 355px, 31vw"
+          loading="lazy"
+        />
+      </figure>
+      <figure class="strip-frame ng-rise">
+        <Image
+          src={maleClientTreatment}
+          alt="Amy Palacios, FNP, performing a wrinkle-relaxer treatment for a male client by the studio window"
+          widths={[280, 400, 640, 760]}
+          sizes="(min-width: 1200px) 355px, 31vw"
+          loading="lazy"
+        />
+      </figure>
+    </div>
+    <div class="mt-12">
+      <ServiceLineGrid />
+    </div>
+  </section>
+
+  <section class="surface" data-surface="noir">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+      <p class="eyebrow">Not sure where to start?</p>
+      <h2 class="display-2 mt-4">
+        Ready <span class="display-accent ng-shimmer">when you are</span>.
+      </h2>
+      {/* book + call, matching the About/Visit closing bands. This band
+        * paired book + consult until 2026-07-21: once every "Book with
+        * Amy" opened Vagaro (PR #28), the pair rendered as two identical
+        * buttons — operator caught it on the preview. */}
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <CTAButton variant="book" />
+        <CTAButton variant="call" />
+      </div>
+      <div class="mt-8">
+        <TrustChips />
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  /* Same editorial frame + light-wash grade as the About portrait
+   * (§5: cinema on noir bands, light wash on light bands). */
+  .strip-frame {
+    position: relative;
+    margin: 0;
+    border: 1px solid var(--ng-hairline);
+    overflow: hidden;
+  }
+  .strip-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 20%;
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
+  }
+  .strip-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+</style>

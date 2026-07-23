@@ -16,6 +16,10 @@
  *   PASS 21.00:1 (min 4.5) white on noir             — body text on dark
  *   PASS 11.58:1 (min 4.5) pink-300 on noir          — body text on dark
  *   PASS  5.95:1 (min 3.0) pink-500 on noir          — LARGE text only
+ *   PASS  5.95:1 (min 4.5) pink-500 on noir          — small text on NOIR
+ *         only (header credential line, 2026-07-19). Same computed value
+ *         as the row above, asserted against the body-text bar. The
+ *         light-surface body-size ban is UNCHANGED (3.53 fails 4.5).
  *   PASS  3.53:1 (min 3.0) pink-500 on white         — LARGE text only
  *   PASS  3.23:1 (min 3.2 w/ headroom) pink-500 on blush-50 — margin is
  *         0.03: too thin, which is why the LIGHT display accent moved to
@@ -31,25 +35,86 @@
  * SURFACE DIRECTION ("serious glamour" pivot, 2026-07-18, per client — see
  * docs/DECISIONS.md; supersedes the 2026-07-08 "warm the studio" inversion):
  *   the light ambient surface is PAPER (white space is the luxury signal);
- *   cards and compliance blocks are BLUSH-50 (--ng-card) — bounded pink
- *   shapes on white read as jewelry and stay conspicuous. All blush and
- *   white text pairs above were verified for BOTH arrangements and carry
- *   over unchanged.
+ *   cards and compliance blocks were BLUSH-50 (--ng-card) until
+ *   2026-07-22 (client): every box now wears the service-card resting
+ *   pink #f4cae2 — see CLIENT CARD PINKS below. Blush-50 remains for
+ *   ambient bands only (ConceptHome). All blush and white text pairs
+ *   above were verified for BOTH arrangements and carry over unchanged.
  *   PASS  6.71:1 (min 3.0) focus ring ink-pink on white/blush (6.14)
  *   PASS 11.58:1 (min 3.0) focus ring pink-300 on noir
  *   PASS  4.15:1 (min 3.0) magenta-600 edge rule on blush-50 (non-text)
  *
  * DERIVED PAIRS (glamour pivot, computed 2026-07-18, same script/method —
  * sanity checks reproduced 15.77 and 17.22 exactly):
- *   --ng-card-hover resolves to #fde9f4 (pink-300 12% into blush-50):
- *   PASS 14.87:1 (min 4.5) ink-900 on card-hover     — body text
- *   PASS  5.79:1 (min 4.7) ink-pink on card-hover    — links (headroom ok)
- *   PASS  3.91:1 (min 3.0) magenta-600 on card-hover — edge rules (non-text)
+ *   CLIENT CARD PINKS (client-picked exact hexes 2026-07-22, service
+ *   cards — computed same script/method, sanity check reproduced 17.22
+ *   exactly; supersedes the 2026-07-18 card-hover #fde9f4 pairs, retired
+ *   with that value):
+ *   (roles reversed at client direction 2026-07-22 — rest is now the
+ *   lighter #f4cae2, highlight the deeper #efb1d5; pairs re-labeled):
+ *   PASS 11.80:1 (min 4.5) ink-900 on card-rest #f4cae2   — body text
+ *   PASS  9.77:1 (min 4.5) ink-900 on card-hover #efb1d5  — body text
+ *   PASS  4.60:1 (min 3.0) ink-pink edge on card-rest     — non-text
+ *   PASS  3.81:1 (min 3.0) ink-pink on card-hover #efb1d5 — the
+ *         highlight ring (non-text) AND the 25px card titles (large
+ *         text, min 3.2) — client pick 2026-07-22 after three trials
+ *   RULE FIRED: magenta-600 fails non-text on #efb1d5 (2.57) — never
+ *   use it for the card edge/ring. Trialed and rejected for this role
+ *   the same day: #ff4f8b (2.13 FAIL), neon-500 lips #fe019a (2.10
+ *   FAIL — and neon never renders as text), plum #a83b71 (4.08 PASS,
+ *   client passed on the look).
+ *   SITE-WIDE BOXES (client direction 2026-07-22, later the same day:
+ *   every box matches the /services cards — --ng-card now points at
+ *   card-rest #f4cae2; computed same script, sanity pairs reproduced
+ *   15.77/4.15 exactly):
+ *   PASS 11.80:1 (min 4.5) ink-900 on card #f4cae2       — box body text
+ *   PASS  4.60:1 (min 3.0) ink-pink box edges on card    — non-text;
+ *         ALL box edge rules moved magenta-600 -> ink-pink (magenta is
+ *         3.11 on #f4cae2, margin-thin) and the disclaimer's pink-300
+ *         top rule moved too (1.24 — near-invisible on the new pink)
+ *   PASS  4.60:1 ink-pink links/tags INSIDE boxes on card — passes the
+ *         WCAG 4.5 hard bar; sits under the house 4.7 link-headroom
+ *         bar. OPERATOR-ACCEPTED exception (2026-07-22, chosen over a
+ *         darker in-box pink after the flag; DECISIONS same date).
+ *         The 4.7 headroom bar is UNCHANGED everywhere else.
  *   --ng-hairline is DECORATIVE ONLY (borders/rules, never text):
  *   light: ink-900 14% over paper -> ~#e0dfe0 (1.33:1 vs paper)
  *   noir:  pink-500 55% over noir -> ~#822854 (2.38:1 vs noir) — brightened
  *          per client review (pink-300 30% composited to a muddy wine)
  *   --ng-aura-glow (neon-500 25%) is a drop-shadow color, never text.
+ *   OMBRE CANVAS (client direction 2026-07-23, matched to the client's
+ *   reference image — ombre page background, near-white at top ->
+ *   full brand pink at bottom. Trialed on /services, then SITE-WIDE
+ *   the same day on client approval: every light-surface body wears
+ *   the ramp via body:not([data-surface='noir']) in global.css; noir
+ *   bodies — construction home, /404 — stay flat black. Computed same
+ *   script/method, sanity pairs reproduced 17.22/6.71/4.60/6.14
+ *   exactly). The ramp runs blush-50 -> pink-500, luminance monotone,
+ *   so the end-stop pairs bound the whole ramp:
+ *   PASS  4.88:1 (min 4.5) ink-900 on ombre-end pink-500 — body text
+ *         (the recorded BRAND-PINK FILLS pair — the canvas may never
+ *         exceed pink-500; neon-500 drops ink-900 to 4.66 AND neon
+ *         never renders as a light surface)
+ *   PASS  4.88:1 (min 3.0) ink-900 focus ring on ombre-end
+ *   PASS  4.88:1 (min 4.5) ink-900 links on ombre-end — links are
+ *         distinguished by underline (prose/breadcrumbs) or border
+ *         (outline CTA), never by color alone
+ *   PASS 11.80:1 ink-900 links/tags INSIDE boxes on card #f4cae2 —
+ *         the site-wide link re-ink lifts the 2026-07-22 in-box 4.60
+ *         exception on ombre pages; the house 4.7 bar is met with
+ *         headroom again
+ *   COMPANION RE-INK (the ombre body rule in global.css): eyebrows
+ *   (--ng-kicker), accent rules (--ng-rule-accent), the focus ring,
+ *   and links/outline CTAs (--ng-link) all switch to ink-900 on ombre
+ *   pages — ink-pink falls to 2.33 and magenta-600 to ~1.9 mid-ramp,
+ *   so neither may render on the ombre canvas. The display accent
+ *   (--ng-display-accent) re-inks too: its one light-canvas consumer
+ *   is the VisitSteps numerals, which sit mid-ramp. Noir bands keep
+ *   their own scoped values (pink-300 family throughout).
+ *   Cards on the ramp: plates cross canvas-equal luminance ~30% down
+ *   (hairline + content carry the boundary there — decorative, no
+ *   bar), then read as light plates on deep pink below (1.6:1+ at the
+ *   Wellness group).
  *
  * BRAND-PINK FILLS (client round, computed 2026-07-18, same script):
  *   PASS  4.88:1 (min 4.7) ink-900 on pink-500       — solid CTA fill text
@@ -61,7 +126,9 @@
  *
  * USAGE RULES (from the approved design plan):
  *   - neon-500 glows; dark surfaces only; never text; the ONLY glowing thing.
- *   - pink-500: display text >= 24px bold and graphics; never body-size on light.
+ *   - pink-500: display text >= 24px bold and graphics; never body-size on
+ *     light. Body-size on NOIR is legal (5.95:1 — verified 2026-07-19 for
+ *     the header credential line).
  *   - ink-pink: light surfaces only (fails 3:1 on noir — focus rings switch).
  *   - Decorative brand moments use the non-stock trio (neon-500 / chev-mid /
  *     chev-pale-alt); Tailwind-coincident hexes are surfaces/text/tints only.
@@ -92,16 +159,40 @@
    * "Serious glamour" (2026-07-18): paper ambient, blush cards — pink is
    * jewelry in bounded shapes, white space carries the luxury. */
   --ng-surface: var(--ng-paper);
-  --ng-card: var(--ng-blush-50);
+  /* every box wears the service-card resting pink (client direction
+   * 2026-07-22 — "all boxes on every page match /services"); blush-50
+   * remains for ambient bands only. Defined via --ng-card-rest below. */
+  --ng-card: var(--ng-card-rest);
   --ng-text: var(--ng-ink-900);
   --ng-link: var(--ng-ink-pink);
   --ng-focus-ring: var(--ng-ink-pink);
   /* two-tone display headlines (display sizes >= 39px ONLY — see
    * contrast table; magenta holds >=4.15:1 on both light surfaces) */
   --ng-display-accent: var(--ng-magenta-600);
-  /* card hover: blush deepened toward pink so hover reads as warmth,
-   * not elevation (pairs verified in the header table) */
-  --ng-card-hover: color-mix(in srgb, var(--ng-pink-300) 12%, var(--ng-blush-50));
+  /* section-opener signature (eyebrow + jeweled rule), split into
+   * tokens 2026-07-23 so the ombre canvas can re-ink them — ink-pink
+   * eyebrows and the magenta rule wash out mid-ramp (see OMBRE CANVAS
+   * entries above). Defaults preserve the pre-ombre look everywhere. */
+  --ng-kicker: var(--ng-link);
+  --ng-rule-accent: var(--ng-magenta-600);
+  /* service-card state pair (client-picked exact hexes, 2026-07-22;
+   * roles reversed at client direction later the same day): lighter
+   * pink at rest, deeper pink when highlighted. The state ring lives
+   * in the card component. Semantically-scoped client picks, not
+   * logo-derived ramp values. */
+  --ng-card-rest: #f4cae2;
+  --ng-card-hover: #efb1d5;
+  /* ombre page canvas (client direction 2026-07-23, matched to the
+   * client's reference image; site-wide on every light body since the
+   * same day, client-approved — see the body:not(noir) rule in
+   * global.css): vertical ramp, near-white blush at the top sweeping
+   * to full brand pink at the bottom. The end stop is pink-500
+   * EXACTLY — the deepest surface with a recorded ink-900 body-text
+   * pair (4.88, BRAND-PINK FILLS above). Hotter (neon-500) fails that
+   * pair and neon never renders as a light surface. Contrast entries
+   * + companion re-ink rules: OMBRE CANVAS block in the header above. */
+  --ng-ombre-start: var(--ng-blush-50);
+  --ng-ombre-end: var(--ng-pink-500);
   /* hairline rules/borders — decorative only, never text */
   --ng-hairline: color-mix(in srgb, var(--ng-ink-900) 14%, transparent);
   /* the one sanctioned glow color (static aura, dark surfaces only) */
@@ -115,6 +206,12 @@
   --ng-link: var(--ng-pink-300);
   --ng-focus-ring: var(--ng-pink-300);
   --ng-display-accent: var(--ng-pink-300);
+  /* opener signature on noir: pink-300, matching the noir link/accent
+   * family (the eyebrow's pre-token color on noir was --ng-link =
+   * pink-300 — unchanged; no rule-accent renders on noir today). */
+  --ng-kicker: var(--ng-pink-300);
+  --ng-rule-accent: var(--ng-pink-300);
+  --ng-card-rest: transparent;
   --ng-card-hover: transparent;
   /* vivid brand-pink hairline on noir (client round — 30% pink-300
    * composited to a muddy wine under the header) */

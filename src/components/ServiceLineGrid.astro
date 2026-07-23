@@ -1,28 +1,45 @@
 ---
 import TreatmentCard from './TreatmentCard.astro';
-import { serviceLines } from '../lib/serviceLines';
+import { CATEGORIES, serviceLines } from '../lib/serviceLines';
 
 /**
- * The 9 service lines (BUILD_SPEC §6). All-equal by default; which lines
- * lead ("featured") is a Phase C business decision with the operator.
+ * The 12 service lines (BUILD_SPEC §6 + the 2026-07-19 Vagaro alignment +
+ * laser-treatments 2026-07-22), rendered as the categorized editorial menu
+ * (client direction 2026-07-23): three labelled groups of four, cards
+ * two-across, numbered 01–12 in serviceLines array order. Group openers
+ * reuse the section-opener signature (eyebrow + traced accent rule).
+ * All-equal by default; which lines lead ("featured") is a Phase C
+ * business decision with the operator.
  */
 interface Props {
   featuredSlugs?: string[];
 }
 
 const { featuredSlugs = [] } = Astro.props;
+
+// Array order is the menu's numbering order (01–12).
+const numbered = serviceLines.map((line, i) => ({ line, index: i + 1 }));
 ---
 
-<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-  {
-    serviceLines.map((line) => (
-      <TreatmentCard
-        title={line.title}
-        summary={line.summary}
-        href={line.href}
-        featured={featuredSlugs.includes(line.slug)}
-        class="ng-rise"
-      />
-    ))
-  }
-</div>
+{
+  CATEGORIES.map((cat, groupIdx) => (
+    <section class:list={['line-group', groupIdx > 0 && 'mt-14']}>
+      <h2 class="eyebrow">{cat.label}</h2>
+      <hr class="rule-accent ng-trace mt-2" aria-hidden="true" />
+      <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        {numbered
+          .filter(({ line }) => line.category === cat.key)
+          .map(({ line, index }) => (
+            <TreatmentCard
+              title={line.title}
+              summary={line.summary}
+              href={line.href}
+              index={index}
+              featured={featuredSlugs.includes(line.slug)}
+              class="ng-rise"
+            />
+          ))}
+      </div>
+    </section>
+  ))
+}

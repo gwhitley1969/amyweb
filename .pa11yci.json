@@ -10,8 +10,89 @@
   "urls": [
     "http://localhost:4325/",
     "http://localhost:4325/404.html",
-    "http://localhost:4325/styleguide",
-    "http://localhost:4325/styleguide/treatment-demo",
-    "http://localhost:4325/styleguide/concept"
+    {
+      "url": "http://localhost:4325/visit",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/about",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/privacy",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/terms",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/medical-disclaimer",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services/wrinkle-relaxers",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services/dermal-fillers",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services/biostimulators",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services/regenerative",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services/skin-rejuvenation",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services/body-contouring",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services/laser-treatments",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services/weight-loss-glp-1",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services/peptide-therapy",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services/iv-therapy",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services/hormone-optimization",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/services/skincare",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/styleguide",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/styleguide/treatment-demo",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/styleguide/concept",
+      "levelCapWhenNeedsReview": "warning"
+    }
   ]
 }

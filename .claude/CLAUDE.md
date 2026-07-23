@@ -51,8 +51,9 @@ silently following it. Known superseded points from earlier briefs:
 - The domain is **already registered** (needlegirlie.com; DNS in Azure).
 - There is **no APIM** anywhere in this project — the website has no API at all.
 - Analytics is **cookieless** — no GA4, no ad/retargeting pixels.
-- The neuromodulator product list is **unresolved** (`{{NEUROMOD_LIST}}` —
-  older sources disagree: Jeuveau/Xeomin/Daxxify vs. Jeuveau/Daxxify).
+- The neuromodulator product list is **resolved** (2026-07-19, from the
+  live Vagaro menu, operator-confirmed): **Jeuveau, Xeomin, Daxxify** —
+  the older Jeuveau/Daxxify-only brief is superseded.
 
 ## Hard constraints — never violate, never work around
 
@@ -69,9 +70,38 @@ silently following it. Known superseded points from earlier briefs:
    medical treatments. The full rulebook is BUILD_SPEC §8. Core rules:
    - **Never** include dosing, doses, units, mg/mcg amounts, reconstitution,
      injection frequency, protocols, or titration — anywhere, in any file.
+     *Scoped exceptions (operator overrides after the compliance flags —
+     DECISIONS 2026-07-20 and 2026-07-21):* the exact price strings
+     enumerated in `compliance/banned-patterns.json` `allowedStrings` —
+     the mg-keyed GLP-1 vial tiers and the per-unit neuromodulator
+     prices — may appear as product pricing. Nothing else; changing
+     that list requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
-     superiority claims ("#1", "best").
+     superiority claims ("#1", "best"). *Scoped exceptions (operator
+     overrides after the compliance flags — DECISIONS 2026-07-21): the
+     Evolus-produced Evolysse film on /services/dermal-fillers (carried
+     as-is, manufacturer safety information intact); the Evolus ICON
+     event film on /services/wrinkle-relaxers (carried as-is —
+     manufacturer comparative-efficacy remarks, named third-party
+     providers, and no safety information, all operator-accepted); and
+     the exact sentence "Charlotte's #1 Evolus provider" enumerated in
+     `allowedStrings`, on the wrinkle-relaxers and dermal-fillers pages
+     only. Nothing else; extending any of these requires the human
+     operator.*
+     *Fourth scoped exception, and the only one that is not marketing
+     copy (operator authorization, DECISIONS 2026-07-22): Biote's FDA
+     disclaimer sentence — "These statements have not been evaluated
+     by…" — enumerated in `allowedStrings` and rendered by
+     `BioteDisclaimer` wherever content sets `bioteDisclaimer: true`.
+     It necessarily contains all four banned disease verbs, because
+     naming them is what the disclaimer does; that is why the
+     `disease-claims` category flagged it and why the exception exists
+     at all. **The four verbs stay banned everywhere outside this one
+     exact sentence.** Two editing rules: the sentence must live on a
+     single source line (the linter strips allowed strings per line, so
+     a wrapped copy matches nothing and trips every verb), and those
+     verbs must never be restated elsewhere in the same file.*
    - **Never** answer "is this right for me" in copy — route to a consultation.
    - Retatrutide (if published) **must** carry the investigational /
      not-FDA-approved disclosure. Biote symptom language **must** carry the
@@ -121,9 +151,10 @@ silently following it. Known superseded points from earlier briefs:
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.
 - **Images** through `astro:assets` (responsive, AVIF/WebP, lazy below fold).
-- **Deploy:** GitHub Actions → SWA (per-PR preview environments,
-  password-protected) → production behind Front Door with cache purge on
-  release.
+- **Deploy:** GitHub Actions → SWA (per-PR preview environments — public
+  and noindexed; password protection removed at operator direction,
+  DECISIONS 2026-07-21) → production behind Front Door with cache purge
+  on release.
 - `staticwebapp.config.json` is **generated at build time** from
   `config/swa/` templates: Front Door lockdown in production builds only, so
   PR previews stay reachable (BUILD_SPEC §14).

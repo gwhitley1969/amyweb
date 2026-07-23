@@ -1,54 +1,118 @@
 ---
 /**
- * Service-line card ("serious glamour" anatomy): flat blush card on the
- * paper ambient, NO drop shadow, hairline border with a 1px magenta edge
- * rule (left), body-sans title, hover/focus = edge-rule thickens +
- * background deepens toward pink (card-hover token). No scale/shadow
+ * Service-line card — the editorial-menu anatomy (client direction
+ * 2026-07-23, supersedes the body-sans anatomy): flat brand-pink plate on
+ * the paper ambient, NO drop shadow, hairline border with a 1px ink-pink
+ * edge rule (left), oversized Playfair index numeral, Playfair title,
+ * sans summary, "More information ›" microline pinned to the card foot
+ * (client wording 2026-07-23, over the drafted "See the line").
+ * Hover/focus = plate deepens (card-hover token) + a 2px ink-pink ring on
+ * all four sides + title in ink-pink + a 2px ink-pink rule draws across
+ * the card top (the ng-trace signature at card scale). No scale/shadow
  * transforms. The link text is the treatment title (descriptive link
- * text, §10).
+ * text, §10); the numeral is decorative (aria-hidden) but still passes
+ * large-text contrast (ink-pink 4.60:1 on card-rest, house bar 3.2).
+ * The microline is ink-900, NOT ink-pink: at 13px it is body-size text,
+ * and ink-pink holds only 3.81:1 on the #efb1d5 hover plate (4.5 hard
+ * bar); ink-900 holds 9.77:1 there (tokens.css CLIENT CARD PINKS table).
  */
 interface Props {
   title: string;
   summary: string;
   href: string;
+  /** 1-based menu position; renders as the 01–12 numeral when present. */
+  index?: number;
   featured?: boolean;
   /** Extra classes (e.g. ng-rise from ServiceLineGrid). */
   class?: string;
 }
 
-const { title, summary, href, featured = false, class: className } = Astro.props;
+const { title, summary, href, index, featured = false, class: className } = Astro.props;
+const numeral = index === undefined ? undefined : String(index).padStart(2, '0');
 ---
 
 <article class:list={['treatment-card', featured && 'treatment-card--featured', className]}>
-  <h3 class="heading-4">
-    <a href={href} class="treatment-card__link">
-      {title}
-      <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
-    </a>
+  {numeral && (
+    <span class="treatment-card__num" aria-hidden="true">
+      {numeral}
+    </span>
+  )}
+  <h3 class="treatment-card__title">
+    <a href={href} class="treatment-card__link">{title}</a>
   </h3>
-  <p class="mt-2">{summary}</p>
+  <p class="mt-3">{summary}</p>
+  <p class="treatment-card__more">
+    More information
+    <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
+  </p>
 </article>
 
 <style is:global>
   .treatment-card {
     position: relative;
-    background: var(--ng-card);
+    display: flex;
+    flex-direction: column;
+    background: var(--ng-card-rest);
     border: 1px solid var(--ng-hairline);
-    border-left: 1px solid var(--ng-magenta-600);
-    padding: 1.5rem;
-    transition: background-color 150ms ease;
+    border-left: 1px solid var(--ng-ink-pink);
+    padding: 2rem;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      box-shadow 150ms ease;
+  }
+  /* The drawn top rule — ng-trace's draw-in, replayed at card scale on
+   * pointer instead of scroll. Empty non-text pseudo (same class of thing
+   * as the link overlay below — safe for the axe gate). */
+  .treatment-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--ng-ink-pink);
+    scale: 0 1;
+    transform-origin: left center;
+    transition: scale 250ms ease;
   }
   .treatment-card:hover,
   .treatment-card:focus-within {
     background: var(--ng-card-hover);
-    /* thicken the edge without layout shift */
-    box-shadow: inset 3px 0 0 var(--ng-magenta-600);
+    /* client pick 2026-07-22 (round 4, back to the round-1 berry):
+     * ink-pink ring + title letters — 3.81:1 on the #efb1d5 highlight
+     * bg, passes AA (3.0 non-text / 3.2 house large-text). See the
+     * tokens.css header table. */
+    border-color: var(--ng-ink-pink);
+    /* 2px ring on all four sides, no layout shift */
+    box-shadow: inset 0 0 0 1px var(--ng-ink-pink);
+  }
+  .treatment-card:hover::before,
+  .treatment-card:focus-within::before {
+    scale: 1 1;
+  }
+  .treatment-card__num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3rem);
+    font-weight: 500;
+    line-height: 1;
+    font-variant-numeric: lining-nums;
+    color: var(--ng-ink-pink);
+  }
+  .treatment-card__title {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.5625rem, 2.5vw, 1.9375rem);
+    font-weight: 500;
+    line-height: 1.2;
   }
   .treatment-card__link {
     color: var(--ng-ink-900);
     text-decoration: none;
   }
   .treatment-card__link:hover {
+    /* same passing pair as the ring above */
     color: var(--ng-ink-pink);
     text-decoration: underline;
     text-underline-offset: 4px;
@@ -58,6 +122,23 @@ const { title, summary, href, featured = false, class: className } = Astro.props
     content: '';
     position: absolute;
     inset: 0;
+  }
+  .treatment-card__more {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ng-ink-900);
+  }
+  .treatment-card__more .chev-nudge {
+    color: var(--ng-ink-pink);
+    /* sized so the glyph's visual height matches the label's cap height
+     * (client direction 2026-07-23) */
+    font-size: 1.7em;
+    line-height: 1;
+    vertical-align: -0.16em;
   }
   .treatment-card--featured {
     grid-column: span 2;

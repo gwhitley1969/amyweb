@@ -5,14 +5,22 @@ import { siteConfig } from '../lib/siteConfig';
  * NAP display + directions link-out (BUILD_SPEC §9/§10 — maps are
  * link-outs, never embedded iframes). Values come from siteConfig only;
  * unresolved {{TOKEN}}s render visibly until the operator supplies them.
+ * /visit renders its own "Visit Amy" H1, so the card heading can change
+ * text and level there; the defaults keep every other consumer unchanged.
  */
+interface Props {
+  heading?: string;
+  headingLevel?: 'h2' | 'h3';
+}
+const { heading = 'Visit Amy', headingLevel = 'h3' } = Astro.props;
+const HeadingTag = headingLevel;
 const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   `Needle Girlie ${siteConfig.address}`,
 )}`;
 ---
 
 <div class="location-card">
-  <h3 class="heading-4">Visit Amy</h3>
+  <HeadingTag class="heading-4">{heading}</HeadingTag>
   <p class="mt-2">
     {siteConfig.legalName}<br />
     {siteConfig.address}
@@ -36,7 +44,8 @@ const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encode
   .location-card {
     background: var(--ng-card);
     border: 1px solid var(--ng-hairline);
-    border-left: 1px solid var(--ng-magenta-600);
+    /* ink-pink edge like the /services cards (tokens.css SITE-WIDE BOXES) */
+    border-left: 1px solid var(--ng-ink-pink);
     padding: 1.5rem;
   }
   .location-card a {

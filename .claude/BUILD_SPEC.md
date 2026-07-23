@@ -60,8 +60,9 @@ Canonicalization: **apex `needlegirlie.com` is canonical**; `www` 301-redirects
 to apex at Front Door (Azure DNS alias record supports apex → Front Door).
 All HTTP → HTTPS at the edge.
 
-SWA notes: Standard tier (per-PR preview environments, password protection for
-non-production environments, 99.95% SLA). Deployment size limit ~500 MB — if
+SWA notes: Standard tier (per-PR preview environments — public since
+2026-07-21 at operator direction, noindexed via preview.json header;
+99.95% SLA). Deployment size limit ~500 MB — if
 the media library decision (`{{MEDIA_SCOPE}}`) brings heavy assets on-site,
 a dedicated Blob `/media/*` origin behind the same Front Door is the escape
 valve; do not build it until instructed.
@@ -98,8 +99,10 @@ templates in `config/swa/`:
   - `forwardingGateway.requiredHeaders["X-Azure-FDID"] = {{FRONT_DOOR_ID}}`
   - `forwardingGateway.allowedForwardedHosts = ["needlegirlie.com", "www.needlegirlie.com"]`
 - **preview.json** — **no** lockdown (PR previews must stay reachable);
-  previews are protected instead by SWA Standard's environment password
-  (set in the portal; give Amy the password for review).
+  previews are PUBLIC (password protection removed at operator direction,
+  DECISIONS 2026-07-21 — the auth cookie looped in Chrome and blocked
+  reviews) and carry `X-Robots-Tag: noindex, nofollow` so unapproved
+  drafts never index. Share preview links with Amy directly.
 
 Both variants set:
 
@@ -135,16 +138,26 @@ accent; broadsheet hairlines) — none of them fit this brand anyway.
 ### Brand direction
 
 **Serious glamour.** (Amended 2026-07-18 per client direction — see
-docs/DECISIONS.md; supersedes "medical-grade playful.") The brand is bold,
-pink, and composed — luxury-editorial carried by a licensed clinician's
-credibility and her own photography. A noir shell (header / hero / CTA
-bands / footer) with light editorial interiors; generous white space;
-oversized Playfair display; uppercase tracked eyebrow labels. Pink is
-jewelry, not atmosphere: brand-pink CTA fills under ink text, hairline
-rules, a static neon aura on the sign, and a soft shimmer on the noir
-accent phrase. Photography wears a house grade — cinema-noir on dark
-bands, a light wash on light bands. Motion is scroll-driven and sparse;
-nothing pulses except the sign's slow breath. Playfulness is retired from
+docs/DECISIONS.md; supersedes "medical-grade playful." Surface amendment
+2026-07-23, client-approved: the light interiors wear the **ombre
+canvas**.) The brand is bold, pink, and composed — luxury-editorial
+carried by a licensed clinician's credibility and her own photography. A
+noir shell (header / hero / CTA bands / footer) with light editorial
+interiors; oversized Playfair display; uppercase tracked eyebrow labels.
+The light ambient surface is the site-wide ombre canvas (2026-07-23,
+client direction from her own reference image): each page ramps
+blush-50 at the top to brand pink-500 at 80% of the document — pink is
+now the atmosphere, so the functional accents invert to ink: eyebrows,
+accent rules, links (underline/border-distinguished), outline CTAs, and
+focus rings are ink-900 on the canvas; noir surfaces keep their pink-300
+family. The ramp may never exceed pink-500 (the deepest surface holding
+the recorded ink-900 pair, 4.88 — tokens.css OMBRE CANVAS governs).
+Noir-bodied pages (construction home, /404) stay flat black. Brand-pink
+CTA fills under ink text, hairline rules, a static neon aura on the
+sign, and a soft shimmer on the noir accent phrase carry on unchanged.
+Photography wears a house grade — cinema-noir on dark bands, a light
+wash on light bands. Motion is scroll-driven and sparse; nothing pulses
+except the sign's slow breath. Playfulness is retired from
 the design language; personality lives in the type, the photography, and
 Amy's singular voice.
 
@@ -158,9 +171,9 @@ retired from UI chrome (client, 2026-07-18 — see docs/DECISIONS.md).
 | Token | Provisional value | Role |
 |---|---|---|
 | `--ng-pink-500` | `#EC4899`-range (sample logo) | Brand hot pink — display text ≥ 24px bold, graphics, motifs only |
-| `--ng-magenta-600` | `#D6127D`-range (sample logo) | Deep brand magenta — large accents, hover states |
+| `--ng-magenta-600` | `#D6127D`-range (sample logo) | Deep brand magenta — large accents, display-accent text on light (service-card edge/ring role retired 2026-07-22 — fails non-text contrast on the client card pinks) |
 | `--ng-pink-300` | `#F9A8D4`-range | Tints, chevrons, decorative |
-| `--ng-blush-50` | `#FDF2F8`-range | Soft section backgrounds |
+| `--ng-blush-50` | `#FDF2F8`-range | Ombre canvas start (site-wide, 2026-07-23) + soft ambient bands (ConceptHome) |
 | `--ng-ink-900` | near-black w/ warm cast (e.g. `#221820`) | Body text |
 | `--ng-ink-pink` | darkened magenta achieving **≥ 4.5:1 on white** (e.g. `#B00A67`-range — verify) | Links, small-text accents, button text pairings |
 
@@ -169,6 +182,49 @@ Body-size pink text uses `--ng-ink-pink` only. Buttons: white text on
 `--ng-magenta-600`/`--ng-ink-pink` fills, verified ≥ 4.5:1. Every token pair
 used for text is contrast-verified before use; record the verified pairs in
 `src/styles/tokens.css` comments.
+
+**Service-card state pair (client-picked, 2026-07-22 — final after a
+four-round preview iteration, DECISIONS same date):** the /services
+cards rest on `--ng-card-rest: #f4cae2` and deepen to
+`--ng-card-hover: #efb1d5` when highlighted; the highlight draws a 2px
+`--ng-ink-pink` ring on all four sides and colors the title the same
+(3.81:1 on the highlight pink — every pair in the tokens.css header
+table). Client-trialed and rejected for the ring/title role: `#ff4f8b`
+(2.13:1) and the logo-lips neon `#fe019a` (2.10:1) — both fail WCAG —
+and plum `#a83b71` (passes, declined on looks). These exact hexes are
+client decisions: do not re-derive them from the palette ramp.
+
+**Site-wide boxes (client direction, 2026-07-22, later the same day):**
+every box on every page wears the service-card resting pink —
+`--ng-card` points at `--ng-card-rest` `#f4cae2` (product cards, deck,
+router card, disclaimer block, investigational notice, location card,
+about facts). All box edge rules moved magenta-600 → ink-pink
+(magenta is 3.11:1 on the card pink, margin-thin against the 3.0
+non-text bar; the disclaimer's pink-300 top rule was 1.24:1). In-box
+links/tags were ink-pink at 4.60:1 under an operator-accepted
+exception to the house 4.7 link-headroom bar (chosen over a darker
+in-box pink after the flag, DECISIONS same date) — since the
+2026-07-23 site-wide ombre re-inked `--ng-link` to ink-900 on every
+light page, in-box links render ink at 11.80:1 and the exception is
+dormant (it applies again only if a non-ombre light surface returns).
+Blush-50's ambient-band role (ConceptHome) continues; since
+2026-07-23 it is also the site-wide ombre canvas start. Noir boxes
+stay transparent-outlined.
+
+**Editorial menu cards (client direction, 2026-07-23):** the services
+grid renders as a categorized treatment menu — three groups
+(Injectables · Skin & Body · Wellness, 4/4/4 in `serviceLines` array
+order, which is also the 01–12 numbering order), each opened by the
+section-opener signature and set two-across. Card anatomy: oversized
+Playfair index numeral (ink-pink, 4.60:1 on the resting pink,
+decorative `aria-hidden`), Playfair title, sans summary, and a
+"More information ›" microline pinned to the card foot (client
+wording, 2026-07-23) — the microline is
+ink-900, not ink-pink, because at 13px it is body-size text and
+ink-pink holds only 3.81:1 on the hover plate (4.5 hard bar). Hover
+adds a 2px ink-pink rule drawing across the card top (the traced-rule
+signature at card scale). The state pair, the ring, and every recorded
+contrast pair above are unchanged.
 
 ### Typography
 
@@ -201,19 +257,22 @@ layout shift from fonts or images.
 
 | Route | Page | Purpose / key content | Primary CTA |
 |---|---|---|---|
-| `/` | Home | Hero (brand thesis — see below); "Meet Amy" trust block (FNP, since 2017, Biote-certified); service-line overview cards (9); location strip; Get-the-App slot (coming-soon) | Book an appointment |
-| `/services` | Services index | Short factual intro per line, linking to the 9 detail pages | Per-line → detail |
-| `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Request a consultation |
+| `/` | Home | Hero (brand thesis — see below); "Meet Amy" trust block (FNP, since 2017, Biote-certified); service-line overview cards (12); location strip; Get-the-App slot (coming-soon) | Book an appointment |
+| `/services` | Services index | Short factual intro per line, linking to the 12 detail pages | Per-line → detail |
+| `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Book / Consult (2026-07-21, operator — was consult-routed) |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |
-| `/services/wrinkle-relaxers` | Neuromodulators | §7 brief | Book / Consult |
+| `/services/wrinkle-relaxers` | Wrinkle Relaxers | §7 brief | Book / Consult |
 | `/services/dermal-fillers` | Dermal Fillers | §7 brief | Book / Consult |
 | `/services/biostimulators` | Biostimulators | §7 brief | Request a consultation |
 | `/services/regenerative` | Regenerative Treatments | §7 brief | Request a consultation |
+| `/services/skin-rejuvenation` | Skin Rejuvenation | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
+| `/services/body-contouring` | Body Contouring | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
+| `/services/laser-treatments` | Laser Treatments | §7 brief (added 2026-07-22, Venus Versa) | Request a consultation |
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
-| `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; Evolus relationship per `{{EVOLUS_CLAIM}}` | Request a consultation |
-| `/book` | Book an Appointment | Vagaro handoff explanation + button (`{{VAGARO_URL}}`), phone (`{{PHONE}}`) | Book (Vagaro, new tab) |
+| `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; Evolus relationship factual only — About stays ranking-free (operator placement decision 2026-07-21; the resolved `{{EVOLUS_CLAIM}}` sentence lives on the two Evolus product pages, §8.4) | Request a consultation |
+| `/book` | RETIRED (2026-07-21, operator) | Was the Vagaro-handoff explainer; every "Book with Amy" now opens Vagaro directly, so the page was deleted before ever serving in production | — |
 | `/visit` | Visit Us | Address, hours (`{{HOURS}}`), parking note, "Get directions" link-out (no map iframe) | Directions / Book |
 | `/privacy`, `/terms`, `/medical-disclaimer` | Legal | Provider-drafted for attorney review; clearly marked drafts until counsel approves | — |
 | `/404` | Not found | Branded, routes home/book | — |
@@ -222,6 +281,24 @@ Language conventions (site-wide, hard rule): **"consultation"** is used only
 for clinical-routing contexts ("is this right for me → request a
 consultation"); **"appointment"** is used for booking/conversion contexts
 ("book an appointment"). Do not mix them.
+
+CTA label amendment (operator, 2026-07-20): every conversion button is
+labeled **"Book with Amy"**, including consult-routed ones. The table's
+"Request a consultation" cells describe routing intent in prose, not
+button behavior; consult-variant buttons pointed at `/book` until the
+2026-07-21 routing amendment below.
+
+Routing amendment (operator, 2026-07-21): a button reading "Book with
+Amy" always opens the Vagaro booking page directly. The weight-loss
+line flipped first (operator direction after seeing the consult-routed
+button on the preview); the operator then retired the `/book`
+double-hop sitewide — the consult variant keeps its outline emphasis
+but books directly. The `/book` page, left with no inbound links, was
+then retired the same day (operator decision, microcopy cushion
+declined) — deleted before ever serving in production, its URL removed
+from the pa11y/Lighthouse gate lists. Suitability language in prose
+still routes to consultation, and Retatrutide remains
+consultation-introduced in copy (§7 brief 1).
 
 Home hero: open with the most characteristic thing in this brand's world — the
 Needle Girlie identity itself (wordmark energy, the chevron/syringe motif, a
@@ -235,11 +312,13 @@ No claims in the hero (no outcomes, no "#1" until substantiated).
 ```ts
 {
   title: string,
-  line: enum(9 lines),
+  line: enum(12 lines),
   summary: string,            // 1–2 sentences, factual
+  deck?: string,              // editorial standfirst card (2026-07-20, replaced AtAGlance); §8 applies
   products: string[],         // named products only, from this spec
   ctaType: 'book' | 'consult' | 'shop',
   investigational: boolean,   // true → InvestigationalNotice REQUIRED (layout enforces)
+  investigationalProduct?: string, // names the compound in the notice (2026-07-19)
   bioteDisclaimer: boolean,   // true → BioteDisclaimer REQUIRED (layout enforces)
   pricingDisplay: 'none' | 'consult' | 'startingAt',   // default 'consult' — see {{PRICING_DISPLAY_MODE}}
   clinicianApproved: boolean, // default false — ONLY the human operator flips this
@@ -266,30 +345,88 @@ All copy pattern: *what it is → who it's generally for, in general factual
 terms → individualized under clinician supervision → CTA*. No mechanisms-of-
 action hype, no outcomes, no dosing, ever.
 
-1. **Weight Loss & GLP-1 Therapy** — prescription GLP-1 medications offered in
+1. **Weight Loss & GLP-1 Therapy** — prescription medications offered in
    a medically supervised weight-management program: **Semaglutide**,
-   **Tirzepatide**, and **Retatrutide**. Retatrutide is **investigational
-   (not FDA-approved)** — if published, `investigational: true`, factual
-   naming only, no benefit claims of any kind, consult routing; final wording
-   subject to attorney review (`{{RETATRUTIDE_COUNSEL}}`). Banned angles:
-   weight-loss numbers, "powerful results", blood-sugar/hypoglycemia claims,
-   appetite mechanics as promises.
+   **Tirzepatide**, **Phentermine**, and **Retatrutide** (menu confirmed
+   against the live Vagaro listing, operator decision 2026-07-19).
+   Authorized product facts (2026-07-20, vetted from the client's product
+   sheet — the sheet itself is a hard-constraint-8-class document:
+   view-only, never committed or quoted): receptor-class descriptions
+   (Semaglutide first-generation single agonist; Tirzepatide dual
+   agonist, GLP-1 + GIP; Retatrutide triple agonist, GLP-1 + GIP +
+   glucagon) and the mg-keyed price tiers enumerated in
+   `compliance/banned-patterns.json` `allowedStrings` (operator override
+   2026-07-20 — supersedes the earlier "mg tiers never appear" note for
+   those EXACT strings only; every other quantity stays banned). The
+   sheet's reconstitution and dosing columns are prohibited content; its
+   duration/tolerability wording is a safety claim — banned; its Uses
+   wording contains banned angles — receptor-class facts only.
+   Retatrutide is **investigational (not FDA-approved)** — if published,
+   `investigational: true`, factual naming only, no benefit claims of any
+   kind, consultation-introduced in copy (the disclosure line routes it
+   to consultation; the page-level CTA may book directly — operator
+   routing amendment 2026-07-21); final wording subject to attorney
+   review (`{{RETATRUTIDE_COUNSEL}}`). Phentermine: factual naming only — never
+   describe its mechanism (the appetite-language ban applies). Banned
+   angles: weight-loss numbers, "powerful results",
+   blood-sugar/hypoglycemia claims, appetite mechanics as promises.
 2. **Peptide Therapy** — publish only `{{PEPTIDES_PUBLIC_LIST}}` (candidates
    from the current public site: Glow Stack, GHK-Cu, NAD). Factual
    descriptions of what each is; **no** recovery, healing, anti-inflammatory,
    anti-aging-outcome, or performance claims; no off-label positioning.
 3. **Neuromodulators ("wrinkle relaxers")** — prescription injectable
-   treatments for temporary softening of dynamic lines: `{{NEUROMOD_LIST}}`
-   (confirm: Jeuveau, Daxxify). Common treatment areas may be listed
-   factually (forehead, frown lines, crow's feet).
+   treatments for temporary softening of dynamic lines: **Jeuveau**,
+   **Xeomin**, **Daxxify** (`{{NEUROMOD_LIST}}` RESOLVED 2026-07-19 from
+   the live Vagaro menu — each has its own booking category). Common
+   treatment areas may be listed factually (forehead, frown lines,
+   crow's feet). Authorized product facts (2026-07-21, vetted from the
+   client's product sheet, Neuromodulators tab — same
+   hard-constraint-8-class source rules as brief 1): manufacturer names
+   (Evolus / Merz / Revance), indication-style phrasing ("used to
+   temporarily smooth moderate to severe frown lines / facial
+   wrinkles"), public formulation facts (Jeuveau developed specifically
+   for aesthetics; Xeomin purified down to the bare active protein;
+   Daxxify peptide-stabilized), Daxxify's duration ONLY as the hedged
+   label fact ("labeled for results lasting up to six months — how
+   long it holds varies person to person"), and the two per-unit price
+   strings enumerated in `allowedStrings` (operator override
+   2026-07-21). The sheet's "FDA-approved" phrasing stays banned —
+   render it as "prescription"; "neurotoxin" normalizes to
+   "neuromodulator". The §8.4 Evolus ranking sentence is authorized on
+   this page (once, Jeuveau context — DECISIONS 2026-07-21), and the
+   Evolus ICON event film ships here under the §8.3/§8.4 override
+   (as-is; DECISIONS 2026-07-21).
 4. **Dermal Fillers** — injectable gel fillers for volume/contour:
-   Revanesse Versa, Evolus Evolysse; common areas factually (lips, cheeks,
-   jawline, chin, under-eyes).
+   Evolysse Smooth & Form (Evolus) and Revanesse Versa+ & Lips+
+   (Prollenium); common areas factually (lips, cheeks, jawline, chin,
+   under-eyes). Authorized facts (2026-07-21, from the operator's filler
+   briefs in C:\Amy\scans\Fillers — constraint-8-class, view-only, never
+   committed): hyaluronic-acid gels; Evolysse cold-temperature
+   processing designed to preserve the HA molecule (never claim
+   "first"); Smooth softens and smooths lines, Form is designed to lift
+   and support; Revanesse formulated with lidocaine — Versa+ for facial
+   lines and folds, Lips+ for lip augmentation; adults 22 and older;
+   Evolysse duration ONLY as the hedged label fact ("labeled for results
+   lasting up to a year — how long it holds varies person to person");
+   price string "$650 or $325 (half-syringe)" (trips no banned pattern —
+   published with no allowlist entry). Brochure dosing tables, trial
+   statistics, testimonials, award claims, and "FDA-approved" phrasing
+   stay out — render "prescription". The Evolus film and the lip
+   style-guide graphic (text-free version since 2026-07-21) ship under
+   the DECISIONS 2026-07-21 overrides. The §8.4 Evolus ranking sentence
+   is authorized on this page (once, Evolysse context).
 5. **Biostimulators** — collagen-stimulating treatments: PDO Threads,
    Radiesse. Factual description of category; no "lifting results" promises.
-6. **Regenerative Treatments** — PRP & PRF, PDRN (salmon DNA),
-   Illuma/VAMP/Rejuran. Describe what the treatments are; no healing/repair
-   outcome claims.
+   Radiesse is a **biostimulator, not a dermal filler**, for this catalog —
+   it lives on this page, not Dermal Fillers (operator-confirmed 2026-07-21
+   via radiesse.com, which markets it as "the first and only injectable
+   biostimulator"). That superlative and "FDA-approved" stay off-site (§8);
+   PDO threads are the VSoft Lift line.
+6. **Regenerative Treatments** — PRP, and PRP with microneedling
+   (trimmed to the live Vagaro menu, operator decision 2026-07-19; PRF,
+   PDRN, Illuma, VAMP, and Rejuran return only if Amy confirms them as
+   current offerings). Describe what the treatments are; no
+   healing/repair outcome claims.
 7. **IV Therapy & Vitamin Support** — Myers' Cocktail, Immunity IV, vitamin
    shots, Glutathione, B12, NAD IV. **Glutathione: absolutely no disease
    claims** (no neuroprotective / Alzheimer's / Parkinson's / chemotherapy
@@ -300,22 +437,99 @@ action hype, no outcomes, no dosing, ever.
    framing (fatigue, sleep, mood, etc.) is permitted **only** with the FDA
    disclaimer Biote itself uses, rendered via `BioteDisclaimer`. Logo /
    co-marketing usage pending `{{BIOTE_PERMISSION}}` — text-only until then.
+   *(Updated 2026-07-22 — `{{BIOTE_FDA_DISCLAIMER}}` RESOLVED §17. The
+   disclaimer had been rendering as a visible placeholder token, so the
+   symptom-awareness permission was never actually usable; it is now.
+   The permission covers the linter's symptom vocabulary — fatigue, low
+   energy, night sweats, hot flashes, brain fog, libido, mood swings,
+   trouble sleeping, poor sleep, weight gain. It does **not** extend to
+   disease names: heart disease, diabetes, osteoporosis, anxiety,
+   depression, PTSD, cognition and bone-density claims stay banned here
+   exactly as everywhere else, disclaimer or not. Biote's post-procedure
+   timeline — insertion intervals, procedures per year, lab cadence — is
+   frequency/protocol material and never appears on the site.)*
 9. **Skincare (Skinbetter Science)** — medical-grade skincare available
    through Amy's partner storefront; shop link-out (`{{SKINBETTER_URL}}`).
+10. **Skin Rejuvenation** *(added 2026-07-19, Vagaro alignment; expanded
+    2026-07-22 from the operator-supplied Rohrer brief — a constraint-8-class
+    view-only source, never committed)* — **PiXel8-RF** (Rohrer Aesthetics):
+    an FDA-cleared device pairing fine microneedles with 4 MHz
+    radiofrequency energy; mechanism stated as design ("designed to prompt
+    the skin's own collagen and elastin production"); indication areas
+    appearance-hedged (appearance of skin laxity/crepiness, uneven tone and
+    texture, acne scarring, stretch marks; face, neck, and body); "designed
+    for all skin types and tones" permitted as a manufacturer design fact
+    (never "safe and effective"). Price shows as bare **$1,500** (operator
+    decision 2026-07-22 — no per-treatment/per-series basis; explained at
+    consultation). **Medical-grade chemical peels** (clinician-applied
+    exfoliating solutions) — **starting at $180**; the peel section is a
+    compliant placeholder until `{{CHEMICAL_PEELS_MENU}}` resolves.
+    Line-specific exclusions: no needle depths/pin counts/tip specs
+    (dosing-class), no session counts or scheduling intervals
+    (protocol-class), no results timelines or downtime promises, no PIH
+    claims, no "first and only"/MHz comparisons (superiority), no
+    third-party med-spa names from the brochure. Factual device/procedure
+    descriptions only; no resurfacing/anti-aging outcome claims; consult
+    routing.
+11. **Body Contouring** *(added 2026-07-19, Vagaro alignment)* — Evolve,
+    a non-invasive device-based treatment; describe by intended design
+    (skin tightening, muscle toning) only — never as outcomes. No
+    body-fat or measurement language of any kind. Consult routing.
+12. **Laser Treatments** *(added 2026-07-22, from the operator-supplied
+    Venus Versa brochures — a constraint-8-class view-only source, never
+    committed)* — **Venus Versa** (Venus Concept), a device platform.
+    The line title "Laser Treatments" is the operator's naming choice
+    (2026-07-22, chosen after the accuracy flag: the applicators are
+    intense pulsed light and radiofrequency, not laser — body copy
+    states the physics factually as the mitigation). Three
+    applications, all appearance-hedged, mechanism as design intent:
+    **NanoFractional RF resurfacing** (appearance of wrinkles, enlarged
+    pores, uneven texture, scarring; "designed for all skin types and
+    tones" permitted as a manufacturer design fact — never "safe and
+    effective"); **IPL photo-rejuvenation** (appearance of sun damage,
+    brown spots, small capillaries, redness; applicators stated as
+    FDA-cleared — the accurate device term, no indication lists);
+    **Multi-Polar RF + PEMF** (appearance of facial fine lines and
+    wrinkles; FDA-cleared applicator). Line-specific exclusions: the
+    manufacturer's marketing name for the third application (a banned
+    angle) never appears anywhere in the repo; no session counts or
+    scheduling intervals (protocol-class); no downtime or
+    results-timeline promises; no "lesions"/Fitzpatrick indication
+    detail; no pin counts or device-spec figures; no brochure
+    before/after cases or their named med-spas; no blanket
+    platform-clearance claim. No pricing — consult routing; the menu is
+    tracked by `{{VENUS_VERSA_MENU}}`.
 
 ## 8. Content compliance rulebook (governs every string in the repo)
 
 **Never, anywhere** (page copy, meta, alt text, JSON-LD, OG, microcopy):
 
 1. Dosing in any form: doses, units, mg/mcg quantities, reconstitution,
-   frequency, duration protocols, titration.
+   frequency, duration protocols, titration. *Scoped exceptions
+   (operator overrides after the compliance flags — DECISIONS
+   2026-07-20 and 2026-07-21): the exact price strings enumerated in
+   `compliance/banned-patterns.json` `allowedStrings` — mg-keyed GLP-1
+   vial tiers and per-unit neuromodulator prices — may appear as
+   product pricing; nothing else.*
 2. Disease claims: treat / cure / prevent / diagnose; disease names in benefit
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).
 3. Efficacy/outcome promises: guarantees, specific results, numbers,
    before/after implications, "powerful results", "proven results".
-4. Unsubstantiated superiority: "#1", "best", "top-rated" — pending
-   `{{EVOLUS_CLAIM}}`. Until resolved, describe the Evolus relationship
-   factually or omit.
+   *Scoped exceptions (operator overrides — DECISIONS 2026-07-21): the
+   Evolus-produced Evolysse film on /services/dermal-fillers (carried
+   as-is, manufacturer safety information intact) and the Evolus ICON
+   event film on /services/wrinkle-relaxers (carried as-is; its
+   comparative-efficacy remarks are the manufacturer's own and its
+   captions transcribe the event speech faithfully). Nothing else.*
+4. Unsubstantiated superiority: "#1", "best", "top-rated" — banned.
+   *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator
+   override after the flag — DECISIONS): the exact sentence
+   "Charlotte's #1 Evolus provider", enumerated in `allowedStrings`,
+   published unattributed at the operator's direction on the
+   wrinkle-relaxers and dermal-fillers pages only. Basis: operator's
+   confirmation that the designation comes from Evolus + the same claim
+   live on the practice's own site; the recommended Evolus rep email
+   remains the outstanding substantiation upgrade. Nothing else.*
 5. Off-label promotion (e.g., positioning any product for an unapproved use).
 6. Presenting investigational compounds as approved, safe, or effective.
 7. Medical advice or suitability answers — "is this right for me" always
@@ -335,15 +549,21 @@ banned product angles). Inverse checks: `investigational: true` files must
 contain the investigational disclosure string; `bioteDisclaimer: true` files
 must not contain symptom lists unless the disclaimer component is present.
 Runs in `npm run verify` and CI. The banned list only ever grows; loosening it
-requires the human operator.
+requires the human operator. The registry's `allowedStrings` entry
+(2026-07-20 override) strips its exact strings from a line before the
+categories run — boundary-guarded and self-tested so any quantity beyond
+the enumerated strings still fails; the entry changes only by operator
+action.
 
 ## 9. Integrations (all outbound; no data exchange)
 
 - **Booking → Vagaro:** `{{VAGARO_URL}}` — must be **Amy's own** booking link,
   not the shared location handle. New tab, `rel="noopener"`, tracked
   (`book_click`). Service-level deep links if available (`{{VAGARO_SERVICE_LINKS}}`).
-- **Products → Skinbetter storefront:** `{{SKINBETTER_URL}}` (partner
-  storefront with her businessPartner id). New tab, tracked (`skinbetter_click`).
+- **Products → Skinbetter storefront:** connect.skinbetter.com/MobileAesthetics
+  (resolved `{{SKINBETTER_URL}}` — the practice storefront carrying her
+  businessPartner id, verified in-browser 2026-07-23). New tab, tracked
+  (`skinbetter_click`).
 - **Phone:** `tel:` links with `{{PHONE}}`, tracked (`call_click`).
 - **Social:** `{{SOCIAL_LINKS}}` (Instagram, Facebook, YouTube, Yelp, TikTok —
   Amy's own handles only).
@@ -469,6 +689,9 @@ operator may provision manually; if asked to write Bicep, produce:
 - [ ] Manual a11y pass done (keyboard + screen reader spot-check).
 - [ ] All outbound handoffs verified to **Amy's** destinations (Vagaro URL is
       hers, not the shared location's; Skinbetter partner link correct).
+      Ownership clause satisfied 2026-07-23 — Mobile Aesthetics is Amy's own
+      practice (sole owner; DECISIONS 2026-07-23); link reachability is
+      still verified at launch.
 - [ ] Analytics events verified firing in the provider dashboard.
 - [ ] Front Door lockdown verified: SWA default hostname returns 403 direct;
       site serves only via needlegirlie.com; www → apex 301; HTTP → HTTPS.
@@ -476,7 +699,8 @@ operator may provision manually; if asked to write Bicep, produce:
       noindexed, production indexable.
 - [ ] 404 page works at the edge.
 - [ ] Runbook written: deploy, roll back, purge cache, edit content, the
-      approval workflow, and the preview-password process for Amy's reviews.
+      approval workflow, and the preview-link process for Amy's reviews
+      (previews are public + noindexed since 2026-07-21).
 
 ## 17. Placeholder registry
 
@@ -484,16 +708,19 @@ Use these tokens verbatim in code/content. Never invent values for them.
 
 | Token | What it is | Status |
 |---|---|---|
-| `{{VAGARO_URL}}` | Amy's own Vagaro booking URL (NOT the shared location handle) | Operator to supply |
+| `{{VAGARO_URL}}` | Amy's own Vagaro booking URL (NOT the shared location handle) | RESOLVED 2026-07-18 (siteConfig) — supplied handle is the shared location's; §9 flag stands, revisit at §16 |
 | `{{VAGARO_SERVICE_LINKS}}` | Optional per-service deep links | Operator to supply |
-| `{{SKINBETTER_URL}}` | Amy's partner storefront URL | Operator to supply |
-| `{{PHONE}}` / `{{HOURS}}` / `{{ADDRESS_DISPLAY}}` | NAP details as displayed | Operator to supply |
-| `{{SOCIAL_LINKS}}` | Verified handles (IG, FB, YouTube, Yelp, TikTok) | Operator to supply |
-| `{{AMY_BIO}}` | Approved bio facts & credentials | Operator to supply |
+| `{{SKINBETTER_URL}}` | Amy's partner storefront URL | Resolved 2026-07-23: connect.skinbetter.com/MobileAesthetics (QR decode, verified; DECISIONS 2026-07-23) |
+| `{{PHONE}}` / `{{HOURS}}` / `{{ADDRESS_DISPLAY}}` | NAP details as displayed | PHONE resolved 2026-07-07; ADDRESS resolved 2026-07-18; HOURS still open |
+| `{{SOCIAL_LINKS}}` | Verified handles (IG, FB, YouTube, Yelp, TikTok) | RESOLVED 2026-07-18 (FB/IG/Yelp only; Yelp is the location's — flagged) |
+| `{{AMY_BIO}}` | Approved bio facts & credentials | RESOLVED 2026-07-19 (operator-supplied listing; Amy's wording confirmation pending — DECISIONS) |
 | `{{PEPTIDES_PUBLIC_LIST}}` | Which peptides appear publicly | Open decision |
-| `{{NEUROMOD_LIST}}` | Confirmed neuromodulator products | Operator to confirm |
+| `{{NEUROMOD_LIST}}` | Confirmed neuromodulator products | RESOLVED 2026-07-19 (live Vagaro menu, operator-confirmed: Jeuveau, Xeomin, Daxxify) |
 | `{{PRICING_DISPLAY_MODE}}` | none / consult / startingAt (default: consult) | Open decision |
-| `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | Open decision |
+| `{{CHEMICAL_PEELS_MENU}}` | Peel menu from Amy (brands, tiers, per-peel pricing beyond the $180 start) | Open — page carries a compliant placeholder (2026-07-22) |
+| `{{VENUS_VERSA_MENU}}` | Laser-treatments menu from Amy (which Venus Versa applications are priced, and how) | Open — page is consult-routed with no prices (2026-07-22) |
+| `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | RESOLVED 2026-07-21 (operator override — exact sentence in `allowedStrings`, two Evolus product pages; §8.4) |
+| `{{BIOTE_FDA_DISCLAIMER}}` | Biote's exact required FDA wording, rendered by `BioteDisclaimer` | RESOLVED 2026-07-22 (operator-authorized — Biote's own printed brochure wording; exact sentence in `allowedStrings`, fourth authorization. Had been shipping as a *visible placeholder token* on the hormone page; §7.8) |
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |
 | `{{RETATRUTIDE_COUNSEL}}` | Attorney-approved investigational wording | Open decision |
 | `{{MEDIA_SCOPE}}` | How much photo/video goes on-site | Open decision |

@@ -1,0 +1,51 @@
+---
+import { getCollection, render } from 'astro:content';
+import TreatmentLayout from '../../layouts/TreatmentLayout.astro';
+import { service, breadcrumbList } from '../../lib/schema';
+import { siteConfig } from '../../lib/siteConfig';
+
+/**
+ * Treatment collection route (§6, Phase C2). One page per file in
+ * src/content/treatments/, rendered through TreatmentLayout — the fixed
+ * compliance order lives there, not here. Entries marked draft: true are
+ * excluded from the build entirely; unapproved entries still build and
+ * carry the DraftBanner (check:approvals blocks them from production).
+ */
+export async function getStaticPaths() {
+  const treatments = await getCollection('treatments', ({ data }) => !data.draft);
+  return treatments.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const pageUrl = `${siteConfig.url}/services/${entry.id}`;
+const jsonLd = [
+  service(entry.data.title, entry.data.summary, pageUrl),
+  breadcrumbList([
+    { name: 'Home', url: siteConfig.url },
+    { name: 'Services', url: `${siteConfig.url}/services` },
+    { name: entry.data.title, url: pageUrl },
+  ]),
+];
+---
+
+<TreatmentLayout
+  title={entry.data.title}
+  summary={entry.data.summary}
+  deck={entry.data.deck}
+  products={[...entry.data.products]}
+  ctaType={entry.data.ctaType}
+  investigational={entry.data.investigational}
+  investigationalProduct={entry.data.investigationalProduct}
+  investigationalNote={entry.data.investigationalNote}
+  productDetails={entry.data.productDetails}
+  bioteDisclaimer={entry.data.bioteDisclaimer}
+  pricingDisplay={entry.data.pricingDisplay}
+  clinicianApproved={entry.data.clinicianApproved}
+  faq={[...entry.data.faq]}
+  seo={entry.data.seo}
+  jsonLd={jsonLd}
+>
+  <Content />
+</TreatmentLayout>

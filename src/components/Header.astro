@@ -11,9 +11,9 @@ import wordmark from '../assets/brand/needle-girlie-wordmark-alpha.png';
  * The header/page edge is a hard cut: chrome, not a content boundary —
  * it never takes a chevron seam.
  */
-/* "Book" goes straight to Vagaro (conversion pattern; client 2026-07-18)
- * — the Phase C /book page remains the consultation-routing target but
- * the nav does not depend on it. */
+/* "Book" goes straight to Vagaro (conversion pattern; client 2026-07-18).
+ * The /book routing page was retired 2026-07-21 (operator) — every
+ * booking path is Vagaro-direct. */
 const nav: { label: string; href: string; external?: boolean }[] = [
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
@@ -24,7 +24,7 @@ const nav: { label: string; href: string; external?: boolean }[] = [
 
 <div class="surface site-header" data-surface="noir">
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4 sm:py-6">
-    <a href="/" class="shrink-0">
+    <a href="/" class="site-brand shrink-0">
       {/* Big by design — operator/client direction: the brand leads.
           Scaled up twice per client review 2026-07-18. Chevron motif
           retired from the UI same day (client) — it lives on only inside
@@ -36,6 +36,10 @@ const nav: { label: string; href: string; external?: boolean }[] = [
         densities={[1, 2, 3]}
         class="h-auto w-[300px] sm:w-[440px]"
       />
+      {/* Credential line under the wordmark (operator 2026-07-19).
+          pink-500 small text is legal on noir ONLY — see the (min 4.5)
+          pair in tokens.css. */}
+      <span class="site-brand-credit">Amy Palacios, FNP</span>
     </a>
     <nav aria-label="Primary">
       {/* desktop */}
@@ -94,6 +98,29 @@ const nav: { label: string; href: string; external?: boolean }[] = [
   .site-header {
     border-bottom: 1px solid var(--ng-hairline);
   }
+  /* Brand lockup: wordmark with the credential line beneath. Same
+   * uppercase tracked grammar as the nav; brand pink-500 to echo the
+   * logo lettering (5.95:1 on noir — verified small-text pair). */
+  .site-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+    text-decoration: none;
+  }
+  .site-brand-credit {
+    color: var(--ng-pink-500);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  @media (min-width: 640px) {
+    .site-brand-credit {
+      font-size: 0.9375rem;
+    }
+  }
   /* Editorial nav: uppercase tracked labels (eyebrow grammar at nav size).
    * Sized up per client review 2026-07-18. */
   .site-nav-link {
@@ -132,7 +159,7 @@ const nav: { label: string; href: string; external?: boolean }[] = [
     /* popover-open state */
     position: fixed;
     inset: auto 1rem auto auto;
-    top: 7rem; /* clears the enlarged brand block */
+    top: 8.5rem; /* clears the brand block (wordmark + credential line) */
     min-width: 12rem;
     margin: 0;
     padding: 0.5rem 0;

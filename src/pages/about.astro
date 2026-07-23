@@ -1,0 +1,159 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTAButton from '../components/CTAButton.astro';
+import familyPortrait from '../assets/photos/family-portrait.jpg';
+
+/**
+ * /about — founder-forward (§6, Phase C6). Career facts resolved from
+ * the operator-supplied provider-directory listing (2026-07-19):
+ * two decades of nursing (critical care), aesthetics since 2017, nurse
+ * practitioner since 2018 — Amy's confirmation of wording flagged in
+ * the PR. The Evolus paragraph is OMITTED until {{EVOLUS_CLAIM}}
+ * resolves. The multi-provider location gets its one factual line and
+ * nothing more (hard constraint 2). Portrait is Amy's family
+ * (client-requested swap 2026-07-23; Amy's on-record consent covers
+ * everyone pictured incl. the minors — DECISIONS same date). Alt text
+ * deliberately names no one but Amy.
+ */
+---
+
+<BaseLayout
+  title="About Amy Palacios, FNP | Needle Girlie"
+  description="Amy Palacios, FNP — two decades of nursing, medical aesthetics since 2017, Biote-certified. The clinician behind Needle Girlie in Harrisburg, NC."
+>
+  <Header slot="header" />
+
+  <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <div class="grid items-start gap-10 md:grid-cols-[6fr_5fr]">
+      <div>
+        <p class="eyebrow">About</p>
+        <hr class="rule-accent mt-4" aria-hidden="true" />
+        <h1 class="display-2 mt-6">Amy Palacios, FNP</h1>
+        <p class="lead mt-6">
+          Needle Girlie is the work of one clinician. Every consultation,
+          every plan, every appointment — Amy herself.
+        </p>
+        <div class="mt-8 max-w-prose space-y-4">
+          <p>
+            Amy's path to aesthetics runs through two decades of nursing,
+            much of it in critical care. She moved into medical
+            aesthetics in 2017, became a nurse practitioner in 2018, and
+            is a Biote-certified provider.
+          </p>
+          <p>
+            She sees clients in Harrisburg, North Carolina — just
+            northeast of Charlotte — at a location she shares with other
+            providers.
+          </p>
+        </div>
+        <dl class="about-facts mt-10 max-w-xl" aria-label="Credentials at a glance">
+          <div class="about-facts__row">
+            <dt>Credential</dt>
+            <dd>Family nurse practitioner (FNP), BSN</dd>
+          </div>
+          <div class="about-facts__row">
+            <dt>Nursing career</dt>
+            <dd>Two decades, much of it in critical care</dd>
+          </div>
+          <div class="about-facts__row">
+            <dt>In aesthetics since</dt>
+            <dd>2017 — nurse practitioner since 2018</dd>
+          </div>
+          <div class="about-facts__row">
+            <dt>Certification</dt>
+            <dd>Biote-certified provider</dd>
+          </div>
+        </dl>
+        <div class="mt-8">
+          <CTAButton variant="consult" />
+        </div>
+      </div>
+      <figure class="about-portrait">
+        <Image
+          src={familyPortrait}
+          alt="Amy Palacios, FNP, with her family."
+          widths={[480, 760, 1080]}
+          sizes="(min-width: 768px) 40vw, 90vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="surface" data-surface="noir">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+      <p class="eyebrow">Appointments</p>
+      <h2 class="display-2 mt-4">
+        Ready <span class="display-accent ng-shimmer">when you are</span>.
+      </h2>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <CTAButton variant="book" />
+        <CTAButton variant="call" />
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style is:global>
+  /* Same anatomy as .at-a-glance (that component's styles ship only
+   * with pages that import it — this page has its own fact rows). */
+  .about-facts {
+    background: var(--ng-card);
+    border: 1px solid var(--ng-hairline);
+    /* ink-pink edge like the /services cards (tokens.css SITE-WIDE BOXES) */
+    border-left: 1px solid var(--ng-ink-pink);
+    padding: 1.5rem;
+  }
+  .about-facts__row {
+    display: grid;
+    grid-template-columns: minmax(9rem, auto) 1fr;
+    column-gap: 1.5rem;
+    padding-block: 0.5rem;
+  }
+  .about-facts__row + .about-facts__row {
+    border-top: 1px solid var(--ng-hairline);
+  }
+  .about-facts dt {
+    font-weight: 600;
+  }
+  .about-facts dd {
+    margin: 0;
+  }
+  @media (max-width: 400px) {
+    .about-facts__row {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* Same editorial frame + light-wash grade as /book's portrait. */
+  .about-portrait {
+    position: relative;
+    margin: 0;
+    border: 1px solid var(--ng-hairline);
+    overflow: hidden;
+  }
+  .about-portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    /* group portrait: faces sit mid-frame, not top-of-frame like the
+     * old single-subject shot — anchor the crop to the group */
+    object-position: 50% 38%;
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
+  }
+  .about-portrait::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+</style>

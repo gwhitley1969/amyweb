@@ -1,5 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTAButton from '../components/CTAButton.astro';
+
+/**
+ * Branded 404 (Phase C1 polish). All-noir page — body-level noir is safe
+ * here because no light section exists to inherit dark link tokens. The
+ * wordmark arrives with the standard header, static (ignite/hum are
+ * legacy, construction page only). Routes: home + book now; a services
+ * link joins in C5 once /services exists.
+ */
 ---
 
 <BaseLayout
@@ -7,11 +18,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   description="That page doesn't exist. Head back to the Needle Girlie home page."
   surface="noir"
 >
-  <section class="flex min-h-dvh flex-col items-center justify-center gap-6 px-6 text-center">
-    <h1 class="text-2xl font-semibold">Page not found</h1>
-    <p class="max-w-prose">
-      That page doesn't exist — but you're in the right place.
+  <Header slot="header" />
+
+  <section
+    class="mx-auto flex min-h-[60dvh] max-w-3xl flex-col items-center justify-center px-6 py-16 text-center"
+  >
+    <p class="eyebrow">Error 404</p>
+    <h1 class="display-2 mt-4">
+      This page <span class="display-accent">slipped away</span>.
+    </h1>
+    <p class="lead mt-6 max-w-prose">
+      The address may have changed, or it never existed. Everything else is
+      right where it should be.
     </p>
-    <a href="/" class="underline">Back to the home page</a>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <CTAButton variant="book" />
+      <a href="/" class="cta cta--outline">
+        Back to the home page
+        <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
+      </a>
+    </div>
   </section>
+
+  <Footer slot="footer" />
 </BaseLayout>

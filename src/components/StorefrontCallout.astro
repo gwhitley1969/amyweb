@@ -1,0 +1,43 @@
+---
+import CTAButton from './CTAButton.astro';
+
+/**
+ * Branded Skinbetter storefront handoff plate — /services/skincare only
+ * (competitor-comparison decision, DECISIONS 2026-07-23). Text-only
+ * branding until partner brand assets arrive; the statement phrasing
+ * ("custom … storefront") comes from Skinbetter's own counter card.
+ * Noir per-section is the sanctioned dark treatment — tokens re-scope
+ * under data-surface, so contrast rides the vetted noir pairs.
+ */
+---
+
+<aside
+  class="storefront-callout surface"
+  data-surface="noir"
+  aria-label="Skinbetter Science storefront"
+>
+  <p class="eyebrow">Skinbetter Science &middot; Authorized provider</p>
+  <p class="callout-statement">
+    Amy&rsquo;s custom Skinbetter storefront &mdash; the complete line,
+    shipped to your door.
+  </p>
+  <div class="mt-6">
+    <CTAButton variant="shop" />
+  </div>
+</aside>
+
+<style>
+  .storefront-callout {
+    margin-top: 2.5rem;
+    padding: 2rem 1.75rem;
+    /* squared editorial corners, matching .cta and the card plates */
+    border-radius: 2px;
+  }
+  .callout-statement {
+    margin-top: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.5625rem; /* heading-4 scale, display voice */
+    line-height: 1.3;
+    max-width: 26ch;
+  }
+</style>

@@ -1,5 +1,14 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-23:** **/services redesigned as a categorized
+> editorial menu** (client direction after a competitor comparison):
+> three labelled groups — Injectables · Skin & Body · Wellness — cards
+> two-across with Playfair index numerals 01–12, Playfair titles, and a
+> "More information ›" microline; hover draws an ink-pink rule across the
+> card top. Injectables now lead the page (array order = numbering
+> order). Pinks and contrast pairs unchanged; +197 bytes CSS, zero JS.
+> Direction picked from previewed alternatives — DECISIONS 2026-07-23.
+
 > **STATUS UPDATE 2026-07-22:** **Laser Treatments added — the catalog
 > is now twelve lines.** Built from the operator-supplied Venus Versa
 > brochures (constraint-8-class, view-only): three applications —

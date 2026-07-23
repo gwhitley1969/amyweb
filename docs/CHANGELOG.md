@@ -6,6 +6,24 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-23 — Ombre canvas site-wide; accents invert to ink
+
+- Amy approved the /services trial and directed the ombre onto the
+  whole site: the ramp (blush `#fdf2f8` → brand pink `#ec4899` at 80%
+  of each page) now styles every light-surface body automatically; the
+  construction home and /404 stay noir. The trial `ombre` flag is
+  deleted.
+- Site-wide re-ink addition: links and outline CTAs (`--ng-link`) join
+  eyebrows, accent rules, and focus rings in switching to ink on ombre
+  pages — canvas-level pink fails mid-ramp; links stay distinguishable
+  by underline or border. In boxes this lifts the 2026-07-22 4.60
+  in-box exception to 11.80. Noir bands keep their pink-300 family.
+- White photo/video mattes kept as framed prints on the pink canvas —
+  flagged for client review on the preview. BUILD_SPEC §5 amended:
+  pink is now the atmosphere, the jewelry inverts to ink. A11y: every
+  ombre page's pa11y entry carries the per-URL needs-review cap
+  (21 of 23 URLs, operator-gated). DECISIONS 2026-07-23.
+
 ### 2026-07-23 — Ombre canvas trial on /services
 
 - The white page background becomes an ombre (client direction,

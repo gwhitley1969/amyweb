@@ -1702,3 +1702,74 @@ responsive images (LH image budget re-verified); alt text is factual
 and claims-clean; no text overlays, so the opaque-plate rules are
 untouched; three more C:\Amy\pics frames are now committed under
 neutral filenames.
+
+## 2026-07-23 — Ombre page canvas: the white body becomes a blush-to-brand-pink ramp (/services trial)
+
+Context: the client finds the white page background bland and asked for
+an "ombre" — a vertical pink gradient, light at the top, darker toward
+the bottom — trialed on /services, then site-wide once the look is
+agreed. This reverses the 2026-07-18 "serious glamour" surface line
+("ambient light surface back to paper … white space carries the
+luxury"), which itself reversed the 2026-07-08 "warm the studio" blush
+inversion. Flagged per the flag-once rule; the operator approved the
+plan with the flag visible — that approval is the recorded override,
+and the paper-ambient line of the 2026-07-18 decision is SUPERSEDED for
+ombre-flagged pages (the rest of that decision — noir shell, bounded
+pink boxes, motion vocabulary — stands).
+Decision (client-picked from screenshots of four built ramps): the
+ramp matches the client's supplied reference image (pink_ombre.jpg,
+repo root of the operator's tree — reference only, never committed):
+blush-50 #fdf2f8 at the top sweeping to brand pink-500 #ec4899, full
+depth reached at 80% of the document so the whole sweep is visible
+above the noir CTA band. Mechanism: BaseLayout `ombre` prop ->
+html[data-ombre] -> longhand background override on the body (solid
+start color + gradient, no-repeat); the base body rule, --ng-surface,
+and every noir band are untouched.
+Three pastel ramps (white->blush; blush->55% card-rest #f9e2ef;
+blush->75% #f7d7e9) were built, shot, and offered first; the client's
+reference showed the intent was far bolder, and the client confirmed
+the pink-500 build ("Ship D").
+Contrast system (tokens.css OMBRE CANVAS block): the end stop is
+pink-500 EXACTLY — the deepest surface with a recorded ink-900 body
+pair (4.88, the BRAND-PINK FILLS pair); neon-500 fails it and never
+renders as a light surface. Companion re-inks on ombre bodies, via new
+--ng-kicker / --ng-rule-accent tokens (defaults preserve the old look
+everywhere else): eyebrows, accent rules, and the focus ring switch to
+ink-900 (ink-pink falls to 2.33 and magenta-600 to ~1.9 mid-ramp).
+Canvas-level ink-pink links are legal only in the top ~15% of an ombre
+page (breadcrumbs on blush, 6.14 + underline). Noir scopes gained
+explicit --ng-kicker/--ng-rule-accent (pink-300) so the CTA band and
+footer are pixel-identical.
+The a11y gate: axe cannot compute a contrast ratio against a gradient
+backdrop and files such text as needs-review, which this gate counts
+as a hard failure — the first build confirmed it first-hand, failing
+even the 15.77:1 H1. A satin-sheen-style re-engineering (solid color
+on <html>, ramp on a body::before layer) was tried and failed WORSE:
+axe flags a background-bearing pseudo on an ancestor for every text
+element on the page, including the solid-noir header and footer. No
+smooth full-page ombre is fully axe-auditable — the only compliant
+alternatives were plates under all canvas text (not the reference
+look) or dropping the ombre. Decision (operator, 2026-07-23, by
+explicit in-session instruction after the flag and options): the
+/services entry in .pa11yci.json becomes a per-URL object with
+levelCapWhenNeedsReview: "warning" — axe's cannot-determine class is
+non-fatal on that one URL; true violations still fail at zero
+tolerance on all 23 URLs including /services, and the other 22 URLs
+are untouched. The recorded OMBRE CANVAS pairs in tokens.css (worst
+case ink-900 on pink-500, 4.88, passing) are the human review those
+needs-review items require. Every future ombre page (phase 2) needs
+its own visible per-URL entry — an auditable list, not a blanket
+change.
+Alternatives rejected: gradient inside --ng-surface (leaks into every
+noir .surface element); page-scoped section background (ramp would
+stop at the noir band; phase 2 would touch every page);
+background-attachment: fixed (viewport-relative — the brief is
+darker-as-you-scroll); neon-500 end stop (text + brand rules above).
+Consequences: /services reorders nothing — only the canvas changes;
+cards read as light plates on deep pink below ~40% of the ramp and
+lean on hairline + content at the canvas-equal crossing (~30%);
+site-wide rollout (phase 2, after client approval on the trial) is a
+selector flip plus a client decision on the white mattes
+(TreatmentVideo, .media-figure, ConceptHome .nc-post/.nc-blush).
+ProductDetailCards in-card eyebrow tags will flip to ink-900 on ombre
+pages when phase 2 lands — surface with the client then.

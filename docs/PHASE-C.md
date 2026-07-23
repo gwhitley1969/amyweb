@@ -1,5 +1,17 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-23 (latest):** **/services trials the ombre
+> canvas** — the white page background becomes a vertical ramp, blush
+> `#fdf2f8` to brand pink `#ec4899` (client direction, matched to the
+> client's reference image; client picked from four built ramps).
+> Trial-scoped via a BaseLayout `ombre` flag; openers/focus ring
+> re-ink to ink-900 on ombre pages via new `--ng-kicker` /
+> `--ng-rule-accent` tokens. A11y: /services' pa11y entry caps axe's
+> cannot-determine-over-gradient class to warnings (operator-approved
+> exception, that URL only); hand-computed pairs recorded in
+> tokens.css. Site-wide rollout = phase 2, after client approval of
+> the trial. DECISIONS 2026-07-23.
+
 > **STATUS UPDATE 2026-07-23 (later):** **/services gains the studio
 > strip** — three vetted photos of Amy at work (forehead injectable
 > moment, lip-filler close-up, male-client treatment) between the

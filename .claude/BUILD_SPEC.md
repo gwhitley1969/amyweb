@@ -546,8 +546,10 @@ action.
 - **Booking → Vagaro:** `{{VAGARO_URL}}` — must be **Amy's own** booking link,
   not the shared location handle. New tab, `rel="noopener"`, tracked
   (`book_click`). Service-level deep links if available (`{{VAGARO_SERVICE_LINKS}}`).
-- **Products → Skinbetter storefront:** `{{SKINBETTER_URL}}` (partner
-  storefront with her businessPartner id). New tab, tracked (`skinbetter_click`).
+- **Products → Skinbetter storefront:** connect.skinbetter.com/MobileAesthetics
+  (resolved `{{SKINBETTER_URL}}` — the practice storefront carrying her
+  businessPartner id, verified in-browser 2026-07-23). New tab, tracked
+  (`skinbetter_click`).
 - **Phone:** `tel:` links with `{{PHONE}}`, tracked (`call_click`).
 - **Social:** `{{SOCIAL_LINKS}}` (Instagram, Facebook, YouTube, Yelp, TikTok —
   Amy's own handles only).
@@ -673,6 +675,9 @@ operator may provision manually; if asked to write Bicep, produce:
 - [ ] Manual a11y pass done (keyboard + screen reader spot-check).
 - [ ] All outbound handoffs verified to **Amy's** destinations (Vagaro URL is
       hers, not the shared location's; Skinbetter partner link correct).
+      Ownership clause satisfied 2026-07-23 — Mobile Aesthetics is Amy's own
+      practice (sole owner; DECISIONS 2026-07-23); link reachability is
+      still verified at launch.
 - [ ] Analytics events verified firing in the provider dashboard.
 - [ ] Front Door lockdown verified: SWA default hostname returns 403 direct;
       site serves only via needlegirlie.com; www → apex 301; HTTP → HTTPS.
@@ -691,7 +696,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 |---|---|---|
 | `{{VAGARO_URL}}` | Amy's own Vagaro booking URL (NOT the shared location handle) | RESOLVED 2026-07-18 (siteConfig) — supplied handle is the shared location's; §9 flag stands, revisit at §16 |
 | `{{VAGARO_SERVICE_LINKS}}` | Optional per-service deep links | Operator to supply |
-| `{{SKINBETTER_URL}}` | Amy's partner storefront URL | Operator to supply |
+| `{{SKINBETTER_URL}}` | Amy's partner storefront URL | Resolved 2026-07-23: connect.skinbetter.com/MobileAesthetics (QR decode, verified; DECISIONS 2026-07-23) |
 | `{{PHONE}}` / `{{HOURS}}` / `{{ADDRESS_DISPLAY}}` | NAP details as displayed | PHONE resolved 2026-07-07; ADDRESS resolved 2026-07-18; HOURS still open |
 | `{{SOCIAL_LINKS}}` | Verified handles (IG, FB, YouTube, Yelp, TikTok) | RESOLVED 2026-07-18 (FB/IG/Yelp only; Yelp is the location's — flagged) |
 | `{{AMY_BIO}}` | Approved bio facts & credentials | RESOLVED 2026-07-19 (operator-supplied listing; Amy's wording confirmation pending — DECISIONS) |

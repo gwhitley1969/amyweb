@@ -6,6 +6,22 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-23 — Skincare: the twelfth line's storefront opens
+
+- **/services/skincare** rebuilt around six routine-step cards
+  (Cleanse → Protect) plus complete-line copy: Amy can supply any
+  product in the Skinbetter Science line, so the page frames the
+  routine, not a catalog — only the AlphaRet and sunbetter franchises
+  are named, as examples. No pricing; prices live in the storefront —
+  plus two photos from the pro shoot. (DECISIONS same date.)
+- "Shop Skinbetter Science" is live: `{{SKINBETTER_URL}}` resolved to
+  the practice storefront, decoded from Amy's own counter-card QR and
+  verified in-browser (DECISIONS same date). Ships
+  `clinicianApproved: false` behind the DraftBanner.
+- A branded storefront callout (noir plate, "Amy's custom Skinbetter
+  storefront") lands mid-page after a competitor comparison confirmed
+  link parity but a presentational gap (DECISIONS same date).
+
 ### 2026-07-23 — Studio strip: three photos join /services
 
 - Three vetted frames of Amy at work now sit between the intro and the

@@ -4,7 +4,8 @@
  * 2026-07-23, supersedes the body-sans anatomy): flat brand-pink plate on
  * the paper ambient, NO drop shadow, hairline border with a 1px ink-pink
  * edge rule (left), oversized Playfair index numeral, Playfair title,
- * sans summary, "See the line ›" microline pinned to the card foot.
+ * sans summary, "More information ›" microline pinned to the card foot
+ * (client wording 2026-07-23, over the drafted "See the line").
  * Hover/focus = plate deepens (card-hover token) + a 2px ink-pink ring on
  * all four sides + title in ink-pink + a 2px ink-pink rule draws across
  * the card top (the ng-trace signature at card scale). No scale/shadow
@@ -41,7 +42,7 @@ const numeral = index === undefined ? undefined : String(index).padStart(2, '0')
   </h3>
   <p class="mt-3">{summary}</p>
   <p class="treatment-card__more">
-    See the line
+    More information
     <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
   </p>
 </article>

@@ -12,7 +12,7 @@ change lives in `docs/DECISIONS.md`; design specs live in
   cards now render as a treatment menu — three labelled groups
   (Injectables · Skin & Body · Wellness), cards two-across with
   oversized Playfair index numerals 01–12, Playfair titles, and a
-  "See the line ›" microline; hover draws a 2px ink-pink rule across
+  "More information ›" microline; hover draws a 2px ink-pink rule across
   the card top on top of the existing plate-deepen + ring.
 - Display order changed: injectables lead, and array order is now the
   numbering order. Direction and grouping were client-picked from

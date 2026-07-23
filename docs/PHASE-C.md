@@ -4,7 +4,7 @@
 > editorial menu** (client direction after a competitor comparison):
 > three labelled groups — Injectables · Skin & Body · Wellness — cards
 > two-across with Playfair index numerals 01–12, Playfair titles, and a
-> "See the line ›" microline; hover draws an ink-pink rule across the
+> "More information ›" microline; hover draws an ink-pink rule across the
 > card top. Injectables now lead the page (array order = numbering
 > order). Pinks and contrast pairs unchanged; +197 bytes CSS, zero JS.
 > Direction picked from previewed alternatives — DECISIONS 2026-07-23.

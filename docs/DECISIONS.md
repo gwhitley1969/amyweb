@@ -1564,7 +1564,7 @@ caps — not from richer boxes. Decision (client-picked from three
 previewed directions): the **Editorial Menu** — the twelve cards render
 in three labelled groups (Injectables · Skin & Body · Wellness, 4/4/4),
 two-across, each card carrying an oversized Playfair index numeral
-(01–12), a Playfair title, the sans summary, and a "See the line ›"
+(01–12), a Playfair title, the sans summary, and a "More information ›"
 microline pinned to the card foot; hover adds a 2px ink-pink rule that
 draws across the card top (the ng-trace signature at card scale) on top
 of the existing plate-deepen + ring. Group openers reuse the

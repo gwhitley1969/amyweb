@@ -1,5 +1,14 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-23 (newest):** **The ombre canvas is
+> site-wide** — Amy approved the /services trial and directed the
+> rollout: every light-surface page now ramps blush → brand pink; the
+> construction home and /404 stay noir. Links and outline CTAs join
+> the ink re-ink (underline/border-distinguished); in-box links rise
+> 4.60 → 11.80. White photo/video mattes kept as framed prints,
+> pending client review on the preview. BUILD_SPEC §5 surface
+> language amended. Full record: DECISIONS 2026-07-23.
+
 > **STATUS UPDATE 2026-07-23 (latest):** **/services trials the ombre
 > canvas** — the white page background becomes a vertical ramp, blush
 > `#fdf2f8` to brand pink `#ec4899` (client direction, matched to the

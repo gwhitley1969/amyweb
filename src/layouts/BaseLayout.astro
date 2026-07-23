@@ -9,32 +9,23 @@ import { localBusiness } from '../lib/schema';
 interface Props {
   title: string;
   description: string;
-  /** Page surface: light "studio" (default) or dark "sign" (BUILD_SPEC §5 plan). */
+  /** Page surface: light "studio" (default — wears the site-wide ombre
+   * canvas since 2026-07-23, client-approved) or dark "sign"
+   * (BUILD_SPEC §5). The ombre is styled off this surface in
+   * global.css; there is no per-page opt-out. */
   surface?: 'light' | 'noir';
-  /** Ombre page canvas trial (client direction 2026-07-23): vertical
-   * blush-to-deeper-pink body gradient. /services only until the client
-   * approves the look; phase 2 folds it into the default light body and
-   * deletes this prop. Ignored on noir surfaces. */
-  ombre?: boolean;
   ogImage?: string | undefined;
   /** Page-specific JSON-LD objects (§10) rendered after the sitewide
    * LocalBusiness — built only via src/lib/schema.ts builders. */
   jsonLd?: object[];
 }
 
-const {
-  title,
-  description,
-  surface = 'light',
-  ombre = false,
-  ogImage,
-  jsonLd: pageJsonLd = [],
-} = Astro.props;
+const { title, description, surface = 'light', ogImage, jsonLd: pageJsonLd = [] } = Astro.props;
 const jsonLd = JSON.stringify(localBusiness());
 ---
 
 <!doctype html>
-<html lang="en" data-ombre={ombre && surface !== 'noir' ? '' : undefined}>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

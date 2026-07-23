@@ -138,16 +138,26 @@ accent; broadsheet hairlines) — none of them fit this brand anyway.
 ### Brand direction
 
 **Serious glamour.** (Amended 2026-07-18 per client direction — see
-docs/DECISIONS.md; supersedes "medical-grade playful.") The brand is bold,
-pink, and composed — luxury-editorial carried by a licensed clinician's
-credibility and her own photography. A noir shell (header / hero / CTA
-bands / footer) with light editorial interiors; generous white space;
-oversized Playfair display; uppercase tracked eyebrow labels. Pink is
-jewelry, not atmosphere: brand-pink CTA fills under ink text, hairline
-rules, a static neon aura on the sign, and a soft shimmer on the noir
-accent phrase. Photography wears a house grade — cinema-noir on dark
-bands, a light wash on light bands. Motion is scroll-driven and sparse;
-nothing pulses except the sign's slow breath. Playfulness is retired from
+docs/DECISIONS.md; supersedes "medical-grade playful." Surface amendment
+2026-07-23, client-approved: the light interiors wear the **ombre
+canvas**.) The brand is bold, pink, and composed — luxury-editorial
+carried by a licensed clinician's credibility and her own photography. A
+noir shell (header / hero / CTA bands / footer) with light editorial
+interiors; oversized Playfair display; uppercase tracked eyebrow labels.
+The light ambient surface is the site-wide ombre canvas (2026-07-23,
+client direction from her own reference image): each page ramps
+blush-50 at the top to brand pink-500 at 80% of the document — pink is
+now the atmosphere, so the functional accents invert to ink: eyebrows,
+accent rules, links (underline/border-distinguished), outline CTAs, and
+focus rings are ink-900 on the canvas; noir surfaces keep their pink-300
+family. The ramp may never exceed pink-500 (the deepest surface holding
+the recorded ink-900 pair, 4.88 — tokens.css OMBRE CANVAS governs).
+Noir-bodied pages (construction home, /404) stay flat black. Brand-pink
+CTA fills under ink text, hairline rules, a static neon aura on the
+sign, and a soft shimmer on the noir accent phrase carry on unchanged.
+Photography wears a house grade — cinema-noir on dark bands, a light
+wash on light bands. Motion is scroll-driven and sparse; nothing pulses
+except the sign's slow breath. Playfulness is retired from
 the design language; personality lives in the type, the photography, and
 Amy's singular voice.
 

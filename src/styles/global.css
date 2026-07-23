@@ -118,39 +118,43 @@ body {
   line-height: 1.6;
 }
 
-/* Ombre page canvas (client direction 2026-07-23, matched to the
- * client's reference image; trial scoped to /services via BaseLayout's
- * `ombre` prop -> html[data-ombre]).
+/* Ombre page canvas — SITE-WIDE since 2026-07-23 (client approved the
+ * /services trial the same day: every light-surface page now wears the
+ * ramp; noir-bodied pages — the construction home and /404 — keep
+ * their flat black via the :not() guard).
  * Longhands, not the shorthand: the base body rule above stays the
  * fallback and the noir path; only what changes is overridden.
- * - The ramp reaches full depth at 80% of the document and holds — the
- *   noir CTA band + footer cover roughly the last fifth, so the
- *   complete blush -> brand-pink sweep sits in the visible canvas.
+ * - The ramp reaches full depth at 80% of the document and holds — on
+ *   pages with a closing noir band the whole sweep sits in the visible
+ *   canvas; on pages without one (legal trio) the held brand pink is
+ *   itself visible above the footer.
  * - background-color paints the canvas beyond the ramp, so rubber-band
- *   overscroll shows the light start at both edges (matches today's
- *   white-behind-noir behavior); no-repeat stops the dark end tiling
- *   above the top edge.
- * - The custom-property re-inks keep every canvas-level opener and
- *   focus ring legible at full ramp depth (ink-900 holds 4.88 on
- *   pink-500 — tokens.css OMBRE CANVAS). Noir bands re-scope their own
- *   values, so the CTA band and footer are unaffected.
+ *   overscroll shows the light start at both edges; no-repeat stops
+ *   the dark end tiling above the top edge.
+ * - The custom-property re-inks keep every canvas-level element
+ *   legible at full ramp depth (ink-900 holds 4.88 on pink-500 —
+ *   tokens.css OMBRE CANVAS): openers, accent rules, the focus ring,
+ *   and — site-wide addition — links/outline CTAs via --ng-link, since
+ *   ink-pink fails mid-ramp (2.33). Links stay distinguishable by
+ *   underline/border. In boxes this lifts the 2026-07-22 in-box 4.60
+ *   exception to a clean 11.80. Noir bands re-scope their own values,
+ *   so header, footer, and CTA bands are unaffected.
  * - A11y: axe cannot compute contrast against a gradient backdrop and
- *   files canvas-level text as needs-review; the /services entry in
- *   .pa11yci.json caps that class to warnings for that URL only
- *   (operator decision 2026-07-23, DECISIONS same date — real
- *   violations still fail at zero tolerance everywhere). The recorded
- *   OMBRE CANVAS pairs in tokens.css are the review those items need.
- *   Do NOT re-engineer this as a body pseudo-element layer: axe flags
- *   background-bearing pseudos on an ancestor for every text element
- *   on the page, including the solid noir header/footer (tried
- *   2026-07-23, failed 23/23-wide).
- * - :not() is belt-and-suspenders on top of the layout gate: the
- *   attribute is never emitted on noir pages, and even if it were,
- *   noir surfaces keep painting their own flat black. */
-html[data-ombre] body:not([data-surface='noir']) {
+ *   files canvas-level text as needs-review; every ombre page's entry
+ *   in .pa11yci.json caps that class to warnings — per-URL, an
+ *   auditable list (operator decisions 2026-07-23, DECISIONS same
+ *   date — real violations still fail at zero tolerance everywhere).
+ *   The recorded OMBRE CANVAS pairs in tokens.css are the review those
+ *   items need. Do NOT re-engineer this as a body pseudo-element
+ *   layer: axe flags background-bearing pseudos on an ancestor for
+ *   every text element on the page, including the solid noir
+ *   header/footer (tried 2026-07-23, failed 23/23-wide). */
+body:not([data-surface='noir']) {
   --ng-kicker: var(--ng-ink-900);
   --ng-rule-accent: var(--ng-ink-900);
   --ng-focus-ring: var(--ng-ink-900);
+  --ng-link: var(--ng-ink-900);
+  --ng-display-accent: var(--ng-ink-900);
   background-color: var(--ng-ombre-start);
   background-image: linear-gradient(to bottom, var(--ng-ombre-start), var(--ng-ombre-end) 80%);
   background-repeat: no-repeat;

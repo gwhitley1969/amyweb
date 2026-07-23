@@ -1773,3 +1773,42 @@ selector flip plus a client decision on the white mattes
 (TreatmentVideo, .media-figure, ConceptHome .nc-post/.nc-blush).
 ProductDetailCards in-card eyebrow tags will flip to ink-900 on ombre
 pages when phase 2 lands — surface with the client then.
+
+## 2026-07-23 — Ombre canvas goes site-wide; functional accents invert to ink
+
+Context: Amy approved the /services ombre trial on the stable preview
+the day it merged (PR #55) and directed the ombre onto the rest of the
+site. Phase 2 executes the rollout recorded in the trial decision.
+Decision: the ramp is now styled off the surface itself —
+body:not([data-surface='noir']) in global.css — so every light page
+wears it and noir bodies (construction home, /404) stay flat black.
+The trial `ombre` prop and html[data-ombre] hook are deleted (no
+per-page opt-out; the surface IS the design). Site-wide addition to
+the companion re-inks: --ng-link -> ink-900 on ombre bodies, because
+canvas-level ink-pink fails mid-ramp (2.33) and light pages carry
+canvas-level links and outline CTAs below the safe zone (breadcrumbs
+everywhere, the about-page consult CTA, legal-body links, FAQ
+markers). Links stay distinguishable by underline (prose, breadcrumbs)
+or border (outline CTAs) — never color alone. Consequence inside
+boxes: plated links/tags flip ink-pink 4.60 -> ink-900 11.80, lifting
+the 2026-07-22 in-box exception on ombre pages; the house 4.7 bar is
+met with headroom again. Noir scopes keep pink-300. The display accent
+re-inks as well — its only light-canvas consumer is the VisitSteps
+numerals, which sit mid-ramp where magenta washes to ~2:1 (caught on
+the rollout screenshots, fixed before the PR).
+Deliberately unchanged, for review on the preview: the white mattes
+(TreatmentVideo paper mat, TreatmentLayout .media-figure, ConceptHome
+.nc-post) now read as framed prints on the pink canvas — kept as the
+strongest default; ConceptHome .nc-blush ambient bands (concept page
+only) will read lighter than the mid-ramp canvas around them — noted,
+concept is not a public page. Solid CTA fills (pink-500 + ink text)
+appear only in noir bands on real pages, so fill-vs-canvas blending at
+depth does not arise outside styleguide demos.
+A11y (same mechanism as the trial, operator-gated): every ombre page's
+pa11y entry gains levelCapWhenNeedsReview: "warning" — 21 of 23 URLs,
+each visibly listed; the noir-bodied two keep full needs-review
+enforcement. Real violations fail at zero tolerance everywhere.
+BUILD_SPEC §5 brand direction amended: "pink is jewelry" becomes "pink
+is the atmosphere; the jewelry inverts to ink" — white space retired
+as the luxury signal on light surfaces, superseding the 2026-07-18
+language for good.

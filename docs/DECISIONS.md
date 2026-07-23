@@ -1812,3 +1812,28 @@ BUILD_SPEC §5 brand direction amended: "pink is jewelry" becomes "pink
 is the atmosphere; the jewelry inverts to ink" — white space retired
 as the luxury signal on light surfaces, superseding the 2026-07-18
 language for good.
+
+## 2026-07-23 — /about portrait becomes Amy's family (consent-gated swap)
+
+Context: Amy asked (via the operator) to replace the /about portrait —
+previously the release-cleared "Amy with a client" mirror-moment frame
+— with 8K0A0893.jpg, her formal family portrait. That frame was
+categorically excluded during the 2026-07-23 photo survey because it
+pictures her family INCLUDING AT LEAST TWO MINORS, and publishing
+children on a public marketing site is permanent (public previews,
+indexed production, caches/archives beyond retraction).
+Decision: flagged per the flag-once rule with those specifics; the
+operator confirmed on the record that Amy consents for everyone
+pictured, including the minors. Published as
+src/assets/photos/family-portrait.jpg (neutral filename). Alt text
+deliberately names no one but Amy ("Amy Palacios, FNP, with her
+family."). The crop anchor moved 12% -> 38% (group faces sit
+mid-frame, unlike the single-subject shot). mirror-moment.jpg remains
+in the repo (ConceptHome still uses it). The survey exclusion for
+8K0A0893 is lifted for THIS use only — any other placement of the
+family, or any frame of the children alone, needs its own operator
+confirmation. Consequences: /about's message shifts from
+practice-forward to person-forward (client's deliberate choice; the
+practice photo remains available if she reverses); /about is
+LH-gated, so the eager/high-priority portrait swap is re-verified
+through the full suite.

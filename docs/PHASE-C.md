@@ -1,9 +1,9 @@
 # Phase C — Pages & content drafts (working checklist)
 
 > **STATUS UPDATE 2026-07-23 (later):** **/services gains the studio
-> strip** — three vetted photos of Amy at work (brow assessment,
-> lip-filler close-up, male-client treatment) between the intro and
-> the menu; both pictured clients are the released wrinkle-relaxers
+> strip** — three vetted photos of Amy at work (forehead injectable
+> moment, lip-filler close-up, male-client treatment) between the
+> intro and the menu; all three pictured clients are release-cleared
 > subjects (operator confirmed same-shoot release coverage). Full
 > photo survey + exclusions in DECISIONS 2026-07-23.
 

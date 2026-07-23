@@ -9,11 +9,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
 ### 2026-07-23 — Studio strip: three photos join /services
 
 - Three vetted frames of Amy at work now sit between the intro and the
-  menu: a brow assessment, a lip-filler close-up, and the male client's
-  wrinkle-relaxer moment — both pictured clients are the released
-  subjects already on the live site (operator confirmed same-shoot
-  coverage). About-portrait treatment: hairline frame, 4/5 crop,
-  light-wash grade. Lazy-loaded responsive images; alt text factual.
+  menu: a forehead injectable moment (client-picked frame), a
+  lip-filler close-up, and the male client's wrinkle-relaxer moment —
+  all three pictured clients are release-cleared subjects (operator
+  confirmed same-shoot coverage). About-portrait treatment: hairline
+  frame, 4/5 crop, light-wash grade. Lazy-loaded responsive images;
+  alt text factual.
 - Full C:\Amy\pics survey behind the pick (all ~55 unvetted frames,
   compliance rubric); exclusions and the full audit in DECISIONS
   2026-07-23.

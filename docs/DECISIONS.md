@@ -1605,12 +1605,17 @@ frames of Amy performing services, none already used elsewhere. All
 rubric: subjects, scene, every legible word/brand, crop-ability), the
 finalists re-verified first-hand. Decision (client-approved): a
 three-frame "studio strip" between the lead and the Injectables group
-— 8K0A9539 → brow-mapping.jpg (brow assessment), 8K0A9595 →
-lip-filler-detail.jpg (lip filler close-up, no legible text in
-frame), 8K0A9695 → male-client-treatment.jpg (male client
-wrinkle-relaxer moment). Both pictured clients are the two released
-subjects already live on wrinkle-relaxers (same shoot; the operator
-confirmed the on-file releases cover additional same-shoot frames).
+— 8K0A9415 → forehead-treatment.jpg (forehead injectable moment;
+the client picked this frame over the initially proposed 8K0A9539
+brow assessment), 8K0A9595 → lip-filler-detail.jpg (lip filler
+close-up, no legible text in frame), 8K0A9695 →
+male-client-treatment.jpg (male client wrinkle-relaxer moment). All
+three pictured clients are release-cleared subjects: two are already
+live on wrinkle-relaxers, and the third is the subject of the
+explicitly release-cleared 8K0A9397 (same session, verified
+first-hand by outfit match); the operator confirmed the on-file
+releases cover additional same-shoot frames, and the 9415 swap was
+the client's own direction.
 Frames wear the About-portrait treatment: hairline border, 4/5 crop,
 light-wash grade + magenta multiply (§5). Excluded with reasons: the
 five-woman team portraits (picturing five providers implies a team —

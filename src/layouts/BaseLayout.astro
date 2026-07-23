@@ -11,18 +11,30 @@ interface Props {
   description: string;
   /** Page surface: light "studio" (default) or dark "sign" (BUILD_SPEC §5 plan). */
   surface?: 'light' | 'noir';
+  /** Ombre page canvas trial (client direction 2026-07-23): vertical
+   * blush-to-deeper-pink body gradient. /services only until the client
+   * approves the look; phase 2 folds it into the default light body and
+   * deletes this prop. Ignored on noir surfaces. */
+  ombre?: boolean;
   ogImage?: string | undefined;
   /** Page-specific JSON-LD objects (§10) rendered after the sitewide
    * LocalBusiness — built only via src/lib/schema.ts builders. */
   jsonLd?: object[];
 }
 
-const { title, description, surface = 'light', ogImage, jsonLd: pageJsonLd = [] } = Astro.props;
+const {
+  title,
+  description,
+  surface = 'light',
+  ombre = false,
+  ogImage,
+  jsonLd: pageJsonLd = [],
+} = Astro.props;
 const jsonLd = JSON.stringify(localBusiness());
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-ombre={ombre && surface !== 'noir' ? '' : undefined}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -34,7 +46,10 @@ const jsonLd = JSON.stringify(localBusiness());
     <script type="application/ld+json" set:html={jsonLd} />
     {pageJsonLd.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}
   </head>
-  <body class="min-h-dvh" data-surface={surface === 'noir' ? 'noir' : undefined}>
+  <body
+    class="min-h-dvh"
+    data-surface={surface === 'noir' ? 'noir' : undefined}
+  >
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-white focus:p-3 focus:text-black focus:underline"

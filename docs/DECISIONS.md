@@ -1581,3 +1581,18 @@ the hover plate (3.81:1); every contrast pair was already recorded in
 the tokens.css card tables — no new pairs; built CSS grew 197 bytes,
 JS stayed zero; ConceptHome and the styleguide inherit the grouped menu
 via the shared grid.
+
+## 2026-07-23 — Card fill reconfirmed: the pink plates stay
+
+Context: with the editorial menu on the PR #52 preview, the client
+still found the competitor's page more elegant. Diagnosis flagged: the
+competitor's elegance is air — color as jewelry, not atmosphere (the
+§5 principle) — and the filled pink plates are the remaining gap. Two
+lighter fills were prototyped against the real build and shown beside
+the current plates as screenshots (a blush #fdf2f8 wash deepening to
+the plate pink on hover, and white "air" cards with hairline frames —
+the recommended option). Decision: the client chose to keep the pink
+plates as built; executed without re-arguing (flag-once rule).
+Consequences: PR #52 ships visually unchanged; the site-wide box pink
+stays fully consistent; the durable next elegance lever is per-line
+photography — a client asset conversation, its own step.

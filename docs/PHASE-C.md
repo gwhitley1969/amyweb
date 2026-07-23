@@ -1,5 +1,10 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-23 (latest of the day):** **/about portrait
+> is now Amy's family** — client-requested swap, shipped on Amy's
+> on-record consent covering everyone pictured incl. the minors
+> (flagged first; DECISIONS 2026-07-23). Alt text names only Amy.
+
 > **STATUS UPDATE 2026-07-23 (newest):** **The ombre canvas is
 > site-wide** — Amy approved the /services trial and directed the
 > rollout: every light-surface page now ramps blush → brand pink; the

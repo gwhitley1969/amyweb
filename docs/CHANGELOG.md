@@ -6,6 +6,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-23 — /about portrait: Amy's family
+
+- The /about portrait is now Amy's formal family portrait
+  (client-requested; the frame includes minors, so the swap was
+  flagged and shipped only on Amy's on-record consent covering
+  everyone pictured — DECISIONS 2026-07-23). Neutral asset filename;
+  alt text names no one but Amy; same framed treatment, crop anchored
+  to the group. The practice photo stays in the repo (ConceptHome
+  uses it) if she ever wants it back.
+
 ### 2026-07-23 — Ombre canvas site-wide; accents invert to ink
 
 - Amy approved the /services trial and directed the ombre onto the

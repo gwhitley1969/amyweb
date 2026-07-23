@@ -22,6 +22,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
   storefront") lands mid-page after a competitor comparison confirmed
   link parity but a presentational gap (DECISIONS same date).
 
+### 2026-07-23 — Studio strip: three photos join /services
+
+- Three vetted frames of Amy at work now sit between the intro and the
+  menu: a forehead injectable moment (client-picked frame), a
+  lip-filler close-up, and the male client's wrinkle-relaxer moment —
+  all three pictured clients are release-cleared subjects (operator
+  confirmed same-shoot coverage). About-portrait treatment: hairline
+  frame, 4/5 crop, light-wash grade. Lazy-loaded responsive images;
+  alt text factual.
+- Full C:\Amy\pics survey behind the pick (all ~55 unvetted frames,
+  compliance rubric); exclusions and the full audit in DECISIONS
+  2026-07-23.
+
 ### 2026-07-23 — /services redesigned as a categorized editorial menu
 
 - Client direction after a competitor comparison: the twelve service

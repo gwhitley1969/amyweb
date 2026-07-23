@@ -1668,3 +1668,37 @@ fails §8 claim rules); switching to the skinbetter.pro vanity URL
 Consequences: two shop CTAs on the page (mid-page handoff + closing
 band), both firing skinbetter_click; zero new JS; noir stays
 per-section per the a11y rulebook.
+## 2026-07-23 — Studio strip: three photos join /services
+
+Context: the client asked for photos from C:\Amy\pics on /services —
+frames of Amy performing services, none already used elsewhere. All
+~55 unvetted frames were surveyed (two parallel reviewers, per-frame
+rubric: subjects, scene, every legible word/brand, crop-ability), the
+finalists re-verified first-hand. Decision (client-approved): a
+three-frame "studio strip" between the lead and the Injectables group
+— 8K0A9415 → forehead-treatment.jpg (forehead injectable moment;
+the client picked this frame over the initially proposed 8K0A9539
+brow assessment), 8K0A9595 → lip-filler-detail.jpg (lip filler
+close-up, no legible text in frame), 8K0A9695 →
+male-client-treatment.jpg (male client wrinkle-relaxer moment). All
+three pictured clients are release-cleared subjects: two are already
+live on wrinkle-relaxers, and the third is the subject of the
+explicitly release-cleared 8K0A9397 (same session, verified
+first-hand by outfit match); the operator confirmed the on-file
+releases cover additional same-shoot frames, and the 9415 swap was
+the client's own direction.
+Frames wear the About-portrait treatment: hairline border, 4/5 crop,
+light-wash grade + magenta multiply (§5). Excluded with reasons: the
+five-woman team portraits (picturing five providers implies a team —
+constraint 2, same principle as the "we" ban); every Jeuveau-banner /
+product-box / vial-central frame (pharma marketing or packaging in
+frame — 9575, 9483/93/9503, 9596/97, 9602, 9613, 9663, 1072, 1120,
+9381, 9749, 9881, 9922); all frames of the two unreleased clients
+(0xxx/1xxx sessions); 8K0A9862 (Amy under her neon — offered as a
+swap, client kept the working trio; its held vial was zoom-vetted at
+full res: fine print illegible, so it remains available for later
+use). Consequences: /services gains ~90–180 KB of lazy-loaded
+responsive images (LH image budget re-verified); alt text is factual
+and claims-clean; no text overlays, so the opaque-plate rules are
+untouched; three more C:\Amy\pics frames are now committed under
+neutral filenames.

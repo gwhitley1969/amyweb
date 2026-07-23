@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -6,6 +7,9 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ServiceLineGrid from '../../components/ServiceLineGrid.astro';
 import CTAButton from '../../components/CTAButton.astro';
 import TrustChips from '../../components/TrustChips.astro';
+import foreheadTreatment from '../../assets/photos/forehead-treatment.jpg';
+import lipFillerDetail from '../../assets/photos/lip-filler-detail.jpg';
+import maleClientTreatment from '../../assets/photos/male-client-treatment.jpg';
 
 /**
  * /services index (§6, Phase C5; line count updated in the 2026-07-19
@@ -16,6 +20,15 @@ import TrustChips from '../../components/TrustChips.astro';
  * featured variant waits on Amy's pick (a §0 business decision, not a
  * build task). "One expert clinician." is the operator's wording
  * (2026-07-22, chosen after the flag).
+ *
+ * Studio strip (client direction 2026-07-23): three vetted frames of Amy
+ * at work between the lead and the menu — both pictured clients are the
+ * released subjects already on the live site (operator confirmed the
+ * releases cover same-shoot frames; DECISIONS same date). Frames wear
+ * the house light-wash grade (§5); no text overlays, so no plate rules
+ * apply. All three load lazy and render 3-across at every breakpoint —
+ * thumbnail-weight images that never contend with the H1 for LCP (see
+ * the comment on the strip div).
  */
 
 const crumbs = [
@@ -40,6 +53,40 @@ const crumbs = [
       Start where your curiosity is — each page says plainly what the
       treatment is, who it generally suits, and how to begin.
     </p>
+    {/* 3-across at EVERY breakpoint (a filmstrip on phones): stacked
+      * full-width mobile images pulled 960w variants (image budget blown)
+      * and put a lazy image in the initial viewport as LCP (2558ms >
+      * 2500). Small thumbs keep the H1 as LCP and the strip ~40KB on
+      * mobile. */}
+    <div class="mt-12 grid grid-cols-3 gap-3 sm:gap-5">
+      <figure class="strip-frame ng-rise">
+        <Image
+          src={foreheadTreatment}
+          alt="Amy Palacios, FNP, performing an injectable treatment at a client's forehead in bright window light"
+          widths={[280, 400, 640, 760]}
+          sizes="(min-width: 1200px) 355px, 31vw"
+          loading="lazy"
+        />
+      </figure>
+      <figure class="strip-frame ng-rise">
+        <Image
+          src={lipFillerDetail}
+          alt="Close-up of a dermal filler treatment — Amy's gloved hands guiding a fine syringe at a client's lips"
+          widths={[280, 400, 640, 760]}
+          sizes="(min-width: 1200px) 355px, 31vw"
+          loading="lazy"
+        />
+      </figure>
+      <figure class="strip-frame ng-rise">
+        <Image
+          src={maleClientTreatment}
+          alt="Amy Palacios, FNP, performing a wrinkle-relaxer treatment for a male client by the studio window"
+          widths={[280, 400, 640, 760]}
+          sizes="(min-width: 1200px) 355px, 31vw"
+          loading="lazy"
+        />
+      </figure>
+    </div>
     <div class="mt-12">
       <ServiceLineGrid />
     </div>
@@ -67,3 +114,31 @@ const crumbs = [
 
   <Footer slot="footer" />
 </BaseLayout>
+
+<style>
+  /* Same editorial frame + light-wash grade as the About portrait
+   * (§5: cinema on noir bands, light wash on light bands). */
+  .strip-frame {
+    position: relative;
+    margin: 0;
+    border: 1px solid var(--ng-hairline);
+    overflow: hidden;
+  }
+  .strip-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 20%;
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
+  }
+  .strip-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+</style>

@@ -134,8 +134,11 @@ const numeral = index === undefined ? undefined : String(index).padStart(2, '0')
   }
   .treatment-card__more .chev-nudge {
     color: var(--ng-ink-pink);
-    font-size: 1.2em;
+    /* sized so the glyph's visual height matches the label's cap height
+     * (client direction 2026-07-23) */
+    font-size: 1.7em;
     line-height: 1;
+    vertical-align: -0.16em;
   }
   .treatment-card--featured {
     grid-column: span 2;

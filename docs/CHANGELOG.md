@@ -17,6 +17,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
   verified in-browser (DECISIONS same date). Ships
   `clinicianApproved: false` behind the DraftBanner.
 
+### 2026-07-23 — /services redesigned as a categorized editorial menu
+
+- Client direction after a competitor comparison: the twelve service
+  cards now render as a treatment menu — three labelled groups
+  (Injectables · Skin & Body · Wellness), cards two-across with
+  oversized Playfair index numerals 01–12, Playfair titles, and a
+  "More information ›" microline; hover draws a 2px ink-pink rule across
+  the card top on top of the existing plate-deepen + ring.
+- Display order changed: injectables lead, and array order is now the
+  numbering order. Direction and grouping were client-picked from
+  previewed alternatives (arch vitrine, noir band, flat grid —
+  DECISIONS 2026-07-23).
+- Card pinks, edges, and every recorded contrast pair unchanged; +197
+  bytes CSS; JS stays zero.
+
 ### 2026-07-22 — Every box now matches the /services card pink
 
 - Client direction: all boxes on every page wear the /services resting

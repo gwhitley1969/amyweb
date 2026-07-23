@@ -1,38 +1,124 @@
 ---
 title: Skincare
 line: skincare
-summary: "Medical-grade skincare from Skinbetter Science, available through Amy's partner storefront."
+summary: "Medical-grade skincare from Skinbetter Science, available through Amy's practice storefront."
 deck: "Medical-grade skincare, chosen with a clinician's eye."
 products:
-  - "Skinbetter Science"
+  - "Refining Foam"
+  - "Mystro Active Balance Serum"
+  - "Alto Advanced Defense and Repair Serum"
+  - "Even Tone Correcting Serum"
+  - "AlphaRet Overnight Cream"
+  - "Trio Rebalancing Moisture Treatment"
+  - "InterFuse Treatment Cream — Face & Neck"
+  - "InterFuse Treatment Cream — Eye"
+  - "sunbetter TONE SMART SPF 75 Sunscreen Lotion"
+productDetails:
+  - name: "Refining Foam"
+    tag: "Cleanse"
+    detail: "A gentle foaming cleanser for daily use."
+  - name: "Mystro Active Balance Serum"
+    tag: "Serum"
+    detail: "A daily serum built on a botanically derived active blend."
+  - name: "Alto Advanced Defense and Repair Serum"
+    tag: "Serum"
+    detail: "A serum formulated with a broad blend of antioxidants."
+  - name: "Even Tone Correcting Serum"
+    tag: "Serum"
+    detail: "A serum designed for the appearance of uneven tone and discoloration."
+  - name: "AlphaRet Overnight Cream"
+    tag: "Renew"
+    detail: "An overnight cream built on AlphaRet, Skinbetter's patented retinoid-plus-AHA technology."
+  - name: "Trio Rebalancing Moisture Treatment"
+    tag: "Moisturize"
+    detail: "A moisturizer that pairs three approaches to hydration in one formula."
+  - name: "InterFuse Treatment Cream — Face & Neck"
+    tag: "Moisturize"
+    detail: "A peptide and hyaluronic-acid cream for face and neck, using the InterFuse delivery technology."
+  - name: "InterFuse Treatment Cream — Eye"
+    tag: "Eye"
+    detail: "The eye-area treatment cream from the same InterFuse line."
+  - name: "sunbetter TONE SMART SPF 75 Sunscreen Lotion"
+    tag: "Protect"
+    detail: "A mineral, broad-spectrum SPF 75 sunscreen lotion with a sheer tint."
 ctaType: shop
 pricingDisplay: none
 clinicianApproved: false
 draft: false
 faq:
   - q: "Where do skincare purchases happen?"
-    a: "Through the Skinbetter Science partner storefront — the shop button on this page opens it."
+    a: "In the studio at any appointment, or online through the Skinbetter Science storefront — the shop button on this page opens it. A first online order creates a Skinbetter account tied to Amy's practice; after that it's ordinary online shopping, shipped to your door."
+  - q: "Why does the storefront say Mobile Aesthetics?"
+    a: "Mobile Aesthetics is Amy's own practice — the storefront runs under the practice name. A purchase there is a purchase with Amy."
   - q: "How do I know which products suit my skin?"
     a: "That's a conversation with Amy — ask at any appointment, or request a free consultation."
 seo:
   title: "Medical-Grade Skincare in Harrisburg & Charlotte, NC | Needle Girlie"
-  description: "Skinbetter Science medical-grade skincare through Amy Palacios, FNP — Needle Girlie in Harrisburg, NC, serving the Charlotte area."
+  description: "Skinbetter Science medical-grade skincare through Amy Palacios, FNP — in the Harrisburg, NC studio or through her practice storefront, serving the Charlotte area."
 ---
+
+import { Image } from 'astro:assets';
+import skinbetterLineup from '../../assets/photos/skinbetter-lineup.jpg';
+import skinbetterShelf from '../../assets/photos/skinbetter-shelf.jpg';
+
+<section class="media-row">
+  <figure class="media-figure">
+    <Image
+      src={skinbetterLineup}
+      alt="Six Skinbetter Science products held out toward the camera in the Harrisburg studio."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+    <figcaption class="eyebrow">In the studio</figcaption>
+  </figure>
+  <div class="media-copy">
 
 ## What it is
 
-Amy offers Skinbetter Science, a medical-grade skincare line, through
-her partner storefront. Purchases happen there — the shop button on this
-page opens it.
+Skinbetter Science is a medical-grade skincare line sold only through
+authorized practices — not drugstores, not marketplaces. Amy carries it
+at her Harrisburg studio, and the products above are the ones she stocks
+and works with herself.
 
-## Who it's generally for
+  </div>
+</section>
 
-Skincare questions ride along with almost every visit. Product choices
-are individual: which formulas suit your skin — and in what order — is a
-conversation with Amy, not a quiz.
+## How buying works
+
+There are two routes, and both run through Amy's practice.
+
+**At the studio** — pick products up at any appointment, and talk through
+what you're taking home with Amy while you're in the chair.
+
+**Online** — the shop button on this page opens the Skinbetter Science
+storefront. It runs under **Mobile Aesthetics — Amy's own practice** —
+so that's the name you'll see when it opens. A first order creates a
+Skinbetter account tied to the practice, and orders ship directly to
+your door.
+
+## Which products suit your skin
+
+That isn't a question a webpage should answer — and this one won't try.
+Which formulas fit your skin, and in what order, is a conversation with
+Amy: ask at any appointment, or request a free consultation.
+
+<section class="media-row media-row--flip">
+  <div class="media-copy">
 
 ## Individualized, with Amy
 
-Skincare guidance comes from the same person who knows your treatment
-plan: Amy Palacios, FNP, at her Harrisburg studio in the greater
-Charlotte area.
+Skincare guidance here comes from the same clinician who knows your
+treatment plan: Amy Palacios, FNP, at her Harrisburg studio in the
+greater Charlotte area.
+
+  </div>
+  <figure class="media-figure">
+    <Image
+      src={skinbetterShelf}
+      alt="Skinbetter Science bottles and boxed products lined up on a shelf in the studio."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+    <figcaption class="eyebrow">On the shelf</figcaption>
+  </figure>
+</section>

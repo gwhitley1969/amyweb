@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-23 — Skincare: the twelfth line's storefront opens
+
+- **/services/skincare** rebuilt as a product showcase: the nine
+  Skinbetter Science products Amy stocks (verified against her studio
+  photos) on claim-free cards — no pricing; prices live in the
+  storefront — plus two photos from the pro shoot.
+- "Shop Skinbetter Science" is live: `{{SKINBETTER_URL}}` resolved to
+  the practice storefront, decoded from Amy's own counter-card QR and
+  verified in-browser (DECISIONS same date). Ships
+  `clinicianApproved: false` behind the DraftBanner.
+
 ### 2026-07-22 — Every box now matches the /services card pink
 
 - Client direction: all boxes on every page wear the /services resting

@@ -1553,3 +1553,27 @@ by design), the H1 accent rule and photo washes (magenta on white/photo,
 not on boxes). Consequences: ink-900 box text holds 11.80:1 everywhere;
 body text and non-text bars pass with margin; tokens.css header gains the
 SITE-WIDE BOXES block; axe/Pa11y re-verified over the built site.
+
+## 2026-07-23 — Skincare page: storefront URL decoded from Amy's own QR card
+
+Context: the twelfth line's conversion path needed `{{SKINBETTER_URL}}`
+("operator to supply"). It arrived indirectly: the QR on Amy's Skinbetter
+counter card (C:\Amy\pics\20260623_175534.jpg) decodes — scratchpad jsqr,
+never committed — to skinbetter.pro//MobileAesthetics?k=signup, which
+301s to connect.skinbetter.com/MobileAesthetics. Both variants verified
+in-browser: the bare URL lands on the skinbetter.com shop, ?k=signup on a
+create-account form; both carry the practice's businessPartner_id (§9's
+"businessPartner id" confirmed live). Decision: wire the canonical bare
+URL — a Shop button lands on the shop, attribution is identical, and the
+card's signup-first flow suits in-studio acquisition rather than a
+website CTA. The operator also established that Amy is the sole owner of
+Mobile Aesthetics, which settles the §16 checklist item ("hers, not the
+shared location's") by fact and retires the 2026-07-18 Vagaro/Yelp
+shared-location flags (comments corrected; URLs unchanged; constraint 2
+and the voice rule unaffected — sole owner ≠ sole provider).
+Alternatives rejected: the ?k=signup URL (form-first landing punishes
+cold traffic); reproducing the QR image on the page (redundant with the
+button). Consequences: siteConfig.skinbetterUrl is live and the
+skinbetter_click event is armed; §9/§16/§17 updated; the page ships
+clinicianApproved: false behind the DraftBanner like every treatment
+line.

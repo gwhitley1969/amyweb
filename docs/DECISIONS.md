@@ -1553,3 +1553,31 @@ by design), the H1 accent rule and photo washes (magenta on white/photo,
 not on boxes). Consequences: ink-900 box text holds 11.80:1 everywhere;
 body text and non-text bars pass with margin; tokens.css header gains the
 SITE-WIDE BOXES block; axe/Pa11y re-verified over the built site.
+
+## 2026-07-23 — /services becomes a categorized editorial menu
+
+Context: the client compared /services to a competitor page
+(themodernaesthetic.co/services) and asked for a redesign of the "plain
+pink boxes." Analysis showed the competitor's perceived elegance comes
+from order — grouped categories, a repeated per-item anchor, tracked
+caps — not from richer boxes. Decision (client-picked from three
+previewed directions): the **Editorial Menu** — the twelve cards render
+in three labelled groups (Injectables · Skin & Body · Wellness, 4/4/4),
+two-across, each card carrying an oversized Playfair index numeral
+(01–12), a Playfair title, the sans summary, and a "See the line ›"
+microline pinned to the card foot; hover adds a 2px ink-pink rule that
+draws across the card top (the ng-trace signature at card scale) on top
+of the existing plate-deepen + ring. Group openers reuse the
+section-opener signature (eyebrow + traced accent rule). Alternatives
+rejected: an arch-vitrine card (the brand arch as a jewel case — more
+ornamental, monotony risk at ×12) and a noir-band grid (departs the
+"noir shell, light interiors" rule and hides the client-picked card
+pinks) — both offered with previews; a flat unnumbered restyle (loses
+the taxonomy that carries the elegance). Consequences: `serviceLines`
+array order is now the display + numbering order and injectables lead
+the page (Weight Loss led before — client accepted the reorder); the
+microline is ink-900 because 13px ink-pink fails the 4.5 body bar on
+the hover plate (3.81:1); every contrast pair was already recorded in
+the tokens.css card tables — no new pairs; built CSS grew 197 bytes,
+JS stayed zero; ConceptHome and the styleguide inherit the grouped menu
+via the shared grid.

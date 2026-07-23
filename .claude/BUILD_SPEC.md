@@ -197,6 +197,20 @@ for in-box links only (chosen over a darker in-box pink after the
 flag, DECISIONS same date). Blush-50 remains for ambient bands only
 (ConceptHome); noir boxes stay transparent-outlined.
 
+**Editorial menu cards (client direction, 2026-07-23):** the services
+grid renders as a categorized treatment menu — three groups
+(Injectables · Skin & Body · Wellness, 4/4/4 in `serviceLines` array
+order, which is also the 01–12 numbering order), each opened by the
+section-opener signature and set two-across. Card anatomy: oversized
+Playfair index numeral (ink-pink, 4.60:1 on the resting pink,
+decorative `aria-hidden`), Playfair title, sans summary, and a
+"See the line ›" microline pinned to the card foot — the microline is
+ink-900, not ink-pink, because at 13px it is body-size text and
+ink-pink holds only 3.81:1 on the hover plate (4.5 hard bar). Hover
+adds a 2px ink-pink rule drawing across the card top (the traced-rule
+signature at card scale). The state pair, the ring, and every recorded
+contrast pair above are unchanged.
+
 ### Typography
 
 Two families, self-hosted (@fontsource), WOFF2, `font-display: swap`, preload

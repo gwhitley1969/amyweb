@@ -1597,6 +1597,77 @@ Consequences: PR #52 ships visually unchanged; the site-wide box pink
 stays fully consistent; the durable next elegance lever is per-line
 photography — a client asset conversation, its own step.
 
+## 2026-07-23 — Skincare page: storefront URL decoded from Amy's own QR card
+
+Context: the twelfth line's conversion path needed `{{SKINBETTER_URL}}`
+("operator to supply"). It arrived indirectly: the QR on Amy's Skinbetter
+counter card (C:\Amy\pics\20260623_175534.jpg) decodes — scratchpad jsqr,
+never committed — to skinbetter.pro//MobileAesthetics?k=signup, which
+301s to connect.skinbetter.com/MobileAesthetics. Both variants verified
+in-browser: the bare URL lands on the skinbetter.com shop, ?k=signup on a
+create-account form; both carry the practice's businessPartner_id (§9's
+"businessPartner id" confirmed live). Decision: wire the canonical bare
+URL — a Shop button lands on the shop, attribution is identical, and the
+card's signup-first flow suits in-studio acquisition rather than a
+website CTA. The operator also established that Amy is the sole owner of
+Mobile Aesthetics, which settles the §16 checklist item ("hers, not the
+shared location's") by fact and retires the 2026-07-18 Vagaro/Yelp
+shared-location flags (comments corrected; URLs unchanged; constraint 2
+and the voice rule unaffected — sole owner ≠ sole provider).
+Alternatives rejected: the ?k=signup URL (form-first landing punishes
+cold traffic); reproducing the QR image on the page (redundant with the
+button). Consequences: siteConfig.skinbetterUrl is live and the
+skinbetter_click event is armed; §9/§16/§17 updated; the page ships
+clinicianApproved: false behind the DraftBanner like every treatment
+line.
+
+## 2026-07-23 — Skincare page: routine-step cards replace the product catalog
+
+Context: the page shipped as a nine-product showcase, verified against
+Amy's studio photos. The operator then corrected the premise: Amy is an
+authorized Skinbetter Science provider who can sell any product in the
+line (many categories, many products, inventory that churns), so
+enumerating specific products misstates the offer and rots — a static
+page should never mirror a live catalog. Decision: six routine-step
+cards (Cleanse · Correct · Renew · Moisturize · Eye · Protect — the
+step vocabulary already present as the old cards' tags), body copy
+stating the complete line is available through the storefront, and
+exactly two franchise names permitted as illustrative examples
+(AlphaRet, sunbetter) in body copy only, never on cards. No other
+product names, no enumeration, no hardcoded category count, on any
+rendered surface (copy, FAQ, SEO meta, JSON-LD, alt text). The
+`products:` frontmatter list was removed outright. Alternatives
+rejected: ~15 brand-category cards (taxonomy churns with the brand,
+overcrowds the grid, recreates the enumeration one level up); pure
+editorial with no cards (loses the "What Amy offers" card slot and
+visual parity with every other treatment page). Consequences: zero
+code/schema changes; the layout's products bullet-list fallback is now
+unreachable on this page; the storefront is the only catalog; the page
+still ships clinicianApproved: false behind the DraftBanner.
+
+## 2026-07-23 — Skincare: branded storefront callout (competitor comparison)
+
+Context: the operator reviewed a competitor also partnered with
+Skinbetter (glowwithharmonia.com/skincare/#sk-lines). Their block links
+skinbetter.pro//HarmoniaWellnessandAesthetics, which 301s to
+connect.skinbetter.com/HarmoniaWellnessandAesthetics — the same
+provider-storefront system Amy's page already links canonically, so
+functional parity already existed (Amy's link skips their redirect
+hop). The gap was presentational: their block gives the partnership a
+branded visual moment. Decision: add StorefrontCallout.astro to
+/services/skincare — a noir-surfaced plate after "How buying works"
+(eyebrow "Skinbetter Science · Authorized provider", statement "Amy's
+custom Skinbetter storefront — the complete line, shipped to your
+door.", CTAButton shop variant). "Custom … storefront" is Skinbetter's
+own counter-card phrasing. Text-only branding; the Skinbetter logo
+waits on partner brand assets from Amy (open follow-up). Alternatives
+rejected: no change (the partnership had no visual moment on the page);
+importing the competitor's copy ("clinically proven", "award-winning" —
+fails §8 claim rules); switching to the skinbetter.pro vanity URL
+(redirect hop; canonical already wired, DECISIONS same date, above).
+Consequences: two shop CTAs on the page (mid-page handoff + closing
+band), both firing skinbetter_click; zero new JS; noir stays
+per-section per the a11y rulebook.
 ## 2026-07-23 — Studio strip: three photos join /services
 
 Context: the client asked for photos from C:\Amy\pics on /services —

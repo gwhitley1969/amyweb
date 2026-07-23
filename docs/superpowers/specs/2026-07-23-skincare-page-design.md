@@ -19,9 +19,20 @@ Facts established 2026-07-23 (operator session):
 - The QR code on Amy's Skinbetter counter card (`C:\Amy\pics\20260623_175534.jpg`)
   decodes to `https://skinbetter.pro//MobileAesthetics?k=signup`, which
   301-redirects to the canonical `https://connect.skinbetter.com/MobileAesthetics`
-  (verified live). `?k=signup` is the register-now variant; the bare
-  storefront URL serves both registration and returning shoppers.
-- **Operator decision:** use the canonical URL, without `?k=signup`.
+  (verified live).
+- **Both variants verified in-browser (2026-07-23):** the bare URL resolves
+  to the full skinbetter.com shop carrying `businessPartner_id=10442763` —
+  Amy's practice partner id, matching §9's "partner storefront with her
+  businessPartner id" — while `?k=signup` lands on a Create-New-Account
+  form carrying the *same* partner id. Attribution is identical either
+  way; only the landing experience differs. Both show the "Welcome to the
+  skinbetter online store for: Mobile Aesthetics" banner (which the
+  brand-handoff copy in §3 prepares shoppers for).
+- **Operator decision (re-confirmed against the evidence):** use the
+  canonical URL without `?k=signup` — a "Shop" button should land on the
+  shop; registration still happens at checkout with identical practice
+  attribution. The QR card's signup-first flow suits its in-studio
+  acquisition context, not a website CTA.
 - **Operator fact:** Amy is the **sole owner of Mobile Aesthetics** — the
   storefront (and the Vagaro/Yelp handles) are her own business's assets.
   The §16 launch-checklist item "hers, not the shared location's" is

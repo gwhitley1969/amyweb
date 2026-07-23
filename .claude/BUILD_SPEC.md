@@ -173,7 +173,7 @@ retired from UI chrome (client, 2026-07-18 — see docs/DECISIONS.md).
 | `--ng-pink-500` | `#EC4899`-range (sample logo) | Brand hot pink — display text ≥ 24px bold, graphics, motifs only |
 | `--ng-magenta-600` | `#D6127D`-range (sample logo) | Deep brand magenta — large accents, display-accent text on light (service-card edge/ring role retired 2026-07-22 — fails non-text contrast on the client card pinks) |
 | `--ng-pink-300` | `#F9A8D4`-range | Tints, chevrons, decorative |
-| `--ng-blush-50` | `#FDF2F8`-range | Soft section backgrounds |
+| `--ng-blush-50` | `#FDF2F8`-range | Ombre canvas start (site-wide, 2026-07-23) + soft ambient bands (ConceptHome) |
 | `--ng-ink-900` | near-black w/ warm cast (e.g. `#221820`) | Body text |
 | `--ng-ink-pink` | darkened magenta achieving **≥ 4.5:1 on white** (e.g. `#B00A67`-range — verify) | Links, small-text accents, button text pairings |
 
@@ -200,12 +200,16 @@ every box on every page wears the service-card resting pink —
 router card, disclaimer block, investigational notice, location card,
 about facts). All box edge rules moved magenta-600 → ink-pink
 (magenta is 3.11:1 on the card pink, margin-thin against the 3.0
-non-text bar; the disclaimer's pink-300 top rule was 1.24:1). Ink-pink
-links/tags inside boxes hold 4.60:1 — passes the WCAG 4.5 hard bar;
-the house 4.7 link-headroom bar carries an operator-accepted exception
-for in-box links only (chosen over a darker in-box pink after the
-flag, DECISIONS same date). Blush-50 remains for ambient bands only
-(ConceptHome); noir boxes stay transparent-outlined.
+non-text bar; the disclaimer's pink-300 top rule was 1.24:1). In-box
+links/tags were ink-pink at 4.60:1 under an operator-accepted
+exception to the house 4.7 link-headroom bar (chosen over a darker
+in-box pink after the flag, DECISIONS same date) — since the
+2026-07-23 site-wide ombre re-inked `--ng-link` to ink-900 on every
+light page, in-box links render ink at 11.80:1 and the exception is
+dormant (it applies again only if a non-ombre light surface returns).
+Blush-50's ambient-band role (ConceptHome) continues; since
+2026-07-23 it is also the site-wide ombre canvas start. Noir boxes
+stay transparent-outlined.
 
 **Editorial menu cards (client direction, 2026-07-23):** the services
 grid renders as a categorized treatment menu — three groups

@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
-import mirrorMoment from '../assets/photos/mirror-moment.jpg';
+import familyPortrait from '../assets/photos/family-portrait.jpg';
 
 /**
  * /about — founder-forward (§6, Phase C6). Career facts resolved from
@@ -13,8 +13,10 @@ import mirrorMoment from '../assets/photos/mirror-moment.jpg';
  * practitioner since 2018 — Amy's confirmation of wording flagged in
  * the PR. The Evolus paragraph is OMITTED until {{EVOLUS_CLAIM}}
  * resolves. The multi-provider location gets its one factual line and
- * nothing more (hard constraint 2). Portrait rides the same open photo
- * flags as the concept page (client release) — preview-only.
+ * nothing more (hard constraint 2). Portrait is Amy's family
+ * (client-requested swap 2026-07-23; Amy's on-record consent covers
+ * everyone pictured incl. the minors — DECISIONS same date). Alt text
+ * deliberately names no one but Amy.
  */
 ---
 
@@ -71,8 +73,8 @@ import mirrorMoment from '../assets/photos/mirror-moment.jpg';
       </div>
       <figure class="about-portrait">
         <Image
-          src={mirrorMoment}
-          alt="Amy Palacios, FNP, with a client in the studio."
+          src={familyPortrait}
+          alt="Amy Palacios, FNP, with her family."
           widths={[480, 760, 1080]}
           sizes="(min-width: 768px) 40vw, 90vw"
           loading="eager"
@@ -141,7 +143,9 @@ import mirrorMoment from '../assets/photos/mirror-moment.jpg';
     height: auto;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    object-position: 50% 12%;
+    /* group portrait: faces sit mid-frame, not top-of-frame like the
+     * old single-subject shot — anchor the crop to the group */
+    object-position: 50% 38%;
     filter: grayscale(15%) contrast(1.03) brightness(1.05);
   }
   .about-portrait::after {

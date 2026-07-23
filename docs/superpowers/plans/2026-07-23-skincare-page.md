@@ -551,3 +551,12 @@ git -C "C:\Amy\website" worktree remove "C:\Amy\wt-skincare"
 git -C "C:\Amy\website" pull --ff-only                  # main tree stays on phase-c
 git -C "C:\Amy\website" branch -d feat/skincare-page
 ```
+
+---
+
+**Superseded in part — 2026-07-23:** Task 4's nine-card `productDetails`
+frontmatter (and the `products:` list) were replaced by six routine-step
+cards before merge, after the operator corrected the offering to the
+complete Skinbetter Science line. See the amendment in the spec and the
+same-date DECISIONS entry. The rest of this plan (URL resolution, photos,
+gates, PR flow) executed as written.

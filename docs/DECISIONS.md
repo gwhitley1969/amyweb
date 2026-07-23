@@ -1620,3 +1620,27 @@ button). Consequences: siteConfig.skinbetterUrl is live and the
 skinbetter_click event is armed; §9/§16/§17 updated; the page ships
 clinicianApproved: false behind the DraftBanner like every treatment
 line.
+
+## 2026-07-23 — Skincare page: routine-step cards replace the product catalog
+
+Context: the page shipped as a nine-product showcase, verified against
+Amy's studio photos. The operator then corrected the premise: Amy is an
+authorized Skinbetter Science provider who can sell any product in the
+line (many categories, many products, inventory that churns), so
+enumerating specific products misstates the offer and rots — a static
+page should never mirror a live catalog. Decision: six routine-step
+cards (Cleanse · Correct · Renew · Moisturize · Eye · Protect — the
+step vocabulary already present as the old cards' tags), body copy
+stating the complete line is available through the storefront, and
+exactly two franchise names permitted as illustrative examples
+(AlphaRet, sunbetter) in body copy only, never on cards. No other
+product names, no enumeration, no hardcoded category count, on any
+rendered surface (copy, FAQ, SEO meta, JSON-LD, alt text). The
+`products:` frontmatter list was removed outright. Alternatives
+rejected: ~15 brand-category cards (taxonomy churns with the brand,
+overcrowds the grid, recreates the enumeration one level up); pure
+editorial with no cards (loses the "What Amy offers" card slot and
+visual parity with every other treatment page). Consequences: zero
+code/schema changes; the layout's products bullet-list fallback is now
+unreachable on this page; the storefront is the only catalog; the page
+still ships clinicianApproved: false behind the DraftBanner.

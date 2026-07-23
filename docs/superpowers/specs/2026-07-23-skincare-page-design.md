@@ -206,3 +206,31 @@ skincare summary already correct — untouched.
 
 Page ships preview-visible, production-gated (`clinicianApproved: false`)
 until Amy approves — same as every treatment line.
+
+## Amendment — 2026-07-23: routine-step cards replace the product showcase
+
+Superseded after the operator corrected the premise: Amy is an authorized
+provider who can sell **any** Skinbetter Science product — the line is far
+larger than the nine items photographed in the studio, and its inventory
+churns. The "page depth = product showcase" decision above and the §2
+nine-card table are therefore superseded (they remain here as the record
+of what shipped first).
+
+Replacement concept, operator-selected from previewed alternatives
+(brand-category cards and a no-cards editorial page were rejected):
+
+- Six routine-step cards — **Cleanse · Correct · Renew · Moisturize ·
+  Eye · Protect** — in the same `productDetails` slot; `name` = step,
+  `tag` = generic product-form noun, `detail` = one "what it is" sentence
+  at the established claim ceiling.
+- Body copy states the complete line is available through the storefront.
+  Exactly two franchise names are permitted as illustrative examples —
+  **AlphaRet** and **sunbetter** — in body copy only, never on cards. No
+  other product names, no enumeration, no hardcoded category count, on
+  any rendered surface.
+- `products:` frontmatter removed; FAQ gains a complete-line entry; the
+  lineup photo's alt text drops its "Six" count so the photo cannot be
+  misread as depicting the six steps.
+
+Full rationale: DECISIONS.md, "2026-07-23 — Skincare page: routine-step
+cards replace the product catalog".

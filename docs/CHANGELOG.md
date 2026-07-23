@@ -8,10 +8,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ### 2026-07-23 — Skincare: the twelfth line's storefront opens
 
-- **/services/skincare** rebuilt as a product showcase: the nine
-  Skinbetter Science products Amy stocks (verified against her studio
-  photos) on claim-free cards — no pricing; prices live in the
-  storefront — plus two photos from the pro shoot.
+- **/services/skincare** rebuilt around six routine-step cards
+  (Cleanse → Protect) plus complete-line copy: Amy can supply any
+  product in the Skinbetter Science line, so the page frames the
+  routine, not a catalog — only the AlphaRet and sunbetter franchises
+  are named, as examples. No pricing; prices live in the storefront —
+  plus two photos from the pro shoot. (DECISIONS same date.)
 - "Shop Skinbetter Science" is live: `{{SKINBETTER_URL}}` resolved to
   the practice storefront, decoded from Amy's own counter-card QR and
   verified in-browser (DECISIONS same date). Ships

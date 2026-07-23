@@ -84,23 +84,33 @@
  *   --ng-aura-glow (neon-500 25%) is a drop-shadow color, never text.
  *   OMBRE CANVAS (client direction 2026-07-23, matched to the client's
  *   reference image — ombre page background, near-white at top ->
- *   full brand pink at bottom; trial on /services via html[data-ombre];
- *   computed same script/method, sanity pairs reproduced
- *   17.22/6.71/4.60/6.14 exactly). The ramp runs blush-50 -> pink-500,
- *   luminance monotone, so the end-stop pairs bound the whole ramp:
+ *   full brand pink at bottom. Trialed on /services, then SITE-WIDE
+ *   the same day on client approval: every light-surface body wears
+ *   the ramp via body:not([data-surface='noir']) in global.css; noir
+ *   bodies — construction home, /404 — stay flat black. Computed same
+ *   script/method, sanity pairs reproduced 17.22/6.71/4.60/6.14
+ *   exactly). The ramp runs blush-50 -> pink-500, luminance monotone,
+ *   so the end-stop pairs bound the whole ramp:
  *   PASS  4.88:1 (min 4.5) ink-900 on ombre-end pink-500 — body text
  *         (the recorded BRAND-PINK FILLS pair — the canvas may never
  *         exceed pink-500; neon-500 drops ink-900 to 4.66 AND neon
  *         never renders as a light surface)
  *   PASS  4.88:1 (min 3.0) ink-900 focus ring on ombre-end
- *   COMPANION RE-INK (html[data-ombre] rules in global.css): eyebrows
- *   (--ng-kicker), accent rules (--ng-rule-accent), and the focus ring
- *   all switch to ink-900 on ombre pages — ink-pink falls to 2.33 and
- *   magenta-600 to ~1.9 mid-ramp, so neither may render on the ombre
- *   canvas. Noir bands keep their own scoped values.
- *   RULE: canvas-level ink-pink LINKS are legal only in the top ~15%
- *   of an ombre page (breadcrumbs: on blush-50, 6.14 + underline).
- *   Anything lower must sit on an opaque plate or go ink-900.
+ *   PASS  4.88:1 (min 4.5) ink-900 links on ombre-end — links are
+ *         distinguished by underline (prose/breadcrumbs) or border
+ *         (outline CTA), never by color alone
+ *   PASS 11.80:1 ink-900 links/tags INSIDE boxes on card #f4cae2 —
+ *         the site-wide link re-ink lifts the 2026-07-22 in-box 4.60
+ *         exception on ombre pages; the house 4.7 bar is met with
+ *         headroom again
+ *   COMPANION RE-INK (the ombre body rule in global.css): eyebrows
+ *   (--ng-kicker), accent rules (--ng-rule-accent), the focus ring,
+ *   and links/outline CTAs (--ng-link) all switch to ink-900 on ombre
+ *   pages — ink-pink falls to 2.33 and magenta-600 to ~1.9 mid-ramp,
+ *   so neither may render on the ombre canvas. The display accent
+ *   (--ng-display-accent) re-inks too: its one light-canvas consumer
+ *   is the VisitSteps numerals, which sit mid-ramp. Noir bands keep
+ *   their own scoped values (pink-300 family throughout).
  *   Cards on the ramp: plates cross canvas-equal luminance ~30% down
  *   (hairline + content carry the boundary there — decorative, no
  *   bar), then read as light plates on deep pink below (1.6:1+ at the
@@ -173,14 +183,14 @@
   --ng-card-rest: #f4cae2;
   --ng-card-hover: #efb1d5;
   /* ombre page canvas (client direction 2026-07-23, matched to the
-   * client's reference image; trial on /services via body[data-ombre] —
-   * see the rule in global.css): vertical ramp, near-white blush at the
-   * top sweeping to full brand pink at the bottom. The end stop is
-   * pink-500 EXACTLY — the deepest surface with a recorded ink-900
-   * body-text pair (4.88, BRAND-PINK FILLS above). Hotter (neon-500)
-   * fails that pair and neon never renders as a light surface.
-   * Contrast entries + companion re-ink rules: OMBRE CANVAS block in
-   * the header above. */
+   * client's reference image; site-wide on every light body since the
+   * same day, client-approved — see the body:not(noir) rule in
+   * global.css): vertical ramp, near-white blush at the top sweeping
+   * to full brand pink at the bottom. The end stop is pink-500
+   * EXACTLY — the deepest surface with a recorded ink-900 body-text
+   * pair (4.88, BRAND-PINK FILLS above). Hotter (neon-500) fails that
+   * pair and neon never renders as a light surface. Contrast entries
+   * + companion re-ink rules: OMBRE CANVAS block in the header above. */
   --ng-ombre-start: var(--ng-blush-50);
   --ng-ombre-end: var(--ng-pink-500);
   /* hairline rules/borders — decorative only, never text */

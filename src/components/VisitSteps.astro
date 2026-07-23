@@ -69,8 +69,9 @@ const steps = [
     font-size: 3.0625rem; /* 49px — display-size, the Playfair floor */
     line-height: 1;
     font-weight: 500; /* matches the softened display weights */
-    /* surface-scoped display accent — magenta-600 holds >=4.15:1 on both
-     * light surfaces (tokens.css contrast table) */
+    /* surface-scoped display accent — magenta on flat light surfaces
+     * (4.15 recorded), ink-900 on the ombre canvas where these sit
+     * mid-ramp and magenta washes out (tokens.css OMBRE CANVAS) */
     color: var(--ng-display-accent);
     min-width: 2ch;
   }

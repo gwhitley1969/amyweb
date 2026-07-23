@@ -1,5 +1,20 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-22:** **Laser Treatments added — the catalog
+> is now twelve lines.** Built from the operator-supplied Venus Versa
+> brochures (constraint-8-class, view-only): three applications —
+> NanoFractional RF resurfacing, IPL photo-rejuvenation, Multi-Polar
+> RF + PEMF — all appearance-hedged, no pricing (menu tracked as
+> `{{VENUS_VERSA_MENU}}`, consult-routed). Two operator overrides after
+> flags: the /services H1 is now **"Twelve lines. One expert
+> clinician."** (adds "expert" to the established pattern), and the
+> line is titled **"Laser Treatments"** although the applicators are
+> IPL + RF, not laser — the body copy states the physics factually as
+> the mitigation. The manufacturer's marketing name for the third
+> application is a banned angle and never appears in the repo. Enum,
+> grid, and pa11y URL set grew to 12. `clinicianApproved: false` —
+> DECISIONS 2026-07-22.
+
 > **STATUS UPDATE 2026-07-22:** **Hormone Optimization built — and the
 > FDA disclaimer now actually renders.** The page shipped
 > `bioteDisclaimer: true` while `BioteDisclaimer.astro` output the
@@ -216,11 +231,12 @@ every string):
 
 - [ ] `/` — Home: Hero (lockup + confirmed promise + Book CTA), "Meet Amy"
       trust block (FNP, since 2017, Biote-certified — facts from
-      `{{AMY_BIO}}`), ServiceLineGrid (11 lines since PR #16; featured
-      variant per Amy's pick), location strip (NAP + directions link-out), Get-the-App slot
+      `{{AMY_BIO}}`), ServiceLineGrid (12 lines — 11 since PR #16,
+      +laser 2026-07-22; featured variant per Amy's pick), location
+      strip (NAP + directions link-out), Get-the-App slot
       (flag stays off), closing noir CTA band. Two seams max (design rule).
-- [x] `/services` — index: short factual intro per line → 11 detail
-      links (9 at C5; grew with PR #16). Card colors client-picked
+- [x] `/services` — index: short factual intro per line → 12 detail
+      links (9 at C5; grew with PR #16, +laser 2026-07-22). Card colors client-picked
       2026-07-22: rest `#f4cae2`, highlight `#efb1d5` + ink-pink
       ring/titles (DECISIONS same date).
 - [x] `/about` — Amy's story + credentials from `{{AMY_BIO}}`; factual
@@ -240,9 +256,10 @@ every string):
 - [x] `/404` — branded (currently minimal), routes home/book. (§18 puts
       404 polish in Phase D; create the branded version whenever cheap.)
 
-Treatment pages — 9 content files in `src/content/treatments/` rendered
+Treatment pages — 12 content files in `src/content/treatments/` rendered
 through TreatmentLayout (schema already in `src/content.config.ts`;
-`clinicianApproved: false` on ALL of them, DraftBanner visible):
+`clinicianApproved: false` on all of them except dermal-fillers —
+approved 2026-07-21 — with the DraftBanner visible until each flips):
 
 - [x] `weight-loss-glp-1` — Semaglutide, Tirzepatide (+ Retatrutide ONLY
       per `{{RETATRUTIDE_COUNSEL}}`; if published: `investigational: true`,
@@ -270,6 +287,17 @@ through TreatmentLayout (schema already in `src/content.config.ts`;
       Tone; **not** Trim). Describe by intended design only — never as
       outcomes, and **no body-fat or measurement language of any kind**
       (§7.11). ctaType: consult.
+- [x] `laser-treatments` *(added 2026-07-22, Venus Versa)* — three
+      applications, appearance-hedged, mechanism as design intent:
+      NanoFractional RF resurfacing, IPL photo-rejuvenation
+      (FDA-cleared stated as the accurate device term, no indication
+      lists), Multi-Polar RF + PEMF. The manufacturer's marketing name
+      for the third application is a banned angle — never in the repo.
+      No session counts or intervals, no downtime/results promises, no
+      prices (menu tracked as `{{VENUS_VERSA_MENU}}`). The line title
+      is the operator's naming choice (the applicators are IPL + RF,
+      not laser — physics stated factually in copy, §7.12).
+      ctaType: consult.
 - [x] `iv-therapy` — Myers' Cocktail, Immunity IV, vitamin shots,
       Glutathione, B12, NAD IV. **Glutathione: no disease claims in any
       form; "Immunity IV" is a product name — never extend it into immune
@@ -347,7 +375,7 @@ they ride the same clinician-approval gate as the rest of the page.
 
 ## 5. Definition of done for Phase C
 
-Every §6 page exists and renders through the design system; all 9
+Every §6 page exists and renders through the design system; all 12
 treatment drafts complete against their §7 briefs with correct flags;
 legal drafts marked; integrations wired (tokens visible where unresolved);
 gates green; preview reviewed by operator + Amy. Production deploy will

@@ -1494,3 +1494,35 @@ Consequences: the README now states plainly that a green `lint:claims` is a
 floor and not a verdict, since the judgment exclusions accumulating in this
 phase — the Glutathione "Uses" text, "menopause", "Low T", "no downtime" —
 are all things the regex permits and the rulebook does not.
+
+## 2026-07-22 — Laser Treatments: twelfth line from the Venus Versa brochures
+
+Context: the operator supplied three Venus Versa patient brochures
+(C:\Amy\scans\Venus Versa — constraint-8-class, view-only) and asked for a
+twelfth service line plus a /services heading change. AskUserQuestion
+settled scope: all three applications (NanoFractional RF resurfacing, IPL
+photo-rejuvenation, Multi-Polar RF + PEMF), no pricing — consult-routed,
+the open menu tracked as the new {{VENUS_VERSA_MENU}} token. Decision:
+build /services/laser-treatments to the device-line standard — three
+product cards, mechanism as design intent, appearance-hedged areas,
+FDA-cleared stated only where the brochures state it (the IPL applicators
+and the fine-line applicator; the resurfacing section stays
+clearance-silent). Two operator overrides, each flagged once then executed
+cleanly: (1) the /services H1 becomes "Twelve lines. One expert
+clinician." — "expert" is new wording, a step toward self-description the
+heading had avoided; (2) the line is titled "Laser Treatments" although
+the platform's applicators are IPL and radiofrequency, not laser — the
+flag offered "Laser & Light"; the mitigation is that the summary, the
+opening section, and the first FAQ state the physics factually.
+Alternatives rejected: waiting for pricing (blocks the line on an open
+menu); folding the applications into Skin Rejuvenation (§7.10 is scoped to
+PiXel8-RF + peels, and the operator asked for a twelfth box). Excluded per
+§8: the manufacturer's marketing name for the third application (a banned
+angle, kept out of the repo entirely — recorded only here), session counts
+and scheduling intervals, downtime and results-timeline promises,
+"lesions"/Fitzpatrick indication detail, device-spec figures, and the
+brochure before/after cases with their named med-spas. Consequences: the
+SERVICE_LINES enum, the grid, §6/§7.12/§17, and the pa11y URL set grow to
+twelve; the page ships clinicianApproved: false behind the DraftBanner;
+the cross-link section routes the PiXel8-RF overlap to consultation;
+brochure scans never enter the repo.

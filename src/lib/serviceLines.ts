@@ -62,6 +62,12 @@ export const serviceLines: ServiceLine[] = [
     href: '/services/body-contouring',
   },
   {
+    slug: 'laser-treatments',
+    title: 'Laser Treatments',
+    summary: 'Venus Versa treatments using intense pulsed light and radiofrequency energy.',
+    href: '/services/laser-treatments',
+  },
+  {
     slug: 'iv-therapy',
     title: 'IV Therapy & Vitamin Support',
     summary: "IV drips and vitamin shots, including the Myers' Cocktail.",

@@ -15,7 +15,10 @@
     "http://localhost:4325/privacy",
     "http://localhost:4325/terms",
     "http://localhost:4325/medical-disclaimer",
-    "http://localhost:4325/services",
+    {
+      "url": "http://localhost:4325/services",
+      "levelCapWhenNeedsReview": "warning"
+    },
     "http://localhost:4325/services/wrinkle-relaxers",
     "http://localhost:4325/services/dermal-fillers",
     "http://localhost:4325/services/biostimulators",

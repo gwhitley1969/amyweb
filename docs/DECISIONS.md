@@ -1644,3 +1644,27 @@ visual parity with every other treatment page). Consequences: zero
 code/schema changes; the layout's products bullet-list fallback is now
 unreachable on this page; the storefront is the only catalog; the page
 still ships clinicianApproved: false behind the DraftBanner.
+
+## 2026-07-23 — Skincare: branded storefront callout (competitor comparison)
+
+Context: the operator reviewed a competitor also partnered with
+Skinbetter (glowwithharmonia.com/skincare/#sk-lines). Their block links
+skinbetter.pro//HarmoniaWellnessandAesthetics, which 301s to
+connect.skinbetter.com/HarmoniaWellnessandAesthetics — the same
+provider-storefront system Amy's page already links canonically, so
+functional parity already existed (Amy's link skips their redirect
+hop). The gap was presentational: their block gives the partnership a
+branded visual moment. Decision: add StorefrontCallout.astro to
+/services/skincare — a noir-surfaced plate after "How buying works"
+(eyebrow "Skinbetter Science · Authorized provider", statement "Amy's
+custom Skinbetter storefront — the complete line, shipped to your
+door.", CTAButton shop variant). "Custom … storefront" is Skinbetter's
+own counter-card phrasing. Text-only branding; the Skinbetter logo
+waits on partner brand assets from Amy (open follow-up). Alternatives
+rejected: no change (the partnership had no visual moment on the page);
+importing the competitor's copy ("clinically proven", "award-winning" —
+fails §8 claim rules); switching to the skinbetter.pro vanity URL
+(redirect hop; canonical already wired, DECISIONS same date, above).
+Consequences: two shop CTAs on the page (mid-page handoff + closing
+band), both firing skinbetter_click; zero new JS; noir stays
+per-section per the a11y rulebook.

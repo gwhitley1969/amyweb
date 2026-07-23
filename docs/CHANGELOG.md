@@ -18,6 +18,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   the practice storefront, decoded from Amy's own counter-card QR and
   verified in-browser (DECISIONS same date). Ships
   `clinicianApproved: false` behind the DraftBanner.
+- A branded storefront callout (noir plate, "Amy's custom Skinbetter
+  storefront") lands mid-page after a competitor comparison confirmed
+  link parity but a presentational gap (DECISIONS same date).
 
 ### 2026-07-23 — /services redesigned as a categorized editorial menu
 

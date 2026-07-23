@@ -6,6 +6,27 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-23 — Ombre canvas trial on /services
+
+- The white page background becomes an ombre (client direction,
+  matched to the client's reference image): blush `#fdf2f8` at the top
+  sweeping to full brand pink `#ec4899`, reaching depth just above the
+  noir CTA band. Trial-scoped to /services via a BaseLayout `ombre`
+  flag; every other page is untouched. Site-wide rollout is phase 2,
+  after the client approves the trial.
+- Canvas-level openers (eyebrows + accent rules) and the focus ring
+  switch to ink on ombre pages via new `--ng-kicker` /
+  `--ng-rule-accent` tokens — ink-pink and magenta wash out mid-ramp;
+  noir bands keep their own scoped colors, pixel-identical.
+- The a11y gate cannot compute contrast over gradients and fails such
+  text outright; no smooth ombre is fully axe-auditable (a pseudo-layer
+  re-engineering failed worse). Operator decision by explicit
+  instruction: the /services entry in `.pa11yci.json` caps axe's
+  needs-review class to warnings — that URL only; true violations
+  still fail at zero tolerance everywhere. The hand-computed
+  worst-case pairs recorded in tokens.css (all passing, floor 4.88:1)
+  are the required review. Full story: DECISIONS 2026-07-23.
+
 ### 2026-07-23 — Studio strip: three photos join /services
 
 - Three vetted frames of Amy at work now sit between the intro and the

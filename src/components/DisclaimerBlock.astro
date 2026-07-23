@@ -19,10 +19,12 @@
 <style is:global>
   .disclaimer {
     margin-top: 3rem;
-    /* white card on the blush ambient — the disclaimer must not fade
+    /* card pink on the paper ambient — the disclaimer must not fade
      * into the page (conspicuousness rule, see DECISIONS) */
     background: var(--ng-card);
-    border-top: 2px solid var(--ng-pink-300);
+    /* pink-300 is 1.24:1 on the card pink (near-invisible) — the top
+     * rule moved to ink-pink with the 2026-07-22 site-wide box recolor */
+    border-top: 2px solid var(--ng-ink-pink);
     padding: 1.5rem;
     font-size: 0.9375rem;
     color: var(--ng-ink-900);

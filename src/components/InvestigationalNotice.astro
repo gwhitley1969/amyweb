@@ -35,10 +35,12 @@ const { productName = 'This product', note } = Astro.props;
 <style is:global>
   .notice {
     margin: 1.5rem 0;
-    border: 1px solid var(--ng-magenta-600);
+    /* ink-pink frame — magenta-600 is 3.11:1 on the card pink,
+     * margin-thin (tokens.css SITE-WIDE BOXES) */
+    border: 1px solid var(--ng-ink-pink);
     border-left-width: 4px;
     border-radius: 0.25rem;
-    /* white card on the blush ambient — disclosures stay conspicuous */
+    /* card pink on the paper ambient — disclosures stay conspicuous */
     background: var(--ng-card);
     padding: 1rem 1.25rem;
     color: var(--ng-ink-900);

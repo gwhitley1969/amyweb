@@ -44,7 +44,9 @@ const { items } = Astro.props;
   .product-card {
     background: var(--ng-card);
     border: 1px solid var(--ng-hairline);
-    border-left: 1px solid var(--ng-magenta-600);
+    /* ink-pink edge like the /services cards — magenta-600 is 3.11:1
+     * on the card pink, margin-thin (tokens.css SITE-WIDE BOXES) */
+    border-left: 1px solid var(--ng-ink-pink);
     padding: 1.25rem;
   }
   .product-name {
@@ -53,8 +55,9 @@ const { items } = Astro.props;
     line-height: 1.3;
     font-weight: 600;
   }
-  /* eyebrow color is --ng-link: ink-pink holds 6.14:1 on blush-50
-   * (tokens.css table) — passes the 4.5:1 small-text bar at this size. */
+  /* eyebrow color is --ng-link: ink-pink is 4.60:1 on the card pink —
+   * passes the 4.5:1 small-text hard bar (operator-accepted margin,
+   * tokens.css SITE-WIDE BOXES). */
   .product-tag {
     font-size: 0.6875rem;
   }

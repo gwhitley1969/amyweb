@@ -20,6 +20,23 @@ change lives in `docs/DECISIONS.md`; design specs live in
   link-headroom bar carries an operator-accepted in-box exception
   (DECISIONS same date). Ambient blush bands and noir boxes unchanged.
 
+### 2026-07-22 — Laser Treatments: the twelfth line
+
+- New page **/services/laser-treatments** — Venus Versa, three
+  applications on product cards (NanoFractional RF resurfacing, IPL
+  photo-rejuvenation, Multi-Polar RF + PEMF), all appearance-hedged, no
+  pricing: the line is consult-routed and the open menu is tracked as
+  `{{VENUS_VERSA_MENU}}`. Ships `clinicianApproved: false` behind the
+  DraftBanner.
+- **/services now reads "Twelve lines. One expert clinician."** — the
+  count bump plus the operator's wording choice ("expert" is new,
+  flagged once). The meta description follows and gains "laser
+  treatments".
+- The grid card sits ninth, closing the device row (skin rejuvenation,
+  body contouring, laser); enum, §6/§7.12/§17, trackers, and the pa11y
+  URL set grew to twelve. The manufacturer's marketing name for the
+  third application is a banned angle and never appears in the repo.
+
 ### 2026-07-22 — Compliance docs brought in line with the code
 
 Documentation-only sweep after the disclaimer work. No behaviour changes.

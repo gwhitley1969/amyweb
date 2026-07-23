@@ -24,6 +24,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
   ombre page's pa11y entry carries the per-URL needs-review cap
   (21 of 23 URLs, operator-gated). DECISIONS 2026-07-23.
 
+### 2026-07-23 — Footer credit: Created by Xtend-AI
+
+- Every page's footer closes with a small credit line under the © row:
+  "Created by: Xtend-AI", linking to xtend-ai.com (client direction).
+  One edit in `Footer.astro`; text-xs, existing footer-link treatment,
+  new-tab convention matching the social links. No analytics event.
+- The under-construction home page has no footer component, so it gets
+  the same credit pinned to the bottom of its full-height layout —
+  every built page now carries it.
+
 ### 2026-07-23 — Ombre canvas trial on /services
 
 - The white page background becomes an ombre (client direction,

@@ -39,10 +39,13 @@ const chips = ['Licensed family nurse practitioner', 'Free consultation upon req
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
-  /* Editorial middot separators (decorative punctuation). */
-  .trust-chips__chip + .trust-chips__chip::before {
+  /* Editorial middot separators (decorative punctuation). The dot TRAILS
+   * each chip (::after on non-last) instead of leading the next: a
+   * separator may end a wrapped line like a comma, but a new line never
+   * starts with a stray dot (taste audit 2026-07-25). */
+  .trust-chips__chip:not(:last-child)::after {
     content: '\00B7';
-    margin-right: 0.75rem;
+    margin-left: 0.75rem;
     opacity: 0.6;
   }
 </style>

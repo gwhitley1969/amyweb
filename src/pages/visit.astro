@@ -8,8 +8,10 @@ import LocationCard from '../components/LocationCard.astro';
 /**
  * /visit — location page (§6, Phase C1). NAP + directions live in
  * LocationCard (maps are link-outs, never embedded — §9/§10). {{HOURS}}
- * renders visibly until the operator supplies it; the parking note waits
- * on operator wording (a new registry item, not yet in §17).
+ * is unresolved, so LocationCard omits the hours line (2026-07-25) and
+ * this page's copy does not promise hours — restore the mention in the
+ * lead and the card heading when the operator supplies them. The parking
+ * note waits on operator wording (a new registry item, not yet in §17).
  */
 ---
 
@@ -25,10 +27,10 @@ import LocationCard from '../components/LocationCard.astro';
     <h1 class="display-2 mt-6">Visit Amy</h1>
     <p class="lead mt-6">
       Amy sees clients in Harrisburg, North Carolina, just northeast of
-      Charlotte. Directions, contact, and hours are below.
+      Charlotte. Directions and contact are below.
     </p>
     <div class="mt-10">
-      <LocationCard heading={'Location & hours'} headingLevel="h2" />
+      <LocationCard heading={'Location'} headingLevel="h2" />
     </div>
   </section>
 

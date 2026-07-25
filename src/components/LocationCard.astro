@@ -3,10 +3,16 @@ import { siteConfig } from '../lib/siteConfig';
 
 /**
  * NAP display + directions link-out (BUILD_SPEC §9/§10 — maps are
- * link-outs, never embedded iframes). Values come from siteConfig only;
- * unresolved {{TOKEN}}s render visibly until the operator supplies them.
+ * link-outs, never embedded iframes). Values come from siteConfig only.
  * /visit renders its own "Visit Amy" H1, so the card heading can change
  * text and level there; the defaults keep every other consumer unchanged.
+ *
+ * HOURS: the line renders ONLY once {{HOURS}} resolves (operator
+ * direction 2026-07-25 — a visible placeholder on a home-page candidate
+ * reads as broken). Same isResolved idiom the Footer uses for social
+ * links and schema.ts uses for JSON-LD; the token stays in siteConfig
+ * and BUILD_SPEC §17, so it is still tracked as an open input, and the
+ * line returns by itself the moment the operator supplies real hours.
  */
 interface Props {
   heading?: string;
@@ -14,6 +20,7 @@ interface Props {
 }
 const { heading = 'Visit Amy', headingLevel = 'h3' } = Astro.props;
 const HeadingTag = headingLevel;
+const hoursResolved = !/\{\{.+\}\}/.test(siteConfig.hours);
 const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   `Needle Girlie ${siteConfig.address}`,
 )}`;
@@ -25,9 +32,7 @@ const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encode
     {siteConfig.legalName}<br />
     {siteConfig.address}
   </p>
-  <p class="mt-2">
-    Hours: {siteConfig.hours}
-  </p>
+  {hoursResolved && <p class="mt-2">Hours: {siteConfig.hours}</p>}
   <p class="mt-2">
     <a href={siteConfig.phoneTel} data-event="call_click">{siteConfig.phone}</a>
   </p>

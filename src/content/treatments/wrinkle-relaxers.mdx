@@ -88,7 +88,6 @@ a consultation.
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
-    <figcaption class="eyebrow">In the chair</figcaption>
   </figure>
 </section>
 
@@ -100,7 +99,6 @@ a consultation.
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
-    <figcaption class="eyebrow">For him, too</figcaption>
   </figure>
   <div class="media-copy">
 
@@ -114,7 +112,9 @@ unhurried planning, with Amy.
   </div>
 </section>
 
-<section class="media-row media-row--flip">
+{/* Third media moment: full-width band, not a third zigzag row —
+  * scale variation closes the sequence (taste-audit follow-up). */}
+<section class="media-band">
   <div class="media-copy">
 
 ## Individualized, with Amy
@@ -125,12 +125,19 @@ her Harrisburg studio — minutes from Charlotte.
 
   </div>
   <figure class="media-figure">
+    {/* Server-side 16:9 crop (width/height + fit): the CSS-only crop
+      * shipped ~45% never-shown portrait pixels and tripped the CI
+      * image budget (256,569 > 245,760 on the runner — the layout's
+      * .media-band aspect-ratio stays as the display contract). */}
     <Image
       src={fineGauge}
       alt="A close-up of Amy's pink-gloved hands guiding a fine-gauge syringe at a resting client's lower face."
-      widths={[340, 540, 680]}
-      sizes="(max-width: 40rem) 90vw, 17rem"
+      width={1440}
+      height={810}
+      fit="cover"
+      position="attention"
+      widths={[720, 1080, 1440]}
+      sizes="(max-width: 48rem) 92vw, 45rem"
     />
-    <figcaption class="eyebrow">Up close</figcaption>
   </figure>
 </section>

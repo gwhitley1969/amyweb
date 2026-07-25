@@ -1,5 +1,13 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-25 (later):** **Treatment media recomposed**
+> — decorative polaroid captions retired sitewide (13 across 7 pages;
+> video attribution captions stay), wrinkle-relaxers' third photo row
+> is now a full-width band (`.media-band`). dermal-fillers approval
+> RESET (captions-only diff; Amy re-reviews to re-flip). Featured-card
+> activation: operator passed — menu stays all-equal. DECISIONS
+> 2026-07-25.
+
 > **STATUS UPDATE 2026-07-25:** **Taste-audit polish shipped** — five
 > operator-approved adoptions from the read-only taste-skill audit:
 > trailing trust-chip middots (the wrap bug), odd-count product-card

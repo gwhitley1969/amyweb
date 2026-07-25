@@ -2038,3 +2038,26 @@ scoped — tokens stay visible in DRAFT treatment copy (where they
 prompt the clinician), but chrome-level facts (hours, social) hide
 until resolved. Nothing about the "never invent facts" rule changes:
 no hours are stated anywhere.
+
+## 2026-07-25 — Local agent tooling and root reference images are ignored
+
+Context: `.agents/` (an eleven-skill mirror of the Leonxlnx/taste-skill
+marketplace) and `skills-lock.json` sat untracked in the repo root, and
+the root image guard covered only `/*.png` — leaving `pink_ombre.jpg`,
+the client's colour-study reference, one `git add .` away from being
+committed into the client's repository.
+Decision: both tooling artifacts join the existing "local tooling"
+ignore block beside `.claude/skills/`, and the root debug-image rule
+extends from `/*.png` to `/*.jpg` and `/*.jpeg`.
+Alternatives rejected: committing the skill mirror (Xtend-AI's agent
+scaffolding is not the client's project code, and the lockfile pins
+content hashes that mean nothing to her); leaving the jpg gap and
+relying on care alone.
+Verified: `git ls-files --cached -i --exclude-standard` returns empty
+— no already-tracked file became ignored, and `src/assets` is
+untouched because every pattern is root-anchored.
+Consequence: **the `/*.jpg` rule is not overbroad — it is the guard on
+`pink_ombre.jpg`. Do not "tidy" it away.** Note also that gitignore
+only governs untracked files: had the reference image ever been
+committed, this rule would do nothing and removal would need
+`git rm --cached` plus history surgery.

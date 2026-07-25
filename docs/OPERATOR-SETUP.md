@@ -26,9 +26,12 @@ One-time configuration the pipeline expects. Names must match exactly.
 
 ## Azure portal (SWA Standard)
 
-- Set the **preview environment password**: Static Web App → Environments →
-  password-protect non-production environments. Share the password with Amy
-  for her reviews.
+- **No preview password to set.** Password protection is off and preview
+  environments are public + noindexed (DECISIONS 2026-07-21). Preview URLs go
+  to Amy as-is, once the deploy run finishes. Do not turn Password protection
+  back on in Portal → `stapp-needlegirlie` → Configuration: the basicAuth
+  cookie looped in Chrome for Windows and locked her out, which is why it
+  was removed.
 - The deployment token above is the only coupling between GitHub and SWA.
 
 ## OIDC federated credential (no publish-profile secrets)

@@ -2011,6 +2011,30 @@ is not confirmed for THIS frame anywhere in the log — confirm on the
 record or swap the frame; (b) Amy's sign-off on the IG post caption
 (its baked-in text is invisible to lint:claims and lint:voice, which
 cannot read pixels — the slot is post-agnostic if she prefers
-another); (c) {{MEDIA_SCOPE}} closure. Also unchanged and visible:
-LocationCard renders "Hours: {{HOURS}}" until that token resolves,
-exactly as it does on /visit.
+another); (c) {{MEDIA_SCOPE}} closure.
+
+## 2026-07-25 — Unresolved hours are hidden, not printed
+
+Context: LocationCard printed "Hours: {{HOURS}}" wherever it rendered
+(/visit, the styleguide demo, and now the home candidate). On a page
+that is about to become the site's front door, a visible placeholder
+reads as a broken site rather than as a tracked open input. Operator
+direction after seeing it on the rebuilt concept: remove it.
+Decision: the hours line renders ONLY when {{HOURS}} resolves — the
+same isResolved idiom already used for Footer social links and for
+JSON-LD in schema.ts, rather than deleting the feature. The token
+stays in siteConfig and BUILD_SPEC §17, so it remains a tracked open
+input, and the line reappears by itself the moment real hours land.
+/visit's copy stopped promising hours in the same change (lead:
+"Directions and contact are below"; card heading "Location & hours"
+-> "Location"), with a comment telling the next editor to restore
+both when the hours arrive.
+Verified: {{HOURS}} now appears in ZERO built HTML files (full dist
+sweep). Structured data was never affected — schema.ts's pruned()
+already dropped openingHours while unresolved, checked first-hand
+rather than assumed.
+Consequence: the visible-placeholder convention is now explicitly
+scoped — tokens stay visible in DRAFT treatment copy (where they
+prompt the clinician), but chrome-level facts (hours, social) hide
+until resolved. Nothing about the "never invent facts" rule changes:
+no hours are stated anywhere.

@@ -736,7 +736,9 @@ Use these tokens verbatim in code/content. Never invent values for them.
   structure, SWA config generation (both variants), GitHub Actions (preview +
   production skeleton), compliance linter + approvals check stubs wired into
   `verify`, optional Bicep. Exit: a "hello, Needle Girlie" page deploys to a
-  password-protected preview and to production behind Front Door.
+  preview environment and to production behind Front Door. (Previews were
+  password-protected when Phase A closed; protection was removed
+  2026-07-21 — §14, DECISIONS.)
 - **Phase B — Design system:** design plan (per §5 process, present for
   approval) → tokens, typography, component inventory, base layouts with
   disclaimer injection.

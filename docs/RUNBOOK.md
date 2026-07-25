@@ -23,11 +23,26 @@ design: `allowedForwardedHosts` only admits the real hostnames.
 
 1. Branch → edit → `npm run verify` (must be green; never weaken a gate).
 2. Open a PR. CI verifies again and deploys a **preview environment**
-   (URL in the workflow summary; password-protected — share the password
-   with Amy for review). Closing the PR tears the preview down.
+   (URL in the workflow summary). Previews are **public and noindexed** —
+   no password (DECISIONS 2026-07-21) — so the URL can go straight to Amy,
+   but only **after the deploy run completes**: sent earlier it 404s and
+   reads as a broken link. Closing the PR tears the preview down.
 3. Merge to `main`. The production workflow re-verifies, runs the
    **clinician-approval gate**, deploys, and purges the Front Door cache.
    Live in ~5–10 minutes end to end.
+
+## Where `phase-c` is visible
+
+`pr-preview.yml` triggers on `pull_request` only — never on `push`. Pushes
+to `phase-c` deploy because **PR #5 (`phase-c` → `main`) is open**: each push
+is a `synchronize` event on it, so PR #5's preview environment is effectively
+the stable `phase-c` preview, at
+`https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net`.
+
+The environment number is the PR number — PR #61's preview was `…-61…`.
+**Consequence worth knowing:** if PR #5 is ever closed, pushes to `phase-c`
+stop deploying anywhere, with no failing run to point at. Reopen it, or open
+a replacement PR from `phase-c`, rather than debugging the workflow.
 
 Treatment-content rules (CLAUDE.md hard constraint 4): only a human sets
 `clinicianApproved: true`; any edit to approved content resets it to `false`
@@ -57,12 +72,13 @@ az afd endpoint purge -g rg-needlegirlie-web --profile-name afd-needlegirlie \
 HTML is edge-cached ~5 minutes (`max-age=300`); hashed `/_astro/*` assets are
 immutable and never need purging.
 
-## Preview password
+## Preview access
 
-Protects all non-production SWA environments (form login, cookie session).
-Consumed only by humans — no pipeline or identity uses it. Rotate either in
-Portal → `stapp-needlegirlie` → Configuration → Password protection, or by
-re-running the infra deployment with a new `previewPassword` value (below).
+There is none to manage: SWA password protection is **off**, and preview
+environments are public + noindexed (DECISIONS 2026-07-21 — the basicAuth
+cookie looped in Chrome for Windows and locked Amy out). `infra/swa.bicep`
+deliberately declares no basicAuth resource; **do not re-add one** without
+the operator, or the same lockout returns.
 
 ## Infrastructure changes (Bicep)
 
@@ -70,11 +86,12 @@ All Azure state is captured in `infra/`. To apply changes:
 
 ```
 az deployment sub create --location eastus2 --template-file infra/main.bicep \
-  --parameters previewPassword=<current-or-new> budgetStartDate=<yyyy-MM-01>
+  --parameters budgetStartDate=<yyyy-MM-01>
 ```
 
-Idempotent — safe to re-run. `previewPassword` must be supplied each run
-(it is not stored anywhere; supplying a new value rotates it).
+Idempotent — safe to re-run. `budgetStartDate` is the only parameter without
+a default, so it must be supplied each run; `location`,
+`dnsZoneResourceGroup`, and `budgetContactEmails` default correctly.
 
 Adding a Front Door custom domain takes three phases: TXT validation
 (instant, automated in Bicep) → managed cert issuance (minutes) → edge

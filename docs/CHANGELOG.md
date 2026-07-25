@@ -6,6 +6,39 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-25 — Operational docs corrected: previews have no password
+
+- Preview password protection was removed 2026-07-21, but the docs that
+  tell a human what to *do* were never updated. Corrected in RUNBOOK
+  (everyday-changes step 2, the "Preview password" section),
+  OPERATOR-SETUP (the portal instruction to set one), PHASE-C §4, and
+  BUILD_SPEC §18's Phase A exit criteria — which contradicted §14 and
+  line 102 of the same document.
+- **The one that mattered:** RUNBOOK's Bicep command still passed
+  `--parameters previewPassword=<current-or-new>`, and that parameter no
+  longer exists in `infra/main.bicep` (only `location`,
+  `dnsZoneResourceGroup`, `budgetContactEmails`, `budgetStartDate`). The
+  documented infrastructure command would have failed — and it is the
+  disaster-recovery path, so it would have failed at the worst moment.
+- RUNBOOK gained a "Where `phase-c` is visible" section: `pr-preview.yml`
+  triggers on `pull_request` only, so pushes to `phase-c` deploy purely
+  because PR #5 is open and each push is a `synchronize` event on it.
+  If PR #5 ever closes, `phase-c` silently stops deploying with no failing
+  run to point at.
+- Historical mentions in DECISIONS, earlier CHANGELOG entries, and the
+  dated design spec were left alone — they describe what was true then.
+
+### 2026-07-25 — Repo hygiene: local tooling and root reference images ignored
+
+- `.agents/` (taste-skill marketplace mirror) and `skills-lock.json` now
+  ignored alongside `.claude/skills/` — Xtend-AI's agent scaffolding is
+  not the client's project code.
+- The root debug-image rule extends from `/*.png` to `/*.jpg`/`/*.jpeg`,
+  guarding `pink_ombre.jpg` (reference-only) against `git add .`. Patterns
+  are root-anchored; `src/assets` stays fully tracked, verified with
+  `git ls-files --cached -i --exclude-standard` (empty). `8b40f26`.
+  DECISIONS 2026-07-25.
+
 ### 2026-07-25 — Hours placeholder no longer printed
 
 - `LocationCard` showed "Hours: {{HOURS}}" on /visit, the styleguide,

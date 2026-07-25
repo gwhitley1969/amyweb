@@ -443,8 +443,9 @@ they ride the same clinician-approval gate as the rest of the page.
 
 ## 4. Gates & process (every increment)
 
-- Work on a feature branch → PR → password-protected preview → operator +
-  Amy review → merge on explicit approval. **No straight-to-production.**
+- Work on a feature branch → PR → preview (public + noindexed; share once the
+  deploy completes) → operator + Amy review → merge on explicit approval.
+  **No straight-to-production.**
 - Treatment-page content changes get their OWN commits (clinician audit
   trail); one content file per commit.
 - Add each new page to `.pa11yci.json` and `lighthouserc.json` as it's

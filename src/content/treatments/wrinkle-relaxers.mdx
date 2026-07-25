@@ -125,9 +125,17 @@ her Harrisburg studio — minutes from Charlotte.
 
   </div>
   <figure class="media-figure">
+    {/* Server-side 16:9 crop (width/height + fit): the CSS-only crop
+      * shipped ~45% never-shown portrait pixels and tripped the CI
+      * image budget (256,569 > 245,760 on the runner — the layout's
+      * .media-band aspect-ratio stays as the display contract). */}
     <Image
       src={fineGauge}
       alt="A close-up of Amy's pink-gloved hands guiding a fine-gauge syringe at a resting client's lower face."
+      width={1440}
+      height={810}
+      fit="cover"
+      position="attention"
       widths={[720, 1080, 1440]}
       sizes="(max-width: 48rem) 92vw, 45rem"
     />

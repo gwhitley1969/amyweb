@@ -49,6 +49,15 @@ const { items } = Astro.props;
     border-left: 1px solid var(--ng-ink-pink);
     padding: 1.25rem;
   }
+  /* Odd-count sets: the last card takes the full row, so no card sits
+   * beside an empty cell (taste audit 2026-07-25). 640px matches the
+   * grid's sm:grid-cols-2 breakpoint — below it the grid is one column
+   * and a span would mint a phantom second track. */
+  @media (min-width: 640px) {
+    .product-card:last-child:nth-child(odd) {
+      grid-column: span 2;
+    }
+  }
   .product-name {
     font-family: var(--font-body);
     font-size: 1.125rem;

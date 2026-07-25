@@ -20,6 +20,18 @@ const nav: { label: string; href: string; external?: boolean }[] = [
   { label: 'Visit', href: '/visit' },
   { label: 'Book', href: siteConfig.booking.vagaroUrl, external: true },
 ];
+
+/* Current-page marker (taste audit 2026-07-25): exact match -> "page";
+ * a /services subpage marks Services as the current section ("true").
+ * Build-time only — Astro.url.pathname is the page being rendered; the
+ * external Book link is never current. */
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => {
+  if (item.external) return undefined;
+  if (path === item.href) return 'page';
+  if (item.href === '/services' && path.startsWith('/services/')) return 'true';
+  return undefined;
+};
 ---
 
 <div class="surface site-header" data-surface="noir">
@@ -50,6 +62,7 @@ const nav: { label: string; href: string; external?: boolean }[] = [
               <a
                 href={item.href}
                 class="site-nav-link"
+                aria-current={currentFor(item)}
                 {...(item.external
                   ? { target: '_blank', rel: 'noopener', 'data-event': 'book_click' }
                   : {})}
@@ -79,6 +92,7 @@ const nav: { label: string; href: string; external?: boolean }[] = [
               <a
                 href={item.href}
                 class="site-nav-link block px-6 py-3"
+                aria-current={currentFor(item)}
                 {...(item.external
                   ? { target: '_blank', rel: 'noopener', 'data-event': 'book_click' }
                   : {})}
@@ -135,6 +149,16 @@ const nav: { label: string; href: string; external?: boolean }[] = [
     color: var(--ng-link);
     text-decoration: underline;
     text-underline-offset: 4px;
+  }
+  /* The current page keeps a persistent underline in the brand pink —
+   * quiet orientation; aria-current carries it for assistive tech
+   * (taste audit 2026-07-25). Text color is untouched (contrast pairs
+   * unchanged); the decoration is supplementary, aria-current is the
+   * accessible signal. */
+  .site-nav-link[aria-current] {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--ng-pink-500);
   }
   .site-nav-toggle {
     display: inline-flex;

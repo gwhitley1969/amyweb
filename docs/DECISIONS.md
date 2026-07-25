@@ -1837,3 +1837,44 @@ practice-forward to person-forward (client's deliberate choice; the
 practice photo remains available if she reverses); /about is
 LH-gated, so the eager/high-priority portrait swap is re-verified
 through the full suite.
+
+## 2026-07-25 — Taste audit: five polish adoptions, eight skill rules rejected
+
+Context: the operator installed the third-party taste-skill pack
+(Leonxlnx/taste-skill) and asked for a read-only audit of the live
+site against it before changing anything. Three pages audited
+first-hand (/services, /services/wrinkle-relaxers, /about, desktop +
+mobile screenshots of the live deploy) plus the full component/style
+source. Verdict delivered as a report artifact: the fundamentals the
+skill polices already pass — the locked constraints (zero JS, real
+photography, verified contrast pairs) eliminated the slop class
+wholesale — so findings concentrated in rhythm and finish.
+Decision (operator: "let's adopt the five items"): (1) trust-chip
+middots now TRAIL each chip (::after on non-last) so a wrapped
+credential line never starts with a stray dot — the audit's one real
+bug, visible on every conversion band; (2) odd-count
+ProductDetailCards sets: the last card spans the full row at ≥640px,
+closing the orphan-beside-empty-cell hole; (3) nav current-page
+marker — aria-current ("page" on exact match, "true" on /services
+subpages) plus a persistent pink-500 underline, text color untouched
+so contrast pairs are unaffected; (4) orphan control — text-wrap:
+balance joins display-1/2 and heading-2/3/4 (display-0 had it),
+pretty on lead and prose paragraphs (progressive hints); (5) CTA
+pressed state — a 1px :active translate. Motion-vocabulary note: the
+pressed state is recorded as a STATE style (hover's sibling), not an
+addition to the sanctioned motion moves; it carries no transition, so
+reduced-motion behavior is unchanged.
+Eight skill rules rejected on the record, each colliding with a
+locked decision, the compliance rulebook, or the brand: serif swap
+(Playfair is the brand face and the skill's own luxury exception),
+dark mode (single-theme by design), JS motion choreography (zero-JS
+lock), icon libraries (no-new-deps), gradient noise/grain (would
+break the ombre's auditable contrast math), accent desaturation (the
+brand IS hot pink), invented "organic" data (compliance-prohibited),
+and noir-band removal (the brand's bookends). Six discuss-list items
+(featured-card pick, MORE INFORMATION microline repetition, page-name
+eyebrows, zigzag variation, polaroid captions, em-dash thinning) are
+parked for client/Amy votes — none actioned.
+Consequences: five files touched (TrustChips, ProductDetailCards,
+Header, CTAButton, global.css) — CSS plus one aria attribute; zero
+content edits, zero gate-config edits, approval flags untouched.

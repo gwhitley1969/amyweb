@@ -95,6 +95,12 @@ const external = /^https?:/i.test(finalHref);
     letter-spacing: 0.02em;
     text-decoration: none;
   }
+  /* Pressed state (taste audit 2026-07-25; DECISIONS same date): a 1px
+   * physical push. A state style like hover — not a motion-vocabulary
+   * move; no transition, so it is instant and reduced-motion-neutral. */
+  .cta:active {
+    translate: 0 1px;
+  }
   /* Solid fills are BRAND PINK with ink text (4.88:1, tokens.css — client
    * round 2026-07-18). White text on pink/magenta fills remains banned
    * (fails the 4.7 headroom bar); the pink is legal only under ink-900. */

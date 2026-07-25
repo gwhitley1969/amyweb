@@ -1,5 +1,13 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-25:** **Taste-audit polish shipped** — five
+> operator-approved adoptions from the read-only taste-skill audit:
+> trailing trust-chip middots (the wrap bug), odd-count product-card
+> row fill, nav current-page marker (aria-current + pink underline),
+> text-wrap orphan control on headings/leads/prose, CTA pressed
+> state. Discuss-list items await client/Amy votes; audit report +
+> rejected-rule record: DECISIONS 2026-07-25.
+
 > **STATUS UPDATE 2026-07-23 (latest of the day):** **/about portrait
 > is now Amy's family** — client-requested swap, shipped on Amy's
 > on-record consent covering everyone pictured incl. the minors

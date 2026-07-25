@@ -241,6 +241,25 @@ const crumbs = [
   .treatment-body .media-row--flip .media-figure {
     transform: rotate(1.5deg);
   }
+  /* Full-width band — a page's third media moment breaks the
+   * alternating row rhythm with scale instead of a third zigzag
+   * (taste-audit follow-up, 2026-07-25): one wide framed print across
+   * the column, straight — the tilt is the small-print gesture. The
+   * wide crop via aspect-ratio keeps a portrait source from towering;
+   * astro:assets still sets intrinsic dimensions, so no CLS. */
+  .treatment-body .media-band {
+    margin-top: 2.5rem;
+  }
+  .treatment-body .media-band .media-figure {
+    width: 100%;
+    margin-top: 2rem;
+    transform: none;
+  }
+  .treatment-body .media-band .media-figure img {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: 50% 42%;
+  }
   .treatment-body .media-figure {
     justify-self: center;
     width: min(18rem, 100%);

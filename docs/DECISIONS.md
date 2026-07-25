@@ -1928,3 +1928,89 @@ Consequences: pages 2–12 lose 13 uppercase tracked micro-labels
 wrinkle-relaxers page — the LH-gated treatment representative —
 re-verified green through the full suite with the band's larger
 image derivatives inside budget.
+
+## 2026-07-25 — Concept home rebuilt: bright hero, ombre canvas, category doors
+
+Context: the concept home (/styleguide/concept) is the approved
+direction for the production home (C8), but it predated the ombre
+canvas, the editorial menu, the studio photography, and the taste
+audit. The client raised three faults, all reproduced first-hand:
+the hero photo was over-filtered (grayscale 30% + brightness 0.96 +
+a 160° noir→magenta multiply); the SERVICES section rendered the
+whole 12-card ServiceLineGrid — /services duplicated verbatim; and
+every section painted an opaque background (3× noir, 2× paper, 2×
+blush), so the site-wide ombre never showed and the page "looked
+like it doesn't belong to the site."
+Decision (client direction + operator picks via AskUserQuestion):
+rebuild in the CONCEPT SLOT ONLY — the C8 flip to / is a separate
+later PR after Amy approves — as six beats: noir hero, canvas
+intro/Meet-Amy, category doors, visit + location, the framed IG
+post, noir closing.
+1. HERO GRADE: the cinema grade is retired from this page. The photo
+   now wears the site's light wash (grayscale 10% / contrast 1.03 /
+   brightness 1.08) plus a 12% magenta unifier — the same strength
+   family as the /services studio strip — and the neon bloom drops
+   38% → 24%. The full-bleed duotone multiply is gone.
+2. HERO NEON — flagged, then OPERATOR-CLEARED: the brighter grade
+   made the studio's neon script legible again (the dark grade had
+   been hiding it; the original code comment flagged it for operator
+   review). An asset-level crop was built and measured first —
+   candidates at 10/12/14/16% off the top, 16% being the minimum that
+   erased every letterform — but at the desktop window's aspect that
+   crop also cut the top of Amy's head. Shown to the operator, who
+   directed (2026-07-25): keep the sign, fix the head. Rationale
+   holds independently — Amy is the SOLE OWNER of Mobile Aesthetics
+   (2026-07-23), so it is her own signage; constraint 2 governs OTHER
+   providers and is not engaged. The hero therefore ships FULL FRAME,
+   uncropped, at object-position 50% 22% (both hero windows are wider
+   than the 2:3 source, so cover trims vertically; 22% keeps sign,
+   head, and treatment moment in frame at both breakpoints). Do not
+   reintroduce a top crop — the component comment says so too.
+3. SERVICES → DOORS: three arch-framed photo plates (Injectables,
+   Skin & Body, Wellness — the exact /services menu groups), each
+   naming its four lines factually and linking to /services, with an
+   "Explore all twelve lines ›" close. The home now ROUTES instead of
+   duplicating; the arch geometry (the caricature-window motif)
+   survives the mirror-figure removal by becoming the door frame.
+4. OMBRE: every middle section is transparent — the ramp IS the
+   surface. The .nc-blush and .surface paint is deleted; only the
+   hero and closing bands re-scope noir. Canvas text rides the
+   existing ink re-inks, so no new contrast pairs were needed.
+5. PHOTO DISQUALIFICATION (compliance, found in the re-vet):
+   pink-gloves-detail.jpg — the concept's full-bleed detail band —
+   is OFF the page and unused site-wide. At full frame it shows a
+   partially legible branded vial over a tray of prepared syringes
+   labeled "Mobile Aesthetics": the prep-tray/vial-central class the
+   2026-07-23 rubric excludes (the reason 8K0A9740 was rejected).
+   It predates that rubric; the rubric is applied retroactively.
+   mirror-moment.jpg also leaves the page — its release status has
+   contradictory log entries (2026-07-20 "release unconfirmed" vs
+   2026-07-23 "release-cleared") and this page is a production
+   candidate.
+6. ITALIC FACE RETIRED: the wght-italic import is deleted and the
+   accent phrase is upright display-accent. Measured rationale: the
+   two fetched latin faces are ≈75.3KB of the 120KB font budget;
+   the italic latin file adds ≈38.8KB (≈114KB, near-zero headroom)
+   and revives the italic-swap CLS risk — unacceptable for a page
+   heading to the / gates.
+7. Closing band drops its background photo for the standard sitewide
+   noir anatomy, which frees studio-wide.jpg for the Wellness door.
+§6 deviation recorded: the "Get-the-App slot" is satisfied by the
+sitewide footer's GetTheApp block rather than a home section.
+Measured, not gated (this route is not LH-gated): the worst-case
+image total — every lazy image fetched, LH-mobile srcset picks — is
+199,236 bytes against the 245,760 budget (46KB headroom), and fonts
+return to two fetched faces. The C8 flip will prove them for real.
+Alternatives rejected: keeping the 12-card grid (the duplication the
+client flagged); an editorial two-column index of all twelve names
+(no visual punch on the site's first page); shrinking the IG post
+(the 34rem size is a recorded client pick — the baked caption must
+read comfortably).
+Consequences / open C8 prerequisites: (a) the hero client's release
+is not confirmed for THIS frame anywhere in the log — confirm on the
+record or swap the frame; (b) Amy's sign-off on the IG post caption
+(its baked-in text is invisible to lint:claims and lint:voice, which
+cannot read pixels — the slot is post-agnostic if she prefers
+another); (c) {{MEDIA_SCOPE}} closure. Also unchanged and visible:
+LocationCard renders "Hours: {{HOURS}}" until that token resolves,
+exactly as it does on /visit.

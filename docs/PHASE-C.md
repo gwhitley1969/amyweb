@@ -1,5 +1,15 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-25 (latest):** **Concept home rebuilt** —
+> bright hero (cinema grade retired; the studio neon stays visible per
+> operator direction — Amy's own signage), the ombre canvas through
+> every middle section, and three category DOORS replacing the
+> duplicated 12-card menu; location strip + Meet-Amy block added; two
+> photos removed on compliance grounds; italic face retired. Preview
+> route only. **C8 flip prerequisites: hero client's release on the
+> record, Amy's IG-caption sign-off, {{MEDIA_SCOPE}}.** DECISIONS
+> 2026-07-25.
+
 > **STATUS UPDATE 2026-07-25 (later):** **Treatment media recomposed**
 > — decorative polaroid captions retired sitewide (13 across 7 pages;
 > video attribution captions stay), wrinkle-relaxers' third photo row

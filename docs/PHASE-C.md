@@ -222,7 +222,17 @@
 >   grid card now matches the page.
 > - **C8 (real home from ConceptHome.astro; deletes the legacy keyframe
 >   fence) is gated on operator + Amy approving the concept on the
->   stable preview.**
+>   stable preview.** The concept was REBUILT 2026-07-25 (PR #62) to the
+>   version under review. Three hard prerequisites before the flip, all
+>   operator/Amy inputs: (1) the hero client's release confirmed on the
+>   record for THAT frame — the log never covers it — or a frame swap;
+>   (2) Amy's sign-off on the Instagram post caption (its baked-in text
+>   is invisible to both linters; the slot takes any post she prefers);
+>   (3) `{{MEDIA_SCOPE}}`. The flip PR also owns: rebuilding
+>   `index.astro`, deleting the `ng-ignite`/`ng-hum` fence with its only
+>   consumer, retiring the concept route, syncing both gate URL lists,
+>   and adding the per-URL needs-review cap to `/` in `.pa11yci.json`
+>   (an operator-gated change — it must be asked for explicitly).
 > - Still open from §0: `{{HOURS}}`, parking note, `{{SKINBETTER_URL}}`,
 >   `{{PEPTIDES_PUBLIC_LIST}}`, featured service lines,
 >   Biote/Retatrutide/Evolus/media items, photo flags (releases, neon,
@@ -234,9 +244,12 @@
 >
 > - The **"serious glamour" pivot + photography-led concept** (PR #4,
 >   `/styleguide/concept`) supersede this file's home-page sketch: the
->   real home page is built from the concept (cinema hero, editorial
->   sections, framed Instagram post, framed noir closing), not the
->   "two seams" composition below.
+>   real home page is built from the concept, not the "two seams"
+>   composition below. AMENDED 2026-07-25 (PR #62): the concept itself
+>   was rebuilt — the cinema-graded hero is now a BRIGHT hero, the
+>   middle sections are transparent so the ombre canvas carries them,
+>   and the duplicated 12-card menu became three category doors. The
+>   framed Instagram post and the noir closing bookend remain.
 > - **The chevron motif is retired from the UI** — ignore every "seam" /
 >   "ChevronRun" reference below; the section-opener signature is
 >   eyebrow + rule-accent.

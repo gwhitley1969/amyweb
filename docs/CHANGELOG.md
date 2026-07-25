@@ -6,6 +6,39 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-25 — Hours placeholder no longer printed
+
+- `LocationCard` showed "Hours: {{HOURS}}" on /visit, the styleguide,
+  and the home candidate. The line now renders only once real hours
+  exist — the same approach the footer already uses for social links —
+  so nothing looks broken while the fact is outstanding, and the line
+  returns on its own when the hours are supplied. /visit's copy no
+  longer promises hours either. Structured data was never affected.
+  DECISIONS 2026-07-25.
+
+### 2026-07-25 — Concept home rebuilt (preview route)
+
+- The home-page concept at `/styleguide/concept` is rebuilt on client
+  direction: the hero photo is bright and clear (the cinema grade is
+  retired from this page), the site-wide ombre now runs through every
+  middle section instead of opaque paper/blush paint, and the
+  duplicated 12-card services menu is replaced by three arch-framed
+  **category doors** (Injectables · Skin & Body · Wellness) that route
+  to /services. Adds the location strip (LocationCard) and the §6
+  "Meet Amy" credentials block; keeps the framed Instagram post at its
+  client-set size.
+- Two photos leave the page on compliance grounds: the prep-tray
+  detail frame (branded vial + syringes tray — the 2026-07-23 rubric
+  applied retroactively) and the mirror frame (contradictory release
+  entries in the log). The studio's neon sign stays visible in the
+  hero at the operator's direction — it is Amy's own signage, and a
+  trial crop that removed it also clipped her head. The italic font
+  face is retired (font budget + swap-CLS discipline).
+- Still the preview route only — the C8 flip to `/` is a separate PR
+  after Amy approves, and it carries three prerequisites: the hero
+  client's release on the record, Amy's sign-off on the Instagram post
+  caption, and {{MEDIA_SCOPE}}. DECISIONS 2026-07-25.
+
 ### 2026-07-25 — Treatment media recomposition
 
 - Client-approved follow-up to the taste audit ("Amy loves it"): all

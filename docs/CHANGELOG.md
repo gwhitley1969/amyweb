@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-25 — Treatment media recomposition
+
+- Client-approved follow-up to the taste audit ("Amy loves it"): all
+  thirteen decorative polaroid captions retired across seven treatment
+  pages (video attribution captions stay), and wrinkle-relaxers' third
+  photo row became a full-width framed print — scale variation instead
+  of a third zigzag (new `.media-band` layout variant; the only 3-run
+  on the site). Copy and alt text untouched. dermal-fillers'
+  `clinicianApproved` reset to false in its own commit (constraint 4 —
+  captions-only diff for Amy's re-review). Operator passed on the
+  featured-card activation the same day: the /services menu stays
+  all-equal by recorded client preference. DECISIONS 2026-07-25.
+
 ### 2026-07-25 — Taste-audit polish quintet
 
 - Five small adoptions from the read-only taste-skill audit

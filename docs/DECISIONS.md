@@ -1878,3 +1878,53 @@ parked for client/Amy votes — none actioned.
 Consequences: five files touched (TrustChips, ProductDetailCards,
 Header, CTAButton, global.css) — CSS plus one aria attribute; zero
 content edits, zero gate-config edits, approval flags untouched.
+
+## 2026-07-25 — Featured-card activation: operator passes
+
+Context: the taste audit's highest-value discuss item — activate the
+dormant featuredSlugs prop so one or two /services menu cards render
+double-wide (the pick has been an open business decision since the
+editorial menu shipped, PR #52).
+Decision (operator, 2026-07-25: "we're going to pass"): the menu stays
+all-equal. The prop remains in ServiceLineGrid, dormant — no code
+change, no removal; a future client pick can still activate it.
+Consequences: the twelve-equal-cards composition is now a recorded
+client preference, not an open question; do not re-pitch it unless the
+client raises it.
+
+## 2026-07-25 — Treatment media recomposition: captions retired, the zigzag capped
+
+Context: two taste-audit discuss items, operator-agreed in discussion
+and client-approved from the before/after artifact ("Amy loves it"):
+decorative polaroid captions labeled what the eye already sees (the
+"decoration pretending to be documentation" tell), and
+wrinkle-relaxers ran three identical alternating media rows
+back-to-back — the only 3-run on the site (verified per page during
+the sweep; every other page has one or two rows).
+Decision, two moves: (1) wrinkle-relaxers' third media moment became a
+full-width band — new .media-band variant in TreatmentLayout (matte
+inherited from .media-figure, no tilt — the tilt is the small-print
+gesture; 16:9 crop via aspect-ratio, astro:assets intrinsic sizes keep
+CLS at zero) — scale variation closes the sequence instead of a third
+zigzag. (2) ALL thirteen decorative photo figcaptions retired across
+the seven treatment files that had them (wrinkle-relaxers 3,
+dermal-fillers 3 incl. the lip-guide label, skincare 2, weight-loss 2,
+biostimulators 1, iv-therapy 1, peptide-therapy 1). KEPT: the
+TreatmentVideo captions (functional — manufacturer attribution +
+sound-on cue on films carried under operator overrides), and the
+lip-guide figure's full-width layout (informational graphic — the
+16:9 band crop must NEVER apply to it; cropping cuts content). Alt
+text untouched everywhere; copy untouched everywhere; the figcaption
+CSS rule stays in TreatmentLayout (harmless, and a future functional
+caption may need it).
+Compliance mechanics: dermal-fillers was the one clinicianApproved
+page — its caption edits reset the flag to false in the same commit
+(constraint 4), on the operator's informed instruction (the reset was
+flagged in the audit report and the sweep discussion before the "sweep
+the rest" direction). Amy re-reviews a captions-only diff to re-flip.
+Each page's edit is its own content commit (audit trail).
+Consequences: pages 2–12 lose 13 uppercase tracked micro-labels
+(the audit's heaviest-density tell thins measurably); the
+wrinkle-relaxers page — the LH-gated treatment representative —
+re-verified green through the full suite with the band's larger
+image derivatives inside budget.

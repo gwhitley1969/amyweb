@@ -6,6 +6,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-25 — Taste-audit polish quintet
+
+- Five small adoptions from the read-only taste-skill audit
+  (operator-approved; the full adopt/discuss/reject record is
+  DECISIONS 2026-07-25): the conversion-band credential line no
+  longer wraps to a stray leading middot; odd-count product-card sets
+  close the empty cell (last card spans the row); the nav marks the
+  current page (aria-current + quiet pink underline); headings, leads,
+  and prose gain text-wrap orphan control; CTAs get a 1px pressed
+  state. CSS plus one aria attribute — no content, no gates, no
+  approval flags.
+
 ### 2026-07-23 — /about portrait: Amy's family
 
 - The /about portrait is now Amy's formal family portrait

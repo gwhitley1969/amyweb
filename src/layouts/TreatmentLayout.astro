@@ -260,6 +260,19 @@ const crumbs = [
     object-fit: cover;
     object-position: 50% 42%;
   }
+  /* Tall variant of the band, for sources composed vertically — two
+   * figures stacked in a portrait frame (regenerative, 2026-07-26). The
+   * 16:9 default is a landscape contract: applied to a standing
+   * clinician over a reclined client it crops the clinician's head off
+   * and drops the room. 9:8 is the widest frame that keeps the whole
+   * composition, and it matches the server-side crop exactly, so
+   * object-fit is inert here and stays only as the degrade path if a
+   * future source arrives off-ratio. Equal specificity to the rule
+   * above — it must stay below it to win. */
+  .treatment-body .media-band--tall .media-figure img {
+    aspect-ratio: 9 / 8;
+    object-position: 50% 50%;
+  }
   .treatment-body .media-figure {
     justify-self: center;
     width: min(18rem, 100%);

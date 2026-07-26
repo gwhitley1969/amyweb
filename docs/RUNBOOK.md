@@ -27,6 +27,9 @@ design: `allowedForwardedHosts` only admits the real hostnames.
    no password (DECISIONS 2026-07-21) — so the URL can go straight to Amy,
    but only **after the deploy run completes**: sent earlier it 404s and
    reads as a broken link. Closing the PR tears the preview down.
+   *Documentation-only PRs run nothing and get no preview* — `paths-ignore`
+   covers `docs/**`, `**/*.md`, `.gitignore` (DECISIONS 2026-07-26). Touch
+   one source file and the full suite runs as usual.
 3. Merge to `main`. The production workflow re-verifies, runs the
    **clinician-approval gate**, deploys, and purges the Front Door cache.
    Live in ~5–10 minutes end to end.

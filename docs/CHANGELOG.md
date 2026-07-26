@@ -6,6 +6,22 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-26 — Documentation-only PRs skip the preview pipeline
+
+- `pr-preview.yml` gains `paths-ignore: ['docs/**', '**/*.md',
+  '.gitignore']`. A docs-only PR goes from ~5.5 minutes to zero; the
+  suite is fixed-cost (pa11y over 23 URLs, Lighthouse 3× over 6) and
+  none of it reads markdown.
+- **Not a weakened gate.** `paths-ignore` skips only when *every*
+  changed file matches, so any PR touching source still runs the full
+  suite — bundling code with a README does not sneak it past. No gate,
+  threshold, budget, or banned-pattern list changed.
+- `production.yml` deliberately untouched: it carries the
+  clinician-approval gate and the Front Door cache purge.
+- Trade-off accepted: docs-only PRs get no preview environment. Their
+  build output is byte-identical, verified repeatedly this week.
+  Operator-authorized; DECISIONS 2026-07-26.
+
 ### 2026-07-25 — Operational docs corrected: previews have no password
 
 - Preview password protection was removed 2026-07-21, but the docs that

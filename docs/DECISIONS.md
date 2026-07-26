@@ -2061,3 +2061,40 @@ Consequence: **the `/*.jpg` rule is not overbroad — it is the guard on
 only governs untracked files: had the reference image ever been
 committed, this rule would do nothing and removal would need
 `git rm --cached` plus history surgery.
+
+## 2026-07-26 — Documentation-only PRs skip the preview pipeline
+
+Context: every commit ran the full gate suite — build, astro check,
+claims lint, voice lint, pa11y over 23 URLs, Lighthouse 3x over 6 URLs
+— at a fixed ~5.5 minutes regardless of the diff. A one-line
+`.gitignore` edit cost exactly what a 460-line component rewrite cost.
+Four consecutive documentation changes (#59, #63, #64, plus the
+gitignore chore) spent roughly 25 minutes proving that markdown does
+not affect Lighthouse. Operator raised it directly ("why is this
+taking so long?") and authorized the fix in their own words.
+Decision: `pr-preview.yml` gains `paths-ignore: ['docs/**', '**/*.md',
+'.gitignore']` on its `pull_request` trigger.
+Explicitly NOT a weakened gate — the distinction that made this
+acceptable: `paths-ignore` skips only when EVERY changed file matches
+the list. A PR touching any source file still runs the complete suite,
+and bundling a code change with a README does not sneak it past. No
+gate, threshold, budget, or banned-pattern list was altered; the set
+of files each gate scans is unchanged. `production.yml` is
+deliberately untouched — it carries the clinician-approval gate and
+the Front Door cache purge, and its `push: [main]` trigger is rare
+enough that the saving would not pay for the risk.
+Alternatives rejected: keeping the run but conditionally skipping the
+slow gates (more config surface, more places for a condition to be
+subtly wrong, and a run that reports green having checked nothing —
+precisely the confusion the skipped-job teardown run caused an hour
+earlier); doing nothing (the cost recurs on every docs PR, and this
+repo produces documentation PRs by design).
+Consequence: documentation-only PRs get no preview environment, which
+is acceptable because their build output is byte-identical — verified
+repeatedly this week, most recently on #63. One behaviour to watch:
+PR #5 (`phase-c` -> `main`) is the standing integration PR and its
+diff contains hundreds of source files, so pushes to `phase-c` are
+expected to keep deploying the stable preview. If GitHub instead
+evaluates only the pushed commits, a docs-only push to `phase-c` would
+skip that deploy — harmless either way, since the output cannot
+change. Confirm on the first docs-only push after this lands.

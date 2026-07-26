@@ -2098,3 +2098,54 @@ expected to keep deploying the stable preview. If GitHub instead
 evaluates only the pushed commits, a docs-only push to `phase-c` would
 skip that deploy — harmless either way, since the output cannot
 change. Confirm on the first docs-only push after this lands.
+
+## 2026-07-26 — The regenerative line gets one plate, not a zigzag print
+
+Context: the operator supplied `prp01.png` (895x1017, a vertical phone
+frame) of Amy injecting PRP at a client's brow, under the studio's
+neon script. `/services/regenerative` was by some distance the
+thinnest treatment page in the set — 108 body words against 225 for
+the next thinnest, three short sections, a two-item product list, and
+no image. Four other pages also ship without photos
+(body-contouring, laser-treatments, skin-rejuvenation,
+hormone-optimization), but all carry three times the copy; this one
+had nothing holding the page down.
+Decision: the photo lands as a single full-column framed plate placed
+immediately after "What they are", and the treatment layout gains a
+`media-band--tall` variant to hold it.
+Placement: definition first, then the treatment itself. The reader is
+told what PRP is in five lines, then shown it. The alternative — the
+`media-band` closer beside "Individualized, with Amy", matching
+wrinkle-relaxers — was rejected because it leaves the top two thirds
+of a thin page with nothing to look at, and this page has exactly one
+image to spend.
+Scale: the house `media-row` print (18rem, tilted) was rejected as the
+wrong instrument. It is a snapshot gesture for pages carrying two or
+three images; on a page carrying one, it reads as decoration rather
+than as the page's anchor. Straight, not tilted — the layout already
+records that the tilt belongs to the small print.
+Crop: 9:8, server-side, 895x796 from the top of the frame, committed
+as `src/assets/photos/prp-treatment.jpg`. Five ratios were rendered
+and compared. The band's default 16:9 contract crops Amy's head off
+and deletes the neon entirely; 5:4 cuts the client mid-collar; 1:1
+keeps a dead band of shirt at the bottom. 9:8 is the widest frame that
+holds the whole composition. The CSS `aspect-ratio` matches the
+server-side crop exactly, so `object-fit` is inert and remains only as
+the degrade path — same division of labour as the `fine-gauge` band
+(2026-07-25), for the same image-budget reason.
+Source re-encoded PNG -> JPEG at q92 (948 kB -> 123 kB) because Astro
+re-encodes every variant; a thrifty source would compound artifacts
+through a second lossy pass. Shipped variants are 16/27/38 kB webp,
+against a 245,760-byte page image budget.
+The neon script reads "MobileAesthetics" — the location, not another
+provider, and the same name already embroidered on Amy's scrubs in
+three published photos. Kept deliberately: a sign-free crop was
+rendered and is materially worse, since the neon is the photo's entire
+colour story and without it the upper third is a grey wall. Flagged to
+the operator as a brand call they may reverse; the swap is a crop
+offset, not a re-shoot.
+Consequence: one new layout variant, available to any future page with
+a vertically-composed source. The supplied frame is 895 px wide, so
+the plate renders at ~1.24x on a 2x desktop display — visually fine at
+1x and on phones, mildly soft on a retina desktop. A higher-resolution
+original would sharpen it with no code change.

@@ -20,12 +20,33 @@ seo:
   description: "PRP and PRP with microneedling with Amy Palacios, FNP, in Harrisburg, NC. Consultation comes first for this line."
 ---
 
+import { Image } from 'astro:assets';
+import prpTreatment from '../../assets/photos/prp-treatment.jpg';
+
+{/* This line's single media moment, so it takes scale rather than the
+  * zigzag print: definition first, then the treatment itself. The band
+  * runs tall because the source is a vertical composition — see the
+  * media-band--tall note in TreatmentLayout. */}
+<section class="media-band media-band--tall">
+  <div class="media-copy">
+
 ## What they are
 
 PRP — platelet-rich plasma — is prepared from a small sample of your
 own blood. Amy offers it two ways: PRP on its own, and PRP combined
 with microneedling. What each visit involves is explained plainly
 before anything is scheduled.
+
+  </div>
+  <figure class="media-figure">
+    <Image
+      src={prpTreatment}
+      alt="Amy Palacios, FNP, in pink gloves guides a fine-gauge syringe at a reclined client's brow during a PRP visit at her Harrisburg studio."
+      widths={[448, 672, 895]}
+      sizes="(max-width: 48rem) 92vw, 45rem"
+    />
+  </figure>
+</section>
 
 ## Who they're generally for
 

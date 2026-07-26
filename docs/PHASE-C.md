@@ -1,5 +1,18 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-26:** **regenerative gets its PRP plate**
+> (PR #66) — the page that carried the least copy in the set (108 body
+> words) and no image now opens on a full-column framed plate after
+> "What they are". New `.media-band--tall` variant (9:8 display
+> contract for vertically composed sources; the band's 16:9 default
+> crops a standing clinician's head off). Deliberately scale rather
+> than the 18rem tilted print: that print is a snapshot gesture for
+> pages carrying three or four photos. `clinicianApproved` stays
+> `false` — **Amy's sign-off is the remaining gate on this page.** Two
+> operator calls open: the 895 px source is soft at 2× on desktop, and
+> the "MobileAesthetics" neon wordmark was kept (the sign-free crop is
+> materially worse). DECISIONS 2026-07-26.
+
 > **STATUS UPDATE 2026-07-25 (latest):** **Concept home rebuilt** —
 > bright hero (cinema grade retired; the studio neon stays visible per
 > operator direction — Amy's own signage), the ombre canvas through

@@ -6,6 +6,37 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-26 — The regenerative page gets its PRP plate
+
+- `ce8edbe` (PR #66) — the operator-supplied PRP frame lands on
+  `/services/regenerative` as one full-column framed plate, placed
+  immediately after "What they are": definition first, then the
+  treatment itself. `src/assets/photos/prp-treatment.jpg`.
+- New `.media-band--tall` layout variant — a 9:8 display contract for
+  vertically composed sources. The band's default 16:9 is a landscape
+  contract; applied to a standing clinician over a reclined client it
+  crops her head off and deletes the room. Available to any future
+  page with a portrait source.
+- **Scale, not the zigzag print.** At 108 body words this was by some
+  distance the thinnest treatment page, and it had no image. With one
+  photo to spend, the 18rem tilted print reads as decoration rather
+  than as the page's anchor — that print is a snapshot gesture for
+  pages carrying three or four images. Straight, not tilted.
+- Crop chosen by rendering five ratios: 16:9 decapitates Amy, 5:4 cuts
+  the client mid-collar, 1:1 keeps a dead band of shirt. The CSS
+  `aspect-ratio` matches the server-side crop exactly, so no unseen
+  pixels ship — same division of labour as the `fine-gauge` band.
+- Source re-encoded PNG → JPEG at q92 (948 kB → 123 kB) because Astro
+  re-encodes every variant; shipped variants are 16/27/38 kB webp
+  against a 245,760-byte page image budget.
+- `clinicianApproved` stays `false` — the page keeps its draft banner
+  and cannot reach production. DECISIONS 2026-07-26.
+- Two operator calls left open in the PR: the 895 px source renders at
+  ~1.24× on a 2× desktop display (a higher-resolution original would
+  sharpen it), and the "MobileAesthetics" neon wordmark was kept
+  deliberately — a sign-free crop was rendered and is materially
+  worse, since the neon is the photo's entire colour story.
+
 ### 2026-07-26 — Documentation-only PRs skip the preview pipeline
 
 - `pr-preview.yml` gains `paths-ignore: ['docs/**', '**/*.md',

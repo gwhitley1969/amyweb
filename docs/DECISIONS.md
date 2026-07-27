@@ -2246,6 +2246,19 @@ read as recessed; and the facet strength (65% paper, 1.28:1 against the
 card fill, depth-independent) is a tuning knob. No content files
 touched, no approval flags, no gate config.
 
+**Spec amendment APPLIED same day (operator authorization).** The §5
+"Editorial menu cards" paragraph enumerated the card anatomy and, after
+PR #69, omitted the plate's most visible property — not wrong, since it
+never claimed the cards were flat, but incomplete. It was proposed
+rather than edited in the first pass, per the operator-gating
+convention on BUILD_SPEC and CLAUDE.md; the operator then authorized it
+directly ("you have permission from me to update it"), and a new
+**Raised plates** paragraph was added to §5 carrying the measured
+reason, the whole-card-links scope, the square-corner rule, and the
+ink-pink ban. The convention is unchanged and worked as intended: the
+governing document moved on a recorded authorization rather than on
+assistant judgment.
+
 **Shape resolved same day (operator).** Raised plates keep radius 0;
 `.cta`'s 2px stays the controls' alone. Offered as a one-line change
 either way and declined: at card scale 2px is imperceptible, and a

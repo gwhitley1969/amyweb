@@ -6,6 +6,42 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-27 — The service-line cards are raised
+
+- Client direction: the twelve `/services` cards read as flat. They now
+  sit on the page as raised plates — a two-layer shadow, a 1px lit top
+  facet, a further rise on hover and keyboard focus, and a settle when
+  pressed. The three concept-home category doors get the same treatment,
+  since they are the same anatomy and become the C8 home.
+- **The flatness was arithmetic, not taste.** The ombre canvas ramps
+  blush to brand pink and the card fill sits between those two values,
+  so plate and canvas cross equal luminance at 19.6% of the document.
+  The dead zone is a band from roughly 8% to 32% where the plate holds
+  under 1.2:1 against the page and bottoms at **1.001:1** — invisible.
+  The hairline border dies with it (1.12:1 against the canvas there).
+  Because the menu starts near the top of that band, the flattest cards
+  were the Injectables group: the first four anyone sees.
+- **Elevation now means "this is clickable."** Only whole-card links get
+  it. Static boxes stay flat — deck, router card, location card, product
+  cards, and every compliance block, because a raised medical disclaimer
+  implies a press target that is not there. This deliberately narrows the
+  2026-07-22 "every box matches the /services boxes" direction.
+- Built from the shadow the site already uses on its framed photo prints
+  rather than a new elevation scale, and shared as one `.ng-lift` class
+  instead of a third hand-copy of the card anatomy. An ink-pink-tinted
+  shadow was measured and rejected: it holds 1.79:1 at the top of the
+  ramp but collapses to 1.24:1 at depth, washing out the same way
+  ink-pink text does on this canvas.
+- Colors, contrast pairs, corners, copy, and layout are all untouched;
+  zero JS; no gate config changed. Verify green (a11y 23/23, Lighthouse
+  across 6 URLs), and pa11y run direct with warnings surfaced confirms
+  **zero needs-review items touch the raised plates** — the per-URL cap
+  is doing no new work. Stylesheet 6,220 bytes gzipped against 16,384.
+- Also corrected in passing: the `tokens.css` note placing the luminance
+  crossing at "~30% down" is now the computed 19.6%; the same script
+  reproduces every recorded pair in that file exactly. DECISIONS
+  2026-07-27.
+
 ### 2026-07-27 — PHASE-C corrected: no page is currently clinician-approved
 
 - `PHASE-C.md`'s treatment checklist still read "`clinicianApproved:

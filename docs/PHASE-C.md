@@ -1,5 +1,28 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-07-27 (latest):** **the /services cards are
+> raised** (PR #69) — client direction after "they look flat", and the
+> flatness turned out to be arithmetic rather than taste: the card fill
+> sits BETWEEN the ombre endpoints, so plate and canvas cross equal
+> luminance at 19.6% of the document and bottom at **1.001:1** across an
+> 8–32% band — a band that contains the Injectables group, the first
+> four cards anyone sees. New shared `.ng-lift` (two-layer shadow + a
+> 1px lit top facet, a rise on hover/focus, a settle on press), worn
+> **only by whole-card links**: the twelve cards and the three
+> concept-home category doors. Static boxes stay flat — elevation now
+> means "this is clickable", and compliance blocks must never look
+> pressable, which deliberately narrows the 2026-07-22 "every box
+> matches the /services boxes" direction. An ink-pink shadow was
+> measured and rejected (1.24:1 at depth). Amy approved on the stable
+> preview; plates stay radius 0 while `.cta` keeps its 2px (operator,
+> same day, recorded in the `.ng-lift` header so it is not "tidied"
+> later). Also corrected in passing: tokens.css put the luminance
+> crossing at "~30% down" — now the computed 19.6%. Colors, contrast
+> pairs, copy, and layout untouched; `clinicianApproved` still `false`
+> on all twelve. **A BUILD_SPEC §5 amendment recording the elevation in
+> the "Editorial menu cards" paragraph is PROPOSED and operator-gated —
+> not applied here.** DECISIONS 2026-07-27.
+
 > **STATUS UPDATE 2026-07-26:** **regenerative gets its PRP plate**
 > (PR #66) — the page that carried the least copy in the set (108 body
 > words) and no image now opens on a full-column framed plate after
@@ -332,7 +355,8 @@ every string):
 - [x] `/services` — index: short factual intro per line → 12 detail
       links (9 at C5; grew with PR #16, +laser 2026-07-22). Card colors client-picked
       2026-07-22: rest `#f4cae2`, highlight `#efb1d5` + ink-pink
-      ring/titles (DECISIONS same date).
+      ring/titles (DECISIONS same date). RAISED 2026-07-27 (`.ng-lift`)
+      — colors and every contrast pair unchanged; corners stay square.
 - [x] `/about` — Amy's story + credentials from `{{AMY_BIO}}`; factual
       note that she practices within a multi-provider location (hard
       constraint 2 — nothing more); Evolus relationship only per

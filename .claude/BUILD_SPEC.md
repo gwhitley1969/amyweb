@@ -226,6 +226,25 @@ adds a 2px ink-pink rule drawing across the card top (the traced-rule
 signature at card scale). The state pair, the ring, and every recorded
 contrast pair above are unchanged.
 
+**Raised plates (client direction, 2026-07-27):** the menu cards are
+elevated, not flat — a two-layer ink-900 shadow with a 1px lit top
+facet, rising on hover/focus and settling on press (`.ng-lift`,
+global.css). The reason is arithmetic, not taste: the card fill sits
+between the ombre canvas endpoints, so plate and canvas cross equal
+luminance at 19.6% of the document and bottom at **1.001:1** across an
+8–32% band — a band containing the Injectables group, the first cards
+seen (tokens.css ELEVATION + OMBRE CANVAS). **Elevation is scoped to
+whole-card LINKS only** — the twelve cards and the concept-home
+category doors — so it reads as affordance; static boxes and every
+compliance block stay flat, because a raised disclaimer implies a
+press target that does not exist. This deliberately narrows the
+2026-07-22 "every box matches the /services boxes" direction. Derived
+from the house framed-print shadow, **never its tilt**. Plates keep
+square corners; the 2px radius stays the controls'. An ink-pink-tinted
+shadow is banned for this role (1.24:1 at ramp depth). Colors, the
+state pair, the ring, and every recorded contrast pair remain
+unchanged.
+
 ### Typography
 
 Two families, self-hosted (@fontsource), WOFF2, `font-display: swap`, preload

@@ -2242,8 +2242,16 @@ and is documented light-surfaces-only — nothing wears it on noir today,
 so no noir scope is defined, and adding one is the prerequisite for a
 raised noir card. Left open for the preview: the three `.strip-frame`
 studio photos above the menu keep a hairline and no shadow and may now
-read as recessed; the facet strength (65% paper, 1.28:1 against the
-card fill, depth-independent) is a tuning knob; and the cards stay at
-radius 0 while `.cta` carries 2px, which is a one-line change either
-way if the button read should be tied together. No content files
+read as recessed; and the facet strength (65% paper, 1.28:1 against the
+card fill, depth-independent) is a tuning knob. No content files
 touched, no approval flags, no gate config.
+
+**Shape resolved same day (operator).** Raised plates keep radius 0;
+`.cta`'s 2px stays the controls' alone. Offered as a one-line change
+either way and declined: at card scale 2px is imperceptible, and a
+plate is a printed object (the source of its shadow) while a button is
+a control. Recorded in the `.ng-lift` header precisely because the two
+now resemble each other enough to invite unifying them — the rule
+exists to stop a future session doing that as tidying. The client
+approved the raised cards on the first preview ("we really like the
+change"), so the elevation itself needs no further round.

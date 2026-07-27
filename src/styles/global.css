@@ -323,6 +323,12 @@ body:not([data-surface='noir']) {
  * happened once — .nc-door is a hand-copy of the card anatomy, and a
  * third copy was the likely next step.
  *
+ * SHAPE, settled by the operator 2026-07-27 so it is not "tidied" later:
+ * plates keep radius 0, and the 2px on .cta stays the CONTROLS' alone.
+ * The two now look alike enough to invite unifying them — do not. A
+ * plate is a printed object (which is where its shadow came from); a
+ * button is a control. At card scale 2px is invisible anyway.
+ *
  * THREE THINGS THAT LOOK ARBITRARY AND ARE NOT:
  * 1. `transform`, never `translate`. ng-rise animates the independent
  *    `translate` property with `both` fill and is applied to every card

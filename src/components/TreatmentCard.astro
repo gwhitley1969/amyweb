@@ -1,15 +1,21 @@
 ---
 /**
  * Service-line card — the editorial-menu anatomy (client direction
- * 2026-07-23, supersedes the body-sans anatomy): flat brand-pink plate on
- * the paper ambient, NO drop shadow, hairline border with a 1px ink-pink
- * edge rule (left), oversized Playfair index numeral, Playfair title,
- * sans summary, "More information ›" microline pinned to the card foot
+ * 2026-07-23, supersedes the body-sans anatomy): brand-pink plate on the
+ * ombre canvas, hairline border with a 1px ink-pink edge rule (left),
+ * oversized Playfair index numeral, Playfair title, sans summary,
+ * "More information ›" microline pinned to the card foot
  * (client wording 2026-07-23, over the drafted "See the line").
+ * RAISED since 2026-07-27 (client direction): the plate wears .ng-lift
+ * — see global.css for the mechanism and tokens.css ELEVATION for why
+ * it is arithmetic rather than taste (card and canvas cross equal
+ * luminance at 19.6% of the document, bottoming at 1.001:1). This
+ * SUPERSEDES the "flat plate, NO drop shadow, no scale/shadow
+ * transforms" rule this comment carried from 2026-07-23.
  * Hover/focus = plate deepens (card-hover token) + a 2px ink-pink ring on
  * all four sides + title in ink-pink + a 2px ink-pink rule draws across
- * the card top (the ng-trace signature at card scale). No scale/shadow
- * transforms. The link text is the treatment title (descriptive link
+ * the card top (the ng-trace signature at card scale) + the lift rises;
+ * :active settles it. The link text is the treatment title (descriptive link
  * text, §10); the numeral is decorative (aria-hidden) but still passes
  * large-text contrast (ink-pink 4.60:1 on card-rest, house bar 3.2).
  * The microline is ink-900, NOT ink-pink: at 13px it is body-size text,
@@ -31,7 +37,9 @@ const { title, summary, href, index, featured = false, class: className } = Astr
 const numeral = index === undefined ? undefined : String(index).padStart(2, '0');
 ---
 
-<article class:list={['treatment-card', featured && 'treatment-card--featured', className]}>
+<article
+  class:list={['treatment-card', 'ng-lift', featured && 'treatment-card--featured', className]}
+>
   {numeral && (
     <span class="treatment-card__num" aria-hidden="true">
       {numeral}
@@ -56,10 +64,7 @@ const numeral = index === undefined ? undefined : String(index).padStart(2, '0')
     border: 1px solid var(--ng-hairline);
     border-left: 1px solid var(--ng-ink-pink);
     padding: 2rem;
-    transition:
-      background-color 150ms ease,
-      border-color 150ms ease,
-      box-shadow 150ms ease;
+    /* elevation + the state transition live in .ng-lift (global.css) */
   }
   /* The drawn top rule — ng-trace's draw-in, replayed at card scale on
    * pointer instead of scroll. Empty non-text pseudo (same class of thing
@@ -84,8 +89,9 @@ const numeral = index === undefined ? undefined : String(index).padStart(2, '0')
      * bg, passes AA (3.0 non-text / 3.2 house large-text). See the
      * tokens.css header table. */
     border-color: var(--ng-ink-pink);
-    /* 2px ring on all four sides, no layout shift */
-    box-shadow: inset 0 0 0 1px var(--ng-ink-pink);
+    /* The 2px ring (border flip + 1px inset, no layout shift) is drawn
+     * by .ng-lift's --lift-ring so it composes with the lift instead of
+     * overwriting it — box-shadow is a single property. */
   }
   .treatment-card:hover::before,
   .treatment-card:focus-within::before {

@@ -2149,3 +2149,109 @@ a vertically-composed source. The supplied frame is 895 px wide, so
 the plate renders at ~1.24x on a 2x desktop display — visually fine at
 1x and on phones, mildly soft on a retina desktop. A higher-resolution
 original would sharpen it with no code change.
+
+## 2026-07-27 — Whole-card links are raised; the flat-plate rule is reversed
+
+Context: the client reported the twelve /services cards read as flat —
+the same visual level as the page — and asked for raised, almost 3-D,
+button-like plates. Investigating rather than styling to taste found a
+measurable cause. The ombre canvas ramps blush-50 to pink-500 across
+80% of the document and the card fill #f4cae2 sits BETWEEN those two
+values, so plate and canvas cross equal luminance and the figure/ground
+relationship inverts. Computed with the house method (validated by
+reproducing 17.22 / 15.77 / 11.80 / 9.77 / 4.88 exactly before any new
+figure was trusted): the crossing is at **19.6% of the document**, the
+dead zone is a **band** running roughly 8%–32% where plate-vs-canvas
+stays under 1.2:1, and it bottoms at **1.001:1** — the plate is
+arithmetically invisible there. The hairline does not rescue it: 14%
+ink over the card fill is 1.31:1 against its own plate and **1.12:1
+against the canvas** at the crossing, so the border dies with it. The
+card sequence begins near the top of that band, which is why the
+flattest cards are the Injectables group — the first four seen, and the
+group the client chose to lead the page.
+
+Decision: elevation, scoped to **whole-card links only** — the twelve
+`.treatment-card`s and the three concept-home `.nc-door`s (a hand-copy
+of the same anatomy, and the C8 home). Character: a lit-edge key cap —
+two-layer shadow, a 1px paper facet on the top edge, a further rise on
+hover/focus, and a settle on `:active`. This **reverses** the recorded
+2026-07-23 rule carried in both component headers ("flat brand-pink
+plate … NO drop shadow", "No scale/shadow transforms"); those comments
+are rewritten rather than left contradicting the code. Operator picked
+scope and character from options after the diagnosis.
+
+Static boxes stay flat, and this is the load-bearing half of the
+decision: elevation now MEANS "this is clickable". The router card was
+checked specifically and correctly keeps none (it wraps a CTAButton
+rather than being a link). Compliance blocks especially must never look
+pressable — a raised medical disclaimer implies a press target that
+does not exist. This narrows the 2026-07-22 "every box matches the
+/services boxes" direction, on affordance grounds, with the operator's
+agreement.
+
+Mechanism: one shared `.ng-lift` in global.css beside `.chev-nudge`,
+not per-component CSS — the duplication had already happened once
+(`.nc-door` is a hand-copy), and a third copy was the likely next step.
+Three shadow tokens in tokens.css carried like `--ng-aura-glow`: shadow
+colours, never text, no contrast bar. The lift is derived from the
+existing house framed-print shadow (TreatmentLayout `.media-figure` /
+TreatmentVideo) so the menu joins the site's material language instead
+of importing a foreign elevation scale — **the print's shadow, never
+its tilt**, the tilt being the small-print gesture (2026-07-25).
+
+Alternatives rejected: a 3-tier sm/md/lg elevation scale (every
+framework ships one; this site has exactly one shadow idiom and should
+end with exactly two — print and lift); **an ink-pink-tinted shadow,
+rejected on measurement rather than taste** — 1.79:1 at the top of the
+ramp but 1.24:1 at depth, washing out exactly as ink-pink text does on
+this canvas, which is why --ng-link re-inked to ink-900 in the first
+place; raising every box sitewide (would make compliance blocks read as
+buttons); raising /services only (the doors were built to mirror the
+card language, so C8 would ship a flat home beside a raised menu).
+
+Two divergences from the 2026-07-25 CTA pressed state, both forced
+rather than chosen, recorded so they are not read as drift. (1) The lift
+uses `transform`, not the independent `translate` the CTA uses:
+`ng-rise` animates `translate` with `both` fill and is applied to every
+card AND every door, so its forwards fill would permanently override a
+hover `translate:` — it works in dev and silently dies once the element
+scrolls past. (2) It transitions, where the CTA press deliberately does
+not, because the card already transitioned its hover properties at
+150ms. `.ng-lift` also took ownership of the plate's whole state
+transition including background and border: `transition` is a single
+property, so leaving it declared in both the component and the utility
+would have raced the cascade on source order.
+
+Verified, not assumed: full `npm run verify` green — a11y 23/23,
+Lighthouse assertions passing across 6 URLs / 18 runs. Because
+`levelCapWhenNeedsReview` hides needs-review items behind a "0 errors"
+line, pa11y was additionally run direct with warnings surfaced on
+/services and /styleguide/concept: **zero items touch the raised
+plates** on either URL, and no card or door text appears at all, so axe
+still resolves their contrast against the solid plate fill. The 8 and
+10 items each URL does report are the pre-existing canvas-level
+gradient class the per-URL cap exists for (breadcrumbs, H1, leads,
+group eyebrows). Stylesheet measured 6,220 bytes gzipped against the
+16,384 budget. Along the way this also corrected the tokens.css note
+that put the crossing at "~30% down"; the same script reproduces every
+recorded pair in that file exactly, so the note was the thing that was
+off. Descriptive comment, not a gate.
+
+Consequences: `.ng-lift` is available to any future whole-card link,
+and is documented light-surfaces-only — nothing wears it on noir today,
+so no noir scope is defined, and adding one is the prerequisite for a
+raised noir card. Left open for the preview: the three `.strip-frame`
+studio photos above the menu keep a hairline and no shadow and may now
+read as recessed; and the facet strength (65% paper, 1.28:1 against the
+card fill, depth-independent) is a tuning knob. No content files
+touched, no approval flags, no gate config.
+
+**Shape resolved same day (operator).** Raised plates keep radius 0;
+`.cta`'s 2px stays the controls' alone. Offered as a one-line change
+either way and declined: at card scale 2px is imperceptible, and a
+plate is a printed object (the source of its shadow) while a button is
+a control. Recorded in the `.ng-lift` header precisely because the two
+now resemble each other enough to invite unifying them — the rule
+exists to stop a future session doing that as tidying. The client
+approved the raised cards on the first preview ("we really like the
+change"), so the elevation itself needs no further round.

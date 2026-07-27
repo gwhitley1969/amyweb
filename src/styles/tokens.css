@@ -111,10 +111,18 @@
  *   (--ng-display-accent) re-inks too: its one light-canvas consumer
  *   is the VisitSteps numerals, which sit mid-ramp. Noir bands keep
  *   their own scoped values (pink-300 family throughout).
- *   Cards on the ramp: plates cross canvas-equal luminance ~30% down
- *   (hairline + content carry the boundary there — decorative, no
- *   bar), then read as light plates on deep pink below (1.6:1+ at the
- *   Wellness group).
+ *   Cards on the ramp: plates cross canvas-equal luminance at 19.6% of
+ *   the document (24.5% along the ramp) — CORRECTED 2026-07-27 from an
+ *   earlier "~30% down" note; recomputed with the same script, which
+ *   reproduced 17.22/15.77/11.80/9.77/4.88 exactly before the figure
+ *   was trusted. The dead zone is a BAND, not a point: card-rest vs
+ *   canvas stays under 1.2:1 from 8% to 32% of the document and
+ *   bottoms at 1.001:1 — the plate is arithmetically invisible there,
+ *   and the hairline does not rescue it (14% ink over the card fill is
+ *   1.31:1 against its own plate and 1.12:1 against the canvas at the
+ *   crossing). Below the band the plate reads as a light plate on deep
+ *   pink, reaching 2.42:1 at the held end stop. This band is why the
+ *   whole-card links carry ELEVATION (below) — decorative, no bar.
  *
  * BRAND-PINK FILLS (client round, computed 2026-07-18, same script):
  *   PASS  4.88:1 (min 4.7) ink-900 on pink-500       — solid CTA fill text
@@ -124,12 +132,46 @@
  *   white on pink-500 both fail the headroom bar. Brand-pink fills are
  *   legal ONLY with ink-900 text.
  *
+ * ELEVATION (client direction 2026-07-27 — the /services menu cards read
+ *   flat; see the OMBRE CANVAS band note above for why that is
+ *   arithmetic, not taste). Shadow colors ONLY: like --ng-aura-glow
+ *   these never render as text and carry no contrast bar. They are
+ *   decorative reinforcement — the card boundary is still the hairline
+ *   plus the ink-pink left rule, so WCAG 1.4.11 is unaffected (and in
+ *   the 8-32% band it is materially improved).
+ *   Derived from the house framed-print shadow (TreatmentLayout
+ *   .media-figure / TreatmentVideo, 0 14px 28px -16px ink-900 40%),
+ *   scaled down for a smaller object. BORROW THE PRINT'S SHADOW, NEVER
+ *   ITS TILT — the tilt is the small-print gesture (2026-07-25).
+ *   Measured 2026-07-27, shadow composited over the canvas vs the bare
+ *   canvas, so the lift is proven to read at BOTH ends of the ramp:
+ *     contact 22%  1.57:1 at doc 5%  ·  1.55:1 at the crossing  ·  1.41:1 deep
+ *     body    34%  2.09:1 at doc 5%  ·  2.02:1 at the crossing  ·  1.73:1 deep
+ *   At the crossing the shadow carries essentially all the separation
+ *   (2.02 against the plate's own 1.001).
+ *   RULE FIRED: an ink-pink-tinted shadow is BANNED for this role —
+ *   1.79:1 at the top but 1.24:1 at depth, washing out exactly as
+ *   ink-pink text does on this canvas (the reason --ng-link re-inks).
+ *   ink-900 is already a warm magenta-cast near-black, so it tints to
+ *   the brand without the falloff.
+ *   The facet is measured against the CARD FILL, which never changes,
+ *   so it is depth-independent and can only ever be a soft cue: 65%
+ *   paper = 1.28:1 (45% 1.19 · 55% 1.24 · 75% 1.33 · 90% 1.41). Its
+ *   job is the material read — a top edge catching light — not
+ *   figure/ground separation.
+ *
  * USAGE RULES (from the approved design plan):
  *   - neon-500 glows; dark surfaces only; never text; the ONLY glowing thing.
  *   - pink-500: display text >= 24px bold and graphics; never body-size on
  *     light. Body-size on NOIR is legal (5.95:1 — verified 2026-07-19 for
  *     the header credential line).
  *   - ink-pink: light surfaces only (fails 3:1 on noir — focus rings switch).
+ *   - lift-* : light surfaces only, and only on whole-card LINKS. On noir
+ *     the ink shadow disappears and the paper facet reads as a stray
+ *     rule; nothing wears .ng-lift on noir today, so no noir scope is
+ *     defined. Adding one is the prerequisite for a raised noir card.
+ *     Never put elevation on a static box — it implies a press target
+ *     that is not there (compliance blocks especially).
  *   - Decorative brand moments use the non-stock trio (neon-500 / chev-mid /
  *     chev-pale-alt); Tailwind-coincident hexes are surfaces/text/tints only.
  */
@@ -193,6 +235,13 @@
    * + companion re-ink rules: OMBRE CANVAS block in the header above. */
   --ng-ombre-start: var(--ng-blush-50);
   --ng-ombre-end: var(--ng-pink-500);
+  /* elevation — shadow colors, never text, no contrast bar (the
+   * --ng-aura-glow precedent). Consumed only by .ng-lift in global.css,
+   * which is worn only by whole-card links. See the ELEVATION block in
+   * the header for the measured pairs and the ink-pink ban. */
+  --ng-lift-contact: color-mix(in srgb, var(--ng-ink-900) 22%, transparent);
+  --ng-lift-body: color-mix(in srgb, var(--ng-ink-900) 34%, transparent);
+  --ng-lift-facet: color-mix(in srgb, var(--ng-paper) 65%, transparent);
   /* hairline rules/borders — decorative only, never text */
   --ng-hairline: color-mix(in srgb, var(--ng-ink-900) 14%, transparent);
   /* the one sanctioned glow color (static aura, dark surfaces only) */

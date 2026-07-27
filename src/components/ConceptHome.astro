@@ -152,7 +152,7 @@ const doors = [
       <div class="mt-10 grid gap-6 sm:grid-cols-3">
         {
           doors.map((door) => (
-            <article class="nc-door ng-rise">
+            <article class="nc-door ng-lift ng-rise">
               <figure class="nc-door__arch" aria-hidden="true">
                 <Image
                   src={door.photo}
@@ -377,7 +377,11 @@ const doors = [
   /* CATEGORY DOORS — plate anatomy (SITE-WIDE BOXES tokens) framing an
    * arch-cropped photo: the caricature-window geometry as a door. Hover
    * mirrors the /services card language: plate deepens + ink-pink ring +
-   * title ink-pink. No scale/shadow transforms. */
+   * title ink-pink. RAISED since 2026-07-27 (client direction): the
+   * doors are whole-card links, so they wear .ng-lift exactly as the
+   * /services cards do — elevation and the state transition live there
+   * (global.css). Supersedes the "No scale/shadow transforms" rule this
+   * comment carried. */
   .nc-door {
     position: relative;
     display: flex;
@@ -386,16 +390,13 @@ const doors = [
     border: 1px solid var(--ng-hairline);
     border-left: 1px solid var(--ng-ink-pink);
     padding: 1.5rem;
-    transition:
-      background-color 150ms ease,
-      border-color 150ms ease,
-      box-shadow 150ms ease;
   }
   .nc-door:hover,
   .nc-door:focus-within {
     background: var(--ng-card-hover);
     border-color: var(--ng-ink-pink);
-    box-shadow: inset 0 0 0 1px var(--ng-ink-pink);
+    /* ring drawn by .ng-lift's --lift-ring so it composes with the
+     * lift instead of overwriting it (box-shadow is one property) */
   }
   .nc-door__arch {
     margin: 0;

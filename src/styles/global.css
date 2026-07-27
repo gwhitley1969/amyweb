@@ -304,6 +304,85 @@ body:not([data-surface='noir']) {
   translate: 3px 0;
 }
 
+/* ---- Elevation: the raised plate (client direction 2026-07-27) ----
+ * Worn ONLY by whole-card links — the 12 /services cards and the three
+ * concept-home category doors. Elevation here MEANS "this is
+ * clickable", which is why static boxes (deck, router card, location
+ * card, product cards) and every compliance block stay flat: a raised
+ * disclaimer implies a press target that does not exist.
+ *
+ * Why it exists: the ombre canvas and the card fill cross equal
+ * luminance at 19.6% of the document, and card-vs-canvas stays under
+ * 1.2:1 across an 8-32% band, bottoming at 1.001:1 — the plate is
+ * arithmetically invisible there and the hairline goes with it
+ * (1.12:1 vs the canvas). The shadow is the only cue that stays darker
+ * than the canvas at every depth. Measured pairs + the ink-pink ban:
+ * tokens.css ELEVATION.
+ *
+ * Shared rather than per-component because the duplication already
+ * happened once — .nc-door is a hand-copy of the card anatomy, and a
+ * third copy was the likely next step.
+ *
+ * SHAPE, settled by the operator 2026-07-27 so it is not "tidied" later:
+ * plates keep radius 0, and the 2px on .cta stays the CONTROLS' alone.
+ * The two now look alike enough to invite unifying them — do not. A
+ * plate is a printed object (which is where its shadow came from); a
+ * button is a control. At card scale 2px is invisible anyway.
+ *
+ * THREE THINGS THAT LOOK ARBITRARY AND ARE NOT:
+ * 1. `transform`, never `translate`. ng-rise animates the independent
+ *    `translate` property with `both` fill and is applied to every card
+ *    AND every door, so its forwards fill would permanently override a
+ *    hover `translate:` — it works in dev, then silently dies once the
+ *    element has scrolled past. `transform` is untouched by every house
+ *    animation and composes with `translate` cleanly.
+ * 2. The rest ring is `inset` with zero spread, same color as the hover
+ *    ring. Shadows differing in the `inset` keyword are NOT
+ *    interpolable and snap discretely; matching inset-ness and color
+ *    means only the spread animates.
+ * 3. The ring rides a custom property instead of being redeclared.
+ *    box-shadow is a single property, so a hover rule setting it
+ *    outright would wipe the lift underneath.
+ *
+ * Motion note: this is a STATE style, not an addition to the sanctioned
+ * motion vocabulary. It diverges from the 2026-07-25 CTA pressed state
+ * in two ways, both forced rather than chosen — that one uses
+ * `translate` (available to it; CTAs carry no ng-rise) and carries no
+ * transition, while the card already transitions its hover properties
+ * at 150ms. Reduced motion needs no new code: the global block below
+ * collapses transition-duration, so lift and press become instant while
+ * the static elevation correctly persists. */
+.ng-lift {
+  --lift-ring: inset 0 0 0 0 var(--ng-ink-pink); /* zero spread = invisible */
+  --lift-shadow:
+    0 1px 2px -1px var(--ng-lift-contact), 0 10px 20px -12px var(--ng-lift-body);
+  box-shadow: var(--lift-ring), inset 0 1px 0 var(--ng-lift-facet), var(--lift-shadow);
+  /* Owns the plate's WHOLE state transition, including background and
+   * border, which both consumers previously declared themselves.
+   * `transition` is one property: if the component also set it, the two
+   * class rules (equal specificity) would race on source order and one
+   * set of transitions would silently vanish. One owner, no race. */
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+}
+.ng-lift:hover,
+.ng-lift:focus-within {
+  --lift-ring: inset 0 0 0 1px var(--ng-ink-pink);
+  --lift-shadow:
+    0 2px 4px -1px var(--ng-lift-contact), 0 18px 32px -14px var(--ng-lift-body);
+  transform: translateY(-2px);
+}
+/* Settles under the press. :active propagates from the stretched link
+ * overlay to its ancestor card, so this fires on the plate itself. */
+.ng-lift:active {
+  --lift-shadow:
+    0 1px 1px -1px var(--ng-lift-contact), 0 4px 8px -6px var(--ng-lift-body);
+  transform: translateY(1px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

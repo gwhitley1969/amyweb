@@ -6,7 +6,24 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
-### 2026-07-26 — The regenerative page gets its PRP plate
+### 2026-07-27 — PHASE-C corrected: no page is currently clinician-approved
+
+- `PHASE-C.md`'s treatment checklist still read "`clinicianApproved:
+  false` on all of them except dermal-fillers — approved 2026-07-21",
+  and its dermal-fillers entry still led with "CLINICIAN-APPROVED".
+  Both predate the 2026-07-25 caption sweep, which edited approved
+  content and therefore reset the flag in the same commit (constraint
+  4) — correctly, and recorded in that date's DECISIONS entry, this
+  CHANGELOG, and PHASE-C's own status block at the top of the file.
+  Only the checklist body lagged.
+- Verified against the content files rather than the prose: all twelve
+  `src/content/treatments/*.mdx` carry `clinicianApproved: false`. The
+  count of pages through the gate is **zero**, and a production deploy
+  would correctly fail `check:approvals` today.
+- Why it mattered: a future session reading the checklist would believe
+  a page had shipped approved, and might edit it without expecting the
+  constraint-4 reset — or, worse, treat the flag as already handled.
+  Documentation-only; no code, no gates, no flags touched.
 
 - `ce8edbe` (PR #66) — the operator-supplied PRP frame lands on
   `/services/regenerative` as one full-column framed plate, placed

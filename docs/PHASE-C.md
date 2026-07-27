@@ -352,8 +352,10 @@ every string):
 
 Treatment pages — 12 content files in `src/content/treatments/` rendered
 through TreatmentLayout (schema already in `src/content.config.ts`;
-`clinicianApproved: false` on all of them except dermal-fillers —
-approved 2026-07-21 — with the DraftBanner visible until each flips):
+`clinicianApproved: false` on ALL TWELVE as of 2026-07-25, with the
+DraftBanner visible on each until it flips — dermal-fillers was approved
+2026-07-21 and RESET by the caption sweep four days later, so no page is
+currently through the clinician gate):
 
 - [x] `weight-loss-glp-1` — Semaglutide, Tirzepatide (+ Retatrutide ONLY
       per `{{RETATRUTIDE_COUNSEL}}`; if published: `investigational: true`,
@@ -362,8 +364,11 @@ approved 2026-07-21 — with the DraftBanner visible until each flips):
       recovery/healing/anti-aging/performance claims. ctaType: consult.
 - [x] `wrinkle-relaxers` — `{{NEUROMOD_LIST}}`; treatment areas factually
       (forehead, frown lines, crow's feet). ctaType: book/consult.
-- [x] `dermal-fillers` — CLINICIAN-APPROVED 2026-07-21 (first page
-      through the gate). Rebuilt 2026-07-21: Evolysse Smooth/Form and
+- [x] `dermal-fillers` — approved 2026-07-21 (the first page ever
+      through the gate), then RESET to `clinicianApproved: false` on
+      2026-07-25 when the caption sweep edited approved content
+      (constraint 4). Amy re-reviews a captions-only diff to re-flip.
+      Rebuilt 2026-07-21: Evolysse Smooth/Form and
       Revanesse (Versa+ & Lips+) cards with syringe pricing, the Evolus
       film (the site's first video, operator-overridden as-is), lip style
       guide, weight-loss cross-link. ctaType: book.

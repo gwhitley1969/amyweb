@@ -19,9 +19,9 @@
 > later). Also corrected in passing: tokens.css put the luminance
 > crossing at "~30% down" — now the computed 19.6%. Colors, contrast
 > pairs, copy, and layout untouched; `clinicianApproved` still `false`
-> on all twelve. **A BUILD_SPEC §5 amendment recording the elevation in
-> the "Editorial menu cards" paragraph is PROPOSED and operator-gated —
-> not applied here.** DECISIONS 2026-07-27.
+> on all twelve. **The BUILD_SPEC §5 amendment recording the elevation
+> — the "Raised plates" paragraph — was APPLIED the same day on the
+> operator's direct authorization (PR #70).** DECISIONS 2026-07-27.
 
 > **STATUS UPDATE 2026-07-26:** **regenerative gets its PRP plate**
 > (PR #66) — the page that carried the least copy in the set (108 body

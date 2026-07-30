@@ -53,7 +53,7 @@ export const serviceLines: ServiceLine[] = [
   {
     slug: 'regenerative',
     title: 'Regenerative Treatments',
-    summary: 'PRP treatments — on their own, or combined with microneedling.',
+    summary: 'PRP treatments: on their own, or combined with microneedling.',
     href: '/services/regenerative',
     category: 'injectables',
   },
@@ -67,7 +67,7 @@ export const serviceLines: ServiceLine[] = [
   {
     slug: 'body-contouring',
     title: 'Body Contouring',
-    summary: 'Evolve — a non-invasive device treatment designed for skin tightening and muscle toning.',
+    summary: 'Evolve, a non-invasive device treatment designed for skin tightening and muscle toning.',
     href: '/services/body-contouring',
     category: 'skin-body',
   },

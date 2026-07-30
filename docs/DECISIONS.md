@@ -2268,3 +2268,75 @@ now resemble each other enough to invite unifying them — the rule
 exists to stop a future session doing that as tidying. The client
 approved the raised cards on the first preview ("we really like the
 change"), so the elevation itself needs no further round.
+
+## 2026-07-29 — Em-dash thinning: rhetorical dashes go on a budget
+
+Context: reviewing the site for "AI slop" tells, the one place the
+scent genuinely lingered was prose rhythm — above all the em dash, the
+most recognizable AI-writing fingerprint in circulation. A census over
+the BUILT output (same rendered-text extraction as lint:voice, so code
+comments never count) measured **313 visible em dashes in 12,373
+rendered words — 25.3 per 1,000**, against an editorial norm of
+roughly 2–4. Every treatment page ran 20–34 per 1,000; the twelve
+decks leaned on the same "X — Y" construction; "— free, as always —"
+recurred on five pages. The full census and worked example were
+delivered as a review artifact and the client approved the pass.
+
+Decision — the rule, now standing for all future copy: **structural
+dashes stay; rhetorical dashes go on a budget.** Labels, bylines, card
+names, and film titles keep their dashes (that use is typographic
+convention). In running copy: at most one em dash per paragraph, never
+two in one sentence, kept only where the pause genuinely earns its
+drama. Every rewrite is one of five moves, strongest first: split into
+two sentences; comma pair (for the "— x —" double-dash asides, the
+most machine-flavored pattern); colon (definitions and lists);
+parentheses (pure glosses like BHRT, PRP); or keep the one that earns
+it. **Punctuation-level only — no words, facts, prices, or claims
+changed** (the only word-level effects are dropped connectives a split
+makes redundant and commas inside "free, as always").
+
+Verified before editing, not after: no `allowedStrings` entry contains
+an em dash, so the pass could not collide with the compliance
+registry; where copy ran a dash INTO the protected Evolus sentence,
+only the connector changed and "Charlotte's #1 Evolus provider" is
+byte-identical on one line. The Biote FDA disclaimer is untouched. The
+hedged duration facts (Daxxify, Evolysse) keep every word — their dash
+became a period. The Glutathione identity line moved to parentheses in
+both files that carry it verbatim (peptide-therapy, iv-therapy — the
+pair that must move together).
+
+Three items ship deliberately UNCHANGED as Amy's call, offered in the
+proposal and not yet answered: the Retatrutide `investigationalNote`
+(her own directed wording, 2026-07-21 — changes only on her word), the
+"Book — or ask first" step heading, and the video captions'
+"— sound on." Roughly ten earned dashes were kept on merits (the
+/about thesis line "every appointment — Amy herself", dermal-fillers'
+deck, laser's "or whether the honest answer is neither", weight-loss's
+"never on its own", peptide's "never something you sort out on your
+own", skincare's "and this one won't try", iv-therapy's deck,
+hormone's "persistently off", wrinkle-relaxers' "Not just for women"
+restructure, and the concept hero byline, which matches the kept
+construction-home byline).
+
+Result, measured by rerunning the census on the rebuilt output:
+**313 → 71 visible (5.9 per 1,000)**; meta descriptions 36 → 6 (the
+six that remain are the two byline-class meta strings ×3 renderings);
+alt text 24 → 20 (the header logo's "Needle Girlie — home" label).
+The residue is dominated by labels — footer and LocationCard lockups
+on every page, fifteen draft banners that come down at approval — plus
+the twelve unchanged "Book — or ask first" headings awaiting Amy.
+
+Alternatives rejected: zero-dash zealotry (the budget exists because
+some dashes are typography, not tells); rewriting sentences freely for
+rhythm (would put new claims in front of the compliance gates and
+reset nothing-yet-approved copy Amy has already seen in one form); a
+lint gate enforcing the budget now (flagged as an optional follow-up —
+the rule should survive one review cycle before it becomes CI).
+
+Consequences: future copy is written to the budget rather than
+re-thinned later; the census script (session scratchpad, never
+committed) is the measuring stick and reruns in one command; one
+content commit per treatment file preserves the clinician audit
+trail; `clinicianApproved` untouched — all twelve pages were already
+`false`, so no resets were triggered and Amy reviews the punctuation
+with everything else on the stable preview.

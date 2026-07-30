@@ -6,6 +6,34 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-29 — The em dashes go on a budget
+
+- The rendered site carried **313 em dashes in 12,373 words** — 25.3
+  per 1,000, several times editorial density and the single most
+  recognizable AI-writing fingerprint. Client-approved thinning pass:
+  structural dashes stay (labels, bylines, card names, film titles);
+  rhetorical dashes drop to at most one per paragraph, never two in a
+  sentence, resolved by five punctuation moves (split, comma pair,
+  colon, parentheses, or keep one that earns it). **Punctuation-only:
+  no word, fact, price, or claim changed.**
+- Result, measured by rerunning the census on the built output:
+  **313 → 71 visible** (5.9 per 1,000); meta descriptions 36 → 6; the
+  remaining alt-text dashes are the header logo's label. What remains
+  is almost entirely the keep-list — the footer and LocationCard
+  "Needle Girlie — Amy Palacios, FNP" lockups, draft banners (which
+  come down at approval anyway), product-variant card names, the
+  Evolus film titles, and roughly ten deliberately kept earned dashes.
+- Three items ship deliberately unchanged as Amy's call: the
+  Retatrutide disclosure line (her own directed wording), the
+  "Book — or ask first" step heading, and the video captions'
+  "— sound on." Her word takes the site lower with three small edits.
+- Compliance rails held: no `allowedStrings` entry contains an em dash
+  (verified before editing), the Biote FDA disclaimer is untouched,
+  and "Charlotte's #1 Evolus provider" is byte-identical — only the
+  connector before it changed. One content commit per treatment file
+  (the clinician audit trail); approval flags untouched (all twelve
+  were already `false`). DECISIONS 2026-07-29.
+
 ### 2026-07-27 — The service-line cards are raised
 
 - Client direction: the twelve `/services` cards read as flat. They now

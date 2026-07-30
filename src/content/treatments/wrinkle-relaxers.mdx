@@ -1,7 +1,7 @@
 ---
 title: Wrinkle Relaxers
 line: wrinkle-relaxers
-summary: "Prescription injectable treatments that temporarily soften dynamic lines: the creases that come from repeated expression."
+summary: "Prescription injectable treatments that soften dynamic lines: the creases that come from repeated expression."
 deck: "A light, deliberate hand for the lines expression leaves behind."
 products:
   - "Jeuveau"
@@ -12,21 +12,21 @@ products:
 # docs/DECISIONS.md).
 productDetails:
   - name: "Jeuveau"
-    detail: "A prescription neuromodulator from Evolus, developed specifically for aesthetics, used to temporarily smooth moderate to severe frown lines."
-    priceLines: ["$400 or $10 / unit"]
+    detail: "A prescription neuromodulator from Evolus, developed specifically for aesthetics, used to smooth moderate to severe frown lines."
+    priceLines: ["$10 per unit"]
   - name: "Xeomin"
-    detail: "A prescription neuromodulator from Merz, purified down to the bare active protein, used to temporarily smooth moderate to severe facial wrinkles."
-    priceLines: ["$400 or $10 / unit"]
+    detail: "A prescription neuromodulator from Merz, purified down to the bare active protein, used to smooth moderate to severe facial wrinkles."
+    priceLines: ["$10 per unit"]
   - name: "Daxxify"
     detail: "A prescription neuromodulator from Revance with a peptide-stabilized formulation. Labeled for results lasting up to six months. How long it holds varies person to person."
-    priceLines: ["$500 or $12 / unit"]
+    priceLines: ["$12 per unit"]
 ctaType: book
 pricingDisplay: consult
 clinicianApproved: false
 draft: false
 faq:
   - q: "What's the difference between Jeuveau, Xeomin, and Daxxify?"
-    a: "Formulation, mostly. All three are prescription neuromodulators that temporarily soften expression lines. Jeuveau was developed specifically for aesthetics, Xeomin is purified down to the bare active protein, and Daxxify is stabilized with a peptide and labeled for results lasting up to six months. Which one, if any, belongs in your plan is decided with Amy in consultation."
+    a: "Formulation, mostly. All three are prescription neuromodulators that soften expression lines. Jeuveau was developed specifically for aesthetics, Xeomin is purified down to the bare active protein, and Daxxify is stabilized with a peptide and labeled for results lasting up to six months. Which one, if any, belongs in your plan is decided with Amy in consultation."
   - q: "Do men get neuromodulator treatments?"
     a: "Yes. Expression lines aren't gendered, and neither is the appointment: same products, same individual planning, with Amy."
   - q: "Do I need a consultation before booking?"
@@ -42,6 +42,7 @@ seo:
 
 import { Image } from 'astro:assets';
 import TreatmentVideo from '../../components/TreatmentVideo.astro';
+import EvolusCallout from '../../components/EvolusCallout.astro';
 import iconPoster from '../../assets/photos/evolus-icon-poster.jpg';
 import browAppointment from '../../assets/photos/brow-appointment.jpg';
 import maleClient from '../../assets/photos/male-client-appointment.jpg';
@@ -50,11 +51,11 @@ import fineGauge from '../../assets/photos/fine-gauge-detail.jpg';
 ## What they are
 
 Wrinkle relaxers are prescription neuromodulators: injectable treatments
-used to temporarily soften dynamic lines, the creases that form with
-repeated muscle movement. Common treatment areas include the forehead,
+used to soften dynamic lines, the creases that form with repeated
+muscle movement. Common treatment areas include the forehead,
 frown lines, and crow's feet.
 
-Jeuveau comes from Evolus, and Amy is Charlotte's #1 Evolus provider.
+<EvolusCallout />
 
 ## Inside Evolus
 

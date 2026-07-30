@@ -32,7 +32,7 @@ export const serviceLines: ServiceLine[] = [
   {
     slug: 'wrinkle-relaxers',
     title: 'Wrinkle Relaxers',
-    summary: 'Prescription injectable treatments for temporary softening of dynamic lines.',
+    summary: 'Prescription injectable treatments that soften dynamic lines.',
     href: '/services/wrinkle-relaxers',
     category: 'injectables',
   },

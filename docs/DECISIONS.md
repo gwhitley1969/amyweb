@@ -2340,3 +2340,82 @@ content commit per treatment file preserves the clinician audit
 trail; `clinicianApproved` untouched — all twelve pages were already
 `false`, so no resets were triggered and Amy reviews the punctuation
 with everything else on the stable preview.
+
+## 2026-07-30 — "Temporary/temporarily" removed from neuromodulator copy (client direction, flagged)
+
+Context: Amy directed (via the operator) that "temporary" and
+"temporarily" come off the website — she has duration conversations
+directly with clients and does not want the hedge in the copy. A
+sitewide census found the words in exactly six places, all
+neuromodulator copy: five in wrinkle-relaxers.mdx (summary, Jeuveau
+and Xeomin details, the formulation FAQ, the "What they are" body) and
+the wrinkle-relaxers card summary in serviceLines.ts. Nothing else on
+the site used them.
+
+Flagged once before execution: the adverb was doing compliance work.
+"Used to temporarily smooth moderate to severe frown lines" is the
+indication-style phrasing authorized from the product sheet (DECISIONS
+2026-07-21) precisely because it mirrors the products' label wording,
+and §7.3's brief defined the line as "temporary softening." Removing
+the word converts label-mirroring statements into unhedged efficacy
+statements — no lint pattern fires and the copy stays factual, but the
+risk profile ticks up (duration overpromise by omission) and the copy
+now deviates from the authorized phrasing. The client proceeded with
+the flag visible; this entry is the recorded override, and the
+operator's merge of the PR is the written approval.
+
+Decision: drop the adverb in all six places with minimal grammar
+repair ("that soften dynamic lines", "used to smooth moderate to
+severe…"). §7.3 amended with a dated note so brief and copy agree.
+Deliberately UNCHANGED, scoped in the flag and awaiting explicit word
+if wanted: Phentermine's "short-term use" (the compliance-chosen
+alternative to the appetite-language override, 2026-07-20) and the
+Daxxify/Evolysse "labeled for results lasting up to…" hedged label
+facts (different words, same honesty job, tied to the priced cards —
+the Daxxify FAQ sentence keeps its "labeled for" frame).
+
+Consequences: the neuromodulator page now states what the treatments
+do without a duration qualifier; expectation-setting moves wholly into
+Amy's consultation, which is her stated practice. clinicianApproved
+untouched (the page was already false); Amy reviews on the preview
+like everything else.
+
+## 2026-07-30 — Neuromodulator prices narrow to per-unit only (registry + page in one commit)
+
+Context: the client directed the flat-dollar halves off the three
+neuromodulator price cards — Jeuveau and Xeomin now show "$10 per
+unit", Daxxify "$12 per unit" (was "$400 or $10 / unit" / "$500 or
+$12 / unit"). Those exact strings are enumerated allowedStrings
+entries (2026-07-21 per-unit override), and per-unit language is
+banned everywhere outside them, so the registry and the page's
+priceLines changed together in one commit — the same operation as the
+2026-07-20 "@ → vial:" reformat, with the client's directive as the
+recorded registry authorization (noted in the registry's own
+comment). This is a NARROWING: same per-unit figures, prices removed,
+nothing added; the linter self-test derives its cases from the
+registry, so the exactness proof carries over automatically ("$11 per
+unit" or any other unit-keyed string still fails dosing). The
+documented per-unit exposure recorded 2026-07-21 is unchanged in kind
+and reduced in surface. clinicianApproved untouched; ships on the
+open PR #73 preview for Amy's review with the temporary-wording
+change.
+
+## 2026-07-30 — The Evolus ranking sentence becomes a noir display plate
+
+Context: client direction — drop "Jeuveau comes from Evolus," and
+render "Amy is Charlotte's #1 Evolus provider!" as a bold black box
+with pink letters under "What they are" on wrinkle-relaxers. Decision:
+a new EvolusCallout.astro — a STATIC noir plate (deliberately not a
+scrolling marquee; that experiment was rejected on sight 2026-07-08
+and motion stays within the sanctioned vocabulary), Playfair display
+at ~39px in pink-500 on noir (the recorded 5.95:1 pair), centered, no
+shimmer (the moving glow stays capped at the sign and the hero accent
+phrase). The exact allowedStrings entry "Charlotte's #1 Evolus
+provider" is byte-intact on one source line with a straight apostrophe
+— the component header carries both editing rules. Same page, same
+single use; the 2026-07-21 authorization's terms are unchanged, but
+the claim's PROMINENCE rises from body prose to display scale —
+noted to the operator at execution as Amy's call on her own authorized
+claim. Dermal-fillers keeps its prose version ("Evolysse comes from
+Evolus, and Amy is…") — unchanged unless directed. clinicianApproved
+untouched; ships on the PR #73 preview.

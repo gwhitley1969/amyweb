@@ -2379,3 +2379,23 @@ do without a duration qualifier; expectation-setting moves wholly into
 Amy's consultation, which is her stated practice. clinicianApproved
 untouched (the page was already false); Amy reviews on the preview
 like everything else.
+
+## 2026-07-30 — Neuromodulator prices narrow to per-unit only (registry + page in one commit)
+
+Context: the client directed the flat-dollar halves off the three
+neuromodulator price cards — Jeuveau and Xeomin now show "$10 per
+unit", Daxxify "$12 per unit" (was "$400 or $10 / unit" / "$500 or
+$12 / unit"). Those exact strings are enumerated allowedStrings
+entries (2026-07-21 per-unit override), and per-unit language is
+banned everywhere outside them, so the registry and the page's
+priceLines changed together in one commit — the same operation as the
+2026-07-20 "@ → vial:" reformat, with the client's directive as the
+recorded registry authorization (noted in the registry's own
+comment). This is a NARROWING: same per-unit figures, prices removed,
+nothing added; the linter self-test derives its cases from the
+registry, so the exactness proof carries over automatically ("$11 per
+unit" or any other unit-keyed string still fails dosing). The
+documented per-unit exposure recorded 2026-07-21 is unchanged in kind
+and reduced in surface. clinicianApproved untouched; ships on the
+open PR #73 preview for Amy's review with the temporary-wording
+change.

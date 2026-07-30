@@ -2434,3 +2434,15 @@ attaches to "the practice of" rather than to Amy) and the client's
 wording stood. Recorded here belatedly in the 2026-07-30 docs sweep —
 the change had shipped with only a commit message and PR comment as
 its record, which is what this entry corrects.
+
+## 2026-07-30 — The Evolus plate lands on dermal-fillers too (client direction)
+
+Context: the plate decision earlier today left dermal-fillers with its
+prose version "unchanged unless directed"; Amy directed it. Decision:
+same treatment exactly — "Evolysse comes from Evolus," comes off and
+EvolusCallout renders above "The Evolysse film", so both authorized
+pages now carry the sentence the same way: once, as the standalone
+noir display plate, byte-intact on one source line in the shared
+component. The 2026-07-21 authorization's page scope (these two pages
+only) and single-use rule are unchanged; the component's header
+already covered this placement. clinicianApproved untouched.

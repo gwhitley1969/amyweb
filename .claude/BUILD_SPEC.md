@@ -441,7 +441,9 @@ action hype, no outcomes, no dosing, ever.
    stay out — render "prescription". The Evolus film and the lip
    style-guide graphic (text-free version since 2026-07-21) ship under
    the DECISIONS 2026-07-21 overrides. The §8.4 Evolus ranking sentence
-   is authorized on this page (once, Evolysse context).
+   is authorized on this page (once — DECISIONS 2026-07-21; since
+   2026-07-30 it renders as the standalone EvolusCallout noir plate
+   rather than in Evolysse prose context).
 5. **Biostimulators** — collagen-stimulating treatments: PDO Threads,
    Radiesse. Factual description of category; no "lifting results" promises.
    Radiesse is a **biostimulator, not a dermal filler**, for this catalog —

@@ -14,8 +14,10 @@
 > proceeded, §7.3 amended); the three neuromodulator cards narrowed to
 > per-unit-only prices (registry + page in one commit); and the Evolus
 > ranking sentence now renders as a static noir display plate
-> (`EvolusCallout`) on wrinkle-relaxers. `clinicianApproved` still
-> `false` on all twelve. DECISIONS 2026-07-29 and 2026-07-30.
+> (`EvolusCallout`) on wrinkle-relaxers — and, later the same day on
+> Amy's direction, on dermal-fillers too, so both authorized pages
+> carry it identically (PR #75). `clinicianApproved` still `false` on
+> all twelve. DECISIONS 2026-07-29 and 2026-07-30.
 
 > **STATUS UPDATE 2026-07-27:** **the /services cards are
 > raised** (PR #69) — client direction after "they look flat", and the

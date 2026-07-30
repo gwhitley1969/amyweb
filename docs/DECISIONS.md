@@ -2399,3 +2399,23 @@ documented per-unit exposure recorded 2026-07-21 is unchanged in kind
 and reduced in surface. clinicianApproved untouched; ships on the
 open PR #73 preview for Amy's review with the temporary-wording
 change.
+
+## 2026-07-30 — The Evolus ranking sentence becomes a noir display plate
+
+Context: client direction — drop "Jeuveau comes from Evolus," and
+render "Amy is Charlotte's #1 Evolus provider!" as a bold black box
+with pink letters under "What they are" on wrinkle-relaxers. Decision:
+a new EvolusCallout.astro — a STATIC noir plate (deliberately not a
+scrolling marquee; that experiment was rejected on sight 2026-07-08
+and motion stays within the sanctioned vocabulary), Playfair display
+at ~39px in pink-500 on noir (the recorded 5.95:1 pair), centered, no
+shimmer (the moving glow stays capped at the sign and the hero accent
+phrase). The exact allowedStrings entry "Charlotte's #1 Evolus
+provider" is byte-intact on one source line with a straight apostrophe
+— the component header carries both editing rules. Same page, same
+single use; the 2026-07-21 authorization's terms are unchanged, but
+the claim's PROMINENCE rises from body prose to display scale —
+noted to the operator at execution as Amy's call on her own authorized
+claim. Dermal-fillers keeps its prose version ("Evolysse comes from
+Evolus, and Amy is…") — unchanged unless directed. clinicianApproved
+untouched; ships on the PR #73 preview.

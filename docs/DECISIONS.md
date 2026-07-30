@@ -2340,3 +2340,42 @@ content commit per treatment file preserves the clinician audit
 trail; `clinicianApproved` untouched — all twelve pages were already
 `false`, so no resets were triggered and Amy reviews the punctuation
 with everything else on the stable preview.
+
+## 2026-07-30 — "Temporary/temporarily" removed from neuromodulator copy (client direction, flagged)
+
+Context: Amy directed (via the operator) that "temporary" and
+"temporarily" come off the website — she has duration conversations
+directly with clients and does not want the hedge in the copy. A
+sitewide census found the words in exactly six places, all
+neuromodulator copy: five in wrinkle-relaxers.mdx (summary, Jeuveau
+and Xeomin details, the formulation FAQ, the "What they are" body) and
+the wrinkle-relaxers card summary in serviceLines.ts. Nothing else on
+the site used them.
+
+Flagged once before execution: the adverb was doing compliance work.
+"Used to temporarily smooth moderate to severe frown lines" is the
+indication-style phrasing authorized from the product sheet (DECISIONS
+2026-07-21) precisely because it mirrors the products' label wording,
+and §7.3's brief defined the line as "temporary softening." Removing
+the word converts label-mirroring statements into unhedged efficacy
+statements — no lint pattern fires and the copy stays factual, but the
+risk profile ticks up (duration overpromise by omission) and the copy
+now deviates from the authorized phrasing. The client proceeded with
+the flag visible; this entry is the recorded override, and the
+operator's merge of the PR is the written approval.
+
+Decision: drop the adverb in all six places with minimal grammar
+repair ("that soften dynamic lines", "used to smooth moderate to
+severe…"). §7.3 amended with a dated note so brief and copy agree.
+Deliberately UNCHANGED, scoped in the flag and awaiting explicit word
+if wanted: Phentermine's "short-term use" (the compliance-chosen
+alternative to the appetite-language override, 2026-07-20) and the
+Daxxify/Evolysse "labeled for results lasting up to…" hedged label
+facts (different words, same honesty job, tied to the priced cards —
+the Daxxify FAQ sentence keeps its "labeled for" frame).
+
+Consequences: the neuromodulator page now states what the treatments
+do without a duration qualifier; expectation-setting moves wholly into
+Amy's consultation, which is her stated practice. clinicianApproved
+untouched (the page was already false); Amy reviews on the preview
+like everything else.

@@ -414,7 +414,13 @@ action hype, no outcomes, no dosing, ever.
    "neuromodulator". The §8.4 Evolus ranking sentence is authorized on
    this page (once, Jeuveau context — DECISIONS 2026-07-21), and the
    Evolus ICON event film ships here under the §8.3/§8.4 override
-   (as-is; DECISIONS 2026-07-21).
+   (as-is; DECISIONS 2026-07-21). *(Amended 2026-07-30, client
+   direction after the compliance flag: the words "temporary" /
+   "temporarily" do not appear in rendered site copy — Amy sets
+   duration expectations directly in consultation. The indication-style
+   phrasing above renders without the adverb; the hedged Daxxify label
+   fact and Phentermine's "short-term use" wording are unchanged.
+   DECISIONS 2026-07-30.)*
 4. **Dermal Fillers** — injectable gel fillers for volume/contour:
    Evolysse Smooth & Form (Evolus) and Revanesse Versa+ & Lips+
    (Prollenium); common areas factually (lips, cheeks, jawline, chin,

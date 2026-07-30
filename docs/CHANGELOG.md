@@ -6,6 +6,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-30 — "Temporary" comes off the neuromodulator copy
+
+- Client direction: Amy sets duration expectations directly in
+  consultation and doesn't want the hedge on the site. The words
+  appeared in exactly six places, all neuromodulator copy (five on
+  wrinkle-relaxers, one card summary) — all now read without the
+  adverb ("used to smooth moderate to severe frown lines").
+- Flagged before execution and proceeded with the flag visible: the
+  adverb mirrored the products' label wording, so its removal is a
+  recorded deviation from the authorized indication-style phrasing
+  (DECISIONS 2026-07-30; §7.3 amended to match). Deliberately
+  unchanged: Phentermine's "short-term use" and the Daxxify/Evolysse
+  "labeled for results lasting up to…" facts.
+- `clinicianApproved` untouched; Amy reviews on the preview.
+
 ### 2026-07-29 — The em dashes go on a budget
 
 - The rendered site carried **313 em dashes in 12,373 words** — 25.3

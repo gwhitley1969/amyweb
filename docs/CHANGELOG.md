@@ -6,6 +6,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-30 — The Evolus plate lands on dermal-fillers too
+
+- Client direction, later the same day: "Evolysse comes from Evolus,"
+  comes off and the shared `EvolusCallout` plate renders above "The
+  Evolysse film" — both authorized pages now carry the ranking
+  sentence the same way, once each, as the standalone noir display
+  plate. Page scope and single-use rule unchanged. DECISIONS
+  2026-07-30.
+
 ### 2026-07-30 — Wrinkle-relaxers: per-unit prices only, and the Evolus plate
 
 - Client direction, two changes on the same page (PR #73). The three
@@ -25,8 +34,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   string is byte-intact on one source line; the component header
   carries the editing rules, including the story of its own first
   draft failing the claims gate (a naked ranking token in a comment —
-  the linter scans comments by design). Dermal-fillers keeps its prose
-  version. DECISIONS 2026-07-30 ×2.
+  the linter scans comments by design). Dermal-fillers kept its prose
+  version for a few hours — see the entry above. DECISIONS 2026-07-30 ×2.
 
 ### 2026-07-30 — Concept hero byline reworded (client copy, verbatim)
 

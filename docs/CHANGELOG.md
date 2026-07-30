@@ -6,6 +6,38 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-07-30 — Wrinkle-relaxers: per-unit prices only, and the Evolus plate
+
+- Client direction, two changes on the same page (PR #73). The three
+  product cards narrow to per-unit pricing — Jeuveau and Xeomin
+  "$10 per unit", Daxxify "$12 per unit"; the $400/$500 flat halves
+  come off. Those strings are exact-match `allowedStrings` entries, so
+  the compliance registry and the page's `priceLines` changed together
+  in one commit — a narrowing, not an expansion, with the client's
+  directive as the recorded registry authorization. The linter
+  self-test regenerated from the new strings and passed.
+- "Jeuveau comes from Evolus," comes off, and the ranking sentence
+  becomes a **static noir display plate**: new `EvolusCallout` renders
+  "Amy is Charlotte's #1 Evolus provider!" in pink-500 Playfair on
+  black (the recorded 5.95:1 pair), centered, under "What they are".
+  Deliberately not a scrolling marquee, and no shimmer — the moving
+  glow stays capped at its two sanctioned homes. The exact allowlisted
+  string is byte-intact on one source line; the component header
+  carries the editing rules, including the story of its own first
+  draft failing the claims gate (a naked ranking token in a comment —
+  the linter scans comments by design). Dermal-fillers keeps its prose
+  version. DECISIONS 2026-07-30 ×2.
+
+### 2026-07-30 — Concept hero byline reworded (client copy, verbatim)
+
+- The `/styleguide/concept` hero byline now reads: "The dedicated
+  practice of Amy Palacios, FNP (AKA Needle Girlie) and owner of
+  Mobile Aesthetics, clinician-led aesthetics since 2017." —
+  client-dictated wording, shipped verbatim on PR #72. "Owner of
+  Mobile Aesthetics" is the recorded sole-ownership fact (DECISIONS
+  2026-07-23) already rendered on the skincare page; constraint 2
+  is not engaged. This also retired the byline's kept em dash.
+
 ### 2026-07-30 — "Temporary" comes off the neuromodulator copy
 
 - Client direction: Amy sets duration expectations directly in

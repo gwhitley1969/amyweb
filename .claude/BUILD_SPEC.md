@@ -412,7 +412,9 @@ action hype, no outcomes, no dosing, ever.
    2026-07-21). The sheet's "FDA-approved" phrasing stays banned —
    render it as "prescription"; "neurotoxin" normalizes to
    "neuromodulator". The §8.4 Evolus ranking sentence is authorized on
-   this page (once, Jeuveau context — DECISIONS 2026-07-21), and the
+   this page (once — DECISIONS 2026-07-21; since 2026-07-30 it renders
+   as the standalone EvolusCallout noir plate rather than in Jeuveau
+   prose context), and the
    Evolus ICON event film ships here under the §8.3/§8.4 override
    (as-is; DECISIONS 2026-07-21). *(Amended 2026-07-30, client
    direction after the compliance flag: the words "temporary" /

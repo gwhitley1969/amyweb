@@ -1,6 +1,23 @@
 # Phase C — Pages & content drafts (working checklist)
 
-> **STATUS UPDATE 2026-07-27 (latest):** **the /services cards are
+> **STATUS UPDATE 2026-07-30 (latest):** **copy texture and
+> client-directed wrinkle-relaxers changes** (PRs #72–#73, both
+> Amy-approved on preview). The em-dash thinning pass took the
+> rendered site from **313 to 71** visible em dashes (25.3 → 5.9 per
+> 1,000 words) under a standing rule — structural dashes stay,
+> rhetorical dashes budget to one per paragraph — with three items
+> deliberately left as Amy's call (the Retatrutide line,
+> "Book — or ask first", the "— sound on." captions). Same window,
+> client-directed: the concept hero byline reworded verbatim (AKA
+> Needle Girlie / owner of Mobile Aesthetics); "temporary/temporarily"
+> removed from all six occurrences (all neuromodulator copy — flagged,
+> proceeded, §7.3 amended); the three neuromodulator cards narrowed to
+> per-unit-only prices (registry + page in one commit); and the Evolus
+> ranking sentence now renders as a static noir display plate
+> (`EvolusCallout`) on wrinkle-relaxers. `clinicianApproved` still
+> `false` on all twelve. DECISIONS 2026-07-29 and 2026-07-30.
+
+> **STATUS UPDATE 2026-07-27:** **the /services cards are
 > raised** (PR #69) — client direction after "they look flat", and the
 > flatness turned out to be arithmetic rather than taste: the card fill
 > sits BETWEEN the ombre endpoints, so plate and canvas cross equal

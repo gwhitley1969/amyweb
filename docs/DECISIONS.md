@@ -2419,3 +2419,18 @@ noted to the operator at execution as Amy's call on her own authorized
 claim. Dermal-fillers keeps its prose version ("Evolysse comes from
 Evolus, and Amy is…") — unchanged unless directed. clinicianApproved
 untouched; ships on the PR #73 preview.
+
+## 2026-07-30 — Concept hero byline reworded to the client's exact sentence
+
+Context: reviewing the PR #72 preview, the client dictated a
+replacement for the concept hero byline, shipped verbatim: "The
+dedicated practice of Amy Palacios, FNP (AKA Needle Girlie) and owner
+of Mobile Aesthetics, clinician-led aesthetics since 2017." Decision:
+executed as dictated on the same PR. "Owner of Mobile Aesthetics" is
+the recorded sole-ownership fact (2026-07-23) already rendered on the
+skincare page, so constraint 2 is not engaged; no banned patterns; the
+voice rule holds. One grammar note was offered once ("and owner of"
+attaches to "the practice of" rather than to Amy) and the client's
+wording stood. Recorded here belatedly in the 2026-07-30 docs sweep —
+the change had shipped with only a commit message and PR comment as
+its record, which is what this entry corrects.

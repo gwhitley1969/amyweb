@@ -2512,8 +2512,9 @@ dash before "never on its own" (2026-07-29 keep-list) becomes her
 comma — a further reduction in the direction the client already
 approved. One grammar note offered once, per the concept-byline
 precedent: "GLP-1 therapy … anchor" takes a singular verb; the
-client's wording ships as dictated unless she corrects it on the
-preview. "Every one of these is a prescription medication" is carried
+operator directed the correction before the PR, so the page ships
+"anchors" — the one word changed from the dictated sentence.
+"Every one of these is a prescription medication" is carried
 copy, not new (it was already on the page with Retatrutide in scope).
 clinicianApproved untouched (already false); Amy reviews on the
 preview.

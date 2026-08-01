@@ -8,8 +8,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ### 2026-08-01 — Weight-loss "What it is" reworded (client copy, verbatim)
 
-- The section now reads exactly as Amy dictated: "GLP-1 therapy
-  (Semaglutide, Tirzepatide, and Retatrutide) anchor the program, and
+- The section now reads as Amy dictated (one grammar fix,
+  operator-directed: "anchors"): "GLP-1 therapy
+  (Semaglutide, Tirzepatide, and Retatrutide) anchors the program, and
   Phentermine is also offered where it fits a plan. Every one of these
   is a prescription medication, and every one belongs inside a
   supervised plan, never on its own." Retatrutide joins the GLP-1

@@ -136,6 +136,19 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
   a production artifact must never ship without the origin lockdown GUID.
 - **Stale page after a deploy:** hard refresh (Ctrl+F5); remember the 5-min
   HTML edge cache plus any local Canopy cache.
+- **Preview serves unstyled HTML or mixed 404s after a "Succeeded" deploy:**
+  the staging environment propagated unevenly (a bad serving replica). Tells:
+  the 404s are SWA's *platform* page, not the branded /404; they come in
+  bursts even on cache-busted URLs (`?bust=<unique>` — busted 404s prove the
+  origin is at fault, not the browser/Canopy cache); pages render unstyled
+  when HTML comes from a healthy replica but the hashed CSS 404s. If CI's
+  pa11y passed, the artifact is not the suspect — do not "fix" code or
+  gates. Kick: re-run the deploy workflow (`gh run rerun <id>`). If it
+  persists, close and reopen the PR: teardown + recreation replaces the
+  serving pool (same `-NN` hostname). Verify with 3–4 probe passes ~45s
+  apart across several routes before sharing the URL — single green probes
+  lie; the bursts have appeared ~100s in. Advise Ctrl+F5 locally afterward.
+  (2026-08-01 incident, PR #79 — DECISIONS.)
 
 ## Reference docs
 

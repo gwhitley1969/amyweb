@@ -42,6 +42,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   its identity-only wording (recorded divergence; the price-pairing
   rule is unaffected). §7.2 amended. `clinicianApproved` still false.
   DECISIONS 2026-08-01.
+- Same-day follow-up: **MOTS-c gains its price** — $125,
+  operator-supplied (normalized from "$125.00" to the sitewide
+  whole-dollar format). The last unpriced peptide on the page closes;
+  flat price, no registry change.
 
 ### 2026-07-30 — The Evolus plate lands on dermal-fillers too
 

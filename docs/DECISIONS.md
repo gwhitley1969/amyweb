@@ -2548,3 +2548,25 @@ for compounded peptides, scoped to the nine card sentences as shipped
 — §7.2 carries the dated amendment; anything further reverts to the
 rule. The operator's merge of this PR is the written override
 approval. clinicianApproved stays false; Amy reviews on the preview.
+
+**Update (same day) — MOTS-c priced.** The operator supplied the
+MOTS-c price ($125.00), carried as "$125" per the sitewide
+whole-dollar price format — the same normalization precedent as every
+flat peptide price. No registry change (flat price); its own content
+commit. The page's last unpriced card closes.
+
+**Update (same day) — the PR #79 preview environment failed and was
+recreated.** The freshly created `-79` staging environment served the
+Succeeded deployment unevenly for 30+ minutes: routes oscillated
+200↔404 in bursts (SWA's platform 404, not the branded /404),
+including on cache-busted URLs — which exonerated the workstation's
+Canopy cache — and the operator saw an unstyled page (HTML from a
+healthy replica, hashed CSS 404ing). The artifact was never suspect
+(CI pa11y 23/23 requires CSS; Lighthouse passed; deploy reported
+Succeeded). A full workflow re-run did NOT fix it: redeploys refresh
+content, not the serving pool. Closing and reopening PR #79 (teardown
++ recreation under the same hostname) replaced the pool and the
+environment held green across four spaced verification passes (all
+routes, plain + busted, content markers, CSS). RUNBOOK gains the
+troubleshooting entry. No code, content, gate, or config change was
+made for this — infrastructure transient, resolved operationally.

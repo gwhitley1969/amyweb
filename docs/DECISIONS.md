@@ -2494,6 +2494,16 @@ indication is now on the record as operator-confirmed fact.
 clinicianApproved stays false; Amy reviews the new cards on the
 preview like everything else.
 
+**Update (same day, evening) — the cards gain prices.** The operator
+supplied PRP $600.00 and PRP-with-Microneedling $900.00; carried bare
+and whole-dollar ("$600" / "$900") per the PiXel8 bare-price and
+sitewide formatting precedents, with no per-session basis invented.
+This resolves the no-prices stance the operator-supplies-figures way,
+exactly as biostimulators and skin-rejuvenation did (2026-07-21 /
+2026-07-22). `pricingDisplay: consult` stays — the pattern on both
+price-bearing consult-routed siblings. Flat prices, no registry
+change; own content commit.
+
 ## 2026-08-01 — Weight-loss "What it is" reworded to the client's sentence (verbatim)
 
 Context: Amy directed (via the operator) a replacement for the

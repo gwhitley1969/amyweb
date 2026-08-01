@@ -20,7 +20,9 @@
 > variants offered and declined; both sentences pass every automated
 > gate, so the override is judgment-level). PRP's hair-growth use is
 > recorded as operator-confirmed fact and "Who they're generally for"
-> now mentions hair. No card prices — pricing stays with the consult.
+> now mentions hair. Card prices added the same evening (PRP $600,
+> PRP with Microneedling $900 — operator-supplied; pricingDisplay
+> stays consult per the biostimulators pattern).
 > `clinicianApproved` still `false` on all twelve. DECISIONS 2026-08-01.
 
 > **STATUS UPDATE 2026-07-30 (latest):** **copy texture and
@@ -449,8 +451,9 @@ currently through the clinician gate):
       only if Amy confirms them). Definition cards added 2026-08-01 —
       PRP (Hair, "for stimulating hair growth") and PRP with
       Microneedling (Skin), client wording verbatim under a recorded
-      §7.6 override; no card prices (pricing stays with the consult).
-      ctaType: consult.
+      §7.6 override; prices added the same evening (PRP $600, PRP
+      with Microneedling $900 — operator-supplied, bare per the
+      PiXel8 precedent). ctaType: consult.
 - [x] `skin-rejuvenation` *(added 2026-07-19, Vagaro alignment)* —
       PiXel8-RF microneedling + medical-grade chemical peels. Factual
       device/procedure descriptions only; no resurfacing/anti-aging

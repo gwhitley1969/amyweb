@@ -2504,6 +2504,16 @@ exactly as biostimulators and skin-rejuvenation did (2026-07-21 /
 price-bearing consult-routed siblings. Flat prices, no registry
 change; own content commit.
 
+## 2026-08-01 — Hormone lab draw priced (operator-supplied)
+
+The operator supplied the Hormone lab draw price ($125.00), carried as
+"$125" per the sitewide whole-dollar format. The 2026-07-22 build had
+deliberately left the card unpriced rather than invent a figure; the
+open blank closes the operator-supplies-figures way. Flat price, no
+registry change; `pricingDisplay: consult` unchanged (true on this
+page — the pellet plan follows from labs). Own content commit;
+clinicianApproved stays false.
+
 ## 2026-08-01 — Weight-loss "What it is" reworded to the client's sentence (verbatim)
 
 Context: Amy directed (via the operator) a replacement for the

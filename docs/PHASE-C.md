@@ -497,7 +497,8 @@ currently through the clinician gate):
       `{{BIOTE_FDA_DISCLAIMER}}` placeholder** — resolved in the same PR,
       which is what made the symptom-awareness permission usable at all.
       Three cards: Pellets — Women $450, Pellets — Men $750, Hormone lab
-      draw (no price). **Parallel For women / For men sections** per
+      draw ($125 — operator-supplied 2026-08-01; previously unpriced).
+      **Parallel For women / For men sections** per
       operator decision — "Who it's generally for" was restructured into
       a universal frame rather than having a women's section appended
       under it. Symptom vocabulary is in play here **and nowhere else**;

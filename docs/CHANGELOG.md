@@ -33,9 +33,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - PRP's hair-growth use is new to the page and recorded as
   operator-confirmed fact ("that's how Amy uses PRP"); "Who they're
   generally for" now mentions hair alongside skin texture and tone.
-  No prices on the cards — regenerative keeps pricing to the consult
-  (2026-07-21). `clinicianApproved` stays false; Amy reviews on the
+  `clinicianApproved` stays false; Amy reviews on the
   preview. DECISIONS 2026-08-01.
+- Same-day follow-up (evening): **both cards gain prices** — PRP $600,
+  PRP with Microneedling $900, operator-supplied and carried bare per
+  the PiXel8 precedent. The keep-pricing-to-the-consult stance
+  resolves the operator-supplies-figures way, as biostimulators and
+  skin-rejuvenation did; `pricingDisplay: consult` stays, matching
+  both price-bearing consult-routed siblings. Flat prices, no
+  registry change.
 
 ### 2026-08-01 — Peptide cards: the client's definitions land (near-verbatim override)
 

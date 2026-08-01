@@ -2518,3 +2518,80 @@ operator directed the correction before the PR, so the page ships
 copy, not new (it was already on the page with Retatrutide in scope).
 clinicianApproved untouched (already false); Amy reviews on the
 preview.
+
+## 2026-08-01 — Peptide card definitions: the benefit-language override, executed near-verbatim
+
+Context: the operator supplied a screenshot of client-written peptide
+definitions (peptide02.png, repo root — covered by the root /*.png
+ignore rule, treated view-only like every client source document) and
+directed they replace the identity-only card lines on
+/services/peptide-therapy. This is the moment the 2026-07-21 peptide
+entry anticipated: "The operator declined the Option-B
+benefit-language override for now; it remains available (same posture
+as the GLP-1 pricing override) if directed later." It was directed.
+
+Flagged once, in full, before execution. Two tiers. (1) Four phrases
+cannot build at all: "anti-aging" (GHK-Cu, Ipamorelin) and "tissue
+healing" (Ipamorelin) hit banned regexes, and "libido" (Sermorelin)
+trips the symptom-vocabulary inverse check, which reads raw file text
+(no allowlist stripping) and would demand bioteDisclaimer: true —
+injecting the Biote FDA disclaimer onto a peptides page. No pattern,
+allowlist, or inverse check was touched; the gate stands. (2) The
+rest is benefit language the §7.2 brief bans (lean muscle mass and
+fat loss, exercise recovery, joint repair, insulin sensitivity,
+"reduce excess deep belly fat", "protects cells / clears toxins /
+supports immune system", "mimics the effects of exercise") — all
+regex-clean, all judgment-level. Named specifically in the flag:
+Tesamorelin's belly-fat sentence is off-label-promotion-shaped
+(§8.5), and Glutathione's line is the same content excluded on the
+IV page under §7.7's recorded absolute. The page also already carries
+the recorded no-disclosure exposure for compounded peptides; benefit
+claims stack on it.
+
+Decision (operator, from three options with previews): NEAR-VERBATIM —
+every supplied sentence ships word-for-word except the four blocked
+phrases, which were dropped with minimal grammar repair. Also: "known
+as secretagogues" normalized to "known as a secretagogue" and NAD+'s
+"an essential" capitalized (card-initial); BPC-157/TB-500 kept its
+existing line (not among the supplied definitions); all prices
+untouched. Coherence trims in the body, deletions only: "Where the
+internet reaches for sweeping claims, her approach is deliberately
+plain" and "Amy's starting point is the opposite of the hype: names
+and facts, no promises" came out — a page cannot promise "no
+promises" above benefit cards. Glutathione now reads differently here
+than on iv-therapy (which keeps identity-only wording per §7.7's
+absolute): recorded divergence, deliberate; the two pages' PRICE
+pairing rule is unaffected.
+
+Alternatives rejected: compliant redraft of all eight (offered with
+previews; declined); verbatim-plus-operator-edits-the-registry
+(offered accurately, including that libido remains unshippable that
+way; declined); touching any gate mechanism (never on the table).
+
+Consequences: documented, client-accepted exposure on benefit claims
+for compounded peptides, scoped to the nine card sentences as shipped
+— §7.2 carries the dated amendment; anything further reverts to the
+rule. The operator's merge of this PR is the written override
+approval. clinicianApproved stays false; Amy reviews on the preview.
+
+**Update (same day) — MOTS-c priced.** The operator supplied the
+MOTS-c price ($125.00), carried as "$125" per the sitewide
+whole-dollar price format — the same normalization precedent as every
+flat peptide price. No registry change (flat price); its own content
+commit. The page's last unpriced card closes.
+
+**Update (same day) — the PR #79 preview environment failed and was
+recreated.** The freshly created `-79` staging environment served the
+Succeeded deployment unevenly for 30+ minutes: routes oscillated
+200↔404 in bursts (SWA's platform 404, not the branded /404),
+including on cache-busted URLs — which exonerated the workstation's
+Canopy cache — and the operator saw an unstyled page (HTML from a
+healthy replica, hashed CSS 404ing). The artifact was never suspect
+(CI pa11y 23/23 requires CSS; Lighthouse passed; deploy reported
+Succeeded). A full workflow re-run did NOT fix it: redeploys refresh
+content, not the serving pool. Closing and reopening PR #79 (teardown
++ recreation under the same hostname) replaced the pool and the
+environment held green across four spaced verification passes (all
+routes, plain + busted, content markers, CSS). RUNBOOK gains the
+troubleshooting entry. No code, content, gate, or config change was
+made for this — infrastructure transient, resolved operationally.

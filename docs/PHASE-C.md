@@ -1,5 +1,17 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-08-01 (later):** **peptide cards carry the
+> client's definitions** — all nine "What Amy offers" cards step up
+> from identity-only lines to the client's supplied wording,
+> near-verbatim, under the benefit-language override recorded
+> 2026-07-21 as available-if-directed-later (§7.2 amended). Four
+> gate-blocked phrases stayed out: "anti-aging" ×2 and "tissue
+> healing" (banned regexes) and "libido" (the Biote symptom check).
+> Two body passages promising "no promises" trimmed for coherence.
+> IV-therapy's Glutathione keeps identity-only wording (recorded
+> divergence). `clinicianApproved` still `false` on all twelve.
+> DECISIONS 2026-08-01.
+
 > **STATUS UPDATE 2026-08-01:** **regenerative gets its definitions** —
 > the last legacy `products` bullet list on a treatment page becomes
 > productDetails cards: PRP (tagged Hair) and PRP with Microneedling
@@ -414,8 +426,12 @@ currently through the clinician gate):
 - [x] `weight-loss-glp-1` — Semaglutide, Tirzepatide (+ Retatrutide ONLY
       per `{{RETATRUTIDE_COUNSEL}}`; if published: `investigational: true`,
       factual naming, zero benefit language). ctaType: consult.
-- [x] `peptide-therapy` — publish only `{{PEPTIDES_PUBLIC_LIST}}`. No
-      recovery/healing/anti-aging/performance claims. ctaType: consult.
+- [x] `peptide-therapy` — publish only `{{PEPTIDES_PUBLIC_LIST}}`
+      (resolved 2026-07-21: the nine-item menu). Card definitions
+      upgraded 2026-08-01 to the client's wording near-verbatim under
+      a recorded override of the no-benefit-claims rule; gate-blocked
+      vocabulary (anti-aging, healing, libido) excluded — DECISIONS
+      2026-08-01. ctaType: book (since 2026-07-21).
 - [x] `wrinkle-relaxers` — `{{NEUROMOD_LIST}}`; treatment areas factually
       (forehead, frown lines, crow's feet). ctaType: book/consult.
 - [x] `dermal-fillers` — approved 2026-07-21 (the first page ever

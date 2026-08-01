@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-08-01 — Weight-loss "What it is" reworded (client copy, verbatim)
+
+- The section now reads exactly as Amy dictated: "GLP-1 therapy
+  (Semaglutide, Tirzepatide, and Retatrutide) anchor the program, and
+  Phentermine is also offered where it fits a plan. Every one of these
+  is a prescription medication, and every one belongs inside a
+  supervised plan, never on its own." Retatrutide joins the GLP-1
+  parenthetical (the FAQ already groups the three by receptor family);
+  the old opening sentence comes off; the kept earned dash before
+  "never on its own" becomes her comma — one more off the census. The
+  investigational disclosure line and inverse checks are untouched.
+  `clinicianApproved` still false. DECISIONS 2026-08-01.
+
 ### 2026-08-01 — Regenerative: PRP and PRP-with-Microneedling get real definitions
 
 - The last legacy bullet list on a treatment page becomes productDetails

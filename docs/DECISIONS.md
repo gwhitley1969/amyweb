@@ -2494,6 +2494,31 @@ indication is now on the record as operator-confirmed fact.
 clinicianApproved stays false; Amy reviews the new cards on the
 preview like everything else.
 
+## 2026-08-01 — Weight-loss "What it is" reworded to the client's sentence (verbatim)
+
+Context: Amy directed (via the operator) a replacement for the
+weight-loss page's "What it is" paragraph, dictated wording. Decision:
+shipped verbatim. Three deltas from the prior copy, all assessed
+before executing: (1) Retatrutide moves inside the GLP-1 parenthetical
+rather than trailing as "on the menu as well" — factually defensible
+(a GLP-1-family triple agonist) and consistent with the FAQ's
+receptor-family framing; the linter inverse checks are unaffected
+(`investigational: true` and the 2026-07-21 disclosure line both
+stay). (2) The opening "This is a medically supervised
+weight-management program…" sentence comes off; no gate requires it,
+and the supervised framing survives in her own second sentence, the
+summary, the deck, and the SEO description. (3) The kept earned em
+dash before "never on its own" (2026-07-29 keep-list) becomes her
+comma — a further reduction in the direction the client already
+approved. One grammar note offered once, per the concept-byline
+precedent: "GLP-1 therapy … anchor" takes a singular verb; the
+operator directed the correction before the PR, so the page ships
+"anchors" — the one word changed from the dictated sentence.
+"Every one of these is a prescription medication" is carried
+copy, not new (it was already on the page with Retatrutide in scope).
+clinicianApproved untouched (already false); Amy reviews on the
+preview.
+
 ## 2026-08-01 — Peptide card definitions: the benefit-language override, executed near-verbatim
 
 Context: the operator supplied a screenshot of client-written peptide

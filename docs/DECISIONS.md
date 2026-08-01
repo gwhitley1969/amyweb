@@ -2446,3 +2446,50 @@ noir display plate, byte-intact on one source line in the shared
 component. The 2026-07-21 authorization's page scope (these two pages
 only) and single-use rule are unchanged; the component's header
 already covered this placement. clinicianApproved untouched.
+
+## 2026-08-01 — Regenerative definitions: verbatim client wording (operator override); hair indication recorded
+
+Context: the operator judged the regenerative page's PRP explanation
+poor and PRP-with-microneedling unexplained, and supplied exact
+definition sentences for both — PRP: "a medical treatment that uses a
+high concentration of your own blood platelets for stimulating hair
+growth." (with the operator-supplied fact "that's how Amy uses PRP" —
+hair, a new indication for a page previously framed skin-only); PRP
+with microneedling: "combines tiny skin punctures with your own
+blood's platelet-rich plasma to boost collagen, smooth scars, and
+improve skin tone." The page was the last of the twelve still on the
+legacy `products` bullet list rather than productDetails cards.
+
+Decision: the two-string list becomes two productDetails cards (the
+house pattern, eleven-page precedent), tags "Hair" / "Skin", no
+priceLines (regenerative keeps pricing to the consult — 2026-07-21;
+`pricingDisplay: consult` unchanged), and the definition sentences
+ship **verbatim as the client wrote them**. Flagged once before
+execution: both sentences pass lint:claims (verified against every
+registry pattern — no regex covers "hair growth", "boost", "smooth
+scars", or "improve") and lint:voice, but §7.6 says "no healing/repair
+outcome claims" and every shipped definition card states outcomes as
+design intent ("designed to stimulate the skin's own collagen",
+"designed to improve the appearance of … scarring") — these are the
+site's first bare-indicative outcome sentences. Hedged house-style
+variants were drafted and offered (AskUserQuestion, with previews);
+the operator chose verbatim with the flag visible. This entry is the
+recorded override; the operator's merge of the PR is the written
+approval. "Who they're generally for" gains the hair mention in the
+same commit so the body matches the cards' scope.
+
+Alternatives rejected: the hedged variants (offered, declined); a mix
+(PRP verbatim, microneedling hedged — offered, declined); prices on
+the cards (none supplied, and the 2026-07-21 decision stands); adding
+any allowlist entry (nothing to allowlist — the sentences trip no
+pattern, which is exactly why this is a judgment-level override, not
+a gate mechanism).
+
+Consequences: documented, client-accepted exposure on unhedged
+outcome phrasing, scoped to these two exact card sentences — any
+further outcome copy on this page reverts to the §7.6 rule. §7.6
+amended with the dated note (operator authorization = the approved
+plan for this change, per the §7.3/§5 amendment precedent). The hair
+indication is now on the record as operator-confirmed fact.
+clinicianApproved stays false; Amy reviews the new cards on the
+preview like everything else.

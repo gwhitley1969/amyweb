@@ -6,6 +6,23 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-08-01 — Regenerative: PRP and PRP-with-Microneedling get real definitions
+
+- The last legacy bullet list on a treatment page becomes productDetails
+  cards: PRP (tagged "Hair") and PRP with Microneedling (tagged "Skin"),
+  each carrying the client's own definition sentence verbatim — PRP "for
+  stimulating hair growth", the pairing "to boost collagen, smooth
+  scars, and improve skin tone". Shipped as a recorded operator override
+  of §7.6's no-outcome-claims rule after the flag (hedged house-style
+  variants were offered and declined); both sentences pass every
+  automated gate — the override is judgment-level, not mechanical.
+- PRP's hair-growth use is new to the page and recorded as
+  operator-confirmed fact ("that's how Amy uses PRP"); "Who they're
+  generally for" now mentions hair alongside skin texture and tone.
+  No prices on the cards — regenerative keeps pricing to the consult
+  (2026-07-21). `clinicianApproved` stays false; Amy reviews on the
+  preview. DECISIONS 2026-08-01.
+
 ### 2026-07-30 — The Evolus plate lands on dermal-fillers too
 
 - Client direction, later the same day: "Evolysse comes from Evolus,"

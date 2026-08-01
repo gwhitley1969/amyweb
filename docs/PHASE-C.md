@@ -1,5 +1,16 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-08-01:** **regenerative gets its definitions** —
+> the last legacy `products` bullet list on a treatment page becomes
+> productDetails cards: PRP (tagged Hair) and PRP with Microneedling
+> (tagged Skin), the client's definition sentences verbatim under a
+> recorded operator override of §7.6's no-outcome-claims rule (hedged
+> variants offered and declined; both sentences pass every automated
+> gate, so the override is judgment-level). PRP's hair-growth use is
+> recorded as operator-confirmed fact and "Who they're generally for"
+> now mentions hair. No card prices — pricing stays with the consult.
+> `clinicianApproved` still `false` on all twelve. DECISIONS 2026-08-01.
+
 > **STATUS UPDATE 2026-07-30 (latest):** **copy texture and
 > client-directed wrinkle-relaxers changes** (PRs #72–#73, both
 > Amy-approved on preview). The em-dash thinning pass took the
@@ -417,8 +428,13 @@ currently through the clinician gate):
       guide, weight-loss cross-link. ctaType: book.
 - [x] `biostimulators` — PDO Threads, Radiesse; category described
       factually, no lifting-results promises. ctaType: consult.
-- [x] `regenerative` — PRP & PRF, PDRN, Illuma/VAMP/Rejuran; what they
-      are, no healing/repair outcomes. ctaType: consult.
+- [x] `regenerative` — PRP and PRP with microneedling (trimmed to the
+      live Vagaro menu 2026-07-19; PRF/PDRN/Illuma/VAMP/Rejuran return
+      only if Amy confirms them). Definition cards added 2026-08-01 —
+      PRP (Hair, "for stimulating hair growth") and PRP with
+      Microneedling (Skin), client wording verbatim under a recorded
+      §7.6 override; no card prices (pricing stays with the consult).
+      ctaType: consult.
 - [x] `skin-rejuvenation` *(added 2026-07-19, Vagaro alignment)* —
       PiXel8-RF microneedling + medical-grade chemical peels. Factual
       device/procedure descriptions only; no resurfacing/anti-aging

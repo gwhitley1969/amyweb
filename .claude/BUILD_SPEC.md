@@ -756,7 +756,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{PHONE}}` / `{{HOURS}}` / `{{ADDRESS_DISPLAY}}` | NAP details as displayed | PHONE resolved 2026-07-07; ADDRESS resolved 2026-07-18; **HOURS still open — and since 2026-07-25 it renders NOTHING rather than the raw token: LocationCard hides the hours line until it resolves (chrome-level facts hide; draft treatment tokens stay visible). Supplying real hours restores the line everywhere with no code change.** |
 | `{{SOCIAL_LINKS}}` | Verified handles (IG, FB, YouTube, Yelp, TikTok) | RESOLVED 2026-07-18 (FB/IG/Yelp only; Yelp is the location's — flagged) |
 | `{{AMY_BIO}}` | Approved bio facts & credentials | RESOLVED 2026-07-19 (operator-supplied listing; Amy's wording confirmation pending — DECISIONS) |
-| `{{PEPTIDES_PUBLIC_LIST}}` | Which peptides appear publicly | Open decision |
+| `{{PEPTIDES_PUBLIC_LIST}}` | Which peptides appear publicly | RESOLVED 2026-07-21 (operator — Amy's nine-item injectable menu: BPC-157/TB-500, GHK-Cu, GLOW, Glutathione, Ipamorelin, MOTS-c, NAD+, Sermorelin, Tesamorelin; DECISIONS 2026-07-21. Registry status flip operator-authorized 2026-08-01) |
 | `{{NEUROMOD_LIST}}` | Confirmed neuromodulator products | RESOLVED 2026-07-19 (live Vagaro menu, operator-confirmed: Jeuveau, Xeomin, Daxxify) |
 | `{{PRICING_DISPLAY_MODE}}` | none / consult / startingAt (default: consult) | Open decision |
 | `{{CHEMICAL_PEELS_MENU}}` | Peel menu from Amy (brands, tiers, per-peel pricing beyond the $180 start) | Open — page carries a compliant placeholder (2026-07-22) |

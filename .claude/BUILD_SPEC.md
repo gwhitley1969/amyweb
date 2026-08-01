@@ -455,7 +455,13 @@ action hype, no outcomes, no dosing, ever.
    (trimmed to the live Vagaro menu, operator decision 2026-07-19; PRF,
    PDRN, Illuma, VAMP, and Rejuran return only if Amy confirms them as
    current offerings). Describe what the treatments are; no
-   healing/repair outcome claims.
+   healing/repair outcome claims. *(Amended 2026-08-01, operator: PRP on
+   its own is used for stimulating hair growth — operator-confirmed
+   fact — and PRP with microneedling is the skin-focused pairing. The
+   two productDetails definition sentences ship verbatim as client
+   wording under a recorded override of this brief's no-outcome-claims
+   rule, scoped to those two exact sentences; anything further reverts
+   to the rule — DECISIONS 2026-08-01.)*
 7. **IV Therapy & Vitamin Support** — Myers' Cocktail, Immunity IV, vitamin
    shots, Glutathione, B12, NAD IV. **Glutathione: absolutely no disease
    claims** (no neuroprotective / Alzheimer's / Parkinson's / chemotherapy

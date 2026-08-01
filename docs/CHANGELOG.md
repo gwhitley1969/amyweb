@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-08-01 — Hormone lab draw priced
+
+- The third hormone-optimization card completes: **Hormone lab draw
+  $125**, operator-supplied (carried whole-dollar per the sitewide
+  format). Flat price, no registry change; `pricingDisplay: consult`
+  stays — true on this page, since the pellet plan follows from labs.
+  `clinicianApproved` still false. DECISIONS 2026-08-01.
+
 ### 2026-08-01 — Weight-loss "What it is" reworded (client copy, verbatim)
 
 - The section now reads as Amy dictated (one grammar fix,

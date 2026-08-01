@@ -393,6 +393,13 @@ action hype, no outcomes, no dosing, ever.
    from the current public site: Glow Stack, GHK-Cu, NAD). Factual
    descriptions of what each is; **no** recovery, healing, anti-inflammatory,
    anti-aging-outcome, or performance claims; no off-label positioning.
+   *(Amended 2026-08-01, operator: the nine productDetails card sentences
+   ship the client's supplied definitions near-verbatim under a recorded
+   override of this brief's no-benefit-claims rule — DECISIONS 2026-08-01.
+   Scope: those card sentences as shipped, nothing further; new or edited
+   copy reverts to the rule. The gate-blocked vocabulary stayed out —
+   anti-aging, healing, and libido; no pattern, allowlist, or inverse
+   check was touched.)*
 3. **Neuromodulators ("wrinkle relaxers")** — prescription injectable
    treatments for temporary softening of dynamic lines: **Jeuveau**,
    **Xeomin**, **Daxxify** (`{{NEUROMOD_LIST}}` RESOLVED 2026-07-19 from

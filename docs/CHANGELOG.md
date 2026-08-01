@@ -23,6 +23,26 @@ change lives in `docs/DECISIONS.md`; design specs live in
   (2026-07-21). `clinicianApproved` stays false; Amy reviews on the
   preview. DECISIONS 2026-08-01.
 
+### 2026-08-01 — Peptide cards: the client's definitions land (near-verbatim override)
+
+- All nine "What Amy offers" cards on /services/peptide-therapy step up
+  from identity-only lines to the client's supplied definitions — the
+  benefit-language override recorded 2026-07-21 as "available if
+  directed later," now directed. Near-verbatim: four phrases the build
+  gate physically blocks stayed out — "anti-aging" twice and "tissue
+  healing" (banned regexes), and Sermorelin's "libido" (symptom
+  vocabulary whose inverse check would force the Biote FDA disclaimer
+  onto the page). Everything else ships word-for-word; BPC-157/TB-500
+  was not among the supplied definitions and is unchanged; prices
+  untouched.
+- Two body passages that advertised the page's own restraint ("the
+  opposite of the hype: names and facts, no promises") were trimmed
+  for coherence — deletions only, since copy promising "no promises"
+  cannot sit above benefit cards. IV-therapy's Glutathione card keeps
+  its identity-only wording (recorded divergence; the price-pairing
+  rule is unaffected). §7.2 amended. `clinicianApproved` still false.
+  DECISIONS 2026-08-01.
+
 ### 2026-07-30 — The Evolus plate lands on dermal-fillers too
 
 - Client direction, later the same day: "Evolysse comes from Evolus,"

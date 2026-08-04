@@ -39,6 +39,9 @@ seo:
   description: "PiXel8-RF radiofrequency microneedling and medical-grade chemical peels with Amy Palacios, FNP, in Harrisburg, NC. Consultation comes first for this line."
 ---
 
+import { Image } from 'astro:assets';
+import pixel8Rf from '../../assets/photos/pixel8-rf.jpg';
+
 ## What they are
 
 Two clinician-performed approaches to skin texture and tone: one device,
@@ -48,6 +51,17 @@ clinician-applied solutions that exfoliate the outer layer of the skin.
 Different tools, same idea: rather than covering anything up, both are
 designed to work with the skin's own renewal.
 
+<section class="media-row">
+  <figure class="media-figure">
+    <Image
+      src={pixel8Rf}
+      alt="The PiXel8-RF handpiece docked in its cradle in Amy's studio."
+      widths={[340, 452]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+  <div class="media-copy">
+
 ## How PiXel8-RF works
 
 PiXel8-RF, from Rohrer Aesthetics, is an FDA-cleared device that combines
@@ -56,6 +70,9 @@ skin's surface; the 4 MHz radiofrequency energy travels through those
 needles and warms the deeper dermal layer, the layer where collagen and
 elastin are made. The combination is designed to prompt the skin's own
 production of both.
+
+  </div>
+</section>
 
 It's used where the concern is the appearance of skin laxity and
 crepiness, uneven tone and texture, acne scarring, or stretch marks, and

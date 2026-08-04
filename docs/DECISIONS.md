@@ -2694,3 +2694,21 @@ own practice"). The standing 2026-07-19 flag on Amy's career-facts
 WORDING is restated in the PR — this rebuild rewrites that wording,
 and her preview review is the resolution path. /about is a structural
 page: no clinicianApproved mechanics apply.
+
+## 2026-08-04 — Amy approved /about on the preview; the 2026-07-19 wording flag resolves
+
+Context: the operator relayed Amy's approval of the rebuilt /about on
+the PR #83 preview and directed the merge (a2ec2e1). Decision: merged
+as approved, and recorded here because the approval settles two open
+items. (1) The standing 2026-07-19 C6 flag — Amy's confirmation of
+the career-facts wording, pending on the preview — is RESOLVED: the
+wording she approved is the magazine-profile prose that superseded
+the C6 paragraphs, reviewed on the very surface the flag named. The
+about.astro header comment is updated in this change so the source no
+longer reads "still pending." (2) The neon brand call recorded
+2026-08-03 (legible "MobileAesthetics" script, published uncropped)
+is ACCEPTED with the same approval; it remains reversible on her
+word, one file. /about is a structural page — no clinicianApproved
+mechanics; the twelve treatment pages' flags are untouched.
+Consequences: docs plus one source comment; rendered output is
+byte-identical.

@@ -6,6 +6,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-08-04 — /about profile approved on preview
+
+- Amy approved the rebuilt /about on the PR #83 preview; merged to
+  `phase-c` (a2ec2e1). The standing 2026-07-19 career-facts wording
+  flag RESOLVES with the approval, and the neon-signage brand call is
+  accepted (still reversible on her word). The about.astro header
+  comment updated to match; rendered output byte-identical. DECISIONS
+  2026-08-04.
+
 ### 2026-08-03 — /about becomes a magazine profile
 
 - The thinnest structural page grows from ~120 body words to a

@@ -2620,3 +2620,77 @@ clinicianApproved stays false.
 wrong anchor — mid-file, before the weight-loss and peptide entries —
 and was moved here the same day to restore the log's chronological
 order. Content unchanged.)*
+
+## 2026-08-03 — /about rebuilt as a magazine profile; 8K0A9862 published
+
+Context: the operator asked for a creative upgrade of the thinnest
+structural page (~120 body words, a facts card, the family portrait, the
+closing band) and settled three decisions via question round: on-record
+facts only (an interview round with Amy was offered as the biggest
+lever and declined; a hidden pull-quote slot likewise), imagery =
+family portrait (stays, Amy's request) plus 8K0A9862, and full
+magazine-profile scope (picked over moderate and polish-only).
+
+Decision — five beats. (1) Hero kept structurally: eyebrow, H1, lead,
+portrait figure, and consult CTA byte-identical — the lead is the
+2026-07-29 em-dash keep-list line and the measured LCP element — with
+the two bio paragraphs expanded to three (the bedside years; the
+2017/2018 arc; the ownership paragraph carrying the page's single
+shared-location line, constraint 2). (2) The `.about-facts` dl is
+RETIRED and its four facts re-homed — career and dates into hero prose
+and the timeline, BSN into step 03, Biote into step 04; nothing
+dropped. The milestones section is an `ol` wearing the VisitSteps
+Playfair-counter recipe hand-copied as `.about-milestones` (importing
+the component would import its hard-coded visit copy; the recipe is
+the reusable part), with `aria-labelledby` preserving the named region
+the dl's aria-label provided. (3) "The name on the wall": a two-column
+copy-first section carrying the sole-ownership fact, the AKA fact, the
+BUILD_SPEC §1 zero-confusion purpose, and the twelve-line breadth with
+an Explore-all-twelve link; the new print sits beside it. (4) "Booked
+your way." h3 prose on the recorded free-consultation-upon-request
+fact. (5) The closing band gains TrustChips, matching the /services
+and concept-home bands (/visit's band also lacks it — flagged as an
+optional follow-up, not taken here).
+
+Photo: 8K0A9862 → `src/assets/photos/studio-neon-portrait.jpg`,
+byte-identical (408,756 B, 1211×1600), as a white-matte tilted print
+(+1.5deg flip tilt, the `.media-figure` recipe hand-copied as
+`.about-print`), lazy, widths 360/520/760 with flat `sizes="18rem"`
+(the print caps at min(18rem, 100%) at every viewport — a viewport
+term would over-fetch), no figcaption (captions retired 2026-07-25),
+alt text omitting the held vial. The frame's record is a three-entry
+chain and this entry is the reconciliation: rejected for weight-loss
+2026-07-20 (injectable ambiguity on THAT page — page-specific, not a
+site ban); "needs a crop to remove legible Mobile Aesthetics neon"
+2026-07-21 (peptides) — SUPERSEDED by the sole-ownership fact
+(2026-07-23) and by the prp-treatment precedent that deliberately
+published legible "MobileAesthetics" neon as a brand call the operator
+may reverse; zoom-vetted 2026-07-23 ("fine print illegible … available
+for later use"). The operator's in-session imagery pick is the use
+authorization; Amy-solo frame, no client release needed.
+
+Fact trace for every new sentence: two decades of nursing / critical
+care, 2017, 2018, FNP/BSN, Biote-certified (C6 listing, 2026-07-19);
+sole owner of Mobile Aesthetics (2026-07-23); AKA Needle Girlie
+(client-dictated byline, 2026-07-30); free consultation upon request
+(2026-07-18); the zero-confusion purpose (BUILD_SPEC §1); twelve lines
+(§6). No naming-origin story was invented (constraint 7); About stays
+Evolus-ranking-free (2026-07-21 placement decision).
+
+Alternatives rejected: interviewing Amy for new material (declined by
+the operator); the caricature in its arch window (offered, not
+picked); reusing an existing solo portrait (cross-page repeats were
+ruled out once before, peptides 2026-07-21); a Person JSON-LD node
+(§10 does not enumerate the type — Phase D); keeping the facts card
+beside the timeline (the same facts twice).
+
+Consequences: measured envelope before → after — images 81,954 B →
+~102 KB of 245,760 (the lazy print may or may not fetch per LH run,
+±~20 KB across the median-of-3; harmless at ~41% utilization); doc
+4,454 B → ~6 KB of 16,384 transfer (TrustChips CSS inlines into the
+page document); LCP element stays the hero lead; em dashes on the
+built page 3 → 4 (the one new dash: "reads Mobile Aesthetics — Amy's
+own practice"). The standing 2026-07-19 flag on Amy's career-facts
+WORDING is restated in the PR — this rebuild rewrites that wording,
+and her preview review is the resolution path. /about is a structural
+page: no clinicianApproved mechanics apply.

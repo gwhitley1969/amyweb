@@ -6,6 +6,24 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-08-03 — /about becomes a magazine profile
+
+- The thinnest structural page grows from ~120 body words to a
+  five-beat profile: expanded hero prose (the keep-list lead and the
+  family portrait untouched, per Amy), a Playfair-numeral milestones
+  timeline replacing the facts card (BSN and Biote re-homed into it —
+  nothing dropped), a "The name on the wall" studio section, booking
+  prose, and TrustChips joining the closing band to match /services.
+- New photo: Amy beneath her own Mobile Aesthetics neon (8K0A9862 →
+  `studio-neon-portrait.jpg`, byte-identical) as a white-matte tilted
+  print. The 2026-07-21 crop flag is superseded on the record — sole
+  ownership plus the prp-treatment neon precedent; a brand call the
+  operator may reverse. DECISIONS 2026-08-03.
+- Every new sentence traces to recorded facts; no naming-origin story
+  invented; About stays Evolus-ranking-free. Amy's standing wording
+  confirmation rides the PR preview. Measured: images ~102 KB of the
+  240 KB budget, built-page em dashes 3 → 4, LCP element unchanged.
+
 ### 2026-08-01 — Hormone lab draw priced
 
 - The third hormone-optimization card completes: **Hormone lab draw

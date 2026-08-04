@@ -2712,3 +2712,45 @@ word, one file. /about is a structural page — no clinicianApproved
 mechanics; the twelve treatment pages' flags are untouched.
 Consequences: docs plus one source comment; rendered output is
 byte-identical.
+
+## 2026-08-04 — Photos land on the four bare treatment pages; Venus Versa becomes Versa Pro
+
+Context: a completeness audit (operator-requested) found every treatment
+page explains its service and 10 of 12 show prices, but four pages had
+zero photos: laser-treatments (also the only page with no dollar figure —
+consult-routed, intentional pending an Amy conversation), body-contouring,
+hormone-optimization, skin-rejuvenation. A full triage of C:\Amy\pics
+(~86 stills, all four HEICs, both unnamed Reels probed at 1080p with
+ffmpeg) found NO honest device imagery — the professional shoot is
+entirely injectables work. The operator supplied four new frames instead
+and confirmed the contouring device is Evolve.
+
+Decision: one photo per page, each riding its page's own content commit.
+venus-versa-pro.jpg (operator photo of Amy's console — the photographic
+basis for renaming "Venus Versa" → "Venus Versa Pro" across the page);
+evolve-session.jpg (screenshot of Amy's own public Reel, burned-in
+efficacy caption "Imagine burning calories while you sleep…" CROPPED OUT
+— §8 covers text inside images; pod labels verified illegible at 4×);
+the existing amy-palacios-fnp.jpg (SHA-256-verified identical to source
+frame 8K0A0206 — Astro's content hashing surfaced the match; the asset
+already serves the weight-loss page and is now REUSED, not duplicated,
+so the portrait appears on two wellness pages — house reuse precedent:
+studio-wide, forehead-treatment) on hormone-optimization's closing beat;
+pixel8-rf.jpg (docked handpiece, device wordmarks only).
+
+Alternatives rejected: pixel8-rf02.png — the settings touchscreen shows
+power/timing and "Suggested Depth 1.5mm–1.8mm", treatment parameters that
+never publish (constraint 3). The Biote brochure flat-lay — its legible
+symptom list would publish Biote marketing language outside the
+controlled BioteDisclaimer rendering. The injectables-shoot frames —
+blocked on client releases, and several flat-lays show "JEUVEAU …
+100 UNITS VIAL" (a unit amount): permanently off the site. IMG_8422
+(peptide vials on a legible dosing/reconstitution sheet) is a
+prohibited input (constraint 8) and must never be committed.
+
+Consequences: all twelve treatment pages now carry at least one photo.
+The supplied PNGs are ~450 px wide — soft on high-DPI phones; native-max
+widths only (no upscaling), higher-res originals are the upgrade path.
+All four pages remain clinicianApproved: false; the Versa Pro rename is
+flagged for Amy's preview review. Laser pricing stays consult-only until
+Amy says otherwise.

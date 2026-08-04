@@ -36,6 +36,9 @@ seo:
   description: "Evolve body contouring with Amy Palacios, FNP, in Harrisburg, NC: radiofrequency and muscle stimulation, no needles. This line starts with a consultation."
 ---
 
+import { Image } from 'astro:assets';
+import evolveSession from '../../assets/photos/evolve-session.jpg';
+
 ## What it is
 
 Body contouring here means one thing: **Evolve**, a non-invasive treatment
@@ -60,6 +63,17 @@ One is aimed at the skin. The other is aimed at the muscle underneath it. Which
 of the two matters more for you, or whether Evolve is the right route at all,
 is a conversation with Amy, not a decision made from a price list.
 
+<section class="media-row">
+  <figure class="media-figure">
+    <Image
+      src={evolveSession}
+      alt="Evolve's hands-free applicators strapped in place during a body-contouring session."
+      widths={[340, 449]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+  <div class="media-copy">
+
 ## What a session is like
 
 You lie down, and the applicators are strapped into position over the area. From
@@ -69,6 +83,9 @@ with you before it starts.
 The radiofrequency reads as warmth. The muscle stimulation reads as tightening:
 the muscle contracts and releases on its own. A session runs roughly 30 to 60
 minutes, depending on the area.
+
+  </div>
+</section>
 
 ## Where it's used
 

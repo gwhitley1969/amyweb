@@ -2,13 +2,30 @@
 /**
  * FDA disclaimer required alongside Biote symptom-awareness language
  * (CLAUDE.md hard constraint 3; BUILD_SPEC §7.8). Injected by
- * TreatmentLayout when content flags `bioteDisclaimer: true`. The exact
- * disclaimer text is the one Biote itself uses — supplied by the operator
- * as {{BIOTE_FDA_DISCLAIMER}} (proposed §17 registry addition); the token
- * renders visibly until resolved so a missing value is never silent.
+ * TreatmentLayout when content flags `bioteDisclaimer: true`.
+ *
+ * {{BIOTE_FDA_DISCLAIMER}} RESOLVED 2026-07-22 (operator-authorized, see
+ * docs/DECISIONS.md): the wording below is Biote's own, transcribed from
+ * the printed patient brochure. It previously rendered as a visible
+ * placeholder token on /services/hormone-optimization — the one
+ * disclosure §7.8 makes mandatory was never actually shown.
+ *
+ * The sentence names the four verbs the `disease-claims` category bans,
+ * so it is enumerated verbatim in compliance/banned-patterns.json
+ * `allowedStrings` — the fourth authorization, and the first for text a
+ * regulator requires rather than copy the client wants.
+ *
+ * Two editing rules for whoever touches this next:
+ *   1. The sentence must stay on ONE source line. lint-claims.mjs strips
+ *      allowed strings and applies patterns per line, so a wrapped
+ *      sentence matches nothing and trips every banned verb in it.
+ *   2. Do not restate those verbs anywhere else in this file. Only the
+ *      exact allowlisted sentence is stripped before the scan.
  */
+const FDA_DISCLAIMER =
+  'These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease.';
 ---
 
 <aside class="notice" role="note" aria-label="FDA disclosure">
-  <p>{'{{BIOTE_FDA_DISCLAIMER}}'}</p>
+  <p>{FDA_DISCLAIMER}</p>
 </aside>

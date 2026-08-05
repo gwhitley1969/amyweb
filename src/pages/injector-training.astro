@@ -1,0 +1,281 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTAButton from '../components/CTAButton.astro';
+import { siteConfig } from '../lib/siteConfig';
+import { service } from '../lib/schema';
+import amyPortrait from '../assets/photos/amy-palacios-fnp.jpg';
+
+/**
+ * /injector-training — Private Injector Training (added 2026-08-04 at the
+ * operator's direction; DECISIONS same date). The site's one
+ * professional-audience page: four hands-on, one-on-one courses for
+ * licensed medical professionals, sourced from Amy's own flyer set
+ * (operator-supplied screenshots, reference only — never committed: the
+ * trainee/model frames carry no releases). Prices and course facts are
+ * flyer-verbatim; Amy verifies them on the sign-off pass
+ * (docs/CLINICIAN-SIGN-OFF.md — this page sits outside the treatments
+ * collection, so no clinicianApproved flag gates it).
+ *
+ * Rules in force for future edits:
+ * - Four curriculum list items are operator-authorized allowlist entries
+ *   (fifth authorization, DECISIONS 2026-08-04). Each must stay EXACTLY
+ *   as enumerated in compliance/banned-patterns.json: an attribute-less
+ *   <li> on one source line, in registry case — the compliance linter
+ *   strips the exact string per line, so any reformat (a class, a wrap,
+ *   a case change) trips the gate. Never restate their vocabulary
+ *   anywhere else in this file, comments included.
+ * - Experience wording is the site's Amy-confirmed fact: "in medical
+ *   aesthetics since 2017" (about.astro provenance). The flyer's
+ *   narrower phrasing is deliberately not used — one set of facts.
+ * - Contact is phone/Instagram. Not "Book with Amy" (reserved for
+ *   Vagaro buttons), not "appointment" (client booking), not
+ *   "consultation" (clinical routing) — training is none of those.
+ * - The portrait reuses the committed grey-seamless frame (operator
+ *   decision 2026-08-04); a dedicated Amy-solo training photo is the
+ *   recorded upgrade path.
+ */
+
+const pageTitle =
+  'Private Injector Training in Harrisburg & Charlotte, NC | Needle Girlie';
+const pageDescription =
+  'Hands-on injector training for licensed medical professionals with Amy Palacios, FNP, in Harrisburg, NC. Neurotoxin, dermal filler, PDO thread, and Radiesse courses, taught one-on-one.';
+
+const jsonLd = [
+  service(
+    'Private Injector Training',
+    'One-on-one, hands-on injector training for licensed medical professionals with Amy Palacios, FNP, in Harrisburg, NC.',
+    `${siteConfig.url}/injector-training`,
+  ),
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} jsonLd={jsonLd}>
+  <Header slot="header" />
+
+  <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <div class="grid items-start gap-10 md:grid-cols-[6fr_5fr]">
+      <div>
+        <p class="eyebrow">For licensed medical professionals</p>
+        <hr class="rule-accent mt-4" aria-hidden="true" />
+        <h1 class="display-2 mt-6">Private Injector Training</h1>
+        <p class="lead mt-6">
+          Hands-on training with Amy Palacios, FNP: one-on-one courses
+          that pair in-depth education with live demonstration and real
+          products.
+        </p>
+        <div class="mt-8 max-w-prose space-y-4">
+          <p>
+            Amy has practiced in medical aesthetics since 2017, and she
+            teaches the way she works: one clinician, one trainee, real
+            products, real technique. Each course runs three hours in
+            her Harrisburg studio, just northeast of Charlotte.
+          </p>
+          <p>
+            The courses are built for licensed medical professionals who
+            want to add injectables to their practice or sharpen the
+            skills they already have. Every session is private: no
+            cohorts, no observers.
+          </p>
+          <p>
+            Training dates are set directly with Amy: call or text, or
+            send her a message on <a
+              href={siteConfig.social.instagram}
+              target="_blank"
+              rel="noopener"
+              >Instagram<span class="sr-only"> (opens in new tab)</span></a
+            >.
+          </p>
+        </div>
+        <div class="mt-8">
+          <CTAButton variant="call" />
+        </div>
+      </div>
+      <figure class="training-portrait">
+        <Image
+          src={amyPortrait}
+          alt="Amy Palacios, FNP, in her embroidered scrubs."
+          widths={[480, 760, 1067]}
+          sizes="(min-width: 768px) 40vw, 90vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section
+    class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20"
+    aria-labelledby="courses-title"
+  >
+    <hr class="rule-accent ng-trace" aria-hidden="true" />
+    <h2 class="heading-2 mt-6" id="courses-title">
+      Four courses, taught one-on-one.
+    </h2>
+    <ul role="list" class="mt-8 grid gap-4 sm:grid-cols-2">
+      <li class="course-card">
+        <h3 class="course-name">Neurotoxin Training</h3>
+        <p class="course-price mt-2">3 hours &middot; $5,000</p>
+        <ul role="list" class="course-topics mt-4">
+          <li>Facial anatomy</li>
+          <li>Patient assessment</li>
+          <li>Treatment planning</li>
+          <li>Injection techniques</li>
+          <li>Dosing and dilution</li>
+          <li>Complication prevention & management</li>
+        </ul>
+        <p class="course-included mt-4">Product included</p>
+      </li>
+      <li class="course-card">
+        <h3 class="course-name">Dermal Filler Training</h3>
+        <p class="course-price mt-2">3 hours &middot; $5,000</p>
+        <ul role="list" class="course-topics mt-4">
+          <li>Facial balancing</li>
+          <li>Product selection</li>
+          <li>Injection techniques</li>
+          <li>Cannula vs. needle</li>
+          <li>Safety protocols</li>
+          <li>Hands-on injecting</li>
+        </ul>
+        <p class="course-included mt-4">Product included</p>
+      </li>
+      <li class="course-card">
+        <h3 class="course-name">PDO Thread Lift Training</h3>
+        <p class="course-price mt-2">3 hours &middot; $5,000</p>
+        <ul role="list" class="course-topics mt-4">
+          <li>Thread selection</li>
+          <li>Vector planning</li>
+          <li>Lifting techniques</li>
+          <li>Safety and anatomy</li>
+          <li>Hands-on thread placement</li>
+        </ul>
+        <p class="course-included mt-4">Product included</p>
+      </li>
+      <li class="course-card">
+        <h3 class="course-name">Radiesse Training</h3>
+        <p class="course-price mt-2">3 hours &middot; $7,500</p>
+        <ul role="list" class="course-topics mt-4">
+          <li>Facial rejuvenation</li>
+          <li>Hyperdilute Radiesse</li>
+          <li>Biostimulation techniques</li>
+          <li>Patient selection</li>
+          <li>Advanced injection protocols</li>
+        </ul>
+        <p class="course-included mt-4">Product included</p>
+      </li>
+    </ul>
+  </section>
+
+  <section
+    class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20"
+    aria-labelledby="included-title"
+  >
+    <hr class="rule-accent ng-trace" aria-hidden="true" />
+    <h2 class="heading-2 mt-6" id="included-title">
+      What every course includes
+    </h2>
+    <ul role="list" class="included-list mt-8 max-w-prose">
+      <li>Private one-on-one training</li>
+      <li>Hands-on experience with live models</li>
+      <li>Products included for training</li>
+      <li>Training manual & protocols</li>
+      <li>Certificate of Completion</li>
+      <li>Post-training mentorship and support</li>
+    </ul>
+    <p class="mt-6 max-w-prose">
+      The Certificate of Completion documents the course itself;
+      trainees practice within their own licensure and scope. Questions
+      about eligibility are answered by phone before a date is set.
+    </p>
+  </section>
+
+  <section class="surface" data-surface="noir">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+      <p class="eyebrow">Private Injector Training</p>
+      <h2 class="display-2 mt-4">
+        Learn with confidence.<br />
+        <span class="display-accent ng-shimmer">Inject with purpose.</span>
+      </h2>
+      <p class="mt-6">
+        One-on-one training with Amy Palacios, FNP, in Harrisburg, NC.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <CTAButton variant="call" />
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  /* Editorial frame + light-wash grade — the .about-portrait recipe,
+   * hand-copied (page-local frames stay page-local; the shared media-*
+   * classes are scoped to .treatment-body and unreachable here). */
+  .training-portrait {
+    position: relative;
+    margin: 0;
+    border: 1px solid var(--ng-hairline);
+    overflow: hidden;
+  }
+  .training-portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 22%;
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
+  }
+  .training-portrait::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  /* Static info cards — the .product-card recipe (ProductDetailCards),
+   * deliberately FLAT: .ng-lift is worn only by whole-card links. */
+  .course-card {
+    background: var(--ng-card);
+    border: 1px solid var(--ng-hairline);
+    border-left: 1px solid var(--ng-ink-pink);
+    padding: 1.25rem;
+  }
+  .course-name {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+  .course-price {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+  .course-topics {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+  .course-topics li + li {
+    margin-top: 0.25rem;
+  }
+  .course-included {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--ng-link);
+  }
+  .included-list {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .included-list li {
+    padding: 0.625rem 0;
+  }
+  .included-list li + li {
+    border-top: 1px solid var(--ng-hairline);
+  }
+</style>

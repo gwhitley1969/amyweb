@@ -9,12 +9,18 @@ import { localBusiness } from '../lib/schema';
 interface Props {
   title: string;
   description: string;
-  /** Page surface: light "studio" (default) or dark "sign" (BUILD_SPEC §5 plan). */
+  /** Page surface: light "studio" (default — wears the site-wide ombre
+   * canvas since 2026-07-23, client-approved) or dark "sign"
+   * (BUILD_SPEC §5). The ombre is styled off this surface in
+   * global.css; there is no per-page opt-out. */
   surface?: 'light' | 'noir';
   ogImage?: string | undefined;
+  /** Page-specific JSON-LD objects (§10) rendered after the sitewide
+   * LocalBusiness — built only via src/lib/schema.ts builders. */
+  jsonLd?: object[];
 }
 
-const { title, description, surface = 'light', ogImage } = Astro.props;
+const { title, description, surface = 'light', ogImage, jsonLd: pageJsonLd = [] } = Astro.props;
 const jsonLd = JSON.stringify(localBusiness());
 ---
 
@@ -29,8 +35,12 @@ const jsonLd = JSON.stringify(localBusiness());
     {/* Display face only (§13: preload the display weight); DM Sans relies on swap + metric fallbacks. */}
     <link rel="preload" href={playfairWoff2} as="font" type="font/woff2" crossorigin />
     <script type="application/ld+json" set:html={jsonLd} />
+    {pageJsonLd.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}
   </head>
-  <body class="min-h-dvh" data-surface={surface === 'noir' ? 'noir' : undefined}>
+  <body
+    class="min-h-dvh"
+    data-surface={surface === 'noir' ? 'noir' : undefined}
+  >
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-white focus:p-3 focus:text-black focus:underline"

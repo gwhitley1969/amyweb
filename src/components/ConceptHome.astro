@@ -1,51 +1,94 @@
 ---
 import { Image } from 'astro:assets';
-/* Italic face rides ONLY this concept page (per-page CSS bundle): the
- * magazine-mix headline needs true Playfair italics. Not on any
- * Lighthouse-gated route, so the italic-swap CLS risk (DECISIONS
- * 2026-07-18) does not apply here. If the concept is adopted, italics
- * ship properly in Phase D with an italic metric fallback. */
-import '@fontsource-variable/playfair-display/wght-italic.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import CTAButton from './CTAButton.astro';
 import TrustChips from './TrustChips.astro';
-import ServiceLineGrid from './ServiceLineGrid.astro';
+import LocationCard from './LocationCard.astro';
 import { siteConfig } from '../lib/siteConfig';
 import amyAtWork from '../assets/photos/amy-at-work.jpg';
-import mirrorMoment from '../assets/photos/mirror-moment.jpg';
-import glovesDetail from '../assets/photos/pink-gloves-detail.jpg';
+import foreheadTreatment from '../assets/photos/forehead-treatment.jpg';
+import skinbetterLineup from '../assets/photos/skinbetter-lineup.jpg';
 import studioWide from '../assets/photos/studio-wide.jpg';
 import igPost from '../assets/photos/amy-ig-post.jpg';
 
 /**
- * CONCEPT MOCK — "After Dark: the Neon Editorial" (preview-only route).
- * A composed home-page concept built from Amy's real photography, for
- * operator/client direction review. Not production content: photo usage
- * pending {{MEDIA_SCOPE}} + patient releases (flagged in PR #4).
- * All copy is claim-clean and Amy-singular; the compliance gates scan
- * this file like any other.
+ * THE HOME PAGE (C8 flipped 2026-08-04 — index.astro renders this
+ * component; /styleguide/concept keeps rendering it as the preview
+ * mirror). Rebuilt 2026-07-25 on client direction (DECISIONS same
+ * date): bright clear hero (the cinema grade retired from this page),
+ * the ombre canvas showing through transparent middle sections, and
+ * three category DOORS instead of the duplicated 12-card /services
+ * menu. The disqualified prep-tray frame (pink-gloves-detail) and the
+ * unconfirmed-release mirror frame are OFF the page; the italic face
+ * import is gone (font budget + CLS discipline for the gates).
+ *
+ * C8 PREREQUISITES — ALL CLOSED 2026-08-04 (DECISIONS same date): the
+ * hero client's release confirmed on the record by the operator; Amy's
+ * sign-off on the IG post caption (baked pixels — linters cannot read
+ * them, so her sign-off is the control); {{MEDIA_SCOPE}} closed as
+ * per-item operator approval, the practice all along.
+ *
+ * The three category doors: Injectables / Skin & Body / Wellness match
+ * the /services menu groups exactly (serviceLines CATEGORIES); the door
+ * lines enumerate each group's four treatment lines factually.
  */
+
+const doors = [
+  {
+    title: 'Injectables',
+    line: 'Wrinkle relaxers, dermal fillers, biostimulators, and regenerative treatments.',
+    photo: foreheadTreatment,
+    /* group crop anchor: the treatment moment sits high in this frame */
+    position: 'attention',
+  },
+  {
+    title: 'Skin & Body',
+    line: 'Skin rejuvenation, body contouring, laser treatments, and medical-grade skincare.',
+    photo: skinbetterLineup,
+    position: 'attention',
+  },
+  {
+    title: 'Wellness',
+    line: 'Weight management, peptide therapy, IV therapy, and hormone optimization.',
+    photo: studioWide,
+    position: 'attention',
+  },
+] as const;
 ---
 
-{/* Light body (default): the token system scopes noir per-SECTION —
-    there is no inverse "light" override, so a noir body would leak dark
-    link/text tokens into the light bands (the a11y gate caught exactly
-    that). Hero + closing carry their own data-surface="noir". */}
+{/* Light body (default): the ombre canvas paints the page; the hero and
+    closing band re-scope themselves noir per-section. Middle sections are
+    TRANSPARENT — the ramp is the surface (client direction 2026-07-25:
+    "employ the ombre background — this page looks like it doesn't belong
+    to the site"). */}
 <BaseLayout
-  title="Concept: the Neon Editorial | Needle Girlie styleguide"
-  description="Preview-only home-page concept mock built from the practice's photography."
+  title="Needle Girlie | Medical Aesthetics in Harrisburg, NC"
+  description="Needle Girlie — the medical-aesthetics practice of Amy Palacios, FNP, in Harrisburg, NC. Injectables, skin, body, and wellness, every appointment with Amy."
 >
   <Header slot="header" />
 
-  {/* ---- HERO: cinema noir, Amy mid-treatment under the neon ---- */}
+  {/* ---- HERO: noir band, Amy mid-treatment — BRIGHT and clear.
+      The cinema grade is retired from this page (client 2026-07-25:
+      "too filtered, needs to be brighter and clearer"); the photo wears
+      the light wash + a thin magenta unifier, with a soft neon bloom
+      where the sign's real glow falls. The crop still pushes the
+      location-brand script past the top edge — re-verified on
+      screenshots after the brightening. ---- */}
   <section class="nc-hero surface" data-surface="noir">
     <div class="nc-hero__media" aria-hidden="true">
+      {/* FULL FRAME, uncropped (operator direction 2026-07-25): the
+        * brighter grade makes the studio's neon script legible again,
+        * and that is fine — Amy is the sole owner of Mobile Aesthetics
+        * (DECISIONS 2026-07-23), so it is her own signage, not another
+        * provider's. A trial crop that cut the sign band also cut the
+        * top of Amy's head at the desktop window's aspect; keeping her
+        * in frame wins. Do NOT reintroduce a top crop here. */}
       <Image
         src={amyAtWork}
         alt=""
-        widths={[640, 960, 1400]}
+        widths={[760, 1080, 1400]}
         sizes="(max-width: 900px) 100vw, 58vw"
         class="nc-photo nc-hero__img"
         loading="eager"
@@ -56,11 +99,11 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
       <p class="eyebrow">Harrisburg, NC · By appointment</p>
       <h1 class="nc-display mt-5">
         Medical aesthetics,
-        <span class="nc-ital ng-shimmer">made personal.</span>
+        <span class="display-accent ng-shimmer">made personal.</span>
       </h1>
       <p class="lead mt-6 max-w-prose">
-        The dedicated practice of Amy Palacios, FNP — clinician-led aesthetics,
-        considered down to the detail, since 2017.
+        The dedicated practice of Amy Palacios, FNP (AKA Needle Girlie) and
+        owner of Mobile Aesthetics, clinician-led aesthetics since 2017.
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-4">
         <CTAButton variant="book" />
@@ -72,101 +115,125 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
     </div>
   </section>
 
-  {/* ---- EDITORIAL INTRO: paper, magazine pull-line ---- */}
-  <section class="surface">
+  {/* ---- INTRO / MEET AMY: first ombre beat — transparent on the canvas.
+      Carries the §6 "Meet Amy" trust block as a factual credentials
+      paragraph. Opener keeps the traced rule; the label is dropped
+      (taste-audit eyebrow ration — the heading carries the section). ---- */}
+  <section>
     <div class="mx-auto grid max-w-6xl gap-10 px-6 py-20 md:grid-cols-[5fr_4fr] md:gap-16">
       <div>
-        <p class="eyebrow">The practice</p>
-        <hr class="rule-accent ng-trace mt-2" />
-        <h2 class="heading-2 md:display-2 mt-6">
-          Your plan, <span class="nc-ital display-accent">your pace.</span>
-        </h2>
+        <hr class="rule-accent ng-trace" aria-hidden="true" />
+        <h2 class="heading-2 md:display-2 mt-6">Your plan, your pace.</h2>
       </div>
       <div class="ng-rise self-end">
         <p class="lead">
-          Book an appointment whenever you are ready — or request a free consultation
+          Book an appointment whenever you are ready, or request a free consultation
           first and talk it through with Amy. Either way, the plan is personal, and
-          every decision is made together, under clinician supervision.
+          every decision is made with her, at your pace.
+        </p>
+        <p class="mt-4 max-w-prose">
+          Amy is a licensed family nurse practitioner with two decades of nursing
+          behind her, in medical aesthetics since 2017, and a Biote-certified
+          provider.
+          <a href="/about" class="nc-more">More about Amy
+            <span class="chev-nudge" aria-hidden="true">&rsaquo;</span></a>
         </p>
         <p class="eyebrow mt-6">Amy Palacios, FNP</p>
       </div>
     </div>
   </section>
 
-  {/* ---- THE VISIT: blush band, the arch holds the mirror moment ---- */}
-  <section class="nc-blush">
-    <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 md:grid-cols-[4fr_5fr] md:gap-16">
-      <div class="nc-arch ng-rise">
-        <Image
-          src={mirrorMoment}
-          alt="Amy Palacios sharing a hand mirror with a smiling patient in the treatment chair"
-          widths={[480, 720, 1000]}
-          sizes="(max-width: 900px) 88vw, 42vw"
-          class="nc-photo"
-          loading="lazy"
-        />
+  {/* ---- CATEGORY DOORS: the services teaser (client-picked over the
+      duplicated menu). Three arch-framed photo plates — the house arch
+      geometry as the door frame — matching the /services menu groups;
+      whole card links to /services (link-overlay pattern, axe-safe).
+      Door photos are decorative to the labeled links (alt=""). ---- */}
+  <section>
+    <div class="mx-auto max-w-6xl px-6 py-20">
+      <hr class="rule-accent ng-trace" aria-hidden="true" />
+      <h2 class="heading-2 mt-6">What Amy offers</h2>
+      <div class="mt-10 grid gap-6 sm:grid-cols-3">
+        {
+          doors.map((door) => (
+            <article class="nc-door ng-lift ng-rise">
+              <figure class="nc-door__arch" aria-hidden="true">
+                <Image
+                  src={door.photo}
+                  alt=""
+                  width={640}
+                  height={800}
+                  fit="cover"
+                  position={door.position}
+                  quality={62}
+                  widths={[400, 640]}
+                  sizes="(max-width: 640px) 88vw, 30vw"
+                  loading="lazy"
+                />
+              </figure>
+              <h3 class="nc-door__title">
+                <a href="/services" class="nc-door__link">{door.title}</a>
+              </h3>
+              <p class="nc-door__line mt-2">{door.line}</p>
+            </article>
+          ))
+        }
       </div>
+      <p class="mt-10 text-center">
+        <a href="/services" class="nc-more nc-more--lg">Explore all twelve lines
+          <span class="chev-nudge" aria-hidden="true">&rsaquo;</span></a>
+      </p>
+    </div>
+  </section>
+
+  {/* ---- THE VISIT + LOCATION: canvas beat, photo-free. The reassurance
+      copy routes to /visit; LocationCard carries the §6 location strip
+      (NAP + directions link-out). ---- */}
+  <section>
+    <div class="mx-auto grid max-w-6xl gap-10 px-6 py-20 md:grid-cols-[5fr_4fr] md:gap-16">
       <div>
-        <p class="eyebrow">The visit</p>
-        <hr class="rule-accent ng-trace mt-2" />
+        <hr class="rule-accent ng-trace" aria-hidden="true" />
         <h2 class="heading-3 mt-6">Unhurried, explained, and yours to decide.</h2>
         <p class="mt-4 max-w-prose">
-          Time to talk before anything begins, and a mirror in your hand before you
-          leave.
+          Time to talk before anything begins: nothing is rushed, and nothing is
+          decided without you. See how a visit works, from booking to aftercare.
         </p>
-        <div class="mt-8">
-          <CTAButton variant="book" />
-        </div>
+        <p class="mt-4">
+          <a href="/visit" class="nc-more">Plan your visit
+            <span class="chev-nudge" aria-hidden="true">&rsaquo;</span></a>
+        </p>
+      </div>
+      <div class="ng-rise self-center">
+        <LocationCard />
       </div>
     </div>
   </section>
 
-  {/* ---- DETAIL BAND: full-bleed pink gloves, ghost word ---- */}
-  {/* Pure full-bleed image band — the section's accessible name comes
-      from aria-label; no visible text sits near the duotone overlays,
-      whose pseudo-elements make neighboring text unauditable for axe. */}
-  <section class="nc-band surface" data-surface="noir" aria-label="In the studio">
-    <div class="nc-band__media">
-      <Image
-        src={glovesDetail}
-        alt=""
-        widths={[768, 1200, 1800]}
-        sizes="100vw"
-        class="nc-photo nc-band__img"
-        loading="lazy"
-      />
-      {/* Ghost-word overlay ("girlie" in outlined Playfair italic) cut
-          from the mock: pseudo-content makes the section unauditable for
-          axe (messageKey pseudoContent -> gate abstention). If the
-          concept is adopted, it returns as real artwork — a transparent
-          PNG rendered via the existing scripts/export-logo.mjs pipeline,
-          which axe regards as a decorative image. */}
-    </div>
-  </section>
-
-  {/* ---- AMY'S VOICE: her own post, framed like a print. The image is
-      presented as what it is (an Instagram post, operator-supplied clean
-      version) — no duotone grade. NOTE for operator review: the baked-in
-      caption text is invisible to lint:claims / lint:voice (they cannot
-      read pixels); it is Amy's own published wording, riding her
-      ownership of the post. ---- */}
-  <section class="nc-blush">
+  {/* ---- AMY'S VOICE: her own post, framed like a print, on the deep
+      canvas. Presented as what it is (an Instagram post, operator-
+      supplied clean version) — no grade. Size is the recorded client
+      pick (34rem — the baked caption must read comfortably). NOTE for
+      operator review, unchanged: the baked-in caption text is invisible
+      to lint:claims / lint:voice (they cannot read pixels); it is Amy's
+      own published wording, riding her ownership of the post. Her
+      on-record caption sign-off is a C8 prerequisite; the slot is
+      post-agnostic if she prefers a different post. ---- */}
+  <section>
     <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 md:grid-cols-[6fr_5fr] md:gap-16">
       <div class="nc-post ng-rise">
         <Image
           src={igPost}
-          alt="A post from Amy's Instagram — Amy in a lavender blazer, hair in motion, with her note on practicing the craft behind the needle, signed Needle Girlie"
-          widths={[480, 720, 1080]}
+          alt="A post from Amy's Instagram: Amy in a lavender blazer, hair in motion, with her note on practicing the craft behind the needle, signed Needle Girlie"
+          widths={[480, 720]}
           sizes="(max-width: 900px) 92vw, 48vw"
           loading="lazy"
         />
       </div>
       <div>
         <p class="eyebrow">From Amy's Instagram</p>
-        <hr class="rule-accent ng-trace mt-2" />
+        <hr class="rule-accent ng-trace mt-2" aria-hidden="true" />
         <h2 class="heading-3 mt-6">In her own words.</h2>
         <p class="mt-4 max-w-prose">
-          The craft, the practice, and the person behind the needle — Amy shares it as
+          The craft, the practice, and the person behind the needle: Amy shares it as
           she goes.
         </p>
         <div class="mt-8">
@@ -180,39 +247,19 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
     </div>
   </section>
 
-  {/* ---- SERVICES: paper, the real grid ---- */}
-  <section class="surface">
-    <div class="mx-auto max-w-6xl px-6 py-20">
-      <p class="eyebrow">Services</p>
-      <hr class="rule-accent ng-trace mt-2" />
-      <h2 class="heading-2 mt-6">What Amy offers</h2>
-      <div class="mt-10">
-        <ServiceLineGrid />
-      </div>
-    </div>
-  </section>
-
-  {/* ---- CLOSING: noir, the studio fading to black ---- */}
-  <section class="nc-close surface" data-surface="noir">
-    <div class="nc-close__media" aria-hidden="true">
-      <Image
-        src={studioWide}
-        alt=""
-        widths={[768, 1200, 1800]}
-        sizes="100vw"
-        class="nc-photo nc-close__img"
-        loading="lazy"
-      />
-    </div>
-    <div class="nc-close__copy">
-      <h2 class="heading-2 md:display-2">
-        Ready <span class="display-accent ng-shimmer">when you are</span>
+  {/* ---- CLOSING: the sitewide noir bookend — same anatomy as the
+      /services, /about, /visit, and treatment closing bands (photo-free;
+      the studio frame moved to the Wellness door). ---- */}
+  <section class="surface" data-surface="noir">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+      <h2 class="display-2">
+        Ready <span class="display-accent ng-shimmer">when you are</span>.
       </h2>
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
         <CTAButton variant="book" />
         <CTAButton variant="call" />
       </div>
-      <div class="mt-8 flex justify-center">
+      <div class="mt-8">
         <TrustChips />
       </div>
     </div>
@@ -223,36 +270,32 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
 
 <style is:global>
   /* ---- Concept-scoped styles (nc-*) — none of this touches the design
-   * system until the direction is approved. ---- */
+   * system until the direction is approved. Rebuilt 2026-07-25: cinema
+   * grade retired, blush/paper section paint removed (the ombre canvas
+   * is the surface), band/arch/italic styles deleted with their
+   * consumers. ---- */
 
-  /* The house grade: every photo becomes brand film — slight desaturate,
-   * then a noir->magenta multiply wash unifies mixed lighting. */
+  /* The light wash (site photo language) + a thin magenta unifier via
+   * the overlay below — the 30%-gray cinema grade is retired from this
+   * page (client 2026-07-25). */
   .nc-photo {
-    filter: grayscale(30%) contrast(1.06) brightness(0.96);
+    filter: grayscale(10%) contrast(1.03) brightness(1.08);
   }
-  .nc-hero__media,
-  .nc-arch,
-  .nc-band,
-  .nc-close__media {
+  .nc-hero__media {
     position: relative;
     overflow: hidden;
   }
-  .nc-hero__media::after,
-  .nc-band__media::before,
-  .nc-close__media::after {
+  /* Thin brand unifier — replaces the retired 160deg noir multiply.
+   * Same strength family as the /services strip wash (10-12%). */
+  .nc-hero__media::after {
     content: '';
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(
-      160deg,
-      color-mix(in srgb, var(--ng-noir) 34%, transparent) 0%,
-      color-mix(in srgb, var(--ng-magenta-600) 26%, transparent) 55%,
-      color-mix(in srgb, var(--ng-noir) 44%, transparent) 100%
-    );
+    background: color-mix(in srgb, var(--ng-magenta-600) 12%, transparent);
     mix-blend-mode: multiply;
   }
-  /* Neon boost: a screen-blended pink bloom where the sign lives. */
+  /* Neon boost, softened: the sign's real glow, not a filter effect. */
   .nc-hero__media::before {
     content: '';
     position: absolute;
@@ -261,13 +304,13 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
     pointer-events: none;
     background: radial-gradient(
       42% 30% at 68% 12%,
-      color-mix(in srgb, var(--ng-neon-500) 38%, transparent),
+      color-mix(in srgb, var(--ng-neon-500) 24%, transparent),
       transparent 70%
     );
     mix-blend-mode: screen;
   }
 
-  /* HERO — split editorial: type left, cinema right; stacked on mobile. */
+  /* HERO — split editorial: type left, photo right; stacked on mobile. */
   .nc-hero {
     display: grid;
   }
@@ -275,8 +318,11 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* keep Amy + the glow; let the sign's script crop past the top edge
-     * (it names the location brand — flagged for operator review) */
+    /* Anchor high in the frame: the hero windows (88vh desktop, 58vh
+     * mobile) are both WIDER than the 2:3 source, so cover trims
+     * vertically — 22% keeps the sign, Amy's head, and the treatment
+     * moment all in frame at both breakpoints. Lower values crop her
+     * head; verify on screenshots before changing. */
     object-position: 50% 22%;
   }
   .nc-hero__copy {
@@ -306,7 +352,9 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
     }
   }
 
-  /* Magazine headline: bigger than display-0, mixes roman + italic. */
+  /* Magazine headline — bigger than display-0; upright only (the italic
+   * face import is retired: font budget + swap-CLS discipline for the
+   * future / gates). */
   .nc-display {
     font-family: var(--font-display);
     font-weight: 500;
@@ -315,42 +363,81 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
     letter-spacing: -0.015em;
     text-wrap: balance;
   }
-  .nc-ital {
-    font-style: italic;
+
+  /* Inline editorial links on the canvas: ink + underline (the ombre
+   * re-inks make --ng-link ink-900 here); chevron nudges on hover. */
+  .nc-more {
+    color: var(--ng-link);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    white-space: nowrap;
+  }
+  .nc-more--lg {
+    font-size: 1.125rem;
   }
 
-  /* Blush band */
-  .nc-blush {
-    background: var(--ng-blush-50);
-    color: var(--ng-ink-900);
+  /* CATEGORY DOORS — plate anatomy (SITE-WIDE BOXES tokens) framing an
+   * arch-cropped photo: the caricature-window geometry as a door. Hover
+   * mirrors the /services card language: plate deepens + ink-pink ring +
+   * title ink-pink. RAISED since 2026-07-27 (client direction): the
+   * doors are whole-card links, so they wear .ng-lift exactly as the
+   * /services cards do — elevation and the state transition live there
+   * (global.css). Supersedes the "No scale/shadow transforms" rule this
+   * comment carried. */
+  .nc-door {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--ng-card-rest);
+    border: 1px solid var(--ng-hairline);
+    border-left: 1px solid var(--ng-ink-pink);
+    padding: 1.5rem;
   }
-
-  /* The arch — the caricature window's geometry, grown up. It wears a
-   * light warm wash, NOT the cinema grade: it sits on the bright blush
-   * band, where the full multiply overlay read "like sunglasses"
-   * (client, 2026-07-18). */
-  .nc-arch {
-    border-radius: 999px 999px 16px 16px;
+  .nc-door:hover,
+  .nc-door:focus-within {
+    background: var(--ng-card-hover);
+    border-color: var(--ng-ink-pink);
+    /* ring drawn by .ng-lift's --lift-ring so it composes with the
+     * lift instead of overwriting it (box-shadow is one property) */
+  }
+  .nc-door__arch {
+    margin: 0;
+    border-radius: 999px 999px 12px 12px;
     border: 1px solid var(--ng-magenta-600);
-    max-width: 26rem;
-    justify-self: center;
+    overflow: hidden;
   }
-  .nc-arch::after {
+  .nc-door__arch img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .nc-door__title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.5625rem, 2.5vw, 1.9375rem);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .nc-door__link {
+    color: var(--ng-ink-900);
+    text-decoration: none;
+  }
+  .nc-door:hover .nc-door__link,
+  .nc-door:focus-within .nc-door__link {
+    color: var(--ng-ink-pink);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  /* stretch the door's click target to the whole card */
+  .nc-door__link::after {
     content: '';
     position: absolute;
     inset: 0;
-    pointer-events: none;
-    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
-    mix-blend-mode: multiply;
   }
-  .nc-arch .nc-photo {
-    filter: grayscale(15%) contrast(1.03) brightness(1.05);
-  }
-  .nc-arch img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .nc-door__line {
+    font-size: 0.9375rem;
+    line-height: 1.55;
   }
 
   /* The framed print: white matte + hairline, a slight scrapbook tilt.
@@ -368,62 +455,5 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
     display: block;
     width: 100%;
     height: auto;
-  }
-
-  /* Full-bleed detail band. */
-  .nc-band__media {
-    position: relative;
-    overflow: hidden;
-  }
-  .nc-band__img {
-    display: block;
-    width: 100%;
-    height: 64vh;
-    object-fit: cover;
-    object-position: 50% 38%;
-    opacity: 0.92;
-  }
-
-  /* Closing band: studio wide-shot sinking into noir. */
-  .nc-close {
-    position: relative;
-  }
-  .nc-close__media {
-    position: absolute;
-    inset: 0;
-  }
-  .nc-close__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.38; /* photo as atmosphere; text contrast carried by noir */
-  }
-  .nc-close__media::after {
-    background:
-      linear-gradient(
-        to bottom,
-        var(--ng-noir) 0%,
-        transparent 30%,
-        transparent 60%,
-        var(--ng-noir) 100%
-      );
-    mix-blend-mode: normal;
-  }
-  .nc-close__copy {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    /* Opaque noir plate framed in the pink hairline: the closing copy
-     * floats as a card on the studio atmosphere — and every text pair
-     * inside sits on solid noir (auditable, certain). */
-    background: var(--ng-noir);
-    border: 1px solid var(--ng-hairline);
-    border-radius: 4px;
-    padding: 4rem 2rem;
-    max-width: 52rem;
-    margin-inline: auto;
-  }
-  .nc-close {
-    padding: 6rem 1.5rem;
   }
 </style>

@@ -12,7 +12,8 @@ export const siteConfig = {
   address: '4350 Main Street, Suite 224, Harrisburg, NC 28075',
   phone: '704-579-7108', // {{PHONE}} resolved by operator 2026-07-07
   phoneTel: 'tel:+17045797108',
-  hours: '{{HOURS}}',
+  // {{HOURS}} CLOSED 2026-08-04: Amy's decision — hours are NOT listed on
+  // the website, anywhere (not a pending value; no hours field exists).
   booking: {
     // {{VAGARO_URL}} supplied by operator 2026-07-18. The handle is the
     // practice's own: Mobile Aesthetics is Amy's business (sole owner —

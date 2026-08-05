@@ -291,6 +291,7 @@ layout shift from fonts or images.
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
 | `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; Evolus relationship factual only — About stays ranking-free (operator placement decision 2026-07-21; the resolved `{{EVOLUS_CLAIM}}` sentence lives on the two Evolus product pages, §8.4) | Request a consultation |
+| `/injector-training` | Private Injector Training | Professional-audience page (added 2026-08-04, operator-directed; DECISIONS same date): four hands-on, one-on-one courses for licensed medical professionals, prices flyer-verbatim (three at $5,000, Radiesse $7,500; three hours each, product included); curriculum topics under the fifth `allowedStrings` authorization (§8.1); outside the treatments collection and the clinician flag gate — Amy reviews via the sign-off doc's non-gated section; "Training" nav item | Call (phone/Instagram routed — neither booking nor consultation language) |
 | `/book` | RETIRED (2026-07-21, operator) | Was the Vagaro-handoff explainer; every "Book with Amy" now opens Vagaro directly, so the page was deleted before ever serving in production | — |
 | `/visit` | Visit Us | Address (hours are NOT listed — Amy's decision 2026-08-04, `{{HOURS}}` CLOSED; no page copy may promise or imply hours), parking note, "Get directions" link-out (no map iframe) | Directions / Book |
 | `/privacy`, `/terms`, `/medical-disclaimer` | Legal | Provider-drafted, launch form effective 2026-08-04 (draft markers removed at operator acceptance — DECISIONS same date; counsel review post-launch) | — |
@@ -555,7 +556,12 @@ action hype, no outcomes, no dosing, ever.
    2026-07-20 and 2026-07-21): the exact price strings enumerated in
    `compliance/banned-patterns.json` `allowedStrings` — mg-keyed GLP-1
    vial tiers and per-unit neuromodulator prices — may appear as
-   product pricing; nothing else.*
+   product pricing. Fifth authorization (DECISIONS 2026-08-04): the
+   four Private Injector Training curriculum-topic strings, enumerated
+   in exact `<li>`-wrapped source form, on /injector-training only —
+   course-topic titles containing no quantities, flyer-verbatim at the
+   operator's direction over the recommended paraphrase. Nothing
+   else.*
 2. Disease claims: treat / cure / prevent / diagnose; disease names in benefit
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).
 3. Efficacy/outcome promises: guarantees, specific results, numbers,

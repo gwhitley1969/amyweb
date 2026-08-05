@@ -10,7 +10,8 @@ flips below are the launch key.
 
 Scope: the twelve treatment pages. (Structural pages — home, /about,
 /visit, /services, legal — carry their own recorded approvals and are
-not flag-gated.)
+not flag-gated.) One more page — /injector-training, new 2026-08-04 —
+is also not flag-gated and has its own review section below the table.
 
 ## How this works
 
@@ -42,6 +43,25 @@ not flag-gated.)
 | ☐ | [/services/iv-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/iv-therapy) | Menu cards ($125 / $125 / $200 / $25 shots); studio photo |
 | ☐ | [/services/hormone-optimization](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/hormone-optimization) | Pellets $450 women / $750 men; lab draw $125; the Biote FDA disclaimer; **NEW: her grey-seamless portrait** (also on weight-loss) |
 | ☐ | [/services/skincare](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/skincare) | Skinbetter storefront routing (shop button, Mobile Aesthetics naming); two product photos |
+
+## Also for Amy's review (not flag-gated): /injector-training
+
+New page (2026-08-04):
+[/injector-training](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/injector-training)
+— Private Injector Training, for licensed medical professionals. It is
+not treatment content, so no flag blocks the pipeline — but Amy should
+verify before launch:
+
+- The four course prices: Neurotoxin $5,000 · Dermal Filler $5,000 ·
+  PDO Thread Lift $5,000 · Radiesse $7,500 — each three hours, product
+  included.
+- Course names and topic lists (carried from her flyer verbatim).
+- The certificate sentence (completion documentation; licensure and
+  scope stay the trainee's own).
+- The reused grey-seamless portrait, and "in medical aesthetics since
+  2017" (the site's standard phrasing of her flyer's experience line).
+
+Anything she wants changed ships as its own PR before launch.
 
 ## Operator: flipping the flags (your own hands only)
 

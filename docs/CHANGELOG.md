@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-08-04 — /injector-training: Private Injector Training
+
+- The site gains its one professional-audience page: four hands-on,
+  one-on-one courses for licensed medical professionals (Neurotoxin /
+  Dermal Filler / PDO Thread Lift $5,000, Radiesse $7,500; three
+  hours each, product included), flyer-sourced, phone/Instagram
+  routed, with a fifth "Training" nav item. Curriculum topics publish
+  flyer-verbatim under the fifth allowedStrings authorization (the
+  operator's call after the compliance flag, li-wrapped so the
+  linter's exactness self-test stays sound); pa11y (with the
+  operator-authorized cap) and LHCI cover the new URL; Radiesse joins
+  the terms trademark list. Amy reviews the page via a non-gated
+  section in docs/CLINICIAN-SIGN-OFF.md. DECISIONS 2026-08-04.
+
 ### 2026-08-04 — clinician sign-off package
 
 - `docs/CLINICIAN-SIGN-OFF.md`: the page-by-page checklist Amy reviews

@@ -6,6 +6,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-08-04 — every treatment page now has a photo; Versa Pro named
+
+- The four photo-less treatment pages each gain one operator-supplied
+  frame: the Venus Versa Pro console (laser-treatments — page copy
+  renamed from "Venus Versa" on the photographic evidence), an Evolve
+  session from Amy's own Reel with its efficacy caption cropped out
+  (body-contouring), Amy's grey-seamless portrait (hormone-optimization),
+  and the docked PiXel8-RF handpiece (skin-rejuvenation). Two supplied
+  frames were rejected on compliance grounds (a settings screen showing
+  needle-depth parameters; the Biote symptom brochure). All four pages
+  stay `clinicianApproved: false` for Amy's review. DECISIONS 2026-08-04.
+
 ### 2026-08-04 — /about profile approved on preview
 
 - Amy approved the rebuilt /about on the PR #83 preview; merged to

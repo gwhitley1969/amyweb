@@ -2,14 +2,16 @@
 import BaseLayout from './BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import DraftBanner from '../components/DraftBanner.astro';
 
 /**
- * Legal-page template (§6, Phase C7). Every legal page renders the
- * visible counsel-review DraftBanner until counsel signs off — same
- * conspicuousness principle as the clinician banner. Voice: legal pages
- * speak in the third person ("Needle Girlie", "this website") — the
- * Amy-singular convention and lint:voice still apply.
+ * Legal-page template (§6, Phase C7; launch form 2026-08-04). The
+ * counsel-review DraftBanner came OFF at the operator's recorded
+ * acceptance (DECISIONS 2026-08-04): the site launches with
+ * provider-drafted pages and counsel review happens post-launch — if
+ * counsel requires changes, the banner mechanism is one import away.
+ * Voice: legal pages speak in the third person ("Needle Girlie",
+ * "this website") — the Amy-singular convention and lint:voice still
+ * apply.
  */
 interface Props {
   heading: string;
@@ -22,7 +24,6 @@ const { heading, title, description } = Astro.props;
 
 <BaseLayout title={title} description={description}>
   <Fragment slot="header">
-    <DraftBanner label="Draft — pending counsel review" />
     <Header />
   </Fragment>
 
@@ -30,10 +31,7 @@ const { heading, title, description } = Astro.props;
     <p class="eyebrow">Legal</p>
     <hr class="rule-accent mt-4" aria-hidden="true" />
     <h1 class="display-2 mt-6">{heading}</h1>
-    <p class="mt-4 text-sm">
-      Draft dated July 19, 2026. An effective date will be set when this
-      page is finalized.
-    </p>
+    <p class="mt-4 text-sm">Effective August 4, 2026.</p>
     <div class="legal-body mt-8">
       <slot />
     </div>

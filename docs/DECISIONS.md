@@ -2810,3 +2810,49 @@ Consequences: / is measured by the existing LHCI entry for real now
 (the 2026-07-25 worst-case measurement had 46KB image headroom); the
 caricature/logo assets are dormant, not deleted; Phase C's page
 checklist is complete.
+
+## 2026-08-04 — Legal pages take launch form; counsel review moves post-launch
+
+Context: launch readiness. The legal trio shipped as visibly marked
+drafts ("Draft — pending counsel review" banner + undated draft line),
+with counsel review gating the final form (§16). The operator directed
+a "passable" upgrade and, after the flag that provider-drafted pages
+are not a counsel substitute, ACCEPTED launching without counsel
+review ("Remove banners — I accept", 2026-08-04). Decision: all three
+pages upgraded against current medical-website norms (research
+recorded in the PR): privacy gains hosting-log honesty, a
+no-health-information section, children's and changes sections; terms
+gain acceptable use, a claims-safe limitation of liability,
+manufacturer-trademark attribution, severability, changes, and
+contact; the disclaimer gains reading-is-not-a-substitute,
+manufacturer-materials, and contact sections. DraftBanner comes off
+LegalLayout; "Effective August 4, 2026." replaces the draft line. The
+claims-safe lexicon holds throughout (no disease verbs, no outcome
+language — machine-checked by lint:claims/lint:voice). Alternatives
+rejected: keeping visible draft banners at launch (operator declined);
+importing standard boilerplate verbatim (its vocabulary is lint-banned
+by design). Consequences: §16's counsel line is amended on the record;
+counsel review is a standing post-launch item — if counsel requires
+changes, the banner mechanism is one import away.
+
+## 2026-08-04 — No client-side analytics at launch ({{ANALYTICS_PROVIDER}} resolved)
+
+Context: §16 requires analytics events verified in a provider
+dashboard; the token was open and the operator delegated the decision
+("I'm at your mercy"). Decision: NONE at launch. Rationale: constraint
+5 rules out cookie-based tools; Front Door's built-in edge reports
+already give traffic visibility at zero script, zero cookies, zero
+added cost, zero perf-budget impact; the site's event hooks
+(analytics.ts + data-event attributes) are already vendor-neutral, so
+adding a provider later is an afternoon. Plausible (~$9/mo, a
+~20% run-rate increase — cost flagged) remains the recorded future
+default for conversion dashboards (outbound Vagaro clicks are
+invisible to edge metrics). The privacy page's "currently runs no
+analytics" line stays true, and it updates first if that changes.
+Alternatives rejected: Plausible at launch (recurring cost before any
+traffic exists to justify it); Application Insights JS (cookies +
+script weight — constraint 5); self-hosting (server ops burden against
+the static-simplicity principle). Consequences: siteConfig records
+provider "none"; §16's analytics line is satisfied by the recorded
+no-provider decision; launch-day traffic is visible in the Azure
+portal's Front Door reports.

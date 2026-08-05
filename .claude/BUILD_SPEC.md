@@ -293,7 +293,7 @@ layout shift from fonts or images.
 | `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; Evolus relationship factual only — About stays ranking-free (operator placement decision 2026-07-21; the resolved `{{EVOLUS_CLAIM}}` sentence lives on the two Evolus product pages, §8.4) | Request a consultation |
 | `/book` | RETIRED (2026-07-21, operator) | Was the Vagaro-handoff explainer; every "Book with Amy" now opens Vagaro directly, so the page was deleted before ever serving in production | — |
 | `/visit` | Visit Us | Address (hours are NOT listed — Amy's decision 2026-08-04, `{{HOURS}}` CLOSED; no page copy may promise or imply hours), parking note, "Get directions" link-out (no map iframe) | Directions / Book |
-| `/privacy`, `/terms`, `/medical-disclaimer` | Legal | Provider-drafted for attorney review; clearly marked drafts until counsel approves | — |
+| `/privacy`, `/terms`, `/medical-disclaimer` | Legal | Provider-drafted, launch form effective 2026-08-04 (draft markers removed at operator acceptance — DECISIONS same date; counsel review post-launch) | — |
 | `/404` | Not found | Branded, routes home/book | — |
 
 Language conventions (site-wide, hard rule): **"consultation"** is used only
@@ -729,6 +729,9 @@ operator may provision manually; if asked to write Bicep, produce:
 - [ ] All §6 pages built; every treatment page `clinicianApproved: true`
       (Amy's written sign-off logged by the operator).
 - [ ] Legal pages present and marked as reviewed by counsel (operator confirms).
+      *(AMENDED 2026-08-04 — operator accepted launching with
+      provider-drafted pages; DraftBanners removed, effective dates set,
+      counsel review moved post-launch. DECISIONS same date.)*
 - [ ] `npm run verify` green; approvals check green.
 - [ ] Lighthouse budgets met on Home + a treatment page (mobile).
 - [ ] Manual a11y pass done (keyboard + screen reader spot-check).
@@ -769,7 +772,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |
 | `{{RETATRUTIDE_COUNSEL}}` | Attorney-approved investigational wording | Open decision |
 | `{{MEDIA_SCOPE}}` | How much photo/video goes on-site | RESOLVED 2026-08-04 — closed as the practice already in force: every photo/film ships on a per-item operator approval, recorded in DECISIONS (no blanket scope; C8 prerequisite (c) satisfied) |
-| `{{ANALYTICS_PROVIDER}}` | Plausible (default) or alternative | Open decision |
+| `{{ANALYTICS_PROVIDER}}` | Plausible (default) or alternative | RESOLVED 2026-08-04 — NONE at launch (operator delegated the call; DECISIONS same date). Traffic visibility = Front Door edge reports, zero client-side script. Plausible stays the future default; adding it is a deliberate opt-in with its ~$9/mo recurring cost flagged |
 | `{{FRONT_DOOR_ID}}` | X-Azure-FDID GUID after FD provisioning | After infra |
 | `{{AZURE_REGION}}` | Deployment region | Operator to supply |
 | `{{WAF_DECISION}}` | Front Door WAF at launch: yes/no | Open decision |

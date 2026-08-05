@@ -9,7 +9,8 @@
         "http://localhost/services/index.html",
         "http://localhost/about/index.html",
         "http://localhost/services/wrinkle-relaxers/index.html",
-        "http://localhost/services/hormone-optimization/index.html"
+        "http://localhost/services/hormone-optimization/index.html",
+        "http://localhost/injector-training/index.html"
       ],
       "numberOfRuns": 3,
       "settings": {

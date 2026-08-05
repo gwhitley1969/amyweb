@@ -18,6 +18,10 @@ const nav: { label: string; href: string; external?: boolean }[] = [
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
   { label: 'Visit', href: '/visit' },
+  /* Professional-audience page (operator placement decision 2026-08-04):
+   * the one non-client item, kept ahead of the conversion link so Book
+   * stays the row's terminal action. */
+  { label: 'Training', href: '/injector-training' },
   { label: 'Book', href: siteConfig.booking.vagaroUrl, external: true },
 ];
 

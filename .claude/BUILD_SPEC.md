@@ -732,29 +732,55 @@ operator may provision manually; if asked to write Bicep, produce:
 
 ## 16. Definition of done (launch checklist)
 
-- [ ] All §6 pages built; every treatment page `clinicianApproved: true`
-      (Amy's written sign-off logged by the operator).
-- [ ] Legal pages present and marked as reviewed by counsel (operator confirms).
+> **LAUNCHED 2026-08-05** — operator sign-off commit ad8fbde (PR #93)
+> → launch merge PR #5 (`aae51ba`) → Production run 30981190812 green
+> (verify + approvals + locked build + deploy + purge). Boxes record
+> launch-day verification; the one left open is a standing post-launch
+> item. DECISIONS 2026-08-05.
+
+- [x] All §6 pages built; every treatment page `clinicianApproved: true`
+      (Amy's written sign-off logged by the operator — commit ad8fbde,
+      2026-08-05, all twelve plus the non-gated /injector-training).
+- [x] Legal pages present and marked as reviewed by counsel (operator confirms).
       *(AMENDED 2026-08-04 — operator accepted launching with
       provider-drafted pages; DraftBanners removed, effective dates set,
       counsel review moved post-launch. DECISIONS same date.)*
-- [ ] `npm run verify` green; approvals check green.
-- [ ] Lighthouse budgets met on Home + a treatment page (mobile).
+- [x] `npm run verify` green; approvals check green (both in Production
+      run 30981190812, 2026-08-05).
+- [x] Lighthouse budgets met on Home + a treatment page (mobile).
+      *(Launch-day live spot-run on needlegirlie.com: 1.00 across all
+      four categories, LCP 1749 ms, CLS 0.0062; CI medians across 7
+      URLs green in the same run.)*
 - [ ] Manual a11y pass done (keyboard + screen reader spot-check).
-- [ ] All outbound handoffs verified to **Amy's** destinations (Vagaro URL is
+      *(STANDING POST-LAUNCH ITEM — automated axe is 24/24 green;
+      the human keyboard + screen-reader pass remains open.)*
+- [x] All outbound handoffs verified to **Amy's** destinations (Vagaro URL is
       hers, not the shared location's; Skinbetter partner link correct).
       Ownership clause satisfied 2026-07-23 — Mobile Aesthetics is Amy's own
       practice (sole owner; DECISIONS 2026-07-23); link reachability is
-      still verified at launch.
-- [ ] Analytics events verified firing in the provider dashboard.
-- [ ] Front Door lockdown verified: SWA default hostname returns 403 direct;
+      still verified at launch. *(2026-08-05: Skinbetter 200; Vagaro
+      serves browsers but 403s non-browser clients (bot protection) —
+      it is Amy's live booking page.)*
+- [x] Analytics events verified firing in the provider dashboard.
+      *(AMENDED 2026-08-04 — resolved as none-at-launch; the line is
+      satisfied by the recorded no-provider decision, DECISIONS same
+      date. Front Door edge reports carry traffic visibility.)*
+- [x] Front Door lockdown verified: SWA default hostname returns 403 direct;
       site serves only via needlegirlie.com; www → apex 301; HTTP → HTTPS.
-- [ ] OG/Twitter cards render correctly; sitemap submitted-ready; previews
-      noindexed, production indexable.
-- [ ] 404 page works at the edge.
-- [ ] Runbook written: deploy, roll back, purge cache, edit content, the
+      *(Observed 2026-08-05: the platform answers direct default-hostname
+      hits with **404** and zero site content rather than the documented
+      403 — the config is the documented forwardingGateway form and the
+      security property holds; www → apex 301 and HTTP → HTTPS 307
+      verified live.)*
+- [x] OG/Twitter cards render correctly; sitemap submitted-ready; previews
+      noindexed, production indexable. *(2026-08-05: five og: properties
+      live; production has zero noindex.)*
+- [x] 404 page works at the edge (2026-08-05: branded, 404 status).
+- [x] Runbook written: deploy, roll back, purge cache, edit content, the
       approval workflow, and the preview-link process for Amy's reviews
       (previews are public + noindexed since 2026-07-21).
+      *(docs/RUNBOOK.md; the approval workflow lives in
+      docs/CLINICIAN-SIGN-OFF.md, now executed.)*
 
 ## 17. Placeholder registry
 

@@ -2894,3 +2894,29 @@ marketing-copy entries scoped to this page; CLAUDE.md constraint 3 and
 §8.1 record the exception; pa11y runs 24 URLs and LHCI 7; Radiesse
 joins the terms trademark list; a dedicated Amy-solo training photo is
 the recorded upgrade path for the reused portrait.
+
+## 2026-08-05 — LAUNCH: needlegirlie.com live
+
+Context: Amy approved everything on the stable preview — the twelve
+flag-gated treatment pages and the non-gated /injector-training — and
+the operator directed the launch. Decision and mechanics: per hard
+constraint 4 the flip stayed the operator's own act — the assistant
+declined to flip on instruction, prepared the branch, and the operator
+ran the sed flip and authored the sign-off commit (ad8fbde) with their
+own in-session commands; that commit is the §16 written log. Sequence:
+PR #93 (approval, CI green) → phase-c; PR #5 marked ready from draft
+and merged (aae51ba) → main; Production run 30981190812 green end to
+end — verify, check:approvals (first-ever pass, by design), Front
+Door-locked build, SWA deploy, cache purge. §16 live checks all pass;
+two findings recorded: (1) Azure answers direct default-hostname hits
+with 404 + zero site content rather than the documented 403 — the
+forwardingGateway config is the documented form, the origin-lockdown
+security property holds, no action; (2) Vagaro 403s non-browser
+clients (bot protection) — reachability verified as her live booking
+page, browsers unaffected. Live Lighthouse on the apex: 1.00 across
+all four categories, LCP 1749 ms, CLS 0.0062. Consequences: Phase C is
+delivered; phase-c continues as the integration branch; standing
+post-launch items — counsel review of the legal pages, the manual
+keyboard/screen-reader a11y pass (§16's one open box), laser pricing
+if Amy supplies it, higher-res photo upgrades, Plausible analytics as
+a deliberate opt-in with its ~$9/mo cost flagged.

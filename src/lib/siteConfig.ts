@@ -45,9 +45,13 @@ export const siteConfig = {
     enabled: false,
   },
   analytics: {
-    // Cookieless only (BUILD_SPEC §11). Stays disabled until the operator
-    // confirms {{ANALYTICS_PROVIDER}}.
+    // {{ANALYTICS_PROVIDER}} RESOLVED 2026-08-04: NONE at launch (operator
+    // delegated the call — DECISIONS same date). Traffic visibility comes
+    // from Front Door's built-in edge reports (zero script, zero cookies,
+    // zero added cost). Plausible (~$9/mo) remains the future default —
+    // enabling it is a deliberate opt-in: set provider + enabled here and
+    // wire track() in analytics.ts; the privacy page updates first.
     enabled: false,
-    provider: '{{ANALYTICS_PROVIDER}}',
+    provider: 'none',
   },
 } as const;

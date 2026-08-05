@@ -6,6 +6,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-08-04 — legal pages take launch form; analytics resolved as none
+
+- The legal trio's "Draft — pending counsel review" banners come off at
+  the operator's recorded acceptance; "Effective August 4, 2026." goes
+  on. Privacy gains hosting-log, health-information, children, and
+  changes sections; terms gain acceptable use, limitation of liability,
+  trademark attribution, severability, changes, and contact; the
+  disclaimer gains reading-is-not-a-substitute, manufacturer-materials,
+  and contact sections — all in the claims-safe lexicon. Counsel review
+  is a standing post-launch item.
+- {{ANALYTICS_PROVIDER}} resolves as NONE at launch (operator delegated
+  the call): Front Door edge reports carry traffic visibility at zero
+  script and zero cost; Plausible stays the recorded future default.
+  DECISIONS 2026-08-04 (two entries).
+
 ### 2026-08-04 — the home page ships (C8)
 
 - needlegirlie.com's front door is the real site now: index.astro

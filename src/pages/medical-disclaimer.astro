@@ -1,18 +1,20 @@
 ---
 import LegalLayout from '../layouts/LegalLayout.astro';
+import { siteConfig } from '../lib/siteConfig';
 
 /**
- * Medical-disclaimer draft (§6, Phase C7) — the sitewide expansion of
- * DisclaimerBlock's vetted wording. NOTE: the standard boilerplate
- * vocabulary of this genre is banned by the claims linter by design;
- * this draft uses the safe lexicon and counsel reviews the final text.
+ * Medical disclaimer (§6, Phase C7; launch form 2026-08-04) — the
+ * sitewide expansion of DisclaimerBlock's vetted wording. NOTE: the
+ * standard boilerplate vocabulary of this genre is banned by the claims
+ * linter by design; this page uses the safe lexicon. Counsel reviews
+ * post-launch (operator acceptance, DECISIONS 2026-08-04).
  */
 ---
 
 <LegalLayout
   heading="Medical Disclaimer"
   title="Medical Disclaimer | Needle Girlie"
-  description="Medical disclaimer for needlegirlie.com. Draft pending counsel review."
+  description="Medical disclaimer for needlegirlie.com: general information, not medical advice."
 >
   <p>
     The content of this website, every page, description, and answer,
@@ -35,6 +37,13 @@ import LegalLayout from '../layouts/LegalLayout.astro';
     this website.
   </p>
 
+  <h2>Reading is not a substitute</h2>
+  <p>
+    Information on this website cannot account for any individual
+    medical history, medications, or circumstances. Decisions about care
+    belong in a consultation with a licensed clinician who knows them.
+  </p>
+
   <h2>Prescription medications</h2>
   <p>
     Some services described on this website involve prescription
@@ -42,9 +51,24 @@ import LegalLayout from '../layouts/LegalLayout.astro';
     following an individual evaluation.
   </p>
 
+  <h2>Product names and manufacturer materials</h2>
+  <p>
+    This website names the products and devices used in the practice
+    and, in places, carries manufacturer-produced materials.
+    Manufacturer materials speak for the manufacturer; the practice's
+    own guidance is given in consultation.
+  </p>
+
   <h2>Emergencies</h2>
   <p>
     This website is not for emergencies. If you are experiencing a
     medical emergency, call 911 or go to the nearest emergency room.
+  </p>
+
+  <h2>Questions</h2>
+  <p>
+    Questions about anything on this website can be directed to Needle
+    Girlie by phone at <a href={siteConfig.phoneTel}>{siteConfig.phone}</a>
+    — or better, asked in a consultation.
   </p>
 </LegalLayout>

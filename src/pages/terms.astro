@@ -1,17 +1,19 @@
 ---
 import LegalLayout from '../layouts/LegalLayout.astro';
+import { siteConfig } from '../lib/siteConfig';
 
 /**
- * Terms draft (§6, Phase C7). Claims-safe lexicon: "as is, without
- * warranties" — the standard vocabulary that would trip lint:claims is
- * deliberately absent. Counsel review gates the final version.
+ * Terms of use (§6, Phase C7; launch form 2026-08-04). Claims-safe
+ * lexicon: the standard vocabulary that would trip lint:claims is
+ * deliberately absent. Counsel reviews post-launch (operator
+ * acceptance, DECISIONS 2026-08-04).
  */
 ---
 
 <LegalLayout
   heading="Terms of Use"
   title="Terms of Use | Needle Girlie"
-  description="Terms of use for needlegirlie.com. Draft pending counsel review."
+  description="Terms of use for needlegirlie.com."
 >
   <p>
     Welcome to needlegirlie.com, the website of Needle Girlie, the
@@ -28,6 +30,14 @@ import LegalLayout from '../layouts/LegalLayout.astro';
     website. If you are experiencing a medical emergency, call 911.
   </p>
 
+  <h2>Using this website</h2>
+  <p>
+    This website may be used for reading about the practice, booking
+    through the links provided, and contacting the practice. Attempting
+    to disrupt the website, scrape or republish its content at scale, or
+    otherwise misuse it is not permitted.
+  </p>
+
   <h2>Booking happens elsewhere</h2>
   <p>
     Appointments are scheduled through Vagaro, a third-party service with
@@ -38,8 +48,11 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 
   <h2>Content and branding</h2>
   <p>
-    The content, wordmark, and branding on this website belong to Needle
-    Girlie and may not be reused without written permission.
+    The content, photography, wordmark, and branding on this website
+    belong to Needle Girlie and may not be reused without written
+    permission. Product and device names mentioned on this website — for
+    example Jeuveau, Evolysse, Biote, Evolve, Venus Versa Pro, PiXel8-RF,
+    and Skinbetter Science — belong to their respective manufacturers.
   </p>
 
   <h2>No warranties</h2>
@@ -49,8 +62,35 @@ import LegalLayout from '../layouts/LegalLayout.astro';
     remove any part of it at any time.
   </p>
 
+  <h2>Limitation of liability</h2>
+  <p>
+    To the fullest extent the law allows, Needle Girlie and Amy
+    Palacios, FNP, are not liable for losses arising from the use of
+    this website or from reliance on its content. Nothing on this
+    website is individual clinical advice; see the
+    <a href="/medical-disclaimer">Medical Disclaimer</a>.
+  </p>
+
   <h2>Governing law</h2>
   <p>
     These terms are governed by the laws of the State of North Carolina.
+  </p>
+
+  <h2>Severability</h2>
+  <p>
+    If any part of these terms is found unenforceable, the remaining
+    parts stay in effect.
+  </p>
+
+  <h2>Changes to these terms</h2>
+  <p>
+    These terms may be updated from time to time; the version posted
+    here, with its effective date, is the one in force.
+  </p>
+
+  <h2>Questions</h2>
+  <p>
+    Questions about these terms can be directed to Needle Girlie by
+    phone at <a href={siteConfig.phoneTel}>{siteConfig.phone}</a>.
   </p>
 </LegalLayout>

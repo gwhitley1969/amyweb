@@ -2856,3 +2856,41 @@ the static-simplicity principle). Consequences: siteConfig records
 provider "none"; §16's analytics line is satisfied by the recorded
 no-provider decision; launch-day traffic is visible in the Azure
 portal's Front Door reports.
+
+## 2026-08-04 — /injector-training: the professional-audience page (fifth allowlist authorization)
+
+Context: Amy offers Private Injector Training — four hands-on,
+one-on-one courses for licensed medical professionals (Neurotoxin,
+Dermal Filler, and PDO Thread Lift at $5,000; Radiesse at $7,500;
+three hours each, product included) — advertised on her Instagram but
+absent from the site. The operator supplied six flyer screenshots as
+source (reference only, never committed: the trainee/model frames
+carry no releases, and the flyer text burns banned vocabulary into
+pixels). Decision: a standalone src/pages page at /injector-training,
+outside the treatments collection — it is not client treatment
+content, so the clinicianApproved gate does not apply; Amy reviews it
+via a non-gated section added to docs/CLINICIAN-SIGN-OFF.md.
+lint:claims covers src/pages, so the page stays fully
+compliance-linted. A fifth "Training" nav item (operator placement
+decision); phone/Instagram contact routing (training is neither an
+"appointment" nor a "consultation", and "Book with Amy" stays
+Vagaro-only). Curriculum topics publish flyer-verbatim under the FIFTH
+allowedStrings authorization — the operator's decision after the
+compliance flag; the recommended paraphrase was declined. The four
+strings are enumerated in exact <li>-wrapped source form because the
+first string opens with its banned word and the self-test's
+digit-prefix near-miss proof needs the word boundary the closing
+angle bracket provides; the wrap also binds each exception to one
+exact attribute-less source line. The pa11y needs-review cap for the
+URL was operator-authorized in the operator's own words the same day.
+Experience wording uses the site's Amy-confirmed "in medical
+aesthetics since 2017", not the flyer's narrower line — one set of
+facts sitewide. Alternatives rejected: a treatments-collection entry
+(wrong frame: patient-facing disclaimer, consult routing, and the
+"Twelve lines" identity); paraphrased topic titles (recommended,
+declined); bare-text allowlist strings (fails the self-test's
+exactness proof). Consequences: allowedStrings grows by four
+marketing-copy entries scoped to this page; CLAUDE.md constraint 3 and
+§8.1 record the exception; pa11y runs 24 URLs and LHCI 7; Radiesse
+joins the terms trademark list; a dedicated Amy-solo training photo is
+the recorded upgrade path for the reused portrait.

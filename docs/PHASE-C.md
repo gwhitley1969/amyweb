@@ -1,6 +1,18 @@
 # Phase C — Pages & content drafts (working checklist)
 
-> **STATUS UPDATE 2026-08-04 (latest — C8):** **THE HOME PAGE SHIPPED.**
+> **STATUS UPDATE 2026-08-04 (training):** **/injector-training
+> shipped — the site's one professional-audience page.** Private
+> Injector Training: four one-on-one courses for licensed medical
+> professionals, flyer-sourced prices (three at $5,000, Radiesse at
+> $7,500), a fifth "Training" nav item, phone/Instagram routing. The
+> four curriculum topics publish flyer-verbatim under the FIFTH
+> allowedStrings authorization (operator override after the flag,
+> li-wrapped so the linter's exactness self-test stays sound). Not
+> flag-gated — the page sits outside the treatments collection; Amy
+> reviews it via the sign-off doc's new non-gated section. pa11y now
+> runs 24 URLs, LHCI 7. DECISIONS 2026-08-04.
+
+> **STATUS UPDATE 2026-08-04 (C8):** **THE HOME PAGE SHIPPED.**
 > index.astro now renders ConceptHome (the Neon Editorial the client
 > approved); the construction placeholder and its legacy
 > ng-ignite/ng-hum keyframes are retired. All three C8 prerequisites

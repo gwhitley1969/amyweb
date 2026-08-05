@@ -74,7 +74,18 @@ silently following it. Known superseded points from earlier briefs:
      DECISIONS 2026-07-20 and 2026-07-21):* the exact price strings
      enumerated in `compliance/banned-patterns.json` `allowedStrings` —
      the mg-keyed GLP-1 vial tiers and the per-unit neuromodulator
-     prices — may appear as product pricing. Nothing else; changing
+     prices — may appear as product pricing. *Fifth scoped exception
+     (operator override after the compliance flag — DECISIONS
+     2026-08-04): the four Private Injector Training curriculum topics
+     enumerated in `allowedStrings` in exact `<li>`-wrapped source form
+     — "Dosing and dilution", "Safety protocols", "Advanced injection
+     protocols", "Training manual & protocols" — on /injector-training
+     only. They are course-topic titles, not quantities; the operator
+     chose flyer-verbatim wording over the recommended paraphrase.
+     Editing rules: each lives on ONE attribute-less `<li>` source line
+     matching the registry exactly (stripping is per-line AND
+     case-sensitive), and this vocabulary is never restated elsewhere,
+     comments included.* Nothing else; changing
      that list requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated

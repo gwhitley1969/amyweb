@@ -7,9 +7,16 @@ import { siteConfig } from '../lib/siteConfig';
 // canonical HTML source (src/assets/brand/source/) and cropped with a black
 // margin so the glow fades out inside the image. Art untouched.
 import logo from '../assets/brand/needle-girlie-logo-on-black-trimmed.png';
-// Commissioned caricature of Amy in the studio — the "she's inside getting
-// it ready" moment (docs/superpowers/specs/2026-07-09-caricature-*.md).
-import caricature from '../assets/brand/amy-caricature.png';
+// Amy on the studio counter beneath her own neon — the "she's inside
+// getting it ready" moment, photographic. Replaced the commissioned
+// caricature at Amy's direction (2026-08-05); the caricature asset stays
+// in src/assets/brand/ but is no longer rendered anywhere. Operator-
+// supplied frame (C:\Amy\pics\needlegirlie.png, 642x893), zoom-vetted:
+// no legible product text; the neon, mirror engraving, and scrub
+// embroidery are Amy's own branding (sole-owner precedent). 642 px
+// native — srcset stays native-max; a higher-res original sharpens it
+// with no code change.
+import studioPortrait from '../assets/photos/studio-counter-portrait.jpg';
 ---
 
 <BaseLayout
@@ -28,8 +35,8 @@ import caricature from '../assets/brand/amy-caricature.png';
       fetchpriority="high"
     />
     <CaricatureWindow
-      image={caricature}
-      alt="Illustrated caricature of Amy Palacios, FNP, seated on a studio counter"
+      image={studioPortrait}
+      alt="Amy Palacios, FNP, seated on the studio counter"
       taped
       class="w-full max-w-[520px]"
     />

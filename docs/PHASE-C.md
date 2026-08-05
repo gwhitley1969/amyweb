@@ -1,6 +1,15 @@
 # Phase C — Pages & content drafts (working checklist)
 
-> **STATUS UPDATE 2026-08-04 (latest):** **every treatment page now
+> **STATUS UPDATE 2026-08-04 (latest):** **hours will not be listed on
+> the website — Amy's decision closes `{{HOURS}}`** (PR #88). Not a
+> pending value anymore: the siteConfig field, LocationCard's
+> hide-until-resolved line, and the JSON-LD `openingHours` property are
+> removed, so listing hours later is a deliberate re-add. Rendered
+> output unchanged (the line never rendered). The 2026-07-25 "hide
+> until resolved" mechanism below is history; the parking note is the
+> only /visit input still open. DECISIONS 2026-08-04.
+
+> **STATUS UPDATE 2026-08-04 (later):** **every treatment page now
 > carries a photo; Venus Versa renamed Versa Pro** (PR #85, approved
 > by Amy on the preview — PR #86 records it). The completeness audit
 > found four photo-less pages; the operator supplied the frames:

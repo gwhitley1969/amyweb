@@ -5,7 +5,9 @@ assumes `az` and `gh` CLIs authenticated against the client tenant
 (`needlegirlie.onmicrosoft.com`) and the GitHub repo (`gwhitley1969/amyweb`).
 
 > **STATUS 2026-08-05: production is OFFLINE — serving the Under
-> Construction placeholder.** The launch merge was reverted at operator
+> Construction placeholder** (since the same evening with Amy's studio
+> photo in the window — the caricature is retired at her word, PR #99).
+> The launch merge was reverted at operator
 > direction (revert commit `e57a4448`; DECISIONS 2026-08-05 takedown
 > entry) pending a client review round. Relaunch is TWO-STEP — see
 > "Relaunching after the takedown" under Rollback. While the revert is
@@ -92,7 +94,11 @@ broken hybrid. Relaunch is two-step, in order:
 
 1. **Revert the revert** on `main` (restores the full launch tree
    exactly): `git revert e57a4448…`, verify, push per this runbook —
-   or carry both steps in one relaunch PR.
+   or carry both steps in one relaunch PR. Note: `main` has moved past
+   the takedown revert (PR #99 put Amy's photo on the placeholder), so
+   this revert can conflict on `src/pages/index.astro` and
+   `src/assets/photos/studio-counter-portrait.jpg` — **take the
+   launch-tree side**; the placeholder retires at relaunch anyway.
 2. **Merge the updated `phase-c`** (brings the post-takedown
    revisions). Content edits made during revision reset the affected
    pages' `clinicianApproved` flags (constraint 4), so

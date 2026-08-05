@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-08-04 — clinician sign-off package
+
+- `docs/CLINICIAN-SIGN-OFF.md`: the page-by-page checklist Amy reviews
+  against the stable preview, the operator-only flag-flip procedure
+  (constraint 4 — the flip is never the assistant's), the sign-off
+  commit template that becomes the §16 written log, and the post-flip
+  launch sequence (PR #5 merge → production pipeline → §16 mechanics).
+
 ### 2026-08-04 — legal pages take launch form; analytics resolved as none
 
 - The legal trio's "Draft — pending counsel review" banners come off at

@@ -1,5 +1,18 @@
 # Clinician sign-off — the last gate before production
 
+> **EXECUTED 2026-08-05 — the site launched.** Amy approved all twelve
+> treatment pages and /injector-training on the stable preview; the
+> operator ran the flip and authored the sign-off commit (`ad8fbde`,
+> PR #93) with their own commands — that commit is the §16 written log
+> and supersedes the per-page checkboxes below. PR #5 then merged as
+> the launch, which also retired the `…-5…` preview environment these
+> links point at (the stable preview now follows the standing PR — see
+> docs/RUNBOOK.md, "Where `phase-c` is visible"). This document remains
+> as the procedure record and the TEMPLATE for future approvals: any
+> post-launch edit to an approved page resets its flag (constraint 4),
+> and re-approval follows this same flow against the current stable
+> preview.
+
 **Who:** Amy Palacios, FNP, reviews; the operator logs and flips.
 **Where:** the stable preview — always the current `phase-c` build:
 <https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net>

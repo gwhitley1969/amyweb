@@ -192,7 +192,8 @@ silently following it. Known superseded points from earlier briefs:
 - `npm run dev` — local dev server
 - `npm run build` — production build
 - `npm run check` — astro check + type/content-schema validation
-- `npm run lint:claims` — compliance linter over `src/content/**`
+- `npm run lint:claims` — compliance linter over all of `src/` (content,
+  pages, components, layouts, lib, styles — comments included)
 - `npm run test:a11y` — accessibility checks against the built site
 - `npm run verify` — everything above, in order (CI parity)
 
@@ -205,7 +206,7 @@ silently following it. Known superseded points from earlier briefs:
 ├── docs/
 │   └── DECISIONS.md  ADR-lite decision log (append-only)
 ├── src/
-│   ├── content/      Content collections (treatments, pages) + schemas
+│   ├── content/      Content collection (treatments) + schema (content.config.ts)
 │   ├── components/   Astro components
 │   ├── layouts/      Base + treatment layouts (disclaimer injection lives here)
 │   ├── pages/        Routes

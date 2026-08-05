@@ -11,7 +11,7 @@ assumes `az` and `gh` CLIs authenticated against the client tenant
 | Production | https://needlegirlie.com (canonical apex) |
 | Redirecting hosts | www.needlegirlie.com, needlegirl.com, www.needlegirl.com → 301 to apex |
 | Front Door | profile `afd-needlegirlie`, endpoint `needlegirlie` (`needlegirlie-b9bbeadqaucyd7af.z03.azurefd.net`), ID `ee68a15a-55e1-4220-8016-3052e33d4988` |
-| Static Web App | `stapp-needlegirlie` (`polite-flower-0a41b770f.7.azurestaticapps.net`) — returns **403 direct; by design** (locked to Front Door) |
+| Static Web App | `stapp-needlegirlie` (`polite-flower-0a41b770f.7.azurestaticapps.net`) — direct hits are **refused by design** (locked to Front Door; the config is the documented 403 form, but the platform was observed answering 404 with zero site content at launch, 2026-08-05 — either way, blocked) |
 | Resource group | `rg-needlegirlie-web` (eastus2); DNS zones live in `rg-corp` |
 | Subscription | `ng-website` (`62cd1c71-3239-4b8b-8a10-4dc4da52e29e`) |
 | Budget | $60/mo, alerts at 50%/80% actual + 100% forecast |
@@ -37,15 +37,23 @@ design: `allowedForwardedHosts` only admits the real hostnames.
 ## Where `phase-c` is visible
 
 `pr-preview.yml` triggers on `pull_request` only — never on `push`. Pushes
-to `phase-c` deploy because **PR #5 (`phase-c` → `main`) is open**: each push
-is a `synchronize` event on it, so PR #5's preview environment is effectively
-the stable `phase-c` preview, at
-`https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net`.
+to `phase-c` deploy only while a **standing PR from `phase-c` → `main` is
+open**: each push is a `synchronize` event on it, so that PR's preview
+environment is effectively the stable `phase-c` preview.
+
+Launch PR #5 played this role until it merged as the launch merge
+(2026-08-05), which tore its `…-5…` environment down. **The standing PR is
+now #95** (draft "Next release"), so the stable preview lives at
+`https://polite-flower-0a41b770f-95.eastus2.7.azurestaticapps.net` — note
+it deploys on the next push whose diff touches a source file
+(documentation-only diffs are `paths-ignore`d, above). Merging the standing
+PR is a production release; open the next one right after.
 
 The environment number is the PR number — PR #61's preview was `…-61…`.
-**Consequence worth knowing:** if PR #5 is ever closed, pushes to `phase-c`
-stop deploying anywhere, with no failing run to point at. Reopen it, or open
-a replacement PR from `phase-c`, rather than debugging the workflow.
+**Consequence worth knowing:** if the standing PR is ever closed without a
+replacement, pushes to `phase-c` stop deploying anywhere, with no failing
+run to point at. Open a new PR from `phase-c` rather than debugging the
+workflow.
 
 Treatment-content rules (CLAUDE.md hard constraint 4): only a human sets
 `clinicianApproved: true`; any edit to approved content resets it to `false`

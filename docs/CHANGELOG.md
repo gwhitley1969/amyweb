@@ -20,6 +20,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
   Standing post-launch items: counsel review of legal pages, the
   manual keyboard/screen-reader a11y pass, laser pricing if supplied,
   photo upgrades, Plausible as a deliberate opt-in.
+- Merging PR #5 also tore down the `…-5…` stable-preview environment
+  (by design — close-preview runs on PR close). Draft **PR #95**
+  ("Next release", `phase-c` → `main`) was opened as the replacement
+  standing PR, so the stable preview mechanism survives launch; the
+  RUNBOOK's "Where `phase-c` is visible" section now describes the
+  standing-PR pattern generically. The executed sign-off doc carries
+  an EXECUTED banner and stays as the template for re-approvals.
 
 ## Phase C — pages & content drafts (`phase-c`)
 

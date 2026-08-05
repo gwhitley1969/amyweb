@@ -286,7 +286,7 @@ layout shift from fonts or images.
 | `/services/regenerative` | Regenerative Treatments | §7 brief | Request a consultation |
 | `/services/skin-rejuvenation` | Skin Rejuvenation | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
 | `/services/body-contouring` | Body Contouring | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
-| `/services/laser-treatments` | Laser Treatments | §7 brief (added 2026-07-22, Venus Versa) | Request a consultation |
+| `/services/laser-treatments` | Laser Treatments | §7 brief (added 2026-07-22, Venus Versa; renamed Venus Versa Pro 2026-08-04) | Request a consultation |
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
@@ -519,7 +519,10 @@ action hype, no outcomes, no dosing, ever.
     body-fat or measurement language of any kind. Consult routing.
 12. **Laser Treatments** *(added 2026-07-22, from the operator-supplied
     Venus Versa brochures — a constraint-8-class view-only source, never
-    committed)* — **Venus Versa** (Venus Concept), a device platform.
+    committed)* — **Venus Versa Pro** (Venus Concept), a device platform
+    *(named "Venus Versa" until 2026-08-04; the Pro naming rests on the
+    operator's photo of Amy's own console and Amy's approval on the
+    PR #85 preview — DECISIONS 2026-08-04)*.
     The line title "Laser Treatments" is the operator's naming choice
     (2026-07-22, chosen after the accuracy flag: the applicators are
     intense pulsed light and radiofrequency, not laser — body copy

@@ -1,5 +1,36 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-08-04 (latest):** **every treatment page now
+> carries a photo; Venus Versa renamed Versa Pro** (PR #85, approved
+> by Amy on the preview — PR #86 records it). The completeness audit
+> found four photo-less pages; the operator supplied the frames:
+> laser-treatments gets the Venus Versa Pro console (the photo is the
+> factual basis for the rename across summary/FAQ/SEO/body),
+> body-contouring gets an Evolve session from Amy's own Reel (the
+> burned-in efficacy caption cropped out; §8 covers text inside
+> images), hormone-optimization closes with the grey-seamless portrait
+> (reuses `amy-palacios-fnp.jpg` — SHA-identical to the operator's
+> pick, now on both wellness pages), skin-rejuvenation gets the docked
+> PiXel8-RF handpiece (superseding the 2026-07-22 "no PiXel8 assets
+> exist" note below). Two supplied frames REJECTED on compliance
+> grounds: the PiXel8 settings screen (power/timing and a suggested
+> needle depth in mm) and the Biote symptom brochure. Three sources
+> are ~450 px — native-max srcset widths, higher-res originals are the
+> upgrade path. Laser pricing stays consult-routed
+> (`{{VENUS_VERSA_MENU}}` open); `clinicianApproved` still `false` on
+> all twelve. DECISIONS 2026-08-04 (two entries).
+
+> **STATUS UPDATE 2026-08-03→04:** **/about rebuilt as a magazine
+> profile, approved by Amy** (PRs #83/#84). Five beats — expanded hero
+> (family portrait and the keep-list lead byte-identical), a
+> Playfair-numeral milestones timeline replacing the facts card, "The
+> name on the wall" with the studio-neon portrait (8K0A9862
+> published), booking prose, TrustChips on the closing band. Amy's
+> approval on the preview resolved the standing 2026-07-19
+> career-facts wording flag and accepted the legible neon as a
+> reversible brand call. Structural page — no clinicianApproved
+> mechanics. DECISIONS 2026-08-03 / 2026-08-04.
+
 > **STATUS UPDATE 2026-08-01 (later):** **peptide cards carry the
 > client's definitions** — all nine "What Amy offers" cards step up
 > from identity-only lines to the client's supplied wording,
@@ -464,7 +495,9 @@ currently through the clinician gate):
       Tone; **not** Trim). Describe by intended design only — never as
       outcomes, and **no body-fat or measurement language of any kind**
       (§7.11). ctaType: consult.
-- [x] `laser-treatments` *(added 2026-07-22, Venus Versa)* — three
+- [x] `laser-treatments` *(added 2026-07-22, Venus Versa; renamed
+      **Venus Versa Pro** 2026-08-04 on the operator's console photo,
+      Amy-approved)* — three
       applications, appearance-hedged, mechanism as design intent:
       NanoFractional RF resurfacing, IPL photo-rejuvenation
       (FDA-cleared stated as the accurate device term, no indication

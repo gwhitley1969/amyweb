@@ -8,7 +8,10 @@
     }
   },
   "urls": [
-    "http://localhost:4325/",
+    {
+      "url": "http://localhost:4325/",
+      "levelCapWhenNeedsReview": "warning"
+    },
     "http://localhost:4325/404.html",
     {
       "url": "http://localhost:4325/visit",

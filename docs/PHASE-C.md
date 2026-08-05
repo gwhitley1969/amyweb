@@ -1,6 +1,20 @@
 # Phase C — Pages & content drafts (working checklist)
 
-> **STATUS UPDATE 2026-08-04 (latest):** **hours will not be listed on
+> **STATUS UPDATE 2026-08-04 (latest — C8):** **THE HOME PAGE SHIPPED.**
+> index.astro now renders ConceptHome (the Neon Editorial the client
+> approved); the construction placeholder and its legacy
+> ng-ignite/ng-hum keyframes are retired. All three C8 prerequisites
+> closed on the operator's word (2026-08-04, recorded in DECISIONS):
+> hero client's release confirmed on the record; Amy signed off the IG
+> post caption; {{MEDIA_SCOPE}} closed as per-item operator approval,
+> the practice all along. `/` became an ombre URL — its per-URL pa11y
+> needs-review cap was operator-authorized in their own words.
+> Production SEO strings replaced the concept-mock title/description
+> (component-level, so /styleguide/concept mirrors them). Phase C page
+> checklist is now COMPLETE; launch blockers remaining are the twelve
+> clinicianApproved flags and the §16 mechanics.
+
+> **STATUS UPDATE 2026-08-04 (hours):** **hours will not be listed on
 > the website — Amy's decision closes `{{HOURS}}`** (PR #88). Not a
 > pending value anymore: the siteConfig field, LocationCard's
 > hide-until-resolved line, and the JSON-LD `openingHours` property are
@@ -9,7 +23,7 @@
 > until resolved" mechanism below is history; the parking note is the
 > only /visit input still open. DECISIONS 2026-08-04.
 
-> **STATUS UPDATE 2026-08-04 (later):** **every treatment page now
+> **STATUS UPDATE 2026-08-04 (photos):** **every treatment page now
 > carries a photo; Venus Versa renamed Versa Pro** (PR #85, approved
 > by Amy on the preview — PR #86 records it). The completeness audit
 > found four photo-less pages; the operator supplied the frames:
@@ -430,12 +444,13 @@ these. From the §17 registry:
 Structural pages (no clinician gate, but claim + voice rules apply to
 every string):
 
-- [ ] `/` — Home: Hero (lockup + confirmed promise + Book CTA), "Meet Amy"
-      trust block (FNP, since 2017, Biote-certified — facts from
-      `{{AMY_BIO}}`), ServiceLineGrid (12 lines — 11 since PR #16,
-      +laser 2026-07-22; featured variant per Amy's pick), location
-      strip (NAP + directions link-out), Get-the-App slot
-      (flag stays off), closing noir CTA band. Two seams max (design rule).
+- [x] `/` — Home: **SHIPPED 2026-08-04 (C8 flip)** — index.astro renders
+      ConceptHome (the client-approved Neon Editorial): noir hero (Amy
+      mid-treatment, release operator-confirmed), canvas Meet-Amy,
+      three category doors (the 2026-07-25 amendment replaced the
+      ServiceLineGrid reprint — the home ROUTES), visit + LocationCard,
+      framed IG post (caption Amy-signed), noir close. Construction
+      placeholder + legacy keyframes retired.
 - [x] `/services` — index: short factual intro per line → 12 detail
       links (9 at C5; grew with PR #16, +laser 2026-07-22). Card colors client-picked
       2026-07-22: rest `#f4cae2`, highlight `#efb1d5` + ink-pink

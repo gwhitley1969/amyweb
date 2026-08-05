@@ -6,6 +6,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-08-04 — the home page ships (C8)
+
+- needlegirlie.com's front door is the real site now: index.astro
+  renders ConceptHome (the client-approved Neon Editorial — noir hero,
+  Meet-Amy, three category doors, visit card, framed IG post, noir
+  close). All three C8 prerequisites closed on the operator's word:
+  hero client's release confirmed, Amy's IG-caption sign-off,
+  media-scope resolved as per-item approvals. Construction placeholder
+  and its legacy keyframes retired; production SEO strings in; the
+  home URL joins the ombre pa11y cap list (operator-authorized).
+  DECISIONS 2026-08-04.
+
 ### 2026-08-04 — hours are not listed on the website (Amy's decision)
 
 - The `{{HOURS}}` token closes as will-not-list: the siteConfig field,

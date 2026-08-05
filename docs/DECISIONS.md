@@ -2784,3 +2784,29 @@ machinery (misrepresents a settled decision as a pending input).
 Consequences: rendered output unchanged (the line never rendered);
 BUILD_SPEC §6/§17 and the PHASE-C tables record the closure; the
 parking note stays open as the only /visit input still pending.
+
+## 2026-08-04 — C8: the home page ships (construction placeholder retired)
+
+Context: the operator directed launch readiness and picked the concept
+page as the home; the three recorded C8 prerequisites (2026-07-25) were
+put to the operator as a question round. Decision: all three closed on
+the operator's answers, 2026-08-04 — (a) the hero client's release is
+CONFIRMED on the record (the blonde tattooed-shoulder client in
+amy-at-work.jpg; this entry is that record); (b) Amy SIGNED OFF the IG
+post caption (baked pixels are invisible to both linters — her sign-off
+is the control); (c) {{MEDIA_SCOPE}} closed as per-item operator
+approval, the practice in force all along. index.astro now renders
+ConceptHome; the component's concept-mock title/description became the
+production SEO strings (so /styleguide/concept mirrors them); the
+legacy ng-ignite/ng-hum keyframe fence was deleted (no consumers
+remain); the construction page's brand assets stay in src/assets/brand.
+Gate change, operator-authorized in their own words ("I authorize the
+pa11y cap for /"): the home URL joins the 21 ombre URLs carrying the
+per-URL levelCapWhenNeedsReview cap. Alternatives rejected: launching
+with the construction home (a public site whose front door hides the
+twelve service pages defeats the launch); swapping the hero to a
+solo-Amy frame (unnecessary once the release was confirmed).
+Consequences: / is measured by the existing LHCI entry for real now
+(the 2026-07-25 worst-case measurement had 46KB image headroom); the
+caricature/logo assets are dormant, not deleted; Phase C's page
+checklist is complete.

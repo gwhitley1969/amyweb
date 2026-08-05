@@ -2920,3 +2920,35 @@ post-launch items — counsel review of the legal pages, the manual
 keyboard/screen-reader a11y pass (§16's one open box), laser pricing
 if Amy supplies it, higher-res photo upgrades, Plausible analytics as
 a deliberate opt-in with its ~$9/mo cost flagged.
+
+## 2026-08-05 — Production taken offline: launch merge reverted (operator direction)
+
+Context: hours after launch, the operator directed that production be
+taken offline pending a client review round, ahead of a scheduled
+client meeting — production should serve the pre-launch Under
+Construction placeholder, with every launched byte preserved for
+revision and fast relaunch. Decision: the RUNBOOK rollback path —
+`git revert -m 1 aae51ba` (revert commit `e57a4448`, authored in an
+isolated worktree; local `npm run verify` green before the push; tree
+verified hash-identical to pre-launch `906992b2` before pushing). The
+Production pipeline re-verified, redeployed, and purged the edge.
+`phase-c`, all PRs, the sign-off commit (ad8fbde), and every
+`clinicianApproved` flag are untouched — the approvals remain valid;
+nothing content-wise changed. Alternatives rejected: unsetting
+FRONT_DOOR_ID (stops future deploys but leaves the launched site
+serving); disabling Front Door/SWA (serves platform errors, not the
+branded placeholder and branded 404); force-pushing main (prohibited;
+destroys the audit trail). Consequences: (1) **relaunch is two-step —
+revert commit `e57a4448` must itself be reverted on main BEFORE
+merging phase-c**; a plain phase-c merge alone yields a broken hybrid,
+because main's history already contains the phase-c commits (RUNBOOK,
+"Relaunching after the takedown"). (2) The "merge main → phase-c
+promptly" rule is SUSPENDED while the revert is main's tip — merging
+main into phase-c (including PR #95's "Update branch" button) would
+delete the site from the integration branch. (3) PR #95's merge ref is
+conflicted by design, so the standing preview cannot deploy during the
+takedown — interim previews come from sub-PRs into phase-c; **PR #97**
+(comment-only, never merges) is the standing full-site demo. (4) The
+twelve treatment URLs serve the branded 404 and age out of indexes
+naturally; `/` stays indexable exactly as it was all July — no SEO
+action.

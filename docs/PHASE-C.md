@@ -4,7 +4,9 @@
 > The launch merge was reverted at operator direction hours after
 > launch (revert `e57a4448`; DECISIONS 2026-08-05 takedown entry);
 > production serves the Under Construction placeholder pending a
-> client review round. `phase-c` remains the complete delivered site
+> client review round (since the same evening with Amy's studio photo
+> in the window — the caricature is retired at her word, PR #99).
+> `phase-c` remains the complete delivered site
 > and the relaunch base; relaunch is two-step (RUNBOOK, "Relaunching
 > after the takedown"). The launch record below stands as history.
 

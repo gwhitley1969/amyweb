@@ -2952,3 +2952,35 @@ takedown — interim previews come from sub-PRs into phase-c; **PR #97**
 twelve treatment URLs serve the branded 404 and age out of indexes
 naturally; `/` stays indexable exactly as it was all July — no SEO
 action.
+
+## 2026-08-05 — Construction photo: Amy's studio portrait replaces the caricature (client direction)
+
+Context: Amy dislikes the commissioned caricature on the live Under
+Construction page; the operator promised her its removal and supplied
+the replacement frame (needlegirlie.png — Amy seated on the studio
+counter beneath her own neon, fine-gauge syringes in hand). Decision:
+the placeholder's arched taped window now renders the photograph,
+committed as `src/assets/photos/studio-counter-portrait.jpg` (PNG
+re-encoded JPEG q92 per the prp-treatment precedent, 564 KB → 76 KB;
+full frame, no crop — its 0.72 portrait ratio matches the caricature's
+window contract, so CaricatureWindow needed no change). Compliance vet
+at 4× zoom before use: the syringes carry no legible labels or unit
+text; the mirror engraving, neon script, and scrub embroidery are Amy's
+own branding (sole-owner precedent); no clients pictured. Preview-first
+honored on its own page's precedent (the 2026-07-08 marquee lesson):
+PR #99's preview probed three passes, the operator approved on sight
+("ship it"), merge `4655609a` → Production run 31053064808 green →
+live-verified (photo serving, zero caricature references).
+Alternatives rejected: committing the 564 KB PNG as-is (Astro
+re-encodes every variant — the double-lossy concern); cropping out the
+under-counter equipment (changes the window ratio; the labels are
+illegible at ship size anyway). Consequences: (1) **the caricature is
+retired at Amy's word — never render it again without her explicit
+direction** (the asset stays in `src/assets/brand/` as history;
+CaricatureWindow remains a generic arched-frame component). (2) The
+relaunch revert-of-the-revert can now CONFLICT on
+`src/pages/index.astro` and the new asset, since main has moved past
+the takedown revert — resolve by taking the launch-tree side; the
+placeholder retires again at relaunch anyway (RUNBOOK amended). (3) The
+642 px source renders ~1.24× at the 520 px display cap on 2× screens —
+a higher-resolution original is the upgrade path, no code change.

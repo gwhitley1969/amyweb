@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Launch (`main`)
 
+### 2026-08-05 — The placeholder loses the caricature (Amy's direction)
+
+- Amy dislikes the caricature; the live Under Construction page's
+  arched window now holds her real studio portrait (operator-supplied
+  frame → `studio-counter-portrait.jpg`, zoom-vetted — no legible
+  product text; every visible brand mark is her own). Preview-first
+  honored on PR #99 (the marquee lesson, applied to its own page);
+  merged `4655609a`, production redeployed and live-verified the same
+  evening. The caricature is retired sitewide at her word (asset kept
+  in-repo, rendered nowhere). Relaunch wrinkle recorded in the RUNBOOK:
+  the revert-of-the-revert may conflict on `index.astro` — take the
+  launch-tree side. DECISIONS 2026-08-05 (photo entry).
+
 ### 2026-08-05 — Production taken offline (launch merge reverted)
 
 - Hours after launch, at operator direction, production rolled back to

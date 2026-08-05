@@ -768,7 +768,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{BIOTE_FDA_DISCLAIMER}}` | Biote's exact required FDA wording, rendered by `BioteDisclaimer` | RESOLVED 2026-07-22 (operator-authorized — Biote's own printed brochure wording; exact sentence in `allowedStrings`, fourth authorization. Had been shipping as a *visible placeholder token* on the hormone page; §7.8) |
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |
 | `{{RETATRUTIDE_COUNSEL}}` | Attorney-approved investigational wording | Open decision |
-| `{{MEDIA_SCOPE}}` | How much photo/video goes on-site | Open decision |
+| `{{MEDIA_SCOPE}}` | How much photo/video goes on-site | RESOLVED 2026-08-04 — closed as the practice already in force: every photo/film ships on a per-item operator approval, recorded in DECISIONS (no blanket scope; C8 prerequisite (c) satisfied) |
 | `{{ANALYTICS_PROVIDER}}` | Plausible (default) or alternative | Open decision |
 | `{{FRONT_DOOR_ID}}` | X-Azure-FDID GUID after FD provisioning | After infra |
 | `{{AZURE_REGION}}` | Deployment region | Operator to supply |

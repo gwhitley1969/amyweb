@@ -1,5 +1,13 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-08-05 (evening) — PRODUCTION TAKEN OFFLINE.**
+> The launch merge was reverted at operator direction hours after
+> launch (revert `e57a4448`; DECISIONS 2026-08-05 takedown entry);
+> production serves the Under Construction placeholder pending a
+> client review round. `phase-c` remains the complete delivered site
+> and the relaunch base; relaunch is two-step (RUNBOOK, "Relaunching
+> after the takedown"). The launch record below stands as history.
+
 > **STATUS UPDATE 2026-08-05 — LAUNCHED.** **needlegirlie.com is
 > live.** Amy approved all twelve treatment pages plus
 > /injector-training on the stable preview; the operator flipped the

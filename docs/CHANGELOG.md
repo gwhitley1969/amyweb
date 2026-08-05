@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Launch (`main`)
 
+### 2026-08-05 — Production taken offline (launch merge reverted)
+
+- Hours after launch, at operator direction, production rolled back to
+  the Under Construction placeholder pending a client review round:
+  revert commit `e57a4448` restores the pre-launch tree byte-for-byte
+  (RUNBOOK rollback path; local verify green, full Production pipeline
+  green, edge purged). Nothing is lost — `phase-c`, every approval, and
+  the §16 record are untouched, and the twelve treatment URLs degrade
+  to the branded 404. Relaunch is deliberately two-step: revert the
+  revert, then merge `phase-c` (RUNBOOK, "Relaunching after the
+  takedown"). Full-site demo preview for review: PR #97's environment.
+  DECISIONS 2026-08-05 (takedown entry).
+
 ### 2026-08-05 — needlegirlie.com is live
 
 - Amy signed off all twelve treatment pages plus /injector-training on

@@ -2754,3 +2754,17 @@ widths only (no upscaling), higher-res originals are the upgrade path.
 All four pages remain clinicianApproved: false; the Versa Pro rename is
 flagged for Amy's preview review. Laser pricing stays consult-only until
 Amy says otherwise.
+
+## 2026-08-04 — Amy approved the treatment photos and the Versa Pro naming
+
+Context: the operator relayed Amy's approval of the PR #85 preview and
+directed the merge (4104feb). Decision: merged as approved, recorded
+because the approval settles the open flag from the same-day entry —
+the "Venus Versa" → "Venus Versa Pro" rename, made on photographic
+evidence, is now Amy-confirmed on the surface it renders on. Still
+open, unchanged by this approval: the laser-pricing question (publish
+strings vs consult-only intentional — awaiting Amy's word through the
+operator), the higher-res upgrade path for the three ~450 px frames,
+and the twelve clinicianApproved flags, which are the operator's
+formal sign-off mechanism and remain false. Consequences: docs only;
+rendered output untouched.

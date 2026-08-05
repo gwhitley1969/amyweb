@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-08-04 — hours are not listed on the website (Amy's decision)
+
+- The `{{HOURS}}` token closes as will-not-list: the siteConfig field,
+  LocationCard's hide-until-resolved hours line, and the JSON-LD
+  `openingHours` property are removed outright. Rendered output is
+  unchanged — the line never rendered while the token was open. The
+  parking note is now the only open /visit input. DECISIONS 2026-08-04.
+
 ### 2026-08-04 — treatment photos approved on preview
 
 - Amy approved the PR #85 preview (all four new photos and the

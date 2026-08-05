@@ -1,6 +1,15 @@
 # Phase C — Pages & content drafts (working checklist)
 
-> **STATUS UPDATE 2026-08-04 (latest):** **every treatment page now
+> **STATUS UPDATE 2026-08-04 (latest):** **hours will not be listed on
+> the website — Amy's decision closes `{{HOURS}}`** (PR #88). Not a
+> pending value anymore: the siteConfig field, LocationCard's
+> hide-until-resolved line, and the JSON-LD `openingHours` property are
+> removed, so listing hours later is a deliberate re-add. Rendered
+> output unchanged (the line never rendered). The 2026-07-25 "hide
+> until resolved" mechanism below is history; the parking note is the
+> only /visit input still open. DECISIONS 2026-08-04.
+
+> **STATUS UPDATE 2026-08-04 (later):** **every treatment page now
 > carries a photo; Venus Versa renamed Versa Pro** (PR #85, approved
 > by Amy on the preview — PR #86 records it). The completeness audit
 > found four photo-less pages; the operator supplied the frames:
@@ -400,7 +409,7 @@ these. From the §17 registry:
 | Token / decision | Blocks | Who |
 |---|---|---|
 | `{{VAGARO_URL}}` (Amy's OWN link, not the shared location handle) | /book, every book CTA | Operator |
-| `{{ADDRESS_DISPLAY}}`, `{{HOURS}}` | /visit, footer NAP, JSON-LD | Operator |
+| `{{ADDRESS_DISPLAY}}`, ~~`{{HOURS}}`~~ | /visit, footer NAP, JSON-LD | Operator — **HOURS CLOSED 2026-08-04: Amy does not list hours on the site (field/line/JSON-LD property removed)** |
 | `{{AMY_BIO}}` (approved bio facts & credentials) | /about, Meet-Amy block | Operator + Amy |
 | `{{SOCIAL_LINKS}}` (verified handles) | footer, JSON-LD sameAs | Operator |
 | `{{SKINBETTER_URL}}` (partner storefront) | /services/skincare | Operator |
@@ -441,8 +450,9 @@ every string):
 - [x] `/book` — built in C1, RETIRED 2026-07-21 (operator): every
       "Book with Amy" opens Vagaro directly, so the handoff explainer
       page was deleted before production ever served it.
-- [x] `/visit` — `{{ADDRESS_DISPLAY}}`, `{{HOURS}}`, parking note,
-      Get-directions link-out (never an embedded map).
+- [x] `/visit` — `{{ADDRESS_DISPLAY}}`, parking note,
+      Get-directions link-out (never an embedded map). `{{HOURS}}`
+      CLOSED 2026-08-04: hours are not listed on the site — Amy.
 - [x] `/privacy`, `/terms`, `/medical-disclaimer` — legal DRAFTS, clearly
       marked "draft pending counsel review". (Footer already links these
       routes.)

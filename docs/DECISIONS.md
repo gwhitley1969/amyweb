@@ -2768,3 +2768,19 @@ operator), the higher-res upgrade path for the three ~450 px frames,
 and the twelve clinicianApproved flags, which are the operator's
 formal sign-off mechanism and remain false. Consequences: docs only;
 rendered output untouched.
+
+## 2026-08-04 — Hours are not listed on the website ({{HOURS}} closed)
+
+Context: {{HOURS}} was the last open NAP token; since 2026-07-25 the
+LocationCard hid the hours line until the token resolved, awaiting the
+operator's value. The operator relayed Amy's decision: hours will not
+be listed on the website. Decision: close the token as WILL-NOT-LIST
+rather than leave it pending — the siteConfig `hours` field, the
+LocationCard conditional line, and the JSON-LD `openingHours` property
+are removed outright, so listing hours later is a deliberate re-add,
+never an accidental resolve. /visit copy already promised nothing.
+Alternatives rejected: keeping the dormant hide-until-resolved
+machinery (misrepresents a settled decision as a pending input).
+Consequences: rendered output unchanged (the line never rendered);
+BUILD_SPEC §6/§17 and the PHASE-C tables record the closure; the
+parking note stays open as the only /visit input still pending.

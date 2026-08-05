@@ -1,5 +1,20 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-08-05 — LAUNCHED.** **needlegirlie.com is
+> live.** Amy approved all twelve treatment pages plus
+> /injector-training on the stable preview; the operator flipped the
+> flags with their own commands in-session (sign-off commit ad8fbde,
+> PR #93 — the §16 written log). PR #5 (`phase-c` → `main`) merged as
+> the launch merge; the Production pipeline ran green end to end
+> (verify → check:approvals → Front Door-locked build → SWA deploy →
+> cache purge). §16 live checks all pass — apex serves the site,
+> redirects and lockdown hold (platform answers 404, not 403, on
+> direct SWA hits — security property intact), draft banners gone,
+> live Lighthouse 1.00/1.00/1.00/1.00. Phase C is COMPLETE and
+> DELIVERED. `phase-c` remains the integration branch for post-launch
+> work (counsel review, manual a11y pass, laser pricing, photo
+> upgrades, Plausible opt-in). DECISIONS 2026-08-05.
+
 > **STATUS UPDATE 2026-08-04 (training):** **/injector-training
 > shipped — the site's one professional-audience page.** Private
 > Injector Training: four one-on-one courses for licensed medical

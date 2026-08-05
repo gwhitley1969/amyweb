@@ -4,6 +4,23 @@ Human-readable record of what shipped, newest first. The *why* behind each
 change lives in `docs/DECISIONS.md`; design specs live in
 `docs/superpowers/specs/`. Commit hashes are the audit trail.
 
+## Launch (`main`)
+
+### 2026-08-05 — needlegirlie.com is live
+
+- Amy signed off all twelve treatment pages plus /injector-training on
+  the stable preview; the operator's own flip commit (ad8fbde, PR #93)
+  is the §16 written sign-off log. PR #5 merged `phase-c` into `main`;
+  the Production pipeline ran green (verify → check:approvals → Front
+  Door-locked build → SWA deploy → cache purge) and every §16 live
+  check passed: apex serving, www → apex, HTTP → HTTPS, origin
+  lockdown (platform 404s direct SWA hits — security intact), five OG
+  properties, branded edge 404, draft banners gone, link-outs
+  reachable, live Lighthouse 1.00 across all categories (LCP 1.75 s).
+  Standing post-launch items: counsel review of legal pages, the
+  manual keyboard/screen-reader a11y pass, laser pricing if supplied,
+  photo upgrades, Plausible as a deliberate opt-in.
+
 ## Phase C — pages & content drafts (`phase-c`)
 
 ### 2026-08-04 — /injector-training: Private Injector Training

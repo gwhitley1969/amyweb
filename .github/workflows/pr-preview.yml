@@ -3,17 +3,6 @@ name: PR preview
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
-    # Documentation-only changes skip the pipeline. The gates below are ~5.5
-    # minutes of fixed work (pa11y over 23 URLs, Lighthouse 3x over 6) and none
-    # of them read docs/ or *.md — a markdown edit cannot change a built byte.
-    # This is NOT a weakened gate: paths-ignore skips only when EVERY changed
-    # file matches, so a PR touching any source file still runs everything and
-    # bundling code with a README does not sneak it past. Operator-authorized
-    # 2026-07-26; DECISIONS same date.
-    paths-ignore:
-      - 'docs/**'
-      - '**/*.md'
-      - '.gitignore'
 
 permissions:
   contents: read

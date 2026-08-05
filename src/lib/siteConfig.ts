@@ -12,30 +12,19 @@ export const siteConfig = {
   address: '4350 Main Street, Suite 224, Harrisburg, NC 28075',
   phone: '704-579-7108', // {{PHONE}} resolved by operator 2026-07-07
   phoneTel: 'tel:+17045797108',
-  // {{HOURS}} CLOSED 2026-08-04: Amy's decision — hours are NOT listed on
-  // the website, anywhere (not a pending value; no hours field exists).
+  hours: '{{HOURS}}',
   booking: {
-    // {{VAGARO_URL}} supplied by operator 2026-07-18. The handle is the
-    // practice's own: Mobile Aesthetics is Amy's business (sole owner —
-    // operator 2026-07-23, recorded in DECISIONS); the 2026-07-18
-    // shared-location flag is resolved. Reachability still gets checked
-    // at the §16 launch checklist.
+    // {{VAGARO_URL}} supplied by operator 2026-07-18. FLAG (BUILD_SPEC §9,
+    // recorded in DECISIONS): this appears to be the shared location's
+    // handle, not an Amy-specific page — operator confirmed it is where
+    // her bookings take place; revisit at the §16 launch checklist.
     vagaroUrl: 'https://www.vagaro.com/mobileaestheticshealthandbeautyassociates',
   },
-  // {{SKINBETTER_URL}} resolved by operator 2026-07-23 (DECISIONS same
-  // date). Canonical form of the QR on Amy's Skinbetter counter card
-  // (skinbetter.pro/MobileAesthetics 301s here); lands on the
-  // skinbetter.com shop carrying the practice's businessPartner_id
-  // (verified in-browser). Mobile Aesthetics is Amy's own practice, so
-  // the storefront is hers. The QR's ?k=signup variant (account-form
-  // first) is deliberately NOT used — a Shop button lands on the shop;
-  // practice attribution is identical either way.
-  skinbetterUrl: 'https://connect.skinbetter.com/MobileAesthetics',
+  skinbetterUrl: '{{SKINBETTER_URL}}',
   social: {
-    // {{SOCIAL_LINKS}} supplied by operator 2026-07-18. The Yelp listing
-    // runs under the practice name — Mobile Aesthetics is Amy's own
-    // business (sole owner — operator 2026-07-23), so the earlier
-    // "location's, not Amy-specific" flag is resolved.
+    // {{SOCIAL_LINKS}} supplied by operator 2026-07-18. FLAG: the Yelp
+    // listing is the location's (not Amy-specific) — same §9 note as the
+    // Vagaro handle above.
     facebook: 'https://www.facebook.com/MobileAestheticsNP704',
     instagram: 'https://www.instagram.com/amypalaciosnp.mobileaesthetics/',
     yelp: 'https://www.yelp.com/biz/mobile-aesthetics-harrisburg',
@@ -45,13 +34,9 @@ export const siteConfig = {
     enabled: false,
   },
   analytics: {
-    // {{ANALYTICS_PROVIDER}} RESOLVED 2026-08-04: NONE at launch (operator
-    // delegated the call — DECISIONS same date). Traffic visibility comes
-    // from Front Door's built-in edge reports (zero script, zero cookies,
-    // zero added cost). Plausible (~$9/mo) remains the future default —
-    // enabling it is a deliberate opt-in: set provider + enabled here and
-    // wire track() in analytics.ts; the privacy page updates first.
+    // Cookieless only (BUILD_SPEC §11). Stays disabled until the operator
+    // confirms {{ANALYTICS_PROVIDER}}.
     enabled: false,
-    provider: 'none',
+    provider: '{{ANALYTICS_PROVIDER}}',
   },
 } as const;

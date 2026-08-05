@@ -23,29 +23,11 @@ design: `allowedForwardedHosts` only admits the real hostnames.
 
 1. Branch → edit → `npm run verify` (must be green; never weaken a gate).
 2. Open a PR. CI verifies again and deploys a **preview environment**
-   (URL in the workflow summary). Previews are **public and noindexed** —
-   no password (DECISIONS 2026-07-21) — so the URL can go straight to Amy,
-   but only **after the deploy run completes**: sent earlier it 404s and
-   reads as a broken link. Closing the PR tears the preview down.
-   *Documentation-only PRs run nothing and get no preview* — `paths-ignore`
-   covers `docs/**`, `**/*.md`, `.gitignore` (DECISIONS 2026-07-26). Touch
-   one source file and the full suite runs as usual.
+   (URL in the workflow summary; password-protected — share the password
+   with Amy for review). Closing the PR tears the preview down.
 3. Merge to `main`. The production workflow re-verifies, runs the
    **clinician-approval gate**, deploys, and purges the Front Door cache.
    Live in ~5–10 minutes end to end.
-
-## Where `phase-c` is visible
-
-`pr-preview.yml` triggers on `pull_request` only — never on `push`. Pushes
-to `phase-c` deploy because **PR #5 (`phase-c` → `main`) is open**: each push
-is a `synchronize` event on it, so PR #5's preview environment is effectively
-the stable `phase-c` preview, at
-`https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net`.
-
-The environment number is the PR number — PR #61's preview was `…-61…`.
-**Consequence worth knowing:** if PR #5 is ever closed, pushes to `phase-c`
-stop deploying anywhere, with no failing run to point at. Reopen it, or open
-a replacement PR from `phase-c`, rather than debugging the workflow.
 
 Treatment-content rules (CLAUDE.md hard constraint 4): only a human sets
 `clinicianApproved: true`; any edit to approved content resets it to `false`
@@ -75,13 +57,12 @@ az afd endpoint purge -g rg-needlegirlie-web --profile-name afd-needlegirlie \
 HTML is edge-cached ~5 minutes (`max-age=300`); hashed `/_astro/*` assets are
 immutable and never need purging.
 
-## Preview access
+## Preview password
 
-There is none to manage: SWA password protection is **off**, and preview
-environments are public + noindexed (DECISIONS 2026-07-21 — the basicAuth
-cookie looped in Chrome for Windows and locked Amy out). `infra/swa.bicep`
-deliberately declares no basicAuth resource; **do not re-add one** without
-the operator, or the same lockout returns.
+Protects all non-production SWA environments (form login, cookie session).
+Consumed only by humans — no pipeline or identity uses it. Rotate either in
+Portal → `stapp-needlegirlie` → Configuration → Password protection, or by
+re-running the infra deployment with a new `previewPassword` value (below).
 
 ## Infrastructure changes (Bicep)
 
@@ -89,12 +70,11 @@ All Azure state is captured in `infra/`. To apply changes:
 
 ```
 az deployment sub create --location eastus2 --template-file infra/main.bicep \
-  --parameters budgetStartDate=<yyyy-MM-01>
+  --parameters previewPassword=<current-or-new> budgetStartDate=<yyyy-MM-01>
 ```
 
-Idempotent — safe to re-run. `budgetStartDate` is the only parameter without
-a default, so it must be supplied each run; `location`,
-`dnsZoneResourceGroup`, and `budgetContactEmails` default correctly.
+Idempotent — safe to re-run. `previewPassword` must be supplied each run
+(it is not stored anywhere; supplying a new value rotates it).
 
 Adding a Front Door custom domain takes three phases: TXT validation
 (instant, automated in Bicep) → managed cert issuance (minutes) → edge
@@ -124,31 +104,10 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
 - **CI fails in pa11y/Lighthouse with Chrome crashes:** the gates prefer the
   runner's system Chrome (`scripts/lib/chrome.mjs`); puppeteer's downloaded
   build has crashed on ubuntu-24.04 runners before.
-- **CI fails a Lighthouse METRIC while every resource-summary budget
-  passes:** likely a shared-runner phantom (three known cases were TBT on
-  zero-JS pages; local TBT measures 0 ms). The gate already asserts the
-  median of 3 runs (DECISIONS 2026-07-19). If a phantom still gets through:
-  rerun once; if the identical code passes, the pre-agreed escalation rule
-  applies — flag the operator with the evidence before touching any
-  assertion. Expected verify wall time is ~6 minutes (3 Lighthouse runs
-  per URL).
 - **Production build fails with "FRONT_DOOR_ID is missing":** intentional —
   a production artifact must never ship without the origin lockdown GUID.
 - **Stale page after a deploy:** hard refresh (Ctrl+F5); remember the 5-min
   HTML edge cache plus any local Canopy cache.
-- **Preview serves unstyled HTML or mixed 404s after a "Succeeded" deploy:**
-  the staging environment propagated unevenly (a bad serving replica). Tells:
-  the 404s are SWA's *platform* page, not the branded /404; they come in
-  bursts even on cache-busted URLs (`?bust=<unique>` — busted 404s prove the
-  origin is at fault, not the browser/Canopy cache); pages render unstyled
-  when HTML comes from a healthy replica but the hashed CSS 404s. If CI's
-  pa11y passed, the artifact is not the suspect — do not "fix" code or
-  gates. Kick: re-run the deploy workflow (`gh run rerun <id>`). If it
-  persists, close and reopen the PR: teardown + recreation replaces the
-  serving pool (same `-NN` hostname). Verify with 3–4 probe passes ~45s
-  apart across several routes before sharing the URL — single green probes
-  lie; the bursts have appeared ~100s in. Advise Ctrl+F5 locally afterward.
-  (2026-08-01 incident, PR #79 — DECISIONS.)
 
 ## Reference docs
 

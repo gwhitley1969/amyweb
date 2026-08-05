@@ -19,15 +19,9 @@ npm-debug.log*
 .claude/settings.local.json
 claude-skills/
 .superpowers/
-.agents/
-skills-lock.json
 
-# reference + debug images dropped in the repo root. Root-anchored on purpose:
-# real source images live in src/assets and must stay tracked. Client reference
-# material (mood boards, colour studies) never enters the repo.
+# debug screenshots dropped in the repo root (source images live in src/assets)
 /*.png
-/*.jpg
-/*.jpeg
 
 # OS
 Thumbs.db

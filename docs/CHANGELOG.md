@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Phase C — pages & content drafts (`phase-c`)
 
+### 2026-08-04 — treatment photos approved on preview
+
+- Amy approved the PR #85 preview (all four new photos and the
+  Venus Versa Pro rename); merged to `phase-c` (4104feb). The rename
+  flag from the same-day entry resolves. Still open by design: the
+  laser-pricing question and the twelve `clinicianApproved` flags.
+  DECISIONS 2026-08-04.
+
 ### 2026-08-04 — every treatment page now has a photo; Versa Pro named
 
 - The four photo-less treatment pages each gain one operator-supplied

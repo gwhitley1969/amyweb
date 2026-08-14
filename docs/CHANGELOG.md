@@ -4,6 +4,28 @@ Human-readable record of what shipped, newest first. The *why* behind each
 change lives in `docs/DECISIONS.md`; design specs live in
 `docs/superpowers/specs/`. Commit hashes are the audit trail.
 
+## Post-launch revision round (`phase-c`)
+
+### 2026-08-14 — Home hero: Amy's studio-counter portrait
+
+- The home hero photo is now the studio-counter portrait Amy picked —
+  the same frame she chose for the construction window (2026-08-05),
+  now on the site's front door: Amy alone on the counter beneath her
+  own neon, syringes in hand. The old hero (Amy treating a client)
+  retires with its client-release dependency; `amy-at-work.jpg` is
+  deleted (git history keeps it). Crop anchor and the neon-bloom
+  overlay retuned for the new composition.
+- The only source is a 642px social-size save, so the committed asset
+  is an **interim AI-assisted enhancement** (Real-ESRGAN ×4 blended
+  55/45 with a plain upscale at 1400w — the raw AI output was rejected
+  for waxy facial rendering; the blend passed face, embroidery, neon,
+  and hands inspection with no invented text). Disclosed to Amy for
+  her informed sign-off on the preview; when her full-resolution
+  original surfaces it re-encodes over the same filename, zero code
+  changes. Full vet re-run: no clients, no legible product or unit
+  text, all visible branding her own. Verify green (pa11y 24/24,
+  Lighthouse 21 runs / 7 URLs). DECISIONS 2026-08-14.
+
 ## Launch (`main`)
 
 ### 2026-08-05 — The placeholder loses the caricature (Amy's direction)

@@ -2984,3 +2984,40 @@ the takedown revert — resolve by taking the launch-tree side; the
 placeholder retires again at relaunch anyway (RUNBOOK amended). (3) The
 642 px source renders ~1.24× at the 520 px display cap on 2× screens —
 a higher-resolution original is the upgrade path, no code change.
+
+## 2026-08-14 — Home hero: Amy's studio-counter portrait (interim AI-assisted asset)
+
+Context: opening the post-launch revision round, Amy directed the home
+hero photo change — amy-at-work.jpg (Amy treating a client) comes off;
+needlegirlie.png, the studio-counter portrait she picked for the
+construction window (DECISIONS 2026-08-05), takes the hero. Full-frame
+vet reconfirmed the 2026-08-05 findings for the new use: Amy alone (the
+2026-08-04 hero client-release dependency retires), scrubs embroidery
+and neon are her own branding, syringes capped with no legible unit
+text. Problem: the only source is 642×893 (social-save size) against
+the hero's 1400px delivery — the exact soft-photo class the operator's
+"$15k" gap analysis names as the fastest cheap tell. No original found
+(C:\Amy\pics swept; the four HEICs are unrelated screen photos); the
+operator asked what could be done. Decision: an interim AI-assisted
+asset — Real-ESRGAN ncnn-vulkan v0.2.5.0 (realesrgan-x4plus) ×4,
+blended 55/45 with a lanczos upscale at 1400w, encoded q92 JPEG
+(1400×1947, 213 KB) as needlegirlie-hero.jpg. Raw ESRGAN output was
+REJECTED on inspection: waxy, repainted facial rendering —
+unacceptable on the clinician's own face. The blend passed crop
+inspection at face, embroidery, neon, and hands (no invented
+letterforms, no anatomy faults). Disclosure is part of the decision:
+the asset synthesizes some detail on Amy's likeness, she is told so,
+and her preview sign-off is the informed control. Mechanics: crop
+anchor 22% → 20% and the neon bloom 68% 12% → 86% 30% (the sign sits
+right of Amy in this frame); both frame-specific comment blocks
+rewritten; amy-at-work.jpg deleted (sole consumer; git history keeps
+it). Alternatives rejected: shipping the 642 stretch (visibly soft at
+hero scale); raw ESRGAN (above); reusing main's 76 KB
+studio-counter-portrait.jpg (encoded for the placeholder's 520px
+window, not this slot). Scope: the HERO only — the Injectables door
+tile (a treatment moment) stays until directed. Standing upgrade path:
+Amy's full-resolution original (camera roll / photographer / IG
+source) re-encodes over the same filename with zero code changes.
+Verified: full gate suite green — pa11y 24/24, Lighthouse 21 runs
+across 7 URLs, both ConceptHome routes (/ and /styleguide/concept)
+covered; home is structural, no clinicianApproved mechanics.

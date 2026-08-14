@@ -1,5 +1,21 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **2026-08-14: the post-launch redesign round is underway — tracked in
+> docs/REDESIGN.md, not here.** This file is the historical Phase C
+> record (complete; launched 2026-08-05, production taken down the same
+> evening pending the redesign — docs/RUNBOOK.md has the relaunch
+> procedure).
+
+> **STATUS UPDATE 2026-08-05 (evening) — PRODUCTION TAKEN OFFLINE.**
+> The launch merge was reverted at operator direction hours after
+> launch (revert `e57a4448`; DECISIONS 2026-08-05 takedown entry);
+> production serves the Under Construction placeholder pending a
+> client review round (since the same evening with Amy's studio photo
+> in the window — the caricature is retired at her word, PR #99).
+> `phase-c` remains the complete delivered site
+> and the relaunch base; relaunch is two-step (RUNBOOK, "Relaunching
+> after the takedown"). The launch record below stands as history.
+
 > **STATUS UPDATE 2026-08-05 — LAUNCHED.** **needlegirlie.com is
 > live.** Amy approved all twelve treatment pages plus
 > /injector-training on the stable preview; the operator flipped the

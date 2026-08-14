@@ -1,0 +1,227 @@
+---
+import { Image } from 'astro:assets';
+import j1Poster from '../assets/photos/commercial-j1-poster.jpg';
+import studioPoster from '../assets/photos/commercial-studio-poster.jpg';
+import j2Poster from '../assets/photos/commercial-j2-poster.jpg';
+
+/**
+ * HOME VIDEO CAROUSEL — the cinematic noir stage (operator direction
+ * 2026-08-14, DECISIONS same date: "the way Audi presents video").
+ * Three commercials crossfade on a full-bleed black stage: no player
+ * chrome, thin progress bars, one understated pause control.
+ *
+ * FACADE PATTERN (BUILD_SPEC §9; also the perf fix — measured): the
+ * server renders ONLY poster images. Parser-instantiated <video>
+ * elements cost ~1.5–2.3s of throttled style/layout on this page
+ * (TBT 335ms median, perf 0.89 — the failing 2026-08-14 runs); the
+ * script builds each <video> on demand instead, so the load trace
+ * contains zero media elements and zero video bytes.
+ *
+ * The films (all three cleared 2026-08-14, DECISIONS):
+ *  - commercial-j1 / commercial-j2 — Evolus co-op Jeuveau spots
+ *    (US-JUV-2600126) carried AS-IS, manufacturer safety text intact.
+ *    NEVER trim or crop them: object-fit stays `contain` so the
+ *    burned-in safety screens render complete.
+ *  - commercial-studio — Amy's own published reel, operator override.
+ *  Renditions are muted (no audio track); captions mirror each film's
+ *  on-screen text (track added with each built video — the axe
+ *  video-caption rule audits rendered <video> elements; not `default`,
+ *  the text is already burned into the pixels).
+ *
+ * Behavior contract:
+ *  - Nothing loads until the stage scrolls into view (mobile data +
+ *    the / Lighthouse budgets never see a video byte), then the active
+ *    slide autoplays muted and slides rotate on end.
+ *  - prefers-reduced-motion: nothing autoplays and nothing fades; the
+ *    control renders as Play and every start is user-initiated
+ *    (WCAG 2.2.2 pause/stop/hide is the toggle button).
+ *  - Progress bars are buttons (jump to a film); fills track playback.
+ * Contrast on noir (recorded pairs): pink-500 fill 5.95:1; bar track
+ * and toggle border paper@55% ≈ 5.3:1 (clears the 3:1 UI bar).
+ */
+
+const slides = [
+  {
+    file: 'commercial-j1',
+    label: 'Jeuveau commercial — Mobile Aesthetics with Evolus, film one',
+    poster: j1Poster,
+  },
+  {
+    file: 'commercial-studio',
+    label: "A day inside Amy's Harrisburg studio",
+    poster: studioPoster,
+  },
+  {
+    file: 'commercial-j2',
+    label: 'Jeuveau commercial — Mobile Aesthetics with Evolus, film two',
+    poster: j2Poster,
+  },
+];
+---
+
+<section class="vc surface" data-surface="noir" aria-labelledby="vc-heading">
+  <div class="vc-head">
+    <p class="eyebrow">The studio, on screen</p>
+    <h2 class="heading-2 mt-4" id="vc-heading">Watch Amy's latest.</h2>
+  </div>
+
+  <div class="vc-stage" data-vc-stage>
+    {
+      slides.map((s, i) => (
+        <div
+          class:list={['vc-slide', { 'is-active': i === 0 }]}
+          data-file={`/media/${s.file}.mp4`}
+          data-vtt={`/media/${s.file}.vtt`}
+          data-label={s.label}
+        >
+          <Image
+            src={s.poster}
+            alt=""
+            widths={[480, 720]}
+            sizes="(max-width: 900px) 100vw, 40rem"
+            quality={55}
+            loading="lazy"
+            class="vc-poster"
+          />
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="vc-ui">
+    <div class="vc-bars">
+      {
+        slides.map((s, i) => (
+          <button
+            class="vc-bar"
+            type="button"
+            aria-current={i === 0 ? 'true' : 'false'}
+            aria-label={`Play film ${i + 1} of ${slides.length}: ${s.label}`}
+          >
+            <span class="vc-track"><span class="vc-fill" /></span>
+          </button>
+        ))
+      }
+    </div>
+    <button class="vc-toggle" type="button" data-state="paused" aria-label="Play the films">
+      <svg class="vc-ic-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" /></svg>
+      <svg class="vc-ic-pause" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h3v10H2zM7 1h3v10H7z" /></svg>
+    </button>
+  </div>
+</section>
+
+{/* Behavior lives in a STATIC same-origin file, not a component script:
+  * the CSP (script-src 'self', no unsafe-inline) kills Astro-inlined
+  * scripts on the real host, and globally forcing scripts external
+  * (assetsInlineLimit: 0) un-inlined every page's CSS and regressed
+  * LCP on the heaviest page. public/js/ is the scoped answer — CSS
+  * inlining untouched, script external by construction. Keep the
+  * carousel logic in public/js/video-carousel.js. */}
+<script type="module" src="/js/video-carousel.js" is:inline></script>
+
+<style>
+  .vc {
+    padding: 4.5rem 1.5rem 4rem;
+  }
+  .vc-head {
+    max-width: 72rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .vc-stage {
+    position: relative;
+    max-width: 72rem;
+    margin: 2.5rem auto 0;
+    /* Hug the 4:5 films on phones (no dead bands); the height cap takes
+     * over on wide screens, where black space beside the portrait film
+     * is the look. The 9:16 reel contains inside either way. */
+    aspect-ratio: 4 / 5;
+    max-height: min(76vh, 720px);
+  }
+  .vc-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+  .vc-slide.is-active {
+    opacity: 1;
+  }
+  /* The poster underlies the JS-built <video> (which lacks the style
+   * scope attribute — hence :global). NEVER cover: the films' safety
+   * screens must render complete. */
+  .vc-slide :global(img),
+  .vc-slide :global(video) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .vc-ui {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .vc-bars {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .vc-bar {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 32px; /* ≥24px target (WCAG 2.2) */
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+  .vc-track {
+    display: block;
+    width: 100%;
+    height: 2px;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--ng-paper) 55%, transparent);
+  }
+  .vc-bar[aria-current='true'] .vc-track {
+    background: color-mix(in srgb, var(--ng-paper) 78%, transparent);
+  }
+  .vc-fill {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--ng-pink-500);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .vc-toggle {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid color-mix(in srgb, var(--ng-paper) 55%, transparent);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--ng-paper);
+    cursor: pointer;
+  }
+  .vc-toggle svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+  .vc-toggle[data-state='paused'] .vc-ic-pause {
+    display: none;
+  }
+  .vc-toggle[data-state='playing'] .vc-ic-play {
+    display: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .vc-slide {
+      transition: none;
+    }
+  }
+</style>

@@ -6,8 +6,9 @@ import Footer from './Footer.astro';
 import CTAButton from './CTAButton.astro';
 import TrustChips from './TrustChips.astro';
 import LocationCard from './LocationCard.astro';
+import VideoCarousel from './VideoCarousel.astro';
 import { siteConfig } from '../lib/siteConfig';
-import amyAtWork from '../assets/photos/amy-at-work.jpg';
+import needlegirlieHero from '../assets/photos/needlegirlie-hero.jpg';
 import foreheadTreatment from '../assets/photos/forehead-treatment.jpg';
 import skinbetterLineup from '../assets/photos/skinbetter-lineup.jpg';
 import studioWide from '../assets/photos/studio-wide.jpg';
@@ -25,10 +26,16 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
  * import is gone (font budget + CLS discipline for the gates).
  *
  * C8 PREREQUISITES — ALL CLOSED 2026-08-04 (DECISIONS same date): the
- * hero client's release confirmed on the record by the operator; Amy's
- * sign-off on the IG post caption (baked pixels — linters cannot read
- * them, so her sign-off is the control); {{MEDIA_SCOPE}} closed as
+ * then-hero client's release confirmed on the record by the operator;
+ * Amy's sign-off on the IG post caption (baked pixels — linters cannot
+ * read them, so her sign-off is the control); {{MEDIA_SCOPE}} closed as
  * per-item operator approval, the practice all along.
+ *
+ * HERO PHOTO since 2026-08-14 (DECISIONS same date): Amy's
+ * studio-counter portrait — Amy alone, so the old hero's client-release
+ * dependency is gone. Same frame Amy picked for the construction
+ * window (DECISIONS 2026-08-05); here it ships as an interim
+ * AI-assisted 1400w asset (see the media-div note below).
  *
  * The three category doors: Injectables / Skin & Body / Wellness match
  * the /services menu groups exactly (serviceLines CATEGORIES); the door
@@ -69,24 +76,26 @@ const doors = [
 >
   <Header slot="header" />
 
-  {/* ---- HERO: noir band, Amy mid-treatment — BRIGHT and clear.
-      The cinema grade is retired from this page (client 2026-07-25:
-      "too filtered, needs to be brighter and clearer"); the photo wears
-      the light wash + a thin magenta unifier, with a soft neon bloom
-      where the sign's real glow falls. The crop still pushes the
-      location-brand script past the top edge — re-verified on
-      screenshots after the brightening. ---- */}
+  {/* ---- HERO: noir band, Amy herself — seated on the studio counter
+      beneath her own neon script (her own signage — sole owner,
+      DECISIONS 2026-07-23), the frame Amy picked for the front door
+      (2026-08-14; the same photo she chose for the construction
+      window, DECISIONS 2026-08-05). BRIGHT and clear: the cinema grade
+      stays retired (client 2026-07-25); the photo wears the light wash
+      + a thin magenta unifier, with a soft neon bloom where the sign's
+      real glow falls — right of Amy in this frame. ---- */}
   <section class="nc-hero surface" data-surface="noir">
     <div class="nc-hero__media" aria-hidden="true">
-      {/* FULL FRAME, uncropped (operator direction 2026-07-25): the
-        * brighter grade makes the studio's neon script legible again,
-        * and that is fine — Amy is the sole owner of Mobile Aesthetics
-        * (DECISIONS 2026-07-23), so it is her own signage, not another
-        * provider's. A trial crop that cut the sign band also cut the
-        * top of Amy's head at the desktop window's aspect; keeping her
-        * in frame wins. Do NOT reintroduce a top crop here. */}
+      {/* INTERIM AI-ASSISTED ASSET (disclosed — DECISIONS 2026-08-14):
+        * the only available source is a 642px social-size save, well
+        * below this slot's 1400px delivery, so the committed JPEG is a
+        * 55/45 Real-ESRGAN/lanczos blend at 1400w (raw ESRGAN output
+        * was rejected: waxy face rendering). Amy approves the enhanced
+        * rendering of her own likeness on the preview. When her
+        * full-resolution original surfaces, re-encode it over
+        * needlegirlie-hero.jpg — zero code changes needed here. */}
       <Image
-        src={amyAtWork}
+        src={needlegirlieHero}
         alt=""
         widths={[760, 1080, 1400]}
         sizes="(max-width: 900px) 100vw, 58vw"
@@ -98,7 +107,7 @@ const doors = [
     <div class="nc-hero__copy">
       <p class="eyebrow">Harrisburg, NC · By appointment</p>
       <h1 class="nc-display mt-5">
-        Medical aesthetics,
+        Medical Aesthetics,
         <span class="display-accent ng-shimmer">made personal.</span>
       </h1>
       <p class="lead mt-6 max-w-prose">
@@ -114,6 +123,12 @@ const doors = [
       </div>
     </div>
   </section>
+
+  {/* ---- COMMERCIALS: the cinematic noir stage, directly after the hero
+      (operator direction 2026-08-14 — the Audi treatment; slides
+      crossfade, zero player chrome; see VideoCarousel for the
+      compliance + behavior contract). ---- */}
+  <VideoCarousel />
 
   {/* ---- INTRO / MEET AMY: first ombre beat — transparent on the canvas.
       Carries the §6 "Meet Amy" trust block as a factual credentials
@@ -303,7 +318,7 @@ const doors = [
     z-index: 1;
     pointer-events: none;
     background: radial-gradient(
-      42% 30% at 68% 12%,
+      36% 24% at 86% 30%,
       color-mix(in srgb, var(--ng-neon-500) 24%, transparent),
       transparent 70%
     );
@@ -318,12 +333,13 @@ const doors = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Anchor high in the frame: the hero windows (88vh desktop, 58vh
-     * mobile) are both WIDER than the 2:3 source, so cover trims
-     * vertically — 22% keeps the sign, Amy's head, and the treatment
-     * moment all in frame at both breakpoints. Lower values crop her
-     * head; verify on screenshots before changing. */
-    object-position: 50% 22%;
+    /* Anchor high in the frame: the hero windows (88vh desktop ≈ 1:1,
+     * 58vh mobile ≈ 0.8) are both WIDER than the 0.72 source, so cover
+     * trims vertically. Amy's face and the neon script both sit in the
+     * source's upper third — 20% holds both in frame at both
+     * breakpoints (the trim comes out of the counter below); verify on
+     * screenshots before changing. */
+    object-position: 50% 20%;
   }
   .nc-hero__copy {
     padding: 3rem 1.5rem 4rem;

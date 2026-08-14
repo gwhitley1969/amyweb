@@ -98,8 +98,12 @@ silently following it. Known superseded points from earlier briefs:
      providers, and no safety information, all operator-accepted); and
      the exact sentence "Charlotte's #1 Evolus provider" enumerated in
      `allowedStrings`, on the wrinkle-relaxers and dermal-fillers pages
-     only. Nothing else; extending any of these requires the human
-     operator.*
+     only; and the three home-carousel films (operator clearances,
+     DECISIONS 2026-08-14) — the two Evolus co-op Jeuveau commercials
+     carried as-is with their complete FDA safety information (never
+     trimmed or cropped), and Amy's own studio reel under operator
+     override with both client releases confirmed on file. Nothing
+     else; extending any of these requires the human operator.*
      *Fourth scoped exception, and the only one that is not marketing
      copy (operator authorization, DECISIONS 2026-07-22): Biote's FDA
      disclaimer sentence — "These statements have not been evaluated
@@ -159,6 +163,9 @@ silently following it. Known superseded points from earlier briefs:
 - **Tailwind CSS v4** with brand design tokens as CSS custom properties.
 - **Zero client-side JS by default.** Islands only where genuinely required
   (target: mobile nav at most, CSS-first preferred). Budget: ≤ 30 KB total JS.
+  First sanctioned consumer (2026-08-14, operator-directed): the home video
+  carousel's ~3KB static script — served from `public/js/` because the CSP
+  refuses inline scripts (DECISIONS 2026-08-14). The budget stands.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.
 - **Images** through `astro:assets` (responsive, AVIF/WebP, lazy below fold).

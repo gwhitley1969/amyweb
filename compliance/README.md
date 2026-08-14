@@ -38,9 +38,13 @@ reasoning inline.
 - Matching is exact, with digit-boundary guards — `"120mg vial: $675"` is not
   stripped by the entry `"20mg vial: $675"`. A near-miss variant still fails,
   and the self-test proves this.
-- Three of the current entries are marketing copy the client wanted published
-  (GLP-1 vial tiers, per-unit neuromodulator prices, the Evolus ranking
-  sentence). The fourth is different in kind: **Biote's FDA disclaimer**,
+- Most entries are marketing copy the client wanted published: the GLP-1
+  vial tiers, the per-unit neuromodulator prices, the Evolus ranking
+  sentence (authorizations 1–3), and the four Private Injector Training
+  curriculum topics in exact `<li>`-wrapped source form (fifth
+  authorization, 2026-08-04 — the wrap binds each to one attribute-less
+  source line and preserves the self-test's word boundary). One is
+  different in kind: **Biote's FDA disclaimer** (fourth authorization),
   which a regulator effectively requires. It names all four verbs the
   `disease-claims` category bans — that is what a disclaimer *is* — so the
   gate blocked the compliance text until the sentence was allowlisted.
@@ -52,6 +56,18 @@ for the FDA disclaimer in `src/components/BioteDisclaimer.astro`, which
 carries the rule in its header comment. For the same reason, never restate an
 allowlisted string's banned vocabulary elsewhere in the same file — only the
 exact string is stripped.
+
+## What the linter cannot see: media text
+
+Text baked into pixels — photo signage, burned-in video captions and
+safety screens — and the WebVTT caption files in `public/media/` are
+outside `SCAN_DIRS` entirely. §8 still governs them; the control is
+per-item human screening plus a recorded DECISIONS entry (frame-level
+vets for photos and video contact sheets; operator overrides for
+manufacturer films carried as-is and for Amy's own published content).
+The home-carousel films and their caption files (2026-08-14) ship under
+exactly this regime. A green `lint:claims` says nothing about media
+content.
 
 ## Inverse checks (treatment files only)
 

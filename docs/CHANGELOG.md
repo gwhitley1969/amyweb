@@ -6,6 +6,24 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-14 — Carousel revived (the CSP inline-script lesson); "Medical Aesthetics," capitalized
+
+- The operator reported the shipped carousel played nothing. Root
+  cause: the site's CSP (script-src 'self', no unsafe-inline — by
+  design) silently refuses inline scripts, and Astro had inlined the
+  sub-4KB carousel script into the page; every local check passed
+  because local test servers don't send the SWA headers. Fixed in two
+  rounds: a global assetsInlineLimit:0 made the script external but
+  un-inlined every page's CSS and pushed wrinkle-relaxers past its
+  2500ms LCP budget (CI caught it — three runs within 5ms); the final
+  scoped fix moves the logic to public/js/video-carousel.js referenced
+  by a literal script tag, restoring CSS inlining everywhere. The
+  local screenshot harness now applies the generated SWA headers so a
+  policy-killed script can never pass again. No gate, budget, or CSP
+  changed. DECISIONS 2026-08-14 (two entries).
+- Client copy direction: the home H1 now reads "Medical Aesthetics,"
+  (capital A) per Amy.
+
 ### 2026-08-14 — The homepage plays Amy's commercials
 
 - New cinematic video stage directly below the hero: three films

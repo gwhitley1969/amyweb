@@ -3122,3 +3122,32 @@ bodies in built HTML, the static reference present, inline styles back
 in the built treatment pages, carousel plays under the generated SWA
 headers at both breakpoints. The memory/harness lessons from the
 previous entry stand; the prescribed fix pattern is updated.
+
+## 2026-08-14 — Documentation sweep: the redesign round gets its working doc; governing docs reconciled
+
+Context: the operator directed a documentation update in their own
+words ("Let's update all pertinent documentation... if we even need to
+create NEW documentation let's do that") — which is also the operator
+authorization the governing-doc amendments require. Executed:
+(1) NEW docs/REDESIGN.md — the working record of the "$15,000" round
+(the seven-gap yardstick, settled decisions with shipped/planned
+status, the carousel clearance record, open items, working agreement);
+PHASE-C.md gains a pointer and is marked historical. (2) RUNBOOK gains
+the add-a-commercial procedure (compliance screen first, encode recipe,
+posters, captions, slides) and the CSP inline-script troubleshooting
+entry. (3) CHANGELOG gains the carousel-revival/capital-A entry.
+(4) BUILD_SPEC amendments: §4 CSP consequence (static scripts in
+public/js/, test under generated headers, never assetsInlineLimit:0);
+§5 the cinematic video stage joins the noir shell (stage-surface
+question noted open); §6 home row adds the carousel and the new hero;
+§9 the home-carousel bullet; §13 the first-JS-consumer note (budget
+unchanged). (5) CLAUDE.md: the constraint-3 film exception list gains
+the three home-carousel films (the clearances recorded earlier today),
+and the zero-JS locked decision records its first sanctioned consumer.
+(6) compliance/README: the allowlist count corrected (five
+authorizations — the injector-training entries were missing, the same
+class of lag the 2026-07-22 reconciliation fixed), and a new "media
+text" section states plainly that pixel text and public/media VTT files
+are outside SCAN_DIRS with per-item screening + DECISIONS entries as
+the control. Docs-only; no gate, config, or content changes; the
+paths-ignore rule means this PR push runs no CI, by design.

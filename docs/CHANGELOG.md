@@ -4,6 +4,67 @@ Human-readable record of what shipped, newest first. The *why* behind each
 change lives in `docs/DECISIONS.md`; design specs live in
 `docs/superpowers/specs/`. Commit hashes are the audit trail.
 
+## Post-launch revision round (`phase-c`)
+
+### 2026-08-14 — Carousel revived (the CSP inline-script lesson); "Medical Aesthetics," capitalized
+
+- The operator reported the shipped carousel played nothing. Root
+  cause: the site's CSP (script-src 'self', no unsafe-inline — by
+  design) silently refuses inline scripts, and Astro had inlined the
+  sub-4KB carousel script into the page; every local check passed
+  because local test servers don't send the SWA headers. Fixed in two
+  rounds: a global assetsInlineLimit:0 made the script external but
+  un-inlined every page's CSS and pushed wrinkle-relaxers past its
+  2500ms LCP budget (CI caught it — three runs within 5ms); the final
+  scoped fix moves the logic to public/js/video-carousel.js referenced
+  by a literal script tag, restoring CSS inlining everywhere. The
+  local screenshot harness now applies the generated SWA headers so a
+  policy-killed script can never pass again. No gate, budget, or CSP
+  changed. DECISIONS 2026-08-14 (two entries).
+- Client copy direction: the home H1 now reads "Medical Aesthetics,"
+  (capital A) per Amy.
+
+### 2026-08-14 — The homepage plays Amy's commercials
+
+- New cinematic video stage directly below the hero: three films
+  crossfade on full-bleed noir — two Evolus co-op Jeuveau commercials
+  (carried as-is, FDA safety screens intact and never cropped) around
+  Amy's own studio reel (operator override; both client releases
+  confirmed). Autoplay muted once the stage scrolls into view, rotating
+  on end; thin progress bars double as jump buttons; a single quiet
+  toggle is the WCAG pause control; reduced-motion users get posters
+  and play-on-request. The "Audi treatment" the operator asked for —
+  no player chrome anywhere.
+- Engineering: video facade (BUILD_SPEC §9) — the page loads zero
+  video elements and zero video bytes; the script builds each player
+  on demand. The first cut without the facade failed verify on real
+  numbers (TBT 335ms), and the facade fixed it with **no gate or
+  budget change**. First client-side JS on the site (~3KB of the 30KiB
+  budget; third-party still 0). Renditions ~23MB total in
+  public/media/, muted (sound + richer captions are a recorded
+  follow-up); captions mirror each film's on-screen text. DECISIONS
+  2026-08-14.
+
+### 2026-08-14 — Home hero: Amy's studio-counter portrait
+
+- The home hero photo is now the studio-counter portrait Amy picked —
+  the same frame she chose for the construction window (2026-08-05),
+  now on the site's front door: Amy alone on the counter beneath her
+  own neon, syringes in hand. The old hero (Amy treating a client)
+  retires with its client-release dependency; `amy-at-work.jpg` is
+  deleted (git history keeps it). Crop anchor and the neon-bloom
+  overlay retuned for the new composition.
+- The only source is a 642px social-size save, so the committed asset
+  is an **interim AI-assisted enhancement** (Real-ESRGAN ×4 blended
+  55/45 with a plain upscale at 1400w — the raw AI output was rejected
+  for waxy facial rendering; the blend passed face, embroidery, neon,
+  and hands inspection with no invented text). Disclosed to Amy for
+  her informed sign-off on the preview; when her full-resolution
+  original surfaces it re-encodes over the same filename, zero code
+  changes. Full vet re-run: no clients, no legible product or unit
+  text, all visible branding her own. Verify green (pa11y 24/24,
+  Lighthouse 21 runs / 7 URLs). DECISIONS 2026-08-14.
+
 ## Launch (`main`)
 
 ### 2026-08-05 — The placeholder loses the caricature (Amy's direction)

@@ -72,6 +72,36 @@ Treatment-content rules (CLAUDE.md hard constraint 4): only a human sets
 in the same commit; production deploys fail while unapproved non-draft
 treatment content exists.
 
+## Adding or replacing a homepage commercial
+
+The home carousel (src/components/VideoCarousel.astro; behavior in
+public/js/video-carousel.js) plays muted films from public/media/.
+To add or swap one:
+
+1. **Compliance screen FIRST** (frame-level, house method): contact
+   sheet via `ffmpeg -i in.mp4 -vf "fps=1/2,scale=480:-1,tile=5x4"
+   -frames:v 1 sheet.png`, vet every legible word/brand; on-camera
+   clients need releases confirmed on the record; manufacturer films
+   carry as-is or not at all (never trim safety screens); each film
+   gets its DECISIONS entry before it ships.
+2. **Encode the web rendition** (muted, ~2–4 Mbps):
+   `ffmpeg -i master.mp4 -an -c:v libx264 -crf 23 -preset medium
+   -movflags +faststart public/media/commercial-<name>.mp4`
+3. **Poster frame:** `ffmpeg -ss <t> -i rendition.mp4 -frames:v 1
+   -q:v 2 src/assets/photos/commercial-<name>-poster.jpg` (pick a
+   visually simple frame — posters count toward the / image budget).
+4. **Captions:** `public/media/commercial-<name>.vtt` mirroring the
+   film's on-screen text (the a11y gate requires a track on every
+   built video; VTT files are outside lint:claims scope — the per-film
+   override entry is the control).
+5. Add the slide to the `slides` array in VideoCarousel.astro (the
+   films render `object-fit: contain`, uncropped — for the Evolus
+   spots that is a compliance requirement).
+6. `npm run verify` green → PR → preview → Amy's word → merge.
+
+Scripts on this site are STATIC FILES (public/js/) — never component
+`<script>` blocks; see the troubleshooting entry below for why.
+
 ## Rollback
 
 Never force-push or rewrite `main`. Revert instead:
@@ -198,6 +228,20 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
   apart across several routes before sharing the URL — single green probes
   lie; the bursts have appeared ~100s in. Advise Ctrl+F5 locally afterward.
   (2026-08-01 incident, PR #79 — DECISIONS.)
+
+- **A scripted feature works on a local server but is dead on the
+  preview/production host:** the CSP (`script-src 'self'`, no
+  unsafe-inline — both SWA config variants) silently refuses scripts
+  inlined into the HTML, and Astro inlines component scripts smaller
+  than 4KB. Local test servers that don't send the SWA headers cannot
+  catch this — the home carousel shipped inert exactly this way
+  (2026-08-14). Fix pattern: the script lives in `public/js/` as a
+  plain static file referenced by a literal
+  `<script type="module" src=... is:inline>` tag. Do NOT "fix" it with
+  `vite.build.assetsInlineLimit: 0` — that also un-inlines every
+  page's CSS and regressed wrinkle-relaxers past its LCP budget
+  (CI-caught). When testing built pages locally, serve dist/ WITH the
+  headers from the generated staticwebapp.config.json.
 
 ## Reference docs
 

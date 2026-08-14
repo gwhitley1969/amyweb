@@ -2984,3 +2984,170 @@ the takedown revert — resolve by taking the launch-tree side; the
 placeholder retires again at relaunch anyway (RUNBOOK amended). (3) The
 642 px source renders ~1.24× at the 520 px display cap on 2× screens —
 a higher-resolution original is the upgrade path, no code change.
+
+## 2026-08-14 — Home hero: Amy's studio-counter portrait (interim AI-assisted asset)
+
+Context: opening the post-launch revision round, Amy directed the home
+hero photo change — amy-at-work.jpg (Amy treating a client) comes off;
+needlegirlie.png, the studio-counter portrait she picked for the
+construction window (DECISIONS 2026-08-05), takes the hero. Full-frame
+vet reconfirmed the 2026-08-05 findings for the new use: Amy alone (the
+2026-08-04 hero client-release dependency retires), scrubs embroidery
+and neon are her own branding, syringes capped with no legible unit
+text. Problem: the only source is 642×893 (social-save size) against
+the hero's 1400px delivery — the exact soft-photo class the operator's
+"$15k" gap analysis names as the fastest cheap tell. No original found
+(C:\Amy\pics swept; the four HEICs are unrelated screen photos); the
+operator asked what could be done. Decision: an interim AI-assisted
+asset — Real-ESRGAN ncnn-vulkan v0.2.5.0 (realesrgan-x4plus) ×4,
+blended 55/45 with a lanczos upscale at 1400w, encoded q92 JPEG
+(1400×1947, 213 KB) as needlegirlie-hero.jpg. Raw ESRGAN output was
+REJECTED on inspection: waxy, repainted facial rendering —
+unacceptable on the clinician's own face. The blend passed crop
+inspection at face, embroidery, neon, and hands (no invented
+letterforms, no anatomy faults). Disclosure is part of the decision:
+the asset synthesizes some detail on Amy's likeness, she is told so,
+and her preview sign-off is the informed control. Mechanics: crop
+anchor 22% → 20% and the neon bloom 68% 12% → 86% 30% (the sign sits
+right of Amy in this frame); both frame-specific comment blocks
+rewritten; amy-at-work.jpg deleted (sole consumer; git history keeps
+it). Alternatives rejected: shipping the 642 stretch (visibly soft at
+hero scale); raw ESRGAN (above); reusing main's 76 KB
+studio-counter-portrait.jpg (encoded for the placeholder's 520px
+window, not this slot). Scope: the HERO only — the Injectables door
+tile (a treatment moment) stays until directed. Standing upgrade path:
+Amy's full-resolution original (camera roll / photographer / IG
+source) re-encodes over the same filename with zero code changes.
+Verified: full gate suite green — pa11y 24/24, Lighthouse 21 runs
+across 7 URLs, both ConceptHome routes (/ and /styleguide/concept)
+covered; home is structural, no clinicianApproved mechanics.
+
+## 2026-08-14 — The homepage video carousel ships (cinematic noir stage)
+
+Context: the operator opened the session directing a homepage carousel
+of three commercials and, after the reference round anchored the bar at
+Audi's video treatment ("very cool and smooth. It's luxurious"),
+directed that presentation grammar explicitly. Decision — a new
+VideoCarousel.astro renders directly below the hero as a full-bleed
+noir stage: slides CROSSFADE (no scroll strip, no player chrome), thin
+progress bars fill as each film plays and double as jump buttons, and
+one understated toggle is the WCAG 2.2.2 pause/stop control.
+prefers-reduced-motion autoplays nothing and strips the fades. Films
+render object-fit:contain, never cropped.
+
+Lineup and clearances (operator, same day): slide 1
+F-437304_Mobile Aesthetics_J1.mp4 and slide 3 _J2.mp4 — Evolus co-op
+Jeuveau DTC commercials (piece code US-JUV-2600126) carried AS-IS with
+their complete burned-in FDA Important Safety Information; the
+manufacturer-film override class (Evolysse/ICON precedent), and the ISI
+screens are never trimmed or cropped. Slide 2
+Commercial 2/c3a99b1d…MOV — Amy's own published reel, shipped as-is
+under operator override with the flags shown (background "BOTOX
+JOURNEY"/"LIP FILLER JOURNEY" posters, prepared-syringe trays,
+100-UNITS Jeuveau boxes, "GET $40 OFF" promo cards, the "POV: Age
+gracefully together" caption); BOTH on-camera client releases confirmed
+on file by the operator (2026-08-14 — that confirmation is the release
+record). Captions mirror each film's on-screen text verbatim (VTT files
+in public/media/, outside lint:claims scope like the ICON captions —
+manufacturer/owner language carried under the same overrides; tracks
+attach with each built video for the axe video-caption rule, not
+`default` since the text is burned into the pixels).
+
+Mechanics: web renditions transcoded H.264 CRF 23 faststart, AUDIO
+STRIPPED (~7.5–7.9MB each, ~23MB total) — the carousel is muted
+autoplay; restoring sound (tap-for-sound + audio-faithful captions) is
+a recorded follow-up if directed. Files live in-repo under
+public/media/ per the existing precedent; the Blob media origin remains
+the recommended home when the video program grows (2026-08-14 entry in
+the planning record). Posters are compressed stills served through
+astro:assets.
+
+Performance: the first cut rendered three parser-instantiated <video>
+elements and FAILED verify — TBT 335ms median / performance 0.89 on `/`
+(style/layout 1.4–2.3s under throttle; script evaluation was 39–65ms,
+exonerating the JS). Fixed with the facade pattern BUILD_SPEC §9
+already prescribes: the server renders posters only and the script
+builds each <video> on demand (active + one warmed), gated behind an
+IntersectionObserver so no video element or byte exists in the load
+trace. Consequence worth recording: the anticipated operator-gated
+Lighthouse budget revision for a video homepage proved UNNECESSARY —
+no gate, budget, or config changed.
+
+This is also the first client-side JavaScript on the site (~3KB bundled
+against the 30KiB budget; third-party stays 0). The CLAUDE.md "zero
+client JS by default" lock now needs its amendment — PROPOSED, not
+edited: governing-doc changes stay operator-gated; this entry is the
+traceability bridge until the operator authorizes the wording.
+clinicianApproved untouched (home is structural); Amy reviews the
+carousel on the PR #101 preview.
+
+## 2026-08-14 — Carousel shipped inert on the preview: the CSP inline-script gap
+
+Context: the operator reported none of the carousel videos played on
+the PR #101 preview. Root cause, confirmed in the built output: Astro
+inlines component scripts smaller than Vite's 4KB assetsInlineLimit
+directly into the HTML, and the site's own CSP (script-src 'self', no
+unsafe-inline — BUILD_SPEC §4, both SWA variants) silently refuses
+inline scripts. The facade's ~3KB script was therefore dead on the real
+host: posters rendered, no video was ever built. Every local check had
+passed because the local test servers (screenshot harness, pa11y,
+Lighthouse) serve dist without the SWA headers — the CSP was never in
+the test path. Decision: (1) astro.config.mjs sets
+vite.build.assetsInlineLimit: 0 with a comment carrying this story —
+every component script now emits as a hashed same-origin file the CSP
+permits; (2) the screenshot harness now applies the generated SWA
+globalHeaders (CSP included) to every response, so a policy-blocked
+script fails the check the way it fails the host. Alternatives
+rejected: adding unsafe-inline or a script hash to the CSP (weakens or
+complicates the policy for no benefit; the external file is the
+CSP-native answer). Also in the same round, client copy direction: the
+home H1 reads "Medical Aesthetics," (capital A) per Amy. Verified
+first-hand: zero inline script content in built HTML; carousel builds
+and plays under the real headers at both breakpoints.
+
+## 2026-08-14 — CSP fix scoped: static script file, global externalization reverted
+
+Context: the first CSP fix (vite assetsInlineLimit: 0) made the
+carousel work but FAILED CI on a page untouched all day —
+wrinkle-relaxers LCP 2563/2570/2572ms vs the 2500 cap, three runs
+within ±5ms (a real regression, not variance). Cause: Astro's
+inlineStylesheets 'auto' shares that same threshold, so zeroing it
+un-inlined every page's small CSS and added a render-blocking request
+sitewide; the heaviest page tipped over. Decision: revert the config;
+the carousel logic moves to public/js/video-carousel.js (plain JS,
+same-origin, CSP-clean by construction) referenced via a literal
+script tag — externalization scoped to exactly the one script, CSS
+inlining restored everywhere. Verified first-hand: no inline script
+bodies in built HTML, the static reference present, inline styles back
+in the built treatment pages, carousel plays under the generated SWA
+headers at both breakpoints. The memory/harness lessons from the
+previous entry stand; the prescribed fix pattern is updated.
+
+## 2026-08-14 — Documentation sweep: the redesign round gets its working doc; governing docs reconciled
+
+Context: the operator directed a documentation update in their own
+words ("Let's update all pertinent documentation... if we even need to
+create NEW documentation let's do that") — which is also the operator
+authorization the governing-doc amendments require. Executed:
+(1) NEW docs/REDESIGN.md — the working record of the "$15,000" round
+(the seven-gap yardstick, settled decisions with shipped/planned
+status, the carousel clearance record, open items, working agreement);
+PHASE-C.md gains a pointer and is marked historical. (2) RUNBOOK gains
+the add-a-commercial procedure (compliance screen first, encode recipe,
+posters, captions, slides) and the CSP inline-script troubleshooting
+entry. (3) CHANGELOG gains the carousel-revival/capital-A entry.
+(4) BUILD_SPEC amendments: §4 CSP consequence (static scripts in
+public/js/, test under generated headers, never assetsInlineLimit:0);
+§5 the cinematic video stage joins the noir shell (stage-surface
+question noted open); §6 home row adds the carousel and the new hero;
+§9 the home-carousel bullet; §13 the first-JS-consumer note (budget
+unchanged). (5) CLAUDE.md: the constraint-3 film exception list gains
+the three home-carousel films (the clearances recorded earlier today),
+and the zero-JS locked decision records its first sanctioned consumer.
+(6) compliance/README: the allowlist count corrected (five
+authorizations — the injector-training entries were missing, the same
+class of lag the 2026-07-22 reconciliation fixed), and a new "media
+text" section states plainly that pixel text and public/media VTT files
+are outside SCAN_DIRS with per-item screening + DECISIONS entries as
+the control. Docs-only; no gate, config, or content changes; the
+paths-ignore rule means this PR push runs no CI, by design.

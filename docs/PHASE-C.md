@@ -1,5 +1,11 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **2026-08-14: the post-launch redesign round is underway — tracked in
+> docs/REDESIGN.md, not here.** This file is the historical Phase C
+> record (complete; launched 2026-08-05, production taken down the same
+> evening pending the redesign — docs/RUNBOOK.md has the relaunch
+> procedure).
+
 > **STATUS UPDATE 2026-08-05 (evening) — PRODUCTION TAKEN OFFLINE.**
 > The launch merge was reverted at operator direction hours after
 > launch (revert `e57a4448`; DECISIONS 2026-08-05 takedown entry);

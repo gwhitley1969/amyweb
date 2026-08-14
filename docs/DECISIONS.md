@@ -3104,3 +3104,21 @@ CSP-native answer). Also in the same round, client copy direction: the
 home H1 reads "Medical Aesthetics," (capital A) per Amy. Verified
 first-hand: zero inline script content in built HTML; carousel builds
 and plays under the real headers at both breakpoints.
+
+## 2026-08-14 — CSP fix scoped: static script file, global externalization reverted
+
+Context: the first CSP fix (vite assetsInlineLimit: 0) made the
+carousel work but FAILED CI on a page untouched all day —
+wrinkle-relaxers LCP 2563/2570/2572ms vs the 2500 cap, three runs
+within ±5ms (a real regression, not variance). Cause: Astro's
+inlineStylesheets 'auto' shares that same threshold, so zeroing it
+un-inlined every page's small CSS and added a render-blocking request
+sitewide; the heaviest page tipped over. Decision: revert the config;
+the carousel logic moves to public/js/video-carousel.js (plain JS,
+same-origin, CSP-clean by construction) referenced via a literal
+script tag — externalization scoped to exactly the one script, CSS
+inlining restored everywhere. Verified first-hand: no inline script
+bodies in built HTML, the static reference present, inline styles back
+in the built treatment pages, carousel plays under the generated SWA
+headers at both breakpoints. The memory/harness lessons from the
+previous entry stand; the prescribed fix pattern is updated.

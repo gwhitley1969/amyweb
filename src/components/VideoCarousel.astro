@@ -110,129 +110,14 @@ const slides = [
   </div>
 </section>
 
-<script>
-  const stage = document.querySelector<HTMLElement>('[data-vc-stage]');
-  if (stage) {
-    const slideEls = [...stage.querySelectorAll<HTMLElement>('.vc-slide')];
-    const bars = [...document.querySelectorAll<HTMLButtonElement>('.vc-bar')];
-    const fills = bars.map((b) => b.querySelector<HTMLElement>('.vc-fill')!);
-    const toggle = document.querySelector<HTMLButtonElement>('.vc-toggle')!;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let current = 0;
-    let playing = false;
-    let userPaused = false;
-
-    // Facade: the <video> exists only after this runs for its slide.
-    const buildVideo = (el: HTMLElement, i: number): HTMLVideoElement => {
-      let v = el.querySelector('video');
-      if (v) return v;
-      v = document.createElement('video');
-      v.muted = true;
-      v.preload = 'auto';
-      v.setAttribute('playsinline', '');
-      v.setAttribute('aria-label', el.dataset.label!);
-      const source = document.createElement('source');
-      source.src = el.dataset.file!;
-      source.type = 'video/mp4';
-      const track = document.createElement('track');
-      track.kind = 'captions';
-      track.src = el.dataset.vtt!;
-      track.srclang = 'en';
-      track.label = 'English';
-      v.append(source, track);
-      v.addEventListener('timeupdate', () => {
-        if (i === current && v!.duration) {
-          fills[i].style.transform = `scaleX(${v!.currentTime / v!.duration})`;
-        }
-      });
-      v.addEventListener('ended', () => {
-        if (i === current) show((current + 1) % slideEls.length, !reduced && !userPaused);
-      });
-      el.append(v);
-      v.load();
-      return v;
-    };
-
-    const sync = () => {
-      toggle.dataset.state = playing ? 'playing' : 'paused';
-      toggle.setAttribute('aria-label', playing ? 'Pause the films' : 'Play the films');
-    };
-
-    const play = () => {
-      const v = buildVideo(slideEls[current], current);
-      v.muted = true;
-      v.play()
-        .then(() => {
-          playing = true;
-          sync();
-        })
-        .catch(() => {});
-      // Warm the next slide so the crossfade lands on ready frames.
-      const next = (current + 1) % slideEls.length;
-      buildVideo(slideEls[next], next);
-    };
-
-    const pause = () => {
-      slideEls[current].querySelector('video')?.pause();
-      playing = false;
-      sync();
-    };
-
-    const show = (i: number, autoplay: boolean) => {
-      if (i === current) {
-        autoplay ? play() : pause();
-        return;
-      }
-      slideEls[current].querySelector('video')?.pause();
-      slideEls[current].classList.remove('is-active');
-      fills[current].style.transform = 'scaleX(0)';
-      current = i;
-      const el = slideEls[current];
-      el.classList.add('is-active');
-      const v = el.querySelector('video');
-      if (v) v.currentTime = 0;
-      bars.forEach((b, n) => b.setAttribute('aria-current', n === current ? 'true' : 'false'));
-      playing = false;
-      if (autoplay) play();
-      else sync();
-    };
-
-    bars.forEach((b, i) =>
-      b.addEventListener('click', () => {
-        userPaused = false;
-        show(i, true);
-      })
-    );
-
-    toggle.addEventListener('click', () => {
-      if (playing) {
-        userPaused = true;
-        pause();
-      } else {
-        userPaused = false;
-        play();
-      }
-    });
-
-    if (!reduced) {
-      // Autoplay only once the stage is actually on screen; pause when it
-      // leaves; never resume over an explicit user pause.
-      const io = new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) {
-            if (e.isIntersecting) {
-              if (!userPaused && !playing) play();
-            } else if (playing) {
-              pause();
-            }
-          }
-        },
-        { threshold: 0.35 }
-      );
-      io.observe(stage);
-    }
-  }
-</script>
+{/* Behavior lives in a STATIC same-origin file, not a component script:
+  * the CSP (script-src 'self', no unsafe-inline) kills Astro-inlined
+  * scripts on the real host, and globally forcing scripts external
+  * (assetsInlineLimit: 0) un-inlined every page's CSS and regressed
+  * LCP on the heaviest page. public/js/ is the scoped answer — CSS
+  * inlining untouched, script external by construction. Keep the
+  * carousel logic in public/js/video-carousel.js. */}
+<script type="module" src="/js/video-carousel.js" is:inline></script>
 
 <style>
   .vc {

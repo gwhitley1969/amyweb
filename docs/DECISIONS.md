@@ -3021,3 +3021,62 @@ source) re-encodes over the same filename with zero code changes.
 Verified: full gate suite green — pa11y 24/24, Lighthouse 21 runs
 across 7 URLs, both ConceptHome routes (/ and /styleguide/concept)
 covered; home is structural, no clinicianApproved mechanics.
+
+## 2026-08-14 — The homepage video carousel ships (cinematic noir stage)
+
+Context: the operator opened the session directing a homepage carousel
+of three commercials and, after the reference round anchored the bar at
+Audi's video treatment ("very cool and smooth. It's luxurious"),
+directed that presentation grammar explicitly. Decision — a new
+VideoCarousel.astro renders directly below the hero as a full-bleed
+noir stage: slides CROSSFADE (no scroll strip, no player chrome), thin
+progress bars fill as each film plays and double as jump buttons, and
+one understated toggle is the WCAG 2.2.2 pause/stop control.
+prefers-reduced-motion autoplays nothing and strips the fades. Films
+render object-fit:contain, never cropped.
+
+Lineup and clearances (operator, same day): slide 1
+F-437304_Mobile Aesthetics_J1.mp4 and slide 3 _J2.mp4 — Evolus co-op
+Jeuveau DTC commercials (piece code US-JUV-2600126) carried AS-IS with
+their complete burned-in FDA Important Safety Information; the
+manufacturer-film override class (Evolysse/ICON precedent), and the ISI
+screens are never trimmed or cropped. Slide 2
+Commercial 2/c3a99b1d…MOV — Amy's own published reel, shipped as-is
+under operator override with the flags shown (background "BOTOX
+JOURNEY"/"LIP FILLER JOURNEY" posters, prepared-syringe trays,
+100-UNITS Jeuveau boxes, "GET $40 OFF" promo cards, the "POV: Age
+gracefully together" caption); BOTH on-camera client releases confirmed
+on file by the operator (2026-08-14 — that confirmation is the release
+record). Captions mirror each film's on-screen text verbatim (VTT files
+in public/media/, outside lint:claims scope like the ICON captions —
+manufacturer/owner language carried under the same overrides; tracks
+attach with each built video for the axe video-caption rule, not
+`default` since the text is burned into the pixels).
+
+Mechanics: web renditions transcoded H.264 CRF 23 faststart, AUDIO
+STRIPPED (~7.5–7.9MB each, ~23MB total) — the carousel is muted
+autoplay; restoring sound (tap-for-sound + audio-faithful captions) is
+a recorded follow-up if directed. Files live in-repo under
+public/media/ per the existing precedent; the Blob media origin remains
+the recommended home when the video program grows (2026-08-14 entry in
+the planning record). Posters are compressed stills served through
+astro:assets.
+
+Performance: the first cut rendered three parser-instantiated <video>
+elements and FAILED verify — TBT 335ms median / performance 0.89 on `/`
+(style/layout 1.4–2.3s under throttle; script evaluation was 39–65ms,
+exonerating the JS). Fixed with the facade pattern BUILD_SPEC §9
+already prescribes: the server renders posters only and the script
+builds each <video> on demand (active + one warmed), gated behind an
+IntersectionObserver so no video element or byte exists in the load
+trace. Consequence worth recording: the anticipated operator-gated
+Lighthouse budget revision for a video homepage proved UNNECESSARY —
+no gate, budget, or config changed.
+
+This is also the first client-side JavaScript on the site (~3KB bundled
+against the 30KiB budget; third-party stays 0). The CLAUDE.md "zero
+client JS by default" lock now needs its amendment — PROPOSED, not
+edited: governing-doc changes stay operator-gated; this entry is the
+traceability bridge until the operator authorizes the wording.
+clinicianApproved untouched (home is structural); Amy reviews the
+carousel on the PR #101 preview.

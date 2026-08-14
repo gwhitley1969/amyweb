@@ -6,6 +6,27 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-14 — The homepage plays Amy's commercials
+
+- New cinematic video stage directly below the hero: three films
+  crossfade on full-bleed noir — two Evolus co-op Jeuveau commercials
+  (carried as-is, FDA safety screens intact and never cropped) around
+  Amy's own studio reel (operator override; both client releases
+  confirmed). Autoplay muted once the stage scrolls into view, rotating
+  on end; thin progress bars double as jump buttons; a single quiet
+  toggle is the WCAG pause control; reduced-motion users get posters
+  and play-on-request. The "Audi treatment" the operator asked for —
+  no player chrome anywhere.
+- Engineering: video facade (BUILD_SPEC §9) — the page loads zero
+  video elements and zero video bytes; the script builds each player
+  on demand. The first cut without the facade failed verify on real
+  numbers (TBT 335ms), and the facade fixed it with **no gate or
+  budget change**. First client-side JS on the site (~3KB of the 30KiB
+  budget; third-party still 0). Renditions ~23MB total in
+  public/media/, muted (sound + richer captions are a recorded
+  follow-up); captions mirror each film's on-screen text. DECISIONS
+  2026-08-14.
+
 ### 2026-08-14 — Home hero: Amy's studio-counter portrait
 
 - The home hero photo is now the studio-counter portrait Amy picked —

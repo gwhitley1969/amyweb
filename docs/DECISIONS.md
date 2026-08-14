@@ -3080,3 +3080,27 @@ edited: governing-doc changes stay operator-gated; this entry is the
 traceability bridge until the operator authorizes the wording.
 clinicianApproved untouched (home is structural); Amy reviews the
 carousel on the PR #101 preview.
+
+## 2026-08-14 — Carousel shipped inert on the preview: the CSP inline-script gap
+
+Context: the operator reported none of the carousel videos played on
+the PR #101 preview. Root cause, confirmed in the built output: Astro
+inlines component scripts smaller than Vite's 4KB assetsInlineLimit
+directly into the HTML, and the site's own CSP (script-src 'self', no
+unsafe-inline — BUILD_SPEC §4, both SWA variants) silently refuses
+inline scripts. The facade's ~3KB script was therefore dead on the real
+host: posters rendered, no video was ever built. Every local check had
+passed because the local test servers (screenshot harness, pa11y,
+Lighthouse) serve dist without the SWA headers — the CSP was never in
+the test path. Decision: (1) astro.config.mjs sets
+vite.build.assetsInlineLimit: 0 with a comment carrying this story —
+every component script now emits as a hashed same-origin file the CSP
+permits; (2) the screenshot harness now applies the generated SWA
+globalHeaders (CSP included) to every response, so a policy-blocked
+script fails the check the way it fails the host. Alternatives
+rejected: adding unsafe-inline or a script hash to the CSP (weakens or
+complicates the policy for no benefit; the external file is the
+CSP-native answer). Also in the same round, client copy direction: the
+home H1 reads "Medical Aesthetics," (capital A) per Amy. Verified
+first-hand: zero inline script content in built HTML; carousel builds
+and plays under the real headers at both breakpoints.

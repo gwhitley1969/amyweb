@@ -3151,3 +3151,116 @@ text" section states plainly that pixel text and public/media VTT files
 are outside SCAN_DIRS with per-item screening + DECISIONS entries as
 the control. Docs-only; no gate, config, or content changes; the
 paths-ignore rule means this PR push runs no CI, by design.
+
+## 2026-08-15 — Mobile Aesthetics mark joins the header (vector rebuild)
+
+Context: redesign requirement #6 — the operator directs the Mobile
+Aesthetics logo into the far-left header beside the NG wordmark and
+asks for a format recommendation on the 300px PNG (the only true logo
+render in the F-437304 set; the 776x700 file is a photo cutout, parked
+as a content asset). Decision: rebuild as SVG — the mark is pure
+geometry. Recipe (all measured from the reference): plate #131313,
+white frame; chrome type in a #f4f2f3→#9b989b vertical fade;
+letterforms Julius Sans One (OFL) outlined to paths — no font shipped,
+the two-family budget untouched — chosen by overlay comparison
+(Montserrat/Raleway/Josefin rejected as too narrow); four chevrons
+(slab 18, slope 0.928, pitch 61) under one foil gradient sweeping
+ACROSS the band (#fda6d8→#fd78d4→#e967b6→#fc9ad6 — per-chevron
+sampling showed the highlight travels horizontally, not vertically).
+Generator + font record committed at
+src/assets/brand/source/mobile-aesthetics/. Two variants: the full
+badge (plate + frame + name/phone — print/social use and Amy's
+comparison) and the header lockup that ships (type + chevrons only:
+the noir header IS the plate; the name/phone line dropped — under
+10px it is illegible smudge). Header integration: a left group wraps
+mark + brand link; mark 42px/88px tall (mobile/desktop); the mobile
+NG wordmark becomes clamp(180px,53vw,220px) so mark + wordmark +
+menu toggle fit 360px screens (visible wordmark shrink on phones —
+flagged); popover top re-tuned 8.5rem→6.75rem (measured 9px
+clearance). The mark is a plain img, alt "Mobile Aesthetics PLLC",
+NOT inside the home link — link semantics stay the wordmark's.
+Constraint 2 not engaged: MA is Amy's sole-owner PLLC (DECISIONS
+2026-07-23). Alternatives rejected: shipping the 300px PNG (soft on
+high-DPI, dead end for reuse); the HTML-master→PNG pipeline (kept as
+fallback, unneeded — the SVG matched on first overlay). Open item:
+Amy's side-by-side pick (A badge vs B lockup); B is live on the
+preview as the recommendation.
+
+## 2026-08-15 — Operator picks the full badge for the header
+
+Context: on the preview, the operator read the header lockup as the
+logo's bottom being "cut off" — measurement showed nothing clipped
+(chevrons complete and symmetric; the header hairline touches
+nothing), but the lockup by design omits the badge's name/phone block
+and frame, and to eyes that know the full logo the omission reads as
+truncation. Decision (operator, given the three options with the
+legibility cost stated): the header carries the FULL BADGE — plate,
+frame, type, chevrons, name and phone — at 56px (phones) / 112px
+(desktop); the square tile is narrower than the lockup was, so the
+mobile wordmark clamp relaxes to clamp(170px,52vw,215px). The
+name/phone line is ~5px at header scale — carried as silhouette
+completeness, not readable text; the badge itself is the legible
+record wherever it renders larger. Alternatives rejected: extending
+the lockup with the bottom lines (recommended — same tiny-text cost
+without the frame's finish, operator preferred the literal complete
+logo); keeping the lockup (the truncated read would persist). The
+lockup SVG stays in the repo as the brand-kit variant.
+
+## 2026-08-15 — Hybrid nav: hamburger at every width, Book as the persistent CTA
+
+Context: after the foldable fix, the operator asked whether desktop
+should drop the five inline nav items for the hamburger. Recommendation
+delivered: not hamburger-only (hidden navigation measurably suppresses
+engagement, and this site's one commercial job is the Book conversion)
+— but a hybrid captures the luxury minimalism without burying the money
+button. Operator directed the hybrid. Decision: the menu button carries
+Services/About/Visit/Training at EVERY width — the inline desktop nav
+retires — and Book leaves the menu to become the one styled button in
+the header, visible beside the menu at all widths (outlined pink-500 on
+noir, 5.95:1; hover inverts to pink fill with noir text, 5.9:1; the
+established booking-language convention). Consequences: mobile gains a
+visible Book for the first time (it previously lived only inside the
+popover); the centered-brand shell becomes the layout at every width;
+the tightest phones cede ~7% wordmark width and the badge starts at
+48px to make room. The popover gains a ≥1024px anchor (the menu now
+exists at desktop). Alternatives rejected: hamburger-only (buries the
+primary conversion); keep-as-is (operator wanted the minimal look).
+
+## 2026-08-15 — The header badge links out to yourmobileaesthetics.com (constraint-2 override)
+
+Context: the operator directed making the MA badge a tap/click link to
+https://yourmobileaesthetics.com. The destination was screened first
+(fetched 2026-08-15): it is Amy's own practice site, but it prominently
+names five other providers at the location (Dareen Elkurd, Nadia Cecil,
+Kaitlyn Jones, Martu Tamba, Kelly Formato — microblading, spray
+tanning, teeth whitening, massage) — squarely inside hard constraint
+2's "never link to any other provider." The flag was presented with a
+secondary funnel note (a persistent header exit ramp; partially
+mitigated — MA bookings also route to Vagaro). Decision: OPERATOR
+OVERRIDE — link it. Implementation: the badge img wraps in an anchor
+to `siteConfig.mobileAestheticsUrl` (new config entry), target=_blank
+rel=noopener, sr-only new-tab notice (the Book-link convention),
+`data-event="ma_site_click"` (added to the AnalyticsEvent union;
+track() remains a provider-neutral no-op). CLAUDE.md constraint 2
+gains the scoped exception in the same commit — the one sanctioned
+outbound reference; the other providers remain unnamed in all site
+text. Alternatives rejected: not linking (operator wants the tap
+path); linking to a hypothetical Amy-only page on the MA site (none
+exists). The home link stays the wordmark's alone.
+
+## 2026-08-15 — Docs reconciled with the header increment (operator-directed sweep)
+
+Context: operator directed a documentation pass covering the day's
+header work (PR #102: SVG badge rebuild → brightened chrome →
+enlargement → full-badge pick → phone centering → foldable fix →
+hybrid nav → menu-icon size → desktop badge scale → outbound badge
+link). The per-decision records already existed (four DECISIONS
+entries, CHANGELOG, CLAUDE.md constraint-2 exception); this sweep
+reconciles the derived docs: (1) BUILD_SPEC component inventory now
+describes the as-built dual-brand hybrid-nav header (the old
+"CSS-first mobile menu if achievable" line was three designs stale);
+(2) REDESIGN.md settled-decisions table — the MA-badge row moves to
+Built with the link-out recorded, and the hybrid nav gets its own row;
+(3) compliance/README's "what the linter cannot see" section gains
+outbound-link destination screening, with the badge link as the
+recorded precedent. Docs-only commit; no gates or content affected.

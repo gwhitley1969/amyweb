@@ -31,6 +31,12 @@ export const siteConfig = {
   // first) is deliberately NOT used — a Shop button lands on the shop;
   // practice attribution is identical either way.
   skinbetterUrl: 'https://connect.skinbetter.com/MobileAesthetics',
+  // The practice site of Amy's own PLLC. Destination screened
+  // 2026-08-15: it names the location's other providers, which hard
+  // constraint 2 otherwise bans linking to — the header badge link is
+  // an OPERATOR OVERRIDE, recorded in DECISIONS 2026-08-15 and scoped
+  // in CLAUDE.md constraint 2. The only sanctioned outbound reference.
+  mobileAestheticsUrl: 'https://yourmobileaesthetics.com',
   social: {
     // {{SOCIAL_LINKS}} supplied by operator 2026-07-18. The Yelp listing
     // runs under the practice name — Mobile Aesthetics is Amy's own

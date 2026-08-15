@@ -146,7 +146,7 @@ def text_paths(text, cap_px, x0, x1, baseline, fill_ref):
             sp = SVGPathPen(glyphset)
             glyphset[gname].draw(TransformPen(sp, tr))
             d = sp.getCommands()
-            out.append(f'<path d="{d}" fill="{fill_ref}" stroke="{fill_ref}" stroke-width="0.3"/>')
+            out.append(f'<path d="{d}" fill="{fill_ref}" stroke="{fill_ref}" stroke-width="0.4"/>')
         xx += w * scale + track
     return out
 
@@ -155,7 +155,7 @@ def text_paths(text, cap_px, x0, x1, baseline, fill_ref):
 # AESTHETICS; one gradient spanning both lines reproduces the ratio).
 # No reflection exists in the reference â€” the faint band under
 # AESTHETICS is PLLC itself (x 138-157, y 90-94, dim gray).
-CHROME_TOP, CHROME_BOT = '#f4f2f3', '#9b989b'
+CHROME_TOP, CHROME_BOT = '#fbfafb', '#c6c3c6'
 PLATE = '#131313'
 FRAME = '#fdfdfd'
 # chevron foil: highlight sweeps ACROSS the band (per-chevron averages
@@ -193,7 +193,7 @@ for k in range(4):
 # ---------- FULL MARK (viewBox = the 300px reference frame) ----------
 mobile = text_paths('MOBILE', 12.6, 99, 196, 55.6, 'url(#chrome)')
 aesth  = text_paths('AESTHETICS', 13.8, 69, 226, 81.8, 'url(#chrome)')
-pllc   = text_paths('PLLC', 4.8, 138, 157.5, 94.6, '#6e6b6d')
+pllc   = text_paths('PLLC', 4.8, 138, 157.5, 94.6, '#a9a6a8')
 amy    = text_paths('AMY PALACIOS NP', 7.4, 85, 217, 238.8, 'url(#chrome)')
 phone  = text_paths('704·579·7108', 7.8, 107, 195, 253.6, 'url(#chrome)')
 

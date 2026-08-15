@@ -19,6 +19,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   and phone — for print/social) and the header lockup that shipped
   (type + chevrons; the noir header is the plate). Amy picks from a
   side-by-side; the lockup is the recommendation. DECISIONS 2026-08-15.
+- Operator review, same day: the mark enlarged (~25% — 52px phones,
+  104px desktop) and the chrome lettering brightened past the
+  reference's dim fade, which read too sheer at header scale. The
+  generator records the override; the NG wordmark clamp re-budgeted so
+  360px screens still fit.
 
 ### 2026-08-14 — Carousel revived (the CSP inline-script lesson); "Medical Aesthetics," capitalized
 

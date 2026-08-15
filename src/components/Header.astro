@@ -66,7 +66,7 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
           alt="Needle Girlie — home"
           width={440}
           densities={[1, 2, 3]}
-          class="h-auto w-[clamp(180px,53vw,220px)] sm:w-[440px]"
+          class="h-auto w-[clamp(165px,48vw,210px)] sm:w-[440px]"
         />
         {/* Credential line under the wordmark (operator 2026-07-19).
             pink-500 small text is legal on noir ONLY — see the (min 4.5)
@@ -144,14 +144,14 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
   }
   .site-brand-mark {
     width: auto;
-    height: 42px;
+    height: 52px; /* enlarged per operator review 2026-08-15 */
   }
   @media (min-width: 640px) {
     .site-brand-group {
       gap: 1.25rem;
     }
     .site-brand-mark {
-      height: 88px;
+      height: 104px; /* enlarged per operator review 2026-08-15 */
     }
   }
   /* Brand lockup: wordmark with the credential line beneath. Same

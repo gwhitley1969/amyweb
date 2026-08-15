@@ -33,7 +33,7 @@ pink."** Seven gaps, each a test every design decision must move:
 |---|---|---|
 | **Stack: Astro stays** — no React migration; React islands remain available per-component | Settled | 2026-08-14 session; plan file |
 | **Scope: EVOLVE the current design** — ombre canvas + plate system stay; new photos/video/type/arches layer on (full reset offered, declined) | Settled | flag-once satisfied |
-| **Type: Playfair Display everywhere** — headings AND body, matching the logo's own face; body bumped to 17px/1.65; **DM Sans retired** (scope answer 2026-08-15: Playfair takes the small UI text too — weight is the legibility knob, never a second family) | **Built** (PR pending Amy's merge word) | mobile-readability flagged and accepted; DECISIONS 2026-08-15 |
+| **Type: Playfair Display everywhere** — headings AND body, matching the logo's own face; body bumped to 17px/1.65; **DM Sans retired** (scope answer 2026-08-15: Playfair takes the small UI text too — weight is the legibility knob, never a second family) | **Shipped** (PR #103, merged 2026-08-15) | mobile-readability flagged and accepted; DECISIONS 2026-08-15 |
 | **Home hero: Amy's studio-counter portrait** (interim AI-assisted 1400w blend, disclosed; her full-res original drops in with zero code changes) | **Shipped** (PR #101) | DECISIONS 2026-08-14 |
 | **Home video carousel** — J1 → studio reel → J2 on a cinematic noir stage; autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, reduced-motion = posters | **Shipped** (PR #101) | DECISIONS 2026-08-14 ×3 |
 | **Media architecture: Blob `/media` origin recommended** (media hostname via the same Front Door, ~$1–2/mo) as the video program grows; in-repo public/media/ serves the current three films | Recommended, not built | cost door opened by operator |
@@ -45,7 +45,7 @@ pink."** Seven gaps, each a test every design decision must move:
 
 ## Carousel record (all three films cleared 2026-08-14)
 
-- **2026-08-15 refinements (operator + Amy, preview-approved):** the
+- **2026-08-15 refinements (operator + Amy; PRs #104/#105 merged same day):** the
   section head is the single Playfair line "The studio. On screen." —
   the loved phrase promoted from the old eyebrow, eyebrow deleted
   (PR #104); the studio reel plays at **0.5×** via per-slide

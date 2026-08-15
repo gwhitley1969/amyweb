@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { siteConfig } from '../lib/siteConfig';
 import wordmark from '../assets/brand/needle-girlie-wordmark-alpha.png';
+import maMark from '../assets/brand/mobile-aesthetics-mark-header.svg';
 
 /**
  * Noir sitewide header (approved design plan). Mobile nav uses the native
@@ -39,24 +40,40 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
 ---
 
 <div class="surface site-header" data-surface="noir">
-  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4 sm:py-6">
-    <a href="/" class="site-brand shrink-0">
-      {/* Big by design — operator/client direction: the brand leads.
-          Scaled up twice per client review 2026-07-18. Chevron motif
-          retired from the UI same day (client) — it lives on only inside
-          the logo artwork itself. */}
-      <Image
-        src={wordmark}
-        alt="Needle Girlie — home"
-        width={440}
-        densities={[1, 2, 3]}
-        class="h-auto w-[300px] sm:w-[440px]"
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 sm:py-6">
+    <div class="site-brand-group">
+      {/* Mobile Aesthetics mark, far left (operator direction 2026-08-15;
+          redesign requirement #6). Vector rebuild from the practice's own
+          F-437304 300px render — MA is Amy's sole-owner PLLC (DECISIONS
+          2026-07-23), so naming it engages no other provider. Plain image,
+          not a link: the home link stays the wordmark's alone. The noir
+          header serves as the mark's plate. */}
+      <img
+        src={maMark.src}
+        alt="Mobile Aesthetics PLLC"
+        width="247"
+        height="172"
+        class="site-brand-mark shrink-0"
       />
-      {/* Credential line under the wordmark (operator 2026-07-19).
-          pink-500 small text is legal on noir ONLY — see the (min 4.5)
-          pair in tokens.css. */}
-      <span class="site-brand-credit">Amy Palacios, FNP</span>
-    </a>
+      <a href="/" class="site-brand shrink-0">
+        {/* Big by design — operator/client direction: the brand leads.
+            Scaled up twice per client review 2026-07-18. Chevron motif
+            retired from the UI same day (client) — it lives on only inside
+            the logo artwork itself. Mobile width is a clamp so the row
+            (mark + wordmark + menu toggle) fits 360px screens. */}
+        <Image
+          src={wordmark}
+          alt="Needle Girlie — home"
+          width={440}
+          densities={[1, 2, 3]}
+          class="h-auto w-[clamp(180px,53vw,220px)] sm:w-[440px]"
+        />
+        {/* Credential line under the wordmark (operator 2026-07-19).
+            pink-500 small text is legal on noir ONLY — see the (min 4.5)
+            pair in tokens.css. */}
+        <span class="site-brand-credit">Amy Palacios, FNP</span>
+      </a>
+    </div>
     <nav aria-label="Primary">
       {/* desktop */}
       <ul class="hidden items-center gap-8 sm:flex">
@@ -115,6 +132,27 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
 <style is:global>
   .site-header {
     border-bottom: 1px solid var(--ng-hairline);
+  }
+  /* Left group: the Mobile Aesthetics mark sits beside the brand link.
+   * The mark's height (not width) is the control — its 247:172 box keeps
+   * the aspect. */
+  .site-brand-group {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-width: 0;
+  }
+  .site-brand-mark {
+    width: auto;
+    height: 42px;
+  }
+  @media (min-width: 640px) {
+    .site-brand-group {
+      gap: 1.25rem;
+    }
+    .site-brand-mark {
+      height: 88px;
+    }
   }
   /* Brand lockup: wordmark with the credential line beneath. Same
    * uppercase tracked grammar as the nav; brand pink-500 to echo the
@@ -187,7 +225,8 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     /* popover-open state */
     position: fixed;
     inset: auto 1rem auto auto;
-    top: 8.5rem; /* clears the brand block (wordmark + credential line) */
+    top: 6.75rem; /* clears the brand block — re-tuned for the clamped
+                     mobile wordmark (2026-08-15, MA-mark row) */
     min-width: 12rem;
     margin: 0;
     padding: 0.5rem 0;

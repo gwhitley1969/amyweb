@@ -6,6 +6,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-15 — The whole site speaks in the logo's face
+
+- Body text now uses Playfair Display — the Needle Girlie logo's own
+  font — everywhere: paragraphs, headings, nav labels, the Book
+  button, eyebrows, captions (Amy's direction). DM Sans is retired and
+  its font files no longer ship; the site is a one-family design.
+- Body reading size grew to 17px with more line air (1.65) — the
+  small-screen readability adjustment accepted when Playfair-everywhere
+  was decided. Pages get lighter (~55KB less font weight) and body
+  text now benefits from the font preload that previously served only
+  headings. DECISIONS 2026-08-15.
+
 ### 2026-08-15 — Mobile Aesthetics joins the header
 
 - The practice mark now sits far left in the header beside the Needle
@@ -62,6 +74,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
   is untouched and the number is easy to tune; the rate is re-asserted
   at playback start so every browser honors it. The two Evolus films
   are unchanged and still play exactly as produced.
+
+### 2026-08-15 — Carousel head: "The studio. On screen."
+
+- The carousel's heading "Watch Amy's latest." is retired (operator +
+  Amy). The line they loved — "The studio, on screen" — was the small
+  label above it; it is now the big heading itself, and the small
+  label is gone: one line on the cinematic stage.
 
 ### 2026-08-14 — Carousel revived (the CSP inline-script lesson); "Medical Aesthetics," capitalized
 

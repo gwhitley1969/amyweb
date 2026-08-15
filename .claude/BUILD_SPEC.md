@@ -229,7 +229,8 @@ grid renders as a categorized treatment menu — three groups
 order, which is also the 01–12 numbering order), each opened by the
 section-opener signature and set two-across. Card anatomy: oversized
 Playfair index numeral (ink-pink, 4.60:1 on the resting pink,
-decorative `aria-hidden`), Playfair title, sans summary, and a
+decorative `aria-hidden`), Playfair title and summary (the summary was
+sans until the 2026-08-15 one-family move — §5 Typography), and a
 "More information ›" microline pinned to the card foot (client
 wording, 2026-07-23) — the microline is
 ink-900, not ink-pink, because at 13px it is body-size text and
@@ -259,16 +260,23 @@ unchanged.
 
 ### Typography
 
-Two families, self-hosted (@fontsource), WOFF2, `font-display: swap`, preload
-the display face's primary weight.
+**One family — Playfair Display** (variable, upright, self-hosted
+@fontsource, WOFF2, `font-display: swap`, latin weight preloaded): the
+wordmark's own face carries display AND body/UI, so the site speaks in
+the logo's voice everywhere. *(As amended 2026-08-15 — Amy's direction;
+DECISIONS same date. Supersedes the original serif-display +
+humanist-sans split and the 2026-07-08 DM Sans body choice; DM Sans is
+retired. If small tracked-caps microcopy ever shimmers on low-DPI
+screens, the fix is weight via the variable axis (400–900), never a
+second family.)*
 
-- **Display:** a characterful serif or soft-serif with personality that
-  harmonizes with the logo's serif wordmark and the playful-premium brief —
-  **Fraunces** (variable) is the recommended default; justify any substitute
-  in the design plan. Used with restraint: headings and the hero.
-- **Body/UI:** a clean, warm humanist sans (e.g., Figtree or Nunito Sans).
-- Set a deliberate type scale (e.g., 1.25 ratio), generous line-height for
-  body (≥ 1.6), tight and confident for display.
+- **Display:** Playfair Display at scale, weight 500, tight tracking.
+  Used with restraint: headings and the hero.
+- **Body/UI:** Playfair Display, weight 400, 17px base (1.0625rem),
+  line-height 1.65 — the readability bump that shipped with the
+  single-family move.
+- The type scale keeps its deliberate 1.25 ratio; generous line-height
+  for body (≥ 1.6), tight and confident for display.
 
 ### Component inventory (build in Phase B)
 
@@ -734,7 +742,8 @@ action.
   are unchanged; DECISIONS same date.)*
 - Hero image: optimized, `fetchpriority="high"`, explicit dimensions;
   everything below fold lazy.
-- Fonts: 2 families, subsetted WOFF2, preloaded display weight, swap.
+- Fonts: 1 family (Playfair Display — since 2026-08-15), subsetted
+  WOFF2, preloaded latin weight, swap.
 - Lighthouse scores ≥ 95 Performance / ≥ 95 Accessibility / ≥ 95 SEO /
   ≥ 95 Best Practices on Home and one treatment page (budgets in
   `lighthouserc` config; PRs fail below budget).

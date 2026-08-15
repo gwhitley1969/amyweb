@@ -3265,6 +3265,31 @@ Built with the link-out recorded, and the hybrid nav gets its own row;
 outbound-link destination screening, with the badge link as the
 recorded precedent. Docs-only commit; no gates or content affected.
 
+## 2026-08-15 — One family: Playfair Display takes the body (Amy)
+
+Context: Amy directed that the body text use the same font as the
+Needle Girlie logo. The logo's face was verified from the committed
+master (src/assets/brand/source/needle-girlie-logo-black-bg.html):
+Playfair Display, weight 600, upright — already the site's display
+face. Scope question put to the operator (small tracked-caps UI —
+nav, Book CTA, eyebrows, captions): answer was Playfair EVERYWHERE;
+DM Sans retires entirely. Decision: repoint --font-body to the
+Playfair stack (both role tokens kept, one family serving both);
+remove the @fontsource-variable/dm-sans dependency; bump body to
+17px/1.65 (the mobile-readability adjustment accepted with the
+2026-08-14 Playfair-everywhere decision). BUILD_SPEC §5/§13 amended
+in the same commit (this supersedes the serif+sans split and the
+2026-07-08 DM Sans entry). Consequences: font payload drops ~55KB per
+page (Playfair latin+latin-ext 59,544 B vs the 122,880 B budget); the
+swap-CLS posture improves — body text now uses the woff2 that was
+already preloaded for headings, which DM Sans never was; fontaine's
+Georgia metric-fallback pair is unchanged. Alternatives rejected:
+keeping a sans for tiny UI microcopy (a second voice Amy didn't ask
+for); collapsing to one token (loses the role knob). Legibility
+escape hatch recorded: if small caps shimmer on low-DPI screens,
+thicken weight via the variable axis (400–900) — never a second
+family.
+
 ## 2026-08-15 — The studio reel plays at 0.8× (player-side rate, not a re-encode)
 
 Context: operator + Amy — carousel slide 2 (Amy's own studio reel)

@@ -3185,3 +3185,23 @@ high-DPI, dead end for reuse); the HTML-master→PNG pipeline (kept as
 fallback, unneeded — the SVG matched on first overlay). Open item:
 Amy's side-by-side pick (A badge vs B lockup); B is live on the
 preview as the recommendation.
+
+## 2026-08-15 — Operator picks the full badge for the header
+
+Context: on the preview, the operator read the header lockup as the
+logo's bottom being "cut off" — measurement showed nothing clipped
+(chevrons complete and symmetric; the header hairline touches
+nothing), but the lockup by design omits the badge's name/phone block
+and frame, and to eyes that know the full logo the omission reads as
+truncation. Decision (operator, given the three options with the
+legibility cost stated): the header carries the FULL BADGE — plate,
+frame, type, chevrons, name and phone — at 56px (phones) / 112px
+(desktop); the square tile is narrower than the lockup was, so the
+mobile wordmark clamp relaxes to clamp(170px,52vw,215px). The
+name/phone line is ~5px at header scale — carried as silhouette
+completeness, not readable text; the badge itself is the legible
+record wherever it renders larger. Alternatives rejected: extending
+the lockup with the bottom lines (recommended — same tiny-text cost
+without the frame's finish, operator preferred the literal complete
+logo); keeping the lockup (the truncated read would persist). The
+lockup SVG stays in the repo as the brand-kit variant.

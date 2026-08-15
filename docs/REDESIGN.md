@@ -37,7 +37,7 @@ pink."** Seven gaps, each a test every design decision must move:
 | **Home hero: Amy's studio-counter portrait** (interim AI-assisted 1400w blend, disclosed; her full-res original drops in with zero code changes) | **Shipped** (PR #101) | DECISIONS 2026-08-14 |
 | **Home video carousel** — J1 → studio reel → J2 on a cinematic noir stage; autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, reduced-motion = posters | **Shipped** (PR #101) | DECISIONS 2026-08-14 ×3 |
 | **Media architecture: Blob `/media` origin recommended** (media hostname via the same Front Door, ~$1–2/mo) as the video program grows; in-repo public/media/ serves the current three films | Recommended, not built | cost door opened by operator |
-| **Mobile Aesthetics logo joins the header** (left of the NG wordmark); vector rebuild from the clean 300px render; Amy picks from a side-by-side | In review — SVG rebuilt (Julius Sans One outlines, measured geometry), header lockup live on the preview; Amy's badge-vs-lockup pick open | F-437304 asset set; DECISIONS 2026-08-15 |
+| **Mobile Aesthetics logo joins the header** (left of the NG wordmark); vector rebuild from the clean 300px render | In review — SVG rebuilt (Julius Sans One outlines, measured geometry); operator picked the FULL BADGE (the lockup read as truncated); live on the preview, awaiting Amy's look | F-437304 asset set; DECISIONS 2026-08-15 (two entries) |
 | **Pink arches around pictures** — house frame motif, generalized from the existing arch geometry | Planned | operator directive |
 | **Photo replacement sitewide** | Planned | operator directive |
 | 17a + 17b videos → /services/biostimulators; 20 → /services/body-contouring | Parked ("not there yet") | same screening + release checks when directed |

@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { siteConfig } from '../lib/siteConfig';
 import wordmark from '../assets/brand/needle-girlie-wordmark-alpha.png';
-import maMark from '../assets/brand/mobile-aesthetics-mark-header.svg';
+import maMark from '../assets/brand/mobile-aesthetics-mark.svg';
 
 /**
  * Noir sitewide header (approved design plan). Mobile nav uses the native
@@ -46,13 +46,15 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
           redesign requirement #6). Vector rebuild from the practice's own
           F-437304 300px render — MA is Amy's sole-owner PLLC (DECISIONS
           2026-07-23), so naming it engages no other provider. Plain image,
-          not a link: the home link stays the wordmark's alone. The noir
-          header serves as the mark's plate. */}
+          not a link: the home link stays the wordmark's alone. FULL BADGE
+          variant (operator pick 2026-08-15, superseding the lockup
+          recommendation): the complete tile — plate, frame, name and
+          phone — so the mark never reads truncated. */}
       <img
         src={maMark.src}
         alt="Mobile Aesthetics PLLC"
-        width="247"
-        height="172"
+        width="300"
+        height="300"
         class="site-brand-mark shrink-0"
       />
       <a href="/" class="site-brand shrink-0">
@@ -66,7 +68,7 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
           alt="Needle Girlie — home"
           width={440}
           densities={[1, 2, 3]}
-          class="h-auto w-[clamp(165px,48vw,210px)] sm:w-[440px]"
+          class="h-auto w-[clamp(170px,52vw,215px)] sm:w-[440px]"
         />
         {/* Credential line under the wordmark (operator 2026-07-19).
             pink-500 small text is legal on noir ONLY — see the (min 4.5)
@@ -144,14 +146,15 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
   }
   .site-brand-mark {
     width: auto;
-    height: 52px; /* enlarged per operator review 2026-08-15 */
+    height: 56px; /* square badge — narrower than the lockup was, so the
+                     row gains slack even a size up */
   }
   @media (min-width: 640px) {
     .site-brand-group {
       gap: 1.25rem;
     }
     .site-brand-mark {
-      height: 104px; /* enlarged per operator review 2026-08-15 */
+      height: 112px;
     }
   }
   /* Brand lockup: wordmark with the credential line beneath. Same

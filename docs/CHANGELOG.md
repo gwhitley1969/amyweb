@@ -24,6 +24,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   reference's dim fade, which read too sheer at header scale. The
   generator records the override; the NG wordmark clamp re-budgeted so
   360px screens still fit.
+- Second operator review, same day: the lockup read as the logo's
+  bottom being cut off (nothing was clipped — the lockup omits the
+  name/phone block by design). Operator picked the FULL BADGE for the
+  header: the complete tile at 56px/112px. The lockup stays in the
+  brand kit. DECISIONS 2026-08-15 (second entry).
 
 ### 2026-08-14 — Carousel revived (the CSP inline-script lesson); "Medical Aesthetics," capitalized
 

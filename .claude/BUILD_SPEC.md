@@ -229,7 +229,8 @@ grid renders as a categorized treatment menu — three groups
 order, which is also the 01–12 numbering order), each opened by the
 section-opener signature and set two-across. Card anatomy: oversized
 Playfair index numeral (ink-pink, 4.60:1 on the resting pink,
-decorative `aria-hidden`), Playfair title, sans summary, and a
+decorative `aria-hidden`), Playfair title and summary (the summary was
+sans until the 2026-08-15 one-family move — §5 Typography), and a
 "More information ›" microline pinned to the card foot (client
 wording, 2026-07-23) — the microline is
 ink-900, not ink-pink, because at 13px it is body-size text and

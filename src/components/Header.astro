@@ -91,7 +91,7 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
       </a>
       {/* menu button — all widths */}
       <button popovertarget="mobile-nav" class="site-nav-toggle" type="button">
-        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+        <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true" fill="none">
           <path
             d="M4 7h16M4 12h16M4 17h16"
             stroke="currentColor"
@@ -256,6 +256,13 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     background: none;
     border: none;
     cursor: pointer;
+  }
+  /* icon sized up per operator review 2026-08-15 */
+  @media (min-width: 1024px) {
+    .site-nav-toggle svg {
+      width: 34px;
+      height: 34px;
+    }
   }
   .site-nav-popover {
     /* popover-open state */

@@ -26,6 +26,10 @@ if (stage) {
     v.preload = 'auto';
     v.setAttribute('playsinline', '');
     v.setAttribute('aria-label', el.dataset.label);
+    // Per-slide tempo (data-rate; unset = 1). Both properties so a
+    // media reload keeps the rate. Captions/progress key off media
+    // time, so they stay in sync at any rate.
+    v.defaultPlaybackRate = v.playbackRate = parseFloat(el.dataset.rate || '1');
     const source = document.createElement('source');
     source.src = el.dataset.file;
     source.type = 'video/mp4';

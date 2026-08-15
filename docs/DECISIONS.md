@@ -3264,3 +3264,22 @@ Built with the link-out recorded, and the hybrid nav gets its own row;
 (3) compliance/README's "what the linter cannot see" section gains
 outbound-link destination screening, with the badge link as the
 recorded precedent. Docs-only commit; no gates or content affected.
+
+## 2026-08-15 — The studio reel plays at 0.8× (player-side rate, not a re-encode)
+
+Context: operator + Amy — carousel slide 2 (Amy's own studio reel)
+"plays incredibly fast"; slow it a little. Decision: per-slide
+playbackRate at the player (data-rate="0.8" on the slide,
+defaultPlaybackRate+playbackRate set when the facade builds the
+video), NOT an ffmpeg re-encode. Why: the master rendition stays
+untouched; the number is a preview-tunable knob; VTT captions and the
+progress fill key off media time so they stay in sync at any rate;
+browsers that ignore the property play at 1× (exactly the old
+behavior); the 60fps master still renders ~48fps of motion at 0.8× —
+smooth without interpolation and its artifact risk. Compliance
+scoping: the rate applies ONLY to Amy's own site-authored reel — the
+two Evolus films' presentation is carried as-is (their never-alter
+rule is untouched; they stay at 1× and the slide type marks rate as
+Amy's-films-only). Alternatives rejected: re-encode with setpts
+(bakes the tempo, slower iteration, second copy to version);
+minterpolate slow-mo (artifact risk, not asked for).

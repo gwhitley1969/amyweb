@@ -5,7 +5,8 @@ export type AnalyticsEvent =
   | 'call_click'
   | 'skinbetter_click'
   | 'directions_click'
-  | 'app_badge_click';
+  | 'app_badge_click'
+  | 'ma_site_click';
 
 /**
  * Vendor-neutral event tracking (BUILD_SPEC §11). Components call track();

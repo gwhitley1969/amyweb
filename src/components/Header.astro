@@ -43,21 +43,31 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
 <div class="surface site-header" data-surface="noir">
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:py-6">
     <div class="site-brand-group">
-      {/* Mobile Aesthetics mark, far left (operator direction 2026-08-15;
-          redesign requirement #6). Vector rebuild from the practice's own
-          F-437304 300px render — MA is Amy's sole-owner PLLC (DECISIONS
-          2026-07-23), so naming it engages no other provider. Plain image,
-          not a link: the home link stays the wordmark's alone. FULL BADGE
-          variant (operator pick 2026-08-15, superseding the lockup
-          recommendation): the complete tile — plate, frame, name and
-          phone — so the mark never reads truncated. */}
-      <img
-        src={maMark.src}
-        alt="Mobile Aesthetics PLLC"
-        width="300"
-        height="300"
-        class="site-brand-mark shrink-0"
-      />
+      {/* Mobile Aesthetics badge, far left (redesign requirement #6).
+          Vector rebuild from the practice's own F-437304 300px render —
+          MA is Amy's sole-owner PLLC (DECISIONS 2026-07-23). FULL BADGE
+          variant (operator pick 2026-08-15): the complete tile — plate,
+          frame, name and phone — so the mark never reads truncated.
+          The badge LINKS OUT to Amy's practice site (operator override
+          2026-08-15 after the constraint-2 flag — the destination names
+          the location's other providers; DECISIONS same date). The home
+          link stays the wordmark's alone. */}
+      <a
+        href={siteConfig.mobileAestheticsUrl}
+        class="site-brand-mark-link shrink-0"
+        target="_blank"
+        rel="noopener"
+        data-event="ma_site_click"
+      >
+        <img
+          src={maMark.src}
+          alt="Mobile Aesthetics PLLC"
+          width="300"
+          height="300"
+          class="site-brand-mark"
+        />
+        <span class="sr-only">(opens in new tab)</span>
+      </a>
       <a href="/" class="site-brand shrink-0">
         {/* Big by design — operator/client direction: the brand leads.
             Scaled up twice per client review 2026-07-18. Chevron motif
@@ -147,6 +157,10 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     .site-brand-group {
       gap: 1.25rem;
     }
+  }
+  /* inline-flex so the focus ring hugs the badge, not a text line box */
+  .site-brand-mark-link {
+    display: inline-flex;
   }
   .site-brand-mark {
     width: auto;

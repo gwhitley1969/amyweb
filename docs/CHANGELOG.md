@@ -33,6 +33,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   centers itself in the row's free space between the badge and the
   menu button (auto margins — the tightest 360px rows have no slack
   and are unchanged). Desktop untouched.
+- The badge now links to Amy's practice site
+  (yourmobileaesthetics.com, new tab) — operator override of hard
+  constraint 2 after the compliance flag (the destination names the
+  location's other providers). The one sanctioned outbound reference;
+  CLAUDE.md carries the scoped exception. DECISIONS 2026-08-15.
 - Desktop badge scale (operator/Amy): 112px read "awkwardly small"
   beside the wordmark block — the badge now runs 128–160px on desktop
   (every line of the logo legible, header grows to ~208px there).

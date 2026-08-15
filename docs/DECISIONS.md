@@ -3225,3 +3225,25 @@ the tightest phones cede ~7% wordmark width and the badge starts at
 48px to make room. The popover gains a ≥1024px anchor (the menu now
 exists at desktop). Alternatives rejected: hamburger-only (buries the
 primary conversion); keep-as-is (operator wanted the minimal look).
+
+## 2026-08-15 — The header badge links out to yourmobileaesthetics.com (constraint-2 override)
+
+Context: the operator directed making the MA badge a tap/click link to
+https://yourmobileaesthetics.com. The destination was screened first
+(fetched 2026-08-15): it is Amy's own practice site, but it prominently
+names five other providers at the location (Dareen Elkurd, Nadia Cecil,
+Kaitlyn Jones, Martu Tamba, Kelly Formato — microblading, spray
+tanning, teeth whitening, massage) — squarely inside hard constraint
+2's "never link to any other provider." The flag was presented with a
+secondary funnel note (a persistent header exit ramp; partially
+mitigated — MA bookings also route to Vagaro). Decision: OPERATOR
+OVERRIDE — link it. Implementation: the badge img wraps in an anchor
+to `siteConfig.mobileAestheticsUrl` (new config entry), target=_blank
+rel=noopener, sr-only new-tab notice (the Book-link convention),
+`data-event="ma_site_click"` (added to the AnalyticsEvent union;
+track() remains a provider-neutral no-op). CLAUDE.md constraint 2
+gains the scoped exception in the same commit — the one sanctioned
+outbound reference; the other providers remain unnamed in all site
+text. Alternatives rejected: not linking (operator wants the tap
+path); linking to a hypothetical Amy-only page on the MA site (none
+exists). The home link stays the wordmark's alone.

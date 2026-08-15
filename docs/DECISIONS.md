@@ -3151,3 +3151,37 @@ text" section states plainly that pixel text and public/media VTT files
 are outside SCAN_DIRS with per-item screening + DECISIONS entries as
 the control. Docs-only; no gate, config, or content changes; the
 paths-ignore rule means this PR push runs no CI, by design.
+
+## 2026-08-15 — Mobile Aesthetics mark joins the header (vector rebuild)
+
+Context: redesign requirement #6 — the operator directs the Mobile
+Aesthetics logo into the far-left header beside the NG wordmark and
+asks for a format recommendation on the 300px PNG (the only true logo
+render in the F-437304 set; the 776x700 file is a photo cutout, parked
+as a content asset). Decision: rebuild as SVG — the mark is pure
+geometry. Recipe (all measured from the reference): plate #131313,
+white frame; chrome type in a #f4f2f3→#9b989b vertical fade;
+letterforms Julius Sans One (OFL) outlined to paths — no font shipped,
+the two-family budget untouched — chosen by overlay comparison
+(Montserrat/Raleway/Josefin rejected as too narrow); four chevrons
+(slab 18, slope 0.928, pitch 61) under one foil gradient sweeping
+ACROSS the band (#fda6d8→#fd78d4→#e967b6→#fc9ad6 — per-chevron
+sampling showed the highlight travels horizontally, not vertically).
+Generator + font record committed at
+src/assets/brand/source/mobile-aesthetics/. Two variants: the full
+badge (plate + frame + name/phone — print/social use and Amy's
+comparison) and the header lockup that ships (type + chevrons only:
+the noir header IS the plate; the name/phone line dropped — under
+10px it is illegible smudge). Header integration: a left group wraps
+mark + brand link; mark 42px/88px tall (mobile/desktop); the mobile
+NG wordmark becomes clamp(180px,53vw,220px) so mark + wordmark +
+menu toggle fit 360px screens (visible wordmark shrink on phones —
+flagged); popover top re-tuned 8.5rem→6.75rem (measured 9px
+clearance). The mark is a plain img, alt "Mobile Aesthetics PLLC",
+NOT inside the home link — link semantics stay the wordmark's.
+Constraint 2 not engaged: MA is Amy's sole-owner PLLC (DECISIONS
+2026-07-23). Alternatives rejected: shipping the 300px PNG (soft on
+high-DPI, dead end for reuse); the HTML-master→PNG pipeline (kept as
+fallback, unneeded — the SVG matched on first overlay). Open item:
+Amy's side-by-side pick (A badge vs B lockup); B is live on the
+preview as the recommendation.

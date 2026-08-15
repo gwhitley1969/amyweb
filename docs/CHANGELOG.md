@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-15 — Mobile Aesthetics joins the header
+
+- The practice mark now sits far left in the header beside the Needle
+  Girlie wordmark — rebuilt as a vector (SVG) from the practice's own
+  300px render: silver letterspaced type over the four pink foil
+  chevrons, razor-sharp at every screen density. On phones the row
+  re-balances (the NG wordmark now scales with the viewport so mark +
+  wordmark + menu fit a 360px screen); the mobile menu re-anchored to
+  match.
+- Two variants live in the repo: the full badge (plate, frame, name
+  and phone — for print/social) and the header lockup that shipped
+  (type + chevrons; the noir header is the plate). Amy picks from a
+  side-by-side; the lockup is the recommendation. DECISIONS 2026-08-15.
+
 ### 2026-08-14 — Carousel revived (the CSP inline-script lesson); "Medical Aesthetics," capitalized
 
 - The operator reported the shipped carousel played nothing. Root

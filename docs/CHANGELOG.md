@@ -29,6 +29,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
   name/phone block by design). Operator picked the FULL BADGE for the
   header: the complete tile at 56px/112px. The lockup stays in the
   brand kit. DECISIONS 2026-08-15 (second entry).
+- Third operator pass: on phones the Needle Girlie wordmark now
+  centers itself in the row's free space between the badge and the
+  menu button (auto margins — the tightest 360px rows have no slack
+  and are unchanged). Desktop untouched.
+- Foldable/tablet fix (operator's Z Fold 7 screenshot): the desktop
+  header switched on at 640px but only ever fit above ~1000px — on a
+  Fold the nav links drew across the wordmark (a defect that predates
+  the badge work). The mobile shell now runs through 1023px; from
+  1024px the inline nav returns with the brand scaling fluidly
+  (wordmark 340→440px, badge 88→112px) so the row fits at every width.
 
 ### 2026-08-14 — Carousel revived (the CSP inline-script lesson); "Medical Aesthetics," capitalized
 

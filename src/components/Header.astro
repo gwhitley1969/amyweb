@@ -40,7 +40,7 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
 ---
 
 <div class="surface site-header" data-surface="noir">
-  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 sm:py-6">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:py-6">
     <div class="site-brand-group">
       {/* Mobile Aesthetics mark, far left (operator direction 2026-08-15;
           redesign requirement #6). Vector rebuild from the practice's own
@@ -68,7 +68,7 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
           alt="Needle Girlie — home"
           width={440}
           densities={[1, 2, 3]}
-          class="h-auto w-[clamp(170px,52vw,215px)] sm:w-[440px]"
+          class="h-auto w-[clamp(170px,52vw,300px)] lg:w-[clamp(340px,36vw,440px)]"
         />
         {/* Credential line under the wordmark (operator 2026-07-19).
             pink-500 small text is legal on noir ONLY — see the (min 4.5)
@@ -78,7 +78,12 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     </div>
     <nav aria-label="Primary">
       {/* desktop */}
-      <ul class="hidden items-center gap-8 sm:flex">
+      {/* The inline nav appears only where the full row genuinely fits
+          (≥1024px with the fluid brand scale below). 640–1023px —
+          foldables, tablets, half-snapped windows — keeps the mobile
+          shell: the old 640px switch drew this nav across the wordmark
+          on a Z Fold 7 (operator screenshot, 2026-08-15). */}
+      <ul class="hidden items-center gap-6 xl:gap-8 lg:flex">
         {
           nav.map((item) => (
             <li>
@@ -143,18 +148,37 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     align-items: center;
     gap: 0.625rem;
     min-width: 0;
+    /* phones: the group absorbs the row's slack and the brand link
+     * auto-margins to its center, so "Needle Girlie" sits centered
+     * between the badge and the menu button (operator 2026-08-15).
+     * On the tightest 360px rows there is no slack — nothing moves. */
+    flex: 1;
+  }
+  .site-brand {
+    margin-inline: auto;
+  }
+  /* The mobile shell (centered brand, hamburger) runs through 1023px —
+   * foldables and tablets included; 1024px is where the inline-nav row
+   * genuinely fits. */
+  @media (min-width: 1024px) {
+    .site-brand-group {
+      flex: initial;
+      gap: 1.25rem;
+    }
+    .site-brand {
+      margin-inline: 0;
+    }
   }
   .site-brand-mark {
     width: auto;
-    height: 56px; /* square badge — narrower than the lockup was, so the
-                     row gains slack even a size up */
+    /* fluid through the mobile shell: 56px on phones, growing to 80px
+     * on foldables/tablets */
+    height: clamp(56px, 8vw, 80px);
   }
-  @media (min-width: 640px) {
-    .site-brand-group {
-      gap: 1.25rem;
-    }
+  @media (min-width: 1024px) {
     .site-brand-mark {
-      height: 112px;
+      /* scales with the fluid wordmark so the row fits from 1024px up */
+      height: clamp(88px, 9.5vw, 112px);
     }
   }
   /* Brand lockup: wordmark with the credential line beneath. Same
@@ -216,10 +240,10 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     border: none;
     cursor: pointer;
   }
-  /* desktop: the inline list is visible, so the toggle goes away — kept in
+  /* ≥1024px: the inline list is visible, so the toggle goes away — kept in
    * component CSS because the base display rule above would out-cascade a
-   * Tailwind sm:hidden utility */
-  @media (min-width: 640px) {
+   * Tailwind lg:hidden utility */
+  @media (min-width: 1024px) {
     .site-nav-toggle {
       display: none;
     }
@@ -236,6 +260,13 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     border: 1px solid var(--ng-hairline);
     border-radius: 0.25rem;
     list-style: none;
+  }
+  /* 640–1023px: the wordmark clamp reaches 300px (64px tall), so the
+   * brand block runs ~121px — the popover anchors below it. */
+  @media (min-width: 640px) {
+    .site-nav-popover {
+      top: 8.25rem;
+    }
   }
   /* Browsers without Popover support ignore the attribute; the list then
    * flows inline — give it sane inline styling instead of the overlay's. */

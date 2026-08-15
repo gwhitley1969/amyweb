@@ -6,6 +6,54 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-15 — Mobile Aesthetics joins the header
+
+- The practice mark now sits far left in the header beside the Needle
+  Girlie wordmark — rebuilt as a vector (SVG) from the practice's own
+  300px render: silver letterspaced type over the four pink foil
+  chevrons, razor-sharp at every screen density. On phones the row
+  re-balances (the NG wordmark now scales with the viewport so mark +
+  wordmark + menu fit a 360px screen); the mobile menu re-anchored to
+  match.
+- Two variants live in the repo: the full badge (plate, frame, name
+  and phone — for print/social) and the header lockup that shipped
+  (type + chevrons; the noir header is the plate). Amy picks from a
+  side-by-side; the lockup is the recommendation. DECISIONS 2026-08-15.
+- Operator review, same day: the mark enlarged (~25% — 52px phones,
+  104px desktop) and the chrome lettering brightened past the
+  reference's dim fade, which read too sheer at header scale. The
+  generator records the override; the NG wordmark clamp re-budgeted so
+  360px screens still fit.
+- Second operator review, same day: the lockup read as the logo's
+  bottom being cut off (nothing was clipped — the lockup omits the
+  name/phone block by design). Operator picked the FULL BADGE for the
+  header: the complete tile at 56px/112px. The lockup stays in the
+  brand kit. DECISIONS 2026-08-15 (second entry).
+- Third operator pass: on phones the Needle Girlie wordmark now
+  centers itself in the row's free space between the badge and the
+  menu button (auto margins — the tightest 360px rows have no slack
+  and are unchanged). Desktop untouched.
+- The badge now links to Amy's practice site
+  (yourmobileaesthetics.com, new tab) — operator override of hard
+  constraint 2 after the compliance flag (the destination names the
+  location's other providers). The one sanctioned outbound reference;
+  CLAUDE.md carries the scoped exception. DECISIONS 2026-08-15.
+- Desktop badge scale (operator/Amy): 112px read "awkwardly small"
+  beside the wordmark block — the badge now runs 128–160px on desktop
+  (every line of the logo legible, header grows to ~208px there).
+  Phone/tablet sizing untouched — it lives in a separate rule.
+- Hybrid nav (operator decision after options): the hamburger menu now
+  carries the page links at every width — the inline desktop nav
+  retires — and Book becomes the one styled button in the header,
+  always visible beside the menu. Phones get a visible Book for the
+  first time. DECISIONS 2026-08-15 (third entry).
+- Foldable/tablet fix (operator's Z Fold 7 screenshot): the desktop
+  header switched on at 640px but only ever fit above ~1000px — on a
+  Fold the nav links drew across the wordmark (a defect that predates
+  the badge work). The mobile shell now runs through 1023px; from
+  1024px the inline nav returns with the brand scaling fluidly
+  (wordmark 340→440px, badge 88→112px) so the row fits at every width.
+
 ### 2026-08-14 — Carousel revived (the CSP inline-script lesson); "Medical Aesthetics," capitalized
 
 - The operator reported the shipped carousel played nothing. Root

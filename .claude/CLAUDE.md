@@ -65,6 +65,14 @@ silently following it. Known superseded points from earlier briefs:
 2. **Amy's services only.** Never mention, link to, or imply any other
    provider at the Mobile Aesthetics location. The site may factually note
    that Amy practices within a multi-provider location — nothing more.
+   *Scoped exception (operator override after the compliance flag —
+   DECISIONS 2026-08-15): the header badge links out to Amy's own
+   practice site, `siteConfig.mobileAestheticsUrl`
+   (yourmobileaesthetics.com), whose pages name the location's other
+   providers. This is the only sanctioned outbound reference to that
+   site; the other providers are still never named or implied in any
+   needlegirlie.com text, and adding any further link or mention
+   requires the human operator.*
 
 3. **Medical-marketing claim discipline.** A licensed clinician is advertising
    medical treatments. The full rulebook is BUILD_SPEC §8. Core rules:

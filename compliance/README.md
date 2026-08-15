@@ -69,6 +69,15 @@ The home-carousel films and their caption files (2026-08-14) ship under
 exactly this regime. A green `lint:claims` says nothing about media
 content.
 
+The same blindness applies to **outbound link destinations**: the
+linter reads this repo, never the far side of an `href`. Any new
+external link gets its destination screened by a human before it
+ships, with findings and the decision recorded in DECISIONS. Precedent:
+the header badge link to yourmobileaesthetics.com (2026-08-15) — the
+destination names the location's other providers, which tripped hard
+constraint 2; it ships as a scoped operator override recorded in
+DECISIONS and in CLAUDE.md's constraint-2 exception text.
+
 ## Inverse checks (treatment files only)
 
 - `investigational: true` requires the investigational / not-FDA-approved

@@ -3274,7 +3274,9 @@ defaultPlaybackRate+playbackRate set when the facade builds the
 video, re-asserted at loadedmetadata/play because some engines
 reset the rate when playback starts), NOT an ffmpeg re-encode.
 First pass shipped 0.8; operator review same day: still too fast —
-retuned to 0.65 (the knob working as designed). Why: the master rendition stays
+retuned to 0.65, then to 0.5 (third review:
+still too fast — the knob working as designed; 0.5 is also the
+practical floor, engines clamp below it). Why: the master rendition stays
 untouched; the number is a preview-tunable knob; VTT captions and the
 progress fill key off media time so they stay in sync at any rate;
 browsers that ignore the property play at 1× (exactly the old

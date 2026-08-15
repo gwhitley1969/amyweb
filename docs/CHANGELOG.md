@@ -33,6 +33,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   centers itself in the row's free space between the badge and the
   menu button (auto margins — the tightest 360px rows have no slack
   and are unchanged). Desktop untouched.
+- Desktop badge scale (operator/Amy): 112px read "awkwardly small"
+  beside the wordmark block — the badge now runs 128–160px on desktop
+  (every line of the logo legible, header grows to ~208px there).
+  Phone/tablet sizing untouched — it lives in a separate rule.
 - Hybrid nav (operator decision after options): the hamburger menu now
   carries the page links at every width — the inline desktop nav
   retires — and Book becomes the one styled button in the header,

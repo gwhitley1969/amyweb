@@ -156,8 +156,12 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
   }
   @media (min-width: 1024px) {
     .site-brand-mark {
-      /* scales with the fluid wordmark so the row fits from 1024px up */
-      height: clamp(88px, 9.5vw, 112px);
+      /* decisive co-brand scale on desktop (operator/Amy 2026-08-15:
+       * 112px read "awkwardly small" beside the ~118px wordmark
+       * block). The badge is now the tallest header element, so the
+       * desktop header grows to ~208px — accepted trade. Mobile sizing
+       * lives in the base rule above and is untouched. */
+      height: clamp(128px, 12.5vw, 160px);
     }
   }
   /* Brand lockup: wordmark with the credential line beneath. Same
@@ -284,11 +288,11 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
       top: 8.25rem;
     }
   }
-  /* ≥1024px: py-6 + the full-scale brand block (~166px) — the menu now
-   * exists at desktop widths too (hybrid nav). */
+  /* ≥1024px: py-6 + the 160px badge makes the header ~208px — the menu
+   * anchors below it (hybrid nav). */
   @media (min-width: 1024px) {
     .site-nav-popover {
-      top: 11rem;
+      top: 13.5rem;
     }
   }
   /* Browsers without Popover support ignore the attribute; the list then

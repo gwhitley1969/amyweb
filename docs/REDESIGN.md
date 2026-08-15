@@ -33,7 +33,7 @@ pink."** Seven gaps, each a test every design decision must move:
 |---|---|---|
 | **Stack: Astro stays** — no React migration; React islands remain available per-component | Settled | 2026-08-14 session; plan file |
 | **Scope: EVOLVE the current design** — ombre canvas + plate system stay; new photos/video/type/arches layer on (full reset offered, declined) | Settled | flag-once satisfied |
-| **Type: Playfair Display everywhere** — headings AND body, matching the logo's own face; body sizes/leading bumped for phones; DM Sans likely retires | Decided, **not yet built** | mobile-readability flagged and accepted |
+| **Type: Playfair Display everywhere** — headings AND body, matching the logo's own face; body bumped to 17px/1.65; **DM Sans retired** (scope answer 2026-08-15: Playfair takes the small UI text too — weight is the legibility knob, never a second family) | **Built** (PR pending Amy's merge word) | mobile-readability flagged and accepted; DECISIONS 2026-08-15 |
 | **Home hero: Amy's studio-counter portrait** (interim AI-assisted 1400w blend, disclosed; her full-res original drops in with zero code changes) | **Shipped** (PR #101) | DECISIONS 2026-08-14 |
 | **Home video carousel** — J1 → studio reel → J2 on a cinematic noir stage; autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, reduced-motion = posters | **Shipped** (PR #101) | DECISIONS 2026-08-14 ×3 |
 | **Media architecture: Blob `/media` origin recommended** (media hostname via the same Front Door, ~$1–2/mo) as the video program grows; in-repo public/media/ serves the current three films | Recommended, not built | cost door opened by operator |

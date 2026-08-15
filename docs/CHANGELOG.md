@@ -54,12 +54,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
   1024px the inline nav returns with the brand scaling fluidly
   (wordmark 340→440px, badge 88→112px) so the row fits at every width.
 
-### 2026-08-15 — The studio reel slows to 0.8×
+### 2026-08-15 — The studio reel slows to 0.65×
 
-- Carousel slide 2 — Amy's own studio reel — now plays at 0.8× (it was
-  cut fast; operator + Amy asked for a gentler tempo). Slowed at the
+- Carousel slide 2 — Amy's own studio reel — now plays at 0.65× (it
+  was cut fast; operator + Amy asked for a gentler tempo, and the
+  first pass at 0.8× still read too fast on review). Slowed at the
   player, so the video file itself is untouched and the number is easy
-  to tune. The two Evolus films are unchanged and still play exactly
+  to tune; the rate is re-asserted at playback start so every browser
+  honors it. The two Evolus films are unchanged and still play exactly
   as produced.
 
 ### 2026-08-14 — Carousel revived (the CSP inline-script lesson); "Medical Aesthetics," capitalized

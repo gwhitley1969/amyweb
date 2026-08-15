@@ -23,10 +23,11 @@ import j2Poster from '../assets/photos/commercial-j2-poster.jpg';
  *    NEVER trim or crop them: object-fit stays `contain` so the
  *    burned-in safety screens render complete.
  *  - commercial-studio — Amy's own published reel, operator override.
- *    Plays at 0.8× (operator/Amy 2026-08-15: the reel cuts fast —
- *    slowed at the player via data-rate/playbackRate; the master file
- *    is untouched and the number is the tuning knob). The manufacturer
- *    films always play at 1× — their presentation is carried as-is.
+ *    Plays at 0.65× (operator/Amy 2026-08-15: the reel cuts fast;
+ *    0.8 was still too fast on review — slowed at the player via
+ *    data-rate/playbackRate; the master file is untouched and the
+ *    number is the tuning knob). The manufacturer films always play
+ *    at 1× — their presentation is carried as-is.
  *  Renditions are muted (no audio track); captions mirror each film's
  *  on-screen text (track added with each built video — the axe
  *  video-caption rule audits rendered <video> elements; not `default`,
@@ -61,7 +62,7 @@ const slides: {
     file: 'commercial-studio',
     label: "A day inside Amy's Harrisburg studio",
     poster: studioPoster,
-    rate: 0.8,
+    rate: 0.65,
   },
   {
     file: 'commercial-j2',

@@ -3271,7 +3271,10 @@ Context: operator + Amy — carousel slide 2 (Amy's own studio reel)
 "plays incredibly fast"; slow it a little. Decision: per-slide
 playbackRate at the player (data-rate="0.8" on the slide,
 defaultPlaybackRate+playbackRate set when the facade builds the
-video), NOT an ffmpeg re-encode. Why: the master rendition stays
+video, re-asserted at loadedmetadata/play because some engines
+reset the rate when playback starts), NOT an ffmpeg re-encode.
+First pass shipped 0.8; operator review same day: still too fast —
+retuned to 0.65 (the knob working as designed). Why: the master rendition stays
 untouched; the number is a preview-tunable knob; VTT captions and the
 progress fill key off media time so they stay in sync at any rate;
 browsers that ignore the property play at 1× (exactly the old

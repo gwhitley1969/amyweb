@@ -16,8 +16,10 @@ src/assets/brand/source/needle-girlie-logo-white-bg.html
 New variants are *exported* from these sources — same design, rendered at
 whatever resolution is needed.
 
-Wordmark typeface: **Playfair Display** (relevant to the Phase B design
-system, which should harmonize with it).
+Wordmark typeface: **Playfair Display** — since 2026-08-15 also the
+site's ONE text face, display and body alike (Amy's direction; DECISIONS
+same date). The site doesn't just harmonize with the logo's type — it
+speaks in it.
 
 ## Exporting a variant
 

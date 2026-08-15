@@ -33,17 +33,27 @@ pink."** Seven gaps, each a test every design decision must move:
 |---|---|---|
 | **Stack: Astro stays** — no React migration; React islands remain available per-component | Settled | 2026-08-14 session; plan file |
 | **Scope: EVOLVE the current design** — ombre canvas + plate system stay; new photos/video/type/arches layer on (full reset offered, declined) | Settled | flag-once satisfied |
-| **Type: Playfair Display everywhere** — headings AND body, matching the logo's own face; body sizes/leading bumped for phones; DM Sans likely retires | Decided, **not yet built** | mobile-readability flagged and accepted |
+| **Type: Playfair Display everywhere** — headings AND body, matching the logo's own face; body bumped to 17px/1.65; **DM Sans retired** (scope answer 2026-08-15: Playfair takes the small UI text too — weight is the legibility knob, never a second family) | **Shipped** (PR #103, merged 2026-08-15) | mobile-readability flagged and accepted; DECISIONS 2026-08-15 |
 | **Home hero: Amy's studio-counter portrait** (interim AI-assisted 1400w blend, disclosed; her full-res original drops in with zero code changes) | **Shipped** (PR #101) | DECISIONS 2026-08-14 |
 | **Home video carousel** — J1 → studio reel → J2 on a cinematic noir stage; autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, reduced-motion = posters | **Shipped** (PR #101) | DECISIONS 2026-08-14 ×3 |
 | **Media architecture: Blob `/media` origin recommended** (media hostname via the same Front Door, ~$1–2/mo) as the video program grows; in-repo public/media/ serves the current three films | Recommended, not built | cost door opened by operator |
-| **Mobile Aesthetics badge in the header** — SVG vector rebuild (Julius Sans One outlines, measured geometry; lockup variant stays in the brand kit); FULL BADGE at 48–80px phones / 128–160px desktop; **links out to yourmobileaesthetics.com** (new tab — constraint-2 operator override, the one sanctioned outbound reference) | **Built** (PR #102, awaiting Amy's merge word) | F-437304 asset set; DECISIONS 2026-08-15 (four entries); CLAUDE.md constraint-2 exception |
-| **Hybrid nav** — hamburger menu carries the page links at EVERY width (inline desktop nav retired); Book is the one styled button, always visible; centered-brand shell at all widths (fixed the Z Fold collision, which predated the badge) | **Built** (PR #102) | operator decision after options; DECISIONS 2026-08-15 |
+| **Mobile Aesthetics badge in the header** — SVG vector rebuild (Julius Sans One outlines, measured geometry; lockup variant stays in the brand kit); FULL BADGE at 48–80px phones / 128–160px desktop; **links out to yourmobileaesthetics.com** (new tab — constraint-2 operator override, the one sanctioned outbound reference) | **Shipped** (PR #102, merged 2026-08-15) | F-437304 asset set; DECISIONS 2026-08-15 (four entries); CLAUDE.md constraint-2 exception |
+| **Hybrid nav** — hamburger menu carries the page links at EVERY width (inline desktop nav retired); Book is the one styled button, always visible; centered-brand shell at all widths (fixed the Z Fold collision, which predated the badge) | **Shipped** (PR #102, merged 2026-08-15) | operator decision after options; DECISIONS 2026-08-15 |
 | **Pink arches around pictures** — house frame motif, generalized from the existing arch geometry | Planned | operator directive |
 | **Photo replacement sitewide** | Planned | operator directive |
 | 17a + 17b videos → /services/biostimulators; 20 → /services/body-contouring | Parked ("not there yet") | same screening + release checks when directed |
 
 ## Carousel record (all three films cleared 2026-08-14)
+
+- **2026-08-15 refinements (operator + Amy; PRs #104/#105 merged same day):** the
+  section head is the single Playfair line "The studio. On screen." —
+  the loved phrase promoted from the old eyebrow, eyebrow deleted
+  (PR #104); the studio reel plays at **0.5×** via per-slide
+  data-rate/playbackRate, tuned 0.8 → 0.65 → 0.5 across three same-day
+  reviews, rate re-asserted at playback start for Safari/iOS
+  (PR #105). 0.5 is the floor (engines clamp below) — if the reel
+  still reads fast someday, the lever is re-editing the reel, not the
+  rate. The Evolus films always play at 1× (carried as-is).
 
 - **Slides:** `commercial-j1.mp4` / `commercial-studio.mp4` /
   `commercial-j2.mp4` (public/media/), muted H.264 renditions of the

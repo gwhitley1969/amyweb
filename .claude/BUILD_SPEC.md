@@ -662,6 +662,11 @@ action.
   muted renditions; captions mirror each film's on-screen text
   (public/media/*.vtt — outside lint scope, controlled by the per-film
   override entries); reduced-motion serves posters + play-on-request.
+  Amy's reel plays at 0.5× via per-slide `data-rate`/playbackRate
+  (operator/Amy tuning 2026-08-15 — DECISIONS same date; the master
+  file is untouched, captions track media time). Rates are for Amy's
+  own films ONLY — the manufacturer films always play at 1×; their
+  presentation is part of the carried-as-is posture.
   Add/replace procedure: docs/RUNBOOK.md. The Blob `/media/*` origin
   (§2 escape valve) is the recommended home as the video program grows.
 

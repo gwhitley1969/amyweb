@@ -3205,3 +3205,23 @@ the lockup with the bottom lines (recommended — same tiny-text cost
 without the frame's finish, operator preferred the literal complete
 logo); keeping the lockup (the truncated read would persist). The
 lockup SVG stays in the repo as the brand-kit variant.
+
+## 2026-08-15 — Hybrid nav: hamburger at every width, Book as the persistent CTA
+
+Context: after the foldable fix, the operator asked whether desktop
+should drop the five inline nav items for the hamburger. Recommendation
+delivered: not hamburger-only (hidden navigation measurably suppresses
+engagement, and this site's one commercial job is the Book conversion)
+— but a hybrid captures the luxury minimalism without burying the money
+button. Operator directed the hybrid. Decision: the menu button carries
+Services/About/Visit/Training at EVERY width — the inline desktop nav
+retires — and Book leaves the menu to become the one styled button in
+the header, visible beside the menu at all widths (outlined pink-500 on
+noir, 5.95:1; hover inverts to pink fill with noir text, 5.9:1; the
+established booking-language convention). Consequences: mobile gains a
+visible Book for the first time (it previously lived only inside the
+popover); the centered-brand shell becomes the layout at every width;
+the tightest phones cede ~7% wordmark width and the badge starts at
+48px to make room. The popover gains a ≥1024px anchor (the menu now
+exists at desktop). Alternatives rejected: hamburger-only (buries the
+primary conversion); keep-as-is (operator wanted the minimal look).

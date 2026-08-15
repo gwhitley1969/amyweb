@@ -33,6 +33,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   centers itself in the row's free space between the badge and the
   menu button (auto margins — the tightest 360px rows have no slack
   and are unchanged). Desktop untouched.
+- Hybrid nav (operator decision after options): the hamburger menu now
+  carries the page links at every width — the inline desktop nav
+  retires — and Book becomes the one styled button in the header,
+  always visible beside the menu. Phones get a visible Book for the
+  first time. DECISIONS 2026-08-15 (third entry).
 - Foldable/tablet fix (operator's Z Fold 7 screenshot): the desktop
   header switched on at 640px but only ever fit above ~1000px — on a
   Fold the nav links drew across the wordmark (a defect that predates

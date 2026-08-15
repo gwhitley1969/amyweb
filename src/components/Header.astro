@@ -15,24 +15,25 @@ import maMark from '../assets/brand/mobile-aesthetics-mark.svg';
 /* "Book" goes straight to Vagaro (conversion pattern; client 2026-07-18).
  * The /book routing page was retired 2026-07-21 (operator) — every
  * booking path is Vagaro-direct. */
-const nav: { label: string; href: string; external?: boolean }[] = [
+const nav: { label: string; href: string }[] = [
   { label: 'Services', href: '/services' },
   { label: 'About', href: '/about' },
   { label: 'Visit', href: '/visit' },
-  /* Professional-audience page (operator placement decision 2026-08-04):
-   * the one non-client item, kept ahead of the conversion link so Book
-   * stays the row's terminal action. */
+  /* Professional-audience page (operator placement decision 2026-08-04). */
   { label: 'Training', href: '/injector-training' },
-  { label: 'Book', href: siteConfig.booking.vagaroUrl, external: true },
 ];
+
+/* Hybrid nav (operator decision 2026-08-15): the menu button carries the
+ * page links at EVERY width — no inline desktop nav — and Book leaves
+ * the menu to become the persistent CTA beside it. The primary
+ * conversion action never hides behind a click. */
+const bookUrl = siteConfig.booking.vagaroUrl;
 
 /* Current-page marker (taste audit 2026-07-25): exact match -> "page";
  * a /services subpage marks Services as the current section ("true").
- * Build-time only — Astro.url.pathname is the page being rendered; the
- * external Book link is never current. */
+ * Build-time only — Astro.url.pathname is the page being rendered. */
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => {
-  if (item.external) return undefined;
   if (path === item.href) return 'page';
   if (item.href === '/services' && path.startsWith('/services/')) return 'true';
   return undefined;
@@ -68,7 +69,7 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
           alt="Needle Girlie — home"
           width={440}
           densities={[1, 2, 3]}
-          class="h-auto w-[clamp(170px,52vw,300px)] lg:w-[clamp(340px,36vw,440px)]"
+          class="h-auto w-[clamp(155px,44vw,300px)] lg:w-[clamp(340px,36vw,440px)]"
         />
         {/* Credential line under the wordmark (operator 2026-07-19).
             pink-500 small text is legal on noir ONLY — see the (min 4.5)
@@ -76,33 +77,19 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
         <span class="site-brand-credit">Amy Palacios, FNP</span>
       </a>
     </div>
-    <nav aria-label="Primary">
-      {/* desktop */}
-      {/* The inline nav appears only where the full row genuinely fits
-          (≥1024px with the fluid brand scale below). 640–1023px —
-          foldables, tablets, half-snapped windows — keeps the mobile
-          shell: the old 640px switch drew this nav across the wordmark
-          on a Z Fold 7 (operator screenshot, 2026-08-15). */}
-      <ul class="hidden items-center gap-6 xl:gap-8 lg:flex">
-        {
-          nav.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                class="site-nav-link"
-                aria-current={currentFor(item)}
-                {...(item.external
-                  ? { target: '_blank', rel: 'noopener', 'data-event': 'book_click' }
-                  : {})}
-              >
-                {item.label}
-                {item.external && <span class="sr-only">(opens in new tab)</span>}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      {/* mobile: popover toggle */}
+    <nav aria-label="Primary" class="site-nav">
+      {/* The persistent conversion action — visible at every width,
+          never inside the menu (hybrid nav, operator 2026-08-15). */}
+      <a
+        href={bookUrl}
+        class="site-book-cta"
+        target="_blank"
+        rel="noopener"
+        data-event="book_click"
+      >
+        Book<span class="sr-only"> (opens in new tab)</span>
+      </a>
+      {/* menu button — all widths */}
       <button popovertarget="mobile-nav" class="site-nav-toggle" type="button">
         <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none">
           <path
@@ -121,12 +108,8 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
                 href={item.href}
                 class="site-nav-link block px-6 py-3"
                 aria-current={currentFor(item)}
-                {...(item.external
-                  ? { target: '_blank', rel: 'noopener', 'data-event': 'book_click' }
-                  : {})}
               >
                 {item.label}
-                {item.external && <span class="sr-only">(opens in new tab)</span>}
               </a>
             </li>
           ))
@@ -157,23 +140,19 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
   .site-brand {
     margin-inline: auto;
   }
-  /* The mobile shell (centered brand, hamburger) runs through 1023px —
-   * foldables and tablets included; 1024px is where the inline-nav row
-   * genuinely fits. */
+  /* Hybrid nav (2026-08-15): the centered-brand shell is the layout at
+   * EVERY width — badge left, wordmark centered in the slack, Book +
+   * menu right. Only the brand scale changes with the viewport. */
   @media (min-width: 1024px) {
     .site-brand-group {
-      flex: initial;
       gap: 1.25rem;
-    }
-    .site-brand {
-      margin-inline: 0;
     }
   }
   .site-brand-mark {
     width: auto;
-    /* fluid through the mobile shell: 56px on phones, growing to 80px
-     * on foldables/tablets */
-    height: clamp(56px, 8vw, 80px);
+    /* fluid: 48px on phones (the Book CTA buys its room here), growing
+     * to 80px on foldables/tablets */
+    height: clamp(48px, 7vw, 80px);
   }
   @media (min-width: 1024px) {
     .site-brand-mark {
@@ -229,24 +208,54 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     text-underline-offset: 4px;
     text-decoration-color: var(--ng-pink-500);
   }
+  /* Right group: the persistent Book CTA + the menu button, all widths. */
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  @media (min-width: 1024px) {
+    .site-nav {
+      gap: 0.75rem;
+    }
+  }
+  /* Book: the one styled button in the header — outlined pink on noir
+   * (5.95:1, verified pair); hover inverts to a pink fill with noir
+   * text (5.9:1). Same tracked-caps grammar as the nav. */
+  .site-book-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--ng-pink-500);
+    border-radius: 2px;
+    color: var(--ng-pink-500);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .site-book-cta:hover {
+    background: var(--ng-pink-500);
+    color: var(--ng-noir);
+  }
+  @media (min-width: 1024px) {
+    .site-book-cta {
+      padding: 0.7rem 1.25rem;
+      font-size: 0.9375rem;
+    }
+  }
   .site-nav-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 3rem;
-    min-height: 3rem;
+    min-width: 2.75rem; /* 44px — the vc-toggle tap-target precedent */
+    min-height: 2.75rem;
     color: var(--ng-text);
     background: none;
     border: none;
     cursor: pointer;
-  }
-  /* ≥1024px: the inline list is visible, so the toggle goes away — kept in
-   * component CSS because the base display rule above would out-cascade a
-   * Tailwind lg:hidden utility */
-  @media (min-width: 1024px) {
-    .site-nav-toggle {
-      display: none;
-    }
   }
   .site-nav-popover {
     /* popover-open state */
@@ -266,6 +275,13 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
   @media (min-width: 640px) {
     .site-nav-popover {
       top: 8.25rem;
+    }
+  }
+  /* ≥1024px: py-6 + the full-scale brand block (~166px) — the menu now
+   * exists at desktop widths too (hybrid nav). */
+  @media (min-width: 1024px) {
+    .site-nav-popover {
+      top: 11rem;
     }
   }
   /* Browsers without Popover support ignore the attribute; the list then

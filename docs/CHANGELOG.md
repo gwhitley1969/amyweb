@@ -66,6 +66,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
   1024px the inline nav returns with the brand scaling fluidly
   (wordmark 340→440px, badge 88→112px) so the row fits at every width.
 
+### 2026-08-15 — Carousel head: "The studio. On screen."
+
+- The carousel's heading "Watch Amy's latest." is retired (operator +
+  Amy). The line they loved — "The studio, on screen" — was the small
+  label above it; it is now the big heading itself, and the small
+  label is gone: one line on the cinematic stage.
+
 ### 2026-08-14 — Carousel revived (the CSP inline-script lesson); "Medical Aesthetics," capitalized
 
 - The operator reported the shipped carousel played nothing. Root

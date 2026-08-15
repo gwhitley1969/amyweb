@@ -80,8 +80,9 @@ pink."** Seven gaps, each a test every design decision must move:
 - **Hero portrait original** — Amy hunts the full-res photo (camera
   roll / photographer / IG source); replaces the AI-assisted interim
   asset with zero code changes.
-- **Amy's reactions** on the PR #101 preview: the enhanced rendering of
-  her own likeness (disclosed), the carousel, the capital-A headline.
+- **Amy's reactions**, remaining: the hero's enhanced rendering of her
+  own likeness (disclosed) and the capital-A headline. (The carousel
+  reactions arrived 2026-08-15 and shipped: head copy + reel tempo.)
 - **Sound for the films** — renditions are muted; tap-for-sound +
   audio-faithful captions is a recorded follow-up if directed.
 - Carried from launch: counsel review of legal pages, manual

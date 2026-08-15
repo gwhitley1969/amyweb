@@ -3290,7 +3290,7 @@ escape hatch recorded: if small caps shimmer on low-DPI screens,
 thicken weight via the variable axis (400–900) — never a second
 family.
 
-## 2026-08-15 — The studio reel plays at 0.8× (player-side rate, not a re-encode)
+## 2026-08-15 — The studio reel slows at the player (0.8 → 0.65 → 0.5), not a re-encode
 
 Context: operator + Amy — carousel slide 2 (Amy's own studio reel)
 "plays incredibly fast"; slow it a little. Decision: per-slide
@@ -3313,3 +3313,21 @@ rule is untouched; they stay at 1× and the slide type marks rate as
 Amy's-films-only). Alternatives rejected: re-encode with setpts
 (bakes the tempo, slower iteration, second copy to version);
 minterpolate slow-mo (artifact risk, not asked for).
+
+## 2026-08-15 — Review surface: one combined preview when increments stack
+
+Context: three increments were open at once as separate PRs
+(#103 fonts, #104 carousel heading, #105 reel tempo), each with its
+own isolated preview. On the reel preview the operator reported the
+old carousel heading had "come back" — it hadn't; that preview simply
+never contained the other PR's change. Per-PR isolation reads as
+regressions to reviewers. Decision: while multiple increments are
+open, maintain a DO-NOT-MERGE combined-preview PR (branch merging all
+open feature branches) as THE review link; the individual PRs remain
+the merge gates and the audit trail. PR #106 was the first (closed
+after the merges). Consequences: docs files (CHANGELOG anchor,
+DECISIONS end-of-file) collide across parallel PRs — resolutions keep
+both records; whichever PR merges last absorbs the conflict pass.
+Alternatives rejected: explaining the isolation each round (it failed
+in practice); merging increments without Amy's per-change word
+(violates the approval workflow).

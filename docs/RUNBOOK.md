@@ -96,7 +96,11 @@ To add or swap one:
    override entry is the control).
 5. Add the slide to the `slides` array in VideoCarousel.astro (the
    films render `object-fit: contain`, uncropped — for the Evolus
-   spots that is a compliance requirement).
+   spots that is a compliance requirement). Optional `rate` field =
+   per-slide playback tempo (the studio reel runs 0.5×; tuning ladder
+   in DECISIONS 2026-08-15). Amy's own films ONLY — manufacturer
+   films always play at 1×, their presentation is carried as-is.
+   0.5 is the floor (engines clamp below); slower means re-editing.
 6. `npm run verify` green → PR → preview → Amy's word → merge.
 
 Scripts on this site are STATIC FILES (public/js/) — never component

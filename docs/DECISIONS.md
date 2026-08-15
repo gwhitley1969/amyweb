@@ -3247,3 +3247,20 @@ outbound reference; the other providers remain unnamed in all site
 text. Alternatives rejected: not linking (operator wants the tap
 path); linking to a hypothetical Amy-only page on the MA site (none
 exists). The home link stays the wordmark's alone.
+
+## 2026-08-15 — Docs reconciled with the header increment (operator-directed sweep)
+
+Context: operator directed a documentation pass covering the day's
+header work (PR #102: SVG badge rebuild → brightened chrome →
+enlargement → full-badge pick → phone centering → foldable fix →
+hybrid nav → menu-icon size → desktop badge scale → outbound badge
+link). The per-decision records already existed (four DECISIONS
+entries, CHANGELOG, CLAUDE.md constraint-2 exception); this sweep
+reconciles the derived docs: (1) BUILD_SPEC component inventory now
+describes the as-built dual-brand hybrid-nav header (the old
+"CSS-first mobile menu if achievable" line was three designs stale);
+(2) REDESIGN.md settled-decisions table — the MA-badge row moves to
+Built with the link-out recorded, and the hybrid nav gets its own row;
+(3) compliance/README's "what the linter cannot see" section gains
+outbound-link destination screening, with the badge link as the
+recorded precedent. Docs-only commit; no gates or content affected.

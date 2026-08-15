@@ -45,6 +45,16 @@ pink."** Seven gaps, each a test every design decision must move:
 
 ## Carousel record (all three films cleared 2026-08-14)
 
+- **2026-08-15 refinements (operator + Amy, preview-approved):** the
+  section head is the single Playfair line "The studio. On screen." —
+  the loved phrase promoted from the old eyebrow, eyebrow deleted
+  (PR #104); the studio reel plays at **0.5×** via per-slide
+  data-rate/playbackRate, tuned 0.8 → 0.65 → 0.5 across three same-day
+  reviews, rate re-asserted at playback start for Safari/iOS
+  (PR #105). 0.5 is the floor (engines clamp below) — if the reel
+  still reads fast someday, the lever is re-editing the reel, not the
+  rate. The Evolus films always play at 1× (carried as-is).
+
 - **Slides:** `commercial-j1.mp4` / `commercial-studio.mp4` /
   `commercial-j2.mp4` (public/media/), muted H.264 renditions of the
   operator's masters; captions mirror each film's on-screen text.

@@ -3289,3 +3289,27 @@ for); collapsing to one token (loses the role knob). Legibility
 escape hatch recorded: if small caps shimmer on low-DPI screens,
 thicken weight via the variable axis (400–900) — never a second
 family.
+
+## 2026-08-15 — The studio reel plays at 0.8× (player-side rate, not a re-encode)
+
+Context: operator + Amy — carousel slide 2 (Amy's own studio reel)
+"plays incredibly fast"; slow it a little. Decision: per-slide
+playbackRate at the player (data-rate="0.8" on the slide,
+defaultPlaybackRate+playbackRate set when the facade builds the
+video, re-asserted at loadedmetadata/play because some engines
+reset the rate when playback starts), NOT an ffmpeg re-encode.
+First pass shipped 0.8; operator review same day: still too fast —
+retuned to 0.65, then to 0.5 (third review:
+still too fast — the knob working as designed; 0.5 is also the
+practical floor, engines clamp below it). Why: the master rendition stays
+untouched; the number is a preview-tunable knob; VTT captions and the
+progress fill key off media time so they stay in sync at any rate;
+browsers that ignore the property play at 1× (exactly the old
+behavior); the 60fps master still renders ~48fps of motion at 0.8× —
+smooth without interpolation and its artifact risk. Compliance
+scoping: the rate applies ONLY to Amy's own site-authored reel — the
+two Evolus films' presentation is carried as-is (their never-alter
+rule is untouched; they stay at 1× and the slide type marks rate as
+Amy's-films-only). Alternatives rejected: re-encode with setpts
+(bakes the tempo, slower iteration, second copy to version);
+minterpolate slow-mo (artifact risk, not asked for).

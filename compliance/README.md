@@ -67,8 +67,12 @@ vets for photos and video contact sheets; operator overrides for
 manufacturer films carried as-is and for Amy's own published content).
 The home-carousel films and their caption files (three cleared
 2026-08-14; the team film 2026-08-17, constraint-2 override) ship under
-exactly this regime. A green `lint:claims` says nothing about media
-content. Photo replacements follow docs/RUNBOOK.md "Replacing site
+exactly this regime. Since 2026-08-17 the film FILES live outside the
+repo entirely (Blob, served as media.needlegirlie.com — RUNBOOK
+"Publishing a film"): the frame-level screen and DECISIONS entry
+happen BEFORE the upload, and the caption .vtt stays in-repo precisely
+so this screening regime keeps a git audit trail. A green
+`lint:claims` says nothing about media content. Photo replacements follow docs/RUNBOOK.md "Replacing site
 photography" — frame-level screen first, releases confirmed on the
 operator's record, DECISIONS entry per page.
 

@@ -34,6 +34,29 @@ One-time configuration the pipeline expects. Names must match exactly.
   was removed.
 - The deployment token above is the only coupling between GitHub and SWA.
 
+## GitHub branch protection (added 2026-08-17 — takedown-era guard)
+
+Both branches carry required status checks (the repo's first branch
+protection), created via `gh api` after PR #114: `phase-c` requires
+`takedown-revert-guard`; `main` requires `gutted-merge-guard`. They
+enforce the two-step relaunch topology (RUNBOOK "Relaunching after
+the takedown"). Inspect with
+`gh api repos/gwhitley1969/amyweb/branches/<branch>/protection`.
+Rules: never add `verify-and-deploy` as required (its docs
+paths-ignore would deadlock docs-only PRs on a check that never
+reports), and the protection contexts retire WITH the guard workflow
+in the relaunch PR (DECISIONS 2026-08-17).
+
+## Media origin (added 2026-08-17)
+
+The films live in Blob, not the repo: storage account
+`stngmediag2g4stj5m2gts` (rg-needlegirlie-web), container `media`,
+served only as `https://media.needlegirlie.com` through the existing
+Front Door profile. Publishing/replacing a film is an `az storage
+blob upload` + a caption PR — the full procedure is RUNBOOK
+"Publishing a film". Nothing here needs GitHub secrets; uploads use
+your `az` login.
+
 ## OIDC federated credential (no publish-profile secrets)
 
 App registration → Certificates & secrets → Federated credentials → GitHub

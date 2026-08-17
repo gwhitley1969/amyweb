@@ -180,7 +180,11 @@ silently following it. Known superseded points from earlier briefs:
   (target: mobile nav at most, CSS-first preferred). Budget: ≤ 30 KB total JS.
   First sanctioned consumer (2026-08-14, operator-directed): the home video
   carousel's ~3KB static script — served from `public/js/` because the CSP
-  refuses inline scripts (DECISIONS 2026-08-14). The budget stands.
+  refuses inline scripts (DECISIONS 2026-08-14). Second sanctioned
+  consumer (2026-08-17, operator-directed, SHIPS DARK): the self-hosted
+  Plausible tracker (~3.6KB, `public/js/plausible.js`) — renders only
+  after the operator's relaunch-day flip (BUILD_SPEC §11). The budget
+  stands.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.
 - **Images** through `astro:assets` (responsive, AVIF/WebP, lazy below fold).
@@ -237,6 +241,6 @@ silently following it. Known superseded points from earlier briefs:
 ├── config/swa/       staticwebapp.config templates (production / preview)
 ├── compliance/       banned-patterns.json + linter docs
 ├── scripts/          lint-claims.mjs, check-approvals.mjs, generate-swa-config.mjs
-├── infra/            Bicep (Front Door, SWA, DNS) — optional, see BUILD_SPEC §15
+├── infra/            Bicep (Front Door, SWA, DNS, media storage) — see BUILD_SPEC §15
 └── .github/workflows CI/CD
 ```

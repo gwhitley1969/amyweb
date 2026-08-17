@@ -170,6 +170,41 @@ Master files stay in the operator's archive (C:\Amy\Videos,
 C:\Amy\New Pics) — renditions are re-derivable; the Blob copy is
 serving infrastructure, not the archive.
 
+## Turning on analytics (Plausible — prepped 2026-08-17, ships dark)
+
+Everything is wired and gated behind `siteConfig.analytics`
+(src/lib/siteConfig.ts); while it ships dark the site is byte-identical
+to the no-analytics build. The flip is the operator's act, intended
+for relaunch day so the baseline starts at day one:
+
+1. Create the Plausible account (plausible.io, ~$9/mo — client
+   pass-through) and add the site `needlegirlie.com`.
+2. In `src/lib/siteConfig.ts` set `enabled: true` and
+   `provider: 'plausible'`. That one edit does everything in the same
+   build: BaseLayout emits the self-hosted tracker
+   (public/js/plausible.js, `data-api` pointing at plausible.io), the
+   privacy page swaps its analytics bullet (its launch wording
+   promises "this page will be updated first" — the conditional keeps
+   that promise atomically), and the generated CSP admits
+   plausible.io in `connect-src` because the built page now carries
+   the script (`generate-swa-config.mjs` sniffs dist/ — the header
+   cannot drift from the code).
+3. `npm run verify` → PR → preview: confirm the script tag renders,
+   the privacy page shows the Plausible wording, and — on the
+   preview — the Network tab shows the `/api/event` POST returning
+   202. Watch the / perf gate: the tracker adds ~3.6KB of JS (budget
+   headroom is ample, but read the numbers).
+4. Merge on the operator's word. Verify events arrive in the
+   Plausible dashboard once production traffic exists.
+
+To turn it OFF, revert the two values — script, CSP widening, and
+privacy wording all retract in the same build. The self-hosted
+tracker file stays in the repo either way (dead weight ~3.6KB,
+referenced by nothing while dark). Custom events: `track()` in
+src/lib/analytics.ts is wired but has no callers — the site ships no
+client-side component code; wiring the first event is a normal PR
+when a consumer exists.
+
 ## Replacing site photography
 
 The per-pic workflow (established over the 2026-08-17 photo round —

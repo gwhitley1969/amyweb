@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-17 — Cookieless analytics wired, shipped dark
+
+- Plausible is fully prepped behind a config flag and ships DARK —
+  the built site is byte-identical until the operator flips
+  `siteConfig.analytics` at relaunch. One flip does everything in the
+  same build: self-hosted tracker (script-src stays 'self'), privacy
+  page swaps its analytics bullet (keeping its own "updated first"
+  promise), and the generated CSP admits the event endpoint only when
+  the page actually ships the script. External-audit Finding 6;
+  procedure in RUNBOOK "Turning on analytics".
+
 ### 2026-08-17 — Films move to their own media origin
 
 - The six .mp4 films now serve from `media.needlegirlie.com` — Blob

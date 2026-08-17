@@ -723,12 +723,21 @@ action.
 
 ## 11. Analytics specification
 
-- **Cookieless, consent-banner-free.** Default: **Plausible** script
-  (`{{ANALYTICS_PROVIDER}}` — operator confirms; billing sits with the client
-  per the engagement's pass-through model). Abstract behind
-  `src/lib/analytics.ts` (`track(event, props?)`) so the vendor can change
-  without touching components. If the provider is unconfirmed at build time,
-  ship the abstraction with a no-op stub and a config flag.
+- **Cookieless, consent-banner-free.** `{{ANALYTICS_PROVIDER}}` resolved
+  NONE at launch (2026-08-04); **Plausible chosen and fully prepped
+  2026-08-17** (operator decision, external-audit Finding 6 — billing
+  sits with the client per the engagement's pass-through model, ~$9/mo).
+  The wiring ships DARK: the tracker is **self-hosted**
+  (`public/js/plausible.js` — the static-script rule; `script-src`
+  stays `'self'`), BaseLayout emits it only when `siteConfig.analytics`
+  is enabled, the privacy page swaps its analytics bullet in the same
+  build, and `generate-swa-config.mjs` admits `plausible.io` in
+  `connect-src` only when the built page actually shipped the script.
+  The flip is the operator's act at relaunch — procedure in
+  docs/RUNBOOK.md "Turning on analytics". Abstraction stands:
+  `src/lib/analytics.ts` (`track(event, props?)`) so the vendor can
+  change without touching components; nothing calls `track()` yet
+  (zero client-side component code) — pageviews are the v1 signal.
 - **Events:** `book_click`, `call_click`, `skinbetter_click`,
   `directions_click`, `app_badge_click` (later), plus per-treatment page
   views (automatic).

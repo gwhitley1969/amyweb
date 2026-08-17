@@ -3589,3 +3589,48 @@ NAMED budget line instead of an invisible one; re-verify unit rates
 against the operator's Cost Management view before quoting the client
 a figure — the audit's caution). The SOW video-hosting narrative
 update is the operator's document — flagged, with drafting offered.
+
+## 2026-08-17 — Plausible prepped and gated dark (external-audit Finding 6)
+
+Context: audit Finding 6 — no analytics means no way to answer "did
+the redesign work" at relaunch or retainer-renewal; the audit's own
+correction stands: a true before/after is unobtainable (the site was
+live for hours), so the prize is a forward baseline from relaunch
+day. Operator decision (AskUserQuestion 2026-08-17): Plausible at
+relaunch (~$9/mo, client pass-through), prepped now so the flip is a
+config edit on launch day, not a build. Cookieless satisfies hard
+constraint 5; GA4 remains prohibited (BUILD_SPEC §11).
+
+Decision: the whole integration ships DARK behind
+siteConfig.analytics (enabled:false / provider:'none'; the fields
+carry widened types so the flip isn't a type error). Three pieces
+flip together in one build, so no state can lie: (1) BaseLayout
+emits the tracker only when enabled; (2) the privacy page's
+analytics bullet is a build-time conditional — its launch wording
+promises "this page will be updated first," and the conditional
+keeps that promise atomically; (3) generate-swa-config.mjs sniffs
+the BUILT dist/index.html for the script tag and widens the CSP only
+when the page actually shipped it — the header cannot drift from the
+code, and the dark-state artifact is byte-identical to before. The
+tracker is SELF-HOSTED (public/js/plausible.js, vendor file with
+provenance header, fetched 2026-08-17, 2,841 bytes upstream): the
+site's own rule says scripts are static files in public/js/, and
+self-hosting keeps script-src at 'self' — only the /api/event POST
+leaves the origin (connect-src). track() in analytics.ts is wired to
+window.plausible (the script exposes it, queue included) but has no
+callers — zero client-side component code exists; pageviews are the
+v1 signal and the first custom event is a normal PR later.
+
+Alternatives rejected: the hosted script tag from plausible.io
+(would widen script-src to a third-party CDN and drew the SRI
+concern — SRI is incompatible with their versionless endpoint;
+self-hosting removes the whole surface at the cost of a documented
+manual re-fetch on vendor updates); a JSON side-channel for the CSP
+flag (the dist sniff cannot drift; a second flag can); flipping now
+(operator: relaunch waits for the round — a dark-period baseline of
+zero visitors is worthless and the fee starts with the flip).
+
+Consequences: launch-day analytics = account + two-value siteConfig
+edit + normal verify/PR (RUNBOOK "Turning on analytics"); the / perf
+gate re-measures with ~3.6KB more JS at flip (ample headroom, read
+the numbers); privacy wording, CSP, and script can never disagree.

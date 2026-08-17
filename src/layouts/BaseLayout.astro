@@ -46,8 +46,12 @@ const jsonLd = JSON.stringify(localBusiness());
     {/* The one family (§13): this latin woff2 now serves body AND display,
         so the preload covers nearly all text on the page. */}
     <link rel="preload" href={playfairWoff2} as="font" type="font/woff2" crossorigin />
-    <script type="application/ld+json" set:html={jsonLd} />
-    {pageJsonLd.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+    {/* JSON-LD data blocks — is:inline states explicitly what Astro
+        already infers (attribute-bearing scripts skip processing);
+        CSP is unaffected: non-executable script types are data, not
+        script-src subjects. External-audit Finding 7 housekeeping. */}
+    <script is:inline type="application/ld+json" set:html={jsonLd} />
+    {pageJsonLd.map((obj) => <script is:inline type="application/ld+json" set:html={JSON.stringify(obj)} />)}
     {analyticsOn && (
       <script
         is:inline

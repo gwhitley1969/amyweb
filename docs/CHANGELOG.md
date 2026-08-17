@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-17 — Zero-hint check (audit housekeeping)
+
+- `npm run check` now reports 0 errors / 0 warnings / **0 hints**:
+  explicit `is:inline` on the two JSON-LD data blocks, and the two
+  Node gate-scripts' `require` locals renamed out of TypeScript's
+  global-shadowing false positive (both were genuinely in use).
+  External-audit Finding 7's last in-repo item.
+
 ### 2026-08-17 — Relaunch readiness: the audit's paper trail
 
 - The external architecture review is committed

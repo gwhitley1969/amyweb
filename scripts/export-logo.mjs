@@ -20,9 +20,9 @@ import { createRequire } from 'node:module';
 import { resolve } from 'node:path';
 import { findChrome } from './lib/chrome.mjs';
 
-const require = createRequire(import.meta.url);
-const puppeteer = require('puppeteer');
-const sharp = require('sharp');
+const nodeRequire = createRequire(import.meta.url);
+const puppeteer = nodeRequire('puppeteer');
+const sharp = nodeRequire('sharp');
 
 const args = process.argv.slice(2);
 const transparent = args.includes('--transparent');

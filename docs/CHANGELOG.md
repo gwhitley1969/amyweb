@@ -6,6 +6,31 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-17 — The /services strip wears Amy's new photography
+
+- All three strip photos replaced with Amy's picks from the new
+  professional shoot (photo round page 2): Amy at a client's brow in
+  window light; the fine-syringe moment at a reclined client's lower
+  face; Amy showing treatment products to a male client. All three
+  client releases confirmed on file (DECISIONS 2026-08-17). The
+  outgoing frames had no other pages left using them and were
+  retired.
+
+### 2026-08-17 — Every photo wears the arch
+
+- Amy's direction: the light-pink arch frame from the homepage
+  category doors now frames every picture on the site — the /services
+  strip, both /about photos (the studio print arches inside its white
+  matte), the /injector-training portrait, and all seventeen
+  treatment-page photos. One shared recipe (`.ng-arch`); the
+  treatment pages arch by stylesheet alone, so no treatment content
+  changed and no clinician approvals reset.
+- Stays as it was, by design: the hero backdrop, the film carousel
+  and treatment film players (the Evolus films' on-screen safety
+  information ships complete and uncropped), the Instagram post at
+  the bottom of the homepage (Amy's named exception), and the lip
+  style-guide diagram. DECISIONS 2026-08-17.
+
 ### 2026-08-17 — The Visit Amy card names the studio
 
 - The location card (home, /visit) now shows "Mobile Aesthetics" on

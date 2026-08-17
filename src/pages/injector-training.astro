@@ -93,7 +93,7 @@ const jsonLd = [
           <CTAButton variant="call" />
         </div>
       </div>
-      <figure class="training-portrait">
+      <figure class="training-portrait ng-arch">
         <Image
           src={amyPortrait}
           alt="Amy Palacios, FNP, in her embroidered scrubs."
@@ -211,14 +211,14 @@ const jsonLd = [
 </BaseLayout>
 
 <style>
-  /* Editorial frame + light-wash grade — the .about-portrait recipe,
-   * hand-copied (page-local frames stay page-local; the shared media-*
-   * classes are scoped to .treatment-body and unreachable here). */
+  /* Light-wash grade — the .about-portrait recipe, hand-copied
+   * (page-local frames stay page-local; the shared media-* classes are
+   * scoped to .treatment-body and unreachable here). Frame shape +
+   * border come from .ng-arch (global.css) — the sitewide arch motif,
+   * 2026-08-17. */
   .training-portrait {
     position: relative;
     margin: 0;
-    border: 1px solid var(--ng-hairline);
-    overflow: hidden;
   }
   .training-portrait img {
     display: block;

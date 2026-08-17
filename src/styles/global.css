@@ -392,6 +392,26 @@ body:not([data-surface='noir']) {
   transform: translateY(1px);
 }
 
+/* THE ARCH — the house photo-frame motif (client direction, sitewide
+ * rollout 2026-08-17), generalized from the category doors. Wear it on
+ * the framing element (a figure that clips its img) or on an img
+ * directly (prints inside a white matte). Geometry: when the 999px top
+ * pair overflows the box, CSS scales ALL four radii by one uniform
+ * factor, so on a portrait box the top resolves to a true semicircle
+ * (radius = half the width) and the 12px feet collapse toward square —
+ * a Roman arch. The shape only reads as architecture on portrait
+ * boxes; landscape sources get a 4:5 display crop at their call sites.
+ * Exempt by design: the home hero (full-bleed backdrop), all film
+ * stages and posters (the Evolus films' burned-in safety information
+ * ships complete and uncropped — an arch mask would clip it), the
+ * home-page Instagram post (the client's named exception), the lip
+ * style-guide diagram (an arch would cut its labels), and brand marks. */
+.ng-arch {
+  border-radius: 999px 999px 12px 12px;
+  border: 1px solid var(--ng-magenta-600);
+  overflow: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -3415,3 +3415,76 @@ height; animated mid-states go unaudited — acceptable, they are
 transient by construction and the compliance rule already bans
 entrance animation on compliance text. A failure now means the
 element's FINAL colors fail.
+
+## 2026-08-17 — The arch motif goes sitewide (every photo, named exemptions)
+
+Context: Amy directs (via operator) that all pictures throughout the
+site wear the light-pink arches from the homepage category doors —
+except the pic at the bottom of the homepage. Scope pinned by operator
+answers (2026-08-17): the HERO stays exempt (a full-bleed backdrop,
+not a framed picture); ALL FILM STAGES stay exempt — the carousel
+posters/stage and both treatment-page film players (an arch mask
+visually clips film corners, and the Evolus commercials' burned-in
+safety information ships complete and uncropped — flagged, exemption
+chosen); the bottom pic is the framed Instagram post (.nc-post keeps
+its square matte). Also exempt: lip-style-guide.png (a labeled
+diagram — an arch or crop would cut its labels) and brand marks.
+
+Decision: one shared `.ng-arch` utility in global.css — the door
+recipe verbatim (999px 999px 12px 12px radius, 1px magenta-600
+hairline, overflow hidden). The doors, /services strip, /about
+portrait, and /injector-training portrait consume it by class;
+treatment bodies get a documented selector mirror in TreatmentLayout
+(`.media-figure img:not([src*="lip-style-guide"])`) because adding
+classes in MDX would reset clinicianApproved — the rollout touches
+ZERO treatment content. Matted prints keep matte/tilt/shadow; the img
+arches inside them (a matted arch print). Geometry: all 35 in-use
+assets measured first; the arch reads as architecture only on
+portrait boxes (CSS scales overflowing radii uniformly — landscape
+boxes render a squat half-ellipse), so treatment figures take a 4:5
+display crop (CSS-only — identical derivatives served, zero byte
+change) and the full-width bands move 16:9 → 9:8, the widest arch
+that keeps straight feet. fine-gauge-detail's baked 16:9 derivative
+now displays through the 9:8 window (center slice, verified by eye);
+recorded upgrade path: a server-side re-crop at the consolidated
+re-approval round.
+
+Alternatives rejected: arch at source ratio (landscape sources read
+as a bug, not a motif); per-image MDX recrops (twelve
+clinicianApproved resets for a visual change); propagating the doors'
+pink plate along with the arch (the plate is door-card anatomy, not
+the frame).
+
+Consequences: every photo frame now derives from one declaration plus
+one documented mirror; the three hand-copied square-frame recipes
+lost their border/overflow lines but keep their washes and crops.
+studio-wide's alt still describes the full frame ("two clients")
+while the 4:5 window fully shows one — a presentational crop; the alt
+stays (alt edits are MDX edits). CaricatureWindow (the orphaned
+16px-foot arch variant) is untouched.
+
+## 2026-08-17 — /services strip: photo round page 2 (screening + release record)
+
+Context: operator + Amy assign the strip's three frames by number from
+the professional shoot in C:\Amy\New Pics: left = 6, middle = 7,
+right = 8 (all 1067x1600, above the slot's 760w delivery — retina
+rule holds; dedup-hashed against the repo, no duplicates). Screened
+frame-level: 6 — Amy at a seated client's brow in window light, no
+legible text or products; 7 — Amy guiding a fine syringe at a
+reclined client's lower face, decorative "DREAM LAUGH DANCE" wall
+print in background (benign), no legible product text; 8 — Amy
+(embroidery = her own name, factual-identity precedent) showing two
+product boxes to a male client — box labels and the background
+banner fragment are ILLEGIBLE at source resolution, so no claim is
+conveyed; the arch's 4:5 window crops most of the banner anyway
+(verified by eye). All three pictured clients are identifiable —
+RELEASES CONFIRMED ON FILE for website use (operator, 2026-08-17 —
+the confirmation is the record, weigh-in-photo pattern). Decision:
+ship as content-named assets (treatment-window-light,
+lower-face-appointment, male-client-products — never slot-named);
+alts rewritten factual-generic (the frames do not self-identify a
+treatment line, and alts never invent one). The outgoing assets
+(forehead-treatment, lip-filler-detail, male-client-treatment)
+became zero-reference after the swap — deleted (PR #101 orphan
+precedent; git history preserves the frames). Crops verified in the
+arch at 390/1280 (50% 20% anchor holds every face).

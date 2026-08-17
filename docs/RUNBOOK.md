@@ -11,8 +11,12 @@ assumes `az` and `gh` CLIs authenticated against the client tenant
 > direction (revert commit `e57a4448`; DECISIONS 2026-08-05 takedown
 > entry) pending a client review round. Relaunch is TWO-STEP — see
 > "Relaunching after the takedown" under Rollback. While the revert is
-> main's tip: never merge `main` into `phase-c` (including PR #95's
-> "Update branch" button) and never close PR #95. The `-95` preview
+> reachable from `main` (it is no longer the tip — PR #99 moved past
+> it — but ancestry is what matters): never merge `main` into
+> `phase-c` (including PR #95's "Update branch" button) and never
+> close PR #95. Since 2026-08-17 the **relaunch guard** enforces this
+> mechanically (`.github/workflows/relaunch-guard.yml`, required on
+> both branches — see the relaunch section). The `-95` preview
 > cannot deploy during the takedown (merge ref conflicted by design);
 > the full-site demo preview is **PR #97**'s environment.
 
@@ -192,6 +196,23 @@ During the takedown: never merge `main` into `phase-c`, never press
 survives for relaunch). Interim previews come from sub-PRs into
 `phase-c` — PR #97 is the standing full-site demo (comment-only diff,
 never merges; close it without merging when no longer needed).
+
+**The relaunch guard (2026-08-17, external-audit Finding 1):**
+`.github/workflows/relaunch-guard.yml` enforces both halves of the
+hazard as required status checks — `takedown-revert-guard` (PRs into
+`phase-c` + pushes to it) fails if the takedown revert is reachable,
+i.e. if `main` leaked in; `gutted-merge-guard` (PRs into `main`)
+fails if a phase-c-derived merge would drop any phase-c file, i.e.
+the naive one-step merge. Why the second matters: simulated
+2026-08-17 — the naive merge silently deletes ~48 files (all twelve
+treatment MDX pages, both treatment films, every photo) with no
+conflict on any of them, and the build still passes. A conflicted PR
+runs no workflows, but it also cannot merge; the guard fires exactly
+when someone hand-resolves PR #95's conflicts and the merge ref
+becomes computable. **The relaunch PR retires this workflow** (with
+a DECISIONS entry): after the two-step re-sync the revert is a
+harmless ancestor everywhere and the first job would fail every PR
+forever.
 
 ## Manual cache purge
 

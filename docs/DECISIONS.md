@@ -3488,3 +3488,46 @@ treatment line, and alts never invent one). The outgoing assets
 became zero-reference after the swap — deleted (PR #101 orphan
 precedent; git history preserves the frames). Crops verified in the
 arch at 390/1280 (50% 20% anchor holds every face).
+
+## 2026-08-17 — Relaunch guard: required checks against the takedown topology (external-audit Finding 1)
+
+Context: an external principal-architect review (fresh clone, no
+session context — docs/AUDIT-2026-08-17-external-review.md) triaged
+seven findings; Finding 1 is the only High item needing no operator
+decision. The takedown revert `e57a4448` changed main's tree, not
+its history, so git believes main already contains the launched
+site. Both failure modes were reproduced first-hand in a throwaway
+clone before building anything (the audit's own §0 rule): merging
+main into phase-c applies the takedown deletions to phase-c; the
+naive phase-c → main merge silently drops ~48 files — all twelve
+treatment MDX pages, both treatment films, every photo — with zero
+conflicts on them and a passing Astro build. The RUNBOOK's two-step
+procedure verified correct: 166 files, zero missing vs phase-c, one
+extra (`studio-counter-portrait.jpg`, the placeholder orphan slated
+for deletion in the relaunch PR).
+
+Decision: `.github/workflows/relaunch-guard.yml` with two jobs, both
+becoming required status checks (branch protection created for the
+first time on both branches — neither had any): `takedown-revert-
+guard` on PRs into phase-c and pushes to phase-c (fails if the
+revert is reachable — the push trigger makes an "Update branch"
+slip on PR #95 loudly red immediately); `gutted-merge-guard` on PRs
+into main, beyond the audit's ask (fails if a phase-c-derived merge
+ref is missing any file from origin/phase-c's current tree — this
+one guards the actual catastrophe, and stays quiet for legitimate
+deletions because those are already gone from phase-c's tree at run
+time). No paths filter on purpose: a path-filtered required check
+never reports and deadlocks merges — only the guard jobs are marked
+required, never `verify-and-deploy`, whose paths-ignore would do
+exactly that to docs-only PRs. The relaunch PR retires the workflow
+(post-relaunch the revert is a harmless ancestor everywhere).
+
+Alternatives rejected: prose-only RUNBOOK warnings (they existed and
+the hazard remained one button-press away); detecting a future
+revert-of-revert instead of retiring the guard (its SHA is unknowable
+now); requiring `verify-and-deploy` too (docs-only PR deadlock).
+
+Consequences: the landmine stays defused for the whole extended dark
+period (operator decision same day: stay dark until the redesign
+round completes). GitHub settings now carry branch protection — a
+new place where repo behavior is configured outside the tree.

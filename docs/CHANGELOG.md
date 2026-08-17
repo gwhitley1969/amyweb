@@ -6,6 +6,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-17 — Relaunch guard: the takedown's git landmine gets a tripwire
+
+- New CI workflow (`relaunch-guard.yml`, required on both branches)
+  mechanically enforces what the RUNBOOK could only say in prose:
+  merging `main` into `phase-c` now fails a check (the takedown
+  revert would delete the launched site), and a naive one-step
+  `phase-c` → `main` merge fails a check (simulated 2026-08-17: it
+  silently drops ~48 files — all twelve treatment pages included —
+  with no conflict and a passing build). First item from the
+  2026-08-17 external architecture review (Finding 1); the relaunch
+  PR retires the workflow.
+
 ### 2026-08-17 — The footer names the studio
 
 - The footer's left block now shows "Mobile Aesthetics" between the

@@ -3531,3 +3531,61 @@ Consequences: the landmine stays defused for the whole extended dark
 period (operator decision same day: stay dark until the redesign
 round completes). GitHub settings now carry branch protection — a
 new place where repo behavior is configured outside the tree.
+
+## 2026-08-17 — Media origin built: films move to Blob behind Front Door (external-audit Finding 5)
+
+Context: audit Finding 5 named four problems with self-hosted video —
+the client-facing SOW says video hosting costs $0 and is embedded
+(now false), egress scales with marketing success unmodeled, every
+re-encode grows git history forever (no LFS rule), and media is
+coupled to code (swapping a film = commit + build + deploy + purge).
+Operator decision same day (AskUserQuestion): build the Blob origin
+NOW, before relaunch. The audit's companion suggestion — a Git LFS
+rule for *.mp4 — was REJECTED with the flag raised: GitHub's free LFS
+bandwidth (1GB/mo) dies in days against ~53MB × this repo's CI
+cadence, and default actions/checkout (lfs:false) would silently
+deploy pointer files as videos. Blob migration makes LFS moot: no
+future .mp4 enters the repo at all.
+
+Decision: storage account (`stngmedia…`, Standard_LRS, anonymous
+blob-read on container `media` only) + `media.needlegirlie.com`
+custom domain on the EXISTING afd-needlegirlie profile, route
+`media` (originPath /media, IgnoreQueryString, no compression) bound
+only to that hostname — all in Bicep (infra/storage.bicep +
+frontdoor.bicep + dns.bicep additions), applied via the documented
+sub-level deployment after a what-if drift check (result: template
+still matches live — every Modify was reference-resolution noise,
+omitted service defaults, or the budget startDate the RUNBOOK's own
+command sets). Design refinement over the plan: **only the .mp4
+files move; the .vtt captions STAY in public/media/** — captions are
+compliance-screened text whose git audit trail matters, and keeping
+them same-origin eliminates the whole CORS surface (same-origin
+tracks need no CORS; cross-origin video plays fine without it), so
+zero JS changes and no crossorigin attributes. The stable hostname
+is deliberate: previews play exactly what production plays
+(REDESIGN's recorded rationale). Code paths: siteConfig.mediaBase;
+VideoCarousel data-file goes absolute; TreatmentVideo REWRITES its
+"/media/…" prop internally because that prop lives in treatment MDX
+and any MDX edit resets clinicianApproved (constraint 4 — the arch
+motif's component-layer-mirror precedent; zero flags reset). CSP
+media-src gains the host in both templates; the SWA /media/* cache
+route stays (it now serves only captions).
+
+Alternatives rejected: Git LFS (above); moving .vtt to Blob with
+ACAO * (loses the captions' git trail for zero gain); keeping mp4 in
+repo with LFS-less growth (the audit's status quo); a separate AFD
+profile for media (double the fixed cost for nothing).
+
+Consequences: repo tree −53MB going forward (history unchanged — the
+no-rewrite stance stands); film publishing is an upload + PR for the
+caption (RUNBOOK "Publishing a film"); replacing a film in place
+needs an edge purge (max-age=86400) — the procedure prefers new
+filenames; local dev and previews need internet to play films; Azure
+run-rate +~$1–2/mo at today's traffic (production is dark, so the
+metered lines start near zero: LRS storage of 53MB is fractions of a
+cent; egress is the line that scales — a viewer who watches the whole
+carousel pulls ~30MB, so cost tracks marketing success and is now a
+NAMED budget line instead of an invisible one; re-verify unit rates
+against the operator's Cost Management view before quoting the client
+a figure — the audit's caution). The SOW video-hosting narrative
+update is the operator's document — flagged, with drafting offered.

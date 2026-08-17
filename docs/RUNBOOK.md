@@ -90,8 +90,12 @@ treatment content exists.
 ## Adding or replacing a homepage commercial
 
 The home carousel (src/components/VideoCarousel.astro; behavior in
-public/js/video-carousel.js) plays muted films from public/media/.
-To add or swap one:
+public/js/video-carousel.js) plays muted films from the media origin
+(`https://media.needlegirlie.com` — Blob behind the same Front Door,
+built 2026-08-17; see "Publishing a film" below). Captions stay in
+public/media/ — in-repo, same-origin, ON PURPOSE (compliance-screened
+text keeps its git audit trail, and same-origin tracks need no CORS).
+To add or swap a film:
 
 1. **Compliance screen FIRST** (frame-level, house method): contact
    sheet via `ffmpeg -i in.mp4 -vf "fps=1/2,scale=480:-1,tile=5x4"
@@ -101,7 +105,9 @@ To add or swap one:
    gets its DECISIONS entry before it ships.
 2. **Encode the web rendition** (muted, ~2–4 Mbps):
    `ffmpeg -i master.mp4 -an -c:v libx264 -crf 23 -preset medium
-   -movflags +faststart public/media/commercial-<name>.mp4`
+   -movflags +faststart commercial-<name>.mp4` (a working file — the
+   rendition is uploaded to the media origin, never committed), then
+   **publish it** per "Publishing a film" below.
 3. **Poster frame:** `ffmpeg -ss <t> -i rendition.mp4 -frames:v 1
    -q:v 2 src/assets/photos/commercial-<name>-poster.jpg` (pick a
    visually simple frame — posters count toward the / image budget).
@@ -124,6 +130,45 @@ To add or swap one:
 
 Scripts on this site are STATIC FILES (public/js/) — never component
 `<script>` blocks; see the troubleshooting entry below for why.
+
+## Publishing a film (media origin)
+
+Since 2026-08-17 (DECISIONS same date, external-audit Finding 5) the
+.mp4 renditions live in Blob storage served as
+`https://media.needlegirlie.com/<file>.mp4` — Front Door route
+`media` → container `media` on the storage account (name via
+`az storage account list -g rg-needlegirlie-web -o table`; Bicep in
+`infra/storage.bicep`). Films are NOT in git; captions (.vtt) ARE
+(public/media/, shipped by normal PR alongside the film's DECISIONS
+entry).
+
+1. Upload (after the compliance screen and DECISIONS entry):
+
+   ```
+   az storage blob upload --account-name <account> -c media \
+     -f commercial-<name>.mp4 -n commercial-<name>.mp4 \
+     --content-type video/mp4 \
+     --content-cache-control "public, max-age=86400" --auth-mode key
+   ```
+
+2. Verify before linking: `curl -sI -r 0-1023
+   https://media.needlegirlie.com/commercial-<name>.mp4` → expect
+   `206`, `Content-Type: video/mp4`, `Accept-Ranges: bytes` (seeking
+   depends on Range support).
+3. **Replacing a file in place requires a purge** (edge caches it for
+   a day): `az afd endpoint purge -g rg-needlegirlie-web
+   --profile-name afd-needlegirlie --endpoint-name needlegirlie
+   --content-paths '/commercial-<name>.mp4'` — prefer a NEW filename
+   (and a normal PR for the reference) over in-place replacement;
+   old files are deleted with `az storage blob delete` once
+   zero-referenced.
+4. The caption file and any slide/label change ship as a normal PR;
+   previews play the same media host as production, so a film is
+   reviewable on the PR preview the moment the upload lands.
+
+Master files stay in the operator's archive (C:\Amy\Videos,
+C:\Amy\New Pics) — renditions are re-derivable; the Blob copy is
+serving infrastructure, not the archive.
 
 ## Replacing site photography
 
@@ -240,8 +285,14 @@ All Azure state is captured in `infra/`. To apply changes:
 
 ```
 az deployment sub create --location eastus2 --template-file infra/main.bicep \
-  --parameters budgetStartDate=<yyyy-MM-01>
+  --parameters budgetStartDate=2026-07-01
 ```
+
+`budgetStartDate` is pinned: a budget's start date is IMMUTABLE (the
+API rejects updates — learned 2026-08-17 when a re-deploy passed the
+then-current month and only the budget module failed). Always pass the
+live budget's own anchor, 2026-07-01. Run
+`az deployment sub what-if` first and read it before applying.
 
 Idempotent — safe to re-run. `budgetStartDate` is the only parameter without
 a default, so it must be supplied each run; `location`,

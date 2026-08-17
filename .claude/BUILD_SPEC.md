@@ -166,9 +166,10 @@ sign, and a soft shimmer on the noir accent phrase carry on unchanged.
 Photography wears a house grade — cinema-noir on dark bands, a light
 wash on light bands. Motion is scroll-driven and sparse; nothing pulses
 except the sign's slow breath. Since 2026-08-14 the noir shell includes
-the home's cinematic video stage — the three commercials crossfading
+the home's cinematic video stage — four films crossfading
 chromeless on full-bleed noir (the operator's "Audi treatment";
-DECISIONS 2026-08-14; the stage-surface question, noir vs
+DECISIONS 2026-08-14; the fourth film joined 2026-08-17; the
+stage-surface question, noir vs
 arch-on-ombre, is an open client call — docs/REDESIGN.md). Playfulness is retired from
 the design language; personality lives in the type, the photography, and
 Amy's singular voice.

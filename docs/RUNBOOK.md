@@ -110,6 +110,38 @@ To add or swap one:
 Scripts on this site are STATIC FILES (public/js/) — never component
 `<script>` blocks; see the troubleshooting entry below for why.
 
+## Replacing site photography
+
+The per-pic workflow (established over the 2026-08-17 photo round —
+homepage doors, /services strip; the release/screening record for
+each shipped page lives in DECISIONS):
+
+1. **Screen the frame FIRST** at full resolution: vet every legible
+   word (labels, banners, signage, embroidery) against the §8 claim
+   rules; no other provider may appear (hard constraint 2); anything
+   identifiable-but-illegible gets noted in the DECISIONS entry.
+2. **Releases:** every identifiable client needs the operator's
+   on-record confirmation that a website-use release is on file —
+   the confirmation IS the record; quote it in DECISIONS.
+3. **Dedup + resolution:** hash the pick against src/assets/photos
+   (no duplicate commits) and confirm the source width ≥ the slot's
+   largest served width (retina rule — nothing ships below delivery
+   resolution).
+4. **Content-named asset** (what it shows, never the slot name) into
+   src/assets/photos/; slot names couple assets to placements.
+5. Swap the import + rewrite the alt to what the new frame factually
+   shows — never invent a treatment the pixels don't self-identify.
+   Comment truth in the same file (release record, screening note).
+6. **Orphan check:** grep the outgoing asset repo-wide; zero
+   remaining references → delete it (git history preserves the
+   frame); any remaining consumer → it stays.
+7. **Eyeball the built crops** — every slot crops server- or
+   CSS-side (doors 640×800 attention; strip/portraits 4:5 at a fixed
+   object-position; arch frames clip corners) — screenshot each
+   changed slot at 390 and desktop before calling it done.
+8. `npm run verify` green → PR → preview probes converge → Amy's
+   word → merge.
+
 ## Rollback
 
 Never force-push or rewrite `main`. Revert instead:

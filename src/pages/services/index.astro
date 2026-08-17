@@ -7,9 +7,9 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ServiceLineGrid from '../../components/ServiceLineGrid.astro';
 import CTAButton from '../../components/CTAButton.astro';
 import TrustChips from '../../components/TrustChips.astro';
-import foreheadTreatment from '../../assets/photos/forehead-treatment.jpg';
-import lipFillerDetail from '../../assets/photos/lip-filler-detail.jpg';
-import maleClientTreatment from '../../assets/photos/male-client-treatment.jpg';
+import treatmentWindowLight from '../../assets/photos/treatment-window-light.jpg';
+import lowerFaceAppointment from '../../assets/photos/lower-face-appointment.jpg';
+import maleClientProducts from '../../assets/photos/male-client-products.jpg';
 
 /**
  * /services index (§6, Phase C5; line count updated in the 2026-07-19
@@ -21,14 +21,18 @@ import maleClientTreatment from '../../assets/photos/male-client-treatment.jpg';
  * build task). "One expert clinician." is the operator's wording
  * (2026-07-22, chosen after the flag).
  *
- * Studio strip (client direction 2026-07-23): three vetted frames of Amy
- * at work between the lead and the menu — both pictured clients are the
- * released subjects already on the live site (operator confirmed the
- * releases cover same-shoot frames; DECISIONS same date). Frames wear
- * the house light-wash grade (§5); no text overlays, so no plate rules
- * apply. All three load lazy and render 3-across at every breakpoint —
- * thumbnail-weight images that never contend with the H1 for LCP (see
- * the comment on the strip div).
+ * Studio strip (client direction 2026-07-23; frames replaced 2026-08-17
+ * with Amy's picks from the professional shoot — photo round page 2):
+ * three vetted frames of Amy at work between the lead and the menu.
+ * All three pictured clients' releases for website use are CONFIRMED
+ * ON FILE (operator, 2026-08-17 — the confirmation is the record;
+ * DECISIONS same date). Screened frame-level: no legible product or
+ * claims text anywhere (the boxes in frame three and the background
+ * banner fragment are illegible at source resolution). Frames wear
+ * the house light-wash grade (§5) inside the arch; no text overlays,
+ * so no plate rules apply. All three load lazy and render 3-across at
+ * every breakpoint — thumbnail-weight images that never contend with
+ * the H1 for LCP (see the comment on the strip div).
  */
 
 const crumbs = [
@@ -61,8 +65,8 @@ const crumbs = [
     <div class="mt-12 grid grid-cols-3 gap-3 sm:gap-5">
       <figure class="strip-frame ng-arch ng-rise">
         <Image
-          src={foreheadTreatment}
-          alt="Amy Palacios, FNP, performing an injectable treatment at a client's forehead in bright window light"
+          src={treatmentWindowLight}
+          alt="Amy Palacios, FNP, at work at a client's brow in bright window light"
           widths={[280, 400, 640, 760]}
           sizes="(min-width: 1200px) 355px, 31vw"
           loading="lazy"
@@ -70,8 +74,8 @@ const crumbs = [
       </figure>
       <figure class="strip-frame ng-arch ng-rise">
         <Image
-          src={lipFillerDetail}
-          alt="Close-up of a dermal filler treatment: Amy's gloved hands guiding a fine syringe at a client's lips"
+          src={lowerFaceAppointment}
+          alt="Amy Palacios, FNP, guiding a fine syringe at a reclined client's lower face"
           widths={[280, 400, 640, 760]}
           sizes="(min-width: 1200px) 355px, 31vw"
           loading="lazy"
@@ -79,8 +83,8 @@ const crumbs = [
       </figure>
       <figure class="strip-frame ng-arch ng-rise">
         <Image
-          src={maleClientTreatment}
-          alt="Amy Palacios, FNP, performing a wrinkle-relaxer treatment for a male client by the studio window"
+          src={maleClientProducts}
+          alt="Amy Palacios, FNP, showing treatment products to a male client in the studio"
           widths={[280, 400, 640, 760]}
           sizes="(min-width: 1200px) 355px, 31vw"
           loading="lazy"

@@ -3462,3 +3462,29 @@ studio-wide's alt still describes the full frame ("two clients")
 while the 4:5 window fully shows one — a presentational crop; the alt
 stays (alt edits are MDX edits). CaricatureWindow (the orphaned
 16px-foot arch variant) is untouched.
+
+## 2026-08-17 — /services strip: photo round page 2 (screening + release record)
+
+Context: operator + Amy assign the strip's three frames by number from
+the professional shoot in C:\Amy\New Pics: left = 6, middle = 7,
+right = 8 (all 1067x1600, above the slot's 760w delivery — retina
+rule holds; dedup-hashed against the repo, no duplicates). Screened
+frame-level: 6 — Amy at a seated client's brow in window light, no
+legible text or products; 7 — Amy guiding a fine syringe at a
+reclined client's lower face, decorative "DREAM LAUGH DANCE" wall
+print in background (benign), no legible product text; 8 — Amy
+(embroidery = her own name, factual-identity precedent) showing two
+product boxes to a male client — box labels and the background
+banner fragment are ILLEGIBLE at source resolution, so no claim is
+conveyed; the arch's 4:5 window crops most of the banner anyway
+(verified by eye). All three pictured clients are identifiable —
+RELEASES CONFIRMED ON FILE for website use (operator, 2026-08-17 —
+the confirmation is the record, weigh-in-photo pattern). Decision:
+ship as content-named assets (treatment-window-light,
+lower-face-appointment, male-client-products — never slot-named);
+alts rewritten factual-generic (the frames do not self-identify a
+treatment line, and alts never invent one). The outgoing assets
+(forehead-treatment, lip-filler-detail, male-client-treatment)
+became zero-reference after the swap — deleted (PR #101 orphan
+precedent; git history preserves the frames). Crops verified in the
+arch at 390/1280 (50% 20% anchor holds every face).

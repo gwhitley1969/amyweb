@@ -3390,3 +3390,28 @@ treatment MDX edits reset clinicianApproved, so they are deliberately
 untouched today). Alternatives rejected: reusing one asset name per
 slot (slot-named files couple assets to placements; content-named
 files stay reusable).
+
+## 2026-08-17 — The a11y gate audits the settled state (reduced-motion Chrome)
+
+Context: adding one text line to the location card failed /visit's
+pa11y run — the noir band's Book CTA at a 2.6:1-effective contrast.
+Root cause measured first-hand: `ng-rise` entrance blocks animate on
+`animation-timeline: view()`, so in a static headless audit each
+block freezes at whatever entry progress the page height dictates
+(the CTA's wrapper measured opacity 0.931 at pa11y's 1280×1024
+viewport; the baseline page, one line shorter, measured ≈1 and
+passed). Any copy change above any animated block re-rolled every
+page's contrast verdict. Decision (operator-approved gate-config
+edit, chosen over the flag): pa11y's Chrome now launches with
+`--force-prefers-reduced-motion`; the site's reduced-motion CSS sets
+`animation: none` on the entrance classes, so every element audits
+at its final colors, deterministically — a real, shipped user mode
+(the one WCAG's motion guidance mandates). Alternatives rejected:
+removing ng-rise from the affected band (leaves the sitewide
+dice-roll through the photo round); scrolling before audit (view()
+timelines map scroll position — there is no settled mid-page state
+to reach). Consequences: contrast verdicts no longer depend on page
+height; animated mid-states go unaudited — acceptable, they are
+transient by construction and the compliance rule already bans
+entrance animation on compliance text. A failure now means the
+element's FINAL colors fail.

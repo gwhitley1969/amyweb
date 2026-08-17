@@ -6,6 +6,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-17 — The Visit Amy card names the studio
+
+- The location card (home, /visit) now shows "Mobile Aesthetics" on
+  its own line between the brand line and the street address — the
+  factual name of the studio Amy practices in.
+- Same PR: the accessibility gate now audits pages in their settled
+  (reduced-motion) state, so contrast verdicts no longer depend on
+  where a scroll entrance animation happens to freeze — the card's
+  one added line had exposed that flake class. DECISIONS 2026-08-17.
+
 ### 2026-08-17 — The homepage doors wear Amy's new photography
 
 - All three category-door photos replaced with Amy's picks from the

@@ -735,7 +735,11 @@ action.
 - **Testing:** `npm run test:a11y` runs axe (via @axe-core/cli or pa11y-ci)
   against the built site's key templates; manual keyboard + screen-reader
   spot-check on Home, one treatment page, Book — recorded in the launch
-  checklist.
+  checklist. Since 2026-08-17 the audit Chrome runs
+  `--force-prefers-reduced-motion` — contrast is judged on each
+  element's settled colors, not a scroll-animation mid-state
+  (DECISIONS 2026-08-17; the flake class is documented in
+  docs/RUNBOOK.md Troubleshooting).
 
 ## 13. Performance budget (CI-enforced via Lighthouse CI)
 

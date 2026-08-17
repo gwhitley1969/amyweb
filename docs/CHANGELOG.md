@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-17 — Relaunch readiness: the audit's paper trail
+
+- The external architecture review is committed
+  (docs/AUDIT-2026-08-17-external-review.md) with every finding's
+  disposition recorded in DECISIONS. New docs/RELAUNCH.md holds the
+  complete ready-to-execute relaunch dossier; REDESIGN gains the
+  "Round close" scaffold (operator decision: dark until the round
+  completes; three slots — frozen list, date, seven-gap checks — set
+  the definition of done). CLINICIAN-SIGN-OFF now separates copy
+  approval (the flag gate, unchanged) from presentation approval
+  (dated, per-round — a relaunch hard gate), with the redesign
+  round's visual drift enumerated for Amy's pending pass.
+
 ### 2026-08-17 — Cookieless analytics wired, shipped dark
 
 - Plausible is fully prepped behind a config flag and ships DARK —

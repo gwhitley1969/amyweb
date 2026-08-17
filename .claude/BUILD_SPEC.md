@@ -401,6 +401,14 @@ No claims in the hero (no outcomes, no "#1" until substantiated).
   `clinicianApproved: false`.
 - Claude Code never sets `clinicianApproved: true`. Content edits to approved
   pages reset the flag to `false` in the same commit (re-approval required).
+- **Scope note (2026-08-17, external-audit Finding 3):** the flag attests
+  to file COPY. CSS-level presentation changes (typeface, the arch
+  motif's display crops, frames, spacing) do not reset flags **by
+  design** — visual passes deliberately avoid MDX so they don't reset
+  twelve flags at once (the arch selector-mirror precedent). Rendered
+  presentation therefore carries its own separate, manual record:
+  docs/CLINICIAN-SIGN-OFF.md "Two kinds of approval", whose dated
+  presentation entries are a relaunch hard gate (docs/RELAUNCH.md).
 
 ### Per-line content briefs (draft only from these; the rulebook in §8 governs)
 

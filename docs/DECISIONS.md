@@ -3634,3 +3634,54 @@ Consequences: launch-day analytics = account + two-value siteConfig
 edit + normal verify/PR (RUNBOOK "Turning on analytics"); the / perf
 gate re-measures with ~3.6KB more JS at flip (ample headroom, read
 the numbers); privacy wording, CSP, and script can never disagree.
+
+## 2026-08-17 — External-audit close: verification record, the four operator answers, and the relaunch dossier (Findings 2, 3, 4, 7)
+
+Context: an external principal-architect review of a fresh clone
+(docs/AUDIT-2026-08-17-external-review.md, committed with this entry)
+delivered seven triaged findings. Per its §0 rule every claim was
+re-verified first-hand before any action: all git topology numbers
+reproduced exactly against origin/main; the naive-merge hazard
+reproduced in a throwaway clone (~48 silent deletions incl. all
+twelve treatment MDX pages — WORSE than the audit's framing, which
+counted files; ours counted what they were); the RUNBOOK two-step
+verified correct. Two facts the auditor could not see: local main
+was stale, and NEITHER branch had protection — "required status
+check" therefore included a first-ever branch-protection change.
+
+The four operator decisions (AskUserQuestion, 2026-08-17):
+1. **Relaunch (Finding 2): stay dark until the round completes.** No
+   date yet. REDESIGN.md gains the "Round close" scaffold — three
+   operator-filled slots (frozen list, date, the seven gaps as
+   pass/fail checks) — and docs/RELAUNCH.md now holds the complete
+   ready-to-execute relaunch dossier so the date is the only missing
+   input. Post-freeze asks are change-order/retainer scope.
+2. **Assistant (Finding 4): NOT in relaunch scope — BUILD_SPEC §3
+   stands.** The fork (a scope decision recorded outside this repo
+   had floated a text-only assistant into website launch) is closed:
+   no server code enters this architecture in this round; the
+   assistant remains a later, separately-planned increment. This
+   entry is the in-repo record the audit asked for. Zero build.
+3. **Analytics (Finding 6): Plausible at relaunch** — built same day
+   (own entry above).
+4. **Media origin (Finding 5): build now** — built same day (own
+   entry above); LFS declined.
+
+Finding 3 (approval gate attests to copy, not presentation):
+CLINICIAN-SIGN-OFF.md now splits **copy approval** (flag-gated,
+unchanged — the gate's logic was correct all along) from
+**presentation approval** (per-round, dated, manual record with the
+2026-08-05 launch pass logged and the redesign round pending);
+BUILD_SPEC §7 records that CSS-level presentation changes skip the
+flags BY DESIGN; the presentation date is a relaunch hard gate; the
+studio-wide alt mismatch is queued into the flag-resetting
+re-approval pass. Finding 7 housekeeping: the orphan placeholder
+photo deletes in the relaunch PR (it lives on main only); the four
+astro-check hints are a separate small source PR; the stale
+Claude-Project snapshots are an operator action outside this repo.
+
+Consequences: every audit finding now has a recorded disposition —
+built (1, 5, 6), operator-decided and recorded (2, 4), record-split
+(3), scheduled (7). "Relaunch" now HAS a definition of done — the
+audit's named blocking ambiguity — in REDESIGN "Round close" +
+RELAUNCH.md preconditions.

@@ -13,6 +13,48 @@
 > and re-approval follows this same flow against the current stable
 > preview.
 
+## Two kinds of approval (split recorded 2026-08-17 — external-audit Finding 3)
+
+The flag gate attests to **copy**: `clinicianApproved` lives in each
+treatment file, resets on any MDX edit, and blocks production via
+`check:approvals`. That is its correct scope and it is unchanged.
+
+What Amy actually reviews is **rendered pages** — and presentation
+can change with ZERO flag resets, **by design**: CSS-level changes
+(the Playfair body face, the sitewide arch motif with its 4:5 display
+crops and 9/8 bands, spacing, frames) deliberately avoid MDX so a
+visual pass doesn't reset twelve flags (the arch rollout's
+selector-mirror is the recorded example, DECISIONS 2026-08-17). The
+cost of that design is that the flags can all read `true` against an
+approval given on visibly different pages. So presentation gets its
+own record:
+
+| Approval | Attests to | Mechanism | Granularity |
+|---|---|---|---|
+| **Copy** | words, prices, claims in each treatment file | `clinicianApproved` flag + `check:approvals` build gate | per file, resets on edit |
+| **Presentation** | how the rendered pages look | Amy reviews the stable preview on her phone; the operator logs a dated entry below | per round, dated |
+
+**Relaunch hard gate:** production does not relaunch unless the
+newest presentation-approval date below is NEWER than the last merged
+visual change (see docs/RELAUNCH.md, precondition 3).
+
+### Presentation-approval record
+
+| Date | Reviewed on | Scope | Logged by |
+|---|---|---|---|
+| 2026-08-05 | stable preview (`…-5`) | launch state — the same pass as the copy sign-off (`ad8fbde`) | operator |
+| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip), header badge + hybrid nav, carousel (four films), footer/location card lines | — |
+
+Visual drift since 2026-08-05, for Amy's pending pass: body face and
+size (DM Sans → Playfair 17px/1.65), every photo arched with 4:5/9:8
+display crops, homepage door + /services strip photography replaced,
+the MA header badge and hamburger-only nav, the four-film carousel and
+its heading, the "Mobile Aesthetics" line in the location card and
+footer. Known defect queued for the same pass: `studio-wide.jpg` alt
+text ("two clients") vs its one-client 4:5 window — an MDX edit, so
+it ships inside the flag-resetting re-approval round (DECISIONS
+2026-08-17).
+
 **Who:** Amy Palacios, FNP, reviews; the operator logs and flips.
 **Where:** the stable preview — always the current `phase-c` build:
 <https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net>

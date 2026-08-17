@@ -5,6 +5,7 @@ param endpointId string
 param endpointHostname string
 param apexValidationToken string
 param wwwValidationToken string
+param mediaValidationToken string
 
 resource zone 'Microsoft.Network/dnsZones@2018-05-01' existing = {
   name: zoneName
@@ -52,6 +53,30 @@ resource wwwAuth 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
     TTL: 3600
     TXTRecords: [
       { value: [wwwValidationToken] }
+    ]
+  }
+}
+
+// Media origin hostname (2026-08-17): the films' stable public host —
+// previews and production play the same files (frontdoor.bicep media route).
+resource mediaCname 'Microsoft.Network/dnsZones/CNAME@2018-05-01' = {
+  parent: zone
+  name: 'media'
+  properties: {
+    TTL: 3600
+    CNAMERecord: {
+      cname: endpointHostname
+    }
+  }
+}
+
+resource mediaAuth 'Microsoft.Network/dnsZones/TXT@2018-05-01' = {
+  parent: zone
+  name: '_dnsauth.media'
+  properties: {
+    TTL: 3600
+    TXTRecords: [
+      { value: [mediaValidationToken] }
     ]
   }
 }

@@ -6,6 +6,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-17 — Films move to their own media origin
+
+- The six .mp4 films now serve from `media.needlegirlie.com` — Blob
+  storage behind the same Front Door (new Bicep: storage account,
+  custom domain, media route). The repo sheds 53MB: renditions are
+  uploaded, not committed. Captions (.vtt) deliberately stay in the
+  repo — they are compliance-screened text and keep their git audit
+  trail. Previews play the same films production does, by design.
+  External-audit Finding 5; operator decision to build now. The
+  audit's Git-LFS suggestion was declined (CI bandwidth trap —
+  DECISIONS has the rationale).
+
 ### 2026-08-17 — Relaunch guard: the takedown's git landmine gets a tripwire
 
 - New CI workflow (`relaunch-guard.yml`, required on both branches)

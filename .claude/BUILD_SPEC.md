@@ -62,10 +62,16 @@ All HTTP → HTTPS at the edge.
 
 SWA notes: Standard tier (per-PR preview environments — public since
 2026-07-21 at operator direction, noindexed via preview.json header;
-99.95% SLA). Deployment size limit ~500 MB — if
-the media library decision (`{{MEDIA_SCOPE}}`) brings heavy assets on-site,
-a dedicated Blob `/media/*` origin behind the same Front Door is the escape
-valve; do not build it until instructed.
+99.95% SLA). Deployment size limit ~500 MB. The escape valve for heavy
+media — a dedicated Blob origin behind the same Front Door — was
+**BUILT 2026-08-17** (operator decision, external-audit Finding 5):
+films serve as `media.needlegirlie.com/<file>.mp4` (route `media` →
+storage container `media`, Bicep in `infra/storage.bicep` +
+`infra/frontdoor.bicep`; publish procedure in docs/RUNBOOK.md
+"Publishing a film"). The stable hostname is deliberate: PR previews
+play exactly what production plays. WebVTT captions stay in-repo
+(public/media/, same-origin — compliance audit trail; no CORS needed),
+and `media-src` in both CSP templates admits the media host.
 
 ## 3. Repo structure
 
@@ -668,7 +674,8 @@ action.
   embeds, lazy-loaded facade pattern (thumbnail + click-to-load) to protect
   CWV and privacy.
 - **Home video carousel (2026-08-14, DECISIONS same date):** four
-  self-hosted films in `public/media/` — two Evolus co-op Jeuveau
+  self-hosted films on the media origin (`media.needlegirlie.com`,
+  §2 — in `public/media/` until 2026-08-17) — two Evolus co-op Jeuveau
   spots carried AS-IS with complete FDA safety information (never
   trimmed or cropped; `object-fit: contain` is a compliance
   requirement) around Amy's own studio reel (operator override; client
@@ -685,8 +692,9 @@ action.
   file is untouched, captions track media time). Rates are for Amy's
   own films ONLY — the manufacturer films always play at 1×; their
   presentation is part of the carried-as-is posture.
-  Add/replace procedure: docs/RUNBOOK.md. The Blob `/media/*` origin
-  (§2 escape valve) is the recommended home as the video program grows.
+  Add/replace procedure: docs/RUNBOOK.md ("Adding or replacing a
+  homepage commercial" + "Publishing a film"). The Blob media origin
+  (§2) is BUILT — films upload to Blob, captions ship by PR.
 
 ## 10. SEO specification
 

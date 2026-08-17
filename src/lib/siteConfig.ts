@@ -8,6 +8,14 @@ export const siteConfig = {
   locality: 'Harrisburg, NC', // established business fact (CLAUDE.md)
   domain: 'needlegirlie.com',
   url: 'https://needlegirlie.com',
+  // Films origin (2026-08-17, external-audit Finding 5 — DECISIONS same
+  // date): the .mp4 renditions serve from Blob behind the same Front
+  // Door, on a stable hostname so PR previews play exactly what
+  // production plays. Deliberately ABSOLUTE in every build. The WebVTT
+  // caption files are NOT here — they stay in public/media/ (in-repo,
+  // same-origin: compliance-screened text keeps its git audit trail,
+  // and same-origin tracks need no CORS).
+  mediaBase: 'https://media.needlegirlie.com',
   // {{ADDRESS_DISPLAY}} resolved by operator 2026-07-18
   address: '4350 Main Street, Suite 224, Harrisburg, NC 28075',
   phone: '704-579-7108', // {{PHONE}} resolved by operator 2026-07-07

@@ -65,7 +65,8 @@ outside `SCAN_DIRS` entirely. §8 still governs them; the control is
 per-item human screening plus a recorded DECISIONS entry (frame-level
 vets for photos and video contact sheets; operator overrides for
 manufacturer films carried as-is and for Amy's own published content).
-The home-carousel films and their caption files (2026-08-14) ship under
+The home-carousel films and their caption files (three cleared
+2026-08-14; the team film 2026-08-17, constraint-2 override) ship under
 exactly this regime. A green `lint:claims` says nothing about media
 content.
 

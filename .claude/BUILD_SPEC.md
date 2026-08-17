@@ -166,9 +166,10 @@ sign, and a soft shimmer on the noir accent phrase carry on unchanged.
 Photography wears a house grade — cinema-noir on dark bands, a light
 wash on light bands. Motion is scroll-driven and sparse; nothing pulses
 except the sign's slow breath. Since 2026-08-14 the noir shell includes
-the home's cinematic video stage — the three commercials crossfading
+the home's cinematic video stage — four films crossfading
 chromeless on full-bleed noir (the operator's "Audi treatment";
-DECISIONS 2026-08-14; the stage-surface question, noir vs
+DECISIONS 2026-08-14; the fourth film joined 2026-08-17; the
+stage-surface question, noir vs
 arch-on-ombre, is an open client call — docs/REDESIGN.md). Playfulness is retired from
 the design language; personality lives in the type, the photography, and
 Amy's singular voice.
@@ -306,7 +307,7 @@ layout shift from fonts or images.
 
 | Route | Page | Purpose / key content | Primary CTA |
 |---|---|---|---|
-| `/` | Home | Hero (brand thesis — see below; since 2026-08-14 the hero photo is Amy's studio-counter portrait); **video carousel** directly below the hero (2026-08-14: three commercials on a cinematic noir stage — autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, facade-loaded; DECISIONS same date); "Meet Amy" trust block (FNP, since 2017, Biote-certified); **three category doors** routing to /services (amended 2026-07-25: the home ROUTES, it does not reprint the 12-card menu — DECISIONS same date); location strip; Get-the-App slot — satisfied by the sitewide footer block, not a home section | Book an appointment |
+| `/` | Home | Hero (brand thesis — see below; since 2026-08-14 the hero photo is Amy's studio-counter portrait); **video carousel** directly below the hero (2026-08-14, fourth film added 2026-08-17: four films on a cinematic noir stage — autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, facade-loaded; DECISIONS both dates); "Meet Amy" trust block (FNP, since 2017, Biote-certified); **three category doors** routing to /services (amended 2026-07-25: the home ROUTES, it does not reprint the 12-card menu — DECISIONS same date); location strip; Get-the-App slot — satisfied by the sitewide footer block, not a home section | Book an appointment |
 | `/services` | Services index | Short factual intro per line, linking to the 12 detail pages | Per-line → detail |
 | `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Book / Consult (2026-07-21, operator — was consult-routed) |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |
@@ -660,12 +661,15 @@ action.
 - **Video (only if `{{MEDIA_SCOPE}}` includes it):** `youtube-nocookie.com`
   embeds, lazy-loaded facade pattern (thumbnail + click-to-load) to protect
   CWV and privacy.
-- **Home video carousel (2026-08-14, DECISIONS same date):** three
-  self-hosted commercials in `public/media/` — two Evolus co-op Jeuveau
+- **Home video carousel (2026-08-14, DECISIONS same date):** four
+  self-hosted films in `public/media/` — two Evolus co-op Jeuveau
   spots carried AS-IS with complete FDA safety information (never
   trimmed or cropped; `object-fit: contain` is a compliance
   requirement) around Amy's own studio reel (operator override; client
-  releases confirmed). Facade-loaded per the pattern above: zero video
+  releases confirmed), plus the Mobile Aesthetics team film as film 4
+  (2026-08-17: constraint-2 operator override after the compliance
+  flag; team releases confirmed on file; no claims content — DECISIONS
+  same date). Facade-loaded per the pattern above: zero video
   elements and zero video bytes until the stage scrolls into view;
   muted renditions; captions mirror each film's on-screen text
   (public/media/*.vtt — outside lint scope, controlled by the per-film

@@ -3,11 +3,12 @@ import { Image } from 'astro:assets';
 import j1Poster from '../assets/photos/commercial-j1-poster.jpg';
 import studioPoster from '../assets/photos/commercial-studio-poster.jpg';
 import j2Poster from '../assets/photos/commercial-j2-poster.jpg';
+import teamPoster from '../assets/photos/commercial-team-poster.jpg';
 
 /**
  * HOME VIDEO CAROUSEL — the cinematic noir stage (operator direction
  * 2026-08-14, DECISIONS same date: "the way Audi presents video").
- * Three commercials crossfade on a full-bleed black stage: no player
+ * Four films crossfade on a full-bleed black stage: no player
  * chrome, thin progress bars, one understated pause control.
  *
  * FACADE PATTERN (BUILD_SPEC §9; also the perf fix — measured): the
@@ -17,11 +18,17 @@ import j2Poster from '../assets/photos/commercial-j2-poster.jpg';
  * script builds each <video> on demand instead, so the load trace
  * contains zero media elements and zero video bytes.
  *
- * The films (all three cleared 2026-08-14, DECISIONS):
+ * The films (J1/studio/J2 cleared 2026-08-14; team cleared
+ * 2026-08-17 — DECISIONS, both dates):
  *  - commercial-j1 / commercial-j2 — Evolus co-op Jeuveau spots
  *    (US-JUV-2600126) carried AS-IS, manufacturer safety text intact.
  *    NEVER trim or crop them: object-fit stays `contain` so the
  *    burned-in safety screens render complete.
+ *  - commercial-team — the Mobile Aesthetics "Girl team" film.
+ *    Constraint-2 OPERATOR OVERRIDE 2026-08-17 (it features the
+ *    location's other providers; flag raised, override chosen);
+ *    releases for the five team members confirmed on file. Plays
+ *    at 1×.
  *  - commercial-studio — Amy's own published reel, operator override.
  *    Plays at 0.5× (operator/Amy 2026-08-15, tuned across three
  *    reviews: 0.8 and 0.65 both still read too fast — slowed at the
@@ -70,16 +77,22 @@ const slides: {
     label: 'Jeuveau commercial — Mobile Aesthetics with Evolus, film two',
     poster: j2Poster,
   },
+  {
+    file: 'commercial-team',
+    label: 'Girl team — Mobile Aesthetics',
+    poster: teamPoster,
+  },
 ];
 ---
 
 <section class="vc surface" data-surface="noir" aria-labelledby="vc-heading">
   <div class="vc-head">
-    {/* Heading only, no eyebrow — operator/Amy 2026-08-15: the phrase
-        they loved WAS the old eyebrow; promoted to the big type, and
-        this section deliberately drops the label+heading signature
-        (fewest words on the cinematic stage). */}
-    <h2 class="heading-2" id="vc-heading">The studio. On screen.</h2>
+    {/* Heading only, no eyebrow — operator/Amy 2026-08-15: this
+        section deliberately drops the label+heading signature (fewest
+        words on the cinematic stage). Renamed from "The studio. On
+        screen." 2026-08-17 (operator) when the team film joined — the
+        carousel now speaks for the whole practice. */}
+    <h2 class="heading-2" id="vc-heading">Mobile Aesthetics. On screen.</h2>
   </div>
 
   <div class="vc-stage" data-vc-stage>
@@ -196,6 +209,16 @@ const slides: {
     border: 0;
     background: transparent;
     cursor: pointer;
+  }
+  /* Four bars at 64px + gaps + the 44px toggle = 344px — wider than a
+   * 390px phone's 342px content box (and the 344px fold cover's 296px).
+   * 48px bars bring the row to 280px, inside both; the 48×32 button
+   * stays above the 24px WCAG target. A fifth film would need 40px
+   * bars or a wrapping row. */
+  @media (max-width: 600px) {
+    .vc-bar {
+      width: 48px;
+    }
   }
   .vc-track {
     display: block;

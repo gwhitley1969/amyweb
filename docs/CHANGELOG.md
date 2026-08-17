@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-17 — The team joins the carousel
+
+- The home carousel now plays four films: the Mobile Aesthetics
+  "Girl team" film — Amy and her practice's team under the studio
+  neon — follows the second Jeuveau commercial. Operator override
+  recorded (the film shows the location's other providers; releases
+  confirmed on file — DECISIONS 2026-08-17); captions mirror the
+  burned-in text; the film plays at normal speed.
+- The four progress bars slim down on phones so the row fits every
+  screen the site supports, including fold covers.
+- The section head is now "Mobile Aesthetics. On screen." (was "The
+  studio. On screen.") — with the team film aboard, the carousel
+  speaks for the whole practice.
+
 ### 2026-08-15 — The whole site speaks in the logo's face
 
 - Body text now uses Playfair Display — the Needle Girlie logo's own

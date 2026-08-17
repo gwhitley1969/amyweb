@@ -43,7 +43,17 @@ pink."** Seven gaps, each a test every design decision must move:
 | **Photo replacement sitewide** | Planned | operator directive |
 | 17a + 17b videos → /services/biostimulators; 20 → /services/body-contouring | Parked ("not there yet") | same screening + release checks when directed |
 
-## Carousel record (all three films cleared 2026-08-14)
+## Carousel record (J1/studio/J2 cleared 2026-08-14; team film 2026-08-17)
+
+- **2026-08-17 — the team film joins as film 4 (operator assignment):**
+  `commercial-team.mp4` — the Mobile Aesthetics "Girl team" film, six
+  women (Amy center) under the MA neon. Hard-constraint-2 flag raised
+  (features the location's other five providers) → **operator
+  override**, releases for the five confirmed on file; CLAUDE.md
+  second constraint-2 scoped exception + DECISIONS entry ride the PR.
+  No claims content (no constraint-3 exception needed). Plays at 1×;
+  progress bars slim to 48px under 600px so four bars + toggle fit
+  390px phones and the 344px fold cover.
 
 - **2026-08-15 refinements (operator + Amy; PRs #104/#105 merged same day):** the
   section head is the single Playfair line "The studio. On screen." —
@@ -56,8 +66,9 @@ pink."** Seven gaps, each a test every design decision must move:
   rate. The Evolus films always play at 1× (carried as-is).
 
 - **Slides:** `commercial-j1.mp4` / `commercial-studio.mp4` /
-  `commercial-j2.mp4` (public/media/), muted H.264 renditions of the
-  operator's masters; captions mirror each film's on-screen text.
+  `commercial-j2.mp4` / `commercial-team.mp4` (public/media/), muted
+  H.264 renditions of the operator's masters; captions mirror each
+  film's on-screen text.
 - **J1/J2** — Evolus co-op Jeuveau DTC commercials (piece code
   US-JUV-2600126), carried **as-is** with complete burned-in FDA safety
   information. NEVER trim or crop them (`object-fit: contain` is a

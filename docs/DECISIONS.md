@@ -3331,3 +3331,35 @@ both records; whichever PR merges last absorbs the conflict pass.
 Alternatives rejected: explaining the isolation each round (it failed
 in practice); merging increments without Amy's per-change word
 (violates the approval workflow).
+
+## 2026-08-17 — The Mobile Aesthetics team film joins the carousel (constraint-2 override)
+
+Context: operator assignment — add team.MOV as the carousel's fourth
+film. Frame-level screen (contact sheet + full-res frames + embroidery
+zoom): the Mobile Aesthetics "Girl team" film — six women (Amy center)
+in MA uniform polos under the MA neon, stylized black-and-white studio
+segments, a CapCut film-strip montage effect carried as-is (its
+CAPCUT/PX border micro-text is decorative edge chrome). No products,
+no clients, no clinical or claims content. Amy's embroidered
+"Amy Palacios NP" is plausibly legible; the other five names do not
+resolve at the source's own 1080px — nobody else is legibly named,
+but the film unmistakably features the location's other five
+providers. Flag raised: hard constraint 2 (site never implies other
+providers; compliant path = yourmobileaesthetics.com). Decision:
+OPERATOR OVERRIDE 2026-08-17 — add as film 4; releases/consent for
+the five team members confirmed on file (operator, same date — the
+studio-reel release pattern). CLAUDE.md gains the second constraint-2
+scoped exception in the same commit; the film needs NO constraint-3
+exception (zero claims content), and the constraint-3 enumeration was
+re-worded to stay visibly scoped to the original three films.
+Mechanics: rendition per RUNBOOK (muted H.264, 6.3MB @ 3.8Mbps),
+poster from the rendition's opening neon shot, VTT mirrors the
+burned-in "Girl team" overlay (0–2s), label "Girl team — Mobile
+Aesthetics", plays at 1× (produced edit; the rate knob stays
+Amy's-films-only). Four 64px progress bars + the toggle overflow a
+390px phone by 2px (and the 344px fold cover by 48px), so bars drop
+to 48px under 600px — the 48×32 button clears the 24px WCAG target.
+Alternatives rejected: hosting the film only on
+yourmobileaesthetics.com (the recommended compliant path — operator
+chose the override after the flag); trimming the CapCut chrome
+(re-editing Amy's produced piece for no compliance need).

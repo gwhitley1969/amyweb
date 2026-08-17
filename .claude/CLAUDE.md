@@ -70,9 +70,14 @@ silently following it. Known superseded points from earlier briefs:
    practice site, `siteConfig.mobileAestheticsUrl`
    (yourmobileaesthetics.com), whose pages name the location's other
    providers. This is the only sanctioned outbound reference to that
-   site; the other providers are still never named or implied in any
-   needlegirlie.com text, and adding any further link or mention
-   requires the human operator.*
+   site.* *Second scoped exception (operator override after the
+   compliance flag — DECISIONS 2026-08-17): the home-carousel team
+   film (`commercial-team`), which shows the location's other five
+   providers on camera; their releases for needlegirlie.com use are
+   confirmed on file, and none of them is legibly named in the film.*
+   *Outside these two exceptions the other providers are still never
+   named or implied in any needlegirlie.com text, and adding any
+   further link, film, or mention requires the human operator.*
 
 3. **Medical-marketing claim discipline.** A licensed clinician is advertising
    medical treatments. The full rulebook is BUILD_SPEC §8. Core rules:
@@ -106,12 +111,14 @@ silently following it. Known superseded points from earlier briefs:
      providers, and no safety information, all operator-accepted); and
      the exact sentence "Charlotte's #1 Evolus provider" enumerated in
      `allowedStrings`, on the wrinkle-relaxers and dermal-fillers pages
-     only; and the three home-carousel films (operator clearances,
+     only; and three of the home-carousel films (operator clearances,
      DECISIONS 2026-08-14) — the two Evolus co-op Jeuveau commercials
      carried as-is with their complete FDA safety information (never
      trimmed or cropped), and Amy's own studio reel under operator
-     override with both client releases confirmed on file. Nothing
-     else; extending any of these requires the human operator.*
+     override with both client releases confirmed on file. (The fourth
+     carousel film — the 2026-08-17 team film — contains no claims and
+     needs no exception here; its override lives under constraint 2.)
+     Nothing else; extending any of these requires the human operator.*
      *Fourth scoped exception, and the only one that is not marketing
      copy (operator authorization, DECISIONS 2026-07-22): Biote's FDA
      disclaimer sentence — "These statements have not been evaluated

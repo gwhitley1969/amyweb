@@ -3363,3 +3363,30 @@ Alternatives rejected: hosting the film only on
 yourmobileaesthetics.com (the recommended compliant path — operator
 chose the override after the flag); trimming the CapCut chrome
 (re-editing Amy's produced piece for no compliance need).
+
+## 2026-08-17 — Homepage door photos: Amy's picks, screened (photo round, page 1)
+
+Context: the sitewide photo-replacement pass opened today (operator +
+Amy select per-slot; picks arrive in C:\Amy\New Pics). First page:
+the home category doors. Amy's picks — Injectables: her pick "2"
+(Amy treating a reclined client under the Mobile Aesthetics neon;
+lilac embroidered scrubs, gold-tone instrument, no legible product
+text); Skin & Body: pick "3" (three skinbetter products held to
+camera — sunbetter SPF, Mystro serum, AlphaRet cream; manufacturer
+label text photographed as-is, the shipped skinbetter-lineup class;
+no identifiable person); Wellness: pick "4" (Amy solo, lavender
+suit). Screens: no dosing/claims content anywhere; the one flag was
+the identifiable client in pick 2 — RELEASE CONFIRMED ON FILE
+(operator, 2026-08-17 — weigh-in-photo pattern, the confirmation is
+the record). Decision: ship all three via the door slots' existing
+640×800 smart-crop pipeline (crops verified by eye: faces + neon,
+products, and figure all land well; no anchor overrides). Sources are
+1067×1600+ from the professional shoot — above the slot's delivery
+resolution (retina rule holds). The outgoing assets
+(forehead-treatment, skinbetter-lineup, studio-wide) STAY in the
+repo — /services and two treatment MDX pages render them; deleting
+or re-picking those pages happens when the round reaches them (and
+treatment MDX edits reset clinicianApproved, so they are deliberately
+untouched today). Alternatives rejected: reusing one asset name per
+slot (slot-named files couple assets to placements; content-named
+files stay reusable).

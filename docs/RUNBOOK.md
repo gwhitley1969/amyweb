@@ -202,6 +202,15 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
 
 ## Troubleshooting
 
+- **pa11y contrast failure that appears/disappears with unrelated copy
+  changes:** before 2026-08-17 the audit ran with animations live, so
+  scroll-driven entrance blocks (`ng-rise`) froze at whatever partial
+  opacity the page height put them at — one added line of text could
+  flip a page's contrast verdict. Fixed by auditing the settled state:
+  pa11y Chrome runs `--force-prefers-reduced-motion` (.pa11yci.json;
+  the site's reduced-motion CSS disables the entrance animations —
+  DECISIONS 2026-08-17). If a contrast error still appears, it is
+  real: the element's final colors fail.
 - **"Not secure" in a browser on the operator workstation:** the Canopy
   content filter (Netspark engine, local proxy on 127.0.0.1:3128) intercepts
   browser TLS and can present wrong certificates or stale content. Verify

@@ -6,6 +6,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-17 — The homepage doors wear Amy's new photography
+
+- All three category-door photos replaced with Amy's picks from the
+  new professional shoot (the sitewide photo-replacement round's first
+  page): Injectables — Amy treating a client under the studio neon
+  (client release confirmed on file, DECISIONS 2026-08-17); Skin &
+  Body — the three skinbetter products held to camera; Wellness — Amy
+  in the lavender suit. The outgoing photos remain on /services and
+  two treatment pages until those pages get their own picks.
+
 ### 2026-08-17 — The team joins the carousel
 
 - The home carousel now plays four films: the Mobile Aesthetics

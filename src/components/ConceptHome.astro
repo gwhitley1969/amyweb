@@ -9,9 +9,9 @@ import LocationCard from './LocationCard.astro';
 import VideoCarousel from './VideoCarousel.astro';
 import { siteConfig } from '../lib/siteConfig';
 import needlegirlieHero from '../assets/photos/needlegirlie-hero.jpg';
-import foreheadTreatment from '../assets/photos/forehead-treatment.jpg';
-import skinbetterLineup from '../assets/photos/skinbetter-lineup.jpg';
-import studioWide from '../assets/photos/studio-wide.jpg';
+import amyTreatingClient from '../assets/photos/amy-treating-client-neon.jpg';
+import skinbetterInHand from '../assets/photos/skinbetter-in-hand.jpg';
+import amyLavenderSuit from '../assets/photos/amy-lavender-suit.jpg';
 import igPost from '../assets/photos/amy-ig-post.jpg';
 
 /**
@@ -42,24 +42,31 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
  * lines enumerate each group's four treatment lines factually.
  */
 
+/* Door photos replaced 2026-08-17 (Amy's picks, photo-replacement
+ * round; screening + the client release for the treatment frame
+ * recorded in DECISIONS same date). The outgoing assets stay in the
+ * repo — /services and two treatment pages still render them. */
 const doors = [
   {
     title: 'Injectables',
     line: 'Wrinkle relaxers, dermal fillers, biostimulators, and regenerative treatments.',
-    photo: foreheadTreatment,
-    /* group crop anchor: the treatment moment sits high in this frame */
+    /* Amy treating a client under the studio neon; faces sit
+     * center-upper — the smart crop finds them */
+    photo: amyTreatingClient,
     position: 'attention',
   },
   {
     title: 'Skin & Body',
     line: 'Skin rejuvenation, body contouring, laser treatments, and medical-grade skincare.',
-    photo: skinbetterLineup,
+    /* the three skinbetter products held to camera, mid-frame */
+    photo: skinbetterInHand,
     position: 'attention',
   },
   {
     title: 'Wellness',
     line: 'Weight management, peptide therapy, IV therapy, and hormone optimization.',
-    photo: studioWide,
+    /* Amy in the lavender suit; near-4:5 source, minimal crop */
+    photo: amyLavenderSuit,
     position: 'attention',
   },
 ] as const;

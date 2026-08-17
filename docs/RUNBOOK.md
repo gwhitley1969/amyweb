@@ -67,6 +67,17 @@ replacement, pushes to `phase-c` stop deploying anywhere, with no failing
 run to point at. Open a new PR from `phase-c` rather than debugging the
 workflow.
 
+**The standing demo (the link the client keeps):** PR #97 — branch
+`chore/monday-demo-preview`, a draft titled DO NOT MERGE — exists only
+to hold the stable client-facing preview at
+`https://polite-flower-0a41b770f-97.eastus2.7.azurestaticapps.net`.
+Refresh after merges, on the operator's request: switch to the branch,
+`git merge phase-c`, push, switch back; watch the PR-preview run to
+completion, then verify with converged probes (below) before sharing.
+Never merge #97 (its base would take the demo branch's merge commits);
+if it is ever closed, open a fresh DO-NOT-MERGE draft from a fresh
+branch off `phase-c` and note the new environment number here.
+
 Treatment-content rules (CLAUDE.md hard constraint 4): only a human sets
 `clinicianApproved: true`; any edit to approved content resets it to `false`
 in the same commit; production deploys fail while unapproved non-draft
@@ -234,6 +245,21 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
 
 ## Troubleshooting
 
+- **A preview environment 404s or serves stale/mixed content after
+  "Deployment Complete":** SWA staging propagation, three observed
+  presentations (PRs #79, #109, #110): route-level 200↔404 bursts;
+  a fresh env serving unevenly for minutes; and — worst — the whole
+  hostname serving SWA's *platform* 404 for 11+ minutes while
+  `az staticwebapp environment list` reports the env **Ready** (ARM
+  "Ready" ≠ serving). The artifact is never the suspect if CI passed.
+  Remedy ladder: converged probes first (3 consecutive passes where
+  EVERY route serves the exact expected marker counts, plain AND
+  cache-busted — single clean passes lie), then re-run the workflow,
+  then **close and re-open the PR** (tears the env down and recreates
+  it — the only fix for a bad serving replica; even the recreated env
+  can need several minutes to converge). Probe with `curl -sL`
+  (trailing-slash 301s fake failures) and never share a link before
+  probes converge.
 - **pa11y contrast failure that appears/disappears with unrelated copy
   changes:** before 2026-08-17 the audit ran with animations live, so
   scroll-driven entrance blocks (`ng-rise`) froze at whatever partial

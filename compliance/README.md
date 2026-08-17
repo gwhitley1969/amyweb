@@ -68,7 +68,9 @@ manufacturer films carried as-is and for Amy's own published content).
 The home-carousel films and their caption files (three cleared
 2026-08-14; the team film 2026-08-17, constraint-2 override) ship under
 exactly this regime. A green `lint:claims` says nothing about media
-content.
+content. Photo replacements follow docs/RUNBOOK.md "Replacing site
+photography" — frame-level screen first, releases confirmed on the
+operator's record, DECISIONS entry per page.
 
 The same blindness applies to **outbound link destinations**: the
 linter reads this repo, never the far side of an `href`. Any new

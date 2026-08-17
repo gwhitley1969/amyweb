@@ -691,6 +691,9 @@ action.
 ## 10. SEO specification
 
 - Consistent **NAP** site-wide: Needle Girlie / Amy Palacios, FNP —
+  **Mobile Aesthetics** (the studio's name, on its own line between the
+  brand line and the address since 2026-08-17 — footer and location
+  card; the constraint-2-permitted factual note) —
   `{{ADDRESS_DISPLAY}}` (4350 Main Street, Suite 224, Harrisburg, NC 28075) /
   `{{PHONE}}`.
 - **JSON-LD** via a single `schema.ts` source: sitewide `LocalBusiness`

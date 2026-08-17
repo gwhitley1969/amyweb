@@ -59,7 +59,7 @@ const crumbs = [
       * 2500). Small thumbs keep the H1 as LCP and the strip ~40KB on
       * mobile. */}
     <div class="mt-12 grid grid-cols-3 gap-3 sm:gap-5">
-      <figure class="strip-frame ng-rise">
+      <figure class="strip-frame ng-arch ng-rise">
         <Image
           src={foreheadTreatment}
           alt="Amy Palacios, FNP, performing an injectable treatment at a client's forehead in bright window light"
@@ -68,7 +68,7 @@ const crumbs = [
           loading="lazy"
         />
       </figure>
-      <figure class="strip-frame ng-rise">
+      <figure class="strip-frame ng-arch ng-rise">
         <Image
           src={lipFillerDetail}
           alt="Close-up of a dermal filler treatment: Amy's gloved hands guiding a fine syringe at a client's lips"
@@ -77,7 +77,7 @@ const crumbs = [
           loading="lazy"
         />
       </figure>
-      <figure class="strip-frame ng-rise">
+      <figure class="strip-frame ng-arch ng-rise">
         <Image
           src={maleClientTreatment}
           alt="Amy Palacios, FNP, performing a wrinkle-relaxer treatment for a male client by the studio window"
@@ -116,13 +116,12 @@ const crumbs = [
 </BaseLayout>
 
 <style>
-  /* Same editorial frame + light-wash grade as the About portrait
-   * (§5: cinema on noir bands, light wash on light bands). */
+  /* Same light-wash grade as the About portrait (§5: cinema on noir
+   * bands, light wash on light bands). Frame shape + border come from
+   * .ng-arch (global.css) — the sitewide arch motif, 2026-08-17. */
   .strip-frame {
     position: relative;
     margin: 0;
-    border: 1px solid var(--ng-hairline);
-    overflow: hidden;
   }
   .strip-frame img {
     display: block;

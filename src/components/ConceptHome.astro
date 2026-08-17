@@ -90,7 +90,9 @@ const doors = [
       window, DECISIONS 2026-08-05). BRIGHT and clear: the cinema grade
       stays retired (client 2026-07-25); the photo wears the light wash
       + a thin magenta unifier, with a soft neon bloom where the sign's
-      real glow falls — right of Amy in this frame. ---- */}
+      real glow falls — right of Amy in this frame. EXEMPT from the
+      sitewide arch motif (operator, 2026-08-17): the hero is the
+      full-bleed backdrop, not a framed picture. ---- */}
   <section class="nc-hero surface" data-surface="noir">
     <div class="nc-hero__media" aria-hidden="true">
       {/* INTERIM AI-ASSISTED ASSET (disclosed — DECISIONS 2026-08-14):
@@ -178,7 +180,7 @@ const doors = [
         {
           doors.map((door) => (
             <article class="nc-door ng-lift ng-rise">
-              <figure class="nc-door__arch" aria-hidden="true">
+              <figure class="nc-door__arch ng-arch" aria-hidden="true">
                 <Image
                   src={door.photo}
                   alt=""
@@ -424,11 +426,11 @@ const doors = [
     /* ring drawn by .ng-lift's --lift-ring so it composes with the
      * lift instead of overwriting it (box-shadow is one property) */
   }
+  /* Frame shape + border live in .ng-arch (global.css) — the doors were
+   * the motif's origin and consolidated onto the shared class when it
+   * went sitewide (2026-08-17). */
   .nc-door__arch {
     margin: 0;
-    border-radius: 999px 999px 12px 12px;
-    border: 1px solid var(--ng-magenta-600);
-    overflow: hidden;
   }
   .nc-door__arch img {
     display: block;
@@ -464,7 +466,10 @@ const doors = [
   }
 
   /* The framed print: white matte + hairline, a slight scrapbook tilt.
-   * No shadow (flat-card anatomy holds); the tilt supplies the lift. */
+   * No shadow (flat-card anatomy holds); the tilt supplies the lift.
+   * EXEMPT from the sitewide arch motif — the client's one named
+   * exception (2026-08-17, "the pic at the bottom of the homepage"):
+   * this post keeps its square frame. */
   .nc-post {
     /* sized so the post's baked-in caption reads comfortably (client) */
     max-width: 34rem;

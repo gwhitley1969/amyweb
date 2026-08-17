@@ -71,7 +71,7 @@ import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
           <CTAButton variant="consult" />
         </div>
       </div>
-      <figure class="about-portrait">
+      <figure class="about-portrait ng-arch">
         <Image
           src={familyPortrait}
           alt="Amy Palacios, FNP, with her family."
@@ -149,12 +149,15 @@ import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
         </p>
       </div>
       <figure class="about-print ng-rise">
+        {/* the img itself wears the arch — a matted arch print: the
+          * white matte, tilt, and shadow stay on the figure */}
         <Image
           src={studioNeonPortrait}
           alt="Amy Palacios, FNP, in her studio beneath the Mobile Aesthetics neon sign."
           widths={[360, 520, 760]}
           sizes="18rem"
           loading="lazy"
+          class="ng-arch"
         />
       </figure>
     </div>
@@ -180,12 +183,12 @@ import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
 </BaseLayout>
 
 <style is:global>
-  /* Same editorial frame + light-wash grade as the /services strip. */
+  /* Same light-wash grade as the /services strip. Frame shape + border
+   * come from .ng-arch (global.css) — the sitewide arch motif,
+   * 2026-08-17. */
   .about-portrait {
     position: relative;
     margin: 0;
-    border: 1px solid var(--ng-hairline);
-    overflow: hidden;
   }
   .about-portrait img {
     display: block;

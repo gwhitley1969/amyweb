@@ -241,6 +241,26 @@ const crumbs = [
   .treatment-body .media-row--flip .media-figure {
     transform: rotate(1.5deg);
   }
+  /* THE ARCH inside the matte (sitewide motif, 2026-08-17) — a
+   * documented mirror of .ng-arch (global.css): MDX bodies are plain
+   * markup and can't take the class without content edits (which would
+   * reset clinicianApproved), so the recipe lands by selector. Astro
+   * derivative filenames keep the source basename, so the src-guard
+   * excluding the lip style-guide (a labeled diagram — an arch or crop
+   * would cut its six labels) is stable. The 4:5 display crop makes
+   * every arch read as architecture: on a landscape box the 999px
+   * radii resolve to a squat half-ellipse, not an arch. Same
+   * derivatives are served — the crop is display-only, zero bytes.
+   * ORDER CONTRACT: the .media-band rules below carry equal
+   * specificity and must stay below this rule so their wider
+   * aspect/position win on bands while the arch shape persists. */
+  .treatment-body .media-figure img:not([src*='lip-style-guide']) {
+    border-radius: 999px 999px 12px 12px;
+    border: 1px solid var(--ng-magenta-600);
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
   /* Full-width band — a page's third media moment breaks the
    * alternating row rhythm with scale instead of a third zigzag
    * (taste-audit follow-up, 2026-07-25): one wide framed print across
@@ -255,20 +275,25 @@ const crumbs = [
     margin-top: 2rem;
     transform: none;
   }
+  /* Bands render as WIDE Roman arches: 9:8 is the widest frame whose
+   * arch still reads as architecture (semicircle + visible straight
+   * feet). Was 16:9 until the arch motif (2026-08-17) — a 16:9 box
+   * turns the 999px radii into a half-ellipse lens. fine-gauge-detail
+   * ships a baked 16:9 derivative (budget crop, wrinkle-relaxers) now
+   * displayed through this 9:8 window — a center slice; the recorded
+   * upgrade path is a server-side re-crop at the consolidated
+   * re-approval round (an MDX edit, deliberately deferred). */
   .treatment-body .media-band .media-figure img {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 9 / 8;
     object-fit: cover;
     object-position: 50% 42%;
   }
-  /* Tall variant of the band, for sources composed vertically — two
-   * figures stacked in a portrait frame (regenerative, 2026-07-26). The
-   * 16:9 default is a landscape contract: applied to a standing
-   * clinician over a reclined client it crops the clinician's head off
-   * and drops the room. 9:8 is the widest frame that keeps the whole
-   * composition, and it matches the server-side crop exactly, so
-   * object-fit is inert here and stays only as the degrade path if a
-   * future source arrives off-ratio. Equal specificity to the rule
-   * above — it must stay below it to win. */
+  /* Tall band variant (regenerative, 2026-07-26): since the 2026-08-17
+   * base-band change both bands share 9:8 — for prp-treatment it
+   * matches the server-side crop exactly, so object-fit is inert and
+   * stays only as the degrade path. The variant survives as the
+   * centered-composition contract (50% 50%). Equal specificity to the
+   * rules above — it must stay below them to win. */
   .treatment-body .media-band--tall .media-figure img {
     aspect-ratio: 9 / 8;
     object-position: 50% 50%;

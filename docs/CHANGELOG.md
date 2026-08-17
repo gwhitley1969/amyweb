@@ -6,6 +6,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-17 — The footer names the studio
+
+- The footer's left block now shows "Mobile Aesthetics" between the
+  brand line and the street address — the same factual studio line
+  the Visit Amy card gained earlier today, now in the sitewide
+  footer.
+
 ### 2026-08-17 — The /services strip wears Amy's new photography
 
 - All three strip photos replaced with Amy's picks from the new

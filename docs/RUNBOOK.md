@@ -271,6 +271,13 @@ broken hybrid. Relaunch is two-step, in order:
    on a preview and the operator flips the flags — the same sign-off
    flow as launch.
 
+The full execution record — preconditions (including the
+**presentation-approval hard gate**: a dated entry in
+docs/CLINICIAN-SIGN-OFF.md newer than the last merged visual change),
+the ready-to-run PR steps, guard retirement, the analytics flip, and
+the launch-day checklist — lives in **docs/RELAUNCH.md** (prepared
+2026-08-17). Use it as the relaunch PR's script; do not re-derive.
+
 During the takedown: never merge `main` into `phase-c`, never press
 "Update branch" on PR #95, never close PR #95 (the standing-PR pattern
 survives for relaunch). Interim previews come from sub-PRs into

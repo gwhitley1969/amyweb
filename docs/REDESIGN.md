@@ -99,8 +99,30 @@ pink."** Seven gaps, each a test every design decision must move:
 - **Sound for the films** — renditions are muted; tap-for-sound +
   audio-faithful captions is a recorded follow-up if directed.
 - Carried from launch: counsel review of legal pages, manual
-  keyboard/screen-reader a11y pass, laser pricing if supplied,
-  Plausible analytics opt-in (~$9/mo, flagged).
+  keyboard/screen-reader a11y pass, laser pricing if supplied.
+  (Plausible: decided and PREPPED 2026-08-17 — ships dark; the flip
+  is a relaunch-day config edit, RUNBOOK "Turning on analytics".)
+
+## Round close (scaffold added 2026-08-17 — external-audit Finding 2)
+
+Operator decision 2026-08-17: **production stays dark until this
+round completes.** The round completes when the three slots below are
+filled and satisfied — the operator fills them, nobody else. Anything
+raised after the freeze is recorded as change-order or retainer
+scope, never silently absorbed (fixed-fee discipline).
+
+1. **Frozen change list** (dated when frozen): _pending — the
+   operator's "A LOT more" list, frozen as of ____._
+2. **Relaunch target date:** _pending._
+3. **The seven gaps as pass/fail acceptance checks** (fill with
+   Amy/operator verdicts, not vibes): cinematic video ☐ · enormous
+   type, few words ☐ · one idea per screen ☐ · noir as cinematic
+   stage ☐ · flawless assets only ☐ · choreographed restrained
+   motion ☐ · mobile-first ☐.
+
+When all three are filled: execute **docs/RELAUNCH.md** (the
+preconditions there — copy approval, presentation approval, analytics
+flip — are hard gates).
 
 ## Working agreement for the round
 

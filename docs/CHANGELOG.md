@@ -6,6 +6,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-17 — The /services strip wears Amy's new photography
+
+- All three strip photos replaced with Amy's picks from the new
+  professional shoot (photo round page 2): Amy at a client's brow in
+  window light; the fine-syringe moment at a reclined client's lower
+  face; Amy showing treatment products to a male client. All three
+  client releases confirmed on file (DECISIONS 2026-08-17). The
+  outgoing frames had no other pages left using them and were
+  retired.
+
 ### 2026-08-17 — Every photo wears the arch
 
 - Amy's direction: the light-pink arch frame from the homepage

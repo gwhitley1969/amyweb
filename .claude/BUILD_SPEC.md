@@ -164,8 +164,14 @@ retired at C8, 2026-08-04) stay flat black. Brand-pink
 CTA fills under ink text, hairline rules, a static neon aura on the
 sign, and a soft shimmer on the noir accent phrase carry on unchanged.
 Photography wears a house grade — cinema-noir on dark bands, a light
-wash on light bands. Motion is scroll-driven and sparse; nothing pulses
-except the sign's slow breath. Since 2026-08-14 the noir shell includes
+wash on light bands. Since 2026-08-17 every photo also wears the arch
+frame (`.ng-arch`, global.css — the category-door window generalized
+sitewide at the client's direction; DECISIONS 2026-08-17), with four
+standing exemptions: the home hero backdrop, all film stages and
+posters (the Evolus films' burned-in safety information ships complete
+and uncropped), the homepage Instagram post (the client's named
+exception), and the lip style-guide diagram. Motion is scroll-driven
+and sparse; nothing pulses except the sign's slow breath. Since 2026-08-14 the noir shell includes
 the home's cinematic video stage — four films crossfading
 chromeless on full-bleed noir (the operator's "Audi treatment";
 DECISIONS 2026-08-14; the fourth film joined 2026-08-17; the

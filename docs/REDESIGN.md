@@ -40,7 +40,7 @@ pink."** Seven gaps, each a test every design decision must move:
 | **Mobile Aesthetics badge in the header** — SVG vector rebuild (Julius Sans One outlines, measured geometry; lockup variant stays in the brand kit); FULL BADGE at 48–80px phones / 128–160px desktop; **links out to yourmobileaesthetics.com** (new tab — constraint-2 operator override, the one sanctioned outbound reference) | **Shipped** (PR #102, merged 2026-08-15) | F-437304 asset set; DECISIONS 2026-08-15 (four entries); CLAUDE.md constraint-2 exception |
 | **Hybrid nav** — hamburger menu carries the page links at EVERY width (inline desktop nav retired); Book is the one styled button, always visible; centered-brand shell at all widths (fixed the Z Fold collision, which predated the badge) | **Shipped** (PR #102, merged 2026-08-15) | operator decision after options; DECISIONS 2026-08-15 |
 | **Pink arches around pictures** — house frame motif, generalized from the existing arch geometry | Planned | operator directive |
-| **Photo replacement sitewide** | Planned | operator directive |
+| **Photo replacement sitewide** — page-by-page, operator + Amy pick per slot (picks in C:\Amy\New Pics; ~21 frames from the new professional shoot). Homepage doors shipped 2026-08-17 (three picks, screened; client release recorded) | **In progress** (started 2026-08-17) | operator directive; DECISIONS 2026-08-17 |
 | 17a + 17b videos → /services/biostimulators; 20 → /services/body-contouring | Parked ("not there yet") | same screening + release checks when directed |
 
 ## Carousel record (J1/studio/J2 cleared 2026-08-14; team film 2026-08-17)

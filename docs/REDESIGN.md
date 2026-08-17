@@ -53,7 +53,9 @@ pink."** Seven gaps, each a test every design decision must move:
   second constraint-2 scoped exception + DECISIONS entry ride the PR.
   No claims content (no constraint-3 exception needed). Plays at 1×;
   progress bars slim to 48px under 600px so four bars + toggle fit
-  390px phones and the 344px fold cover.
+  390px phones and the 344px fold cover. Same day (operator): the
+  section head renamed "Mobile Aesthetics. On screen." (was "The
+  studio. On screen.") — the carousel speaks for the whole practice.
 
 - **2026-08-15 refinements (operator + Amy; PRs #104/#105 merged same day):** the
   section head is the single Playfair line "The studio. On screen." —

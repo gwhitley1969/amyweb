@@ -16,6 +16,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   burned-in text; the film plays at normal speed.
 - The four progress bars slim down on phones so the row fits every
   screen the site supports, including fold covers.
+- The section head is now "Mobile Aesthetics. On screen." (was "The
+  studio. On screen.") — with the team film aboard, the carousel
+  speaks for the whole practice.
 
 ### 2026-08-15 — The whole site speaks in the logo's face
 

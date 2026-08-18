@@ -22,7 +22,7 @@ productDetails:
     priceLines: ["$12 per unit"]
 ctaType: book
 pricingDisplay: consult
-clinicianApproved: true
+clinicianApproved: false
 draft: false
 faq:
   - q: "What's the difference between Jeuveau, Xeomin, and Daxxify?"
@@ -41,9 +41,6 @@ seo:
 ---
 
 import { Image } from 'astro:assets';
-import TreatmentVideo from '../../components/TreatmentVideo.astro';
-import EvolusCallout from '../../components/EvolusCallout.astro';
-import iconPoster from '../../assets/photos/evolus-icon-poster.jpg';
 import browAppointment from '../../assets/photos/brow-appointment.jpg';
 import maleClient from '../../assets/photos/male-client-appointment.jpg';
 import fineGauge from '../../assets/photos/fine-gauge-detail.jpg';
@@ -55,21 +52,9 @@ used to soften dynamic lines, the creases that form with repeated
 muscle movement. Common treatment areas include the forehead,
 frown lines, and crow's feet.
 
-<EvolusCallout />
-
-## Inside Evolus
-
-Evolus brought providers from across the country to its Newport Beach
-headquarters for its first ICON experience. Amy was in the room. This
-is Evolus's own recap of the event.
-
-<TreatmentVideo
-  src="/media/evolus-icon.mp4"
-  poster={iconPoster}
-  captionsSrc="/media/evolus-icon.vtt"
-  label="ICON — an Evolus HQ experience: Evolus's recap of its provider event"
-  caption="ICON — an Evolus HQ experience. An Evolus production — sound on."
-/>
+{/* The Evolus recognition plate and the "Inside Evolus" film moved to
+  * /about at the client's direction (2026-08-18, DECISIONS same date —
+  * supersedes the 2026-07-21 placements recorded there). */}
 
 <section class="media-row media-row--flip">
   <div class="media-copy">

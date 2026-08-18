@@ -3932,3 +3932,40 @@ read "Book with Amy", not "BOOK" — the client's quoted label is a
 near-match; a one-word alignment is available if she wants it. "Facial
 Balancing" is not a menu-line title (it names the filler/balancing work) —
 illustrative client phrasing, carried as-is.
+
+## 2026-08-18 — Evolus recognition plate + ICON film move to /about
+
+**Context:** Client direction (via the operator, 2026-08-18): on
+/services/wrinkle-relaxers, the black EvolusCallout plate, the "Inside
+Evolus" section, and the ICON film all move to /about — prep for that
+page's photo round. Two standing records were in the way: the 2026-07-21
+operator placement decision "About stays ranking-free," and the
+page-scoped exception records (CLAUDE.md constraint 3, BUILD_SPEC §6/§7/§8,
+the component's own header) that authorized the ranking sentence on
+wrinkle-relaxers + dermal-fillers and the ICON film on wrinkle-relaxers.
+
+**Decision:** Move all three as a unit, byte-identical copy (intro
+paragraph, film label, caption). The client's direction supersedes the
+2026-07-21 placement decision; every page-scope record is amended in the
+same PR — ranking sentence now dermal-fillers + about, ICON film now
+/about, exception TERMS unchanged (as-is carriage, comparative-efficacy
+remarks and named third-party providers operator-accepted, captions
+faithful). `compliance/banned-patterns.json` is untouched: the allowlist
+strips globally and its third-authorization comment records no page scope.
+On /about the pair sits between the milestones timeline and "The name on
+the wall," in a left-aligned max-w-3xl column — the same 48rem width both
+components shipped in inside the treatment body.
+
+**Alternatives rejected:** copying (rather than moving) the callout so
+wrinkle-relaxers keeps it — the direction was "moved"; consolidating the
+dermal-fillers instance too — not asked; the request names only
+wrinkle-relaxers, so dermal-fillers keeps its own plate.
+
+**Consequences:** first approved-content MDX edit of the redesign round —
+wrinkle-relaxers `clinicianApproved` reset true → false in the removal
+commit (constraint 4; `check:approvals` gates only the production
+pipeline, which stays dark; the consolidated pre-relaunch re-approval
+restores it). The sign-off doc's wrinkle-relaxers row loses the two items
+and the presentation-drift list gains the move. /about (LHCI default
+budgets) now carries the ICON poster; wrinkle-relaxers gets lighter —
+both measured in verify.

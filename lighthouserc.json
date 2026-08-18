@@ -1,5 +1,5 @@
 {
-  "$comment": "Three-layer perf gate (DECISIONS 2026-07-19, operator-approved). Layer 1: deterministic byte/count budgets — exact, zero-variance, the primary regression tripwires; values = measured 2026-07-19 baselines + headroom (see DECISIONS for the baseline table). Layer 2: statistical metrics asserted on the MEDIAN of 3 runs — thresholds unchanged; aggregationMethod is set explicitly because the LHCI default ('optimistic' = best-of-N) would silently weaken the gate. Layer 3 (escalation rule) lives in DECISIONS. Budgets only tighten without operator approval — loosening one is a flagged, operator-gated change. 2026-08-18 (operator-approved after the flag, DECISIONS same date): assertions became an assertMatrix so the /services + /styleguide photo-card menu (12 full-retina arch cards; LH's full-page scroll fetches every lazy card) gets a scoped image/total carve-out on exactly those two URLs; every other page keeps the original budgets, which stay the house defaults for any new page.",
+  "$comment": "Three-layer perf gate (DECISIONS 2026-07-19, operator-approved). Layer 1: deterministic byte/count budgets — exact, zero-variance, the primary regression tripwires; values = measured 2026-07-19 baselines + headroom (see DECISIONS for the baseline table). Layer 2: statistical metrics asserted on the MEDIAN of 3 runs — thresholds unchanged; aggregationMethod is set explicitly because the LHCI default ('optimistic' = best-of-N) would silently weaken the gate. Layer 3 (escalation rule) lives in DECISIONS. Budgets only tighten without operator approval — loosening one is a flagged, operator-gated change. 2026-08-18 (operator-approved after the flag, DECISIONS same date): assertions became an assertMatrix so the /services + /styleguide photo-card menu (12 full-retina arch cards; LH's full-page scroll fetches every lazy card) gets a scoped image/total carve-out on exactly those two URLs; every other page keeps the original budgets, which stay the house defaults for any new page. Same day, rev 2: the compact-tile shrink let the carve-out TIGHTEN from 640/940KB to 384/512KB (measured 298/317KB — budgets only move down without a flag).",
   "ci": {
     "collect": {
       "staticDistDir": "./dist",
@@ -95,11 +95,11 @@
             ],
             "resource-summary:total:size": [
               "error",
-              { "maxNumericValue": 962560, "aggregationMethod": "median" }
+              { "maxNumericValue": 524288, "aggregationMethod": "median" }
             ],
             "resource-summary:image:size": [
               "error",
-              { "maxNumericValue": 655360, "aggregationMethod": "median" }
+              { "maxNumericValue": 393216, "aggregationMethod": "median" }
             ],
             "resource-summary:font:size": [
               "error",

@@ -237,27 +237,37 @@ Blush-50's ambient-band role (ConceptHome) continues; since
 stay transparent-outlined.
 
 **Editorial menu cards (client direction, 2026-07-23; photo cards
-2026-08-18):** the services grid renders as a categorized treatment
-menu — three groups (Injectables · Skin & Body · Wellness, 4/4/4 in
-`serviceLines` array order, which is also the 01–12 numbering order),
-each opened by the section-opener signature and set two-across. Card
-anatomy: the client's per-line photo in the house arch (her mockup,
-2026-08-18 — the door anatomy's 4:5 server crop, decorative `alt=""`
-to the labeled link; photo map + screening pointer in
-ServiceLineGrid, srcset capped at each photo's crop width so sharp
-never upscales), then the oversized Playfair index numeral (ink-pink,
-4.60:1 on the resting pink, decorative `aria-hidden`), Playfair title
-and summary (the summary was sans until the 2026-08-15 one-family
-move — §5 Typography), and a "More information ›" microline pinned to
-the card foot (client wording, 2026-07-23) — the microline is
-ink-900, not ink-pink, because at 13px it is body-size text and
-ink-pink holds only 3.81:1 on the hover plate (4.5 hard bar). Hover
-adds a 2px ink-pink rule drawing across the card top (the traced-rule
+2026-08-18; compact tiles same day, rev 2):** the services grid
+renders as a categorized treatment menu — three groups (Injectables ·
+Skin & Body · Wellness, 4/4/4 in `serviceLines` array order, which is
+also the 01–12 numbering order), each opened by the section-opener
+signature. Grid density (operator scale correction after the first
+preview read huge): 2-across compact tiles on phones, one 4-card row
+per group from `lg` up. Card anatomy: the client's per-line photo in
+the house arch (her mockup, 2026-08-18 — the door anatomy's 4:5
+server crop, decorative `alt=""` to the labeled link; photo map +
+screening pointer in ServiceLineGrid; srcset [400/640/880] capped at
+each photo's crop width so sharp never upscales — 880 serves the
+640–1023 two-across band's DPR2 tablets, and `sizes` describes the
+IMAGE width), then the Playfair index numeral (ink-pink, 4.60:1 on
+the resting pink, decorative `aria-hidden`), Playfair title and
+summary (the summary was sans until the 2026-08-15 one-family move —
+§5 Typography; on phones the summary is HIDDEN — operator decision —
+so the tile is arch + numeral + title + microline, and it returns
+from 640px), and a "More information ›" microline pinned to the card
+foot (client wording, 2026-07-23) — the microline is ink-900, not
+ink-pink (contrast on the hover plate), compacted on the photo tiles
+with a phone step that stacks two composed lines only at the 344px
+Z Fold cover. All type measures compact ONLY under the `--photo`
+variant; text-only cards keep the editorial anatomy. Hover adds a
+2px ink-pink rule drawing across the card top (the traced-rule
 signature at card scale). The state pair, the ring, and every recorded
 contrast pair above are unchanged. Perf: the 12-card photo menu gets
 a scoped LHCI budget carve-out on /services + /styleguide only
-(assertMatrix; measured, flagged, operator-approved — DECISIONS
-2026-08-18); all other pages keep the §13 budgets.
+(assertMatrix, image 384KB / total 512KB — tightened same day from
+the initial 640/940 when the compact tiles halved the picks;
+measured 298/317KB — DECISIONS 2026-08-18); all other pages keep
+the §13 budgets.
 
 **Raised plates (client direction, 2026-07-27):** the menu cards are
 elevated, not flat — a two-layer ink-900 shadow with a 1px lit top

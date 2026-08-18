@@ -61,8 +61,12 @@ const {
 const numeral = index === undefined ? undefined : String(index).padStart(2, '0');
 // Width of the source area a 4:5 cover crop actually has: derivatives
 // above it would be upscales, so the srcset stops there (retina rule).
+// Tiers per delivery band (2026-08-18 rev 2): 400 covers the LH-CI
+// pick, 640 covers phones (DPR3 tiles need ≤~430) and desktop
+// (DPR2 needs ~448), 880 covers the 640–1023 two-across band whose
+// DPR2 tablets need up to ~878 — without it they'd get 0.73×.
 const cropWidth = photo ? Math.min(photo.width, Math.round(photo.height * 0.8)) : 0;
-const photoWidths = photo ? [400, 640, 1000].filter((w) => w <= cropWidth) : [];
+const photoWidths = photo ? [400, 640, 880].filter((w) => w <= cropWidth) : [];
 ---
 
 <article
@@ -85,7 +89,7 @@ const photoWidths = photo ? [400, 640, 1000].filter((w) => w <= cropWidth) : [];
         position={photoPosition}
         quality={62}
         widths={photoWidths}
-        sizes="(min-width: 1280px) 520px, (min-width: 640px) 44vw, 88vw"
+        sizes="(min-width: 1280px) 225px, (min-width: 1024px) 20vw, (min-width: 640px) 44vw, 35vw"
         loading="lazy"
       />
     </figure>
@@ -98,7 +102,7 @@ const photoWidths = photo ? [400, 640, 1000].filter((w) => w <= cropWidth) : [];
   <h3 class="treatment-card__title">
     <a href={href} class="treatment-card__link">{title}</a>
   </h3>
-  <p class="mt-3">{summary}</p>
+  <p class="treatment-card__summary">{summary}</p>
   <p class="treatment-card__more">
     More information
     <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
@@ -147,20 +151,76 @@ const photoWidths = photo ? [400, 640, 1000].filter((w) => w <= cropWidth) : [];
   .treatment-card:focus-within::before {
     scale: 1 1;
   }
-  /* Photo cards use the door's tighter padding so the arch carries the
-   * proportions; text-only cards keep the editorial 2rem. */
+  /* COMPACT TILES (operator scale correction, 2026-08-18 rev 2 — the
+   * mockup-literal cards read huge): photo cards are dense menu tiles,
+   * 2-across on phones / 4-across desktop, so every measure below is
+   * scoped to the --photo variant; text-only cards keep the editorial
+   * 2rem anatomy untouched. */
   .treatment-card--photo {
-    padding: 1.5rem;
+    padding: 0.875rem;
+  }
+  @media (min-width: 640px) {
+    .treatment-card--photo {
+      padding: 1.25rem;
+    }
   }
   /* Frame shape + border live in .ng-arch (global.css) — same split as
    * nc-door__arch, the pattern this variant is merged from. */
   .treatment-card__arch {
-    margin: 0 0 1.5rem;
+    margin: 0 0 0.75rem;
+  }
+  @media (min-width: 640px) {
+    .treatment-card__arch {
+      margin-bottom: 1rem;
+    }
   }
   .treatment-card__arch img {
     display: block;
     width: 100%;
     height: auto;
+  }
+  /* Summary spacing lives here (was a Tailwind mt-3 on the element) so
+   * the photo variant can compact and hide it without touching the
+   * text-only anatomy. */
+  .treatment-card__summary {
+    margin-top: 0.75rem;
+  }
+  .treatment-card--photo .treatment-card__num {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+  }
+  .treatment-card--photo .treatment-card__title {
+    margin-top: 0.375rem;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+  }
+  .treatment-card--photo .treatment-card__summary {
+    margin-top: 0.375rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  /* Phone tiles drop the summary (operator decision 2026-08-18): arch +
+   * numeral + title + microline. It returns from 640px up, where the
+   * two-across cards are 350–480px wide. */
+  @media (max-width: 639px) {
+    .treatment-card--photo .treatment-card__summary {
+      display: none;
+    }
+  }
+  .treatment-card--photo .treatment-card__more {
+    padding-top: 0.75rem;
+    font-size: 0.6875rem;
+    /* The editorial 0.18em tracking wraps inside compact tiles; the
+     * phone step below renders single-line from ~375px viewports
+     * (screenshot-checked). At the 344px Z Fold cover (~114px of
+     * line width) Playfair's wide caps stack it onto two lines — a
+     * composed, accepted edge reading; shrinking below 10px to force
+     * one line would cost more than the stack does. */
+    letter-spacing: 0.08em;
+  }
+  @media (max-width: 639px) {
+    .treatment-card--photo .treatment-card__more {
+      font-size: 0.625rem;
+      letter-spacing: 0.06em;
+    }
   }
   .treatment-card__num {
     display: block;

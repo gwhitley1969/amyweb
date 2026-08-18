@@ -71,7 +71,10 @@ const numbered = serviceLines.map((line, i) => ({ line, index: i + 1 }));
     <section class:list={['line-group', groupIdx > 0 && 'mt-14']}>
       <h2 class="eyebrow">{cat.label}</h2>
       <hr class="rule-accent ng-trace mt-2" aria-hidden="true" />
-      <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+      {/* Compact tile grid (operator scale correction, 2026-08-18 rev 2:
+        * the mockup-literal 1-across cards read huge on phones): 2-across
+        * tiles on phones, one 4-card row per group from lg up. */}
+      <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {numbered
           .filter(({ line }) => line.category === cat.key)
           .map(({ line, index }) => (

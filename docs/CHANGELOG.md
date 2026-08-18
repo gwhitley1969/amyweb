@@ -6,6 +6,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-18 — /services photo-card menu (rev 2: compact tiles, same PR)
+
+- Operator preview review: the buttons were huge. The menu is now a
+  compact tile grid — 2-across on phones (summary hidden there;
+  tile = arch + numeral + title + "More information ›"), one 4-card
+  row per group on desktop. Phone page height −58%, per-card area
+  −77%. Image srcset re-derived per delivery band (new 880px tier
+  for 2-across tablets; honest image-width `sizes`), and the LHCI
+  carve-out TIGHTENED from 640/940KB to 384/512KB (measured 298/317).
+
 ### 2026-08-18 — /services photo-card menu
 
 - Every service line's menu card now carries the client's own photo

@@ -3768,3 +3768,38 @@ grid comment carries the screening pointer; the presentation-drift
 list in CLINICIAN-SIGN-OFF gains this change (pending presentation
 approval covers it); two interim slots swap on her word; zero
 treatment MDX touched — no clinicianApproved resets.
+
+## 2026-08-18 — Photo-menu rev 2: compact tiles (operator preview review) and the carve-out tightens
+
+Context: the operator reviewed PR #121's preview — right idea, but
+the mockup-literal scale made huge buttons, not mobile-friendly;
+directive: shrink by over 50%. Measured: phone cards were 1-across,
+~343px wide × ~720px tall (~247k px²; menu ≈ 8,600px of scroll).
+
+Decision: density, not a nudge — the grid goes 2-across on phones
+(gap-3) and 4-across from lg (one row per category group); type
+compacts under the `--photo` variant only (numeral/title clamps
+down, summary 0.875rem, microline 0.6875rem → 0.625rem on phones
+with tracking cut from the editorial 0.18em); on phones the summary
+is HIDDEN (operator decision) — tile = arch + numeral + title +
+"More information ›"; it returns from 640px where 2-across cards run
+350–480px wide. Measured result: phone page 10,481px → 4,356px
+(58% shorter; per-card area −77%), desktop 7,691px → 3,728px.
+Microline honesty note: single-line proven from ~375px; at the 344px
+Z Fold cover Playfair's wide caps stack it onto two composed lines —
+accepted rather than shrinking below 10px.
+
+Image recipe re-derived per delivery band: widths [400, 640, 880] —
+880 exists because the 640–1023 two-across band needs up to ~878px
+on DPR2 tablets (with 640 alone they'd get 0.73×, a real retina-rule
+break caught in plan review); `sizes` now describes the IMAGE width
+(35vw phones), not the card — the shipped 44vw over-fetched. B4/B6/
+pixel8-rf stay source-bound below their band ideal (crop-cap logic).
+
+Consequence for the same-day carve-out: LH-CI now picks 400w cards,
+so /services measures 298KB and /styleguide 317KB of images — the
+assertMatrix carve-out TIGHTENED from 640/940KB to 384/512KB
+(budgets only move down without a flag; the tighter numbers are the
+new ceiling for both URLs). Photos, anchors, screening, releases,
+the slot-12 override, groups, numbering, and the strip all stand
+unchanged from the entry above.

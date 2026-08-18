@@ -6,6 +6,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-18 — Menu line 01 retitled
+
+- "Wrinkle Relaxers" → "Neurotoxins - Wrinkle Relaxers" on the
+  /services menu (client wording, verbatim). The treatment page's
+  own title is unchanged.
+
 ### 2026-08-18 — Menu-card photo fixes (round 3)
 
 - Body Contouring's card now shows Amy's face — the crop anchor

@@ -16,6 +16,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   contains a superiority-class banned word and ships under an
   operator allowlist override (sixth authorization — DECISIONS same
   date; two compliant rephrases were offered and declined).
+- Second round, same day: "BOOK" in that copy is now bold and links
+  to the Vagaro booking page — CTAButton's link mechanics mirrored
+  (same siteConfig URL, declarative book_click attribute, new-tab
+  with the screen-reader note).
 
 ### 2026-08-18 — Menu line 01 retitled
 

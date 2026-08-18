@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { siteConfig } from '../../lib/siteConfig';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -60,13 +61,24 @@ const crumbs = [
       * superiority-class word in sentence 2 is operator-allowlisted
       * (sixth authorization, DECISIONS 2026-08-18); the enumerated
       * fragment must stay on ONE source line — stripping is per-line and
-      * case-sensitive. The booking buttons read "Book with Amy"; the
-      * client's "BOOK" stands verbatim (flagged once, kept). */}
+      * case-sensitive. "BOOK" is bold and links to Vagaro (client
+      * request 2026-08-18, second round) — CTAButton's exact link
+      * mechanics mirrored: same siteConfig URL, same declarative
+      * data-event, same new-tab attrs + sr-only note; the underline +
+      * var(--ng-link) pair is the house inline-link idiom
+      * (Breadcrumbs/styleguide precedent). */}
     <p class="lead mt-6 max-w-prose">
       Every service below is planned and performed by Amy Palacios, FNP.
       From Facial Balancing to Weight Loss & Body Contouring to all things
       Peptides oriented, Amy has your best self in mind. Start by browsing
-      her service menus below, select where you want to begin, hit "BOOK"
+      her service menus below, select where you want to begin, hit "<a
+        href={siteConfig.booking.vagaroUrl}
+        class="font-bold underline underline-offset-4"
+        style="color: var(--ng-link)"
+        data-event="book_click"
+        target="_blank"
+        rel="noopener"
+      >BOOK<span class="sr-only"> (opens in new tab)</span></a>"
       and start your journey now with Amy's expertise as your guide!
     </p>
     {/* 3-across at EVERY breakpoint (a filmstrip on phones): stacked

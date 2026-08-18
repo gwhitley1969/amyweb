@@ -234,7 +234,12 @@ each shipped page lives in DECISIONS):
    asset-level: re-derive from the master in C:\Amy\New Pics (single
    generation — never re-process the committed JPEG), commit under
    the same content name, and record the exact sharp recipe in
-   DECISIONS.
+   DECISIONS. When a frame's aspect can't cover-crop into the slot
+   without losing the story (face AND device both required), the
+   asset becomes a pre-composed blur-fill contain: the full frame at
+   native resolution on a slot-aspect canvas, side bars a blurred
+   blowup of the same frame (menu card 06 precedent, 2026-08-18 —
+   recipe in DECISIONS).
 6. **Orphan check:** grep the outgoing asset repo-wide; zero
    remaining references → delete it (git history preserves the
    frame); any remaining consumer → it stays.

@@ -11,8 +11,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - All three /services/wrinkle-relaxers photos replaced with Amy's
   picks (screening, releases, and the Jeuveau-banner pixel override —
   the third photo exception — recorded in DECISIONS same date). The
-  wide band is a pre-composed 9:8 blur-fill composite (card-06 house
-  pattern), which also retires the recorded fine-gauge double-crop
+  band shipped first as a blur-fill composite, then re-cut the same
+  day on client feedback ("a smaller arch so it fits correctly"): an
+  exact 9:8 window (banner + Amy + client; the left-hand client is
+  out of frame — no 9:8 window holds all four people) in a new
+  compact centered arch (34rem — also the retina-correct width for
+  the 1110px window). Retires the recorded fine-gauge double-crop
   defect early.
 - The treatment pages' white paper mat and print tilt retired
   sitewide (client direction: pink behind the arches, like

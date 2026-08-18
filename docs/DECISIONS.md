@@ -4026,3 +4026,30 @@ LH-mobile pick stays the 1080 tier but 9:8 carries ~1.6× the pixels of
 the old 16:9 — offset by the ICON poster the page just lost; measured
 in verify. Presentation drift (bare arches, 12 pages) added to the
 sign-off doc for Amy's pending pass.
+
+## 2026-08-18 — band re-cut + compact arch (client feedback on the composite)
+
+**Context:** Client feedback on the PR #126 preview: the blur-fill band
+read as not-fitting — "put it in a smaller arch so that it fits
+correctly; if we need to shrink it, let's do it." Geometry recap: the
+master's four people span ~1410px of 1600 and the widest 9:8 window is
+1200px, so any arch the photo FILLS must omit someone.
+
+**Decision:** jeuveau-banner-studio.jpg re-derived from the master as
+an exact 9:8 window — extract x=490, y=45, 1110×987, jpeg q92 (sharp)
+— omitting the left-hand client cleanly (no sliver of her or her
+chair; eyeballed against x=510/530 candidates; releases unchanged, hers
+now unused for this frame). The banner, Amy, and the male client fill
+the arch sharp, edge-to-edge; the blur-fill composite is superseded.
+The Jeuveau banner renders LARGER than in the composite — same frame,
+same page, same operator override (legibility was the enumerated flag;
+the fine print stays illegible at served sizes, eyeball-checked on the
+1080 derivative). Presentation: new `media-band--compact` layout
+variant (34rem centered) used by this page — the "smaller arch," and
+retina math besides: 1110 native px ≈ 1.02× DPR2 in the 34rem slot,
+where the full 45rem slot would be 0.77×, below the retina rule.
+Tiers [720, 1080]; alt updated ("two clients" → "a client").
+
+**Alternatives rejected:** a 4:5 row-scale arch of Amy + the client
+(loses the banner the frame is visibly for); keeping the composite at
+reduced width (blur bars are the complaint, size doesn't cure them).

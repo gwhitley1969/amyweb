@@ -288,13 +288,23 @@ const crumbs = [
    * that shipped a baked 16:9 derivative through this 9:8 window
    * (fine-gauge-detail, a recorded double-crop defect) retired
    * 2026-08-18 with the wrinkle-relaxers photo round — its
-   * replacement is a pre-composed 9:8 blur-fill composite that
-   * matches the window exactly, so today object-fit is the degrade
-   * path everywhere. */
+   * replacement is a baked 9:8 re-cut that matches the window
+   * exactly, so today object-fit is the degrade path everywhere. */
   .treatment-body .media-band .media-figure img {
     aspect-ratio: 9 / 8;
     object-fit: cover;
     object-position: 50% 42%;
+  }
+  /* Compact band variant (wrinkle-relaxers, 2026-08-18 — client
+   * feedback: "a smaller arch so that it fits correctly"): a centered
+   * arch instead of the full column. 34rem is retina math, not taste —
+   * the page's 9:8 re-cut asset is 1110 native px, which covers the
+   * 544-CSS-px slot at ~1.02× DPR2 (the full 45rem slot would be
+   * 0.77× — below the retina rule). Equal specificity to the base
+   * band figure rule above — order wins. */
+  .treatment-body .media-band--compact .media-figure {
+    width: min(34rem, 100%);
+    margin-inline: auto;
   }
   /* Tall band variant (regenerative, 2026-07-26): since the 2026-08-17
    * base-band change both bands share 9:8 — for prp-treatment it

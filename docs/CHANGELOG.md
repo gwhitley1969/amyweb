@@ -6,6 +6,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-18 — The last two picks land (same PR)
+
+- Skin Rejuvenation's card now carries the client's own B5 pick (Amy
+  holding the PiXel8-RF handpiece) and Weight Loss carries her
+  replacement B9 frame (client on the InBody scale — release
+  confirmed on file; ships under an operator override for the
+  legible competitor-brand aftercare sign in frame, DECISIONS same
+  date). All twelve menu cards now show her picks; no interim slots
+  remain.
+
 ### 2026-08-18 — /services photo-card menu (rev 2: compact tiles, same PR)
 
 - Operator preview review: the buttons were huge. The menu is now a

@@ -6,11 +6,11 @@ import templeInjection from '../assets/photos/temple-injection.jpg';
 import amyHoldingNeon from '../assets/photos/amy-holding-neon.jpg';
 import radiesseSyringes from '../assets/photos/radiesse-syringes.jpg';
 import deviceFacialSession from '../assets/photos/device-facial-session.jpg';
-import pixel8Rf from '../assets/photos/pixel8-rf.jpg';
+import pixel8InHand from '../assets/photos/pixel8-in-hand.jpg';
 import evolveBeltSelfie from '../assets/photos/evolve-belt-selfie.jpg';
 import laserEyeShields from '../assets/photos/laser-eye-shields.jpg';
 import skinbetterTrioForward from '../assets/photos/skinbetter-trio-forward.jpg';
-import supervisedWeighIn from '../assets/photos/supervised-weigh-in.jpg';
+import inbodyWeighIn from '../assets/photos/inbody-weigh-in.jpg';
 import lavenderSuitStool from '../assets/photos/lavender-suit-stool.jpg';
 import ivDripNeon from '../assets/photos/iv-drip-neon.jpg';
 import bioteBannerScale from '../assets/photos/biote-banner-scale.jpg';
@@ -28,10 +28,10 @@ import bioteBannerScale from '../assets/photos/biote-banner-scale.jpg';
  * Photos are the client's own per-line picks (2026-08-17 delivery,
  * screened frame-level 2026-08-18 — record in DECISIONS same date; all
  * pictured clients' releases CONFIRMED on file, operator word = the
- * record). Two slots await her remaining picks and carry the line's
- * own page photo in the interim: skin-rejuvenation and
- * weight-loss-glp-1 — swapping a pick in is an asset-map edit here,
- * zero page changes (RUNBOOK "Replacing site photography").
+ * record). All twelve slots carry her picks (the last two landed
+ * 2026-08-18 later the same day); swapping any pick is an asset-map
+ * edit here, zero page changes (RUNBOOK "Replacing site
+ * photography").
  */
 interface Props {
   featuredSlugs?: string[];
@@ -48,7 +48,7 @@ const linePhotos: Record<string, { photo: ImageMetadata; position: string }> = {
   'dermal-fillers': { photo: amyHoldingNeon, position: 'attention' },
   biostimulators: { photo: radiesseSyringes, position: 'attention' },
   regenerative: { photo: deviceFacialSession, position: 'bottom' },
-  'skin-rejuvenation': { photo: pixel8Rf, position: 'attention' },
+  'skin-rejuvenation': { photo: pixel8InHand, position: 'attention' },
   // 9:16 selfie vs a 4:5 arch: face and belt can't both fit. 'bottom'
   // frames the Evolve belt deliberately (the treatment story); the
   // face-included crops cut at the chin and read accidental. Client
@@ -56,7 +56,7 @@ const linePhotos: Record<string, { photo: ImageMetadata; position: string }> = {
   'body-contouring': { photo: evolveBeltSelfie, position: 'bottom' },
   'laser-treatments': { photo: laserEyeShields, position: 'attention' },
   skincare: { photo: skinbetterTrioForward, position: 'centre' },
-  'weight-loss-glp-1': { photo: supervisedWeighIn, position: 'bottom' },
+  'weight-loss-glp-1': { photo: inbodyWeighIn, position: 'attention' },
   'peptide-therapy': { photo: lavenderSuitStool, position: 'attention' },
   'iv-therapy': { photo: ivDripNeon, position: 'centre' },
   'hormone-optimization': { photo: bioteBannerScale, position: 'top' },

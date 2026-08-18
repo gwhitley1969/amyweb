@@ -49,7 +49,7 @@ Visual drift since 2026-08-05, for Amy's pending pass: body face and
 size (DM Sans → Playfair 17px/1.65), every photo arched with 4:5/9:8
 display crops, homepage door + /services strip photography replaced,
 the /services menu rebuilt as her photo-card "buttons" (2026-08-18 —
-her mockup; ten of twelve are her picks, two interim), the MA header
+her mockup; all twelve are her picks), the MA header
 badge and hamburger-only nav, the four-film carousel and its heading,
 the "Mobile Aesthetics" line in the location card and footer. Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window — an MDX edit, so

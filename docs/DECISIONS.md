@@ -3803,3 +3803,32 @@ assertMatrix carve-out TIGHTENED from 640/940KB to 384/512KB
 new ceiling for both URLs). Photos, anchors, screening, releases,
 the slot-12 override, groups, numbering, and the strip all stand
 unchanged from the entry above.
+
+## 2026-08-18 — Slots 05 and 09 get their real picks; the menu's interim slots close
+
+Context: the operator flagged slot 05 serving the interim photo —
+the client's B5 pick was in the picks folder (missed in the first
+sweep). Screened: Amy solo holding the PiXel8-RF handpiece,
+device/maker name legible (the device is named in the line's own
+copy — product-labeling precedent), blurred device screen and neon
+behind, no client, no release needed. Committed content-named
+(`pixel8-in-hand.jpg`). Slot 09 went through two frames the same
+morning: her first B9 (HEIC) was screened and staged (client on the
+InBody scale, sign fragment illegible — frame-8 class; the client's
+website-use release CONFIRMED on file, operator word = the record),
+then the operator directed a replacement frame (B9.jpeg — same
+client, different session, EXIF-rotated master normalized upright
+and committed at the shoot-file class, 1200×1600 JPEG q92,
+`inbody-weigh-in.jpg`). **The replacement frame ships under operator
+override after the compliance flag:** its aftercare wall sign titles
+a competitor neuromodulator brand in large type, legible at served
+card sizes — a brand the site's own copy never names (the menu is
+Jeuveau/Xeomin/Daxxify) and whose pixels previously shipped only
+under the studio-reel override. Flag raised with a crop-out
+alternative; operator chose SHIP AS-IS → CLAUDE.md's constraint-3
+scoped-exception list grows to two menu-card photos. The sign's
+small caption lines (incl. its results-timing line) stay illegible
+at every served size. All twelve menu slots now carry the client's
+own picks; the interim photos (`pixel8-rf.jpg`,
+`supervised-weigh-in.jpg`) remain in the repo for their
+treatment-page uses.

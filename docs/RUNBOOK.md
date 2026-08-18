@@ -227,13 +227,19 @@ each shipped page lives in DECISIONS):
 5. Swap the import + rewrite the alt to what the new frame factually
    shows — never invent a treatment the pixels don't self-identify.
    Comment truth in the same file (release record, screening note).
+   The /services menu cards are the exception on alts: their photos
+   are decorative (`alt=""`) to the card's labeled link, and a swap
+   is one line in ServiceLineGrid's `linePhotos` map (photo import +
+   sharp gravity anchor — no page edits).
 6. **Orphan check:** grep the outgoing asset repo-wide; zero
    remaining references → delete it (git history preserves the
    frame); any remaining consumer → it stays.
 7. **Eyeball the built crops** — every slot crops server- or
    CSS-side (doors 640×800 attention; strip/portraits 4:5 at a fixed
-   object-position; arch frames clip corners) — screenshot each
-   changed slot at 390 and desktop before calling it done.
+   object-position; the twelve /services menu cards 640×800 at their
+   per-photo gravity anchors from the ServiceLineGrid map; arch
+   frames clip corners) — screenshot each changed slot at 390 and
+   desktop before calling it done.
 8. `npm run verify` green → PR → preview probes converge → Amy's
    word → merge.
 

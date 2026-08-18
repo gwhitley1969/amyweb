@@ -3869,3 +3869,17 @@ server-side. Screening unchanged for both frames (no new legible
 content; the 06 crop moves the belt labels out of frame entirely).
 Measured after: /services 290KB, /styleguide 309KB of LH-mobile
 images — inside the 384KB carve-out, no budget movement.
+
+Same day, on the operator's preview review of this PR: cards 11
+(`iv-drip-neon.jpg`) and 12 (`biote-banner-scale.jpg`) called too
+dark as well — both re-graded from their masters (B11.jpg /
+B12.jpg, single generation), sharp
+`.modulate({ brightness: 1.28, saturation: 1.05 })` (the dim
+ambient scenes took a stronger straight lift than card 10's mix),
+JPEG q92, same content names. Eyeballed on element shots: the 11
+neon still reads, the 12 banner whites keep texture; the Wellness
+row is tonally coherent. Screening posture unchanged: the 11 bag
+labels stay illegible at served sizes; the 12 banner was already
+legible and ships under its recorded constraint-3 override — the
+lift changes exposure, not what the frame discloses. Re-measured:
+/services 294KB, /styleguide 313KB — inside the carve-out.

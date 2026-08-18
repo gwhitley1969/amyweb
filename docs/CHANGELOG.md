@@ -14,6 +14,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   the frame — DECISIONS same date). Peptide Therapy's photo was
   re-graded lighter from the master (the source's matte grade read
   dark in its row); same asset name, zero code change.
+- Same round, on the PR preview: IV Therapy and Hormone
+  Optimization's photos re-graded brighter from their masters too
+  (stronger lift — dim ambient scenes); same asset names, zero code
+  change. Recipes in DECISIONS.
 
 ### 2026-08-18 — The last two picks land (same PR)
 

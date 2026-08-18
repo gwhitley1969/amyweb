@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 /**
  * Service-line card — the editorial-menu anatomy (client direction
  * 2026-07-23, supersedes the body-sans anatomy): brand-pink plate on the
@@ -6,6 +9,14 @@
  * oversized Playfair index numeral, Playfair title, sans summary,
  * "More information ›" microline pinned to the card foot
  * (client wording 2026-07-23, over the drafted "See the line").
+ * PHOTO VARIANT (client direction 2026-08-18, from her own mockup): an
+ * optional arch-framed photo above the numeral — the door anatomy
+ * (nc-door) merged into this card. The photo is decorative to the
+ * labeled link exactly as on the doors (alt="", aria-hidden figure;
+ * the title is the link text), server-cropped 4:5 like the doors so
+ * the arch reads as architecture. Derivative widths are capped at the
+ * photo's own 4:5 crop area — sharp upscales on fit=cover, and an
+ * upscaled derivative would break the retina rule silently.
  * RAISED since 2026-07-27 (client direction): the plate wears .ng-lift
  * — see global.css for the mechanism and tokens.css ELEVATION for why
  * it is arithmetic rather than taste (card and canvas cross equal
@@ -29,17 +40,56 @@ interface Props {
   /** 1-based menu position; renders as the 01–12 numeral when present. */
   index?: number;
   featured?: boolean;
+  /** Arch-framed photo above the numeral (the door anatomy). */
+  photo?: ImageMetadata;
+  /** sharp gravity/strategy token for the 4:5 cover crop (door pattern). */
+  photoPosition?: string;
   /** Extra classes (e.g. ng-rise from ServiceLineGrid). */
   class?: string;
 }
 
-const { title, summary, href, index, featured = false, class: className } = Astro.props;
+const {
+  title,
+  summary,
+  href,
+  index,
+  featured = false,
+  photo,
+  photoPosition = 'attention',
+  class: className,
+} = Astro.props;
 const numeral = index === undefined ? undefined : String(index).padStart(2, '0');
+// Width of the source area a 4:5 cover crop actually has: derivatives
+// above it would be upscales, so the srcset stops there (retina rule).
+const cropWidth = photo ? Math.min(photo.width, Math.round(photo.height * 0.8)) : 0;
+const photoWidths = photo ? [400, 640, 1000].filter((w) => w <= cropWidth) : [];
 ---
 
 <article
-  class:list={['treatment-card', 'ng-lift', featured && 'treatment-card--featured', className]}
+  class:list={[
+    'treatment-card',
+    'ng-lift',
+    featured && 'treatment-card--featured',
+    photo && 'treatment-card--photo',
+    className,
+  ]}
 >
+  {photo && (
+    <figure class="treatment-card__arch ng-arch" aria-hidden="true">
+      <Image
+        src={photo}
+        alt=""
+        width={640}
+        height={800}
+        fit="cover"
+        position={photoPosition}
+        quality={62}
+        widths={photoWidths}
+        sizes="(min-width: 1280px) 520px, (min-width: 640px) 44vw, 88vw"
+        loading="lazy"
+      />
+    </figure>
+  )}
   {numeral && (
     <span class="treatment-card__num" aria-hidden="true">
       {numeral}
@@ -96,6 +146,21 @@ const numeral = index === undefined ? undefined : String(index).padStart(2, '0')
   .treatment-card:hover::before,
   .treatment-card:focus-within::before {
     scale: 1 1;
+  }
+  /* Photo cards use the door's tighter padding so the arch carries the
+   * proportions; text-only cards keep the editorial 2rem. */
+  .treatment-card--photo {
+    padding: 1.5rem;
+  }
+  /* Frame shape + border live in .ng-arch (global.css) — same split as
+   * nc-door__arch, the pattern this variant is merged from. */
+  .treatment-card__arch {
+    margin: 0 0 1.5rem;
+  }
+  .treatment-card__arch img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
   .treatment-card__num {
     display: block;

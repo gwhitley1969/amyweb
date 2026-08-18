@@ -176,7 +176,11 @@ sitewide at the client's direction; DECISIONS 2026-08-17), with four
 standing exemptions: the home hero backdrop, all film stages and
 posters (the Evolus films' burned-in safety information ships complete
 and uncropped), the homepage Instagram post (the client's named
-exception), and the lip style-guide diagram. Motion is scroll-driven
+exception), and the lip style-guide diagram. The arch family has one
+wide sibling (2026-08-18, DECISIONS same date): the segmental arch —
+curve pinned to the top third over straight feet — for a landscape
+frame that must show its full content (first use: the
+wrinkle-relaxers band, at the client's "everyone visible" direction). Motion is scroll-driven
 and sparse; nothing pulses except the sign's slow breath. Since 2026-08-14 the noir shell includes
 the home's cinematic video stage — four films crossfading
 chromeless on full-bleed noir (the operator's "Audi treatment";

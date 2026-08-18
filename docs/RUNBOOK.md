@@ -239,7 +239,13 @@ each shipped page lives in DECISIONS):
    asset becomes a pre-composed blur-fill contain: the full frame at
    native resolution on a slot-aspect canvas, side bars a blurred
    blowup of the same frame (menu card 06 precedent, 2026-08-18 —
-   recipe in DECISIONS).
+   recipe in DECISIONS). One escalation past that, for a TREATMENT
+   BAND whose full landscape content must all be visible (client
+   rejected both a person-losing crop and the blur-fill's bars on the
+   wrinkle-relaxers band, 2026-08-18): the `media-band--segmental`
+   layout variant — the arch family's wide sibling, its 3:2 window
+   matching the frame exactly, so the full photo ships uncropped and
+   unfilled (DECISIONS same date; BUILD_SPEC §5).
 6. **Orphan check:** grep the outgoing asset repo-wide; zero
    remaining references → delete it (git history preserves the
    frame); any remaining consumer → it stays.

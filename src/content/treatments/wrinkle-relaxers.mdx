@@ -41,9 +41,9 @@ seo:
 ---
 
 import { Image } from 'astro:assets';
-import browAppointment from '../../assets/photos/brow-appointment.jpg';
-import maleClient from '../../assets/photos/male-client-appointment.jpg';
-import fineGauge from '../../assets/photos/fine-gauge-detail.jpg';
+import blazerBrowInjection from '../../assets/photos/blazer-brow-injection.jpg';
+import handMirrorMaleClient from '../../assets/photos/hand-mirror-male-client.jpg';
+import jeuveauBannerStudio from '../../assets/photos/jeuveau-banner-studio.jpg';
 
 ## What they are
 
@@ -68,9 +68,12 @@ a consultation.
 
   </div>
   <figure class="media-figure">
+    {/* Amy's pick, photo round 2026-08-18 (screening + release record in
+      * DECISIONS same date). The layout's top-anchor crop override keeps
+      * the neon letters whole — see TreatmentLayout. */}
     <Image
-      src={browAppointment}
-      alt="Amy Palacios, FNP, in hot-pink scrubs steadies a reclined client's brow line during an appointment at the Harrisburg studio."
+      src={blazerBrowInjection}
+      alt="Amy Palacios, FNP, in a pink blazer guides a fine syringe at a reclined client's brow beneath the Mobile Aesthetics neon."
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
@@ -79,9 +82,11 @@ a consultation.
 
 <section class="media-row">
   <figure class="media-figure">
+    {/* Amy's pick, photo round 2026-08-18 (screening + release record in
+      * DECISIONS same date; tray vial labels illegible at served size). */}
     <Image
-      src={maleClient}
-      alt="Amy smiles as she works across a male client's brow while he reclines in the treatment chair."
+      src={handMirrorMaleClient}
+      alt="A male client looks into a Mobile Aesthetics hand mirror beside Amy Palacios, FNP, in the treatment room."
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
@@ -100,7 +105,7 @@ planning, with Amy.
 
 {/* Third media moment: full-width band, not a third zigzag row —
   * scale variation closes the sequence (taste-audit follow-up). */}
-<section class="media-band">
+<section class="media-band media-band--segmental">
   <div class="media-copy">
 
 ## Individualized, with Amy
@@ -111,17 +116,17 @@ her Harrisburg studio, minutes from Charlotte.
 
   </div>
   <figure class="media-figure">
-    {/* Server-side 16:9 crop (width/height + fit): the CSS-only crop
-      * shipped ~45% never-shown portrait pixels and tripped the CI
-      * image budget (256,569 > 245,760 on the runner — the layout's
-      * .media-band aspect-ratio stays as the display contract). */}
+    {/* Amy's pick, photo round 2026-08-18 (screening, the banner
+      * override, and the release record all in DECISIONS same date).
+      * The asset is the FULL 3:2 frame — the client's requirement is
+      * that everyone in the picture is visible, and the people span
+      * wider than any 9:8 window holds, so the band wears the
+      * segmental-arch variant (--segmental, TreatmentLayout) whose
+      * window matches the frame exactly: no crop, no fill. 1600
+      * native px meets the 45rem slot's DPR2 demand with margin. */}
     <Image
-      src={fineGauge}
-      alt="A close-up of Amy's pink-gloved hands guiding a fine-gauge syringe at a resting client's lower face."
-      width={1440}
-      height={810}
-      fit="cover"
-      position="attention"
+      src={jeuveauBannerStudio}
+      alt="Amy Palacios, FNP, shows products to two clients across the studio cart, beside a Jeuveau banner."
       widths={[720, 1080, 1440]}
       sizes="(max-width: 48rem) 92vw, 45rem"
     />

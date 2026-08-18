@@ -3969,3 +3969,119 @@ restores it). The sign-off doc's wrinkle-relaxers row loses the two items
 and the presentation-drift list gains the move. /about (LHCI default
 budgets) now carries the ICON poster; wrinkle-relaxers gets lighter —
 both measured in verify.
+
+## 2026-08-18 — wrinkle-relaxers photo round; bare arches sitewide; Jeuveau-banner override
+
+**Context:** Client direction (via the operator, 2026-08-18): replace the
+three wrinkle-relaxers photos with her picks — 10.jpg ("Who they're
+generally for"), 11.jpg ("Not just for women"), 12.jpg (the band) from
+C:\Amy\New Pics — and make the white space around the arches pink like
+/services. The white was the treatment layout's paper mat (background +
+padding + hairline + shadow + ±1.5deg tilt); the arch rollout
+(2026-08-17) had predicted exactly this follow-up.
+
+**Screening record (frame-level):** 10 = Amy in a pink blazer injecting
+at a reclined client's brow under the MA neon (her own signage; no
+product text). 11 = male client with an MA-branded hand mirror, Amy in
+her embroidered scrubs; tray vials/labels illegible at served size.
+12 = Amy (operator-confirmed it is her — hot-pink scrubs, face in
+profile) with two clients and a large, LEGIBLE Jeuveau banner: "KISS
+YOUR 11s GOODBYE", the indication line (including "TEMPORARY", copy
+vocabulary dropped 2026-07-30), "Jeuveau YouSeeMe!". Flag raised in
+full → **operator override: ship as-is** — the third photo
+pixel-override (biote-banner-scale precedent); CLAUDE.md constraint 3
+amended in this PR. **Releases for all four pictured clients confirmed
+on file** (operator, 2026-08-18 — the confirmation is the record). All
+three assets hash-unique vs the repo.
+
+**Decisions:** (1) Assets content-named: blazer-brow-injection.jpg,
+hand-mirror-male-client.jpg, jeuveau-banner-studio.jpg; masters stay
+outside the repo; outgoing frames (brow-appointment,
+male-client-appointment, fine-gauge-detail) deleted — no other
+consumers; git history keeps them. (2) The band asset is a
+pre-composed 9:8 blur-fill contain composite (card-06 house pattern,
+RUNBOOK): the three people span x≈150–1560 of the 1600-wide 3:2
+master and the widest 9:8 cover window is 1200 — no crop holds every
+face. Recipe: 1600×1422 canvas = the frame resized fill + blur(28) +
+brightness 0.96 as self-fill, full frame composited centered, jpeg
+q92 (sharp). It matches the layout's 9:8 band window exactly, retiring
+the recorded fine-gauge 16:9-into-9:8 double-crop defect early, and
+its 1440 tier meets the desktop slot's DPR2 demand exactly. (3) Mat
+removal scope = ALL treatment pages (operator choice): one shared-CSS
+change, zero MDX edits elsewhere, zero flag resets; /about's matted
+print and the film players' mats stay. Tilts retired with the mat —
+bare arches sit straight, like /services. (4) One per-image crop
+override (the arch rollout's recorded knob): the blazer frame anchors
+top (50% 0%) so the 4:5 window keeps the neon script whole; the
+default 30% anchor sliced it mid-stroke.
+
+**Alternatives rejected:** any 9:8 cover crop of 12 (guillotines a
+face — geometry above); keeping the mats only off wrinkle-relaxers
+(visibly inconsistent between treatment pages; needs a page-scoped
+hack).
+
+**Consequences:** wrinkle-relaxers clinicianApproved stays false (reset
+in the Evolus-move commit; this stacks on that branch). The band's
+LH-mobile pick stays the 1080 tier but 9:8 carries ~1.6× the pixels of
+the old 16:9 — offset by the ICON poster the page just lost; measured
+in verify. Presentation drift (bare arches, 12 pages) added to the
+sign-off doc for Amy's pending pass.
+
+## 2026-08-18 — band re-cut + compact arch (client feedback on the composite)
+
+**Context:** Client feedback on the PR #126 preview: the blur-fill band
+read as not-fitting — "put it in a smaller arch so that it fits
+correctly; if we need to shrink it, let's do it." Geometry recap: the
+master's four people span ~1410px of 1600 and the widest 9:8 window is
+1200px, so any arch the photo FILLS must omit someone.
+
+**Decision:** jeuveau-banner-studio.jpg re-derived from the master as
+an exact 9:8 window — extract x=490, y=45, 1110×987, jpeg q92 (sharp)
+— omitting the left-hand client cleanly (no sliver of her or her
+chair; eyeballed against x=510/530 candidates; releases unchanged, hers
+now unused for this frame). The banner, Amy, and the male client fill
+the arch sharp, edge-to-edge; the blur-fill composite is superseded.
+The Jeuveau banner renders LARGER than in the composite — same frame,
+same page, same operator override (legibility was the enumerated flag;
+the fine print stays illegible at served sizes, eyeball-checked on the
+1080 derivative). Presentation: new `media-band--compact` layout
+variant (34rem centered) used by this page — the "smaller arch," and
+retina math besides: 1110 native px ≈ 1.02× DPR2 in the 34rem slot,
+where the full 45rem slot would be 0.77×, below the retina rule.
+Tiers [720, 1080]; alt updated ("two clients" → "a client").
+
+**Alternatives rejected:** a 4:5 row-scale arch of Amy + the client
+(loses the banner the frame is visibly for); keeping the composite at
+reduced width (blur bars are the complaint, size doesn't cure them).
+
+## 2026-08-18 — the segmental arch: band round 3 ("we need to see everyone")
+
+**Context:** Second client feedback on the band: the 9:8 re-cut hid the
+left-hand client — "we can't see the other person; we need to see
+everyone in the picture." With the earlier feedback that the blur-fill
+contain "doesn't fit," every Roman-arch treatment of this 3:2 frame is
+now exhausted: the people span wider than the widest 9:8 window
+(proven), a cover crop loses a person, a contain leaves fill.
+
+**Decision:** The arch changes shape, not the photo: a designed
+SEGMENTAL arch — architecture's wide sibling of the Roman arch — at
+the frame's own 3:2. `media-band--segmental`
+(border-radius 50%/34% elliptical dome over straight feet, same
+magenta hairline and 12px foot corners) with the FULL master frame
+recommitted as the asset (1600×1067, as shot). Everyone visible, the
+window filled exactly, no fabricated pixels. This is distinct from the
+2026-08-17 rejected "16:9 lens": that failure was the accidental
+full-height ellipse with no straight feet; the pinned vertical radius
+keeps the feet, which is what makes it read as architecture. The band
+returns to full column width — 1600 native px covers the 45rem slot's
+DPR2 demand with margin (the retina motive for the 34rem compact
+variant dies with it; `--compact` retired unmerged, superseded within
+the same PR). BUILD_SPEC §5 amended: the arch family gains the
+segmental sibling for landscape frames that must show full content.
+Banner legibility: between the composite's and the re-cut's — the
+standing override covers it. Alt returns to "two clients."
+
+**Alternatives rejected:** outpainting the master upward to 9:8
+(fabricating the studio's architecture; no quality-reliable local
+tool); a straight rectangular exemption (abandons the client's own
+arch motif when a shape in the family satisfies everything).

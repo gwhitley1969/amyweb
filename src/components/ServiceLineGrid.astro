@@ -49,11 +49,15 @@ const linePhotos: Record<string, { photo: ImageMetadata; position: string }> = {
   biostimulators: { photo: radiesseSyringes, position: 'attention' },
   regenerative: { photo: deviceFacialSession, position: 'bottom' },
   'skin-rejuvenation': { photo: pixel8InHand, position: 'attention' },
-  // 9:16 selfie vs a 4:5 arch: face and belt can't both fit. 'bottom'
-  // frames the Evolve belt deliberately (the treatment story); the
-  // face-included crops cut at the chin and read accidental. Client
-  // judges on the preview — a different frame is a map-line swap.
-  'body-contouring': { photo: evolveBeltSelfie, position: 'bottom' },
+  // 9:16 selfie vs a 4:5 arch: no cover crop holds face AND belt
+  // (face = top ~29% of the frame, belt = bottom ~30%), and the
+  // client wants both (preview feedback 2026-08-18, twice). The
+  // committed asset is therefore a pre-composed 4:5 blur-fill
+  // contain: the full 9:16 frame at native res inside a 1024×1280
+  // canvas, side bars a blurred blowup of the same photo (recipe in
+  // DECISIONS). Source aspect == arch aspect, so the position token
+  // is an identity crop here.
+  'body-contouring': { photo: evolveBeltSelfie, position: 'centre' },
   'laser-treatments': { photo: laserEyeShields, position: 'attention' },
   skincare: { photo: skinbetterTrioForward, position: 'centre' },
   'weight-loss-glp-1': { photo: inbodyWeighIn, position: 'attention' },

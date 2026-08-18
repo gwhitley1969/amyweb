@@ -230,7 +230,16 @@ each shipped page lives in DECISIONS):
    The /services menu cards are the exception on alts: their photos
    are decorative (`alt=""`) to the card's labeled link, and a swap
    is one line in ServiceLineGrid's `linePhotos` map (photo import +
-   sharp gravity anchor — no page edits).
+   sharp gravity anchor — no page edits). Tone/grade fixes are
+   asset-level: re-derive from the master in C:\Amy\New Pics (single
+   generation — never re-process the committed JPEG), commit under
+   the same content name, and record the exact sharp recipe in
+   DECISIONS. When a frame's aspect can't cover-crop into the slot
+   without losing the story (face AND device both required), the
+   asset becomes a pre-composed blur-fill contain: the full frame at
+   native resolution on a slot-aspect canvas, side bars a blurred
+   blowup of the same frame (menu card 06 precedent, 2026-08-18 —
+   recipe in DECISIONS).
 6. **Orphan check:** grep the outgoing asset repo-wide; zero
    remaining references → delete it (git history preserves the
    frame); any remaining consumer → it stays.

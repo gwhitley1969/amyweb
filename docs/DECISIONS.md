@@ -3832,3 +3832,70 @@ at every served size. All twelve menu slots now carry the client's
 own picks; the interim photos (`pixel8-rf.jpg`,
 `supervised-weigh-in.jpg`) remain in the repo for their
 treatment-page uses.
+
+## 2026-08-18 — Menu-card photo fixes, round 3: 06 shows the face, 10 lightens
+
+Context: operator preview feedback on the merged menu (PR #121):
+card 06 Body Contouring cut off Amy's head (the shipped 'bottom'
+anchor deliberately framed the Evolve belt — the map comment said
+the client judges on the preview, and she did), and card 10 Peptide
+Therapy (`lavender-suit-stool.jpg`) read quite dark (the source
+carries a muted, underexposed matte grade).
+
+Decision, card 06: anchor 'bottom' → 'top' — the maximum-face
+window. Geometry measured first: the 720×1280 selfie's face spans
+the top ~29% of the frame and the belt the bottom ~30%; the 4:5
+cover window is 720×900 (slidable y∈[0,380]), so NO window holds
+both. 'top' shows head, torso, and the treatment chair; the belt
+hardware leaves the frame — accepted consequence, stated in the
+approved plan. Showing both takes a different frame (a map-line
+swap when Amy supplies one). Eyeballed on the element shot: both
+eyes clear the arch dome; only right-side hair clips (normal
+arch-portrait reading). Alternatives rejected: mid-window
+compromise crops (the dome clips an eye and the forehead goes);
+a narrower face-centered extract (drops the belt anyway AND the
+srcset below the retina bar).
+
+Decision, card 10: server-side re-grade, baked into the asset —
+re-derived from the master B10.jpg (1067×1600, single generation),
+sharp `.modulate({ brightness: 1.18, saturation: 1.05 })
+.linear(1.05, 0)`, JPEG q92, committed under the same content name
+(zero code change). Chosen from four candidates by side-by-side
+eyeball, then checked against row neighbors 09/11 on element shots:
+no longer the dark outlier, not washed. CSS-filter alternative
+rejected — the menu cards have no filter hook and a one-card
+mechanism is special-casing; the house pattern bakes grades
+server-side. Screening unchanged for both frames (no new legible
+content; the 06 crop moves the belt labels out of frame entirely).
+Measured after: /services 290KB, /styleguide 309KB of LH-mobile
+images — inside the 384KB carve-out, no budget movement.
+
+Same day, on the operator's preview review of this PR: cards 11
+(`iv-drip-neon.jpg`) and 12 (`biote-banner-scale.jpg`) called too
+dark as well — both re-graded from their masters (B11.jpg /
+B12.jpg, single generation), sharp
+`.modulate({ brightness: 1.28, saturation: 1.05 })` (the dim
+ambient scenes took a stronger straight lift than card 10's mix),
+JPEG q92, same content names. Eyeballed on element shots: the 11
+neon still reads, the 12 banner whites keep texture; the Wellness
+row is tonally coherent. Screening posture unchanged: the 11 bag
+labels stay illegible at served sizes; the 12 banner was already
+legible and ships under its recorded constraint-3 override — the
+lift changes exposure, not what the frame discloses. Re-measured:
+/services 294KB, /styleguide 313KB — inside the carve-out.
+
+Card 06, round 4 (operator: face AND belt must both show; "you may
+need to shrink the pic"): cropping is geometrically dead (see
+above), so the committed asset became a pre-composed 4:5 blur-fill
+contain — the full 9:16 frame at NATIVE 720×1280 inside a 1024×1280
+canvas (zero foreground resampling; 1024 restores the 880 srcset
+tier), side bars a blurred blowup of the same frame (sharp: cover
+1024×1280 → blur 60 → brightness 1.1 / saturation 1.1; composite
+gravity centre; q92). The bars read as soft brand-pink and blend
+into the card plate; centring also moved the face clear of the arch
+dome. Anchor token → 'centre' (identity crop — source aspect now
+equals the arch's). Screening: the belt labels render smaller than
+any prior crop (illegible), the mirrored FIGS tag returns to frame
+(carried as-is per the original screening), blurred bars are
+unrecognizable content. Measured: /services 296KB, /styleguide
+315KB — inside the carve-out.

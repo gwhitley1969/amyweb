@@ -105,7 +105,7 @@ planning, with Amy.
 
 {/* Third media moment: full-width band, not a third zigzag row —
   * scale variation closes the sequence (taste-audit follow-up). */}
-<section class="media-band media-band--compact">
+<section class="media-band media-band--segmental">
   <div class="media-copy">
 
 ## Individualized, with Amy
@@ -117,19 +117,18 @@ her Harrisburg studio, minutes from Charlotte.
   </div>
   <figure class="media-figure">
     {/* Amy's pick, photo round 2026-08-18 (screening, the banner
-      * override, and the release record all in DECISIONS same date;
-      * re-cut same day on client feedback — "smaller arch so it fits
-      * correctly"). The asset is an exact 9:8 window of the 3:2
-      * master (x 490→1600): the frame's four people span wider than
-      * any 9:8 window, so the left-hand client is out of frame by
-      * necessity — banner, Amy, and the male client fill the arch
-      * sharp, edge-to-edge. The --compact band width is retina math:
-      * 1110 native px across the 34rem slot ≈ 1.02× at DPR2. */}
+      * override, and the release record all in DECISIONS same date).
+      * The asset is the FULL 3:2 frame — the client's requirement is
+      * that everyone in the picture is visible, and the people span
+      * wider than any 9:8 window holds, so the band wears the
+      * segmental-arch variant (--segmental, TreatmentLayout) whose
+      * window matches the frame exactly: no crop, no fill. 1600
+      * native px meets the 45rem slot's DPR2 demand with margin. */}
     <Image
       src={jeuveauBannerStudio}
-      alt="Amy Palacios, FNP, shows products to a client across the studio cart, beside a Jeuveau banner."
-      widths={[720, 1080]}
-      sizes="(max-width: 48rem) 92vw, 34rem"
+      alt="Amy Palacios, FNP, shows products to two clients across the studio cart, beside a Jeuveau banner."
+      widths={[720, 1080, 1440]}
+      sizes="(max-width: 48rem) 92vw, 45rem"
     />
   </figure>
 </section>

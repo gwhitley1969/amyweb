@@ -3899,3 +3899,36 @@ any prior crop (illegible), the mirrored FIGS tag returns to frame
 (carried as-is per the original screening), blurred bars are
 unrecognizable content. Measured: /services 296KB, /styleguide
 315KB — inside the carve-out.
+
+## 2026-08-18 — /services intro copy verbatim; sixth allowlist authorization ("best")
+
+**Context:** Client-directed copy change (via the operator): the /services
+lead keeps its first sentence and replaces the next two with her wording —
+"From Facial Balancing to Weight Loss & Body Contouring to all things
+Peptides oriented, Amy has your best self in mind. Start by browsing her
+service menus below, select where you want to begin, hit "BOOK" and start
+your journey now with Amy's expertise as your guide!" The word "best" is a
+hard-banned superiority pattern (`\bbest\b`), so the copy cannot pass
+lint:claims as written.
+
+**Decision (operator override after the compliance flag, 2026-08-18):**
+ship verbatim. The exact fragment "Amy has your best self in mind" joins
+`allowedStrings` — the sixth authorization, second superiority-class entry
+(Evolus ranking sentence precedent). Bare-fragment form: the banned word
+sits mid-fragment with space boundaries, so the self-test's digit-prefix
+near-miss proof holds without source-wrapping (the li-wrap trick is only
+needed for string-initial banned words). Editing rules as ever: the
+fragment lives on ONE source line (per-line, case-sensitive stripping) and
+"best" stays banned everywhere outside it. Scope: the /services intro lead
+only (policy scope, recorded in CLAUDE.md constraint 3).
+
+**Alternatives rejected:** two compliant rephrases offered and declined —
+"your most confident self in mind" (recommended) and "your goals in mind".
+
+**Consequences:** the registry, page copy, CLAUDE.md exception record, and
+this entry change together in one commit (price-tier precedent). One
+verbatim-fidelity note, flagged once and kept: the site's booking buttons
+read "Book with Amy", not "BOOK" — the client's quoted label is a
+near-match; a one-word alignment is available if she wants it. "Facial
+Balancing" is not a menu-line title (it names the filler/balancing work) —
+illustrative client phrasing, carried as-is.

@@ -1,21 +1,66 @@
 ---
+import type { ImageMetadata } from 'astro';
 import TreatmentCard from './TreatmentCard.astro';
 import { CATEGORIES, serviceLines } from '../lib/serviceLines';
+import templeInjection from '../assets/photos/temple-injection.jpg';
+import amyHoldingNeon from '../assets/photos/amy-holding-neon.jpg';
+import radiesseSyringes from '../assets/photos/radiesse-syringes.jpg';
+import deviceFacialSession from '../assets/photos/device-facial-session.jpg';
+import pixel8InHand from '../assets/photos/pixel8-in-hand.jpg';
+import evolveBeltSelfie from '../assets/photos/evolve-belt-selfie.jpg';
+import laserEyeShields from '../assets/photos/laser-eye-shields.jpg';
+import skinbetterTrioForward from '../assets/photos/skinbetter-trio-forward.jpg';
+import inbodyWeighIn from '../assets/photos/inbody-weigh-in.jpg';
+import lavenderSuitStool from '../assets/photos/lavender-suit-stool.jpg';
+import ivDripNeon from '../assets/photos/iv-drip-neon.jpg';
+import bioteBannerScale from '../assets/photos/biote-banner-scale.jpg';
 
 /**
  * The 12 service lines (BUILD_SPEC §6 + the 2026-07-19 Vagaro alignment +
- * laser-treatments 2026-07-22), rendered as the categorized editorial menu
- * (client direction 2026-07-23): three labelled groups of four, cards
- * two-across, numbered 01–12 in serviceLines array order. Group openers
- * reuse the section-opener signature (eyebrow + traced accent rule).
- * All-equal by default; which lines lead ("featured") is a Phase C
- * business decision with the operator.
+ * laser-treatments 2026-07-22), rendered as the categorized PHOTO-CARD
+ * menu (client direction 2026-08-18, from her own mockup — supersedes
+ * the text-only editorial menu of 2026-07-23): three labelled groups of
+ * four, arch-photo cards two-across, numbered 01–12 in serviceLines
+ * array order. Group openers reuse the section-opener signature
+ * (eyebrow + traced accent rule). All-equal by default; the featured
+ * variant remains a business decision with the operator.
+ *
+ * Photos are the client's own per-line picks (2026-08-17 delivery,
+ * screened frame-level 2026-08-18 — record in DECISIONS same date; all
+ * pictured clients' releases CONFIRMED on file, operator word = the
+ * record). All twelve slots carry her picks (the last two landed
+ * 2026-08-18 later the same day); swapping any pick is an asset-map
+ * edit here, zero page changes (RUNBOOK "Replacing site
+ * photography").
  */
 interface Props {
   featuredSlugs?: string[];
 }
 
 const { featuredSlugs = [] } = Astro.props;
+
+// Per-line card photos + their 4:5 cover-crop anchors. position is a
+// sharp gravity/strategy token (the door pipeline's knob — 'attention'
+// is saliency-seeking and nailed the door crops); percentages are a
+// CSS concept sharp rejects. Anchors verified on element screenshots.
+const linePhotos: Record<string, { photo: ImageMetadata; position: string }> = {
+  'wrinkle-relaxers': { photo: templeInjection, position: 'attention' },
+  'dermal-fillers': { photo: amyHoldingNeon, position: 'attention' },
+  biostimulators: { photo: radiesseSyringes, position: 'attention' },
+  regenerative: { photo: deviceFacialSession, position: 'bottom' },
+  'skin-rejuvenation': { photo: pixel8InHand, position: 'attention' },
+  // 9:16 selfie vs a 4:5 arch: face and belt can't both fit. 'bottom'
+  // frames the Evolve belt deliberately (the treatment story); the
+  // face-included crops cut at the chin and read accidental. Client
+  // judges on the preview — a different frame is a map-line swap.
+  'body-contouring': { photo: evolveBeltSelfie, position: 'bottom' },
+  'laser-treatments': { photo: laserEyeShields, position: 'attention' },
+  skincare: { photo: skinbetterTrioForward, position: 'centre' },
+  'weight-loss-glp-1': { photo: inbodyWeighIn, position: 'attention' },
+  'peptide-therapy': { photo: lavenderSuitStool, position: 'attention' },
+  'iv-therapy': { photo: ivDripNeon, position: 'centre' },
+  'hormone-optimization': { photo: bioteBannerScale, position: 'top' },
+};
 
 // Array order is the menu's numbering order (01–12).
 const numbered = serviceLines.map((line, i) => ({ line, index: i + 1 }));
@@ -26,7 +71,10 @@ const numbered = serviceLines.map((line, i) => ({ line, index: i + 1 }));
     <section class:list={['line-group', groupIdx > 0 && 'mt-14']}>
       <h2 class="eyebrow">{cat.label}</h2>
       <hr class="rule-accent ng-trace mt-2" aria-hidden="true" />
-      <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+      {/* Compact tile grid (operator scale correction, 2026-08-18 rev 2:
+        * the mockup-literal 1-across cards read huge on phones): 2-across
+        * tiles on phones, one 4-card row per group from lg up. */}
+      <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {numbered
           .filter(({ line }) => line.category === cat.key)
           .map(({ line, index }) => (
@@ -36,6 +84,8 @@ const numbered = serviceLines.map((line, i) => ({ line, index: i + 1 }));
               href={line.href}
               index={index}
               featured={featuredSlugs.includes(line.slug)}
+              photo={linePhotos[line.slug]?.photo}
+              photoPosition={linePhotos[line.slug]?.position}
               class="ng-rise"
             />
           ))}

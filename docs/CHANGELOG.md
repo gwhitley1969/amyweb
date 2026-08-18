@@ -6,6 +6,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-18 — Menu-card photo fixes (round 3)
+
+- Body Contouring's card now shows Amy's face — the crop anchor
+  flipped from belt-priority to the maximum-face window (the 9:16
+  selfie can't hold face and belt in one 4:5 arch; the belt leaves
+  the frame — DECISIONS same date). Peptide Therapy's photo was
+  re-graded lighter from the master (the source's matte grade read
+  dark in its row); same asset name, zero code change.
+
 ### 2026-08-18 — The last two picks land (same PR)
 
 - Skin Rejuvenation's card now carries the client's own B5 pick (Amy

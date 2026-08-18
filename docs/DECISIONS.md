@@ -3832,3 +3832,40 @@ at every served size. All twelve menu slots now carry the client's
 own picks; the interim photos (`pixel8-rf.jpg`,
 `supervised-weigh-in.jpg`) remain in the repo for their
 treatment-page uses.
+
+## 2026-08-18 — Menu-card photo fixes, round 3: 06 shows the face, 10 lightens
+
+Context: operator preview feedback on the merged menu (PR #121):
+card 06 Body Contouring cut off Amy's head (the shipped 'bottom'
+anchor deliberately framed the Evolve belt — the map comment said
+the client judges on the preview, and she did), and card 10 Peptide
+Therapy (`lavender-suit-stool.jpg`) read quite dark (the source
+carries a muted, underexposed matte grade).
+
+Decision, card 06: anchor 'bottom' → 'top' — the maximum-face
+window. Geometry measured first: the 720×1280 selfie's face spans
+the top ~29% of the frame and the belt the bottom ~30%; the 4:5
+cover window is 720×900 (slidable y∈[0,380]), so NO window holds
+both. 'top' shows head, torso, and the treatment chair; the belt
+hardware leaves the frame — accepted consequence, stated in the
+approved plan. Showing both takes a different frame (a map-line
+swap when Amy supplies one). Eyeballed on the element shot: both
+eyes clear the arch dome; only right-side hair clips (normal
+arch-portrait reading). Alternatives rejected: mid-window
+compromise crops (the dome clips an eye and the forehead goes);
+a narrower face-centered extract (drops the belt anyway AND the
+srcset below the retina bar).
+
+Decision, card 10: server-side re-grade, baked into the asset —
+re-derived from the master B10.jpg (1067×1600, single generation),
+sharp `.modulate({ brightness: 1.18, saturation: 1.05 })
+.linear(1.05, 0)`, JPEG q92, committed under the same content name
+(zero code change). Chosen from four candidates by side-by-side
+eyeball, then checked against row neighbors 09/11 on element shots:
+no longer the dark outlier, not washed. CSS-filter alternative
+rejected — the menu cards have no filter hook and a one-card
+mechanism is special-casing; the house pattern bakes grades
+server-side. Screening unchanged for both frames (no new legible
+content; the 06 crop moves the belt labels out of frame entirely).
+Measured after: /services 290KB, /styleguide 309KB of LH-mobile
+images — inside the 384KB carve-out, no budget movement.

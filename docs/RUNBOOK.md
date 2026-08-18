@@ -230,7 +230,11 @@ each shipped page lives in DECISIONS):
    The /services menu cards are the exception on alts: their photos
    are decorative (`alt=""`) to the card's labeled link, and a swap
    is one line in ServiceLineGrid's `linePhotos` map (photo import +
-   sharp gravity anchor — no page edits).
+   sharp gravity anchor — no page edits). Tone/grade fixes are
+   asset-level: re-derive from the master in C:\Amy\New Pics (single
+   generation — never re-process the committed JPEG), commit under
+   the same content name, and record the exact sharp recipe in
+   DECISIONS.
 6. **Orphan check:** grep the outgoing asset repo-wide; zero
    remaining references → delete it (git history preserves the
    frame); any remaining consumer → it stays.

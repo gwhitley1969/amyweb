@@ -127,6 +127,10 @@ silently following it. Known superseded points from earlier briefs:
      aftercare wall sign titles a competitor neuromodulator brand the
      site's own copy never names — pixel content is invisible to
      lint:claims, which is why these exceptions are recorded here.
+     And the exact fragment "Amy has your best self in mind"
+     enumerated in `allowedStrings` (operator override after the
+     compliance flag — DECISIONS 2026-08-18; two compliant rephrases
+     declined), in the /services intro lead only, on one source line.
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing

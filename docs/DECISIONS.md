@@ -4053,3 +4053,35 @@ Tiers [720, 1080]; alt updated ("two clients" → "a client").
 **Alternatives rejected:** a 4:5 row-scale arch of Amy + the client
 (loses the banner the frame is visibly for); keeping the composite at
 reduced width (blur bars are the complaint, size doesn't cure them).
+
+## 2026-08-18 — the segmental arch: band round 3 ("we need to see everyone")
+
+**Context:** Second client feedback on the band: the 9:8 re-cut hid the
+left-hand client — "we can't see the other person; we need to see
+everyone in the picture." With the earlier feedback that the blur-fill
+contain "doesn't fit," every Roman-arch treatment of this 3:2 frame is
+now exhausted: the people span wider than the widest 9:8 window
+(proven), a cover crop loses a person, a contain leaves fill.
+
+**Decision:** The arch changes shape, not the photo: a designed
+SEGMENTAL arch — architecture's wide sibling of the Roman arch — at
+the frame's own 3:2. `media-band--segmental`
+(border-radius 50%/34% elliptical dome over straight feet, same
+magenta hairline and 12px foot corners) with the FULL master frame
+recommitted as the asset (1600×1067, as shot). Everyone visible, the
+window filled exactly, no fabricated pixels. This is distinct from the
+2026-08-17 rejected "16:9 lens": that failure was the accidental
+full-height ellipse with no straight feet; the pinned vertical radius
+keeps the feet, which is what makes it read as architecture. The band
+returns to full column width — 1600 native px covers the 45rem slot's
+DPR2 demand with margin (the retina motive for the 34rem compact
+variant dies with it; `--compact` retired unmerged, superseded within
+the same PR). BUILD_SPEC §5 amended: the arch family gains the
+segmental sibling for landscape frames that must show full content.
+Banner legibility: between the composite's and the re-cut's — the
+standing override covers it. Alt returns to "two clients."
+
+**Alternatives rejected:** outpainting the master upward to 9:8
+(fabricating the studio's architecture; no quality-reliable local
+tool); a straight rectangular exemption (abandons the client's own
+arch motif when a shape in the family satisfies everything).

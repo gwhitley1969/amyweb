@@ -295,17 +295,6 @@ const crumbs = [
     object-fit: cover;
     object-position: 50% 42%;
   }
-  /* Compact band variant (wrinkle-relaxers, 2026-08-18 — client
-   * feedback: "a smaller arch so that it fits correctly"): a centered
-   * arch instead of the full column. 34rem is retina math, not taste —
-   * the page's 9:8 re-cut asset is 1110 native px, which covers the
-   * 544-CSS-px slot at ~1.02× DPR2 (the full 45rem slot would be
-   * 0.77× — below the retina rule). Equal specificity to the base
-   * band figure rule above — order wins. */
-  .treatment-body .media-band--compact .media-figure {
-    width: min(34rem, 100%);
-    margin-inline: auto;
-  }
   /* Tall band variant (regenerative, 2026-07-26): since the 2026-08-17
    * base-band change both bands share 9:8 — for prp-treatment it
    * matches the server-side crop exactly, so object-fit is inert and
@@ -315,6 +304,22 @@ const crumbs = [
   .treatment-body .media-band--tall .media-figure img {
     aspect-ratio: 9 / 8;
     object-position: 50% 50%;
+  }
+  /* Segmental band variant (wrinkle-relaxers, 2026-08-18 — client
+   * feedback: "we need to see everyone in the picture"): the frame's
+   * people span wider than any 9:8 window (geometry in DECISIONS,
+   * same date), a 9:8 crop loses a person and the blur-fill read
+   * as not fitting — so the ARCH changes shape instead: a designed
+   * segmental arch (architecture's wide sibling of the Roman arch) at
+   * the photo's own 3:2, curve pinned to the top ~third with straight
+   * feet below. NOT the recorded 16:9 "lens" failure — that was the
+   * accidental full-height ellipse with NO feet; the pinned vertical
+   * radius keeps feet, hairline, and 12px foot corners. The full
+   * frame fills the window: everyone visible, no crop, no fill.
+   * Equal specificity to the band rules above — order wins. */
+  .treatment-body .media-band--segmental .media-figure img {
+    aspect-ratio: 3 / 2;
+    border-radius: 50% 50% 12px 12px / 34% 34% 12px 12px;
   }
   /* The bare figure: no mat, no tilt — the white paper mat + ±1.5deg
    * print lean retired 2026-08-18 (client direction: pink behind the

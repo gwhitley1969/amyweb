@@ -31,7 +31,8 @@ export const CATEGORIES: ReadonlyArray<{ key: LineCategory; label: string }> = [
 export const serviceLines: ServiceLine[] = [
   {
     slug: 'wrinkle-relaxers',
-    title: 'Wrinkle Relaxers',
+    // Client wording 2026-08-18 (via operator), verbatim incl. the hyphen.
+    title: 'Neurotoxins - Wrinkle Relaxers',
     summary: 'Prescription injectable treatments that soften dynamic lines.',
     href: '/services/wrinkle-relaxers',
     category: 'injectables',

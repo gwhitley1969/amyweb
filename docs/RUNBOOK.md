@@ -11,8 +11,12 @@ assumes `az` and `gh` CLIs authenticated against the client tenant
 > direction (revert commit `e57a4448`; DECISIONS 2026-08-05 takedown
 > entry) pending a client review round. Relaunch is TWO-STEP — see
 > "Relaunching after the takedown" under Rollback. While the revert is
-> main's tip: never merge `main` into `phase-c` (including PR #95's
-> "Update branch" button) and never close PR #95. The `-95` preview
+> reachable from `main` (it is no longer the tip — PR #99 moved past
+> it — but ancestry is what matters): never merge `main` into
+> `phase-c` (including PR #95's "Update branch" button) and never
+> close PR #95. Since 2026-08-17 the **relaunch guard** enforces this
+> mechanically (`.github/workflows/relaunch-guard.yml`, required on
+> both branches — see the relaunch section). The `-95` preview
 > cannot deploy during the takedown (merge ref conflicted by design);
 > the full-site demo preview is **PR #97**'s environment.
 
@@ -67,6 +71,17 @@ replacement, pushes to `phase-c` stop deploying anywhere, with no failing
 run to point at. Open a new PR from `phase-c` rather than debugging the
 workflow.
 
+**The standing demo (the link the client keeps):** PR #97 — branch
+`chore/monday-demo-preview`, a draft titled DO NOT MERGE — exists only
+to hold the stable client-facing preview at
+`https://polite-flower-0a41b770f-97.eastus2.7.azurestaticapps.net`.
+Refresh after merges, on the operator's request: switch to the branch,
+`git merge phase-c`, push, switch back; watch the PR-preview run to
+completion, then verify with converged probes (below) before sharing.
+Never merge #97 (its base would take the demo branch's merge commits);
+if it is ever closed, open a fresh DO-NOT-MERGE draft from a fresh
+branch off `phase-c` and note the new environment number here.
+
 Treatment-content rules (CLAUDE.md hard constraint 4): only a human sets
 `clinicianApproved: true`; any edit to approved content resets it to `false`
 in the same commit; production deploys fail while unapproved non-draft
@@ -75,8 +90,12 @@ treatment content exists.
 ## Adding or replacing a homepage commercial
 
 The home carousel (src/components/VideoCarousel.astro; behavior in
-public/js/video-carousel.js) plays muted films from public/media/.
-To add or swap one:
+public/js/video-carousel.js) plays muted films from the media origin
+(`https://media.needlegirlie.com` — Blob behind the same Front Door,
+built 2026-08-17; see "Publishing a film" below). Captions stay in
+public/media/ — in-repo, same-origin, ON PURPOSE (compliance-screened
+text keeps its git audit trail, and same-origin tracks need no CORS).
+To add or swap a film:
 
 1. **Compliance screen FIRST** (frame-level, house method): contact
    sheet via `ffmpeg -i in.mp4 -vf "fps=1/2,scale=480:-1,tile=5x4"
@@ -86,7 +105,9 @@ To add or swap one:
    gets its DECISIONS entry before it ships.
 2. **Encode the web rendition** (muted, ~2–4 Mbps):
    `ffmpeg -i master.mp4 -an -c:v libx264 -crf 23 -preset medium
-   -movflags +faststart public/media/commercial-<name>.mp4`
+   -movflags +faststart commercial-<name>.mp4` (a working file — the
+   rendition is uploaded to the media origin, never committed), then
+   **publish it** per "Publishing a film" below.
 3. **Poster frame:** `ffmpeg -ss <t> -i rendition.mp4 -frames:v 1
    -q:v 2 src/assets/photos/commercial-<name>-poster.jpg` (pick a
    visually simple frame — posters count toward the / image budget).
@@ -110,6 +131,80 @@ To add or swap one:
 Scripts on this site are STATIC FILES (public/js/) — never component
 `<script>` blocks; see the troubleshooting entry below for why.
 
+## Publishing a film (media origin)
+
+Since 2026-08-17 (DECISIONS same date, external-audit Finding 5) the
+.mp4 renditions live in Blob storage served as
+`https://media.needlegirlie.com/<file>.mp4` — Front Door route
+`media` → container `media` on the storage account (name via
+`az storage account list -g rg-needlegirlie-web -o table`; Bicep in
+`infra/storage.bicep`). Films are NOT in git; captions (.vtt) ARE
+(public/media/, shipped by normal PR alongside the film's DECISIONS
+entry).
+
+1. Upload (after the compliance screen and DECISIONS entry):
+
+   ```
+   az storage blob upload --account-name <account> -c media \
+     -f commercial-<name>.mp4 -n commercial-<name>.mp4 \
+     --content-type video/mp4 \
+     --content-cache-control "public, max-age=86400" --auth-mode key
+   ```
+
+2. Verify before linking: `curl -sI -r 0-1023
+   https://media.needlegirlie.com/commercial-<name>.mp4` → expect
+   `206`, `Content-Type: video/mp4`, `Accept-Ranges: bytes` (seeking
+   depends on Range support).
+3. **Replacing a file in place requires a purge** (edge caches it for
+   a day): `az afd endpoint purge -g rg-needlegirlie-web
+   --profile-name afd-needlegirlie --endpoint-name needlegirlie
+   --content-paths '/commercial-<name>.mp4'` — prefer a NEW filename
+   (and a normal PR for the reference) over in-place replacement;
+   old files are deleted with `az storage blob delete` once
+   zero-referenced.
+4. The caption file and any slide/label change ship as a normal PR;
+   previews play the same media host as production, so a film is
+   reviewable on the PR preview the moment the upload lands.
+
+Master files stay in the operator's archive (C:\Amy\Videos,
+C:\Amy\New Pics) — renditions are re-derivable; the Blob copy is
+serving infrastructure, not the archive.
+
+## Turning on analytics (Plausible — prepped 2026-08-17, ships dark)
+
+Everything is wired and gated behind `siteConfig.analytics`
+(src/lib/siteConfig.ts); while it ships dark the site is byte-identical
+to the no-analytics build. The flip is the operator's act, intended
+for relaunch day so the baseline starts at day one:
+
+1. Create the Plausible account (plausible.io, ~$9/mo — client
+   pass-through) and add the site `needlegirlie.com`.
+2. In `src/lib/siteConfig.ts` set `enabled: true` and
+   `provider: 'plausible'`. That one edit does everything in the same
+   build: BaseLayout emits the self-hosted tracker
+   (public/js/plausible.js, `data-api` pointing at plausible.io), the
+   privacy page swaps its analytics bullet (its launch wording
+   promises "this page will be updated first" — the conditional keeps
+   that promise atomically), and the generated CSP admits
+   plausible.io in `connect-src` because the built page now carries
+   the script (`generate-swa-config.mjs` sniffs dist/ — the header
+   cannot drift from the code).
+3. `npm run verify` → PR → preview: confirm the script tag renders,
+   the privacy page shows the Plausible wording, and — on the
+   preview — the Network tab shows the `/api/event` POST returning
+   202. Watch the / perf gate: the tracker adds ~3.6KB of JS (budget
+   headroom is ample, but read the numbers).
+4. Merge on the operator's word. Verify events arrive in the
+   Plausible dashboard once production traffic exists.
+
+To turn it OFF, revert the two values — script, CSP widening, and
+privacy wording all retract in the same build. The self-hosted
+tracker file stays in the repo either way (dead weight ~3.6KB,
+referenced by nothing while dark). Custom events: `track()` in
+src/lib/analytics.ts is wired but has no callers — the site ships no
+client-side component code; wiring the first event is a normal PR
+when a consumer exists.
+
 ## Replacing site photography
 
 The per-pic workflow (established over the 2026-08-17 photo round —
@@ -132,13 +227,28 @@ each shipped page lives in DECISIONS):
 5. Swap the import + rewrite the alt to what the new frame factually
    shows — never invent a treatment the pixels don't self-identify.
    Comment truth in the same file (release record, screening note).
+   The /services menu cards are the exception on alts: their photos
+   are decorative (`alt=""`) to the card's labeled link, and a swap
+   is one line in ServiceLineGrid's `linePhotos` map (photo import +
+   sharp gravity anchor — no page edits). Tone/grade fixes are
+   asset-level: re-derive from the master in C:\Amy\New Pics (single
+   generation — never re-process the committed JPEG), commit under
+   the same content name, and record the exact sharp recipe in
+   DECISIONS. When a frame's aspect can't cover-crop into the slot
+   without losing the story (face AND device both required), the
+   asset becomes a pre-composed blur-fill contain: the full frame at
+   native resolution on a slot-aspect canvas, side bars a blurred
+   blowup of the same frame (menu card 06 precedent, 2026-08-18 —
+   recipe in DECISIONS).
 6. **Orphan check:** grep the outgoing asset repo-wide; zero
    remaining references → delete it (git history preserves the
    frame); any remaining consumer → it stays.
 7. **Eyeball the built crops** — every slot crops server- or
    CSS-side (doors 640×800 attention; strip/portraits 4:5 at a fixed
-   object-position; arch frames clip corners) — screenshot each
-   changed slot at 390 and desktop before calling it done.
+   object-position; the twelve /services menu cards 640×800 at their
+   per-photo gravity anchors from the ServiceLineGrid map; arch
+   frames clip corners) — screenshot each changed slot at 390 and
+   desktop before calling it done.
 8. `npm run verify` green → PR → preview probes converge → Amy's
    word → merge.
 
@@ -176,11 +286,35 @@ broken hybrid. Relaunch is two-step, in order:
    on a preview and the operator flips the flags — the same sign-off
    flow as launch.
 
+The full execution record — preconditions (including the
+**presentation-approval hard gate**: a dated entry in
+docs/CLINICIAN-SIGN-OFF.md newer than the last merged visual change),
+the ready-to-run PR steps, guard retirement, the analytics flip, and
+the launch-day checklist — lives in **docs/RELAUNCH.md** (prepared
+2026-08-17). Use it as the relaunch PR's script; do not re-derive.
+
 During the takedown: never merge `main` into `phase-c`, never press
 "Update branch" on PR #95, never close PR #95 (the standing-PR pattern
 survives for relaunch). Interim previews come from sub-PRs into
 `phase-c` — PR #97 is the standing full-site demo (comment-only diff,
 never merges; close it without merging when no longer needed).
+
+**The relaunch guard (2026-08-17, external-audit Finding 1):**
+`.github/workflows/relaunch-guard.yml` enforces both halves of the
+hazard as required status checks — `takedown-revert-guard` (PRs into
+`phase-c` + pushes to it) fails if the takedown revert is reachable,
+i.e. if `main` leaked in; `gutted-merge-guard` (PRs into `main`)
+fails if a phase-c-derived merge would drop any phase-c file, i.e.
+the naive one-step merge. Why the second matters: simulated
+2026-08-17 — the naive merge silently deletes ~48 files (all twelve
+treatment MDX pages, both treatment films, every photo) with no
+conflict on any of them, and the build still passes. A conflicted PR
+runs no workflows, but it also cannot merge; the guard fires exactly
+when someone hand-resolves PR #95's conflicts and the merge ref
+becomes computable. **The relaunch PR retires this workflow** (with
+a DECISIONS entry): after the two-step re-sync the revert is a
+harmless ancestor everywhere and the first job would fail every PR
+forever.
 
 ## Manual cache purge
 
@@ -208,8 +342,14 @@ All Azure state is captured in `infra/`. To apply changes:
 
 ```
 az deployment sub create --location eastus2 --template-file infra/main.bicep \
-  --parameters budgetStartDate=<yyyy-MM-01>
+  --parameters budgetStartDate=2026-07-01
 ```
+
+`budgetStartDate` is pinned: a budget's start date is IMMUTABLE (the
+API rejects updates — learned 2026-08-17 when a re-deploy passed the
+then-current month and only the budget module failed). Always pass the
+live budget's own anchor, 2026-07-01. Run
+`az deployment sub what-if` first and read it before applying.
 
 Idempotent — safe to re-run. `budgetStartDate` is the only parameter without
 a default, so it must be supplied each run; `location`,
@@ -234,6 +374,21 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
 
 ## Troubleshooting
 
+- **A preview environment 404s or serves stale/mixed content after
+  "Deployment Complete":** SWA staging propagation, three observed
+  presentations (PRs #79, #109, #110): route-level 200↔404 bursts;
+  a fresh env serving unevenly for minutes; and — worst — the whole
+  hostname serving SWA's *platform* 404 for 11+ minutes while
+  `az staticwebapp environment list` reports the env **Ready** (ARM
+  "Ready" ≠ serving). The artifact is never the suspect if CI passed.
+  Remedy ladder: converged probes first (3 consecutive passes where
+  EVERY route serves the exact expected marker counts, plain AND
+  cache-busted — single clean passes lie), then re-run the workflow,
+  then **close and re-open the PR** (tears the env down and recreates
+  it — the only fix for a bad serving replica; even the recreated env
+  can need several minutes to converge). Probe with `curl -sL`
+  (trailing-slash 301s fake failures) and never share a link before
+  probes converge.
 - **pa11y contrast failure that appears/disappears with unrelated copy
   changes:** before 2026-08-17 the audit ran with animations live, so
   scroll-driven entrance blocks (`ng-rise`) froze at whatever partial

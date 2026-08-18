@@ -62,10 +62,16 @@ All HTTP → HTTPS at the edge.
 
 SWA notes: Standard tier (per-PR preview environments — public since
 2026-07-21 at operator direction, noindexed via preview.json header;
-99.95% SLA). Deployment size limit ~500 MB — if
-the media library decision (`{{MEDIA_SCOPE}}`) brings heavy assets on-site,
-a dedicated Blob `/media/*` origin behind the same Front Door is the escape
-valve; do not build it until instructed.
+99.95% SLA). Deployment size limit ~500 MB. The escape valve for heavy
+media — a dedicated Blob origin behind the same Front Door — was
+**BUILT 2026-08-17** (operator decision, external-audit Finding 5):
+films serve as `media.needlegirlie.com/<file>.mp4` (route `media` →
+storage container `media`, Bicep in `infra/storage.bicep` +
+`infra/frontdoor.bicep`; publish procedure in docs/RUNBOOK.md
+"Publishing a film"). The stable hostname is deliberate: PR previews
+play exactly what production plays. WebVTT captions stay in-repo
+(public/media/, same-origin — compliance audit trail; no CORS needed),
+and `media-src` in both CSP templates admits the media host.
 
 ## 3. Repo structure
 
@@ -230,21 +236,38 @@ Blush-50's ambient-band role (ConceptHome) continues; since
 2026-07-23 it is also the site-wide ombre canvas start. Noir boxes
 stay transparent-outlined.
 
-**Editorial menu cards (client direction, 2026-07-23):** the services
-grid renders as a categorized treatment menu — three groups
-(Injectables · Skin & Body · Wellness, 4/4/4 in `serviceLines` array
-order, which is also the 01–12 numbering order), each opened by the
-section-opener signature and set two-across. Card anatomy: oversized
-Playfair index numeral (ink-pink, 4.60:1 on the resting pink,
-decorative `aria-hidden`), Playfair title and summary (the summary was
-sans until the 2026-08-15 one-family move — §5 Typography), and a
-"More information ›" microline pinned to the card foot (client
-wording, 2026-07-23) — the microline is
-ink-900, not ink-pink, because at 13px it is body-size text and
-ink-pink holds only 3.81:1 on the hover plate (4.5 hard bar). Hover
-adds a 2px ink-pink rule drawing across the card top (the traced-rule
+**Editorial menu cards (client direction, 2026-07-23; photo cards
+2026-08-18; compact tiles same day, rev 2):** the services grid
+renders as a categorized treatment menu — three groups (Injectables ·
+Skin & Body · Wellness, 4/4/4 in `serviceLines` array order, which is
+also the 01–12 numbering order), each opened by the section-opener
+signature. Grid density (operator scale correction after the first
+preview read huge): 2-across compact tiles on phones, one 4-card row
+per group from `lg` up. Card anatomy: the client's per-line photo in
+the house arch (her mockup, 2026-08-18 — the door anatomy's 4:5
+server crop, decorative `alt=""` to the labeled link; photo map +
+screening pointer in ServiceLineGrid; srcset [400/640/880] capped at
+each photo's crop width so sharp never upscales — 880 serves the
+640–1023 two-across band's DPR2 tablets, and `sizes` describes the
+IMAGE width), then the Playfair index numeral (ink-pink, 4.60:1 on
+the resting pink, decorative `aria-hidden`), Playfair title and
+summary (the summary was sans until the 2026-08-15 one-family move —
+§5 Typography; on phones the summary is HIDDEN — operator decision —
+so the tile is arch + numeral + title + microline, and it returns
+from 640px), and a "More information ›" microline pinned to the card
+foot (client wording, 2026-07-23) — the microline is ink-900, not
+ink-pink (contrast on the hover plate), compacted on the photo tiles
+with a phone step that stacks two composed lines only at the 344px
+Z Fold cover. All type measures compact ONLY under the `--photo`
+variant; text-only cards keep the editorial anatomy. Hover adds a
+2px ink-pink rule drawing across the card top (the traced-rule
 signature at card scale). The state pair, the ring, and every recorded
-contrast pair above are unchanged.
+contrast pair above are unchanged. Perf: the 12-card photo menu gets
+a scoped LHCI budget carve-out on /services + /styleguide only
+(assertMatrix, image 384KB / total 512KB — tightened same day from
+the initial 640/940 when the compact tiles halved the picks;
+measured 298/317KB — DECISIONS 2026-08-18); all other pages keep
+the §13 budgets.
 
 **Raised plates (client direction, 2026-07-27):** the menu cards are
 elevated, not flat — a two-layer ink-900 shadow with a 1px lit top
@@ -395,6 +418,14 @@ No claims in the hero (no outcomes, no "#1" until substantiated).
   `clinicianApproved: false`.
 - Claude Code never sets `clinicianApproved: true`. Content edits to approved
   pages reset the flag to `false` in the same commit (re-approval required).
+- **Scope note (2026-08-17, external-audit Finding 3):** the flag attests
+  to file COPY. CSS-level presentation changes (typeface, the arch
+  motif's display crops, frames, spacing) do not reset flags **by
+  design** — visual passes deliberately avoid MDX so they don't reset
+  twelve flags at once (the arch selector-mirror precedent). Rendered
+  presentation therefore carries its own separate, manual record:
+  docs/CLINICIAN-SIGN-OFF.md "Two kinds of approval", whose dated
+  presentation entries are a relaunch hard gate (docs/RELAUNCH.md).
 
 ### Per-line content briefs (draft only from these; the rulebook in §8 governs)
 
@@ -668,7 +699,8 @@ action.
   embeds, lazy-loaded facade pattern (thumbnail + click-to-load) to protect
   CWV and privacy.
 - **Home video carousel (2026-08-14, DECISIONS same date):** four
-  self-hosted films in `public/media/` — two Evolus co-op Jeuveau
+  self-hosted films on the media origin (`media.needlegirlie.com`,
+  §2 — in `public/media/` until 2026-08-17) — two Evolus co-op Jeuveau
   spots carried AS-IS with complete FDA safety information (never
   trimmed or cropped; `object-fit: contain` is a compliance
   requirement) around Amy's own studio reel (operator override; client
@@ -685,12 +717,16 @@ action.
   file is untouched, captions track media time). Rates are for Amy's
   own films ONLY — the manufacturer films always play at 1×; their
   presentation is part of the carried-as-is posture.
-  Add/replace procedure: docs/RUNBOOK.md. The Blob `/media/*` origin
-  (§2 escape valve) is the recommended home as the video program grows.
+  Add/replace procedure: docs/RUNBOOK.md ("Adding or replacing a
+  homepage commercial" + "Publishing a film"). The Blob media origin
+  (§2) is BUILT — films upload to Blob, captions ship by PR.
 
 ## 10. SEO specification
 
 - Consistent **NAP** site-wide: Needle Girlie / Amy Palacios, FNP —
+  **Mobile Aesthetics** (the studio's name, on its own line between the
+  brand line and the address since 2026-08-17 — footer and location
+  card; the constraint-2-permitted factual note) —
   `{{ADDRESS_DISPLAY}}` (4350 Main Street, Suite 224, Harrisburg, NC 28075) /
   `{{PHONE}}`.
 - **JSON-LD** via a single `schema.ts` source: sitewide `LocalBusiness`
@@ -712,12 +748,21 @@ action.
 
 ## 11. Analytics specification
 
-- **Cookieless, consent-banner-free.** Default: **Plausible** script
-  (`{{ANALYTICS_PROVIDER}}` — operator confirms; billing sits with the client
-  per the engagement's pass-through model). Abstract behind
-  `src/lib/analytics.ts` (`track(event, props?)`) so the vendor can change
-  without touching components. If the provider is unconfirmed at build time,
-  ship the abstraction with a no-op stub and a config flag.
+- **Cookieless, consent-banner-free.** `{{ANALYTICS_PROVIDER}}` resolved
+  NONE at launch (2026-08-04); **Plausible chosen and fully prepped
+  2026-08-17** (operator decision, external-audit Finding 6 — billing
+  sits with the client per the engagement's pass-through model, ~$9/mo).
+  The wiring ships DARK: the tracker is **self-hosted**
+  (`public/js/plausible.js` — the static-script rule; `script-src`
+  stays `'self'`), BaseLayout emits it only when `siteConfig.analytics`
+  is enabled, the privacy page swaps its analytics bullet in the same
+  build, and `generate-swa-config.mjs` admits `plausible.io` in
+  `connect-src` only when the built page actually shipped the script.
+  The flip is the operator's act at relaunch — procedure in
+  docs/RUNBOOK.md "Turning on analytics". Abstraction stands:
+  `src/lib/analytics.ts` (`track(event, props?)`) so the vendor can
+  change without touching components; nothing calls `track()` yet
+  (zero client-side component code) — pageviews are the v1 signal.
 - **Events:** `book_click`, `call_click`, `skinbetter_click`,
   `directions_click`, `app_badge_click` (later), plus per-treatment page
   views (automatic).
@@ -778,6 +823,18 @@ Secrets: SWA deployment token; OIDC client/tenant/subscription IDs. No
 secrets in the repo, ever. `{{FRONT_DOOR_ID}}` (the FDID GUID) is a repo
 variable injected into the production SWA config at build.
 
+**Relaunch guard (takedown-era, 2026-08-17 — external-audit Finding
+1; RETIRES in the relaunch PR):** `relaunch-guard.yml` runs two jobs
+with NO paths filter, both **required status checks** (the repo's
+first branch protection): `takedown-revert-guard` (PRs into `phase-c`
++ pushes to it — fails if the takedown revert is reachable) and
+`gutted-merge-guard` (PRs into `main` — fails if a phase-c-derived
+merge drops any phase-c file). Never mark `verify-and-deploy`
+required: its docs paths-ignore means docs-only PRs would wait
+forever on a check that never reports. Full rationale: DECISIONS
+2026-08-17; procedure: docs/RUNBOOK.md "Relaunching after the
+takedown".
+
 ## 15. Infrastructure (Bicep, `/infra` — optional but preferred)
 
 Provisioned in the **client's** subscription (needlegirlie tenant). The
@@ -791,7 +848,14 @@ operator may provision manually; if asked to write Bicep, produce:
 - `dns.bicep` — apex **alias A record** → Front Door endpoint; `www` CNAME;
   domain-validation TXT records. (Zone already exists — reference, don't recreate.)
 - `budget.bicep` — subscription/resource-group budget with alert thresholds
-  (client is billed directly by Microsoft; alerts protect her).
+  (client is billed directly by Microsoft; alerts protect her). The
+  budget `startDate` is IMMUTABLE after creation — every re-deploy
+  passes the live budget's own anchor, `2026-07-01` (learned
+  2026-08-17; the RUNBOOK's deploy command pins it).
+- `storage.bicep` (added 2026-08-17, §2 media origin) — LRS storage
+  account, container `media` with anonymous blob-read; serves the
+  .mp4 films as `media.needlegirlie.com` via the Front Door `media`
+  route (`frontdoor.bicep`) + `media` CNAME/TXT (`dns.bicep`).
 - No APIM. No WAF policy unless instructed (`{{WAF_DECISION}}`). Nothing for
   Phase 3 (Container Apps, Postgres, OpenAI) — not now.
 
@@ -869,7 +933,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |
 | `{{RETATRUTIDE_COUNSEL}}` | Attorney-approved investigational wording | Open decision |
 | `{{MEDIA_SCOPE}}` | How much photo/video goes on-site | RESOLVED 2026-08-04 — closed as the practice already in force: every photo/film ships on a per-item operator approval, recorded in DECISIONS (no blanket scope; C8 prerequisite (c) satisfied) |
-| `{{ANALYTICS_PROVIDER}}` | Plausible (default) or alternative | RESOLVED 2026-08-04 — NONE at launch (operator delegated the call; DECISIONS same date). Traffic visibility = Front Door edge reports, zero client-side script. Plausible stays the future default; adding it is a deliberate opt-in with its ~$9/mo recurring cost flagged |
+| `{{ANALYTICS_PROVIDER}}` | Plausible (default) or alternative | RESOLVED in two steps: NONE at launch (2026-08-04, operator-delegated); **Plausible chosen 2026-08-17** (operator, external-audit Finding 6) and fully prepped SHIPS-DARK — the relaunch-day flip is a two-value `siteConfig.analytics` edit (~$9/mo starts then; procedure RUNBOOK "Turning on analytics"; §11 has the design) |
 | `{{FRONT_DOOR_ID}}` | X-Azure-FDID GUID after FD provisioning | After infra |
 | `{{AZURE_REGION}}` | Deployment region | Operator to supply |
 | `{{WAF_DECISION}}` | Front Door WAF at launch: yes/no | Open decision |

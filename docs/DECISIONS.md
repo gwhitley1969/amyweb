@@ -3488,3 +3488,414 @@ treatment line, and alts never invent one). The outgoing assets
 became zero-reference after the swap — deleted (PR #101 orphan
 precedent; git history preserves the frames). Crops verified in the
 arch at 390/1280 (50% 20% anchor holds every face).
+
+## 2026-08-17 — Relaunch guard: required checks against the takedown topology (external-audit Finding 1)
+
+Context: an external principal-architect review (fresh clone, no
+session context — docs/AUDIT-2026-08-17-external-review.md) triaged
+seven findings; Finding 1 is the only High item needing no operator
+decision. The takedown revert `e57a4448` changed main's tree, not
+its history, so git believes main already contains the launched
+site. Both failure modes were reproduced first-hand in a throwaway
+clone before building anything (the audit's own §0 rule): merging
+main into phase-c applies the takedown deletions to phase-c; the
+naive phase-c → main merge silently drops ~48 files — all twelve
+treatment MDX pages, both treatment films, every photo — with zero
+conflicts on them and a passing Astro build. The RUNBOOK's two-step
+procedure verified correct: 166 files, zero missing vs phase-c, one
+extra (`studio-counter-portrait.jpg`, the placeholder orphan slated
+for deletion in the relaunch PR).
+
+Decision: `.github/workflows/relaunch-guard.yml` with two jobs, both
+becoming required status checks (branch protection created for the
+first time on both branches — neither had any): `takedown-revert-
+guard` on PRs into phase-c and pushes to phase-c (fails if the
+revert is reachable — the push trigger makes an "Update branch"
+slip on PR #95 loudly red immediately); `gutted-merge-guard` on PRs
+into main, beyond the audit's ask (fails if a phase-c-derived merge
+ref is missing any file from origin/phase-c's current tree — this
+one guards the actual catastrophe, and stays quiet for legitimate
+deletions because those are already gone from phase-c's tree at run
+time). No paths filter on purpose: a path-filtered required check
+never reports and deadlocks merges — only the guard jobs are marked
+required, never `verify-and-deploy`, whose paths-ignore would do
+exactly that to docs-only PRs. The relaunch PR retires the workflow
+(post-relaunch the revert is a harmless ancestor everywhere).
+
+Alternatives rejected: prose-only RUNBOOK warnings (they existed and
+the hazard remained one button-press away); detecting a future
+revert-of-revert instead of retiring the guard (its SHA is unknowable
+now); requiring `verify-and-deploy` too (docs-only PR deadlock).
+
+Consequences: the landmine stays defused for the whole extended dark
+period (operator decision same day: stay dark until the redesign
+round completes). GitHub settings now carry branch protection — a
+new place where repo behavior is configured outside the tree.
+
+## 2026-08-17 — Media origin built: films move to Blob behind Front Door (external-audit Finding 5)
+
+Context: audit Finding 5 named four problems with self-hosted video —
+the client-facing SOW says video hosting costs $0 and is embedded
+(now false), egress scales with marketing success unmodeled, every
+re-encode grows git history forever (no LFS rule), and media is
+coupled to code (swapping a film = commit + build + deploy + purge).
+Operator decision same day (AskUserQuestion): build the Blob origin
+NOW, before relaunch. The audit's companion suggestion — a Git LFS
+rule for *.mp4 — was REJECTED with the flag raised: GitHub's free LFS
+bandwidth (1GB/mo) dies in days against ~53MB × this repo's CI
+cadence, and default actions/checkout (lfs:false) would silently
+deploy pointer files as videos. Blob migration makes LFS moot: no
+future .mp4 enters the repo at all.
+
+Decision: storage account (`stngmedia…`, Standard_LRS, anonymous
+blob-read on container `media` only) + `media.needlegirlie.com`
+custom domain on the EXISTING afd-needlegirlie profile, route
+`media` (originPath /media, IgnoreQueryString, no compression) bound
+only to that hostname — all in Bicep (infra/storage.bicep +
+frontdoor.bicep + dns.bicep additions), applied via the documented
+sub-level deployment after a what-if drift check (result: template
+still matches live — every Modify was reference-resolution noise,
+omitted service defaults, or the budget startDate the RUNBOOK's own
+command sets). Design refinement over the plan: **only the .mp4
+files move; the .vtt captions STAY in public/media/** — captions are
+compliance-screened text whose git audit trail matters, and keeping
+them same-origin eliminates the whole CORS surface (same-origin
+tracks need no CORS; cross-origin video plays fine without it), so
+zero JS changes and no crossorigin attributes. The stable hostname
+is deliberate: previews play exactly what production plays
+(REDESIGN's recorded rationale). Code paths: siteConfig.mediaBase;
+VideoCarousel data-file goes absolute; TreatmentVideo REWRITES its
+"/media/…" prop internally because that prop lives in treatment MDX
+and any MDX edit resets clinicianApproved (constraint 4 — the arch
+motif's component-layer-mirror precedent; zero flags reset). CSP
+media-src gains the host in both templates; the SWA /media/* cache
+route stays (it now serves only captions).
+
+Alternatives rejected: Git LFS (above); moving .vtt to Blob with
+ACAO * (loses the captions' git trail for zero gain); keeping mp4 in
+repo with LFS-less growth (the audit's status quo); a separate AFD
+profile for media (double the fixed cost for nothing).
+
+Consequences: repo tree −53MB going forward (history unchanged — the
+no-rewrite stance stands); film publishing is an upload + PR for the
+caption (RUNBOOK "Publishing a film"); replacing a film in place
+needs an edge purge (max-age=86400) — the procedure prefers new
+filenames; local dev and previews need internet to play films; Azure
+run-rate +~$1–2/mo at today's traffic (production is dark, so the
+metered lines start near zero: LRS storage of 53MB is fractions of a
+cent; egress is the line that scales — a viewer who watches the whole
+carousel pulls ~30MB, so cost tracks marketing success and is now a
+NAMED budget line instead of an invisible one; re-verify unit rates
+against the operator's Cost Management view before quoting the client
+a figure — the audit's caution). The SOW video-hosting narrative
+update is the operator's document — flagged, with drafting offered.
+
+## 2026-08-17 — Plausible prepped and gated dark (external-audit Finding 6)
+
+Context: audit Finding 6 — no analytics means no way to answer "did
+the redesign work" at relaunch or retainer-renewal; the audit's own
+correction stands: a true before/after is unobtainable (the site was
+live for hours), so the prize is a forward baseline from relaunch
+day. Operator decision (AskUserQuestion 2026-08-17): Plausible at
+relaunch (~$9/mo, client pass-through), prepped now so the flip is a
+config edit on launch day, not a build. Cookieless satisfies hard
+constraint 5; GA4 remains prohibited (BUILD_SPEC §11).
+
+Decision: the whole integration ships DARK behind
+siteConfig.analytics (enabled:false / provider:'none'; the fields
+carry widened types so the flip isn't a type error). Three pieces
+flip together in one build, so no state can lie: (1) BaseLayout
+emits the tracker only when enabled; (2) the privacy page's
+analytics bullet is a build-time conditional — its launch wording
+promises "this page will be updated first," and the conditional
+keeps that promise atomically; (3) generate-swa-config.mjs sniffs
+the BUILT dist/index.html for the script tag and widens the CSP only
+when the page actually shipped it — the header cannot drift from the
+code, and the dark-state artifact is byte-identical to before. The
+tracker is SELF-HOSTED (public/js/plausible.js, vendor file with
+provenance header, fetched 2026-08-17, 2,841 bytes upstream): the
+site's own rule says scripts are static files in public/js/, and
+self-hosting keeps script-src at 'self' — only the /api/event POST
+leaves the origin (connect-src). track() in analytics.ts is wired to
+window.plausible (the script exposes it, queue included) but has no
+callers — zero client-side component code exists; pageviews are the
+v1 signal and the first custom event is a normal PR later.
+
+Alternatives rejected: the hosted script tag from plausible.io
+(would widen script-src to a third-party CDN and drew the SRI
+concern — SRI is incompatible with their versionless endpoint;
+self-hosting removes the whole surface at the cost of a documented
+manual re-fetch on vendor updates); a JSON side-channel for the CSP
+flag (the dist sniff cannot drift; a second flag can); flipping now
+(operator: relaunch waits for the round — a dark-period baseline of
+zero visitors is worthless and the fee starts with the flip).
+
+Consequences: launch-day analytics = account + two-value siteConfig
+edit + normal verify/PR (RUNBOOK "Turning on analytics"); the / perf
+gate re-measures with ~3.6KB more JS at flip (ample headroom, read
+the numbers); privacy wording, CSP, and script can never disagree.
+
+## 2026-08-17 — External-audit close: verification record, the four operator answers, and the relaunch dossier (Findings 2, 3, 4, 7)
+
+Context: an external principal-architect review of a fresh clone
+(docs/AUDIT-2026-08-17-external-review.md, committed with this entry)
+delivered seven triaged findings. Per its §0 rule every claim was
+re-verified first-hand before any action: all git topology numbers
+reproduced exactly against origin/main; the naive-merge hazard
+reproduced in a throwaway clone (~48 silent deletions incl. all
+twelve treatment MDX pages — WORSE than the audit's framing, which
+counted files; ours counted what they were); the RUNBOOK two-step
+verified correct. Two facts the auditor could not see: local main
+was stale, and NEITHER branch had protection — "required status
+check" therefore included a first-ever branch-protection change.
+
+The four operator decisions (AskUserQuestion, 2026-08-17):
+1. **Relaunch (Finding 2): stay dark until the round completes.** No
+   date yet. REDESIGN.md gains the "Round close" scaffold — three
+   operator-filled slots (frozen list, date, the seven gaps as
+   pass/fail checks) — and docs/RELAUNCH.md now holds the complete
+   ready-to-execute relaunch dossier so the date is the only missing
+   input. Post-freeze asks are change-order/retainer scope.
+2. **Assistant (Finding 4): NOT in relaunch scope — BUILD_SPEC §3
+   stands.** The fork (a scope decision recorded outside this repo
+   had floated a text-only assistant into website launch) is closed:
+   no server code enters this architecture in this round; the
+   assistant remains a later, separately-planned increment. This
+   entry is the in-repo record the audit asked for. Zero build.
+3. **Analytics (Finding 6): Plausible at relaunch** — built same day
+   (own entry above).
+4. **Media origin (Finding 5): build now** — built same day (own
+   entry above); LFS declined.
+
+Finding 3 (approval gate attests to copy, not presentation):
+CLINICIAN-SIGN-OFF.md now splits **copy approval** (flag-gated,
+unchanged — the gate's logic was correct all along) from
+**presentation approval** (per-round, dated, manual record with the
+2026-08-05 launch pass logged and the redesign round pending);
+BUILD_SPEC §7 records that CSS-level presentation changes skip the
+flags BY DESIGN; the presentation date is a relaunch hard gate; the
+studio-wide alt mismatch is queued into the flag-resetting
+re-approval pass. Finding 7 housekeeping: the orphan placeholder
+photo deletes in the relaunch PR (it lives on main only); the four
+astro-check hints are a separate small source PR; the stale
+Claude-Project snapshots are an operator action outside this repo.
+
+Consequences: every audit finding now has a recorded disposition —
+built (1, 5, 6), operator-decided and recorded (2, 4), record-split
+(3), scheduled (7). "Relaunch" now HAS a definition of done — the
+audit's named blocking ambiguity — in REDESIGN "Round close" +
+RELAUNCH.md preconditions.
+
+## 2026-08-18 — /services becomes a photo-card menu: Amy's own mockup, her per-line picks, and a scoped perf-budget carve-out
+
+Context: client direction via the operator (mockup `button01.png`):
+every service line on /services becomes a linked "button" — her photo
+in the house arch, numeral + title + summary + "More information ›"
+below, the whole card one link. Chosen build: merge the two existing
+patterns rather than invent a third — the homepage door's arch/plate/
+lift/link-overlay anatomy joins TreatmentCard as an optional `photo`
+prop (backward compatible; photo-less cards render as before). The
+photos are the client's own per-line picks (B1…B12 in her picks
+folder, slot = menu number). Operator decisions: keep the three
+category groups (2026-07-23 direction stands); keep the 3-photo
+strip; photos are her picks, not the repo's existing frames.
+
+Screening record (frame-level, per the RUNBOOK photo procedure; the
+operator's confirmations are the record):
+- Releases for every identifiable client CONFIRMED on file — slots
+  01 (brow/temple injection), 04 (device treatment, reclined
+  client), 07 (laser, eye shields), 11 (IV drip under the neon).
+- Slot 06 is Amy herself (Evolve-belt chair selfie) — confirmed, no
+  release needed. 9:16 selfie vs 4:5 arch: the crop anchors on the
+  belt (the treatment story); face-included crops cut at the chin.
+- Slot 11 had two candidate files; the operator picked the portrait
+  neon frame. The unused landscape frame (second provider in frame)
+  was never committed.
+- **Slot 12 — operator override after the compliance flag.** The
+  frame shows Amy beside the Biote banner whose outcome-promise
+  lines and symptom poster are legible at source and partially
+  legible at card size, on a page that carries no Biote disclaimer.
+  Flag raised in full; operator chose SHIP AS-IS. CLAUDE.md
+  constraint-3 gains the scoped exception (this photo, this page);
+  extending it requires the human operator.
+- Package labels elsewhere (Evolysse/Jeuveau boxes slot 02,
+  RADIESSE+ box incl. its pack-size marking slot 03, skinbetter
+  bottles slot 08, saline bag slot 11) are trade dress as sold,
+  illegible at served size — the strip frame-8 precedent; the
+  pack-size marking is package contents, not dosing.
+- Partial banner fragment in slot 01 illegible at served size.
+- Slots 05 and 09 await the client's remaining picks and carry the
+  line's own page photo in the interim (PiXel8-RF product shot;
+  supervised weigh-in). Swapping a pick in is a one-line map edit in
+  ServiceLineGrid (RUNBOOK "Replacing site photography").
+
+Assets committed content-named (never slot-named): temple-injection,
+amy-holding-neon, radiesse-syringes, device-facial-session,
+evolve-belt-selfie, laser-eye-shields (PNG master converted to JPEG
+q92, prp precedent), skinbetter-trio-forward, lavender-suit-stool,
+iv-drip-neon, biote-banner-scale. Hash-checked against existing
+assets (skinbetter-in-hand and amy-lavender-suit are DIFFERENT
+frames from the same sets — no dupes). Masters stay outside the
+repo. Crop anchors are sharp gravity/strategy tokens (the door
+pipeline's knob; percentages are CSS, sharp rejects them) —
+'attention' for most, 'bottom' for the two whose story sits at the
+frame's foot (04, 06) and the interim 09, 'top' for 12, 'centre'
+for 08/11; every crop eyeballed on element screenshots.
+
+Perf budget (operator-approved after the flag, measured numbers):
+LH's mobile emulation fetches every lazy card on its full-page
+scroll, so the 12-card menu measures 568KB of images on /services
+(588KB on /styleguide, which demos the grid) against the 240KB
+budget — unreachable at any credible fidelity (even 640px-capped
+derivatives measure ~390KB). Operator chose FULL RETINA (1000px
+derivatives where the source has the pixels; srcset capped at each
+photo's 4:5-crop width so sharp never upscales — the retina rule's
+silent failure mode). lighthouserc.json's assertions became an
+assertMatrix: /services + /styleguide alone get image 640KB / total
+940KB; every other URL keeps the original budgets, which remain the
+default for new pages. Real visitors still fetch cards only as they
+scroll; the initial-viewport payload is unchanged (H1 stays LCP).
+
+Alternatives rejected: new bespoke card component (two patterns
+already encode the anatomy); slot-named assets (house rule); CSS
+percentage crops served at full frame (bytes + no server crop);
+2-across mobile grid (cramped Playfair titles read down-market;
+mockup scale is 1-across); weakening the global budgets (the
+carve-out is scoped to exactly the two menu URLs).
+
+Consequences: /services is the photo menu the client mocked; the
+grid comment carries the screening pointer; the presentation-drift
+list in CLINICIAN-SIGN-OFF gains this change (pending presentation
+approval covers it); two interim slots swap on her word; zero
+treatment MDX touched — no clinicianApproved resets.
+
+## 2026-08-18 — Photo-menu rev 2: compact tiles (operator preview review) and the carve-out tightens
+
+Context: the operator reviewed PR #121's preview — right idea, but
+the mockup-literal scale made huge buttons, not mobile-friendly;
+directive: shrink by over 50%. Measured: phone cards were 1-across,
+~343px wide × ~720px tall (~247k px²; menu ≈ 8,600px of scroll).
+
+Decision: density, not a nudge — the grid goes 2-across on phones
+(gap-3) and 4-across from lg (one row per category group); type
+compacts under the `--photo` variant only (numeral/title clamps
+down, summary 0.875rem, microline 0.6875rem → 0.625rem on phones
+with tracking cut from the editorial 0.18em); on phones the summary
+is HIDDEN (operator decision) — tile = arch + numeral + title +
+"More information ›"; it returns from 640px where 2-across cards run
+350–480px wide. Measured result: phone page 10,481px → 4,356px
+(58% shorter; per-card area −77%), desktop 7,691px → 3,728px.
+Microline honesty note: single-line proven from ~375px; at the 344px
+Z Fold cover Playfair's wide caps stack it onto two composed lines —
+accepted rather than shrinking below 10px.
+
+Image recipe re-derived per delivery band: widths [400, 640, 880] —
+880 exists because the 640–1023 two-across band needs up to ~878px
+on DPR2 tablets (with 640 alone they'd get 0.73×, a real retina-rule
+break caught in plan review); `sizes` now describes the IMAGE width
+(35vw phones), not the card — the shipped 44vw over-fetched. B4/B6/
+pixel8-rf stay source-bound below their band ideal (crop-cap logic).
+
+Consequence for the same-day carve-out: LH-CI now picks 400w cards,
+so /services measures 298KB and /styleguide 317KB of images — the
+assertMatrix carve-out TIGHTENED from 640/940KB to 384/512KB
+(budgets only move down without a flag; the tighter numbers are the
+new ceiling for both URLs). Photos, anchors, screening, releases,
+the slot-12 override, groups, numbering, and the strip all stand
+unchanged from the entry above.
+
+## 2026-08-18 — Slots 05 and 09 get their real picks; the menu's interim slots close
+
+Context: the operator flagged slot 05 serving the interim photo —
+the client's B5 pick was in the picks folder (missed in the first
+sweep). Screened: Amy solo holding the PiXel8-RF handpiece,
+device/maker name legible (the device is named in the line's own
+copy — product-labeling precedent), blurred device screen and neon
+behind, no client, no release needed. Committed content-named
+(`pixel8-in-hand.jpg`). Slot 09 went through two frames the same
+morning: her first B9 (HEIC) was screened and staged (client on the
+InBody scale, sign fragment illegible — frame-8 class; the client's
+website-use release CONFIRMED on file, operator word = the record),
+then the operator directed a replacement frame (B9.jpeg — same
+client, different session, EXIF-rotated master normalized upright
+and committed at the shoot-file class, 1200×1600 JPEG q92,
+`inbody-weigh-in.jpg`). **The replacement frame ships under operator
+override after the compliance flag:** its aftercare wall sign titles
+a competitor neuromodulator brand in large type, legible at served
+card sizes — a brand the site's own copy never names (the menu is
+Jeuveau/Xeomin/Daxxify) and whose pixels previously shipped only
+under the studio-reel override. Flag raised with a crop-out
+alternative; operator chose SHIP AS-IS → CLAUDE.md's constraint-3
+scoped-exception list grows to two menu-card photos. The sign's
+small caption lines (incl. its results-timing line) stay illegible
+at every served size. All twelve menu slots now carry the client's
+own picks; the interim photos (`pixel8-rf.jpg`,
+`supervised-weigh-in.jpg`) remain in the repo for their
+treatment-page uses.
+
+## 2026-08-18 — Menu-card photo fixes, round 3: 06 shows the face, 10 lightens
+
+Context: operator preview feedback on the merged menu (PR #121):
+card 06 Body Contouring cut off Amy's head (the shipped 'bottom'
+anchor deliberately framed the Evolve belt — the map comment said
+the client judges on the preview, and she did), and card 10 Peptide
+Therapy (`lavender-suit-stool.jpg`) read quite dark (the source
+carries a muted, underexposed matte grade).
+
+Decision, card 06: anchor 'bottom' → 'top' — the maximum-face
+window. Geometry measured first: the 720×1280 selfie's face spans
+the top ~29% of the frame and the belt the bottom ~30%; the 4:5
+cover window is 720×900 (slidable y∈[0,380]), so NO window holds
+both. 'top' shows head, torso, and the treatment chair; the belt
+hardware leaves the frame — accepted consequence, stated in the
+approved plan. Showing both takes a different frame (a map-line
+swap when Amy supplies one). Eyeballed on the element shot: both
+eyes clear the arch dome; only right-side hair clips (normal
+arch-portrait reading). Alternatives rejected: mid-window
+compromise crops (the dome clips an eye and the forehead goes);
+a narrower face-centered extract (drops the belt anyway AND the
+srcset below the retina bar).
+
+Decision, card 10: server-side re-grade, baked into the asset —
+re-derived from the master B10.jpg (1067×1600, single generation),
+sharp `.modulate({ brightness: 1.18, saturation: 1.05 })
+.linear(1.05, 0)`, JPEG q92, committed under the same content name
+(zero code change). Chosen from four candidates by side-by-side
+eyeball, then checked against row neighbors 09/11 on element shots:
+no longer the dark outlier, not washed. CSS-filter alternative
+rejected — the menu cards have no filter hook and a one-card
+mechanism is special-casing; the house pattern bakes grades
+server-side. Screening unchanged for both frames (no new legible
+content; the 06 crop moves the belt labels out of frame entirely).
+Measured after: /services 290KB, /styleguide 309KB of LH-mobile
+images — inside the 384KB carve-out, no budget movement.
+
+Same day, on the operator's preview review of this PR: cards 11
+(`iv-drip-neon.jpg`) and 12 (`biote-banner-scale.jpg`) called too
+dark as well — both re-graded from their masters (B11.jpg /
+B12.jpg, single generation), sharp
+`.modulate({ brightness: 1.28, saturation: 1.05 })` (the dim
+ambient scenes took a stronger straight lift than card 10's mix),
+JPEG q92, same content names. Eyeballed on element shots: the 11
+neon still reads, the 12 banner whites keep texture; the Wellness
+row is tonally coherent. Screening posture unchanged: the 11 bag
+labels stay illegible at served sizes; the 12 banner was already
+legible and ships under its recorded constraint-3 override — the
+lift changes exposure, not what the frame discloses. Re-measured:
+/services 294KB, /styleguide 313KB — inside the carve-out.
+
+Card 06, round 4 (operator: face AND belt must both show; "you may
+need to shrink the pic"): cropping is geometrically dead (see
+above), so the committed asset became a pre-composed 4:5 blur-fill
+contain — the full 9:16 frame at NATIVE 720×1280 inside a 1024×1280
+canvas (zero foreground resampling; 1024 restores the 880 srcset
+tier), side bars a blurred blowup of the same frame (sharp: cover
+1024×1280 → blur 60 → brightness 1.1 / saturation 1.1; composite
+gravity centre; q92). The bars read as soft brand-pink and blend
+into the card plate; centring also moved the face clear of the arch
+dome. Anchor token → 'centre' (identity crop — source aspect now
+equals the arch's). Screening: the belt labels render smaller than
+any prior crop (illegible), the mirrored FIGS tag returns to frame
+(carried as-is per the original screening), blurred bars are
+unrecognizable content. Measured: /services 296KB, /styleguide
+315KB — inside the carve-out.

@@ -6,8 +6,9 @@
  * - PUBLIC_ENV=production  -> production.json (Front Door lockdown; requires
  *   FRONT_DOOR_ID, otherwise the build FAILS — a production build must never
  *   ship with an unlocked origin or a placeholder FDID).
- * - anything else          -> preview.json (no lockdown; PR previews rely on
- *   the SWA environment password instead).
+ * - anything else          -> preview.json (no lockdown; previews are
+ *   PUBLIC + noindexed — password protection removed 2026-07-21,
+ *   DECISIONS same date; this comment previously claimed a password).
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -44,6 +45,32 @@ if (isProduction) {
 // Drop the human-facing comment key from the deployed artifact.
 const parsed = JSON.parse(config);
 delete parsed.$comment;
+
+// Analytics CSP (2026-08-17, DECISIONS same date): admit the Plausible
+// event endpoint in connect-src ONLY when the built page actually ships
+// the self-hosted tracker (BaseLayout emits it when siteConfig.analytics
+// is enabled + 'plausible'). This script runs AFTER `astro build`, so
+// sniffing dist/ ties the header to what shipped — the CSP cannot drift
+// from the code, and while analytics is dark the artifact is
+// byte-identical to before. script-src stays 'self': the tracker is
+// self-hosted in public/js/ (the site's static-script rule).
+const homeHtmlPath = resolve(distDir, 'index.html');
+const analyticsShipped =
+  existsSync(homeHtmlPath) && readFileSync(homeHtmlPath, 'utf8').includes('src="/js/plausible.js"');
+if (analyticsShipped) {
+  const csp = parsed.globalHeaders['Content-Security-Policy'];
+  if (!csp.includes('connect-src')) {
+    parsed.globalHeaders['Content-Security-Policy'] = csp.replace(
+      "default-src 'self'; ",
+      "default-src 'self'; connect-src 'self' https://plausible.io; ",
+    );
+  }
+  if (!parsed.globalHeaders['Content-Security-Policy'].includes("connect-src 'self' https://plausible.io")) {
+    console.error('generate-swa-config: analytics shipped but the CSP widening failed. Aborting.');
+    process.exit(1);
+  }
+  console.log('generate-swa-config: analytics shipped — connect-src admits plausible.io');
+}
 
 const artifact = JSON.stringify(parsed, null, 2) + '\n';
 if (artifact.includes('__FRONT_DOOR_ID__')) {

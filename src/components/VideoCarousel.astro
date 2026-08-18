@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { siteConfig } from '../lib/siteConfig';
 import j1Poster from '../assets/photos/commercial-j1-poster.jpg';
 import studioPoster from '../assets/photos/commercial-studio-poster.jpg';
 import j2Poster from '../assets/photos/commercial-j2-poster.jpg';
@@ -40,6 +41,11 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *  on-screen text (track added with each built video — the axe
  *  video-caption rule audits rendered <video> elements; not `default`,
  *  the text is already burned into the pixels).
+ *  Since 2026-08-17 the .mp4 files serve from siteConfig.mediaBase
+ *  (Blob behind the same Front Door) — data-file is absolute. The
+ *  .vtt captions stay same-origin in public/media/ ON PURPOSE
+ *  (in-repo compliance audit trail; same-origin tracks need no CORS,
+ *  so the built <video> needs no crossorigin attribute).
  *
  * Behavior contract:
  *  - Nothing loads until the stage scrolls into view (mobile data +
@@ -100,7 +106,7 @@ const slides: {
       slides.map((s, i) => (
         <div
           class:list={['vc-slide', { 'is-active': i === 0 }]}
-          data-file={`/media/${s.file}.mp4`}
+          data-file={`${siteConfig.mediaBase}/${s.file}.mp4`}
           data-vtt={`/media/${s.file}.vtt`}
           data-label={s.label}
           data-rate={s.rate}

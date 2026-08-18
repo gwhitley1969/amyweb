@@ -36,11 +36,11 @@ pink."** Seven gaps, each a test every design decision must move:
 | **Type: Playfair Display everywhere** — headings AND body, matching the logo's own face; body bumped to 17px/1.65; **DM Sans retired** (scope answer 2026-08-15: Playfair takes the small UI text too — weight is the legibility knob, never a second family) | **Shipped** (PR #103, merged 2026-08-15) | mobile-readability flagged and accepted; DECISIONS 2026-08-15 |
 | **Home hero: Amy's studio-counter portrait** (interim AI-assisted 1400w blend, disclosed; her full-res original drops in with zero code changes) | **Shipped** (PR #101) | DECISIONS 2026-08-14 |
 | **Home video carousel** — J1 → studio reel → J2 on a cinematic noir stage; autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, reduced-motion = posters | **Shipped** (PR #101) | DECISIONS 2026-08-14 ×3 |
-| **Media architecture: Blob `/media` origin recommended** (media hostname via the same Front Door, ~$1–2/mo) as the video program grows; in-repo public/media/ serves the current four carousel films (+ two treatment-page films) | Recommended, not built | cost door opened by operator |
+| **Media architecture: Blob media origin** — `media.needlegirlie.com` via the same Front Door (~$1–2/mo); all six .mp4 films upload to Blob, repo sheds 53MB; captions stay in-repo (compliance audit trail, same-origin = no CORS); previews play production media by design; publish procedure in RUNBOOK "Publishing a film" | **Built** (2026-08-17, external-audit Finding 5; Git-LFS declined — CI bandwidth trap) | DECISIONS 2026-08-17 |
 | **Mobile Aesthetics badge in the header** — SVG vector rebuild (Julius Sans One outlines, measured geometry; lockup variant stays in the brand kit); FULL BADGE at 48–80px phones / 128–160px desktop; **links out to yourmobileaesthetics.com** (new tab — constraint-2 operator override, the one sanctioned outbound reference) | **Shipped** (PR #102, merged 2026-08-15) | F-437304 asset set; DECISIONS 2026-08-15 (four entries); CLAUDE.md constraint-2 exception |
 | **Hybrid nav** — hamburger menu carries the page links at EVERY width (inline desktop nav retired); Book is the one styled button, always visible; centered-brand shell at all widths (fixed the Z Fold collision, which predated the badge) | **Shipped** (PR #102, merged 2026-08-15) | operator decision after options; DECISIONS 2026-08-15 |
 | **Pink arches around pictures** — house frame motif, generalized from the category-door arch into the shared `.ng-arch` recipe; every photo sitewide (Amy's direction 2026-08-17), exempting the hero backdrop, all film stages, the homepage Instagram post (Amy's named exception), and the lip style-guide diagram | **Built** (2026-08-17) | DECISIONS 2026-08-17 |
-| **Photo replacement sitewide** — page-by-page, operator + Amy pick per slot (picks in C:\Amy\New Pics; ~21 frames from the new professional shoot). Shipped: homepage doors (page 1) and the /services strip (page 2, three client releases recorded), both 2026-08-17; procedure now in RUNBOOK "Replacing site photography" | **In progress** (started 2026-08-17) | operator directive; DECISIONS 2026-08-17 |
+| **Photo replacement sitewide** — page-by-page, operator + Amy pick per slot (picks in C:\Amy\New Pics; ~21 frames from the new professional shoot). Shipped: homepage doors (page 1) and the /services strip (page 2, three client releases recorded), both 2026-08-17; the /services photo-card menu (page 3 — Amy's own mockup, ALL TWELVE of her B-picks landed same day incl. the two operator-override frames; compact-tile grid after the operator's >50% shrink directive), 2026-08-18, PR #121, plus the same-week preview-feedback fix round (06 face-and-belt blur-fill composite; 10/11/12 re-graded brighter), PR #122; procedure in RUNBOOK "Replacing site photography" | **In progress** (started 2026-08-17) | operator directive; DECISIONS 2026-08-17 + 2026-08-18 |
 | 17a + 17b videos → /services/biostimulators; 20 → /services/body-contouring | Parked ("not there yet") | same screening + release checks when directed |
 
 ## Carousel record (J1/studio/J2 cleared 2026-08-14; team film 2026-08-17)
@@ -99,8 +99,30 @@ pink."** Seven gaps, each a test every design decision must move:
 - **Sound for the films** — renditions are muted; tap-for-sound +
   audio-faithful captions is a recorded follow-up if directed.
 - Carried from launch: counsel review of legal pages, manual
-  keyboard/screen-reader a11y pass, laser pricing if supplied,
-  Plausible analytics opt-in (~$9/mo, flagged).
+  keyboard/screen-reader a11y pass, laser pricing if supplied.
+  (Plausible: decided and PREPPED 2026-08-17 — ships dark; the flip
+  is a relaunch-day config edit, RUNBOOK "Turning on analytics".)
+
+## Round close (scaffold added 2026-08-17 — external-audit Finding 2)
+
+Operator decision 2026-08-17: **production stays dark until this
+round completes.** The round completes when the three slots below are
+filled and satisfied — the operator fills them, nobody else. Anything
+raised after the freeze is recorded as change-order or retainer
+scope, never silently absorbed (fixed-fee discipline).
+
+1. **Frozen change list** (dated when frozen): _pending — the
+   operator's "A LOT more" list, frozen as of ____._
+2. **Relaunch target date:** _pending._
+3. **The seven gaps as pass/fail acceptance checks** (fill with
+   Amy/operator verdicts, not vibes): cinematic video ☐ · enormous
+   type, few words ☐ · one idea per screen ☐ · noir as cinematic
+   stage ☐ · flawless assets only ☐ · choreographed restrained
+   motion ☐ · mobile-first ☐.
+
+When all three are filled: execute **docs/RELAUNCH.md** (the
+preconditions there — copy approval, presentation approval, analytics
+flip — are hard gates).
 
 ## Working agreement for the round
 

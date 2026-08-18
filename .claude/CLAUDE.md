@@ -118,7 +118,17 @@ silently following it. Known superseded points from earlier briefs:
      override with both client releases confirmed on file. (The fourth
      carousel film — the 2026-08-17 team film — contains no claims and
      needs no exception here; its override lives under constraint 2.)
-     Nothing else; extending any of these requires the human operator.*
+     And two photos (operator overrides after the compliance flags —
+     DECISIONS 2026-08-18): the /services hormone-optimization menu
+     card's photo (`biote-banner-scale.jpg`), in which the Biote
+     banner's outcome-promise lines and symptom poster are legible,
+     on a page carrying no Biote disclaimer; and the /services
+     weight-loss menu card's photo (`inbody-weigh-in.jpg`), whose
+     aftercare wall sign titles a competitor neuromodulator brand the
+     site's own copy never names — pixel content is invisible to
+     lint:claims, which is why these exceptions are recorded here.
+     Nothing else; extending any of these requires the human
+     operator.*
      *Fourth scoped exception, and the only one that is not marketing
      copy (operator authorization, DECISIONS 2026-07-22): Biote's FDA
      disclaimer sentence — "These statements have not been evaluated
@@ -180,7 +190,11 @@ silently following it. Known superseded points from earlier briefs:
   (target: mobile nav at most, CSS-first preferred). Budget: ≤ 30 KB total JS.
   First sanctioned consumer (2026-08-14, operator-directed): the home video
   carousel's ~3KB static script — served from `public/js/` because the CSP
-  refuses inline scripts (DECISIONS 2026-08-14). The budget stands.
+  refuses inline scripts (DECISIONS 2026-08-14). Second sanctioned
+  consumer (2026-08-17, operator-directed, SHIPS DARK): the self-hosted
+  Plausible tracker (~3.6KB, `public/js/plausible.js`) — renders only
+  after the operator's relaunch-day flip (BUILD_SPEC §11). The budget
+  stands.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.
 - **Images** through `astro:assets` (responsive, AVIF/WebP, lazy below fold).
@@ -237,6 +251,6 @@ silently following it. Known superseded points from earlier briefs:
 ├── config/swa/       staticwebapp.config templates (production / preview)
 ├── compliance/       banned-patterns.json + linter docs
 ├── scripts/          lint-claims.mjs, check-approvals.mjs, generate-swa-config.mjs
-├── infra/            Bicep (Front Door, SWA, DNS) — optional, see BUILD_SPEC §15
+├── infra/            Bicep (Front Door, SWA, DNS, media storage) — see BUILD_SPEC §15
 └── .github/workflows CI/CD
 ```

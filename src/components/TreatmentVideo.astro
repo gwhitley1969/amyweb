@@ -1,6 +1,7 @@
 ---
 import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import { siteConfig } from '../lib/siteConfig';
 
 /**
  * Self-hosted treatment film (first used on /services/dermal-fillers —
@@ -10,11 +11,20 @@ import type { ImageMetadata } from 'astro';
  * visual, and native controls mean zero client-side JavaScript. No
  * autoplay, so no reduced-motion or pause obligations arise. The captions
  * track is required — the a11y gate (axe video-caption) fails without it.
- * Media files live in public/media/ (same-origin; CSP default-src covers
- * them; cache route in config/swa/).
+ *
+ * MEDIA ORIGIN (2026-08-17, DECISIONS same date): the .mp4 serves from
+ * siteConfig.mediaBase (Blob behind the same Front Door). The `src`
+ * prop KEEPS its historical "/media/<file>.mp4" form and is rewritten
+ * here, because the prop lives in treatment MDX frontmatter and any
+ * MDX edit resets clinicianApproved (constraint 4) — the same
+ * component-layer mirror the arch motif uses. Captions stay
+ * same-origin in public/media/ (in-repo compliance audit trail;
+ * same-origin tracks need no CORS, so no crossorigin attribute), with
+ * their cache route still in config/swa/.
  */
 interface Props {
-  /** Public path to the MP4, e.g. "/media/evolysse-film.mp4". */
+  /** Public path to the MP4, e.g. "/media/evolysse-film.mp4" — rewritten
+   * onto siteConfig.mediaBase at render (never edit the MDX side). */
   src: string;
   /** Poster frame — processed through astro:assets. */
   poster: ImageMetadata;
@@ -26,7 +36,12 @@ interface Props {
   caption?: string;
 }
 
-const { src, poster, captionsSrc, label, caption } = Astro.props;
+const { src: srcProp, poster, captionsSrc, label, caption } = Astro.props;
+
+// "/media/evolysse-film.mp4" -> "https://media.needlegirlie.com/evolysse-film.mp4"
+const src = srcProp.startsWith('/media/')
+  ? `${siteConfig.mediaBase}/${srcProp.slice('/media/'.length)}`
+  : srcProp;
 
 const posterImg = await getImage({ src: poster, width: 1280, format: 'webp' });
 ---

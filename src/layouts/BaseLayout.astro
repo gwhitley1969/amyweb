@@ -4,6 +4,18 @@ import playfairWoff2 from '@fontsource-variable/playfair-display/files/playfair-
 import '../styles/global.css';
 import SeoHead from '../components/SeoHead.astro';
 import { localBusiness } from '../lib/schema';
+import { siteConfig } from '../lib/siteConfig';
+
+// Cookieless analytics, prepped 2026-08-17 and gated DARK behind
+// siteConfig.analytics (constraint 5: cookieless only; Plausible sets
+// no cookies and keeps no personal identifiers). While disabled this
+// renders nothing — the flip is a siteConfig edit, the operator's act.
+// The tracker is SELF-HOSTED (public/js/plausible.js — the site rule:
+// scripts are static files; script-src stays 'self'); only the event
+// POST leaves the origin, and generate-swa-config.mjs sniffs the
+// BUILT page for the script tag and admits plausible.io in
+// connect-src only when it actually shipped.
+const analyticsOn = siteConfig.analytics.enabled && siteConfig.analytics.provider === 'plausible';
 
 interface Props {
   title: string;
@@ -34,8 +46,21 @@ const jsonLd = JSON.stringify(localBusiness());
     {/* The one family (§13): this latin woff2 now serves body AND display,
         so the preload covers nearly all text on the page. */}
     <link rel="preload" href={playfairWoff2} as="font" type="font/woff2" crossorigin />
-    <script type="application/ld+json" set:html={jsonLd} />
-    {pageJsonLd.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+    {/* JSON-LD data blocks — is:inline states explicitly what Astro
+        already infers (attribute-bearing scripts skip processing);
+        CSP is unaffected: non-executable script types are data, not
+        script-src subjects. External-audit Finding 7 housekeeping. */}
+    <script is:inline type="application/ld+json" set:html={jsonLd} />
+    {pageJsonLd.map((obj) => <script is:inline type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+    {analyticsOn && (
+      <script
+        is:inline
+        defer
+        data-domain={siteConfig.domain}
+        data-api="https://plausible.io/api/event"
+        src="/js/plausible.js"
+      ></script>
+    )}
   </head>
   <body
     class="min-h-dvh"

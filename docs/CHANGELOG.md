@@ -6,6 +6,134 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-18 — Menu line 01 retitled
+
+- "Wrinkle Relaxers" → "Neurotoxins - Wrinkle Relaxers" on the
+  /services menu (client wording, verbatim). The treatment page's
+  own title is unchanged.
+
+### 2026-08-18 — Menu-card photo fixes (round 3)
+
+- Body Contouring's card now shows Amy's face — the crop anchor
+  flipped from belt-priority to the maximum-face window (the 9:16
+  selfie can't hold face and belt in one 4:5 arch; the belt leaves
+  the frame — DECISIONS same date). Peptide Therapy's photo was
+  re-graded lighter from the master (the source's matte grade read
+  dark in its row); same asset name, zero code change.
+- Same round, on the PR preview: IV Therapy and Hormone
+  Optimization's photos re-graded brighter from their masters too
+  (stronger lift — dim ambient scenes); same asset names, zero code
+  change. Recipes in DECISIONS.
+- Round 4: Body Contouring's card now shows face AND belt — the
+  asset became a blur-fill contain composite (the full 9:16 selfie
+  inside the 4:5 arch, soft-blurred bars of the same frame filling
+  the sides). Recipe in DECISIONS.
+
+### 2026-08-18 — The last two picks land (same PR)
+
+- Skin Rejuvenation's card now carries the client's own B5 pick (Amy
+  holding the PiXel8-RF handpiece) and Weight Loss carries her
+  replacement B9 frame (client on the InBody scale — release
+  confirmed on file; ships under an operator override for the
+  legible competitor-brand aftercare sign in frame, DECISIONS same
+  date). All twelve menu cards now show her picks; no interim slots
+  remain.
+
+### 2026-08-18 — /services photo-card menu (rev 2: compact tiles, same PR)
+
+- Operator preview review: the buttons were huge. The menu is now a
+  compact tile grid — 2-across on phones (summary hidden there;
+  tile = arch + numeral + title + "More information ›"), one 4-card
+  row per group on desktop. Phone page height −58%, per-card area
+  −77%. Image srcset re-derived per delivery band (new 880px tier
+  for 2-across tablets; honest image-width `sizes`), and the LHCI
+  carve-out TIGHTENED from 640/940KB to 384/512KB (measured 298/317).
+
+### 2026-08-18 — /services photo-card menu
+
+- Every service line's menu card now carries the client's own photo
+  in the house arch above the numeral/title/summary — her mockup,
+  built by merging the homepage door anatomy into the existing card
+  (whole card still one link; three category groups and the 01–12
+  numbering unchanged). Ten of twelve photos are her per-line picks
+  (screened frame-level, releases confirmed — DECISIONS 2026-08-18,
+  incl. the slot-12 operator override); two slots carry the line's
+  own page photo until her remaining picks land.
+- Perf gate: /services + /styleguide (which demos the grid) get a
+  scoped image/total budget carve-out via assertMatrix — measured,
+  flagged, operator-approved full-retina tier; all other pages keep
+  the original budgets (DECISIONS same date).
+
+### 2026-08-17 — Doc-accuracy sweep after the audit round
+
+- Reference docs that didn't ride today's PRs caught up with what
+  shipped: BUILD_SPEC §14 records the relaunch guard + branch
+  protection, §15 gains `storage.bicep` + the immutable budget
+  start-date, §17's analytics row reflects the Plausible prep;
+  CLAUDE.md's JS-budget bullet names its second (dark) consumer and
+  the repo map names the storage module; OPERATOR-SETUP documents
+  branch protection and the media origin; compliance/README notes the
+  films now live in Blob with screening before upload; a stale
+  "preview password" comment in the config generator (wrong since
+  2026-07-21) and the unpinned budget date in main.bicep's deploy
+  example are corrected.
+
+### 2026-08-17 — Zero-hint check (audit housekeeping)
+
+- `npm run check` now reports 0 errors / 0 warnings / **0 hints**:
+  explicit `is:inline` on the two JSON-LD data blocks, and the two
+  Node gate-scripts' `require` locals renamed out of TypeScript's
+  global-shadowing false positive (both were genuinely in use).
+  External-audit Finding 7's last in-repo item.
+
+### 2026-08-17 — Relaunch readiness: the audit's paper trail
+
+- The external architecture review is committed
+  (docs/AUDIT-2026-08-17-external-review.md) with every finding's
+  disposition recorded in DECISIONS. New docs/RELAUNCH.md holds the
+  complete ready-to-execute relaunch dossier; REDESIGN gains the
+  "Round close" scaffold (operator decision: dark until the round
+  completes; three slots — frozen list, date, seven-gap checks — set
+  the definition of done). CLINICIAN-SIGN-OFF now separates copy
+  approval (the flag gate, unchanged) from presentation approval
+  (dated, per-round — a relaunch hard gate), with the redesign
+  round's visual drift enumerated for Amy's pending pass.
+
+### 2026-08-17 — Cookieless analytics wired, shipped dark
+
+- Plausible is fully prepped behind a config flag and ships DARK —
+  the built site is byte-identical until the operator flips
+  `siteConfig.analytics` at relaunch. One flip does everything in the
+  same build: self-hosted tracker (script-src stays 'self'), privacy
+  page swaps its analytics bullet (keeping its own "updated first"
+  promise), and the generated CSP admits the event endpoint only when
+  the page actually ships the script. External-audit Finding 6;
+  procedure in RUNBOOK "Turning on analytics".
+
+### 2026-08-17 — Films move to their own media origin
+
+- The six .mp4 films now serve from `media.needlegirlie.com` — Blob
+  storage behind the same Front Door (new Bicep: storage account,
+  custom domain, media route). The repo sheds 53MB: renditions are
+  uploaded, not committed. Captions (.vtt) deliberately stay in the
+  repo — they are compliance-screened text and keep their git audit
+  trail. Previews play the same films production does, by design.
+  External-audit Finding 5; operator decision to build now. The
+  audit's Git-LFS suggestion was declined (CI bandwidth trap —
+  DECISIONS has the rationale).
+
+### 2026-08-17 — Relaunch guard: the takedown's git landmine gets a tripwire
+
+- New CI workflow (`relaunch-guard.yml`, required on both branches)
+  mechanically enforces what the RUNBOOK could only say in prose:
+  merging `main` into `phase-c` now fails a check (the takedown
+  revert would delete the launched site), and a naive one-step
+  `phase-c` → `main` merge fails a check (simulated 2026-08-17: it
+  silently drops ~48 files — all twelve treatment pages included —
+  with no conflict and a passing build). First item from the
+  2026-08-17 external architecture review (Finding 1); the relaunch
+  PR retires the workflow.
+
 ### 2026-08-17 — The footer names the studio
 
 - The footer's left block now shows "Mobile Aesthetics" between the

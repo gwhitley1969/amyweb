@@ -1,6 +1,9 @@
 // Orchestrates the needlegirlie.com website infrastructure (BUILD_SPEC §15).
 // Deploy:  az deployment sub create --location <region> --template-file infra/main.bicep \
-//            --parameters budgetStartDate=yyyy-MM-01
+//            --parameters budgetStartDate=2026-07-01
+// budgetStartDate is PINNED: a budget's start date is immutable after
+// creation (the API rejects updates — 2026-08-17); always pass the live
+// budget's own anchor. See budget.bicep + RUNBOOK "Infrastructure changes".
 // Region note: {{AZURE_REGION}} was unset at first deploy; eastus2 chosen as
 // the closest SWA region to the Charlotte market (see docs/DECISIONS.md).
 targetScope = 'subscription'
@@ -24,11 +27,20 @@ module swa 'swa.bicep' = {
   }
 }
 
+module storage 'storage.bicep' = {
+  scope: rg
+  name: 'storage'
+  params: {
+    location: location
+  }
+}
+
 module frontdoor 'frontdoor.bicep' = {
   scope: rg
   name: 'frontdoor'
   params: {
     swaDefaultHostname: swa.outputs.defaultHostname
+    mediaOriginHostname: storage.outputs.blobHostname
   }
 }
 
@@ -40,6 +52,7 @@ module dns 'dns.bicep' = {
     endpointHostname: frontdoor.outputs.endpointHostname
     apexValidationToken: frontdoor.outputs.apexValidationToken
     wwwValidationToken: frontdoor.outputs.wwwValidationToken
+    mediaValidationToken: frontdoor.outputs.mediaValidationToken
   }
 }
 
@@ -68,3 +81,4 @@ output frontDoorId string = frontdoor.outputs.frontDoorId
 output frontDoorProfile string = frontdoor.outputs.profileName
 output frontDoorEndpoint string = frontdoor.outputs.endpointName
 output endpointHostname string = frontdoor.outputs.endpointHostname
+output mediaStorageAccount string = storage.outputs.accountName

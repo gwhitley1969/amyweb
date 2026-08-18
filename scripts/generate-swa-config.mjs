@@ -6,8 +6,9 @@
  * - PUBLIC_ENV=production  -> production.json (Front Door lockdown; requires
  *   FRONT_DOOR_ID, otherwise the build FAILS — a production build must never
  *   ship with an unlocked origin or a placeholder FDID).
- * - anything else          -> preview.json (no lockdown; PR previews rely on
- *   the SWA environment password instead).
+ * - anything else          -> preview.json (no lockdown; previews are
+ *   PUBLIC + noindexed — password protection removed 2026-07-21,
+ *   DECISIONS same date; this comment previously claimed a password).
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';

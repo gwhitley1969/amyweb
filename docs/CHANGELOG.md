@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-17 — Doc-accuracy sweep after the audit round
+
+- Reference docs that didn't ride today's PRs caught up with what
+  shipped: BUILD_SPEC §14 records the relaunch guard + branch
+  protection, §15 gains `storage.bicep` + the immutable budget
+  start-date, §17's analytics row reflects the Plausible prep;
+  CLAUDE.md's JS-budget bullet names its second (dark) consumer and
+  the repo map names the storage module; OPERATOR-SETUP documents
+  branch protection and the media origin; compliance/README notes the
+  films now live in Blob with screening before upload; a stale
+  "preview password" comment in the config generator (wrong since
+  2026-07-21) and the unpinned budget date in main.bicep's deploy
+  example are corrected.
+
 ### 2026-08-17 — Zero-hint check (audit housekeeping)
 
 - `npm run check` now reports 0 errors / 0 warnings / **0 hints**:

@@ -806,6 +806,18 @@ Secrets: SWA deployment token; OIDC client/tenant/subscription IDs. No
 secrets in the repo, ever. `{{FRONT_DOOR_ID}}` (the FDID GUID) is a repo
 variable injected into the production SWA config at build.
 
+**Relaunch guard (takedown-era, 2026-08-17 — external-audit Finding
+1; RETIRES in the relaunch PR):** `relaunch-guard.yml` runs two jobs
+with NO paths filter, both **required status checks** (the repo's
+first branch protection): `takedown-revert-guard` (PRs into `phase-c`
++ pushes to it — fails if the takedown revert is reachable) and
+`gutted-merge-guard` (PRs into `main` — fails if a phase-c-derived
+merge drops any phase-c file). Never mark `verify-and-deploy`
+required: its docs paths-ignore means docs-only PRs would wait
+forever on a check that never reports. Full rationale: DECISIONS
+2026-08-17; procedure: docs/RUNBOOK.md "Relaunching after the
+takedown".
+
 ## 15. Infrastructure (Bicep, `/infra` — optional but preferred)
 
 Provisioned in the **client's** subscription (needlegirlie tenant). The
@@ -819,7 +831,14 @@ operator may provision manually; if asked to write Bicep, produce:
 - `dns.bicep` — apex **alias A record** → Front Door endpoint; `www` CNAME;
   domain-validation TXT records. (Zone already exists — reference, don't recreate.)
 - `budget.bicep` — subscription/resource-group budget with alert thresholds
-  (client is billed directly by Microsoft; alerts protect her).
+  (client is billed directly by Microsoft; alerts protect her). The
+  budget `startDate` is IMMUTABLE after creation — every re-deploy
+  passes the live budget's own anchor, `2026-07-01` (learned
+  2026-08-17; the RUNBOOK's deploy command pins it).
+- `storage.bicep` (added 2026-08-17, §2 media origin) — LRS storage
+  account, container `media` with anonymous blob-read; serves the
+  .mp4 films as `media.needlegirlie.com` via the Front Door `media`
+  route (`frontdoor.bicep`) + `media` CNAME/TXT (`dns.bicep`).
 - No APIM. No WAF policy unless instructed (`{{WAF_DECISION}}`). Nothing for
   Phase 3 (Container Apps, Postgres, OpenAI) — not now.
 
@@ -897,7 +916,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |
 | `{{RETATRUTIDE_COUNSEL}}` | Attorney-approved investigational wording | Open decision |
 | `{{MEDIA_SCOPE}}` | How much photo/video goes on-site | RESOLVED 2026-08-04 — closed as the practice already in force: every photo/film ships on a per-item operator approval, recorded in DECISIONS (no blanket scope; C8 prerequisite (c) satisfied) |
-| `{{ANALYTICS_PROVIDER}}` | Plausible (default) or alternative | RESOLVED 2026-08-04 — NONE at launch (operator delegated the call; DECISIONS same date). Traffic visibility = Front Door edge reports, zero client-side script. Plausible stays the future default; adding it is a deliberate opt-in with its ~$9/mo recurring cost flagged |
+| `{{ANALYTICS_PROVIDER}}` | Plausible (default) or alternative | RESOLVED in two steps: NONE at launch (2026-08-04, operator-delegated); **Plausible chosen 2026-08-17** (operator, external-audit Finding 6) and fully prepped SHIPS-DARK — the relaunch-day flip is a two-value `siteConfig.analytics` edit (~$9/mo starts then; procedure RUNBOOK "Turning on analytics"; §11 has the design) |
 | `{{FRONT_DOOR_ID}}` | X-Azure-FDID GUID after FD provisioning | After infra |
 | `{{AZURE_REGION}}` | Deployment region | Operator to supply |
 | `{{WAF_DECISION}}` | Front Door WAF at launch: yes/no | Open decision |

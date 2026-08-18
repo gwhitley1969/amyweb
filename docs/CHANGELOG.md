@@ -18,6 +18,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   Optimization's photos re-graded brighter from their masters too
   (stronger lift — dim ambient scenes); same asset names, zero code
   change. Recipes in DECISIONS.
+- Round 4: Body Contouring's card now shows face AND belt — the
+  asset became a blur-fill contain composite (the full 9:16 selfie
+  inside the 4:5 arch, soft-blurred bars of the same frame filling
+  the sides). Recipe in DECISIONS.
 
 ### 2026-08-18 — The last two picks land (same PR)
 

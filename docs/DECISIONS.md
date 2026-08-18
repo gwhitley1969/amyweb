@@ -3883,3 +3883,19 @@ labels stay illegible at served sizes; the 12 banner was already
 legible and ships under its recorded constraint-3 override — the
 lift changes exposure, not what the frame discloses. Re-measured:
 /services 294KB, /styleguide 313KB — inside the carve-out.
+
+Card 06, round 4 (operator: face AND belt must both show; "you may
+need to shrink the pic"): cropping is geometrically dead (see
+above), so the committed asset became a pre-composed 4:5 blur-fill
+contain — the full 9:16 frame at NATIVE 720×1280 inside a 1024×1280
+canvas (zero foreground resampling; 1024 restores the 880 srcset
+tier), side bars a blurred blowup of the same frame (sharp: cover
+1024×1280 → blur 60 → brightness 1.1 / saturation 1.1; composite
+gravity centre; q92). The bars read as soft brand-pink and blend
+into the card plate; centring also moved the face clear of the arch
+dome. Anchor token → 'centre' (identity crop — source aspect now
+equals the arch's). Screening: the belt labels render smaller than
+any prior crop (illegible), the mirrored FIGS tag returns to frame
+(carried as-is per the original screening), blurred bars are
+unrecognizable content. Measured: /services 296KB, /styleguide
+315KB — inside the carve-out.

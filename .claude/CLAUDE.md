@@ -106,12 +106,14 @@ silently following it. Known superseded points from earlier briefs:
      overrides after the compliance flags — DECISIONS 2026-07-21): the
      Evolus-produced Evolysse film on /services/dermal-fillers (carried
      as-is, manufacturer safety information intact); the Evolus ICON
-     event film on /services/wrinkle-relaxers (carried as-is —
-     manufacturer comparative-efficacy remarks, named third-party
-     providers, and no safety information, all operator-accepted); and
-     the exact sentence "Charlotte's #1 Evolus provider" enumerated in
-     `allowedStrings`, on the wrinkle-relaxers and dermal-fillers pages
-     only; and three of the home-carousel films (operator clearances,
+     event film on /about (moved from /services/wrinkle-relaxers at the
+     client's direction 2026-08-18, exception terms unchanged; carried
+     as-is — manufacturer comparative-efficacy remarks, named
+     third-party providers, and no safety information, all
+     operator-accepted); and the exact sentence "Charlotte's #1 Evolus
+     provider" enumerated in `allowedStrings`, on the dermal-fillers
+     and about pages only (moved off wrinkle-relaxers 2026-08-18);
+     and three of the home-carousel films (operator clearances,
      DECISIONS 2026-08-14) — the two Evolus co-op Jeuveau commercials
      carried as-is with their complete FDA safety information (never
      trimmed or cropped), and Amy's own studio reel under operator

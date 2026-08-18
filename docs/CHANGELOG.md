@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-18 — Evolus recognition plate + ICON film move to /about
+
+- The black "Charlotte's #1 Evolus provider" plate, the "Inside
+  Evolus" section, and the ICON film moved from
+  /services/wrinkle-relaxers to /about (client direction — supersedes
+  the 2026-07-21 "About stays ranking-free" placement; DECISIONS same
+  date). Copy is byte-identical; every page-scope compliance record
+  amended in the same PR; dermal-fillers keeps its own plate.
+  First approved-content MDX edit of the round: the wrinkle-relaxers
+  `clinicianApproved` flag reset in the removal commit (constraint 4).
+
 ### 2026-08-18 — /services intro copy (client wording)
 
 - The lead paragraph's second and third sentences are now the

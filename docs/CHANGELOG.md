@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-18 — /services intro copy (client wording)
+
+- The lead paragraph's second and third sentences are now the
+  client's own copy, verbatim ("From Facial Balancing … your journey
+  now with Amy's expertise as your guide!"). The first sentence
+  ("Every service below is planned and performed by Amy Palacios,
+  FNP.") stays. The sentence "Amy has your best self in mind"
+  contains a superiority-class banned word and ships under an
+  operator allowlist override (sixth authorization — DECISIONS same
+  date; two compliant rephrases were offered and declined).
+
 ### 2026-08-18 — Menu line 01 retitled
 
 - "Wrinkle Relaxers" → "Neurotoxins - Wrinkle Relaxers" on the

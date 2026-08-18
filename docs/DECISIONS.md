@@ -3969,3 +3969,60 @@ restores it). The sign-off doc's wrinkle-relaxers row loses the two items
 and the presentation-drift list gains the move. /about (LHCI default
 budgets) now carries the ICON poster; wrinkle-relaxers gets lighter —
 both measured in verify.
+
+## 2026-08-18 — wrinkle-relaxers photo round; bare arches sitewide; Jeuveau-banner override
+
+**Context:** Client direction (via the operator, 2026-08-18): replace the
+three wrinkle-relaxers photos with her picks — 10.jpg ("Who they're
+generally for"), 11.jpg ("Not just for women"), 12.jpg (the band) from
+C:\Amy\New Pics — and make the white space around the arches pink like
+/services. The white was the treatment layout's paper mat (background +
+padding + hairline + shadow + ±1.5deg tilt); the arch rollout
+(2026-08-17) had predicted exactly this follow-up.
+
+**Screening record (frame-level):** 10 = Amy in a pink blazer injecting
+at a reclined client's brow under the MA neon (her own signage; no
+product text). 11 = male client with an MA-branded hand mirror, Amy in
+her embroidered scrubs; tray vials/labels illegible at served size.
+12 = Amy (operator-confirmed it is her — hot-pink scrubs, face in
+profile) with two clients and a large, LEGIBLE Jeuveau banner: "KISS
+YOUR 11s GOODBYE", the indication line (including "TEMPORARY", copy
+vocabulary dropped 2026-07-30), "Jeuveau YouSeeMe!". Flag raised in
+full → **operator override: ship as-is** — the third photo
+pixel-override (biote-banner-scale precedent); CLAUDE.md constraint 3
+amended in this PR. **Releases for all four pictured clients confirmed
+on file** (operator, 2026-08-18 — the confirmation is the record). All
+three assets hash-unique vs the repo.
+
+**Decisions:** (1) Assets content-named: blazer-brow-injection.jpg,
+hand-mirror-male-client.jpg, jeuveau-banner-studio.jpg; masters stay
+outside the repo; outgoing frames (brow-appointment,
+male-client-appointment, fine-gauge-detail) deleted — no other
+consumers; git history keeps them. (2) The band asset is a
+pre-composed 9:8 blur-fill contain composite (card-06 house pattern,
+RUNBOOK): the three people span x≈150–1560 of the 1600-wide 3:2
+master and the widest 9:8 cover window is 1200 — no crop holds every
+face. Recipe: 1600×1422 canvas = the frame resized fill + blur(28) +
+brightness 0.96 as self-fill, full frame composited centered, jpeg
+q92 (sharp). It matches the layout's 9:8 band window exactly, retiring
+the recorded fine-gauge 16:9-into-9:8 double-crop defect early, and
+its 1440 tier meets the desktop slot's DPR2 demand exactly. (3) Mat
+removal scope = ALL treatment pages (operator choice): one shared-CSS
+change, zero MDX edits elsewhere, zero flag resets; /about's matted
+print and the film players' mats stay. Tilts retired with the mat —
+bare arches sit straight, like /services. (4) One per-image crop
+override (the arch rollout's recorded knob): the blazer frame anchors
+top (50% 0%) so the 4:5 window keeps the neon script whole; the
+default 30% anchor sliced it mid-stroke.
+
+**Alternatives rejected:** any 9:8 cover crop of 12 (guillotines a
+face — geometry above); keeping the mats only off wrinkle-relaxers
+(visibly inconsistent between treatment pages; needs a page-scoped
+hack).
+
+**Consequences:** wrinkle-relaxers clinicianApproved stays false (reset
+in the Evolus-move commit; this stacks on that branch). The band's
+LH-mobile pick stays the 1080 tier but 9:8 carries ~1.6× the pixels of
+the old 16:9 — offset by the ICON poster the page just lost; measured
+in verify. Presentation drift (bare arches, 12 pages) added to the
+sign-off doc for Amy's pending pass.

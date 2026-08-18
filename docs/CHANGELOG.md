@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-18 — Wrinkle-relaxers photo round; bare arches on every treatment page
+
+- All three /services/wrinkle-relaxers photos replaced with Amy's
+  picks (screening, releases, and the Jeuveau-banner pixel override —
+  the third photo exception — recorded in DECISIONS same date). The
+  wide band is a pre-composed 9:8 blur-fill composite (card-06 house
+  pattern), which also retires the recorded fine-gauge double-crop
+  defect early.
+- The treatment pages' white paper mat and print tilt retired
+  sitewide (client direction: pink behind the arches, like
+  /services) — one shared-CSS change, all 12 pages, zero flag
+  resets.
+
 ### 2026-08-18 — Evolus recognition plate + ICON film move to /about
 
 - The black "Charlotte's #1 Evolus provider" plate, the "Inside

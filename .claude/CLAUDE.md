@@ -118,7 +118,14 @@ silently following it. Known superseded points from earlier briefs:
      override with both client releases confirmed on file. (The fourth
      carousel film — the 2026-08-17 team film — contains no claims and
      needs no exception here; its override lives under constraint 2.)
-     Nothing else; extending any of these requires the human operator.*
+     And one photo (operator override after the compliance flag —
+     DECISIONS 2026-08-18): the /services hormone-optimization menu
+     card's photo (`biote-banner-scale.jpg`), in which the Biote
+     banner's outcome-promise lines and symptom poster are legible,
+     on a page carrying no Biote disclaimer — this pixel content is
+     invisible to lint:claims, which is why the exception is recorded
+     here. Nothing else; extending any of these requires the human
+     operator.*
      *Fourth scoped exception, and the only one that is not marketing
      copy (operator authorization, DECISIONS 2026-07-22): Biote's FDA
      disclaimer sentence — "These statements have not been evaluated

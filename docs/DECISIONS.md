@@ -3685,3 +3685,86 @@ built (1, 5, 6), operator-decided and recorded (2, 4), record-split
 (3), scheduled (7). "Relaunch" now HAS a definition of done — the
 audit's named blocking ambiguity — in REDESIGN "Round close" +
 RELAUNCH.md preconditions.
+
+## 2026-08-18 — /services becomes a photo-card menu: Amy's own mockup, her per-line picks, and a scoped perf-budget carve-out
+
+Context: client direction via the operator (mockup `button01.png`):
+every service line on /services becomes a linked "button" — her photo
+in the house arch, numeral + title + summary + "More information ›"
+below, the whole card one link. Chosen build: merge the two existing
+patterns rather than invent a third — the homepage door's arch/plate/
+lift/link-overlay anatomy joins TreatmentCard as an optional `photo`
+prop (backward compatible; photo-less cards render as before). The
+photos are the client's own per-line picks (B1…B12 in her picks
+folder, slot = menu number). Operator decisions: keep the three
+category groups (2026-07-23 direction stands); keep the 3-photo
+strip; photos are her picks, not the repo's existing frames.
+
+Screening record (frame-level, per the RUNBOOK photo procedure; the
+operator's confirmations are the record):
+- Releases for every identifiable client CONFIRMED on file — slots
+  01 (brow/temple injection), 04 (device treatment, reclined
+  client), 07 (laser, eye shields), 11 (IV drip under the neon).
+- Slot 06 is Amy herself (Evolve-belt chair selfie) — confirmed, no
+  release needed. 9:16 selfie vs 4:5 arch: the crop anchors on the
+  belt (the treatment story); face-included crops cut at the chin.
+- Slot 11 had two candidate files; the operator picked the portrait
+  neon frame. The unused landscape frame (second provider in frame)
+  was never committed.
+- **Slot 12 — operator override after the compliance flag.** The
+  frame shows Amy beside the Biote banner whose outcome-promise
+  lines and symptom poster are legible at source and partially
+  legible at card size, on a page that carries no Biote disclaimer.
+  Flag raised in full; operator chose SHIP AS-IS. CLAUDE.md
+  constraint-3 gains the scoped exception (this photo, this page);
+  extending it requires the human operator.
+- Package labels elsewhere (Evolysse/Jeuveau boxes slot 02,
+  RADIESSE+ box incl. its pack-size marking slot 03, skinbetter
+  bottles slot 08, saline bag slot 11) are trade dress as sold,
+  illegible at served size — the strip frame-8 precedent; the
+  pack-size marking is package contents, not dosing.
+- Partial banner fragment in slot 01 illegible at served size.
+- Slots 05 and 09 await the client's remaining picks and carry the
+  line's own page photo in the interim (PiXel8-RF product shot;
+  supervised weigh-in). Swapping a pick in is a one-line map edit in
+  ServiceLineGrid (RUNBOOK "Replacing site photography").
+
+Assets committed content-named (never slot-named): temple-injection,
+amy-holding-neon, radiesse-syringes, device-facial-session,
+evolve-belt-selfie, laser-eye-shields (PNG master converted to JPEG
+q92, prp precedent), skinbetter-trio-forward, lavender-suit-stool,
+iv-drip-neon, biote-banner-scale. Hash-checked against existing
+assets (skinbetter-in-hand and amy-lavender-suit are DIFFERENT
+frames from the same sets — no dupes). Masters stay outside the
+repo. Crop anchors are sharp gravity/strategy tokens (the door
+pipeline's knob; percentages are CSS, sharp rejects them) —
+'attention' for most, 'bottom' for the two whose story sits at the
+frame's foot (04, 06) and the interim 09, 'top' for 12, 'centre'
+for 08/11; every crop eyeballed on element screenshots.
+
+Perf budget (operator-approved after the flag, measured numbers):
+LH's mobile emulation fetches every lazy card on its full-page
+scroll, so the 12-card menu measures 568KB of images on /services
+(588KB on /styleguide, which demos the grid) against the 240KB
+budget — unreachable at any credible fidelity (even 640px-capped
+derivatives measure ~390KB). Operator chose FULL RETINA (1000px
+derivatives where the source has the pixels; srcset capped at each
+photo's 4:5-crop width so sharp never upscales — the retina rule's
+silent failure mode). lighthouserc.json's assertions became an
+assertMatrix: /services + /styleguide alone get image 640KB / total
+940KB; every other URL keeps the original budgets, which remain the
+default for new pages. Real visitors still fetch cards only as they
+scroll; the initial-viewport payload is unchanged (H1 stays LCP).
+
+Alternatives rejected: new bespoke card component (two patterns
+already encode the anatomy); slot-named assets (house rule); CSS
+percentage crops served at full frame (bytes + no server crop);
+2-across mobile grid (cramped Playfair titles read down-market;
+mockup scale is 1-across); weakening the global budgets (the
+carve-out is scoped to exactly the two menu URLs).
+
+Consequences: /services is the photo menu the client mocked; the
+grid comment carries the screening pointer; the presentation-drift
+list in CLINICIAN-SIGN-OFF gains this change (pending presentation
+approval covers it); two interim slots swap on her word; zero
+treatment MDX touched — no clinicianApproved resets.

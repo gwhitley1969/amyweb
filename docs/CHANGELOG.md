@@ -6,6 +6,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-18 — /services photo-card menu
+
+- Every service line's menu card now carries the client's own photo
+  in the house arch above the numeral/title/summary — her mockup,
+  built by merging the homepage door anatomy into the existing card
+  (whole card still one link; three category groups and the 01–12
+  numbering unchanged). Ten of twelve photos are her per-line picks
+  (screened frame-level, releases confirmed — DECISIONS 2026-08-18,
+  incl. the slot-12 operator override); two slots carry the line's
+  own page photo until her remaining picks land.
+- Perf gate: /services + /styleguide (which demos the grid) get a
+  scoped image/total budget carve-out via assertMatrix — measured,
+  flagged, operator-approved full-retina tier; all other pages keep
+  the original budgets (DECISIONS same date).
+
 ### 2026-08-17 — Doc-accuracy sweep after the audit round
 
 - Reference docs that didn't ride today's PRs caught up with what

@@ -43,14 +43,15 @@ visual change (see docs/RELAUNCH.md, precondition 3).
 | Date | Reviewed on | Scope | Logged by |
 |---|---|---|---|
 | 2026-08-05 | stable preview (`…-5`) | launch state — the same pass as the copy sign-off (`ad8fbde`) | operator |
-| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip), header badge + hybrid nav, carousel (four films), footer/location card lines | — |
+| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines | — |
 
 Visual drift since 2026-08-05, for Amy's pending pass: body face and
 size (DM Sans → Playfair 17px/1.65), every photo arched with 4:5/9:8
 display crops, homepage door + /services strip photography replaced,
-the MA header badge and hamburger-only nav, the four-film carousel and
-its heading, the "Mobile Aesthetics" line in the location card and
-footer. Known defect queued for the same pass: `studio-wide.jpg` alt
+the /services menu rebuilt as her photo-card "buttons" (2026-08-18 —
+her mockup; ten of twelve are her picks, two interim), the MA header
+badge and hamburger-only nav, the four-film carousel and its heading,
+the "Mobile Aesthetics" line in the location card and footer. Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window — an MDX edit, so
 it ships inside the flag-resetting re-approval round (DECISIONS
 2026-08-17).

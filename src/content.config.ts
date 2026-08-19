@@ -33,6 +33,13 @@ const treatments = defineCollection({
     // line rendered as the blush statement card under the lead. §8
     // applies to it like any other string.
     deck: z.string().optional(),
+    // Renders the EvolusLaurel ranking plaque between the deck and the
+    // product cards (2026-08-19 — operator-approved schema change).
+    // The plaque's copy lives in the component under an exact-wording
+    // operator authorization (CLAUDE.md constraint 3, DECISIONS same
+    // date); this flag only places it. wrinkle-relaxers only today —
+    // widening the page scope requires the human operator.
+    evolusLaurel: z.boolean().default(false),
     products: z.array(z.string()).default([]),
     // Optional per-product cards (2026-07-20 GLP-1 alignment — operator-
     // approved schema change): upgrades the products bullet list in the

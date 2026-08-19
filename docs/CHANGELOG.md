@@ -6,6 +6,22 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-19 — the Evolus Laurel: ranking plaque on wrinkle-relaxers
+
+- /services/wrinkle-relaxers gains a noir laurel plaque between the
+  deck card and the product cards: "The Top Evolus Injector in
+  Charlotte." (display Playfair with the sanctioned breathing shimmer
+  on the key phrase) over "And among the Top 50 in the United
+  States.", crowned by a fine-stroke laurel drawn at build time —
+  zero images, zero client JS. Client direction; operator-verified
+  with Evolus; wording pinned bare (attribution kicker declined,
+  consistent with 2026-07-21). The sentences trip no linter pattern,
+  so the authorization is recorded in CLAUDE.md constraint 3 /
+  BUILD_SPEC §8.4 rather than the allowlist (photo-override
+  precedent; DECISIONS same date). Placement rides a new
+  frontmatter-gated layout slot (`evolusLaurel` — operator-approved
+  schema change).
+
 ### 2026-08-18 — Wrinkle-relaxers photo round; bare arches on every treatment page
 
 - All three /services/wrinkle-relaxers photos replaced with Amy's

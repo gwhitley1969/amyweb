@@ -4085,3 +4085,58 @@ standing override covers it. Alt returns to "two clients."
 (fabricating the studio's architecture; no quality-reliable local
 tool); a straight rectangular exemption (abandons the client's own
 arch motif when a shape in the family satisfies everything).
+
+## 2026-08-19 — the Evolus Laurel: ranking plaque on wrinkle-relaxers
+
+**Context:** Client direction (via operator): an attention-grabbing
+banner on /services/wrinkle-relaxers saying Amy is "The Top Evolus
+Injector in Charlotte"; the operator has verified the designation
+with Evolus, and the same verification covers her Top-50 standing in
+the US. This is a NEW object with NEW wording — it does not reopen
+the 2026-08-18 move of the "#1 provider" plate to /about, which
+stands ("Injector" vs "provider" reflects Evolus's designation per
+the operator). Ranking presence is now three pages, each recorded.
+
+**Decision:** A noir laurel plaque (`EvolusLaurel.astro`) rendered by
+TreatmentLayout between the deck card and the product cards — the
+credential lands before the pitch, and the blush→noir surface snap is
+the attention mechanism. Composition: a build-time-generated
+fine-stroke laurel (Bezier-sampled leaf pairs, decorative SVG, no SVG
+text per the axe rule), the statement at a 39px-floor display clamp
+with the key phrase carrying the sanctioned ng-shimmer (the "noir
+display-accent phrases >=39px" rule — no motion-vocabulary change
+needed), an ng-trace rule-accent, and the Top-50 line as a tracked
+eyebrow. Whole plaque rises in with ng-rise; reduced motion serves
+the static plaque. Placement required a frontmatter-gated layout
+slot: verified first-hand that the MDX body renders BELOW the product
+cards, so an in-body banner could not sit high. Schema gains
+`evolusLaurel: z.boolean().default(false)` (operator-approved schema
+change, plan approval 2026-08-19 — productDetails precedent); the
+fixed compliance order in TreatmentLayout gains the optional plaque
+between deck and intro.
+
+**Compliance record:** Operator wording decision (AskUserQuestion):
+bare claim + the Top-50 line, NO "Recognized by Evolus" kicker —
+consistent with 2026-07-21, where attributed wording was also
+declined. Exact sentences: "The Top Evolus Injector in Charlotte."
+and "And among the Top 50 in the United States." Verified first-hand
+against compliance/banned-patterns.json: neither sentence trips any
+category (bare "top" is not "top-rated"; "Top 50" carries no unit),
+so there is NO allowedStrings entry and NO banned-pattern change —
+a bare "top" pattern would false-positive ordinary copy, against the
+registry's own precision principle. Like the photo pixel-overrides,
+the claim is invisible to the linter, which is exactly why the
+authorization is recorded in CLAUDE.md constraint 3 and BUILD_SPEC
+§8.4 instead. The ranking appears ONLY in the plaque — never in meta
+descriptions, OG tags, alt text, or JSON-LD. clinicianApproved on
+wrinkle-relaxers is already false (2026-08-18 reset) and stays false;
+the plaque copy rides the consolidated pre-relaunch re-approval.
+
+**Alternatives rejected:** reusing the EvolusCallout noir-plate style
+(the client moved that exact object off this page the day before —
+regressive); a scrolling marquee (rejected on sight 2026-07-08); a
+foil background-clip sheen (trialed sitewide earlier and failed the
+axe gate — transparent fills are unauditable; ng-shimmer is the
+surviving engineered effect); full-bleed band (requires splitting the
+fixed-order article DOM); in-MDX placement (sits below the product
+cards — not an attention position).

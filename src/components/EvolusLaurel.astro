@@ -1,0 +1,117 @@
+---
+/**
+ * The Evolus Laurel — ranking plaque (client direction 2026-08-19):
+ * a noir plaque carrying the Evolus ranking statement, rendered by
+ * TreatmentLayout between the deck card and the product cards when a
+ * page's frontmatter sets evolusLaurel: true.
+ *
+ * COMPLIANCE — read before editing the copy:
+ * - Both sentences are operator-authorized superiority-class copy
+ *   (CLAUDE.md constraint 3; DECISIONS 2026-08-19; substantiation =
+ *   the operator's verification with Evolus, which also covers the
+ *   national standing). Neither contains a token the lint:claims
+ *   superiority category can see — which is exactly why the
+ *   authorization is recorded in CLAUDE.md rather than the allowlist
+ *   (the photo pixel-override precedent). The wording is EXACT;
+ *   changing a word requires the human operator.
+ * - Authorized on /services/wrinkle-relaxers ONLY, once per page.
+ *   Do not render this component anywhere else.
+ * - Motion stays inside the sanctioned vocabulary (global.css): the
+ *   accent phrase carries ng-shimmer at a 39px floor (the "noir
+ *   display-accent phrases >=39px only" rule — the clamp below never
+ *   dips under 2.4375rem), and the plaque rises in with ng-rise.
+ *   Reduced motion leaves the full static plaque.
+ * - Pink-500 on noir is the recorded 5.95:1 pair (tokens.css); the
+ *   accent span and the eyebrow ride the noir pink-300 pair
+ *   (11.58:1). The laurel is decorative stroke work only — no text
+ *   lives in the SVG (the axe rule: no SVG-text decorations).
+ */
+
+// Laurel geometry, computed at build time (zero client JS): one stem
+// cubic per branch, leaf pairs placed by Bezier sampling; the right
+// branch is the same drawing mirrored across the viewBox. Tuning
+// knobs: the cubic's control points (sweep), the station list
+// (leaf spacing), and the length taper toward the tip.
+const [P0, P1, P2, P3] = [
+  [58, 41],
+  [40, 40],
+  [24, 30],
+  [16, 8],
+];
+const at = (t: number, a: number, b: number, c: number, d: number) =>
+  (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t ** 2 * c + t ** 3 * d;
+const dAt = (t: number, a: number, b: number, c: number, d: number) =>
+  3 * (1 - t) ** 2 * (b - a) + 6 * (1 - t) * t * (c - b) + 3 * t ** 2 * (d - c);
+const leaves: string[] = [];
+for (const t of [0.16, 0.3, 0.44, 0.58, 0.72, 0.86]) {
+  const x = at(t, P0[0], P1[0], P2[0], P3[0]);
+  const y = at(t, P0[1], P1[1], P2[1], P3[1]);
+  const dx = dAt(t, P0[0], P1[0], P2[0], P3[0]);
+  const dy = dAt(t, P0[1], P1[1], P2[1], P3[1]);
+  const m = Math.hypot(dx, dy);
+  const [ux, uy] = [dx / m, dy / m];
+  const [nx, ny] = [-uy, ux];
+  const len = 9 - 3.5 * t;
+  for (const s of [1, -1]) {
+    const qx = x + ux * len * 0.45 + s * nx * len * 0.75;
+    const qy = y + uy * len * 0.45 + s * ny * len * 0.75;
+    const ex = x + ux * len + s * nx * len * 0.35;
+    const ey = y + uy * len + s * ny * len * 0.35;
+    leaves.push(
+      `M${x.toFixed(1)} ${y.toFixed(1)} Q${qx.toFixed(1)} ${qy.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`,
+    );
+  }
+}
+const stem = `M${P0[0]} ${P0[1]} C${P1[0]} ${P1[1]} ${P2[0]} ${P2[1]} ${P3[0]} ${P3[1]}`;
+---
+
+<aside class="evolus-laurel surface ng-rise" data-surface="noir" aria-label="Evolus ranking">
+  <svg class="evolus-laurel__wreath" viewBox="0 0 120 44" width="120" height="44" fill="none" aria-hidden="true">
+    <path d={stem}></path>
+    {leaves.map((d) => <path d={d} />)}
+    <g transform="translate(120 0) scale(-1 1)">
+      <path d={stem}></path>
+      {leaves.map((d) => <path d={d} />)}
+    </g>
+  </svg>
+  <p class="evolus-laurel__statement">
+    The <span class="display-accent ng-shimmer">Top Evolus Injector</span> in Charlotte.
+  </p>
+  <hr class="rule-accent ng-trace evolus-laurel__rule" />
+  <p class="eyebrow evolus-laurel__stat">And among the Top 50 in the United States.</p>
+</aside>
+
+<style>
+  .evolus-laurel {
+    margin-top: 2rem;
+    padding: 2.75rem 2rem 2.5rem;
+    text-align: center;
+  }
+  .evolus-laurel__wreath {
+    display: inline-block;
+  }
+  .evolus-laurel__wreath path {
+    stroke: var(--ng-pink-500);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+  }
+  .evolus-laurel__statement {
+    margin-top: 0.875rem;
+    font-family: var(--font-display);
+    /* The 39px floor is the shimmer rule's bar — the clamp never dips
+     * under it at any viewport (global.css motion vocabulary). */
+    font-size: clamp(2.4375rem, 5vw, 3.0625rem);
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ng-pink-500);
+    text-wrap: balance;
+  }
+  .evolus-laurel__rule {
+    margin: 1.5rem auto 0;
+  }
+  .evolus-laurel__stat {
+    margin-top: 1.25rem;
+    text-wrap: balance;
+  }
+</style>

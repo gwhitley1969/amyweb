@@ -4216,3 +4216,16 @@ narrows: "neuromodulator" now remains only in the page body ("What
 they are") and the first FAQ answer ("All three are prescription
 neuromodulators…") — still surfaced for direction. Rides PR #127;
 clinicianApproved unchanged (false).
+
+## 2026-08-19 — wrinkle-relaxers goes neurotoxin page-wide
+
+**Context:** Client direction (via operator) closing the same review
+pass: the two remaining "neuromodulator" strings — the body intro and
+the first FAQ answer — flip too, "so everything matches."
+
+**Decision:** The page now says "neurotoxin" throughout (verified:
+zero "neuromodulator" left in the file). The §7 normalize rule is
+superseded PAGE-WIDE for wrinkle-relaxers (BUILD_SPEC §7 note
+updated); it stands for every other page. The mixed-terms caveat in
+the sign-off row retires. Rides PR #127; clinicianApproved unchanged
+(false).

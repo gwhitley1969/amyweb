@@ -491,11 +491,11 @@ action hype, no outcomes, no dosing, ever.
    strings enumerated in `allowedStrings` (operator override
    2026-07-21). The sheet's "FDA-approved" phrasing stays banned —
    render it as "prescription"; "neurotoxin" normalizes to
-   "neuromodulator" *(superseded at the client's direction for this
-   page's TITLE — "Neurotoxins - Wrinkle Relaxers", 2026-08-18 menu /
-   2026-08-19 page — and for the three product-card leads
-   ("A prescription neurotoxin…", 2026-08-19); body and FAQ copy
-   still normalize — DECISIONS both dates)*. The §8.4 Evolus ranking sentence (the standalone
+   "neuromodulator" *(superseded PAGE-WIDE at the client's direction,
+   2026-08-18 menu line / 2026-08-19 the rest: this page now says
+   "neurotoxin" throughout — title, card leads, body intro, FAQ. The
+   normalize rule stands for every other page — DECISIONS both
+   dates)*. The §8.4 Evolus ranking sentence (the standalone
    EvolusCallout noir plate) and the Evolus ICON event film shipped on
    this page 2026-07-21 → 2026-08-18, then moved to /about at the
    client's direction (DECISIONS 2026-08-18; exception terms

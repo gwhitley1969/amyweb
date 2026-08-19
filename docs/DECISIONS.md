@@ -4168,3 +4168,23 @@ caption); putting "50" inside the laurel bowl as a crest numeral
 (duplicates the fact and leaves the sentence quiet — arrow 1 pointed
 at the line itself); lining figures via font-feature-settings (fixes
 the droop, ignores the standout ask).
+
+## 2026-08-19 — page title: "Neurotoxins - Wrinkle Relaxers"
+
+**Context:** Client direction (via operator): the wrinkle-relaxers
+page heading changes from "Wrinkle Relaxers" to "Neurotoxins -
+Wrinkle Relaxers" — extending the 2026-08-18 menu-line wording
+(serviceLines.ts, PR #123, verbatim incl. the hyphen) to the page
+itself. Menu card and page H1 now match exactly.
+
+**Decision:** The MDX `title` changes; it fans out automatically to
+the H1, the page breadcrumb, and the JSON-LD service + breadcrumb
+names ([slug].astro — verified consumers). `seo.title` keeps
+"Wrinkle Relaxers in Harrisburg & Charlotte, NC" deliberately: the
+search phrasing outperforms the clinical term, and the client's
+direction named the on-page heading. The §7 editorial normalize rule
+("neurotoxin" → "neuromodulator") is superseded for TITLE strings by
+the client's verbatim wording (the 2026-08-18 menu precedent); body
+copy still says "neuromodulator". "Neurotoxin" trips no banned
+pattern (verified — the rule was editorial, never a linter category).
+clinicianApproved already false; stays false; rides PR #127.

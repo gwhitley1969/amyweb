@@ -4085,3 +4085,173 @@ standing override covers it. Alt returns to "two clients."
 (fabricating the studio's architecture; no quality-reliable local
 tool); a straight rectangular exemption (abandons the client's own
 arch motif when a shape in the family satisfies everything).
+
+## 2026-08-19 — the Evolus Laurel: ranking plaque on wrinkle-relaxers
+
+**Context:** Client direction (via operator): an attention-grabbing
+banner on /services/wrinkle-relaxers saying Amy is "The Top Evolus
+Injector in Charlotte"; the operator has verified the designation
+with Evolus, and the same verification covers her Top-50 standing in
+the US. This is a NEW object with NEW wording — it does not reopen
+the 2026-08-18 move of the "#1 provider" plate to /about, which
+stands ("Injector" vs "provider" reflects Evolus's designation per
+the operator). Ranking presence is now three pages, each recorded.
+
+**Decision:** A noir laurel plaque (`EvolusLaurel.astro`) rendered by
+TreatmentLayout between the deck card and the product cards — the
+credential lands before the pitch, and the blush→noir surface snap is
+the attention mechanism. Composition: a build-time-generated
+fine-stroke laurel (Bezier-sampled leaf pairs, decorative SVG, no SVG
+text per the axe rule), the statement at a 39px-floor display clamp
+with the key phrase carrying the sanctioned ng-shimmer (the "noir
+display-accent phrases >=39px" rule — no motion-vocabulary change
+needed), an ng-trace rule-accent, and the Top-50 line as a tracked
+eyebrow. Whole plaque rises in with ng-rise; reduced motion serves
+the static plaque. Placement required a frontmatter-gated layout
+slot: verified first-hand that the MDX body renders BELOW the product
+cards, so an in-body banner could not sit high. Schema gains
+`evolusLaurel: z.boolean().default(false)` (operator-approved schema
+change, plan approval 2026-08-19 — productDetails precedent); the
+fixed compliance order in TreatmentLayout gains the optional plaque
+between deck and intro.
+
+**Compliance record:** Operator wording decision (AskUserQuestion):
+bare claim + the Top-50 line, NO "Recognized by Evolus" kicker —
+consistent with 2026-07-21, where attributed wording was also
+declined. Exact sentences: "The Top Evolus Injector in Charlotte."
+and "And among the Top 50 in the United States." Verified first-hand
+against compliance/banned-patterns.json: neither sentence trips any
+category (bare "top" is not "top-rated"; "Top 50" carries no unit),
+so there is NO allowedStrings entry and NO banned-pattern change —
+a bare "top" pattern would false-positive ordinary copy, against the
+registry's own precision principle. Like the photo pixel-overrides,
+the claim is invisible to the linter, which is exactly why the
+authorization is recorded in CLAUDE.md constraint 3 and BUILD_SPEC
+§8.4 instead. The ranking appears ONLY in the plaque — never in meta
+descriptions, OG tags, alt text, or JSON-LD. clinicianApproved on
+wrinkle-relaxers is already false (2026-08-18 reset) and stays false;
+the plaque copy rides the consolidated pre-relaunch re-approval.
+
+**Alternatives rejected:** reusing the EvolusCallout noir-plate style
+(the client moved that exact object off this page the day before —
+regressive); a scrolling marquee (rejected on sight 2026-07-08); a
+foil background-clip sheen (trialed sitewide earlier and failed the
+axe gate — transparent fills are unauditable; ng-shimmer is the
+surviving engineered effect); full-bleed band (requires splitting the
+fixed-order article DOM); in-MDX placement (sits below the product
+cards — not an attention position).
+
+## 2026-08-19 — Laurel round 2: the Top-50 lockup
+
+**Context:** Client review of the PR #127 preview (screenshot with
+two arrows): the plaque reads well but the last line — and the "50"
+specifically — doesn't stand out. Measured cause: the stat line was
+13px tracked eyebrow caps, and Playfair's oldstyle figures drop the
+numeral below the caps line, making the one number that matters the
+weakest glyph on the plaque.
+
+**Decision:** The sentence becomes a stacked award lockup — "AND
+AMONG THE" (13px caps) / "Top 50" (display Playfair at the
+statement's own 39→49px clamp, display-accent + ng-shimmer) / "IN
+THE UNITED STATES." (13px caps). SAME WORDS, SAME ORDER — one
+paragraph, three block spans; typography only, the pinned wording is
+untouched (and with no allowlist entry there is no one-source-line
+requirement — the no-allowlist path's benefit). The plaque now has
+two breathing accent phrases — the two "Top" rank phrases — sharing
+one keyframe cycle so they glow in sync; if that reads busy on
+preview, dropping either to static is a one-line change (the
+recorded knob). Display scale also retires the oldstyle-figure droop.
+
+**Alternatives rejected:** merely enlarging the whole caps line (the
+complaint is hierarchy, not legibility — a louder caption is still a
+caption); putting "50" inside the laurel bowl as a crest numeral
+(duplicates the fact and leaves the sentence quiet — arrow 1 pointed
+at the line itself); lining figures via font-feature-settings (fixes
+the droop, ignores the standout ask).
+
+## 2026-08-19 — page title: "Neurotoxins - Wrinkle Relaxers"
+
+**Context:** Client direction (via operator): the wrinkle-relaxers
+page heading changes from "Wrinkle Relaxers" to "Neurotoxins -
+Wrinkle Relaxers" — extending the 2026-08-18 menu-line wording
+(serviceLines.ts, PR #123, verbatim incl. the hyphen) to the page
+itself. Menu card and page H1 now match exactly.
+
+**Decision:** The MDX `title` changes; it fans out automatically to
+the H1, the page breadcrumb, and the JSON-LD service + breadcrumb
+names ([slug].astro — verified consumers). `seo.title` keeps
+"Wrinkle Relaxers in Harrisburg & Charlotte, NC" deliberately: the
+search phrasing outperforms the clinical term, and the client's
+direction named the on-page heading. The §7 editorial normalize rule
+("neurotoxin" → "neuromodulator") is superseded for TITLE strings by
+the client's verbatim wording (the 2026-08-18 menu precedent); body
+copy still says "neuromodulator". "Neurotoxin" trips no banned
+pattern (verified — the rule was editorial, never a linter category).
+clinicianApproved already false; stays false; rides PR #127.
+
+## 2026-08-19 — card leads: "A prescription neurotoxin…"
+
+**Context:** Client direction (via operator), same review pass as the
+title change: the three wrinkle-relaxers product-card descriptions
+open with "A prescription neurotoxin…" instead of "…neuromodulator…".
+
+**Decision:** The three `productDetails.detail` strings change —
+nothing else. This further supersedes the §7 editorial normalize rule
+("neurotoxin" → "neuromodulator", 2026-07-21) for this page's card
+leads; BUILD_SPEC §7 amended in place. "Neurotoxin" trips no banned
+pattern (the rule was editorial, never a linter category). SCOPE
+NOTE, surfaced to the operator: the page body ("prescription
+neuromodulators…") and two FAQ answers still say "neuromodulator" —
+left as-is pending direction, so the page currently mixes terms.
+clinicianApproved already false; stays false; rides PR #127.
+
+## 2026-08-19 — FAQ question joins the neurotoxin wording
+
+**Context:** Client direction (via operator), same review pass: the
+FAQ question "Do men get neuromodulator treatments?" becomes "Do men
+get neurotoxin treatments?".
+
+**Decision:** The one FAQ `q` string changes. The mixed-terms note
+narrows: "neuromodulator" now remains only in the page body ("What
+they are") and the first FAQ answer ("All three are prescription
+neuromodulators…") — still surfaced for direction. Rides PR #127;
+clinicianApproved unchanged (false).
+
+## 2026-08-19 — wrinkle-relaxers goes neurotoxin page-wide
+
+**Context:** Client direction (via operator) closing the same review
+pass: the two remaining "neuromodulator" strings — the body intro and
+the first FAQ answer — flip too, "so everything matches."
+
+**Decision:** The page now says "neurotoxin" throughout (verified:
+zero "neuromodulator" left in the file). The §7 normalize rule is
+superseded PAGE-WIDE for wrinkle-relaxers (BUILD_SPEC §7 note
+updated); it stands for every other page. The mixed-terms caveat in
+the sign-off row retires. Rides PR #127; clinicianApproved unchanged
+(false).
+
+## 2026-08-19 — VisitSteps: MA chevron plates replace the numerals
+
+**Context:** Client direction (via operator, mockup steps.png in the
+repo root): the "Your visit, step by step" numerals (01–04) become
+the Mobile Aesthetics chevron block on small noir plates — the same
+four-chevron badge on every step, per the mockup.
+
+**Decision:** One-file component change. The chevron paths and the
+foil gradient are copied VERBATIM from the committed header mark
+(src/assets/brand/mobile-aesthetics-mark-header.svg — brand fidelity;
+MA is Amy's own PLLC, constraint 2 not engaged, DECISIONS
+2026-07-23). Badges are decorative inline SVG (aria-hidden, no SVG
+text; gradient ids indexed ma-foil-0…3 so no page carries duplicate
+ids). Non-visual parity: the retired CSS counter was announced by
+screen readers, so each step heading opens with an sr-only "Step N."
+Fan-out: all 12 treatment pages + the styleguide (pa11y re-audits
+all of them in verify). The /about milestones keep their numerals
+(career timeline — different object; tokens.css comment updated to
+name them as the display accent's remaining light-canvas consumer).
+
+**Alternatives rejected:** a progressive 1–4 chevron count per step
+(the mockup is explicit — the block is the brand mark, not a
+counter); reusing the whole header-mark SVG asset as an <img> (pulls
+the chrome wordmark and the plate frame along; the badge needs the
+chevrons alone at exact gradient fidelity).

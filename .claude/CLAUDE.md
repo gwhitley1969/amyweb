@@ -137,6 +137,20 @@ silently following it. Known superseded points from earlier briefs:
      enumerated in `allowedStrings` (operator override after the
      compliance flag — DECISIONS 2026-08-18; two compliant rephrases
      declined), in the /services intro lead only, on one source line.
+     And two ranking sentences rendered by `EvolusLaurel` on
+     /services/wrinkle-relaxers only (operator authorization —
+     DECISIONS 2026-08-19; substantiation = the operator's
+     verification with Evolus, which also covers the national
+     standing): "The Top Evolus Injector in Charlotte." and "And
+     among the Top 50 in the United States." Neither contains a
+     token lint:claims' superiority patterns can see — which is why
+     the authorization is recorded here rather than in
+     `allowedStrings` (the photo-override precedent; the banned list
+     does not gain a bare "top" pattern, which would false-positive
+     ordinary copy). The wording is exact; changing a word, widening
+     the page scope, or restating the ranking anywhere else —
+     including meta descriptions, OG tags, alt text, and JSON-LD —
+     requires the human operator.
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing

@@ -6,6 +6,40 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-19 — the Evolus Laurel: ranking plaque on wrinkle-relaxers
+
+- /services/wrinkle-relaxers gains a noir laurel plaque between the
+  deck card and the product cards: "The Top Evolus Injector in
+  Charlotte." (display Playfair with the sanctioned breathing shimmer
+  on the key phrase) over "And among the Top 50 in the United
+  States.", crowned by a fine-stroke laurel drawn at build time —
+  zero images, zero client JS. Client direction; operator-verified
+  with Evolus; wording pinned bare (attribution kicker declined,
+  consistent with 2026-07-21). The sentences trip no linter pattern,
+  so the authorization is recorded in CLAUDE.md constraint 3 /
+  BUILD_SPEC §8.4 rather than the allowlist (photo-override
+  precedent; DECISIONS same date). Placement rides a new
+  frontmatter-gated layout slot (`evolusLaurel` — operator-approved
+  schema change).
+- Round 2 same day (client arrows on the preview: the last line and
+  the "50" don't stand out): the sentence renders as a stacked
+  lockup — "Top 50" jumps to the statement's own display scale with
+  the synchronized shimmer, framed by the 13px caps. Same words,
+  same order; typography only (DECISIONS addendum same date).
+- Page title becomes "Neurotoxins - Wrinkle Relaxers" (client
+  wording, verbatim incl. the hyphen — the 2026-08-18 menu line
+  extended to the page). Fans out to H1, breadcrumbs, and JSON-LD;
+  seo.title keeps the search phrasing (DECISIONS same date).
+- The page now says "neurotoxin" throughout — card leads, both FAQ
+  strings, and the body intro (client wording, same pass; the §7
+  normalize rule is superseded page-wide here and stands everywhere
+  else — DECISIONS same date).
+- "Your visit, step by step" numerals become Mobile Aesthetics
+  chevron plates (client mockup, same day) — the four-chevron foil
+  block from the committed header mark on small noir plates,
+  decorative with sr-only step numbers for parity. Fans out to all
+  12 treatment pages + the styleguide (DECISIONS same date).
+
 ### 2026-08-18 — Wrinkle-relaxers photo round; bare arches on every treatment page
 
 - All three /services/wrinkle-relaxers photos replaced with Amy's

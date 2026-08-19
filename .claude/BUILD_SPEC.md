@@ -344,7 +344,7 @@ layout shift from fonts or images.
 | `/services` | Services index | Short factual intro per line, linking to the 12 detail pages | Per-line → detail |
 | `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Book / Consult (2026-07-21, operator — was consult-routed) |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |
-| `/services/wrinkle-relaxers` | Wrinkle Relaxers | §7 brief | Book / Consult |
+| `/services/wrinkle-relaxers` | Neurotoxins - Wrinkle Relaxers (client wording 2026-08-19; seo.title keeps the search phrasing) | §7 brief | Book / Consult |
 | `/services/dermal-fillers` | Dermal Fillers | §7 brief | Book / Consult |
 | `/services/biostimulators` | Biostimulators | §7 brief | Request a consultation |
 | `/services/regenerative` | Regenerative Treatments | §7 brief | Request a consultation |
@@ -491,11 +491,19 @@ action hype, no outcomes, no dosing, ever.
    strings enumerated in `allowedStrings` (operator override
    2026-07-21). The sheet's "FDA-approved" phrasing stays banned —
    render it as "prescription"; "neurotoxin" normalizes to
-   "neuromodulator". The §8.4 Evolus ranking sentence (the standalone
+   "neuromodulator" *(superseded PAGE-WIDE at the client's direction,
+   2026-08-18 menu line / 2026-08-19 the rest: this page now says
+   "neurotoxin" throughout — title, card leads, body intro, FAQ. The
+   normalize rule stands for every other page — DECISIONS both
+   dates)*. The §8.4 Evolus ranking sentence (the standalone
    EvolusCallout noir plate) and the Evolus ICON event film shipped on
    this page 2026-07-21 → 2026-08-18, then moved to /about at the
    client's direction (DECISIONS 2026-08-18; exception terms
-   unchanged). *(Amended 2026-07-30, client
+   unchanged). Since 2026-08-19 the page carries the EvolusLaurel
+   ranking plaque instead — two new ranking sentences under §8.4's
+   second scoped exception (operator authorization, DECISIONS same
+   date), rendered between the deck and the product cards by the
+   frontmatter-gated layout slot. *(Amended 2026-07-30, client
    direction after the compliance flag: the words "temporary" /
    "temporarily" do not appear in rendered site copy — Amy sets
    duration expectations directly in consultation. The indication-style
@@ -653,7 +661,20 @@ action hype, no outcomes, no dosing, ever.
    the client's direction 2026-08-18). Basis: operator's
    confirmation that the designation comes from Evolus + the same claim
    live on the practice's own site; the recommended Evolus rep email
-   remains the outstanding substantiation upgrade. Nothing else.*
+   remains the outstanding substantiation upgrade. Second scoped
+   exception (operator authorization 2026-08-19 — DECISIONS same
+   date): the two ranking sentences rendered by the EvolusLaurel
+   plaque on /services/wrinkle-relaxers only — "The Top Evolus
+   Injector in Charlotte." and "And among the Top 50 in the United
+   States." — published unattributed at the operator's direction
+   (the attribution kicker was offered and declined, consistent with
+   2026-07-21). Basis: the operator's verification with Evolus,
+   which covers both the Charlotte designation and the national
+   standing. Neither sentence contains a token the superiority
+   patterns can see, so the authorization is recorded here and in
+   CLAUDE.md constraint 3 rather than in `allowedStrings` (the
+   photo-override precedent); the ranking never appears in meta
+   descriptions, OG tags, alt text, or JSON-LD. Nothing else.*
 5. Off-label promotion (e.g., positioning any product for an unapproved use).
 6. Presenting investigational compounds as approved, safe, or effective.
 7. Medical advice or suitability answers — "is this right for me" always

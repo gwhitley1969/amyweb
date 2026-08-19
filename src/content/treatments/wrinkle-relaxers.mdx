@@ -1,5 +1,9 @@
 ---
-title: Wrinkle Relaxers
+# Client wording 2026-08-19 (via operator), verbatim incl. the hyphen —
+# extends the 2026-08-18 menu-line direction (serviceLines.ts) to the
+# page itself. Fans out to the H1, breadcrumbs, and JSON-LD names.
+# seo.title keeps the search phrasing deliberately.
+title: Neurotoxins - Wrinkle Relaxers
 line: wrinkle-relaxers
 summary: "Prescription injectable treatments that soften dynamic lines: the creases that come from repeated expression."
 deck: "A light, deliberate hand for the lines expression leaves behind."
@@ -12,22 +16,29 @@ products:
 # docs/DECISIONS.md).
 productDetails:
   - name: "Jeuveau"
-    detail: "A prescription neuromodulator from Evolus, developed specifically for aesthetics, used to smooth moderate to severe frown lines."
+    # Card leads say "neurotoxin" at the client's direction 2026-08-19
+    # (supersedes the §7 normalize rule for these three strings —
+    # DECISIONS same date; body/FAQ copy unchanged pending direction).
+    detail: "A prescription neurotoxin from Evolus, developed specifically for aesthetics, used to smooth moderate to severe frown lines."
     priceLines: ["$10 per unit"]
   - name: "Xeomin"
-    detail: "A prescription neuromodulator from Merz, purified down to the bare active protein, used to smooth moderate to severe facial wrinkles."
+    detail: "A prescription neurotoxin from Merz, purified down to the bare active protein, used to smooth moderate to severe facial wrinkles."
     priceLines: ["$10 per unit"]
   - name: "Daxxify"
-    detail: "A prescription neuromodulator from Revance with a peptide-stabilized formulation. Labeled for results lasting up to six months. How long it holds varies person to person."
+    detail: "A prescription neurotoxin from Revance with a peptide-stabilized formulation. Labeled for results lasting up to six months. How long it holds varies person to person."
     priceLines: ["$12 per unit"]
 ctaType: book
 pricingDisplay: consult
+# Renders the EvolusLaurel ranking plaque between the deck and the
+# product cards (client direction 2026-08-19; wording + authorization
+# live in the component and DECISIONS same date).
+evolusLaurel: true
 clinicianApproved: false
 draft: false
 faq:
   - q: "What's the difference between Jeuveau, Xeomin, and Daxxify?"
-    a: "Formulation, mostly. All three are prescription neuromodulators that soften expression lines. Jeuveau was developed specifically for aesthetics, Xeomin is purified down to the bare active protein, and Daxxify is stabilized with a peptide and labeled for results lasting up to six months. Which one, if any, belongs in your plan is decided with Amy in consultation."
-  - q: "Do men get neuromodulator treatments?"
+    a: "Formulation, mostly. All three are prescription neurotoxins that soften expression lines. Jeuveau was developed specifically for aesthetics, Xeomin is purified down to the bare active protein, and Daxxify is stabilized with a peptide and labeled for results lasting up to six months. Which one, if any, belongs in your plan is decided with Amy in consultation."
+  - q: "Do men get neurotoxin treatments?"
     a: "Yes. Expression lines aren't gendered, and neither is the appointment: same products, same individual planning, with Amy."
   - q: "Do I need a consultation before booking?"
     a: "No. A consultation is never required, and one is free on request. Book directly, or ask to talk it through first."
@@ -47,7 +58,7 @@ import jeuveauBannerStudio from '../../assets/photos/jeuveau-banner-studio.jpg';
 
 ## What they are
 
-Wrinkle relaxers are prescription neuromodulators: injectable treatments
+Wrinkle relaxers are prescription neurotoxins: injectable treatments
 used to soften dynamic lines, the creases that form with repeated
 muscle movement. Common treatment areas include the forehead,
 frown lines, and crow's feet.

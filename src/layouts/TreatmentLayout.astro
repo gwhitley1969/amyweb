@@ -9,6 +9,7 @@ import InvestigationalNotice from '../components/InvestigationalNotice.astro';
 import BioteDisclaimer from '../components/BioteDisclaimer.astro';
 import DraftBanner from '../components/DraftBanner.astro';
 import ProductDetailCards from '../components/ProductDetailCards.astro';
+import EvolusLaurel from '../components/EvolusLaurel.astro';
 import VisitSteps from '../components/VisitSteps.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import TrustChips from '../components/TrustChips.astro';
@@ -19,6 +20,8 @@ import TrustChips from '../components/TrustChips.astro';
  * (CLAUDE.md hard constraint 3):
  *   breadcrumbs -> H1 + underline run -> lead -> deck statement card
  *   (optional; replaced AtAGlance 2026-07-20, operator direction) ->
+ *   Evolus laurel plaque (optional, frontmatter-gated — 2026-08-19,
+ *   operator-approved; copy + authorization live in the component) ->
  *   intro -> products -> flag-driven notices ADJACENT to products -> body ->
  *   visit steps -> FAQ (only when items provided) -> pricing ->
  *   consult router -> DisclaimerBlock (light surface, NEVER collapsed) ->
@@ -30,6 +33,9 @@ interface Props {
   /** Editorial standfirst — one short, claims-clean display line shown
    * as the blush statement card under the lead. */
   deck?: string;
+  /** Renders the EvolusLaurel ranking plaque between the deck and the
+   * product cards (operator-authorized copy — see the component). */
+  evolusLaurel?: boolean;
   products: string[];
   ctaType: 'book' | 'consult' | 'shop';
   investigational: boolean;
@@ -61,6 +67,7 @@ const {
   title,
   summary,
   deck,
+  evolusLaurel = false,
   products,
   ctaType,
   investigational,
@@ -95,6 +102,8 @@ const crumbs = [
     <p class="lead mt-6">{summary}</p>
 
     {deck && <p class="deck mt-8">{deck}</p>}
+
+    {evolusLaurel && <EvolusLaurel />}
 
     <slot name="intro" />
 

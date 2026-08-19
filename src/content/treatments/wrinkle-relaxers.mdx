@@ -1,5 +1,9 @@
 ---
-title: Wrinkle Relaxers
+# Client wording 2026-08-19 (via operator), verbatim incl. the hyphen —
+# extends the 2026-08-18 menu-line direction (serviceLines.ts) to the
+# page itself. Fans out to the H1, breadcrumbs, and JSON-LD names.
+# seo.title keeps the search phrasing deliberately.
+title: Neurotoxins - Wrinkle Relaxers
 line: wrinkle-relaxers
 summary: "Prescription injectable treatments that soften dynamic lines: the creases that come from repeated expression."
 deck: "A light, deliberate hand for the lines expression leaves behind."
@@ -12,22 +16,29 @@ products:
 # docs/DECISIONS.md).
 productDetails:
   - name: "Jeuveau"
-    detail: "A prescription neuromodulator from Evolus, developed specifically for aesthetics, used to smooth moderate to severe frown lines."
+    # Card leads say "neurotoxin" at the client's direction 2026-08-19
+    # (supersedes the §7 normalize rule for these three strings —
+    # DECISIONS same date; body/FAQ copy unchanged pending direction).
+    detail: "A prescription neurotoxin from Evolus, developed specifically for aesthetics, used to smooth moderate to severe frown lines."
     priceLines: ["$10 per unit"]
   - name: "Xeomin"
-    detail: "A prescription neuromodulator from Merz, purified down to the bare active protein, used to smooth moderate to severe facial wrinkles."
+    detail: "A prescription neurotoxin from Merz, purified down to the bare active protein, used to smooth moderate to severe facial wrinkles."
     priceLines: ["$10 per unit"]
   - name: "Daxxify"
-    detail: "A prescription neuromodulator from Revance with a peptide-stabilized formulation. Labeled for results lasting up to six months. How long it holds varies person to person."
+    detail: "A prescription neurotoxin from Revance with a peptide-stabilized formulation. Labeled for results lasting up to six months. How long it holds varies person to person."
     priceLines: ["$12 per unit"]
 ctaType: book
 pricingDisplay: consult
-clinicianApproved: true
+# Renders the EvolusLaurel ranking plaque between the deck and the
+# product cards (client direction 2026-08-19; wording + authorization
+# live in the component and DECISIONS same date).
+evolusLaurel: true
+clinicianApproved: false
 draft: false
 faq:
   - q: "What's the difference between Jeuveau, Xeomin, and Daxxify?"
-    a: "Formulation, mostly. All three are prescription neuromodulators that soften expression lines. Jeuveau was developed specifically for aesthetics, Xeomin is purified down to the bare active protein, and Daxxify is stabilized with a peptide and labeled for results lasting up to six months. Which one, if any, belongs in your plan is decided with Amy in consultation."
-  - q: "Do men get neuromodulator treatments?"
+    a: "Formulation, mostly. All three are prescription neurotoxins that soften expression lines. Jeuveau was developed specifically for aesthetics, Xeomin is purified down to the bare active protein, and Daxxify is stabilized with a peptide and labeled for results lasting up to six months. Which one, if any, belongs in your plan is decided with Amy in consultation."
+  - q: "Do men get neurotoxin treatments?"
     a: "Yes. Expression lines aren't gendered, and neither is the appointment: same products, same individual planning, with Amy."
   - q: "Do I need a consultation before booking?"
     a: "No. A consultation is never required, and one is free on request. Book directly, or ask to talk it through first."
@@ -41,35 +52,20 @@ seo:
 ---
 
 import { Image } from 'astro:assets';
-import TreatmentVideo from '../../components/TreatmentVideo.astro';
-import EvolusCallout from '../../components/EvolusCallout.astro';
-import iconPoster from '../../assets/photos/evolus-icon-poster.jpg';
-import browAppointment from '../../assets/photos/brow-appointment.jpg';
-import maleClient from '../../assets/photos/male-client-appointment.jpg';
-import fineGauge from '../../assets/photos/fine-gauge-detail.jpg';
+import blazerBrowInjection from '../../assets/photos/blazer-brow-injection.jpg';
+import handMirrorMaleClient from '../../assets/photos/hand-mirror-male-client.jpg';
+import jeuveauBannerStudio from '../../assets/photos/jeuveau-banner-studio.jpg';
 
 ## What they are
 
-Wrinkle relaxers are prescription neuromodulators: injectable treatments
+Wrinkle relaxers are prescription neurotoxins: injectable treatments
 used to soften dynamic lines, the creases that form with repeated
 muscle movement. Common treatment areas include the forehead,
 frown lines, and crow's feet.
 
-<EvolusCallout />
-
-## Inside Evolus
-
-Evolus brought providers from across the country to its Newport Beach
-headquarters for its first ICON experience. Amy was in the room. This
-is Evolus's own recap of the event.
-
-<TreatmentVideo
-  src="/media/evolus-icon.mp4"
-  poster={iconPoster}
-  captionsSrc="/media/evolus-icon.vtt"
-  label="ICON — an Evolus HQ experience: Evolus's recap of its provider event"
-  caption="ICON — an Evolus HQ experience. An Evolus production — sound on."
-/>
+{/* The Evolus recognition plate and the "Inside Evolus" film moved to
+  * /about at the client's direction (2026-08-18, DECISIONS same date —
+  * supersedes the 2026-07-21 placements recorded there). */}
 
 <section class="media-row media-row--flip">
   <div class="media-copy">
@@ -83,9 +79,12 @@ a consultation.
 
   </div>
   <figure class="media-figure">
+    {/* Amy's pick, photo round 2026-08-18 (screening + release record in
+      * DECISIONS same date). The layout's top-anchor crop override keeps
+      * the neon letters whole — see TreatmentLayout. */}
     <Image
-      src={browAppointment}
-      alt="Amy Palacios, FNP, in hot-pink scrubs steadies a reclined client's brow line during an appointment at the Harrisburg studio."
+      src={blazerBrowInjection}
+      alt="Amy Palacios, FNP, in a pink blazer guides a fine syringe at a reclined client's brow beneath the Mobile Aesthetics neon."
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
@@ -94,9 +93,11 @@ a consultation.
 
 <section class="media-row">
   <figure class="media-figure">
+    {/* Amy's pick, photo round 2026-08-18 (screening + release record in
+      * DECISIONS same date; tray vial labels illegible at served size). */}
     <Image
-      src={maleClient}
-      alt="Amy smiles as she works across a male client's brow while he reclines in the treatment chair."
+      src={handMirrorMaleClient}
+      alt="A male client looks into a Mobile Aesthetics hand mirror beside Amy Palacios, FNP, in the treatment room."
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
@@ -115,7 +116,7 @@ planning, with Amy.
 
 {/* Third media moment: full-width band, not a third zigzag row —
   * scale variation closes the sequence (taste-audit follow-up). */}
-<section class="media-band">
+<section class="media-band media-band--segmental">
   <div class="media-copy">
 
 ## Individualized, with Amy
@@ -126,17 +127,17 @@ her Harrisburg studio, minutes from Charlotte.
 
   </div>
   <figure class="media-figure">
-    {/* Server-side 16:9 crop (width/height + fit): the CSS-only crop
-      * shipped ~45% never-shown portrait pixels and tripped the CI
-      * image budget (256,569 > 245,760 on the runner — the layout's
-      * .media-band aspect-ratio stays as the display contract). */}
+    {/* Amy's pick, photo round 2026-08-18 (screening, the banner
+      * override, and the release record all in DECISIONS same date).
+      * The asset is the FULL 3:2 frame — the client's requirement is
+      * that everyone in the picture is visible, and the people span
+      * wider than any 9:8 window holds, so the band wears the
+      * segmental-arch variant (--segmental, TreatmentLayout) whose
+      * window matches the frame exactly: no crop, no fill. 1600
+      * native px meets the 45rem slot's DPR2 demand with margin. */}
     <Image
-      src={fineGauge}
-      alt="A close-up of Amy's pink-gloved hands guiding a fine-gauge syringe at a resting client's lower face."
-      width={1440}
-      height={810}
-      fit="cover"
-      position="attention"
+      src={jeuveauBannerStudio}
+      alt="Amy Palacios, FNP, shows products to two clients across the studio cart, beside a Jeuveau banner."
       widths={[720, 1080, 1440]}
       sizes="(max-width: 48rem) 92vw, 45rem"
     />

@@ -176,7 +176,11 @@ sitewide at the client's direction; DECISIONS 2026-08-17), with four
 standing exemptions: the home hero backdrop, all film stages and
 posters (the Evolus films' burned-in safety information ships complete
 and uncropped), the homepage Instagram post (the client's named
-exception), and the lip style-guide diagram. Motion is scroll-driven
+exception), and the lip style-guide diagram. The arch family has one
+wide sibling (2026-08-18, DECISIONS same date): the segmental arch —
+curve pinned to the top third over straight feet — for a landscape
+frame that must show its full content (first use: the
+wrinkle-relaxers band, at the client's "everyone visible" direction). Motion is scroll-driven
 and sparse; nothing pulses except the sign's slow breath. Since 2026-08-14 the noir shell includes
 the home's cinematic video stage — four films crossfading
 chromeless on full-bleed noir (the operator's "Audi treatment";
@@ -340,7 +344,7 @@ layout shift from fonts or images.
 | `/services` | Services index | Short factual intro per line, linking to the 12 detail pages | Per-line → detail |
 | `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Book / Consult (2026-07-21, operator — was consult-routed) |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |
-| `/services/wrinkle-relaxers` | Wrinkle Relaxers | §7 brief | Book / Consult |
+| `/services/wrinkle-relaxers` | Neurotoxins - Wrinkle Relaxers (client wording 2026-08-19; seo.title keeps the search phrasing) | §7 brief | Book / Consult |
 | `/services/dermal-fillers` | Dermal Fillers | §7 brief | Book / Consult |
 | `/services/biostimulators` | Biostimulators | §7 brief | Request a consultation |
 | `/services/regenerative` | Regenerative Treatments | §7 brief | Request a consultation |
@@ -350,7 +354,7 @@ layout shift from fonts or images.
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
-| `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; Evolus relationship factual only — About stays ranking-free (operator placement decision 2026-07-21; the resolved `{{EVOLUS_CLAIM}}` sentence lives on the two Evolus product pages, §8.4) | Request a consultation |
+| `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; the Evolus recognition plate + the ICON film (moved from wrinkle-relaxers at the client's direction 2026-08-18, superseding the 2026-07-21 ranking-free placement — the resolved `{{EVOLUS_CLAIM}}` sentence now renders on dermal-fillers and about, §8.4) | Request a consultation |
 | `/injector-training` | Private Injector Training | Professional-audience page (added 2026-08-04, operator-directed; DECISIONS same date): four hands-on, one-on-one courses for licensed medical professionals, prices flyer-verbatim (three at $5,000, Radiesse $7,500; three hours each, product included); curriculum topics under the fifth `allowedStrings` authorization (§8.1); outside the treatments collection and the clinician flag gate — Amy reviews via the sign-off doc's non-gated section; "Training" nav item | Call (phone/Instagram routed — neither booking nor consultation language) |
 | `/book` | RETIRED (2026-07-21, operator) | Was the Vagaro-handoff explainer; every "Book with Amy" now opens Vagaro directly, so the page was deleted before ever serving in production | — |
 | `/visit` | Visit Us | Address (hours are NOT listed — Amy's decision 2026-08-04, `{{HOURS}}` CLOSED; no page copy may promise or imply hours), parking note, "Get directions" link-out (no map iframe) | Directions / Book |
@@ -487,12 +491,19 @@ action hype, no outcomes, no dosing, ever.
    strings enumerated in `allowedStrings` (operator override
    2026-07-21). The sheet's "FDA-approved" phrasing stays banned —
    render it as "prescription"; "neurotoxin" normalizes to
-   "neuromodulator". The §8.4 Evolus ranking sentence is authorized on
-   this page (once — DECISIONS 2026-07-21; since 2026-07-30 it renders
-   as the standalone EvolusCallout noir plate rather than in Jeuveau
-   prose context), and the
-   Evolus ICON event film ships here under the §8.3/§8.4 override
-   (as-is; DECISIONS 2026-07-21). *(Amended 2026-07-30, client
+   "neuromodulator" *(superseded PAGE-WIDE at the client's direction,
+   2026-08-18 menu line / 2026-08-19 the rest: this page now says
+   "neurotoxin" throughout — title, card leads, body intro, FAQ. The
+   normalize rule stands for every other page — DECISIONS both
+   dates)*. The §8.4 Evolus ranking sentence (the standalone
+   EvolusCallout noir plate) and the Evolus ICON event film shipped on
+   this page 2026-07-21 → 2026-08-18, then moved to /about at the
+   client's direction (DECISIONS 2026-08-18; exception terms
+   unchanged). Since 2026-08-19 the page carries the EvolusLaurel
+   ranking plaque instead — two new ranking sentences under §8.4's
+   second scoped exception (operator authorization, DECISIONS same
+   date), rendered between the deck and the product cards by the
+   frontmatter-gated layout slot. *(Amended 2026-07-30, client
    direction after the compliance flag: the words "temporary" /
    "temporarily" do not appear in rendered site copy — Amy sets
    duration expectations directly in consultation. The indication-style
@@ -637,7 +648,8 @@ action hype, no outcomes, no dosing, ever.
    *Scoped exceptions (operator overrides — DECISIONS 2026-07-21): the
    Evolus-produced Evolysse film on /services/dermal-fillers (carried
    as-is, manufacturer safety information intact) and the Evolus ICON
-   event film on /services/wrinkle-relaxers (carried as-is; its
+   event film on /about (moved from wrinkle-relaxers at the client's
+   direction 2026-08-18, exception terms unchanged; carried as-is; its
    comparative-efficacy remarks are the manufacturer's own and its
    captions transcribe the event speech faithfully). Nothing else.*
 4. Unsubstantiated superiority: "#1", "best", "top-rated" — banned.
@@ -645,10 +657,24 @@ action hype, no outcomes, no dosing, ever.
    override after the flag — DECISIONS): the exact sentence
    "Charlotte's #1 Evolus provider", enumerated in `allowedStrings`,
    published unattributed at the operator's direction on the
-   wrinkle-relaxers and dermal-fillers pages only. Basis: operator's
+   dermal-fillers and about pages only (moved off wrinkle-relaxers at
+   the client's direction 2026-08-18). Basis: operator's
    confirmation that the designation comes from Evolus + the same claim
    live on the practice's own site; the recommended Evolus rep email
-   remains the outstanding substantiation upgrade. Nothing else.*
+   remains the outstanding substantiation upgrade. Second scoped
+   exception (operator authorization 2026-08-19 — DECISIONS same
+   date): the two ranking sentences rendered by the EvolusLaurel
+   plaque on /services/wrinkle-relaxers only — "The Top Evolus
+   Injector in Charlotte." and "And among the Top 50 in the United
+   States." — published unattributed at the operator's direction
+   (the attribution kicker was offered and declined, consistent with
+   2026-07-21). Basis: the operator's verification with Evolus,
+   which covers both the Charlotte designation and the national
+   standing. Neither sentence contains a token the superiority
+   patterns can see, so the authorization is recorded here and in
+   CLAUDE.md constraint 3 rather than in `allowedStrings` (the
+   photo-override precedent); the ranking never appears in meta
+   descriptions, OG tags, alt text, or JSON-LD. Nothing else.*
 5. Off-label promotion (e.g., positioning any product for an unapproved use).
 6. Presenting investigational compounds as approved, safe, or effective.
 7. Medical advice or suitability answers — "is this right for me" always

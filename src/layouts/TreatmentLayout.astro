@@ -9,6 +9,7 @@ import InvestigationalNotice from '../components/InvestigationalNotice.astro';
 import BioteDisclaimer from '../components/BioteDisclaimer.astro';
 import DraftBanner from '../components/DraftBanner.astro';
 import ProductDetailCards from '../components/ProductDetailCards.astro';
+import EvolusLaurel from '../components/EvolusLaurel.astro';
 import VisitSteps from '../components/VisitSteps.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import TrustChips from '../components/TrustChips.astro';
@@ -19,6 +20,8 @@ import TrustChips from '../components/TrustChips.astro';
  * (CLAUDE.md hard constraint 3):
  *   breadcrumbs -> H1 + underline run -> lead -> deck statement card
  *   (optional; replaced AtAGlance 2026-07-20, operator direction) ->
+ *   Evolus laurel plaque (optional, frontmatter-gated — 2026-08-19,
+ *   operator-approved; copy + authorization live in the component) ->
  *   intro -> products -> flag-driven notices ADJACENT to products -> body ->
  *   visit steps -> FAQ (only when items provided) -> pricing ->
  *   consult router -> DisclaimerBlock (light surface, NEVER collapsed) ->
@@ -30,6 +33,9 @@ interface Props {
   /** Editorial standfirst — one short, claims-clean display line shown
    * as the blush statement card under the lead. */
   deck?: string;
+  /** Renders the EvolusLaurel ranking plaque between the deck and the
+   * product cards (operator-authorized copy — see the component). */
+  evolusLaurel?: boolean;
   products: string[];
   ctaType: 'book' | 'consult' | 'shop';
   investigational: boolean;
@@ -61,6 +67,7 @@ const {
   title,
   summary,
   deck,
+  evolusLaurel = false,
   products,
   ctaType,
   investigational,
@@ -95,6 +102,8 @@ const crumbs = [
     <p class="lead mt-6">{summary}</p>
 
     {deck && <p class="deck mt-8">{deck}</p>}
+
+    {evolusLaurel && <EvolusLaurel />}
 
     <slot name="intro" />
 
@@ -219,9 +228,13 @@ const crumbs = [
     margin-top: 0.75rem;
     max-width: 65ch;
   }
-  /* Editorial media row for MDX bodies: framed-print figure beside copy —
-   * echoes the concept page's framed-post motif. Static, zero JS; the
-   * astro:assets pipeline sets width/height (no CLS) and lazy-loads. */
+  /* Editorial media row for MDX bodies: a bare arched photo beside
+   * copy, sitting straight on the ombre canvas — the /services look.
+   * (Until 2026-08-18 these rendered as tilted white-matted prints;
+   * the client asked for the mat gone and pink behind the arches —
+   * the follow-up the arch rollout predicted. DECISIONS same date.)
+   * Static, zero JS; the astro:assets pipeline sets width/height
+   * (no CLS) and lazy-loads. */
   .treatment-body .media-row {
     display: grid;
     gap: 2rem;
@@ -236,12 +249,7 @@ const crumbs = [
       grid-template-columns: 3fr 2fr;
     }
   }
-  /* Mirrored variant: copy first in DOM, figure on the right, opposite
-   * lean — successive prints on a page tilt toward each other. */
-  .treatment-body .media-row--flip .media-figure {
-    transform: rotate(1.5deg);
-  }
-  /* THE ARCH inside the matte (sitewide motif, 2026-08-17) — a
+  /* THE ARCH (sitewide motif, 2026-08-17) — a
    * documented mirror of .ng-arch (global.css): MDX bodies are plain
    * markup and can't take the class without content edits (which would
    * reset clinicianApproved), so the recipe lands by selector. Astro
@@ -261,28 +269,36 @@ const crumbs = [
     object-fit: cover;
     object-position: 50% 30%;
   }
+  /* Per-image crop override (the arch rollout's recorded knob — equal
+   * specificity, must stay below the base rule): the wrinkle-relaxers
+   * blazer frame anchors top so the 4:5 window keeps the neon letters
+   * whole and both faces; the default 30% anchor sliced the script
+   * mid-stroke. Sheds only legs at the bottom. */
+  .treatment-body .media-figure img[src*='blazer-brow-injection'] {
+    object-position: 50% 0%;
+  }
   /* Full-width band — a page's third media moment breaks the
    * alternating row rhythm with scale instead of a third zigzag
-   * (taste-audit follow-up, 2026-07-25): one wide framed print across
-   * the column, straight — the tilt is the small-print gesture. The
-   * wide crop via aspect-ratio keeps a portrait source from towering;
-   * astro:assets still sets intrinsic dimensions, so no CLS. */
+   * (taste-audit follow-up, 2026-07-25): one wide arch across the
+   * column. The wide crop via aspect-ratio keeps a portrait source
+   * from towering; astro:assets still sets intrinsic dimensions, so
+   * no CLS. */
   .treatment-body .media-band {
     margin-top: 2.5rem;
   }
   .treatment-body .media-band .media-figure {
     width: 100%;
     margin-top: 2rem;
-    transform: none;
   }
   /* Bands render as WIDE Roman arches: 9:8 is the widest frame whose
    * arch still reads as architecture (semicircle + visible straight
    * feet). Was 16:9 until the arch motif (2026-08-17) — a 16:9 box
-   * turns the 999px radii into a half-ellipse lens. fine-gauge-detail
-   * ships a baked 16:9 derivative (budget crop, wrinkle-relaxers) now
-   * displayed through this 9:8 window — a center slice; the recorded
-   * upgrade path is a server-side re-crop at the consolidated
-   * re-approval round (an MDX edit, deliberately deferred). */
+   * turns the 999px radii into a half-ellipse lens. The one asset
+   * that shipped a baked 16:9 derivative through this 9:8 window
+   * (fine-gauge-detail, a recorded double-crop defect) retired
+   * 2026-08-18 with the wrinkle-relaxers photo round — its
+   * replacement is a baked 9:8 re-cut that matches the window
+   * exactly, so today object-fit is the degrade path everywhere. */
   .treatment-body .media-band .media-figure img {
     aspect-ratio: 9 / 8;
     object-fit: cover;
@@ -298,14 +314,29 @@ const crumbs = [
     aspect-ratio: 9 / 8;
     object-position: 50% 50%;
   }
+  /* Segmental band variant (wrinkle-relaxers, 2026-08-18 — client
+   * feedback: "we need to see everyone in the picture"): the frame's
+   * people span wider than any 9:8 window (geometry in DECISIONS,
+   * same date), a 9:8 crop loses a person and the blur-fill read
+   * as not fitting — so the ARCH changes shape instead: a designed
+   * segmental arch (architecture's wide sibling of the Roman arch) at
+   * the photo's own 3:2, curve pinned to the top ~third with straight
+   * feet below. NOT the recorded 16:9 "lens" failure — that was the
+   * accidental full-height ellipse with NO feet; the pinned vertical
+   * radius keeps feet, hairline, and 12px foot corners. The full
+   * frame fills the window: everyone visible, no crop, no fill.
+   * Equal specificity to the band rules above — order wins. */
+  .treatment-body .media-band--segmental .media-figure img {
+    aspect-ratio: 3 / 2;
+    border-radius: 50% 50% 12px 12px / 34% 34% 12px 12px;
+  }
+  /* The bare figure: no mat, no tilt — the white paper mat + ±1.5deg
+   * print lean retired 2026-08-18 (client direction: pink behind the
+   * arches, like /services). The arch hairline on the img is the only
+   * frame. */
   .treatment-body .media-figure {
     justify-self: center;
     width: min(18rem, 100%);
-    background: var(--ng-paper);
-    border: 1px solid var(--ng-hairline);
-    padding: 0.625rem;
-    box-shadow: 0 14px 28px -16px color-mix(in srgb, var(--ng-ink-900) 40%, transparent);
-    transform: rotate(-1.5deg);
   }
   .treatment-body .media-figure img {
     display: block;

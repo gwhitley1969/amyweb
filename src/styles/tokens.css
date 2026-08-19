@@ -109,7 +109,9 @@
  *   pages — ink-pink falls to 2.33 and magenta-600 to ~1.9 mid-ramp,
  *   so neither may render on the ombre canvas. The display accent
  *   (--ng-display-accent) re-inks too: its one light-canvas consumer
- *   is the VisitSteps numerals, which sit mid-ramp. Noir bands keep
+ *   is the /about milestones numerals, which sit mid-ramp (the
+ *   VisitSteps numerals were that consumer until 2026-08-19, when
+ *   the steps went to MA chevron plates). Noir bands keep
  *   their own scoped values (pink-300 family throughout).
  *   Cards on the ramp: plates cross canvas-equal luminance at 19.6% of
  *   the document (24.5% along the ramp) — CORRECTED 2026-07-27 from an

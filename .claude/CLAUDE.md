@@ -106,31 +106,51 @@ silently following it. Known superseded points from earlier briefs:
      overrides after the compliance flags — DECISIONS 2026-07-21): the
      Evolus-produced Evolysse film on /services/dermal-fillers (carried
      as-is, manufacturer safety information intact); the Evolus ICON
-     event film on /services/wrinkle-relaxers (carried as-is —
-     manufacturer comparative-efficacy remarks, named third-party
-     providers, and no safety information, all operator-accepted); and
-     the exact sentence "Charlotte's #1 Evolus provider" enumerated in
-     `allowedStrings`, on the wrinkle-relaxers and dermal-fillers pages
-     only; and three of the home-carousel films (operator clearances,
+     event film on /about (moved from /services/wrinkle-relaxers at the
+     client's direction 2026-08-18, exception terms unchanged; carried
+     as-is — manufacturer comparative-efficacy remarks, named
+     third-party providers, and no safety information, all
+     operator-accepted); and the exact sentence "Charlotte's #1 Evolus
+     provider" enumerated in `allowedStrings`, on the dermal-fillers
+     and about pages only (moved off wrinkle-relaxers 2026-08-18);
+     and three of the home-carousel films (operator clearances,
      DECISIONS 2026-08-14) — the two Evolus co-op Jeuveau commercials
      carried as-is with their complete FDA safety information (never
      trimmed or cropped), and Amy's own studio reel under operator
      override with both client releases confirmed on file. (The fourth
      carousel film — the 2026-08-17 team film — contains no claims and
      needs no exception here; its override lives under constraint 2.)
-     And two photos (operator overrides after the compliance flags —
+     And three photos (operator overrides after the compliance flags —
      DECISIONS 2026-08-18): the /services hormone-optimization menu
      card's photo (`biote-banner-scale.jpg`), in which the Biote
      banner's outcome-promise lines and symptom poster are legible,
-     on a page carrying no Biote disclaimer; and the /services
+     on a page carrying no Biote disclaimer; the /services
      weight-loss menu card's photo (`inbody-weigh-in.jpg`), whose
      aftercare wall sign titles a competitor neuromodulator brand the
-     site's own copy never names — pixel content is invisible to
-     lint:claims, which is why these exceptions are recorded here.
+     site's own copy never names; and the /services/wrinkle-relaxers
+     band photo (`jeuveau-banner-studio.jpg`), in which a Jeuveau
+     banner's marketing headline and indication line are legible —
+     including vocabulary the site's own copy dropped 2026-07-30 —
+     pixel content is invisible to lint:claims, which is why these
+     exceptions are recorded here.
      And the exact fragment "Amy has your best self in mind"
      enumerated in `allowedStrings` (operator override after the
      compliance flag — DECISIONS 2026-08-18; two compliant rephrases
      declined), in the /services intro lead only, on one source line.
+     And two ranking sentences rendered by `EvolusLaurel` on
+     /services/wrinkle-relaxers only (operator authorization —
+     DECISIONS 2026-08-19; substantiation = the operator's
+     verification with Evolus, which also covers the national
+     standing): "The Top Evolus Injector in Charlotte." and "And
+     among the Top 50 in the United States." Neither contains a
+     token lint:claims' superiority patterns can see — which is why
+     the authorization is recorded here rather than in
+     `allowedStrings` (the photo-override precedent; the banned list
+     does not gain a bare "top" pattern, which would false-positive
+     ordinary copy). The wording is exact; changing a word, widening
+     the page scope, or restating the ranking anywhere else —
+     including meta descriptions, OG tags, alt text, and JSON-LD —
+     requires the human operator.
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing

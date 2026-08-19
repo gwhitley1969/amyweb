@@ -51,7 +51,17 @@ display crops, homepage door + /services strip photography replaced,
 the /services menu rebuilt as her photo-card "buttons" (2026-08-18 —
 her mockup; all twelve are her picks), the MA header
 badge and hamburger-only nav, the four-film carousel and its heading,
-the "Mobile Aesthetics" line in the location card and footer. Known defect queued for the same pass: `studio-wide.jpg` alt
+the "Mobile Aesthetics" line in the location card and footer, the
+Evolus recognition plate + ICON film relocated from wrinkle-relaxers
+to /about (2026-08-18, her direction), the three new wrinkle-relaxers
+photos (2026-08-18, her picks), the treatment-page photo mats
+retired sitewide — every treatment photo now sits as a bare arch on
+the pink canvas (2026-08-18, her direction), the Evolus Laurel
+ranking plaque on wrinkle-relaxers (2026-08-19, her direction —
+"The Top Evolus Injector in Charlotte." + the Top-50 line, noir
+plaque between the deck and the product cards), and the "Your visit,
+step by step" numerals replaced by Mobile Aesthetics chevron plates
+on every treatment page (2026-08-19, her mockup). Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window — an MDX edit, so
 it ships inside the flag-resetting re-approval round (DECISIONS
 2026-08-17).
@@ -87,7 +97,7 @@ is also not flag-gated and has its own review section below the table.
 
 | ✓ | Page (stable-preview link) | What to look at hardest |
 |---|---|---|
-| ☐ | [/services/wrinkle-relaxers](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/wrinkle-relaxers) | Jeuveau / Xeomin / Daxxify cards with per-unit prices ($10, $10, $12); the Evolus ICON film; the "Charlotte's #1 Evolus provider" sentence; three treatment photos |
+| ☐ | [/services/wrinkle-relaxers](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/wrinkle-relaxers) | Jeuveau / Xeomin / Daxxify cards with per-unit prices ($10, $10, $12); **NEW: all three photos are her 2026-08-18 picks** (blazer brow appointment under the neon; the hand-mirror male-client frame; the Jeuveau-banner studio scene as a wide segmental arch — the full frame, everyone visible, per her feedback; banner legibility shipped under her override). **NEW 2026-08-19: the Evolus Laurel ranking plaque** between the deck and the product cards — "The Top Evolus Injector in Charlotte." + "And among the Top 50 in the United States." (her direction; operator-verified with Evolus; wording pinned, DECISIONS 2026-08-19). **Also 2026-08-19: the page title is now "Neurotoxins - Wrinkle Relaxers"** (her wording, matching the /services menu line; H1 + breadcrumbs + JSON-LD; seo.title keeps the search phrasing), **and the page now says "neurotoxin" throughout** — card leads, both FAQ strings, body intro (her wording, 2026-08-19; zero "neuromodulator" remains on this page). (The Evolus ICON film and the "Charlotte's #1 Evolus provider" sentence moved to /about at her direction, 2026-08-18 — review them there, in the structural-page pass.) |
 | ☐ | [/services/dermal-fillers](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/dermal-fillers) | Evolysse / Revanesse cards ($650 or $325 half-syringe); the Evolysse film; the lip style guide; the #1-provider sentence. (Amy approved this page once on 2026-07-21; the caption sweep reset the flag — this is her re-confirmation.) |
 | ☐ | [/services/biostimulators](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/biostimulators) | Radiesse $900/syringe; PDO threads $350 for 10; studio portrait |
 | ☐ | [/services/regenerative](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/regenerative) | PRP $600; PRP with microneedling $900; PRP photo |

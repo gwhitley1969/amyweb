@@ -3932,3 +3932,326 @@ read "Book with Amy", not "BOOK" — the client's quoted label is a
 near-match; a one-word alignment is available if she wants it. "Facial
 Balancing" is not a menu-line title (it names the filler/balancing work) —
 illustrative client phrasing, carried as-is.
+
+## 2026-08-18 — Evolus recognition plate + ICON film move to /about
+
+**Context:** Client direction (via the operator, 2026-08-18): on
+/services/wrinkle-relaxers, the black EvolusCallout plate, the "Inside
+Evolus" section, and the ICON film all move to /about — prep for that
+page's photo round. Two standing records were in the way: the 2026-07-21
+operator placement decision "About stays ranking-free," and the
+page-scoped exception records (CLAUDE.md constraint 3, BUILD_SPEC §6/§7/§8,
+the component's own header) that authorized the ranking sentence on
+wrinkle-relaxers + dermal-fillers and the ICON film on wrinkle-relaxers.
+
+**Decision:** Move all three as a unit, byte-identical copy (intro
+paragraph, film label, caption). The client's direction supersedes the
+2026-07-21 placement decision; every page-scope record is amended in the
+same PR — ranking sentence now dermal-fillers + about, ICON film now
+/about, exception TERMS unchanged (as-is carriage, comparative-efficacy
+remarks and named third-party providers operator-accepted, captions
+faithful). `compliance/banned-patterns.json` is untouched: the allowlist
+strips globally and its third-authorization comment records no page scope.
+On /about the pair sits between the milestones timeline and "The name on
+the wall," in a left-aligned max-w-3xl column — the same 48rem width both
+components shipped in inside the treatment body.
+
+**Alternatives rejected:** copying (rather than moving) the callout so
+wrinkle-relaxers keeps it — the direction was "moved"; consolidating the
+dermal-fillers instance too — not asked; the request names only
+wrinkle-relaxers, so dermal-fillers keeps its own plate.
+
+**Consequences:** first approved-content MDX edit of the redesign round —
+wrinkle-relaxers `clinicianApproved` reset true → false in the removal
+commit (constraint 4; `check:approvals` gates only the production
+pipeline, which stays dark; the consolidated pre-relaunch re-approval
+restores it). The sign-off doc's wrinkle-relaxers row loses the two items
+and the presentation-drift list gains the move. /about (LHCI default
+budgets) now carries the ICON poster; wrinkle-relaxers gets lighter —
+both measured in verify.
+
+## 2026-08-18 — wrinkle-relaxers photo round; bare arches sitewide; Jeuveau-banner override
+
+**Context:** Client direction (via the operator, 2026-08-18): replace the
+three wrinkle-relaxers photos with her picks — 10.jpg ("Who they're
+generally for"), 11.jpg ("Not just for women"), 12.jpg (the band) from
+C:\Amy\New Pics — and make the white space around the arches pink like
+/services. The white was the treatment layout's paper mat (background +
+padding + hairline + shadow + ±1.5deg tilt); the arch rollout
+(2026-08-17) had predicted exactly this follow-up.
+
+**Screening record (frame-level):** 10 = Amy in a pink blazer injecting
+at a reclined client's brow under the MA neon (her own signage; no
+product text). 11 = male client with an MA-branded hand mirror, Amy in
+her embroidered scrubs; tray vials/labels illegible at served size.
+12 = Amy (operator-confirmed it is her — hot-pink scrubs, face in
+profile) with two clients and a large, LEGIBLE Jeuveau banner: "KISS
+YOUR 11s GOODBYE", the indication line (including "TEMPORARY", copy
+vocabulary dropped 2026-07-30), "Jeuveau YouSeeMe!". Flag raised in
+full → **operator override: ship as-is** — the third photo
+pixel-override (biote-banner-scale precedent); CLAUDE.md constraint 3
+amended in this PR. **Releases for all four pictured clients confirmed
+on file** (operator, 2026-08-18 — the confirmation is the record). All
+three assets hash-unique vs the repo.
+
+**Decisions:** (1) Assets content-named: blazer-brow-injection.jpg,
+hand-mirror-male-client.jpg, jeuveau-banner-studio.jpg; masters stay
+outside the repo; outgoing frames (brow-appointment,
+male-client-appointment, fine-gauge-detail) deleted — no other
+consumers; git history keeps them. (2) The band asset is a
+pre-composed 9:8 blur-fill contain composite (card-06 house pattern,
+RUNBOOK): the three people span x≈150–1560 of the 1600-wide 3:2
+master and the widest 9:8 cover window is 1200 — no crop holds every
+face. Recipe: 1600×1422 canvas = the frame resized fill + blur(28) +
+brightness 0.96 as self-fill, full frame composited centered, jpeg
+q92 (sharp). It matches the layout's 9:8 band window exactly, retiring
+the recorded fine-gauge 16:9-into-9:8 double-crop defect early, and
+its 1440 tier meets the desktop slot's DPR2 demand exactly. (3) Mat
+removal scope = ALL treatment pages (operator choice): one shared-CSS
+change, zero MDX edits elsewhere, zero flag resets; /about's matted
+print and the film players' mats stay. Tilts retired with the mat —
+bare arches sit straight, like /services. (4) One per-image crop
+override (the arch rollout's recorded knob): the blazer frame anchors
+top (50% 0%) so the 4:5 window keeps the neon script whole; the
+default 30% anchor sliced it mid-stroke.
+
+**Alternatives rejected:** any 9:8 cover crop of 12 (guillotines a
+face — geometry above); keeping the mats only off wrinkle-relaxers
+(visibly inconsistent between treatment pages; needs a page-scoped
+hack).
+
+**Consequences:** wrinkle-relaxers clinicianApproved stays false (reset
+in the Evolus-move commit; this stacks on that branch). The band's
+LH-mobile pick stays the 1080 tier but 9:8 carries ~1.6× the pixels of
+the old 16:9 — offset by the ICON poster the page just lost; measured
+in verify. Presentation drift (bare arches, 12 pages) added to the
+sign-off doc for Amy's pending pass.
+
+## 2026-08-18 — band re-cut + compact arch (client feedback on the composite)
+
+**Context:** Client feedback on the PR #126 preview: the blur-fill band
+read as not-fitting — "put it in a smaller arch so that it fits
+correctly; if we need to shrink it, let's do it." Geometry recap: the
+master's four people span ~1410px of 1600 and the widest 9:8 window is
+1200px, so any arch the photo FILLS must omit someone.
+
+**Decision:** jeuveau-banner-studio.jpg re-derived from the master as
+an exact 9:8 window — extract x=490, y=45, 1110×987, jpeg q92 (sharp)
+— omitting the left-hand client cleanly (no sliver of her or her
+chair; eyeballed against x=510/530 candidates; releases unchanged, hers
+now unused for this frame). The banner, Amy, and the male client fill
+the arch sharp, edge-to-edge; the blur-fill composite is superseded.
+The Jeuveau banner renders LARGER than in the composite — same frame,
+same page, same operator override (legibility was the enumerated flag;
+the fine print stays illegible at served sizes, eyeball-checked on the
+1080 derivative). Presentation: new `media-band--compact` layout
+variant (34rem centered) used by this page — the "smaller arch," and
+retina math besides: 1110 native px ≈ 1.02× DPR2 in the 34rem slot,
+where the full 45rem slot would be 0.77×, below the retina rule.
+Tiers [720, 1080]; alt updated ("two clients" → "a client").
+
+**Alternatives rejected:** a 4:5 row-scale arch of Amy + the client
+(loses the banner the frame is visibly for); keeping the composite at
+reduced width (blur bars are the complaint, size doesn't cure them).
+
+## 2026-08-18 — the segmental arch: band round 3 ("we need to see everyone")
+
+**Context:** Second client feedback on the band: the 9:8 re-cut hid the
+left-hand client — "we can't see the other person; we need to see
+everyone in the picture." With the earlier feedback that the blur-fill
+contain "doesn't fit," every Roman-arch treatment of this 3:2 frame is
+now exhausted: the people span wider than the widest 9:8 window
+(proven), a cover crop loses a person, a contain leaves fill.
+
+**Decision:** The arch changes shape, not the photo: a designed
+SEGMENTAL arch — architecture's wide sibling of the Roman arch — at
+the frame's own 3:2. `media-band--segmental`
+(border-radius 50%/34% elliptical dome over straight feet, same
+magenta hairline and 12px foot corners) with the FULL master frame
+recommitted as the asset (1600×1067, as shot). Everyone visible, the
+window filled exactly, no fabricated pixels. This is distinct from the
+2026-08-17 rejected "16:9 lens": that failure was the accidental
+full-height ellipse with no straight feet; the pinned vertical radius
+keeps the feet, which is what makes it read as architecture. The band
+returns to full column width — 1600 native px covers the 45rem slot's
+DPR2 demand with margin (the retina motive for the 34rem compact
+variant dies with it; `--compact` retired unmerged, superseded within
+the same PR). BUILD_SPEC §5 amended: the arch family gains the
+segmental sibling for landscape frames that must show full content.
+Banner legibility: between the composite's and the re-cut's — the
+standing override covers it. Alt returns to "two clients."
+
+**Alternatives rejected:** outpainting the master upward to 9:8
+(fabricating the studio's architecture; no quality-reliable local
+tool); a straight rectangular exemption (abandons the client's own
+arch motif when a shape in the family satisfies everything).
+
+## 2026-08-19 — the Evolus Laurel: ranking plaque on wrinkle-relaxers
+
+**Context:** Client direction (via operator): an attention-grabbing
+banner on /services/wrinkle-relaxers saying Amy is "The Top Evolus
+Injector in Charlotte"; the operator has verified the designation
+with Evolus, and the same verification covers her Top-50 standing in
+the US. This is a NEW object with NEW wording — it does not reopen
+the 2026-08-18 move of the "#1 provider" plate to /about, which
+stands ("Injector" vs "provider" reflects Evolus's designation per
+the operator). Ranking presence is now three pages, each recorded.
+
+**Decision:** A noir laurel plaque (`EvolusLaurel.astro`) rendered by
+TreatmentLayout between the deck card and the product cards — the
+credential lands before the pitch, and the blush→noir surface snap is
+the attention mechanism. Composition: a build-time-generated
+fine-stroke laurel (Bezier-sampled leaf pairs, decorative SVG, no SVG
+text per the axe rule), the statement at a 39px-floor display clamp
+with the key phrase carrying the sanctioned ng-shimmer (the "noir
+display-accent phrases >=39px" rule — no motion-vocabulary change
+needed), an ng-trace rule-accent, and the Top-50 line as a tracked
+eyebrow. Whole plaque rises in with ng-rise; reduced motion serves
+the static plaque. Placement required a frontmatter-gated layout
+slot: verified first-hand that the MDX body renders BELOW the product
+cards, so an in-body banner could not sit high. Schema gains
+`evolusLaurel: z.boolean().default(false)` (operator-approved schema
+change, plan approval 2026-08-19 — productDetails precedent); the
+fixed compliance order in TreatmentLayout gains the optional plaque
+between deck and intro.
+
+**Compliance record:** Operator wording decision (AskUserQuestion):
+bare claim + the Top-50 line, NO "Recognized by Evolus" kicker —
+consistent with 2026-07-21, where attributed wording was also
+declined. Exact sentences: "The Top Evolus Injector in Charlotte."
+and "And among the Top 50 in the United States." Verified first-hand
+against compliance/banned-patterns.json: neither sentence trips any
+category (bare "top" is not "top-rated"; "Top 50" carries no unit),
+so there is NO allowedStrings entry and NO banned-pattern change —
+a bare "top" pattern would false-positive ordinary copy, against the
+registry's own precision principle. Like the photo pixel-overrides,
+the claim is invisible to the linter, which is exactly why the
+authorization is recorded in CLAUDE.md constraint 3 and BUILD_SPEC
+§8.4 instead. The ranking appears ONLY in the plaque — never in meta
+descriptions, OG tags, alt text, or JSON-LD. clinicianApproved on
+wrinkle-relaxers is already false (2026-08-18 reset) and stays false;
+the plaque copy rides the consolidated pre-relaunch re-approval.
+
+**Alternatives rejected:** reusing the EvolusCallout noir-plate style
+(the client moved that exact object off this page the day before —
+regressive); a scrolling marquee (rejected on sight 2026-07-08); a
+foil background-clip sheen (trialed sitewide earlier and failed the
+axe gate — transparent fills are unauditable; ng-shimmer is the
+surviving engineered effect); full-bleed band (requires splitting the
+fixed-order article DOM); in-MDX placement (sits below the product
+cards — not an attention position).
+
+## 2026-08-19 — Laurel round 2: the Top-50 lockup
+
+**Context:** Client review of the PR #127 preview (screenshot with
+two arrows): the plaque reads well but the last line — and the "50"
+specifically — doesn't stand out. Measured cause: the stat line was
+13px tracked eyebrow caps, and Playfair's oldstyle figures drop the
+numeral below the caps line, making the one number that matters the
+weakest glyph on the plaque.
+
+**Decision:** The sentence becomes a stacked award lockup — "AND
+AMONG THE" (13px caps) / "Top 50" (display Playfair at the
+statement's own 39→49px clamp, display-accent + ng-shimmer) / "IN
+THE UNITED STATES." (13px caps). SAME WORDS, SAME ORDER — one
+paragraph, three block spans; typography only, the pinned wording is
+untouched (and with no allowlist entry there is no one-source-line
+requirement — the no-allowlist path's benefit). The plaque now has
+two breathing accent phrases — the two "Top" rank phrases — sharing
+one keyframe cycle so they glow in sync; if that reads busy on
+preview, dropping either to static is a one-line change (the
+recorded knob). Display scale also retires the oldstyle-figure droop.
+
+**Alternatives rejected:** merely enlarging the whole caps line (the
+complaint is hierarchy, not legibility — a louder caption is still a
+caption); putting "50" inside the laurel bowl as a crest numeral
+(duplicates the fact and leaves the sentence quiet — arrow 1 pointed
+at the line itself); lining figures via font-feature-settings (fixes
+the droop, ignores the standout ask).
+
+## 2026-08-19 — page title: "Neurotoxins - Wrinkle Relaxers"
+
+**Context:** Client direction (via operator): the wrinkle-relaxers
+page heading changes from "Wrinkle Relaxers" to "Neurotoxins -
+Wrinkle Relaxers" — extending the 2026-08-18 menu-line wording
+(serviceLines.ts, PR #123, verbatim incl. the hyphen) to the page
+itself. Menu card and page H1 now match exactly.
+
+**Decision:** The MDX `title` changes; it fans out automatically to
+the H1, the page breadcrumb, and the JSON-LD service + breadcrumb
+names ([slug].astro — verified consumers). `seo.title` keeps
+"Wrinkle Relaxers in Harrisburg & Charlotte, NC" deliberately: the
+search phrasing outperforms the clinical term, and the client's
+direction named the on-page heading. The §7 editorial normalize rule
+("neurotoxin" → "neuromodulator") is superseded for TITLE strings by
+the client's verbatim wording (the 2026-08-18 menu precedent); body
+copy still says "neuromodulator". "Neurotoxin" trips no banned
+pattern (verified — the rule was editorial, never a linter category).
+clinicianApproved already false; stays false; rides PR #127.
+
+## 2026-08-19 — card leads: "A prescription neurotoxin…"
+
+**Context:** Client direction (via operator), same review pass as the
+title change: the three wrinkle-relaxers product-card descriptions
+open with "A prescription neurotoxin…" instead of "…neuromodulator…".
+
+**Decision:** The three `productDetails.detail` strings change —
+nothing else. This further supersedes the §7 editorial normalize rule
+("neurotoxin" → "neuromodulator", 2026-07-21) for this page's card
+leads; BUILD_SPEC §7 amended in place. "Neurotoxin" trips no banned
+pattern (the rule was editorial, never a linter category). SCOPE
+NOTE, surfaced to the operator: the page body ("prescription
+neuromodulators…") and two FAQ answers still say "neuromodulator" —
+left as-is pending direction, so the page currently mixes terms.
+clinicianApproved already false; stays false; rides PR #127.
+
+## 2026-08-19 — FAQ question joins the neurotoxin wording
+
+**Context:** Client direction (via operator), same review pass: the
+FAQ question "Do men get neuromodulator treatments?" becomes "Do men
+get neurotoxin treatments?".
+
+**Decision:** The one FAQ `q` string changes. The mixed-terms note
+narrows: "neuromodulator" now remains only in the page body ("What
+they are") and the first FAQ answer ("All three are prescription
+neuromodulators…") — still surfaced for direction. Rides PR #127;
+clinicianApproved unchanged (false).
+
+## 2026-08-19 — wrinkle-relaxers goes neurotoxin page-wide
+
+**Context:** Client direction (via operator) closing the same review
+pass: the two remaining "neuromodulator" strings — the body intro and
+the first FAQ answer — flip too, "so everything matches."
+
+**Decision:** The page now says "neurotoxin" throughout (verified:
+zero "neuromodulator" left in the file). The §7 normalize rule is
+superseded PAGE-WIDE for wrinkle-relaxers (BUILD_SPEC §7 note
+updated); it stands for every other page. The mixed-terms caveat in
+the sign-off row retires. Rides PR #127; clinicianApproved unchanged
+(false).
+
+## 2026-08-19 — VisitSteps: MA chevron plates replace the numerals
+
+**Context:** Client direction (via operator, mockup steps.png in the
+repo root): the "Your visit, step by step" numerals (01–04) become
+the Mobile Aesthetics chevron block on small noir plates — the same
+four-chevron badge on every step, per the mockup.
+
+**Decision:** One-file component change. The chevron paths and the
+foil gradient are copied VERBATIM from the committed header mark
+(src/assets/brand/mobile-aesthetics-mark-header.svg — brand fidelity;
+MA is Amy's own PLLC, constraint 2 not engaged, DECISIONS
+2026-07-23). Badges are decorative inline SVG (aria-hidden, no SVG
+text; gradient ids indexed ma-foil-0…3 so no page carries duplicate
+ids). Non-visual parity: the retired CSS counter was announced by
+screen readers, so each step heading opens with an sr-only "Step N."
+Fan-out: all 12 treatment pages + the styleguide (pa11y re-audits
+all of them in verify). The /about milestones keep their numerals
+(career timeline — different object; tokens.css comment updated to
+name them as the display accent's remaining light-canvas consumer).
+
+**Alternatives rejected:** a progressive 1–4 chevron count per step
+(the mockup is explicit — the block is the brand mark, not a
+counter); reusing the whole header-mark SVG asset as an <img> (pulls
+the chrome wordmark and the plate frame along; the badge needs the
+chevrons alone at exact gradient fidelity).

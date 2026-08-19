@@ -4204,3 +4204,15 @@ NOTE, surfaced to the operator: the page body ("prescription
 neuromodulators…") and two FAQ answers still say "neuromodulator" —
 left as-is pending direction, so the page currently mixes terms.
 clinicianApproved already false; stays false; rides PR #127.
+
+## 2026-08-19 — FAQ question joins the neurotoxin wording
+
+**Context:** Client direction (via operator), same review pass: the
+FAQ question "Do men get neuromodulator treatments?" becomes "Do men
+get neurotoxin treatments?".
+
+**Decision:** The one FAQ `q` string changes. The mixed-terms note
+narrows: "neuromodulator" now remains only in the page body ("What
+they are") and the first FAQ answer ("All three are prescription
+neuromodulators…") — still surfaced for direction. Rides PR #127;
+clinicianApproved unchanged (false).

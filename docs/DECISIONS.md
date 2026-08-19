@@ -4188,3 +4188,19 @@ the client's verbatim wording (the 2026-08-18 menu precedent); body
 copy still says "neuromodulator". "Neurotoxin" trips no banned
 pattern (verified — the rule was editorial, never a linter category).
 clinicianApproved already false; stays false; rides PR #127.
+
+## 2026-08-19 — card leads: "A prescription neurotoxin…"
+
+**Context:** Client direction (via operator), same review pass as the
+title change: the three wrinkle-relaxers product-card descriptions
+open with "A prescription neurotoxin…" instead of "…neuromodulator…".
+
+**Decision:** The three `productDetails.detail` strings change —
+nothing else. This further supersedes the §7 editorial normalize rule
+("neurotoxin" → "neuromodulator", 2026-07-21) for this page's card
+leads; BUILD_SPEC §7 amended in place. "Neurotoxin" trips no banned
+pattern (the rule was editorial, never a linter category). SCOPE
+NOTE, surfaced to the operator: the page body ("prescription
+neuromodulators…") and two FAQ answers still say "neuromodulator" —
+left as-is pending direction, so the page currently mixes terms.
+clinicianApproved already false; stays false; rides PR #127.

@@ -30,6 +30,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   wording, verbatim incl. the hyphen — the 2026-08-18 menu line
   extended to the page). Fans out to H1, breadcrumbs, and JSON-LD;
   seo.title keeps the search phrasing (DECISIONS same date).
+- The three product-card leads open "A prescription neurotoxin…"
+  (client wording, same pass — further supersedes the §7 normalize
+  rule for this page's cards; body/FAQ copy unchanged pending
+  direction, DECISIONS same date).
 
 ### 2026-08-18 — Wrinkle-relaxers photo round; bare arches on every treatment page
 

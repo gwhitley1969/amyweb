@@ -33,17 +33,17 @@
 // knobs: the cubic's control points (sweep), the station list
 // (leaf spacing), and the length taper toward the tip.
 const [P0, P1, P2, P3] = [
-  [58, 41],
-  [40, 40],
-  [24, 30],
-  [16, 8],
+  [54, 40],
+  [32, 36],
+  [12, 22],
+  [16, 5],
 ];
 const at = (t: number, a: number, b: number, c: number, d: number) =>
   (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t ** 2 * c + t ** 3 * d;
 const dAt = (t: number, a: number, b: number, c: number, d: number) =>
   3 * (1 - t) ** 2 * (b - a) + 6 * (1 - t) * t * (c - b) + 3 * t ** 2 * (d - c);
 const leaves: string[] = [];
-for (const t of [0.16, 0.3, 0.44, 0.58, 0.72, 0.86]) {
+for (const t of [0.14, 0.3, 0.46, 0.62, 0.78, 0.92]) {
   const x = at(t, P0[0], P1[0], P2[0], P3[0]);
   const y = at(t, P0[1], P1[1], P2[1], P3[1]);
   const dx = dAt(t, P0[0], P1[0], P2[0], P3[0]);
@@ -51,12 +51,15 @@ for (const t of [0.16, 0.3, 0.44, 0.58, 0.72, 0.86]) {
   const m = Math.hypot(dx, dy);
   const [ux, uy] = [dx / m, dy / m];
   const [nx, ny] = [-uy, ux];
-  const len = 9 - 3.5 * t;
+  const len = 10.5 - 4 * t;
+  // Leaves LIE FORWARD along the branch (tip-ward, ~33 degrees off the
+  // stem) with a gentle outward bow — perpendicular leaves read as
+  // chain links, the first draft's failure.
   for (const s of [1, -1]) {
-    const qx = x + ux * len * 0.45 + s * nx * len * 0.75;
-    const qy = y + uy * len * 0.45 + s * ny * len * 0.75;
-    const ex = x + ux * len + s * nx * len * 0.35;
-    const ey = y + uy * len + s * ny * len * 0.35;
+    const qx = x + ux * len * 0.3 + s * nx * len * 0.65;
+    const qy = y + uy * len * 0.3 + s * ny * len * 0.65;
+    const ex = x + ux * len * 0.85 + s * nx * len * 0.55;
+    const ey = y + uy * len * 0.85 + s * ny * len * 0.55;
     leaves.push(
       `M${x.toFixed(1)} ${y.toFixed(1)} Q${qx.toFixed(1)} ${qy.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`,
     );
@@ -92,7 +95,7 @@ const stem = `M${P0[0]} ${P0[1]} C${P1[0]} ${P1[1]} ${P2[0]} ${P2[1]} ${P3[0]} $
   }
   .evolus-laurel__wreath path {
     stroke: var(--ng-pink-500);
-    stroke-width: 1.4;
+    stroke-width: 1.15;
     stroke-linecap: round;
   }
   .evolus-laurel__statement {

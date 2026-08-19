@@ -21,6 +21,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   precedent; DECISIONS same date). Placement rides a new
   frontmatter-gated layout slot (`evolusLaurel` — operator-approved
   schema change).
+- Round 2 same day (client arrows on the preview: the last line and
+  the "50" don't stand out): the sentence renders as a stacked
+  lockup — "Top 50" jumps to the statement's own display scale with
+  the synchronized shimmer, framed by the 13px caps. Same words,
+  same order; typography only (DECISIONS addendum same date).
 
 ### 2026-08-18 — Wrinkle-relaxers photo round; bare arches on every treatment page
 

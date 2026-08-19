@@ -4140,3 +4140,31 @@ axe gate — transparent fills are unauditable; ng-shimmer is the
 surviving engineered effect); full-bleed band (requires splitting the
 fixed-order article DOM); in-MDX placement (sits below the product
 cards — not an attention position).
+
+## 2026-08-19 — Laurel round 2: the Top-50 lockup
+
+**Context:** Client review of the PR #127 preview (screenshot with
+two arrows): the plaque reads well but the last line — and the "50"
+specifically — doesn't stand out. Measured cause: the stat line was
+13px tracked eyebrow caps, and Playfair's oldstyle figures drop the
+numeral below the caps line, making the one number that matters the
+weakest glyph on the plaque.
+
+**Decision:** The sentence becomes a stacked award lockup — "AND
+AMONG THE" (13px caps) / "Top 50" (display Playfair at the
+statement's own 39→49px clamp, display-accent + ng-shimmer) / "IN
+THE UNITED STATES." (13px caps). SAME WORDS, SAME ORDER — one
+paragraph, three block spans; typography only, the pinned wording is
+untouched (and with no allowlist entry there is no one-source-line
+requirement — the no-allowlist path's benefit). The plaque now has
+two breathing accent phrases — the two "Top" rank phrases — sharing
+one keyframe cycle so they glow in sync; if that reads busy on
+preview, dropping either to static is a one-line change (the
+recorded knob). Display scale also retires the oldstyle-figure droop.
+
+**Alternatives rejected:** merely enlarging the whole caps line (the
+complaint is hierarchy, not legibility — a louder caption is still a
+caption); putting "50" inside the laurel bowl as a crest numeral
+(duplicates the fact and leaves the sentence quiet — arrow 1 pointed
+at the line itself); lining figures via font-feature-settings (fixes
+the droop, ignores the standout ask).

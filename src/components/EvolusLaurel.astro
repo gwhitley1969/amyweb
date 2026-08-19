@@ -81,7 +81,15 @@ const stem = `M${P0[0]} ${P0[1]} C${P1[0]} ${P1[1]} ${P2[0]} ${P2[1]} ${P3[0]} $
     The <span class="display-accent ng-shimmer">Top Evolus Injector</span> in Charlotte.
   </p>
   <hr class="rule-accent ng-trace evolus-laurel__rule" />
-  <p class="eyebrow evolus-laurel__stat">And among the Top 50 in the United States.</p>
+  {/* Round 2 (client arrows on the preview, 2026-08-19): the sentence
+    * renders as a stacked lockup so the national rank reads at display
+    * scale — SAME WORDS, SAME ORDER, one paragraph; typography only.
+    * The pinned wording is unchanged (DECISIONS addendum same date). */}
+  <p class="evolus-laurel__stat">
+    <span class="evolus-laurel__stat-caps">And among the</span>
+    <span class="evolus-laurel__stat-rank display-accent ng-shimmer">Top 50</span>
+    <span class="evolus-laurel__stat-caps">in the United States.</span>
+  </p>
 </aside>
 
 <style>
@@ -115,6 +123,33 @@ const stem = `M${P0[0]} ${P0[1]} C${P1[0]} ${P1[1]} ${P2[0]} ${P2[1]} ${P3[0]} $
   }
   .evolus-laurel__stat {
     margin-top: 1.25rem;
-    text-wrap: balance;
+  }
+  /* The caps spans keep the eyebrow recipe (13px tracked caps on the
+   * noir kicker pink-300, 11.58:1); the rank span is the lockup's
+   * jewel — display scale with the same 39px shimmer floor as the
+   * statement. Both breathing phrases share one keyframe cycle, so
+   * they glow in sync; if that reads busy on preview, dropping either
+   * back to static is a one-line change. */
+  .evolus-laurel__stat-caps {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ng-kicker);
+  }
+  .evolus-laurel__stat-rank {
+    display: block;
+    margin-block: 0.375rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.4375rem, 5vw, 3.0625rem);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    /* Playfair's default oldstyle zero sits at x-height ("5o") — the
+     * exact droop the client's arrow touched. Lining figures put the
+     * numerals at full cap height. */
+    font-variant-numeric: lining-nums;
   }
 </style>

@@ -56,10 +56,12 @@ Evolus recognition plate + ICON film relocated from wrinkle-relaxers
 to /about (2026-08-18, her direction), the three new wrinkle-relaxers
 photos (2026-08-18, her picks), the treatment-page photo mats
 retired sitewide — every treatment photo now sits as a bare arch on
-the pink canvas (2026-08-18, her direction), and the Evolus Laurel
+the pink canvas (2026-08-18, her direction), the Evolus Laurel
 ranking plaque on wrinkle-relaxers (2026-08-19, her direction —
 "The Top Evolus Injector in Charlotte." + the Top-50 line, noir
-plaque between the deck and the product cards). Known defect queued for the same pass: `studio-wide.jpg` alt
+plaque between the deck and the product cards), and the "Your visit,
+step by step" numerals replaced by Mobile Aesthetics chevron plates
+on every treatment page (2026-08-19, her mockup). Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window — an MDX edit, so
 it ships inside the flag-resetting re-approval round (DECISIONS
 2026-08-17).

@@ -3,11 +3,34 @@
  * "Your visit, step by step" — the process walkthrough adopted from the
  * Mobbin review (docs/DECISIONS.md). Copy is process-only — nothing about
  * timing, frequency, regimens, or outcomes (CLAUDE.md hard constraint 3) —
- * and it routes decisions to the consultation. The numerals are real <ol>
- * markers rendered via CSS counter at display size — the one place
- * Playfair appears outside heading-2+, allowed because it is display-scale
- * (49px) per the type rules.
+ * and it routes decisions to the consultation.
+ *
+ * Step markers (client mockup steps.png, 2026-08-19): the display
+ * numerals retired in favor of the Mobile Aesthetics chevron block on
+ * small noir plates — the same four-chevron badge on every step, per
+ * the mockup. Chevron paths and the foil gradient are copied VERBATIM
+ * from src/assets/brand/mobile-aesthetics-mark-header.svg (brand
+ * fidelity; MA is Amy's own PLLC — constraint 2 not engaged, DECISIONS
+ * 2026-07-23). The badges are decorative (aria-hidden, no SVG text);
+ * gradient ids are indexed so no page carries duplicate ids (axe).
+ * Non-visual parity: the retired counter was announced by screen
+ * readers, so each h3 opens with an sr-only "Step N." — the <ol>
+ * semantics stand as before.
  */
+const FOIL_STOPS = [
+  ['0.00', '#fdaedb'],
+  ['0.13', '#fda6d8'],
+  ['0.38', '#fd78d4'],
+  ['0.63', '#e967b6'],
+  ['0.88', '#fc9ad6'],
+  ['1.00', '#fdaad9'],
+];
+const CHEVRONS = [
+  'M24.19 108.00 L42.19 108.00 L89.49 158.98 L42.16 210.00 L24.16 210.00 L71.49 158.98 Z',
+  'M84.99 108.00 L102.99 108.00 L150.28 158.98 L102.95 210.00 L84.95 210.00 L132.28 158.98 Z',
+  'M146.07 108.00 L164.07 108.00 L211.36 158.98 L164.04 210.00 L146.04 210.00 L193.36 158.98 Z',
+  'M207.02 108.00 L225.02 108.00 L272.32 158.98 L224.99 210.00 L206.99 210.00 L254.32 158.98 Z',
+];
 const steps = [
   {
     title: 'Book — or ask first',
@@ -32,10 +55,27 @@ const steps = [
   <h2 class="heading-3" id="visit-steps-title">Your visit, step by step</h2>
   <ol class="visit-steps__list mt-8" role="list">
     {
-      steps.map((s) => (
+      steps.map((s, i) => (
         <li class="visit-steps__step ng-rise">
+          <div class="visit-steps__badge" aria-hidden="true">
+            <svg viewBox="24.16 108 248.16 102" fill="none">
+              <defs>
+                <linearGradient id={`ma-foil-${i}`} gradientUnits="userSpaceOnUse" x1="24" y1="0" x2="271" y2="0">
+                  {FOIL_STOPS.map(([off, color]) => (
+                    <stop offset={off} stop-color={color} />
+                  ))}
+                </linearGradient>
+              </defs>
+              {CHEVRONS.map((d) => (
+                <path d={d} fill={`url(#ma-foil-${i})`} />
+              ))}
+            </svg>
+          </div>
           <div>
-            <h3 class="heading-4">{s.title}</h3>
+            <h3 class="heading-4">
+              <span class="sr-only">Step {i + 1}. </span>
+              {s.title}
+            </h3>
             <p class="mt-2">{s.body}</p>
           </div>
         </li>
@@ -46,14 +86,12 @@ const steps = [
 
 <style is:global>
   .visit-steps__list {
-    counter-reset: visit-step;
     list-style: none;
     padding: 0;
     display: grid;
     gap: 2rem;
   }
   .visit-steps__step {
-    counter-increment: visit-step;
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 1.25rem;
@@ -63,17 +101,20 @@ const steps = [
     border-top: 1px solid var(--ng-hairline);
     padding-top: 2rem;
   }
-  .visit-steps__step::before {
-    content: counter(visit-step, decimal-leading-zero);
-    font-family: var(--font-display);
-    font-size: 3.0625rem; /* 49px — display-size, the Playfair floor */
-    line-height: 1;
-    font-weight: 500; /* matches the softened display weights */
-    /* surface-scoped display accent — magenta on flat light surfaces
-     * (4.15 recorded), ink-900 on the ombre canvas where these sit
-     * mid-ramp and magenta washes out (tokens.css OMBRE CANVAS) */
-    color: var(--ng-display-accent);
-    min-width: 2ch;
+  /* The MA chevron plate — noir by design (the mark's own plate
+   * anatomy); decorative, so no contrast pair is engaged. Width sits
+   * near the retired numeral column's visual weight at display size. */
+  .visit-steps__badge {
+    background: var(--ng-noir);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    width: 7rem;
+    align-self: start;
+  }
+  .visit-steps__badge svg {
+    display: block;
+    width: 100%;
+    height: auto;
   }
   @media (max-width: 400px) {
     .visit-steps__step {

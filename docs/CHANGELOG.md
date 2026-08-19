@@ -34,6 +34,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   strings, and the body intro (client wording, same pass; the §7
   normalize rule is superseded page-wide here and stands everywhere
   else — DECISIONS same date).
+- "Your visit, step by step" numerals become Mobile Aesthetics
+  chevron plates (client mockup, same day) — the four-chevron foil
+  block from the committed header mark on small noir plates,
+  decorative with sr-only step numbers for parity. Fans out to all
+  12 treatment pages + the styleguide (DECISIONS same date).
 
 ### 2026-08-18 — Wrinkle-relaxers photo round; bare arches on every treatment page
 

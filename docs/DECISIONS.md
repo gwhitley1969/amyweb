@@ -4229,3 +4229,29 @@ superseded PAGE-WIDE for wrinkle-relaxers (BUILD_SPEC §7 note
 updated); it stands for every other page. The mixed-terms caveat in
 the sign-off row retires. Rides PR #127; clinicianApproved unchanged
 (false).
+
+## 2026-08-19 — VisitSteps: MA chevron plates replace the numerals
+
+**Context:** Client direction (via operator, mockup steps.png in the
+repo root): the "Your visit, step by step" numerals (01–04) become
+the Mobile Aesthetics chevron block on small noir plates — the same
+four-chevron badge on every step, per the mockup.
+
+**Decision:** One-file component change. The chevron paths and the
+foil gradient are copied VERBATIM from the committed header mark
+(src/assets/brand/mobile-aesthetics-mark-header.svg — brand fidelity;
+MA is Amy's own PLLC, constraint 2 not engaged, DECISIONS
+2026-07-23). Badges are decorative inline SVG (aria-hidden, no SVG
+text; gradient ids indexed ma-foil-0…3 so no page carries duplicate
+ids). Non-visual parity: the retired CSS counter was announced by
+screen readers, so each step heading opens with an sr-only "Step N."
+Fan-out: all 12 treatment pages + the styleguide (pa11y re-audits
+all of them in verify). The /about milestones keep their numerals
+(career timeline — different object; tokens.css comment updated to
+name them as the display accent's remaining light-canvas consumer).
+
+**Alternatives rejected:** a progressive 1–4 chevron count per step
+(the mockup is explicit — the block is the brand mark, not a
+counter); reusing the whole header-mark SVG asset as an <img> (pulls
+the chrome wordmark and the plate frame along; the badge needs the
+chevrons alone at exact gradient fidelity).

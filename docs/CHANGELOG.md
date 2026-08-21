@@ -15,14 +15,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
   stay). The aftercare wall sign's text is legible in the served file —
   shipped as-is under operator override after the compliance flag (the
   fourth photo override; DECISIONS same date).
-- A new "Before and After" section closes the body: three
-  client-supplied side-by-side photo pairs in bare 12px frames at a
-  30rem cap, with a "results vary" line — the site's first before/after
-  content, under operator override after the compliance flag (BUILD_SPEC
-  §1, §8.3, §8.9 and the lint:claims gate were each flagged). Releases
-  and HIPAA marketing authorizations for all five pictured people
-  confirmed on file; the heading's h2 source line is the seventh
-  allowlist authorization (the pattern itself untouched).
+- A new section, "They showed up for themselves", closes the body:
+  three client-supplied side-by-side photo pairs in bare 12px frames
+  at a 30rem cap, under an intro that carries the clients' consent and
+  every-plan-is-individual in copy and routes to a consultation — the
+  site's first before/after content, under operator override after the
+  compliance flag (BUILD_SPEC §1, §8.3, §8.9 and the lint:claims gate
+  were each flagged). Releases and HIPAA marketing authorizations for
+  all five pictured people confirmed on file. (Round 2, same day: the
+  original "Before and After" heading and its "results vary" line were
+  replaced at the operator's direction; the allowlist entry briefly
+  authorized for that heading was withdrawn.)
 - `clinicianApproved` reset on weight-loss (approved content edited —
   constraint 4); Amy re-reviews on the preview.
   `supervised-weigh-in.jpg` deleted (no other consumer).

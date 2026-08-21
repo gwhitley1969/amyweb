@@ -44,10 +44,11 @@ reasoning inline.
   curriculum topics in exact `<li>`-wrapped source form (fifth
   authorization, 2026-08-04 — the wrap binds each to one attribute-less
   source line and preserves the self-test's word boundary); and the
-  weight-loss page's h2 source line `## Before and After` (seventh
-  authorization, 2026-08-21 — heading-wrapped for the same boundary
-  reason, binding the exception to that one line; the phrase stays
-  banned everywhere else, alt text and comments included). One is
+  seventh (2026-08-21): the weight-loss page's original pairs-section
+  heading in h2 source form — authorized and withdrawn the same day
+  when the client changed the heading, so the list holds no entry for
+  it and the phrase is banned everywhere, alt text and comments
+  included. One is
   different in kind: **Biote's FDA disclaimer** (fourth authorization),
   which a regulator effectively requires. It names all four verbs the
   `disease-claims` category bans — that is what a disclaimer *is* — so the

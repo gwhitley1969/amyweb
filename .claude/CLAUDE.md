@@ -160,15 +160,17 @@ silently following it. Known superseded points from earlier briefs:
      served file —
      pixel content is invisible to lint:claims, which is why these
      exceptions are recorded here.
-     And the "Before and After" section on /services/weight-loss-glp-1
+     And the client photo-pairs section — "They showed up for
+     themselves" — on /services/weight-loss-glp-1
      (operator override after the compliance flag — DECISIONS
      2026-08-21; BUILD_SPEC §1 lists before/after galleries as not in
      v1 and §8.9 defers them by SOW — both carved out by this one
      exception): three client-supplied side-by-side photo pairs, the
-     site's first before/after content, with the heading's exact h2
-     source line enumerated in `allowedStrings` (seventh
-     authorization — the phrase stays banned everywhere else, alts and
-     comments included), a "results vary" disclosure line, and the
+     site's first before/after content. The allowlist entry briefly
+     authorized for its original heading was withdrawn the same day —
+     the phrase is banned everywhere, alts and comments included; the
+     intro carries the clients' consent and every-plan-is-individual
+     in copy and routes to a consultation; and the
      website-use releases + HIPAA marketing authorizations of all five
      pictured people confirmed on file (operator, 2026-08-21). Scope is
      exactly that section on that page; adding pairs, captions,

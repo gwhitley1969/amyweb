@@ -4890,3 +4890,49 @@ lists four photo overrides and this section; BUILD_SPEC §1, §7.1, §8.3,
 §8.9 and compliance/README are amended in the same PR. The disclosure
 line is copy the operator may reword; the alts and the "no numbers,
 dates, names" rule are not negotiable without a new flag.
+
+## 2026-08-21 — weight-loss round 2: the pairs section gets its real heading and intro; the seventh allowlist entry withdrawn
+
+**Context:** Operator feedback on the PR #136 preview: "Before and
+After" and the line "Photos shared with the permission of Amy's
+clients. Individual results vary." were flat; the section needed copy
+that is original, positive, and attention-grabbing. "Results" was
+floated.
+
+**Candidates offered (all gate-checked against the full registry and
+the voice rule):** (1) "They showed up for themselves" — credits the
+clients, not the clinic; (2) "Two photos, one story" — leads with the
+format; (3) "Results" — the operator's suggestion, advised against: it
+passes the gate as a bare word but is the regulator's trigger word for
+an efficacy claim and the generic label every competitor uses. Each
+came with an intro that does the old line's two jobs — consent ("chose
+to share") and individuality ("no two of these look alike") — inside
+the prose, and closes on the consultation route (the clinical-routing
+word).
+
+**Decision (operator):** heading **"They showed up for themselves"**;
+intro: "Two photos, one story — and each of these is a client who chose
+to share theirs. Different starting points, different plans, the same
+decision to begin. Every plan Amy writes is for one person, so no two
+of these look alike. Where yours would start is a consultation." No
+banned word (no results/proven/guarantee/testimonial/permanent/best; no
+before/after adjacency); no first-person plural; third-person Amy, the
+site's established mode.
+
+**The gate:** with the original heading gone, the seventh allowlist
+authorization (`## Before and After`, entered earlier the same day)
+had no consumer. An authorization nothing uses is a loophole, so the
+entry was removed — a tightening, authorized by the operator's approval
+of the round-2 plan (the registry rule: changing the list requires the
+human operator). `$allowlistComment` keeps the paragraph and records
+the withdrawal in place; the phrase is banned everywhere again, and
+`git grep` finds zero occurrences in `src/`. The self-test passed
+with the entry gone. The section's CONTENT override — the three client
+pairs, the releases + HIPAA record — is unchanged.
+
+**Consequences:** CLAUDE.md constraint 3, BUILD_SPEC §7.1/§8.3/§8.9,
+compliance/README, CHANGELOG, CLINICIAN-SIGN-OFF, and REDESIGN name the
+section by its heading and record the withdrawal. The intro is copy
+the operator may reword; any future wording keeps consent,
+individuality, and the consultation route, and never adds numbers,
+dates, names, or outcome words.

@@ -23,7 +23,7 @@ import { siteConfig } from '../lib/siteConfig';
  * their cache route still in config/swa/.
  */
 interface Props {
-  /** Public path to the MP4, e.g. "/media/evolysse-film.mp4" — rewritten
+  /** Public path to the MP4, e.g. "/media/evolus-icon.mp4" — rewritten
    * onto siteConfig.mediaBase at render (never edit the MDX side). */
   src: string;
   /** Poster frame — processed through astro:assets. */
@@ -38,7 +38,7 @@ interface Props {
 
 const { src: srcProp, poster, captionsSrc, label, caption } = Astro.props;
 
-// "/media/evolysse-film.mp4" -> "https://media.needlegirlie.com/evolysse-film.mp4"
+// "/media/evolus-icon.mp4" -> "https://media.needlegirlie.com/evolus-icon.mp4"
 const src = srcProp.startsWith('/media/')
   ? `${siteConfig.mediaBase}/${srcProp.slice('/media/'.length)}`
   : srcProp;

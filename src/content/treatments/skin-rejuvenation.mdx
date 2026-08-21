@@ -17,7 +17,7 @@ productDetails:
     priceLines: ["Starting at $180"]
 ctaType: consult
 pricingDisplay: consult
-clinicianApproved: true
+clinicianApproved: false
 draft: false
 faq:
   - q: "What is RF microneedling?"
@@ -40,7 +40,8 @@ seo:
 ---
 
 import { Image } from 'astro:assets';
-import pixel8Rf from '../../assets/photos/pixel8-rf.jpg';
+import amyPixel8Cart from '../../assets/photos/amy-pixel8-cart.jpg';
+import pixel8InHand from '../../assets/photos/pixel8-in-hand.jpg';
 
 ## What they are
 
@@ -53,10 +54,16 @@ designed to work with the skin's own renewal.
 
 <section class="media-row">
   <figure class="media-figure">
+    {/* Amy's pick (19a), photo round 2026-08-21 — replaces the interim
+      * docked-handpiece frame. Amy alone, no release needed. The console
+      * readout is legible in the served source and ships under the
+      * operator's override after the compliance flag (record + screening:
+      * DECISIONS same date, CLAUDE.md constraint 3). The layout's
+      * top-anchor crop override keeps the neon whole — see TreatmentLayout. */}
     <Image
-      src={pixel8Rf}
-      alt="The PiXel8-RF handpiece docked in its cradle in Amy's studio."
-      widths={[340, 452]}
+      src={amyPixel8Cart}
+      alt="Amy Palacios, FNP, stands beside the PiXel8-RF cart in her studio, one hand on the device console, beneath the Mobile Aesthetics neon sign."
+      widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
   </figure>
@@ -91,6 +98,9 @@ whether a peel or PiXel8-RF fits your skin better, is a consultation
 conversation, and the full peel menu is something Amy walks through in
 person.
 
+<section class="media-row media-row--flip">
+  <div class="media-copy">
+
 ## A longer view
 
 If the idea of building your skin's own collagen appeals (gradual change,
@@ -98,6 +108,21 @@ measured in months), PiXel8-RF shares that philosophy with another line
 Amy offers: [biostimulators](/services/biostimulators), from injectable
 Radiesse to PDO threads. The consultation is where the map gets drawn: one
 approach, a sequence, or an honest "not yet."
+
+  </div>
+  <figure class="media-figure">
+    {/* Amy's pick (19b), photo round 2026-08-21 — the same bytes as the
+      * repo's pixel8-in-hand.jpg (the /services menu-card frame, screened
+      * 2026-08-18), reused rather than duplicated. Amy alone, no release
+      * needed (DECISIONS 2026-08-21). */}
+    <Image
+      src={pixel8InHand}
+      alt="Amy Palacios, FNP, holds the PiXel8-RF handpiece, its needle tip toward the camera, with the device screen and the studio neon soft-focused behind."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+</section>
 
 ## Individualized, with Amy
 

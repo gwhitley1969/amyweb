@@ -143,8 +143,8 @@ silently following it. Known superseded points from earlier briefs:
      override with both client releases confirmed on file. (The fourth
      carousel film — the 2026-08-17 team film — contains no claims and
      needs no exception here; its override lives under constraint 2.)
-     And three photos (operator overrides after the compliance flags —
-     DECISIONS 2026-08-18): the /services hormone-optimization menu
+     And four photos (operator overrides after the compliance flags —
+     DECISIONS 2026-08-18 and 2026-08-21): the /services hormone-optimization menu
      card's photo (`biote-banner-scale.jpg`), in which the Biote
      banner's outcome-promise lines and symptom poster are legible,
      on a page carrying no Biote disclaimer; the /services
@@ -153,9 +153,29 @@ silently following it. Known superseded points from earlier briefs:
      site's own copy never names; and the /services/wrinkle-relaxers
      band photo (`jeuveau-banner-studio.jpg`), in which a Jeuveau
      banner's marketing headline and indication line are legible —
-     including vocabulary the site's own copy dropped 2026-07-30 —
+     including vocabulary the site's own copy dropped 2026-07-30; and
+     the /services/weight-loss-glp-1 row photo (`inbody-weigh-in-rear.jpg`,
+     DECISIONS 2026-08-21) — the same aftercare wall sign, its
+     competitor-brand title AND its results-timing line legible in the
+     served file —
      pixel content is invisible to lint:claims, which is why these
      exceptions are recorded here.
+     And the client photo-pairs section — "They showed up for
+     themselves" — on /services/weight-loss-glp-1
+     (operator override after the compliance flag — DECISIONS
+     2026-08-21; BUILD_SPEC §1 lists before/after galleries as not in
+     v1 and §8.9 defers them by SOW — both carved out by this one
+     exception): three client-supplied side-by-side photo pairs, the
+     site's first before/after content. The allowlist entry briefly
+     authorized for its original heading was withdrawn the same day —
+     the phrase is banned everywhere, alts and comments included; the
+     intro carries the clients' consent and every-plan-is-individual
+     in copy and routes to a consultation; and the
+     website-use releases + HIPAA marketing authorizations of all five
+     pictured people confirmed on file (operator, 2026-08-21). Scope is
+     exactly that section on that page; adding pairs, captions,
+     numbers, dates, names, or another page requires the human
+     operator.
      And the exact fragment "Amy has your best self in mind"
      enumerated in `allowedStrings` (operator override after the
      compliance flag — DECISIONS 2026-08-18; two compliant rephrases

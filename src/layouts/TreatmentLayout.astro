@@ -292,6 +292,15 @@ const crumbs = [
   .treatment-body .media-figure img[src*='amy-pixel8-cart'] {
     object-position: 50% 0%;
   }
+  /* First ASPECT use of the per-image knob (weight-loss, 2026-08-21):
+   * the InBody weigh-in frame is a 3:4 master with the head at the
+   * very top and the feet on the scale at the very bottom — a 4:5
+   * window must shed one or the other, and the scale IS the story.
+   * The arch runs 6% taller here and shows the full frame uncropped;
+   * the dome and hairline are unchanged. */
+  .treatment-body .media-figure img[src*='inbody-weigh-in-rear'] {
+    aspect-ratio: 3 / 4;
+  }
   /* Full-width band — a page's third media moment breaks the
    * alternating row rhythm with scale instead of a third zigzag
    * (taste-audit follow-up, 2026-07-25): one wide arch across the
@@ -379,5 +388,29 @@ const crumbs = [
     margin-top: 0;
     justify-self: center;
     width: min(18rem, 100%);
+  }
+  /* Side-by-side client photo pairs (weight-loss, 2026-08-21 — operator
+   * override, DECISIONS same date): full frames, never cropped or
+   * arched — a dome would clip the faces in the top corners and a
+   * cropped pair is an altered pair. They are NOT .media-figure, so
+   * the arch rule never reaches them; the frame is the bare film
+   * frame's recipe (hairline + 12px corners). The 30rem cap keeps every
+   * source at or above 2x the display width (retina rule). */
+  .treatment-body .pair-gallery {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: center;
+    margin-top: 1.5rem;
+  }
+  .treatment-body .pair-gallery figure {
+    margin: 0;
+    width: min(30rem, 100%);
+  }
+  .treatment-body .pair-gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--ng-magenta-600);
+    border-radius: 12px;
   }
 </style>

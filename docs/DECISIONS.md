@@ -5147,3 +5147,14 @@ heading 1.125rem/600 in ink-pink over an ink-pink rule (4.60:1 on the
 card plate — the operator-accepted in-box pair) → item name 1rem/500,
 indented under its heading (1rem on desktop, 0.75rem on phones) → area
 note 0.875rem. Prices keep 1.0625rem so the figures still lead the row.
+
+**Addendum 3, same day — the "name Amy uses on her menu" clause.** The
+operator struck it from both places it appeared ("What they are" and the
+first FAQ answer): it read as if Amy had coined the category name, when
+"laser treatments" is simply what this family of light- and energy-based
+work is called. The physics sentences — the 2026-07-22 mitigation for
+the line title — stay exactly as they were; only the attribution clause
+goes. Two other pages describe Amy's menu in a different sense
+(body-contouring: "Amy lists it on her menu exactly as…"; iv-therapy:
+"Amy's menu is short and named plainly") — reported to the operator,
+not changed here (approved content; edits reset flags).

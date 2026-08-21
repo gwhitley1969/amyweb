@@ -43,6 +43,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   Round 3: a three-level type ladder (title → ink-pink group heading →
   indented, lighter item names) so packages read as children of their
   heading, not peers.
+- Copy: the "name Amy uses on her menu" clause removed from "What they
+  are" and the first FAQ answer (it implied she coined the category
+  name); the physics statements stand.
 
 ### 2026-08-21 — Weight loss: the InBody frame from behind; a "Before and After" section
 

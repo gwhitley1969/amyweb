@@ -1,29 +1,59 @@
 ---
 title: Laser Treatments
 line: laser-treatments
-summary: "Venus Versa Pro, a device platform working with intense pulsed light and radiofrequency energy, across three applications: skin resurfacing, photo-rejuvenation, and fine-line treatment."
-deck: "One platform, three technologies: light and energy, matched to your skin in consultation."
+summary: "Venus Versa Pro, a device platform working with intense pulsed light and radiofrequency energy, across three applications — skin resurfacing, photo-rejuvenation, and fine-line treatment — plus Venus Epileve laser hair removal, priced by area."
+deck: "One platform, three technologies, and a laser for hair removal: light and energy, matched to your skin."
 products:
   - "NanoFractional RF skin resurfacing"
   - "IPL photo-rejuvenation"
   - "Multi-polar RF with PEMF"
+  - "Venus Epileve laser hair removal"
+# Prices (2026-08-21) transcribed from Amy's two Mobile Aesthetics pricing
+# flyers — view-only sources, never committed; only names, areas, and
+# prices transfer (DECISIONS 2026-08-21). Item names are flyer-verbatim at
+# the operator's direction; a series price is a unit of sale, never a
+# recommended count (the body-contouring "course of six" form).
 productDetails:
   - name: "NanoFractional RF Resurfacing"
     tag: "RF resurfacing"
     detail: "Tiny pins deliver radiofrequency energy through the skin's surface to the layers beneath, designed to improve the appearance of wrinkles, enlarged pores, uneven texture, and scarring."
+    priceLines:
+      - "Face: $500 single · $1,400 for a series of three"
+      - "Neck: $400 single · $1,200 for a series of three"
+      - "Face & Neck: $900 single · $2,500 for a series of three"
   - name: "IPL Photo-Rejuvenation"
     tag: "Intense pulsed light"
     detail: "Pulses of light aimed at pigment and visible vessels, paired with real-time cooling, designed to improve the appearance of sun damage, brown spots, small capillaries, and redness."
+    priceLines:
+      - "Full Face: $300"
+      - "Neck: $200"
+      - "Décolleté (Low Neck-Line): $300"
+      - "Face, neck and chest: $800"
+      - "Hands: $250"
+      - "Isolated Lesion (up to 3): $150"
   - name: "Multi-Polar RF + PEMF"
     tag: "Fine lines"
     detail: "Multi-polar radiofrequency paired with pulsed electromagnetic fields, applied across the skin's surface: an FDA-cleared applicator designed to soften the appearance of facial fine lines and wrinkles."
+    priceLines:
+      - "Full Face, 30 Minutes Treatment: $250"
+      - "Neck, 20 Minutes Treatment: $200"
+      - "Under Eye & Brow Lift, 12 Minutes Treatment: $150"
+      - "Eye Laxity, 10 Minutes Treatment: $100"
+  - name: "Venus Epileve Laser Hair Removal"
+    tag: "Laser"
+    detail: "A laser for hair removal, priced by treatment area as a single treatment or a series of six; the areas and packages are listed below, and it can be booked directly."
+    priceLines:
+      - "Single treatment: Small $117 · Medium $180 · Large $240 · Extra-Large $300"
+      - "Full series of six: about 15% off — full price sheet below"
 ctaType: consult
 pricingDisplay: consult
-clinicianApproved: true
+# Reset 2026-08-21: approved content edited (pricing + the Epileve
+# section + three photos) — constraint 4. Amy re-reviews on the preview.
+clinicianApproved: false
 draft: false
 faq:
   - q: "Is this actually a laser?"
-    a: "The category usually goes by that name, and it's the name Amy uses on her menu. The Venus Versa Pro platform works with intense pulsed light and radiofrequency energy: light- and energy-based technologies in the laser's close family. What matters in practice is matching the right applicator to your skin, which is what the consultation is for."
+    a: "Partly. The Venus Versa Pro platform works with intense pulsed light and radiofrequency energy — light- and energy-based technologies in the laser's close family. Hair removal is the exception: the Venus Epileve is a laser. What matters in practice is matching the right applicator to your skin, which is what the consultation is for."
   - q: "What is IPL?"
     a: "Intense pulsed light: brief pulses of broad-spectrum light aimed at pigment and visible vessels near the skin's surface, delivered while the applicator cools the skin in real time."
   - q: "What does a treatment feel like?"
@@ -31,25 +61,33 @@ faq:
   - q: "Does it work on darker skin tones?"
     a: "The resurfacing applicator is designed for all skin types, including darker tones. Whether any of the three applications suits your skin is decided with Amy at a consultation."
   - q: "How many treatments will I need?"
-    a: "That depends on your skin and your goals. It's planned individually with Amy at a consultation, and adjusted along the way."
+    a: "That depends on your skin and your goals. It's planned individually with Amy at a consultation, and adjusted along the way. Series pricing is a way to buy, not a prescription: whether a single treatment or a series suits you is decided with Amy."
   - q: "Can I book a laser treatment directly?"
-    a: "This line starts with a consultation, free as always, so the right applicator and plan can be settled before anything is scheduled."
+    a: "Laser hair removal, yes — choose your area and book with Amy. The three Venus Versa Pro applications start with a consultation, free as always, so the right applicator and plan can be settled before anything is scheduled."
   - q: "Who performs the treatment?"
     a: "Amy Palacios, FNP, a licensed family nurse practitioner. Every appointment is with Amy herself."
 seo:
-  title: "Laser Treatments in Harrisburg & Charlotte, NC | Needle Girlie"
-  description: "Venus Versa Pro treatments with Amy Palacios, FNP, in Harrisburg, NC: intense pulsed light and radiofrequency energy for the appearance of skin tone and texture. This line starts with a consultation."
+  title: "Laser Treatments & Laser Hair Removal in Harrisburg, NC | Needle Girlie"
+  description: "Venus Versa Pro treatments and Venus Epileve laser hair removal with Amy Palacios, FNP, in Harrisburg, NC: intense pulsed light, radiofrequency energy, and laser hair removal, priced by treatment area."
 ---
 
 import { Image } from 'astro:assets';
-import venusVersaPro from '../../assets/photos/venus-versa-pro.jpg';
+import CTAButton from '../../components/CTAButton.astro';
+import PriceSheet from '../../components/PriceSheet.astro';
+import amyVersaProConsole from '../../assets/photos/amy-versa-pro-console.jpg';
+import versaProApplicatorsChair from '../../assets/photos/versa-pro-applicators-chair.jpg';
+import amyEpileveWindow from '../../assets/photos/amy-epileve-window.jpg';
 
 <section class="media-row">
   <figure class="media-figure">
+    {/* Amy's pick 21a, photo round 2026-08-21 (screening record in
+      * DECISIONS same date; Amy alone — no release). Replaced the
+      * 2026-08-04 console snapshot, which was below delivery resolution.
+      * The applicator-tip cartons on the chair carry pack markings only. */}
     <Image
-      src={venusVersaPro}
-      alt="The Venus Versa Pro platform in Amy's Harrisburg studio."
-      widths={[340, 420]}
+      src={amyVersaProConsole}
+      alt="Amy Palacios, FNP, beside the Venus Versa Pro platform in her Harrisburg studio, beneath the Mobile Aesthetics neon."
+      widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
   </figure>
@@ -58,12 +96,12 @@ import venusVersaPro from '../../assets/photos/venus-versa-pro.jpg';
 ## What they are
 
 "Laser treatments" is the name this whole family of light- and energy-based
-skin work usually goes by, and it's the name Amy uses on her menu. The device
-behind it is precise about what it actually sends into the skin: **Venus
-Versa Pro**, a platform whose applicators work with intense pulsed light and
-radiofrequency energy, close relatives of the laser, each shaped to a
-different job. One platform, three distinct applications: skin resurfacing,
-photo-rejuvenation, and fine-line treatment.
+skin work usually goes by. The device behind it is precise about what it
+actually sends into the skin: **Venus Versa Pro**, a platform whose
+applicators work with intense pulsed light and radiofrequency energy, close
+relatives of the laser, each shaped to a different job. One platform, three distinct applications: skin resurfacing,
+photo-rejuvenation, and fine-line treatment. Alongside the platform sits one
+true laser, the Venus Epileve, used for hair removal.
 
   </div>
 </section>
@@ -86,6 +124,9 @@ small capillaries, redness and discoloration. The skin is cooled in real time
 while the light is delivered; comfort is designed into the applicator, not
 added afterward.
 
+<section class="media-row media-row--flip">
+  <div class="media-copy">
+
 ## Fine lines
 
 The third application pairs two energies in one FDA-cleared applicator:
@@ -94,13 +135,114 @@ fields, a pairing the manufacturer calls (MP)². Nothing enters the skin; the
 applicator is passed across the surface, and the treatment is designed to
 soften the appearance of facial fine lines and wrinkles.
 
+  </div>
+  <figure class="media-figure">
+    {/* Amy's pick 21b, photo round 2026-08-21 (screening record in
+      * DECISIONS same date; Amy alone — no release; the console screen
+      * is idle and the background cart is out of focus). */}
+    <Image
+      src={versaProApplicatorsChair}
+      alt="Amy Palacios, FNP, seated in the treatment chair holding two Venus Versa Pro applicators."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+</section>
+
+<section class="media-row">
+  <figure class="media-figure">
+    {/* Amy's pick 21d, photo round 2026-08-21: ships as-is under the
+      * §8.1 pixel-level override (operator decision after the compliance
+      * flag — DECISIONS 2026-08-21, CLAUDE.md constraint 3): the device
+      * console's settings readout is legible in the served source. No
+      * value from that readout is ever restated in text — copy, alt,
+      * comments, meta. Amy alone — no release. */}
+    <Image
+      src={amyEpileveWindow}
+      alt="Amy Palacios, FNP, at her studio window with the Venus Epileve handpiece in hand."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+  <div class="media-copy">
+
+## Laser hair removal
+
+Hair removal is the one service on this page that uses a laser: the Venus
+Epileve. It's priced by area — a single treatment or a series of six — and,
+unlike the Versa Pro applications, it can be booked directly.
+
+  </div>
+</section>
+
+{/* Every price on Amy's Epileve pricing guide (2026-08-21), laid out as
+  * her guide lays it out — three columns: single, full series of six, and
+  * the full series at its ~15% discount. Names and areas verbatim at the
+  * operator's direction; a series is a unit of sale, never a recommended
+  * count. Round 2 of the same day replaced a prose list with this sheet
+  * after the operator's preview review (DECISIONS 2026-08-21). */}
+
+<PriceSheet
+  title="Laser hair removal pricing"
+  columns={['Single', 'Full series · 6 treatments', 'Full series · ~15% off']}
+  groups={[
+    {
+      heading: 'Treatment areas',
+      rows: [
+        {
+          name: 'Small Areas — Spot Treatment',
+          note: 'Underarms, Bikini Lines, Hands, Feet; or bundle: Chin, Upper Lip, Sideburns',
+          prices: ['$117', '$702', '$574'],
+        },
+        {
+          name: 'Medium Areas',
+          note: 'Full Bikini, Buttocks, Upper or Lower Legs/Arms, Full Face, Full Beard, Full Neck',
+          prices: ['$180', '$1,080', '$891'],
+        },
+        {
+          name: 'Large Areas',
+          note: 'Abdomen, Chest, Upper Back with Shoulders, Lower Back, Brazilian Bikini',
+          prices: ['$240', '$1,440', '$1,188'],
+        },
+        {
+          name: 'Extra-Large Areas',
+          note: 'Full Chest with Abdomen, Full Back, Full Arms with Underarms, Full Legs, Full Brazilian',
+          prices: ['$300', '$1,800', '$1,485'],
+        },
+      ],
+    },
+    {
+      heading: "Women's packages",
+      rows: [
+        { name: 'Brazilian Bikini and Underarms', prices: ['$240', '$1,440', '$1,188'] },
+        { name: 'Full Brazilian and Full Leg', prices: ['$540', '$3,240', '$2,673'] },
+        { name: 'Full Body', prices: ['$960', '$5,760', '$4,752'] },
+      ],
+    },
+    {
+      heading: "Men's packages",
+      rows: [
+        { name: 'Full Chest and Upper Back with Shoulders', prices: ['$420', '$2,520', '$2,079'] },
+        { name: 'Full Back, Full Chest and Abdomen', prices: ['$540', '$3,240', '$2,673'] },
+        { name: 'Full Body', prices: ['$1,200', '$7,200', '$5,940'] },
+      ],
+    },
+  ]}
+  footnote="A full series is six treatments; the discounted series is about 15% off six singles. Whether a single treatment or a series suits you is decided with Amy."
+/>
+
+<div class="mt-6">
+  <CTAButton variant="book" />
+</div>
+
 ## Three tools, one conversation
 
 Which applicator fits (resurfacing, light, or the fine-line pairing; one of
 them, a sequence, or none) is a consultation decision, not a menu pick. Amy
 also offers [PiXel8-RF microneedling](/services/skin-rejuvenation) on her
 skin-rejuvenation line; where the two overlap, the consultation decides which
-tool suits your skin — or whether the honest answer is neither.
+tool suits your skin — or whether the honest answer is neither. Laser hair
+removal is the simpler case: choose the area and book.
 
 ## Individualized, with Amy
 

@@ -29,7 +29,7 @@ investigationalProduct: "Retatrutide"
 # 2026-07-21 — DECISIONS). Must keep "not FDA-approved" intact on one line.
 investigationalNote: "Retatrutide is an investigational medication and is not FDA-approved — Amy covers what that means during your consultation."
 pricingDisplay: consult
-clinicianApproved: true
+clinicianApproved: false
 draft: false
 faq:
   - q: "What's the difference between Semaglutide, Tirzepatide, and Retatrutide?"
@@ -44,8 +44,11 @@ seo:
 ---
 
 import { Image } from 'astro:assets';
-import weighIn from '../../assets/photos/supervised-weigh-in.jpg';
+import inbodyWeighInRear from '../../assets/photos/inbody-weigh-in-rear.jpg';
 import amyPortrait from '../../assets/photos/amy-palacios-fnp.jpg';
+import clientPairCouple from '../../assets/photos/client-pair-couple.png';
+import clientPairFriends from '../../assets/photos/client-pair-friends.png';
+import clientPairPortrait from '../../assets/photos/client-pair-portrait.png';
 
 ## What it is
 
@@ -77,9 +80,16 @@ with you in consultation, with your history in front of her.
 
 <section class="media-row">
   <figure class="media-figure">
+    {/* Operator's pick (23a), photo round 2026-08-21 — the InBody client
+      * from behind, release on file (2026-08-18 record). Derived upright
+      * from the EXIF-rotated master at the shoot-file class. The wall
+      * sign's text is legible in the served file and ships under the
+      * operator's override after the compliance flag (DECISIONS same
+      * date, CLAUDE.md constraint 3). The layout's per-image 3:4 knob
+      * shows the full frame — head and feet on the scale. */}
     <Image
-      src={weighIn}
-      alt="A client stands on a body-composition scale during a supervised weigh-in at the studio."
+      src={inbodyWeighInRear}
+      alt="A client stands on the InBody body-composition scale at the studio, seen from behind, with the treatment lounge beyond."
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
@@ -94,3 +104,51 @@ for a free consultation first, whichever you prefer.
 
   </div>
 </section>
+
+{/* Client-supplied side-by-side photo pairs (client direction 2026-08-21),
+  * shipped under the operator's override after the compliance flag —
+  * the record and the releases (website-use release + HIPAA marketing
+  * authorization confirmed on file for all five pictured people,
+  * operator 2026-08-21) are in DECISIONS same date and CLAUDE.md
+  * constraint 3. Heading + intro are the operator's round-2 choice
+  * (same day): the intro carries the clients' consent and
+  * every-plan-is-individual in copy and routes to a consultation. The
+  * heading carries no banned phrase; the banned pairing of the two
+  * time words must still never appear in this file — alts and
+  * comments say "pair". Alts describe the pixels only: no numbers,
+  * dates, or names. Full frames, never cropped or arched
+  * (TreatmentLayout .pair-gallery). */}
+
+## They showed up for themselves
+
+Two photos, one story — and each of these is a client who chose to
+share theirs. Different starting points, different plans, the same
+decision to begin. Every plan Amy writes is for one person, so no two
+of these look alike. Where yours would start is a consultation.
+
+<div class="pair-gallery">
+  <figure>
+    <Image
+      src={clientPairCouple}
+      alt="Two photos of a couple, shared with their permission: on the left, standing by a truck on a wooded lane; on the right, on a brick porch in summer clothes."
+      widths={[480, 960]}
+      sizes="(max-width: 34rem) 92vw, 30rem"
+    />
+  </figure>
+  <figure>
+    <Image
+      src={clientPairFriends}
+      alt="Two photos of two women, shared with their permission: on the left, dressed for a wedding; on the right, in a backyard in summer clothes."
+      widths={[480, 960]}
+      sizes="(max-width: 34rem) 92vw, 30rem"
+    />
+  </figure>
+  <figure>
+    <Image
+      src={clientPairPortrait}
+      alt="Two photos of a woman, shared with her permission: on the left, at a restaurant table wearing mouse ears; on the right, a close portrait in glasses."
+      widths={[480, 960]}
+      sizes="(max-width: 34rem) 92vw, 30rem"
+    />
+  </figure>
+</div>

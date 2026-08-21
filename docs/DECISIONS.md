@@ -4780,3 +4780,381 @@ a page outside the LHCI set; the film streams from Blob only on play
 (egress pennies). RELAUNCH's launch-day probes gain the film and the
 autoplay check on this page. No CLAUDE.md change — nothing here is an
 exception.
+
+## 2026-08-21 — weight-loss: the 23a weigh-in frame and the "Before and After" section (two operator overrides)
+
+**Context:** Client direction via the operator (2026-08-21) on
+/services/weight-loss-glp-1: (1) replace the photo left of
+"Individualized, with Amy" (`supervised-weigh-in.jpg`, the page's only
+consumer) with `C:\Amy\New Pics\23a.jpeg`; (2) add a new section
+"Before and After" after that row, holding `glp1.png`, `glp2.png`,
+`glp3.png`. The page was `clinicianApproved: true` (2026-08-05) → reset
+in the content commit (constraint 4). Work isolated in the dermal-fillers
+worktree on its own branch.
+
+**What was verified first-hand.** 23a: 5712×4284 iPhone JPEG, EXIF
+orientation 6 → upright 4284×5712 (3:4); new to the repo. The same
+grey-haired client as the outgoing frame, from behind on the InBody
+scale, no face. The aftercare wall sign beside her is fully legible:
+the competitor neuromodulator brand title in large type (the very sign
+behind the 2026-08-18 menu-card override) and its aftercare lines,
+including "RESULTS TAKE 10-14 DAYS" — a results-timeline line. Because
+astro:assets serves the source-resolution derivative as the `<img src>`,
+the committed 1200px file keeps all of it legible. glp1 1290×1167,
+glp2 990×766, glp3 964×905 — phone-screenshot PNGs, each a side-by-side
+pair of personal photos of identifiable private people: a couple; two
+women; one woman. No text or numbers in any of them.
+
+**Flag 1 — the section (raised once, four points):** BUILD_SPEC §1
+lists before/after galleries as explicitly NOT in v1 and §8.9 defers
+before/after content by the SOW (a scope/contract matter as much as a
+compliance one); §8.3 and CLAUDE.md constraint 3 ban before/after
+implications outright, §7.1 bans weight-loss numbers on this line, and
+this log's 2026-07-22 body-contouring entry refused even body imagery
+for reading as before/after; `lint:claims` bans the literal phrase, so
+the heading itself fails the gate and the only sanctioned route is an
+operator-authorized `allowedStrings` entry (a gate-config change);
+the pictured people are identifiable (faces, tattoos; companions in two
+pairs), so each needs a written website-use release AND a HIPAA
+marketing authorization; a weight-loss before/after gallery on a page
+selling compounded GLP-1 vials beside an investigational product is the
+content class FDA/FTC warning letters have targeted; and the images are
+964–1290px, below the retina rule for a full-width slot. Recommended
+path: ship the photo swap now and hold the section for counsel review
+and the releases. **Operator decision: build it now under override.**
+Two further confirmations were then obtained and are the record:
+**(a) all five pictured people's website-use releases and HIPAA
+marketing authorizations are on file (operator, 2026-08-21); (b) the
+operator explicitly authorized the allowlist entry.** The SOW deferral
+is the operator's document to amend; flagged, not drafted here.
+
+**Flag 2 — the 23a sign:** the competitor-brand title (the 2026-08-18
+precedent) now joined by a legible results-timing line; a crop that
+removes the sign loses her head or her feet. Recommended a server-side
+defocus of the sign region; **operator decision: ship as-is** — the
+fourth photo-level override under the claims bullet. Release: the
+InBody client's, confirmed on file 2026-08-18 (same person; the
+operator did not correct the stated assumption).
+
+**Decision — the gate.** `allowedStrings` gains the exact h2 source
+line `## Before and After` (seventh authorization). Heading-wrapped for
+the same mechanical reason as the fifth: the banned word is
+string-initial, and the self-test's digit-prefix near-miss proof
+(`1## Before and After` must still trip) needs the non-word `#`
+boundary; the wrap also binds the exception to one attribute-less h2
+source line. The `outcome-promises` pattern is untouched; the phrase
+stays banned everywhere else in `src/` — alts, comments, identifiers,
+and layout comments all say "pair" / "side by side" (verified by grep:
+the heading line is the phrase's only occurrence). The self-test passed
+with the entry in place.
+
+**Decision — the page.**
+- 23a re-derived from the master (the B9 precedent): sharp `.rotate()`
+  (EXIF-normalize) → 1200×1600 (3:4 exact, no crop) → JPEG q92 →
+  `inbody-weigh-in-rear.jpg`. Alt describes the scene only — no readout,
+  no numbers. The 4:5 arch window would shed head or feet (head at
+  ~1.5%, feet on the scale at ~98%) and the scale is the story, so the
+  layout's per-image knob gets its first ASPECT use: `aspect-ratio:
+  3 / 4` for this frame — the arch runs 6% taller and shows the full
+  frame; dome and hairline unchanged.
+- The section: `## Before and After`, one disclosure line ("Photos
+  shared with the permission of Amy's clients. Individual results
+  vary." — the minimum responsible framing for the override; passes the
+  gate), then a `.pair-gallery` of three figures. Full frames, never
+  cropped or arched (a dome would clip the faces in the top corners; a
+  cropped pair is an altered pair): NOT `.media-figure`, so the arch
+  rule never reaches them; the bare film frame's recipe (magenta
+  hairline + 12px corners); stacked and centred at `min(30rem, 100%)`,
+  which keeps every source at or above 2× (964px = 2.0×) — no retina
+  override; tiers `[480, 960]` never upscale. Assets content-named
+  `client-pair-couple.png`, `client-pair-friends.png`,
+  `client-pair-portrait.png` (byte copies). Alts name people, setting,
+  and clothing on the left and right — no numbers, dates, names, or
+  the banned phrase.
+- `supervised-weigh-in.jpg` removed (no other consumer; git history
+  keeps it). `amy-palacios-fnp.jpg` (row 1) and the /services card
+  untouched.
+
+**Alternatives rejected:** holding the section for counsel and the
+releases (recommended; operator chose to ship); a heading without the
+banned adjacency (the client's wording was kept under the allowlist
+route); a 3-up grid (each pair would render ~14rem — faces unreadable
+and far below the retina rule); a full-width gallery (below the retina
+rule at every source); defocusing the 23a sign (declined); cropping it
+out (loses head or feet).
+
+**Consequences:** the site carries before/after content for the first
+time, on one page, in one section, under a recorded operator override
+— any extension is a fresh flag. Constraint-3's claims bullet now
+lists four photo overrides and this section; BUILD_SPEC §1, §7.1, §8.3,
+§8.9 and compliance/README are amended in the same PR. The disclosure
+line is copy the operator may reword; the alts and the "no numbers,
+dates, names" rule are not negotiable without a new flag.
+
+## 2026-08-21 — weight-loss round 2: the pairs section gets its real heading and intro; the seventh allowlist entry withdrawn
+
+**Context:** Operator feedback on the PR #136 preview: "Before and
+After" and the line "Photos shared with the permission of Amy's
+clients. Individual results vary." were flat; the section needed copy
+that is original, positive, and attention-grabbing. "Results" was
+floated.
+
+**Candidates offered (all gate-checked against the full registry and
+the voice rule):** (1) "They showed up for themselves" — credits the
+clients, not the clinic; (2) "Two photos, one story" — leads with the
+format; (3) "Results" — the operator's suggestion, advised against: it
+passes the gate as a bare word but is the regulator's trigger word for
+an efficacy claim and the generic label every competitor uses. Each
+came with an intro that does the old line's two jobs — consent ("chose
+to share") and individuality ("no two of these look alike") — inside
+the prose, and closes on the consultation route (the clinical-routing
+word).
+
+**Decision (operator):** heading **"They showed up for themselves"**;
+intro: "Two photos, one story — and each of these is a client who chose
+to share theirs. Different starting points, different plans, the same
+decision to begin. Every plan Amy writes is for one person, so no two
+of these look alike. Where yours would start is a consultation." No
+banned word (no results/proven/guarantee/testimonial/permanent/best; no
+before/after adjacency); no first-person plural; third-person Amy, the
+site's established mode.
+
+**The gate:** with the original heading gone, the seventh allowlist
+authorization (`## Before and After`, entered earlier the same day)
+had no consumer. An authorization nothing uses is a loophole, so the
+entry was removed — a tightening, authorized by the operator's approval
+of the round-2 plan (the registry rule: changing the list requires the
+human operator). `$allowlistComment` keeps the paragraph and records
+the withdrawal in place; the phrase is banned everywhere again, and
+`git grep` finds zero occurrences in `src/`. The self-test passed
+with the entry gone. The section's CONTENT override — the three client
+pairs, the releases + HIPAA record — is unchanged.
+
+**Consequences:** CLAUDE.md constraint 3, BUILD_SPEC §7.1/§8.3/§8.9,
+compliance/README, CHANGELOG, CLINICIAN-SIGN-OFF, and REDESIGN name the
+section by its heading and record the withdrawal. The intro is copy
+the operator may reword; any future wording keeps consent,
+individuality, and the consultation route, and never adds numbers,
+dates, names, or outcome words.
+## 2026-08-21 — laser-treatments: the priced menu, Venus Epileve laser hair removal, and photo round page 8
+
+**Context:** Client direction via the operator, two messages the same
+morning. First, three photo placements on /services/laser-treatments:
+her pick 21a replaces the 2026-08-04 `venus-versa-pro.jpg` console
+snapshot beside "What they are" (420×604 — the weakest asset left on the
+site, 0.73–0.77× at DPR 2 in every slot); 21b joins "Fine lines" to the
+right of its copy; 21d joins the page. Second, two Mobile Aesthetics
+pricing flyers in `C:\Amy\New Pics` — `Laser_Hair.jpg` (Venus Epileve
+"LASER Hair Removal" pricing guide) and `Venus_Versa_Pro.jpg` (Venus
+Versa Pro pricing) — whose services and prices go on the page; the JPGs
+do not. That resolves `{{VENUS_VERSA_MENU}}` (open since 2026-07-22) and
+adds a FOURTH service to the line: Venus Epileve laser hair removal — a
+true laser on a page whose copy has been careful that the Versa Pro is
+IPL + RF, "close relatives of the laser."
+
+**The flyers are view-only sources** (constraint-8 class — the
+2026-07-22 brochure precedent): never committed, never linked; only
+service names, areas, and prices transfer. The Versa flyer's marketing
+copy — "minimal downtime and maximum results", "Safe and effective",
+"clinically proven", the "Improves / Reduces / Tightens / Lifts" bullet
+lists, "rosacea", "more youthful skin", the "BEST FOR:" blocks — is
+prohibited §8 content and enters no file; the build is grepped for that
+vocabulary (zero hits sitewide, case-insensitive). The flyer's
+manufacturer marketing name for the fine-line applicator stays out of the
+repo entirely (standing 2026-07-22 rule); the page's own name —
+Multi-Polar RF + PEMF — titles that card.
+
+**Screening (RUNBOOK "Replacing site photography", full resolution —
+astro:assets serves the master as the `<img src>`):** all three picks
+1067×1600 pro-shoot frames, SHA-256-unique against `src/assets/photos/`,
+Amy alone in every frame — no release needed.
+- 21a → `amy-versa-pro-console.jpg`: Amy standing beside the Venus Versa
+  Pro console ("VENUS / VERSA PRO" legible on the chassis — the same
+  logo the retired snapshot showed, so the 2026-08-04 naming basis
+  carries forward), the Mobile Aesthetics neon (her own branding; the
+  source frame truncates its right end), the treatment chair, the foot
+  pedal. The console screen is IDLE — zero-percent and zero-time fields,
+  an applicator icon, no treatment parameters. Three Venus applicator-tip
+  cartons lie on the chair; "VENUS" and a pack-count word are soft-
+  legible: consumable pack contents as sold, not a drug or energy
+  quantity (the 2026-08-18 B3 Radiesse pack-marking precedent —
+  screening note, no override; never restated in text).
+- 21b → `versa-pro-applicators-chair.jpg`: Amy seated in the chair
+  holding two Versa Pro applicators, the console left (same idle
+  screen), the neon above, a second cart blurred in the background
+  (unreadable). Clean.
+- 21d → `amy-epileve-window.jpg`: Amy at the studio window, a handpiece
+  in hand beside the chair's headrest — and the device is the Venus
+  Epileve, a hair-removal laser, not the Versa Pro: "VENUS EPILEVE" is
+  legible on the bezel, and the console's settings readout is legible at
+  served resolution — fluence, pulse-duration, and speed values with
+  their units. That is the dosing-class readout this log rejected
+  outright on 2026-08-04 and carved out once, pixel-scoped, for
+  `amy-pixel8-cart.jpg` earlier today.
+
+**Flags raised, and the operator's decisions (two AskUserQuestion
+rounds; the house rule: flag once, then execute cleanly):**
+1. **21d ships AS-IS — operator override after the compliance flag.**
+   The recommended compliant path — a crop bake from the master
+   (≈688×860 4:5 window from the top of the frame: Amy, the handpiece,
+   the headrest, the window light; the console, its readout, and the
+   device name all below the crop; no override needed) — was declined,
+   as was holding the slot for another frame. This is the **fifth
+   pixel-level override and the second under the dosing bullet**
+   (CLAUDE.md constraint 3; BUILD_SPEC §8.1; compliance/README). Fixed
+   by the record: frame + page scope; no value from the readout is ever
+   restated in text — copy, alt, comments, meta, JSON-LD. Because the
+   page now describes the Epileve, the alt and filename may name the
+   device (they do); the values never appear.
+2. **Venus Epileve laser hair removal is a service Amy offers** (operator
+   confirmation) — and the flyer supplies its first brief: areas,
+   single and series prices. Recorded in BUILD_SPEC §7.12.
+3. **Series prices ship WITH their counts** ("$574 for a series of six";
+   NanoFractional "for a series of three") — the body-contouring
+   unit-of-sale form (this log, 2026-07-20: a course "carries no
+   frequency and no interval"). Count-keyed strings match no registry
+   pattern, so **`compliance/banned-patterns.json` is untouched** — the
+   "$350 for 10 threads" shape. The Epileve flyer's undiscounted
+   "6 × single" column ($702 and so on) is arithmetic and is not shown;
+   only the real series price ships. §7.12's "no session counts"
+   exclusion gains the unit-of-sale carve-out. "How many treatments will
+   I need?" stays consult-routed, with a sentence saying a series is a
+   way to buy, not a prescription.
+4. **Item names flyer-VERBATIM — operator override** of the §7.12
+   exclusions for these menu item names only: "Isolated Lesion (up to
+   3)" (the brief excludes "lesions"), "Under Eye & Brow Lift", "Eye
+   Laxity", and the minute durations on the fine-line items ("Full
+   Face, 30 Minutes Treatment" and so on — booking lengths as price
+   keys; the body-contouring "~30–60 minutes" scheduling-fact
+   precedent). The recommended paraphrases — "Isolated spots (up to
+   three)", "Under-eye and brow", "Around the eyes", durations dropped
+   — were declined. lint:claims has no pattern on any of these words
+   (verified: only `safe and effective` among the flyer vocabulary is
+   registered, and it never appears). Prices, areas, and package names
+   verbatim too; the two package group headings are house-styled
+   ("Women's packages" / "Men's packages").
+5. **21d sits beside the NEW "Laser hair removal" section** (photo left
+   of its copy — the recommended placement once the section existed);
+   "Individualized, with Amy" returns to text-only.
+6. **Laser hair removal is bookable directly on Vagaro.** Page-level
+   `ctaType: consult` stays (the three Versa applications remain
+   consult-first); the hair-removal section carries its own
+   `<CTAButton variant="book" />` — solid "Book with Amy" → the standing
+   Vagaro page, `book_click` — and the booking FAQ splits the two
+   routes. No service-specific Vagaro link was supplied.
+
+**Decision (the page):**
+- `productDetails` carry the menu as `priceLines` on all four cards —
+  the pattern on every priced line; `pricingDisplay: consult` stays as on
+  every other priced page. NanoFractional: face / neck / face & neck,
+  single and series of three. IPL: six areas. Multi-Polar RF + PEMF:
+  four minute-keyed items. NEW card "Venus Epileve Laser Hair Removal"
+  (tag "Laser"): the four area tiers, single and series of six. Four
+  cards make an even 2×2 grid.
+- Body, in order: row 1 (21a left) "What they are" + one sentence
+  naming the Epileve as the page's one true laser → Skin resurfacing →
+  Photo-rejuvenation (prose unchanged) → "Fine lines" as
+  `media-row media-row--flip` (21b right) → NEW "Laser hair removal" as a
+  `media-row` (21d left) — heading + one paragraph; BELOW the row,
+  full-width, the area menu as a bold-lead-in list (the body-contouring
+  list form — Tailwind preflight renders body lists bullet-less), the
+  women's and men's packages, then the Book button → "Three tools, one
+  conversation" + one sentence ("Laser hair removal is the simpler case:
+  choose the area and book.") → "Individualized, with Amy".
+- `summary`, `deck`, `products`, and the SEO title/description gain the
+  Epileve ("Laser Treatments & Laser Hair Removal in Harrisburg, NC");
+  the first FAQ ("Is this actually a laser?") now answers "Partly" and
+  names the exception. The /services menu-card summary
+  (`src/lib/serviceLines.ts`) gains "plus Venus Epileve laser hair
+  removal" and the Pro name.
+- Crop (default 30% anchor; measured from the masters, then eyeballed at
+  390 and 1280 on the built page): 21a — head ≈230, neon 190–330, logo
+  ≈1130, cartons ≈880, all inside the 80→1413 window; the arch dome
+  clips the neon's right tail (inherent — Revanesse/19a precedent).
+  21b — head ≈300, neon 150–250, shoes 1100–1330, logo ≈1130; the dome
+  grazes the neon's last letters. 21d — head ≈200, handpiece 480–720,
+  readout 905–1230, bezel name ≈1190; all inside. **No per-image anchor
+  override needed; TreatmentLayout is untouched.** `widths`
+  `[340, 540, 680]` on all three rows (the page's old `[340, 420]` was
+  source-bound below delivery resolution).
+- `venus-versa-pro.jpg` had no other consumer → removed; git history
+  keeps it (and 21a shows the same Pro logo it documented).
+- `clinicianApproved` true → false — approved content edited
+  (constraint 4: pricing, a new section, a rewritten FAQ answer, three
+  photos). Amy re-reviews on the PR preview — prices AND photos; the
+  flag returns in the consolidated pre-relaunch round.
+
+**Alternatives rejected:** the crop bake for 21d (recommended; declined
+— the client's frame ships untouched); a defocus bake (would still leave
+the device name and the hair-removal implication, which the new section
+now resolves anyway); paraphrased item names (declined — flyer-verbatim);
+single-only pricing (loses the packages Amy printed); a separate
+hair-removal page (the operator said "edit the page"); a `PriceList`
+component or a markdown table (the cards already carry prices sitewide;
+tables are unstyled under preflight).
+
+**Consequences:** the dosing bullet now carries two pixel-scoped
+exceptions, each fixed to its frame and page — any future readout frame
+is a fresh flag, not a precedent. `{{VENUS_VERSA_MENU}}` resolves. The
+"Laser Treatments" line carries an actual laser for the first time, so
+the 2026-07-22 naming flag is half-moot; the page's physics sentences
+stay exact. The flyers stay where they are, uncommitted.
+
+**Addendum, same day — round 2: the price sheet.** The operator's
+preview review of PR #135: the hair-removal prices were "VERY difficult
+to read" as a bold-lead-in prose list, and the page had dropped two
+things Amy's guide states — the undiscounted FULL SERIES (6 treatments)
+column and the ~15% discount framing of the third column. Direction:
+every price as her guide lists it, three columns if that is what it
+takes. Decision: a new zero-JS `PriceSheet` component
+(`src/components/PriceSheet.astro`) renders the guide as a ledger —
+title, an aria-hidden header row of tracked caps ("Single" / "Full
+series · 6 treatments" / "Full series · ~15% off"), three groups
+(Treatment areas · Women's packages · Men's packages), ten rows, thirty
+prices, every name and area verbatim. Desktop (≥ 40rem): name + area
+note left, three fixed-width right-aligned tabular columns; the
+discounted column carries weight 600 and the in-box ink-pink accent
+(4.60:1 on the card plate — the operator-accepted pair; everything else
+ink-900 at 11.80:1). Phones: the same DOM stacks — name, note, then a
+three-up strip with each price under its own small label, prices pinned
+to a shared baseline. Each price is a real `<dt>`/`<dd>` pair (labels
+visible on phones, sr-only on desktop), so assistive tech hears
+"label, price" per item at every width — no pseudo-element text, no
+`display: contents`, no table-role gymnastics; real text on an opaque
+plate, so axe audits it. A footnote states the unit of sale ("A full
+series is six treatments; the discounted series is about 15% off six
+singles") and keeps the routing ("decided with Amy"). This REVERSES the
+earlier call above that the undiscounted column was "arithmetic, not
+shown": it is shown, as printed. The Epileve product card de-duplicates
+to two lines (single prices by tier; "Full series of six: about 15% off
+— full price sheet below") — it had repeated the same four long lines
+at the top of the page. Sheet data lives in the MDX as a JSX literal
+(audit trail; no schema change). Alternatives rejected: a `<table>`
+(stacking it on phones needs `display: block` on table parts, which
+strips table semantics unless every cell carries redundant ARIA roles);
+a markdown table (unstyled under preflight, no responsive story);
+pseudo-element `data-label` captions (unauditable text). Follow-up
+option, not done: the same sheet for the NanoFractional single /
+series-of-three prices. Verified at 344, 390, and 1280 — no horizontal
+overflow; all thirty figures present in the built page.
+
+**Addendum 2, same day — round 3: hierarchy.** On the round-2 preview
+the operator saw that the group headings ("Women's packages", "Men's
+packages", "Treatment areas") and the item names beneath them shared
+one size and weight (1.0625rem / 600) and read as peers. The sheet now
+carries a three-level ladder, CSS only: title 1.375rem/600 → group
+heading 1.125rem/600 in ink-pink over an ink-pink rule (4.60:1 on the
+card plate — the operator-accepted in-box pair) → item name 1rem/500,
+indented under its heading (1rem on desktop, 0.75rem on phones) → area
+note 0.875rem. Prices keep 1.0625rem so the figures still lead the row.
+
+**Addendum 3, same day — the "name Amy uses on her menu" clause.** The
+operator struck it from both places it appeared ("What they are" and the
+first FAQ answer): it read as if Amy had coined the category name, when
+"laser treatments" is simply what this family of light- and energy-based
+work is called. The physics sentences — the 2026-07-22 mitigation for
+the line title — stay exactly as they were; only the attribution clause
+goes. Two other pages describe Amy's menu in a different sense
+(body-contouring: "Amy lists it on her menu exactly as…"; iv-therapy:
+"Amy's menu is short and named plainly") — reported to the operator,
+not changed here (approved content; edits reset flags).

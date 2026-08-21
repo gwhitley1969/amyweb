@@ -85,6 +85,13 @@
 > upgrade path. Laser pricing stays consult-routed
 > (`{{VENUS_VERSA_MENU}}` open); `clinicianApproved` still `false` on
 > all twelve. DECISIONS 2026-08-04 (two entries).
+>
+> **STATUS UPDATE 2026-08-21:** laser-treatments is priced —
+> `{{VENUS_VERSA_MENU}}` resolved from Amy's two pricing flyers
+> (view-only sources), a fourth service added (Venus Epileve laser hair
+> removal, bookable directly), and the console snapshot replaced by three
+> pro-shoot frames (21a/21b/21d; the Epileve frame under a pixel-level
+> readout override). Flag reset. DECISIONS 2026-08-21.
 
 > **STATUS UPDATE 2026-08-03→04:** **/about rebuilt as a magazine
 > profile, approved by Amy** (PRs #83/#84). Five beats — expanded hero

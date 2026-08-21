@@ -43,7 +43,12 @@ reasoning inline.
   sentence (authorizations 1–3), and the four Private Injector Training
   curriculum topics in exact `<li>`-wrapped source form (fifth
   authorization, 2026-08-04 — the wrap binds each to one attribute-less
-  source line and preserves the self-test's word boundary). One is
+  source line and preserves the self-test's word boundary); and the
+  seventh (2026-08-21): the weight-loss page's original pairs-section
+  heading in h2 source form — authorized and withdrawn the same day
+  when the client changed the heading, so the list holds no entry for
+  it and the phrase is banned everywhere, alt text and comments
+  included. One is
   different in kind: **Biote's FDA disclaimer** (fourth authorization),
   which a regulator effectively requires. It names all four verbs the
   `disease-claims` category bans — that is what a disclaimer *is* — so the
@@ -68,7 +73,9 @@ manufacturer films carried as-is and for Amy's own published content,
 and — since 2026-08-18 — for photo frames whose pixels carry text the
 site's own copy could not say: three /services and wrinkle-relaxers
 frames with legible banner/sign text, and from 2026-08-21 the
-skin-rejuvenation cart frame with its device-console readout, all
+skin-rejuvenation cart frame and the laser-treatments Epileve frame,
+each with its device-console readout, and the weight-loss weigh-in
+frame with its aftercare sign, all
 enumerated in CLAUDE.md constraint 3 with their DECISIONS entries).
 The home-carousel films and their caption files (three cleared
 2026-08-14; the team film 2026-08-17, constraint-2 override) ship under

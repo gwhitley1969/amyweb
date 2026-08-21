@@ -1,0 +1,233 @@
+---
+/**
+ * Price sheet — a menu's prices laid out as a ledger, not a paragraph.
+ * Built 2026-08-21 for the Venus Epileve laser hair-removal guide on
+ * /services/laser-treatments after the operator's preview review ("the
+ * prices are very difficult to read"; every column of Amy's guide must
+ * show, including the full-series column and its ~15% discount). Generic
+ * for one to three price columns; data stays in the page's MDX (the
+ * clinician-approval audit trail), never in the component.
+ *
+ * Layout: ≥ 40rem, a true grid — item name + area note on the left, the
+ * price columns fixed-width and right-aligned in tabular figures so they
+ * align down the sheet; an aria-hidden header row carries the column
+ * labels. Below 40rem the same DOM stacks: name, note, then a three-up
+ * strip where each price sits under its own small label. Each price is a
+ * real <dt>/<dd> pair, so assistive tech hears "label, price" per item at
+ * every width — no pseudo-element text, no table-role gymnastics. The
+ * last column is the headline deal and carries the in-box ink-pink
+ * accent (4.60:1 on the card plate — the operator-accepted in-box pair,
+ * tokens.css SITE-WIDE BOXES); everything else is ink-900 (11.80:1).
+ *
+ * Copy rules (BUILD_SPEC §7/§8): `name` and `note` are menu facts —
+ * areas, package names, counts as units of sale — never outcomes; the
+ * `footnote` routes "which one suits you" to a consultation. Zero JS.
+ */
+interface Row {
+  name: string;
+  note?: string;
+  prices: readonly string[];
+}
+interface Group {
+  heading?: string;
+  rows: readonly Row[];
+}
+interface Props {
+  title: string;
+  columns: readonly string[];
+  groups: readonly Group[];
+  footnote?: string;
+}
+
+const { title, columns, groups, footnote } = Astro.props;
+const id = `price-sheet-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+const cols = columns.length;
+---
+
+<section class="price-sheet" aria-labelledby={id} style={`--ps-cols: ${cols}`}>
+  <h3 id={id} class="price-sheet__title">{title}</h3>
+
+  <div class="price-sheet__head" aria-hidden="true">
+    <span class="price-sheet__head-spacer"></span>
+    <span class="price-sheet__head-cols">
+      {columns.map((c) => <span class="eyebrow price-sheet__col">{c}</span>)}
+    </span>
+  </div>
+
+  {
+    groups.map((g) => (
+      <div class="price-sheet__group">
+        {g.heading && <h4 class="price-sheet__group-heading">{g.heading}</h4>}
+        <ul role="list" class="price-sheet__rows">
+          {g.rows.map((r) => (
+            <li class="price-sheet__row">
+              <div class="price-sheet__item">
+                <span class="price-sheet__name">{r.name}</span>
+                {r.note && <span class="price-sheet__note">{r.note}</span>}
+              </div>
+              <dl class="price-sheet__prices">
+                {r.prices.map((p, i) => (
+                  <div class="price-sheet__cell">
+                    <dt class="price-sheet__label">{columns[i]}</dt>
+                    <dd class="price-sheet__price">{p}</dd>
+                  </div>
+                ))}
+              </dl>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+
+  {footnote && <p class="price-sheet__footnote">{footnote}</p>}
+</section>
+
+<style>
+  .price-sheet {
+    --ps-col-w: 7rem;
+    margin-top: 1.5rem;
+    background: var(--ng-card);
+    border: 1px solid var(--ng-hairline);
+    /* ink-pink edge like every /services-style box (tokens.css SITE-WIDE
+     * BOXES: 4.60:1 non-text on the card pink). */
+    border-left: 1px solid var(--ng-ink-pink);
+    padding: 1.25rem 1.25rem 1rem;
+  }
+  .price-sheet__title {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 600;
+    margin: 0;
+  }
+  .price-sheet__group-heading {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.3;
+    font-weight: 600;
+    margin: 1.5rem 0 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--ng-hairline);
+  }
+  .price-sheet__rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .price-sheet__row {
+    padding: 0.875rem 0;
+    border-bottom: 1px solid var(--ng-hairline);
+  }
+  .price-sheet__row:last-child {
+    border-bottom: 0;
+  }
+  .price-sheet__name {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+  .price-sheet__note {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    max-width: 55ch;
+  }
+  .price-sheet__prices {
+    display: grid;
+    grid-template-columns: repeat(var(--ps-cols), minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 0.75rem 0 0;
+  }
+  /* Grid cells stretch to the tallest label, so pinning the price to the
+   * cell's bottom keeps the three figures on one baseline on phones even
+   * when one label wraps to three lines and another to one. */
+  .price-sheet__cell {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .price-sheet__label {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.3;
+    color: var(--ng-kicker);
+  }
+  .price-sheet__price {
+    margin: 0.125rem 0 0;
+    font-variant-numeric: tabular-nums;
+    font-size: 1.0625rem;
+    line-height: 1.3;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  /* The last column is the headline deal (the discounted series). */
+  .price-sheet__cell:last-child .price-sheet__price {
+    font-weight: 600;
+    color: var(--ng-link);
+  }
+  .price-sheet__footnote {
+    margin: 1rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    max-width: 65ch;
+  }
+  /* Phones: the column header row is redundant with the per-price labels. */
+  .price-sheet__head {
+    display: none;
+  }
+
+  @media (min-width: 40rem) {
+    .price-sheet__head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      margin-top: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--ng-ink-pink);
+    }
+    .price-sheet__head-cols,
+    .price-sheet__prices {
+      display: grid;
+      grid-template-columns: repeat(var(--ps-cols), var(--ps-col-w));
+      gap: 0.5rem;
+      justify-items: end;
+      text-align: right;
+    }
+    .price-sheet__col {
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      line-height: 1.3;
+    }
+    .price-sheet__row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: start;
+    }
+    .price-sheet__prices {
+      margin-top: 0;
+    }
+    .price-sheet__label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .price-sheet__price {
+      margin-top: 0.125rem;
+    }
+  }
+</style>

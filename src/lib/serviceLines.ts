@@ -75,7 +75,7 @@ export const serviceLines: ServiceLine[] = [
   {
     slug: 'laser-treatments',
     title: 'Laser Treatments',
-    summary: 'Venus Versa treatments using intense pulsed light and radiofrequency energy.',
+    summary: 'Venus Versa Pro treatments using intense pulsed light and radiofrequency energy, plus Venus Epileve laser hair removal.',
     href: '/services/laser-treatments',
     category: 'skin-body',
   },

@@ -4619,3 +4619,84 @@ Instagram link (amypalaciosnp.mobileaesthetics).
 **Addendum (same day, operator preview review):** the printed captions under both films ("From Amy's own reel — sound on." / "From Amy's Instagram — sound on.") came off — the provenance line read as noise to the client. The `caption` prop is simply omitted; the `aria-label` still names each film for assistive tech and the captions TRACK (the .vtt) is untouched. The page-scoped rule stands: no printed caption under a site-authored film unless directed.
 
 **Addendum 2 (same day, operator direction): autoplay on approach.** Both films now autoplay MUTED and loop while ~a third of the player is on screen, pausing off-screen; the native controls are the tap-for-sound and the pause (WCAG 2.2.2); prefers-reduced-motion keeps click-to-play with sound. Mechanism: `TreatmentVideo` opt-in prop `autoplay="inview"` → `data-autoplay` + `loop` on the element and one static script, `public/js/treatment-video.js` (~2KB, IntersectionObserver threshold 0.35 with a 200px root margin; a user pause is never resumed over; a user unmute is remembered, falling back to muted if the browser refuses). Served as a static file because the CSP is `script-src 'self'` (the carousel's recorded lesson); a module URL evaluates once per document, so two players share one run. This is the THIRD sanctioned client-side script and the first on a treatment page — operator-directed, like the carousel; budget impact ~2KB (2,153 B with its comment header) of the 30KB cap; /services/biostimulators is not LHCI-gated, and every other page is byte-identical (the script renders only where the prop is set). Scope rule recorded in the component: opt in only for Amy's own speech-free films — never a manufacturer film or one with narration (the /about ICON film stays click-to-play). Browsers allow autoplay only muted, which is why "tap for sound" is the design, not a choice. Rejected: hiding the controls while autoplaying (no unmute/pause without custom chrome and a self-built 2.2.2 control); play-once (17b would rest on its dark follow card; the operator chose loop-in-view).
+
+## 2026-08-21 — skin-rejuvenation: photo round page 6; the console-readout override
+
+**Context:** Client direction via the operator (2026-08-21): on
+/services/skin-rejuvenation, the docked-handpiece photo beside "How
+PiXel8-RF works" gives way to her pick 19a, and "A longer view" gains
+her pick 19b to the right of its copy. Nothing else on the page
+changes. One of three concurrent sessions that day; the work was
+isolated in the dermal-fillers worktree on its own branch.
+
+**Screening (RUNBOOK "Replacing site photography"):**
+- 19a (1007×1600, new to the repo → `amy-pixel8-cart.jpg`): Amy alone,
+  white vest, beside the Rohrer PiXel8-RF cart under the Mobile
+  Aesthetics neon; a "Cryo" chiller below. Legible words: the neon
+  (her branding), "PiXel8-RF" / "ROHRER AESTHETICS" (named in the
+  page's own copy), "Cryo" (a device name) — and the console's settings
+  readout: power level, time, and delay values and "Suggested Depth
+  1.0mm–1.2mm". No release needed (Amy alone).
+- 19b (1067×1600): SHA-256-identical to `pixel8-in-hand.jpg`, the
+  /services menu-card frame screened 2026-08-18 — REUSED, not
+  duplicated (house dedup rule). Re-screened for the treatment-page
+  context: the screen behind the handpiece is out of focus (no readable
+  values); the cartridge collar carries small engraved dial graduations
+  — bare numerals without units, ≈10px at full resolution, an engraved
+  scale rather than a setting. No release needed.
+
+**The flag, and the override.** The 19a readout is the class this log
+rejected outright on 2026-08-04 (`pixel8-rf02.png` — "treatment
+parameters that never publish, constraint 3"), and BUILD_SPEC §7.10
+lists needle depths as dosing-class on this line. It matters more than
+at menu-card size because astro:assets serves the source-resolution
+file as the `<img src>` (verified in dist/ on dermal-fillers: a 1067px
+derivative beside the 340/540/680 srcset) and the repository is public
+— whatever is legible in the master is served. Flag raised with three
+paths: (1) RECOMMENDED — defocus the screen face server-side, a single
+sharp generation from the master with the recipe recorded here (the 06
+composite precedent); (2) ship as-is under operator override; (3) a
+different frame. **The operator chose (2): ship as-is.** Per the house
+rule the flag is raised once and the override executed cleanly; this
+entry is the record. Scope: this frame, this page; the 2026-08-04
+rejection is superseded for this frame only; no value from the readout
+is ever restated in text (copy, alt, comments, meta, JSON-LD) — the
+dosing rule itself is unchanged. Recorded in CLAUDE.md constraint 3
+(dosing sub-bullet — the fourth pixel-level override and the first
+under that bullet; the three 2026-08-18 overrides sit under the claims
+bullet) and BUILD_SPEC §7.10 / §8.1.
+
+**Decision (the rest):**
+- Row 1 keeps its structure (figure left); `src` swaps, alt rewritten
+  to what the pixels show; `widths` move from the page's old
+  `[340, 452]` to the sitewide `[340, 540, 680]` — the 18rem arch is
+  576px at DPR 2, so 452 under-delivered (retina rule).
+- "A longer view" becomes `media-row media-row--flip` (copy first,
+  figure second = photo right — the dermal-fillers "Lips, styled"
+  pattern) with the same widths contract.
+- Crop: 19a's 4:5 window is 1259 of 1600px (341 trimmed). Measured
+  from the master: neon rows 67–160, head top ≈199, feet ≈1350–1377.
+  The default 30% anchor trims 102px off the top and slices the neon
+  mid-letter; the layout's per-image top anchor (blazer / Revanesse
+  precedent) keeps neon, head, and console whole and crops at mid-shin
+  (shins + the chiller's casters shed). The arch dome clips the neon's
+  right tail — inherent, as on the Revanesse frame. 19b sits at the
+  default anchor; its soft-focus partial face at the right edge is
+  clipped a little by the dome (background, acceptable). Both
+  eyeballed at 390 and 1280 on the built page.
+- `pixel8-rf.jpg` (the 2026-08-04 interim frame) had no other
+  consumer → removed; git history keeps it.
+- `clinicianApproved` true → false — approved content edited
+  (constraint 4); Amy re-reviews on the PR preview; the flag returns in
+  the consolidated pre-relaunch round.
+
+**Alternatives rejected:** the defocus bake (recommended; operator
+declined — the client's frame ships untouched); cropping the console
+out (it is the device's face — the frame is visibly for it); keeping
+`[340, 452]` (below delivery resolution).
+
+**Consequences:** the dosing bullet carries a pixel-scoped exception
+for the first time; the CLAUDE.md wording fixes frame and page, so any
+future frame showing a console readout is a fresh flag, not a
+precedent. PR #131 (biostimulators) touches the same layout, CSS, and
+governing docs — whichever lands second resolves keep-both.

@@ -64,10 +64,13 @@ booking.
     * only what the pixels self-identify. No printed caption under
     * either film (operator, 2026-08-21 preview review — the
     * provenance line read as noise; the aria-label carries the name).
-    * Portrait film, sized by the row column; bare frame beside the
-    * page's bare arches. */}
+    * Both films autoplay MUTED on approach and loop while in view
+    * (operator direction, same review; reduced motion = tap-to-play;
+    * the controls are the tap-for-sound). Portrait film, sized by the
+    * row column; bare frame beside the page's bare arches. */}
   <TreatmentVideo
     frame="bare"
+    autoplay="inview"
     src="/media/radiesse-visit.mp4"
     poster={radiesseVisitPoster}
     captionsSrc="/media/radiesse-visit.vtt"
@@ -108,6 +111,7 @@ in the greater Charlotte area. It starts with a consultation, free as always.
     * under the recorded retina-rule override. Copy left, film right. */}
   <TreatmentVideo
     frame="bare"
+    autoplay="inview"
     src="/media/amy-reel.mp4"
     poster={amyReelPoster}
     captionsSrc="/media/amy-reel.vtt"

@@ -6,11 +6,14 @@ import { siteConfig } from '../lib/siteConfig';
 /**
  * Self-hosted treatment film (first used on /services/dermal-fillers —
  * operator decisions recorded in docs/DECISIONS.md, 2026-07-21).
- * Click-to-play only: `preload="none"` keeps the file out of the page
- * budget entirely until the visitor asks for it, the poster carries the
- * visual, and native controls mean zero client-side JavaScript. No
- * autoplay, so no reduced-motion or pause obligations arise. The captions
- * track is required — the a11y gate (axe video-caption) fails without it.
+ * Click-to-play by default: `preload="none"` keeps the file out of the
+ * page budget entirely until the visitor asks for it, the poster carries
+ * the visual, and native controls mean zero client-side JavaScript with
+ * no reduced-motion or pause obligations. The `autoplay="inview"` opt-in
+ * (2026-08-21, biostimulators — see the prop) adds the one static script
+ * and plays muted on approach; reduced motion falls back to this
+ * default. The captions track is required either way — the a11y gate
+ * (axe video-caption) fails without it.
  *
  * MEDIA ORIGIN (2026-08-17, DECISIONS same date): the .mp4 serves from
  * siteConfig.mediaBase (Blob behind the same Front Door). The `src`
@@ -62,9 +65,18 @@ interface Props {
   /** Frame treatment: 'mat' (default — the standalone paper mat) or
    * 'bare' (inside a treatment media-row beside bare arches). */
   frame?: 'mat' | 'bare';
+  /** 'inview': the film autoplays MUTED (with `loop`) when ~a third of
+   * it is on screen and pauses off-screen — public/js/treatment-video.js
+   * (~2KB static file; the page's only script). Default: click-to-play.
+   * Reduced-motion users always get click-to-play; the native controls
+   * are the pause (WCAG 2.2.2) and the tap-for-sound. Opt in only for
+   * site-authored films without speech (operator direction 2026-08-21,
+   * biostimulators) — never for a manufacturer film or one with
+   * narration, which muted autoplay would gut. */
+  autoplay?: 'inview';
 }
 
-const { src: srcProp, poster, captionsSrc, label, caption, frame = 'mat' } = Astro.props;
+const { src: srcProp, poster, captionsSrc, label, caption, frame = 'mat', autoplay } = Astro.props;
 
 // "/media/evolus-icon.mp4" -> "https://media.needlegirlie.com/evolus-icon.mp4"
 const src = srcProp.startsWith('/media/')
@@ -85,6 +97,8 @@ const posterImg = await getImage({ src: poster, width: posterWidth, format: 'web
     height={poster.height}
     poster={posterImg.src}
     aria-label={label}
+    data-autoplay={autoplay}
+    loop={autoplay === 'inview'}
   >
     <source src={src} type="video/mp4" />
     <track kind="captions" src={captionsSrc} srclang="en" label="English" default />
@@ -92,6 +106,10 @@ const posterImg = await getImage({ src: poster, width: posterWidth, format: 'web
   </video>
   {caption && <figcaption class="eyebrow">{caption}</figcaption>}
 </figure>
+{/* Static file, not a component script: the CSP is script-src 'self'
+  * (the carousel's recorded lesson). A module URL evaluates once per
+  * document, so two opted-in players on one page share one run. */}
+{autoplay === 'inview' && <script type="module" src="/js/treatment-video.js" is:inline></script>}
 
 <style>
   /* Framed like the media-row prints (paper mat + hairline + lift), but

@@ -140,7 +140,12 @@ paints "[Music]" over the whole play), the poster is committed to
 its source width (the component clamps), and a film placed INSIDE a
 media row takes `frame="bare"` so it sits with the bare arches (the
 standalone player keeps its mat). Portrait films are sized by the
-row column; nothing crops or masks a film.
+row column; nothing crops or masks a film. `autoplay="inview"` (same
+day, operator direction) plays a film MUTED and looping while ~a third
+of it is on screen, via the static `public/js/treatment-video.js`
+(~1KB; reduced motion = click-to-play; the controls are the pause and
+the tap-for-sound) — opt in ONLY for Amy's own speech-free films,
+never a manufacturer film or one with narration.
 
 Scripts on this site are STATIC FILES (public/js/) — never component
 `<script>` blocks; see the troubleshooting entry below for why.

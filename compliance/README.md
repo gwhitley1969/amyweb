@@ -72,7 +72,11 @@ skin-rejuvenation cart frame with its device-console readout, all
 enumerated in CLAUDE.md constraint 3 with their DECISIONS entries).
 The home-carousel films and their caption files (three cleared
 2026-08-14; the team film 2026-08-17, constraint-2 override) ship under
-exactly this regime. Since 2026-08-17 the film FILES live outside the
+exactly this regime, and so do the two site-authored, sounded treatment
+films on /services/biostimulators (2026-08-21 — Amy's own reels:
+constraint-3 and constraint-2 overrides for the Radiesse-visit film,
+a retina-rule override for the 480p reel; their caption files carry
+`[Music]` cues on the operator's no-speech confirmation). Since 2026-08-17 the film FILES live outside the
 repo entirely (Blob, served as media.needlegirlie.com — RUNBOOK
 "Publishing a film"): the frame-level screen and DECISIONS entry
 happen BEFORE the upload, and the caption .vtt stays in-repo precisely

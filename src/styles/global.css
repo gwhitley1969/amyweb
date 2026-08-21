@@ -403,9 +403,12 @@ body:not([data-surface='noir']) {
  * boxes; landscape sources get a 4:5 display crop at their call sites.
  * Exempt by design: the home hero (full-bleed backdrop), all film
  * stages and posters (the Evolus films' burned-in safety information
- * ships complete and uncropped — an arch mask would clip it), the
- * home-page Instagram post (the client's named exception), the lip
- * style-guide diagram (an arch would cut its labels), and brand marks. */
+ * ships complete and uncropped — an arch mask would clip it; since
+ * 2026-08-21 Amy's own site-authored films may wear the arch's 12px
+ * foot corners + hairline via TreatmentVideo's bare frame, never the
+ * arch — manufacturer stages stay unmasked), the home-page Instagram
+ * post (the client's named exception), the lip style-guide diagram (an
+ * arch would cut its labels), and brand marks. */
 .ng-arch {
   border-radius: 999px 999px 12px 12px;
   border: 1px solid var(--ng-magenta-600);

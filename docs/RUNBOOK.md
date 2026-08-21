@@ -128,6 +128,25 @@ To add or swap a film:
    in the component's bars comment).
 6. `npm run verify` green → PR → preview → Amy's word → merge.
 
+**Treatment-page films (sounded — `TreatmentVideo`)** follow the same
+screen → DECISIONS → upload order, with four differences (first
+site-authored pair: /services/biostimulators, 2026-08-21): the
+rendition KEEPS its audio (`-c:a copy`; `-crf 20` for an HEVC source,
+a lossless `-c copy` remux when the source is already H.264/AAC), the
+captions are faithful to the audio (a transcript when there is
+speech; bounded `[Music]` cues when there is none — a film-long cue
+paints "[Music]" over the whole play), the poster is committed to
+`src/assets/photos/<name>-poster.jpg` and is never requested above
+its source width (the component clamps), and a film placed INSIDE a
+media row takes `frame="bare"` so it sits with the bare arches (the
+standalone player keeps its mat). Portrait films are sized by the
+row column; nothing crops or masks a film. `autoplay="inview"` (same
+day, operator direction) plays a film MUTED and looping while ~a third
+of it is on screen, via the static `public/js/treatment-video.js`
+(~2KB; reduced motion = click-to-play; the controls are the pause and
+the tap-for-sound) — opt in ONLY for Amy's own speech-free films,
+never a manufacturer film or one with narration.
+
 Scripts on this site are STATIC FILES (public/js/) — never component
 `<script>` blocks; see the troubleshooting entry below for why.
 

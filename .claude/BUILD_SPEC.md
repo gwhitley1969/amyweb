@@ -175,8 +175,11 @@ frame (`.ng-arch`, global.css — the category-door window generalized
 sitewide at the client's direction; DECISIONS 2026-08-17), with four
 standing exemptions: the home hero backdrop, all film stages and
 posters (the Evolus films' burned-in safety information ships complete
-and uncropped), the homepage Instagram post (the client's named
-exception), and the lip style-guide diagram. The arch family has one
+and uncropped; since 2026-08-21 Amy's own site-authored films may wear
+the arch's 12px foot corners + hairline via `TreatmentVideo`'s bare
+frame when they sit inside a media row — never the arch, and
+manufacturer stages stay unmasked), the homepage Instagram post (the
+client's named exception), and the lip style-guide diagram. The arch family has one
 wide sibling (2026-08-18, DECISIONS same date): the segmental arch —
 curve pinned to the top third over straight feet — for a landscape
 frame that must show its full content (first use: the
@@ -546,7 +549,14 @@ action hype, no outcomes, no dosing, ever.
    it lives on this page, not Dermal Fillers (operator-confirmed 2026-07-21
    via radiesse.com, which markets it as "the first and only injectable
    biostimulator"). That superlative and "FDA-approved" stay off-site (§8);
-   PDO threads are the VSoft Lift line.
+   PDO threads are the VSoft Lift line. Media (2026-08-21, DECISIONS
+   same date): two of Amy's own reels play in the page's media rows
+   via `TreatmentVideo` (`frame="bare"`, sounded, `autoplay="inview"` —
+   muted on approach, tap for sound; no printed caption) — the
+   Radiesse-visit film beside "A longer view of structure" and her
+   Instagram reel beside "Individualized, with Amy" — each under its
+   recorded operator overrides (§8.3 exception list; CLAUDE.md
+   constraints 2 and 3). The page carries no photographs.
 6. **Regenerative Treatments** — PRP, and PRP with microneedling
    (trimmed to the live Vagaro menu, operator decision 2026-07-19; PRF,
    PDRN, Illuma, VAMP, and Rejuran return only if Amy confirms them as
@@ -668,7 +678,12 @@ action hype, no outcomes, no dosing, ever.
    client's direction 2026-08-18, exception terms unchanged; carried
    as-is; its
    comparative-efficacy remarks are the manufacturer's own and its
-   captions transcribe the event speech faithfully). Nothing else — the
+   captions transcribe the event speech faithfully). And, site-authored
+   (DECISIONS 2026-08-21): Amy's Radiesse-visit reel on
+   /services/biostimulators, whose cut reads as a before/after sequence
+   and whose carton shot shows a per-vial unit quantity — carried as-is
+   under operator override, client release on file (her Instagram reel
+   on the same page carries no claims content). Nothing else — the
    Evolus-produced Evolysse film on /services/dermal-fillers carried the
    same as-is exception from 2026-07-21 until 2026-08-21, when the client
    removed it from the site; that exception is RETIRED (DECISIONS
@@ -763,6 +778,14 @@ action.
   muted renditions; captions mirror each film's on-screen text
   (public/media/*.vtt — outside lint scope, controlled by the per-film
   override entries); reduced-motion serves posters + play-on-request.
+  Treatment-page films (`TreatmentVideo`) are click-to-play with sound
+  by default; the `autoplay="inview"` opt-in (2026-08-21, the two
+  biostimulators reels — operator direction, DECISIONS same date) plays
+  a film MUTED and looping while ~a third of it is on screen via the
+  static `public/js/treatment-video.js` (~2KB; reduced motion =
+  click-to-play; the native controls are the pause and the
+  tap-for-sound). Opt in only for Amy's own speech-free films — never a
+  manufacturer film or one with narration.
   Amy's reel plays at 0.5× via per-slide `data-rate`/playbackRate
   (operator/Amy tuning 2026-08-15 — DECISIONS same date; the master
   file is untouched, captions track media time). Rates are for Amy's
@@ -849,7 +872,11 @@ action.
 - Total JS ≤ 30 KB (target ~0); no client framework hydration. *(First
   consumer, 2026-08-14: the home carousel's ~3KB static script
   (public/js/video-carousel.js) — the budget and the no-hydration rule
-  are unchanged; DECISIONS same date.)*
+  are unchanged; DECISIONS same date. Third consumer, 2026-08-21: the
+  treatment-film autoplay-in-view script, public/js/treatment-video.js,
+  ~2KB, rendered only on pages whose films opt in — today
+  /services/biostimulators alone; the second consumer is the dark
+  Plausible tracker, §11.)*
 - Hero image: optimized, `fetchpriority="high"`, explicit dimensions;
   everything below fold lazy.
 - Fonts: 1 family (Playfair Display — since 2026-08-15), subsetted

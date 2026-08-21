@@ -4458,6 +4458,168 @@ rewrites a leading-slash argument into a Windows path. Issue AFD purges
 upload + PR + a fresh DECISIONS entry, never a revert. REDESIGN's open
 item closes; the media-origin row no longer counts it.
 
+## 2026-08-21 — Biostimulators: Amy's two reels replace the studio portrait (17a + 17b)
+
+**Context.** Client direction (via operator, 2026-08-21): on
+/services/biostimulators the photo beside "A longer view of structure"
+(`amy-studio-portrait.jpg`, the 2026-07-21 770×680 crop — the page's
+only photo, below the retina rule at every slot) is replaced by the
+film `17a.mp4`, and a second film, `17b.mp4`, is added to the right of
+"Individualized, with Amy" (text-only until now). This executes the
+REDESIGN row parked 2026-08-14 ("17a + 17b → biostimulators; not there
+yet"); `20.mp4` → body-contouring stays parked.
+
+**Sources, probed first-hand.** `C:\Amy\New Pics\17a.mp4` ≡
+`C:\Amy\Videos\17a\v12044gd…mp4` (SHA-256): a TikTok/CapCut edit,
+1080×1920 HEVC Main yuv420p, 30fps, 29.4s, 5.1MB, stereo AAC.
+`17b.mp4` ≡ `C:\Amy\Videos\17b\v12044gd…mp4`: a TikTok download,
+480×854 H.264, 30fps, 9.0s, 471KB, AAC. Both portrait 9:16 — the first
+portrait films given to `TreatmentVideo` (its two posters to date were
+landscape).
+
+**Frame-level screen** (contact sheets at 0.5s cadence + full-res
+grabs; no burned-in text in either film beyond 17b's Instagram
+sticker):
+- **17a** — 0–3s Amy and a client posed in the studio hallway; 3–12s
+  close-ups of the client's neck (lax skin, pre-treatment); 12–15s a
+  product carton: six RADIESSE+ (lidocaine) boxes, two "Accessory Kit"
+  boxes, and a Xeomin box whose "100 units/vial" line is legible (a
+  neuromodulator carton on a biostimulator film); 15–26s the client
+  reclined in the chair after treatment; at 24–26s a SECOND PERSON
+  (dark hair, black top, face out of frame) stands behind the chair
+  while an arm with a bracelet reaches toward the client's face — Amy
+  wears pink scrubs in this film, so the figure is not her; 26–29s the
+  posed shot again. Audio: silent open, then a quiet track (ffmpeg
+  volumedetect mean −30.0 dB, peak −14.6 dB).
+- **17b** — Amy's own selfie reel (lips-forward, no client); the
+  Instagram icon + `@MOBILEAESTHETICSNP704` micro-text top-right
+  throughout, then a dark "follow" end-card (logo + handle) from ~4.5s
+  to the end — half the film. MA is Amy's own PLLC (constraint 2 not
+  engaged by the handle). No claims content. TikTok `aigc_info` label
+  type 0 — not AI-labeled, so the AI-imagery disclosure rule is not
+  engaged. Audio: a steady track (mean −15.3 dB, peak −1.1 dB).
+
+**Flags raised (all shown to the operator before any decision):**
+1. 17a's cut is a visual before/after sequence (constraint 3 —
+   BUILD_SPEC §8.3, and §8.9 defers before/after content by SOW; this
+   page's own 2026-07-21 build entry rejected before/after LANGUAGE
+   once already) and its carton shot carries an on-screen unit
+   quantity (§8.1). Pixels are invisible to lint:claims. The film is
+   site-authored (Amy's own published reel) — no manufacturer
+   "carried as-is" shield, but also editable: trimming 3–15s was
+   offered as the compliant path.
+2. 17a's on-camera client is identifiable — a website-use release is
+   required.
+3. 17a's second on-frame person (24–26s) — constraint 2 (never imply
+   another provider at the location) is separate from constraint 3.
+4. 17b is 480px wide — below the redesign's retina hard rule for
+   every slot (the row slot is ≈275px desktop / 288px phone: DPR2
+   wants ~550–576px, a 3× phone ~864px).
+5. Audio: both carry AAC tracks; I cannot transcribe on this
+   workstation (Whisper is not installed — the 2026-07-21 run was a
+   throwaway scratchpad install).
+
+**Operator decisions (AskUserQuestion, 2026-08-21 — flag-once
+satisfied; executed cleanly):**
+1. **17a ships AS-IS — operator override after the flag. The
+   on-camera client's release for needlegirlie.com use is CONFIRMED
+   ON FILE (operator, 2026-08-21 — the confirmation is the record,
+   studio-reel pattern).** Trim and hold were declined.
+2. **The second on-frame person IS one of the location's other
+   providers — OPERATOR OVERRIDE, the third constraint-2 scoped
+   exception** (team-film precedent 2026-08-17): face out of frame,
+   nobody named or legibly identifiable; **their consent for
+   needlegirlie.com use is CONFIRMED ON FILE (operator, 2026-08-21 —
+   the confirmation is the record).** Consequence for wording: the
+   film never shows who performs the treatment (no injection shot;
+   the reaching arm may be this provider's), so every label, caption,
+   and comment describes only what the pixels self-identify — Amy, a
+   client, the studio, the Radiesse cartons — and never attributes
+   the hands-on treatment to anyone. The page's "performs every
+   treatment herself" line stays as copy, unillustrated.
+3. **17b ships at 480p as FINAL — retina-rule override** (no upgrade
+   asset expected). Recorded here and in REDESIGN, not CLAUDE.md — a
+   design rule, not a claim rule.
+4. **Audio kept (music only).** "Music bed, no speech" is the
+   operator's confirmation (2026-08-21) and that confirmation is the
+   record; a scratchpad Whisper install was offered and declined. The
+   captions therefore take the sounded-film form — faithful to the
+   audio, bounded `[Music]` cues (the ICON precedent; a film-long cue
+   would paint "[Music]" over the whole play) plus 17b's on-screen
+   handle — not the carousel's muted-mirror form. §8 and the voice
+   rule still govern that text; no gate reads .vtt, so the cues were
+   hand-checked.
+5. **Branch off phase-c now** (`content/biostimulators-films`), in a
+   worktree beside the concurrent dermal-fillers session's; conflicts
+   with PR #130 (which retires the Evolysse film and touches the same
+   append-only records) are mechanical and resolved by whichever
+   merges second.
+
+**Design decisions.**
+- **Films sit IN the media rows.** The `TreatmentVideo` figure is the
+  row's grid child, so the 2fr column (~17.2rem) is what constrains a
+  9:16 film — the player is aspect-agnostic (the poster's intrinsic
+  size sets the box). A new layout rule (`.media-row .video-figure`:
+  margin-top 0, centered, `min(18rem, 100%)`) mirrors `.media-figure`
+  so films and arches share one rhythm on phones (~288×510). Row 1:
+  film left, "A longer view of structure" right (as the photo was).
+  Row 2: "Individualized, with Amy" wrapped in a flipped row — copy
+  left, film right. Page rhythm: film · text · film.
+- **The bare film frame narrows 2026-08-18 (3).** That entry kept
+  "the film players' mats" when the treatment photos went bare — it
+  was written when the players were standalone blocks. A film INSIDE
+  a bare-arch row is a context it never saw, and a white mat there
+  would re-import the print look the client asked to retire. So
+  `TreatmentVideo` gains `frame="bare"` (no mat; the arch family's
+  magenta hairline + 12px foot corners on the video, never the arch),
+  used only inside rows; the standalone player (/about's ICON film)
+  keeps its recorded mat by default. The film-stage arch exemption is
+  qualified accordingly in BUILD_SPEC §5, global.css, and the
+  component: manufacturer film stages stay unmasked; site-authored
+  films may wear the foot corners.
+- **Posters never upscale.** The component requested every poster at
+  width 1280 and Astro's sharp service upscales on request — /about's
+  ICON poster (960 source) was shipping as a 1280×725 derivative.
+  Clamped to `min(1280, source width)`; /about's poster becomes a
+  true 960w (a pure tightening on an LHCI-gated page), 17a's a 1080w,
+  17b's a 480w.
+- **Recipes.** 17a: `ffmpeg -c:v libx264 -crf 20 -preset medium
+  -pix_fmt yuv420p -c:a copy -movflags +faststart` (the ICON recipe;
+  7.54MB, 2.05 Mbps). 17b: lossless remux `-map 0:v -map 0:a -c copy
+  -movflags +faststart` (471KB; video stream first). Posters from the
+  renditions at 0.5s (`-q:v 2`): `radiesse-visit-poster.jpg` 1080×1920
+  (Amy + the client posed — never a neck close-up as the resting
+  frame), `amy-reel-poster.jpg` 480×854. Blob names:
+  `radiesse-visit.mp4`, `amy-reel.mp4` (content-named; new names, no
+  purge). Captions `public/media/radiesse-visit.vtt`, `amy-reel.vtt`.
+- **Constraint 4:** `biostimulators.mdx` was `clinicianApproved: true`
+  — the MDX edit resets it to `false` in the same commit (this page's
+  first reset of the round; it joins the consolidated pre-relaunch
+  re-approval). `amy-studio-portrait.jpg` had no other consumer and is
+  deleted (git history keeps it).
+
+**Alternatives rejected:** trimming 17a (the recommended compliant
+path for both the sequence and the second provider — operator chose
+the overrides after the flags); waiting for a 1080p original of 17b
+(the operator closed it as final at 480p); removing the film mat
+component-wide (would reverse 2026-08-18 (3) for /about without
+direction); a VideoObject / JSON-LD entry for the films (never — §8
+scope discipline); a video-play analytics event (it would be the
+first client-side component code on a treatment page).
+
+**Consequences:** the page has no photographs left — two click-to-play
+films carry its visual weight; posters are fetched at page load (the
+`poster` attribute is not lazy) on a page outside the LHCI set; films
+stream from Blob only on play (egress pennies). 17b ends on its dark
+Instagram follow card (no `loop`) — trimming it to ~4.5s is a one-flag
+follow-up if Amy dislikes it. Observation, no change: the film's
+handle (@mobileaestheticsnp704) differs from the footer's `sameAs`
+Instagram link (amypalaciosnp.mobileaesthetics).
+
+**Addendum (same day, operator preview review):** the printed captions under both films ("From Amy's own reel — sound on." / "From Amy's Instagram — sound on.") came off — the provenance line read as noise to the client. The `caption` prop is simply omitted; the `aria-label` still names each film for assistive tech and the captions TRACK (the .vtt) is untouched. The page-scoped rule stands: no printed caption under a site-authored film unless directed.
+
+**Addendum 2 (same day, operator direction): autoplay on approach.** Both films now autoplay MUTED and loop while ~a third of the player is on screen, pausing off-screen; the native controls are the tap-for-sound and the pause (WCAG 2.2.2); prefers-reduced-motion keeps click-to-play with sound. Mechanism: `TreatmentVideo` opt-in prop `autoplay="inview"` → `data-autoplay` + `loop` on the element and one static script, `public/js/treatment-video.js` (~2KB, IntersectionObserver threshold 0.35 with a 200px root margin; a user pause is never resumed over; a user unmute is remembered, falling back to muted if the browser refuses). Served as a static file because the CSP is `script-src 'self'` (the carousel's recorded lesson); a module URL evaluates once per document, so two players share one run. This is the THIRD sanctioned client-side script and the first on a treatment page — operator-directed, like the carousel; budget impact ~2KB (2,153 B with its comment header) of the 30KB cap; /services/biostimulators is not LHCI-gated, and every other page is byte-identical (the script renders only where the prop is set). Scope rule recorded in the component: opt in only for Amy's own speech-free films — never a manufacturer film or one with narration (the /about ICON film stays click-to-play). Browsers allow autoplay only muted, which is why "tap for sound" is the design, not a choice. Rejected: hiding the controls while autoplaying (no unmute/pause without custom chrome and a self-built 2.2.2 control); play-once (17b would rest on its dark follow card; the operator chose loop-in-view).
+
 ## 2026-08-21 — skin-rejuvenation: photo round page 6; the console-readout override
 
 **Context:** Client direction via the operator (2026-08-21): on

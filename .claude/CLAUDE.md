@@ -118,8 +118,17 @@ silently following it. Known superseded points from earlier briefs:
      recorded here. The frame, its page scope, and the rule that no
      value from the readout is ever restated in text — copy, alt,
      comments, meta, JSON-LD — are fixed; changing any of them requires
-     the human operator.* Nothing else; changing
-     that list requires the human operator.
+     the human operator.* *Fifth pixel-level override, the second under
+     this bullet (operator override after the compliance flag — DECISIONS
+     2026-08-21): the /services/laser-treatments row photo
+     `amy-epileve-window.jpg`, in which the Venus Epileve console's
+     settings readout — fluence, pulse-duration, and speed values with
+     their units — is legible in the served source file. The recommended
+     crop bake (which would also have removed the console) was declined.
+     Same fixed terms: this frame, this page; no value from the readout
+     is ever restated in text — copy, alt, comments, meta, JSON-LD;
+     changing any of it requires the human operator.* Nothing else;
+     changing that list requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
      superiority claims ("#1", "best"). *Scoped exceptions (operator

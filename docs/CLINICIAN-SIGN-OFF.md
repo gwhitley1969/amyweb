@@ -51,7 +51,7 @@ src/content/treatments/*.mdx`.
 | Date | Reviewed on | Scope | Logged by |
 |---|---|---|---|
 | 2026-08-05 | stable preview (`…-5`) | launch state — the same pass as the copy sign-off (`ad8fbde`) | operator |
-| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21) | — |
+| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21), laser-treatments' priced menu + Epileve section + three photos (2026-08-21) | — |
 
 Visual drift since 2026-08-05, for Amy's pending pass: body face and
 size (DM Sans → Playfair 17px/1.65), every photo arched with 4:5/9:8
@@ -84,7 +84,10 @@ replaced by Amy's own Evolve reel, autoplaying muted in the same row
 (2026-08-21, her direction), and weight-loss's weigh-in photo replaced
 by the same client seen from behind plus a new "They showed up for
 themselves" section of three client photo pairs (2026-08-21, her direction;
-operator overrides recorded).
+operator overrides recorded), and laser-treatments rebuilt around its
+menu — prices on all four cards from her flyers, the Venus Epileve
+laser hair-removal section with direct booking, and three new photos
+replacing the console snapshot (2026-08-21, her direction + picks).
 Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window — an MDX edit, so
 it ships inside the flag-resetting re-approval round (DECISIONS
@@ -127,7 +130,7 @@ is also not flag-gated and has its own review section below the table.
 | ☐ | [/services/regenerative](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/regenerative) | PRP $600; PRP with microneedling $900; PRP photo |
 | ☐ | [/services/skin-rejuvenation](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/skin-rejuvenation) | PiXel8-RF $1,500; peels "Starting at $180"; **NEW (2026-08-21): two PiXel8-RF photos — Amy beside the cart (console readout legible; operator override) and the handpiece in hand** |
 | ☐ | [/services/body-contouring](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/body-contouring) | Evolve $1,500 course of six / $275 single session; **NEW (2026-08-21): Amy's own Evolve reel in the session row — autoplays muted on approach, sound on the controls; the Reel-screenshot photo retired** |
-| ☐ | [/services/laser-treatments](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/laser-treatments) | **NEW: "Venus Versa Pro" naming throughout** (based on her console photo) + the console photo; pricing is deliberately consult-only (no dollar figures) — confirm that stays, or supply prices |
+| ☐ | [/services/laser-treatments](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/laser-treatments) | "Venus Versa Pro" naming throughout (approved 2026-08-04). **NEW (2026-08-21): prices on all four cards from her two flyers — she confirms every figure and every item name (flyer-verbatim); the Venus Epileve laser hair-removal section (the three-column price sheet — single, full series of six, full series at ~15% off — areas, packages, direct booking); the rewritten "Is this actually a laser?" answer; three photos — beside the Versa Pro console, seated with two applicators, and at the window with the Epileve (its console readout legible; operator override). The 2026-08-04 console snapshot is retired. Re-approval required (flag reset)** |
 | ☐ | [/services/weight-loss-glp-1](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/weight-loss-glp-1) | The mg-keyed vial price tiers; the single Retatrutide investigational line; **NEW (2026-08-21): the InBody weigh-in frame from behind (wall sign legible; operator override) and the "They showed up for themselves" section — three client photo pairs under operator override, releases + HIPAA authorizations on file** |
 | ☐ | [/services/peptide-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/peptide-therapy) | Nine product cards with prices (her wording, near-verbatim); portrait photo |
 | ☐ | [/services/iv-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/iv-therapy) | Menu cards ($125 / $125 / $200 / $25 shots); studio photo |
@@ -191,5 +194,6 @@ and handle everything after the flip — the flip itself is yours.
    indexable (previews stay noindexed); OG cards; 404 at the edge;
    Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.
 5. Post-launch standing items (recorded, not blocking): counsel review
-   of the legal pages; laser pricing if Amy supplies it; higher-res
+   of the legal pages; ~~laser pricing if Amy supplies it~~ (landed
+   2026-08-21 from her flyers); higher-res
    photo upgrades; Plausible analytics as a deliberate opt-in.

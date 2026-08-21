@@ -6,6 +6,47 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-21 — Laser treatments: the priced menu and Venus Epileve laser hair removal
+
+- `/services/laser-treatments` gains its menu: every product card now
+  carries prices transcribed from Amy's two Mobile Aesthetics pricing
+  flyers (view-only sources — only names, areas, and prices transfer;
+  the flyers' marketing copy never enters the repo). Item names are
+  flyer-verbatim at the operator's direction; series prices ship with
+  their counts as units of sale (the body-contouring "course of six"
+  form). `{{VENUS_VERSA_MENU}}` is resolved.
+- A fourth service joins the line: **Venus Epileve laser hair removal**
+  — a new product card (four area tiers, single and series of six), a
+  new "Laser hair removal" section with the full area menu and the
+  women's and men's packages, and its own "Book with Amy" button (it
+  books directly; the three Versa Pro applications stay
+  consult-first). Summary, deck, SEO title/description, the first FAQ
+  ("Is this actually a laser?" — now "Partly"), and the /services
+  menu-card summary follow.
+- Photo round page 8: Amy's picks 21a (beside the Versa Pro console —
+  replaces the below-resolution 2026-08-04 console snapshot, now
+  retired), 21b (seated with two applicators, right of "Fine lines"),
+  and 21d (at the window with the Epileve, left of the new section).
+  The Epileve frame ships under operator override after the compliance
+  flag: the device console's settings readout is legible in the served
+  source (fifth pixel-level override — CLAUDE.md constraint 3,
+  BUILD_SPEC §7.12/§8.1, DECISIONS 2026-08-21).
+- `clinicianApproved` reset on laser-treatments (approved content
+  edited — constraint 4); Amy re-reviews prices and photos on the
+  preview.
+- Round 2, same PR (operator preview review): the hair-removal prices
+  now render as a **price sheet** — a new zero-JS `PriceSheet`
+  component laying out Amy's guide exactly as printed: three columns
+  (single · full series of six · full series at ~15% off), three groups,
+  all thirty prices; a ledger on desktop, labeled price strips on
+  phones. The Epileve card slims to two lines and points to the sheet.
+  Round 3: a three-level type ladder (title → ink-pink group heading →
+  indented, lighter item names) so packages read as children of their
+  heading, not peers.
+- Copy: the "name Amy uses on her menu" clause removed from "What they
+  are" and the first FAQ answer (it implied she coined the category
+  name); the physics statements stand.
+
 ### 2026-08-21 — Weight loss: the InBody frame from behind; a "Before and After" section
 
 - /services/weight-loss-glp-1 — the weigh-in photo beside

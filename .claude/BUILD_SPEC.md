@@ -363,7 +363,7 @@ layout shift from fonts or images.
 | `/services/regenerative` | Regenerative Treatments | §7 brief | Request a consultation |
 | `/services/skin-rejuvenation` | Skin Rejuvenation | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
 | `/services/body-contouring` | Body Contouring | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
-| `/services/laser-treatments` | Laser Treatments | §7 brief (added 2026-07-22, Venus Versa; renamed Venus Versa Pro 2026-08-04) | Request a consultation |
+| `/services/laser-treatments` | Laser Treatments | §7 brief (added 2026-07-22, Venus Versa; renamed Venus Versa Pro 2026-08-04; priced + Venus Epileve laser hair removal added 2026-08-21) | Request a consultation (hair removal: Book with Amy) |
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
@@ -666,12 +666,37 @@ action hype, no outcomes, no dosing, ever.
     wrinkles; FDA-cleared applicator). Line-specific exclusions: the
     manufacturer's marketing name for the third application (a banned
     angle) never appears anywhere in the repo; no session counts or
-    scheduling intervals (protocol-class); no downtime or
-    results-timeline promises; no "lesions"/Fitzpatrick indication
-    detail; no pin counts or device-spec figures; no brochure
-    before/after cases or their named med-spas; no blanket
-    platform-clearance claim. No pricing — consult routing; the menu is
-    tracked by `{{VENUS_VERSA_MENU}}`.
+    scheduling intervals (protocol-class — a series price keyed by its
+    count is a unit of sale, the §7.11 reading, operator decision
+    2026-08-21); no downtime or results-timeline promises; no
+    "lesions"/Fitzpatrick indication detail; no pin counts or
+    device-spec figures; no brochure before/after cases or their named
+    med-spas; no blanket platform-clearance claim. **Pricing (2026-08-21,
+    resolving `{{VENUS_VERSA_MENU}}`):** transcribed from the two
+    operator-supplied Mobile Aesthetics pricing flyers (`Laser_Hair.jpg`,
+    `Venus_Versa_Pro.jpg` — constraint-8-class view-only sources, never
+    committed; their marketing copy never transfers) as `priceLines` on
+    the product cards: per area/applicator, single and series. **Menu
+    item names are flyer-verbatim under operator override** (DECISIONS
+    2026-08-21): "Isolated Lesion (up to 3)", "Under Eye & Brow Lift",
+    "Eye Laxity", and the minute-keyed fine-line items are admitted as
+    menu item names only — the exclusions above otherwise stand, and
+    the manufacturer-name rule stands. The three Versa Pro applications
+    stay consult-routed.
+    **Venus Epileve laser hair removal** *(added 2026-08-21 — the
+    line's fourth service and its one true laser; operator-confirmed as
+    offered)*: a laser hair-removal device, described by that fact alone
+    (no wavelength, spec, or mechanism copy); priced by area — small /
+    medium / large / extra-large tiers with their flyer area lists, plus
+    women's and men's packages — single treatment and series of six
+    (unit of sale; all three guide columns shown — single, full series
+    of six, full series at ~15% off — in the `PriceSheet` ledger, round 2
+    of 2026-08-21). Bookable directly: the section carries its own Book CTA
+    (operator decision 2026-08-21); the page-level CTA stays consult.
+    Pixel-level carve-out, operator override after the compliance flag
+    (DECISIONS 2026-08-21): the page's Epileve photo
+    `amy-epileve-window.jpg` shows the device console's settings
+    readout legibly and ships as-is; no value is ever restated in text.
 
 ## 8. Content compliance rulebook (governs every string in the repo)
 
@@ -692,7 +717,11 @@ action hype, no outcomes, no dosing, ever.
    `amy-pixel8-cart.jpg` on /services/skin-rejuvenation only, whose
    PiXel8-RF console readout — settings values and a suggested
    needle-depth range — is legible in the served source; no value is
-   ever restated in text. Nothing else.*
+   ever restated in text. And `amy-epileve-window.jpg` on
+   /services/laser-treatments only (DECISIONS 2026-08-21), whose Venus
+   Epileve console readout — fluence, pulse-duration, and speed values
+   with units — is legible in the served source; same terms. Nothing
+   else.*
 2. Disease claims: treat / cure / prevent / diagnose; disease names in benefit
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).
 3. Efficacy/outcome promises: guarantees, specific results, numbers,
@@ -1040,7 +1069,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{NEUROMOD_LIST}}` | Confirmed neuromodulator products | RESOLVED 2026-07-19 (live Vagaro menu, operator-confirmed: Jeuveau, Xeomin, Daxxify) |
 | `{{PRICING_DISPLAY_MODE}}` | none / consult / startingAt (default: consult) | Open decision |
 | `{{CHEMICAL_PEELS_MENU}}` | Peel menu from Amy (brands, tiers, per-peel pricing beyond the $180 start) | Open — page carries a compliant placeholder (2026-07-22) |
-| `{{VENUS_VERSA_MENU}}` | Laser-treatments menu from Amy (which Venus Versa applications are priced, and how) | Open — page is consult-routed with no prices (2026-07-22) |
+| `{{VENUS_VERSA_MENU}}` | Laser-treatments menu from Amy (which Venus Versa applications are priced, and how) | **Resolved 2026-08-21** — the two Mobile Aesthetics pricing flyers (view-only); all four cards priced, Epileve laser hair removal added (§7.12) |
 | `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | RESOLVED 2026-07-21 (operator override — exact sentence in `allowedStrings`, two Evolus product pages; §8.4) |
 | `{{BIOTE_FDA_DISCLAIMER}}` | Biote's exact required FDA wording, rendered by `BioteDisclaimer` | RESOLVED 2026-07-22 (operator-authorized — Biote's own printed brochure wording; exact sentence in `allowedStrings`, fourth authorization. Had been shipping as a *visible placeholder token* on the hormone page; §7.8) |
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |

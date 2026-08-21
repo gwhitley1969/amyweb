@@ -32,6 +32,34 @@ change lives in `docs/DECISIONS.md`; design specs live in
   (DECISIONS same date; RUNBOOK "Adding or replacing a homepage
   commercial" gains the treatment-film paragraph.)
 
+### 2026-08-21 — Dermal fillers: the Evolysse film retires; Amy's photos land
+
+- /services/dermal-fillers no longer carries the Evolysse film or its
+  "The Evolysse film" heading (client direction); the film's as-is
+  compliance exception retires with it — the first scoped exception to
+  come off the books (CLAUDE.md constraint 3 / BUILD_SPEC §7.4, §8.3
+  amended). The poster, the captions file, and the two outgoing photos
+  were orphaned and removed; the Blob rendition is an operator follow-up.
+- Photo round page 5: "Placed in proportion" now shows Amy holding a hand
+  mirror for a laughing client (her pick 14 — the repo's existing
+  mirror-moment frame, reused); "Individualized, with Amy" shows a client
+  with the Revanesse Lips+ hand mirror under the neon (pick 15, anchored
+  top so the neon stays whole); "Lips, styled" gains a photo to the right
+  of its copy — a fine syringe at a reclined client's upper lip
+  (8K0A9591). Both new client releases confirmed on file; the third was
+  already on record (DECISIONS 2026-08-21).
+- `clinicianApproved` reset on dermal-fillers (approved content edited —
+  constraint 4); Amy re-reviews on the preview.
+- Round 2 (operator preview review, same day): the lip style-guide
+  diagram gains 2.5rem of air below the new "Lips, styled" photo (the
+  chart sat flush against the arch), and the black "#1 provider" plate
+  gives way to the Evolus Laurel ranking plaque — "The Top Evolus
+  Injector in Charlotte." over the Top-50 lockup — in the very same
+  spot (operator's placement choice over the wrinkle-relaxers layout
+  slot). The plaque's page scope widens to dermal-fillers at the
+  operator's direction; the "#1" sentence now renders on /about only
+  (DECISIONS 2026-08-21, round 2).
+
 ### 2026-08-21 — the "Draft — pending clinician review" strip retires
 
 - Treatment pages with `clinicianApproved: false` no longer render the

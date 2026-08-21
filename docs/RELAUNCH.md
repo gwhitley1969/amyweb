@@ -63,7 +63,9 @@ check will refuse it. On a branch off `main`:
   www → apex; HTTP → HTTPS; production indexable (previews stay
   noindexed); OG cards render; 404 at the edge.
 - Films play from media.needlegirlie.com on production (206 Range
-  probes; carousel + both treatment films).
+  probes; the four carousel films + the ICON film on /about — the
+  Evolysse film retired 2026-08-21; its Blob object is an operator
+  cleanup item, not a probe target).
 - Plausible: `/api/event` returns 202 from the production page;
   dashboard shows the first pageviews.
 - Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.

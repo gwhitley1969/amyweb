@@ -185,7 +185,15 @@ client's named exception), and the lip style-guide diagram. The arch family has 
 wide sibling (2026-08-18, DECISIONS same date): the segmental arch —
 curve pinned to the top third over straight feet — for a landscape
 frame that must show its full content (first use: the
-wrinkle-relaxers band, at the client's "everyone visible" direction). Motion is scroll-driven
+wrinkle-relaxers band, at the client's "everyone visible" direction). Two
+2026-08-21 additions (weight-loss, DECISIONS same date): the per-image
+crop knob gained its first ASPECT use — a 3:4 arch for a 3:4 master
+whose head and feet both matter (the InBody frame) — and `.pair-gallery`,
+a block OUTSIDE the arch family for side-by-side client photo pairs:
+full frames never cropped or arched (a dome would clip faces; a cropped
+pair is an altered pair), the bare film frame's hairline + 12px
+corners, stacked and centred at a 30rem cap so every source stays at or
+above 2× (retina rule). Motion is scroll-driven
 and sparse; nothing pulses except the sign's slow breath. Since 2026-08-14 the noir shell includes
 the home's cinematic video stage — four films crossfading
 chromeless on full-bleed noir (the operator's "Audi treatment";

@@ -4780,3 +4780,167 @@ a page outside the LHCI set; the film streams from Blob only on play
 (egress pennies). RELAUNCH's launch-day probes gain the film and the
 autoplay check on this page. No CLAUDE.md change — nothing here is an
 exception.
+
+## 2026-08-21 — laser-treatments: the priced menu, Venus Epileve laser hair removal, and photo round page 7
+
+**Context:** Client direction via the operator, two messages the same
+morning. First, three photo placements on /services/laser-treatments:
+her pick 21a replaces the 2026-08-04 `venus-versa-pro.jpg` console
+snapshot beside "What they are" (420×604 — the weakest asset left on the
+site, 0.73–0.77× at DPR 2 in every slot); 21b joins "Fine lines" to the
+right of its copy; 21d joins the page. Second, two Mobile Aesthetics
+pricing flyers in `C:\Amy\New Pics` — `Laser_Hair.jpg` (Venus Epileve
+"LASER Hair Removal" pricing guide) and `Venus_Versa_Pro.jpg` (Venus
+Versa Pro pricing) — whose services and prices go on the page; the JPGs
+do not. That resolves `{{VENUS_VERSA_MENU}}` (open since 2026-07-22) and
+adds a FOURTH service to the line: Venus Epileve laser hair removal — a
+true laser on a page whose copy has been careful that the Versa Pro is
+IPL + RF, "close relatives of the laser."
+
+**The flyers are view-only sources** (constraint-8 class — the
+2026-07-22 brochure precedent): never committed, never linked; only
+service names, areas, and prices transfer. The Versa flyer's marketing
+copy — "minimal downtime and maximum results", "Safe and effective",
+"clinically proven", the "Improves / Reduces / Tightens / Lifts" bullet
+lists, "rosacea", "more youthful skin", the "BEST FOR:" blocks — is
+prohibited §8 content and enters no file; the build is grepped for that
+vocabulary (zero hits sitewide, case-insensitive). The flyer's
+manufacturer marketing name for the fine-line applicator stays out of the
+repo entirely (standing 2026-07-22 rule); the page's own name —
+Multi-Polar RF + PEMF — titles that card.
+
+**Screening (RUNBOOK "Replacing site photography", full resolution —
+astro:assets serves the master as the `<img src>`):** all three picks
+1067×1600 pro-shoot frames, SHA-256-unique against `src/assets/photos/`,
+Amy alone in every frame — no release needed.
+- 21a → `amy-versa-pro-console.jpg`: Amy standing beside the Venus Versa
+  Pro console ("VENUS / VERSA PRO" legible on the chassis — the same
+  logo the retired snapshot showed, so the 2026-08-04 naming basis
+  carries forward), the Mobile Aesthetics neon (her own branding; the
+  source frame truncates its right end), the treatment chair, the foot
+  pedal. The console screen is IDLE — zero-percent and zero-time fields,
+  an applicator icon, no treatment parameters. Three Venus applicator-tip
+  cartons lie on the chair; "VENUS" and a pack-count word are soft-
+  legible: consumable pack contents as sold, not a drug or energy
+  quantity (the 2026-08-18 B3 Radiesse pack-marking precedent —
+  screening note, no override; never restated in text).
+- 21b → `versa-pro-applicators-chair.jpg`: Amy seated in the chair
+  holding two Versa Pro applicators, the console left (same idle
+  screen), the neon above, a second cart blurred in the background
+  (unreadable). Clean.
+- 21d → `amy-epileve-window.jpg`: Amy at the studio window, a handpiece
+  in hand beside the chair's headrest — and the device is the Venus
+  Epileve, a hair-removal laser, not the Versa Pro: "VENUS EPILEVE" is
+  legible on the bezel, and the console's settings readout is legible at
+  served resolution — fluence, pulse-duration, and speed values with
+  their units. That is the dosing-class readout this log rejected
+  outright on 2026-08-04 and carved out once, pixel-scoped, for
+  `amy-pixel8-cart.jpg` earlier today.
+
+**Flags raised, and the operator's decisions (two AskUserQuestion
+rounds; the house rule: flag once, then execute cleanly):**
+1. **21d ships AS-IS — operator override after the compliance flag.**
+   The recommended compliant path — a crop bake from the master
+   (≈688×860 4:5 window from the top of the frame: Amy, the handpiece,
+   the headrest, the window light; the console, its readout, and the
+   device name all below the crop; no override needed) — was declined,
+   as was holding the slot for another frame. This is the **fifth
+   pixel-level override and the second under the dosing bullet**
+   (CLAUDE.md constraint 3; BUILD_SPEC §8.1; compliance/README). Fixed
+   by the record: frame + page scope; no value from the readout is ever
+   restated in text — copy, alt, comments, meta, JSON-LD. Because the
+   page now describes the Epileve, the alt and filename may name the
+   device (they do); the values never appear.
+2. **Venus Epileve laser hair removal is a service Amy offers** (operator
+   confirmation) — and the flyer supplies its first brief: areas,
+   single and series prices. Recorded in BUILD_SPEC §7.12.
+3. **Series prices ship WITH their counts** ("$574 for a series of six";
+   NanoFractional "for a series of three") — the body-contouring
+   unit-of-sale form (this log, 2026-07-20: a course "carries no
+   frequency and no interval"). Count-keyed strings match no registry
+   pattern, so **`compliance/banned-patterns.json` is untouched** — the
+   "$350 for 10 threads" shape. The Epileve flyer's undiscounted
+   "6 × single" column ($702 and so on) is arithmetic and is not shown;
+   only the real series price ships. §7.12's "no session counts"
+   exclusion gains the unit-of-sale carve-out. "How many treatments will
+   I need?" stays consult-routed, with a sentence saying a series is a
+   way to buy, not a prescription.
+4. **Item names flyer-VERBATIM — operator override** of the §7.12
+   exclusions for these menu item names only: "Isolated Lesion (up to
+   3)" (the brief excludes "lesions"), "Under Eye & Brow Lift", "Eye
+   Laxity", and the minute durations on the fine-line items ("Full
+   Face, 30 Minutes Treatment" and so on — booking lengths as price
+   keys; the body-contouring "~30–60 minutes" scheduling-fact
+   precedent). The recommended paraphrases — "Isolated spots (up to
+   three)", "Under-eye and brow", "Around the eyes", durations dropped
+   — were declined. lint:claims has no pattern on any of these words
+   (verified: only `safe and effective` among the flyer vocabulary is
+   registered, and it never appears). Prices, areas, and package names
+   verbatim too; the two package group headings are house-styled
+   ("Women's packages" / "Men's packages").
+5. **21d sits beside the NEW "Laser hair removal" section** (photo left
+   of its copy — the recommended placement once the section existed);
+   "Individualized, with Amy" returns to text-only.
+6. **Laser hair removal is bookable directly on Vagaro.** Page-level
+   `ctaType: consult` stays (the three Versa applications remain
+   consult-first); the hair-removal section carries its own
+   `<CTAButton variant="book" />` — solid "Book with Amy" → the standing
+   Vagaro page, `book_click` — and the booking FAQ splits the two
+   routes. No service-specific Vagaro link was supplied.
+
+**Decision (the page):**
+- `productDetails` carry the menu as `priceLines` on all four cards —
+  the pattern on every priced line; `pricingDisplay: consult` stays as on
+  every other priced page. NanoFractional: face / neck / face & neck,
+  single and series of three. IPL: six areas. Multi-Polar RF + PEMF:
+  four minute-keyed items. NEW card "Venus Epileve Laser Hair Removal"
+  (tag "Laser"): the four area tiers, single and series of six. Four
+  cards make an even 2×2 grid.
+- Body, in order: row 1 (21a left) "What they are" + one sentence
+  naming the Epileve as the page's one true laser → Skin resurfacing →
+  Photo-rejuvenation (prose unchanged) → "Fine lines" as
+  `media-row media-row--flip` (21b right) → NEW "Laser hair removal" as a
+  `media-row` (21d left) — heading + one paragraph; BELOW the row,
+  full-width, the area menu as a bold-lead-in list (the body-contouring
+  list form — Tailwind preflight renders body lists bullet-less), the
+  women's and men's packages, then the Book button → "Three tools, one
+  conversation" + one sentence ("Laser hair removal is the simpler case:
+  choose the area and book.") → "Individualized, with Amy".
+- `summary`, `deck`, `products`, and the SEO title/description gain the
+  Epileve ("Laser Treatments & Laser Hair Removal in Harrisburg, NC");
+  the first FAQ ("Is this actually a laser?") now answers "Partly" and
+  names the exception. The /services menu-card summary
+  (`src/lib/serviceLines.ts`) gains "plus Venus Epileve laser hair
+  removal" and the Pro name.
+- Crop (default 30% anchor; measured from the masters, then eyeballed at
+  390 and 1280 on the built page): 21a — head ≈230, neon 190–330, logo
+  ≈1130, cartons ≈880, all inside the 80→1413 window; the arch dome
+  clips the neon's right tail (inherent — Revanesse/19a precedent).
+  21b — head ≈300, neon 150–250, shoes 1100–1330, logo ≈1130; the dome
+  grazes the neon's last letters. 21d — head ≈200, handpiece 480–720,
+  readout 905–1230, bezel name ≈1190; all inside. **No per-image anchor
+  override needed; TreatmentLayout is untouched.** `widths`
+  `[340, 540, 680]` on all three rows (the page's old `[340, 420]` was
+  source-bound below delivery resolution).
+- `venus-versa-pro.jpg` had no other consumer → removed; git history
+  keeps it (and 21a shows the same Pro logo it documented).
+- `clinicianApproved` true → false — approved content edited
+  (constraint 4: pricing, a new section, a rewritten FAQ answer, three
+  photos). Amy re-reviews on the PR preview — prices AND photos; the
+  flag returns in the consolidated pre-relaunch round.
+
+**Alternatives rejected:** the crop bake for 21d (recommended; declined
+— the client's frame ships untouched); a defocus bake (would still leave
+the device name and the hair-removal implication, which the new section
+now resolves anyway); paraphrased item names (declined — flyer-verbatim);
+single-only pricing (loses the packages Amy printed); a separate
+hair-removal page (the operator said "edit the page"); a `PriceList`
+component or a markdown table (the cards already carry prices sitewide;
+tables are unstyled under preflight).
+
+**Consequences:** the dosing bullet now carries two pixel-scoped
+exceptions, each fixed to its frame and page — any future readout frame
+is a fresh flag, not a precedent. `{{VENUS_VERSA_MENU}}` resolves. The
+"Laser Treatments" line carries an actual laser for the first time, so
+the 2026-07-22 naming flag is half-moot; the page's physics sentences
+stay exact. The flyers stay where they are, uncommitted.

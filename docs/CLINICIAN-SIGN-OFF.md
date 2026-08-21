@@ -38,6 +38,14 @@ own record:
 newest presentation-approval date below is NEWER than the last merged
 visual change (see docs/RELAUNCH.md, precondition 3).
 
+**No visible marker (2026-08-21):** unapproved pages no longer show
+the "Draft — pending clinician review" strip on previews — the
+operator retired it because Amy read it as part of the finished site
+(DECISIONS 2026-08-21). Pending status is therefore invisible in the
+rendered page; this document and the flags are the only record. To
+list what is pending: `grep -l "clinicianApproved: false"
+src/content/treatments/*.mdx`.
+
 ### Presentation-approval record
 
 | Date | Reviewed on | Scope | Logged by |

@@ -7,7 +7,6 @@ import CTAButton from '../components/CTAButton.astro';
 import DisclaimerBlock from '../components/DisclaimerBlock.astro';
 import InvestigationalNotice from '../components/InvestigationalNotice.astro';
 import BioteDisclaimer from '../components/BioteDisclaimer.astro';
-import DraftBanner from '../components/DraftBanner.astro';
 import ProductDetailCards from '../components/ProductDetailCards.astro';
 import EvolusLaurel from '../components/EvolusLaurel.astro';
 import VisitSteps from '../components/VisitSteps.astro';
@@ -26,6 +25,11 @@ import TrustChips from '../components/TrustChips.astro';
  *   visit steps -> FAQ (only when items provided) -> pricing ->
  *   consult router -> DisclaimerBlock (light surface, NEVER collapsed) ->
  *   seam -> noir CTA band + trust chips.
+ * No draft marker renders here: the visible DraftBanner strip retired
+ * 2026-08-21 at the operator's direction (the client read it as final-site
+ * content — DECISIONS same date). The clinicianApproved flag is still
+ * enforced by scripts/check-approvals.mjs in the production deploy and
+ * recorded in docs/CLINICIAN-SIGN-OFF.md; it simply never reaches markup.
  */
 interface Props {
   title: string;
@@ -41,7 +45,6 @@ interface Props {
   investigational: boolean;
   bioteDisclaimer: boolean;
   pricingDisplay: 'none' | 'consult' | 'startingAt';
-  clinicianApproved: boolean;
   investigationalProduct?: string;
   /** Page-supplied disclosure wording rendered inside InvestigationalNotice
    * — a single calm line from the content file; the component's bolded
@@ -73,7 +76,6 @@ const {
   investigational,
   bioteDisclaimer,
   pricingDisplay,
-  clinicianApproved,
   investigationalProduct,
   investigationalNote,
   productDetails = [],
@@ -91,7 +93,6 @@ const crumbs = [
 
 <BaseLayout title={seo.title} description={seo.description} jsonLd={jsonLd}>
   <Fragment slot="header">
-    {!clinicianApproved && <DraftBanner />}
     <Header />
   </Fragment>
 

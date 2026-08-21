@@ -11,7 +11,6 @@ import GetTheApp from '../../components/GetTheApp.astro';
 import DisclaimerBlock from '../../components/DisclaimerBlock.astro';
 import InvestigationalNotice from '../../components/InvestigationalNotice.astro';
 import BioteDisclaimer from '../../components/BioteDisclaimer.astro';
-import DraftBanner from '../../components/DraftBanner.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import AtAGlance from '../../components/AtAGlance.astro';
 import VisitSteps from '../../components/VisitSteps.astro';
@@ -83,14 +82,13 @@ const swatches = Object.entries(roles)
   ) : isTreatmentDemo ? (
     <TreatmentLayout
       title="Sample Treatment Line"
-      summary="A demonstration of the treatment template with placeholder copy, shown in its unapproved (draft) state."
+      summary="A demonstration of the treatment template with placeholder copy."
       products={['Sample Product A', 'Sample Product B']}
       ctaType="consult"
       investigational={true}
       investigationalProduct="Sample Product B"
       bioteDisclaimer={true}
       pricingDisplay="consult"
-      clinicianApproved={false}
       faq={demoFaq}
       seo={{
         title: 'Treatment template demo | Needle Girlie styleguide',
@@ -276,7 +274,6 @@ const swatches = Object.entries(roles)
         <section>
           <h2 class="heading-2">Compliance blocks</h2>
           <div class="mt-6 space-y-6">
-            <DraftBanner />
             <InvestigationalNotice productName="Sample Product" />
             <BioteDisclaimer />
             <DisclaimerBlock />

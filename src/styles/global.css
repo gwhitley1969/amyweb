@@ -212,8 +212,8 @@ body:not([data-surface='noir']) {
  * are opacity/filter/transform/text-shadow only (no layout).
  *
  * COMPLIANCE RULE: ng-rise / ng-trace are NEVER applied to
- * DisclaimerBlock, InvestigationalNotice, BioteDisclaimer, or DraftBanner
- * — an opacity-0 initial state de-emphasizes compliance text. Also never
+ * DisclaimerBlock, InvestigationalNotice, or BioteDisclaimer — an
+ * opacity-0 initial state de-emphasizes compliance text. Also never
  * on the hero, page H1s, or the lockup (LCP + first-paint identity).
  *
  * Support: the @supports guard means browsers without scroll-timeline

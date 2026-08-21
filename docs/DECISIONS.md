@@ -4944,3 +4944,41 @@ is a fresh flag, not a precedent. `{{VENUS_VERSA_MENU}}` resolves. The
 "Laser Treatments" line carries an actual laser for the first time, so
 the 2026-07-22 naming flag is half-moot; the page's physics sentences
 stay exact. The flyers stay where they are, uncommitted.
+
+**Addendum, same day — round 2: the price sheet.** The operator's
+preview review of PR #135: the hair-removal prices were "VERY difficult
+to read" as a bold-lead-in prose list, and the page had dropped two
+things Amy's guide states — the undiscounted FULL SERIES (6 treatments)
+column and the ~15% discount framing of the third column. Direction:
+every price as her guide lists it, three columns if that is what it
+takes. Decision: a new zero-JS `PriceSheet` component
+(`src/components/PriceSheet.astro`) renders the guide as a ledger —
+title, an aria-hidden header row of tracked caps ("Single" / "Full
+series · 6 treatments" / "Full series · ~15% off"), three groups
+(Treatment areas · Women's packages · Men's packages), ten rows, thirty
+prices, every name and area verbatim. Desktop (≥ 40rem): name + area
+note left, three fixed-width right-aligned tabular columns; the
+discounted column carries weight 600 and the in-box ink-pink accent
+(4.60:1 on the card plate — the operator-accepted pair; everything else
+ink-900 at 11.80:1). Phones: the same DOM stacks — name, note, then a
+three-up strip with each price under its own small label, prices pinned
+to a shared baseline. Each price is a real `<dt>`/`<dd>` pair (labels
+visible on phones, sr-only on desktop), so assistive tech hears
+"label, price" per item at every width — no pseudo-element text, no
+`display: contents`, no table-role gymnastics; real text on an opaque
+plate, so axe audits it. A footnote states the unit of sale ("A full
+series is six treatments; the discounted series is about 15% off six
+singles") and keeps the routing ("decided with Amy"). This REVERSES the
+earlier call above that the undiscounted column was "arithmetic, not
+shown": it is shown, as printed. The Epileve product card de-duplicates
+to two lines (single prices by tier; "Full series of six: about 15% off
+— full price sheet below") — it had repeated the same four long lines
+at the top of the page. Sheet data lives in the MDX as a JSX literal
+(audit trail; no schema change). Alternatives rejected: a `<table>`
+(stacking it on phones needs `display: block` on table parts, which
+strips table semantics unless every cell carries redundant ARIA roles);
+a markdown table (unstyled under preflight, no responsive story);
+pseudo-element `data-label` captions (unauditable text). Follow-up
+option, not done: the same sheet for the NanoFractional single /
+series-of-three prices. Verified at 344, 390, and 1280 — no horizontal
+overflow; all thirty figures present in the built page.

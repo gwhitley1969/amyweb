@@ -34,6 +34,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - `clinicianApproved` reset on laser-treatments (approved content
   edited — constraint 4); Amy re-reviews prices and photos on the
   preview.
+- Round 2, same PR (operator preview review): the hair-removal prices
+  now render as a **price sheet** — a new zero-JS `PriceSheet`
+  component laying out Amy's guide exactly as printed: three columns
+  (single · full series of six · full series at ~15% off), three groups,
+  all thirty prices; a ledger on desktop, labeled price strips on
+  phones. The Epileve card slims to two lines and points to the sheet.
 
 ### 2026-08-21 — Body contouring: Amy's Evolve reel replaces the session photo
 

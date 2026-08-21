@@ -669,8 +669,9 @@ action hype, no outcomes, no dosing, ever.
     (no wavelength, spec, or mechanism copy); priced by area — small /
     medium / large / extra-large tiers with their flyer area lists, plus
     women's and men's packages — single treatment and series of six
-    (unit of sale; the flyer's undiscounted six-singles column is not
-    shown). Bookable directly: the section carries its own Book CTA
+    (unit of sale; all three guide columns shown — single, full series
+    of six, full series at ~15% off — in the `PriceSheet` ledger, round 2
+    of 2026-08-21). Bookable directly: the section carries its own Book CTA
     (operator decision 2026-08-21); the page-level CTA stays consult.
     Pixel-level carve-out, operator override after the compliance flag
     (DECISIONS 2026-08-21): the page's Epileve photo

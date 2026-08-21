@@ -5137,3 +5137,13 @@ pseudo-element `data-label` captions (unauditable text). Follow-up
 option, not done: the same sheet for the NanoFractional single /
 series-of-three prices. Verified at 344, 390, and 1280 — no horizontal
 overflow; all thirty figures present in the built page.
+
+**Addendum 2, same day — round 3: hierarchy.** On the round-2 preview
+the operator saw that the group headings ("Women's packages", "Men's
+packages", "Treatment areas") and the item names beneath them shared
+one size and weight (1.0625rem / 600) and read as peers. The sheet now
+carries a three-level ladder, CSS only: title 1.375rem/600 → group
+heading 1.125rem/600 in ink-pink over an ink-pink rule (4.60:1 on the
+card plate — the operator-accepted in-box pair) → item name 1rem/500,
+indented under its heading (1rem on desktop, 0.75rem on phones) → area
+note 0.875rem. Prices keep 1.0625rem so the figures still lead the row.

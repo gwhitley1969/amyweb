@@ -40,6 +40,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   (single · full series of six · full series at ~15% off), three groups,
   all thirty prices; a ledger on desktop, labeled price strips on
   phones. The Epileve card slims to two lines and points to the sheet.
+  Round 3: a three-level type ladder (title → ink-pink group heading →
+  indented, lighter item names) so packages read as children of their
+  heading, not peers.
 
 ### 2026-08-21 — Weight loss: the InBody frame from behind; a "Before and After" section
 

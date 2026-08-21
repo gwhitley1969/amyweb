@@ -4582,3 +4582,5 @@ Instagram follow card (no `loop`) — trimming it to ~4.5s is a one-flag
 follow-up if Amy dislikes it. Observation, no change: the film's
 handle (@mobileaestheticsnp704) differs from the footer's `sameAs`
 Instagram link (amypalaciosnp.mobileaesthetics).
+
+**Addendum (same day, operator preview review):** the printed captions under both films ("From Amy's own reel — sound on." / "From Amy's Instagram — sound on.") came off — the provenance line read as noise to the client. The `caption` prop is simply omitted; the `aria-label` still names each film for assistive tech and the captions TRACK (the .vtt) is untouched. The page-scoped rule stands: no printed caption under a site-authored film unless directed.

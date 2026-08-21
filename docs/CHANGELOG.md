@@ -31,6 +31,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   in-row film sizing rule (2fr column, 18rem cap, centered).
   (DECISIONS same date; RUNBOOK "Adding or replacing a homepage
   commercial" gains the treatment-film paragraph.)
+- Same day, operator preview review: the printed captions under both
+  films ("From Amy's own reel — sound on." / "From Amy's Instagram —
+  sound on.") removed — the `caption` prop is omitted; the films'
+  accessible names and caption tracks are unchanged (DECISIONS
+  addendum).
 
 ### 2026-08-21 — Dermal fillers: the Evolysse film retires; Amy's photos land
 

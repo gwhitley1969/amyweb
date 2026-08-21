@@ -354,7 +354,7 @@ layout shift from fonts or images.
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
-| `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; the Evolus recognition plate + the ICON film (moved from wrinkle-relaxers at the client's direction 2026-08-18, superseding the 2026-07-21 ranking-free placement — the resolved `{{EVOLUS_CLAIM}}` sentence now renders on dermal-fillers and about, §8.4) | Request a consultation |
+| `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; the Evolus recognition plate + the ICON film (moved from wrinkle-relaxers at the client's direction 2026-08-18, superseding the 2026-07-21 ranking-free placement — the resolved `{{EVOLUS_CLAIM}}` sentence now renders on /about only — dermal-fillers swapped it for the EvolusLaurel plaque 2026-08-21, §8.4) | Request a consultation |
 | `/injector-training` | Private Injector Training | Professional-audience page (added 2026-08-04, operator-directed; DECISIONS same date): four hands-on, one-on-one courses for licensed medical professionals, prices flyer-verbatim (three at $5,000, Radiesse $7,500; three hours each, product included); curriculum topics under the fifth `allowedStrings` authorization (§8.1); outside the treatments collection and the clinician flag gate — Amy reviews via the sign-off doc's non-gated section; "Training" nav item | Call (phone/Instagram routed — neither booking nor consultation language) |
 | `/book` | RETIRED (2026-07-21, operator) | Was the Vagaro-handoff explainer; every "Book with Amy" now opens Vagaro directly, so the page was deleted before ever serving in production | — |
 | `/visit` | Visit Us | Address (hours are NOT listed — Amy's decision 2026-08-04, `{{HOURS}}` CLOSED; no page copy may promise or imply hours), parking note, "Get directions" link-out (no map iframe) | Directions / Book |
@@ -533,9 +533,13 @@ action hype, no outcomes, no dosing, ever.
    page carries no video, and its photography is Amy's round-5 picks
    (two hand-mirror frames and the lip-injection detail beside "Lips,
    styled"). The §8.4 Evolus ranking sentence
-   is authorized on this page (once — DECISIONS 2026-07-21; since
-   2026-07-30 it renders as the standalone EvolusCallout noir plate
-   rather than in Evolysse prose context).
+   was authorized on this page 2026-07-21 → 2026-08-21 (the standalone
+   EvolusCallout noir plate since 2026-07-30); at the client's direction
+   2026-08-21 that plate gave way to the EvolusLaurel ranking plaque,
+   rendered in-body in the plate's exact spot under "What they are"
+   (operator placement choice; §8.4's second scoped exception widened
+   to this page — DECISIONS same date). The "#1" sentence now renders
+   on /about only.
 5. **Biostimulators** — collagen-stimulating treatments: PDO Threads,
    Radiesse. Factual description of category; no "lifting results" promises.
    Radiesse is a **biostimulator, not a dermal filler**, for this catalog —
@@ -664,15 +668,19 @@ action hype, no outcomes, no dosing, ever.
    *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator
    override after the flag — DECISIONS): the exact sentence
    "Charlotte's #1 Evolus provider", enumerated in `allowedStrings`,
-   published unattributed at the operator's direction on the
-   dermal-fillers and about pages only (moved off wrinkle-relaxers at
-   the client's direction 2026-08-18). Basis: operator's
+   published unattributed at the operator's direction on the /about
+   page only (moved off wrinkle-relaxers at the client's direction
+   2026-08-18; replaced by the Laurel plaque on dermal-fillers
+   2026-08-21). Basis: operator's
    confirmation that the designation comes from Evolus + the same claim
    live on the practice's own site; the recommended Evolus rep email
    remains the outstanding substantiation upgrade. Second scoped
    exception (operator authorization 2026-08-19 — DECISIONS same
    date): the two ranking sentences rendered by the EvolusLaurel
-   plaque on /services/wrinkle-relaxers only — "The Top Evolus
+   plaque on /services/wrinkle-relaxers (layout slot) and, since
+   2026-08-21 at the operator's direction, /services/dermal-fillers
+   (in-body, the retired "#1" plate's spot — DECISIONS same date),
+   nowhere else — "The Top Evolus
    Injector in Charlotte." and "And among the Top 50 in the United
    States." — published unattributed at the operator's direction
    (the attribution kicker was offered and declined, consistent with

@@ -4376,3 +4376,51 @@ list are updated; REDESIGN's photo row gains the page; the Evolysse-film
 exception text in CLAUDE.md / BUILD_SPEC reads as retired, so a future
 session does not re-add the film on the strength of a stale
 authorization.
+
+## 2026-08-21 — dermal-fillers round 2: air above the lip diagram; the Laurel plaque replaces the "#1" plate
+
+**Context:** Operator review of the PR #130 preview, two items. (1) The
+new "Lips, styled" photo sat almost on top of the lip style-guide
+diagram. (2) Direction: copy wrinkle-relaxers' Evolus Laurel banner onto
+dermal-fillers in place of the black "Amy is Charlotte's #1 Evolus
+provider!" plate. Placement put to the operator (AskUserQuestion): the
+plaque lands EXACTLY where the plate was — in-body under "What they
+are", after the product cards — not in the layout slot wrinkle-relaxers
+uses (parity was recommended; position continuity chosen).
+
+**Decision (1):** the diagram figure takes `margin-top: 2.5rem` via its
+existing inline style — the page's row/heading rhythm. Cause: a media
+row is as tall as its taller cell (the photo), so the figure that
+follows started flush against the arch.
+
+**Decision (2):** `<EvolusLaurel />` is imported into the MDX body and
+replaces `<EvolusCallout />`; frontmatter `evolusLaurel` stays false.
+Scope record: the Laurel's §8.4 second exception — "wrinkle-relaxers
+only" — WIDENS to dermal-fillers at the operator's explicit direction
+(CLAUDE.md constraint 3 names widening the page scope as the human
+operator's call; this is that call). Substantiation is unchanged and
+page-independent (the operator's verification with Evolus). Same exact
+sentences, once per page, still absent from meta/OG/alt/JSON-LD. The
+allowlisted "#1" sentence now renders on /about ONLY (EvolusCallout's
+remaining consumer); the allowlist entry itself is untouched (it strips
+globally and records no page scope). Sitewide ranking placements stay at
+three (the "#1" plate came off this page as the Laurel went on).
+
+In-body rendering exposed one real defect, fixed in the component before
+it shipped: `.treatment-body p { max-width: 65ch }` would box the 17px
+stat paragraph to ~530px and shove the centered Top-50 lockup left of
+the plaque's axis (the statement line escapes only because 65ch at 39px
+exceeds the column). Both plaque paragraphs now set `max-width: none`
+(scoped, wins on specificity; no effect in the layout slot). Code
+comments in src/ name the plate as "EvolusCallout", never by the ranking
+token — lint:claims scans comments (the 2026-07-30 lesson).
+
+**Alternatives rejected:** the layout slot (recommended for parity with
+wrinkle-relaxers; the operator chose position continuity); a
+TreatmentLayout `:not()` carve-out for the body paragraph rule (the
+component owning its own resets travels with it); keeping both plates
+(the direction was replace).
+
+**Consequences:** CLAUDE.md constraint 3, BUILD_SPEC §6/§7.4/§8.4, and
+both component headers carry the new scopes; the sign-off row and
+REDESIGN row follow; clinicianApproved is already false on this branch.

@@ -113,8 +113,9 @@ silently following it. Known superseded points from earlier briefs:
      as-is — manufacturer comparative-efficacy remarks, named
      third-party providers, and no safety information, all
      operator-accepted); and the exact sentence "Charlotte's #1 Evolus
-     provider" enumerated in `allowedStrings`, on the dermal-fillers
-     and about pages only (moved off wrinkle-relaxers 2026-08-18);
+     provider" enumerated in `allowedStrings`, on the /about page only
+     (moved off wrinkle-relaxers 2026-08-18; swapped for the Laurel
+     plaque on dermal-fillers 2026-08-21);
      and three of the home-carousel films (operator clearances,
      DECISIONS 2026-08-14) — the two Evolus co-op Jeuveau commercials
      carried as-is with their complete FDA safety information (never
@@ -140,8 +141,10 @@ silently following it. Known superseded points from earlier briefs:
      compliance flag — DECISIONS 2026-08-18; two compliant rephrases
      declined), in the /services intro lead only, on one source line.
      And two ranking sentences rendered by `EvolusLaurel` on
-     /services/wrinkle-relaxers only (operator authorization —
-     DECISIONS 2026-08-19; substantiation = the operator's
+     /services/wrinkle-relaxers (layout slot) and, since 2026-08-21 at
+     the operator's direction, /services/dermal-fillers (in-body, in
+     the retired "#1" plate's spot — DECISIONS same date) — nowhere
+     else (operator authorization — DECISIONS 2026-08-19; substantiation = the operator's
      verification with Evolus, which also covers the national
      standing): "The Top Evolus Injector in Charlotte." and "And
      among the Top 50 in the United States." Neither contains a

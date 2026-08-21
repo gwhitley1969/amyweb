@@ -3,7 +3,10 @@
  * The Evolus Laurel — ranking plaque (client direction 2026-08-19):
  * a noir plaque carrying the Evolus ranking statement, rendered by
  * TreatmentLayout between the deck card and the product cards when a
- * page's frontmatter sets evolusLaurel: true.
+ * page's frontmatter sets evolusLaurel: true — or imported straight
+ * into an MDX body (dermal-fillers, 2026-08-21), where the
+ * .treatment-body p rules apply: the max-width resets below exist so
+ * the lockup stays centered there.
  *
  * COMPLIANCE — read before editing the copy:
  * - Both sentences are operator-authorized superiority-class copy
@@ -14,8 +17,11 @@
  *   authorization is recorded in CLAUDE.md rather than the allowlist
  *   (the photo pixel-override precedent). The wording is EXACT;
  *   changing a word requires the human operator.
- * - Authorized on /services/wrinkle-relaxers ONLY, once per page.
- *   Do not render this component anywhere else.
+ * - Authorized on /services/wrinkle-relaxers (the layout slot) and,
+ *   since 2026-08-21 at the operator's direction, /services/dermal-fillers
+ *   (rendered IN-BODY from the MDX, in the retired EvolusCallout plate's
+ *   exact spot — DECISIONS same date). Once per page; do not render
+ *   this component anywhere else.
  * - Motion stays inside the sanctioned vocabulary (global.css): the
  *   accent phrase carries ng-shimmer at a 39px floor (the "noir
  *   display-accent phrases >=39px only" rule — the clamp below never
@@ -108,6 +114,7 @@ const stem = `M${P0[0]} ${P0[1]} C${P1[0]} ${P1[1]} ${P2[0]} ${P2[1]} ${P3[0]} $
   }
   .evolus-laurel__statement {
     margin-top: 0.875rem;
+    max-width: none; /* in-body: .treatment-body p caps paragraphs at 65ch */
     font-family: var(--font-display);
     /* The 39px floor is the shimmer rule's bar — the clamp never dips
      * under it at any viewport (global.css motion vocabulary). */
@@ -123,6 +130,9 @@ const stem = `M${P0[0]} ${P0[1]} C${P1[0]} ${P1[1]} ${P2[0]} ${P2[1]} ${P3[0]} $
   }
   .evolus-laurel__stat {
     margin-top: 1.25rem;
+    /* In-body, .treatment-body's 65ch cap would box this 17px paragraph
+     * to ~530px and shove the centered lockup left of the plaque's axis. */
+    max-width: none;
   }
   /* The caps spans keep the eyebrow recipe (13px tracked caps on the
    * noir kicker pink-300, 11.58:1); the rank span is the lockup's

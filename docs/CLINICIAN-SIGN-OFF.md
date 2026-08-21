@@ -51,7 +51,7 @@ src/content/treatments/*.mdx`.
 | Date | Reviewed on | Scope | Logged by |
 |---|---|---|---|
 | 2026-08-05 | stable preview (`…-5`) | launch state — the same pass as the copy sign-off (`ad8fbde`) | operator |
-| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines | — |
+| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21) | — |
 
 Visual drift since 2026-08-05, for Amy's pending pass: body face and
 size (DM Sans → Playfair 17px/1.65), every photo arched with 4:5/9:8
@@ -69,7 +69,10 @@ ranking plaque on wrinkle-relaxers (2026-08-19, her direction —
 "The Top Evolus Injector in Charlotte." + the Top-50 line, noir
 plaque between the deck and the product cards), and the "Your visit,
 step by step" numerals replaced by Mobile Aesthetics chevron plates
-on every treatment page (2026-08-19, her mockup). Known defect queued for the same pass: `studio-wide.jpg` alt
+on every treatment page (2026-08-19, her mockup), and the two
+biostimulators reels replacing that page's studio portrait — her own
+films, playing inside the media rows in a bare frame (hairline + 12px
+corners, no white mat; 2026-08-21, her direction). Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window — an MDX edit, so
 it ships inside the flag-resetting re-approval round (DECISIONS
 2026-08-17).
@@ -107,7 +110,7 @@ is also not flag-gated and has its own review section below the table.
 |---|---|---|
 | ☐ | [/services/wrinkle-relaxers](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/wrinkle-relaxers) | Jeuveau / Xeomin / Daxxify cards with per-unit prices ($10, $10, $12); **NEW: all three photos are her 2026-08-18 picks** (blazer brow appointment under the neon; the hand-mirror male-client frame; the Jeuveau-banner studio scene as a wide segmental arch — the full frame, everyone visible, per her feedback; banner legibility shipped under her override). **NEW 2026-08-19: the Evolus Laurel ranking plaque** between the deck and the product cards — "The Top Evolus Injector in Charlotte." + "And among the Top 50 in the United States." (her direction; operator-verified with Evolus; wording pinned, DECISIONS 2026-08-19). **Also 2026-08-19: the page title is now "Neurotoxins - Wrinkle Relaxers"** (her wording, matching the /services menu line; H1 + breadcrumbs + JSON-LD; seo.title keeps the search phrasing), **and the page now says "neurotoxin" throughout** — card leads, both FAQ strings, body intro (her wording, 2026-08-19; zero "neuromodulator" remains on this page). (The Evolus ICON film and the "Charlotte's #1 Evolus provider" sentence moved to /about at her direction, 2026-08-18 — review them there, in the structural-page pass.) |
 | ☐ | [/services/dermal-fillers](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/dermal-fillers) | Evolysse / Revanesse cards ($650 or $325 half-syringe); the Evolysse film; the lip style guide; the #1-provider sentence. (Amy approved this page once on 2026-07-21; the caption sweep reset the flag — this is her re-confirmation.) |
-| ☐ | [/services/biostimulators](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/biostimulators) | Radiesse $900/syringe; PDO threads $350 for 10; studio portrait |
+| ☐ | [/services/biostimulators](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/biostimulators) | Radiesse $900/syringe; PDO threads $350 for 10. **NEW 2026-08-21: her two reels replace the studio portrait** — the Radiesse-visit film beside "A longer view of structure" (shipped as-is under her/the operator's overrides: the before/after cut, the unit-labeled carton, another provider on frame for ~2s; client release + consent on file) and her Instagram reel beside "Individualized, with Amy" (480p, shipped as final). Both play with sound on tap; captions are `[Music]` cues. The page now has no photographs. **Re-approval required — the MDX edit reset the flag** (DECISIONS 2026-08-21). |
 | ☐ | [/services/regenerative](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/regenerative) | PRP $600; PRP with microneedling $900; PRP photo |
 | ☐ | [/services/skin-rejuvenation](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/skin-rejuvenation) | PiXel8-RF $1,500; peels "Starting at $180"; **NEW: the docked PiXel8-RF handpiece photo** |
 | ☐ | [/services/body-contouring](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/body-contouring) | Evolve $1,500 course of six / $275 single session; **NEW: the Evolve session photo from her Reel (caption cropped)** |

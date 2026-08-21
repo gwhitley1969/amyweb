@@ -6,6 +6,32 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-21 — biostimulators: Amy's two reels replace the studio portrait
+
+- `/services/biostimulators` — the studio portrait beside "A longer
+  view of structure" is gone; Amy's Radiesse-visit reel plays there
+  (`radiesse-visit.mp4`, 1080×1920, 29s, sounded), and her Instagram
+  reel (`amy-reel.mp4`, 480×854, 9s, sounded) now sits to the right of
+  "Individualized, with Amy" in a new flipped media row. Both films
+  are click-to-play `TreatmentVideo` players inside the rows — the
+  first portrait films on the site's treatment pages — served from
+  the media origin with in-repo captions (`[Music]` cues; no speech).
+  Client direction; every flag and override in DECISIONS same date
+  (constraint-3 + constraint-2 overrides on the visit film, a
+  retina-rule override on the 480p reel, releases/consent on file).
+  `clinicianApproved` reset to false — the page joins the
+  pre-relaunch re-approval. `amy-studio-portrait.jpg` deleted (no
+  other consumer).
+- `TreatmentVideo` — posters are no longer requested above their
+  source width (Astro upscales on request; /about's ICON poster was
+  shipping as a 1280w blow-up of a 960 source — now a true 960w), and
+  a `frame="bare"` variant for films inside media rows (no paper mat;
+  the arch's hairline + 12px foot corners on the video). The
+  standalone player keeps its mat. `TreatmentLayout` gains the
+  in-row film sizing rule (2fr column, 18rem cap, centered).
+  (DECISIONS same date; RUNBOOK "Adding or replacing a homepage
+  commercial" gains the treatment-film paragraph.)
+
 ### 2026-08-21 — the "Draft — pending clinician review" strip retires
 
 - Treatment pages with `clinicianApproved: false` no longer render the

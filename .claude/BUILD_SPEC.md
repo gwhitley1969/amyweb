@@ -175,8 +175,11 @@ frame (`.ng-arch`, global.css — the category-door window generalized
 sitewide at the client's direction; DECISIONS 2026-08-17), with four
 standing exemptions: the home hero backdrop, all film stages and
 posters (the Evolus films' burned-in safety information ships complete
-and uncropped), the homepage Instagram post (the client's named
-exception), and the lip style-guide diagram. The arch family has one
+and uncropped; since 2026-08-21 Amy's own site-authored films may wear
+the arch's 12px foot corners + hairline via `TreatmentVideo`'s bare
+frame when they sit inside a media row — never the arch, and
+manufacturer stages stay unmasked), the homepage Instagram post (the
+client's named exception), and the lip style-guide diagram. The arch family has one
 wide sibling (2026-08-18, DECISIONS same date): the segmental arch —
 curve pinned to the top third over straight feet — for a landscape
 frame that must show its full content (first use: the
@@ -537,7 +540,13 @@ action hype, no outcomes, no dosing, ever.
    it lives on this page, not Dermal Fillers (operator-confirmed 2026-07-21
    via radiesse.com, which markets it as "the first and only injectable
    biostimulator"). That superlative and "FDA-approved" stay off-site (§8);
-   PDO threads are the VSoft Lift line.
+   PDO threads are the VSoft Lift line. Media (2026-08-21, DECISIONS
+   same date): two of Amy's own reels play in the page's media rows
+   via `TreatmentVideo` (`frame="bare"`, sounded, click-to-play) — the
+   Radiesse-visit film beside "A longer view of structure" and her
+   Instagram reel beside "Individualized, with Amy" — each under its
+   recorded operator overrides (§8.3 exception list; CLAUDE.md
+   constraints 2 and 3). The page carries no photographs.
 6. **Regenerative Treatments** — PRP, and PRP with microneedling
    (trimmed to the live Vagaro menu, operator decision 2026-07-19; PRF,
    PDRN, Illuma, VAMP, and Rejuran return only if Amy confirms them as
@@ -651,7 +660,12 @@ action hype, no outcomes, no dosing, ever.
    event film on /about (moved from wrinkle-relaxers at the client's
    direction 2026-08-18, exception terms unchanged; carried as-is; its
    comparative-efficacy remarks are the manufacturer's own and its
-   captions transcribe the event speech faithfully). Nothing else.*
+   captions transcribe the event speech faithfully). And, site-authored
+   (DECISIONS 2026-08-21): Amy's Radiesse-visit reel on
+   /services/biostimulators, whose cut reads as a before/after sequence
+   and whose carton shot shows a per-vial unit quantity — carried as-is
+   under operator override, client release on file (her Instagram reel
+   on the same page carries no claims content). Nothing else.*
 4. Unsubstantiated superiority: "#1", "best", "top-rated" — banned.
    *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator
    override after the flag — DECISIONS): the exact sentence

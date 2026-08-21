@@ -75,7 +75,14 @@ silently following it. Known superseded points from earlier briefs:
    film (`commercial-team`), which shows the location's other five
    providers on camera; their releases for needlegirlie.com use are
    confirmed on file, and none of them is legibly named in the film.*
-   *Outside these two exceptions the other providers are still never
+   *Third scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-08-21): the Radiesse-visit film
+   (`radiesse-visit`) on /services/biostimulators, Amy's own reel, in
+   which one of the location's other providers is on camera for about
+   two seconds (face out of frame, never named); their consent for
+   needlegirlie.com use is confirmed on file. The film's labels and
+   captions never attribute the hands-on treatment to anyone.*
+   *Outside these three exceptions the other providers are still never
    named or implied in any needlegirlie.com text, and adding any
    further link, film, or mention requires the human operator.*
 
@@ -151,6 +158,20 @@ silently following it. Known superseded points from earlier briefs:
      the page scope, or restating the ranking anywhere else —
      including meta descriptions, OG tags, alt text, and JSON-LD —
      requires the human operator.
+     And two of Amy's own published reels on /services/biostimulators
+     (operator overrides after the compliance flags — DECISIONS
+     2026-08-21): the Radiesse-visit film (`radiesse-visit`), whose
+     cut reads as a before/after sequence and whose carton shot shows
+     a neuromodulator box with a per-vial unit quantity legible —
+     carried as-is, the on-camera client's release confirmed on file
+     (its second on-frame person is the constraint-2 exception
+     above); and Amy's Instagram reel (`amy-reel`), which carries no
+     claims content (its 480p source ships under a separate
+     retina-rule override recorded in DECISIONS and REDESIGN, not
+     here). Both keep their audio on the operator's no-speech
+     confirmation; their caption files carry `[Music]` cues. Labels,
+     captions, and comments for either film describe only what the
+     pixels self-identify.
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing

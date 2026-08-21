@@ -17,7 +17,10 @@ productDetails:
     priceLines: ["$350 for 10 threads"]
 ctaType: consult
 pricingDisplay: consult
-clinicianApproved: true
+# Reset 2026-08-21 (constraint 4): the media rows gained Amy's two reels
+# in place of the studio portrait (DECISIONS same date). Re-approval
+# lands in the consolidated pre-relaunch round — operator's hand only.
+clinicianApproved: false
 draft: false
 faq:
   - q: "What is a biostimulator?"
@@ -35,8 +38,9 @@ seo:
   description: "Collagen-stimulating treatments (Radiesse and PDO Threads) with Amy Palacios, FNP, in Harrisburg, NC. This line starts with a consultation."
 ---
 
-import { Image } from 'astro:assets';
-import amyPortrait from '../../assets/photos/amy-studio-portrait.jpg';
+import TreatmentVideo from '../../components/TreatmentVideo.astro';
+import radiesseVisitPoster from '../../assets/photos/radiesse-visit-poster.jpg';
+import amyReelPoster from '../../assets/photos/amy-reel-poster.jpg';
 
 ## What they are
 
@@ -51,14 +55,22 @@ view, which is exactly why this line begins with a conversation rather than a
 booking.
 
 <section class="media-row">
-  <figure class="media-figure">
-    <Image
-      src={amyPortrait}
-      alt="Amy Palacios, FNP, in her Harrisburg studio."
-      widths={[340, 540, 680]}
-      sizes="(max-width: 40rem) 90vw, 17rem"
-    />
-  </figure>
+  {/* Amy's own reel (client direction 2026-08-21), carried as-is under
+    * the operator overrides recorded in DECISIONS same date — the
+    * §8.3/§8.9 sequence flag, the §8.1 label-quantity flag, and the
+    * constraint-2 on-frame flag were each raised and overridden; the
+    * client's release and the on-frame consent are on file. The film
+    * never shows who performs the treatment, so the label and caption
+    * describe only what the pixels self-identify. Portrait film, sized
+    * by the row column; bare frame beside the page's bare arches. */}
+  <TreatmentVideo
+    frame="bare"
+    src="/media/radiesse-visit.mp4"
+    poster={radiesseVisitPoster}
+    captionsSrc="/media/radiesse-visit.vtt"
+    label="A client's Radiesse visit at the Harrisburg studio, from Amy's own reel"
+    caption="From Amy's own reel — sound on."
+  />
   <div class="media-copy">
 
 ## A longer view of structure
@@ -79,8 +91,25 @@ after. They suit different faces and different goals. Amy explains what each
 involves, plainly, and recommends one, both, or neither based on what's right
 for you.
 
+<section class="media-row media-row--flip">
+  <div class="media-copy">
+
 ## Individualized, with Amy
 
 Nothing in this category is off the shelf. Amy Palacios, FNP, plans and performs
 every treatment herself, under clinician supervision, at her Harrisburg studio
 in the greater Charlotte area. It starts with a consultation, free as always.
+
+  </div>
+  {/* Amy's own Instagram reel (client direction 2026-08-21; DECISIONS
+    * same date). No claims content; the 480p source ships as final
+    * under the recorded retina-rule override. Copy left, film right. */}
+  <TreatmentVideo
+    frame="bare"
+    src="/media/amy-reel.mp4"
+    poster={amyReelPoster}
+    captionsSrc="/media/amy-reel.vtt"
+    label="Amy's reel — Amy Palacios, FNP, in a short film from her Instagram"
+    caption="From Amy's Instagram — sound on."
+  />
+</section>

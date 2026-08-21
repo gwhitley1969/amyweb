@@ -1,0 +1,14 @@
+WEBVTT
+
+NOTE
+Amy's own Instagram reel, carried as-is under operator override —
+docs/DECISIONS.md 2026-08-21. The web rendition keeps its audio: a
+music track with no speech (operator-confirmed 2026-08-21; that
+confirmation is the record). The only on-screen text is the
+Instagram handle, mirrored below.
+
+00:00.000 --> 00:03.500
+[Music]
+
+00:04.500 --> 00:09.000
+On screen: Instagram — @mobileaestheticsnp704

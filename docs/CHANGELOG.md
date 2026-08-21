@@ -6,6 +6,22 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-21 — Body contouring: Amy's Evolve reel replaces the session photo
+
+- /services/body-contouring — the Reel-screenshot photo beside "What a
+  session is like" (449px, below the retina rule) is gone; Amy's own
+  Evolve reel plays there (`evolve-reel.mp4`, 576×1024, 17s, sounded):
+  Amy alone in the treatment chair with the applicators under her neon,
+  a collage edit. Same row shape — film left, copy right — in the bare
+  frame, autoplaying muted on approach and looping in view, sound one
+  tap away on the native controls (operator direction). Served from
+  the media origin with in-repo captions (`[Music]` cues). No client,
+  no release, no burned-in text, no override needed; the 576px source
+  meets the retina rule for the slot (DECISIONS same date).
+- `clinicianApproved` reset on body-contouring (approved content
+  edited — constraint 4); Amy re-reviews on the preview.
+  `evolve-session.jpg` deleted (no other consumer).
+
 ### 2026-08-21 — Skin rejuvenation: Amy's PiXel8-RF photos land
 
 - Photo round page 6: "How PiXel8-RF works" now shows Amy beside the

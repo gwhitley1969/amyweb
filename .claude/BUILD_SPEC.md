@@ -621,6 +621,10 @@ action hype, no outcomes, no dosing, ever.
     a non-invasive device-based treatment; describe by intended design
     (skin tightening, muscle toning) only — never as outcomes. No
     body-fat or measurement language of any kind. Consult routing.
+    Page visual since 2026-08-21: Amy's own Evolve reel — a
+    site-authored film in the session row (bare frame, autoplay-muted
+    opt-in; screening record DECISIONS same date) — which replaced the
+    2026-08-04 Reel-screenshot photo.
 12. **Laser Treatments** *(added 2026-07-22, from the operator-supplied
     Venus Versa brochures — a constraint-8-class view-only source, never
     committed)* — **Venus Versa Pro** (Venus Concept), a device platform

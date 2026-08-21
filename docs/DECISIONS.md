@@ -4700,3 +4700,83 @@ for the first time; the CLAUDE.md wording fixes frame and page, so any
 future frame showing a console readout is a fresh flag, not a
 precedent. PR #131 (biostimulators) touches the same layout, CSS, and
 governing docs — whichever lands second resolves keep-both.
+
+## 2026-08-21 — body-contouring: Amy's Evolve reel replaces the session photo (20)
+
+**Context:** Client direction via the operator (2026-08-21): on
+/services/body-contouring the photo beside "What a session is like"
+(`evolve-session.jpg` — the 2026-08-04 screenshot of a Reel, 449×565,
+the page's only photo and below the retina rule at the slot) is
+replaced by `C:\Amy\New Pics\20.mp4`, parked for this page since
+2026-08-14 (REDESIGN films row). Operator direction on playback:
+autoplay — muted on approach, with the sound available on the native
+controls (the biostimulators pattern). Nothing else on the page changes.
+
+**Source, probed first-hand.** A TikTok download: 576×1024 HEVC Main
+yuv420p, 30fps, 17.37s, 719KB; stereo HE-AAC 44.1kHz; `aigc_label_type
+0` (not AI-labeled, so the AI-imagery disclosure rule is not engaged).
+A CapCut-style collage edit.
+
+**Frame-level screen** (contact sheet at 0.5s cadence + full-res grabs
+at 0/3/6/9/12/15/17s): Amy alone throughout — in the treatment chair
+holding two Evolve applicators at her waist under her Mobile Aesthetics
+neon; the open applicator case (six pods in foam); close-ups of her
+hands on the applicator tray (one pod lit); tiled/rotated panels of
+the same scene; a mirrored beat at ~15s. No client and no second
+person — no release, constraint 2 not engaged. Legible text: the neon
+only (her branding); a device part label with a QR code passes at ~12s
+(a model-label fragment, not a claim). No burned-in caption — the
+retired photo's source Reel carried an efficacy caption, this film
+does not. No body-fat, measurement, or outcome content (§7.11's line
+rule): equipment and setup only. **No override of any kind is
+required** — the first film of the round to ship without one.
+
+**Audio.** A steady music-class track (ffmpeg volumedetect mean
+−26.6dB, peak −8.0dB; no silent windows); not transcribable on this
+workstation (no Whisper). The plan stated the assumption — a music bed
+with no speech, the same edit class as the 2026-08-21 Instagram reel —
+and the operator approved the plan with the autoplay direction; that
+approval is the record. Captions therefore take the sounded-film form:
+bounded `[Music]` cues (0–4s, 7–11s, 13–17s) under a NOTE block; no
+burned-in text to mirror. If speech is ever identified on the track,
+the captions need a faithful transcript and the autoplay opt-in is
+withdrawn (TreatmentVideo's prop contract).
+
+**Retina rule:** the row slot is ~275px desktop / 288px phone; the
+576px source is 2.0–2.1× — meets the rule (the 2026-08-21 480p reel
+needed an override; this one does not).
+
+**Decision.**
+- Rendition `evolve-reel.mp4` (content-named): the ICON/17a recipe —
+  `ffmpeg -c:v libx264 -crf 20 -preset medium -pix_fmt yuv420p -c:a copy
+  -movflags +faststart` → H.264 High, 576×1024, 3.54MB (1.63Mbps;
+  the collage edit is motion-heavy), moov before mdat. Poster
+  `evolve-reel-poster.jpg` from the rendition at 0.5s (`-q:v 2`,
+  576×1024 — the clean opening frame: Amy, the applicators, the neon).
+  Captions `public/media/evolve-reel.vtt`.
+- The existing `media-row` keeps its shape — film left, "What a
+  session is like" right. `TreatmentVideo frame="bare"
+  autoplay="inview"`; no printed caption (the 2026-08-21 review rule);
+  label describes only what the pixels self-identify.
+- Uploaded to the media origin AFTER this entry was committed (the
+  written rule); new filename, so no purge. Verified 206 / video/mp4 /
+  Accept-Ranges before the PR opened.
+- `evolve-session.jpg` had no other consumer → removed (the /services
+  card uses `evolve-belt-selfie.jpg`, untouched).
+- `clinicianApproved` true → false — approved content edited
+  (constraint 4); Amy re-reviews on the PR preview; the flag returns in
+  the consolidated pre-relaunch round.
+
+**Alternatives rejected:** keeping the 449px photo (below delivery
+resolution, and the client asked for the film); click-to-play (the
+operator asked for autoplay); stripping the audio (loses the
+tap-for-sound the operator wants); a VideoObject / JSON-LD entry
+(never — §8 scope discipline).
+
+**Consequences:** three treatment pages now carry Amy's own films with
+one shared ~2KB static script; the page has no photographs left. The
+poster is fetched at page load (the `poster` attribute is not lazy) on
+a page outside the LHCI set; the film streams from Blob only on play
+(egress pennies). RELAUNCH's launch-day probes gain the film and the
+autoplay check on this page. No CLAUDE.md change — nothing here is an
+exception.

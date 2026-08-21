@@ -19,6 +19,12 @@
  * accent (4.60:1 on the card plate — the operator-accepted in-box pair,
  * tokens.css SITE-WIDE BOXES); everything else is ink-900 (11.80:1).
  *
+ * Hierarchy (round 3, 2026-08-21, operator review — group headings and
+ * item names had shared one size/weight and read as peers): title
+ * 1.375rem/600 → group heading 1.125rem/600 in ink-pink over an ink-pink
+ * rule → item name 1rem/500, indented under its heading → area note
+ * 0.875rem. Prices keep 1.0625rem so the figures still lead the row.
+ *
  * Copy rules (BUILD_SPEC §7/§8): `name` and `note` are menu facts —
  * areas, package names, counts as units of sale — never outcomes; the
  * `footnote` routes "which one suits you" to a consultation. Zero JS.
@@ -96,27 +102,32 @@ const cols = columns.length;
   }
   .price-sheet__title {
     font-family: var(--font-body);
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     line-height: 1.3;
     font-weight: 600;
     margin: 0;
   }
+  /* Category band: ink-pink type over an ink-pink rule (4.60:1 on the
+   * card plate — the operator-accepted in-box pair). */
   .price-sheet__group-heading {
     font-family: var(--font-body);
-    font-size: 1.0625rem;
+    font-size: 1.125rem;
     line-height: 1.3;
     font-weight: 600;
+    color: var(--ng-link);
     margin: 1.5rem 0 0;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--ng-hairline);
+    border-bottom: 1px solid var(--ng-ink-pink);
   }
   .price-sheet__rows {
     list-style: none;
     margin: 0;
     padding: 0;
   }
+  /* Rows indent under their heading — the outline cue that they are
+   * children of the category band above, not its peers. */
   .price-sheet__row {
-    padding: 0.875rem 0;
+    padding: 0.875rem 0 0.875rem 0.75rem;
     border-bottom: 1px solid var(--ng-hairline);
   }
   .price-sheet__row:last-child {
@@ -125,9 +136,9 @@ const cols = columns.length;
   .price-sheet__name {
     display: block;
     font-family: var(--font-body);
-    font-size: 1.0625rem;
+    font-size: 1rem;
     line-height: 1.3;
-    font-weight: 600;
+    font-weight: 500;
   }
   .price-sheet__note {
     display: block;
@@ -211,6 +222,7 @@ const cols = columns.length;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 1rem;
       align-items: start;
+      padding-left: 1rem;
     }
     .price-sheet__prices {
       margin-top: 0;

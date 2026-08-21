@@ -23,7 +23,7 @@ change lives in `docs/DECISIONS.md`; design specs live in
   consult-first). Summary, deck, SEO title/description, the first FAQ
   ("Is this actually a laser?" — now "Partly"), and the /services
   menu-card summary follow.
-- Photo round page 7: Amy's picks 21a (beside the Versa Pro console —
+- Photo round page 8: Amy's picks 21a (beside the Versa Pro console —
   replaces the below-resolution 2026-08-04 console snapshot, now
   retired), 21b (seated with two applicators, right of "Fine lines"),
   and 21d (at the window with the Epileve, left of the new section).
@@ -40,6 +40,30 @@ change lives in `docs/DECISIONS.md`; design specs live in
   (single · full series of six · full series at ~15% off), three groups,
   all thirty prices; a ledger on desktop, labeled price strips on
   phones. The Epileve card slims to two lines and points to the sheet.
+
+### 2026-08-21 — Weight loss: the InBody frame from behind; a "Before and After" section
+
+- /services/weight-loss-glp-1 — the weigh-in photo beside
+  "Individualized, with Amy" gives way to the same InBody client seen
+  from behind (operator pick 23a, derived upright from the EXIF-rotated
+  master; the arch runs 3:4 for this frame so head and feet both
+  stay). The aftercare wall sign's text is legible in the served file —
+  shipped as-is under operator override after the compliance flag (the
+  fourth photo override; DECISIONS same date).
+- A new section, "They showed up for themselves", closes the body:
+  three client-supplied side-by-side photo pairs in bare 12px frames
+  at a 30rem cap, under an intro that carries the clients' consent and
+  every-plan-is-individual in copy and routes to a consultation — the
+  site's first before/after content, under operator override after the
+  compliance flag (BUILD_SPEC §1, §8.3, §8.9 and the lint:claims gate
+  were each flagged). Releases and HIPAA marketing authorizations for
+  all five pictured people confirmed on file. (Round 2, same day: the
+  original "Before and After" heading and its "results vary" line were
+  replaced at the operator's direction; the allowlist entry briefly
+  authorized for that heading was withdrawn.)
+- `clinicianApproved` reset on weight-loss (approved content edited —
+  constraint 4); Amy re-reviews on the preview.
+  `supervised-weigh-in.jpg` deleted (no other consumer).
 
 ### 2026-08-21 — Body contouring: Amy's Evolve reel replaces the session photo
 

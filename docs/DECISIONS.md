@@ -4781,7 +4781,162 @@ a page outside the LHCI set; the film streams from Blob only on play
 autoplay check on this page. No CLAUDE.md change — nothing here is an
 exception.
 
-## 2026-08-21 — laser-treatments: the priced menu, Venus Epileve laser hair removal, and photo round page 7
+## 2026-08-21 — weight-loss: the 23a weigh-in frame and the "Before and After" section (two operator overrides)
+
+**Context:** Client direction via the operator (2026-08-21) on
+/services/weight-loss-glp-1: (1) replace the photo left of
+"Individualized, with Amy" (`supervised-weigh-in.jpg`, the page's only
+consumer) with `C:\Amy\New Pics\23a.jpeg`; (2) add a new section
+"Before and After" after that row, holding `glp1.png`, `glp2.png`,
+`glp3.png`. The page was `clinicianApproved: true` (2026-08-05) → reset
+in the content commit (constraint 4). Work isolated in the dermal-fillers
+worktree on its own branch.
+
+**What was verified first-hand.** 23a: 5712×4284 iPhone JPEG, EXIF
+orientation 6 → upright 4284×5712 (3:4); new to the repo. The same
+grey-haired client as the outgoing frame, from behind on the InBody
+scale, no face. The aftercare wall sign beside her is fully legible:
+the competitor neuromodulator brand title in large type (the very sign
+behind the 2026-08-18 menu-card override) and its aftercare lines,
+including "RESULTS TAKE 10-14 DAYS" — a results-timeline line. Because
+astro:assets serves the source-resolution derivative as the `<img src>`,
+the committed 1200px file keeps all of it legible. glp1 1290×1167,
+glp2 990×766, glp3 964×905 — phone-screenshot PNGs, each a side-by-side
+pair of personal photos of identifiable private people: a couple; two
+women; one woman. No text or numbers in any of them.
+
+**Flag 1 — the section (raised once, four points):** BUILD_SPEC §1
+lists before/after galleries as explicitly NOT in v1 and §8.9 defers
+before/after content by the SOW (a scope/contract matter as much as a
+compliance one); §8.3 and CLAUDE.md constraint 3 ban before/after
+implications outright, §7.1 bans weight-loss numbers on this line, and
+this log's 2026-07-22 body-contouring entry refused even body imagery
+for reading as before/after; `lint:claims` bans the literal phrase, so
+the heading itself fails the gate and the only sanctioned route is an
+operator-authorized `allowedStrings` entry (a gate-config change);
+the pictured people are identifiable (faces, tattoos; companions in two
+pairs), so each needs a written website-use release AND a HIPAA
+marketing authorization; a weight-loss before/after gallery on a page
+selling compounded GLP-1 vials beside an investigational product is the
+content class FDA/FTC warning letters have targeted; and the images are
+964–1290px, below the retina rule for a full-width slot. Recommended
+path: ship the photo swap now and hold the section for counsel review
+and the releases. **Operator decision: build it now under override.**
+Two further confirmations were then obtained and are the record:
+**(a) all five pictured people's website-use releases and HIPAA
+marketing authorizations are on file (operator, 2026-08-21); (b) the
+operator explicitly authorized the allowlist entry.** The SOW deferral
+is the operator's document to amend; flagged, not drafted here.
+
+**Flag 2 — the 23a sign:** the competitor-brand title (the 2026-08-18
+precedent) now joined by a legible results-timing line; a crop that
+removes the sign loses her head or her feet. Recommended a server-side
+defocus of the sign region; **operator decision: ship as-is** — the
+fourth photo-level override under the claims bullet. Release: the
+InBody client's, confirmed on file 2026-08-18 (same person; the
+operator did not correct the stated assumption).
+
+**Decision — the gate.** `allowedStrings` gains the exact h2 source
+line `## Before and After` (seventh authorization). Heading-wrapped for
+the same mechanical reason as the fifth: the banned word is
+string-initial, and the self-test's digit-prefix near-miss proof
+(`1## Before and After` must still trip) needs the non-word `#`
+boundary; the wrap also binds the exception to one attribute-less h2
+source line. The `outcome-promises` pattern is untouched; the phrase
+stays banned everywhere else in `src/` — alts, comments, identifiers,
+and layout comments all say "pair" / "side by side" (verified by grep:
+the heading line is the phrase's only occurrence). The self-test passed
+with the entry in place.
+
+**Decision — the page.**
+- 23a re-derived from the master (the B9 precedent): sharp `.rotate()`
+  (EXIF-normalize) → 1200×1600 (3:4 exact, no crop) → JPEG q92 →
+  `inbody-weigh-in-rear.jpg`. Alt describes the scene only — no readout,
+  no numbers. The 4:5 arch window would shed head or feet (head at
+  ~1.5%, feet on the scale at ~98%) and the scale is the story, so the
+  layout's per-image knob gets its first ASPECT use: `aspect-ratio:
+  3 / 4` for this frame — the arch runs 6% taller and shows the full
+  frame; dome and hairline unchanged.
+- The section: `## Before and After`, one disclosure line ("Photos
+  shared with the permission of Amy's clients. Individual results
+  vary." — the minimum responsible framing for the override; passes the
+  gate), then a `.pair-gallery` of three figures. Full frames, never
+  cropped or arched (a dome would clip the faces in the top corners; a
+  cropped pair is an altered pair): NOT `.media-figure`, so the arch
+  rule never reaches them; the bare film frame's recipe (magenta
+  hairline + 12px corners); stacked and centred at `min(30rem, 100%)`,
+  which keeps every source at or above 2× (964px = 2.0×) — no retina
+  override; tiers `[480, 960]` never upscale. Assets content-named
+  `client-pair-couple.png`, `client-pair-friends.png`,
+  `client-pair-portrait.png` (byte copies). Alts name people, setting,
+  and clothing on the left and right — no numbers, dates, names, or
+  the banned phrase.
+- `supervised-weigh-in.jpg` removed (no other consumer; git history
+  keeps it). `amy-palacios-fnp.jpg` (row 1) and the /services card
+  untouched.
+
+**Alternatives rejected:** holding the section for counsel and the
+releases (recommended; operator chose to ship); a heading without the
+banned adjacency (the client's wording was kept under the allowlist
+route); a 3-up grid (each pair would render ~14rem — faces unreadable
+and far below the retina rule); a full-width gallery (below the retina
+rule at every source); defocusing the 23a sign (declined); cropping it
+out (loses head or feet).
+
+**Consequences:** the site carries before/after content for the first
+time, on one page, in one section, under a recorded operator override
+— any extension is a fresh flag. Constraint-3's claims bullet now
+lists four photo overrides and this section; BUILD_SPEC §1, §7.1, §8.3,
+§8.9 and compliance/README are amended in the same PR. The disclosure
+line is copy the operator may reword; the alts and the "no numbers,
+dates, names" rule are not negotiable without a new flag.
+
+## 2026-08-21 — weight-loss round 2: the pairs section gets its real heading and intro; the seventh allowlist entry withdrawn
+
+**Context:** Operator feedback on the PR #136 preview: "Before and
+After" and the line "Photos shared with the permission of Amy's
+clients. Individual results vary." were flat; the section needed copy
+that is original, positive, and attention-grabbing. "Results" was
+floated.
+
+**Candidates offered (all gate-checked against the full registry and
+the voice rule):** (1) "They showed up for themselves" — credits the
+clients, not the clinic; (2) "Two photos, one story" — leads with the
+format; (3) "Results" — the operator's suggestion, advised against: it
+passes the gate as a bare word but is the regulator's trigger word for
+an efficacy claim and the generic label every competitor uses. Each
+came with an intro that does the old line's two jobs — consent ("chose
+to share") and individuality ("no two of these look alike") — inside
+the prose, and closes on the consultation route (the clinical-routing
+word).
+
+**Decision (operator):** heading **"They showed up for themselves"**;
+intro: "Two photos, one story — and each of these is a client who chose
+to share theirs. Different starting points, different plans, the same
+decision to begin. Every plan Amy writes is for one person, so no two
+of these look alike. Where yours would start is a consultation." No
+banned word (no results/proven/guarantee/testimonial/permanent/best; no
+before/after adjacency); no first-person plural; third-person Amy, the
+site's established mode.
+
+**The gate:** with the original heading gone, the seventh allowlist
+authorization (`## Before and After`, entered earlier the same day)
+had no consumer. An authorization nothing uses is a loophole, so the
+entry was removed — a tightening, authorized by the operator's approval
+of the round-2 plan (the registry rule: changing the list requires the
+human operator). `$allowlistComment` keeps the paragraph and records
+the withdrawal in place; the phrase is banned everywhere again, and
+`git grep` finds zero occurrences in `src/`. The self-test passed
+with the entry gone. The section's CONTENT override — the three client
+pairs, the releases + HIPAA record — is unchanged.
+
+**Consequences:** CLAUDE.md constraint 3, BUILD_SPEC §7.1/§8.3/§8.9,
+compliance/README, CHANGELOG, CLINICIAN-SIGN-OFF, and REDESIGN name the
+section by its heading and record the withdrawal. The intro is copy
+the operator may reword; any future wording keeps consent,
+individuality, and the consultation route, and never adds numbers,
+dates, names, or outcome words.
+## 2026-08-21 — laser-treatments: the priced menu, Venus Epileve laser hair removal, and photo round page 8
 
 **Context:** Client direction via the operator, two messages the same
 morning. First, three photo placements on /services/laser-treatments:

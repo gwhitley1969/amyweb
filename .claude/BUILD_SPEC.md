@@ -30,8 +30,10 @@ The site must:
 7. **Be maintainable by one person** — provider-managed content in Git; no CMS in v1.
 
 Explicitly **not** in v1: any backend/server code, the AI assistant (Phase 3,
-mobile app), user accounts, e-commerce/payments, before/after galleries,
-testimonials, contact forms, any other provider's services.
+mobile app), user accounts, e-commerce/payments, before/after galleries (one
+scoped exception, 2026-08-21: the weight-loss page's three client photo
+pairs under operator override — §8.3/§8.9), testimonials, contact
+forms, any other provider's services.
 
 ## 2. Architecture
 
@@ -183,7 +185,15 @@ client's named exception), and the lip style-guide diagram. The arch family has 
 wide sibling (2026-08-18, DECISIONS same date): the segmental arch —
 curve pinned to the top third over straight feet — for a landscape
 frame that must show its full content (first use: the
-wrinkle-relaxers band, at the client's "everyone visible" direction). Motion is scroll-driven
+wrinkle-relaxers band, at the client's "everyone visible" direction). Two
+2026-08-21 additions (weight-loss, DECISIONS same date): the per-image
+crop knob gained its first ASPECT use — a 3:4 arch for a 3:4 master
+whose head and feet both matter (the InBody frame) — and `.pair-gallery`,
+a block OUTSIDE the arch family for side-by-side client photo pairs:
+full frames never cropped or arched (a dome would clip faces; a cropped
+pair is an altered pair), the bare film frame's hairline + 12px
+corners, stacked and centred at a 30rem cap so every source stays at or
+above 2× (retina rule). Motion is scroll-driven
 and sparse; nothing pulses except the sign's slow breath. Since 2026-08-14 the noir shell includes
 the home's cinematic video stage — four films crossfading
 chromeless on full-bleed noir (the operator's "Audi treatment";
@@ -465,6 +475,16 @@ action hype, no outcomes, no dosing, ever.
    describe its mechanism (the appetite-language ban applies). Banned
    angles: weight-loss numbers, "powerful results",
    blood-sugar/hypoglycemia claims, appetite mechanics as promises.
+   Page media since 2026-08-21 (DECISIONS same date): the InBody
+   weigh-in frame from behind, shipped as-is under the fourth photo
+   override (the aftercare sign's text), and the client photo-pairs
+   section — three client-supplied side-by-side pairs under operator
+   override (§8.3/§8.9 scoped exception; releases + HIPAA marketing
+   authorizations on file for every pictured person; headed "They
+   showed up for themselves" — the allowlist entry briefly authorized
+   for the original heading was withdrawn the same day; an intro that
+   carries consent and individuality in copy; no numbers, dates, or
+   names — ever).
 2. **Peptide Therapy** — publish only `{{PEPTIDES_PUBLIC_LIST}}` (candidates
    from the current public site: Glow Stack, GHK-Cu, NAD). Factual
    descriptions of what each is; **no** recovery, healing, anti-inflammatory,
@@ -720,7 +740,15 @@ action hype, no outcomes, no dosing, ever.
    Evolus-produced Evolysse film on /services/dermal-fillers carried the
    same as-is exception from 2026-07-21 until 2026-08-21, when the client
    removed it from the site; that exception is RETIRED (DECISIONS
-   2026-08-21).*
+   2026-08-21). And — operator override after the compliance flag,
+   DECISIONS 2026-08-21 — the client photo-pairs section ("They showed
+   up for themselves") on /services/weight-loss-glp-1: three
+   client-supplied side-by-side photo pairs, the site's first
+   before/after content (also carved out of §1 and §8.9) — the
+   allowlist entry briefly authorized for its original heading was
+   withdrawn the same day — with an intro carrying consent and
+   individuality in copy, and all pictured
+   people's releases + HIPAA authorizations on file; nothing else.*
 4. Unsubstantiated superiority: "#1", "best", "top-rated" — banned.
    *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator
    override after the flag — DECISIONS): the exact sentence
@@ -755,6 +783,9 @@ action hype, no outcomes, no dosing, ever.
 8. Credential inflation: Amy is an **FNP** (nurse practitioner). Never imply
    physician status; state credentials exactly.
 9. Testimonials, reviews, or before/after content (deferred by SOW).
+   *One operator-overridden exception (2026-08-21): the weight-loss
+   page's client photo-pairs section — see §8.3. The SOW deferral
+   itself is the operator's document to amend.*
 
 **Always:** factual "what it is / who it's generally for" framing;
 DisclaimerBlock on every treatment page; consultation routing as the clinical

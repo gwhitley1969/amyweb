@@ -43,7 +43,7 @@ seo:
 ---
 
 import { Image } from 'astro:assets';
-import EvolusCallout from '../../components/EvolusCallout.astro';
+import EvolusLaurel from '../../components/EvolusLaurel.astro';
 import mirrorMoment from '../../assets/photos/mirror-moment.jpg';
 import revanesseMirrorClient from '../../assets/photos/revanesse-mirror-client.jpg';
 import lipInjectionDetail from '../../assets/photos/lip-injection-detail.jpg';
@@ -57,7 +57,12 @@ acid occurs naturally in skin, where it helps hold hydration. As a
 filler, it lends structure and subtle volume. Common treatment areas
 include the lips, cheeks, jawline, chin, and the under-eye area.
 
-<EvolusCallout />
+{/* The Evolus Laurel plaque replaces the EvolusCallout plate here at the
+  * client's direction (2026-08-21) — rendered IN-BODY, in the plate's exact
+  * spot, rather than through the layout slot wrinkle-relaxers uses
+  * (operator's placement choice). Ranking copy + page-scope record:
+  * the component header, CLAUDE.md constraint 3, DECISIONS 2026-08-21. */}
+<EvolusLaurel />
 
 {/* The Evolysse film and its heading retired 2026-08-21 at the client's
   * direction (DECISIONS same date — its as-is override is retired with
@@ -136,7 +141,9 @@ conversation.
   </figure>
 </section>
 
-<figure class="media-figure" style="width:100%;transform:none">
+{/* 2.5rem above the diagram — the row's photo is taller than its copy, so
+  * without it the chart sat flush against the arch (client, 2026-08-21). */}
+<figure class="media-figure" style="width:100%;transform:none;margin-top:2.5rem">
   <Image
     src={lipStyleGuide}
     alt="Lip style guide: six illustrated lip shapes, labeled Cupid, Pearlique, Hollywood, Supermodel, Classic, and Goddess."

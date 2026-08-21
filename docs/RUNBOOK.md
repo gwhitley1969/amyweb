@@ -211,9 +211,13 @@ The per-pic workflow (established over the 2026-08-17 photo round —
 homepage doors, /services strip; the release/screening record for
 each shipped page lives in DECISIONS):
 
-1. **Screen the frame FIRST** at full resolution: vet every legible
-   word (labels, banners, signage, embroidery) against the §8 claim
-   rules; no other provider may appear (hard constraint 2); anything
+1. **Screen the frame FIRST** at full resolution — full resolution is
+   what ships: astro:assets serves the source-resolution derivative as
+   the `<img src>` beside the srcset tiers, and the repo is public, so
+   anything legible in the master is legible to a visitor (learned
+   2026-08-21 on the skin-rejuvenation cart frame): vet every legible
+   word (labels, banners, signage, embroidery, device screens) against
+   the §8 claim rules; no other provider may appear (hard constraint 2); anything
    identifiable-but-illegible gets noted in the DECISIONS entry.
 2. **Releases:** every identifiable client needs the operator's
    on-record confirmation that a website-use release is on file —

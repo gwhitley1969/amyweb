@@ -64,7 +64,12 @@ safety screens — and the WebVTT caption files in `public/media/` are
 outside `SCAN_DIRS` entirely. §8 still governs them; the control is
 per-item human screening plus a recorded DECISIONS entry (frame-level
 vets for photos and video contact sheets; operator overrides for
-manufacturer films carried as-is and for Amy's own published content).
+manufacturer films carried as-is and for Amy's own published content,
+and — since 2026-08-18 — for photo frames whose pixels carry text the
+site's own copy could not say: three /services and wrinkle-relaxers
+frames with legible banner/sign text, and from 2026-08-21 the
+skin-rejuvenation cart frame with its device-console readout, all
+enumerated in CLAUDE.md constraint 3 with their DECISIONS entries).
 The home-carousel films and their caption files (three cleared
 2026-08-14; the team film 2026-08-17, constraint-2 override) ship under
 exactly this regime. Since 2026-08-17 the film FILES live outside the

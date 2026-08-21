@@ -243,8 +243,13 @@ silently following it. Known superseded points from earlier briefs:
   refuses inline scripts (DECISIONS 2026-08-14). Second sanctioned
   consumer (2026-08-17, operator-directed, SHIPS DARK): the self-hosted
   Plausible tracker (~3.6KB, `public/js/plausible.js`) — renders only
-  after the operator's relaunch-day flip (BUILD_SPEC §11). The budget
-  stands.
+  after the operator's relaunch-day flip (BUILD_SPEC §11). Third
+  sanctioned consumer (2026-08-21, operator-directed): the treatment-film
+  autoplay-in-view script (~2KB, `public/js/treatment-video.js`) —
+  rendered only on pages whose `TreatmentVideo` players opt in with
+  `autoplay="inview"` (today /services/biostimulators alone; muted,
+  loop-in-view, reduced motion = click-to-play; DECISIONS 2026-08-21).
+  The budget stands.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.
 - **Images** through `astro:assets` (responsive, AVIF/WebP, lazy below fold).

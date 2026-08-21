@@ -768,6 +768,14 @@ action.
   muted renditions; captions mirror each film's on-screen text
   (public/media/*.vtt — outside lint scope, controlled by the per-film
   override entries); reduced-motion serves posters + play-on-request.
+  Treatment-page films (`TreatmentVideo`) are click-to-play with sound
+  by default; the `autoplay="inview"` opt-in (2026-08-21, the two
+  biostimulators reels — operator direction, DECISIONS same date) plays
+  a film MUTED and looping while ~a third of it is on screen via the
+  static `public/js/treatment-video.js` (~2KB; reduced motion =
+  click-to-play; the native controls are the pause and the
+  tap-for-sound). Opt in only for Amy's own speech-free films — never a
+  manufacturer film or one with narration.
   Amy's reel plays at 0.5× via per-slide `data-rate`/playbackRate
   (operator/Amy tuning 2026-08-15 — DECISIONS same date; the master
   file is untouched, captions track media time). Rates are for Amy's
@@ -854,7 +862,11 @@ action.
 - Total JS ≤ 30 KB (target ~0); no client framework hydration. *(First
   consumer, 2026-08-14: the home carousel's ~3KB static script
   (public/js/video-carousel.js) — the budget and the no-hydration rule
-  are unchanged; DECISIONS same date.)*
+  are unchanged; DECISIONS same date. Third consumer, 2026-08-21: the
+  treatment-film autoplay-in-view script, public/js/treatment-video.js,
+  ~2KB, rendered only on pages whose films opt in — today
+  /services/biostimulators alone; the second consumer is the dark
+  Plausible tracker, §11.)*
 - Hero image: optimized, `fetchpriority="high"`, explicit dimensions;
   everything below fold lazy.
 - Fonts: 1 family (Playfair Display — since 2026-08-15), subsetted

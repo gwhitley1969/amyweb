@@ -36,6 +36,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
   sound on.") removed — the `caption` prop is omitted; the films'
   accessible names and caption tracks are unchanged (DECISIONS
   addendum).
+- Same review: both films now **autoplay muted on approach** and loop
+  while on screen (pause off-screen; the native controls are the
+  tap-for-sound and the pause; reduced-motion users keep
+  click-to-play). `TreatmentVideo` gains `autoplay="inview"`, backed by
+  the static `public/js/treatment-video.js` (~2KB) — the third
+  sanctioned client-side script and the first on a treatment page
+  (DECISIONS addendum; CLAUDE.md locked decisions; BUILD_SPEC §9/§13).
 
 ### 2026-08-21 — Dermal fillers: the Evolysse film retires; Amy's photos land
 

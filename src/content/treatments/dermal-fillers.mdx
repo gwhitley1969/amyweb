@@ -20,7 +20,7 @@ productDetails:
     priceLines: ["$650 or $325 (half-syringe)"]
 ctaType: book
 pricingDisplay: consult
-clinicianApproved: true
+clinicianApproved: false
 draft: false
 faq:
   - q: "Which filler products does Amy offer?"
@@ -43,11 +43,10 @@ seo:
 ---
 
 import { Image } from 'astro:assets';
-import TreatmentVideo from '../../components/TreatmentVideo.astro';
 import EvolusCallout from '../../components/EvolusCallout.astro';
-import filmPoster from '../../assets/photos/evolysse-film-poster.jpg';
-import evolysseDuo from '../../assets/photos/evolysse-duo.jpg';
-import evolysseBoxes from '../../assets/photos/evolysse-boxes.jpg';
+import mirrorMoment from '../../assets/photos/mirror-moment.jpg';
+import revanesseMirrorClient from '../../assets/photos/revanesse-mirror-client.jpg';
+import lipInjectionDetail from '../../assets/photos/lip-injection-detail.jpg';
 import lipStyleGuide from '../../assets/photos/lip-style-guide.png';
 
 ## What they are
@@ -60,15 +59,9 @@ include the lips, cheeks, jawline, chin, and the under-eye area.
 
 <EvolusCallout />
 
-## The Evolysse film
-
-<TreatmentVideo
-  src="/media/evolysse-film.mp4"
-  poster={filmPoster}
-  captionsSrc="/media/evolysse-film.vtt"
-  label="The Evolysse film — a short product film about Evolysse hyaluronic-acid gels"
-  caption="An Evolus production, presented by Amy — sound on."
-/>
+{/* The Evolysse film and its heading retired 2026-08-21 at the client's
+  * direction (DECISIONS same date — its as-is override is retired with
+  * it; the film no longer renders anywhere on the site). */}
 
 <section class="media-row media-row--flip">
   <div class="media-copy">
@@ -82,9 +75,13 @@ looks like you.
 
   </div>
   <figure class="media-figure">
+    {/* Amy's pick (14), photo round 2026-08-21 — the same bytes as the
+      * repo's mirror-moment.jpg, reused rather than duplicated; client
+      * release confirmed on file (screening + release record in
+      * DECISIONS same date). */}
     <Image
-      src={evolysseDuo}
-      alt="Amy Palacios, FNP, in hot-pink scrubs holds two crossed Evolysse boxes, Smooth and Form, with a playful kiss expression."
+      src={mirrorMoment}
+      alt="Amy Palacios, FNP, holds up a Mobile Aesthetics hand mirror for a laughing client seated in the treatment chair by the window."
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
@@ -93,9 +90,12 @@ looks like you.
 
 <section class="media-row">
   <figure class="media-figure">
+    {/* Amy's pick (15), photo round 2026-08-21 (screening + release
+      * record in DECISIONS same date). The layout's top-anchor crop
+      * override keeps the neon letters whole — see TreatmentLayout. */}
     <Image
-      src={evolysseBoxes}
-      alt="Amy smiles while holding Evolysse Smooth and Form packaging upright at the marble counter of her Harrisburg studio."
+      src={revanesseMirrorClient}
+      alt="A seated client studies her face in a Revanesse Lips+ hand mirror as Amy Palacios, FNP, looks on beneath the studio's neon sign."
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
@@ -111,6 +111,9 @@ studio in the greater Charlotte area.
   </div>
 </section>
 
+<section class="media-row media-row--flip">
+  <div class="media-copy">
+
 ## Lips, styled
 
 Lip filler is not one look. The style guide below names a few of the
@@ -118,6 +121,20 @@ shapes clients ask for, from the soft central emphasis of a Cupid to
 the full, even balance of a Classic. Which shape suits your face, and
 whether lips are the right place to start, is a consultation
 conversation.
+
+  </div>
+  <figure class="media-figure">
+    {/* Operator's pick (8K0A9591), photo round 2026-08-21 — the frame
+      * that served wrinkle-relaxers as fine-gauge-detail until
+      * 2026-08-18; client release on record (DECISIONS 2026-07-21). */}
+    <Image
+      src={lipInjectionDetail}
+      alt="Amy Palacios, FNP, pink-gloved, guides a fine syringe at a reclined client's upper lip."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+</section>
 
 <figure class="media-figure" style="width:100%;transform:none">
   <Image

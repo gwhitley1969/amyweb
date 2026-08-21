@@ -525,9 +525,14 @@ action hype, no outcomes, no dosing, ever.
    price string "$650 or $325 (half-syringe)" (trips no banned pattern —
    published with no allowlist entry). Brochure dosing tables, trial
    statistics, testimonials, award claims, and "FDA-approved" phrasing
-   stay out — render "prescription". The Evolus film and the lip
-   style-guide graphic (text-free version since 2026-07-21) ship under
-   the DECISIONS 2026-07-21 overrides. The §8.4 Evolus ranking sentence
+   stay out — render "prescription". The lip style-guide graphic
+   (text-free version since 2026-07-21) ships under the DECISIONS
+   2026-07-21 override; the Evolus-produced Evolysse film that shipped
+   beside it under the same date's as-is override was REMOVED from the
+   page at the client's direction 2026-08-21 (DECISIONS same date) — the
+   page carries no video, and its photography is Amy's round-5 picks
+   (two hand-mirror frames and the lip-injection detail beside "Lips,
+   styled"). The §8.4 Evolus ranking sentence
    is authorized on this page (once — DECISIONS 2026-07-21; since
    2026-07-30 it renders as the standalone EvolusCallout noir plate
    rather than in Evolysse prose context).
@@ -645,13 +650,16 @@ action hype, no outcomes, no dosing, ever.
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).
 3. Efficacy/outcome promises: guarantees, specific results, numbers,
    before/after implications, "powerful results", "proven results".
-   *Scoped exceptions (operator overrides — DECISIONS 2026-07-21): the
-   Evolus-produced Evolysse film on /services/dermal-fillers (carried
-   as-is, manufacturer safety information intact) and the Evolus ICON
-   event film on /about (moved from wrinkle-relaxers at the client's
-   direction 2026-08-18, exception terms unchanged; carried as-is; its
+   *Scoped exception (operator override — DECISIONS 2026-07-21): the
+   Evolus ICON event film on /about (moved from wrinkle-relaxers at the
+   client's direction 2026-08-18, exception terms unchanged; carried
+   as-is; its
    comparative-efficacy remarks are the manufacturer's own and its
-   captions transcribe the event speech faithfully). Nothing else.*
+   captions transcribe the event speech faithfully). Nothing else — the
+   Evolus-produced Evolysse film on /services/dermal-fillers carried the
+   same as-is exception from 2026-07-21 until 2026-08-21, when the client
+   removed it from the site; that exception is RETIRED (DECISIONS
+   2026-08-21).*
 4. Unsubstantiated superiority: "#1", "best", "top-rated" — banned.
    *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator
    override after the flag — DECISIONS): the exact sentence

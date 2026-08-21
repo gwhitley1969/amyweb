@@ -104,8 +104,10 @@ silently following it. Known superseded points from earlier briefs:
      outcome promises, before/after implications, or unsubstantiated
      superiority claims ("#1", "best"). *Scoped exceptions (operator
      overrides after the compliance flags — DECISIONS 2026-07-21): the
-     Evolus-produced Evolysse film on /services/dermal-fillers (carried
-     as-is, manufacturer safety information intact); the Evolus ICON
+     Evolus-produced Evolysse film on /services/dermal-fillers — RETIRED
+     2026-08-21: the film was removed from the site at the client's
+     direction and renders nowhere (DECISIONS same date; re-adding it
+     requires the human operator); the Evolus ICON
      event film on /about (moved from /services/wrinkle-relaxers at the
      client's direction 2026-08-18, exception terms unchanged; carried
      as-is — manufacturer comparative-efficacy remarks, named

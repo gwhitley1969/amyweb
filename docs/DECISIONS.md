@@ -4290,3 +4290,89 @@ announced or still misread, and it protects nothing the gate doesn't).
 await Amy's sign-off. The consolidated pre-relaunch re-approval round
 must therefore work from docs/CLINICIAN-SIGN-OFF.md and the flags, not
 from what the preview displays.
+
+## 2026-08-21 — dermal-fillers: the Evolysse film retires; photo round page 5
+
+**Context:** Client direction (via the operator, 2026-08-21) for
+/services/dermal-fillers: remove the Evolysse film and its heading;
+replace the two Evolysse-box photos with her picks 14 and 15 (C:\Amy\New
+Pics); add 8K0A9591 (C:\Amy\pics) to the right of "Lips, styled". Built
+in an isolated worktree off phase-c (three sessions share the main tree
+today).
+
+**The film — first retirement of a scoped compliance exception.** The
+Evolus-produced Evolysse film shipped 2026-07-21 under an as-is operator
+override (before/after segment, location co-branding and phone,
+manufacturer narration) recorded in CLAUDE.md constraint 3 and BUILD_SPEC
+§7.4/§8.3. It now renders nowhere on the site, so the exception is marked
+RETIRED in those documents in this PR (governing-doc edits authorized by
+the operator's approval of the plan — the 2026-08-18 Evolus-move
+precedent). TreatmentVideo stays (the ICON film on /about uses it).
+Orphans removed with zero references remaining: evolysse-film-poster.jpg,
+public/media/evolysse-film.vtt, and the two box photos below. The .mp4
+rendition lives in Blob (media.needlegirlie.com/evolysse-film.mp4) and is
+now unreferenced; deleting it is the operator's `az storage blob delete`
+(RUNBOOK), recommended left in place until relaunch in case the film
+returns (storage cost is nil).
+
+**Screening + release record (frame-level, RUNBOOK procedure):**
+- 14.jpg is the SAME BYTES as the repo's `mirror-moment.jpg` (sha256
+  145f1092…; committed 2026-07-18, zero consumers since the 2026-07-25
+  concept rebuild) — reused, not duplicated (dedup rule). Amy holds a
+  black hand mirror reading "MOBILEAESTHETICS" (her own branding,
+  sole-owner precedent) for a laughing client in a floral dress; no
+  products, no claims text. Its release log was contradictory
+  (2026-07-20 "unconfirmed" → 2026-07-23 "cleared" → 2026-07-25 flagged):
+  RESOLVED — **release CONFIRMED on file by the operator, 2026-08-21**
+  (the confirmation is the record). Replaces evolysse-duo.jpg in "Placed
+  in proportion".
+- 15.jpg → `revanesse-mirror-client.jpg` (1067×1600, byte copy). A seated
+  client studies her face in a "REVANESSE LIPS+" hand mirror under the MA
+  neon; Amy in black scrubs, embroidery = her own name; no claims text —
+  the mirror names a product the page's own copy names. **Release
+  CONFIRMED on file by the operator, 2026-08-21.** Replaces
+  evolysse-boxes.jpg in "Individualized, with Amy". Crop: the 4:5 arch
+  trims 266px of a 2:3 source and the default 30% anchor takes 80px off
+  the top — the neon spans y≈55–215 and would be sliced mid-stroke, so
+  TreatmentLayout gains the per-image top anchor (the 2026-08-18 blazer
+  knob); it sheds only feet.
+- 8K0A9591.jpg → `lip-injection-detail.jpg` (1067×1600, byte copy) — the
+  same bytes as the retired `fine-gauge-detail.jpg` (wrinkle-relaxers
+  until 2026-08-18; deleted as an orphan, git history keeps it), now
+  content-named for what it shows: pink-gloved hands guiding a fine
+  syringe at a reclined client's upper lip; no text, no products. Release
+  on record: DECISIONS 2026-07-21 ("8K0A9550/9591 female client"). New
+  third media row — "Lips, styled" copy left, photo right
+  (`media-row--flip`); the lip style-guide diagram stays full-width
+  below.
+
+**Decision:** ship all three as directed — one content commit (MDX +
+assets + orphan removals), the layout knob and the docs sweep as their
+own commits. `clinicianApproved` true → false in the content commit
+(constraint 4 — Amy's 2026-08-05 approval covered the film and the box
+photos); since PR #128 no banner renders either way, and check:approvals
+still gates the (dark) production pipeline. The consolidated pre-relaunch
+re-approval restores the flag.
+
+**Noted, not blocking:** two hand-mirror "reaction" frames now sit in
+consecutive rows — a compositional echo, and a mirror moment reads as a
+results beat; no text, no pairing, no before/after, and the class already
+ran on /about in July. They are Amy's picks. And the page now runs three
+alternating rows (flip / normal / flip) before the diagram — the
+2026-07-25 rule capped wrinkle-relaxers' identical 3-run with a band;
+here the full-width style guide directly below is the scale break, and
+"to the right of that" was explicit direction.
+
+**Alternatives rejected:** committing 14.jpg under a new name (a byte
+duplicate of mirror-moment.jpg — the dedup rule); baking 15's top-anchor
+crop into the asset (works, but the house knob for figures is the CSS
+anchor and it keeps the full frame reusable); deleting the Blob object
+in this PR (an infra action, the operator's, and reversible only by
+re-upload).
+
+**Consequences:** dermal-fillers is photo round page 5; the page carries
+no video; the sign-off doc's dermal-fillers row and presentation-drift
+list are updated; REDESIGN's photo row gains the page; the Evolysse-film
+exception text in CLAUDE.md / BUILD_SPEC reads as retired, so a future
+session does not re-add the film on the strength of a stale
+authorization.

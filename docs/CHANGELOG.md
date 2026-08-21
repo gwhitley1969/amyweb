@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-21 — the "Draft — pending clinician review" strip retires
+
+- Treatment pages with `clinicianApproved: false` no longer render the
+  DraftBanner strip above the header; the component is deleted (git
+  history keeps it), the layout and styleguide stop rendering it, and
+  the flag no longer reaches markup at all. Operator direction: the
+  client read the strip on /services/wrinkle-relaxers (unapproved
+  since the 2026-08-18 Evolus-plate move) as final-site content.
+  Nothing about the gate changes — `check:approvals` still fails the
+  production deploy on any unapproved page, and pending status lives
+  in the flag + docs/CLINICIAN-SIGN-OFF.md (DECISIONS same date; the
+  legal pages' counsel-review banner came off the same way,
+  2026-08-04).
+
 ### 2026-08-19 — the Evolus Laurel: ranking plaque on wrinkle-relaxers
 
 - /services/wrinkle-relaxers gains a noir laurel plaque between the

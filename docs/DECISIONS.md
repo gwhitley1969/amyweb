@@ -4255,3 +4255,38 @@ name them as the display accent's remaining light-canvas consumer).
 counter); reusing the whole header-mark SVG asset as an <img> (pulls
 the chrome wordmark and the plate frame along; the badge needs the
 chevrons alone at exact gradient fidelity).
+
+## 2026-08-21 — the DraftBanner retires; the approval gate stays
+
+**Context:** Operator direction: remove the "Draft — pending
+clinician review" strip above the header on /services/wrinkle-relaxers
+— the client read it as something that would be on the finished site.
+The strip was truthful: that page has been `clinicianApproved: false`
+since the 2026-08-18 Evolus-plate move (constraint 4), and it was the
+only unapproved page at the time. The banner was always a preview-only
+marker — the production deploy fails via scripts/check-approvals.mjs
+before an unapproved page could publish.
+
+**Decision:** Retire the visible marker sitewide, not per page. The
+DraftBanner component is deleted (git history keeps it); TreatmentLayout
+and the styleguide stop rendering it; the `clinicianApproved` prop
+leaves the layout and the treatment route, so the flag never reaches
+markup. NOTHING about the gate changes: the schema flag, the
+reset-on-edit rule, and `check:approvals` in production.yml are
+untouched, and docs/CLINICIAN-SIGN-OFF.md remains the human record
+(it now carries the grep that lists pending pages, since the rendered
+page no longer tells you). Precedent: the legal pages' counsel-review
+banner came off the same way at the operator's acceptance
+(2026-08-04). BUILD_SPEC §7 and §4 record the retirement.
+
+**Alternatives rejected:** hiding the strip only on wrinkle-relaxers
+(a per-page exception to a sitewide mechanism — the next reset would
+reproduce the confusion); setting `clinicianApproved: true` to make
+the banner go away (constraint 4 — never mine to set, and it would
+falsify the record); keeping an sr-only or HTML-comment marker (still
+announced or still misread, and it protects nothing the gate doesn't).
+
+**Consequence, stated plainly:** previews no longer show which pages
+await Amy's sign-off. The consolidated pre-relaunch re-approval round
+must therefore work from docs/CLINICIAN-SIGN-OFF.md and the flags, not
+from what the preview displays.

@@ -76,7 +76,9 @@ Evolus Laurel ranking plaque in the same spot (2026-08-21, her
 direction + picks), and the two
 biostimulators reels replacing that page's studio portrait — her own
 films, playing inside the media rows in a bare frame (hairline + 12px
-corners, no white mat; 2026-08-21, her direction). Known defect queued for the same pass: `studio-wide.jpg` alt
+corners, no white mat), autoplaying muted as she scrolls to them with
+no printed caption underneath (2026-08-21, her direction + the
+operator's review round). Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window — an MDX edit, so
 it ships inside the flag-resetting re-approval round (DECISIONS
 2026-08-17).

@@ -551,7 +551,8 @@ action hype, no outcomes, no dosing, ever.
    biostimulator"). That superlative and "FDA-approved" stay off-site (§8);
    PDO threads are the VSoft Lift line. Media (2026-08-21, DECISIONS
    same date): two of Amy's own reels play in the page's media rows
-   via `TreatmentVideo` (`frame="bare"`, sounded, click-to-play) — the
+   via `TreatmentVideo` (`frame="bare"`, sounded, `autoplay="inview"` —
+   muted on approach, tap for sound; no printed caption) — the
    Radiesse-visit film beside "A longer view of structure" and her
    Instagram reel beside "Individualized, with Amy" — each under its
    recorded operator overrides (§8.3 exception list; CLAUDE.md

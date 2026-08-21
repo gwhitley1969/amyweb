@@ -143,7 +143,7 @@ standalone player keeps its mat). Portrait films are sized by the
 row column; nothing crops or masks a film. `autoplay="inview"` (same
 day, operator direction) plays a film MUTED and looping while ~a third
 of it is on screen, via the static `public/js/treatment-video.js`
-(~1KB; reduced motion = click-to-play; the controls are the pause and
+(~2KB; reduced motion = click-to-play; the controls are the pause and
 the tap-for-sound) — opt in ONLY for Amy's own speech-free films,
 never a manufacturer film or one with narration.
 

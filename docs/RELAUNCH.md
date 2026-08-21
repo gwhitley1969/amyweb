@@ -63,9 +63,13 @@ check will refuse it. On a branch off `main`:
   www → apex; HTTP → HTTPS; production indexable (previews stay
   noindexed); OG cards render; 404 at the edge.
 - Films play from media.needlegirlie.com on production (206 Range
-  probes; the four carousel films + the ICON film on /about — the
-  Evolysse film retired 2026-08-21; its Blob object is an operator
-  cleanup item, not a probe target).
+  probes; the four carousel films + the ICON film on /about + the two
+  biostimulators reels `radiesse-visit.mp4` / `amy-reel.mp4` — the
+  Evolysse film retired 2026-08-21 and its Blob object was deleted
+  the same day, so it is not a probe target). On
+  /services/biostimulators also probe `/js/treatment-video.js` (200,
+  `text/javascript`) and confirm the two players carry
+  `data-autoplay="inview"` — the films autoplay muted on approach.
 - Plausible: `/api/event` returns 202 from the production page;
   dashboard shows the first pageviews.
 - Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.

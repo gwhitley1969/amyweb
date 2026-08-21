@@ -596,7 +596,12 @@ action hype, no outcomes, no dosing, ever.
     exfoliating solutions) — **starting at $180**; the peel section is a
     compliant placeholder until `{{CHEMICAL_PEELS_MENU}}` resolves.
     Line-specific exclusions: no needle depths/pin counts/tip specs
-    (dosing-class), no session counts or scheduling intervals
+    (dosing-class — one pixel-scoped carve-out, operator override after
+    the compliance flag, DECISIONS 2026-08-21: the page's cart photo
+    `amy-pixel8-cart.jpg` shows the console readout, a suggested depth
+    range included, and ships as-is; no value is ever restated in text;
+    the page's other photo is the handpiece-in-hand menu-card frame,
+    reused), no session counts or scheduling intervals
     (protocol-class), no results timelines or downtime promises, no PIH
     claims, no "first and only"/MHz comparisons (superiority), no
     third-party med-spa names from the brochure. Factual device/procedure
@@ -648,8 +653,12 @@ action hype, no outcomes, no dosing, ever.
    four Private Injector Training curriculum-topic strings, enumerated
    in exact `<li>`-wrapped source form, on /injector-training only —
    course-topic titles containing no quantities, flyer-verbatim at the
-   operator's direction over the recommended paraphrase. Nothing
-   else.*
+   operator's direction over the recommended paraphrase. Pixel-level
+   (operator override after the flag — DECISIONS 2026-08-21):
+   `amy-pixel8-cart.jpg` on /services/skin-rejuvenation only, whose
+   PiXel8-RF console readout — settings values and a suggested
+   needle-depth range — is legible in the served source; no value is
+   ever restated in text. Nothing else.*
 2. Disease claims: treat / cure / prevent / diagnose; disease names in benefit
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).
 3. Efficacy/outcome promises: guarantees, specific results, numbers,

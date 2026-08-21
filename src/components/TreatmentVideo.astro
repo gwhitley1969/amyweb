@@ -21,6 +21,31 @@ import { siteConfig } from '../lib/siteConfig';
  * same-origin in public/media/ (in-repo compliance audit trail;
  * same-origin tracks need no CORS, so no crossorigin attribute), with
  * their cache route still in config/swa/.
+ *
+ * SIZING (first portrait films 2026-08-21, /services/biostimulators):
+ * the player is aspect-agnostic — the poster's intrinsic width/height
+ * set the box and `width:100%; height:auto` follow it — so a 9:16 film
+ * is sized by its CONTAINER. Standalone (/about) that is the column;
+ * inside a treatment media-row the layout's `.media-row .video-figure`
+ * rule supplies the 2fr column + the 18rem cap (TreatmentLayout). The
+ * poster derivative is requested at min(1280, source width): Astro's
+ * sharp service upscales on request, and a poster above its source
+ * is the retina rule's "never upscale" corollary broken in reverse.
+ *
+ * FRAME: `frame="mat"` (default) is the recorded standalone look —
+ * the paper mat kept for film players when the treatment photos went
+ * bare (DECISIONS 2026-08-18). `frame="bare"` is for a film INSIDE a
+ * media row beside bare arches (DECISIONS 2026-08-21): no mat, the
+ * arch family's hairline + 12px foot corners on the video, never the
+ * arch itself. Manufacturer film stages stay unmasked (their burned-in
+ * safety information ships complete); site-authored films may wear
+ * the corners.
+ *
+ * FILM CLASSES: manufacturer creative is carried as-is (Evolysse,
+ * ICON); Amy's own published reels are site-authored — each ships
+ * under its own per-film DECISIONS entry (screening record, operator
+ * decisions, releases), and their labels/captions describe only what
+ * the pixels self-identify.
  */
 interface Props {
   /** Public path to the MP4, e.g. "/media/evolysse-film.mp4" — rewritten
@@ -34,19 +59,24 @@ interface Props {
   label: string;
   /** Optional printed caption under the frame. */
   caption?: string;
+  /** Frame treatment: 'mat' (default — the standalone paper mat) or
+   * 'bare' (inside a treatment media-row beside bare arches). */
+  frame?: 'mat' | 'bare';
 }
 
-const { src: srcProp, poster, captionsSrc, label, caption } = Astro.props;
+const { src: srcProp, poster, captionsSrc, label, caption, frame = 'mat' } = Astro.props;
 
 // "/media/evolysse-film.mp4" -> "https://media.needlegirlie.com/evolysse-film.mp4"
 const src = srcProp.startsWith('/media/')
   ? `${siteConfig.mediaBase}/${srcProp.slice('/media/'.length)}`
   : srcProp;
 
-const posterImg = await getImage({ src: poster, width: 1280, format: 'webp' });
+// Never above the source width — see SIZING in the header.
+const posterWidth = Math.min(1280, poster.width);
+const posterImg = await getImage({ src: poster, width: posterWidth, format: 'webp' });
 ---
 
-<figure class="video-figure">
+<figure class:list={['video-figure', frame === 'bare' && 'video-figure--bare']}>
   <video
     controls
     preload="none"
@@ -82,5 +112,19 @@ const posterImg = await getImage({ src: poster, width: 1280, format: 'webp' });
   .video-figure figcaption {
     margin-top: 0.5rem;
     text-align: center;
+  }
+  /* Bare variant (2026-08-21): written with both classes so it beats
+   * the base rule by specificity, not source order (scoped classes
+   * otherwise tie). The hairline and 12px corners are the arch's foot
+   * vocabulary — the same magenta hairline the bare arches wear. */
+  .video-figure.video-figure--bare {
+    background: none;
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  .video-figure.video-figure--bare video {
+    border-radius: 12px;
+    border: 1px solid var(--ng-magenta-600);
   }
 </style>

@@ -351,4 +351,19 @@ const crumbs = [
   .treatment-body .media-copy h2 {
     margin-top: 0;
   }
+  /* Films inside media rows (biostimulators, 2026-08-21 — DECISIONS
+   * same date): the TreatmentVideo figure is the row's grid child, so
+   * the 2fr column (~17.2rem) is what constrains a portrait 9:16 film
+   * (the player itself is aspect-agnostic). The 18rem cap + centering
+   * mirror .media-figure so films and arches share one rhythm on
+   * phones; the component's standalone top margin is neutralized
+   * inside the centered row. (0,3,0) beats the component's scoped
+   * .video-figure rule (0,2,0). Every arch/crop rule above is
+   * img-selectored and never reaches a <video> — film stages stay
+   * arch-exempt; the bare film frame is the component's own. */
+  .treatment-body .media-row .video-figure {
+    margin-top: 0;
+    justify-self: center;
+    width: min(18rem, 100%);
+  }
 </style>

@@ -6,11 +6,14 @@ import { siteConfig } from '../lib/siteConfig';
 /**
  * Self-hosted treatment film (first used on /services/dermal-fillers —
  * operator decisions recorded in docs/DECISIONS.md, 2026-07-21).
- * Click-to-play only: `preload="none"` keeps the file out of the page
- * budget entirely until the visitor asks for it, the poster carries the
- * visual, and native controls mean zero client-side JavaScript. No
- * autoplay, so no reduced-motion or pause obligations arise. The captions
- * track is required — the a11y gate (axe video-caption) fails without it.
+ * Click-to-play by default: `preload="none"` keeps the file out of the
+ * page budget entirely until the visitor asks for it, the poster carries
+ * the visual, and native controls mean zero client-side JavaScript with
+ * no reduced-motion or pause obligations. The `autoplay="inview"` opt-in
+ * (2026-08-21, biostimulators — see the prop) adds the one static script
+ * and plays muted on approach; reduced motion falls back to this
+ * default. The captions track is required either way — the a11y gate
+ * (axe video-caption) fails without it.
  *
  * MEDIA ORIGIN (2026-08-17, DECISIONS same date): the .mp4 serves from
  * siteConfig.mediaBase (Blob behind the same Front Door). The `src`
@@ -21,6 +24,31 @@ import { siteConfig } from '../lib/siteConfig';
  * same-origin in public/media/ (in-repo compliance audit trail;
  * same-origin tracks need no CORS, so no crossorigin attribute), with
  * their cache route still in config/swa/.
+ *
+ * SIZING (first portrait films 2026-08-21, /services/biostimulators):
+ * the player is aspect-agnostic — the poster's intrinsic width/height
+ * set the box and `width:100%; height:auto` follow it — so a 9:16 film
+ * is sized by its CONTAINER. Standalone (/about) that is the column;
+ * inside a treatment media-row the layout's `.media-row .video-figure`
+ * rule supplies the 2fr column + the 18rem cap (TreatmentLayout). The
+ * poster derivative is requested at min(1280, source width): Astro's
+ * sharp service upscales on request, and a poster above its source
+ * is the retina rule's "never upscale" corollary broken in reverse.
+ *
+ * FRAME: `frame="mat"` (default) is the recorded standalone look —
+ * the paper mat kept for film players when the treatment photos went
+ * bare (DECISIONS 2026-08-18). `frame="bare"` is for a film INSIDE a
+ * media row beside bare arches (DECISIONS 2026-08-21): no mat, the
+ * arch family's hairline + 12px foot corners on the video, never the
+ * arch itself. Manufacturer film stages stay unmasked (their burned-in
+ * safety information ships complete); site-authored films may wear
+ * the corners.
+ *
+ * FILM CLASSES: manufacturer creative is carried as-is (Evolysse,
+ * ICON); Amy's own published reels are site-authored — each ships
+ * under its own per-film DECISIONS entry (screening record, operator
+ * decisions, releases), and their labels/captions describe only what
+ * the pixels self-identify.
  */
 interface Props {
   /** Public path to the MP4, e.g. "/media/evolus-icon.mp4" — rewritten
@@ -34,19 +62,33 @@ interface Props {
   label: string;
   /** Optional printed caption under the frame. */
   caption?: string;
+  /** Frame treatment: 'mat' (default — the standalone paper mat) or
+   * 'bare' (inside a treatment media-row beside bare arches). */
+  frame?: 'mat' | 'bare';
+  /** 'inview': the film autoplays MUTED (with `loop`) when ~a third of
+   * it is on screen and pauses off-screen — public/js/treatment-video.js
+   * (~2KB static file; the page's only script). Default: click-to-play.
+   * Reduced-motion users always get click-to-play; the native controls
+   * are the pause (WCAG 2.2.2) and the tap-for-sound. Opt in only for
+   * site-authored films without speech (operator direction 2026-08-21,
+   * biostimulators) — never for a manufacturer film or one with
+   * narration, which muted autoplay would gut. */
+  autoplay?: 'inview';
 }
 
-const { src: srcProp, poster, captionsSrc, label, caption } = Astro.props;
+const { src: srcProp, poster, captionsSrc, label, caption, frame = 'mat', autoplay } = Astro.props;
 
 // "/media/evolus-icon.mp4" -> "https://media.needlegirlie.com/evolus-icon.mp4"
 const src = srcProp.startsWith('/media/')
   ? `${siteConfig.mediaBase}/${srcProp.slice('/media/'.length)}`
   : srcProp;
 
-const posterImg = await getImage({ src: poster, width: 1280, format: 'webp' });
+// Never above the source width — see SIZING in the header.
+const posterWidth = Math.min(1280, poster.width);
+const posterImg = await getImage({ src: poster, width: posterWidth, format: 'webp' });
 ---
 
-<figure class="video-figure">
+<figure class:list={['video-figure', frame === 'bare' && 'video-figure--bare']}>
   <video
     controls
     preload="none"
@@ -55,6 +97,8 @@ const posterImg = await getImage({ src: poster, width: 1280, format: 'webp' });
     height={poster.height}
     poster={posterImg.src}
     aria-label={label}
+    data-autoplay={autoplay}
+    loop={autoplay === 'inview'}
   >
     <source src={src} type="video/mp4" />
     <track kind="captions" src={captionsSrc} srclang="en" label="English" default />
@@ -62,6 +106,10 @@ const posterImg = await getImage({ src: poster, width: 1280, format: 'webp' });
   </video>
   {caption && <figcaption class="eyebrow">{caption}</figcaption>}
 </figure>
+{/* Static file, not a component script: the CSP is script-src 'self'
+  * (the carousel's recorded lesson). A module URL evaluates once per
+  * document, so two opted-in players on one page share one run. */}
+{autoplay === 'inview' && <script type="module" src="/js/treatment-video.js" is:inline></script>}
 
 <style>
   /* Framed like the media-row prints (paper mat + hairline + lift), but
@@ -82,5 +130,19 @@ const posterImg = await getImage({ src: poster, width: 1280, format: 'webp' });
   .video-figure figcaption {
     margin-top: 0.5rem;
     text-align: center;
+  }
+  /* Bare variant (2026-08-21): written with both classes so it beats
+   * the base rule by specificity, not source order (scoped classes
+   * otherwise tie). The hairline and 12px corners are the arch's foot
+   * vocabulary — the same magenta hairline the bare arches wear. */
+  .video-figure.video-figure--bare {
+    background: none;
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  .video-figure.video-figure--bare video {
+    border-radius: 12px;
+    border: 1px solid var(--ng-magenta-600);
   }
 </style>

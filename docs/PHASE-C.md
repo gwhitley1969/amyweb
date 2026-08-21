@@ -545,6 +545,10 @@ currently through the clinician gate):
       guide, weight-loss cross-link. ctaType: book.
 - [x] `biostimulators` — PDO Threads, Radiesse; category described
       factually, no lifting-results promises. ctaType: consult.
+      2026-08-21 (redesign round, PR #131): the studio portrait gave
+      way to two of Amy's own reels inside the media rows — autoplay
+      muted on approach, bare film frame; overrides and the flag reset
+      in DECISIONS same date.
 - [x] `regenerative` — PRP and PRP with microneedling (trimmed to the
       live Vagaro menu 2026-07-19; PRF/PDRN/Illuma/VAMP/Rejuran return
       only if Amy confirms them). Definition cards added 2026-08-01 —

@@ -16,7 +16,7 @@ productDetails:
     priceLines: ["$275 per single session"]
 ctaType: consult
 pricingDisplay: consult
-clinicianApproved: true
+clinicianApproved: false
 draft: false
 faq:
   - q: "What does an Evolve session feel like?"
@@ -36,8 +36,8 @@ seo:
   description: "Evolve body contouring with Amy Palacios, FNP, in Harrisburg, NC: radiofrequency and muscle stimulation, no needles. This line starts with a consultation."
 ---
 
-import { Image } from 'astro:assets';
-import evolveSession from '../../assets/photos/evolve-session.jpg';
+import TreatmentVideo from '../../components/TreatmentVideo.astro';
+import evolveReelPoster from '../../assets/photos/evolve-reel-poster.jpg';
 
 ## What it is
 
@@ -64,14 +64,26 @@ of the two matters more for you, or whether Evolve is the right route at all,
 is a conversation with Amy, not a decision made from a price list.
 
 <section class="media-row">
-  <figure class="media-figure">
-    <Image
-      src={evolveSession}
-      alt="Evolve's hands-free applicators strapped in place during a body-contouring session."
-      widths={[340, 449]}
-      sizes="(max-width: 40rem) 90vw, 17rem"
-    />
-  </figure>
+  {/* Amy's own Evolve reel (client direction 2026-08-21; DECISIONS same
+    * date) replaces the Reel-screenshot photo. Frame-level screened: Amy
+    * alone with the applicators under her neon — no client, so no
+    * release; no burned-in text; no on-screen claims; no override
+    * needed, and the 576px source meets the retina rule for this slot.
+    * Autoplays MUTED on approach and loops while in view (operator
+    * direction — the sound is one tap away on the native controls;
+    * reduced motion = tap-to-play). Audio: a music bed with no speech
+    * (the screening assumption stated in the approved plan; the
+    * captions carry bounded [Music] cues). Portrait film sized by the
+    * row column; bare frame beside bare arches; no printed caption
+    * (the 2026-08-21 review rule). */}
+  <TreatmentVideo
+    frame="bare"
+    autoplay="inview"
+    src="/media/evolve-reel.mp4"
+    poster={evolveReelPoster}
+    captionsSrc="/media/evolve-reel.vtt"
+    label="Amy Palacios, FNP, with the Evolve applicators in the treatment chair at the Harrisburg studio, from her own reel"
+  />
   <div class="media-copy">
 
 ## What a session is like

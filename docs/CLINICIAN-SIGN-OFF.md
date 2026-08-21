@@ -79,7 +79,9 @@ biostimulators reels replacing that page's studio portrait — her own
 films, playing inside the media rows in a bare frame (hairline + 12px
 corners, no white mat), autoplaying muted as she scrolls to them with
 no printed caption underneath (2026-08-21, her direction + the
-operator's review round).
+operator's review round), and body-contouring's session photo
+replaced by Amy's own Evolve reel, autoplaying muted in the same row
+(2026-08-21, her direction).
 Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window — an MDX edit, so
 it ships inside the flag-resetting re-approval round (DECISIONS
@@ -121,7 +123,7 @@ is also not flag-gated and has its own review section below the table.
 | ☐ | [/services/biostimulators](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/biostimulators) | Radiesse $900/syringe; PDO threads $350 for 10. **NEW 2026-08-21: her two reels replace the studio portrait** — the Radiesse-visit film beside "A longer view of structure" (shipped as-is under her/the operator's overrides: the before/after cut, the unit-labeled carton, another provider on frame for ~2s; client release + consent on file) and her Instagram reel beside "Individualized, with Amy" (480p, shipped as final). Both autoplay MUTED as she scrolls to them and loop while on screen — tap the speaker for sound, tap to pause (2026-08-21 review round: no printed caption under either film); captions are `[Music]` cues. The page now has no photographs. **Re-approval required — the MDX edit reset the flag** (DECISIONS 2026-08-21). |
 | ☐ | [/services/regenerative](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/regenerative) | PRP $600; PRP with microneedling $900; PRP photo |
 | ☐ | [/services/skin-rejuvenation](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/skin-rejuvenation) | PiXel8-RF $1,500; peels "Starting at $180"; **NEW (2026-08-21): two PiXel8-RF photos — Amy beside the cart (console readout legible; operator override) and the handpiece in hand** |
-| ☐ | [/services/body-contouring](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/body-contouring) | Evolve $1,500 course of six / $275 single session; **NEW: the Evolve session photo from her Reel (caption cropped)** |
+| ☐ | [/services/body-contouring](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/body-contouring) | Evolve $1,500 course of six / $275 single session; **NEW (2026-08-21): Amy's own Evolve reel in the session row — autoplays muted on approach, sound on the controls; the Reel-screenshot photo retired** |
 | ☐ | [/services/laser-treatments](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/laser-treatments) | **NEW: "Venus Versa Pro" naming throughout** (based on her console photo) + the console photo; pricing is deliberately consult-only (no dollar figures) — confirm that stays, or supply prices |
 | ☐ | [/services/weight-loss-glp-1](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/weight-loss-glp-1) | The mg-keyed vial price tiers; the single Retatrutide investigational line; two photos |
 | ☐ | [/services/peptide-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/peptide-therapy) | Nine product cards with prices (her wording, near-verbatim); portrait photo |

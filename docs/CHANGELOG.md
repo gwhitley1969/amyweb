@@ -33,6 +33,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   slot). The plaque's page scope widens to dermal-fillers at the
   operator's direction; the "#1" sentence now renders on /about only
   (DECISIONS 2026-08-21, round 2).
+- Follow-up, same day (operator direction): the orphaned
+  `evolysse-film.mp4` was deleted from the media origin and its edge
+  path purged — the film is gone from storage as well as the site.
 
 ### 2026-08-21 — the "Draft — pending clinician review" strip retires
 

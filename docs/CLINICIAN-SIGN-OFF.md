@@ -81,7 +81,10 @@ corners, no white mat), autoplaying muted as she scrolls to them with
 no printed caption underneath (2026-08-21, her direction + the
 operator's review round), and body-contouring's session photo
 replaced by Amy's own Evolve reel, autoplaying muted in the same row
-(2026-08-21, her direction).
+(2026-08-21, her direction), and weight-loss's weigh-in photo replaced
+by the same client seen from behind plus a new "Before and After"
+section of three client photo pairs (2026-08-21, her direction;
+operator overrides recorded).
 Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window — an MDX edit, so
 it ships inside the flag-resetting re-approval round (DECISIONS
@@ -125,7 +128,7 @@ is also not flag-gated and has its own review section below the table.
 | ☐ | [/services/skin-rejuvenation](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/skin-rejuvenation) | PiXel8-RF $1,500; peels "Starting at $180"; **NEW (2026-08-21): two PiXel8-RF photos — Amy beside the cart (console readout legible; operator override) and the handpiece in hand** |
 | ☐ | [/services/body-contouring](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/body-contouring) | Evolve $1,500 course of six / $275 single session; **NEW (2026-08-21): Amy's own Evolve reel in the session row — autoplays muted on approach, sound on the controls; the Reel-screenshot photo retired** |
 | ☐ | [/services/laser-treatments](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/laser-treatments) | **NEW: "Venus Versa Pro" naming throughout** (based on her console photo) + the console photo; pricing is deliberately consult-only (no dollar figures) — confirm that stays, or supply prices |
-| ☐ | [/services/weight-loss-glp-1](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/weight-loss-glp-1) | The mg-keyed vial price tiers; the single Retatrutide investigational line; two photos |
+| ☐ | [/services/weight-loss-glp-1](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/weight-loss-glp-1) | The mg-keyed vial price tiers; the single Retatrutide investigational line; **NEW (2026-08-21): the InBody weigh-in frame from behind (wall sign legible; operator override) and the "Before and After" section — three client photo pairs under operator override, releases + HIPAA authorizations on file** |
 | ☐ | [/services/peptide-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/peptide-therapy) | Nine product cards with prices (her wording, near-verbatim); portrait photo |
 | ☐ | [/services/iv-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/iv-therapy) | Menu cards ($125 / $125 / $200 / $25 shots); studio photo |
 | ☐ | [/services/hormone-optimization](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/hormone-optimization) | Pellets $450 women / $750 men; lab draw $125; the Biote FDA disclaimer; **NEW: her grey-seamless portrait** (also on weight-loss) |

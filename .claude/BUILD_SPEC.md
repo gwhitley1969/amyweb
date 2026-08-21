@@ -30,8 +30,10 @@ The site must:
 7. **Be maintainable by one person** — provider-managed content in Git; no CMS in v1.
 
 Explicitly **not** in v1: any backend/server code, the AI assistant (Phase 3,
-mobile app), user accounts, e-commerce/payments, before/after galleries,
-testimonials, contact forms, any other provider's services.
+mobile app), user accounts, e-commerce/payments, before/after galleries (one
+scoped exception, 2026-08-21: the weight-loss page's three client photo
+pairs under operator override — §8.3/§8.9), testimonials, contact
+forms, any other provider's services.
 
 ## 2. Architecture
 
@@ -465,6 +467,14 @@ action hype, no outcomes, no dosing, ever.
    describe its mechanism (the appetite-language ban applies). Banned
    angles: weight-loss numbers, "powerful results",
    blood-sugar/hypoglycemia claims, appetite mechanics as promises.
+   Page media since 2026-08-21 (DECISIONS same date): the InBody
+   weigh-in frame from behind, shipped as-is under the fourth photo
+   override (the aftercare sign's text), and the "Before and After"
+   section — three client-supplied side-by-side pairs under operator
+   override (§8.3/§8.9 scoped exception; releases + HIPAA marketing
+   authorizations on file for every pictured person; the h2 source
+   line allowlisted; a "results vary" disclosure; no numbers, dates,
+   or names — ever).
 2. **Peptide Therapy** — publish only `{{PEPTIDES_PUBLIC_LIST}}` (candidates
    from the current public site: Glow Stack, GHK-Cu, NAD). Factual
    descriptions of what each is; **no** recovery, healing, anti-inflammatory,
@@ -691,7 +701,13 @@ action hype, no outcomes, no dosing, ever.
    Evolus-produced Evolysse film on /services/dermal-fillers carried the
    same as-is exception from 2026-07-21 until 2026-08-21, when the client
    removed it from the site; that exception is RETIRED (DECISIONS
-   2026-08-21).*
+   2026-08-21). And — operator override after the compliance flag,
+   DECISIONS 2026-08-21 — the "Before and After" section on
+   /services/weight-loss-glp-1: three client-supplied side-by-side
+   photo pairs, the site's first before/after content (also carved out
+   of §1 and §8.9), with the h2 source line allowlisted (seventh
+   authorization), a "results vary" disclosure, and all pictured
+   people's releases + HIPAA authorizations on file; nothing else.*
 4. Unsubstantiated superiority: "#1", "best", "top-rated" — banned.
    *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator
    override after the flag — DECISIONS): the exact sentence
@@ -726,6 +742,9 @@ action hype, no outcomes, no dosing, ever.
 8. Credential inflation: Amy is an **FNP** (nurse practitioner). Never imply
    physician status; state credentials exactly.
 9. Testimonials, reviews, or before/after content (deferred by SOW).
+   *One operator-overridden exception (2026-08-21): the weight-loss
+   page's "Before and After" section — see §8.3. The SOW deferral
+   itself is the operator's document to amend.*
 
 **Always:** factual "what it is / who it's generally for" framing;
 DisclaimerBlock on every treatment page; consultation routing as the clinical

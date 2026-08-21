@@ -4425,6 +4425,39 @@ component owning its own resets travels with it); keeping both plates
 both component headers carry the new scopes; the sign-off row and
 REDESIGN row follow; clinicianApproved is already false on this branch.
 
+## 2026-08-21 — evolysse-film.mp4 deleted from the media origin (operator direction)
+
+**Context:** After PR #130 retired the Evolysse film from
+/services/dermal-fillers, the rendition in Blob
+(media.needlegirlie.com/evolysse-film.mp4, 8,984,202 bytes, uploaded
+2026-08-17) was unreferenced — recorded as an operator cleanup item.
+The operator directed its removal the same morning.
+
+**Checks before deleting:** `git grep` on origin/phase-c outside docs —
+zero references; the only remaining TreatmentVideo consumer is the ICON
+film on /about; the container inventory was read first (eight blobs,
+including the biostimulators round's two fresh uploads, which were left
+alone).
+
+**Decision:** `az storage blob delete` on container `media` of
+`stngmediag2g4stj5m2gts` (auth-mode key, RUNBOOK procedure), then
+`az afd endpoint purge --content-paths '/evolysse-film.mp4'` on
+endpoint `needlegirlie` so the day-long edge cache (max-age=86400)
+does not keep serving a deleted object; the edge verified 404 on
+repeated probes while neighbouring films still answered 206. No
+Bicep change — blob contents are data, not infrastructure.
+
+**Workstation note:** the first purge attempt from Git Bash failed with
+"Invalid ContentPath C:/Program Files/Git/evolysse-film.mp4" — MSYS
+rewrites a leading-slash argument into a Windows path. Issue AFD purges
+(and any `/path` argument to az) from PowerShell, or set
+`MSYS_NO_PATHCONV=1`.
+
+**Consequences:** the film exists only in the operator's archive
+(C:\Amy\Videos master) and git history (the .vtt); re-adding it is an
+upload + PR + a fresh DECISIONS entry, never a revert. REDESIGN's open
+item closes; the media-origin row no longer counts it.
+
 ## 2026-08-21 — Biostimulators: Amy's two reels replace the studio portrait (17a + 17b)
 
 **Context.** Client direction (via operator, 2026-08-21): on

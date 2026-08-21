@@ -36,7 +36,7 @@ pink."** Seven gaps, each a test every design decision must move:
 | **Type: Playfair Display everywhere** — headings AND body, matching the logo's own face; body bumped to 17px/1.65; **DM Sans retired** (scope answer 2026-08-15: Playfair takes the small UI text too — weight is the legibility knob, never a second family) | **Shipped** (PR #103, merged 2026-08-15) | mobile-readability flagged and accepted; DECISIONS 2026-08-15 |
 | **Home hero: Amy's studio-counter portrait** (interim AI-assisted 1400w blend, disclosed; her full-res original drops in with zero code changes) | **Shipped** (PR #101) | DECISIONS 2026-08-14 |
 | **Home video carousel** — J1 → studio reel → J2 on a cinematic noir stage; autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, reduced-motion = posters | **Shipped** (PR #101) | DECISIONS 2026-08-14 ×3 |
-| **Media architecture: Blob media origin** — `media.needlegirlie.com` via the same Front Door (~$1–2/mo); all six .mp4 films upload to Blob (five referenced since 2026-08-21 — the Evolysse film retired; its object is an operator cleanup item, see Open items), repo sheds 53MB; captions stay in-repo (compliance audit trail, same-origin = no CORS); previews play production media by design; publish procedure in RUNBOOK "Publishing a film" | **Built** (2026-08-17, external-audit Finding 5; Git-LFS declined — CI bandwidth trap) | DECISIONS 2026-08-17 |
+| **Media architecture: Blob media origin** — `media.needlegirlie.com` via the same Front Door (~$1–2/mo); all six .mp4 films upload to Blob (the Evolysse film's object deleted 2026-08-21 after the film retired — the container now holds only referenced films plus whatever the biostimulators round uploads), repo sheds 53MB; captions stay in-repo (compliance audit trail, same-origin = no CORS); previews play production media by design; publish procedure in RUNBOOK "Publishing a film" | **Built** (2026-08-17, external-audit Finding 5; Git-LFS declined — CI bandwidth trap) | DECISIONS 2026-08-17 |
 | **Mobile Aesthetics badge in the header** — SVG vector rebuild (Julius Sans One outlines, measured geometry; lockup variant stays in the brand kit); FULL BADGE at 48–80px phones / 128–160px desktop; **links out to yourmobileaesthetics.com** (new tab — constraint-2 operator override, the one sanctioned outbound reference) | **Shipped** (PR #102, merged 2026-08-15) | F-437304 asset set; DECISIONS 2026-08-15 (four entries); CLAUDE.md constraint-2 exception |
 | **Hybrid nav** — hamburger menu carries the page links at EVERY width (inline desktop nav retired); Book is the one styled button, always visible; centered-brand shell at all widths (fixed the Z Fold collision, which predated the badge) | **Shipped** (PR #102, merged 2026-08-15) | operator decision after options; DECISIONS 2026-08-15 |
 | **Pink arches around pictures** — house frame motif, generalized from the category-door arch into the shared `.ng-arch` recipe; every photo sitewide (Amy's direction 2026-08-17), exempting the hero backdrop, all film stages, the homepage Instagram post (Amy's named exception), and the lip style-guide diagram. 2026-08-18 evolutions (client direction, PR #126): the treatment pages' white paper mats + print tilts retired — every treatment photo now a bare arch on the pink canvas, matching /services; and the arch family gained its wide sibling, the segmental arch (`media-band--segmental`, curve over straight feet at 3:2), for landscape frames that must show full content | **Built** (2026-08-17; bare-arch + segmental 2026-08-18) | DECISIONS 2026-08-17 + 2026-08-18 |
@@ -102,10 +102,10 @@ pink."** Seven gaps, each a test every design decision must move:
   tap-for-sound + audio-faithful captions is a recorded follow-up if
   directed. (Treatment-page films keep their audio and play on click
   — the biostimulators reels joined that class 2026-08-21.)
-- **Blob cleanup** — `evolysse-film.mp4` on media.needlegirlie.com is
-  unreferenced since 2026-08-21 (film retired from dermal-fillers);
-  operator `az storage blob delete` when sure it is not returning
-  (RUNBOOK "Publishing a film" step 3; zero cost to leave it).
+- ~~**Blob cleanup** — `evolysse-film.mp4` on media.needlegirlie.com~~
+  DONE 2026-08-21 (operator direction): blob deleted, edge path purged,
+  404 verified at the media origin; neighbours unaffected (DECISIONS
+  same date).
 - Carried from launch: counsel review of legal pages, manual
   keyboard/screen-reader a11y pass, laser pricing if supplied.
   (Plausible: decided and PREPPED 2026-08-17 — ships dark; the flip

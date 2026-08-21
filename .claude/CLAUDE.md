@@ -105,7 +105,20 @@ silently following it. Known superseded points from earlier briefs:
      Editing rules: each lives on ONE attribute-less `<li>` source line
      matching the registry exactly (stripping is per-line AND
      case-sensitive), and this vocabulary is never restated elsewhere,
-     comments included.* Nothing else; changing
+     comments included.* *Fourth pixel-level override, and the first
+     under this bullet (operator override after the compliance flag —
+     DECISIONS 2026-08-21): the /services/skin-rejuvenation row photo
+     `amy-pixel8-cart.jpg`, in which the PiXel8-RF console's settings
+     readout — power/time/delay values and a suggested needle-depth
+     range — is legible in the served source file (astro:assets serves
+     the source-resolution derivative as the `src`). The 2026-08-04
+     rejection of a frame for this readout class is superseded for this
+     frame only; the recommended defocus bake was declined. Pixel
+     content is invisible to lint:claims, which is why the exception is
+     recorded here. The frame, its page scope, and the rule that no
+     value from the readout is ever restated in text — copy, alt,
+     comments, meta, JSON-LD — are fixed; changing any of them requires
+     the human operator.* Nothing else; changing
      that list requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated

@@ -6,6 +6,22 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-21 — Skin rejuvenation: Amy's PiXel8-RF photos land
+
+- Photo round page 6: "How PiXel8-RF works" now shows Amy beside the
+  PiXel8-RF cart under the studio neon (her pick 19a, anchored top so
+  the neon stays whole); "A longer view" gains a photo to the right of
+  its copy — the handpiece in Amy's hand (pick 19b — the /services
+  menu-card frame, reused rather than duplicated). The interim
+  docked-handpiece photo is retired. Both rows now serve the sitewide
+  retina widths.
+- The cart photo ships under operator override after the compliance
+  flag: the device console's settings readout is legible in the served
+  source (recorded in CLAUDE.md constraint 3, BUILD_SPEC §7.10/§8.1,
+  DECISIONS 2026-08-21).
+- `clinicianApproved` reset on skin-rejuvenation (approved content
+  edited — constraint 4); Amy re-reviews on the preview.
+
 ### 2026-08-21 — biostimulators: Amy's two reels replace the studio portrait
 
 - `/services/biostimulators` — the studio portrait beside "A longer

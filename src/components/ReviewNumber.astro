@@ -4,8 +4,11 @@ import { siteConfig } from '../lib/siteConfig';
 /**
  * ReviewNumber — REVIEW SCAFFOLDING, NOT SITE DESIGN.
  *
- * A small corner marker carrying a page's /services menu number, so a
- * review pair can say "look at 07" instead of naming the page. Added for
+ * A small corner marker carrying a page's short review tag, so a review
+ * pair can say "look at 07" or "open C" instead of naming the page.
+ * Two sources feed it: lineNumber() in serviceLines.ts for the twelve
+ * /services pages (01..12, plus a literal 13 on /injector-training),
+ * and reviewTag() in reviewTags.ts for the lettered pages outside them. Added for
  * the numbered-page review round; it lives on the review branch only and
  * is deleted with that branch. Gated by siteConfig.reviewNumbers, so one
  * edit switches every marker off.

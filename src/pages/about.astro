@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
+import ReviewNumber from '../components/ReviewNumber.astro';
+import { reviewTag } from '../lib/reviewTags';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
 import TrustChips from '../components/TrustChips.astro';
@@ -37,6 +39,9 @@ import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
  * 2026-07-29 keep-list: byte-identical, and never echo its construction
  * in new copy on this page.
  */
+
+// REVIEW SCAFFOLDING (ReviewNumber.astro) — letter tag for this route.
+const reviewPageTag = reviewTag(Astro.url.pathname);
 ---
 
 <BaseLayout
@@ -46,6 +51,7 @@ import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
   <Header slot="header" />
 
   <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    {reviewPageTag && <ReviewNumber n={reviewPageTag} />}
     <div class="grid items-start gap-10 md:grid-cols-[6fr_5fr]">
       <div>
         <p class="eyebrow">About</p>

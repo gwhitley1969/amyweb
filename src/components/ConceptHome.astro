@@ -8,6 +8,8 @@ import TrustChips from './TrustChips.astro';
 import LocationCard from './LocationCard.astro';
 import VideoCarousel from './VideoCarousel.astro';
 import { siteConfig } from '../lib/siteConfig';
+import ReviewNumber from './ReviewNumber.astro';
+import { reviewTag } from '../lib/reviewTags';
 import needlegirlieHero from '../assets/photos/needlegirlie-hero.jpg';
 import amyTreatingClient from '../assets/photos/amy-treating-client-neon.jpg';
 import skinbetterInHand from '../assets/photos/skinbetter-in-hand.jpg';
@@ -70,6 +72,11 @@ const doors = [
     position: 'attention',
   },
 ] as const;
+
+// REVIEW SCAFFOLDING (ReviewNumber.astro) — letter tag for this route.
+// Keyed by pathname: this component also renders /styleguide/concept,
+// which is deliberately left untagged.
+const reviewPageTag = reviewTag(Astro.url.pathname);
 ---
 
 {/* Light body (default): the ombre canvas paints the page; the hero and
@@ -82,6 +89,12 @@ const doors = [
   description="Needle Girlie — the medical-aesthetics practice of Amy Palacios, FNP, in Harrisburg, NC. Injectables, skin, body, and wellness, every appointment with Amy."
 >
   <Header slot="header" />
+
+  {reviewPageTag && (
+    <div class="mx-auto max-w-6xl px-6 pt-6">
+      <ReviewNumber n={reviewPageTag} />
+    </div>
+  )}
 
   {/* ---- HERO: noir band, Amy herself — seated on the studio counter
       beneath her own neon script (her own signage — sole owner,

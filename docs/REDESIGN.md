@@ -110,6 +110,17 @@ pink."** Seven gaps, each a test every design decision must move:
   keyboard/screen-reader a11y pass (laser pricing landed 2026-08-21).
   (Plausible: decided and PREPPED 2026-08-17 — ships dark; the flip
   is a relaunch-day config edit, RUNBOOK "Turning on analytics".)
+- **Review tags are OPEN on a side branch** (2026-08-22): every page
+  carries a short label (A–G on the non-service pages, 01–12 on the
+  treatment pages, 13 on /injector-training) so a review pair can refer
+  to pages by tag. They live ONLY on `review/page-numbers` (PR #138,
+  marked DO NOT MERGE) and its preview; `phase-c` and the standing
+  client demo never carry them. **To remove: close PR #138 and delete
+  the branch** — nothing on `phase-c` needs cleaning up. The full
+  record, the temporary off switch, and a by-hand removal procedure (if
+  the branch is ever merged) are in that branch's `docs/REVIEW-TAGS.md`;
+  the decision is DECISIONS 2026-08-22. Strike this line when the PR is
+  closed.
 
 ## Round close (scaffold added 2026-08-17 — external-audit Finding 2)
 

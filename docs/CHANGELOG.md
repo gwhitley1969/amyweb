@@ -6,6 +6,30 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-22 — Peptide therapy: the "Delivered, and always supervised" section is gone
+
+- Amy flagged the section on `/services/peptide-therapy`. It is deleted
+  rather than reworded: both of its facts already lived elsewhere on the
+  page — how peptides are given is in the FAQ almost verbatim, and
+  supervision was stated in five other places. The page said "supervised"
+  **seven** times; it now says it once, in the SEO description.
+- The section's one unique fact moves to where the rest of the site keeps
+  it. "What it is" now reads "The ones Amy offers are prescription
+  treatments, given in a clinical setting, usually as a small injection" —
+  the pattern `wrinkle-relaxers` and `weight-loss-glp-1` already use, and
+  narrower than the blanket sentence it replaces.
+- Gone with it: "never something you sort out on your own", a line written
+  at gray-market peptide sellers that landed on the reader instead.
+- The lead paragraph under the H1 loses the word too ("each offered within
+  a plan built around you"), and the FAQ asks "Who gives the treatment?"
+  instead of "Who supervises peptide treatments?" — same answer, minus the
+  implication that Amy watches while somebody else injects.
+- The closing line joins the house sentence six other treatment pages
+  already use: "plans and gives every peptide treatment herself". The deck
+  and the SEO description are unchanged.
+- `clinicianApproved` reset on peptide-therapy (approved content edited —
+  constraint 4); Amy re-reviews the copy on the preview.
+
 ### 2026-08-21 — Laser treatments: the priced menu and Venus Epileve laser hair removal
 
 - `/services/laser-treatments` gains its menu: every product card now

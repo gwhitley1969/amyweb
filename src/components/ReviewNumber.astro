@@ -1,0 +1,53 @@
+---
+import { siteConfig } from '../lib/siteConfig';
+
+/**
+ * ReviewNumber — REVIEW SCAFFOLDING, NOT SITE DESIGN.
+ *
+ * A small corner marker carrying a page's /services menu number, so a
+ * review pair can say "look at 07" instead of naming the page. Added for
+ * the numbered-page review round; it lives on the review branch only and
+ * is deleted with that branch. Gated by siteConfig.reviewNumbers, so one
+ * edit switches every marker off.
+ *
+ * Why it renders here and not in the content files: editing a treatment
+ * .mdx resets its clinicianApproved flag (CLAUDE.md constraint 4), and
+ * five of the twelve pages are signed off. Injecting from the layout
+ * touches zero content and resets zero flags — the same component-layer
+ * lever the arch rollout and the media-origin swap used (DECISIONS
+ * 2026-08-17).
+ *
+ * Presentation: a noir plate with paper text (the recorded 21:1 pair).
+ * It cannot borrow the /services menu's ink-pink numerals — ink-pink and
+ * magenta-600 are illegal as text on the ombre canvas, falling to 2.33
+ * and ~1.9 mid-ramp (tokens.css). Static by design: no entrance motion
+ * (banned beside page H1s) and no .ng-lift (whole-card links only).
+ * aria-hidden, matching the decorative numeral on TreatmentCard.
+ */
+interface Props {
+  /** Zero-padded marker text, e.g. "01". */
+  n: string;
+}
+
+const { n } = Astro.props;
+const show = siteConfig.reviewNumbers && Boolean(n);
+---
+
+{show && <div class="review-num" aria-hidden="true">{n}</div>}
+
+<style>
+  .review-num {
+    display: inline-block;
+    background: var(--ng-noir);
+    color: var(--ng-paper);
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+    font-variant-numeric: lining-nums tabular-nums;
+    letter-spacing: 0.08em;
+    padding: 0.375rem 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+  }
+</style>

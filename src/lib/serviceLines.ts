@@ -115,3 +115,18 @@ export const serviceLines: ServiceLine[] = [
     category: 'wellness',
   },
 ];
+
+/**
+ * Menu position for a slug, zero-padded to two digits ("01".."12").
+ * Returns null when the slug is not one of the twelve menu lines, so
+ * callers on non-menu routes (the styleguide treatment demo) render
+ * nothing rather than a placeholder.
+ *
+ * Array order is the numbering order — see the note above serviceLines.
+ * Do NOT derive numbers from SERVICE_LINES in content.config.ts: that
+ * list holds the same slugs in a different order and is only the enum.
+ */
+export function lineNumber(slug: string): string | null {
+  const i = serviceLines.findIndex((line) => line.slug === slug);
+  return i === -1 ? null : String(i + 1).padStart(2, '0');
+}

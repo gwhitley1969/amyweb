@@ -481,4 +481,8 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
 - `DECISIONS.md` — why things are the way they are (append-only).
 - `OPERATOR-SETUP.md` — GitHub/Azure wiring details.
 - `BRAND-ASSETS.md` — logo sources and the export pipeline.
+- `REVIEW-TAGS.md` — the per-page review tags (A/B/C…, 01–13) carried on
+  branch `review/page-numbers` (PR #138, DO NOT MERGE), and **how to remove
+  them**. They are scaffolding for one review round; `phase-c` and the
+  standing client demo never carry them.
 - `.claude/BUILD_SPEC.md` — the specification; §16 is the launch checklist.

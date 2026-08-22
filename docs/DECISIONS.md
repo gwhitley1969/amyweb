@@ -5158,3 +5158,60 @@ goes. Two other pages describe Amy's menu in a different sense
 (body-contouring: "Amy lists it on her menu exactly as…"; iv-therapy:
 "Amy's menu is short and named plainly") — reported to the operator,
 not changed here (approved content; edits reset flags).
+
+## 2026-08-22 — Review tags: numbers and letters on every page, injected from the layout
+
+**Context:** the operator is reviewing the site with a collaborator who
+wants to refer to pages by a short label rather than by name. Two rounds
+the same day: first the twelve `/services/<slug>` treatment pages plus
+`/injector-training`, then the pages outside them. The `/services` menu
+already numbers the twelve lines 01–12; nothing else on the site carries
+an identifier.
+
+**Decision:** a small `ReviewNumber.astro` plate carrying a per-page tag —
+01–12 on the treatment pages (read from the `serviceLines` array order via
+a new `lineNumber()` helper), 13 on `/injector-training`, and hand-assigned
+letters A–G on `/`, `/services`, `/about`, `/visit` and the legal trio (a
+new `src/lib/reviewTags.ts`). `/404` and the preview-only `/styleguide*`
+routes stay bare, both operator choices. One `siteConfig.reviewNumbers`
+boolean switches every tag off. **Built on `review/page-numbers` (PR #138),
+which is marked DO NOT MERGE and exists only to carry a preview URL.**
+Full record and the removal procedure: `docs/REVIEW-TAGS.md`.
+
+**The load-bearing part — no content file is touched.** Editing a
+treatment `.mdx` resets `clinicianApproved` (constraint 4) and five of the
+twelve pages are signed off, so a numeral in the MDX would have re-opened
+Amy's sign-off on five pages whose copy never changed, for a label that is
+not site copy. `TreatmentLayout` derives the slug from `Astro.url.pathname`
+instead (`trailingSlash: 'never'`), so zero content files change and zero
+flags reset — the arch-rollout and media-origin precedent (2026-08-17)
+applied a third time. The second round did not touch `TreatmentLayout` at
+all, so the shipped numbers could not regress.
+
+Letters are keyed by pathname rather than hardcoded because `/` and
+`/styleguide/concept` render the SAME component (`ConceptHome.astro`); a
+literal letter would have tagged the styleguide too, against the operator's
+scoping. The map answers for `/` and returns null for the styleguide route
+— verified bare in the build and on the preview.
+
+**Alternatives rejected:** the numeral in the MDX frontmatter (five
+approval resets for scaffolding); merging to `phase-c` so the standing demo
+carries the tags (the DraftBanner was deleted sitewide 2026-08-21 precisely
+because the client read a per-page marker as final-site content — offered
+and declined); a fixed corner badge (the viewport's top-left holds the
+header's Mobile Aesthetics badge, a link, and covering a focusable control
+is WCAG 2.2 focus-not-obscured — the same objection that retired the mobile
+fixed CTA bar in the 2026-07-08 Mobbin review); reusing the menu's ink-pink
+numerals (illegal as text on the ombre canvas, 2.33 mid-ramp — the plate is
+noir with paper text, the recorded 21:1 pair); renaming `ReviewNumber` once
+it also carried letters (would re-touch verified files on a branch that
+gets deleted).
+
+**Consequences:** the operator's chosen home placement puts the tag above
+an 88vh full-bleed hero on a Lighthouse-gated URL — measured rather than
+assumed: median LCP 1888 ms against the 2500 ms budget, CLS 0.00. pa11y run
+with the ombre needs-review cap removed surfaced 48 items, none referencing
+the tag. `npm run verify` green locally and in CI. Removal is closing PR
+#138; if the branch is ever merged instead, `docs/REVIEW-TAGS.md` carries
+the by-hand procedure. Nothing here is a compliance exception and no gate,
+budget, or banned-pattern list changed.

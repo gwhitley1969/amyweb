@@ -5158,3 +5158,63 @@ goes. Two other pages describe Amy's menu in a different sense
 (body-contouring: "Amy lists it on her menu exactly as…"; iv-therapy:
 "Amy's menu is short and named plainly") — reported to the operator,
 not changed here (approved content; edits reset flags).
+
+## 2026-08-22 — peptide-therapy: the "Delivered, and always supervised" section is removed
+
+**Context:** Amy flagged the section on `/services/peptide-therapy`, naming
+"always supervised" as the likely problem. Reading the page turned up three
+faults, of which the headline was only the most visible. First, the page said
+"supervised" **seven** times — the lead paragraph (frontmatter `summary`, which
+`TreatmentLayout` renders under the H1), the SEO description, "What it is", this
+heading, this paragraph, an FAQ question, and the closing line. Second, the
+section's last clause — "never something you sort out on your own" — was aimed
+at gray-market peptide buyers but landed on whoever was reading; it was the one
+sentence on the page that did not sound like Amy. Third, "supervised" implies
+someone else does the work while Amy watches, which is both inaccurate (the
+page's own FAQ said "Every visit is with Amy herself") and, faintly, a
+delegation model — the wrong signal under constraint 2. Structurally it was also
+the only `h2` on the site whose subject was governance rather than the treatment
+or the visit, against siblings like "It starts with labs" and "What a visit
+looks like". Its content was almost entirely duplicated: route-of-administration
+appears in the FAQ nearly verbatim, supervision in five other places. Its only
+unique contribution was the word *prescription*.
+
+**Decision (operator, after the options were laid out):** delete the section
+outright and relocate the prescription fact into "What it is", where
+`wrinkle-relaxers` and `weight-loss-glp-1` both state it — scoped to "the ones
+Amy offers", which is narrower than the deleted blanket "Peptides are
+prescription treatments" and therefore a reduction in exposure, not an addition.
+The detailed subcutaneous/IV split stays in the FAQ, which already owns it, and
+was deliberately not folded back into the body. The word is swept out of the
+body copy, the FAQ question ("Who supervises peptide treatments?" → "Who gives
+the treatment?"), and the lead paragraph; the SEO description keeps
+"clinician-supervised" and the deck is untouched. The closing line joins the
+house sentence six other treatment pages already carry — "plans and gives every
+peptide treatment herself", cf. `iv-therapy`'s "administers every infusion and
+every shot herself". Peptide-therapy and weight-loss-glp-1 were the only two
+pages saying "supervises"; on the GLP-1 page that framing is appropriate and
+stays. The stock "under clinician supervision" phrase was **not** added — it was
+not on this page before, and `iv-therapy`, the closest sibling, does not carry
+it either. Net: `supervis-` goes from seven occurrences to one.
+
+**Alternatives rejected:** replacing the section with the process section this
+page actually lacks ("What a plan looks like" — it says "decided with Amy" four
+times but never says what happens); a minimal retitle-and-trim to "How peptides
+are given", which fixes the headline but leaves the section duplicating the FAQ
+answer word for word; a whole-page sweep including the deck and the SEO
+description (the description earns its keep in search, and the deck's "always
+within a plan" carries no supervision connotation). Also rejected: inventing a
+labs step to give the page back its fourth section — no such business fact is on
+file.
+
+**Consequences:** this partly reverses the enrichment recorded above on
+2026-07-21, which added the section after the operator flagged the page as too
+thin; the operator accepted that trade-off with the section count in front of
+them. The page drops from four body sections to three, still within house norms
+(`regenerative` has three), and keeps its nine priced product cards and five
+FAQs. `clinicianApproved` reset to `false` (constraint 4 — approved content
+edited), so the production gate blocks this page until Amy re-approves on the
+preview; treatment flags now read 4 true / 8 false. The 2026-07-21 entry still
+describes the section — that log is append-only, and this entry supersedes it.
+Verified: build, `astro check` (0/0/0), `lint:claims`, `lint:voice`, pa11y
+24/24, Lighthouse budgets.

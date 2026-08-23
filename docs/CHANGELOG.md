@@ -6,7 +6,7 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
-### 2026-08-23 — Wrinkle relaxers: new lead and deck copy
+### 2026-08-23 — Wrinkle relaxers: new lead, deck, and body copy
 
 - Client direction for the two blocks that open
   `/services/wrinkle-relaxers`. The lead sentence stops saying "creases" —
@@ -26,6 +26,24 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - The second "creases", in "What they are", stays by the operator's
   choice — out of the scope he set. `clinicianApproved` was already false
   (2026-08-18), so no flag moved; flags still read 4 true / 8 false.
+- **Round 2, same day and same PR** — three more copy changes on the
+  page. "Not just for women" now opens "Expression lines aren't gender
+  defined…" (her wording, unhyphenated as dictated) and its second
+  sentence ends "lines they'd rather not see" (was "rather soften").
+  The FAQ carried a near-verbatim echo of that first sentence and
+  changed with it at the operator's direction, so "gendered" is gone
+  from the page entirely.
+- "Individualized, with Amy" takes her replacement paragraph, closing
+  "Your trust is well placed when you walk through the doors!" Her draft
+  had also dropped "under clinician supervision" — flagged, because
+  BUILD_SPEC §7 names it in the copy pattern, and **the operator chose to
+  keep the clause**. (No gate requires it, and three of twelve pages
+  carry no supervision language at all, so dropping it would have been
+  defensible — this was a judgment call, recorded in DECISIONS.)
+- "Rather not see" was flagged once and ships as directed: it leans
+  toward absence where "soften" mirrors the product labeling, but it
+  describes the client's wish rather than a result. No registry change,
+  no allowlist entry, no override anywhere in either round.
 
 ### 2026-08-23 — `/services` intro: the third service category is now "Wellness"
 

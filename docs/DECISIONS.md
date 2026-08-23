@@ -5346,3 +5346,52 @@ done here — governing-doc edits are operator-gated, and a peer session's
 agreement is not that authorization; this paragraph is the traceability
 bridge until the operator rules (the 2026-08-14 carousel-JS precedent). If he
 declines the amendment, this entry remains the only written form of the rule.
+
+**Addendum, same day — round 2: the body copy.** Client direction for three
+more strings on the same page, carried on the same PR so Amy reviews one
+preview rather than two (the 2026-08-15 split-preview lesson). (1) Under "Not
+just for women", "gendered" becomes "gender defined" — shipped unhyphenated
+exactly as dictated, per the house verbatim precedent (this page's own title
+carries a client hyphen the same way). The FAQ answer carried a near-verbatim
+echo of that sentence, and the operator chose to change BOTH: they are a
+matched pair — the FAQ answers the point the section makes — unlike the two
+"creases" of round 1, which he deliberately left divergent. Page now reads
+"gendered" nowhere. (2) In the same paragraph, "lines they'd rather soften"
+becomes "lines they'd rather not see". **Flagged once and shipped as
+directed:** "soften" is this page's label-mirroring verb (what the products
+are labeled to do), and "not see" leans toward absence on the one page
+carrying no duration hedge since 2026-07-30 — but it describes the client's
+WISH rather than the treatment's result, which is why it stands rather than
+becoming an override. It trips no pattern; nothing was added to the registry.
+(3) "Individualized, with Amy" takes her replacement paragraph, which drops
+"There is no standard plan here." and adds "Your trust is well placed when you
+walk through the doors!" — provider puffery, clean against every category, in
+the register of the client-verbatim /services intro.
+
+**The supervision clause: flagged, and KEPT at the operator's direction.** Her
+drafted paragraph omitted "under clinician supervision", so the research is
+recorded here because the question will recur. No gate requires the phrase:
+`lint-claims.mjs` carries exactly three inverse checks — investigational
+disclosure, Retatrutide, and Biote symptom vocabulary — and none touches
+supervision. BUILD_SPEC §7 does name it ("individualized under clinician
+supervision") but as a BEAT in the copy pattern, not a mandated string: only
+four of twelve pages carry the literal words, three carry no supervision
+language at all (hormone-optimization, iv-therapy, skincare), and the
+2026-08-22 peptide-therapy entry reasoned exactly this way when it cut
+`supervis-` from seven occurrences to one. Dropping it would therefore have
+been defensible and gate-clean; the operator chose to keep it, so the page
+holds at one occurrence. Recorded so a future session does not read the
+peptide precedent as licence to sweep the phrase off this page too.
+
+Round-2 consequences: no JSON-LD fan-out this time — only `title` and
+`summary` reach structured data via `[slug].astro`, and FAQPage JSON-LD is
+still deferred to Phase D, so body and FAQ prose render to HTML only. No
+registry change, no allowlist entry, no CLAUDE.md or BUILD_SPEC edit. The em
+dash in "Not just for women" is the paragraph's original one and the new
+paragraph adds none (2026-07-29 budget). `clinicianApproved` was already
+`false`, so nothing reset; flags stay 4 true / 8 false. Noted in passing, not
+a regression: MDX smart-quotes body prose (`aren’t`, U+2019) while frontmatter
+strings keep straight apostrophes, so this page renders both forms — true of
+every treatment page since C3, and unchanged by this round. Verified: build,
+`astro check`, `lint:claims`, `lint:voice`, pa11y 24/24, Lighthouse 7 URLs x 3
+runs.

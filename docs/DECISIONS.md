@@ -5218,3 +5218,43 @@ preview; treatment flags now read 4 true / 8 false. The 2026-07-21 entry still
 describes the section — that log is append-only, and this entry supersedes it.
 Verified: build, `astro check` (0/0/0), `lint:claims`, `lint:voice`, pa11y
 24/24, Lighthouse budgets.
+
+## 2026-08-23 — /services intro: the third service category becomes "Wellness"
+
+**Context:** Client direction (via the operator, 2026-08-23): in the `/services`
+lead, sentence 2 listed three service categories, and she wants the third one —
+a trailing "all things … oriented" modifier naming peptides — replaced with the
+single word "Wellness". Sentence 2 is client-verbatim copy recorded on
+2026-08-18, so the change is a deliberate departure from her own earlier
+wording, at her request.
+
+**Decision:** sentence 2 now reads "From Facial Balancing to Weight Loss & Body
+Contouring to Wellness, Amy has your best self in mind." Three parallel
+capitalized categories replace two plus a trailing modifier. "Wellness" is
+already house vocabulary (`/about` uses it for the same grouping) and is clean
+against all six banned categories, so the registry is untouched.
+
+Allowlist entry #6 — the exact fragment "Amy has your best self in mind" — is
+**unchanged and still in use**, so the 2026-08-21 withdrawal precedent (an
+authorization nothing uses is a loophole) does not apply. Its editing rule is
+what shaped the edit: stripping is per-line and case-sensitive, so lines 74–76
+were rewrapped to keep the fragment whole on one source line. The in-page
+comment's "verbatim" claim was amended in the same commit to stay an accurate
+audit trail; `compliance/banned-patterns.json` and CLAUDE.md needed no edit —
+the exception's scope ("the /services intro lead only, on one source line")
+remains exactly true.
+
+**Alternatives rejected:** keeping the client's idiom as "to all things
+Wellness" (smallest delta, but preserves the phrasing she asked to lose); ending
+the sentence at "Wellness." and dropping the "best self" tail — a larger change
+that would also have required withdrawing allowlist entry #6, and she did not
+ask for it.
+
+**Consequences:** the 2026-08-18 entry above still quotes the original sentence
+— that log is append-only, and this entry supersedes its "verbatim" framing for
+that one list item only. No treatment content is touched, so no
+`clinicianApproved` flag moves (flags still read 4 true / 8 false) and the
+production approval gate is unaffected. `/services` remains the only page
+rendering the allowlisted `best` fragment. The demo and review preview branches
+will not show this until `phase-c` is merged into each. Verified: build, `astro
+check`, `lint:claims`, `lint:voice`, pa11y 24/24, Lighthouse budgets.

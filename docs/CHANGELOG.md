@@ -6,6 +6,23 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-23 — `/services` intro: the third service category is now "Wellness"
+
+- Client direction. The lead paragraph's second sentence listed three
+  service categories and ended the third as a trailing "all things …
+  oriented" modifier. It now reads "From Facial Balancing to Weight Loss &
+  Body Contouring to Wellness, Amy has your best self in mind." — three
+  parallel categories instead of two plus a modifier.
+- "Wellness" is already how `/about` groups the same work, and it is clean
+  against every banned category, so `compliance/banned-patterns.json` is
+  untouched.
+- The allowlisted fragment "Amy has your best self in mind" is unchanged
+  and still in use, so its authorization stands. The source lines were
+  rewrapped to keep it whole on one line — the linter strips allowed
+  strings per line, so a wrapped copy would trip `superiority`.
+- The in-page comment's "verbatim" claim was amended in the same commit;
+  no treatment content changed, so no `clinicianApproved` flag moved.
+
 ### 2026-08-22 — Peptide therapy: the "Delivered, and always supervised" section is gone
 
 - Amy flagged the section on `/services/peptide-therapy`. It is deleted

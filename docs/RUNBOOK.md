@@ -52,24 +52,41 @@ design: `allowedForwardedHosts` only admits the real hostnames.
 
 ## Where `phase-c` is visible
 
-`pr-preview.yml` triggers on `pull_request` only — never on `push`. Pushes
-to `phase-c` deploy only while a **standing PR from `phase-c` → `main` is
-open**: each push is a `synchronize` event on it, so that PR's preview
-environment is effectively the stable `phase-c` preview.
+`pr-preview.yml` triggers on `pull_request` only — never on `push`. The
+original design was that a **standing PR from `phase-c` → `main`** would
+make each push a `synchronize` event, so that PR's environment served as
+the stable `phase-c` preview. Launch PR #5 played that role until it merged
+as the launch merge (2026-08-05), which tore its `…-5…` environment down.
+The standing PR has been **#95** (draft "Next release") since.
 
-Launch PR #5 played this role until it merged as the launch merge
-(2026-08-05), which tore its `…-5…` environment down. **The standing PR is
-now #95** (draft "Next release"), so the stable preview lives at
-`https://polite-flower-0a41b770f-95.eastus2.7.azurestaticapps.net` — note
-it deploys on the next push whose diff touches a source file
-(documentation-only diffs are `paths-ignore`d, above). Merging the standing
-PR is a production release; open the next one right after.
+**That mechanism has not worked since the takedown, and `…-95…` does not
+resolve** — verified 2026-08-23: `/`, `/services`, and `/about` all 404.
+This is not a regression to investigate; it was decided and recorded on
+the day of the takedown. DECISIONS 2026-08-05, consequence (3): *"PR #95's
+merge ref is conflicted by design, so the standing preview cannot deploy
+during the takedown — interim previews come from sub-PRs into phase-c."*
+See also "Relaunch guard" below: *a conflicted PR runs no workflows.*
 
-The environment number is the PR number — PR #61's preview was `…-61…`.
-**Consequence worth knowing:** if the standing PR is ever closed without a
-replacement, pushes to `phase-c` stop deploying anywhere, with no failing
-run to point at. Open a new PR from `phase-c` rather than debugging the
-workflow.
+Concretely: PR #95 is permanently **CONFLICTING** (the takedown topology
+working as designed), GitHub will not run `pull_request` workflows for a PR
+whose merge commit it cannot compute, so no `synchronize` run has ever
+fired for #95 — its only checks come from the `push`-triggered Relaunch
+guard, which is exactly why that workflow listens on
+`push: branches: [phase-c]`. **Pushes to `phase-c` deploy nowhere.** This
+resolves at relaunch, when the two-step re-sync makes #95's successor
+mergeable again.
+
+Do not wait on a `…-95…` environment, and do **not** close PR #95 to "fix"
+it — closing it would not create a preview, and the relaunch depends on it.
+
+**Where to look at `phase-c` meanwhile:** the demo environment below,
+refreshed by merging `phase-c` into `chore/monday-demo-preview`. PR #97
+works precisely because its base is `phase-c`, not `main`, so it never
+conflicts and its `synchronize` events do fire. Any interim preview must be
+built the same way — a branch off `phase-c`, PR **into** `phase-c`.
+
+The environment number is the PR number — PR #61's preview was `…-61…`,
+PR #97's is `…-97…`.
 
 **The standing demo (the link the client keeps):** PR #97 — branch
 `chore/monday-demo-preview`, a draft titled DO NOT MERGE — exists only

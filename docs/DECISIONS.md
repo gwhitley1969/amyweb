@@ -5322,3 +5322,27 @@ nothing reset; flags still read 4 true / 8 false and the page rides the
 consolidated pre-relaunch re-approval. `src/lib/serviceLines.ts` carries a
 shorter menu summary without "creases" — unaffected. Verified: build, `astro
 check`, `lint:claims`, `lint:voice`, pa11y 24/24, Lighthouse 7 URLs x 3 runs.
+
+**The generalizable lesson, and a gap PROPOSED for the operator (not
+edited).** The hazard this round was neither the photo nor the copy alone: it
+was the two IN COMBINATION, and no gate can see either half. `lint:claims`
+cannot read the banner in `jeuveau-banner-studio.jpg`, and it could not have
+caught the drafted sentence either (verified — no pattern matches). The
+standing rule this produces, recorded for whoever edits this page next: **on
+/services/wrinkle-relaxers, any copy naming treatment areas must be read
+against that photo before it ships.** The pixel override and the page's text
+are one surface, not two.
+
+Which exposes a real asymmetry in the exception records, surfaced by the
+concurrent session reviewing this page's overrides: the two dosing-bullet
+pixel overrides (`amy-pixel8-cart`, 2026-08-21; `amy-epileve-window`,
+2026-08-21) each carry an explicit never-restate-in-text clause naming copy,
+alt, comments, meta, and JSON-LD — but the `jeuveau-banner-studio` entry
+(2026-08-18, claims bullet) records only that the banner vocabulary is
+legible. It has no such clause, and this round is precisely the case such a
+clause exists to prevent. **Recommendation to the operator: add the same
+never-restate clause to the jeuveau entry in CLAUDE.md constraint 3.** Not
+done here — governing-doc edits are operator-gated, and a peer session's
+agreement is not that authorization; this paragraph is the traceability
+bridge until the operator rules (the 2026-08-14 carousel-JS precedent). If he
+declines the amendment, this entry remains the only written form of the rule.

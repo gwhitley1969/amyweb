@@ -5258,3 +5258,67 @@ production approval gate is unaffected. `/services` remains the only page
 rendering the allowlisted `best` fragment. The demo and review preview branches
 will not show this until `phase-c` is merged into each. Verified: build, `astro
 check`, `lint:claims`, `lint:voice`, pa11y 24/24, Lighthouse budgets.
+
+## 2026-08-23 — wrinkle-relaxers: the lead and deck copy round (a flag that did NOT become an override)
+
+**Context:** Client direction (via the operator, 2026-08-23) for the two copy
+blocks that open `/services/wrinkle-relaxers` — the `summary` lead and the
+`deck` statement card, which `TreatmentLayout` renders in that order directly
+under the H1. (1) The lead should stop saying "creases". (2) The deck's single
+line is replaced wholesale with her new wording, which names three treatment
+areas and closes with a promise verb addressed to the reader.
+
+**The flag.** The closing half of her deck sentence was an outcome promise —
+CLAUDE.md constraint 3, BUILD_SPEC §8.3 — and three things made it sharper
+than the usual copy flag. It promises a named result on named areas in the
+SECOND PERSON, where every prior override of this rule (regenerative and
+peptide cards, both 2026-08-01) covered a product *description*. It implies
+the lines go and stay gone, on the one page carrying no duration hedge since
+"temporary/temporarily" came off all six occurrences (2026-07-30 — an entry
+that already recorded the risk profile ticking up), and where "permanent" is
+itself a banned pattern and longevity is deliberately routed to the consult
+(biostimulators, 2026-07-21). And its "11's" is the vocabulary of the Jeuveau
+banner in this page's own band photo, which ships under a pixel-level override
+(2026-08-18) resting precisely on the fact that the site's own copy never says
+it — so the sentence would have converted photographed third-party marketing
+into a first-party claim, beside the photo it came from.
+
+Verified first-hand against all six categories in
+`compliance/banned-patterns.json`: **the sentence trips no pattern.**
+`lint:claims` would have passed it. This was judgment-level, exactly like the
+2026-08-01 overrides — not a gate catch.
+
+**Decision (operator, from three options with previews):** the COMPLIANT
+REWRITE, not an override. The deck now reads "A light, deliberate hand for
+those lines repeated expressions leave behind — crow's feet, "11's", and
+frown lines." Her opening clause and all three named areas survive verbatim;
+only the promise verb is gone. **This is the round's first compliance flag to
+resolve without an override**, and the consequence worth recording is a
+negative one: there is NO `allowedStrings` entry, NO CLAUDE.md exception, and
+NO BUILD_SPEC amendment to lean on here — the registry is untouched and a
+future session must not read this entry as authorizing the drafted wording.
+The lead became "…soften dynamic lines: the ones that come from repeated
+expression" (operator's pick over the literal creases→lines swap, which would
+have said "lines" twice in one sentence).
+
+**Alternatives rejected:** shipping her wording verbatim under an override —
+the drafted second sentence, recorded here for the audit trail because this
+log is the only place it survives: "Wave good-bye to your crow's feet, "11's",
+and frown lines!" (offered explicitly, declined); a two-sentence compliant
+variant keeping her
+exclamation ("softened, with movement kept" — offered, declined); the literal
+one-word swap in the lead (offered, declined); changing the second "creases"
+in the body's "What they are" (offered as an out-of-scope tidy, declined — the
+word survives once on the page, and nowhere else on the site).
+
+**Consequences:** `summary` feeds the Service JSON-LD description via
+`[slug].astro`, so the lead edit reaches structured data — confirmed
+claims-clean in the built output. `deck` is layout-only and reaches no meta,
+OG, or JSON-LD — verified by grep on the built page, the same discipline the
+Laurel ranking claim is held to. The em dash is this paragraph's only one and
+introduces a gloss (2026-07-29 budget: earned, within budget).
+`clinicianApproved` was already `false` (2026-08-18 Evolus-plate move), so
+nothing reset; flags still read 4 true / 8 false and the page rides the
+consolidated pre-relaunch re-approval. `src/lib/serviceLines.ts` carries a
+shorter menu summary without "creases" — unaffected. Verified: build, `astro
+check`, `lint:claims`, `lint:voice`, pa11y 24/24, Lighthouse 7 URLs x 3 runs.

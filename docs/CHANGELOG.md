@@ -6,6 +6,27 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-23 — Wrinkle relaxers: new lead and deck copy
+
+- Client direction for the two blocks that open
+  `/services/wrinkle-relaxers`. The lead sentence stops saying "creases" —
+  it now reads "Prescription injectable treatments that soften dynamic
+  lines: the ones that come from repeated expression."
+- The deck card is replaced with her new wording, which names the three
+  areas: "A light, deliberate hand for those lines repeated expressions
+  leave behind — crow's feet, "11's", and frown lines."
+- Her draft closed that sentence with a promise verb aimed at the reader.
+  Flagged as an outcome claim, with the note that it trips **no** pattern
+  in the compliance registry — the linter would have passed it, so this
+  was judgment, not a gate catch. **The operator chose the compliant
+  rewrite over an override**, the first flag of the round to resolve that
+  way: her opening clause and all three named areas survive verbatim, only
+  the promise goes, and no new allowlist entry or exception record exists
+  to maintain (DECISIONS same date).
+- The second "creases", in "What they are", stays by the operator's
+  choice — out of the scope he set. `clinicianApproved` was already false
+  (2026-08-18), so no flag moved; flags still read 4 true / 8 false.
+
 ### 2026-08-23 — `/services` intro: the third service category is now "Wellness"
 
 - Client direction. The lead paragraph's second sentence listed three

@@ -6,6 +6,44 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-24 — Treatment pages: step 3, two FAQ answers, and the consult router
+
+- **"Your visit, step by step", step 3** now reads "**Confidently** book your
+  appointment when you are ready. Every visit includes time for questions
+  before anything begins." Sitewide, like step 2.
+- **wrinkle-relaxers FAQ** — "Do men get neurotoxin treatments?" answers "Yes.
+  Expression lines **are not gender based**…" The body copy under "Not just for
+  women" **deliberately keeps** "aren't gender defined": the operator was shown
+  the mismatch and chose the FAQ alone, reversing the matched-pair call made
+  for this wording on 2026-08-23. The page says it two ways on purpose — do not
+  sync them.
+- **wrinkle-relaxers FAQ** — "Do I need a consultation before booking?" now
+  answers "No. A consultation is never required; however, one is free upon
+  request." Drops "Book directly, or ask to talk it through first." "Free upon
+  request" now matches TrustChips' operator-confirmed wording exactly.
+- **The treatment layout's consult router**, on all twelve pages: the pricing
+  line "Pricing is individual and discussed during your consultation." is
+  **deleted**, the heading is now "The right fit is just a conversation away.",
+  and the subline is "Every plan is personal, decided between you and Amy."
+- **Read this before touching the disclaimer.** The router card now contains no
+  form of the word "consultation" — and that is still compliant, because
+  BUILD_SPEC §8.7 routing is carried by `DisclaimerBlock` directly below it,
+  which is layout-injected and cannot be opted out of. Verified present on all
+  12 built pages. **The disclaimer is the routing; the card is not.** A comment
+  in the layout says so, and warns against softening the disclaimer to match
+  the card's new tone.
+- `pricingDisplay` is now **inert** — no enum value renders anything, though 10
+  of 12 files still set `consult`. The field, schema enum, Props entry and
+  `[slug].astro` pass-through were all left in place so restoring the line is a
+  one-liner; removing them is a twelve-file schema change and the operator's
+  call. The unused destructure was dropped to keep `astro check` at 0 hints.
+- Recorded as a trend, not a defect: today's edits moved the pages consistently
+  toward less talk-first and optionality language. Each is individually
+  compliant, none trips a pattern, and the §8.7 gate is intact — noted so the
+  next such trim is judged against where the pages now stand.
+- Batched at the operator's direction — five changes, one preview for Amy.
+  Registry, CLAUDE.md and BUILD_SPEC all untouched. `npm run verify` green.
+
 ### 2026-08-24 — "Your visit, step by step": the "Personalized plan" step
 
 - The second step now closes **"Together with Amy, you decide what comes

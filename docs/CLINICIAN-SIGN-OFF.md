@@ -106,7 +106,26 @@ production and nothing prompts a re-review: **this note is the only
 thing that puts the new words in front of Amy.** What changed in
 substance is that the step no longer says the answer might be no
 treatment — the wording is the client's own, flagged once and shipped
-as directed (DECISIONS 2026-08-24). Steps 1, 3, and 4 are untouched.
+as directed (DECISIONS 2026-08-24). Steps 1 and 4 are untouched.
+
+**Same day, four more changes across every treatment page.** Step 3 of
+the same list now opens "**Confidently** book your appointment when you
+are ready." And below the FAQ, the consult router card was reworded and
+its pricing line removed: the heading is now "The right fit is just a
+conversation away.", the subline "Every plan is personal, decided
+between you and Amy.", and the sentence "Pricing is individual and
+discussed during your consultation." is gone from all twelve pages —
+ten of which list product prices. **What did NOT change, and is the
+thing to confirm on the preview:** the medical disclaimer directly
+beneath that card still says whether a treatment fits your needs is
+decided with Amy during a consultation. It is layout-injected on every
+page and was verified present on all twelve. Two further edits are
+wrinkle-relaxers only: "Do men get neurotoxin treatments?" now answers
+"are not gender based" (the body copy above it deliberately keeps its
+own wording), and "Do I need a consultation before booking?" now
+answers "No. A consultation is never required; however, one is free
+upon request." All client wording, all shipped as directed
+(DECISIONS 2026-08-24).
 
 **Who:** Amy Palacios, FNP, reviews; the operator logs and flips.
 **Where:** the stable preview — always the current `phase-c` build:

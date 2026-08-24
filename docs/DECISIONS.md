@@ -5620,3 +5620,69 @@ pages she has already signed off.
 **Verification.** `npm run verify` green. The new sentence renders exactly once
 on each of the twelve treatment pages and the styleguide (13/13); the outgoing
 string returns zero across all of them.
+
+**Addendum, same day — the rest of the batch (steps 3, two FAQ answers, and
+the layout).** Four further client copy directions, batched at the operator's
+choice so Amy reviews one preview rather than five, each committed separately
+to keep the audit trail one-change-per-commit.
+
+1. **VisitSteps step 3** — "Confidently book your appointment when you are
+   ready." (adverb added; second sentence unchanged). Sitewide, like step 2.
+2. **wrinkle-relaxers FAQ, "Do men get neurotoxin treatments?"** — "Yes.
+   Expression lines are not gender based…" The body copy under "Not just for
+   women" was **deliberately left** at "aren't gender defined": the operator
+   was shown the resulting mismatch and chose the FAQ alone, reversing the
+   matched-pair call made for this same wording on 2026-08-23. The page now
+   states the idea two ways on purpose. A future session must not sync them.
+   "gendered" remains absent, which was the point of the earlier change.
+3. **wrinkle-relaxers FAQ, "Do I need a consultation before booking?"** — "No.
+   A consultation is never required; however, one is free upon request." Drops
+   "Book directly, or ask to talk it through first." Small consistency gain:
+   "free upon request" now matches TrustChips' operator-confirmed "Free
+   consultation upon request" (2026-07-29) exactly.
+4. **`TreatmentLayout`** — the pricing line deleted, the consult router
+   reworded. See below; this is the one with consequences.
+
+**The layout change, and why it is compliant.** After it, the consult router
+card carries no form of the word "consultation": the heading is "The right fit
+is just a conversation away.", the subline is "Every plan is personal, decided
+between you and Amy.", and `CTAButton variant="consult"` has read "Book with
+Amy" since 2026-07-21. The deleted pricing line was the card's other
+consultation mention. That reads alarming and is not: **BUILD_SPEC §8.7 routing
+is carried by `DisclaimerBlock`**, which renders immediately below the router
+card, states that whether a treatment fits your needs is decided with Amy
+during a consultation, is layout-injected, and cannot be opted out of
+(CLAUDE.md constraint 3). Verified in the built output on all twelve pages.
+The router card is marketing microcopy sitting above the gate, not the gate.
+This is recorded because the analysis is non-obvious and someone will re-derive
+it: a comment in the layout now states it, and warns against "aligning"
+`DisclaimerBlock` to the card's new tone. **Weakening that component is the one
+thing this change must never license.**
+
+**`pricingDisplay` is now inert.** No enum value renders anything, so `none`,
+`consult` and `startingAt` are indistinguishable on the page; ten of the twelve
+content files set `consult`. The field, its schema enum, the `Props` entry and
+the `[slug].astro` pass-through were all **left in place** so restoring the
+line is a one-line change — removing them is a schema change across twelve
+content files and is the operator's call, not a cleanup to do unasked. The
+now-unused destructure was dropped because it introduced a `ts(6133)` warning
+that had not been there; `astro check` is back to 0/0/0. The layout's
+documented compliance order no longer lists a pricing step, because it no
+longer renders one. Consumer note, not a rule: ten pages show product prices
+and the caveat that pricing is individual is now gone from all of them.
+
+**The cumulative observation, closed.** Flagged once at step 3 and not
+re-argued since: across today's edits the treatment pages moved consistently in
+one direction — step 2 lost the hedge allowing for no treatment, step 3 gained
+"Confidently", the consultation FAQ lost its talk-first invitation, and the
+router card lost the word "consultation" entirely. **Every one of these is
+individually compliant and none trips a pattern**, and the §8.7 gate is intact
+in `DisclaimerBlock` on all twelve pages. The direction is the client's to set
+and the operator confirmed each step. It is recorded here as a trend line
+rather than a defect, so that the *next* trim to consultation or optionality
+language is evaluated against where the pages now stand and not against where
+they stood this morning.
+
+**Registry and governing docs: untouched, all four changes.** No
+`allowedStrings` entry, no CLAUDE.md or BUILD_SPEC amendment, no pattern added
+or loosened. `npm run verify` green.

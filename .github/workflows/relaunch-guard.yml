@@ -1,0 +1,101 @@
+name: Relaunch guard
+
+# Guards the takedown-era git topology (docs/RUNBOOK.md, "Relaunching
+# after the takedown"; docs/AUDIT-2026-08-17-external-review.md §2).
+# The takedown revert e57a4448 changed main's TREE, not its history —
+# every phase-c commit is still an ancestor of main — so git believes
+# main already contains the launched site. Two failure modes follow,
+# one job each:
+#   1. main merged into phase-c (incl. "Update branch" on PR #95)
+#      applies the takedown deletions to phase-c itself.
+#   2. a naive phase-c → main merge applies only post-takedown commits
+#      on top of a tree where the launched files are deleted — verified
+#      2026-08-17: ~48 files vanish SILENTLY (no conflict), including
+#      all twelve treatment MDX pages, and the build still passes.
+#
+# No paths-ignore here ON PURPOSE: these jobs are required status
+# checks, and a path-filtered required check never reports, which
+# blocks the merge forever (the inverse of the pr-preview rationale).
+# Both jobs finish in seconds. The job-level `if` guards report
+# "skipped" on non-matching PRs, which satisfies branch protection.
+#
+# RETIRE THIS WORKFLOW IN THE RELAUNCH PR ITSELF (with a DECISIONS
+# entry): after the two-step relaunch re-syncs the branches, the
+# revert becomes a harmless ancestor everywhere and job 1 would fail
+# every PR forever.
+
+on:
+  pull_request:
+  push:
+    branches: [phase-c]
+
+permissions:
+  contents: read
+
+env:
+  # chore: take production offline — revert launch merge (2026-08-05)
+  TAKEDOWN_REVERT: e57a4448f77e8ff64c623cd1d734fddfb0f00801
+
+jobs:
+  takedown-revert-guard:
+    if: github.event_name == 'push' || github.base_ref == 'phase-c'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # merge-base ancestry needs full history
+
+      # On pull_request, HEAD is the PR merge ref (base + head), so
+      # contamination on either side trips the check.
+      - name: Fail if the takedown revert is reachable
+        run: |
+          if git merge-base --is-ancestor "$TAKEDOWN_REVERT" HEAD; then
+            echo "::error::The takedown revert is an ancestor of this branch."
+            echo "::error::Merging main into phase-c deletes the launched site. See docs/RUNBOOK.md, 'Relaunching after the takedown'."
+            exit 1
+          fi
+          echo "Clean: the takedown revert is not reachable from HEAD."
+
+  gutted-merge-guard:
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # all branches — origin/main and origin/phase-c below
+
+      # A release PR must not lose a single phase-c file: files phase-c
+      # deleted itself are already gone from origin/phase-c's tree at run
+      # time, so legitimate release PRs stay green.
+      #
+      # The skip test asks whether this PR carries POST-TAKEDOWN phase-c
+      # commits. It used to ask "! is-ancestor LAUNCH_MERGE_BASE HEAD",
+      # which was unreachable: the takedown revert changed main's TREE, not
+      # its HISTORY (see the header), so LAUNCH_MERGE_BASE was an ancestor
+      # of main and therefore of every branch cut from it. That made this
+      # job fail placeholder-era PRs which delete nothing — 98 files
+      # reported missing from a one-line fix — though it never actually ran,
+      # because this workflow was absent from main's tree until 2026-08-24,
+      # so the required check could not report and every PR into main was
+      # blocked (DECISIONS 2026-08-24). Do NOT restore the old test.
+      #
+      # The comparison below is deliberately UNCHANGED: a release PR runs
+      # exactly the check it always would have.
+      - name: Fail if a phase-c-derived merge drops phase-c files
+        run: |
+          git rev-list origin/main..HEAD           | sort > /tmp/pr-commits.txt
+          git rev-list origin/main..origin/phase-c | sort > /tmp/phase-c-commits.txt
+          if [ -z "$(comm -12 /tmp/pr-commits.txt /tmp/phase-c-commits.txt)" ]; then
+            echo "No post-takedown phase-c commits in this PR; not a release merge. Nothing to check."
+            exit 0
+          fi
+          git ls-tree -r --name-only origin/phase-c | sort > /tmp/phase-c-tree.txt
+          git ls-tree -r --name-only HEAD | sort > /tmp/merged-tree.txt
+          MISSING=$(comm -23 /tmp/phase-c-tree.txt /tmp/merged-tree.txt)
+          if [ -n "$MISSING" ]; then
+            COUNT=$(printf '%s\n' "$MISSING" | wc -l)
+            echo "::error::$COUNT files present on phase-c are missing from this merge — the takedown deletions are applying. Use the two-step relaunch in docs/RUNBOOK.md, 'Relaunching after the takedown'."
+            printf '%s\n' "$MISSING" | head -20
+            exit 1
+          fi
+          echo "Tree complete: every phase-c file survives this merge."

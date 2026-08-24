@@ -5559,3 +5559,64 @@ still only ever grows.
 never-restate-in-text clause here. The documentation now says in four places
 that the clause is missing and why it matters, which is the most a session can
 do without authorization to write it.
+
+## 2026-08-24 — VisitSteps step 2: a one-sentence change that was not where it appeared to be
+
+**Context:** Client copy direction (via the operator) for the closing sentence
+of "Personalized plan", the second step of "Your visit, step by step". From
+"Together you decide what, if anything, comes next." to **"Together with Amy,
+you decide what comes next."**
+
+**The finding that changed the task.** The sentence was pointed at on
+`/services/wrinkle-relaxers`, where it does render — but it is not in that
+page's MDX. It lives in `src/components/VisitSteps.astro`, which
+`TreatmentLayout` renders on **all twelve treatment pages** plus the
+styleguide. A single grep confirmed one copy in the repo, no spec, no test, no
+snapshot. What read as a thirteenth edit to one page was a sitewide copy
+change, and it was surfaced as such before any edit. Recording it because the
+failure mode generalises: **on this site, a sentence a page displays is not
+necessarily a sentence that page owns.** Four of the twelve pages it now
+changes are clinician-approved.
+
+**Three operator answers, all taken before building:**
+
+1. **Sitewide.** The alternative — a page-scoped override — needs a prop on
+   `VisitSteps`, a pass-through in `TreatmentLayout`, and a `content.config.ts`
+   field: more machinery than the sentence, and this file already rejected a
+   comparable page-scoped variant (2026-08-21) as visibly inconsistent between
+   treatment pages a visitor may compare.
+2. **The wording ships exactly as dictated**, hedge dropped.
+3. **The four approved flags stay `true`.**
+
+**The flag, and why it did NOT become an override.** Dropping "if anything"
+removes the only note in the four-step sequence that allows for *no* treatment
+— steps 3 and 4 are "Treatment visit" and "Aftercare guidance", so the list
+otherwise reads end-to-end as a treatment path. That hedge was doing real work.
+But this is drift, not a rule break: BUILD_SPEC §8.7 requires suitability to
+route to a consultation, and the new sentence names Amy as co-decider, so the
+routing survives intact. The component's header comment — "routes decisions to
+the consultation" — remains accurate and was left alone. Verified against all
+six categories: **the sentence trips no pattern**, and `lint:voice` is clean
+(no first-person plural; no standalone "us"). So, like 2026-08-23 and unlike
+the deck the same week: **no override, no `allowedStrings` entry, no CLAUDE.md
+or BUILD_SPEC amendment.** `compliance/banned-patterns.json` is untouched. A
+future session must not read this entry as authorizing anything.
+
+Two consequences worth recording. Naming Amy is a small *gain* — the outgoing
+sentence's bare "Together" never said with whom. And the idiom is not retired
+sitewide: `dermal-fillers.mdx` still carries "what, if anything, to place",
+verified still rendering after this change; only this instance moved.
+
+**Approval handling.** `check:approvals` reads only
+`src/content/treatments/*.mdx` frontmatter, so a component edit resets nothing
+mechanically — the gate cannot see this change at all. The operator chose to
+leave the flags, consistent with 2026-08-21 ("one shared change, zero MDX edits
+elsewhere, zero flag resets"). Flags stay **4 true / 8 false** and relaunch
+precondition 2 is unaffected. The gap this leaves is real and is closed by
+documentation rather than by the gate: CLINICIAN-SIGN-OFF now carries the new
+step text as a cross-cutting item, so Amy reviews words that changed on four
+pages she has already signed off.
+
+**Verification.** `npm run verify` green. The new sentence renders exactly once
+on each of the twelve treatment pages and the styleguide (13/13); the outgoing
+string returns zero across all of them.

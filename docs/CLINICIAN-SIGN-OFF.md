@@ -93,6 +93,21 @@ text ("two clients") vs its one-client 4:5 window — an MDX edit, so
 it ships inside the flag-resetting re-approval round (DECISIONS
 2026-08-17).
 
+**Copy change on every treatment page, 2026-08-24 — read this even for
+pages already approved.** The second step of "Your visit, step by step"
+now closes **"Together with Amy, you decide what comes next."** It
+replaces "Together you decide what, if anything, comes next." The
+sentence lives in a shared component, so the same words changed on all
+twelve treatment pages — including the four already flipped
+(hormone-optimization, iv-therapy, regenerative, skincare). Those flags
+were deliberately left `true` at the operator's direction, and
+`check:approvals` cannot see a component edit, so nothing blocks
+production and nothing prompts a re-review: **this note is the only
+thing that puts the new words in front of Amy.** What changed in
+substance is that the step no longer says the answer might be no
+treatment — the wording is the client's own, flagged once and shipped
+as directed (DECISIONS 2026-08-24). Steps 1, 3, and 4 are untouched.
+
 **Who:** Amy Palacios, FNP, reviews; the operator logs and flips.
 **Where:** the stable preview — always the current `phase-c` build:
 <https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net>

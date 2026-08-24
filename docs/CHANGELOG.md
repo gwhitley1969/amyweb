@@ -6,6 +6,33 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-24 — "Your visit, step by step": the "Personalized plan" step
+
+- The second step now closes **"Together with Amy, you decide what comes
+  next."** (client wording, verbatim). It replaces "Together you decide what,
+  if anything, comes next."
+- **This one is not page-scoped.** The sentence was pointed at on
+  /services/wrinkle-relaxers but lives in `src/components/VisitSteps.astro`,
+  which `TreatmentLayout` renders on **all twelve treatment pages** and the
+  styleguide. Surfaced before editing; the operator chose the sitewide change
+  over a page-scoped override that would have needed a prop, a layout
+  pass-through, and a schema field.
+- Flagged once: the dropped "if anything" was the only note in the four-step
+  sequence allowing for no treatment, where steps 3 and 4 are a treatment
+  visit and aftercare. Drift, not a rule break — §8.7 still holds, since the
+  sentence names Amy as co-decider and suitability still routes to her. **The
+  operator chose the verbatim wording and it resolved with no override and no
+  allowlist entry** (DECISIONS same date); `banned-patterns.json` untouched.
+- Naming Amy is a small gain — the outgoing sentence's bare "Together" never
+  said with whom. The idiom is not retired sitewide: dermal-fillers keeps its
+  own "what, if anything, to place" line.
+- `clinicianApproved` untouched at the operator's direction — flags stay 4
+  true / 8 false, and `check:approvals` cannot see a component edit anyway.
+  CLINICIAN-SIGN-OFF carries the new step text as a cross-cutting item so Amy
+  reviews words that changed on four pages she has already approved.
+- Verified: the new sentence renders exactly once on all 13 pages that carry
+  the component; the outgoing string returns zero.
+
 ### 2026-08-24 — Wrinkle relaxers: the deck reverts to the client's own wording
 
 - **This reverses one bullet of the 2026-08-23 entry below.** The deck card

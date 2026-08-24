@@ -748,7 +748,27 @@ action hype, no outcomes, no dosing, ever.
    allowlist entry briefly authorized for its original heading was
    withdrawn the same day — with an intro carrying consent and
    individuality in copy, and all pictured
-   people's releases + HIPAA authorizations on file; nothing else.*
+   people's releases + HIPAA authorizations on file. And — operator
+   override after the compliance flag, DECISIONS 2026-08-23 and
+   2026-08-24 — the exact `deck` sentence on
+   /services/wrinkle-relaxers: `Wave good-bye to your crow's feet,
+   "11's" between your eyes and forehead frown lines!` It is a
+   second-person promise of a named result on named areas, which no
+   prior exception here covers (the two film exceptions carry the
+   manufacturer's or Amy's own published content; the photo-pairs
+   exception is imagery). It was flagged 2026-08-23, the operator
+   chose a compliant rewrite that day, and reversed that choice on
+   the 24th after seeing the page rendered. It contains no token the
+   outcome-promise patterns can see, so the authorization is recorded
+   here, in CLAUDE.md constraint 3, and in DECISIONS — NOT in
+   `allowedStrings`, which holds nothing for it. Scope: that field,
+   that page. The vocabulary is never restated in body copy, FAQ
+   answers, alt text, comments, meta descriptions, OG tags, or
+   JSON-LD. Note the coupling: the same page's band photo
+   (`jeuveau-banner-studio.jpg`, §8 pixel override 2026-08-18) has
+   the Jeuveau banner headline this sentence paraphrases legible in
+   the served file, so the two overrides now bear on each other.
+   Nothing else.*
 4. Unsubstantiated superiority: "#1", "best", "top-rated" — banned.
    *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator
    override after the flag — DECISIONS): the exact sentence

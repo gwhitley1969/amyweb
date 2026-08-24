@@ -37,6 +37,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
   band photo's own override — so the next session finds the authorization in
   the governing doc and not only in the decision log. The banned-pattern
   registry is untouched and `lint:claims` stays green; no gate changed.
+- **Documentation swept before merge.** BUILD_SPEC §8.3's exception list gains
+  the same entry (it is that list's first exception for first-party marketing
+  prose). `compliance/README.md` gets a factual correction — it described the
+  2026-08-18 pixel overrides as covering text "the site's own copy could not
+  say", which this change made false for the wrinkle-relaxers frame — plus a
+  new section, **"Authorizations the registry does not hold"**, because
+  auditing `allowedStrings` no longer tells you everything that ships under
+  override. RUNBOOK step 1 carries both lessons as pointers; REDESIGN gets a
+  tracker row. PHASE-C deliberately untouched (it routes post-launch work to
+  REDESIGN by its own header).
 
 ### 2026-08-23 — Wrinkle relaxers: new lead, deck, and body copy
 

@@ -5512,3 +5512,50 @@ sentence, and that is what was written. The gap stays open and stays theirs.
 `compliance/banned-patterns.json` is untouched, and `lint:claims` is green
 after the edit — expected, since the linter scans `src/` and CLAUDE.md is not
 in it. Nothing about the gate changed.
+
+**Addendum, same day — the documentation sweep before merge.** The operator
+authorized updating whatever documentation the round required. What was found
+stale, and what was done:
+
+- **BUILD_SPEC §8.3** — the outcome-promise rule carries an exception list
+  parallel to CLAUDE.md constraint 3, and it did not have this override. Added,
+  with the note that no prior entry on that list covers it: the two film
+  exceptions carry the manufacturer's or Amy's own published content, and the
+  photo-pairs exception is imagery. This is the list's first exception for
+  first-party marketing prose.
+- **`compliance/README.md` — a factual correction.** Its media-blindness
+  section described the three 2026-08-18 pixel overrides as covering "text the
+  site's own copy could not say." That is now false for the wrinkle-relaxers
+  frame and the sentence was corrected in place, with a caveat paragraph
+  stating the general lesson: **a pixel override's premise can expire**, and a
+  premise about what the copy says is a constraint on the copy that nothing
+  enforces. Whoever edits copy on such a page must read the premise, not the
+  verdict.
+- **`compliance/README.md` — a new section, "Authorizations the registry does
+  not hold."** The sharper gap this round exposed. A reader who audits
+  `allowedStrings` to learn what ships under override will under-report,
+  because text that is non-compliant on the merits but matches no pattern never
+  reaches the allowlist — the linter is already green on it. That class now has
+  two members (the EvolusLaurel ranking sentences, and this deck sentence) and
+  had no home in the tooling docs. Stated plainly there: a green `lint:claims`
+  is not evidence a string is authorized, and an empty `allowedStrings` search
+  is not evidence it is unauthorized.
+- **`docs/RUNBOOK.md`** — both lessons condensed into step 1 of "Everyday
+  changes", which is the procedure people actually follow, with pointers rather
+  than a restatement.
+- **`docs/REDESIGN.md`** — a tracker row for the copy round, all three passes,
+  carrying the override, the empty-registry consequence, and the retired
+  premise.
+
+**Deliberately not touched.** `docs/PHASE-C.md`, which declares itself the
+closed historical Phase C record and routes post-launch work to REDESIGN —
+adding to it would contradict its own header. `docs/RELAUNCH.md`, whose copy
+precondition is `check:approvals`, unaffected. `compliance/banned-patterns.json`,
+untouched all round: nothing was allowlisted, nothing loosened, and the list
+still only ever grows.
+
+**What is still not done, and is still the operator's:** the
+`jeuveau-banner-studio.jpg` pixel override in CLAUDE.md gains no
+never-restate-in-text clause here. The documentation now says in four places
+that the clause is missing and why it matters, which is the most a session can
+do without authorization to write it.

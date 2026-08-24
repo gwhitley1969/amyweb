@@ -6,6 +6,32 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-24 — Wrinkle relaxers: the deck reverts to the client's own wording
+
+- **This reverses one bullet of the 2026-08-23 entry below.** The deck card
+  on `/services/wrinkle-relaxers` now carries her original sentence, restored
+  verbatim and extended to say where the areas sit: "A light, deliberate hand
+  for those lines repeated expressions leave behind. Wave good-bye to your
+  crow's feet, "11's" between your eyes and forehead frown lines!"
+- Yesterday's compliant rewrite of that second half is gone. The promise verb
+  was flagged once, on 2026-08-23, in full; **the operator overrode after the
+  flag and after seeing the page rendered.** It ships as directed.
+- Because the sentence trips no pattern in the compliance registry — verified
+  again, `lint:claims` green — there is still **no allowlist entry**. The
+  authorization lives in `docs/DECISIONS.md` (2026-08-24) and nowhere else,
+  the same shape as the EvolusLaurel ranking sentences. A green linter does
+  not authorize this wording.
+- Reported to the operator before building, and recorded in the decision:
+  the page's band photo ships under a 2026-08-18 pixel override whose premise
+  is that the site's own copy never repeats the Jeuveau banner's headline.
+  The banner reads "KISS YOUR 11s GOODBYE"; the deck now paraphrases it a
+  screen above. The operator directed the change with that in hand.
+- Scope is one field on one page. Verified in the built output: one
+  occurrence sitewide, and absent from `<meta>` and every JSON-LD block.
+  `clinicianApproved` was already false (2026-08-18) — no flag moved; flags
+  still read 4 true / 8 false. Amy's sign-off row is extended so she reviews
+  this text, not yesterday's.
+
 ### 2026-08-23 — Wrinkle relaxers: new lead, deck, and body copy
 
 - Client direction for the two blocks that open

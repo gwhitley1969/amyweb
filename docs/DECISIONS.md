@@ -5395,3 +5395,89 @@ strings keep straight apostrophes, so this page renders both forms — true of
 every treatment page since C3, and unchanged by this round. Verified: build,
 `astro check`, `lint:claims`, `lint:voice`, pa11y 24/24, Lighthouse 7 URLs x 3
 runs.
+
+## 2026-08-24 — wrinkle-relaxers deck: the flag becomes an operator override (SUPERSEDES the 2026-08-23 "did NOT become an override" entry)
+
+**Read this entry alongside 2026-08-23 above.** That entry's heading is now
+stale by one day: the flag it records as resolved *without* an override was
+overridden here. Its analysis stands in full and is not repeated; only its
+outcome changed. DECISIONS is append-only, so the correction lives here.
+
+**Context:** Round 3 of the same client copy round on
+`/services/wrinkle-relaxers`, and the narrowest one — a single frontmatter
+field, `deck`, the blush statement card `TreatmentLayout` renders under the
+lead. The operator returned to the wording flagged on 2026-08-23, restored it,
+and extended it to say where the areas sit. The deck now reads:
+
+> A light, deliberate hand for those lines repeated expressions leave behind.
+> Wave good-bye to your crow's feet, "11's" between your eyes and forehead
+> frown lines!
+
+**The flag was raised once, on 2026-08-23, and is not re-argued** (CLAUDE.md:
+flag once, then execute cleanly). Everything in that entry applies unchanged:
+a named result promised on named areas in the second person, where every prior
+outcome-promise override covered a product *description*; on the one treatment
+page carrying no duration hedge since 2026-07-30.
+
+**What is new, and was reported before building.** The combination hazard
+recorded on 2026-08-23 as a risk is now realised. The band photo on this page,
+`jeuveau-banner-studio.jpg`, ships under a pixel-level override (2026-08-18)
+whose stated premise is that the banner's marketing headline is legible *but
+the site's own copy never says it*. The banner reads "KISS YOUR 11s GOODBYE".
+The deck now reads "Wave good-bye to your ... '11's'" roughly a screen above
+it. That is a near-paraphrase of photographed third-party marketing, adopted
+as first-party copy, on the same page — which removes the one premise the
+2026-08-18 override rested on. Round 2's rewrite kept the area name and
+dropped the claim, so the echo was vocabulary only; this restores the claim.
+The operator was shown this, in these terms, and directed the change anyway.
+
+**Decision (operator override, 2026-08-24):** ship the client's wording
+verbatim. Scope is exact and does not travel: **this string, in the `deck`
+field, on `/services/wrinkle-relaxers`, and nowhere else.** The vocabulary is
+never restated in body copy, FAQ answers, alt text, meta descriptions, OG
+tags, JSON-LD, or source comments. Widening any of that requires the human
+operator. Verified in the built output: one occurrence, on one page, absent
+from `<meta>` and from every JSON-LD block (only `title` and `summary` fan out
+to structured data via `[slug].astro`).
+
+**Registry consequence — the same negative result as 2026-08-23, now pointing
+the other way.** Re-verified first-hand against all six categories in
+`compliance/banned-patterns.json`: **the sentence trips no pattern**, and
+`npm run lint:claims` passes (self-test: 6 categories). So there is **no
+`allowedStrings` entry** — nothing to allow, because nothing is caught. The
+authorization for this text lives in this decision record and nowhere else,
+the same shape as the EvolusLaurel ranking sentences (2026-08-19), which are
+authorized here rather than in the registry for exactly this reason. A future
+session must not infer from a green linter that this wording is
+self-authorizing, and must not read the 2026-08-23 entry's "no override"
+finding as current.
+
+**CLAUDE.md consequence — open, operator's call.** Constraint 3's
+outcome-promise exception list enumerates every scoped override of this rule;
+this one belongs on it and is not there, because governing-doc edits are the
+operator's alone. Recommended sentence, for the operator to place or decline:
+
+> *And the exact `deck` sentence "Wave good-bye to your crow's feet, "11's"
+> between your eyes and forehead frown lines!" on /services/wrinkle-relaxers
+> only (operator override after the compliance flag — DECISIONS 2026-08-23 and
+> 2026-08-24; the compliant rewrite was shipped 2026-08-23 and reversed
+> 2026-08-24). It contains no token lint:claims can see, which is why the
+> authorization is recorded in DECISIONS rather than `allowedStrings`. The
+> wording is exact and the page scope fixed; the vocabulary is never restated
+> in copy, alt, comments, meta, OG, or JSON-LD.*
+
+Still open from 2026-08-23 and now more pointed: the same photo's 2026-08-18
+override lacks the never-restate-in-text clause that `amy-pixel8-cart` and
+`amy-epileve-window` both carry. Had it carried one, this change would have
+contradicted it in writing rather than only in premise.
+
+**Verbatim handling.** "good-bye" keeps the client's hyphenation and the area
+list keeps her punctuation, un-comma'd, under the house verbatim precedent
+(the page `title` carries a client hyphen the same way). The value stays on
+ONE source line with the inner quotes backslash-escaped — folding a
+double-quoted YAML scalar would alter the text. The double space she typed
+after the first sentence collapses in HTML and is written as one.
+
+**Approval.** `clinicianApproved` was already `false` (since 2026-08-18);
+nothing to reset. Amy reviews this text with the rest of the round; the
+sign-off row is extended.

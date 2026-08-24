@@ -112,7 +112,7 @@ as directed (DECISIONS 2026-08-24). Steps 1 and 4 are untouched.
 the same list now opens "**Confidently** book your appointment when you
 are ready." And below the FAQ, the consult router card was reworded and
 its pricing line removed: the heading is now "The right fit is just a
-conversation away.", the subline "Every plan is personal, decided
+conversation away.", the subline "Every plan is personalized, decided
 between you and Amy.", and the sentence "Pricing is individual and
 discussed during your consultation." is gone from all twelve pages —
 ten of which list product prices. **What did NOT change, and is the

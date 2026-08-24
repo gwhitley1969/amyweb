@@ -24,7 +24,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - **The treatment layout's consult router**, on all twelve pages: the pricing
   line "Pricing is individual and discussed during your consultation." is
   **deleted**, the heading is now "The right fit is just a conversation away.",
-  and the subline is "Every plan is personal, decided between you and Amy."
+  and the subline is "Every plan is personalized, decided between you and Amy."
+  ("personal" corrected to "personalized" the same day, before merge)
 - **Read this before touching the disclaimer.** The router card now contains no
   form of the word "consultation" — and that is still compliant, because
   BUILD_SPEC §8.7 routing is carried by `DisclaimerBlock` directly below it,

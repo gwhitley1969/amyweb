@@ -5686,3 +5686,15 @@ they stood this morning.
 **Registry and governing docs: untouched, all four changes.** No
 `allowedStrings` entry, no CLAUDE.md or BUILD_SPEC amendment, no pattern added
 or loosened. `npm run verify` green.
+
+**Addendum, same day — one-word correction to the router subline.** The
+subline shipped in this batch as "Every plan is personal, decided between you
+and Amy." and was corrected at the client's direction to "Every plan is
+**personalized**, decided between you and Amy." before merge, so nothing but
+the preview ever carried the first wording. Same scope — the layout, all twelve
+pages. It trips no pattern and needs no allowlist entry. Small side effect
+worth noting: the subline now echoes the "Personalized plan" step title above
+it, which reads as deliberate rather than repetitive. The paragraphs above are
+left as written, per this file being append-only; `docs/CHANGELOG.md` and
+`docs/CLINICIAN-SIGN-OFF.md` were corrected in place instead, the latter
+because Amy reviews from it and must see the current text.

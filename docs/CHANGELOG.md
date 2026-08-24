@@ -31,6 +31,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
   `clinicianApproved` was already false (2026-08-18) — no flag moved; flags
   still read 4 true / 8 false. Amy's sign-off row is extended so she reviews
   this text, not yesterday's.
+- **CLAUDE.md updated at the operator's direction.** Constraint 3's
+  outcome-promise exception list now enumerates this deck sentence, with its
+  page scope, its never-restate-anywhere-else clause, and a pointer to the
+  band photo's own override — so the next session finds the authorization in
+  the governing doc and not only in the decision log. The banned-pattern
+  registry is untouched and `lint:claims` stays green; no gate changed.
 
 ### 2026-08-23 — Wrinkle relaxers: new lead, deck, and body copy
 

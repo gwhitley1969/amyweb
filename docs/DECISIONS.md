@@ -5452,7 +5452,7 @@ session must not infer from a green linter that this wording is
 self-authorizing, and must not read the 2026-08-23 entry's "no override"
 finding as current.
 
-**CLAUDE.md consequence — open, operator's call.** Constraint 3's
+**CLAUDE.md consequence — APPLIED same day, operator-authorized.** Constraint 3's
 outcome-promise exception list enumerates every scoped override of this rule;
 this one belongs on it and is not there, because governing-doc edits are the
 operator's alone. Recommended sentence, for the operator to place or decline:
@@ -5481,3 +5481,34 @@ after the first sentence collapses in HTML and is written as one.
 **Approval.** `clinicianApproved` was already `false` (since 2026-08-18);
 nothing to reset. Amy reviews this text with the rest of the round; the
 sign-off row is extended.
+
+**Addendum, same day — the CLAUDE.md exception was applied.** The operator
+authorized the constraint-3 edit and it is in this PR: the outcome-promise
+exception list gains the deck sentence, placed last, immediately before its
+"Nothing else; extending any of these requires the human operator" close.
+Three deliberate departures from the sentence drafted above, all recorded so
+the difference is not read as drift:
+
+1. **The string is enclosed in backticks, not quotes.** Every other entry on
+   that list quotes its exact string with double quotes; this one contains
+   double quotes, so nesting them would have made the boundaries of the
+   authorized text ambiguous — which is the one thing an exactness clause
+   cannot afford. Code formatting fixes that without changing a character.
+2. **The never-restate clause was corrected.** The draft said the vocabulary
+   is "never restated in copy" — self-contradictory, because the deck *is*
+   copy. Shipped wording: never restated anywhere else — body copy, FAQ
+   answers, alt text, comments, meta descriptions, OG tags, or JSON-LD.
+3. **A coupling note was added** pointing whoever edits either half at the
+   band photo's 2026-08-18 pixel override, since the banner headline this
+   sentence paraphrases is legible in the served file. It is a pointer, not a
+   new authorization: it changes nothing about what either override permits.
+
+Note what this edit does **not** do. It does not add the never-restate-in-text
+clause to the `jeuveau-banner-studio.jpg` pixel override itself — that override
+is still the only one of the three lacking the clause `amy-pixel8-cart` and
+`amy-epileve-window` both carry. The operator authorized the outcome-promise
+sentence, and that is what was written. The gap stays open and stays theirs.
+
+`compliance/banned-patterns.json` is untouched, and `lint:claims` is green
+after the edit — expected, since the linter scans `src/` and CLAUDE.md is not
+in it. Nothing about the gate changed.

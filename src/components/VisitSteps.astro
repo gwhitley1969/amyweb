@@ -31,6 +31,17 @@ const CHEVRONS = [
   'M146.07 108.00 L164.07 108.00 L211.36 158.98 L164.04 210.00 L146.04 210.00 L193.36 158.98 Z',
   'M207.02 108.00 L225.02 108.00 L272.32 158.98 L224.99 210.00 L206.99 210.00 L254.32 158.98 Z',
 ];
+/* Step 2 closing sentence, client direction 2026-08-24 (via operator),
+ * verbatim. It replaced a sentence whose hedge allowed for no treatment at
+ * all — the only such note in a four-step list whose steps 3 and 4 are a
+ * treatment visit and aftercare. Flagged once as drift on that ground; the
+ * operator chose the verbatim wording, and it resolved WITHOUT an override
+ * or an allowlist entry because it trips no pattern (DECISIONS 2026-08-24).
+ * So: the hedge was dropped deliberately, not lost — do not "restore" it as
+ * an oversight. Rule 8.7 still holds: the sentence names Amy as co-decider,
+ * so suitability still routes to her. This array is SHARED — TreatmentLayout
+ * renders it on all twelve treatment pages; there is no page-scoped variant.
+ */
 const steps = [
   {
     title: 'Book — or ask first',
@@ -38,7 +49,7 @@ const steps = [
   },
   {
     title: 'Personalized plan',
-    body: 'Every visit begins with a conversation: your history, your questions, what you would like to address. Together you decide what, if anything, comes next.',
+    body: 'Every visit begins with a conversation: your history, your questions, what you would like to address. Together with Amy, you decide what comes next.',
   },
   {
     title: 'Treatment visit',

@@ -97,7 +97,15 @@ silently following it. Known superseded points from earlier briefs:
    factually; nobody is ever individually named in copy, alt text,
    or comments, and the team vocabulary is never restated outside
    the unit — meta descriptions, OG tags, and JSON-LD included.*
-   *Outside these four exceptions the other providers are still never
+   *Fifth scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-08-25): the /injector-training reel
+   (`training-reel`), Amy's own film, whose closing contact card
+   displays yourmobileaesthetics.com on screen — a DISPLAY-ONLY
+   pixel reference, not a link; the sanctioned outbound links remain
+   exactly the two above, and the site's text never prints the URL.
+   (The film's on-camera people are all released and none is another
+   provider — its content override lives under constraint 3.)*
+   *Outside these five exceptions the other providers are still never
    named or implied in any needlegirlie.com text, and adding any
    further link, film, or mention requires the human operator.*
 
@@ -142,7 +150,22 @@ silently following it. Known superseded points from earlier briefs:
      crop bake (which would also have removed the console) was declined.
      Same fixed terms: this frame, this page; no value from the readout
      is ever restated in text — copy, alt, comments, meta, JSON-LD;
-     changing any of it requires the human operator.* Nothing else;
+     changing any of it requires the human operator.* *Sixth
+     pixel-level override, the third under this bullet (operator
+     override after the compliance flag — DECISIONS 2026-08-25): the
+     /injector-training reel (`training-reel`), Amy's own film,
+     carried as-is: its burned-in course cards restate that page's
+     operator-authorized card copy in pixels — including the
+     curriculum vocabulary of the fifth scoped exception above and
+     dilution-class topic wording — and its jar shot shows Jeuveau
+     vials with the per-vial "100 U" quantity legible (the
+     radiesse-visit carton class). Releases for every on-camera
+     person confirmed on file (operator, same date). Fixed terms:
+     this film, this page; the film's label, captions, and comments
+     describe only what the pixels self-identify and never restate
+     the vocabulary or the quantity; changing any of it requires the
+     human operator. (Its on-screen practice-site URL is the
+     constraint-2 fifth exception.)* Nothing else;
      changing that list requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
@@ -171,8 +194,8 @@ silently following it. Known superseded points from earlier briefs:
      override with both client releases confirmed on file. (The fourth
      carousel film — the 2026-08-17 team film — contains no claims and
      needs no exception here; its override lives under constraint 2.)
-     And four photos (operator overrides after the compliance flags —
-     DECISIONS 2026-08-18 and 2026-08-21): the /services hormone-optimization menu
+     And five photos (operator overrides after the compliance flags —
+     DECISIONS 2026-08-18, 2026-08-21, and 2026-08-25): the /services hormone-optimization menu
      card's photo (`biote-banner-scale.jpg`), in which the Biote
      banner's outcome-promise lines and symptom poster are legible,
      on a page carrying no Biote disclaimer; the /services
@@ -185,7 +208,13 @@ silently following it. Known superseded points from earlier briefs:
      the /services/weight-loss-glp-1 row photo (`inbody-weigh-in-rear.jpg`,
      DECISIONS 2026-08-21) — the same aftercare wall sign, its
      competitor-brand title AND its results-timing line legible in the
-     served file —
+     served file; and the /injector-training hero portrait
+     (`amy-evolysse-cart.jpg`, DECISIONS 2026-08-25) — a second
+     Jeuveau banner frame, its marketing headline, indication line,
+     and part of its safety-information fine print legible in the
+     served file (the jeuveau-banner-studio override is fixed to its
+     own frame and page, so this frame carries its own; no banner
+     content is ever restated in site text) —
      pixel content is invisible to lint:claims, which is why these
      exceptions are recorded here.
      And the client photo-pairs section — "They showed up for
@@ -333,10 +362,12 @@ silently following it. Known superseded points from earlier briefs:
   click-to-play; DECISIONS 2026-08-21). Opted-in pages today:
   /services/biostimulators and /services/body-contouring (both
   2026-08-21, Amy's own speech-free reels — the film class the opt-in
-  was written for) and /about (2026-08-25, the ICON film — a scoped
+  was written for), /about (2026-08-25, the ICON film — a scoped
   operator override of the never-autoplay-a-narrated-manufacturer-film
   rule, DECISIONS same date; the component header carries both the
-  rule and the exception).
+  rule and the exception), and /injector-training (2026-08-25, Amy's
+  own speech-free training reel — in-class, no exception needed;
+  DECISIONS same date).
   The budget stands.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.

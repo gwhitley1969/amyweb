@@ -87,7 +87,11 @@ themselves" section of three client photo pairs (2026-08-21, her direction;
 operator overrides recorded), and laser-treatments rebuilt around its
 menu — prices on all four cards from her flyers, the Venus Epileve
 laser hair-removal section with direct booking, and three new photos
-replacing the console snapshot (2026-08-21, her direction + picks).
+replacing the console snapshot (2026-08-21, her direction + picks), and
+skincare's two photos replaced — the "What it is" frame now keeps
+Amy's chin visible, and the second photo is the Skinbetter line-up
+above Amy's business cards (2026-08-25, operator direction; the two
+capped syringes in frame accepted as-is — DECISIONS same date).
 Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window — an MDX edit, so
 it ships inside the flag-resetting re-approval round (DECISIONS
@@ -169,7 +173,7 @@ is also not flag-gated and has its own review section below the table.
 | ☐ | [/services/peptide-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/peptide-therapy) | Nine product cards with prices (her wording, near-verbatim); portrait photo |
 | ☐ | [/services/iv-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/iv-therapy) | Menu cards ($125 / $125 / $200 / $25 shots); studio photo |
 | ☐ | [/services/hormone-optimization](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/hormone-optimization) | Pellets $450 women / $750 men; lab draw $125; the Biote FDA disclaimer; **NEW: her grey-seamless portrait** (also on weight-loss) |
-| ☐ | [/services/skincare](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/skincare) | Skinbetter storefront routing (shop button, Mobile Aesthetics naming); two product photos |
+| ☐ | [/services/skincare](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/skincare) | Skinbetter storefront routing (shop button, Mobile Aesthetics naming); two product photos. **NEW (2026-08-25): BOTH photos — the first ("What it is") is now the held-out line-up with Amy's chin visible (the outgoing frame cut her head at the neck; a 4:5 crop keeping sunbetter whole and AlphaRet at the edge), and the second ("Individualized, with Amy") is the Skinbetter line-up above a spread of Amy's business cards (a 4:5 crop, so the outer two products are out of frame; the two capped syringes among the cards ship as-is at the operator's word). **Also NEW (2026-08-25): the storefront plate carries a QR code** — scan-to-register-and-shop, the counter-card handoff regenerated crisp (operator-supplied URL, decode-verified + operator scan-tested). Re-approval required (flag reset)** |
 
 ## Also for Amy's review (not flag-gated): /injector-training
 

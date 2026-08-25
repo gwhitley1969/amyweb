@@ -19,10 +19,21 @@ name: Relaunch guard
 # Both jobs finish in seconds. The job-level `if` guards report
 # "skipped" on non-matching PRs, which satisfies branch protection.
 #
-# RETIRE THIS WORKFLOW IN THE RELAUNCH PR ITSELF (with a DECISIONS
-# entry): after the two-step relaunch re-syncs the branches, the
-# revert becomes a harmless ancestor everywhere and job 1 would fail
-# every PR forever.
+# RETIRE THIS WORKFLOW IN A FOLLOW-UP PR, NOT IN THE RELAUNCH PR
+# (corrected 2026-08-25 — the previous instruction here could not
+# work; docs/RELAUNCH.md step 4 is the authority). Deleting this file
+# in the relaunch PR breaks that PR twice over: the workflow is then
+# absent from the merge commit, so gutted-merge-guard cannot report at
+# all and the required check blocks forever; and even if it ran it
+# would FAIL, because this file is itself tracked on phase-c — the
+# guard's own tree comparison reports it as a missing phase-c file.
+# The relaunch PR would fail its own required check on its own
+# retirement. So: merge the relaunch PR with this workflow INTACT (it
+# is what proves the tree complete), then in a follow-up delete it
+# from BOTH branches and remove both required contexts (`gh api`),
+# with a DECISIONS entry. The follow-up is not optional — once the
+# two-step relaunch re-syncs the branches the revert is a harmless
+# ancestor everywhere and job 1 would fail every PR forever.
 
 on:
   pull_request:

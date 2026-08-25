@@ -6298,6 +6298,151 @@ script-size gate); the full verify run gates the PR.
 full list in the same commit (body-contouring had shipped later the
 same 2026-08-21 day).
 
+## 2026-08-25 — /injector-training: the dedicated training portrait (31.jpg), a new pixel-level claims override
+
+**Context:** Operator direction, from Amy: replace the page's hero
+portrait — the deliberately reused grey-seamless frame — with
+`31.jpg`. The 2026-08-04 entry recorded exactly this as the upgrade
+path ("a dedicated Amy-solo training photo"). New asset
+`src/assets/photos/amy-evolysse-cart.jpg` (byte-identical copy,
+SHA-256 16F9DA9F…A56DFB, 1067×1600): Amy holding Evolysse cartons at
+her studio cart. The shared `amy-palacios-fnp.jpg` stays in place for
+its two treatment-page consumers — only this page's import changes.
+
+**The flag:** legible in the served source file (astro:assets serves
+the source-resolution derivative — the pixel8-cart precedent): a
+Jeuveau banner's marketing headline ("KISS YOUR 11s GOODBYE"), its
+indication line, and part of its Important-Safety-Information fine
+print — the jeuveau-banner-studio class, whose override is fixed to
+that frame on that page and does not carry here. Also on frame:
+Evolysse cartons and tray vials (no quantities legible at source
+resolution; the frame-level vet is the record). A defocus bake of the
+banner text was offered.
+
+**Decision (operator override after the flag):** carry the photo
+as-is. The override is fixed to this frame on /injector-training; no
+value or phrase from the banner — headline vocabulary, indication
+language, ISI text — is ever restated in site text: copy, alt,
+comments, meta descriptions, OG tags, JSON-LD. The alt names Amy and
+the cartons factually. Changing the frame, the page scope, or
+restating any banner content requires the human operator. Recorded in
+CLAUDE.md constraint 3 (the photo-override list) and BUILD_SPEC §8.
+
+**Verification:** frame vet at source resolution (this entry); crop
+check at 390/768/1280 after the swap (the page's 4:5 window +
+`object-position` tuned to the new frame); lint:claims green proves
+nothing about pixels — the screening above is the control.
+
+**Consequences:** the 2026-08-04 "recorded upgrade path" is taken;
+the page header comment's portrait bullet is rewritten in the same
+commit. The pixel-override list grows by one photo.
+
+## 2026-08-25 — /injector-training: the training reel ships (Amy's own film, carried as-is; autoplay in-class)
+
+**Context:** Operator direction, from Amy: add `training.mov` — Amy's
+own produced Private Injector Training reel, the course-flyer set
+animated — directly under the "Four courses, taught one-on-one."
+heading, before the course cards, on autoplay. Source 1080×1920 (9:16)
+HEVC+AAC, 19.8s. Screening: 1fps contact set (20 frames), full-res
+grabs, a jar-shot zoom, `volumedetect`.
+
+**The screening record:** burned-in course cards restate this page's
+own operator-authorized card copy in pixels — including the
+dosing/dilution-class curriculum vocabulary of the 2026-08-04 fifth
+allowlist authorization ("Dosing and dilution", "Hyperdilute
+Radiesse", "Advanced injection protocols", "Safety protocols",
+"Training manual & protocols" among the topics) plus course prices.
+The Dermal Filler segment's jar shot shows Jeuveau vials with the
+per-vial "100 U" quantity legible (the radiesse-visit carton class).
+B-roll shows Amy actively treating on-camera models, needle on frame.
+The closing card displays Amy's contact block: phone, the
+"Learn with confidence. Inject with purpose." tagline (already this
+page's closing copy), "Injecting Since 2017" (the flyer's narrower
+wording of the site's "in medical aesthetics since 2017" fact — pixels
+self-identify; page copy still uses the one set of facts), and
+`yourmobileaesthetics.com` on screen — a DISPLAY-ONLY reference to
+Amy's practice site (not a link; the sanctioned outbound links remain
+exactly two, per constraint 2).
+
+**Releases (operator, 2026-08-25, two confirmations):** the on-camera
+people besides Amy — the black-tank woman, the yellow-dress woman
+(injected on camera), the dark-floral woman, and per the follow-up
+after the completed sweep, the man in the olive shirt (PDO segment)
+and the reclined woman in black (intro segment, possibly the
+yellow-dress woman in different clothes) — ALL have releases for
+needlegirlie.com use confirmed on file; NONE is another provider at
+the location. This supersedes, for these frames only, the 2026-08-04
+"trainee/model frames carry no releases" posture.
+
+**Audio (operator confirmation, the record):** music bed, no speech
+(volumedetect mean −25.0dB, peak −6.9dB; not transcribable on this
+workstation). Captions therefore take the sounded-film form: bounded
+`[Music]` cues. Deliberately NO "On screen:" cues — mirroring the
+burned-in cards would restate vocabulary the override covers only as
+pixels into a rendered text track; the cues describe the audio only
+(recorded in the .vtt NOTE).
+
+**Decision (operator override after the flag):** carry the film
+as-is, whole — nothing trimmed (the closing-card trim was offered and
+declined). Fixed terms: this film on /injector-training only; labels,
+captions, and comments describe only what the pixels self-identify
+and never restate the curriculum vocabulary, the vial quantity, or
+the banner-class content; the on-screen MA URL stays display-only.
+Changing the film, the page scope, or any fixed term requires the
+human operator. Recorded in CLAUDE.md constraints 2 + 3 and
+BUILD_SPEC §8.
+
+**Autoplay (in-class, no exception):** Amy's own speech-free film —
+exactly the class the 2026-08-21 opt-in was written for.
+`autoplay="inview"` (muted, loop in view, native controls as pause
+and tap-for-sound, reduced motion = click-to-play);
+/injector-training becomes the autoplay script's fourth page, and the
+CLAUDE.md consumer list is updated in the same round.
+
+**Rendition:** the ICON recipe with one addition — a 810×1440
+downscale (`scale=810:1440`, then `-c:v libx264 -crf 20 -preset
+medium -pix_fmt yuv420p -c:a copy -movflags +faststart`): the player
+sits in a 24rem (384px CSS) standalone slot, so 810px ≈ 2× the retina
+need (the evolve-reel sizing discipline), and the downscale cuts the
+autoplay fetch from 11.45MB (native-res encode) to 7.59MB
+(3.06Mbps). Poster from the rendition at 12.4s — Amy alone at the
+tray, no card text, no model on frame — 810×1440, 79KB. Uploaded to
+the media origin AFTER this entry was committed (the written rule);
+new filename `training-reel.mp4`, so no purge.
+
+**Consequences:** the site's first film on an LHCI-budgeted page —
+the perf-gate consequence is measured and recorded separately below
+once known. /injector-training's header comment gains the film's
+rules; CLINICIAN-SIGN-OFF carries the round for Amy's pass.
+
+## 2026-08-25 — /injector-training under the LHCI gate with a film: measured, no carve-out
+
+**Context:** /injector-training is LHCI-collected under the strict
+house assertMatrix row (`third-party:count 0`, total ≤ 350KB, image ≤
+240KB) and the training reel makes it the site's first film-bearing
+page under a Lighthouse budget. The flagged risk (approved plan, same
+date): LH's full-page pass fetches lazy content on this site — the
+recorded reason /services has a carve-out row — so the in-view
+autoplay could start the cross-origin media fetch mid-run, tripping
+`third-party:count` and making `total:size` nondeterministic. The
+plan authorized a page-scoped carve-out row IF measurement confirmed.
+
+**Measurement (local LHCI against the built page, 1 + 3 runs, all
+identical):** media 0 requests / 0 bytes; third-party 0; total
+198,898 B; image 144,414 B (new portrait + poster together, well
+under 240KB); LCP ~2,335 ms; CLS 0; performance 0.98. The autoplay
+fetch does not occur inside the LH trace window.
+
+**Decision:** `lighthouserc.json` is untouched — the strict house
+budgets hold and the authorized carve-out is NOT enacted. If a
+future LHCI or Chrome behavior change starts counting the media
+fetch, the carve-out this entry describes (page-scoped row:
+third-party 1, no total:size, every component budget kept) is the
+recorded, already-flagged remedy — enacting it then still gets its
+own DECISIONS entry.
+
+**Consequences:** the perf gate stays at full strength on the page;
+CI's own 3×-median run on the PR is the confirming record.
 ## 2026-08-25 — the team film joins /about's Girl Team unit (sounded rendition; the second constraint-2 exception widens)
 
 **Context:** Operator direction, riding the day's /about round: the Mobile

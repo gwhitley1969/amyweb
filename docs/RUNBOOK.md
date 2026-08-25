@@ -187,6 +187,13 @@ To add or swap a film:
    in the component's bars comment).
 6. `npm run verify` green → PR → preview → Amy's word → merge.
 
+**One master, two renditions (2026-08-25):** the team film's master
+(`team.MOV`, operator archive) serves as BOTH the muted carousel
+rendition `commercial-team.mp4` AND the sounded /about rendition
+`girl-team-film.mp4` (DECISIONS 2026-08-25). Replacing or retiring
+that film means both Blob objects, both caption files, and both
+consumers (the carousel slide and the /about Girl Team unit).
+
 **Treatment-page films (sounded — `TreatmentVideo`)** follow the same
 screen → DECISIONS → upload order, with four differences (first
 site-authored pair: /services/biostimulators, 2026-08-21): the
@@ -204,7 +211,9 @@ day, operator direction) plays a film MUTED and looping while ~a third
 of it is on screen, via the static `public/js/treatment-video.js`
 (~2KB; reduced motion = click-to-play; the controls are the pause and
 the tap-for-sound) — opt in ONLY for Amy's own speech-free films,
-never a manufacturer film or one with narration.
+never a manufacturer film or one with narration (one scoped operator
+override: the ICON film on /about — DECISIONS 2026-08-25; the /about
+team film needs no override, being site-authored and speech-free).
 
 Scripts on this site are STATIC FILES (public/js/) — never component
 `<script>` blocks; see the troubleshooting entry below for why.

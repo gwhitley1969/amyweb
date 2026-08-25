@@ -48,6 +48,7 @@ pink."** Seven gaps, each a test every design decision must move:
 | **Girl Team on /about** — a photo ADDITION (not a replacement): 29b full frame in the segmental arch, left of the milestones (`md:grid-cols-[5fr_6fr]`, DOM heading-first) — Amy with FOUR of the location's five other providers, releases confirmed on file; "Girl Team!" live on an opaque keystone plate straddling the arch crown (the site's FIRST text-over-photo, Phase C plate rule, Amy's casing kept); "Visit Mobile Aesthetics" below it — the SECOND sanctioned yourmobileaesthetics.com link (supersedes the badge row's "one sanctioned reference" above; own flag, own override) | **Shipped** (2026-08-25) | DECISIONS 2026-08-25; CLAUDE.md constraint-2 fourth exception; BUILD_SPEC §6 |
 | **Evolus Laurel on /about** — the ranking plaque replaces the EvolusCallout recognition plate above the ICON film (the dermal-fillers 2026-08-21 swap repeated; client direction): page scope widened to three pages (operator authorization), the plate's "#1" sentence retired sitewide with its `allowedStrings` entry withdrawn (an authorization nothing uses is a loophole), the orphaned component deleted. Same PR, same day: the ICON film below the plaque autoplays muted in view, tap for sound — a scoped operator override of the 2026-08-21 narrated-manufacturer-film rule. Rides PR #153 | **Shipped** (2026-08-25) | DECISIONS 2026-08-25; CLAUDE.md constraint 3; BUILD_SPEC §8.4/§6/§7.4/§17 |
 | **Team film on /about** — the carousel team film's SOUNDED rendition (`girl-team-film.mp4`: CRF 23 + the master's AAC copied, 6.86MB — both recipe deviations reasoned in DECISIONS) joins the Girl Team unit below the "Visit Mobile Aesthetics" button: autoplay muted in view, loop on screen, music one tap away — IN-CONTRACT (site-authored, no speech; the operator's confirmation is the record), unlike the ICON override; the constraint-2 SECOND exception widened to this placement (a third requires the operator); portrait 9:16 at the 18rem in-row film cap, bare frame, no printed caption; poster + master reused (dedup). One operator passage open: the fourth exception's cross-reference sentence in CLAUDE.md (classifier-blocked) | **Shipped** (2026-08-25) | DECISIONS 2026-08-25; CLAUDE.md constraint 2; BUILD_SPEC §6/§9/§13 |
+| **/injector-training media round** — the dedicated training portrait (31.jpg → `amy-evolysse-cart.jpg`, the 2026-08-04 recorded upgrade path; sixth photo under pixel override — a second Jeuveau-banner frame, its own authorization) and Amy's training reel (`training-reel`, 810×1440 rendition, 7.59MB) standalone in the mat frame at a 24rem cap under the "Four courses" heading — carried as-is under operator override (burned-in curriculum cards, a legible per-vial quantity, injection b-roll with all five non-Amy releases confirmed, the on-screen practice-site URL as constraint-2 fifth exception), autoplay in-class (fourth opted-in page); LHCI 3× on the built page: media 0 / third-party 0 / total 198.9KB — the flagged budget carve-out proved unnecessary | **Shipped** (2026-08-25) | DECISIONS 2026-08-25 ×3; CLAUDE.md constraints 2+3 + script list; BUILD_SPEC §6/§8.1/§5/§13 |
 
 ## Carousel record (J1/studio/J2 cleared 2026-08-14; team film 2026-08-17)
 
@@ -117,14 +118,16 @@ pink."** Seven gaps, each a test every design decision must move:
 - **Review tags are OPEN on a side branch** (2026-08-22): every page
   carries a short label (A–G on the non-service pages, 01–12 on the
   treatment pages, 13 on /injector-training) so a review pair can refer
-  to pages by tag. They live ONLY on `review/page-numbers` (PR #138,
-  marked DO NOT MERGE) and its preview; `phase-c` and the standing
-  client demo never carry them. **To remove: close PR #138 and delete
-  the branch** — nothing on `phase-c` needs cleaning up. The full
-  record, the temporary off switch, and a by-hand removal procedure (if
-  the branch is ever merged) are in that branch's `docs/REVIEW-TAGS.md`;
-  the decision is DECISIONS 2026-08-22. Strike this line when the PR is
-  closed.
+  to pages by tag. They live ONLY on `review/page-numbers` (**PR #149**
+  since 2026-08-25 — the original #138 was closed and reopened that day,
+  so the preview environment is `…-149…`, not `…-138…`; probing the old
+  number returns a dead environment), marked DO NOT MERGE, and its
+  preview; `phase-c` and the standing client demo never carry them.
+  **To remove: close PR #149 and delete the branch** — nothing on
+  `phase-c` needs cleaning up. The full record, the temporary off
+  switch, and a by-hand removal procedure (if the branch is ever
+  merged) are in that branch's `docs/REVIEW-TAGS.md`; the decision is
+  DECISIONS 2026-08-22. Strike this line when the PR is closed.
 
 ## Round close (scaffold added 2026-08-17 — external-audit Finding 2)
 

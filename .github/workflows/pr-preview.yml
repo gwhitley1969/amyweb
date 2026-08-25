@@ -35,11 +35,25 @@ jobs:
 
       - run: npm ci
 
-      - name: Verify (build, check, claims lint, a11y, perf budgets)
-        run: npm run verify
+      # Step ORDER only. Every gate that ran before still runs, in the same
+      # order, with the same short-circuit semantics — `npm run verify` is now
+      # `verify:fast && verify:slow`, so a11y failing still stops perf exactly
+      # as it always did, and production.yml is untouched. What changes is WHEN
+      # the preview becomes reachable.
+      #
+      # Measured on PR #147 (2026-08-25): the job spent 4m11s inside Lighthouse
+      # and that sat IN FRONT OF the upload, so a link that was ready at ~1m45s
+      # could not be sent until ~6m30s. The gates that decide whether a client
+      # should be shown the page at all are the cheap ones, and they still run
+      # BEFORE the deploy: build 11s, check 7s, lint:claims and lint:voice
+      # under a second each. A page carrying a banned claim still cannot reach
+      # a preview URL.
+      - name: Fast gates (build, type/content check, claims + voice linters)
+        id: fast_gates
+        run: npm run verify:fast
 
       # Deploys the pre-verified dist/ as-is; the SWA action must never build
-      # on its own, or it would bypass the quality gates above.
+      # on its own, or it would bypass the quality gates around it.
       - name: Deploy preview to Azure Static Web Apps
         if: env.SWA_TOKEN != ''
         id: deploy
@@ -55,6 +69,18 @@ jobs:
         run: |
           echo "### Preview deployed" >> "$GITHUB_STEP_SUMMARY"
           echo "${{ steps.deploy.outputs.static_web_app_url }}" >> "$GITHUB_STEP_SUMMARY"
+
+      # The slow half, after the upload. Neither script writes to dist/, so the
+      # deployed bytes are the audited bytes. The `!cancelled()` guard is
+      # load-bearing: without it a failed deploy step would SKIP these and the
+      # job would go red having never reported an a11y or perf result. The
+      # fast_gates guard stops them running against a dist/ that was never
+      # built. Trade accepted (DECISIONS 2026-08-25): if these fail the preview
+      # stays up while the PR goes red — correct for a preview, and
+      # verify-and-deploy is a required check on neither branch today.
+      - name: Slow gates (a11y sweep, Lighthouse budgets)
+        if: ${{ !cancelled() && steps.fast_gates.outcome == 'success' }}
+        run: npm run verify:slow
 
   close-preview:
     if: github.event.action == 'closed'

@@ -6,6 +6,41 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-25 — Skincare: the products-and-cards frame replaces the shelf photo
+
+- /services/skincare — the shelf photo beside "Individualized, with Amy"
+  gives way to 28.jpg: the Skinbetter Science line-up standing above a
+  spread of Amy's business cards (photo round page 9). Committed as a
+  baked 4:5 crop (854×1067 window at x=480) so the landscape frame meets
+  the retina rule through the arch window; no 4:5 window holds all seven
+  products, so the outer two crop out (the full-frame segmental option
+  was offered and declined). Two capped syringes among the cards ship
+  as-is at the operator's word — a screening-note acceptance, not an
+  override (DECISIONS 2026-08-25). `skinbetter-shelf.jpg` deleted (no
+  other consumer).
+- `clinicianApproved` reset on skincare (approved content edited —
+  constraint 4); Amy re-reviews on the preview. Flags now read
+  3 true / 9 false.
+- Same day, the first photo too: the "What it is" frame (which cut
+  Amy's head off at the neck) gives way to 27.jpg from the same shoot —
+  the same held-out product line-up with **her chin visible**, as a
+  baked 4:5 crop (1108×1385 at x=246) that keeps both franchises the
+  copy names: sunbetter whole, AlphaRet readable at the edge.
+  `skinbetter-lineup.jpg` deleted (no other consumer). Flag already
+  false; Amy reviews both new photos on one preview.
+
+### 2026-08-25 — The storefront QR joins the Skinbetter callout
+
+- The noir storefront plate on /services/skincare now carries a QR
+  code — the register-and-shop handoff from Amy's counter card,
+  regenerated as a crisp 4.5KB SVG encoding the operator-supplied
+  skinbetter.com registration URL (her practice partner id attached).
+  White tile, black modules, caption inside; the shop button beside it
+  remains the click path, so the QR is never the only route. Verified
+  three ways: the committed SVG and the rendered page's screenshot
+  both decode to the exact URL, and the operator scan-tested it live.
+  Zero JS; first QR on the site (DECISIONS 2026-08-25).
+
 ### 2026-08-24 — Treatment pages: step 3, two FAQ answers, and the consult router
 
 - **"Your visit, step by step", step 3** now reads "**Confidently** book your

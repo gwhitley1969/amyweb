@@ -40,7 +40,11 @@ reasoning inline.
   and the self-test proves this.
 - Most entries are marketing copy the client wanted published: the GLP-1
   vial tiers, the per-unit neuromodulator prices, the Evolus ranking
-  sentence (authorizations 1–3), and the four Private Injector Training
+  sentence (authorizations 1–3 — the ranking sentence WITHDRAWN
+  2026-08-25, when its last consumer, the /about recognition plate, was
+  swapped for the EvolusLaurel plaque: like the seventh below, an
+  authorization nothing uses is a loophole, so the entry came off and
+  the ranking vocabulary is banned everywhere again), and the four Private Injector Training
   curriculum topics in exact `<li>`-wrapped source form (fifth
   authorization, 2026-08-04 — the wrap binds each to one attribute-less
   source line and preserves the self-test's word boundary); and the
@@ -148,8 +152,10 @@ Current members of that class:
 
 - The two EvolusLaurel ranking sentences — "The Top Evolus Injector in
   Charlotte." and "And among the Top 50 in the United States." — on
-  /services/wrinkle-relaxers and /services/dermal-fillers (operator
-  authorization, DECISIONS 2026-08-19; BUILD_SPEC §8.4). The superiority
+  /services/wrinkle-relaxers, /services/dermal-fillers, and (since
+  2026-08-25) /about (operator
+  authorization, DECISIONS 2026-08-19 + the two page-scope widenings,
+  DECISIONS 2026-08-21 and 2026-08-25; BUILD_SPEC §8.4). The superiority
   patterns see no token in either. Deliberately **not** allowlisted: a bare
   `top` pattern would false-positive ordinary copy, and the list only ever
   grows, so it was never added.

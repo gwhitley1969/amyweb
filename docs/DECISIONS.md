@@ -6142,3 +6142,61 @@ REDESIGN, and the CHANGELOG ride the docs commit. The already-screened
 destination did not carry authorization forward: the second consumer
 got its own flag and its own override. /about carries no
 `clinicianApproved` flag — Amy's review happens on the PR preview.
+
+## 2026-08-25 — the Evolus Laurel replaces the recognition plate on /about; the "#1" sentence retires sitewide
+
+**Context:** Client direction relayed by the operator, same day (riding
+the Girl Team PR #153 at the operator's choice — the 2026-08-15
+combined-review lesson, one preview for Amy): the ranking banner from
+/services/wrinkle-relaxers — the EvolusLaurel plaque — joins /about
+near the ICON film, replacing the smaller EvolusCallout recognition
+plate. This is the dermal-fillers move (2026-08-21) repeated: the
+Laurel into the Callout's exact spot, above "Inside Evolus".
+
+**Two authorizations, both flagged and operator-confirmed:**
+
+1. **The ranking sentences' page scope widens to /about.** The two
+   Laurel sentences were authorized on wrinkle-relaxers and
+   dermal-fillers, "nowhere else"; widening requires the human
+   operator, who directed exactly this. /about is the third and only
+   other authorized page. Recorded in CLAUDE.md constraint 3,
+   BUILD_SPEC §8.4, and the component header. (Historical note: this
+   supersedes what remained of the 2026-07-21 "About is ranking-free"
+   placement in spirit — that decision was already superseded
+   2026-08-18 when the "#1" plate moved there.)
+
+2. **The "#1" allowlist entry is withdrawn** (operator choice after
+   the flag; the recommended withdrawal accepted). The /about plate
+   was the sentence's LAST consumer, so after the swap "Charlotte's #1
+   Evolus provider" renders nowhere — and an authorization nothing
+   uses is a loophole (the 2026-08-21 seventh-authorization precedent,
+   quoted in the registry's own comment). The entry came out of
+   `allowedStrings` in the same commit that removed its consumer
+   (atomic: the entry never outlives the consumer, the sentence never
+   outlives the authorization). The ranking vocabulary is banned
+   everywhere again, comments included; re-adding the sentence
+   requires the human operator. Verified safe before the edit: the
+   lint-claims self-test has no coupling to the entry (its samples
+   build from fragments), and the full self-test + scan pass after
+   removal.
+
+**Also:** `EvolusCallout.astro` deleted — orphaned by the swap (sole
+consumer was about.astro; grep-proven), the DraftBanner deletion
+precedent; git history keeps it. The EvolusLaurel header, about.astro's
+page and section comments, siteConfig untouched. The Laurel is
+self-contained (component-scoped styles, its own noir surface) and
+needed no adaptation for /about; its shimmer stays within the motion
+vocabulary (39px floor holds).
+
+**Verification:** verify:fast green — the self-test proving the
+registry edit is clean; built dist grep: "Top Evolus Injector" on
+exactly /about + wrinkle-relaxers + dermal-fillers, the retired phrase
+zero hits sitewide; the section eyeballed at 390 and 1280 (plaque on
+noir, wreath + stacked Top-50 lockup, ICON film unchanged below).
+
+**Consequences:** the registry shrinks for only the second time, both
+times by withdrawal of a consumer-less authorization — the "list only
+ever grows" rule governs patterns, and allowedStrings changes remain
+operator-gated in both directions. Three pages now render the Laurel,
+once each. CLAUDE.md constraint 3, BUILD_SPEC §8.4 + §6 + §7.4 + the
+§17 registry row, and compliance/README updated in the docs commit.

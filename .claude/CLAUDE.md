@@ -157,9 +157,13 @@ silently following it. Known superseded points from earlier briefs:
      as-is — manufacturer comparative-efficacy remarks, named
      third-party providers, and no safety information, all
      operator-accepted); and the exact sentence "Charlotte's #1 Evolus
-     provider" enumerated in `allowedStrings`, on the /about page only
-     (moved off wrinkle-relaxers 2026-08-18; swapped for the Laurel
-     plaque on dermal-fillers 2026-08-21);
+     provider" — RETIRED 2026-08-25: the /about recognition plate, by
+     then its only consumer, was swapped for the Laurel plaque at the
+     client's direction (the same swap dermal-fillers made 2026-08-21,
+     after the sentence moved off wrinkle-relaxers 2026-08-18), so the
+     `allowedStrings` entry was withdrawn with the operator's
+     authorization and the ranking vocabulary is banned everywhere
+     again; re-adding the sentence requires the human operator;
      and three of the home-carousel films (operator clearances,
      DECISIONS 2026-08-14) — the two Evolus co-op Jeuveau commercials
      carried as-is with their complete FDA safety information (never
@@ -205,9 +209,12 @@ silently following it. Known superseded points from earlier briefs:
      compliance flag — DECISIONS 2026-08-18; two compliant rephrases
      declined), in the /services intro lead only, on one source line.
      And two ranking sentences rendered by `EvolusLaurel` on
-     /services/wrinkle-relaxers (layout slot) and, since 2026-08-21 at
+     /services/wrinkle-relaxers (layout slot); since 2026-08-21 at
      the operator's direction, /services/dermal-fillers (in-body, in
-     the retired "#1" plate's spot — DECISIONS same date) — nowhere
+     the retired "#1" plate's spot — DECISIONS same date); and since
+     2026-08-25 at the operator's direction, /about (the same
+     plate-for-plaque swap, retiring the "#1" sentence sitewide —
+     DECISIONS same date) — nowhere
      else (operator authorization — DECISIONS 2026-08-19; substantiation = the operator's
      verification with Evolus, which also covers the national
      standing): "The Top Evolus Injector in Charlotte." and "And

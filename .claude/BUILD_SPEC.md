@@ -367,7 +367,7 @@ layout shift from fonts or images.
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
-| `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; the Evolus recognition plate + the ICON film (moved from wrinkle-relaxers at the client's direction 2026-08-18, superseding the 2026-07-21 ranking-free placement — the resolved `{{EVOLUS_CLAIM}}` sentence now renders on /about only — dermal-fillers swapped it for the EvolusLaurel plaque 2026-08-21, §8.4); the Girl Team still + "Girl Team!" keystone plate (the site's first text-over-photo) + the "Visit Mobile Aesthetics" button — the second sanctioned yourmobileaesthetics.com link (constraint-2 fourth scoped exception, direct from Amy 2026-08-25; DECISIONS same date) | Request a consultation |
+| `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; the EvolusLaurel ranking plaque + the ICON film (the film and the old recognition plate moved from wrinkle-relaxers at the client's direction 2026-08-18, superseding the 2026-07-21 ranking-free placement; the plate gave way to the Laurel 2026-08-25 — the same swap dermal-fillers made 2026-08-21 — retiring the resolved `{{EVOLUS_CLAIM}}` sentence sitewide, its `allowedStrings` entry withdrawn; §8.4); the Girl Team still + "Girl Team!" keystone plate (the site's first text-over-photo) + the "Visit Mobile Aesthetics" button — the second sanctioned yourmobileaesthetics.com link (constraint-2 fourth scoped exception, direct from Amy 2026-08-25; DECISIONS same date) | Request a consultation |
 | `/injector-training` | Private Injector Training | Professional-audience page (added 2026-08-04, operator-directed; DECISIONS same date): four hands-on, one-on-one courses for licensed medical professionals, prices flyer-verbatim (three at $5,000, Radiesse $7,500; three hours each, product included); curriculum topics under the fifth `allowedStrings` authorization (§8.1); outside the treatments collection and the clinician flag gate — Amy reviews via the sign-off doc's non-gated section; "Training" nav item | Call (phone/Instagram routed — neither booking nor consultation language) |
 | `/book` | RETIRED (2026-07-21, operator) | Was the Vagaro-handoff explainer; every "Book with Amy" now opens Vagaro directly, so the page was deleted before ever serving in production | — |
 | `/visit` | Visit Us | Address (hours are NOT listed — Amy's decision 2026-08-04, `{{HOURS}}` CLOSED; no page copy may promise or imply hours), parking note, "Get directions" link-out (no map iframe) | Directions / Book |
@@ -561,8 +561,10 @@ action hype, no outcomes, no dosing, ever.
    2026-08-21 that plate gave way to the EvolusLaurel ranking plaque,
    rendered in-body in the plate's exact spot under "What they are"
    (operator placement choice; §8.4's second scoped exception widened
-   to this page — DECISIONS same date). The "#1" sentence now renders
-   on /about only.
+   to this page — DECISIONS same date). The "#1" sentence then
+   rendered on /about only, until 2026-08-25, when /about made the
+   same swap and the sentence retired sitewide (its `allowedStrings`
+   entry withdrawn — DECISIONS same date).
 5. **Biostimulators** — collagen-stimulating treatments: PDO Threads,
    Radiesse. Factual description of category; no "lifting results" promises.
    Radiesse is a **biostimulator, not a dermal filler**, for this catalog —
@@ -773,18 +775,23 @@ action hype, no outcomes, no dosing, ever.
    *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator
    override after the flag — DECISIONS): the exact sentence
    "Charlotte's #1 Evolus provider", enumerated in `allowedStrings`,
-   published unattributed at the operator's direction on the /about
-   page only (moved off wrinkle-relaxers at the client's direction
-   2026-08-18; replaced by the Laurel plaque on dermal-fillers
-   2026-08-21). Basis: operator's
+   published unattributed at the operator's direction — on
+   wrinkle-relaxers to 2026-08-18, then /about only (dermal-fillers
+   swapped it for the Laurel plaque 2026-08-21). RETIRED 2026-08-25:
+   /about made the same swap at the client's direction, the entry was
+   withdrawn with the operator's authorization (an authorization
+   nothing uses is a loophole), and the ranking vocabulary is banned
+   everywhere again; re-adding the sentence requires the human
+   operator. Basis while live: operator's
    confirmation that the designation comes from Evolus + the same claim
-   live on the practice's own site; the recommended Evolus rep email
-   remains the outstanding substantiation upgrade. Second scoped
+   live on the practice's own site. Second scoped
    exception (operator authorization 2026-08-19 — DECISIONS same
    date): the two ranking sentences rendered by the EvolusLaurel
-   plaque on /services/wrinkle-relaxers (layout slot) and, since
+   plaque on /services/wrinkle-relaxers (layout slot); since
    2026-08-21 at the operator's direction, /services/dermal-fillers
-   (in-body, the retired "#1" plate's spot — DECISIONS same date),
+   (in-body, the retired "#1" plate's spot — DECISIONS same date);
+   and since 2026-08-25 at the operator's direction, /about (the
+   plate-for-plaque swap above — DECISIONS same date),
    nowhere else — "The Top Evolus
    Injector in Charlotte." and "And among the Top 50 in the United
    States." — published unattributed at the operator's direction
@@ -1096,7 +1103,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{PRICING_DISPLAY_MODE}}` | none / consult / startingAt (default: consult) | Open decision |
 | `{{CHEMICAL_PEELS_MENU}}` | Peel menu from Amy (brands, tiers, per-peel pricing beyond the $180 start) | Open — page carries a compliant placeholder (2026-07-22) |
 | `{{VENUS_VERSA_MENU}}` | Laser-treatments menu from Amy (which Venus Versa applications are priced, and how) | **Resolved 2026-08-21** — the two Mobile Aesthetics pricing flyers (view-only); all four cards priced, Epileve laser hair removal added (§7.12) |
-| `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | RESOLVED 2026-07-21 (operator override — exact sentence in `allowedStrings`, two Evolus product pages; §8.4) |
+| `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | RESOLVED 2026-07-21 (operator override — exact sentence in `allowedStrings`, two Evolus product pages; §8.4). RETIRED 2026-08-25 — the sentence's last consumer swapped for the EvolusLaurel plaque; entry withdrawn (§8.4) |
 | `{{BIOTE_FDA_DISCLAIMER}}` | Biote's exact required FDA wording, rendered by `BioteDisclaimer` | RESOLVED 2026-07-22 (operator-authorized — Biote's own printed brochure wording; exact sentence in `allowedStrings`, fourth authorization. Had been shipping as a *visible placeholder token* on the hormone page; §7.8) |
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |
 | `{{RETATRUTIDE_COUNSEL}}` | Attorney-approved investigational wording | Open decision |

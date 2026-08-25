@@ -5342,3 +5342,82 @@ into a gate the relaunch depends on. And `verify-and-deploy` is a required check
 on **neither** branch — only the two guards are — so CI green is advisory and a
 PR with failing tests is mergeable once its guard passes. That is the operator's
 call, flagged rather than altered.
+
+## 2026-08-25 — PR board cleanup: merging into `main` during the takedown era is safe, and why
+
+**Context:** six PRs open, four unable to move, and the board read as disarray.
+Two of the four — #146 (the guard onto `main`) and #144 (the Xtend-AI credit on
+the placeholder) — had been parked under the standing instruction that we are
+not ready for a production deployment. Separately, both standing preview PRs had
+drifted six commits behind `phase-c` (last refreshed 2026-08-22), so the client
+and the review pair were reading a `/services` intro that had already been
+rewritten at the client's own direction, and the `relaunch-guard.yml` header
+still carried the retirement instruction that 2026-08-24 corrected.
+
+**Decision:** land #146 then #144 into `main`, refresh both previews, correct
+the guard header, and add a preview-refresh rule to the RUNBOOK. Nothing about
+the takedown topology changes: PR #95 is untouched, `main` is never merged into
+`phase-c`, and no gate, budget, or banned-pattern list is altered.
+
+**The load-bearing fact, recorded because it will look alarming later.**
+"Merge to `main`" normally means "publish the client's website." It does not
+mean that during the takedown era, and reading it that way is what froze two
+PRs. `main`'s tree carries **three page files** — `404.astro`, the Under
+Construction `index.astro`, and the styleguide catch-all — and
+`src/content/treatments/` holds nothing but a `.gitkeep`. A merge into `main`
+rebuilds and redeploys **the construction placeholder**; it cannot publish the
+site, because the site is not in that tree. The site's only route to production
+is a `phase-c` → `main` release merge (PR #95's successor), which is
+permanently CONFLICTING by design and requires the two-step relaunch. Verified
+alongside: no PR has merged into `main` since #99 on 2026-08-05, so #144 was the
+first attempt since the takedown and it hit the never-reporting required check
+head-on — which is also why production has been un-hotfixable rather than merely
+untouched.
+
+**Scope of the credit loss.** Placeholder-only. `phase-c`'s `Footer.astro`
+carries `Created by: Xtend-AI` sitewide and always has; the takedown revert
+removed it from the placeholder alone. The restored copy on `main` becomes
+redundant at relaunch and goes out with the rest of the placeholder.
+
+**Guard header corrected.** The file said *"RETIRE THIS WORKFLOW IN THE RELAUNCH
+PR ITSELF"*; `docs/RELAUNCH.md` step 4 was corrected on 2026-08-24 to explain
+that this cannot work (the workflow is tracked on `phase-c`, so deleting it in
+the relaunch PR makes the guard report itself missing and fail its own required
+check on its own retirement). The most consequential instruction in the repo
+existed in two contradicting versions, and the wrong one was the one an operator
+reads inside the file. The header now points at RELAUNCH.md step 4 as the
+authority. The two copies of `relaunch-guard.yml` stay byte-identical: the
+`main` copy is taken with `git checkout origin/phase-c -- <path>`, never
+retyped, and the identity diff is a merge gate rather than a formality.
+
+**RUNBOOK gains a refresh rule.** Pushes to `phase-c` deploy nowhere and GitHub
+does not re-run a PR's workflows when its base branch moves, so a preview PR
+serves whatever it last built until someone merges `phase-c` into it. Nothing in
+"Everyday changes" said to do that, which is the whole explanation for the
+six-commit drift. Now it does.
+
+**Alternatives rejected.** Combining #146 and #144 into one PR to halve the
+placeholder redeploys — rejected, the split is what keeps the first-ever real
+execution of `gutted-merge-guard` on a `main` merge content-free, and a
+placeholder redeploy costs nothing. Enabling `delete_branch_on_merge` to stop
+branch litter — verified safe (`allow_deletions` is `false` on both `main` and
+`phase-c`, so GitHub cannot delete either even though `phase-c` is the release
+PR's head branch), but the litter rate is one stale branch per 136 merges and
+the setting would not touch local branches or worktrees, which is where the
+actual clutter lives; left to the operator. Closing #97 or #138 as stale —
+rejected, #97 is the standing client link and #138's review tags are still in
+use; both were refreshed instead. Requiring `verify-and-deploy` as a status
+check — rejected for now and flagged again: `pr-preview.yml` carries
+`paths-ignore`, so a docs-only PR would never run it, the required check would
+never report, and docs-only PRs would block forever. That is the identical bug
+2026-08-24 fixed, and a proper version needs an always-runs summary job.
+
+**Consequences.** Two production deploys of the placeholder, each re-verified
+and each purging the Front Door cache; the visible difference is the restored
+credit line. `main` gains `relaunch-guard.yml`, which makes the RUNBOOK's
+existing claim that the file "ships on both branches" true rather than
+aspirational, and makes production hotfixable again. The guard's skip path was
+confirmed to execute for real on #146 — its run log ends `No post-takedown
+phase-c commits in this PR; not a release merge. Nothing to check.` — so the
+open question of whether `origin/phase-c` resolves in the runner's checkout is
+closed. PR #143 stays open awaiting Amy; #95, #97 and #138 stay open by design.

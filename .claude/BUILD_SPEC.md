@@ -832,7 +832,13 @@ action.
 - **Products → Skinbetter storefront:** connect.skinbetter.com/MobileAesthetics
   (resolved `{{SKINBETTER_URL}}` — the practice storefront carrying her
   businessPartner id, verified in-browser 2026-07-23). New tab, tracked
-  (`skinbetter_click`).
+  (`skinbetter_click`). Second handoff surface (2026-08-25,
+  operator-directed): a QR tile on the /services/skincare storefront
+  callout encoding the operator-supplied skinbetter.com registration
+  deep link (her businessPartner id attached) — a static SVG,
+  round-trip decode-verified; the shop button remains the click path
+  and the QR is never the only route (DECISIONS 2026-08-25;
+  regeneration procedure in RUNBOOK).
 - **Phone:** `tel:` links with `{{PHONE}}`, tracked (`call_click`).
 - **Social:** `{{SOCIAL_LINKS}}` (Instagram, Facebook, YouTube, Yelp, TikTok —
   Amy's own handles only).

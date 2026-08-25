@@ -5316,6 +5316,445 @@ rendering the allowlisted `best` fragment. The demo and review preview branches
 will not show this until `phase-c` is merged into each. Verified: build, `astro
 check`, `lint:claims`, `lint:voice`, pa11y 24/24, Lighthouse budgets.
 
+## 2026-08-23 — wrinkle-relaxers: the lead and deck copy round (a flag that did NOT become an override)
+
+**Context:** Client direction (via the operator, 2026-08-23) for the two copy
+blocks that open `/services/wrinkle-relaxers` — the `summary` lead and the
+`deck` statement card, which `TreatmentLayout` renders in that order directly
+under the H1. (1) The lead should stop saying "creases". (2) The deck's single
+line is replaced wholesale with her new wording, which names three treatment
+areas and closes with a promise verb addressed to the reader.
+
+**The flag.** The closing half of her deck sentence was an outcome promise —
+CLAUDE.md constraint 3, BUILD_SPEC §8.3 — and three things made it sharper
+than the usual copy flag. It promises a named result on named areas in the
+SECOND PERSON, where every prior override of this rule (regenerative and
+peptide cards, both 2026-08-01) covered a product *description*. It implies
+the lines go and stay gone, on the one page carrying no duration hedge since
+"temporary/temporarily" came off all six occurrences (2026-07-30 — an entry
+that already recorded the risk profile ticking up), and where "permanent" is
+itself a banned pattern and longevity is deliberately routed to the consult
+(biostimulators, 2026-07-21). And its "11's" is the vocabulary of the Jeuveau
+banner in this page's own band photo, which ships under a pixel-level override
+(2026-08-18) resting precisely on the fact that the site's own copy never says
+it — so the sentence would have converted photographed third-party marketing
+into a first-party claim, beside the photo it came from.
+
+Verified first-hand against all six categories in
+`compliance/banned-patterns.json`: **the sentence trips no pattern.**
+`lint:claims` would have passed it. This was judgment-level, exactly like the
+2026-08-01 overrides — not a gate catch.
+
+**Decision (operator, from three options with previews):** the COMPLIANT
+REWRITE, not an override. The deck now reads "A light, deliberate hand for
+those lines repeated expressions leave behind — crow's feet, "11's", and
+frown lines." Her opening clause and all three named areas survive verbatim;
+only the promise verb is gone. **This is the round's first compliance flag to
+resolve without an override**, and the consequence worth recording is a
+negative one: there is NO `allowedStrings` entry, NO CLAUDE.md exception, and
+NO BUILD_SPEC amendment to lean on here — the registry is untouched and a
+future session must not read this entry as authorizing the drafted wording.
+The lead became "…soften dynamic lines: the ones that come from repeated
+expression" (operator's pick over the literal creases→lines swap, which would
+have said "lines" twice in one sentence).
+
+**Alternatives rejected:** shipping her wording verbatim under an override —
+the drafted second sentence, recorded here for the audit trail because this
+log is the only place it survives: "Wave good-bye to your crow's feet, "11's",
+and frown lines!" (offered explicitly, declined); a two-sentence compliant
+variant keeping her
+exclamation ("softened, with movement kept" — offered, declined); the literal
+one-word swap in the lead (offered, declined); changing the second "creases"
+in the body's "What they are" (offered as an out-of-scope tidy, declined — the
+word survives once on the page, and nowhere else on the site).
+
+**Consequences:** `summary` feeds the Service JSON-LD description via
+`[slug].astro`, so the lead edit reaches structured data — confirmed
+claims-clean in the built output. `deck` is layout-only and reaches no meta,
+OG, or JSON-LD — verified by grep on the built page, the same discipline the
+Laurel ranking claim is held to. The em dash is this paragraph's only one and
+introduces a gloss (2026-07-29 budget: earned, within budget).
+`clinicianApproved` was already `false` (2026-08-18 Evolus-plate move), so
+nothing reset; flags still read 4 true / 8 false and the page rides the
+consolidated pre-relaunch re-approval. `src/lib/serviceLines.ts` carries a
+shorter menu summary without "creases" — unaffected. Verified: build, `astro
+check`, `lint:claims`, `lint:voice`, pa11y 24/24, Lighthouse 7 URLs x 3 runs.
+
+**The generalizable lesson, and a gap PROPOSED for the operator (not
+edited).** The hazard this round was neither the photo nor the copy alone: it
+was the two IN COMBINATION, and no gate can see either half. `lint:claims`
+cannot read the banner in `jeuveau-banner-studio.jpg`, and it could not have
+caught the drafted sentence either (verified — no pattern matches). The
+standing rule this produces, recorded for whoever edits this page next: **on
+/services/wrinkle-relaxers, any copy naming treatment areas must be read
+against that photo before it ships.** The pixel override and the page's text
+are one surface, not two.
+
+Which exposes a real asymmetry in the exception records, surfaced by the
+concurrent session reviewing this page's overrides: the two dosing-bullet
+pixel overrides (`amy-pixel8-cart`, 2026-08-21; `amy-epileve-window`,
+2026-08-21) each carry an explicit never-restate-in-text clause naming copy,
+alt, comments, meta, and JSON-LD — but the `jeuveau-banner-studio` entry
+(2026-08-18, claims bullet) records only that the banner vocabulary is
+legible. It has no such clause, and this round is precisely the case such a
+clause exists to prevent. **Recommendation to the operator: add the same
+never-restate clause to the jeuveau entry in CLAUDE.md constraint 3.** Not
+done here — governing-doc edits are operator-gated, and a peer session's
+agreement is not that authorization; this paragraph is the traceability
+bridge until the operator rules (the 2026-08-14 carousel-JS precedent). If he
+declines the amendment, this entry remains the only written form of the rule.
+
+**Addendum, same day — round 2: the body copy.** Client direction for three
+more strings on the same page, carried on the same PR so Amy reviews one
+preview rather than two (the 2026-08-15 split-preview lesson). (1) Under "Not
+just for women", "gendered" becomes "gender defined" — shipped unhyphenated
+exactly as dictated, per the house verbatim precedent (this page's own title
+carries a client hyphen the same way). The FAQ answer carried a near-verbatim
+echo of that sentence, and the operator chose to change BOTH: they are a
+matched pair — the FAQ answers the point the section makes — unlike the two
+"creases" of round 1, which he deliberately left divergent. Page now reads
+"gendered" nowhere. (2) In the same paragraph, "lines they'd rather soften"
+becomes "lines they'd rather not see". **Flagged once and shipped as
+directed:** "soften" is this page's label-mirroring verb (what the products
+are labeled to do), and "not see" leans toward absence on the one page
+carrying no duration hedge since 2026-07-30 — but it describes the client's
+WISH rather than the treatment's result, which is why it stands rather than
+becoming an override. It trips no pattern; nothing was added to the registry.
+(3) "Individualized, with Amy" takes her replacement paragraph, which drops
+"There is no standard plan here." and adds "Your trust is well placed when you
+walk through the doors!" — provider puffery, clean against every category, in
+the register of the client-verbatim /services intro.
+
+**The supervision clause: flagged, and KEPT at the operator's direction.** Her
+drafted paragraph omitted "under clinician supervision", so the research is
+recorded here because the question will recur. No gate requires the phrase:
+`lint-claims.mjs` carries exactly three inverse checks — investigational
+disclosure, Retatrutide, and Biote symptom vocabulary — and none touches
+supervision. BUILD_SPEC §7 does name it ("individualized under clinician
+supervision") but as a BEAT in the copy pattern, not a mandated string: only
+four of twelve pages carry the literal words, three carry no supervision
+language at all (hormone-optimization, iv-therapy, skincare), and the
+2026-08-22 peptide-therapy entry reasoned exactly this way when it cut
+`supervis-` from seven occurrences to one. Dropping it would therefore have
+been defensible and gate-clean; the operator chose to keep it, so the page
+holds at one occurrence. Recorded so a future session does not read the
+peptide precedent as licence to sweep the phrase off this page too.
+
+Round-2 consequences: no JSON-LD fan-out this time — only `title` and
+`summary` reach structured data via `[slug].astro`, and FAQPage JSON-LD is
+still deferred to Phase D, so body and FAQ prose render to HTML only. No
+registry change, no allowlist entry, no CLAUDE.md or BUILD_SPEC edit. The em
+dash in "Not just for women" is the paragraph's original one and the new
+paragraph adds none (2026-07-29 budget). `clinicianApproved` was already
+`false`, so nothing reset; flags stay 4 true / 8 false. Noted in passing, not
+a regression: MDX smart-quotes body prose (`aren’t`, U+2019) while frontmatter
+strings keep straight apostrophes, so this page renders both forms — true of
+every treatment page since C3, and unchanged by this round. Verified: build,
+`astro check`, `lint:claims`, `lint:voice`, pa11y 24/24, Lighthouse 7 URLs x 3
+runs.
+
+## 2026-08-24 — wrinkle-relaxers deck: the flag becomes an operator override (SUPERSEDES the 2026-08-23 "did NOT become an override" entry)
+
+**Read this entry alongside 2026-08-23 above.** That entry's heading is now
+stale by one day: the flag it records as resolved *without* an override was
+overridden here. Its analysis stands in full and is not repeated; only its
+outcome changed. DECISIONS is append-only, so the correction lives here.
+
+**Context:** Round 3 of the same client copy round on
+`/services/wrinkle-relaxers`, and the narrowest one — a single frontmatter
+field, `deck`, the blush statement card `TreatmentLayout` renders under the
+lead. The operator returned to the wording flagged on 2026-08-23, restored it,
+and extended it to say where the areas sit. The deck now reads:
+
+> A light, deliberate hand for those lines repeated expressions leave behind.
+> Wave good-bye to your crow's feet, "11's" between your eyes and forehead
+> frown lines!
+
+**The flag was raised once, on 2026-08-23, and is not re-argued** (CLAUDE.md:
+flag once, then execute cleanly). Everything in that entry applies unchanged:
+a named result promised on named areas in the second person, where every prior
+outcome-promise override covered a product *description*; on the one treatment
+page carrying no duration hedge since 2026-07-30.
+
+**What is new, and was reported before building.** The combination hazard
+recorded on 2026-08-23 as a risk is now realised. The band photo on this page,
+`jeuveau-banner-studio.jpg`, ships under a pixel-level override (2026-08-18)
+whose stated premise is that the banner's marketing headline is legible *but
+the site's own copy never says it*. The banner reads "KISS YOUR 11s GOODBYE".
+The deck now reads "Wave good-bye to your ... '11's'" roughly a screen above
+it. That is a near-paraphrase of photographed third-party marketing, adopted
+as first-party copy, on the same page — which removes the one premise the
+2026-08-18 override rested on. Round 2's rewrite kept the area name and
+dropped the claim, so the echo was vocabulary only; this restores the claim.
+The operator was shown this, in these terms, and directed the change anyway.
+
+**Decision (operator override, 2026-08-24):** ship the client's wording
+verbatim. Scope is exact and does not travel: **this string, in the `deck`
+field, on `/services/wrinkle-relaxers`, and nowhere else.** The vocabulary is
+never restated in body copy, FAQ answers, alt text, meta descriptions, OG
+tags, JSON-LD, or source comments. Widening any of that requires the human
+operator. Verified in the built output: one occurrence, on one page, absent
+from `<meta>` and from every JSON-LD block (only `title` and `summary` fan out
+to structured data via `[slug].astro`).
+
+**Registry consequence — the same negative result as 2026-08-23, now pointing
+the other way.** Re-verified first-hand against all six categories in
+`compliance/banned-patterns.json`: **the sentence trips no pattern**, and
+`npm run lint:claims` passes (self-test: 6 categories). So there is **no
+`allowedStrings` entry** — nothing to allow, because nothing is caught. The
+authorization for this text lives in this decision record and nowhere else,
+the same shape as the EvolusLaurel ranking sentences (2026-08-19), which are
+authorized here rather than in the registry for exactly this reason. A future
+session must not infer from a green linter that this wording is
+self-authorizing, and must not read the 2026-08-23 entry's "no override"
+finding as current.
+
+**CLAUDE.md consequence — APPLIED same day, operator-authorized.** Constraint 3's
+outcome-promise exception list enumerates every scoped override of this rule;
+this one belongs on it and is not there, because governing-doc edits are the
+operator's alone. Recommended sentence, for the operator to place or decline:
+
+> *And the exact `deck` sentence "Wave good-bye to your crow's feet, "11's"
+> between your eyes and forehead frown lines!" on /services/wrinkle-relaxers
+> only (operator override after the compliance flag — DECISIONS 2026-08-23 and
+> 2026-08-24; the compliant rewrite was shipped 2026-08-23 and reversed
+> 2026-08-24). It contains no token lint:claims can see, which is why the
+> authorization is recorded in DECISIONS rather than `allowedStrings`. The
+> wording is exact and the page scope fixed; the vocabulary is never restated
+> in copy, alt, comments, meta, OG, or JSON-LD.*
+
+Still open from 2026-08-23 and now more pointed: the same photo's 2026-08-18
+override lacks the never-restate-in-text clause that `amy-pixel8-cart` and
+`amy-epileve-window` both carry. Had it carried one, this change would have
+contradicted it in writing rather than only in premise.
+
+**Verbatim handling.** "good-bye" keeps the client's hyphenation and the area
+list keeps her punctuation, un-comma'd, under the house verbatim precedent
+(the page `title` carries a client hyphen the same way). The value stays on
+ONE source line with the inner quotes backslash-escaped — folding a
+double-quoted YAML scalar would alter the text. The double space she typed
+after the first sentence collapses in HTML and is written as one.
+
+**Approval.** `clinicianApproved` was already `false` (since 2026-08-18);
+nothing to reset. Amy reviews this text with the rest of the round; the
+sign-off row is extended.
+
+**Addendum, same day — the CLAUDE.md exception was applied.** The operator
+authorized the constraint-3 edit and it is in this PR: the outcome-promise
+exception list gains the deck sentence, placed last, immediately before its
+"Nothing else; extending any of these requires the human operator" close.
+Three deliberate departures from the sentence drafted above, all recorded so
+the difference is not read as drift:
+
+1. **The string is enclosed in backticks, not quotes.** Every other entry on
+   that list quotes its exact string with double quotes; this one contains
+   double quotes, so nesting them would have made the boundaries of the
+   authorized text ambiguous — which is the one thing an exactness clause
+   cannot afford. Code formatting fixes that without changing a character.
+2. **The never-restate clause was corrected.** The draft said the vocabulary
+   is "never restated in copy" — self-contradictory, because the deck *is*
+   copy. Shipped wording: never restated anywhere else — body copy, FAQ
+   answers, alt text, comments, meta descriptions, OG tags, or JSON-LD.
+3. **A coupling note was added** pointing whoever edits either half at the
+   band photo's 2026-08-18 pixel override, since the banner headline this
+   sentence paraphrases is legible in the served file. It is a pointer, not a
+   new authorization: it changes nothing about what either override permits.
+
+Note what this edit does **not** do. It does not add the never-restate-in-text
+clause to the `jeuveau-banner-studio.jpg` pixel override itself — that override
+is still the only one of the three lacking the clause `amy-pixel8-cart` and
+`amy-epileve-window` both carry. The operator authorized the outcome-promise
+sentence, and that is what was written. The gap stays open and stays theirs.
+
+`compliance/banned-patterns.json` is untouched, and `lint:claims` is green
+after the edit — expected, since the linter scans `src/` and CLAUDE.md is not
+in it. Nothing about the gate changed.
+
+**Addendum, same day — the documentation sweep before merge.** The operator
+authorized updating whatever documentation the round required. What was found
+stale, and what was done:
+
+- **BUILD_SPEC §8.3** — the outcome-promise rule carries an exception list
+  parallel to CLAUDE.md constraint 3, and it did not have this override. Added,
+  with the note that no prior entry on that list covers it: the two film
+  exceptions carry the manufacturer's or Amy's own published content, and the
+  photo-pairs exception is imagery. This is the list's first exception for
+  first-party marketing prose.
+- **`compliance/README.md` — a factual correction.** Its media-blindness
+  section described the three 2026-08-18 pixel overrides as covering "text the
+  site's own copy could not say." That is now false for the wrinkle-relaxers
+  frame and the sentence was corrected in place, with a caveat paragraph
+  stating the general lesson: **a pixel override's premise can expire**, and a
+  premise about what the copy says is a constraint on the copy that nothing
+  enforces. Whoever edits copy on such a page must read the premise, not the
+  verdict.
+- **`compliance/README.md` — a new section, "Authorizations the registry does
+  not hold."** The sharper gap this round exposed. A reader who audits
+  `allowedStrings` to learn what ships under override will under-report,
+  because text that is non-compliant on the merits but matches no pattern never
+  reaches the allowlist — the linter is already green on it. That class now has
+  two members (the EvolusLaurel ranking sentences, and this deck sentence) and
+  had no home in the tooling docs. Stated plainly there: a green `lint:claims`
+  is not evidence a string is authorized, and an empty `allowedStrings` search
+  is not evidence it is unauthorized.
+- **`docs/RUNBOOK.md`** — both lessons condensed into step 1 of "Everyday
+  changes", which is the procedure people actually follow, with pointers rather
+  than a restatement.
+- **`docs/REDESIGN.md`** — a tracker row for the copy round, all three passes,
+  carrying the override, the empty-registry consequence, and the retired
+  premise.
+
+**Deliberately not touched.** `docs/PHASE-C.md`, which declares itself the
+closed historical Phase C record and routes post-launch work to REDESIGN —
+adding to it would contradict its own header. `docs/RELAUNCH.md`, whose copy
+precondition is `check:approvals`, unaffected. `compliance/banned-patterns.json`,
+untouched all round: nothing was allowlisted, nothing loosened, and the list
+still only ever grows.
+
+**What is still not done, and is still the operator's:** the
+`jeuveau-banner-studio.jpg` pixel override in CLAUDE.md gains no
+never-restate-in-text clause here. The documentation now says in four places
+that the clause is missing and why it matters, which is the most a session can
+do without authorization to write it.
+
+## 2026-08-24 — VisitSteps step 2: a one-sentence change that was not where it appeared to be
+
+**Context:** Client copy direction (via the operator) for the closing sentence
+of "Personalized plan", the second step of "Your visit, step by step". From
+"Together you decide what, if anything, comes next." to **"Together with Amy,
+you decide what comes next."**
+
+**The finding that changed the task.** The sentence was pointed at on
+`/services/wrinkle-relaxers`, where it does render — but it is not in that
+page's MDX. It lives in `src/components/VisitSteps.astro`, which
+`TreatmentLayout` renders on **all twelve treatment pages** plus the
+styleguide. A single grep confirmed one copy in the repo, no spec, no test, no
+snapshot. What read as a thirteenth edit to one page was a sitewide copy
+change, and it was surfaced as such before any edit. Recording it because the
+failure mode generalises: **on this site, a sentence a page displays is not
+necessarily a sentence that page owns.** Four of the twelve pages it now
+changes are clinician-approved.
+
+**Three operator answers, all taken before building:**
+
+1. **Sitewide.** The alternative — a page-scoped override — needs a prop on
+   `VisitSteps`, a pass-through in `TreatmentLayout`, and a `content.config.ts`
+   field: more machinery than the sentence, and this file already rejected a
+   comparable page-scoped variant (2026-08-21) as visibly inconsistent between
+   treatment pages a visitor may compare.
+2. **The wording ships exactly as dictated**, hedge dropped.
+3. **The four approved flags stay `true`.**
+
+**The flag, and why it did NOT become an override.** Dropping "if anything"
+removes the only note in the four-step sequence that allows for *no* treatment
+— steps 3 and 4 are "Treatment visit" and "Aftercare guidance", so the list
+otherwise reads end-to-end as a treatment path. That hedge was doing real work.
+But this is drift, not a rule break: BUILD_SPEC §8.7 requires suitability to
+route to a consultation, and the new sentence names Amy as co-decider, so the
+routing survives intact. The component's header comment — "routes decisions to
+the consultation" — remains accurate and was left alone. Verified against all
+six categories: **the sentence trips no pattern**, and `lint:voice` is clean
+(no first-person plural; no standalone "us"). So, like 2026-08-23 and unlike
+the deck the same week: **no override, no `allowedStrings` entry, no CLAUDE.md
+or BUILD_SPEC amendment.** `compliance/banned-patterns.json` is untouched. A
+future session must not read this entry as authorizing anything.
+
+Two consequences worth recording. Naming Amy is a small *gain* — the outgoing
+sentence's bare "Together" never said with whom. And the idiom is not retired
+sitewide: `dermal-fillers.mdx` still carries "what, if anything, to place",
+verified still rendering after this change; only this instance moved.
+
+**Approval handling.** `check:approvals` reads only
+`src/content/treatments/*.mdx` frontmatter, so a component edit resets nothing
+mechanically — the gate cannot see this change at all. The operator chose to
+leave the flags, consistent with 2026-08-21 ("one shared change, zero MDX edits
+elsewhere, zero flag resets"). Flags stay **4 true / 8 false** and relaunch
+precondition 2 is unaffected. The gap this leaves is real and is closed by
+documentation rather than by the gate: CLINICIAN-SIGN-OFF now carries the new
+step text as a cross-cutting item, so Amy reviews words that changed on four
+pages she has already signed off.
+
+**Verification.** `npm run verify` green. The new sentence renders exactly once
+on each of the twelve treatment pages and the styleguide (13/13); the outgoing
+string returns zero across all of them.
+
+**Addendum, same day — the rest of the batch (steps 3, two FAQ answers, and
+the layout).** Four further client copy directions, batched at the operator's
+choice so Amy reviews one preview rather than five, each committed separately
+to keep the audit trail one-change-per-commit.
+
+1. **VisitSteps step 3** — "Confidently book your appointment when you are
+   ready." (adverb added; second sentence unchanged). Sitewide, like step 2.
+2. **wrinkle-relaxers FAQ, "Do men get neurotoxin treatments?"** — "Yes.
+   Expression lines are not gender based…" The body copy under "Not just for
+   women" was **deliberately left** at "aren't gender defined": the operator
+   was shown the resulting mismatch and chose the FAQ alone, reversing the
+   matched-pair call made for this same wording on 2026-08-23. The page now
+   states the idea two ways on purpose. A future session must not sync them.
+   "gendered" remains absent, which was the point of the earlier change.
+3. **wrinkle-relaxers FAQ, "Do I need a consultation before booking?"** — "No.
+   A consultation is never required; however, one is free upon request." Drops
+   "Book directly, or ask to talk it through first." Small consistency gain:
+   "free upon request" now matches TrustChips' operator-confirmed "Free
+   consultation upon request" (2026-07-29) exactly.
+4. **`TreatmentLayout`** — the pricing line deleted, the consult router
+   reworded. See below; this is the one with consequences.
+
+**The layout change, and why it is compliant.** After it, the consult router
+card carries no form of the word "consultation": the heading is "The right fit
+is just a conversation away.", the subline is "Every plan is personal, decided
+between you and Amy.", and `CTAButton variant="consult"` has read "Book with
+Amy" since 2026-07-21. The deleted pricing line was the card's other
+consultation mention. That reads alarming and is not: **BUILD_SPEC §8.7 routing
+is carried by `DisclaimerBlock`**, which renders immediately below the router
+card, states that whether a treatment fits your needs is decided with Amy
+during a consultation, is layout-injected, and cannot be opted out of
+(CLAUDE.md constraint 3). Verified in the built output on all twelve pages.
+The router card is marketing microcopy sitting above the gate, not the gate.
+This is recorded because the analysis is non-obvious and someone will re-derive
+it: a comment in the layout now states it, and warns against "aligning"
+`DisclaimerBlock` to the card's new tone. **Weakening that component is the one
+thing this change must never license.**
+
+**`pricingDisplay` is now inert.** No enum value renders anything, so `none`,
+`consult` and `startingAt` are indistinguishable on the page; ten of the twelve
+content files set `consult`. The field, its schema enum, the `Props` entry and
+the `[slug].astro` pass-through were all **left in place** so restoring the
+line is a one-line change — removing them is a schema change across twelve
+content files and is the operator's call, not a cleanup to do unasked. The
+now-unused destructure was dropped because it introduced a `ts(6133)` warning
+that had not been there; `astro check` is back to 0/0/0. The layout's
+documented compliance order no longer lists a pricing step, because it no
+longer renders one. Consumer note, not a rule: ten pages show product prices
+and the caveat that pricing is individual is now gone from all of them.
+
+**The cumulative observation, closed.** Flagged once at step 3 and not
+re-argued since: across today's edits the treatment pages moved consistently in
+one direction — step 2 lost the hedge allowing for no treatment, step 3 gained
+"Confidently", the consultation FAQ lost its talk-first invitation, and the
+router card lost the word "consultation" entirely. **Every one of these is
+individually compliant and none trips a pattern**, and the §8.7 gate is intact
+in `DisclaimerBlock` on all twelve pages. The direction is the client's to set
+and the operator confirmed each step. It is recorded here as a trend line
+rather than a defect, so that the *next* trim to consultation or optionality
+language is evaluated against where the pages now stand and not against where
+they stood this morning.
+
+**Registry and governing docs: untouched, all four changes.** No
+`allowedStrings` entry, no CLAUDE.md or BUILD_SPEC amendment, no pattern added
+or loosened. `npm run verify` green.
+
+**Addendum, same day — one-word correction to the router subline.** The
+subline shipped in this batch as "Every plan is personal, decided between you
+and Amy." and was corrected at the client's direction to "Every plan is
+**personalized**, decided between you and Amy." before merge, so nothing but
+the preview ever carried the first wording. Same scope — the layout, all twelve
+pages. It trips no pattern and needs no allowlist entry. Small side effect
+worth noting: the subline now echoes the "Personalized plan" step title above
+it, which reads as deliberate rather than repetitive. The paragraphs above are
+left as written, per this file being append-only; `docs/CHANGELOG.md` and
+`docs/CLINICIAN-SIGN-OFF.md` were corrected in place instead, the latter
+because Amy reviews from it and must see the current text.
 ## 2026-08-24 — the relaunch guard could never report, so every PR into `main` was blocked
 
 **Context:** Restoring the Xtend-AI credit to the production placeholder

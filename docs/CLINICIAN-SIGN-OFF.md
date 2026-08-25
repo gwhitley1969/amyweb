@@ -93,6 +93,40 @@ text ("two clients") vs its one-client 4:5 window — an MDX edit, so
 it ships inside the flag-resetting re-approval round (DECISIONS
 2026-08-17).
 
+**Copy change on every treatment page, 2026-08-24 — read this even for
+pages already approved.** The second step of "Your visit, step by step"
+now closes **"Together with Amy, you decide what comes next."** It
+replaces "Together you decide what, if anything, comes next." The
+sentence lives in a shared component, so the same words changed on all
+twelve treatment pages — including the four already flipped
+(hormone-optimization, iv-therapy, regenerative, skincare). Those flags
+were deliberately left `true` at the operator's direction, and
+`check:approvals` cannot see a component edit, so nothing blocks
+production and nothing prompts a re-review: **this note is the only
+thing that puts the new words in front of Amy.** What changed in
+substance is that the step no longer says the answer might be no
+treatment — the wording is the client's own, flagged once and shipped
+as directed (DECISIONS 2026-08-24). Steps 1 and 4 are untouched.
+
+**Same day, four more changes across every treatment page.** Step 3 of
+the same list now opens "**Confidently** book your appointment when you
+are ready." And below the FAQ, the consult router card was reworded and
+its pricing line removed: the heading is now "The right fit is just a
+conversation away.", the subline "Every plan is personalized, decided
+between you and Amy.", and the sentence "Pricing is individual and
+discussed during your consultation." is gone from all twelve pages —
+ten of which list product prices. **What did NOT change, and is the
+thing to confirm on the preview:** the medical disclaimer directly
+beneath that card still says whether a treatment fits your needs is
+decided with Amy during a consultation. It is layout-injected on every
+page and was verified present on all twelve. Two further edits are
+wrinkle-relaxers only: "Do men get neurotoxin treatments?" now answers
+"are not gender based" (the body copy above it deliberately keeps its
+own wording), and "Do I need a consultation before booking?" now
+answers "No. A consultation is never required; however, one is free
+upon request." All client wording, all shipped as directed
+(DECISIONS 2026-08-24).
+
 **Who:** Amy Palacios, FNP, reviews; the operator logs and flips.
 **Where:** the stable preview — always the current `phase-c` build:
 <https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net>
@@ -124,7 +158,7 @@ is also not flag-gated and has its own review section below the table.
 
 | ✓ | Page (stable-preview link) | What to look at hardest |
 |---|---|---|
-| ☐ | [/services/wrinkle-relaxers](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/wrinkle-relaxers) | Jeuveau / Xeomin / Daxxify cards with per-unit prices ($10, $10, $12); **NEW: all three photos are her 2026-08-18 picks** (blazer brow appointment under the neon; the hand-mirror male-client frame; the Jeuveau-banner studio scene as a wide segmental arch — the full frame, everyone visible, per her feedback; banner legibility shipped under her override). **NEW 2026-08-19: the Evolus Laurel ranking plaque** between the deck and the product cards — "The Top Evolus Injector in Charlotte." + "And among the Top 50 in the United States." (her direction; operator-verified with Evolus; wording pinned, DECISIONS 2026-08-19). **Also 2026-08-19: the page title is now "Neurotoxins - Wrinkle Relaxers"** (her wording, matching the /services menu line; H1 + breadcrumbs + JSON-LD; seo.title keeps the search phrasing), **and the page now says "neurotoxin" throughout** — card leads, both FAQ strings, body intro (her wording, 2026-08-19; zero "neuromodulator" remains on this page). (The Evolus ICON film and the "Charlotte's #1 Evolus provider" sentence moved to /about at her direction, 2026-08-18 — review them there, in the structural-page pass.) |
+| ☐ | [/services/wrinkle-relaxers](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/wrinkle-relaxers) | Jeuveau / Xeomin / Daxxify cards with per-unit prices ($10, $10, $12); **NEW: all three photos are her 2026-08-18 picks** (blazer brow appointment under the neon; the hand-mirror male-client frame; the Jeuveau-banner studio scene as a wide segmental arch — the full frame, everyone visible, per her feedback; banner legibility shipped under her override). **NEW 2026-08-19: the Evolus Laurel ranking plaque** between the deck and the product cards — "The Top Evolus Injector in Charlotte." + "And among the Top 50 in the United States." (her direction; operator-verified with Evolus; wording pinned, DECISIONS 2026-08-19). **Also 2026-08-19: the page title is now "Neurotoxins - Wrinkle Relaxers"** (her wording, matching the /services menu line; H1 + breadcrumbs + JSON-LD; seo.title keeps the search phrasing), **and the page now says "neurotoxin" throughout** — card leads, both FAQ strings, body intro (her wording, 2026-08-19; zero "neuromodulator" remains on this page). **NEW 2026-08-23: the two blocks that open the page.** The lead under the H1 now ends "…the ones that come from repeated expression" (it said "creases"). **The deck card below it was changed twice — review only what is on the preview now (2026-08-24):** "A light, deliberate hand for those lines repeated expressions leave behind. Wave good-bye to your crow's feet, "11's" between your eyes and forehead frown lines!" That is her own wording, restored verbatim after a compliant rewrite shipped on 2026-08-23 and was reversed the next day at her direction. Two things to look at together: the closing half promises the reader a result, and the Jeuveau banner in the photo further down the page says "KISS YOUR 11s GOODBYE" — the deck now echoes it (DECISIONS 2026-08-23 and 2026-08-24). **Also 2026-08-23, round 2 — three body strings.** "Not just for women" now reads "Expression lines aren't gender defined…" (and the FAQ answer matches — the word "gendered" is gone from the page) and its second sentence ends "lines they'd rather not see" (was "rather soften" — flagged as leaning toward absence, shipped as her wording). "Individualized, with Amy" is her new paragraph, closing "Your trust is well placed when you walk through the doors!"; it keeps "under clinician supervision" at the operator's direction after her draft omitted it. (The Evolus ICON film and the "Charlotte's #1 Evolus provider" sentence moved to /about at her direction, 2026-08-18 — review them there, in the structural-page pass.) |
 | ☐ | [/services/dermal-fillers](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/dermal-fillers) | Evolysse / Revanesse cards ($650 or $325 half-syringe); the lip style guide; the Evolus Laurel ranking plaque (replacing the #1-provider plate in the same spot, 2026-08-21); three photos — the hand-mirror client frame, the Revanesse Lips+ mirror frame, and the lip-injection detail beside "Lips, styled" (her picks 14/15 + 8K0A9591, 2026-08-21). The Evolysse film no longer renders. (Amy approved this page on 2026-07-21 and again at launch 2026-08-05; the 2026-08-21 film removal + photo round reset the flag — this is her re-confirmation.) |
 | ☐ | [/services/biostimulators](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/biostimulators) | Radiesse $900/syringe; PDO threads $350 for 10. **NEW 2026-08-21: her two reels replace the studio portrait** — the Radiesse-visit film beside "A longer view of structure" (shipped as-is under her/the operator's overrides: the before/after cut, the unit-labeled carton, another provider on frame for ~2s; client release + consent on file) and her Instagram reel beside "Individualized, with Amy" (480p, shipped as final). Both autoplay MUTED as she scrolls to them and loop while on screen — tap the speaker for sound, tap to pause (2026-08-21 review round: no printed caption under either film); captions are `[Music]` cues. The page now has no photographs. **Re-approval required — the MDX edit reset the flag** (DECISIONS 2026-08-21). |
 | ☐ | [/services/regenerative](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/regenerative) | PRP $600; PRP with microneedling $900; PRP photo |

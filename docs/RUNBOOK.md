@@ -54,6 +54,15 @@ design: `allowedForwardedHosts` only admits the real hostnames.
    **clinician-approval gate**, deploys, and purges the Front Door cache.
    Live in ~5–10 minutes end to end.
 
+**After every merge into `phase-c`, refresh the standing previews.** Pushes to
+`phase-c` deploy nowhere (see "Where `phase-c` is visible"), and GitHub does not
+re-run a PR's workflows when its base branch moves — so a preview PR keeps
+serving whatever it last built, indefinitely. Refresh each open preview PR by
+merging `phase-c` into its branch and pushing: the standing client demo (**#97**)
+and whatever review-scaffolding PR is open at the time. Skipping this is how
+both previews came to be six commits stale on 2026-08-25, showing the client a
+`/services` intro that had already been rewritten at her own direction.
+
 **Hotfixing production during the takedown era.** What `needlegirlie.com`
 serves today is the construction placeholder on `main`, not the site — a fix
 to it is a PR into `main`, branched from `main`, never from `phase-c`. It runs

@@ -6,6 +6,22 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-25 — Skincare: the products-and-cards frame replaces the shelf photo
+
+- /services/skincare — the shelf photo beside "Individualized, with Amy"
+  gives way to 28.jpg: the Skinbetter Science line-up standing above a
+  spread of Amy's business cards (photo round page 9). Committed as a
+  baked 4:5 crop (854×1067 window at x=480) so the landscape frame meets
+  the retina rule through the arch window; no 4:5 window holds all seven
+  products, so the outer two crop out (the full-frame segmental option
+  was offered and declined). Two capped syringes among the cards ship
+  as-is at the operator's word — a screening-note acceptance, not an
+  override (DECISIONS 2026-08-25). `skinbetter-shelf.jpg` deleted (no
+  other consumer).
+- `clinicianApproved` reset on skincare (approved content edited —
+  constraint 4); Amy re-reviews on the preview. Flags now read
+  3 true / 9 false.
+
 ### 2026-08-24 — Treatment pages: step 3, two FAQ answers, and the consult router
 
 - **"Your visit, step by step", step 3** now reads "**Confidently** book your

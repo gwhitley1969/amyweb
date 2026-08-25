@@ -5924,3 +5924,63 @@ reordering steps in one job.
 revert), so this introduces no new class of divergence, and the two-step
 relaunch brings `phase-c`'s copy across. Placeholder PRs into `main` keep the
 old ordering; they spend ~24s in Lighthouse, so there is little to reclaim.
+
+## 2026-08-25 — skincare: photo round page 9 — 28.jpg replaces the shelf photo (baked 4:5 crop)
+
+**Context:** Operator direction (2026-08-25): on /services/skincare, the
+photo to the right of "Individualized, with Amy" (`skinbetter-shelf.jpg`,
+from 8K0A9922, committed 2026-07-23) is replaced by
+`C:\Amy\New Pics\28.jpg`. Photo round page 9 — the round's first page
+since laser-treatments (2026-08-21).
+
+**Screening (RUNBOOK "Replacing site photography", full resolution —
+astro:assets serves the source-resolution derivative as the `<img src>`):**
+1600×1067 landscape, 405KB, SHA-256 `7ABBEDAB…7490` — hash-unique against
+`src/assets/photos/`. Seven Skinbetter Science products on a white table
+(sunbetter SPF, Trio, Refining Foam Cleanser, InterFuse EYE, Mystro, Alto
+Advanced, AlphaRet) above a spread of Amy's own business cards (her
+headshot; "Palacios" / "Nurse" / phone fragment "…7108" legible — her own
+marketing, sole-owner precedent). Product labels and fl oz/mL sizes are
+manufacturer trade dress as sold (the skinbetter-lineup precedent on this
+same page; pack sizes are package contents, not dosing). No clients, no
+other providers — no release needed. **Flag raised once: two small capped
+syringes lie among the cards** — soft focus, unlabeled, no vials, no prep
+tray; the injectable-ambiguity class on a topical/shop page (the
+2026-07-20 weight-loss rejection class), and they sit inside every
+possible crop. **Operator decision: SHIP AS-IS** — recorded as a
+screening-note acceptance, NOT a constraint-3 override (no dosing or
+claims content in frame).
+
+**Decision — the crop is baked, and why.** The media-row arch is a 4:5
+display window; from a landscape source the house CSS anchor knob would
+serve full-frame derivatives whose window region under-delivers — the
+680w tier puts ~363 device px across the 576px DPR2 window (0.63×, below
+the redesign retina hard rule). The "prefer the CSS knob" precedent
+(dermal-fillers, 2026-08-21) covered portrait sources, where the knob has
+no retina cost. So the asset is a server-side extract from the master:
+sharp `.extract({ left: 480, top: 0, width: 854, height: 1067 })`, JPEG
+q92, single generation → `skinbetter-over-cards.jpg` (content-named). The
+x=480 offset was chosen from three rendered candidates (440/480/520): 440
+truncates AlphaRet's label mid-word, 520 leaves half-words on Trio's; 480
+keeps five complete labels with both edge bottles cut cleanly. The baked
+window matches the layout's `aspect-ratio: 4/5` exactly, so `object-fit`
+is inert (the prp-treatment pattern); tiers `[340, 540, 680]` unchanged
+(854 ≥ 680 — no upscale). Geometry accepted with the pick: the products
+span ~1090px and the window holds 854, so no 4:5 crop keeps all seven —
+the outer two (sunbetter, AlphaRet) crop out; the full-frame segmental
+alternative was offered and declined (operator, 2026-08-25).
+
+**Alternatives rejected:** the CSS anchor knob on the full frame (the
+retina math above); the full frame in a row-scale segmental arch
+(offered, declined — a short, wide arch beside the copy, unlike every
+other row); a blur-fill 4:5 contain composite (a 3:2 frame in a portrait
+canvas is ~47% bars).
+
+**Consequences:** `skinbetter-shelf.jpg` had no other consumer and is
+deleted (git history keeps it; its remaining mentions are historical
+docs). `clinicianApproved` true → false in the content commit
+(constraint 4) — flags now read **3 true / 9 false**; Amy re-reviews on
+the PR preview and the flag returns in the consolidated pre-relaunch
+round. Alt text rewritten factually (products above the card spread; no
+product count, since the crop trims two). The master stays in
+C:\Amy\New Pics, never committed.

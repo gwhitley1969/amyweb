@@ -4,9 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
+import TreatmentVideo from '../components/TreatmentVideo.astro';
 import { siteConfig } from '../lib/siteConfig';
 import { service } from '../lib/schema';
-import amyPortrait from '../assets/photos/amy-palacios-fnp.jpg';
+import amyEvolysseCart from '../assets/photos/amy-evolysse-cart.jpg';
+import trainingReelPoster from '../assets/photos/training-reel-poster.jpg';
 
 /**
  * /injector-training — Private Injector Training (added 2026-08-04 at the
@@ -33,9 +35,27 @@ import amyPortrait from '../assets/photos/amy-palacios-fnp.jpg';
  * - Contact is phone/Instagram. Not "Book with Amy" (reserved for
  *   Vagaro buttons), not "appointment" (client booking), not
  *   "consultation" (clinical routing) — training is none of those.
- * - The portrait reuses the committed grey-seamless frame (operator
- *   decision 2026-08-04); a dedicated Amy-solo training photo is the
- *   recorded upgrade path.
+ * - The portrait is the dedicated training photo the 2026-08-04 entry
+ *   recorded as the upgrade path, taken 2026-08-25 (DECISIONS same
+ *   date): amy-evolysse-cart.jpg ships under its own pixel-level
+ *   claims override — a Jeuveau banner's marketing text and partial
+ *   safety fine print are legible in the served file. No phrase or
+ *   value from that banner is ever restated in this file's text:
+ *   copy, alt, comments, meta, JSON-LD. Frame and page scope are
+ *   fixed; changing either requires the human operator.
+ * - The training reel (training-reel, Amy's own film, 2026-08-25 —
+ *   DECISIONS same date) is carried as-is under operator override:
+ *   its burned-in course cards restate this page's card copy as
+ *   pixels (including the allowlisted topic vocabulary, which is why
+ *   the label and captions below describe only what the pixels
+ *   self-identify and never quote it), and its closing card displays
+ *   Amy's practice-site URL on screen (constraint-2 fifth exception,
+ *   display-only — never render it as a link or print it in copy).
+ *   All on-camera releases are confirmed on the operator's record.
+ *   Autoplay is in-class (Amy's own speech-free film): muted
+ *   loop-in-view, native controls as pause and tap-for-sound,
+ *   reduced motion = click-to-play. The caption file carries
+ *   [Music] cues only — deliberately no on-screen-text cues.
  */
 
 const pageTitle =
@@ -95,8 +115,8 @@ const jsonLd = [
       </div>
       <figure class="training-portrait ng-arch">
         <Image
-          src={amyPortrait}
-          alt="Amy Palacios, FNP, in her embroidered scrubs."
+          src={amyEvolysseCart}
+          alt="Amy Palacios, FNP, holding Evolysse cartons at her studio cart."
           widths={[480, 760, 1067]}
           sizes="(min-width: 768px) 40vw, 90vw"
           loading="eager"
@@ -114,6 +134,22 @@ const jsonLd = [
     <h2 class="heading-2 mt-6" id="courses-title">
       Four courses, taught one-on-one.
     </h2>
+    {/* Amy's training reel — carried as-is under the 2026-08-25
+      * operator override recorded in the header comment and
+      * DECISIONS. autoplay="inview" is in-class (her own speech-free
+      * film): muted loop while on screen, native controls as pause
+      * and tap-for-sound, reduced motion = click-to-play. The 24rem
+      * cap keeps the 9:16 frame at reel scale; the 810px rendition
+      * covers 2x retina at that width. */}
+    <div class="mx-auto max-w-sm">
+      <TreatmentVideo
+        src="/media/training-reel.mp4"
+        poster={trainingReelPoster}
+        captionsSrc="/media/training-reel.vtt"
+        label="Private Injector Training at the Harrisburg studio, from Amy's own reel"
+        autoplay="inview"
+      />
+    </div>
     <ul role="list" class="mt-8 grid gap-4 sm:grid-cols-2">
       <li class="course-card">
         <h3 class="course-name">Neurotoxin Training</h3>

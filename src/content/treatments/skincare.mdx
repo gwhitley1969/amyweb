@@ -42,14 +42,22 @@ seo:
 
 import { Image } from 'astro:assets';
 import StorefrontCallout from '../../components/StorefrontCallout.astro';
-import skinbetterLineup from '../../assets/photos/skinbetter-lineup.jpg';
+import amyHoldingSkinbetter from '../../assets/photos/amy-holding-skinbetter.jpg';
 import skinbetterOverCards from '../../assets/photos/skinbetter-over-cards.jpg';
 
 <section class="media-row">
+  {/* Photo adjusted 2026-08-25 (operator direction; DECISIONS same date):
+      the outgoing frame cut Amy's head at the neck — this one, 27.jpg from
+      the same shoot, keeps her chin in frame. Baked 4:5 crop (1108x1385
+      window at x=246 from the 1600x1385 master, which stays outside the
+      repo) chosen to keep both franchises the copy names — sunbetter whole,
+      AlphaRet readable at the edge. Amy alone in frame (operator-identified)
+      — no release needed; product labels are manufacturer trade dress as
+      sold. */}
   <figure class="media-figure">
     <Image
-      src={skinbetterLineup}
-      alt="A handful of Skinbetter Science products held out toward the camera in the Harrisburg studio."
+      src={amyHoldingSkinbetter}
+      alt="Amy holding six Skinbetter Science products out toward the camera."
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />

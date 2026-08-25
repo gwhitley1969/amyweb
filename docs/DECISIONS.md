@@ -5984,3 +5984,89 @@ the PR preview and the flag returns in the consolidated pre-relaunch
 round. Alt text rewritten factually (products above the card spread; no
 product count, since the crop trims two). The master stays in
 C:\Amy\New Pics, never committed.
+
+**Addendum, same day — the first photo too: Amy's chin returns to
+frame.** Operator direction after PR #150 merged (the second slot) but
+before the standing previews were refreshed: the page's FIRST photo,
+beside "What it is" (`skinbetter-lineup.jpg`, committed 2026-07-23),
+cuts Amy's head off at the neck — replace it with
+`C:\Amy\New Pics\27.jpg`, the same held-out-line-up scene from the same
+shoot with **her chin visible at the top of the frame**. Screened:
+1600×1385 landscape, 513KB, hash-unique; Amy alone (the operator's
+direction identifies her — chin, blonde hair, the pink blazer of the
+2026-08-18 blazer frame), so no release; six product labels are
+manufacturer trade dress as sold (sunbetter's SPF/water-resistance
+lines included — label text, the standing precedent); the soft pink
+blur at her shoulder is illegible and benign. Same mechanics as the
+morning's swap: baked 4:5 crop (sharp
+`.extract({ left: 246, top: 0, width: 1108, height: 1385 })`, JPEG q92,
+single generation) → `amy-holding-skinbetter.jpg`; tiers
+`[340, 540, 680]` unchanged (1108 ≥ 680). x=246 chosen from three
+rendered candidates (180/246/320) on a criterion the page itself
+supplies: the copy names sunbetter and AlphaRet as the line's example
+franchises, and 246 is the window that keeps the chin centered,
+sunbetter whole, and AlphaRet readable at the edge (180 loses AlphaRet
+entirely; 320 cuts sunbetter's label and strands a floating Mystro cap
+fragment). Alt names Amy for the first time on this page — the
+operator's identification is the record. `skinbetter-lineup.jpg` had no
+other consumer (the 2026-08-17 door round left it only here) and is
+deleted. `clinicianApproved` was already false (this morning's reset) —
+unchanged; Amy reviews both new photos on one preview (the 2026-08-15
+combined-review lesson).
+
+## 2026-08-25 — the storefront QR: Amy's registration handoff joins the Skinbetter callout
+
+**Context:** Operator direction, same day: place the QR code Amy uses on
+the website. The source shown (`IMG_0001.jpg`, repo root — untracked,
+covered by the root image guard) is a scan of her Skinbetter counter
+card; its QR decoded (scratchpad zxing-wasm — jsQR could not read the
+photocopy) to `skinbetter.pro//MobileAesthetics?k=signup`, byte-identical
+to the 2026-07-23 decode that resolved `{{SKINBETTER_URL}}`. The operator
+then supplied the URL the site QR should encode: the skinbetter.com
+Account-Registration deep link carrying
+`businessPartner_id=0000267316&location_id=a306e000001ksylAAA`.
+
+**Screening:** the destination is skinbetter.com's own registration page
+with Amy's partner id — probed live (403 to bare curl, the Vagaro
+bot-protection class; 200 with a browser UA, no redirect, the partner id
+present in the served page). No other provider named; constraint 2 not
+engaged. The registration-first-vs-bare-URL trade-off was flagged when
+the QR was first discussed (the 2026-07-23 decision chose the bare URL
+for the site's *buttons* because form-first landing punishes cold
+traffic); the operator chose this URL for the QR with that in hand — the
+QR serves the desktop→phone handoff, where the card's register-to-shop
+flow is the intended path. The buttons keep the canonical bare URL;
+nothing about the 2026-07-23 decision changes.
+
+**Decision:** a fresh SVG, not the scan (the photocopy is yellowed,
+halftoned, and skewed — below the flawless-assets bar, and it carries
+Skinbetter's card design). Generated scratchpad-locally (`qrcode` npm
+package, never a repo dependency — the jsqr decode precedent) at ECC M,
+margin 4, black on white → `src/assets/brand/skinbetter-registration-qr.svg`
+(4,584 bytes, version-9 code). **Round-trip proof, recorded as the
+control for a pixel asset no linter can read:** the committed SVG
+rasterized and decoded back to the exact URL; the built page's rendered
+plate screenshot at 1280 ALSO decoded to the exact URL; and the operator
+scan-tested the code themselves the same day ("It works") — the human
+verification on top of the mechanical ones. Placement: a
+white tile (12px corners, the SVG's baked quiet zone continuous with the
+tile) inside the noir StorefrontCallout plate, statement left / tile
+right on desktop, stacked on phones; caption "Scan to register and shop
+from your phone." in raw ink-900 (deliberately not `--ng-text`, which
+re-scopes light under the noir surface). The QR is never the only
+route — the shop button beside it remains the click path (a11y and
+phone users, for whom an on-screen QR is unscannable). Zero JS; the
+page is pa11y-covered, not LHCI-gated.
+
+**Alternatives rejected:** committing the scan (quality + trade dress);
+a QR API image URL (a third-party request — the CI-enforced zero);
+encoding the site's canonical bare storefront URL (recommended for
+consistency; the operator chose their supplied registration URL);
+making the QR itself a link (the button is the click path; a clickable
+QR duplicates it for no gain).
+
+**Consequences:** the site carries its first QR code, on one page, in
+one component whose sole consumer is skincare.mdx. Changing the encoded
+URL is a regenerate-plus-decode-verify, never an edit to the SVG. Rides
+PR #151 with the day's two photo swaps so Amy reviews one preview; the
+page's flag is already false and resets nothing further.

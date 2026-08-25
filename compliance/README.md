@@ -101,7 +101,14 @@ the page's allowlisted curriculum vocabulary as pixels, a legible
 per-vial quantity, the practice-site URL displayed on screen — the
 constraint-2 fifth exception — all on-camera releases confirmed; its
 caption file deliberately carries no "On screen:" cues, so what the
-override covers only as pixels is never restated as rendered text). Since 2026-08-17 the film FILES live outside the
+override covers only as pixels is never restated as rendered text).
+And from the same date the regenerative PRP round: `prp-syringes.jpg`
+(two diluent vials' labels legible beside the prepared syringes — the
+prep-workflow class, under its own constraint-3 pixel override) and
+Amy's PRP-visit reel `prp-visit` (another provider injecting on
+camera, face mostly out of frame — the constraint-2 sixth exception;
+near-silent audio kept on the operator's no-speech confirmation, its
+caption file a single bounded quiet-room cue). Since 2026-08-17 the film FILES live outside the
 repo entirely (Blob, served as media.needlegirlie.com — RUNBOOK
 "Publishing a film"): the frame-level screen and DECISIONS entry
 happen BEFORE the upload, and the caption .vtt stays in-repo precisely

@@ -6,6 +6,44 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-25 — Regenerative: the PRP media round (two photos + Amy's reel on autoplay)
+
+- /services/regenerative grows from one photo to the full media rhythm.
+  "Who they're generally for" gains a photo to its LEFT — the blood
+  draw that starts a PRP visit (Amy's own arm, operator-identified;
+  manufacturer tube labels only, no patient labels). "Individualized,
+  with Amy" gains a photo to its RIGHT — the four prepared PRP
+  syringes, shipped as-is under operator override for the legible
+  packaging in frame (the seventh pixel-level override — DECISIONS
+  2026-08-25). And Amy's own ~9s reel lands directly before "Your
+  visit, step by step": Amy receiving her own PRP hairline treatment,
+  autoplaying muted in view, looping, near-silent audio one tap away
+  (no speech — the operator's confirmation is the record). One of the
+  location's other providers injects on camera, face mostly out of
+  frame, never named — the constraint-2 sixth scoped exception,
+  consent on file. The autoplay script's fifth page.
+- `clinicianApproved` reset on regenerative (approved content edited —
+  constraint 4); Amy re-reviews on the preview.
+
+### 2026-08-25 — IV therapy: the IV photos land (photo round page 10)
+
+- /services/iv-therapy — the wide studio frame beside "What a visit
+  looks like" (the page's one photo, and the carrier of the recorded
+  "two clients" alt defect) gives way to the client's pick IV01: a
+  client on her laptop mid-infusion while Amy prepares supplies at the
+  IV pole (PNG master re-encoded JPEG q92; per-image top anchor keeps
+  the hanging IV bag). A new media row puts her pick IV02 to the LEFT
+  of "Individualized, with Amy": Amy tending a male client's arm for
+  an IV infusion — re-graded brighter the same day at the operator's
+  direction (the dim-ambient house recipe, brightness 1.28). Amy
+  operator-identified in both frames; both pictured clients' releases
+  confirmed on file; no overrides needed (DECISIONS 2026-08-25).
+  `studio-wide.jpg` deleted (no other consumer) — its alt defect
+  retires with it.
+- `clinicianApproved` reset on iv-therapy (approved content edited —
+  constraint 4); Amy re-reviews on the preview. Flags now read
+  2 true / 10 false.
+
 ### 2026-08-25 — /injector-training: dedicated portrait + Amy's training reel
 
 - The hero portrait is now the dedicated training photo (Amy holding

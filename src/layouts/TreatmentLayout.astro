@@ -312,6 +312,15 @@ const crumbs = [
   .treatment-body .media-figure img[src*='inbody-weigh-in-rear'] {
     aspect-ratio: 3 / 4;
   }
+  /* Same top-anchor knob for the iv-therapy infusion frame (photo
+   * round 2026-08-25): the hanging IV bag is already clipped by the
+   * master's own top edge, so the default 30% anchor trims another
+   * 32px off it; anchored top the window keeps the maximum of the
+   * bag and sheds only floor at the bottom. A/B'd on the built page
+   * at 390 and 1280. */
+  .treatment-body .media-figure img[src*='iv-infusion-laptop'] {
+    object-position: 50% 0%;
+  }
   /* Full-width band — a page's third media moment breaks the
    * alternating row rhythm with scale instead of a third zigzag
    * (taste-audit follow-up, 2026-07-25): one wide arch across the

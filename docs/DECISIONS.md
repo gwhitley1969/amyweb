@@ -6489,3 +6489,270 @@ operator: the fourth exception's cross-reference sentence in CLAUDE.md
 classifier mid-edit — the OPERATIVE authorization, the second
 exception's widening, is applied; the cross-reference is flagged as
 the operator's passage (the DraftBanner BUILD_SPEC §4/§7 precedent).
+
+## 2026-08-25 — iv-therapy: the IV photos land (IV01 + IV02); studio-wide.jpg retires with its alt defect
+
+**Context:** Client direction via the operator (2026-08-25): on
+/services/iv-therapy, the page's one photo — `studio-wide.jpg` beside
+"What a visit looks like" (committed 2026-07-22, predating the photo
+round; also the carrier of the recorded alt defect, "two clients" vs
+its one-client 4:5 window — AUDIT 2026-08-17 / RELAUNCH precondition 3)
+— "isn't any good" and is replaced by `C:\Amy\New Pics\IV01.png`; a
+second photo, `C:\Amy\New Pics\IV02.jpg`, joins to the LEFT of
+"Individualized, with Amy" (text-only until now). One of three
+concurrent sessions this day; built in an isolated worktree on
+`content/iv-therapy-photos` off origin/phase-c (the 2026-08-21
+three-session precedent).
+
+**Sources, probed first-hand.** IV01: 1290×1720 PNG (exactly 3:4),
+2.27MB, casual phone-shot class (mild motion blur on Amy's arm — the
+client's pick, hers to make). IV02: 1290×2078 JPEG (~0.62), 342KB, EXIF
+orientation 1 (no rotation needed), **no GPS EXIF** (checked — the repo
+is public). Both SHA-256-unique against all 55 committed photos;
+neither duplicates `iv-drip-neon.jpg` (the /services menu card 11
+frame, untouched).
+
+**Screening record (frame-level + magnified scratchpad crops of every
+flagged region — the RUNBOOK full-resolution rule; astro:assets serves
+the source-resolution derivative as the `<img src>`):**
+- IV01 — a client seated in the treatment chair, IV line taped at her
+  elbow, working on a MacBook (back of screen to camera; her phone on
+  the chair is dark), lip-pillow on lap; Amy at the IV pole preparing
+  supplies over a gold tray; a yellow IV bag hanging. Zoomed and
+  cleared: a cursive wall-decal fragment top-right resolves to "by"
+  plus one partial letterform cut by the master's own frame edge — no
+  word or name resolves at source resolution, so no reference is
+  conveyed (the 2026-08-18 slot-01 illegible-fragment class); the tray
+  holds gloves, prep packets, orange-cap flush syringes, and
+  blue-capped items whose labels do not resolve (distinct from the
+  rejected prep-tray class, where branded vials and unit-marked boxes
+  were legible and central — nothing brands or quantifies here, and IV
+  supplies are this page's own subject); the bag shows only blurred
+  volume graduations — no name, no numerals resolve.
+- IV02 — Amy (pink gloves) tends the reclined male client's forearm;
+  yellow IV bag behind; supply cart left; fridge in background. Zoomed
+  and cleared: "AMERICAN EAGLE" on the client's t-shirt (third-party
+  apparel trade dress as worn — screening note); the decorative
+  LIVE/DREAM/LAUGH/DANCE/LOVE word-art print (the exact benign class
+  recorded 2026-08-17, frame 7); an illegible smudge of a tool-brand
+  cap logo; racked small vials/bottles and pink folders on the cart's
+  shelves with no label resolving at source resolution
+  (identifiable-but-illegible, noted per the RUNBOOK); the counter
+  phone lies edge-on, screen dark. No claims or dosing content in
+  either frame. **No override of any kind is required** — the
+  evolve-reel class: releases and screening notes only; CLAUDE.md, the
+  compliance registry, and BUILD_SPEC are untouched.
+
+**Identity + releases (operator, 2026-08-25, AskUserQuestion — the
+confirmations are the record):** the standing clinician in IV01
+(burgundy scrubs, back to camera) **is Amy**; the clinician in IV02
+(royal-blue scrubs, face mostly hidden) **is Amy** — constraint 2 not
+engaged in either frame. The seated IV01 woman is **a client, website-use
+release confirmed on file**; the IV02 male client's **website-use release
+confirmed on file**.
+
+**Decisions:**
+- Assets content-named: `iv-infusion-laptop.jpg` — the PNG master
+  re-encoded JPEG q92, single generation via sharp
+  (`sharp(master).jpeg({ quality: 92 })`, 2.27MB → 233KB; the
+  prp-treatment/studio-counter-portrait precedent — Astro re-encodes
+  every variant, so a committed PNG compounds); `iv-male-client.jpg` —
+  a byte-identical copy of the JPEG master (revanesse-mirror-client
+  pattern; hash-verified). Masters stay in C:\Amy\New Pics. No baked
+  crops: both sources are portrait, so the 4:5 arch display window is
+  width-limited and the full 1290px width serves — the sitewide
+  [340, 540, 680] widths contract is met with no retina override (the
+  skincare bake was for a landscape source).
+- Row 1 keeps its `media-row--flip` shape (photo right); src, alt, and
+  a provenance comment swap in. Row 2 wraps "Individualized, with Amy"
+  in a plain `media-row` — figure first, photo LEFT — mirroring
+  weight-loss-glp-1's row for the same section. Page rhythm: flip
+  (right) → text → plain (left); two rows, no band needed.
+- Per-image knob, one: `iv-infusion-laptop` anchors top (50% 0%) — the
+  hanging IV bag is already clipped by the master's own top edge and
+  the default 30% anchor trimmed another 32px off it; anchored top the
+  window keeps the maximum of the bag and sheds only floor. A/B'd on
+  the built page at 390 and 1280 (both anchors screenshotted). IV02
+  sits at the default anchor — the 4:5 window (~466px trim) keeps the
+  word-art print, the bag, both people, and the client's shoes; the
+  arch dome grazes the print's top edge, cosmetic only. Layout knob in
+  its own commit (layout ≠ content).
+- `studio-wide.jpg` had no other consumer (git grep, zero hits outside
+  docs) → deleted in the content commit; git history keeps the frame.
+  Its recorded alt defect retires with it — CLINICIAN-SIGN-OFF and
+  RELAUNCH precondition 3 updated in the docs commit.
+- `clinicianApproved` true → false in the content commit (constraint 4
+  — the page was approved 2026-08-05). Flags now read
+  **2 true / 10 false** (hormone-optimization and regenerative remain
+  true); Amy re-reviews on the PR preview and the flag returns in the
+  consolidated pre-relaunch round.
+
+**Alternatives rejected:** reusing `iv-drip-neon.jpg` in-body (would
+duplicate the menu-card frame on the page it opens); committing the
+IV01 PNG as-is (double-lossy through the pipeline); a baked 4:5 crop
+of either source (portrait sources — the CSS knob has no retina cost
+here, the dermal-fillers precedent); the 3:4 aspect knob for IV01
+(offered by the geometry, unneeded — the 4:5 window loses only floor
+and already-clipped edge content).
+
+**Consequences:** photo round page 10; the page's two photos are now
+both the client's own picks; /services/iv-therapy is pa11y-gated and
+outside the LHCI set, so the swap carries no budget math. The two new
+frames are casual phone shots rather than pro-shoot frames — the
+client's pick, noted once. Docs updated in this PR: DECISIONS,
+CHANGELOG, CLINICIAN-SIGN-OFF (row + drift list + defect note),
+RELAUNCH (precondition 3's defect note), REDESIGN (photo row).
+
+**Addendum, same day — IV02 re-graded brighter (operator review).**
+The frame read very dark on the operator's first look. Re-derived from
+the master in a single generation — superseding the byte-copy above,
+its own commit — with the house dim-ambient recipe (the 2026-08-18
+cards 11/12 precedent): sharp
+`.modulate({ brightness: 1.28, saturation: 1.05 })`, JPEG q92, same
+content name, zero code change. Chosen against four side-by-side
+candidates (1.15 / 1.25 / 1.35 / 1.25+linear) with highlight clipping
+measured rather than guessed: 3.0% of pixels at ≥250, concentrated in
+the ceiling light panels (light sources — harmless), vs 1.5% at 1.25
+and 3.8% at 1.35; the word-art print, cabinets, and cart hold texture
+on the built page and the client's black shirt stays rich. The lift
+changes exposure, not what the frame discloses — a brightness multiply
+adds no resolution, so every illegible item in the screening record
+stays illegible and the screening posture is unchanged. sharp strips
+the master's (GPS-free) EXIF in the derivation — a wash. IV01 was not
+re-graded: its white-room frame already sits bright beside it.
+## 2026-08-25 — regenerative: the PRP media round (PRP01 + PRP02 + Amy's reel; two new scoped overrides)
+
+**Context:** Client direction via the operator (2026-08-25), three
+additions to /services/regenerative — until now the thinnest media page
+(the one prp-treatment band) and one of the last approved pages: PRP01
+to the left of "Who they're generally for" (plain media row), PRP02 to
+the right of "Individualized, with Amy" (flip row), and PRP.MOV
+standalone at the end of the body — which renders immediately before
+"Your visit, step by step" (verified: nothing sits between the MDX slot
+and VisitSteps in TreatmentLayout) — on autoplay. One of several
+concurrent sessions this day; built in an isolated worktree on
+`content/regenerative-media` off origin/phase-c. The existing band
+stays; its "single media moment" comment is rewritten. ffmpeg/ffprobe
+were absent from this workstation — a static build was downloaded to
+the session scratchpad (session tooling, never a repo dependency).
+
+**Sources, probed first-hand.** PRP01/PRP02: 4032×3024 iPhone JPEGs,
+EXIF orientation 6 (upright 3024×4032, exactly 3:4), no GPS EXIF;
+SHA-256-unique against all 55 committed photos. PRP.MOV: 8.73s, H.264
+High 1920×1080 with rotation −90 (upright 1080×1920 portrait 9:16),
+30fps, 15.1Mbps, 16.8MB; AAC-LC stereo ~164kbps; audio near-silent
+(volumedetect mean −49.8dB, max −24.4dB); a raw camera file (Apple
+metadata streams — not the TikTok aigc-label class).
+
+**Screening record (contact sheet at 1fps + full-res grabs for the
+film; magnified crops of the committed derivatives for the photos —
+what ships is what was screened):**
+- PRP01 (`prp-blood-draw.jpg`) — an arm with gauze at the elbow, post
+  blood-draw, on a draped table; a rack of three filled collection
+  tubes; a crimp-cap vial; supplies. **PHI check: PASS** — the tube
+  labels are the manufacturer's own (BD Vacutainer REF/barcode class,
+  mostly turned away, near-illegible at committed resolution); no
+  patient label, name, or date anywhere. The vial's label faces away —
+  only lot/exp field fragments and a barcode edge; no product name
+  resolves. The pad's tag is a supply part number + maker's address
+  (the identifiable-but-illegible class); the packet under the arm is
+  unbranded. No claims or dosing content. **The arm is AMY'S OWN
+  (operator, 2026-08-25 — the confirmation is the record); no release
+  needed.** No override needed for this frame — screening notes only.
+- PRP02 (`prp-syringes.jpg`) — four prepared PRP syringes with needles
+  on a towel, gauze, a torn supply packet — and two vials whose labels
+  ARE legible in the served file: "Bacteriostatic 0.9% Sodium
+  Chloride / Injection, USP", "30 mL Multiple-dose", "NDC
+  0409-3977-01", red "For drug diluent use only" text, "Rx only", a
+  lot code, and partial manufacturer fine print. A diluent vial beside
+  prepared syringes is prep-workflow imagery of the class the
+  2026-07-23 rubric excluded, and pixels are invisible to lint:claims.
+  **Flag raised in full → OPERATOR OVERRIDE: SHIP AS-IS** (the
+  crop-out bake — which would have kept the syringes, the frame's
+  subject — and the defocus bake were both offered and declined).
+  Fixed terms: this frame, this page; no text from the packaging is
+  ever restated in site text — copy, alt, comments, meta, OG, JSON-LD.
+  Recorded in CLAUDE.md constraint 3 (the dosing/reconstitution
+  bullet's pixel-override list) and BUILD_SPEC. The syringes' scale
+  graduations are the engraved-scale screening-note class (the 19b
+  collar precedent).
+- PRP.MOV (`prp-visit.mp4`) — a single continuous selfie-style scene,
+  no cut, no before/after structure, no burned-in text; the only
+  legible content is the syringe's graduation numerals (engraved-scale
+  class). **The film shows TWO people, which contradicted the first
+  stated cast ("Amy/hands only") — stopped and re-flagged with the
+  frames described.** Operator resolution (2026-08-25, the
+  confirmations are the record): the RECIPIENT (pink top, face to
+  camera throughout) **is Amy herself**, receiving her own PRP
+  hairline treatment; the INJECTOR (black top, gloved hands, chain
+  bracelet, face mostly out of frame, briefly part-visible) **is one
+  of the location's other providers — OPERATOR OVERRIDE, a new
+  constraint-2 scoped exception** (the radiesse-visit configuration:
+  face mostly out of frame, never named), **her consent for
+  needlegirlie.com use confirmed on file.** Consequence for wording:
+  the film's label and captions never attribute the hands-on treatment
+  to anyone; the page's "Every appointment is with Amy herself" FAQ is
+  unaffected (Amy is the patient here, not a client appointment).
+- **Audio: KEPT, tap-for-sound** (operator choice over the recommended
+  strip — the treatment-film pattern), and **"no speech or narration"
+  is the operator's on-record confirmation (2026-08-25, after
+  listening; no transcription tooling on this workstation)** — with
+  which `autoplay="inview"` is fully in-contract: Amy's own,
+  speech-free (the constraint-2 override is a separate matter; the
+  radiesse-visit film set the precedent that the two coexist).
+  Captions are bounded quiet-room cues (one 2s cue), faithful to the
+  near-silent track — never film-long.
+
+**Decisions:**
+- Photos: the 23a EXIF-normalize recipe, single generation each —
+  sharp `.rotate()` → `.resize(1200, 1600)` (3:4 exact, no crop) →
+  JPEG q92; content-named `prp-blood-draw.jpg` / `prp-syringes.jpg`
+  (the PRP01/PRP02 pick labels live only in this entry). 1200px ≥ the
+  680 max row tier through the 4:5 window — no retina override, no
+  baked crop (portrait sources). Both rows take the sitewide
+  [340, 540, 680] / 17rem contract. Default crop anchors read well at
+  390 and 1280 — zero TreatmentLayout knobs this round.
+- Film rendition: `-vf "scale=810:1440" -c:v libx264 -crf 20 -preset
+  medium -pix_fmt yuv420p -c:a copy -movflags +faststart` → 810×1440,
+  4.0MB @ 3.7Mbps (the training-reel sizing discipline: 810 ≈ 2× the
+  24rem standalone cap; ffmpeg applies the −90 rotation in the filter
+  graph). A lossless remux was rejected on the girl-team precedent —
+  it would ship the master's 15.1Mbps / 16.8MB into an autoplaying
+  slot. Poster from the rendition at 0.5s (`-q:v 2`, 810×1440, 84KB)
+  → `prp-visit-poster.jpg`. Blob name `prp-visit.mp4` (content-named,
+  the radiesse-visit naming family; new filename, no purge), uploaded
+  AFTER this entry was committed (the written rule).
+- Placement: standalone `TreatmentVideo` in the default mat frame
+  inside a `mx-auto max-w-sm` wrapper (the injector-training
+  standalone pattern, first use inside an MDX body), at the very end
+  of the body — the film renders directly above "Your visit, step by
+  step" as directed. Autoplay verified functionally on the built page
+  before the upload: playing muted + looping in view, paused
+  off-screen (the ICON verification pattern).
+- `clinicianApproved` true → false (constraint 4 — the page was
+  approved 2026-08-05). Flags on this branch read 2 true / 10 false;
+  iv-therapy's reset rides the open PR #160, so once both merge the
+  count is 1 true / 11 false and hormone-optimization is the last
+  approved page. Amy re-reviews on the PR preview; the flag returns in
+  the consolidated pre-relaunch round.
+
+**Alternatives rejected:** the PRP02 crop-out bake (recommended —
+declined; the client's frame ships whole) and defocus bake (declined);
+stripping the film's audio (recommended for simplicity — operator
+chose keep, tap-for-sound); a lossless remux (weight, above); wrapping
+the film in a media row (the direction was a standalone placement
+before the visit steps, and the mat frame is the recorded standalone
+look); reusing the muted-carousel captions form (the audio is kept, so
+cues must be faithful to it).
+
+**Consequences:** the site's fifth autoplay page and the page's first
+film; the page now runs the full media rhythm (band → row → flip row →
+film) — the band's "single media moment" comment rewritten in the same
+commit. Two new scoped overrides enter the books: the PRP02 packaging
+frame (constraint 3, dosing-bullet pixel list) and the prp-visit film's
+on-camera provider (constraint 2, the radiesse-visit class) — each
+fixed to its asset and page; extending either requires the human
+operator. /services/regenerative is pa11y-gated (the .vtt is the
+video-caption gate's requirement) and outside the LHCI set; the poster
+fetch and the 4.0MB in-view stream are the page-weight notes. Egress
+~4MB per full play.

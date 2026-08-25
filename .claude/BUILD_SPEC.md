@@ -727,8 +727,14 @@ action hype, no outcomes, no dosing, ever.
    whose burned-in course cards restate that page's authorized
    curriculum vocabulary in pixels and whose jar shot shows a per-vial
    "100 U" quantity legibly — carried as-is; the film's label,
-   captions, and comments never restate either; same terms. Nothing
-   else.*
+   captions, and comments never restate either; same terms. And
+   `prp-syringes.jpg` on /services/regenerative only (DECISIONS
+   2026-08-25), in which two diluent vials' labels — product name with
+   concentration, a 30 mL multiple-dose line, an NDC number,
+   diluent-use fine print — are legible in the served source beside
+   the prepared PRP syringes; the recommended crop-out and defocus
+   bakes were declined; no text from the packaging is ever restated in
+   site text; same terms. Nothing else.*
 2. Disease claims: treat / cure / prevent / diagnose; disease names in benefit
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).
 3. Efficacy/outcome promises: guarantees, specific results, numbers,

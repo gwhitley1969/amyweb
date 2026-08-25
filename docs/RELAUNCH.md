@@ -21,10 +21,10 @@ already merged.
    phone: the pages look different from what she approved 2026-08-05
    (Playfair body, arches + 4:5 crops, new photography, header badge,
    footer) even where no copy changed. The operator logs the date.
-   **Known defect to fix during this pass:** `studio-wide.jpg` alt
-   says "two clients" but the 4:5 arch window shows one — an alt edit
-   is an MDX edit, so it waits for this flag-resetting round
-   (DECISIONS 2026-08-17).
+   ~~Known defect to fix during this pass: `studio-wide.jpg` alt~~
+   RESOLVED 2026-08-25: the asset was replaced and deleted in the
+   iv-therapy photo round, so the mismatched alt no longer exists
+   (DECISIONS 2026-08-25; originally recorded 2026-08-17).
 4. **Analytics flip** (operator decision 2026-08-17: Plausible at
    relaunch): account created, then the two-value siteConfig edit per
    RUNBOOK "Turning on analytics" — ships in the relaunch PR or just
@@ -77,15 +77,20 @@ check will refuse it. On a branch off `main`:
   biostimulators reels `radiesse-visit.mp4` / `amy-reel.mp4` + the
   body-contouring reel `evolve-reel.mp4` + the /about team film
   `girl-team-film.mp4` (2026-08-25 — the sounded second rendition of
-  the carousel team film's master) — the Evolysse film retired
+  the carousel team film's master) + the /injector-training reel
+  `training-reel.mp4` (2026-08-25) + the regenerative PRP-visit reel
+  `prp-visit.mp4` (2026-08-25) — the Evolysse film retired
   2026-08-21 and its Blob object was deleted the same day, so it is
   not a probe target). On /services/biostimulators,
-  /services/body-contouring, and /about also probe
+  /services/body-contouring, /about, /injector-training, and
+  /services/regenerative also probe
   `/js/treatment-video.js` (200, `text/javascript`) and confirm the
-  five players carry `data-autoplay="inview"` (two on biostimulators,
+  seven players carry `data-autoplay="inview"` (two on biostimulators,
   one on body-contouring, two on /about: the ICON film — its scoped
-  override, DECISIONS 2026-08-25 — and the team film) — the films
-  autoplay muted on approach.
+  override, DECISIONS 2026-08-25 — and the team film; one on
+  /injector-training, the training reel; one on
+  /services/regenerative, the PRP-visit reel) — the films autoplay
+  muted on approach.
 - Plausible: `/api/event` returns 202 from the production page;
   dashboard shows the first pageviews.
 - Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.

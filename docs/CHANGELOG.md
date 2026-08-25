@@ -6,6 +6,25 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-25 — Regenerative: the PRP media round (two photos + Amy's reel on autoplay)
+
+- /services/regenerative grows from one photo to the full media rhythm.
+  "Who they're generally for" gains a photo to its LEFT — the blood
+  draw that starts a PRP visit (Amy's own arm, operator-identified;
+  manufacturer tube labels only, no patient labels). "Individualized,
+  with Amy" gains a photo to its RIGHT — the four prepared PRP
+  syringes, shipped as-is under operator override for the legible
+  packaging in frame (the seventh pixel-level override — DECISIONS
+  2026-08-25). And Amy's own ~9s reel lands directly before "Your
+  visit, step by step": Amy receiving her own PRP hairline treatment,
+  autoplaying muted in view, looping, near-silent audio one tap away
+  (no speech — the operator's confirmation is the record). One of the
+  location's other providers injects on camera, face mostly out of
+  frame, never named — the constraint-2 sixth scoped exception,
+  consent on file. The autoplay script's fifth page.
+- `clinicianApproved` reset on regenerative (approved content edited —
+  constraint 4); Amy re-reviews on the preview.
+
 ### 2026-08-25 — /injector-training: dedicated portrait + Amy's training reel
 
 - The hero portrait is now the dedicated training photo (Amy holding

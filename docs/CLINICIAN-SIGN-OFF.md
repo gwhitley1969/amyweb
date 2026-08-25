@@ -226,6 +226,13 @@ verify before launch:
   at her direction with the releases and overrides on the operator's
   record (DECISIONS 2026-08-25).
 
+**Round reviewed 2026-08-25** (relayed by the operator, same day the
+round merged): Amy reviewed the shipped portrait + reel on the
+standing demo and approved them as-is. This is the per-round okay
+only — the full presentation pass in the table above stays
+_pending_, and she re-sees this page inside that pass like every
+other.
+
 Anything she wants changed ships as its own PR before launch.
 
 ## Operator: flipping the flags (your own hands only)

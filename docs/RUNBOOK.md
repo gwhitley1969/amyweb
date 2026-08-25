@@ -54,17 +54,33 @@ design: `allowedForwardedHosts` only admits the real hostnames.
    non-compliant while tripping no pattern, in which case the override lives
    in DECISIONS and NOT in `allowedStrings` (compliance/README
    "Authorizations the registry does not hold").
-2. Open a PR. CI verifies again and deploys a **preview environment**
-   (URL in the workflow summary). Previews are **public and noindexed** —
-   no password (DECISIONS 2026-07-21) — so the URL can go straight to Amy,
-   but only **after the deploy run completes**: sent earlier it 404s and
-   reads as a broken link. Closing the PR tears the preview down.
+2. Open a PR. CI runs the fast gates (build, `check`, `lint:claims`,
+   `lint:voice` — about 20 seconds together), deploys a **preview
+   environment**, and only then runs the slow gates (pa11y, Lighthouse).
+   Previews are **public and noindexed** — no password (DECISIONS
+   2026-07-21) — so the URL can go straight to Amy, but only **once the
+   `Deploy preview to Azure Static Web Apps` step has finished**: sent
+   earlier it 404s and reads as a broken link. Since 2026-08-25 that step
+   finishes at roughly **1m45s**, not at the end of the job — you no longer
+   wait out Lighthouse to send a link (DECISIONS same date). The job stays
+   amber while the slow gates run; that is expected, and a red one means a
+   preview is up that failed a11y or perf, so read the run before acting on
+   the link. Closing the PR tears the preview down.
    *Documentation-only PRs run nothing and get no preview* — `paths-ignore`
    covers `docs/**`, `**/*.md`, `.gitignore` (DECISIONS 2026-07-26). Touch
    one source file and the full suite runs as usual.
 3. Merge to `main`. The production workflow re-verifies, runs the
    **clinician-approval gate**, deploys, and purges the Front Door cache.
    Live in ~5–10 minutes end to end.
+
+**After every merge into `phase-c`, refresh the standing previews.** Pushes to
+`phase-c` deploy nowhere (see "Where `phase-c` is visible"), and GitHub does not
+re-run a PR's workflows when its base branch moves — so a preview PR keeps
+serving whatever it last built, indefinitely. Refresh each open preview PR by
+merging `phase-c` into its branch and pushing: the standing client demo (**#97**)
+and whatever review-scaffolding PR is open at the time. Skipping this is how
+both previews came to be six commits stale on 2026-08-25, showing the client a
+`/services` intro that had already been rewritten at her own direction.
 
 **Hotfixing production during the takedown era.** What `needlegirlie.com`
 serves today is the construction placeholder on `main`, not the site — a fix

@@ -5781,3 +5781,146 @@ into a gate the relaunch depends on. And `verify-and-deploy` is a required check
 on **neither** branch — only the two guards are — so CI green is advisory and a
 PR with failing tests is mergeable once its guard passes. That is the operator's
 call, flagged rather than altered.
+
+## 2026-08-25 — PR board cleanup: merging into `main` during the takedown era is safe, and why
+
+**Context:** six PRs open, four unable to move, and the board read as disarray.
+Two of the four — #146 (the guard onto `main`) and #144 (the Xtend-AI credit on
+the placeholder) — had been parked under the standing instruction that we are
+not ready for a production deployment. Separately, both standing preview PRs had
+drifted six commits behind `phase-c` (last refreshed 2026-08-22), so the client
+and the review pair were reading a `/services` intro that had already been
+rewritten at the client's own direction, and the `relaunch-guard.yml` header
+still carried the retirement instruction that 2026-08-24 corrected.
+
+**Decision:** land #146 then #144 into `main`, refresh both previews, correct
+the guard header, and add a preview-refresh rule to the RUNBOOK. Nothing about
+the takedown topology changes: PR #95 is untouched, `main` is never merged into
+`phase-c`, and no gate, budget, or banned-pattern list is altered.
+
+**The load-bearing fact, recorded because it will look alarming later.**
+"Merge to `main`" normally means "publish the client's website." It does not
+mean that during the takedown era, and reading it that way is what froze two
+PRs. `main`'s tree carries **three page files** — `404.astro`, the Under
+Construction `index.astro`, and the styleguide catch-all — and
+`src/content/treatments/` holds nothing but a `.gitkeep`. A merge into `main`
+rebuilds and redeploys **the construction placeholder**; it cannot publish the
+site, because the site is not in that tree. The site's only route to production
+is a `phase-c` → `main` release merge (PR #95's successor), which is
+permanently CONFLICTING by design and requires the two-step relaunch. Verified
+alongside: no PR has merged into `main` since #99 on 2026-08-05, so #144 was the
+first attempt since the takedown and it hit the never-reporting required check
+head-on — which is also why production has been un-hotfixable rather than merely
+untouched.
+
+**Scope of the credit loss.** Placeholder-only. `phase-c`'s `Footer.astro`
+carries `Created by: Xtend-AI` sitewide and always has; the takedown revert
+removed it from the placeholder alone. The restored copy on `main` becomes
+redundant at relaunch and goes out with the rest of the placeholder.
+
+**Guard header corrected.** The file said *"RETIRE THIS WORKFLOW IN THE RELAUNCH
+PR ITSELF"*; `docs/RELAUNCH.md` step 4 was corrected on 2026-08-24 to explain
+that this cannot work (the workflow is tracked on `phase-c`, so deleting it in
+the relaunch PR makes the guard report itself missing and fail its own required
+check on its own retirement). The most consequential instruction in the repo
+existed in two contradicting versions, and the wrong one was the one an operator
+reads inside the file. The header now points at RELAUNCH.md step 4 as the
+authority. The two copies of `relaunch-guard.yml` stay byte-identical: the
+`main` copy is taken with `git checkout origin/phase-c -- <path>`, never
+retyped, and the identity diff is a merge gate rather than a formality.
+
+**RUNBOOK gains a refresh rule.** Pushes to `phase-c` deploy nowhere and GitHub
+does not re-run a PR's workflows when its base branch moves, so a preview PR
+serves whatever it last built until someone merges `phase-c` into it. Nothing in
+"Everyday changes" said to do that, which is the whole explanation for the
+six-commit drift. Now it does.
+
+**Alternatives rejected.** Combining #146 and #144 into one PR to halve the
+placeholder redeploys — rejected, the split is what keeps the first-ever real
+execution of `gutted-merge-guard` on a `main` merge content-free, and a
+placeholder redeploy costs nothing. Enabling `delete_branch_on_merge` to stop
+branch litter — verified safe (`allow_deletions` is `false` on both `main` and
+`phase-c`, so GitHub cannot delete either even though `phase-c` is the release
+PR's head branch), but the litter rate is one stale branch per 136 merges and
+the setting would not touch local branches or worktrees, which is where the
+actual clutter lives; left to the operator. Closing #97 or #138 as stale —
+rejected, #97 is the standing client link and #138's review tags are still in
+use; both were refreshed instead. Requiring `verify-and-deploy` as a status
+check — rejected for now and flagged again: `pr-preview.yml` carries
+`paths-ignore`, so a docs-only PR would never run it, the required check would
+never report, and docs-only PRs would block forever. That is the identical bug
+2026-08-24 fixed, and a proper version needs an always-runs summary job.
+
+**Consequences.** Two production deploys of the placeholder, each re-verified
+and each purging the Front Door cache; the visible difference is the restored
+credit line. `main` gains `relaunch-guard.yml`, which makes the RUNBOOK's
+existing claim that the file "ships on both branches" true rather than
+aspirational, and makes production hotfixable again. The guard's skip path was
+confirmed to execute for real on #146 — its run log ends `No post-takedown
+phase-c commits in this PR; not a release merge. Nothing to check.` — so the
+open question of whether `origin/phase-c` resolves in the runner's checkout is
+closed. PR #143 stays open awaiting Amy; #95, #97 and #138 stay open by design.
+
+## 2026-08-25 — PR previews deploy before the slow gates, not after
+
+**Context:** the operator asked whether raising `numberOfRuns` on `main`'s
+Lighthouse config would make previews slower to appear. Measuring to answer it
+surfaced a bigger problem. `pr-preview.yml`'s `verify-and-deploy` is a single
+sequential job that ran the whole of `npm run verify` — including Lighthouse —
+*before* the SWA upload step. Measured on PR #147 (2026-08-25): the job took
+6m40s, of which **Lighthouse alone was 4m11s** (14:46:39 → 14:50:50), and the
+`Deploy preview` step did not begin until 14:50:51. A link that was ready in
+under two minutes could not be sent for six and a half. Every preview the
+client and the review pair have ever waited on paid that cost.
+
+**Decision:** split `verify` into halves and put the deploy between them.
+`package.json` gains `verify:fast` (build, `check`, `lint:claims`,
+`lint:voice`) and `verify:slow` (`test:a11y`, `test:perf`); `verify` becomes
+`npm run verify:fast && npm run verify:slow`. This is **step order only** — the
+same six commands run in the same order with the same `&&` short-circuit, so
+a11y failing still stops perf exactly as before, and `production.yml`, which
+runs `npm run verify` unchanged, is not touched. Measured locally: `verify:fast`
+completes in **22 seconds** and leaves a fully deployable `dist/` (`index.html`
+and `staticwebapp.config.json` both present).
+
+**Not a weakened gate.** Every gate that ran before still runs and still
+reports. The gates that decide whether a client should be shown the page at all
+are the cheap ones and they still run *before* the upload: build 11s, `check`
+7s, `lint:claims` and `lint:voice` under a second each. A page carrying a banned
+claim, or first-person plural, still cannot reach a preview URL.
+
+**Trade accepted:** if a11y or perf fails, the preview stays up while the PR
+goes red. That is the right default for a preview environment rather than
+production, and `verify-and-deploy` is a required status check on neither
+branch today, so nothing that gated a merge stopped gating one. The RUNBOOK now
+says a red run means a preview is up that failed a slow gate — read the run
+before acting on the link.
+
+**Two syntax traps, recorded because both fail silently-ish.** The trailing step
+is guarded `if: ${{ !cancelled() && steps.fast_gates.outcome == 'success' }}`.
+The `${{ }}` wrapper is required, not stylistic: a bare `!` opens a YAML tag, so
+`if: !cancelled() && …` will not parse. And the step id is `fast_gates`, not
+`fast-gates`, because a hyphen in dot-notation inside an expression is read as
+subtraction. The guard itself is load-bearing twice over: `!cancelled()` stops a
+failed deploy step from SKIPPING the remaining gates (the job would go red
+having never reported an a11y or perf result), and the `fast_gates` clause stops
+them running against a `dist/` that was never built.
+
+**Alternatives rejected.** Raising `main`'s `numberOfRuns` from 1 to 3, the
+change originally proposed — wrong lever (it would have added ~48s to a rare PR
+type while saving nothing on the previews anyone actually opens), and wrong on
+its own terms: LHCI's `aggregationMethod` defaults to `optimistic`
+(`@lhci/utils/src/assertions.js:139`), which takes `Math.min` for `max*`
+assertions and `Math.max` for `min*` ones, so bumping the run count without also
+setting `"aggregationMethod": "median"` silently converts every assertion to
+best-of-N. `phase-c`'s own config already defends against exactly this and says
+so in its `$comment`; `main`'s does not, and gets away with it only because
+best-of-1 is the sole value. Splitting into two jobs with artifact passing —
+rejected, it costs a second `npm ci` plus upload/download for no benefit over
+reordering steps in one job.
+
+**Scope: `phase-c` only.** `main`'s copy of `pr-preview.yml` already diverges
+(it predates the 2026-07-26 `paths-ignore` block, frozen by the takedown
+revert), so this introduces no new class of divergence, and the two-step
+relaunch brings `phase-c`'s copy across. Placeholder PRs into `main` keep the
+old ordering; they spend ~24s in Lighthouse, so there is little to reclaim.

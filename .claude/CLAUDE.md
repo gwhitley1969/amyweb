@@ -69,8 +69,9 @@ silently following it. Known superseded points from earlier briefs:
    DECISIONS 2026-08-15): the header badge links out to Amy's own
    practice site, `siteConfig.mobileAestheticsUrl`
    (yourmobileaesthetics.com), whose pages name the location's other
-   providers. This is the only sanctioned outbound reference to that
-   site.* *Second scoped exception (operator override after the
+   providers. The first of two sanctioned outbound references to that
+   site (the second is the fourth exception below, 2026-08-25).*
+   *Second scoped exception (operator override after the
    compliance flag — DECISIONS 2026-08-17): the home-carousel team
    film (`commercial-team`), which shows the location's other five
    providers on camera; their releases for needlegirlie.com use are
@@ -82,7 +83,21 @@ silently following it. Known superseded points from earlier briefs:
    two seconds (face out of frame, never named); their consent for
    needlegirlie.com use is confirmed on file. The film's labels and
    captions never attribute the hands-on treatment to anyone.*
-   *Outside these three exceptions the other providers are still never
+   *Fourth scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-08-25, direct from Amy): the /about Girl
+   Team unit, all three parts fixed together — the still photo
+   `girl-team-studio.jpg` (Amy with four of the location's five
+   other providers; all four releases for needlegirlie.com use
+   confirmed on file), the rendered text "Girl Team!" on its
+   keystone plate (team language against the voice rule's written
+   rationale, though it trips no linter token — a green lint:voice
+   never authorizes it), and the "Visit Mobile Aesthetics" button
+   below it, the second sanctioned outbound link to
+   yourmobileaesthetics.com. The unit's own alt text names the team
+   factually; nobody is ever individually named in copy, alt text,
+   or comments, and the team vocabulary is never restated outside
+   the unit — meta descriptions, OG tags, and JSON-LD included.*
+   *Outside these four exceptions the other providers are still never
    named or implied in any needlegirlie.com text, and adding any
    further link, film, or mention requires the human operator.*
 

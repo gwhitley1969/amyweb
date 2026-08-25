@@ -117,7 +117,11 @@ ships, with findings and the decision recorded in DECISIONS. Precedent:
 the header badge link to yourmobileaesthetics.com (2026-08-15) — the
 destination names the location's other providers, which tripped hard
 constraint 2; it ships as a scoped operator override recorded in
-DECISIONS and in CLAUDE.md's constraint-2 exception text.
+DECISIONS and in CLAUDE.md's constraint-2 exception text. The second
+link to that same destination (the /about Girl Team button,
+2026-08-25) shipped the same way — its own flag, its own override:
+an already-screened destination does not carry authorization forward
+to a new consumer.
 
 **QR codes are both blindness classes at once** (first instance: the
 storefront QR on /services/skincare, 2026-08-25): the encoded URL is
@@ -152,6 +156,12 @@ Current members of that class:
 - The /services/wrinkle-relaxers `deck` sentence beginning "Wave good-bye…"
   (operator override, DECISIONS 2026-08-23 and 2026-08-24; BUILD_SPEC §8.3,
   CLAUDE.md constraint 3). A second-person outcome promise that trips nothing.
+- The /about plate text "Girl Team!" (operator override, DECISIONS
+  2026-08-25; CLAUDE.md constraint 2, fourth scoped exception). Team
+  language the voice rule's written rationale forbids — a team implies
+  the location's other providers — but its patterns cannot see: the
+  gate bans only first-person plural tokens. A green `lint:voice`
+  never authorizes it.
 
 The practical consequence, and the reason this section exists: **a green
 `lint:claims` is not evidence that a string is authorized, and an empty

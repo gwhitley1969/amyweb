@@ -6070,3 +6070,75 @@ one component whose sole consumer is skincare.mdx. Changing the encoded
 URL is a regenerate-plus-decode-verify, never an edit to the SVG. Rides
 PR #151 with the day's two photo swaps so Amy reviews one preview; the
 page's flag is already false and resets nothing further.
+
+## 2026-08-25 — Girl Team on /about: the still, the plate, and the second Mobile Aesthetics link
+
+**Context:** Client direction relayed by the operator, same day: a third
+photo on /about — 29b.jpg, to the left of "Two decades in the making." —
+with "Girl Team!" in letters on the photo (top), and below it a button
+to https://yourmobileaesthetics.com. Screening: 1600×1067 (≈3:2)
+landscape JPEG, SHA-256 `51E04D45…B433BB`, hash-unique against the 52
+committed photos. Frame: five women in a white studio — Amy center with
+FOUR of the location's five other providers (the 2026-08-17 team film
+has all five; one is not in this still). No signage, products, or
+legible text anywhere in frame; nobody is named anywhere. "Girl team"
+is already the record's own name for this group (the carousel record's
+name for `commercial-team`).
+
+**The flag and the override:** three items sit outside the recorded
+constraint-2 exceptions and were flagged together: a STILL of the other
+providers (the film exception covers the film only); "Girl Team!" as
+rendered team language (trips no lint:voice token — the gate bans only
+we/our/us/let's — but is against the rule's written rationale: the
+green-linter-is-not-authorization class); and a SECOND outbound link to
+yourmobileaesthetics.com (the header badge had been "the only
+sanctioned outbound reference"). Operator override, direct from Amy —
+recorded as CLAUDE.md constraint 2's fourth scoped exception. Releases:
+the four pictured providers' releases for needlegirlie.com use
+confirmed on file (operator, same day — the 2026-08-17 confirmations
+covered the film, not stills).
+
+**Decision:** full frame, no crop — committed byte-identical to the
+master as `girl-team-studio.jpg`. The figure wears the segmental arch —
+the shape built 2026-08-18 for landscape frames that must show full
+content, at this photo's native 3:2 — hand-copied into the page style
+block because the recipe is scoped to `.treatment-body` (the
+`.about-print` hand-copy precedent), with the page's house wash.
+"Girl Team!" is LIVE TEXT (operator choice over baking it into pixels):
+the site's first text-over-photo, an opaque paper keystone plate
+straddling the arch crown. The Phase C rule requires opaque plates (no
+scrims), and the keystone seat clears every face at every viewport — a
+%-offset plate grew into Amy's hair at 390px, since Amy stands center
+under a centered plate. Raw ink-900 on paper (the QR-tile in-tile
+idiom); Amy's own casing, no uppercase transform. The milestones
+section became a photo-left grid (`md:grid-cols-[5fr_6fr]`, figure
+`md:order-first`, DOM still heading-first). The button: a hand-rolled
+`.cta cta--outline` anchor (the ConceptHome Instagram precedent), label
+"Visit Mobile Aesthetics" (operator choice), `data-event="ma_site_click"`
+(already in the analytics union), new tab + noopener + sr-only note.
+Deliberately NOT a CTAButton: the book/consult variants accept
+href/label overrides but hard-bind `book_click` — the wrong event for
+an MA link.
+
+**Alternatives rejected:** baking the text into the JPEG (soft on
+retina, invisible to every gate, a regenerate to reword); a 4:5 Roman
+arch (crops the team to ~2 people — defeats the point); a plain
+rectangle (violates the sitewide every-photo-wears-an-arch direction,
+2026-08-17); CTAButton with overrides (wrong analytics event).
+
+**Verification:** verify:fast green; the built section eyeballed at
+390 and 1280 — all five in frame, plate clear of every face and
+untinted by the wash (z-indexed above it). Budget measured, not
+assumed: LHCI's full-page scroll fetches lazy images, and /about's
+mobile fetched set was ≈149KB of the 240KB image budget before this
+photo — the new 760-tier derivative fits with margin; the full verify
+run gates the PR.
+
+**Consequences:** the sanctioned outbound references to
+yourmobileaesthetics.com are now TWO (header badge 2026-08-15; this
+button) — siteConfig's "only sanctioned" comment corrected in the same
+commit, and CLAUDE.md constraint 2, compliance/README, BUILD_SPEC §6,
+REDESIGN, and the CHANGELOG ride the docs commit. The already-screened
+destination did not carry authorization forward: the second consumer
+got its own flag and its own override. /about carries no
+`clinicianApproved` flag — Amy's review happens on the PR preview.

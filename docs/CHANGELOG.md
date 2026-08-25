@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-25 — Girl Team on /about
+
+- /about's milestones section becomes a photo-left grid: Amy with four
+  of the location's five other providers, full frame in the segmental
+  arch, "Girl Team!" on an opaque keystone plate straddling the arch
+  crown — the site's first text-over-photo — and below it "Visit
+  Mobile Aesthetics", the second sanctioned outbound link to
+  yourmobileaesthetics.com (the header badge, 2026-08-15, was the
+  first; older "one sanctioned reference" notes below are superseded).
+  All three parts ship under the fourth constraint-2 scoped operator
+  override, direct from Amy; the four pictured providers' releases
+  confirmed on file (DECISIONS 2026-08-25). /about is not treatment
+  content — no `clinicianApproved` flag involved.
+
 ### 2026-08-25 — Skincare: the products-and-cards frame replaces the shelf photo
 
 - /services/skincare — the shelf photo beside "Individualized, with Amy"

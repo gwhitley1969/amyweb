@@ -51,7 +51,7 @@ src/content/treatments/*.mdx`.
 | Date | Reviewed on | Scope | Logged by |
 |---|---|---|---|
 | 2026-08-05 | stable preview (`…-5`) | launch state — the same pass as the copy sign-off (`ad8fbde`) | operator |
-| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21), laser-treatments' priced menu + Epileve section + three photos (2026-08-21), and the /about round (2026-08-25): the Girl Team section, the Evolus Laurel plaque, the ICON film's autoplay, and the team film below the Girl Team button (sounded, autoplay muted in view), and the /injector-training media round (2026-08-25): the dedicated training portrait + Amy's training reel on autoplay, and the regenerative PRP media round (2026-08-25): two photos + her PRP-visit reel on autoplay | — |
+| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21), laser-treatments' priced menu + Epileve section + three photos (2026-08-21), and the /about round (2026-08-25): the Girl Team section, the Evolus Laurel plaque, the ICON film's autoplay, and the team film below the Girl Team button (sounded, autoplay muted in view), and the /injector-training media round (2026-08-25): the dedicated training portrait + Amy's training reel on autoplay, and the iv-therapy photo round (2026-08-25): both photos now her picks, and the regenerative PRP media round (2026-08-25): two photos + her PRP-visit reel on autoplay | — |
 
 Visual drift since 2026-08-05, for Amy's pending pass: body face and
 size (DM Sans → Playfair 17px/1.65), every photo arched with 4:5/9:8
@@ -120,6 +120,13 @@ hormone-optimization) — and her training reel plays directly under
 as she scrolls to it, looping, tap for sound, in the white mat frame
 at reel width (all on-camera releases confirmed on her record;
 DECISIONS 2026-08-25).
+And the iv-therapy photo round (2026-08-25, her direction via the
+operator): the wide studio frame beside "What a visit looks like"
+replaced by a client on her laptop mid-infusion with Amy at the IV
+pole, and a new photo to the left of "Individualized, with Amy" — Amy
+tending a male client's arm for an IV infusion, re-graded brighter at
+the operator's direction (both releases confirmed on file; DECISIONS
+2026-08-25).
 And the regenerative PRP media round (2026-08-25, her direction via
 the operator): two new photos in the rows — the blood draw that
 starts a PRP visit (her own arm) and the prepared PRP syringes
@@ -129,10 +136,11 @@ treatment, autoplaying muted as she scrolls to it, near-silent sound
 one tap away; another of the location's providers injects on camera,
 face mostly out of frame, never named (her override, consent on
 file; DECISIONS 2026-08-25).
-Known defect queued for the same pass: `studio-wide.jpg` alt
-text ("two clients") vs its one-client 4:5 window — an MDX edit, so
-it ships inside the flag-resetting re-approval round (DECISIONS
-2026-08-17).
+~~Known defect queued for the same pass: `studio-wide.jpg` alt
+text ("two clients") vs its one-client 4:5 window~~ — RESOLVED
+2026-08-25: the asset was replaced and deleted in the iv-therapy
+photo round, so the mismatched alt no longer exists (DECISIONS
+2026-08-25; originally recorded 2026-08-17).
 
 **Copy change on every treatment page, 2026-08-24 — read this even for
 pages already approved.** The second step of "Your visit, step by step"
@@ -208,7 +216,7 @@ is also not flag-gated and has its own review section below the table.
 | ☐ | [/services/laser-treatments](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/laser-treatments) | "Venus Versa Pro" naming throughout (approved 2026-08-04). **NEW (2026-08-21): prices on all four cards from her two flyers — she confirms every figure and every item name (flyer-verbatim); the Venus Epileve laser hair-removal section (the three-column price sheet — single, full series of six, full series at ~15% off — areas, packages, direct booking); the rewritten "Is this actually a laser?" answer; three photos — beside the Versa Pro console, seated with two applicators, and at the window with the Epileve (its console readout legible; operator override). The 2026-08-04 console snapshot is retired. Re-approval required (flag reset)** |
 | ☐ | [/services/weight-loss-glp-1](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/weight-loss-glp-1) | The mg-keyed vial price tiers; the single Retatrutide investigational line; **NEW (2026-08-21): the InBody weigh-in frame from behind (wall sign legible; operator override) and the "They showed up for themselves" section — three client photo pairs under operator override, releases + HIPAA authorizations on file** |
 | ☐ | [/services/peptide-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/peptide-therapy) | Nine product cards with prices (her wording, near-verbatim); portrait photo |
-| ☐ | [/services/iv-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/iv-therapy) | Menu cards ($125 / $125 / $200 / $25 shots); studio photo |
+| ☐ | [/services/iv-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/iv-therapy) | Menu cards ($125 / $125 / $200 / $25 shots). **NEW (2026-08-25): BOTH photos are her picks** — "What a visit looks like" now shows a client on her laptop mid-infusion while Amy prepares supplies at the IV pole (replaces the wide studio frame), and "Individualized, with Amy" gains its first photo, to the left of the copy: Amy tending a male client's arm for an IV infusion (re-graded brighter at the operator's direction). Both pictured clients' releases confirmed on file; Amy is the clinician in both frames (DECISIONS 2026-08-25). **Re-approval required (flag reset)** |
 | ☐ | [/services/hormone-optimization](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/hormone-optimization) | Pellets $450 women / $750 men; lab draw $125; the Biote FDA disclaimer; **NEW: her grey-seamless portrait** (also on weight-loss) |
 | ☐ | [/services/skincare](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/skincare) | Skinbetter storefront routing (shop button, Mobile Aesthetics naming); two product photos. **NEW (2026-08-25): BOTH photos** — the first ("What it is") is now the held-out line-up with Amy's chin visible (the outgoing frame cut her head at the neck; a 4:5 crop keeping sunbetter whole and AlphaRet at the edge), and the second ("Individualized, with Amy") is the Skinbetter line-up above a spread of Amy's business cards (a 4:5 crop, so the outer two products are out of frame; the two capped syringes among the cards ship as-is at the operator's word). **Also NEW (2026-08-25): the storefront plate carries a QR code** — scan-to-register-and-shop, the counter-card handoff regenerated crisp (operator-supplied URL, decode-verified + operator scan-tested). **Re-approval required (flag reset)** |
 

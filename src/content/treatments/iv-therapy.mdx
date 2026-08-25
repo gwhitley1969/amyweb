@@ -31,7 +31,7 @@ productDetails:
     detail: "A vitamin the body doesn't make on its own: it comes from diet. Given as an injection."
 ctaType: book
 pricingDisplay: none
-clinicianApproved: true
+clinicianApproved: false
 draft: false
 faq:
   - q: "Do I need a consultation before booking?"
@@ -52,7 +52,8 @@ seo:
 ---
 
 import { Image } from 'astro:assets';
-import studioWide from '../../assets/photos/studio-wide.jpg';
+import ivInfusionLaptop from '../../assets/photos/iv-infusion-laptop.jpg';
+import ivMaleClient from '../../assets/photos/iv-male-client.jpg';
 
 ## What it is
 
@@ -88,9 +89,14 @@ handing you off partway through.
 
   </div>
   <figure class="media-figure">
+    {/* The client's pick (IV01), photo round 2026-08-25 — replaces the
+      * wide studio frame, retiring its recorded alt mismatch with it.
+      * Amy at the pole is operator-identified; the seated client's
+      * website-use release is confirmed on file. Screening record:
+      * DECISIONS 2026-08-25. */}
     <Image
-      src={studioWide}
-      alt="Amy Palacios, FNP, in black clinic scrubs talks with two clients seated in reclining treatment chairs at her Harrisburg studio."
+      src={ivInfusionLaptop}
+      alt="A client works on her laptop from a treatment chair during an IV infusion at Amy's Harrisburg studio, while Amy Palacios, FNP, prepares supplies at the IV pole."
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
@@ -106,8 +112,26 @@ A consultation is still there if you want one, and it's still free. Some people
 would rather ask a few questions before booking anything, and that's a perfectly
 ordinary way to start.
 
+<section class="media-row">
+  <figure class="media-figure">
+    {/* The client's pick (IV02), photo round 2026-08-25 — the section's
+      * first photo. Amy is operator-identified; the pictured client's
+      * website-use release is confirmed on file. Screening record:
+      * DECISIONS 2026-08-25. */}
+    <Image
+      src={ivMaleClient}
+      alt="Amy Palacios, FNP, tends a male client's arm as he reclines in a treatment chair for an IV infusion at her Harrisburg studio."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+  <div class="media-copy">
+
 ## Individualized, with Amy
 
 Amy Palacios, FNP, administers every infusion and every shot herself at her
 Harrisburg studio, in the greater Charlotte area. Book directly, or ask for a
 free consultation first, whichever you prefer.
+
+  </div>
+</section>

@@ -5,7 +5,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
 import TrustChips from '../components/TrustChips.astro';
-import EvolusCallout from '../components/EvolusCallout.astro';
+import EvolusLaurel from '../components/EvolusLaurel.astro';
 import TreatmentVideo from '../components/TreatmentVideo.astro';
 import { siteConfig } from '../lib/siteConfig';
 import familyPortrait from '../assets/photos/family-portrait.jpg';
@@ -24,10 +24,14 @@ import girlTeamStudio from '../assets/photos/girl-team-studio.jpg';
  * 2026-07-19 confirmation flag is resolved (DECISIONS 2026-08-04).
  * Sole ownership of Mobile Aesthetics:
  * DECISIONS 2026-07-23. "AKA Needle Girlie": the client-dictated byline,
- * DECISIONS 2026-07-30. The Evolus recognition plate and the "Inside
- * Evolus" film live here since 2026-08-18 (client direction, moved from
- * /services/wrinkle-relaxers — supersedes the 2026-07-21 "About is
- * ranking-free" placement decision; DECISIONS 2026-08-18). The
+ * DECISIONS 2026-07-30. The "Inside Evolus" film lives here since
+ * 2026-08-18 (client direction, moved from /services/wrinkle-relaxers
+ * with the recognition plate — supersedes the 2026-07-21 "About is
+ * ranking-free" placement decision; DECISIONS 2026-08-18); the plate
+ * gave way to the EvolusLaurel ranking plaque 2026-08-25 (client
+ * direction, the dermal-fillers-precedent swap; the plate's allowlist
+ * entry withdrawn, its ranking vocabulary banned everywhere again —
+ * DECISIONS same date). The
  * multi-provider location gets its one factual line in prose; since
  * 2026-08-25 the milestones section also carries the Girl Team still
  * and the second yourmobileaesthetics.com link, both under the fourth
@@ -175,22 +179,28 @@ import girlTeamStudio from '../assets/photos/girl-team-studio.jpg';
     </div>
   </section>
 
-  {/* Evolus recognition + the ICON film — moved here from
+  {/* Evolus ranking + the ICON film. The film moved here from
     * /services/wrinkle-relaxers at the client's direction (2026-08-18,
-    * DECISIONS same date). The plate (EvolusCallout) carries its own
-    * compliance header; the allowlisted sentence moves as a unit inside
-    * it. The film intro paragraph, label, and caption are byte-identical
-    * to the treatment page's. Content sits in a left-aligned max-w-3xl
-    * column (the milestones idiom) — the same 48rem width both
-    * components shipped in inside the treatment body. The film player
-    * stays exempt from the arch motif (players never mask manufacturer
-    * footage — DECISIONS 2026-08-17). */}
+    * DECISIONS same date); the recognition plate came with it, and on
+    * 2026-08-25 gave way to the EvolusLaurel ranking plaque (client
+    * direction — the dermal-fillers-precedent plate-for-plaque swap,
+    * DECISIONS same date). The plaque's two sentences are
+    * operator-authorized superiority copy scoped to exactly three
+    * pages, /about now among them (CLAUDE.md constraint 3; the
+    * component header carries the rules). The retired plate's
+    * allowlist entry is WITHDRAWN — its ranking vocabulary is banned
+    * everywhere again, comments included. The film intro paragraph,
+    * label, and caption are byte-identical to the treatment page's.
+    * Content sits in a left-aligned max-w-3xl column (the milestones
+    * idiom) — the width both components shipped in inside the
+    * treatment body. The film player stays exempt from the arch motif
+    * (players never mask manufacturer footage — DECISIONS 2026-08-17). */}
   <section
     class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20"
     aria-labelledby="about-evolus-title"
   >
     <div class="max-w-3xl">
-      <EvolusCallout />
+      <EvolusLaurel />
       <hr class="rule-accent ng-trace mt-12 sm:mt-16" aria-hidden="true" />
       <h2 class="heading-2 mt-6" id="about-evolus-title">Inside Evolus</h2>
       <p class="mt-6 max-w-prose">

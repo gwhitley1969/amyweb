@@ -58,6 +58,23 @@ import studioPortrait from '../assets/photos/studio-counter-portrait.jpg';
         {siteConfig.phone}
       </a>
     </p>
+    {/* Client-directed credit (2026-07-23, commit 19bf0e6). It was lost from
+      * this page by the takedown revert e57a4448 on 2026-08-05 — the launch
+      * revert restored a placeholder without it, and production carried no
+      * credit for nineteen days (DECISIONS 2026-08-24). Restored verbatim.
+      * mt-auto pins it to the bottom of the min-h-dvh flex column, as before.
+      * The same credit renders sitewide from Footer.astro on phase-c, so this
+      * copy becomes redundant at relaunch and should be dropped with the rest
+      * of the placeholder. Not a new outbound link: xtend-ai.com was screened
+      * when first published and ships in the footer today. */}
+    <p class="mt-auto text-xs">
+      Created by: <a
+        href="https://xtend-ai.com"
+        class="underline underline-offset-4"
+        target="_blank"
+        rel="noopener"
+        aria-label="Xtend-AI (opens in new tab)">Xtend-AI</a>
+    </p>
   </section>
 </BaseLayout>
 

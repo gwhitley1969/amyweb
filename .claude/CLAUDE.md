@@ -219,6 +219,24 @@ silently following it. Known superseded points from earlier briefs:
      confirmation; their caption files carry `[Music]` cues. Labels,
      captions, and comments for either film describe only what the
      pixels self-identify.
+     And the exact deck sentence on /services/wrinkle-relaxers —
+     `Wave good-bye to your crow's feet, "11's" between your eyes
+     and forehead frown lines!` (operator override after the
+     compliance flag — DECISIONS 2026-08-23 and 2026-08-24; flagged
+     on the 23rd, when the operator chose a compliant rewrite, and
+     that choice reversed on the 24th after seeing the page
+     rendered). It is a second-person outcome promise containing no
+     token lint:claims can see, which is why the authorization lives
+     here and in DECISIONS rather than in `allowedStrings` — a green
+     linter never authorizes it. The wording is exact and the scope
+     is the `deck` frontmatter field of that one page; the
+     vocabulary is never restated anywhere else — body copy, FAQ
+     answers, alt text, comments, meta descriptions, OG tags, or
+     JSON-LD. One coupling to know before editing either half: that
+     page's band photo `jeuveau-banner-studio.jpg` (the 2026-08-18
+     pixel override above) carries the banner headline this sentence
+     paraphrases, legible in the served file. Changing the wording,
+     the page scope, or that photo requires the human operator.
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing

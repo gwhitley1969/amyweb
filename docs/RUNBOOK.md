@@ -42,6 +42,18 @@ design: `allowedForwardedHosts` only admits the real hostnames.
 ## Everyday changes (content/code)
 
 1. Branch → edit → `npm run verify` (must be green; never weaken a gate).
+   *Before changing copy on a page that carries a pixel override, read that
+   override's stated premise in CLAUDE.md, not just its verdict.* Several are
+   conditioned on what the page's own text does or does not say, and nothing
+   enforces that — `lint:claims` cannot see pixels. Precedent: the
+   wrinkle-relaxers band photo was cleared 2026-08-18 because the site's copy
+   never repeated its banner headline; a 2026-08-24 deck change made the copy
+   paraphrase it, retiring the premise (DECISIONS 2026-08-24;
+   compliance/README "What the linter cannot see: media text"). And note that
+   a green `lint:claims` is a floor, not an authorization — copy can be
+   non-compliant while tripping no pattern, in which case the override lives
+   in DECISIONS and NOT in `allowedStrings` (compliance/README
+   "Authorizations the registry does not hold").
 2. Open a PR. CI runs the fast gates (build, `check`, `lint:claims`,
    `lint:voice` — about 20 seconds together), deploys a **preview
    environment**, and only then runs the slow gates (pa11y, Lighthouse).

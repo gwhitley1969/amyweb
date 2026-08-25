@@ -6,6 +6,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-25 — The team film joins the Girl Team unit on /about
+
+- The Mobile Aesthetics team film — the ~14s film the home carousel
+  plays — now also plays on /about, directly below the "Visit Mobile
+  Aesthetics" button, in a new SOUNDED rendition (`girl-team-film.mp4`):
+  autoplay muted as it scrolls into view, looping on screen, the music
+  one tap away on the native controls (no speech or narration — the
+  operator's confirmation is the record, so the autoplay opt-in is
+  in-contract, unlike the ICON film's override). The constraint-2
+  team-film exception widens to this placement (DECISIONS 2026-08-25);
+  the five providers' releases, confirmed 2026-08-17, cover the film.
+  Portrait 9:16 at the treatment pages' 18rem in-row film width, bare
+  frame, no printed caption. The Girl Team unit now runs still → plate
+  → button → film; /about is structural, so no approval flag moves.
+
 ### 2026-08-25 — The ICON film autoplays on /about
 
 - The Evolus ICON film now autoplays muted when scrolled into view,

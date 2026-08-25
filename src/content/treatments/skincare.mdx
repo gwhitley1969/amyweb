@@ -24,7 +24,7 @@ productDetails:
     detail: "Mineral, broad-spectrum sunscreens that close out the morning routine."
 ctaType: shop
 pricingDisplay: none
-clinicianApproved: true
+clinicianApproved: false
 draft: false
 faq:
   - q: "Where do skincare purchases happen?"
@@ -43,7 +43,7 @@ seo:
 import { Image } from 'astro:assets';
 import StorefrontCallout from '../../components/StorefrontCallout.astro';
 import skinbetterLineup from '../../assets/photos/skinbetter-lineup.jpg';
-import skinbetterShelf from '../../assets/photos/skinbetter-shelf.jpg';
+import skinbetterOverCards from '../../assets/photos/skinbetter-over-cards.jpg';
 
 <section class="media-row">
   <figure class="media-figure">
@@ -100,10 +100,17 @@ treatment plan: Amy Palacios, FNP, at her Harrisburg studio in the
 greater Charlotte area.
 
   </div>
+  {/* Photo round page 9 (operator direction, 2026-08-25 — DECISIONS same
+      date): her pick 28.jpg, baked 4:5 crop (854x1067 window at x=480 from
+      the 1600x1067 master, which stays outside the repo). Screened at full
+      resolution: product labels are manufacturer trade dress as sold, the
+      cards are Amy's own marketing, and the two capped syringes among the
+      cards were accepted as-is by the operator (screening note). No client
+      in frame — no release needed. */}
   <figure class="media-figure">
     <Image
-      src={skinbetterShelf}
-      alt="Skinbetter Science bottles and boxed products lined up on a shelf in the studio."
+      src={skinbetterOverCards}
+      alt="Skinbetter Science products standing on a table above a spread of Amy's business cards."
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />

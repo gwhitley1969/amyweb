@@ -51,7 +51,7 @@ src/content/treatments/*.mdx`.
 | Date | Reviewed on | Scope | Logged by |
 |---|---|---|---|
 | 2026-08-05 | stable preview (`…-5`) | launch state — the same pass as the copy sign-off (`ad8fbde`) | operator |
-| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21), laser-treatments' priced menu + Epileve section + three photos (2026-08-21), and the /about round (2026-08-25): the Girl Team section, the Evolus Laurel plaque, the ICON film's autoplay, and the /injector-training media round (2026-08-25): the dedicated training portrait + Amy's training reel on autoplay | — |
+| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21), laser-treatments' priced menu + Epileve section + three photos (2026-08-21), and the /about round (2026-08-25): the Girl Team section, the Evolus Laurel plaque, the ICON film's autoplay, and the team film below the Girl Team button (sounded, autoplay muted in view), and the /injector-training media round (2026-08-25): the dedicated training portrait + Amy's training reel on autoplay | — |
 
 Visual drift since 2026-08-05, for Amy's pending pass: body face and
 size (DM Sans → Playfair 17px/1.65), every photo arched with 4:5/9:8
@@ -105,7 +105,12 @@ ranking plaque — the same swap dermal-fillers made, so the
 allowlist entry is withdrawn; and the ICON film autoplays muted as
 she scrolls to it, tap for sound (a scoped override of the
 narrated-manufacturer-film rule — flagged, her call; DECISIONS
-2026-08-25 ×3).
+2026-08-25 ×3). And later the same day the Girl Team unit gained the
+team film itself — the film the home carousel plays, now in a sounded
+rendition directly below the "Visit Mobile Aesthetics" button: it
+autoplays muted as she scrolls to it, loops on screen, and the music
+is one tap away on the controls (no speech or narration — the
+operator's confirmation is the record; DECISIONS 2026-08-25).
 And the /injector-training media round (2026-08-25, her direction):
 the hero portrait is now her dedicated training photo — Amy with
 Evolysse cartons before the Jeuveau banner (its own pixel override;

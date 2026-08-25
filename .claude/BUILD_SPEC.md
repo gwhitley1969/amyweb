@@ -367,7 +367,7 @@ layout shift from fonts or images.
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
-| `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; the EvolusLaurel ranking plaque + the ICON film (the film and the old recognition plate moved from wrinkle-relaxers at the client's direction 2026-08-18, superseding the 2026-07-21 ranking-free placement; the plate gave way to the Laurel 2026-08-25 — the same swap dermal-fillers made 2026-08-21 — retiring the resolved `{{EVOLUS_CLAIM}}` sentence sitewide, its `allowedStrings` entry withdrawn; §8.4); the Girl Team still + "Girl Team!" keystone plate (the site's first text-over-photo) + the "Visit Mobile Aesthetics" button — the second sanctioned yourmobileaesthetics.com link (constraint-2 fourth scoped exception, direct from Amy 2026-08-25; DECISIONS same date) | Request a consultation |
+| `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; the EvolusLaurel ranking plaque + the ICON film (the film and the old recognition plate moved from wrinkle-relaxers at the client's direction 2026-08-18, superseding the 2026-07-21 ranking-free placement; the plate gave way to the Laurel 2026-08-25 — the same swap dermal-fillers made 2026-08-21 — retiring the resolved `{{EVOLUS_CLAIM}}` sentence sitewide, its `allowedStrings` entry withdrawn; §8.4); the Girl Team still + "Girl Team!" keystone plate (the site's first text-over-photo) + the "Visit Mobile Aesthetics" button — the second sanctioned yourmobileaesthetics.com link (constraint-2 fourth scoped exception, direct from Amy 2026-08-25; DECISIONS same date); below the button, the Mobile Aesthetics team film in a sounded rendition (`girl-team-film.mp4` — the carousel team film's constraint-2 second exception widened to this placement 2026-08-25; site-authored and speech-free, so its `autoplay="inview"` is in-contract, unlike the ICON film's override; DECISIONS same date) | Request a consultation |
 | `/injector-training` | Private Injector Training | Professional-audience page (added 2026-08-04, operator-directed; DECISIONS same date): four hands-on, one-on-one courses for licensed medical professionals, prices flyer-verbatim (three at $5,000, Radiesse $7,500; three hours each, product included); curriculum topics under the fifth `allowedStrings` authorization (§8.1); outside the treatments collection and the clinician flag gate — Amy reviews via the sign-off doc's non-gated section; "Training" nav item. Since 2026-08-25 (DECISIONS same date): the dedicated hero portrait `amy-evolysse-cart.jpg` — a second Jeuveau-banner frame, headline/indication/partial ISI legible, its own pixel override — and Amy's training reel (`training-reel`, 19.8s, music bed) under the "Four courses" heading, carried as-is under operator override (burned-in curriculum cards + a legible per-vial quantity + the on-screen practice-site URL, constraint-2 fifth exception; all on-camera releases confirmed), autoplay in-class | Call (phone/Instagram routed — neither booking nor consultation language) |
 | `/book` | RETIRED (2026-07-21, operator) | Was the Vagaro-handoff explainer; every "Book with Amy" now opens Vagaro directly, so the page was deleted before ever serving in production | — |
 | `/visit` | Visit Us | Address (hours are NOT listed — Amy's decision 2026-08-04, `{{HOURS}}` CLOSED; no page copy may promise or imply hours), parking note, "Get directions" link-out (no map iframe) | Directions / Book |
@@ -891,9 +891,12 @@ action.
   (operator override after the flag — DECISIONS 2026-08-25): the
   Evolus ICON film on /about autoplays muted at the client's
   direction; its "sound on" caption stays as the tap-for-sound nudge.
-  The rule stands for every other film. (In-class opt-ins since: the
-  /injector-training training reel, 2026-08-25 — Amy's own,
-  speech-free, no exception needed.)
+  The rule stands for every other film. In-contract consumers added
+  2026-08-25: the team film's sounded rendition on /about
+  (`girl-team-film.mp4` — site-authored, music bed only, no speech;
+  the operator's confirmation is the record, DECISIONS same date) and
+  the /injector-training training reel (`training-reel` — Amy's own,
+  speech-free, no exception needed; DECISIONS same date).
   Amy's reel plays at 0.5× via per-slide `data-rate`/playbackRate
   (operator/Amy tuning 2026-08-15 — DECISIONS same date; the master
   file is untouched, captions track media time). Rates are for Amy's
@@ -984,7 +987,8 @@ action.
   treatment-film autoplay-in-view script, public/js/treatment-video.js,
   ~2KB, rendered only on pages whose films opt in — today
   /services/biostimulators, /services/body-contouring, /about
-  (the ICON film, 2026-08-25 — the §5 film-class override above), and
+  (the ICON film, 2026-08-25 — the §5 film-class override above — and,
+  same date, the Girl Team unit's team film, in-contract), and
   /injector-training (the training reel, 2026-08-25, in-class); the
   second consumer is the dark Plausible tracker, §11.)*
 - Hero image: optimized, `fetchpriority="high"`, explicit dimensions;

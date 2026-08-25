@@ -6386,3 +6386,106 @@ own DECISIONS entry.
 
 **Consequences:** the perf gate stays at full strength on the page;
 CI's own 3×-median run on the PR is the confirming record.
+## 2026-08-25 — the team film joins /about's Girl Team unit (sounded rendition; the second constraint-2 exception widens)
+
+**Context:** Operator direction, riding the day's /about round: the Mobile
+Aesthetics team film — `C:\Amy\New Pics\team.MOV` — joins /about directly
+below the "Visit Mobile Aesthetics" button, on autoplay. Verified
+first-hand before planning: the file (22,013,675 bytes, SHA-256
+7956A8DE6C607C85022426CC22EA4544665610EB24424DB0ED9B8D3F814BEB73, last
+modified 2026-08-17 05:45, the only team MOV under C:\Amy) is the same
+master screened frame-level for the home carousel that day — a fresh
+contact sheet matched the 2026-08-17 record shot for shot (the burned-in
+"GIRL TEAM" opener under the MA neon, the B&W photo-shoot montage; no
+products, no clients, no claims text; the only legible words are the
+overlay and Amy's own neon) — and **the operator confirmed the identity
+on the record ("It was 08/17")**. Probed: 1080×1920 portrait — 9:16, a
+fact the carousel record never needed to state — H.264 High at
+12.6 Mbps, 13.87s, stereo AAC-LC ~126kbps.
+
+**Flags raised, and the operator's decisions:**
+
+1. **Constraint 2 — placement widening.** The film shows the location's
+   other five providers, and its exception (the second scoped
+   exception, 2026-08-17) is recorded as the home-carousel film;
+   CLAUDE.md requires the human operator for any further film
+   placement. **Operator override, direct from the client: the film
+   joins /about**, inside the Girl Team unit. The five providers'
+   releases for needlegirlie.com use, confirmed 2026-08-17, cover the
+   film (as the Girl Team entry above noted — the film, not stills)
+   and carry to this second placement. CLAUDE.md's second exception is
+   widened in this PR; a third placement requires the human operator.
+2. **Sound.** The muted carousel rendition was offered as the
+   recommended path (zero new objects; browser autoplay is muted
+   regardless); **the operator directed a SOUNDED rendition** — "if
+   there is music, we'll have it setup where a user can unmute." The
+   master's audio probed as a steady music-class track (volumedetect
+   mean −20.2 dB, peak −6.0 dB; zero silent windows at −40dB/1s).
+   **"No speech or narration anywhere" is the operator's confirmation
+   (2026-08-25), and that confirmation is the record** (the
+   biostimulators pattern — no transcription tooling on this
+   workstation). Consequence: `autoplay="inview"` is **IN-CONTRACT** —
+   site-authored and speech-free, the film class the opt-in was
+   written for. No autoplay override exists or is needed; the ICON
+   film's scoped override remains that rule's only exception.
+
+**Decisions:**
+
+- **Rendition** `girl-team-film.mp4` (content-named, the unit's
+  vocabulary; a new filename, so no purge): H.264 CRF 23, preset
+  medium, yuv420p, `-c:a copy` (the AAC track untouched), faststart —
+  6.86MB / ~4.0 Mbps. Two recorded deviations, reasoned: the
+  lossless-remux rule for H.264/AAC sources would ship the master's
+  12.6 Mbps (22MB) into an autoplaying slot; and the sounded-film
+  CRF 20 recipe (written for HEVC sources) measured 9.54MB here,
+  while THIS master already has a client-reviewed visual precedent at
+  CRF 23 — its own carousel rendition. Both encodes were made and
+  measured; CRF 23 ships.
+- **Captions** `public/media/girl-team-film.vtt`, audio-faithful:
+  bounded `[Music]` cues plus the 0–2s cue mirroring the burned-in
+  "Girl team" overlay. The carousel's `commercial-team.vtt` is
+  deliberately NOT reused: `TreatmentVideo` renders captions
+  default-on, and that file's film-long descriptive cue — written for
+  the carousel, where captions are viewer-opt-in over a muted film —
+  would paint text across the whole play. The carousel file is
+  untouched.
+- **Poster:** `commercial-team-poster.jpg` REUSED (dedup rule) —
+  1080×1920, the same master's opening neon frame; the component
+  clamps the request to the 1080 source width.
+- **Placement + presentation:** inside the Girl Team unit's column,
+  directly below the button — the unit now runs still → plate →
+  button → film. Portrait 9:16 at full column width would render
+  ~800px tall, so a page-scoped wrapper caps it at the treatment
+  pages' in-row film width (18rem — the page's standing hand-copy
+  precedent; the sizing rule is scoped to `.treatment-body` and
+  unreachable here). `frame="bare"` beside the unit's bare segmental
+  arch; the mat stays the ICON player's standalone look. No printed
+  caption (the 2026-08-21 rule); the label names the team factually,
+  within the fourth exception's unit terms. The EvolusLaurel section
+  simply sits lower; the film's own 2.5rem top margin is the gap
+  under the button, and the plaque gap is eyeballed at 390/1280 on
+  the built page before the PR.
+
+**Alternatives rejected:** reusing the muted carousel rendition
+(recommended, declined — the client wants the music unmutable);
+lossless remux (22MB); CRF 20 (9.54MB, no visual gain over the
+master's own carousel precedent); full-column width (an ~800px
+portrait tower); the mat frame (re-imports the print look beside the
+unit's bare arch); a fresh constraint-2 exception entry instead of
+widening the second (one film, one exception — the record stays
+navigable).
+
+**Consequences:** two renditions of one master now serve from the
+media origin — `commercial-team.mp4` (muted, home carousel) and
+`girl-team-film.mp4` (sounded, /about) — so replacing the team film
+someday touches BOTH. /about runs two autoplaying players sharing the
+one ~2KB static script (zero new JS). The poster is fetched at page
+load on an LHCI-gated page — measured in verify, not assumed. Egress
+~7MB per full play. /about is structural — no clinicianApproved
+mechanics; Amy reviews on the PR preview, and the pending
+presentation-approval row gains the film. One passage left for the
+operator: the fourth exception's cross-reference sentence in CLAUDE.md
+(noting the unit gained the film) was blocked by the tooling
+classifier mid-edit — the OPERATIVE authorization, the second
+exception's widening, is applied; the cross-reference is flagged as
+the operator's passage (the DraftBanner BUILD_SPEC §4/§7 precedent).

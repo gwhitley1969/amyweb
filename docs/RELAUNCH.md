@@ -44,14 +44,24 @@ check will refuse it. On a branch off `main`:
 3. In the same PR: delete `src/assets/photos/studio-counter-portrait.jpg`
    (the placeholder's photo — zero-reference once the placeholder
    retires; PR #101 orphan precedent).
-4. In the same PR: **retire the relaunch guard** —
-   `.github/workflows/relaunch-guard.yml` and the branch-protection
-   required contexts (`gh api`), with a DECISIONS entry. Post-relaunch
-   the revert is a harmless ancestor everywhere and the guard would
-   fail every PR forever.
+4. **Do NOT retire the guard in this PR** (corrected 2026-08-24 — the
+   previous instruction could not work). Deleting
+   `.github/workflows/relaunch-guard.yml` here breaks step 6 twice over:
+   the workflow is then absent from the merge commit so the check cannot
+   run at all, and even if it ran it would FAIL, because that file is
+   itself tracked on `phase-c` — the guard's own comparison reports it as
+   a missing phase-c file (verified: it is the first entry in the missing
+   list). The relaunch PR would fail its own required check on its own
+   retirement. Retire the guard in a FOLLOW-UP PR after this one merges:
+   delete the workflow from both branches and remove the required
+   contexts from both (`gh api`), with a DECISIONS entry. Post-relaunch
+   the revert is a harmless ancestor everywhere and `takedown-revert-guard`
+   would fail every PR forever, so the follow-up is not optional.
 5. Verify the tree before pushing: file count vs `phase-c` = zero
-   missing, exactly the deletions from steps 3 (and the guard file
-   from 4) intentional.
+   missing. Note (2026-08-24) that `studio-counter-portrait.jpg` from
+   step 3 will NOT appear in that comparison — it is a placeholder asset
+   that exists only on `main`, never on `phase-c`. With step 4 deferred,
+   the expected result is a clean zero, no intentional exceptions.
 6. PR into `main` → CI green (including `gutted-merge-guard`, which
    proves the tree complete before it retires) → operator merges.
 

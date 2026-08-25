@@ -5698,3 +5698,86 @@ it, which reads as deliberate rather than repetitive. The paragraphs above are
 left as written, per this file being append-only; `docs/CHANGELOG.md` and
 `docs/CLINICIAN-SIGN-OFF.md` were corrected in place instead, the latter
 because Amy reviews from it and must see the current text.
+## 2026-08-24 — the relaunch guard could never report, so every PR into `main` was blocked
+
+**Context:** Restoring the Xtend-AI credit to the production placeholder
+(PR #144) hit a wall: the PR is `mergeable: MERGEABLE` but
+`mergeStateStatus: BLOCKED`, permanently. Investigation found a required status
+check that no workflow on `main` can produce. This is not specific to that PR —
+**no PR into `main` could pass through the normal flow**, which means production
+had no hotfix path at all.
+
+**Two independent defects.** They must be read together; fixing either alone
+changes nothing useful.
+
+**A — the blocker.** `.github/workflows/relaunch-guard.yml` exists only on
+`phase-c`. A PR into `main` is cut from `main`, so neither its head nor its base
+carries the workflow, the job never runs, and the required context
+`gutted-merge-guard` never reports. Evidence: `main`'s tree holds only
+`pr-preview.yml` and `production.yml`; the job's conclusion was `skipped` in all
+40 runs sampled — **it had never once executed its logic**; PR #144 reported
+only `verify-and-deploy` and `close-preview`. This is the failure mode the
+workflow's own header warns about for a different cause: *"a path-filtered
+required check never reports, which blocks the merge forever."* The RUNBOOK
+described the guard as "required on both branches" — true of the **check**,
+false of the **workflow**, and that gap is the bug.
+
+**B — latent.** The skip test `! git merge-base --is-ancestor
+"$LAUNCH_MERGE_BASE" HEAD` could never be true. The takedown revert changed
+`main`'s TREE, not its HISTORY — the same file's header says so — therefore
+`LAUNCH_MERGE_BASE` is an ancestor of `main` and of every branch cut from it.
+The comment claiming "placeholder-era PRs pass trivially" described an
+unreachable state. Had A been fixed alone, the job would have run and failed,
+reporting 98 missing files against a PR that deletes nothing (verified: 0
+deletions relative to `main`).
+
+**Decision.** Replace the skip test with one that actually separates a release
+merge from a placeholder fix — *does this PR carry post-takedown `phase-c`
+commits?* — and put the identical workflow on `main` so the check can report.
+
+**The file comparison is deliberately untouched.** Only the skip condition
+changed, so a release PR runs exactly the check it always would have. This
+cannot weaken what the guard exists for. Proven locally before shipping, which
+mattered because the job had never run and a silently-always-passing guard would
+be worse than the broken one:
+
+| Case | Shared commits | Behaviour |
+|---|---|---|
+| Placeholder fix off `main` (#144) | 0 | skips — correct, it deletes nothing |
+| `phase-c`-derived head | 186 | runs the file check — correct, that is the hazard |
+| Gutted tree fed to the file check | — | reports 98 missing, exit 1 — the guard still bites |
+
+`LAUNCH_MERGE_BASE` was removed as dead config, with the reason left in a
+comment; dead config is what produced this class of bug. `TAKEDOWN_REVERT`
+stays — job 1 uses it. Job 1 was not touched. Neither job gained a `name:`
+field: the check-run names equal the job ids, which is what the required
+contexts match on, so renaming would silently re-break the gate.
+
+**Bootstrap.** The PR that fixes a never-reporting required check is itself
+blocked by it. Resolved by adding the workflow in the PR — GitHub runs
+`pull_request` workflows from the merge commit, so the check runs on itself —
+with a one-time admin merge as the fallback (`enforce_admins` is `false` on
+`main`). No branch-protection context was removed at any point.
+
+**Consequences for the relaunch, recorded because they are not obvious.**
+`docs/RELAUNCH.md` step 6 promises the relaunch PR will go green *"including
+`gutted-merge-guard`, which proves the tree complete before it retires"*, while
+step 4 deletes the workflow in that same PR. That cannot work, for two
+independent reasons: the workflow is then absent from the merge commit and
+cannot run at all; and **even if it ran it would fail**, because
+`relaunch-guard.yml` is itself a tracked file on `phase-c`, so deleting it makes
+the guard's own comparison report it as a missing phase-c file. Verified: it is
+the first entry in the missing list. The relaunch PR would fail its own required
+check on its own retirement. Corrected sequencing: keep the workflow in the
+relaunch PR so the check runs and proves the tree, merge, then retire the
+workflow and both branches' required contexts in a follow-up. Separately, step 5
+lists `studio-counter-portrait.jpg` among the deletions the tree check will
+surface — that asset is not on `phase-c` (verified), so it never appears.
+
+**Two things deliberately NOT changed.** The fixed guard no longer incidentally
+fails a placeholder PR that deletes files for unrelated reasons; it never aimed
+to, and adding a base-relative deletion check would introduce a new failure mode
+into a gate the relaunch depends on. And `verify-and-deploy` is a required check
+on **neither** branch — only the two guards are — so CI green is advisory and a
+PR with failing tests is mergeable once its guard passes. That is the operator's
+call, flagged rather than altered.

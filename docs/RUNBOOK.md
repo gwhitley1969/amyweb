@@ -15,8 +15,12 @@ assumes `az` and `gh` CLIs authenticated against the client tenant
 > it — but ancestry is what matters): never merge `main` into
 > `phase-c` (including PR #95's "Update branch" button) and never
 > close PR #95. Since 2026-08-17 the **relaunch guard** enforces this
-> mechanically (`.github/workflows/relaunch-guard.yml`, required on
-> both branches — see the relaunch section). The `-95` preview
+> mechanically (`.github/workflows/relaunch-guard.yml` — see the
+> relaunch section). Until 2026-08-24 the workflow lived only on
+> `phase-c` while `main` required its check, so the check could never
+> report and **every** PR into `main` was permanently blocked; the file
+> now ships on both branches and the two copies must stay identical
+> (DECISIONS 2026-08-24). The `-95` preview
 > cannot deploy during the takedown (merge ref conflicted by design);
 > the full-site demo preview is **PR #97**'s environment.
 
@@ -61,6 +65,16 @@ design: `allowedForwardedHosts` only admits the real hostnames.
 3. Merge to `main`. The production workflow re-verifies, runs the
    **clinician-approval gate**, deploys, and purges the Front Door cache.
    Live in ~5–10 minutes end to end.
+
+**Hotfixing production during the takedown era.** What `needlegirlie.com`
+serves today is the construction placeholder on `main`, not the site — a fix
+to it is a PR into `main`, branched from `main`, never from `phase-c`. It runs
+`pr-preview.yml` and the `gutted-merge-guard` check, which skips for any PR
+carrying no post-takedown `phase-c` commits. Merging deploys production and
+purges the Front Door cache like any other `main` merge. Precedent and the
+reason this path exists at all: the Xtend-AI footer credit was lost from the
+placeholder by the takedown revert and went unnoticed for nineteen days
+(DECISIONS 2026-08-24).
 
 ## Where `phase-c` is visible
 

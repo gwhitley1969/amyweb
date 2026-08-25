@@ -111,7 +111,15 @@ silently following it. Known superseded points from earlier briefs:
    exactly the two above, and the site's text never prints the URL.
    (The film's on-camera people are all released and none is another
    provider — its content override lives under constraint 3.)*
-   *Outside these five exceptions the other providers are still never
+   *Sixth scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-08-25): the PRP-visit reel (`prp-visit`) on
+   /services/regenerative, Amy's own film of her receiving her own
+   PRP hairline treatment, in which one of the location's other
+   providers is on camera doing the injection (face mostly out of
+   frame, never named); their consent for needlegirlie.com use is
+   confirmed on file. The film's label and captions never attribute
+   the hands-on treatment to anyone.*
+   *Outside these six exceptions the other providers are still never
    named or implied in any needlegirlie.com text, and adding any
    further link, film, or mention requires the human operator.*
 
@@ -171,7 +179,19 @@ silently following it. Known superseded points from earlier briefs:
      describe only what the pixels self-identify and never restate
      the vocabulary or the quantity; changing any of it requires the
      human operator. (Its on-screen practice-site URL is the
-     constraint-2 fifth exception.)* Nothing else;
+     constraint-2 fifth exception.)* *Seventh pixel-level override,
+     the fourth under this bullet (operator override after the
+     compliance flag — DECISIONS 2026-08-25): the
+     /services/regenerative row photo `prp-syringes.jpg`, in which two
+     diluent vials' labels — the product name with its concentration,
+     a 30 mL multiple-dose line, an NDC number, and diluent-use fine
+     print — are legible in the served source file beside the prepared
+     PRP syringes (the prep-workflow imagery class the 2026-07-23
+     photo rubric excluded). The recommended crop-out bake and the
+     defocus bake were both declined. Fixed terms: this frame, this
+     page; no text from the packaging is ever restated in site text —
+     copy, alt, comments, meta, OG, JSON-LD; changing any of it
+     requires the human operator.* Nothing else;
      changing that list requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
@@ -375,7 +395,10 @@ silently following it. Known superseded points from earlier briefs:
   film in its sounded rendition, in-contract: site-authored, music
   only, no speech — the operator's confirmation is the record), and
   /injector-training (2026-08-25, Amy's own speech-free training reel
-  — in-class, no exception needed; DECISIONS same date).
+  — in-class, no exception needed; DECISIONS same date), and
+  /services/regenerative (2026-08-25, Amy's own speech-free PRP-visit
+  reel — in-class; its on-camera provider is the constraint-2 sixth
+  exception; DECISIONS same date).
   The budget stands.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.

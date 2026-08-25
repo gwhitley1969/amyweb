@@ -16,7 +16,9 @@
     "check:approvals": "node scripts/check-approvals.mjs --self-test && node scripts/check-approvals.mjs",
     "test:a11y": "node scripts/test-a11y.mjs",
     "test:perf": "node scripts/test-perf.mjs",
-    "verify": "npm run build && npm run check && npm run lint:claims && npm run lint:voice && npm run test:a11y && npm run test:perf"
+    "verify:fast": "npm run build && npm run check && npm run lint:claims && npm run lint:voice",
+    "verify:slow": "npm run test:a11y && npm run test:perf",
+    "verify": "npm run verify:fast && npm run verify:slow"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",

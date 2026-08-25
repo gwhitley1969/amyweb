@@ -5984,3 +5984,32 @@ the PR preview and the flag returns in the consolidated pre-relaunch
 round. Alt text rewritten factually (products above the card spread; no
 product count, since the crop trims two). The master stays in
 C:\Amy\New Pics, never committed.
+
+**Addendum, same day — the first photo too: Amy's chin returns to
+frame.** Operator direction after PR #150 merged (the second slot) but
+before the standing previews were refreshed: the page's FIRST photo,
+beside "What it is" (`skinbetter-lineup.jpg`, committed 2026-07-23),
+cuts Amy's head off at the neck — replace it with
+`C:\Amy\New Pics\27.jpg`, the same held-out-line-up scene from the same
+shoot with **her chin visible at the top of the frame**. Screened:
+1600×1385 landscape, 513KB, hash-unique; Amy alone (the operator's
+direction identifies her — chin, blonde hair, the pink blazer of the
+2026-08-18 blazer frame), so no release; six product labels are
+manufacturer trade dress as sold (sunbetter's SPF/water-resistance
+lines included — label text, the standing precedent); the soft pink
+blur at her shoulder is illegible and benign. Same mechanics as the
+morning's swap: baked 4:5 crop (sharp
+`.extract({ left: 246, top: 0, width: 1108, height: 1385 })`, JPEG q92,
+single generation) → `amy-holding-skinbetter.jpg`; tiers
+`[340, 540, 680]` unchanged (1108 ≥ 680). x=246 chosen from three
+rendered candidates (180/246/320) on a criterion the page itself
+supplies: the copy names sunbetter and AlphaRet as the line's example
+franchises, and 246 is the window that keeps the chin centered,
+sunbetter whole, and AlphaRet readable at the edge (180 loses AlphaRet
+entirely; 320 cuts sunbetter's label and strands a floating Mystro cap
+fragment). Alt names Amy for the first time on this page — the
+operator's identification is the record. `skinbetter-lineup.jpg` had no
+other consumer (the 2026-08-17 door round left it only here) and is
+deleted. `clinicianApproved` was already false (this morning's reset) —
+unchanged; Amy reviews both new photos on one preview (the 2026-08-15
+combined-review lesson).

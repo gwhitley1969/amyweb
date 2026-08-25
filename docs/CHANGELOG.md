@@ -21,6 +21,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - `clinicianApproved` reset on skincare (approved content edited —
   constraint 4); Amy re-reviews on the preview. Flags now read
   3 true / 9 false.
+- Same day, the first photo too: the "What it is" frame (which cut
+  Amy's head off at the neck) gives way to 27.jpg from the same shoot —
+  the same held-out product line-up with **her chin visible**, as a
+  baked 4:5 crop (1108×1385 at x=246) that keeps both franchises the
+  copy names: sunbetter whole, AlphaRet readable at the edge.
+  `skinbetter-lineup.jpg` deleted (no other consumer). Flag already
+  false; Amy reviews both new photos on one preview.
 
 ### 2026-08-24 — Treatment pages: step 3, two FAQ answers, and the consult router
 

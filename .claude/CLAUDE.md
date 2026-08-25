@@ -69,8 +69,9 @@ silently following it. Known superseded points from earlier briefs:
    DECISIONS 2026-08-15): the header badge links out to Amy's own
    practice site, `siteConfig.mobileAestheticsUrl`
    (yourmobileaesthetics.com), whose pages name the location's other
-   providers. This is the only sanctioned outbound reference to that
-   site.* *Second scoped exception (operator override after the
+   providers. The first of two sanctioned outbound references to that
+   site (the second is the fourth exception below, 2026-08-25).*
+   *Second scoped exception (operator override after the
    compliance flag — DECISIONS 2026-08-17): the home-carousel team
    film (`commercial-team`), which shows the location's other five
    providers on camera; their releases for needlegirlie.com use are
@@ -82,7 +83,21 @@ silently following it. Known superseded points from earlier briefs:
    two seconds (face out of frame, never named); their consent for
    needlegirlie.com use is confirmed on file. The film's labels and
    captions never attribute the hands-on treatment to anyone.*
-   *Outside these three exceptions the other providers are still never
+   *Fourth scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-08-25, direct from Amy): the /about Girl
+   Team unit, all three parts fixed together — the still photo
+   `girl-team-studio.jpg` (Amy with four of the location's five
+   other providers; all four releases for needlegirlie.com use
+   confirmed on file), the rendered text "Girl Team!" on its
+   keystone plate (team language against the voice rule's written
+   rationale, though it trips no linter token — a green lint:voice
+   never authorizes it), and the "Visit Mobile Aesthetics" button
+   below it, the second sanctioned outbound link to
+   yourmobileaesthetics.com. The unit's own alt text names the team
+   factually; nobody is ever individually named in copy, alt text,
+   or comments, and the team vocabulary is never restated outside
+   the unit — meta descriptions, OG tags, and JSON-LD included.*
+   *Outside these four exceptions the other providers are still never
    named or implied in any needlegirlie.com text, and adding any
    further link, film, or mention requires the human operator.*
 
@@ -142,9 +157,13 @@ silently following it. Known superseded points from earlier briefs:
      as-is — manufacturer comparative-efficacy remarks, named
      third-party providers, and no safety information, all
      operator-accepted); and the exact sentence "Charlotte's #1 Evolus
-     provider" enumerated in `allowedStrings`, on the /about page only
-     (moved off wrinkle-relaxers 2026-08-18; swapped for the Laurel
-     plaque on dermal-fillers 2026-08-21);
+     provider" — RETIRED 2026-08-25: the /about recognition plate, by
+     then its only consumer, was swapped for the Laurel plaque at the
+     client's direction (the same swap dermal-fillers made 2026-08-21,
+     after the sentence moved off wrinkle-relaxers 2026-08-18), so the
+     `allowedStrings` entry was withdrawn with the operator's
+     authorization and the ranking vocabulary is banned everywhere
+     again; re-adding the sentence requires the human operator;
      and three of the home-carousel films (operator clearances,
      DECISIONS 2026-08-14) — the two Evolus co-op Jeuveau commercials
      carried as-is with their complete FDA safety information (never
@@ -190,9 +209,12 @@ silently following it. Known superseded points from earlier briefs:
      compliance flag — DECISIONS 2026-08-18; two compliant rephrases
      declined), in the /services intro lead only, on one source line.
      And two ranking sentences rendered by `EvolusLaurel` on
-     /services/wrinkle-relaxers (layout slot) and, since 2026-08-21 at
+     /services/wrinkle-relaxers (layout slot); since 2026-08-21 at
      the operator's direction, /services/dermal-fillers (in-body, in
-     the retired "#1" plate's spot — DECISIONS same date) — nowhere
+     the retired "#1" plate's spot — DECISIONS same date); and since
+     2026-08-25 at the operator's direction, /about (the same
+     plate-for-plaque swap, retiring the "#1" sentence sitewide —
+     DECISIONS same date) — nowhere
      else (operator authorization — DECISIONS 2026-08-19; substantiation = the operator's
      verification with Evolus, which also covers the national
      standing): "The Top Evolus Injector in Charlotte." and "And
@@ -307,8 +329,14 @@ silently following it. Known superseded points from earlier briefs:
   sanctioned consumer (2026-08-21, operator-directed): the treatment-film
   autoplay-in-view script (~2KB, `public/js/treatment-video.js`) —
   rendered only on pages whose `TreatmentVideo` players opt in with
-  `autoplay="inview"` (today /services/biostimulators alone; muted,
-  loop-in-view, reduced motion = click-to-play; DECISIONS 2026-08-21).
+  `autoplay="inview"` (muted, loop-in-view, reduced motion =
+  click-to-play; DECISIONS 2026-08-21). Opted-in pages today:
+  /services/biostimulators and /services/body-contouring (both
+  2026-08-21, Amy's own speech-free reels — the film class the opt-in
+  was written for) and /about (2026-08-25, the ICON film — a scoped
+  operator override of the never-autoplay-a-narrated-manufacturer-film
+  rule, DECISIONS same date; the component header carries both the
+  rule and the exception).
   The budget stands.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.

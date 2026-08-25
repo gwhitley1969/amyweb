@@ -72,10 +72,16 @@ silently following it. Known superseded points from earlier briefs:
    providers. The first of two sanctioned outbound references to that
    site (the second is the fourth exception below, 2026-08-25).*
    *Second scoped exception (operator override after the
-   compliance flag — DECISIONS 2026-08-17): the home-carousel team
-   film (`commercial-team`), which shows the location's other five
-   providers on camera; their releases for needlegirlie.com use are
-   confirmed on file, and none of them is legibly named in the film.*
+   compliance flag — DECISIONS 2026-08-17; placement widened
+   2026-08-25): the Mobile Aesthetics team film, which shows the
+   location's other five providers on camera — the muted
+   home-carousel rendition (`commercial-team`) and, since 2026-08-25
+   at the client's direction, the sounded rendition
+   (`girl-team-film`) inside the /about Girl Team unit (autoplay
+   muted in view, music one tap away); their releases for
+   needlegirlie.com use are confirmed on file, none of them is
+   legibly named in the film, and a third placement requires the
+   human operator.*
    *Third scoped exception (operator override after the compliance
    flag — DECISIONS 2026-08-21): the Radiesse-visit film
    (`radiesse-visit`) on /services/biostimulators, Amy's own reel, in
@@ -336,7 +342,9 @@ silently following it. Known superseded points from earlier briefs:
   was written for) and /about (2026-08-25, the ICON film — a scoped
   operator override of the never-autoplay-a-narrated-manufacturer-film
   rule, DECISIONS same date; the component header carries both the
-  rule and the exception).
+  rule and the exception — and, same date, the Girl Team unit's team
+  film in its sounded rendition, in-contract: site-authored, music
+  only, no speech — the operator's confirmation is the record).
   The budget stands.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.

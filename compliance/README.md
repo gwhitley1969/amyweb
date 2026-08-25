@@ -119,6 +119,18 @@ destination names the location's other providers, which tripped hard
 constraint 2; it ships as a scoped operator override recorded in
 DECISIONS and in CLAUDE.md's constraint-2 exception text.
 
+**QR codes are both blindness classes at once** (first instance: the
+storefront QR on /services/skincare, 2026-08-25): the encoded URL is
+pixels no linter reads, AND it is an outbound destination in
+machine-readable form. The control is threefold, all recorded in the
+DECISIONS entry: the destination screened like any outbound link; the
+committed SVG round-trip decode-verified against the intended URL
+(scratchpad zxing — the committed artifact is proven, not assumed);
+and the rendered page's own screenshot decoded again as the end-to-end
+check. Changing an encoded URL is a regenerate-plus-reverify, never a
+hand-edit of the SVG — an edited QR that still scans is worse than one
+that doesn't, because it fails silently to the wrong place.
+
 ## Authorizations the registry does not hold
 
 `allowedStrings` is **not** the complete list of copy that ships under an

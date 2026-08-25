@@ -6489,3 +6489,134 @@ operator: the fourth exception's cross-reference sentence in CLAUDE.md
 classifier mid-edit — the OPERATIVE authorization, the second
 exception's widening, is applied; the cross-reference is flagged as
 the operator's passage (the DraftBanner BUILD_SPEC §4/§7 precedent).
+
+## 2026-08-25 — iv-therapy: the IV photos land (IV01 + IV02); studio-wide.jpg retires with its alt defect
+
+**Context:** Client direction via the operator (2026-08-25): on
+/services/iv-therapy, the page's one photo — `studio-wide.jpg` beside
+"What a visit looks like" (committed 2026-07-22, predating the photo
+round; also the carrier of the recorded alt defect, "two clients" vs
+its one-client 4:5 window — AUDIT 2026-08-17 / RELAUNCH precondition 3)
+— "isn't any good" and is replaced by `C:\Amy\New Pics\IV01.png`; a
+second photo, `C:\Amy\New Pics\IV02.jpg`, joins to the LEFT of
+"Individualized, with Amy" (text-only until now). One of three
+concurrent sessions this day; built in an isolated worktree on
+`content/iv-therapy-photos` off origin/phase-c (the 2026-08-21
+three-session precedent).
+
+**Sources, probed first-hand.** IV01: 1290×1720 PNG (exactly 3:4),
+2.27MB, casual phone-shot class (mild motion blur on Amy's arm — the
+client's pick, hers to make). IV02: 1290×2078 JPEG (~0.62), 342KB, EXIF
+orientation 1 (no rotation needed), **no GPS EXIF** (checked — the repo
+is public). Both SHA-256-unique against all 55 committed photos;
+neither duplicates `iv-drip-neon.jpg` (the /services menu card 11
+frame, untouched).
+
+**Screening record (frame-level + magnified scratchpad crops of every
+flagged region — the RUNBOOK full-resolution rule; astro:assets serves
+the source-resolution derivative as the `<img src>`):**
+- IV01 — a client seated in the treatment chair, IV line taped at her
+  elbow, working on a MacBook (back of screen to camera; her phone on
+  the chair is dark), lip-pillow on lap; Amy at the IV pole preparing
+  supplies over a gold tray; a yellow IV bag hanging. Zoomed and
+  cleared: a cursive wall-decal fragment top-right resolves to "by"
+  plus one partial letterform cut by the master's own frame edge — no
+  word or name resolves at source resolution, so no reference is
+  conveyed (the 2026-08-18 slot-01 illegible-fragment class); the tray
+  holds gloves, prep packets, orange-cap flush syringes, and
+  blue-capped items whose labels do not resolve (distinct from the
+  rejected prep-tray class, where branded vials and unit-marked boxes
+  were legible and central — nothing brands or quantifies here, and IV
+  supplies are this page's own subject); the bag shows only blurred
+  volume graduations — no name, no numerals resolve.
+- IV02 — Amy (pink gloves) tends the reclined male client's forearm;
+  yellow IV bag behind; supply cart left; fridge in background. Zoomed
+  and cleared: "AMERICAN EAGLE" on the client's t-shirt (third-party
+  apparel trade dress as worn — screening note); the decorative
+  LIVE/DREAM/LAUGH/DANCE/LOVE word-art print (the exact benign class
+  recorded 2026-08-17, frame 7); an illegible smudge of a tool-brand
+  cap logo; racked small vials/bottles and pink folders on the cart's
+  shelves with no label resolving at source resolution
+  (identifiable-but-illegible, noted per the RUNBOOK); the counter
+  phone lies edge-on, screen dark. No claims or dosing content in
+  either frame. **No override of any kind is required** — the
+  evolve-reel class: releases and screening notes only; CLAUDE.md, the
+  compliance registry, and BUILD_SPEC are untouched.
+
+**Identity + releases (operator, 2026-08-25, AskUserQuestion — the
+confirmations are the record):** the standing clinician in IV01
+(burgundy scrubs, back to camera) **is Amy**; the clinician in IV02
+(royal-blue scrubs, face mostly hidden) **is Amy** — constraint 2 not
+engaged in either frame. The seated IV01 woman is **a client, website-use
+release confirmed on file**; the IV02 male client's **website-use release
+confirmed on file**.
+
+**Decisions:**
+- Assets content-named: `iv-infusion-laptop.jpg` — the PNG master
+  re-encoded JPEG q92, single generation via sharp
+  (`sharp(master).jpeg({ quality: 92 })`, 2.27MB → 233KB; the
+  prp-treatment/studio-counter-portrait precedent — Astro re-encodes
+  every variant, so a committed PNG compounds); `iv-male-client.jpg` —
+  a byte-identical copy of the JPEG master (revanesse-mirror-client
+  pattern; hash-verified). Masters stay in C:\Amy\New Pics. No baked
+  crops: both sources are portrait, so the 4:5 arch display window is
+  width-limited and the full 1290px width serves — the sitewide
+  [340, 540, 680] widths contract is met with no retina override (the
+  skincare bake was for a landscape source).
+- Row 1 keeps its `media-row--flip` shape (photo right); src, alt, and
+  a provenance comment swap in. Row 2 wraps "Individualized, with Amy"
+  in a plain `media-row` — figure first, photo LEFT — mirroring
+  weight-loss-glp-1's row for the same section. Page rhythm: flip
+  (right) → text → plain (left); two rows, no band needed.
+- Per-image knob, one: `iv-infusion-laptop` anchors top (50% 0%) — the
+  hanging IV bag is already clipped by the master's own top edge and
+  the default 30% anchor trimmed another 32px off it; anchored top the
+  window keeps the maximum of the bag and sheds only floor. A/B'd on
+  the built page at 390 and 1280 (both anchors screenshotted). IV02
+  sits at the default anchor — the 4:5 window (~466px trim) keeps the
+  word-art print, the bag, both people, and the client's shoes; the
+  arch dome grazes the print's top edge, cosmetic only. Layout knob in
+  its own commit (layout ≠ content).
+- `studio-wide.jpg` had no other consumer (git grep, zero hits outside
+  docs) → deleted in the content commit; git history keeps the frame.
+  Its recorded alt defect retires with it — CLINICIAN-SIGN-OFF and
+  RELAUNCH precondition 3 updated in the docs commit.
+- `clinicianApproved` true → false in the content commit (constraint 4
+  — the page was approved 2026-08-05). Flags now read
+  **2 true / 10 false** (hormone-optimization and regenerative remain
+  true); Amy re-reviews on the PR preview and the flag returns in the
+  consolidated pre-relaunch round.
+
+**Alternatives rejected:** reusing `iv-drip-neon.jpg` in-body (would
+duplicate the menu-card frame on the page it opens); committing the
+IV01 PNG as-is (double-lossy through the pipeline); a baked 4:5 crop
+of either source (portrait sources — the CSS knob has no retina cost
+here, the dermal-fillers precedent); the 3:4 aspect knob for IV01
+(offered by the geometry, unneeded — the 4:5 window loses only floor
+and already-clipped edge content).
+
+**Consequences:** photo round page 10; the page's two photos are now
+both the client's own picks; /services/iv-therapy is pa11y-gated and
+outside the LHCI set, so the swap carries no budget math. The two new
+frames are casual phone shots rather than pro-shoot frames — the
+client's pick, noted once. Docs updated in this PR: DECISIONS,
+CHANGELOG, CLINICIAN-SIGN-OFF (row + drift list + defect note),
+RELAUNCH (precondition 3's defect note), REDESIGN (photo row).
+
+**Addendum, same day — IV02 re-graded brighter (operator review).**
+The frame read very dark on the operator's first look. Re-derived from
+the master in a single generation — superseding the byte-copy above,
+its own commit — with the house dim-ambient recipe (the 2026-08-18
+cards 11/12 precedent): sharp
+`.modulate({ brightness: 1.28, saturation: 1.05 })`, JPEG q92, same
+content name, zero code change. Chosen against four side-by-side
+candidates (1.15 / 1.25 / 1.35 / 1.25+linear) with highlight clipping
+measured rather than guessed: 3.0% of pixels at ≥250, concentrated in
+the ceiling light panels (light sources — harmless), vs 1.5% at 1.25
+and 3.8% at 1.35; the word-art print, cabinets, and cart hold texture
+on the built page and the client's black shirt stays rich. The lift
+changes exposure, not what the frame discloses — a brightness multiply
+adds no resolution, so every illegible item in the screening record
+stays illegible and the screening posture is unchanged. sharp strips
+the master's (GPS-free) EXIF in the derivation — a wash. IV01 was not
+re-graded: its white-room frame already sits bright beside it.

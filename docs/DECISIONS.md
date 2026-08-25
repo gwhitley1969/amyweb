@@ -5478,3 +5478,67 @@ confirmed to execute for real on #146 — its run log ends `No post-takedown
 phase-c commits in this PR; not a release merge. Nothing to check.` — so the
 open question of whether `origin/phase-c` resolves in the runner's checkout is
 closed. PR #143 stays open awaiting Amy; #95, #97 and #138 stay open by design.
+
+## 2026-08-25 — PR previews deploy before the slow gates, not after
+
+**Context:** the operator asked whether raising `numberOfRuns` on `main`'s
+Lighthouse config would make previews slower to appear. Measuring to answer it
+surfaced a bigger problem. `pr-preview.yml`'s `verify-and-deploy` is a single
+sequential job that ran the whole of `npm run verify` — including Lighthouse —
+*before* the SWA upload step. Measured on PR #147 (2026-08-25): the job took
+6m40s, of which **Lighthouse alone was 4m11s** (14:46:39 → 14:50:50), and the
+`Deploy preview` step did not begin until 14:50:51. A link that was ready in
+under two minutes could not be sent for six and a half. Every preview the
+client and the review pair have ever waited on paid that cost.
+
+**Decision:** split `verify` into halves and put the deploy between them.
+`package.json` gains `verify:fast` (build, `check`, `lint:claims`,
+`lint:voice`) and `verify:slow` (`test:a11y`, `test:perf`); `verify` becomes
+`npm run verify:fast && npm run verify:slow`. This is **step order only** — the
+same six commands run in the same order with the same `&&` short-circuit, so
+a11y failing still stops perf exactly as before, and `production.yml`, which
+runs `npm run verify` unchanged, is not touched. Measured locally: `verify:fast`
+completes in **22 seconds** and leaves a fully deployable `dist/` (`index.html`
+and `staticwebapp.config.json` both present).
+
+**Not a weakened gate.** Every gate that ran before still runs and still
+reports. The gates that decide whether a client should be shown the page at all
+are the cheap ones and they still run *before* the upload: build 11s, `check`
+7s, `lint:claims` and `lint:voice` under a second each. A page carrying a banned
+claim, or first-person plural, still cannot reach a preview URL.
+
+**Trade accepted:** if a11y or perf fails, the preview stays up while the PR
+goes red. That is the right default for a preview environment rather than
+production, and `verify-and-deploy` is a required status check on neither
+branch today, so nothing that gated a merge stopped gating one. The RUNBOOK now
+says a red run means a preview is up that failed a slow gate — read the run
+before acting on the link.
+
+**Two syntax traps, recorded because both fail silently-ish.** The trailing step
+is guarded `if: ${{ !cancelled() && steps.fast_gates.outcome == 'success' }}`.
+The `${{ }}` wrapper is required, not stylistic: a bare `!` opens a YAML tag, so
+`if: !cancelled() && …` will not parse. And the step id is `fast_gates`, not
+`fast-gates`, because a hyphen in dot-notation inside an expression is read as
+subtraction. The guard itself is load-bearing twice over: `!cancelled()` stops a
+failed deploy step from SKIPPING the remaining gates (the job would go red
+having never reported an a11y or perf result), and the `fast_gates` clause stops
+them running against a `dist/` that was never built.
+
+**Alternatives rejected.** Raising `main`'s `numberOfRuns` from 1 to 3, the
+change originally proposed — wrong lever (it would have added ~48s to a rare PR
+type while saving nothing on the previews anyone actually opens), and wrong on
+its own terms: LHCI's `aggregationMethod` defaults to `optimistic`
+(`@lhci/utils/src/assertions.js:139`), which takes `Math.min` for `max*`
+assertions and `Math.max` for `min*` ones, so bumping the run count without also
+setting `"aggregationMethod": "median"` silently converts every assertion to
+best-of-N. `phase-c`'s own config already defends against exactly this and says
+so in its `$comment`; `main`'s does not, and gets away with it only because
+best-of-1 is the sole value. Splitting into two jobs with artifact passing —
+rejected, it costs a second `npm ci` plus upload/download for no benefit over
+reordering steps in one job.
+
+**Scope: `phase-c` only.** `main`'s copy of `pr-preview.yml` already diverges
+(it predates the 2026-07-26 `paths-ignore` block, frozen by the takedown
+revert), so this introduces no new class of divergence, and the two-step
+relaunch brings `phase-c`'s copy across. Placeholder PRs into `main` keep the
+old ordering; they spend ~24s in Lighthouse, so there is little to reclaim.

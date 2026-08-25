@@ -42,11 +42,18 @@ design: `allowedForwardedHosts` only admits the real hostnames.
 ## Everyday changes (content/code)
 
 1. Branch → edit → `npm run verify` (must be green; never weaken a gate).
-2. Open a PR. CI verifies again and deploys a **preview environment**
-   (URL in the workflow summary). Previews are **public and noindexed** —
-   no password (DECISIONS 2026-07-21) — so the URL can go straight to Amy,
-   but only **after the deploy run completes**: sent earlier it 404s and
-   reads as a broken link. Closing the PR tears the preview down.
+2. Open a PR. CI runs the fast gates (build, `check`, `lint:claims`,
+   `lint:voice` — about 20 seconds together), deploys a **preview
+   environment**, and only then runs the slow gates (pa11y, Lighthouse).
+   Previews are **public and noindexed** — no password (DECISIONS
+   2026-07-21) — so the URL can go straight to Amy, but only **once the
+   `Deploy preview to Azure Static Web Apps` step has finished**: sent
+   earlier it 404s and reads as a broken link. Since 2026-08-25 that step
+   finishes at roughly **1m45s**, not at the end of the job — you no longer
+   wait out Lighthouse to send a link (DECISIONS same date). The job stays
+   amber while the slow gates run; that is expected, and a red one means a
+   preview is up that failed a11y or perf, so read the run before acting on
+   the link. Closing the PR tears the preview down.
    *Documentation-only PRs run nothing and get no preview* — `paths-ignore`
    covers `docs/**`, `**/*.md`, `.gitignore` (DECISIONS 2026-07-26). Touch
    one source file and the full suite runs as usual.

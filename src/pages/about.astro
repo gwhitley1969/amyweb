@@ -208,12 +208,19 @@ import girlTeamStudio from '../assets/photos/girl-team-studio.jpg';
         Beach headquarters for its first ICON experience. Amy was in the
         room. This is Evolus's own recap of the event.
       </p>
+      {/* autoplay="inview" here is a scoped operator override
+        * (2026-08-25, DECISIONS same date) of the 2026-08-21 rule that
+        * narrated manufacturer films never autoplay — flagged, and the
+        * client chose autoplay. Muted on approach, loop while on
+        * screen, tap for sound (the caption's "sound on" is that
+        * nudge); reduced motion = click-to-play. */}
       <TreatmentVideo
         src="/media/evolus-icon.mp4"
         poster={iconPoster}
         captionsSrc="/media/evolus-icon.vtt"
         label="ICON — an Evolus HQ experience: Evolus's recap of its provider event"
         caption="ICON — an Evolus HQ experience. An Evolus production — sound on."
+        autoplay="inview"
       />
     </div>
   </section>

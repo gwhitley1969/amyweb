@@ -6677,3 +6677,139 @@ adds no resolution, so every illegible item in the screening record
 stays illegible and the screening posture is unchanged. sharp strips
 the master's (GPS-free) EXIF in the derivation — a wash. IV01 was not
 re-graded: its white-room frame already sits bright beside it.
+## 2026-08-25 — regenerative: the PRP media round (PRP01 + PRP02 + Amy's reel; two new scoped overrides)
+
+**Context:** Client direction via the operator (2026-08-25), three
+additions to /services/regenerative — until now the thinnest media page
+(the one prp-treatment band) and one of the last approved pages: PRP01
+to the left of "Who they're generally for" (plain media row), PRP02 to
+the right of "Individualized, with Amy" (flip row), and PRP.MOV
+standalone at the end of the body — which renders immediately before
+"Your visit, step by step" (verified: nothing sits between the MDX slot
+and VisitSteps in TreatmentLayout) — on autoplay. One of several
+concurrent sessions this day; built in an isolated worktree on
+`content/regenerative-media` off origin/phase-c. The existing band
+stays; its "single media moment" comment is rewritten. ffmpeg/ffprobe
+were absent from this workstation — a static build was downloaded to
+the session scratchpad (session tooling, never a repo dependency).
+
+**Sources, probed first-hand.** PRP01/PRP02: 4032×3024 iPhone JPEGs,
+EXIF orientation 6 (upright 3024×4032, exactly 3:4), no GPS EXIF;
+SHA-256-unique against all 55 committed photos. PRP.MOV: 8.73s, H.264
+High 1920×1080 with rotation −90 (upright 1080×1920 portrait 9:16),
+30fps, 15.1Mbps, 16.8MB; AAC-LC stereo ~164kbps; audio near-silent
+(volumedetect mean −49.8dB, max −24.4dB); a raw camera file (Apple
+metadata streams — not the TikTok aigc-label class).
+
+**Screening record (contact sheet at 1fps + full-res grabs for the
+film; magnified crops of the committed derivatives for the photos —
+what ships is what was screened):**
+- PRP01 (`prp-blood-draw.jpg`) — an arm with gauze at the elbow, post
+  blood-draw, on a draped table; a rack of three filled collection
+  tubes; a crimp-cap vial; supplies. **PHI check: PASS** — the tube
+  labels are the manufacturer's own (BD Vacutainer REF/barcode class,
+  mostly turned away, near-illegible at committed resolution); no
+  patient label, name, or date anywhere. The vial's label faces away —
+  only lot/exp field fragments and a barcode edge; no product name
+  resolves. The pad's tag is a supply part number + maker's address
+  (the identifiable-but-illegible class); the packet under the arm is
+  unbranded. No claims or dosing content. **The arm is AMY'S OWN
+  (operator, 2026-08-25 — the confirmation is the record); no release
+  needed.** No override needed for this frame — screening notes only.
+- PRP02 (`prp-syringes.jpg`) — four prepared PRP syringes with needles
+  on a towel, gauze, a torn supply packet — and two vials whose labels
+  ARE legible in the served file: "Bacteriostatic 0.9% Sodium
+  Chloride / Injection, USP", "30 mL Multiple-dose", "NDC
+  0409-3977-01", red "For drug diluent use only" text, "Rx only", a
+  lot code, and partial manufacturer fine print. A diluent vial beside
+  prepared syringes is prep-workflow imagery of the class the
+  2026-07-23 rubric excluded, and pixels are invisible to lint:claims.
+  **Flag raised in full → OPERATOR OVERRIDE: SHIP AS-IS** (the
+  crop-out bake — which would have kept the syringes, the frame's
+  subject — and the defocus bake were both offered and declined).
+  Fixed terms: this frame, this page; no text from the packaging is
+  ever restated in site text — copy, alt, comments, meta, OG, JSON-LD.
+  Recorded in CLAUDE.md constraint 3 (the dosing/reconstitution
+  bullet's pixel-override list) and BUILD_SPEC. The syringes' scale
+  graduations are the engraved-scale screening-note class (the 19b
+  collar precedent).
+- PRP.MOV (`prp-visit.mp4`) — a single continuous selfie-style scene,
+  no cut, no before/after structure, no burned-in text; the only
+  legible content is the syringe's graduation numerals (engraved-scale
+  class). **The film shows TWO people, which contradicted the first
+  stated cast ("Amy/hands only") — stopped and re-flagged with the
+  frames described.** Operator resolution (2026-08-25, the
+  confirmations are the record): the RECIPIENT (pink top, face to
+  camera throughout) **is Amy herself**, receiving her own PRP
+  hairline treatment; the INJECTOR (black top, gloved hands, chain
+  bracelet, face mostly out of frame, briefly part-visible) **is one
+  of the location's other providers — OPERATOR OVERRIDE, a new
+  constraint-2 scoped exception** (the radiesse-visit configuration:
+  face mostly out of frame, never named), **her consent for
+  needlegirlie.com use confirmed on file.** Consequence for wording:
+  the film's label and captions never attribute the hands-on treatment
+  to anyone; the page's "Every appointment is with Amy herself" FAQ is
+  unaffected (Amy is the patient here, not a client appointment).
+- **Audio: KEPT, tap-for-sound** (operator choice over the recommended
+  strip — the treatment-film pattern), and **"no speech or narration"
+  is the operator's on-record confirmation (2026-08-25, after
+  listening; no transcription tooling on this workstation)** — with
+  which `autoplay="inview"` is fully in-contract: Amy's own,
+  speech-free (the constraint-2 override is a separate matter; the
+  radiesse-visit film set the precedent that the two coexist).
+  Captions are bounded quiet-room cues (one 2s cue), faithful to the
+  near-silent track — never film-long.
+
+**Decisions:**
+- Photos: the 23a EXIF-normalize recipe, single generation each —
+  sharp `.rotate()` → `.resize(1200, 1600)` (3:4 exact, no crop) →
+  JPEG q92; content-named `prp-blood-draw.jpg` / `prp-syringes.jpg`
+  (the PRP01/PRP02 pick labels live only in this entry). 1200px ≥ the
+  680 max row tier through the 4:5 window — no retina override, no
+  baked crop (portrait sources). Both rows take the sitewide
+  [340, 540, 680] / 17rem contract. Default crop anchors read well at
+  390 and 1280 — zero TreatmentLayout knobs this round.
+- Film rendition: `-vf "scale=810:1440" -c:v libx264 -crf 20 -preset
+  medium -pix_fmt yuv420p -c:a copy -movflags +faststart` → 810×1440,
+  4.0MB @ 3.7Mbps (the training-reel sizing discipline: 810 ≈ 2× the
+  24rem standalone cap; ffmpeg applies the −90 rotation in the filter
+  graph). A lossless remux was rejected on the girl-team precedent —
+  it would ship the master's 15.1Mbps / 16.8MB into an autoplaying
+  slot. Poster from the rendition at 0.5s (`-q:v 2`, 810×1440, 84KB)
+  → `prp-visit-poster.jpg`. Blob name `prp-visit.mp4` (content-named,
+  the radiesse-visit naming family; new filename, no purge), uploaded
+  AFTER this entry was committed (the written rule).
+- Placement: standalone `TreatmentVideo` in the default mat frame
+  inside a `mx-auto max-w-sm` wrapper (the injector-training
+  standalone pattern, first use inside an MDX body), at the very end
+  of the body — the film renders directly above "Your visit, step by
+  step" as directed. Autoplay verified functionally on the built page
+  before the upload: playing muted + looping in view, paused
+  off-screen (the ICON verification pattern).
+- `clinicianApproved` true → false (constraint 4 — the page was
+  approved 2026-08-05). Flags on this branch read 2 true / 10 false;
+  iv-therapy's reset rides the open PR #160, so once both merge the
+  count is 1 true / 11 false and hormone-optimization is the last
+  approved page. Amy re-reviews on the PR preview; the flag returns in
+  the consolidated pre-relaunch round.
+
+**Alternatives rejected:** the PRP02 crop-out bake (recommended —
+declined; the client's frame ships whole) and defocus bake (declined);
+stripping the film's audio (recommended for simplicity — operator
+chose keep, tap-for-sound); a lossless remux (weight, above); wrapping
+the film in a media row (the direction was a standalone placement
+before the visit steps, and the mat frame is the recorded standalone
+look); reusing the muted-carousel captions form (the audio is kept, so
+cues must be faithful to it).
+
+**Consequences:** the site's fifth autoplay page and the page's first
+film; the page now runs the full media rhythm (band → row → flip row →
+film) — the band's "single media moment" comment rewritten in the same
+commit. Two new scoped overrides enter the books: the PRP02 packaging
+frame (constraint 3, dosing-bullet pixel list) and the prp-visit film's
+on-camera provider (constraint 2, the radiesse-visit class) — each
+fixed to its asset and page; extending either requires the human
+operator. /services/regenerative is pa11y-gated (the .vtt is the
+video-caption gate's requirement) and outside the LHCI set; the poster
+fetch and the 4.0MB in-view stream are the page-weight notes. Egress
+~4MB per full play.

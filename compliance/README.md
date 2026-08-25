@@ -72,7 +72,8 @@ vets for photos and video contact sheets; operator overrides for
 manufacturer films carried as-is and for Amy's own published content,
 and — since 2026-08-18 — for photo frames whose pixels carry text the
 site's own copy could not say: three /services and wrinkle-relaxers
-frames with legible banner/sign text, and from 2026-08-21 the
+frames with legible banner/sign text (see the caveat below — the
+wrinkle-relaxers frame no longer satisfies that premise), and from 2026-08-21 the
 skin-rejuvenation cart frame and the laser-treatments Epileve frame,
 each with its device-console readout, and the weight-loss weigh-in
 frame with its aftercare sign, all
@@ -92,6 +93,23 @@ so this screening regime keeps a git audit trail. A green
 photography" — frame-level screen first, releases confirmed on the
 operator's record, DECISIONS entry per page.
 
+**Caveat, 2026-08-24 — a pixel override's premise can expire.** The
+wrinkle-relaxers band frame (`jeuveau-banner-studio.jpg`) was cleared
+2026-08-18 on the stated ground that the banner's marketing headline is
+legible *but the site's own copy never says it*. On 2026-08-24 the page's
+`deck` was changed, under a separate operator override, to a sentence that
+paraphrases that headline. The premise no longer holds, and the override was
+not re-opened — the operator was shown the coupling and directed the copy
+change anyway (DECISIONS 2026-08-24). Two working rules come out of it. Before
+editing copy on a page carrying a pixel override, read the override's stated
+premise, not just its verdict; a premise about what the copy says is a
+constraint on the copy, and nothing enforces it. And note that of the three
+pixel overrides for legible on-frame text, this is the only one whose CLAUDE.md
+entry lacks a never-restate-in-text clause — `amy-pixel8-cart` and
+`amy-epileve-window` both carry one, which is what would have made this
+contradiction visible in writing rather than only in premise. Adding it is the
+operator's call and remains open.
+
 The same blindness applies to **outbound link destinations**: the
 linter reads this repo, never the far side of an `href`. Any new
 external link gets its destination screened by a human before it
@@ -100,6 +118,36 @@ the header badge link to yourmobileaesthetics.com (2026-08-15) — the
 destination names the location's other providers, which tripped hard
 constraint 2; it ships as a scoped operator override recorded in
 DECISIONS and in CLAUDE.md's constraint-2 exception text.
+
+## Authorizations the registry does not hold
+
+`allowedStrings` is **not** the complete list of copy that ships under an
+operator override. It holds only the overrides for text a category would
+otherwise catch. Text that is non-compliant on the merits but happens to
+contain no token any pattern matches never reaches the allowlist at all — the
+linter is already green on it — so its authorization is recorded in
+`docs/DECISIONS.md`, and mirrored in CLAUDE.md and BUILD_SPEC §8, instead.
+
+Current members of that class:
+
+- The two EvolusLaurel ranking sentences — "The Top Evolus Injector in
+  Charlotte." and "And among the Top 50 in the United States." — on
+  /services/wrinkle-relaxers and /services/dermal-fillers (operator
+  authorization, DECISIONS 2026-08-19; BUILD_SPEC §8.4). The superiority
+  patterns see no token in either. Deliberately **not** allowlisted: a bare
+  `top` pattern would false-positive ordinary copy, and the list only ever
+  grows, so it was never added.
+- The /services/wrinkle-relaxers `deck` sentence beginning "Wave good-bye…"
+  (operator override, DECISIONS 2026-08-23 and 2026-08-24; BUILD_SPEC §8.3,
+  CLAUDE.md constraint 3). A second-person outcome promise that trips nothing.
+
+The practical consequence, and the reason this section exists: **a green
+`lint:claims` is not evidence that a string is authorized, and an empty
+`allowedStrings` search is not evidence that it is unauthorized.** A session
+auditing what ships under override must read DECISIONS, CLAUDE.md constraint 3,
+and BUILD_SPEC §8 — the registry alone will under-report. The same asymmetry
+applies to the inverse checks below, where "menopause" and "Low T" are
+excluded by editorial judgment no pattern encodes.
 
 ## Inverse checks (treatment files only)
 

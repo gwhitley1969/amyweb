@@ -22,9 +22,27 @@ import TrustChips from '../components/TrustChips.astro';
  *   Evolus laurel plaque (optional, frontmatter-gated — 2026-08-19,
  *   operator-approved; copy + authorization live in the component) ->
  *   intro -> products -> flag-driven notices ADJACENT to products -> body ->
- *   visit steps -> FAQ (only when items provided) -> pricing ->
+ *   visit steps -> FAQ (only when items provided) ->
  *   consult router -> DisclaimerBlock (light surface, NEVER collapsed) ->
  *   seam -> noir CTA band + trust chips.
+ * Two notes on the consult router, 2026-08-24 (client direction, DECISIONS
+ * same date). (1) The pricing line that rendered above it for
+ * pricingDisplay: "consult" was DELETED at the client's direction. The
+ * frontmatter field, its schema enum, the Props entry and the [slug].astro
+ * pass-through are all left in place — the wiring survives so restoring the
+ * line is a one-line change — but the value is now
+ * INERT — no value renders anything here, so "none", "consult" and
+ * "startingAt" are indistinguishable on the page. Removing the field is a
+ * schema change across twelve content files and was deliberately left to
+ * the operator. (2) The router card's prose no longer contains the word
+ * "consultation" (heading and subline both reworded at the client's
+ * direction), and its CTAButton variant="consult" has read "Book with
+ * Amy" since 2026-07-21. That is compliant, and here is why, so nobody has
+ * to re-derive it: BUILD_SPEC §8.7 routing is carried by DisclaimerBlock
+ * immediately below, which states that whether a treatment fits your needs
+ * is decided with Amy during a consultation, is layout-injected, and
+ * cannot be opted out of. **DisclaimerBlock is the routing, not this
+ * card.** Do not weaken that component to match this one.
  * No draft marker renders here: the visible DraftBanner strip retired
  * 2026-08-21 at the operator's direction (the client read it as final-site
  * content — DECISIONS same date). The clinicianApproved flag is still
@@ -75,7 +93,6 @@ const {
   ctaType,
   investigational,
   bioteDisclaimer,
-  pricingDisplay,
   investigationalProduct,
   investigationalNote,
   productDetails = [],
@@ -148,15 +165,9 @@ const crumbs = [
       )
     }
 
-    {
-      pricingDisplay === 'consult' && (
-        <p class="mt-8">Pricing is individual and discussed during your consultation.</p>
-      )
-    }
-
     <div class="router-card mt-10">
-      <h2 class="heading-4">The right fit is a conversation.</h2>
-      <p class="mt-2">Every plan is personal, decided with Amy in consultation.</p>
+      <h2 class="heading-4">The right fit is just a conversation away.</h2>
+      <p class="mt-2">Every plan is personalized, decided between you and Amy.</p>
       <div class="mt-4">
         <CTAButton variant="consult" />
       </div>

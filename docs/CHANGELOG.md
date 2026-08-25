@@ -6,6 +6,25 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-25 — /injector-training: dedicated portrait + Amy's training reel
+
+- The hero portrait is now the dedicated training photo (Amy holding
+  Evolysse cartons before the Jeuveau banner) — the upgrade path
+  recorded 2026-08-04 when the grey-seamless frame was reused. Ships
+  under its own pixel-level claims override (banner marketing text and
+  partial safety fine print legible in the served file — DECISIONS
+  2026-08-25); the shared portrait stays on its two treatment pages.
+- Amy's 19.8-second training reel lands directly under "Four courses,
+  taught one-on-one.", before the course cards — her own film, the
+  flyer set animated, carried as-is under operator override (the
+  burned-in cards mirror the page's authorized card copy; all
+  on-camera releases confirmed on file; the closing card's on-screen
+  practice-site URL is a display-only constraint-2 exception).
+  Autoplays muted in view (in-class — speech-free, [Music]-cue
+  captions), loops, pauses off-screen, tap for sound; reduced motion
+  keeps click-to-play. The autoplay script's fourth page. LHCI
+  measured 3×: the strict house budgets hold — no carve-out.
+
 ### 2026-08-25 — The ICON film autoplays on /about
 
 - The Evolus ICON film now autoplays muted when scrolled into view,

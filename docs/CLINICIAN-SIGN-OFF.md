@@ -51,7 +51,7 @@ src/content/treatments/*.mdx`.
 | Date | Reviewed on | Scope | Logged by |
 |---|---|---|---|
 | 2026-08-05 | stable preview (`…-5`) | launch state — the same pass as the copy sign-off (`ad8fbde`) | operator |
-| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21), laser-treatments' priced menu + Epileve section + three photos (2026-08-21), and the /about round (2026-08-25): the Girl Team section, the Evolus Laurel plaque, the ICON film's autoplay | — |
+| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21), laser-treatments' priced menu + Epileve section + three photos (2026-08-21), and the /about round (2026-08-25): the Girl Team section, the Evolus Laurel plaque, the ICON film's autoplay, and the /injector-training media round (2026-08-25): the dedicated training portrait + Amy's training reel on autoplay | — |
 
 Visual drift since 2026-08-05, for Amy's pending pass: body face and
 size (DM Sans → Playfair 17px/1.65), every photo arched with 4:5/9:8
@@ -106,6 +106,15 @@ allowlist entry is withdrawn; and the ICON film autoplays muted as
 she scrolls to it, tap for sound (a scoped override of the
 narrated-manufacturer-film rule — flagged, her call; DECISIONS
 2026-08-25 ×3).
+And the /injector-training media round (2026-08-25, her direction):
+the hero portrait is now her dedicated training photo — Amy with
+Evolysse cartons before the Jeuveau banner (its own pixel override;
+the reused grey-seamless frame stays on weight-loss and
+hormone-optimization) — and her training reel plays directly under
+"Four courses, taught one-on-one.", before the cards: muted autoplay
+as she scrolls to it, looping, tap for sound, in the white mat frame
+at reel width (all on-camera releases confirmed on her record;
+DECISIONS 2026-08-25).
 Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window — an MDX edit, so
 it ships inside the flag-resetting re-approval round (DECISIONS
@@ -203,8 +212,14 @@ verify before launch:
 - Course names and topic lists (carried from her flyer verbatim).
 - The certificate sentence (completion documentation; licensure and
   scope stay the trainee's own).
-- The reused grey-seamless portrait, and "in medical aesthetics since
-  2017" (the site's standard phrasing of her flyer's experience line).
+- "In medical aesthetics since 2017" (the site's standard phrasing of
+  her flyer's experience line; her reel's on-screen wording differs —
+  pixels self-identify).
+- Since 2026-08-25: the dedicated training portrait (replacing the
+  reused grey-seamless frame) and her training reel under the courses
+  heading — autoplaying muted, looping, tap for sound — both shipped
+  at her direction with the releases and overrides on the operator's
+  record (DECISIONS 2026-08-25).
 
 Anything she wants changed ships as its own PR before launch.
 

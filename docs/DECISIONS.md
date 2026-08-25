@@ -6357,3 +6357,32 @@ new filename `training-reel.mp4`, so no purge.
 the perf-gate consequence is measured and recorded separately below
 once known. /injector-training's header comment gains the film's
 rules; CLINICIAN-SIGN-OFF carries the round for Amy's pass.
+
+## 2026-08-25 — /injector-training under the LHCI gate with a film: measured, no carve-out
+
+**Context:** /injector-training is LHCI-collected under the strict
+house assertMatrix row (`third-party:count 0`, total ≤ 350KB, image ≤
+240KB) and the training reel makes it the site's first film-bearing
+page under a Lighthouse budget. The flagged risk (approved plan, same
+date): LH's full-page pass fetches lazy content on this site — the
+recorded reason /services has a carve-out row — so the in-view
+autoplay could start the cross-origin media fetch mid-run, tripping
+`third-party:count` and making `total:size` nondeterministic. The
+plan authorized a page-scoped carve-out row IF measurement confirmed.
+
+**Measurement (local LHCI against the built page, 1 + 3 runs, all
+identical):** media 0 requests / 0 bytes; third-party 0; total
+198,898 B; image 144,414 B (new portrait + poster together, well
+under 240KB); LCP ~2,335 ms; CLS 0; performance 0.98. The autoplay
+fetch does not occur inside the LH trace window.
+
+**Decision:** `lighthouserc.json` is untouched — the strict house
+budgets hold and the authorized carve-out is NOT enacted. If a
+future LHCI or Chrome behavior change starts counting the media
+fetch, the carve-out this entry describes (page-scoped row:
+third-party 1, no total:size, every component budget kept) is the
+recorded, already-flagged remedy — enacting it then still gets its
+own DECISIONS entry.
+
+**Consequences:** the perf gate stays at full strength on the page;
+CI's own 3×-median run on the PR is the confirming record.

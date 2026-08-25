@@ -5,11 +5,13 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
 import TrustChips from '../components/TrustChips.astro';
-import EvolusCallout from '../components/EvolusCallout.astro';
+import EvolusLaurel from '../components/EvolusLaurel.astro';
 import TreatmentVideo from '../components/TreatmentVideo.astro';
+import { siteConfig } from '../lib/siteConfig';
 import familyPortrait from '../assets/photos/family-portrait.jpg';
 import iconPoster from '../assets/photos/evolus-icon-poster.jpg';
 import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
+import girlTeamStudio from '../assets/photos/girl-team-studio.jpg';
 
 /**
  * /about — the magazine profile (full rebuild 2026-08-03; DECISIONS same
@@ -22,12 +24,19 @@ import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
  * 2026-07-19 confirmation flag is resolved (DECISIONS 2026-08-04).
  * Sole ownership of Mobile Aesthetics:
  * DECISIONS 2026-07-23. "AKA Needle Girlie": the client-dictated byline,
- * DECISIONS 2026-07-30. The Evolus recognition plate and the "Inside
- * Evolus" film live here since 2026-08-18 (client direction, moved from
- * /services/wrinkle-relaxers — supersedes the 2026-07-21 "About is
- * ranking-free" placement decision; DECISIONS 2026-08-18). The
- * multi-provider location gets its one factual line and nothing more
- * (hard constraint 2). Hero portrait is Amy's family (client-requested
+ * DECISIONS 2026-07-30. The "Inside Evolus" film lives here since
+ * 2026-08-18 (client direction, moved from /services/wrinkle-relaxers
+ * with the recognition plate — supersedes the 2026-07-21 "About is
+ * ranking-free" placement decision; DECISIONS 2026-08-18); the plate
+ * gave way to the EvolusLaurel ranking plaque 2026-08-25 (client
+ * direction, the dermal-fillers-precedent swap; the plate's allowlist
+ * entry withdrawn, its ranking vocabulary banned everywhere again —
+ * DECISIONS same date). The
+ * multi-provider location gets its one factual line in prose; since
+ * 2026-08-25 the milestones section also carries the Girl Team still
+ * and the second yourmobileaesthetics.com link, both under the fourth
+ * constraint-2 scoped operator override, direct from Amy (DECISIONS
+ * same date — see the figure comment below). Hero portrait is Amy's family (client-requested
  * 2026-07-23; on-record consent covers everyone pictured incl. the
  * minors); alt text names no one but Amy. The studio photo (8K0A9862)
  * publishes uncropped with the legible "MobileAesthetics" neon — her own
@@ -94,56 +103,104 @@ import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
     aria-labelledby="about-milestones-title"
   >
     <hr class="rule-accent ng-trace" aria-hidden="true" />
-    <h2 class="heading-2 mt-6" id="about-milestones-title">
-      Two decades in the making.
-    </h2>
-    <ol class="about-milestones mt-8 max-w-3xl" role="list">
-      <li class="about-milestones__step ng-rise">
-        <div>
-          <h3 class="heading-4">The bedside years</h3>
-          <p class="mt-2">Two decades of nursing, much of it in critical care.</p>
+    <div class="mt-6 grid items-start gap-10 md:grid-cols-[5fr_6fr]">
+      <div>
+        <h2 class="heading-2" id="about-milestones-title">
+          Two decades in the making.
+        </h2>
+        <ol class="about-milestones mt-8 max-w-3xl" role="list">
+          <li class="about-milestones__step ng-rise">
+            <div>
+              <h3 class="heading-4">The bedside years</h3>
+              <p class="mt-2">Two decades of nursing, much of it in critical care.</p>
+            </div>
+          </li>
+          <li class="about-milestones__step ng-rise">
+            <div>
+              <h3 class="heading-4">2017 &middot; Aesthetics</h3>
+              <p class="mt-2">Amy moves from the hospital into medical aesthetics.</p>
+            </div>
+          </li>
+          <li class="about-milestones__step ng-rise">
+            <div>
+              <h3 class="heading-4">2018 &middot; Nurse practitioner</h3>
+              <p class="mt-2">The credential reads FNP, BSN.</p>
+            </div>
+          </li>
+          <li class="about-milestones__step ng-rise">
+            <div>
+              <h3 class="heading-4">Today &middot; Needle Girlie</h3>
+              <p class="mt-2">
+                Owner of Mobile Aesthetics, a Biote-certified provider, and the
+                one clinician behind every Needle Girlie appointment.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+      {/* Girl Team still (29b, 2026-08-25): Amy center with FOUR of the
+        * location's five other providers — a hard-constraint-2 operator
+        * override direct from Amy, the fourth scoped exception (DECISIONS
+        * 2026-08-25; CLAUDE.md constraint 2). All four pictured providers'
+        * releases for needlegirlie.com use confirmed on file (operator,
+        * same date). No signage or claims text in frame; nobody is named
+        * in copy or alt. The plate is the site's FIRST text-over-photo —
+        * opaque per the Phase C a11y rule (no scrims), Amy's casing kept
+        * (no uppercase transform). The arch is the segmental recipe
+        * hand-copied from TreatmentLayout (see the style block). The
+        * button below is the SECOND sanctioned yourmobileaesthetics.com
+        * link (the header badge, 2026-08-15, was the first) — same
+        * destination, same ma_site_click event. */}
+      <div class="md:order-first">
+        <figure class="about-team ng-rise">
+          <figcaption class="about-team__plate">Girl Team!</figcaption>
+          <Image
+            src={girlTeamStudio}
+            alt="Amy with the Mobile Aesthetics team, standing together in a white studio."
+            widths={[480, 760, 1080]}
+            sizes="(min-width: 768px) 42vw, 90vw"
+            loading="lazy"
+          />
+        </figure>
+        <div class="mt-6">
+          <a
+            href={siteConfig.mobileAestheticsUrl}
+            class="cta cta--outline"
+            target="_blank"
+            rel="noopener"
+            data-event="ma_site_click"
+          >
+            Visit Mobile Aesthetics
+            <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
+            <span class="sr-only">(opens in new tab)</span>
+          </a>
         </div>
-      </li>
-      <li class="about-milestones__step ng-rise">
-        <div>
-          <h3 class="heading-4">2017 &middot; Aesthetics</h3>
-          <p class="mt-2">Amy moves from the hospital into medical aesthetics.</p>
-        </div>
-      </li>
-      <li class="about-milestones__step ng-rise">
-        <div>
-          <h3 class="heading-4">2018 &middot; Nurse practitioner</h3>
-          <p class="mt-2">The credential reads FNP, BSN.</p>
-        </div>
-      </li>
-      <li class="about-milestones__step ng-rise">
-        <div>
-          <h3 class="heading-4">Today &middot; Needle Girlie</h3>
-          <p class="mt-2">
-            Owner of Mobile Aesthetics, a Biote-certified provider, and the
-            one clinician behind every Needle Girlie appointment.
-          </p>
-        </div>
-      </li>
-    </ol>
+      </div>
+    </div>
   </section>
 
-  {/* Evolus recognition + the ICON film — moved here from
+  {/* Evolus ranking + the ICON film. The film moved here from
     * /services/wrinkle-relaxers at the client's direction (2026-08-18,
-    * DECISIONS same date). The plate (EvolusCallout) carries its own
-    * compliance header; the allowlisted sentence moves as a unit inside
-    * it. The film intro paragraph, label, and caption are byte-identical
-    * to the treatment page's. Content sits in a left-aligned max-w-3xl
-    * column (the milestones idiom) — the same 48rem width both
-    * components shipped in inside the treatment body. The film player
-    * stays exempt from the arch motif (players never mask manufacturer
-    * footage — DECISIONS 2026-08-17). */}
+    * DECISIONS same date); the recognition plate came with it, and on
+    * 2026-08-25 gave way to the EvolusLaurel ranking plaque (client
+    * direction — the dermal-fillers-precedent plate-for-plaque swap,
+    * DECISIONS same date). The plaque's two sentences are
+    * operator-authorized superiority copy scoped to exactly three
+    * pages, /about now among them (CLAUDE.md constraint 3; the
+    * component header carries the rules). The retired plate's
+    * allowlist entry is WITHDRAWN — its ranking vocabulary is banned
+    * everywhere again, comments included. The film intro paragraph,
+    * label, and caption are byte-identical to the treatment page's.
+    * Content sits in a left-aligned max-w-3xl column (the milestones
+    * idiom) — the width both components shipped in inside the
+    * treatment body. The film player stays exempt from the arch motif
+    * (players never mask manufacturer footage — DECISIONS 2026-08-17). */}
   <section
     class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20"
     aria-labelledby="about-evolus-title"
   >
     <div class="max-w-3xl">
-      <EvolusCallout />
+      <EvolusLaurel />
       <hr class="rule-accent ng-trace mt-12 sm:mt-16" aria-hidden="true" />
       <h2 class="heading-2 mt-6" id="about-evolus-title">Inside Evolus</h2>
       <p class="mt-6 max-w-prose">
@@ -151,12 +208,19 @@ import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
         Beach headquarters for its first ICON experience. Amy was in the
         room. This is Evolus's own recap of the event.
       </p>
+      {/* autoplay="inview" here is a scoped operator override
+        * (2026-08-25, DECISIONS same date) of the 2026-08-21 rule that
+        * narrated manufacturer films never autoplay — flagged, and the
+        * client chose autoplay. Muted on approach, loop while on
+        * screen, tap for sound (the caption's "sound on" is that
+        * nudge); reduced motion = click-to-play. */}
       <TreatmentVideo
         src="/media/evolus-icon.mp4"
         poster={iconPoster}
         captionsSrc="/media/evolus-icon.vtt"
         label="ICON — an Evolus HQ experience: Evolus's recap of its provider event"
         caption="ICON — an Evolus HQ experience. An Evolus production — sound on."
+        autoplay="inview"
       />
     </div>
   </section>
@@ -289,6 +353,64 @@ import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
       grid-template-columns: 1fr;
       row-gap: 0.5rem;
     }
+  }
+  /* Girl Team figure — the segmental arch, hand-copied from
+   * TreatmentLayout .media-band--segmental (scoped to .treatment-body
+   * there, unreachable here — the same hand-copy precedent as
+   * .about-print below): the wide sibling of the Roman arch at the
+   * photo's own 3:2, curve pinned to the top third, straight feet,
+   * 12px foot corners. Landscape frames that must show full content
+   * wear this shape (2026-08-18); every photo wears an arch (Amy's
+   * sitewide direction, 2026-08-17). Same light wash as
+   * .about-portrait; the ::after mirrors the arch radius because no
+   * overflow clip runs on the figure here. */
+  .about-team {
+    position: relative;
+    margin: 0;
+  }
+  .about-team img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: 50% 50% 12px 12px / 34% 34% 12px 12px;
+    border: 1px solid var(--ng-magenta-600);
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
+  }
+  .about-team::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50% 50% 12px 12px / 34% 34% 12px 12px;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  /* The plate — the site's first text-over-photo, an OPAQUE paper
+   * plate per the Phase C a11y rule (never a scrim). z-index lifts it
+   * above the ::after wash so the paper stays untinted and the text
+   * audits at its real contrast (raw ink-900 on paper — the in-tile
+   * idiom, same as the skincare QR tile). True keystone: the plate
+   * straddles the arch crown (negative top, half above the edge), so
+   * it clears every face at EVERY viewport — a %-offset plate grew
+   * into Amy's hair at 390px, since Amy stands center under a
+   * centered plate. Amy's own casing — no uppercase transform. */
+  .about-team__plate {
+    position: absolute;
+    top: -0.875rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    background: var(--ng-paper);
+    border: 1px solid var(--ng-hairline);
+    border-radius: 2px;
+    padding: 0.375rem 0.875rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ng-ink-900);
+    white-space: nowrap;
   }
   /* Framed print — the house white-matte small print, hand-copied from
    * TreatmentLayout .media-figure (scoped to .treatment-body there,

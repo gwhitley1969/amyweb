@@ -44,9 +44,11 @@ export const siteConfig = {
   skinbetterUrl: 'https://connect.skinbetter.com/MobileAesthetics',
   // The practice site of Amy's own PLLC. Destination screened
   // 2026-08-15: it names the location's other providers, which hard
-  // constraint 2 otherwise bans linking to — the header badge link is
-  // an OPERATOR OVERRIDE, recorded in DECISIONS 2026-08-15 and scoped
-  // in CLAUDE.md constraint 2. The only sanctioned outbound reference.
+  // constraint 2 otherwise bans linking to — every link to it is an
+  // OPERATOR OVERRIDE scoped in CLAUDE.md constraint 2. TWO sanctioned
+  // references: the header badge (DECISIONS 2026-08-15) and the /about
+  // Girl Team button (DECISIONS 2026-08-25, direct from Amy). Adding
+  // any further consumer requires the human operator.
   mobileAestheticsUrl: 'https://yourmobileaesthetics.com',
   social: {
     // {{SOCIAL_LINKS}} supplied by operator 2026-07-18. The Yelp listing

@@ -72,7 +72,12 @@ interface Props {
    * are the pause (WCAG 2.2.2) and the tap-for-sound. Opt in only for
    * site-authored films without speech (operator direction 2026-08-21,
    * biostimulators) — never for a manufacturer film or one with
-   * narration, which muted autoplay would gut. */
+   * narration, which muted autoplay would gut. *One scoped exception
+   * (operator override after the flag — DECISIONS 2026-08-25): the
+   * Evolus ICON film on /about autoplays muted at the client's
+   * direction; its "sound on" caption stays as the tap-for-sound
+   * nudge. The rule stands for every other film; a further exception
+   * requires the human operator.* */
   autoplay?: 'inview';
 }
 

@@ -19,10 +19,21 @@ name: Relaunch guard
 # Both jobs finish in seconds. The job-level `if` guards report
 # "skipped" on non-matching PRs, which satisfies branch protection.
 #
-# RETIRE THIS WORKFLOW IN THE RELAUNCH PR ITSELF (with a DECISIONS
-# entry): after the two-step relaunch re-syncs the branches, the
-# revert becomes a harmless ancestor everywhere and job 1 would fail
-# every PR forever.
+# RETIRE THIS WORKFLOW IN A FOLLOW-UP PR, NOT IN THE RELAUNCH PR
+# (corrected 2026-08-25 — the previous instruction here could not
+# work; docs/RELAUNCH.md step 4 is the authority). Deleting this file
+# in the relaunch PR breaks that PR twice over: the workflow is then
+# absent from the merge commit, so gutted-merge-guard cannot report at
+# all and the required check blocks forever; and even if it ran it
+# would FAIL, because this file is itself tracked on phase-c — the
+# guard's own tree comparison reports it as a missing phase-c file.
+# The relaunch PR would fail its own required check on its own
+# retirement. So: merge the relaunch PR with this workflow INTACT (it
+# is what proves the tree complete), then in a follow-up delete it
+# from BOTH branches and remove both required contexts (`gh api`),
+# with a DECISIONS entry. The follow-up is not optional — once the
+# two-step relaunch re-syncs the branches the revert is a harmless
+# ancestor everywhere and job 1 would fail every PR forever.
 
 on:
   pull_request:
@@ -35,8 +46,6 @@ permissions:
 env:
   # chore: take production offline — revert launch merge (2026-08-05)
   TAKEDOWN_REVERT: e57a4448f77e8ff64c623cd1d734fddfb0f00801
-  # merge-base of main and phase-c — phase-c's tip at launch
-  LAUNCH_MERGE_BASE: c36de77d6f4390cd6f577022119cb8af52db4bab
 
 jobs:
   takedown-revert-guard:
@@ -64,16 +73,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # also fetches all branches — origin/phase-c below
+          fetch-depth: 0 # all branches — origin/main and origin/phase-c below
 
-      # Placeholder-era PRs (no phase-c lineage) pass trivially. A
-      # phase-c-derived PR must not lose a single phase-c file: files
-      # phase-c deleted itself are already gone from origin/phase-c's
-      # tree at run time, so legitimate release PRs stay green.
+      # A release PR must not lose a single phase-c file: files phase-c
+      # deleted itself are already gone from origin/phase-c's tree at run
+      # time, so legitimate release PRs stay green.
+      #
+      # The skip test asks whether this PR carries POST-TAKEDOWN phase-c
+      # commits. It used to ask "! is-ancestor LAUNCH_MERGE_BASE HEAD",
+      # which was unreachable: the takedown revert changed main's TREE, not
+      # its HISTORY (see the header), so LAUNCH_MERGE_BASE was an ancestor
+      # of main and therefore of every branch cut from it. That made this
+      # job fail placeholder-era PRs which delete nothing — 98 files
+      # reported missing from a one-line fix — though it never actually ran,
+      # because this workflow was absent from main's tree until 2026-08-24,
+      # so the required check could not report and every PR into main was
+      # blocked (DECISIONS 2026-08-24). Do NOT restore the old test.
+      #
+      # The comparison below is deliberately UNCHANGED: a release PR runs
+      # exactly the check it always would have.
       - name: Fail if a phase-c-derived merge drops phase-c files
         run: |
-          if ! git merge-base --is-ancestor "$LAUNCH_MERGE_BASE" HEAD; then
-            echo "No phase-c lineage in this PR; nothing to check."
+          git rev-list origin/main..HEAD           | sort > /tmp/pr-commits.txt
+          git rev-list origin/main..origin/phase-c | sort > /tmp/phase-c-commits.txt
+          if [ -z "$(comm -12 /tmp/pr-commits.txt /tmp/phase-c-commits.txt)" ]; then
+            echo "No post-takedown phase-c commits in this PR; not a release merge. Nothing to check."
             exit 0
           fi
           git ls-tree -r --name-only origin/phase-c | sort > /tmp/phase-c-tree.txt

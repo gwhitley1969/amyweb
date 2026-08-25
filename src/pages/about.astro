@@ -12,6 +12,7 @@ import familyPortrait from '../assets/photos/family-portrait.jpg';
 import iconPoster from '../assets/photos/evolus-icon-poster.jpg';
 import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
 import girlTeamStudio from '../assets/photos/girl-team-studio.jpg';
+import commercialTeamPoster from '../assets/photos/commercial-team-poster.jpg';
 
 /**
  * /about — the magazine profile (full rebuild 2026-08-03; DECISIONS same
@@ -36,7 +37,11 @@ import girlTeamStudio from '../assets/photos/girl-team-studio.jpg';
  * 2026-08-25 the milestones section also carries the Girl Team still
  * and the second yourmobileaesthetics.com link, both under the fourth
  * constraint-2 scoped operator override, direct from Amy (DECISIONS
- * same date — see the figure comment below). Hero portrait is Amy's family (client-requested
+ * same date — see the figure comment below), and — later the same
+ * day — the team film below the button in a sounded rendition, the
+ * constraint-2 SECOND exception (the carousel team film) widened to
+ * this placement (DECISIONS 2026-08-25; see the film comment below).
+ * Hero portrait is Amy's family (client-requested
  * 2026-07-23; on-record consent covers everyone pictured incl. the
  * minors); alt text names no one but Amy. The studio photo (8K0A9862)
  * publishes uncropped with the legible "MobileAesthetics" neon — her own
@@ -174,6 +179,31 @@ import girlTeamStudio from '../assets/photos/girl-team-studio.jpg';
             <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
             <span class="sr-only">(opens in new tab)</span>
           </a>
+        </div>
+        {/* The team film (2026-08-25): the same Mobile Aesthetics team
+          * film the home carousel plays — the location's other five
+          * providers on camera — here in a sounded rendition
+          * (girl-team-film.mp4). The constraint-2 SECOND scoped
+          * exception (the carousel team film, 2026-08-17) is widened to
+          * this placement at the client's direction; the five
+          * providers' releases confirmed on file 2026-08-17 cover the
+          * film (DECISIONS 2026-08-25). Site-authored and speech-free
+          * (music bed only — the operator's 2026-08-25 confirmation is
+          * the record), so autoplay="inview" is IN-CONTRACT here,
+          * unlike the ICON film's scoped override below: muted on
+          * approach, loops on screen, the music one tap away on the
+          * native controls; reduced motion = click-to-play. The label
+          * shares the unit's factual team naming (fourth-exception
+          * terms); no printed caption (the 2026-08-21 rule). */}
+        <div class="about-team-film">
+          <TreatmentVideo
+            src="/media/girl-team-film.mp4"
+            poster={commercialTeamPoster}
+            captionsSrc="/media/girl-team-film.vtt"
+            label="The Mobile Aesthetics team film — the team under the studio neon and a black-and-white photo-shoot montage"
+            frame="bare"
+            autoplay="inview"
+          />
         </div>
       </div>
     </div>
@@ -411,6 +441,15 @@ import girlTeamStudio from '../assets/photos/girl-team-studio.jpg';
     letter-spacing: 0.04em;
     color: var(--ng-ink-900);
     white-space: nowrap;
+  }
+  /* Team film — portrait 9:16, capped at the treatment pages' in-row
+   * film width (that sizing rule is scoped to .treatment-body in
+   * TreatmentLayout, unreachable here — the page's standing hand-copy
+   * precedent). The TreatmentVideo figure fills its container, so the
+   * wrapper is the knob; the figure's own 2.5rem margin-top is the
+   * gap under the button. */
+  .about-team-film {
+    width: min(18rem, 100%);
   }
   /* Framed print — the house white-matte small print, hand-copied from
    * TreatmentLayout .media-figure (scoped to .treatment-body there,

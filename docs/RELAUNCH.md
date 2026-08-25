@@ -77,15 +77,17 @@ check will refuse it. On a branch off `main`:
   biostimulators reels `radiesse-visit.mp4` / `amy-reel.mp4` + the
   body-contouring reel `evolve-reel.mp4` + the /about team film
   `girl-team-film.mp4` (2026-08-25 — the sounded second rendition of
-  the carousel team film's master) — the Evolysse film retired
+  the carousel team film's master) + the /injector-training reel
+  `training-reel.mp4` (2026-08-25) — the Evolysse film retired
   2026-08-21 and its Blob object was deleted the same day, so it is
   not a probe target). On /services/biostimulators,
-  /services/body-contouring, and /about also probe
+  /services/body-contouring, /about, and /injector-training also probe
   `/js/treatment-video.js` (200, `text/javascript`) and confirm the
-  five players carry `data-autoplay="inview"` (two on biostimulators,
+  six players carry `data-autoplay="inview"` (two on biostimulators,
   one on body-contouring, two on /about: the ICON film — its scoped
-  override, DECISIONS 2026-08-25 — and the team film) — the films
-  autoplay muted on approach.
+  override, DECISIONS 2026-08-25 — and the team film; one on
+  /injector-training, the training reel) — the films autoplay muted
+  on approach.
 - Plausible: `/api/event` returns 202 from the production page;
   dashboard shows the first pageviews.
 - Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.

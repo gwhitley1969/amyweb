@@ -6,6 +6,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-25 — The ICON film autoplays on /about
+
+- The Evolus ICON film now autoplays muted when scrolled into view,
+  loops while on screen, and pauses off-screen — tap for sound (the
+  caption's "sound on" is the nudge); reduced motion keeps
+  click-to-play. This is a scoped operator override of the 2026-08-21
+  rule that narrated manufacturer films never autoplay (flagged, and
+  the client chose autoplay — DECISIONS 2026-08-25). /about gains the
+  ~2KB autoplay script, its third page. Rides PR #153.
+
 ### 2026-08-25 — The Evolus Laurel replaces the recognition plate on /about
 
 - The EvolusLaurel ranking plaque (the wrinkle-relaxers banner) now

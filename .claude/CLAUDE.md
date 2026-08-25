@@ -329,8 +329,14 @@ silently following it. Known superseded points from earlier briefs:
   sanctioned consumer (2026-08-21, operator-directed): the treatment-film
   autoplay-in-view script (~2KB, `public/js/treatment-video.js`) —
   rendered only on pages whose `TreatmentVideo` players opt in with
-  `autoplay="inview"` (today /services/biostimulators alone; muted,
-  loop-in-view, reduced motion = click-to-play; DECISIONS 2026-08-21).
+  `autoplay="inview"` (muted, loop-in-view, reduced motion =
+  click-to-play; DECISIONS 2026-08-21). Opted-in pages today:
+  /services/biostimulators and /services/body-contouring (both
+  2026-08-21, Amy's own speech-free reels — the film class the opt-in
+  was written for) and /about (2026-08-25, the ICON film — a scoped
+  operator override of the never-autoplay-a-narrated-manufacturer-film
+  rule, DECISIONS same date; the component header carries both the
+  rule and the exception).
   The budget stands.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.

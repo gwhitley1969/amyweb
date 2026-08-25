@@ -882,7 +882,11 @@ action.
   static `public/js/treatment-video.js` (~2KB; reduced motion =
   click-to-play; the native controls are the pause and the
   tap-for-sound). Opt in only for Amy's own speech-free films — never a
-  manufacturer film or one with narration.
+  manufacturer film or one with narration. One scoped exception
+  (operator override after the flag — DECISIONS 2026-08-25): the
+  Evolus ICON film on /about autoplays muted at the client's
+  direction; its "sound on" caption stays as the tap-for-sound nudge.
+  The rule stands for every other film.
   Amy's reel plays at 0.5× via per-slide `data-rate`/playbackRate
   (operator/Amy tuning 2026-08-15 — DECISIONS same date; the master
   file is untouched, captions track media time). Rates are for Amy's
@@ -972,8 +976,9 @@ action.
   are unchanged; DECISIONS same date. Third consumer, 2026-08-21: the
   treatment-film autoplay-in-view script, public/js/treatment-video.js,
   ~2KB, rendered only on pages whose films opt in — today
-  /services/biostimulators alone; the second consumer is the dark
-  Plausible tracker, §11.)*
+  /services/biostimulators, /services/body-contouring, and /about
+  (the ICON film, 2026-08-25 — the §5 film-class override above); the
+  second consumer is the dark Plausible tracker, §11.)*
 - Hero image: optimized, `fetchpriority="high"`, explicit dimensions;
   everything below fold lazy.
 - Fonts: 1 family (Playfair Display — since 2026-08-15), subsetted

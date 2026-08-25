@@ -6200,3 +6200,43 @@ ever grows" rule governs patterns, and allowedStrings changes remain
 operator-gated in both directions. Three pages now render the Laurel,
 once each. CLAUDE.md constraint 3, BUILD_SPEC §8.4 + §6 + §7.4 + the
 §17 registry row, and compliance/README updated in the docs commit.
+
+## 2026-08-25 — the ICON film autoplays on /about (a scoped override of the narrated-manufacturer-film rule)
+
+**Context:** Client direction relayed by the operator, same day (riding
+PR #153 with the day's other /about changes): the ICON film autoplays.
+The mechanism already exists — `TreatmentVideo autoplay="inview"` and
+the third sanctioned script (`public/js/treatment-video.js`, ~2KB) —
+but its recorded contract (operator direction, 2026-08-21) restricts
+the opt-in to Amy's own speech-free films: "never for a manufacturer
+film or one with narration, which muted autoplay would gut." All three
+existing consumers are Amy's `[Music]`-cue reels.
+
+**The flag:** the ICON film is the opposite case on every axis — an
+Evolus manufacturer production, narrated, whose printed caption says
+"sound on." Browser autoplay must start muted and the inview mechanism
+hard-wires `loop`, so autoplay means silent event footage looping
+until a visitor taps for sound. Claims calculus unchanged (the film
+ships as-is, nothing trimmed — the 2026-08-18 exception terms hold);
+the flag was the film-class rule and the experience.
+
+**Decision (operator override after the flag):** autoplay anyway.
+`autoplay="inview"` added to the /about player — muted on approach,
+loop while on screen, native controls as pause and tap-for-sound,
+reduced motion = click-to-play. The caption keeps "sound on" as the
+tap-for-sound nudge. Recorded as the film-class rule's ONE scoped
+exception in the component header, CLAUDE.md (script-consumer list),
+and BUILD_SPEC §5/§9-perf; the rule stands for every other film and a
+further exception requires the human operator.
+
+**Verification:** functional check on the built page (Playwright):
+paused before approach; playing + muted + looping with playback
+advancing in view; paused again scrolled away. /about gains its first
+script (~2KB, far under the 30KB budget and the per-page LHCI
+script-size gate); the full verify run gates the PR.
+
+**Consequences:** the autoplay script now renders on three pages
+(biostimulators, body-contouring, /about). CLAUDE.md's stale "today
+/services/biostimulators alone" consumer note was corrected to the
+full list in the same commit (body-contouring had shipped later the
+same 2026-08-21 day).

@@ -340,6 +340,21 @@ each shipped page lives in DECISIONS):
 8. `npm run verify` green → PR → preview probes converge → Amy's
    word → merge.
 
+## Changing the storefront QR (or adding another QR)
+
+The QR on /services/skincare (`src/assets/brand/skinbetter-registration-qr.svg`,
+rendered by StorefrontCallout) encodes the operator-supplied Skinbetter
+registration URL. To change the URL — or add any QR anywhere — never
+hand-edit the SVG: **regenerate and reverify**. (1) Screen the new
+destination like any outbound link (compliance/README, "media text").
+(2) Regenerate scratchpad-locally (`qrcode` npm package, ECC M, margin 4,
+black on white — never a repo dependency, never a third-party QR image
+API: that would put an external request on the page). (3) Round-trip
+prove it: decode the committed SVG AND a screenshot of the built page
+(scratchpad zxing-wasm) and match the exact URL. (4) DECISIONS entry
+with the URL, the probe, and both decode results. A QR that scans to
+the wrong place fails silently — the decode proof is the gate.
+
 ## Rollback
 
 Never force-push or rewrite `main`. Revert instead:

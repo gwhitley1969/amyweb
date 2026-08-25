@@ -6,6 +6,44 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-25 — The ICON film autoplays on /about
+
+- The Evolus ICON film now autoplays muted when scrolled into view,
+  loops while on screen, and pauses off-screen — tap for sound (the
+  caption's "sound on" is the nudge); reduced motion keeps
+  click-to-play. This is a scoped operator override of the 2026-08-21
+  rule that narrated manufacturer films never autoplay (flagged, and
+  the client chose autoplay — DECISIONS 2026-08-25). /about gains the
+  ~2KB autoplay script, its third page. Rides PR #153.
+
+### 2026-08-25 — The Evolus Laurel replaces the recognition plate on /about
+
+- The EvolusLaurel ranking plaque (the wrinkle-relaxers banner) now
+  renders on /about above the ICON film, in the retired EvolusCallout
+  plate's exact spot — the dermal-fillers swap repeated at the
+  client's direction. The ranking sentences' page scope widens to
+  /about (operator authorization; CLAUDE.md constraint 3, BUILD_SPEC
+  §8.4). The plate's sentence thereby retires sitewide: its
+  `allowedStrings` entry withdrawn (operator choice — an authorization
+  nothing uses is a loophole), the ranking vocabulary banned
+  everywhere again, and the orphaned EvolusCallout component deleted
+  (DECISIONS 2026-08-25). Rides PR #153 for one combined /about
+  review.
+
+### 2026-08-25 — Girl Team on /about
+
+- /about's milestones section becomes a photo-left grid: Amy with four
+  of the location's five other providers, full frame in the segmental
+  arch, "Girl Team!" on an opaque keystone plate straddling the arch
+  crown — the site's first text-over-photo — and below it "Visit
+  Mobile Aesthetics", the second sanctioned outbound link to
+  yourmobileaesthetics.com (the header badge, 2026-08-15, was the
+  first; older "one sanctioned reference" notes below are superseded).
+  All three parts ship under the fourth constraint-2 scoped operator
+  override, direct from Amy; the four pictured providers' releases
+  confirmed on file (DECISIONS 2026-08-25). /about is not treatment
+  content — no `clinicianApproved` flag involved.
+
 ### 2026-08-25 — Skincare: the products-and-cards frame replaces the shelf photo
 
 - /services/skincare — the shelf photo beside "Individualized, with Amy"

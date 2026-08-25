@@ -6127,3 +6127,173 @@ one component whose sole consumer is skincare.mdx. Changing the encoded
 URL is a regenerate-plus-decode-verify, never an edit to the SVG. Rides
 PR #151 with the day's two photo swaps so Amy reviews one preview; the
 page's flag is already false and resets nothing further.
+
+## 2026-08-25 — Girl Team on /about: the still, the plate, and the second Mobile Aesthetics link
+
+**Context:** Client direction relayed by the operator, same day: a third
+photo on /about — 29b.jpg, to the left of "Two decades in the making." —
+with "Girl Team!" in letters on the photo (top), and below it a button
+to https://yourmobileaesthetics.com. Screening: 1600×1067 (≈3:2)
+landscape JPEG, SHA-256 `51E04D45…B433BB`, hash-unique against the 52
+committed photos. Frame: five women in a white studio — Amy center with
+FOUR of the location's five other providers (the 2026-08-17 team film
+has all five; one is not in this still). No signage, products, or
+legible text anywhere in frame; nobody is named anywhere. "Girl team"
+is already the record's own name for this group (the carousel record's
+name for `commercial-team`).
+
+**The flag and the override:** three items sit outside the recorded
+constraint-2 exceptions and were flagged together: a STILL of the other
+providers (the film exception covers the film only); "Girl Team!" as
+rendered team language (trips no lint:voice token — the gate bans only
+we/our/us/let's — but is against the rule's written rationale: the
+green-linter-is-not-authorization class); and a SECOND outbound link to
+yourmobileaesthetics.com (the header badge had been "the only
+sanctioned outbound reference"). Operator override, direct from Amy —
+recorded as CLAUDE.md constraint 2's fourth scoped exception. Releases:
+the four pictured providers' releases for needlegirlie.com use
+confirmed on file (operator, same day — the 2026-08-17 confirmations
+covered the film, not stills).
+
+**Decision:** full frame, no crop — committed byte-identical to the
+master as `girl-team-studio.jpg`. The figure wears the segmental arch —
+the shape built 2026-08-18 for landscape frames that must show full
+content, at this photo's native 3:2 — hand-copied into the page style
+block because the recipe is scoped to `.treatment-body` (the
+`.about-print` hand-copy precedent), with the page's house wash.
+"Girl Team!" is LIVE TEXT (operator choice over baking it into pixels):
+the site's first text-over-photo, an opaque paper keystone plate
+straddling the arch crown. The Phase C rule requires opaque plates (no
+scrims), and the keystone seat clears every face at every viewport — a
+%-offset plate grew into Amy's hair at 390px, since Amy stands center
+under a centered plate. Raw ink-900 on paper (the QR-tile in-tile
+idiom); Amy's own casing, no uppercase transform. The milestones
+section became a photo-left grid (`md:grid-cols-[5fr_6fr]`, figure
+`md:order-first`, DOM still heading-first). The button: a hand-rolled
+`.cta cta--outline` anchor (the ConceptHome Instagram precedent), label
+"Visit Mobile Aesthetics" (operator choice), `data-event="ma_site_click"`
+(already in the analytics union), new tab + noopener + sr-only note.
+Deliberately NOT a CTAButton: the book/consult variants accept
+href/label overrides but hard-bind `book_click` — the wrong event for
+an MA link.
+
+**Alternatives rejected:** baking the text into the JPEG (soft on
+retina, invisible to every gate, a regenerate to reword); a 4:5 Roman
+arch (crops the team to ~2 people — defeats the point); a plain
+rectangle (violates the sitewide every-photo-wears-an-arch direction,
+2026-08-17); CTAButton with overrides (wrong analytics event).
+
+**Verification:** verify:fast green; the built section eyeballed at
+390 and 1280 — all five in frame, plate clear of every face and
+untinted by the wash (z-indexed above it). Budget measured, not
+assumed: LHCI's full-page scroll fetches lazy images, and /about's
+mobile fetched set was ≈149KB of the 240KB image budget before this
+photo — the new 760-tier derivative fits with margin; the full verify
+run gates the PR.
+
+**Consequences:** the sanctioned outbound references to
+yourmobileaesthetics.com are now TWO (header badge 2026-08-15; this
+button) — siteConfig's "only sanctioned" comment corrected in the same
+commit, and CLAUDE.md constraint 2, compliance/README, BUILD_SPEC §6,
+REDESIGN, and the CHANGELOG ride the docs commit. The already-screened
+destination did not carry authorization forward: the second consumer
+got its own flag and its own override. /about carries no
+`clinicianApproved` flag — Amy's review happens on the PR preview.
+
+## 2026-08-25 — the Evolus Laurel replaces the recognition plate on /about; the "#1" sentence retires sitewide
+
+**Context:** Client direction relayed by the operator, same day (riding
+the Girl Team PR #153 at the operator's choice — the 2026-08-15
+combined-review lesson, one preview for Amy): the ranking banner from
+/services/wrinkle-relaxers — the EvolusLaurel plaque — joins /about
+near the ICON film, replacing the smaller EvolusCallout recognition
+plate. This is the dermal-fillers move (2026-08-21) repeated: the
+Laurel into the Callout's exact spot, above "Inside Evolus".
+
+**Two authorizations, both flagged and operator-confirmed:**
+
+1. **The ranking sentences' page scope widens to /about.** The two
+   Laurel sentences were authorized on wrinkle-relaxers and
+   dermal-fillers, "nowhere else"; widening requires the human
+   operator, who directed exactly this. /about is the third and only
+   other authorized page. Recorded in CLAUDE.md constraint 3,
+   BUILD_SPEC §8.4, and the component header. (Historical note: this
+   supersedes what remained of the 2026-07-21 "About is ranking-free"
+   placement in spirit — that decision was already superseded
+   2026-08-18 when the "#1" plate moved there.)
+
+2. **The "#1" allowlist entry is withdrawn** (operator choice after
+   the flag; the recommended withdrawal accepted). The /about plate
+   was the sentence's LAST consumer, so after the swap "Charlotte's #1
+   Evolus provider" renders nowhere — and an authorization nothing
+   uses is a loophole (the 2026-08-21 seventh-authorization precedent,
+   quoted in the registry's own comment). The entry came out of
+   `allowedStrings` in the same commit that removed its consumer
+   (atomic: the entry never outlives the consumer, the sentence never
+   outlives the authorization). The ranking vocabulary is banned
+   everywhere again, comments included; re-adding the sentence
+   requires the human operator. Verified safe before the edit: the
+   lint-claims self-test has no coupling to the entry (its samples
+   build from fragments), and the full self-test + scan pass after
+   removal.
+
+**Also:** `EvolusCallout.astro` deleted — orphaned by the swap (sole
+consumer was about.astro; grep-proven), the DraftBanner deletion
+precedent; git history keeps it. The EvolusLaurel header, about.astro's
+page and section comments, siteConfig untouched. The Laurel is
+self-contained (component-scoped styles, its own noir surface) and
+needed no adaptation for /about; its shimmer stays within the motion
+vocabulary (39px floor holds).
+
+**Verification:** verify:fast green — the self-test proving the
+registry edit is clean; built dist grep: "Top Evolus Injector" on
+exactly /about + wrinkle-relaxers + dermal-fillers, the retired phrase
+zero hits sitewide; the section eyeballed at 390 and 1280 (plaque on
+noir, wreath + stacked Top-50 lockup, ICON film unchanged below).
+
+**Consequences:** the registry shrinks for only the second time, both
+times by withdrawal of a consumer-less authorization — the "list only
+ever grows" rule governs patterns, and allowedStrings changes remain
+operator-gated in both directions. Three pages now render the Laurel,
+once each. CLAUDE.md constraint 3, BUILD_SPEC §8.4 + §6 + §7.4 + the
+§17 registry row, and compliance/README updated in the docs commit.
+
+## 2026-08-25 — the ICON film autoplays on /about (a scoped override of the narrated-manufacturer-film rule)
+
+**Context:** Client direction relayed by the operator, same day (riding
+PR #153 with the day's other /about changes): the ICON film autoplays.
+The mechanism already exists — `TreatmentVideo autoplay="inview"` and
+the third sanctioned script (`public/js/treatment-video.js`, ~2KB) —
+but its recorded contract (operator direction, 2026-08-21) restricts
+the opt-in to Amy's own speech-free films: "never for a manufacturer
+film or one with narration, which muted autoplay would gut." All three
+existing consumers are Amy's `[Music]`-cue reels.
+
+**The flag:** the ICON film is the opposite case on every axis — an
+Evolus manufacturer production, narrated, whose printed caption says
+"sound on." Browser autoplay must start muted and the inview mechanism
+hard-wires `loop`, so autoplay means silent event footage looping
+until a visitor taps for sound. Claims calculus unchanged (the film
+ships as-is, nothing trimmed — the 2026-08-18 exception terms hold);
+the flag was the film-class rule and the experience.
+
+**Decision (operator override after the flag):** autoplay anyway.
+`autoplay="inview"` added to the /about player — muted on approach,
+loop while on screen, native controls as pause and tap-for-sound,
+reduced motion = click-to-play. The caption keeps "sound on" as the
+tap-for-sound nudge. Recorded as the film-class rule's ONE scoped
+exception in the component header, CLAUDE.md (script-consumer list),
+and BUILD_SPEC §5/§9-perf; the rule stands for every other film and a
+further exception requires the human operator.
+
+**Verification:** functional check on the built page (Playwright):
+paused before approach; playing + muted + looping with playback
+advancing in view; paused again scrolled away. /about gains its first
+script (~2KB, far under the 30KB budget and the per-page LHCI
+script-size gate); the full verify run gates the PR.
+
+**Consequences:** the autoplay script now renders on three pages
+(biostimulators, body-contouring, /about). CLAUDE.md's stale "today
+/services/biostimulators alone" consumer note was corrected to the
+full list in the same commit (body-contouring had shipped later the
+same 2026-08-21 day).

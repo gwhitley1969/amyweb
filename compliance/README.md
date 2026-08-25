@@ -40,7 +40,11 @@ reasoning inline.
   and the self-test proves this.
 - Most entries are marketing copy the client wanted published: the GLP-1
   vial tiers, the per-unit neuromodulator prices, the Evolus ranking
-  sentence (authorizations 1–3), and the four Private Injector Training
+  sentence (authorizations 1–3 — the ranking sentence WITHDRAWN
+  2026-08-25, when its last consumer, the /about recognition plate, was
+  swapped for the EvolusLaurel plaque: like the seventh below, an
+  authorization nothing uses is a loophole, so the entry came off and
+  the ranking vocabulary is banned everywhere again), and the four Private Injector Training
   curriculum topics in exact `<li>`-wrapped source form (fifth
   authorization, 2026-08-04 — the wrap binds each to one attribute-less
   source line and preserves the self-test's word boundary); and the
@@ -117,7 +121,23 @@ ships, with findings and the decision recorded in DECISIONS. Precedent:
 the header badge link to yourmobileaesthetics.com (2026-08-15) — the
 destination names the location's other providers, which tripped hard
 constraint 2; it ships as a scoped operator override recorded in
-DECISIONS and in CLAUDE.md's constraint-2 exception text.
+DECISIONS and in CLAUDE.md's constraint-2 exception text. The second
+link to that same destination (the /about Girl Team button,
+2026-08-25) shipped the same way — its own flag, its own override:
+an already-screened destination does not carry authorization forward
+to a new consumer.
+
+**QR codes are both blindness classes at once** (first instance: the
+storefront QR on /services/skincare, 2026-08-25): the encoded URL is
+pixels no linter reads, AND it is an outbound destination in
+machine-readable form. The control is threefold, all recorded in the
+DECISIONS entry: the destination screened like any outbound link; the
+committed SVG round-trip decode-verified against the intended URL
+(scratchpad zxing — the committed artifact is proven, not assumed);
+and the rendered page's own screenshot decoded again as the end-to-end
+check. Changing an encoded URL is a regenerate-plus-reverify, never a
+hand-edit of the SVG — an edited QR that still scans is worse than one
+that doesn't, because it fails silently to the wrong place.
 
 ## Authorizations the registry does not hold
 
@@ -132,14 +152,22 @@ Current members of that class:
 
 - The two EvolusLaurel ranking sentences — "The Top Evolus Injector in
   Charlotte." and "And among the Top 50 in the United States." — on
-  /services/wrinkle-relaxers and /services/dermal-fillers (operator
-  authorization, DECISIONS 2026-08-19; BUILD_SPEC §8.4). The superiority
+  /services/wrinkle-relaxers, /services/dermal-fillers, and (since
+  2026-08-25) /about (operator
+  authorization, DECISIONS 2026-08-19 + the two page-scope widenings,
+  DECISIONS 2026-08-21 and 2026-08-25; BUILD_SPEC §8.4). The superiority
   patterns see no token in either. Deliberately **not** allowlisted: a bare
   `top` pattern would false-positive ordinary copy, and the list only ever
   grows, so it was never added.
 - The /services/wrinkle-relaxers `deck` sentence beginning "Wave good-bye…"
   (operator override, DECISIONS 2026-08-23 and 2026-08-24; BUILD_SPEC §8.3,
   CLAUDE.md constraint 3). A second-person outcome promise that trips nothing.
+- The /about plate text "Girl Team!" (operator override, DECISIONS
+  2026-08-25; CLAUDE.md constraint 2, fourth scoped exception). Team
+  language the voice rule's written rationale forbids — a team implies
+  the location's other providers — but its patterns cannot see: the
+  gate bans only first-person plural tokens. A green `lint:voice`
+  never authorizes it.
 
 The practical consequence, and the reason this section exists: **a green
 `lint:claims` is not evidence that a string is authorized, and an empty

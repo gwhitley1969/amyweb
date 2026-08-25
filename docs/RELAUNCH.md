@@ -21,10 +21,10 @@ already merged.
    phone: the pages look different from what she approved 2026-08-05
    (Playfair body, arches + 4:5 crops, new photography, header badge,
    footer) even where no copy changed. The operator logs the date.
-   **Known defect to fix during this pass:** `studio-wide.jpg` alt
-   says "two clients" but the 4:5 arch window shows one — an alt edit
-   is an MDX edit, so it waits for this flag-resetting round
-   (DECISIONS 2026-08-17).
+   ~~Known defect to fix during this pass: `studio-wide.jpg` alt~~
+   RESOLVED 2026-08-25: the asset was replaced and deleted in the
+   iv-therapy photo round, so the mismatched alt no longer exists
+   (DECISIONS 2026-08-25; originally recorded 2026-08-17).
 4. **Analytics flip** (operator decision 2026-08-17: Plausible at
    relaunch): account created, then the two-value siteConfig edit per
    RUNBOOK "Turning on analytics" — ships in the relaunch PR or just

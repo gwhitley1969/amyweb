@@ -125,6 +125,14 @@
  *   crossing). Below the band the plate reads as a light plate on deep
  *   pink, reaching 2.42:1 at the held end stop. This band is why the
  *   whole-card links carry ELEVATION (below) — decorative, no bar.
+ *   ::selection joined the re-ink 2026-08-26 (same script, which again
+ *   reproduced 17.22/15.77/11.80/9.77/4.88 first): the old fixed
+ *   pink-300 highlight crossed canvas-equal luminance at 33.8% of the
+ *   document (42% along the ramp, 1.004:1), dead band 22.0%–45.8% —
+ *   and its ink-900 letter color matched body text, so selection was
+ *   invisible there. Now an ink-900 plate with blush-50 letters on
+ *   light surfaces (4.88 worst case, 15.77 letters-on-plate); noir
+ *   keeps pink-300 via a scoped rule in global.css.
  *
  * BRAND-PINK FILLS (client round, computed 2026-07-18, same script):
  *   PASS  4.88:1 (min 4.7) ink-900 on pink-500       — solid CTA fill text

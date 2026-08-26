@@ -6862,6 +6862,91 @@ noir is untouched. Colors only — no rendered text changes, no MDX, no
 CANVAS record carries the crossing figures alongside the card-plate
 precedent.
 
+## 2026-08-26 — dermal-fillers copy round (client wording, two batches); VisitSteps step 4 names Amy sitewide
+
+**Context:** Client-directed copy changes on /services/dermal-fillers,
+dictated by the operator across two same-day batches on one PR (#165
+into `phase-c` — one preview for Amy, the 2026-08-15 combined-review
+lesson). Batch 1: the lead drops "gel" ("Injectable fillers for volume
+and contour.") and takes her new areas sentence and order ("Common
+areas include the lips, under-eye area, cheeks, jawline and chin." —
+"lipos" confirmed as a typo for "lips"); the body's near-identical
+"What they are" areas sentence synced to the same order (operator's
+choice, unlike the 2026-08-23 deliberately-divergent "creases" call);
+the deck gains its opening — "Facial Balancing — volume and contour in
+proportion — never more than the face asks for." (em dashes, the
+operator's pick over the dictated hyphens); all three product cards now
+read "$650 (full-syringe) or $325 (half-syringe)"; and the /services
+menu-card echo drops "gel" too (serviceLines.ts — the 2026-07-30
+"temporary" card-summary precedent). Batch 2: the "Placed in
+proportion" parenthetical becomes a spaced em-dash pair ("Amy maps each
+face — where volume sits, where it has thinned, how the features
+balance — and places only what the plan calls for."); "Individualized,
+with Amy" is retitled "Personalized, with Amy" (this page only) over
+her new paragraph; "Lips, styled" closes "begins with a conversation."
+(was "is a consultation conversation."); and "After weight loss" ends
+its second sentence at "more visible." (the "than they were"
+comparison dropped). Dictated typos corrected with the operator's
+confirmation or on the record here: "lipos" → "lips", "grreater" →
+"greater", "questios" → "questions".
+
+**The one flag of the round, and how it resolved.** Her new
+"Personalized, with Amy" paragraph drops "under clinician supervision"
+— the clause the operator chose to KEEP on wrinkle-relaxers
+(2026-08-23) when Amy's draft omitted it there. Flagged once with that
+counterpart decision named; the operator directed the drop for this
+page. Gate-clean and defensible, per the 2026-08-23 research: no
+inverse check touches supervision, BUILD_SPEC §7 names it as a beat in
+the copy pattern rather than a mandated string, and several pages
+carry no supervision language at all. The supervised-care fact
+survives on the page in "plans and performs each treatment herself".
+No override, no allowlist entry — nothing trips a pattern; recorded so
+the two pages' opposite calls are both visible and neither is read as
+an oversight.
+
+**Also recorded, not re-argued:** (1) the paren→em-dash change
+reverses one of the 2026-07-29 em-dash-budget moves (parentheses were
+that pass's approved fix for "— x —" pairs) — client wording governs,
+as it did for the two-dash deck; (2) "begins with a conversation." is
+another consultation-language trim, logged against the 2026-08-24
+trend line as that record instructs — individually compliant, §8.7
+routing intact via the layout-injected DisclaimerBlock on all twelve
+pages plus this page's five FAQ consultation routings.
+
+**VisitSteps step 4 (sitewide).** The dictated "Aftercare guidance"
+sentence differed from the shipped text by two words: "reach out"
+becomes "reach out to Amy". The sentence lives in the shared
+`VisitSteps.astro`, so the change lands on all twelve treatment pages
+and the styleguide — surfaced before editing (the 2026-08-24 lesson: a
+sentence a page displays is not necessarily a sentence that page
+owns), and the operator chose sitewide over page-scoped machinery,
+exactly as for steps 2 and 3 on 2026-08-24. Naming Amy is the same
+gain step 2 got. `check:approvals` cannot see a component edit;
+hormone-optimization — the one page still `clinicianApproved: true` —
+keeps its flag at the operator's standing direction, and
+CLINICIAN-SIGN-OFF carries the new words as a cross-cutting item so
+Amy sees them.
+
+**Alternatives rejected:** page-scoped step-4 wording (a VisitSteps
+prop + layout pass-through + schema field — rejected 2026-08-24 as
+more machinery than the sentence, and again here); keeping the
+dictated hyphens in the deck and the mapping aside (operator chose em
+dashes); leaving the /services menu-card echo on "gel" (operator chose
+the sweep).
+
+**Consequences:** `compliance/banned-patterns.json` untouched all
+round — no new string trips any pattern and nothing needed an
+allowlist entry. dermal-fillers' `clinicianApproved` was already
+`false` (2026-08-21), so no reset fired; flags stand at 1 true / 11
+false (hormone-optimization only). The lead edit reaches the Service
+JSON-LD description via `[slug].astro` (verified claims-clean in the
+built output); the deck reaches no meta, OG, or JSON-LD (verified).
+"Individualized, with Amy" remains the heading on the other treatment
+pages — the retitle is this page's alone, and syncing any sibling is a
+fresh direction, not a tidy. Amy reviews the full round on the PR #165
+preview; the sign-off row and the step-4 cross-cutting note are the
+review record.
+
 ## 2026-08-26 — /about milestones: MA chevron plates replace the numerals
 
 **Context:** Operator direction (reference screenshot chevrons02.png,
@@ -7039,3 +7124,121 @@ film keeping the unit coherent as the page's showcase band. The
 2026-08-18 left-aligned-column intent is now fully superseded (the
 morning entry took the plaque; this one takes the rest). Design-only:
 no MDX, no clinicianApproved implications, no lint surface.
+
+## 2026-08-26 — a moved base silences a PR's CI (the conflicted-PR class hits a feature PR); the standing previews get a no-checkout refresh
+
+**Context:** With two sessions merging into `phase-c` in parallel, the
+open dermal-fillers PR (#165) went silent: after its batch-2 push,
+GitHub created NO workflow runs — not the PR preview, not the Relaunch
+guard — and a close/reopen cycle plus an empty-commit nudge were
+swallowed too, five qualifying events over ~90 minutes. It was
+misdiagnosed as a GitHub Actions outage (workflows verified active,
+Actions enabled, triggers correct, no posted incident) until the
+operator supplied the deciding fact: the /about session's pushes were
+running fine. The real mechanism was already in the RUNBOOK, filed
+under PR #95: **GitHub creates no `pull_request` runs for a PR whose
+merge ref it cannot compute.** The /about session's merges (#164,
+#166) had moved `phase-c` under the open PR at 19:53Z, the branches
+conflicted on the append-only docs (DECISIONS tail, CHANGELOG head),
+and everything after that instant was silently dropped. The timeline
+matched exactly: the PR's own opening ran at 19:48Z; nothing ran
+after 19:53Z.
+
+**Decision:** merge `origin/phase-c` into the PR branch and resolve
+keep-both (the 2026-08-15 rule — their three /about entries and the
+copy round's entry all survive; no source files collided). Full
+verify green; on push, both workflows fired within seconds and ran
+green; the PR converged and merged (`85b51ba`). The RUNBOOK gains a
+troubleshooting entry putting `gh pr view --json mergeable` FIRST in
+this diagnosis — the check that was skipped for an hour — and naming
+close/reopen and nudge commits as useless here (their events need
+the same merge ref).
+
+**The second procedure this surfaced:** refreshing the standing
+previews after the merge, both preview branches
+(`chore/monday-demo-preview`, `review/page-numbers`) were checked out
+in the other sessions' worktrees (`website-iv`, `website-tags`), so
+`git checkout` refuses them in this tree. Refreshed WITHOUT a
+checkout: `git merge-tree --write-tree origin/<branch> phase-c` →
+`git commit-tree` with both parents → push the commit to the branch
+ref. Both merged clean, both environments probed to convergence.
+The recipe is now in the RUNBOOK beside the refresh rule, with the
+caveat that the holding session's local branch is left behind origin
+and must pull before its own next refresh.
+
+**Alternatives rejected:** force-pushing `phase-c` over a preview
+branch (destroys its merge history for nothing); `git worktree add
+--force` to double-check-out a locked branch (fights the other
+session for the same ref); waiting out the "outage" (there was none
+to wait out).
+
+**Consequences:** two harmless artifacts remain on the merged branch
+from the misdiagnosis — an empty "chore: nudge CI" commit and a
+close/reopen cycle on PR #165 (no side effects; no workflow ran on
+either event). The generalizable rule, recorded so the next silence
+is diagnosed in one command: **when a push creates no runs at all,
+check the PR's mergeability before anything else** — in a
+two-session week, a moved base is the likely cause, and the fix is a
+sync merge, not a CI remedy. REDESIGN gains the copy round's tracker
+row in the same commit (it was missing against the wrinkle-relaxers
+precedent). Docs-only; no gate, config, or content changes.
+
+## 2026-08-26 — /about brand-ink round: black CTAs + black plate, logo-pink lettering
+
+**Context:** Operator direction: on /about, the "Book with Amy" and
+"Visit Mobile Aesthetics" buttons go black with their lettering in
+the Needle Girlie logo's pink, and the Girl Team placard likewise.
+"The logo's pink" was pinned twice before styling: a pixel census of
+needle-girlie-logo-on-black.png (dominant letter color) and the
+canonical master (src/assets/brand/source/
+needle-girlie-logo-black-bg.html — the wordmark container and the
+whole word "Girlie" are literally #EC4899, and its "NG" thumbnail is
+#EC4899 on #000000). That is --ng-pink-500 — no new color enters the
+system. The site already ships the exact treatment: the header Book
+button (.site-book-cta) — pink-500 text + 1px pink-500 border on
+noir, hover inverting — with the recorded 5.95:1 pair, cleared at
+body size on noir since 2026-07-19.
+
+**Decision:** Page-scoped adoption of the header button's grammar via
+one class, `.about-cta-brand`, in about.astro's is:global style block
+(the selectors REQUIRE is:global: CTAButton-rendered anchors carry
+the component's scope attribute, not the page's — recorded in the CSS
+comment so a future "tidy" to a scoped block can't silently kill the
+rules). Both /about buttons titled "Book with Amy" are in scope — the
+hero consult variant and the closing band's solid (the page's loudest
+element goes quiet black-and-pink; flagged in the plan, operator
+approved) — plus the hand-rolled Visit Mobile Aesthetics anchor,
+whose 2026-08-25 terms (hand-rolled, ma_site_click, new-tab + sr-only)
+are untouched. The band's Call button stays. Noir fill, pink-500 text
+and 1px border; hover inverts to pink-500 fill + noir text (the same
+symmetric 5.95 pair); min-height 3rem is border-box, so the new
+border keeps the band buttons height-aligned. The sitewide .cta
+classes stand untouched (they fan out to every page incl. 12
+treatment pages). The Girl Team plate recolors in place: paper→noir,
+ink-900→pink-500 lettering, hairline→pink-500 border (the
+light-scoped hairline reads as a stray gray line around a noir
+plate). Everything else holds: opaque (the Phase C no-scrim rule —
+noir is as opaque as paper), z-index above the magenta wash so the
+audited contrast stays real, keystone seat, "Girl Team!" wording and
+Amy's casing (constraint-2 fourth-exception text — fixed). tokens.css
+gains a consumer note on the body-size pink-500-on-noir pair.
+
+**Alternatives rejected:** restyling .cta--solid/.cta--outline
+sitewide (12-page fan-out for a one-page ask; on the treatment
+pages' noir bands a black fill would also change every band);
+magenta-600 or neon-500 as "the logo pink" (the master shows the
+ramp letter "N" and the syringe glyph respectively — the wordmark
+base is pink-500; neon-500 is never-text by rule); a class prop on
+CTAButton (shared-component churn while wrappers suffice).
+
+**Consequences:** /about now carries a consistent black-plate,
+pink-ink motif — the chevron milestones plates, the Girl Team
+placard, and its three brand CTAs. The "solid CTA fill text" 4.88
+pair no longer describes /about's Book buttons (they ride the 5.95
+noir pair; every other page's solid CTAs unchanged). Design-only: no
+wording, no MDX, no clinicianApproved implications. Rider executed in
+this round's ship sequence: PR #165 has merged, so once this PR
+lands and the standing previews refresh onto the new tip, the
+open-PR reference grep for the retired portrait team-film object is
+re-run and `girl-team-film.mp4` deleted from Blob on zero hits —
+per the 2026-08-26 widescreen entry's recorded precondition.

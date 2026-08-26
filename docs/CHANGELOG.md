@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-26 — /about brand-ink round: black CTAs and plate, logo-pink lettering
+
+- Both "Book with Amy" buttons, the "Visit Mobile Aesthetics" button,
+  and the "Girl Team!" placard on /about now wear the Needle Girlie
+  logo's own ink: black chrome with lettering in the wordmark's exact
+  pink (`--ng-pink-500` #ec4899 — pinned by pixel census and the
+  canonical logo master), the header Book button's shipped grammar
+  with its recorded 5.95:1 pair. Hover inverts to a pink fill with
+  black text. Page-scoped — every other page's buttons unchanged; the
+  closing band's Call button and all wording, events, and the plate's
+  keystone seat untouched. The page now carries one consistent
+  black-plate, pink-ink motif (chevron plates, placard, CTAs).
+  (DECISIONS 2026-08-26.)
+
 ### 2026-08-26 — /about desktop round: the team film goes widescreen; the Laurel centers
 
 - The Girl Team film now plays on a horizontal screen. The film is
@@ -31,6 +45,32 @@ change lives in `docs/DECISIONS.md`; design specs live in
   band is the page's own precedent), and the ICON film centers by
   filling the column. Classes only — every word unchanged
   (DECISIONS 2026-08-26).
+
+### 2026-08-26 — Dermal fillers: the client copy round (two batches); step 4 names Amy
+
+- /services/dermal-fillers, her wording throughout (PR #165). The lead
+  drops "gel" and takes her areas sentence — "Injectable fillers for
+  volume and contour. Common areas include the lips, under-eye area,
+  cheeks, jawline and chin." (the body's matching sentence synced; the
+  /services menu card drops "gel" too). The deck now opens "Facial
+  Balancing — volume and contour in proportion — never more than the
+  face asks for." All three product cards read "$650 (full-syringe) or
+  $325 (half-syringe)".
+- Body copy: the "Placed in proportion" parenthetical becomes a spaced
+  em-dash pair; "Individualized, with Amy" is retitled "Personalized,
+  with Amy" (this page only) over her new paragraph — "under clinician
+  supervision" comes off at her direction (flagged once; the opposite
+  of the wrinkle-relaxers 2026-08-23 call, both now on the record);
+  "Lips, styled" closes "begins with a conversation."; "After weight
+  loss" ends at "more visible."
+- **Sitewide:** "Aftercare guidance" (step 4 of "Your visit, step by
+  step") now reads "…a direct way to reach out **to Amy** if questions
+  come up." — the sentence lives in the shared VisitSteps component,
+  so it changed on all twelve treatment pages (surfaced first; the
+  operator chose sitewide, the 2026-08-24 steps-2/3 precedent).
+  CLINICIAN-SIGN-OFF carries it as a cross-cutting item.
+- No banned pattern touched, no registry change; dermal-fillers'
+  flag was already `false` — no reset. DECISIONS 2026-08-26.
 
 ### 2026-08-26 — /about milestones wear the chevron plates
 

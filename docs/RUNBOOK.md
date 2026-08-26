@@ -189,10 +189,13 @@ To add or swap a film:
 
 **One master, two renditions (2026-08-25):** the team film's master
 (`team.MOV`, operator archive) serves as BOTH the muted carousel
-rendition `commercial-team.mp4` AND the sounded /about rendition
-`girl-team-film.mp4` (DECISIONS 2026-08-25). Replacing or retiring
-that film means both Blob objects, both caption files, and both
-consumers (the carousel slide and the /about Girl Team unit).
+rendition `commercial-team.mp4` AND the sounded /about rendition —
+since 2026-08-26 the widescreen `girl-team-film-wide.mp4`, a 16:9
+center crop (DECISIONS same date; it replaced the portrait
+`girl-team-film.mp4`, whose Blob object is deleted once no open PR
+references it). Replacing or retiring that film means both Blob
+objects, both caption files, and both consumers (the carousel slide
+and the /about Girl Team unit).
 
 **Treatment-page films (sounded — `TreatmentVideo`)** follow the same
 screen → DECISIONS → upload order, with four differences (first
@@ -206,7 +209,10 @@ paints "[Music]" over the whole play), the poster is committed to
 its source width (the component clamps), and a film placed INSIDE a
 media row takes `frame="bare"` so it sits with the bare arches (the
 standalone player keeps its mat). Portrait films are sized by the
-row column; nothing crops or masks a film. `autoplay="inview"` (same
+row column; nothing crops or masks a film (one scoped exception,
+operator-directed after the flag: the /about team film's widescreen
+rendition is a 16:9 center crop of its portrait master — DECISIONS
+2026-08-26). `autoplay="inview"` (same
 day, operator direction) plays a film MUTED and looping while ~a third
 of it is on screen, via the static `public/js/treatment-video.js`
 (~2KB; reduced motion = click-to-play; the controls are the pause and

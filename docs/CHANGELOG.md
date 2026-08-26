@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-26 — /about milestones wear the chevron plates
+
+- The "Two decades in the making." timeline's 01–04 numerals are
+  replaced by the Mobile Aesthetics chevron plates — the same badge
+  the treatment pages' "Your visit, step by step" list has worn since
+  2026-08-19, now on /about at the operator's direction (reference
+  screenshot chevrons02.png). Same plate, same size, its own gradient
+  ids. Design-only: every heading and paragraph in the section is
+  byte-identical, so no approval-flag implications (DECISIONS
+  2026-08-26).
+
 ### 2026-08-26 — Text selection visible everywhere (the invisible-highlight fix)
 
 - Highlighting text mid-page on the ombre canvas — surfaced by the

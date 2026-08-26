@@ -108,10 +108,14 @@
  *   and links/outline CTAs (--ng-link) all switch to ink-900 on ombre
  *   pages — ink-pink falls to 2.33 and magenta-600 to ~1.9 mid-ramp,
  *   so neither may render on the ombre canvas. The display accent
- *   (--ng-display-accent) re-inks too: its one light-canvas consumer
- *   is the /about milestones numerals, which sit mid-ramp (the
- *   VisitSteps numerals were that consumer until 2026-08-19, when
- *   the steps went to MA chevron plates). Noir bands keep
+ *   (--ng-display-accent) re-inks too — though as of 2026-08-26 it
+ *   has NO light-canvas consumer left: the /about milestones
+ *   numerals (its last, mid-ramp) went to MA chevron plates, the
+ *   same swap the VisitSteps numerals made 2026-08-19. The re-ink
+ *   stays as defense-in-depth — magenta-600 at ~1.9 mid-ramp may
+ *   never render on the ombre canvas, so any future light-canvas
+ *   display-accent consumer lands ink-900 by default (the /styleguide
+ *   specimen, preview-only, still exercises it). Noir bands keep
  *   their own scoped values (pink-300 family throughout).
  *   Cards on the ramp: plates cross canvas-equal luminance at 19.6% of
  *   the document (24.5% along the ramp) — CORRECTED 2026-07-27 from an

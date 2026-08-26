@@ -40,7 +40,7 @@ export const serviceLines: ServiceLine[] = [
   {
     slug: 'dermal-fillers',
     title: 'Dermal Fillers',
-    summary: 'Injectable gel fillers for volume and contour.',
+    summary: 'Injectable fillers for volume and contour.',
     href: '/services/dermal-fillers',
     category: 'injectables',
   },

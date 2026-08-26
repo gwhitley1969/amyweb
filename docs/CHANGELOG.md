@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-26 — Text selection visible everywhere (the invisible-highlight fix)
+
+- Highlighting text mid-page on the ombre canvas — surfaced by the
+  text-review round on /services/dermal-fillers, where "Placed in
+  proportion" sits exactly where the old fixed pink highlight crossed
+  canvas-equal luminance (1.00:1, with selection letters matching the
+  body text) — now paints a dark ink plate with light letters at every
+  point of every light page. Noir bands (header, footer, CTA bands,
+  the Laurel plaque) keep their pink highlight pixel-for-pixel.
+  Selection and copy always worked mechanically; only the feedback was
+  invisible. Colors only — no copy changes, no approval-flag resets
+  (DECISIONS 2026-08-26).
+
 ### 2026-08-25 — Regenerative: the PRP media round (two photos + Amy's reel on autoplay)
 
 - /services/regenerative grows from one photo to the full media rhythm.

@@ -7067,3 +7067,61 @@ film keeping the unit coherent as the page's showcase band. The
 2026-08-18 left-aligned-column intent is now fully superseded (the
 morning entry took the plaque; this one takes the rest). Design-only:
 no MDX, no clinicianApproved implications, no lint surface.
+
+## 2026-08-26 — a moved base silences a PR's CI (the conflicted-PR class hits a feature PR); the standing previews get a no-checkout refresh
+
+**Context:** With two sessions merging into `phase-c` in parallel, the
+open dermal-fillers PR (#165) went silent: after its batch-2 push,
+GitHub created NO workflow runs — not the PR preview, not the Relaunch
+guard — and a close/reopen cycle plus an empty-commit nudge were
+swallowed too, five qualifying events over ~90 minutes. It was
+misdiagnosed as a GitHub Actions outage (workflows verified active,
+Actions enabled, triggers correct, no posted incident) until the
+operator supplied the deciding fact: the /about session's pushes were
+running fine. The real mechanism was already in the RUNBOOK, filed
+under PR #95: **GitHub creates no `pull_request` runs for a PR whose
+merge ref it cannot compute.** The /about session's merges (#164,
+#166) had moved `phase-c` under the open PR at 19:53Z, the branches
+conflicted on the append-only docs (DECISIONS tail, CHANGELOG head),
+and everything after that instant was silently dropped. The timeline
+matched exactly: the PR's own opening ran at 19:48Z; nothing ran
+after 19:53Z.
+
+**Decision:** merge `origin/phase-c` into the PR branch and resolve
+keep-both (the 2026-08-15 rule — their three /about entries and the
+copy round's entry all survive; no source files collided). Full
+verify green; on push, both workflows fired within seconds and ran
+green; the PR converged and merged (`85b51ba`). The RUNBOOK gains a
+troubleshooting entry putting `gh pr view --json mergeable` FIRST in
+this diagnosis — the check that was skipped for an hour — and naming
+close/reopen and nudge commits as useless here (their events need
+the same merge ref).
+
+**The second procedure this surfaced:** refreshing the standing
+previews after the merge, both preview branches
+(`chore/monday-demo-preview`, `review/page-numbers`) were checked out
+in the other sessions' worktrees (`website-iv`, `website-tags`), so
+`git checkout` refuses them in this tree. Refreshed WITHOUT a
+checkout: `git merge-tree --write-tree origin/<branch> phase-c` →
+`git commit-tree` with both parents → push the commit to the branch
+ref. Both merged clean, both environments probed to convergence.
+The recipe is now in the RUNBOOK beside the refresh rule, with the
+caveat that the holding session's local branch is left behind origin
+and must pull before its own next refresh.
+
+**Alternatives rejected:** force-pushing `phase-c` over a preview
+branch (destroys its merge history for nothing); `git worktree add
+--force` to double-check-out a locked branch (fights the other
+session for the same ref); waiting out the "outage" (there was none
+to wait out).
+
+**Consequences:** two harmless artifacts remain on the merged branch
+from the misdiagnosis — an empty "chore: nudge CI" commit and a
+close/reopen cycle on PR #165 (no side effects; no workflow ran on
+either event). The generalizable rule, recorded so the next silence
+is diagnosed in one command: **when a push creates no runs at all,
+check the PR's mergeability before anything else** — in a
+two-session week, a moved base is the likely cause, and the fix is a
+sync merge, not a CI remedy. REDESIGN gains the copy round's tracker
+row in the same commit (it was missing against the wrinkle-relaxers
+precedent). Docs-only; no gate, config, or content changes.

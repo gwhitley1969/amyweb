@@ -24,6 +24,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
   hugged the band's left edge — 160px vs 512px of pink at 1440); the
   "Inside Evolus" heading and ICON film keep their left rail. No
   change on phones. (DECISIONS 2026-08-26 ×2.)
+- Second pass, same day: the WHOLE Evolus unit now centers — on
+  seeing the centered plaque, the operator asked for the rest.
+  "Inside Evolus" and its paragraph are text-centered (the operator's
+  pick between block- and text-centering; the "Ready when you are"
+  band is the page's own precedent), and the ICON film centers by
+  filling the column. Classes only — every word unchanged
+  (DECISIONS 2026-08-26).
 
 ### 2026-08-26 — /about milestones wear the chevron plates
 

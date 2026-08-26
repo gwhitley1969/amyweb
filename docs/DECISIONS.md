@@ -6999,3 +6999,43 @@ wrapper is the actual knob).
 **Consequences:** /about's Evolus section now has two column blocks
 (centered plaque, left-aligned unit). Design-only: no rendered-text
 changes, no MDX, no clinicianApproved implications.
+
+## 2026-08-26 — the Evolus unit centers whole, text included (second pass, same day)
+
+**Context:** Operator direction on seeing the first pass rendered:
+"Inside Evolus", its paragraph, and the ICON film still sat too far
+left on desktops — center them too. This chooses exactly what this
+morning's plaque entry listed under alternatives rejected ("centering
+the whole unit indents the heading off the page's left rail"): the
+operator saw the centered plaque above the left rail and picked the
+whole unit. A planning flag shaped the form: block-centering the
+column alone would not read centered for the TEXT (the heading is
+~200px, the paragraph ~533px, in a 768px column — the film alone
+fills it), so the operator was offered block-centered vs
+text-centered and picked TEXT-CENTERED, /about's own "Ready when you
+are" band being the page's precedent.
+
+**Decision:** The section's two column divs merge back into one
+`mx-auto max-w-3xl` (vertical rhythm identical — the rule's mt-12/16
+collapsed through the old second div's top edge). Per-element
+centering, not a wrapper `text-center`: the accent rule gains
+`mx-auto`, the h2 `text-center`, the paragraph `mx-auto text-center`
+(the 65ch block centers, its lines center); the ICON film centers by
+filling the column, and its printed figcaption deliberately keeps
+its left seat at the film's edge — nothing re-aligns unreviewed.
+Verified on the built page: heading, paragraph, and film centers all
+at 0px offset from the band's center at 1440 (the trace-animation
+transform makes mid-animation rule measurements read ~28px left —
+measure after it settles). Classes only; every word byte-identical.
+
+**Alternatives rejected:** block-centered with left text (offered —
+the operator picked text-centered); `text-center` on the wrapper
+(silently re-aligns the film's figcaption and touches the plaque's
+already-centered internals).
+
+**Consequences:** "Inside Evolus" leaves the left heading rail the
+other sections share — the request, with the centered plaque and
+film keeping the unit coherent as the page's showcase band. The
+2026-08-18 left-aligned-column intent is now fully superseded (the
+morning entry took the plaque; this one takes the rest). Design-only:
+no MDX, no clinicianApproved implications, no lint surface.

@@ -6861,3 +6861,51 @@ noir is untouched. Colors only — no rendered text changes, no MDX, no
 `clinicianApproved` resets, no lint surface. The tokens.css OMBRE
 CANVAS record carries the crossing figures alongside the card-plate
 precedent.
+
+## 2026-08-26 — /about milestones: MA chevron plates replace the numerals
+
+**Context:** Operator direction (reference screenshot chevrons02.png,
+repo root): the "Two decades in the making." timeline's 01–04
+numerals become the MA chevron plates the treatment pages' VisitSteps
+wears. This supersedes the scoping in the 2026-08-19 VisitSteps entry
+— "The /about milestones keep their numerals (career timeline —
+different object)" — by the operator's own call. The two patterns are
+siblings: the timeline runs the Playfair-counter recipe hand-copied
+2026-08-15 FROM VisitSteps, which retired it 2026-08-19 for the
+plates; this change closes the recipe's last live use.
+
+**Decision:** Hand-copy, one page. about.astro gains the FOIL_STOPS +
+CHEVRONS consts (verbatim from VisitSteps.astro, itself verbatim from
+src/assets/brand/mobile-aesthetics-mark-header.svg; MA is Amy's own
+PLLC — constraint 2 not engaged, DECISIONS 2026-07-23) and four badge
+divs with gradient ids about-foil-0…3 — an id namespace of its own,
+indexed so no page carries duplicate ids (axe). The counter CSS
+retires; the plate rules are hand-copied (noir plate, 7rem,
+decorative, aria-hidden). NO sr-only ordinal joins the headings — a
+deliberate asymmetry with VisitSteps' "Step N.": step numbers carry
+meaning in a process walkthrough but would misdescribe a biography
+timeline whose headings carry the years; the ol[role="list"]
+announces order and count as before, and sighted users lose the
+identical numerals, so no cross-modality gap opens (SC 1.3.1/1.1.1
+hold). Knock-on: --ng-display-accent now has no light-canvas
+consumer; the ombre re-ink STAYS (defense-in-depth — magenta-600 at
+~1.9 mid-ramp may never render on the ramp) and the tokens.css OMBRE
+CANVAS record says so.
+
+**Alternatives rejected:** extracting a shared badge component
+(touches VisitSteps → re-verifying 12 treatment pages + styleguide
+for a /about-only ask, and collides with the parallel session working
+treatment pages today; consolidation stays available as a later
+round); converting the four hand-written li's to an array+map (moves
+Amy-confirmed copy — PR #83 — into frontmatter strings and changes
+built bytes, the &middot; entities; the insertion-only diff wins); an
+sr-only "Milestone N." (new AT-only copy adding nothing the years
+don't already carry).
+
+**Consequences:** the chevron data now lives in three places (brand
+SVG → VisitSteps → about), each copy under a dated provenance comment
+— drift is discoverable, and consolidation is a one-round job if a
+fourth consumer ever appears. The 49px-Playfair-outside-headings
+sanction and the display accent's light-canvas consumer both retire
+with the counter. Design-only: no rendered-text changes, no MDX, no
+clinicianApproved implications.

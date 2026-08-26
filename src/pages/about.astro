@@ -56,6 +56,37 @@ import commercialTeamPoster from '../assets/photos/commercial-team-poster.jpg';
 
 // REVIEW SCAFFOLDING (ReviewNumber.astro) — letter tag for this route.
 const reviewPageTag = reviewTag(Astro.url.pathname);
+
+/* MA chevron plate data — hand-copied VERBATIM 2026-08-26 from
+ * VisitSteps.astro (which copied it from
+ * src/assets/brand/mobile-aesthetics-mark-header.svg 2026-08-19;
+ * brand fidelity — MA is Amy's own PLLC, constraint 2 not engaged,
+ * DECISIONS 2026-07-23). Operator direction (mockup chevrons02.png):
+ * the milestones' Playfair numerals retire for the same plates the
+ * treatment pages' VisitSteps wears — superseding the 2026-08-19
+ * "the /about milestones keep their numerals" scoping (DECISIONS
+ * 2026-08-26). Gradient ids are about-foil-0…3 — their own
+ * namespace, indexed so no page carries duplicate ids (axe). The
+ * badges are decorative (aria-hidden), and NO sr-only ordinal joins
+ * the headings — a deliberate asymmetry with VisitSteps' "Step N.":
+ * step numbers carry meaning in a process list but would misdescribe
+ * a biography timeline whose headings carry the years; the <ol>
+ * semantics announce order and count as before (DECISIONS
+ * 2026-08-26). */
+const FOIL_STOPS = [
+  ['0.00', '#fdaedb'],
+  ['0.13', '#fda6d8'],
+  ['0.38', '#fd78d4'],
+  ['0.63', '#e967b6'],
+  ['0.88', '#fc9ad6'],
+  ['1.00', '#fdaad9'],
+];
+const CHEVRONS = [
+  'M24.19 108.00 L42.19 108.00 L89.49 158.98 L42.16 210.00 L24.16 210.00 L71.49 158.98 Z',
+  'M84.99 108.00 L102.99 108.00 L150.28 158.98 L102.95 210.00 L84.95 210.00 L132.28 158.98 Z',
+  'M146.07 108.00 L164.07 108.00 L211.36 158.98 L164.04 210.00 L146.04 210.00 L193.36 158.98 Z',
+  'M207.02 108.00 L225.02 108.00 L272.32 158.98 L224.99 210.00 L206.99 210.00 L254.32 158.98 Z',
+];
 ---
 
 <BaseLayout
@@ -121,24 +152,80 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
         </h2>
         <ol class="about-milestones mt-8 max-w-3xl" role="list">
           <li class="about-milestones__step ng-rise">
+            <div class="about-milestones__badge" aria-hidden="true">
+              <svg viewBox="24.16 108 248.16 102" fill="none">
+                <defs>
+                  <linearGradient id="about-foil-0" gradientUnits="userSpaceOnUse" x1="24" y1="0" x2="271" y2="0">
+                    {FOIL_STOPS.map(([off, color]) => (
+                      <stop offset={off} stop-color={color} />
+                    ))}
+                  </linearGradient>
+                </defs>
+                {CHEVRONS.map((d) => (
+                  <path d={d} fill="url(#about-foil-0)" />
+                ))}
+              </svg>
+            </div>
             <div>
               <h3 class="heading-4">The bedside years</h3>
               <p class="mt-2">Two decades of nursing, much of it in critical care.</p>
             </div>
           </li>
           <li class="about-milestones__step ng-rise">
+            <div class="about-milestones__badge" aria-hidden="true">
+              <svg viewBox="24.16 108 248.16 102" fill="none">
+                <defs>
+                  <linearGradient id="about-foil-1" gradientUnits="userSpaceOnUse" x1="24" y1="0" x2="271" y2="0">
+                    {FOIL_STOPS.map(([off, color]) => (
+                      <stop offset={off} stop-color={color} />
+                    ))}
+                  </linearGradient>
+                </defs>
+                {CHEVRONS.map((d) => (
+                  <path d={d} fill="url(#about-foil-1)" />
+                ))}
+              </svg>
+            </div>
             <div>
               <h3 class="heading-4">2017 &middot; Aesthetics</h3>
               <p class="mt-2">Amy moves from the hospital into medical aesthetics.</p>
             </div>
           </li>
           <li class="about-milestones__step ng-rise">
+            <div class="about-milestones__badge" aria-hidden="true">
+              <svg viewBox="24.16 108 248.16 102" fill="none">
+                <defs>
+                  <linearGradient id="about-foil-2" gradientUnits="userSpaceOnUse" x1="24" y1="0" x2="271" y2="0">
+                    {FOIL_STOPS.map(([off, color]) => (
+                      <stop offset={off} stop-color={color} />
+                    ))}
+                  </linearGradient>
+                </defs>
+                {CHEVRONS.map((d) => (
+                  <path d={d} fill="url(#about-foil-2)" />
+                ))}
+              </svg>
+            </div>
             <div>
               <h3 class="heading-4">2018 &middot; Nurse practitioner</h3>
               <p class="mt-2">The credential reads FNP, BSN.</p>
             </div>
           </li>
           <li class="about-milestones__step ng-rise">
+            <div class="about-milestones__badge" aria-hidden="true">
+              <svg viewBox="24.16 108 248.16 102" fill="none">
+                <defs>
+                  <linearGradient id="about-foil-3" gradientUnits="userSpaceOnUse" x1="24" y1="0" x2="271" y2="0">
+                    {FOIL_STOPS.map(([off, color]) => (
+                      <stop offset={off} stop-color={color} />
+                    ))}
+                  </linearGradient>
+                </defs>
+                {CHEVRONS.map((d) => (
+                  <path d={d} fill="url(#about-foil-3)" />
+                ))}
+              </svg>
+            </div>
             <div>
               <h3 class="heading-4">Today &middot; Needle Girlie</h3>
               <p class="mt-2">
@@ -347,23 +434,22 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
     mix-blend-mode: multiply;
     pointer-events: none;
   }
-  /* Milestones — the Playfair-counter recipe hand-copied 2026-08-15
-   * from VisitSteps (which retired it 2026-08-19 for the MA chevron
-   * plates — this timeline is now the recipe's only live use, and the
-   * display accent's one light-canvas consumer, tokens.css). 49px
-   * numerals are the one sanctioned Playfair use outside heading-2+
-   * (display-scale). Same hand-copy precedent as .about-facts before
-   * it (retired 2026-08-03: the facts moved into this timeline and
-   * the hero prose). */
+  /* Milestones — the MA chevron plates (operator direction 2026-08-26,
+   * mockup chevrons02.png), replacing the Playfair-counter recipe
+   * hand-copied 2026-08-15 from VisitSteps: the same
+   * numerals-for-plates retirement VisitSteps made 2026-08-19, which
+   * closes the counter recipe's last live use AND the display
+   * accent's last light-canvas consumer (tokens.css OMBRE CANVAS
+   * record updated; the re-ink stays). Plate rules hand-copied from
+   * VisitSteps.astro — the same hand-copy precedent as the counter
+   * before it (DECISIONS 2026-08-26). */
   .about-milestones {
-    counter-reset: about-milestone;
     list-style: none;
     padding: 0;
     display: grid;
     gap: 2rem;
   }
   .about-milestones__step {
-    counter-increment: about-milestone;
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 1.25rem;
@@ -373,16 +459,20 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
     border-top: 1px solid var(--ng-hairline);
     padding-top: 2rem;
   }
-  .about-milestones__step::before {
-    content: counter(about-milestone, decimal-leading-zero);
-    font-family: var(--font-display);
-    font-size: 3.0625rem; /* 49px — display-size, the Playfair floor */
-    line-height: 1;
-    font-weight: 500;
-    /* surface-scoped display accent — ink-900 on the ombre canvas,
-     * same as the VisitSteps numerals (tokens.css OMBRE CANVAS). */
-    color: var(--ng-display-accent);
-    min-width: 2ch;
+  /* The MA chevron plate — noir by design (the mark's own plate
+   * anatomy); decorative, so no contrast pair is engaged. Width
+   * matches VisitSteps for cross-page consistency. */
+  .about-milestones__badge {
+    background: var(--ng-noir);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    width: 7rem;
+    align-self: start;
+  }
+  .about-milestones__badge svg {
+    display: block;
+    width: 100%;
+    height: auto;
   }
   @media (max-width: 400px) {
     .about-milestones__step {

@@ -51,7 +51,7 @@ src/content/treatments/*.mdx`.
 | Date | Reviewed on | Scope | Logged by |
 |---|---|---|---|
 | 2026-08-05 | stable preview (`…-5`) | launch state — the same pass as the copy sign-off (`ad8fbde`) | operator |
-| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21), laser-treatments' priced menu + Epileve section + three photos (2026-08-21), and the /about round (2026-08-25): the Girl Team section, the Evolus Laurel plaque, the ICON film's autoplay, and the team film below the Girl Team button (sounded, autoplay muted in view), and the /injector-training media round (2026-08-25): the dedicated training portrait + Amy's training reel on autoplay, and the iv-therapy photo round (2026-08-25): both photos now her picks, and the regenerative PRP media round (2026-08-25): two photos + her PRP-visit reel on autoplay, and the /about milestones' numerals swapped for the MA chevron plates (2026-08-26, operator direction — design only, no copy changes), and the /about desktop round (2026-08-26, operator direction): the Girl Team film re-rendered widescreen — a 16:9 center crop of the same screened master, frame-pairs checkpoint-approved — filling the unit column, and the Evolus Laurel plaque centered on the band — then, second pass the same day, the whole Evolus unit: heading + paragraph text-centered (the operator's pick), the ICON film centered below, every word unchanged | — |
+| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21), laser-treatments' priced menu + Epileve section + three photos (2026-08-21), and the /about round (2026-08-25): the Girl Team section, the Evolus Laurel plaque, the ICON film's autoplay, and the team film below the Girl Team button (sounded, autoplay muted in view), and the /injector-training media round (2026-08-25): the dedicated training portrait + Amy's training reel on autoplay, and the iv-therapy photo round (2026-08-25): both photos now her picks, and the regenerative PRP media round (2026-08-25): two photos + her PRP-visit reel on autoplay, and the /about milestones' numerals swapped for the MA chevron plates (2026-08-26, operator direction — design only, no copy changes), and the /about desktop round (2026-08-26, operator direction): the Girl Team film re-rendered widescreen — a 16:9 center crop of the same screened master, frame-pairs checkpoint-approved — filling the unit column, and the Evolus Laurel plaque centered on the band — then, second pass the same day, the whole Evolus unit: heading + paragraph text-centered (the operator's pick), the ICON film centered below, every word unchanged, and the /about brand-ink round (2026-08-26, operator direction): both "Book with Amy" buttons, the "Visit Mobile Aesthetics" button, and the "Girl Team!" placard now black with lettering in the logo's own pink — every word, event, and placement unchanged | — |
 
 Visual drift since 2026-08-05, for Amy's pending pass: body face and
 size (DM Sans → Playfair 17px/1.65), every photo arched with 4:5/9:8
@@ -155,6 +155,13 @@ same day on seeing it rendered, the WHOLE Evolus unit: "Inside
 Evolus" and its paragraph text-centered (the operator's pick; the
 "Ready when you are" band is the page's own precedent) with the ICON
 film centered below, every word unchanged (DECISIONS 2026-08-26 ×3).
+And the /about brand-ink round (2026-08-26, operator direction):
+both "Book with Amy" buttons, the "Visit Mobile Aesthetics" button,
+and her "Girl Team!" placard now wear the logo's own ink — black
+with lettering in the wordmark's exact pink, the header Book
+button's shipped look; hover inverts to a pink fill. Every word,
+event, and the placard's keystone seat unchanged (DECISIONS
+2026-08-26).
 ~~Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window~~ — RESOLVED
 2026-08-25: the asset was replaced and deleted in the iv-therapy

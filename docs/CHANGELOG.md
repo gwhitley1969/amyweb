@@ -6,6 +6,25 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-26 — /about desktop round: the team film goes widescreen; the Laurel centers
+
+- The Girl Team film now plays on a horizontal screen. The film is
+  natively vertical (probed: every frame 1080 wide, with full-bleed
+  9:16 moments — not a widescreen picture in a tall frame), so at the
+  operator's direction it was re-rendered as a true 16:9 center crop
+  of the master (`girl-team-film-wide.mp4`, 4.19MB, music untouched)
+  — a scoped, operator-approved exception to the no-crop rule, with
+  frame-by-frame checkpoint approval pre-upload. Every head stays in
+  frame in every beat; the neon and the "GiRL TEAM" overlay survive;
+  the full-height beats lose lower legs. The film now fills the unit
+  column — still → plate → button → film at one width — and the
+  18rem portrait cap retired. New poster (the opener frame) and
+  captions; the carousel's portrait rendition and poster unchanged.
+- The Evolus Laurel plaque centers on the page band on desktops (it
+  hugged the band's left edge — 160px vs 512px of pink at 1440); the
+  "Inside Evolus" heading and ICON film keep their left rail. No
+  change on phones. (DECISIONS 2026-08-26 ×2.)
+
 ### 2026-08-26 — /about milestones wear the chevron plates
 
 - The "Two decades in the making." timeline's 01–04 numerals are

@@ -14,7 +14,7 @@ import familyPortrait from '../assets/photos/family-portrait.jpg';
 import iconPoster from '../assets/photos/evolus-icon-poster.jpg';
 import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
 import girlTeamStudio from '../assets/photos/girl-team-studio.jpg';
-import commercialTeamPoster from '../assets/photos/commercial-team-poster.jpg';
+import girlTeamFilmWidePoster from '../assets/photos/girl-team-film-wide-poster.jpg';
 
 /**
  * /about — the magazine profile (full rebuild 2026-08-03; DECISIONS same
@@ -275,29 +275,37 @@ const CHEVRONS = [
         </div>
         {/* The team film (2026-08-25): the same Mobile Aesthetics team
           * film the home carousel plays — the location's other five
-          * providers on camera — here in a sounded rendition
-          * (girl-team-film.mp4). The constraint-2 SECOND scoped
-          * exception (the carousel team film, 2026-08-17) is widened to
-          * this placement at the client's direction; the five
-          * providers' releases confirmed on file 2026-08-17 cover the
-          * film (DECISIONS 2026-08-25). Site-authored and speech-free
-          * (music bed only — the operator's 2026-08-25 confirmation is
-          * the record), so autoplay="inview" is IN-CONTRACT here,
-          * unlike the ICON film's scoped override below: muted on
-          * approach, loops on screen, the music one tap away on the
-          * native controls; reduced motion = click-to-play. The label
-          * shares the unit's factual team naming (fourth-exception
-          * terms); no printed caption (the 2026-08-21 rule). */}
-        <div class="about-team-film">
-          <TreatmentVideo
-            src="/media/girl-team-film.mp4"
-            poster={commercialTeamPoster}
-            captionsSrc="/media/girl-team-film.vtt"
-            label="The Mobile Aesthetics team film — the team under the studio neon and a black-and-white photo-shoot montage"
-            frame="bare"
-            autoplay="inview"
-          />
-        </div>
+          * providers on camera — here in a sounded WIDESCREEN rendition
+          * (girl-team-film-wide.mp4: a 16:9 center crop of the master,
+          * operator-directed 2026-08-26 after the native-portrait flag;
+          * a scoped override of RUNBOOK's no-crop rule — DECISIONS
+          * same date; it replaced the portrait rendition
+          * girl-team-film.mp4 and its 18rem cap). The constraint-2
+          * SECOND scoped exception (the carousel team film,
+          * 2026-08-17) is widened to this placement at the client's
+          * direction; the five providers' releases confirmed on file
+          * 2026-08-17 cover the film (DECISIONS 2026-08-25).
+          * Site-authored and speech-free (music bed only — the
+          * operator's 2026-08-25 confirmation is the record), so
+          * autoplay="inview" is IN-CONTRACT here, unlike the ICON
+          * film's scoped override below: muted on approach, loops on
+          * screen, the music one tap away on the native controls;
+          * reduced motion = click-to-play. The label shares the unit's
+          * factual team naming (fourth-exception terms) and stays
+          * accurate post-crop — the neon and the burned-in overlay
+          * both sit inside the wide window at the opener's zoomed-out
+          * stage. No printed caption (the 2026-08-21 rule). Sizing:
+          * the player is aspect-agnostic — the 1080×608 poster sets
+          * the landscape box, and the film fills the unit column like
+          * the ICON film fills its own. */}
+        <TreatmentVideo
+          src="/media/girl-team-film-wide.mp4"
+          poster={girlTeamFilmWidePoster}
+          captionsSrc="/media/girl-team-film-wide.vtt"
+          label="The Mobile Aesthetics team film — the team under the studio neon and a black-and-white photo-shoot montage"
+          frame="bare"
+          autoplay="inview"
+        />
       </div>
     </div>
   </section>
@@ -314,16 +322,23 @@ const CHEVRONS = [
     * allowlist entry is WITHDRAWN — its ranking vocabulary is banned
     * everywhere again, comments included. The film intro paragraph,
     * label, and caption are byte-identical to the treatment page's.
-    * Content sits in a left-aligned max-w-3xl column (the milestones
-    * idiom) — the width both components shipped in inside the
-    * treatment body. The film player stays exempt from the arch motif
-    * (players never mask manufacturer footage — DECISIONS 2026-08-17). */}
+    * The heading, prose, and film sit in a left-aligned max-w-3xl
+    * column (the milestones idiom) — the width both components
+    * shipped in inside the treatment body. The PLAQUE centers on the
+    * band since 2026-08-26 (operator direction — at desktop widths
+    * the full-bleed noir slab read as off-page hugging the band's
+    * left edge; supersedes the 2026-08-18 left-aligned-column intent
+    * for the plaque only, DECISIONS 2026-08-26). The film player
+    * stays exempt from the arch motif (players never mask
+    * manufacturer footage — DECISIONS 2026-08-17). */}
   <section
     class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20"
     aria-labelledby="about-evolus-title"
   >
-    <div class="max-w-3xl">
+    <div class="mx-auto max-w-3xl">
       <EvolusLaurel />
+    </div>
+    <div class="max-w-3xl">
       <hr class="rule-accent ng-trace mt-12 sm:mt-16" aria-hidden="true" />
       <h2 class="heading-2 mt-6" id="about-evolus-title">Inside Evolus</h2>
       <p class="mt-6 max-w-prose">
@@ -538,15 +553,9 @@ const CHEVRONS = [
     color: var(--ng-ink-900);
     white-space: nowrap;
   }
-  /* Team film — portrait 9:16, capped at the treatment pages' in-row
-   * film width (that sizing rule is scoped to .treatment-body in
-   * TreatmentLayout, unreachable here — the page's standing hand-copy
-   * precedent). The TreatmentVideo figure fills its container, so the
-   * wrapper is the knob; the figure's own 2.5rem margin-top is the
-   * gap under the button. */
-  .about-team-film {
-    width: min(18rem, 100%);
-  }
+  /* (The .about-team-film 18rem portrait cap retired 2026-08-26 with
+   * the widescreen rendition — the landscape film needs no wrapper;
+   * see the player comment in the markup. DECISIONS same date.) */
   /* Framed print — the house white-matte small print, hand-copied from
    * TreatmentLayout .media-figure (scoped to .treatment-body there,
    * unreachable here). Right-hand figure beside copy takes the flip

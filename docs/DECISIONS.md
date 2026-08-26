@@ -6804,3 +6804,88 @@ noir is untouched. Colors only — no rendered text changes, no MDX, no
 `clinicianApproved` resets, no lint surface. The tokens.css OMBRE
 CANVAS record carries the crossing figures alongside the card-plate
 precedent.
+
+## 2026-08-26 — dermal-fillers copy round (client wording, two batches); VisitSteps step 4 names Amy sitewide
+
+**Context:** Client-directed copy changes on /services/dermal-fillers,
+dictated by the operator across two same-day batches on one PR (#165
+into `phase-c` — one preview for Amy, the 2026-08-15 combined-review
+lesson). Batch 1: the lead drops "gel" ("Injectable fillers for volume
+and contour.") and takes her new areas sentence and order ("Common
+areas include the lips, under-eye area, cheeks, jawline and chin." —
+"lipos" confirmed as a typo for "lips"); the body's near-identical
+"What they are" areas sentence synced to the same order (operator's
+choice, unlike the 2026-08-23 deliberately-divergent "creases" call);
+the deck gains its opening — "Facial Balancing — volume and contour in
+proportion — never more than the face asks for." (em dashes, the
+operator's pick over the dictated hyphens); all three product cards now
+read "$650 (full-syringe) or $325 (half-syringe)"; and the /services
+menu-card echo drops "gel" too (serviceLines.ts — the 2026-07-30
+"temporary" card-summary precedent). Batch 2: the "Placed in
+proportion" parenthetical becomes a spaced em-dash pair ("Amy maps each
+face — where volume sits, where it has thinned, how the features
+balance — and places only what the plan calls for."); "Individualized,
+with Amy" is retitled "Personalized, with Amy" (this page only) over
+her new paragraph; "Lips, styled" closes "begins with a conversation."
+(was "is a consultation conversation."); and "After weight loss" ends
+its second sentence at "more visible." (the "than they were"
+comparison dropped). Dictated typos corrected with the operator's
+confirmation or on the record here: "lipos" → "lips", "grreater" →
+"greater", "questios" → "questions".
+
+**The one flag of the round, and how it resolved.** Her new
+"Personalized, with Amy" paragraph drops "under clinician supervision"
+— the clause the operator chose to KEEP on wrinkle-relaxers
+(2026-08-23) when Amy's draft omitted it there. Flagged once with that
+counterpart decision named; the operator directed the drop for this
+page. Gate-clean and defensible, per the 2026-08-23 research: no
+inverse check touches supervision, BUILD_SPEC §7 names it as a beat in
+the copy pattern rather than a mandated string, and several pages
+carry no supervision language at all. The supervised-care fact
+survives on the page in "plans and performs each treatment herself".
+No override, no allowlist entry — nothing trips a pattern; recorded so
+the two pages' opposite calls are both visible and neither is read as
+an oversight.
+
+**Also recorded, not re-argued:** (1) the paren→em-dash change
+reverses one of the 2026-07-29 em-dash-budget moves (parentheses were
+that pass's approved fix for "— x —" pairs) — client wording governs,
+as it did for the two-dash deck; (2) "begins with a conversation." is
+another consultation-language trim, logged against the 2026-08-24
+trend line as that record instructs — individually compliant, §8.7
+routing intact via the layout-injected DisclaimerBlock on all twelve
+pages plus this page's five FAQ consultation routings.
+
+**VisitSteps step 4 (sitewide).** The dictated "Aftercare guidance"
+sentence differed from the shipped text by two words: "reach out"
+becomes "reach out to Amy". The sentence lives in the shared
+`VisitSteps.astro`, so the change lands on all twelve treatment pages
+and the styleguide — surfaced before editing (the 2026-08-24 lesson: a
+sentence a page displays is not necessarily a sentence that page
+owns), and the operator chose sitewide over page-scoped machinery,
+exactly as for steps 2 and 3 on 2026-08-24. Naming Amy is the same
+gain step 2 got. `check:approvals` cannot see a component edit;
+hormone-optimization — the one page still `clinicianApproved: true` —
+keeps its flag at the operator's standing direction, and
+CLINICIAN-SIGN-OFF carries the new words as a cross-cutting item so
+Amy sees them.
+
+**Alternatives rejected:** page-scoped step-4 wording (a VisitSteps
+prop + layout pass-through + schema field — rejected 2026-08-24 as
+more machinery than the sentence, and again here); keeping the
+dictated hyphens in the deck and the mapping aside (operator chose em
+dashes); leaving the /services menu-card echo on "gel" (operator chose
+the sweep).
+
+**Consequences:** `compliance/banned-patterns.json` untouched all
+round — no new string trips any pattern and nothing needed an
+allowlist entry. dermal-fillers' `clinicianApproved` was already
+`false` (2026-08-21), so no reset fired; flags stand at 1 true / 11
+false (hormone-optimization only). The lead edit reaches the Service
+JSON-LD description via `[slug].astro` (verified claims-clean in the
+built output); the deck reaches no meta, OG, or JSON-LD (verified).
+"Individualized, with Amy" remains the heading on the other treatment
+pages — the retitle is this page's alone, and syncing any sibling is a
+fresh direction, not a tidy. Amy reviews the full round on the PR #165
+preview; the sign-off row and the step-4 cross-cutting note are the
+review record.

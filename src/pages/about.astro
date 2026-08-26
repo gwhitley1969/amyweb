@@ -117,7 +117,7 @@ const CHEVRONS = [
             Needle Girlie is the dedicated home of her own work.
           </p>
         </div>
-        <div class="mt-8">
+        <div class="mt-8 about-cta-brand">
           <CTAButton variant="consult" />
         </div>
       </div>
@@ -257,7 +257,7 @@ const CHEVRONS = [
         <div class="mt-6">
           <a
             href={siteConfig.mobileAestheticsUrl}
-            class="cta cta--outline"
+            class="cta cta--outline about-cta-brand"
             target="_blank"
             rel="noopener"
             data-event="ma_site_click"
@@ -409,7 +409,9 @@ const CHEVRONS = [
         Ready <span class="display-accent ng-shimmer">when you are</span>.
       </h2>
       <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <CTAButton variant="book" />
+        <span class="about-cta-brand contents">
+          <CTAButton variant="book" />
+        </span>
         <CTAButton variant="call" />
       </div>
       <div class="mt-8">
@@ -527,30 +529,57 @@ const CHEVRONS = [
     mix-blend-mode: multiply;
     pointer-events: none;
   }
-  /* The plate — the site's first text-over-photo, an OPAQUE paper
-   * plate per the Phase C a11y rule (never a scrim). z-index lifts it
-   * above the ::after wash so the paper stays untinted and the text
-   * audits at its real contrast (raw ink-900 on paper — the in-tile
-   * idiom, same as the skincare QR tile). True keystone: the plate
-   * straddles the arch crown (negative top, half above the edge), so
-   * it clears every face at EVERY viewport — a %-offset plate grew
-   * into Amy's hair at 390px, since Amy stands center under a
-   * centered plate. Amy's own casing — no uppercase transform. */
+  /* The plate — the site's first text-over-photo, an OPAQUE plate
+   * per the Phase C a11y rule (never a scrim) — noir with logo-pink
+   * lettering since 2026-08-26 (operator direction; pink-500 IS the
+   * wordmark's own #ec4899 — canonical master + pixel census,
+   * DECISIONS same date; the paper/ink original shipped 2026-08-25).
+   * Contrast rides the recorded body-size pink-500-on-noir pair
+   * (5.95:1, tokens.css); the border went hairline → pink-500 (the
+   * light-scoped hairline reads as a stray gray line around a noir
+   * plate; pink matches the page's brand-ink CTAs). z-index still
+   * lifts it above the ::after wash so the text audits at its real
+   * contrast. True keystone: the plate straddles the arch crown
+   * (negative top, half above the edge), so it clears every face at
+   * EVERY viewport — a %-offset plate grew into Amy's hair at 390px,
+   * since Amy stands center under a centered plate. Amy's own casing
+   * — no uppercase transform. */
   .about-team__plate {
     position: absolute;
     top: -0.875rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
-    background: var(--ng-paper);
-    border: 1px solid var(--ng-hairline);
+    background: var(--ng-noir);
+    border: 1px solid var(--ng-pink-500);
     border-radius: 2px;
     padding: 0.375rem 0.875rem;
     font-size: 1.0625rem;
     font-weight: 600;
     letter-spacing: 0.04em;
-    color: var(--ng-ink-900);
+    color: var(--ng-pink-500);
     white-space: nowrap;
+  }
+  /* Brand-ink CTAs (operator direction 2026-08-26): the header Book
+   * button's grammar — noir chrome, logo-pink lettering — on this
+   * page's two "Book with Amy" buttons and the Visit Mobile
+   * Aesthetics anchor (DECISIONS same date). Recorded pairs:
+   * pink-500 on noir 5.95:1, cleared at body size on noir
+   * (tokens.css); the hover inverts to the same symmetric pair.
+   * Page-scoped — the sitewide .cta classes stand untouched. These
+   * selectors REQUIRE this block's is:global: the CTAButton-rendered
+   * anchors carry the component's scope attribute, not the page's,
+   * so a scoped block would silently never match them. */
+  .about-cta-brand .cta,
+  a.cta.about-cta-brand {
+    background: var(--ng-noir);
+    border: 1px solid var(--ng-pink-500);
+    color: var(--ng-pink-500);
+  }
+  .about-cta-brand .cta:hover,
+  a.cta.about-cta-brand:hover {
+    background: var(--ng-pink-500);
+    color: var(--ng-noir);
   }
   /* (The .about-team-film 18rem portrait cap retired 2026-08-26 with
    * the widescreen rendition — the landscape film needs no wrapper;

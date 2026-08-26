@@ -7125,3 +7125,63 @@ two-session week, a moved base is the likely cause, and the fix is a
 sync merge, not a CI remedy. REDESIGN gains the copy round's tracker
 row in the same commit (it was missing against the wrinkle-relaxers
 precedent). Docs-only; no gate, config, or content changes.
+
+## 2026-08-26 — /about brand-ink round: black CTAs + black plate, logo-pink lettering
+
+**Context:** Operator direction: on /about, the "Book with Amy" and
+"Visit Mobile Aesthetics" buttons go black with their lettering in
+the Needle Girlie logo's pink, and the Girl Team placard likewise.
+"The logo's pink" was pinned twice before styling: a pixel census of
+needle-girlie-logo-on-black.png (dominant letter color) and the
+canonical master (src/assets/brand/source/
+needle-girlie-logo-black-bg.html — the wordmark container and the
+whole word "Girlie" are literally #EC4899, and its "NG" thumbnail is
+#EC4899 on #000000). That is --ng-pink-500 — no new color enters the
+system. The site already ships the exact treatment: the header Book
+button (.site-book-cta) — pink-500 text + 1px pink-500 border on
+noir, hover inverting — with the recorded 5.95:1 pair, cleared at
+body size on noir since 2026-07-19.
+
+**Decision:** Page-scoped adoption of the header button's grammar via
+one class, `.about-cta-brand`, in about.astro's is:global style block
+(the selectors REQUIRE is:global: CTAButton-rendered anchors carry
+the component's scope attribute, not the page's — recorded in the CSS
+comment so a future "tidy" to a scoped block can't silently kill the
+rules). Both /about buttons titled "Book with Amy" are in scope — the
+hero consult variant and the closing band's solid (the page's loudest
+element goes quiet black-and-pink; flagged in the plan, operator
+approved) — plus the hand-rolled Visit Mobile Aesthetics anchor,
+whose 2026-08-25 terms (hand-rolled, ma_site_click, new-tab + sr-only)
+are untouched. The band's Call button stays. Noir fill, pink-500 text
+and 1px border; hover inverts to pink-500 fill + noir text (the same
+symmetric 5.95 pair); min-height 3rem is border-box, so the new
+border keeps the band buttons height-aligned. The sitewide .cta
+classes stand untouched (they fan out to every page incl. 12
+treatment pages). The Girl Team plate recolors in place: paper→noir,
+ink-900→pink-500 lettering, hairline→pink-500 border (the
+light-scoped hairline reads as a stray gray line around a noir
+plate). Everything else holds: opaque (the Phase C no-scrim rule —
+noir is as opaque as paper), z-index above the magenta wash so the
+audited contrast stays real, keystone seat, "Girl Team!" wording and
+Amy's casing (constraint-2 fourth-exception text — fixed). tokens.css
+gains a consumer note on the body-size pink-500-on-noir pair.
+
+**Alternatives rejected:** restyling .cta--solid/.cta--outline
+sitewide (12-page fan-out for a one-page ask; on the treatment
+pages' noir bands a black fill would also change every band);
+magenta-600 or neon-500 as "the logo pink" (the master shows the
+ramp letter "N" and the syringe glyph respectively — the wordmark
+base is pink-500; neon-500 is never-text by rule); a class prop on
+CTAButton (shared-component churn while wrappers suffice).
+
+**Consequences:** /about now carries a consistent black-plate,
+pink-ink motif — the chevron milestones plates, the Girl Team
+placard, and its three brand CTAs. The "solid CTA fill text" 4.88
+pair no longer describes /about's Book buttons (they ride the 5.95
+noir pair; every other page's solid CTAs unchanged). Design-only: no
+wording, no MDX, no clinicianApproved implications. Rider executed in
+this round's ship sequence: PR #165 has merged, so once this PR
+lands and the standing previews refresh onto the new tip, the
+open-PR reference grep for the retired portrait team-film object is
+re-run and `girl-team-film.mp4` deleted from Blob on zero hits —
+per the 2026-08-26 widescreen entry's recorded precondition.

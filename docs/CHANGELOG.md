@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-26 — /about brand-ink round: black CTAs and plate, logo-pink lettering
+
+- Both "Book with Amy" buttons, the "Visit Mobile Aesthetics" button,
+  and the "Girl Team!" placard on /about now wear the Needle Girlie
+  logo's own ink: black chrome with lettering in the wordmark's exact
+  pink (`--ng-pink-500` #ec4899 — pinned by pixel census and the
+  canonical logo master), the header Book button's shipped grammar
+  with its recorded 5.95:1 pair. Hover inverts to a pink fill with
+  black text. Page-scoped — every other page's buttons unchanged; the
+  closing band's Call button and all wording, events, and the plate's
+  keystone seat untouched. The page now carries one consistent
+  black-plate, pink-ink motif (chevron plates, placard, CTAs).
+  (DECISIONS 2026-08-26.)
+
 ### 2026-08-26 — /about desktop round: the team film goes widescreen; the Laurel centers
 
 - The Girl Team film now plays on a horizontal screen. The film is

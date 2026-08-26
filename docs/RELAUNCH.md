@@ -76,8 +76,9 @@ check will refuse it. On a branch off `main`:
   probes; the four carousel films + the ICON film on /about + the two
   biostimulators reels `radiesse-visit.mp4` / `amy-reel.mp4` + the
   body-contouring reel `evolve-reel.mp4` + the /about team film
-  `girl-team-film.mp4` (2026-08-25 — the sounded second rendition of
-  the carousel team film's master) + the /injector-training reel
+  `girl-team-film-wide.mp4` (2026-08-26 — the widescreen sounded
+  rendition of the carousel team film's master, replacing the
+  2026-08-25 portrait object) + the /injector-training reel
   `training-reel.mp4` (2026-08-25) + the regenerative PRP-visit reel
   `prp-visit.mp4` (2026-08-25) — the Evolysse film retired
   2026-08-21 and its Blob object was deleted the same day, so it is

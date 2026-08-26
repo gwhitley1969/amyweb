@@ -76,12 +76,14 @@ silently following it. Known superseded points from earlier briefs:
    2026-08-25): the Mobile Aesthetics team film, which shows the
    location's other five providers on camera — the muted
    home-carousel rendition (`commercial-team`) and, since 2026-08-25
-   at the client's direction, the sounded rendition
-   (`girl-team-film`) inside the /about Girl Team unit (autoplay
-   muted in view, music one tap away); their releases for
-   needlegirlie.com use are confirmed on file, none of them is
-   legibly named in the film, and a third placement requires the
-   human operator.*
+   at the client's direction, the sounded rendition inside the
+   /about Girl Team unit (autoplay muted in view, music one tap
+   away) — since 2026-08-26 the widescreen `girl-team-film-wide`, a
+   16:9 center crop of the same screened master, replacing the
+   portrait `girl-team-film` (operator direction; DECISIONS same
+   date); their releases for needlegirlie.com use are confirmed on
+   file, none of them is legibly named in the film, and a third
+   placement requires the human operator.*
    *Third scoped exception (operator override after the compliance
    flag — DECISIONS 2026-08-21): the Radiesse-visit film
    (`radiesse-visit`) on /services/biostimulators, Amy's own reel, in

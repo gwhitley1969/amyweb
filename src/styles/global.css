@@ -189,7 +189,23 @@ body:not([data-surface='noir']) {
   outline-offset: 2px;
 }
 
+/* Selection joins the ombre companion re-ink (tokens.css OMBRE CANVAS):
+ * the old fixed pink-300 highlight crosses canvas-equal luminance at
+ * ~34% of the document (dead band 22–46%), and its ink-900 letter color
+ * matched the body text — selection was arithmetically invisible there
+ * (surfaced 2026-08-26 on /services/dermal-fillers, whose "Placed in
+ * proportion" copy sits at 34%). Ink plate on light surfaces: 4.88:1 at
+ * the held ramp end, 15.77:1 at the top — recorded pairs; no dead band
+ * is possible (the plate is darker than every light surface). Scoped by
+ * SELECTOR, not by surface tokens: custom-property resolution inside
+ * highlight pseudo-elements is browser-divergent, so these rules consume
+ * only root-constant palette tokens (safe under every model). */
 ::selection {
+  background: var(--ng-ink-900);
+  color: var(--ng-blush-50);
+}
+[data-surface='noir'] ::selection,
+[data-surface='noir']::selection {
   background: var(--ng-pink-300);
   color: var(--ng-ink-900);
 }

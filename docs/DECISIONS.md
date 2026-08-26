@@ -6813,3 +6813,51 @@ operator. /services/regenerative is pa11y-gated (the .vtt is the
 video-caption gate's requirement) and outside the LHCI set; the poster
 fetch and the 4.0MB in-view stream are the page-weight notes. Egress
 ~4MB per full play.
+
+## 2026-08-26 — `::selection` joins the ombre companion re-ink (the invisible-highlight report on dermal-fillers)
+
+**Context:** the text-review round surfaced it — on
+/services/dermal-fillers, "Placed in proportion" "doesn't let us"
+highlight or copy, on every system tried. Diagnosis, verified live on
+the -149 review preview: selection itself works (a programmatic range
+returns all 244 characters — copy always worked), but the sitewide
+`::selection` rule painted a fixed pink-300 highlight with ink-900
+letters. Pink-300's luminance sits between the ombre ramp's endpoints,
+so the canvas crosses it: canvas-equal at 33.8% of the document (42%
+along the ramp, 1.004:1), sub-1.2:1 from 22.0% to 45.8% — the card
+plates' dead-band arithmetic exactly (their published 19.6% / 24.5% /
+1.001:1 / 8–32% figures were reproduced with the same model before the
+new numbers were trusted). And ink-900 selection letters match the
+body text, so the letters never changed either. The section's copy
+measures 34.1% of the document — the bottom of the band — with the
+noir Laurel plaque directly above it highlighting in vivid pink (its
+own scoped values), which made the page read as "selection dies right
+here" rather than "the highlight is invisible." Site-wide in cause,
+positional in effect: canvas-level prose between ~22% and ~46% of any
+light page carried the same latent defect.
+
+**Decision:** `::selection` becomes surface-scoped in global.css — an
+ink-900 plate with blush-50 letters on light surfaces (4.88:1 at the
+held ramp end, 15.77:1 at the top; no dead band is possible, the plate
+being darker than every light surface on the site), plus a
+`[data-surface='noir']` scoped rule keeping noir's pink-300/ink-900
+look pixel-for-pixel. Scoped by SELECTOR, not by re-scoped semantic
+tokens: custom-property resolution inside highlight pseudo-elements is
+browser-divergent, so the `--ng-focus-ring` per-surface pattern (a
+pseudo-class consumer) does not transfer — the new rules consume only
+root-constant palette tokens, identical under every resolution model.
+Verified functionally on the built page: dark plate + light letters at
+the dead spot, Laurel and footer selections unchanged, FAQ cards
+ink-plated, `getSelection()` returning the text throughout.
+
+**Alternatives rejected:** any other fixed light pink (still crosses
+the ramp somewhere — a point fix moves the dead band, never removes
+it); surface-scoped semantic tokens consumed inside `::selection`
+(bets the fix on inconsistent var-in-highlight-pseudo behavior);
+leaving it (a text-review round is exactly when people copy text).
+
+**Consequences:** selection now shows at every point of every page;
+noir is untouched. Colors only — no rendered text changes, no MDX, no
+`clinicianApproved` resets, no lint surface. The tokens.css OMBRE
+CANVAS record carries the crossing figures alongside the card-plate
+precedent.

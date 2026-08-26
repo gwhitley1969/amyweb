@@ -6889,3 +6889,141 @@ pages — the retitle is this page's alone, and syncing any sibling is a
 fresh direction, not a tidy. Amy reviews the full round on the PR #165
 preview; the sign-off row and the step-4 cross-cutting note are the
 review record.
+
+## 2026-08-26 — /about milestones: MA chevron plates replace the numerals
+
+**Context:** Operator direction (reference screenshot chevrons02.png,
+repo root): the "Two decades in the making." timeline's 01–04
+numerals become the MA chevron plates the treatment pages' VisitSteps
+wears. This supersedes the scoping in the 2026-08-19 VisitSteps entry
+— "The /about milestones keep their numerals (career timeline —
+different object)" — by the operator's own call. The two patterns are
+siblings: the timeline runs the Playfair-counter recipe hand-copied
+2026-08-15 FROM VisitSteps, which retired it 2026-08-19 for the
+plates; this change closes the recipe's last live use.
+
+**Decision:** Hand-copy, one page. about.astro gains the FOIL_STOPS +
+CHEVRONS consts (verbatim from VisitSteps.astro, itself verbatim from
+src/assets/brand/mobile-aesthetics-mark-header.svg; MA is Amy's own
+PLLC — constraint 2 not engaged, DECISIONS 2026-07-23) and four badge
+divs with gradient ids about-foil-0…3 — an id namespace of its own,
+indexed so no page carries duplicate ids (axe). The counter CSS
+retires; the plate rules are hand-copied (noir plate, 7rem,
+decorative, aria-hidden). NO sr-only ordinal joins the headings — a
+deliberate asymmetry with VisitSteps' "Step N.": step numbers carry
+meaning in a process walkthrough but would misdescribe a biography
+timeline whose headings carry the years; the ol[role="list"]
+announces order and count as before, and sighted users lose the
+identical numerals, so no cross-modality gap opens (SC 1.3.1/1.1.1
+hold). Knock-on: --ng-display-accent now has no light-canvas
+consumer; the ombre re-ink STAYS (defense-in-depth — magenta-600 at
+~1.9 mid-ramp may never render on the ramp) and the tokens.css OMBRE
+CANVAS record says so.
+
+**Alternatives rejected:** extracting a shared badge component
+(touches VisitSteps → re-verifying 12 treatment pages + styleguide
+for a /about-only ask, and collides with the parallel session working
+treatment pages today; consolidation stays available as a later
+round); converting the four hand-written li's to an array+map (moves
+Amy-confirmed copy — PR #83 — into frontmatter strings and changes
+built bytes, the &middot; entities; the insertion-only diff wins); an
+sr-only "Milestone N." (new AT-only copy adding nothing the years
+don't already carry).
+
+**Consequences:** the chevron data now lives in three places (brand
+SVG → VisitSteps → about), each copy under a dated provenance comment
+— drift is discoverable, and consolidation is a one-round job if a
+fourth consumer ever appears. The 49px-Playfair-outside-headings
+sanction and the display accent's light-canvas consumer both retire
+with the counter. Design-only: no rendered-text changes, no MDX, no
+clinicianApproved implications.
+
+## 2026-08-26 — the team film goes widescreen (a scoped crop override, checkpoint-approved)
+
+**Context:** Operator direction: the /about Girl Team film's vertical
+screen becomes "a screen laying horizontal." Probed at frame level,
+the film is NATIVELY portrait — every frame is 1080 wide with no side
+matte, ~17% of frames are full-bleed 1080×1920 (the B&W montage), the
+opener band is 4:5, and the widest recurring content band is
+1080×720; there is no letterboxed 16:9 picture to reveal. Flagged to
+the operator with the two honest builds (a true 16:9 crop that trims
+the tallest shots, or a horizontal stage around the intact vertical
+film); the operator chose the crop. RUNBOOK's sounded-film rule says
+"nothing crops or masks a film" — this is a scoped operator override
+of that sentence, after the flag; the RUNBOOK gains the parenthetical.
+
+**Decision:** `girl-team-film-wide.mp4` — a static 16:9 center crop
+of the master (`crop=1080:608:0:656`; every stable shot's content
+band centers at y=960, verified by per-frame cropdetect), H.264 CRF
+23 + `-c:a copy` + faststart: 4.19MB / 2.4Mbps, audio byte-identical
+so the caption cues carry over. CRF 23 is this master's own recorded
+precedent. Checkpoint before upload (the ship gate): seven pre/post
+frame pairs, poster candidates, and page mocks presented on a review
+page; the crop verified kinder than the static arithmetic suggested —
+the film's per-shot zooms mean the wide window catches a complete
+composition in nearly every beat: all heads stay in frame throughout,
+the neon sign and the burned-in "GiRL TEAM" overlay both survive
+(so the player label and the opening caption cue stay accurate), and
+the losses are lower legs in the two full-height beats plus the
+opener's counter. Operator approved the crop and poster A (the
+opener frame). New filename per the RUNBOOK's own preference (no
+purge); poster forked from the new rendition —
+`girl-team-film-wide-poster.jpg`, 1080×608, which is also what flips
+the aspect-agnostic player's box to landscape (the carousel keeps the
+portrait rendition and poster untouched); new VTT with the NOTE
+rewritten and cues unchanged; the `.about-team-film` 18rem cap
+retired — the film fills the unit column, and the unit reads still →
+plate → button → film at one width. CLAUDE.md's constraint-2 second
+exception is updated in-PR to the new rendition name (the 2026-08-25
+widening precedent); its operative terms — placement, sound behavior,
+releases, third-placement-requires-operator — are unchanged. The
+fourth exception's classifier-blocked cross-reference sentence
+remains the operator's open passage, untouched.
+
+**Alternatives rejected:** the horizontal noir stage around the
+intact portrait film (offered; the operator chose the crop); reusing
+the carousel rendition (portrait AND audio-less); per-shot dynamic
+cropping (only single-frame transitions sit off-center — complexity
+with no visible gain); replacing the object in place (edge caches it
+for a day; a new name needs no purge).
+
+**Consequences:** the sounded /about rendition and the muted carousel
+rendition now differ in shape as well as sound — the "one master, two
+renditions" RUNBOOK note carries both names. Egress per full play
+drops ~7MB → ~4.2MB. The retired portrait object `girl-team-film.mp4`
+is deleted from Blob only when NO open PR's branch references it —
+at merge time the parallel session's dermal-fillers PR (#165) still
+does, so the deletion waits for that PR and is verified by re-running
+the branch grep until clean. Its VTT is deleted in this PR (served
+per-branch, same-origin — old branches keep their own copy).
+
+## 2026-08-26 — the Evolus Laurel centers on /about's band
+
+**Context:** Operator report: the plaque "looks like it's off" on
+desktops. Measured live at 1440: the 768px noir slab sat with 160px
+of canvas to its left and 512px to its right. Cause: the whole
+Evolus unit lives in a deliberately left-aligned max-w-3xl column
+(the 2026-08-18 "milestones idiom" intent, recorded when the
+recognition plate moved from wrinkle-relaxers) inside the centered
+max-w-6xl section — and the plaque, the unit's only full-bleed noir
+box, is what makes the left bias read as a defect. Treatment pages
+center it for free (their article is mx-auto).
+
+**Decision:** The plaque hoists into its own `mx-auto max-w-3xl`
+wrapper at the top of the same section; the "Inside Evolus" heading,
+prose, and ICON film keep the left-aligned column and its recorded
+idiom. Supersedes the 2026-08-18 left-aligned-column intent FOR THE
+PLAQUE ONLY (operator direction). No change below 816px viewport
+(the column already fills the band). Verified: gaps 328/344 at 1440
+(the 16px delta is the scrollbar), heading rail unchanged, the
+component has no width/margin rules that fight the wrapper.
+
+**Alternatives rejected:** centering the whole unit (indents the
+heading off the page's left rail shared by every other section);
+margin-inline on the component (a no-op inside a full-width parent,
+and it would repaint nothing on the treatment pages either — the
+wrapper is the actual knob).
+
+**Consequences:** /about's Evolus section now has two column blocks
+(centered plaque, left-aligned unit). Design-only: no rendered-text
+changes, no MDX, no clinicianApproved implications.

@@ -51,7 +51,7 @@ src/content/treatments/*.mdx`.
 | Date | Reviewed on | Scope | Logged by |
 |---|---|---|---|
 | 2026-08-05 | stable preview (`…-5`) | launch state — the same pass as the copy sign-off (`ad8fbde`) | operator |
-| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21), laser-treatments' priced menu + Epileve section + three photos (2026-08-21), and the /about round (2026-08-25): the Girl Team section, the Evolus Laurel plaque, the ICON film's autoplay, and the team film below the Girl Team button (sounded, autoplay muted in view), and the /injector-training media round (2026-08-25): the dedicated training portrait + Amy's training reel on autoplay, and the iv-therapy photo round (2026-08-25): both photos now her picks, and the regenerative PRP media round (2026-08-25): two photos + her PRP-visit reel on autoplay | — |
+| _pending_ | standing demo (PR #97) | the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21), laser-treatments' priced menu + Epileve section + three photos (2026-08-21), and the /about round (2026-08-25): the Girl Team section, the Evolus Laurel plaque, the ICON film's autoplay, and the team film below the Girl Team button (sounded, autoplay muted in view), and the /injector-training media round (2026-08-25): the dedicated training portrait + Amy's training reel on autoplay, and the iv-therapy photo round (2026-08-25): both photos now her picks, and the regenerative PRP media round (2026-08-25): two photos + her PRP-visit reel on autoplay, and the /about milestones' numerals swapped for the MA chevron plates (2026-08-26, operator direction — design only, no copy changes), and the /about desktop round (2026-08-26, operator direction): the Girl Team film re-rendered widescreen — a 16:9 center crop of the same screened master, frame-pairs checkpoint-approved — filling the unit column, and the Evolus Laurel plaque centered on the band | — |
 
 Visual drift since 2026-08-05, for Amy's pending pass: body face and
 size (DM Sans → Playfair 17px/1.65), every photo arched with 4:5/9:8
@@ -136,6 +136,23 @@ treatment, autoplaying muted as she scrolls to it, near-silent sound
 one tap away; another of the location's providers injects on camera,
 face mostly out of frame, never named (her override, consent on
 file; DECISIONS 2026-08-25).
+And the /about milestones timeline (2026-08-26, operator direction):
+the 01–04 numerals beside "Two decades in the making." replaced by
+the Mobile Aesthetics chevron plates — the same badge the treatment
+pages' "Your visit, step by step" list has worn since 2026-08-19;
+every heading and sentence in the section is unchanged (DECISIONS
+2026-08-26).
+And the /about desktop round (2026-08-26, operator direction): the
+Girl Team film — natively a vertical edit — re-rendered as a true
+widescreen 16:9 center crop of the same 2026-08-17-screened master
+(every head stays in frame in every beat; the neon and the burned-in
+"GiRL TEAM" overlay survive; the full-height beats lose lower legs;
+frame-pairs approved at the operator checkpoint pre-upload), now
+filling the Girl Team unit's column at the same width as the still,
+with a new poster from the new rendition; and the Evolus Laurel
+plaque centered on the page band on desktops — the "Inside Evolus"
+heading and the ICON film keep their left rail (DECISIONS
+2026-08-26 ×2).
 ~~Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window~~ — RESOLVED
 2026-08-25: the asset was replaced and deleted in the iv-therapy

@@ -316,26 +316,31 @@ const CHEVRONS = [
     * allowlist entry is WITHDRAWN — its ranking vocabulary is banned
     * everywhere again, comments included. The film intro paragraph,
     * label, and caption are byte-identical to the treatment page's.
-    * The heading, prose, and film sit in a left-aligned max-w-3xl
-    * column (the milestones idiom) — the width both components
-    * shipped in inside the treatment body. The PLAQUE centers on the
-    * band since 2026-08-26 (operator direction — at desktop widths
+    * The whole unit — plaque, rule, heading, prose, film — sits in
+    * one CENTERED max-w-3xl column since 2026-08-26 (operator
+    * direction, two passes the same day: first the plaque alone —
     * the full-bleed noir slab read as off-page hugging the band's
-    * left edge; supersedes the 2026-08-18 left-aligned-column intent
-    * for the plaque only, DECISIONS 2026-08-26). The film player
-    * stays exempt from the arch motif (players never mask
-    * manufacturer footage — DECISIONS 2026-08-17). */}
+    * left edge at desktop widths — then, on seeing that render, the
+    * rest of the unit; both supersede the 2026-08-18
+    * left-aligned-column intent, DECISIONS 2026-08-26 ×2). The
+    * heading and paragraph are TEXT-centered too — the operator's
+    * explicit pick; the "Ready when you are" band below is the
+    * page's own precedent — while the film's figcaption keeps its
+    * left seat at the film's edge (surgical per-element classes, no
+    * wrapper text-center, so nothing re-aligns unreviewed). The
+    * column adopts the treatment pages' centered idiom (their
+    * article is mx-auto max-w-3xl; the px-6 sits one level up here).
+    * The film player stays exempt from the arch motif (players never
+    * mask manufacturer footage — DECISIONS 2026-08-17). */}
   <section
     class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20"
     aria-labelledby="about-evolus-title"
   >
     <div class="mx-auto max-w-3xl">
       <EvolusLaurel />
-    </div>
-    <div class="max-w-3xl">
-      <hr class="rule-accent ng-trace mt-12 sm:mt-16" aria-hidden="true" />
-      <h2 class="heading-2 mt-6" id="about-evolus-title">Inside Evolus</h2>
-      <p class="mt-6 max-w-prose">
+      <hr class="rule-accent ng-trace mx-auto mt-12 sm:mt-16" aria-hidden="true" />
+      <h2 class="heading-2 mt-6 text-center" id="about-evolus-title">Inside Evolus</h2>
+      <p class="mx-auto mt-6 max-w-prose text-center">
         Evolus brought providers from across the country to its Newport
         Beach headquarters for its first ICON experience. Amy was in the
         room. This is Evolus's own recap of the event.

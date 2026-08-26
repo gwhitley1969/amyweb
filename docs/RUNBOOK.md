@@ -137,6 +137,16 @@ to hold the stable client-facing preview at
 Refresh after merges, on the operator's request: switch to the branch,
 `git merge phase-c`, push, switch back; watch the PR-preview run to
 completion, then verify with converged probes (below) before sharing.
+When another session's worktree holds the branch (`git checkout`
+refuses with "already used by worktree"), refresh WITHOUT a checkout
+(2026-08-26 precedent, both standing previews): `git merge-tree
+--write-tree origin/<branch> phase-c` → on success,
+`git commit-tree <tree> -p $(git rev-parse origin/<branch>)
+-p $(git rev-parse phase-c) -m "Merge phase-c … into <branch>"` →
+`git push origin <commit>:refs/heads/<branch>`. merge-tree fails on
+conflicts — then coordinate with the session holding the worktree
+instead. Note the holding session's local branch is left behind
+origin; it must `git pull` before its own next refresh.
 Never merge #97 (its base would take the demo branch's merge commits);
 if it is ever closed, open a fresh DO-NOT-MERGE draft from a fresh
 branch off `phase-c` and note the new environment number here.
@@ -492,6 +502,20 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
 
 ## Troubleshooting
 
+- **A push to an open PR creates no workflow runs at all** (no queued
+  run, not even the Relaunch guard — while other branches' pushes run
+  fine): check `gh pr view <n> --json mergeable,mergeStateStatus`
+  BEFORE suspecting a GitHub outage. If the base branch moved under
+  the PR and the branches now conflict, GitHub cannot compute the
+  merge ref and creates **no** `pull_request` runs — the PR #95
+  mechanism ("a conflicted PR runs no workflows"), which can hit an
+  ordinary feature PR whenever two sessions merge into `phase-c` in
+  parallel (2026-08-26, PR #165: three /about merges landed under an
+  open copy-round PR; every subsequent event was silently swallowed).
+  Close/reopen and empty-commit nudges do nothing — those events need
+  the same uncomputable merge ref. Fix: `git merge origin/phase-c`
+  into the PR branch, resolve (the append-only docs collide by design
+  — keep both records), verify, push; runs fire immediately.
 - **A preview environment 404s or serves stale/mixed content after
   "Deployment Complete":** SWA staging propagation, three observed
   presentations (PRs #79, #109, #110): route-level 200↔404 bursts;

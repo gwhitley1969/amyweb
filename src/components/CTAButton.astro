@@ -21,8 +21,10 @@ interface Props {
    * Placement-scoped brand chip (operator rounds 2026-08-26/27):
    * overrides the variant's default style with the noir-fill,
    * logo-pink look — see .cta--chip below for provenance and the
-   * page scope. The /services pages are frozen out of it (operator,
-   * 2026-08-27).
+   * page scope. The same-day /services freeze was narrowed by the
+   * operator's second pass (2026-08-27): the treatment router card
+   * and the laser mid-page book wear it; the treatment closing
+   * bands and the /services menu page stay out.
    */
   emphasis?: 'chip';
 }
@@ -145,9 +147,11 @@ const external = /^https?:/i.test(finalHref);
    * to the same symmetric pair. Born page-scoped on /about
    * (.about-cta-brand, 2026-08-26); hoisted here 2026-08-27 when the
    * operator extended it to the home Instagram anchor and the
-   * /injector-training intro Call. The /services pages are FROZEN by
-   * the same direction — no chip renders there (DECISIONS
-   * 2026-08-27). */
+   * /injector-training intro Call. The same day's /services freeze
+   * was narrowed by the operator's second pass: the treatment
+   * router-card consult (×12) and the laser mid-page book wear the
+   * chip; the treatment closing bands and the /services menu page
+   * stay out (DECISIONS 2026-08-27, both entries). */
   .cta--chip {
     background: var(--ng-noir);
     border: 1px solid var(--ng-pink-500);

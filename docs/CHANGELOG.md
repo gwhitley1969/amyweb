@@ -6,6 +6,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-27 — /about credential line carries the full education
+
+- The "2018 · Nurse practitioner" milestone now reads "The
+  credentials read FNP, built on a BA, a BSN, and a Master of
+  Nursing." (was "The credential reads FNP, BSN.") — Amy confirmed
+  the full credential set to the operator 2026-08-27, and the
+  operator directed the recognition. "Master of Nursing" spelled out
+  pending her exact post-nominals (DECISIONS 2026-08-27).
+
 ### 2026-08-27 — /about milestone heading reworded
 
 - The first "Two decades in the making." milestone now reads "The

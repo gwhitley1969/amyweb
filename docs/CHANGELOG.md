@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-27 — /about milestone heading reworded
+
+- The first "Two decades in the making." milestone now reads "The
+  early years" (was "The bedside years") — operator direction; one
+  heading, no other text. The heading was part of the Amy-confirmed
+  2026-08-04 wording, so the change rides her pending presentation
+  pass (DECISIONS 2026-08-27).
+
 ### 2026-08-26 — /about brand-ink round: black CTAs and plate, logo-pink lettering
 
 - Both "Book with Amy" buttons, the "Visit Mobile Aesthetics" button,

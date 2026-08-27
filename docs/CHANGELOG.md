@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-27 — chip second pass: treatment router cards + the laser mid-page button
+
+- The freeze in the entry below narrowed the same day at operator
+  direction: the "Book with Amy" in every treatment page's router
+  card ("The right fit is just a conversation away." — all 12 pages)
+  now wears the black brand chip, and /services/laser-treatments'
+  mid-page pink "Book with Amy" reverses to it (black, logo-pink
+  lettering; style only, no copy — the page's approval flag was
+  already pending). The treatment closing bands and the /services
+  menu page stay as they are. (DECISIONS 2026-08-27, second entry.)
+
 ### 2026-08-27 — the brand chip goes shared: home + training buttons join /about's black CTAs
 
 - The black brand chip (noir fill, logo-pink lettering — /about's

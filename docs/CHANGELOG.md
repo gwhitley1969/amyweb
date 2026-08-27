@@ -16,6 +16,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   lettering; style only, no copy — the page's approval flag was
   already pending). The treatment closing bands and the /services
   menu page stay as they are. (DECISIONS 2026-08-27, second entry.)
+- Record sweep, same day: with the router cards chipped, no outline
+  CTA renders on the light canvas anymore — the ombre re-ink notes
+  (tokens.css OMBRE CANVAS/COMPANION RE-INK, global.css, BUILD_SPEC
+  §5) now say so, and the `--ng-link` re-ink stays as
+  defense-in-depth (the 2026-08-26 display-accent precedent).
 
 ### 2026-08-27 — the brand chip goes shared: home + training buttons join /about's black CTAs
 

@@ -109,7 +109,9 @@
  *   PASS  4.88:1 (min 3.0) ink-900 focus ring on ombre-end
  *   PASS  4.88:1 (min 4.5) ink-900 links on ombre-end — links are
  *         distinguished by underline (prose/breadcrumbs) or border
- *         (outline CTA), never by color alone
+ *         (outline CTA — no light-canvas consumer left since
+ *         2026-08-27, see COMPANION RE-INK below), never by color
+ *         alone
  *   PASS 11.80:1 ink-900 links/tags INSIDE boxes on card #f4cae2 —
  *         the site-wide link re-ink lifts the 2026-07-22 in-box 4.60
  *         exception on ombre pages; the house 4.7 bar is met with
@@ -118,7 +120,14 @@
  *   (--ng-kicker), accent rules (--ng-rule-accent), the focus ring,
  *   and links/outline CTAs (--ng-link) all switch to ink-900 on ombre
  *   pages — ink-pink falls to 2.33 and magenta-600 to ~1.9 mid-ramp,
- *   so neither may render on the ombre canvas. The display accent
+ *   so neither may render on the ombre canvas. Since 2026-08-27 the
+ *   outline CTA has NO light-canvas consumer left — the two chip
+ *   rounds (DECISIONS same date ×2) took the last of them (the
+ *   treatment router cards; before that /about, home, and training);
+ *   outlines now render only in noir bands, and the --ng-link re-ink
+ *   stays for prose links and as defense-in-depth for any future
+ *   light-canvas outline (the display-accent precedent just below).
+ *   The display accent
  *   (--ng-display-accent) re-inks too — though as of 2026-08-26 it
  *   has NO light-canvas consumer left: the /about milestones
  *   numerals (its last, mid-ramp) went to MA chevron plates, the

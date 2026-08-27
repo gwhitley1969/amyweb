@@ -165,7 +165,10 @@ blush-50 at the top to brand pink-500 at 80% of the document — pink is
 now the atmosphere, so the functional accents invert to ink: eyebrows,
 accent rules, links (underline/border-distinguished), outline CTAs, and
 focus rings are ink-900 on the canvas; noir surfaces keep their pink-300
-family. The ramp may never exceed pink-500 (the deepest surface holding
+family. (Since the 2026-08-27 chip rounds no outline CTA renders on the
+light canvas — the black brand chip, `.cta--chip`, took those
+placements; the re-ink stands as defense-in-depth, tokens.css COMPANION
+RE-INK.) The ramp may never exceed pink-500 (the deepest surface holding
 the recorded ink-900 pair, 4.88 — tokens.css OMBRE CANVAS governs).
 Noir-bodied pages (/404 — the construction home was the other until it
 retired at C8, 2026-08-04) stay flat black. Brand-pink

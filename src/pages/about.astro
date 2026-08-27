@@ -127,8 +127,8 @@ const CHEVRONS = [
             Needle Girlie is the dedicated home of her own work.
           </p>
         </div>
-        <div class="mt-8 about-cta-brand">
-          <CTAButton variant="consult" />
+        <div class="mt-8">
+          <CTAButton variant="consult" emphasis="chip" />
         </div>
       </div>
       <figure class="about-portrait ng-arch">
@@ -270,7 +270,7 @@ const CHEVRONS = [
         <div class="mt-6">
           <a
             href={siteConfig.mobileAestheticsUrl}
-            class="cta cta--outline about-cta-brand"
+            class="cta cta--chip"
             target="_blank"
             rel="noopener"
             data-event="ma_site_click"
@@ -422,9 +422,7 @@ const CHEVRONS = [
         Ready <span class="display-accent ng-shimmer">when you are</span>.
       </h2>
       <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <span class="about-cta-brand contents">
-          <CTAButton variant="book" />
-        </span>
+        <CTAButton variant="book" emphasis="chip" />
         <CTAButton variant="call" />
       </div>
       <div class="mt-8">
@@ -573,27 +571,11 @@ const CHEVRONS = [
     color: var(--ng-pink-500);
     white-space: nowrap;
   }
-  /* Brand-ink CTAs (operator direction 2026-08-26): the header Book
-   * button's grammar — noir chrome, logo-pink lettering — on this
-   * page's two "Book with Amy" buttons and the Visit Mobile
-   * Aesthetics anchor (DECISIONS same date). Recorded pairs:
-   * pink-500 on noir 5.95:1, cleared at body size on noir
-   * (tokens.css); the hover inverts to the same symmetric pair.
-   * Page-scoped — the sitewide .cta classes stand untouched. These
-   * selectors REQUIRE this block's is:global: the CTAButton-rendered
-   * anchors carry the component's scope attribute, not the page's,
-   * so a scoped block would silently never match them. */
-  .about-cta-brand .cta,
-  a.cta.about-cta-brand {
-    background: var(--ng-noir);
-    border: 1px solid var(--ng-pink-500);
-    color: var(--ng-pink-500);
-  }
-  .about-cta-brand .cta:hover,
-  a.cta.about-cta-brand:hover {
-    background: var(--ng-pink-500);
-    color: var(--ng-noir);
-  }
+  /* (The brand-ink CTA rules born here 2026-08-26 (.about-cta-brand)
+   * were hoisted to the shared .cta--chip in CTAButton.astro
+   * 2026-08-27, when the operator extended the look beyond this page
+   * — this page's three brand CTAs now opt in via emphasis="chip" /
+   * the cta--chip class, rendering unchanged. DECISIONS both dates.) */
   /* (The .about-team-film 18rem portrait cap retired 2026-08-26 with
    * the widescreen rendition — the landscape film needs no wrapper;
    * see the player comment in the markup. DECISIONS same date.) */

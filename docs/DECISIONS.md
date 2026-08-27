@@ -7243,6 +7243,47 @@ open-PR reference grep for the retired portrait team-film object is
 re-run and `girl-team-film.mp4` deleted from Blob on zero hits —
 per the 2026-08-26 widescreen entry's recorded precondition.
 
+## 2026-08-27 — the brand chip goes shared: `.cta--chip` (hoisted from /about); home + training placements; /services frozen
+
+**Context:** Operator direction, from two screenshots: the
+/injector-training intro Call button (the plain outline on the light
+canvas) should look like /about's black "Book with Amy" — the
+brand-ink chip the 2026-08-26 round shipped page-scoped
+(`.about-cta-brand`). A sitewide sweep found exactly two plain
+light-canvas CTAs outside /services: that Call button and the home
+"Follow Amy on Instagram" anchor. Scope Q&A with the operator: the
+/services menu page and all 12 treatment pages are FROZEN — no
+button changes there; the home category doors are card plates, never
+CTAs; the pink solid primaries stay pink.
+
+**Decision:** Hoist the /about page-local rules into the shared
+system: a new `.cta--chip` class in CTAButton's is:global block —
+identical declarations and provenance (the header Book button's
+grammar; pink-500 on noir 5.95:1, the body-size-on-noir pair; hover
+inverting to the same symmetric pair) — plus an opt-in
+`emphasis="chip"` prop that overrides the variant's default style.
+Placements: /about's three brand CTAs (re-seated on the shared
+class, rendering unchanged), the home Instagram anchor, and the
+/injector-training intro Call. The 2026-08-26 rejection of "a class
+prop on CTAButton" is superseded on its own terms: wrappers sufficed
+for a one-page ask, and at three pages the shared class beats three
+page-local copies. Noir-band outline CTAs stay outline — they
+already read black-with-pink there, and the operator asked for the
+plain look only.
+
+**Alternatives rejected:** restyling `.cta--outline` in place (the
+/services freeze forbids the fan-out); chipping the pink solids
+(collapses the primary/secondary pairing — the 2026-07-21 "two
+identical buttons" failure); keeping /about page-local and adding a
+duplicate shared class (two authorities for one look).
+
+**Consequences:** One chip, one provenance trail; `.cta--outline`
+and `.cta--solid` byte-identical; /about renders exactly as before;
+zero `cta--chip` in any built /services page (verified). Design-only
+— no wording, no clinicianApproved implications. A future chip
+placement is one attribute, but the /services freeze is the
+operator's to lift.
+
 ## 2026-08-27 — /about milestone heading: "The early years"
 
 **Context:** Operator direction: the first milestone heading in the

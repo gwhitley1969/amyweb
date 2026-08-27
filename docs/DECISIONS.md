@@ -7330,3 +7330,35 @@ operator approved the milestone placement.
 Amy-confirmed wording, so the change rides her pending presentation
 pass (sign-off row + drift narrative). If she later supplies exact
 post-nominals, swapping in the letters is a one-line round.
+
+## 2026-08-27 — chip second pass: the /services freeze narrows (router card ×12 + the laser mid-page book)
+
+**Context:** After seeing the shipped chip round on the previews, the
+operator directed two /services additions, scoped by block title and
+page: the treatment pages' router card ("The right fit is just a
+conversation away.") "Book with Amy" goes chip, and
+/services/laser-treatments' mid-page pink-fill "Book with Amy"
+reverses to the chip (black, logo-pink lettering).
+
+**Decision:** `TreatmentLayout`'s router-card consult →
+`emphasis="chip"` (unconditional — all 12 treatment pages), and
+`laser-treatments.mdx`'s mid-page book → `emphasis="chip"` in its
+own commit (treatment-file edits are the clinician audit trail; the
+message states style-only, no copy). The file's `clinicianApproved`
+was already `false` (pending since the 2026-08-21 round), so nothing
+resets. The morning entry's freeze stands otherwise: the treatment
+closing bands and the /services menu page remain unchipped, and the
+freeze-scope comments (CTAButton, tokens.css) are narrowed to say
+so.
+
+**Alternatives rejected:** chipping the closing bands too (not
+asked; their solid book + outline call pairing stays distinct); a
+`content:` prefix for the mdx commit (no copy changed — `feat:` with
+an explicit style-only note keeps Amy's audit trail truthful).
+
+**Consequences:** The laser mid-page CTA was the site's only solid
+CTA on the light canvas; with it chipped, solid fills render in noir
+bands only again — the state the 2026-07-23 ombre entry described.
+The emphasis hierarchy (pink solid primary, chip secondary) now
+reads on every treatment page: the router card's chip above each
+closing band's solid/outline pair.

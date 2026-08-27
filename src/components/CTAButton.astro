@@ -5,7 +5,8 @@ import { siteConfig } from '../lib/siteConfig';
  * Conversion CTA (BUILD_SPEC §5/§6/§9). Labels are unified to "Book with
  * Amy" (operator, 2026-07-20) and so are destinations (operator,
  * 2026-07-21): book and consult both open the Vagaro page directly —
- * the /book double-hop is retired; consult keeps the outline emphasis.
+ * the /book double-hop is retired; consult keeps the outline emphasis
+ * by default (placements may opt into the brand chip via `emphasis`).
  * The §6 language convention ("appointment" = booking, "consultation" =
  * clinical routing) governs prose. Analytics are declarative data-event
  * attributes (§11 event names) read by Phase D's cookieless script — no
@@ -16,9 +17,17 @@ interface Props {
   href?: string;
   /** Override sparingly — defaults keep the §6 language convention. */
   label?: string;
+  /**
+   * Placement-scoped brand chip (operator rounds 2026-08-26/27):
+   * overrides the variant's default style with the noir-fill,
+   * logo-pink look — see .cta--chip below for provenance and the
+   * page scope. The /services pages are frozen out of it (operator,
+   * 2026-08-27).
+   */
+  emphasis?: 'chip';
 }
 
-const { variant, href, label } = Astro.props;
+const { variant, href, label, emphasis } = Astro.props;
 
 const defaults: Record<
   Props['variant'],
@@ -39,7 +48,8 @@ const defaults: Record<
      * /book hop was retired after the operator saw it on the preview.
      * "consultation" remains the word prose uses for clinical
      * routing (§6); the outline style keeps this the secondary
-     * emphasis next to the solid book button. */
+     * emphasis next to the solid book button (default — /about's
+     * placements wear the brand chip via `emphasis`). */
     label: 'Book with Amy',
     href: siteConfig.booking.vagaroUrl,
     event: 'book_click',
@@ -70,7 +80,14 @@ const external = /^https?:/i.test(finalHref);
 
 <a
   href={finalHref}
-  class:list={['cta', cfg.style === 'solid' ? 'cta--solid' : 'cta--outline']}
+  class:list={[
+    'cta',
+    emphasis === 'chip'
+      ? 'cta--chip'
+      : cfg.style === 'solid'
+        ? 'cta--solid'
+        : 'cta--outline',
+  ]}
   data-event={cfg.event}
   {...external ? { target: '_blank', rel: 'noopener' } : {}}
 >
@@ -118,5 +135,26 @@ const external = /^https?:/i.test(finalHref);
   }
   .cta--outline:hover {
     background: color-mix(in srgb, var(--ng-link) 10%, transparent);
+  }
+  /* The brand chip — the header Book button's grammar on the .cta
+   * geometry: noir fill, lettering and 1px border in the wordmark's
+   * own pink (pink-500, pinned by pixel census of the logo masters —
+   * DECISIONS 2026-08-26). Recorded pairs: pink-500 on noir 5.95:1,
+   * cleared at body size on NOIR (tokens.css) — the chip's own fill
+   * is the surface, so the pair holds on any canvas; hover inverts
+   * to the same symmetric pair. Born page-scoped on /about
+   * (.about-cta-brand, 2026-08-26); hoisted here 2026-08-27 when the
+   * operator extended it to the home Instagram anchor and the
+   * /injector-training intro Call. The /services pages are FROZEN by
+   * the same direction — no chip renders there (DECISIONS
+   * 2026-08-27). */
+  .cta--chip {
+    background: var(--ng-noir);
+    border: 1px solid var(--ng-pink-500);
+    color: var(--ng-pink-500);
+  }
+  .cta--chip:hover {
+    background: var(--ng-pink-500);
+    color: var(--ng-noir);
   }
 </style>

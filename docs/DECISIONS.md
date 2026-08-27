@@ -7185,3 +7185,21 @@ lands and the standing previews refresh onto the new tip, the
 open-PR reference grep for the retired portrait team-film object is
 re-run and `girl-team-film.mp4` deleted from Blob on zero hits —
 per the 2026-08-26 widescreen entry's recorded precondition.
+
+## 2026-08-27 — /about milestone heading: "The early years"
+
+**Context:** Operator direction: the first milestone heading in the
+"Two decades in the making." timeline changes from "The bedside
+years" to "The early years". The heading is part of the /about
+wording Amy confirmed on the PR #83 preview (2026-08-04), so the
+change is surfaced in her pending presentation pass.
+
+**Decision:** One heading, one line (about.astro), no other text —
+the milestone's body line reads naturally under the new title, no
+factual claim is introduced, and neither linter is engaged. Verified:
+zero "bedside" remains in the built site. /about is outside the
+clinicianApproved gate (not a treatment page); the sign-off pending
+row and drift narrative carry the change.
+
+**Consequences:** none beyond the wording; the 2026-08-03 rebuild
+entry's mention of the old heading stays as history.

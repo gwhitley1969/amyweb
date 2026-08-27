@@ -158,7 +158,10 @@ p {
  *   legible at full ramp depth (ink-900 holds 4.88 on pink-500 —
  *   tokens.css OMBRE CANVAS): openers, accent rules, the focus ring,
  *   and — site-wide addition — links/outline CTAs via --ng-link, since
- *   ink-pink fails mid-ramp (2.33). Links stay distinguishable by
+ *   ink-pink fails mid-ramp (2.33). (Outline CTAs have had no
+ *   light-canvas consumer since the 2026-08-27 chip rounds — the
+ *   re-ink stays as defense-in-depth; tokens.css COMPANION RE-INK.)
+ *   Links stay distinguishable by
  *   underline/border. In boxes this lifts the 2026-07-22 in-box 4.60
  *   exception to a clean 11.80. Noir bands re-scope their own values,
  *   so header, footer, and CTA bands are unaffected.

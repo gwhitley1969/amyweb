@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-27 — the brand chip goes shared: home + training buttons join /about's black CTAs
+
+- The black brand chip (noir fill, logo-pink lettering — /about's
+  2026-08-26 brand-ink look) is now the shared `.cta--chip` style on
+  CTAButton with an `emphasis="chip"` opt-in, and two more buttons
+  wear it at operator direction: home's "Follow Amy on Instagram"
+  and /injector-training's intro "Call 704-579-7108". /about's three
+  brand CTAs ride the shared class now (rendering unchanged). The
+  /services menu page and all 12 treatment pages are frozen — no
+  button changes there (operator scope). (DECISIONS 2026-08-27.)
+
 ### 2026-08-27 — /about credential line carries the full education
 
 - The "2018 · Nurse practitioner" milestone now reads "The

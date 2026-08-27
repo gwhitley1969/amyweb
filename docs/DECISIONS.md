@@ -7260,3 +7260,32 @@ row and drift narrative carry the change.
 
 **Consequences:** none beyond the wording; the 2026-08-03 rebuild
 entry's mention of the old heading stays as history.
+
+## 2026-08-27 — /about credential line: the full education
+
+**Context:** Amy confirmed her credentials to the operator today: a
+BA, a BSN, and a Master of Nursing, plus the FNP. The operator had
+flagged the milestone line "The credential reads FNP, BSN." (traced
+to the 2026-07-19 provider-directory listing) as unverified on the
+BSN; the confirmation resolves that, and the operator directed that
+the full education be recognized on /about.
+
+**Decision:** The "2018 · Nurse practitioner" milestone body now
+reads "The credentials read FNP, built on a BA, a BSN, and a Master
+of Nursing." — one line, /about only (everywhere else the site stays
+"Amy Palacios, FNP"; JSON-LD carries no credential fields). "Master
+of Nursing" is spelled out: her exact post-nominal letters (MSN vs.
+MN) are unverified, and unverified specifics are never printed
+(constraint 7). No em dash in the new copy (the page's hero-lead
+keep-list rule). Substantiation: Amy's own confirmation, relayed by
+the operator 2026-08-27 — added to the page's header trace alongside
+the 2026-07-19 listing.
+
+**Alternatives rejected:** a post-nominal list ("FNP, MSN, BSN, BA")
+— prints an unverified designation; a hero credentials line — the
+operator approved the milestone placement.
+
+**Consequences:** the line supersedes part of the 2026-08-04
+Amy-confirmed wording, so the change rides her pending presentation
+pass (sign-off row + drift narrative). If she later supplies exact
+post-nominals, swapping in the letters is a one-line round.

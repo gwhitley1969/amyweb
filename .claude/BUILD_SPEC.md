@@ -197,7 +197,15 @@ full frames never cropped or arched (a dome would clip faces; a cropped
 pair is an altered pair), the bare film frame's hairline + 12px
 corners, stacked and centred at a 30rem cap so every source stays at or
 above 2× (retina rule). Motion is scroll-driven
-and sparse; nothing pulses except the sign's slow breath. Since 2026-08-14 the noir shell includes
+and sparse; nothing pulses except the sign's slow breath — with one
+time-based exception since 2026-08-28: the home hero's load ARRIVAL, a
+one-shot staggered fade-up (copy column in sequence, the photo warming
+from dark by filter only so the LCP element's paint time is unchanged,
+the neon bloom igniting last), operator override of the
+no-hero-entrance rule after the flag (DECISIONS 2026-08-28; the CSS and
+its terms live in ConceptHome.astro; every other hero and H1 stays
+entrance-free, and reduced motion serves the settled page instantly).
+Since 2026-08-14 the noir shell includes
 the home's cinematic video stage — four films crossfading
 chromeless on full-bleed noir (the operator's "Audi treatment";
 DECISIONS 2026-08-14; the fourth film joined 2026-08-17; the

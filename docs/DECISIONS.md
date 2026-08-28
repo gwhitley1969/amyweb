@@ -7305,3 +7305,86 @@ bands only again — the state the 2026-07-23 ombre entry described.
 The emphasis hierarchy (pink solid primary, chip secondary) now
 reads on every treatment page: the router card's chip above each
 closing band's solid/outline pair.
+
+## 2026-08-28 — the home hero ARRIVAL: a load entrance under operator override of the no-hero-entrance rule
+
+**Context:** The operator directed that the home screen open the way
+linear.app's does, and after discussion pinned the intent to the way
+that site "comes in" on load. Investigated first-hand (live site,
+storage-cleared first visit, stylesheet and animation forensics):
+linear.app's headline carries NO entrance animation — no entrance
+keyframes exist in its stylesheets, no animation-library inline
+styles, no transitions on the h1; the perceived opening is instant
+crisp type on black plus a product scene that plays itself beneath
+the headline and a twinkling backdrop. The operator chose an authored
+version for the existing hero: a **staggered fade-up** (picked over
+curtain-rise and instant-words-waking-stage variants, both offered),
+scoped to the **hero arrival only** — layout, copy, photo, and the
+carousel untouched.
+
+**The flag, and the override.** global.css's motion rulebook banned
+entrance animation on the hero ("Also never on the hero, page H1s,
+or the lockup — LCP + first-paint identity"), and the flag was raised
+with that rule and the 2026-07-08 one-shot lesson named. **The
+operator overrode in their own words: "There is no ban on entrance
+animation… I'm overriding it."** Scope of the carve-out is the home
+hero alone: page H1s elsewhere, the header lockup, and the
+compliance-block half of the rule (no entrance on DisclaimerBlock /
+InvestigationalNotice / BioteDisclaimer) all stand. The Lighthouse
+budgets are NOT loosened; reduced-motion users keep the instant
+settled page (accessibility baseline, not overridden).
+
+**Decision — the arrival.** Pure CSS, zero JS, component-scoped in
+ConceptHome.astro (the nc- namespace; the motion rulebook and
+BUILD_SPEC §5 gain the sanctioned "arrival" move in the same PR).
+Sequence: photo warm-up from t=0 (1300ms), then eyebrow / H1 / lead /
+CTA-row wrapper / TrustChips wrapper at 100/220/340/460/580ms delays,
+600ms each, quintic ease-out, 14px translate rises; the neon bloom
+(::before) ignites last (950ms delay, 900ms). Total settle ~1.85s;
+the H1 is ~90% opaque by ~450ms. The first ~200ms deliberately show
+the dark photo beside an empty black column — that IS the
+out-of-the-black beat, recorded so it is not "fixed" later.
+
+**Page-speed engineering.** The hero photo is the LCP element; it
+never leaves opacity 1 — only its filter ramps (grayscale 45%→10%,
+brightness 0.3→1.08, contrast constant), so its paint time is
+unchanged; the text fades from 0 and is smaller than the
+already-painted photo, so the LCP candidate never moves. Fallback
+ladder pre-agreed if the 3-run median disagrees (applied one knob at
+a time, budgets never touched): (1) opacity floor 0.5 on the H1 (the
+construction-ignite LCP-safe-floor precedent), (2) shorten the H1's
+entry, (3) floor the whole column at 0.35, (4) narrow the photo
+warm-up, (5) translate-only rises. Speed Index rises slightly by
+design (visual completeness is deferred ~1.3s) — read, not assumed.
+
+**Two mechanics worth recording.** (1) `animation-fill-mode:
+backwards`, deliberately not `both`: backwards holds the from-state
+through each delay (the stagger), and afterwards styles revert to the
+static cascade, which every to-state equals exactly — no snap, and no
+forwards-filled identity `translate` left on the wrappers (an
+identity translate still creates a containing block/stacking context
+— the .ng-lift translate-fill hazard class). (2) The global
+reduced-motion kill switch shortens animation-duration but NOT
+animation-delay, so a delayed backwards-fill entrance would hold
+content invisible through its delay under reduced motion — the
+arrival therefore carries its own `animation: none` stop (the
+ng-rise/ng-trace precedent, for a new reason; the kill-switch comment
+now says so).
+
+**Alternatives rejected:** a session-gated play-once entrance
+(needs JS/storage — the zero-JS rule, and a short every-load arrival
+is the accepted trade); animating the buttons rather than their
+wrappers (would collide with .cta hover/pressed translates);
+`fill: both` (above); an opacity floor by default (held as fallback
+knob 1 — a fade from 0 is the cleaner look while the LCP math holds).
+
+**Consequences:** the arrival plays on every full page load
+(/styleguide/concept included — same component; bfcache restores skip
+it, correctly). The motion vocabulary gains its first sanctioned
+time-based entrance, home hero only — a second consumer needs its own
+operator decision. The hero's wrapper divs are animation targets by
+child position (five children, recorded in the CSS comment) — adding
+a child to .nc-hero__copy means revisiting the delays.
+CLINICIAN-SIGN-OFF's presentation-drift list gains the arrival (the
+relaunch presentation pass covers it); Amy reviews on the PR preview,
+phone first.

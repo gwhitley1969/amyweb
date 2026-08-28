@@ -6,6 +6,31 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-08-28 — the home hero plays THE ARRIVAL on load
+
+- The home screen now opens out of the black, linear.app-inspired
+  (the operator's reference; investigated first-hand — that site's
+  headline carries no entrance animation, so this is an authored
+  version of the perceived effect): the eyebrow, headline, lead,
+  buttons, and trust chips rise and fade in one after another
+  (~1.2s), Amy's hero photo warms from dark to its standing grade
+  (1.3s), and the neon bloom ignites last (~1.9s settle). Pure CSS,
+  zero JS, hero only — layout, copy, photo, and the carousel are
+  untouched, and the settled page is pixel-identical to before.
+- Ships under operator override of the motion rulebook's
+  no-hero-entrance rule, in their own words — scoped to the home
+  hero alone; page H1s elsewhere, the lockup, and the
+  compliance-block entrance ban all stand (DECISIONS 2026-08-28;
+  global.css + BUILD_SPEC §5 amended in the same PR).
+- Engineered LCP-safe: the hero photo (the LCP element) never leaves
+  opacity 1 — only its filter ramps — so the perf gate's paint timing
+  is unchanged; budgets untouched. Reduced-motion visitors get the
+  instant settled page (the arrival carries its own explicit stop —
+  the global kill switch shortens durations but not delays).
+- /styleguide/concept plays the same arrival (same component). Home
+  is structural — no approval-flag mechanics; the presentation-drift
+  list carries the change for Amy's pending pass.
+
 ### 2026-08-27 — chip second pass: treatment router cards + the laser mid-page button
 
 - The freeze in the entry below narrowed the same day at operator

@@ -226,20 +226,35 @@ body:not([data-surface='noir']) {
  *   nudge — the 3px link-chevron hover translate (unchanged).
  *   aura — the STATIC halo (.ng-aura), the sign's reduced-motion and
  *     resting state.
+ *   arrival — the HOME HERO's one-shot load sequence (operator
+ *     override, DECISIONS 2026-08-28): a staggered fade-up of the copy
+ *     column, the photo warming from dark by filter only (the LCP
+ *     element never leaves opacity 1), the neon bloom igniting last.
+ *     Time-based, home hero ONLY, defined in ConceptHome.astro — a
+ *     second consumer needs its own operator decision.
  * The glow that moves lives in exactly two places — the sign and the
- * accent phrase; nothing else animates — the cap is the rule. All moves
- * are opacity/filter/transform/text-shadow only (no layout).
+ * accent phrase (the arrival's bloom-on is a one-shot ignition of the
+ * hero's existing glow, not a third home); nothing else animates — the
+ * cap is the rule. All moves are opacity/filter/transform/text-shadow
+ * only (no layout).
  *
  * COMPLIANCE RULE: ng-rise / ng-trace are NEVER applied to
  * DisclaimerBlock, InvestigationalNotice, or BioteDisclaimer — an
- * opacity-0 initial state de-emphasizes compliance text. Also never
- * on the hero, page H1s, or the lockup (LCP + first-paint identity).
+ * opacity-0 initial state de-emphasizes compliance text. Also never on
+ * page H1s or the lockup (LCP + first-paint identity). The home hero's
+ * blanket entry on that list was SUPERSEDED 2026-08-28 by the
+ * operator's arrival override — for the home hero's own arrival only;
+ * every other hero/H1 stays entrance-free, and the compliance-block
+ * half of this rule is untouched.
  *
  * Support: the @supports guard means browsers without scroll-timeline
  * simply render the finished state — content is never hidden. Reduced
  * motion: scroll-timeline animations IGNORE the duration-based kill
  * switch below, so the reduced-motion block also sets `animation: none`
- * on these classes explicitly. */
+ * on these classes explicitly. (The kill switch also leaves
+ * animation-delay untouched — a delayed backwards-fill entrance would
+ * hold content invisible under reduced motion, which is why the
+ * arrival carries its own `animation: none` stop in ConceptHome.) */
 
 /* Content settles into place as it enters the viewport. */
 @keyframes ng-rise {

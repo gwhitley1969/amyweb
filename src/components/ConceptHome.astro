@@ -92,7 +92,10 @@ const doors = [
       + a thin magenta unifier, with a soft neon bloom where the sign's
       real glow falls — right of Amy in this frame. EXEMPT from the
       sitewide arch motif (operator, 2026-08-17): the hero is the
-      full-bleed backdrop, not a framed picture. ---- */}
+      full-bleed backdrop, not a framed picture. Since 2026-08-28 the
+      hero plays THE ARRIVAL on load — a staggered fade-up, operator
+      override of the no-hero-entrance rule (DECISIONS same date; the
+      CSS block below carries the terms). ---- */}
   <section class="nc-hero surface" data-surface="noir">
     <div class="nc-hero__media" aria-hidden="true">
       {/* INTERIM AI-ASSISTED ASSET (disclosed — DECISIONS 2026-08-14):
@@ -319,7 +322,9 @@ const doors = [
     background: color-mix(in srgb, var(--ng-magenta-600) 12%, transparent);
     mix-blend-mode: multiply;
   }
-  /* Neon boost, softened: the sign's real glow, not a filter effect. */
+  /* Neon boost, softened: the sign's real glow, not a filter effect.
+   * The arrival's closing beat: the bloom comes on last (see the
+   * arrival block below). */
   .nc-hero__media::before {
     content: '';
     position: absolute;
@@ -332,6 +337,7 @@ const doors = [
       transparent 70%
     );
     mix-blend-mode: screen;
+    animation: nc-bloom-on 900ms ease-out 950ms backwards;
   }
 
   /* HERO — split editorial: type left, photo right; stacked on mobile. */
@@ -374,6 +380,93 @@ const doors = [
       order: 1;
       height: 88vh;
       mask-image: linear-gradient(to right, transparent 0%, black 14%);
+    }
+  }
+
+  /* ---- THE ARRIVAL (operator sanction, DECISIONS 2026-08-28): a
+   * one-shot load sequence, THIS HERO ONLY — the linear.app-inspired
+   * opening. The copy column rises in source order (eyebrow, H1, lead,
+   * CTA row, TrustChips — the delays below assume those five children),
+   * the photo settles from dark to its standing grade, and the sign's
+   * bloom comes on last. The first ~200ms deliberately show the dark
+   * photo beside an empty black column — that IS the out-of-the-black
+   * beat, not a defect.
+   *
+   * Page-speed safety: the photo (the LCP element) never leaves
+   * opacity 1 — only its filter ramps — so its paint time is unchanged;
+   * the text fades from 0 and is smaller than the already-painted
+   * photo, so the LCP candidate never moves.
+   *
+   * fill is BACKWARDS, deliberately not both: it holds the from-state
+   * through each delay (the stagger), and after each animation ends the
+   * styles revert to the static cascade, which the to-states equal
+   * exactly — no snap, and no forwards-filled `translate: 0 0` left on
+   * the wrappers (an identity translate still creates a containing
+   * block/stacking context — the .ng-lift translate-fill hazard).
+   *
+   * The wrappers animate, never the buttons — .cta hover/pressed states
+   * and .chev-nudge live on the buttons and are untouched. The accent
+   * span's ng-shimmer (text-shadow) simply fades in with its parent. */
+  @keyframes nc-arrive {
+    from {
+      opacity: 0;
+      translate: 0 14px;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+  /* The to-state must equal the static .nc-photo rule exactly — same
+   * three functions, same order — so interpolation works and the
+   * landing is seamless. Change them together. */
+  @keyframes nc-photo-warm {
+    from {
+      filter: grayscale(45%) contrast(1.03) brightness(0.3);
+    }
+    to {
+      filter: grayscale(10%) contrast(1.03) brightness(1.08);
+    }
+  }
+  @keyframes nc-bloom-on {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .nc-hero .nc-photo {
+    animation: nc-photo-warm 1300ms cubic-bezier(0.33, 1, 0.68, 1) backwards;
+  }
+  .nc-hero__copy > * {
+    animation: nc-arrive 600ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  .nc-hero__copy > :nth-child(1) {
+    animation-delay: 100ms;
+  }
+  .nc-hero__copy > :nth-child(2) {
+    animation-delay: 220ms;
+  }
+  .nc-hero__copy > :nth-child(3) {
+    animation-delay: 340ms;
+  }
+  .nc-hero__copy > :nth-child(4) {
+    animation-delay: 460ms;
+  }
+  .nc-hero__copy > :nth-child(5) {
+    animation-delay: 580ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    /* REQUIRED, not belt-and-braces: the global kill switch shortens
+     * animation-duration but NOT animation-delay — with a backwards
+     * fill, delayed elements would sit invisible through their delay.
+     * Stop the arrival outright; the base styles are the settled state
+     * (the ng-rise/ng-trace precedent in global.css). */
+    .nc-hero .nc-photo,
+    .nc-hero__copy > *,
+    .nc-hero__media::before {
+      animation: none !important;
     }
   }
 

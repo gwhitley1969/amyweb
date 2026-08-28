@@ -7305,3 +7305,45 @@ bands only again — the state the 2026-07-23 ombre entry described.
 The emphasis hierarchy (pink solid primary, chip secondary) now
 reads on every treatment page: the router card's chip above each
 closing band's solid/outline pair.
+
+## 2026-08-28 — the home hero "arrival" (linear.app-style load entrance): built under operator override, REJECTED on the preview — withdrawn
+
+**Context:** The operator directed a linear.app-style opening for the
+home screen. Investigated first-hand (live site, storage-cleared first
+visit, stylesheet + animation forensics): linear.app's headline itself
+carries NO entrance animation — the perceived opening is instant type
+on black plus a stage that comes alive around it. The operator chose an
+authored staggered fade-up ("the arrival") for the existing hero and
+overrode the motion rulebook's no-hero-entrance rule in their own words
+("There is no ban on entrance animation… I'm overriding it"). Built on
+PR #175 (`feat/hero-arrival`): pure CSS, zero JS, hero only — copy
+column staggered 100–580ms, photo warming from dark by filter only,
+bloom last. Fully verified before review: `npm run verify` green end to
+end; LCP 1887→1884ms median (the photo, the LCP element, never left
+opacity 1), CLS 0, TBT 0, perf 1.00; choreography proven frame-by-frame
+at 390/1440; reduced-motion instant-settle confirmed.
+
+**Decision (operator, on the PR #175 preview): REJECTED on sight and
+WITHDRAWN** — "It looks terrible. Let's go back to the way it was…
+Let's ditch this idea." PR #175 closed unmerged, branch deleted;
+`phase-c` never carried any of it, so there is nothing to revert — the
+home page is byte-identical to before the round. The override is
+withdrawn with the feature: the motion rulebook's no-hero-entrance rule
+stands exactly as written (the rulebook/BUILD_SPEC amendments lived
+only on the unmerged branch and died with it). The marquee precedent
+(2026-07-08): shipped to a preview, seen, rejected, recorded.
+
+**One observation preserved for the record:** the operator reported the
+rejected page showing "a white background." The arrival itself never
+paints white — every verified frame is the noir stage — so the likely
+mechanism is the home page's external stylesheet racing the HTML on the
+preview host's cold cache (a flash of unstyled content), which
+pre-exists the arrival and is independent of it. If a white-flash
+report ever resurfaces on a preview or production, investigate it as a
+FOUC/propagation matter, not a motion one.
+
+**Consequences:** entrance animation on the home hero is a REJECTED
+direction — do not re-pitch it unless the operator raises it (the
+featured-card do-not-re-pitch precedent, 2026-07-25). No CHANGELOG
+entry: nothing shipped. The full build/verification record lives in
+closed PR #175 and this entry.

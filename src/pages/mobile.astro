@@ -4,10 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
+import TreatmentVideo from '../components/TreatmentVideo.astro';
 import { siteConfig } from '../lib/siteConfig';
 import { service } from '../lib/schema';
 import vanInterior from '../assets/photos/van-treatment-interior.jpg';
-import studioFriends from '../assets/photos/studio-friends-session.jpg';
+import vanChairPoster from '../assets/photos/van-chair-treatment-poster.jpg';
 
 /**
  * /mobile — the party-and-van page (added 2026-09-02 at the operator's
@@ -36,18 +37,30 @@ import studioFriends from '../assets/photos/studio-friends-session.jpg';
  * - Contact is phone/text plus Instagram, the training-page pattern:
  *   not "Book with Amy" (reserved for Vagaro buttons). "Consultation"
  *   keeps its clinical-routing meaning (§8.7) — every guest has one.
- * - Photos (both from Amy's practice-site gallery, downloaded with the
- *   operator's authorization 2026-09-02; her originals are the recorded
- *   upgrade path): the van interior is a 4:5 extract of the web copy
- *   that deliberately EXCLUDES the frame's left third — a sharps
+ * - Media. The hero photo is from Amy's practice-site gallery
+ *   (downloaded with the operator's authorization 2026-09-02; her
+ *   original is the recorded upgrade path): a 4:5 extract of the web
+ *   copy that deliberately EXCLUDES the frame's left third — a sharps
  *   container, an injection-site syringe organizer, loose vials, and a
  *   license plate in the window — the prep-workflow class the photo
  *   rubric rejects; nothing legible remains (the right-edge product
- *   cartons do not resolve). The studio group frame shows two
- *   identifiable clients whose website-use releases are NOT yet on the
- *   record — it ships PREVIEW-ONLY under the open release flag recorded
- *   in DECISIONS (the 2026-07-19 precedent) and comes off if Amy cannot
- *   confirm them. Nobody is named in alt text.
+ *   cartons do not resolve). The friends-section film is Amy's own
+ *   published van clip (her TikTok post of 2026-06-17), saved through
+ *   the platform's creator-enabled download under the operator's
+ *   standing authorization for her own posts (DECISIONS 2026-09-02,
+ *   the film entry): Amy treating a seated guest in the van. It ships
+ *   PREVIEW-ONLY under the open release flag (the guest is identifiable
+ *   and no website-use release is on the record — the 2026-07-19
+ *   precedent) and comes off if Amy cannot confirm it. The rendition
+ *   is MUTED (the source audio is unscreened; a sounded cut waits on
+ *   the operator's listen-and-confirm) and autoplays in view on that
+ *   basis — no speech can reach a visitor. The platform's moving handle
+ *   mark is the own-handle class; the supply box in the lower corner
+ *   for most of the loop resolves to glove and alcohol-pad packaging —
+ *   no vials, drawn syringes, or product names. The 576px source is
+ *   served at its own 2× width (an 18rem cap — the retina rule kept by
+ *   cap, not override; Amy's original lifts the cap to the row's
+ *   24rem). Nobody is named in the label, the captions, or here.
  */
 
 const pageTitle = 'Mobile Parties in Harrisburg & Charlotte, NC | Needle Girlie';
@@ -163,20 +176,22 @@ const jsonLd = [
           decided for the group.
         </p>
       </div>
-      {/* Studio group frame — PREVIEW-ONLY under the open release flag
-        * (two identifiable clients; DECISIONS 2026-09-02). The wide
-        * segmental arch, hand-copied from TreatmentLayout via the
-        * /about Girl Team recipe: the frame is the client's own 3:2 and
-        * every face must stay in the window. */}
-      <figure class="mobile-friends-figure">
-        <Image
-          src={studioFriends}
-          alt="Two clients laughing in Amy's Harrisburg studio while Amy prepares between the treatment chairs."
-          widths={[480, 760, 1080]}
-          sizes="(min-width: 768px) 50vw, 90vw"
-          loading="lazy"
+      {/* The van film — Amy's own 2026-06-17 clip, PREVIEW-ONLY under the
+        * open release flag (the seated guest; DECISIONS 2026-09-02, the
+        * film entry). Bare frame: the arch family's hairline + 12px foot
+        * corners on the video, never the arch itself (the film-stage
+        * rule). Muted rendition, so the in-view autoplay is in-contract;
+        * the caption file describes the scene in one bounded cue. */}
+      <div class="mobile-friends-film">
+        <TreatmentVideo
+          src="/media/van-chair-treatment.mp4"
+          poster={vanChairPoster}
+          captionsSrc="/media/van-chair-treatment.vtt"
+          label="Inside the Mobile Aesthetics van: Amy treating a guest seated in the treatment chair"
+          frame="bare"
+          autoplay="inview"
         />
-      </figure>
+      </div>
     </div>
   </section>
 
@@ -225,34 +240,18 @@ const jsonLd = [
     mix-blend-mode: multiply;
     pointer-events: none;
   }
-  /* Friends figure — the segmental arch, hand-copied from /about's
-   * .about-team (itself the TreatmentLayout .media-band--segmental
-   * recipe): the wide sibling of the Roman arch at the photo's own 3:2,
-   * curve pinned to the top third, straight feet, 12px foot corners.
-   * The ::after mirrors the radius because no overflow clip runs on
-   * the figure. */
-  .mobile-friends-figure {
-    position: relative;
-    margin: 0;
+  /* Friends film — page-local sizing for the player (which is
+   * aspect-agnostic and sized by its container), so the cap IS the
+   * retina rule: the 576px source covers 2× only up to 18rem (288px),
+   * and the row would otherwise hand it ~580px at desktop. The bare
+   * frame supplies the hairline + foot corners; the margin-top reset
+   * undoes the standalone player's stage gap inside the grid. */
+  .mobile-friends-film {
+    width: min(18rem, 100%);
+    margin-inline: auto;
   }
-  .mobile-friends-figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 2;
-    object-fit: cover;
-    border-radius: 50% 50% 12px 12px / 34% 34% 12px 12px;
-    border: 1px solid var(--ng-magenta-600);
-    filter: grayscale(15%) contrast(1.03) brightness(1.05);
-  }
-  .mobile-friends-figure::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50% 50% 12px 12px / 34% 34% 12px 12px;
-    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
-    mix-blend-mode: multiply;
-    pointer-events: none;
+  .mobile-friends-film :global(.video-figure) {
+    margin-top: 0;
   }
   /* Three-step list — the /injector-training .included-list rhythm
    * (hairline rules between items), with a heading per step. */

@@ -7347,3 +7347,117 @@ direction — do not re-pitch it unless the operator raises it (the
 featured-card do-not-re-pitch precedent, 2026-07-25). No CHANGELOG
 entry: nothing shipped. The full build/verification record lives in
 closed PR #175 and this entry.
+
+## 2026-09-02 — /mobile: the party-and-van page, built from Amy's own public photos (operator direction)
+
+**Context:** Mobile Aesthetics is mobile in fact: Amy hosts injectable
+parties at clients' homes, offices, salons, and venues, and she has a
+van fitted out as a treatment room. None of that is on needlegirlie.com,
+and the practice site never explains it either — its only public
+statement is a YouTube channel description. The operator wants the idea
+on a preview to show Amy, because getting time with her is difficult;
+the page is the ask. Two research passes fed it: the practice site's
+gallery (yourmobileaesthetics.com, a GoDaddy builder page — the van
+interior 2560×1920, a two-person van portrait 1920×2560, a 511px
+exterior, and a studio group frame 1600×1067) and, with the operator's
+own Instagram session in Chrome, a caption scan of the business
+account (@amypalaciosnp.mobileaesthetics) back to April 2026 plus the
+personal account's cross-posts. Party and van posts found, by date,
+all reels: Aug 20 (studio), Aug 11 (Amy and a colleague outside the
+van — "Mobile Parties"), Jul 24 (a client with a hand mirror in a
+living room), Jul 20 (Amy injecting a client on a sofa in a home),
+Jul 12 (a forehead close-up with a unit count in the caption), Jun 26
+(a drop-in announcement), Jun 17 (Amy treating a client in the van's
+chair — the van's first appearance in the feed; the burned-in text
+carries the competitor brand name), Jun 8 (Holden Beach), Jun 5 and
+Jun 4 (a Concord salon), Jun 3 (a Concord pop-up), May 25 (an office
+party with a waiting guest), May 16 (a home visit by a window), May 12
+and May 8 (studio promos), Apr 23 and Apr 22 (a venue in Albemarle).
+Nothing was pulled from Instagram: the media is login-gated and its
+terms forbid it, the browser tool refuses to return media URLs by
+design, the reels are phone-resolution with burned-in captions and
+music, two carry the competitor brand name in the picture, and every
+party frame shows a client in a private setting with no release on
+this record. The list above is what Amy is asked for originals of. The
+Facebook link resolves to her personal profile and its search surfaced
+friends' posts — stopped there. Yelp raised a device-verification
+wall — not bypassed.
+
+**Decisions (operator, AskUserQuestion 2026-09-02):** (1) DOWNLOAD the
+four practice-site photos — authorized in the operator's words. (2) A
+NEW PAGE, /mobile, over a /visit section — the operator's pick;
+BUILD_SPEC §6 gains the row on that authorization. (3) The studio
+group frame ships on the preview with the release flag OPEN. (4)
+"Party" — Amy's own word — is ALLOWED on the site (flagged once:
+injectable gatherings draw board scrutiny in several states, and this
+record kept the "Tox" shorthand off the site 2026-07-19). The
+competitor brand name Amy's captions pair with it never appears — she
+does not carry that product — and neither does the shorthand. (5) The
+pa11y needs-review cap for /mobile, authorized in the operator's own
+words ("I authorize the pa11y cap for /mobile") — the per-URL entry
+every ombre page needs.
+
+**Build:** the /injector-training pattern (a standalone src/pages route
+outside the treatments collection; no clinicianApproved gate; Amy
+reviews via the sign-off doc's non-gated section). Hero: eyebrow,
+"Amy comes to you.", three paragraphs, the Call chip, the van interior
+in the house arch. "How a party works": three items (you choose the
+place; Amy brings the studio; same clinician, same standards). "Bring
+the people you'd bring anyway.": the studio group frame in the
+segmental arch beside two sentences. Noir close: "Your place. Amy's
+care." + Call. Every fact traces to her public posts and site: homes,
+offices, gatherings; the van carries a chair and supplies; for a
+smaller space she sets up inside; booking by phone or text. NOT
+stated, because nothing on the record says it: which services travel,
+how far, group minimums, host rewards, pricing, whether solo mobile
+visits exist. Contact is phone + Instagram (the training pattern) —
+not "Book with Amy". The nav gains "Mobile" after Visit (both answer
+"where do I see Amy"). JSON-LD: one Service node. /mobile joins pa11y
+(with the cap) and the LHCI set (a tightening; the page carries an
+eager hero image, so it is measured, not assumed).
+
+**Assets (RUNBOOK "Replacing site photography"; the practice-site web
+copies are the source, Amy's originals the recorded upgrade path):**
+- `van-treatment-interior.jpg` — a 4:5 extract of the 2560×1920 web
+  copy (sharp, left 1000 / top 0 / 1536×1920, JPEG q92 — a second
+  generation from a web JPEG, accepted; no people, no release).
+  Screened at full resolution: the frame's LEFT THIRD holds a sharps
+  container with a biohazard label, a syringe organizer whose slots
+  are labeled with injection sites, four loose vials, and a license
+  plate through the rear window — the prep-workflow class the
+  2026-07-23 rubric excludes (the 2026-07-20 tray rejection). The
+  crop excludes all of it. Inside the window: two quilted treatment
+  chairs, the pink supply cart (sanitizer, wipe packets, gloves, cold
+  packs — nothing legible), the wall screen, the rug, and at the right
+  edge a second cart whose product cartons do not resolve at source
+  resolution (screening note, the strip frame-8 class). 1536px covers
+  the 1152 tier — retina met.
+- `studio-friends-session.jpg` — the practice-site frame byte-for-byte
+  (1600×1067, hash-unique against the repo). Amy in her studio between
+  two clients in the treatment chairs, one laughing; the cart's lower
+  shelf holds supply boxes whose labels do not resolve; Amy's
+  embroidered name and an Evolus logo on her scrubs (her own identity
+  and a product she carries). The two clients are identifiable and
+  their website-use releases are NOT on this record — the frame ships
+  PREVIEW-ONLY under the open flag (the 2026-07-19 precedent) and comes
+  off if Amy cannot confirm them. Nobody is named in alt text.
+- HELD, not committed: the two-person van portrait (the second woman's
+  name and credentials are embroidered on her scrubs — a staff member,
+  constraint 2 — and her consent is not on record; a crop to Amy alone
+  was considered and not taken) and the 511px exterior (below the
+  retina rule for every slot; two unidentified people). Both are on the
+  ask list; the exterior is the photo the page most wants.
+
+**Alternatives rejected:** a section on /visit (offered as the smaller
+change; the operator chose the page); pulling Instagram media (above);
+inventing the missing facts as copy (constraint 7 — they are questions
+for Amy instead); "Book with Amy" as the CTA (mobile booking is by
+phone per her own captions, and Vagaro is the studio's book).
+
+**Consequences:** the site describes the mobile side of the practice
+for the first time; the page is a first draft whose purpose is Amy's
+reaction, and every unknown above is a question to send with the
+preview link. The studio group frame's flag is the round's one open
+exposure, on a public-but-noindexed preview; it resolves either way on
+Amy's word. pa11y runs 25 URLs, LHCI 8. CHANGELOG, BUILD_SPEC §6,
+CLINICIAN-SIGN-OFF (non-gated section), and REDESIGN carry the page.

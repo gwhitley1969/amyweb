@@ -7636,3 +7636,15 @@ total 196KB; then the full verify again for the record. The
 /injector-training hero, same recipe, sits at 2330ms with no film on
 its page — the next film placed on a page of that shape should expect
 the same tuning.
+
+**Operator review (2026-09-02):** PR #177 approved on its preview in the
+operator's own words ("I've reviewed #177. I'm good with it") and, by
+their direction the same day, merged into `phase-c` ahead of Amy's
+reaction — she sees the page on the standing demo, per the sign-off
+doc's non-gated section; production stays dark. The operator also
+authorized the CLAUDE.md line: /mobile joins the "Opted-in pages
+today" list for the treatment-film autoplay script (the muted van
+film — no audio track, so in-contract, no exception). The two open
+flags carry forward unchanged: the seated guest's release and, only
+if Amy wants sound, the operator's listen-and-confirm on the source
+audio.

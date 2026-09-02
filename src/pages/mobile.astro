@@ -116,11 +116,15 @@ const jsonLd = [
           <CTAButton variant="call" emphasis="chip" />
         </div>
       </div>
+      {/* Tiers + quality (2026-09-02, the film round): the 660 tier and
+        * q70 keep the LCP under the 2.5s budget once the film poster
+        * joined the pre-paint bytes — DECISIONS same date, film entry. */}
       <figure class="mobile-van-figure ng-arch">
         <Image
           src={vanInterior}
           alt="Inside the Mobile Aesthetics van: two quilted treatment chairs, a pink supply cart, and a wall-mounted screen."
-          widths={[480, 760, 1152]}
+          widths={[480, 660, 1152]}
+          quality={70}
           sizes="(min-width: 768px) 40vw, 90vw"
           loading="eager"
           fetchpriority="high"

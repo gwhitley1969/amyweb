@@ -7614,3 +7614,25 @@ originals ask to Amy now leads with this clip. The Blob object
 "Publishing a film"); RELAUNCH's probe list gains it and /mobile joins
 the autoplay-page list (eight players). pa11y 25, LHCI 8 — unchanged
 counts.
+
+**Addendum, same day — the LCP budget after the film landed:** the
+first full verify with the film on the page failed one Lighthouse
+assertion: /mobile's Largest Contentful Paint at 2555ms (median of
+three, spread 5ms) against the 2500ms budget, with pa11y 25/25 and every
+byte budget green (image 149KB of 240). The LCP element is the hero's
+lead paragraph, and Lighthouse's simulated LCP charges every resource
+that finished before the paint against it — so the poster (21KB,
+Medium priority, fetched at parse time; `preload="none"` does not
+cover a poster), the script (2KB), and the caption track (1KB) landed
+on a page that was already ~50ms inside the line. Fix in the content,
+not the gate: the hero's tiers went from 480/760/1152 to 480/660/1152
+at `quality={70}` (the house precedent for a quality prop is the cards
+at 62 and the carousel posters at 55; the hero's wash hides q70 with
+room to spare). Lighthouse's phone profile needs ~649px for the hero
+and now picks the 660 tier at 77KB instead of the 760 tier at 125KB
+— still above the pixels it needs, so the retina rule is untouched.
+Re-measured on /mobile alone: LCP 2257ms ×3 (was 2555), image 143KB,
+total 196KB; then the full verify again for the record. The
+/injector-training hero, same recipe, sits at 2330ms with no film on
+its page — the next film placed on a page of that shape should expect
+the same tuning.

@@ -35,7 +35,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   the film entry). A muted 9-second loop with in-view autoplay in the
   bare frame, served at the 576px source's own 2× width (18rem) rather
   than under a retina override; preview-only under the open release
-  flag for the guest. `studio-friends-session.jpg` deleted.
+  flag for the guest. `studio-friends-session.jpg` deleted. The hero's
+  tiers went to 480/660/1152 at q70 in the same round: the poster's
+  21KB had pushed the page's LCP 55ms over its 2.5s budget, and the
+  lighter hero tier brought it back to 2.26s (DECISIONS, the film
+  entry's addendum).
 - Gates: /mobile joins pa11y (needs-review cap authorized in the
   operator's words) and the Lighthouse set. BUILD_SPEC §6 gains the row;
   CLINICIAN-SIGN-OFF gains a non-gated review section.

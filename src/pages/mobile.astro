@@ -1,0 +1,271 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTAButton from '../components/CTAButton.astro';
+import { siteConfig } from '../lib/siteConfig';
+import { service } from '../lib/schema';
+import vanInterior from '../assets/photos/van-treatment-interior.jpg';
+import studioFriends from '../assets/photos/studio-friends-session.jpg';
+
+/**
+ * /mobile — the party-and-van page (added 2026-09-02 at the operator's
+ * direction; DECISIONS same date). Amy brings the practice to homes,
+ * offices, and gatherings around Charlotte in a van fitted out as a
+ * treatment room. Built on the /injector-training pattern: a standalone
+ * src/pages route outside the treatments collection, so no
+ * clinicianApproved flag gates it — Amy reviews it via the non-gated
+ * section of docs/CLINICIAN-SIGN-OFF.md. Its purpose in this round is
+ * to put the idea in front of Amy on a preview; the open questions it
+ * raises (which services travel, how far, group sizes, releases) are
+ * listed in the DECISIONS entry and deliberately NOT answered in copy.
+ *
+ * Rules in force for future edits:
+ * - Every fact in the copy traces to Amy's own public posts and her
+ *   practice site: she travels to homes, offices, and gatherings; the
+ *   van carries a treatment chair and supplies; for a smaller space she
+ *   sets up inside; booking is by phone or text. Nothing beyond that is
+ *   stated — no service list, no radius, no minimum, no pricing, no
+ *   host rewards (constraint 7: unknowns are never invented).
+ * - "Party" is the client's own word, allowed on this page by operator
+ *   decision (2026-09-02, flagged once — injectable gatherings draw
+ *   board scrutiny in several states). The competitor brand name her
+ *   captions pair it with, and the neuromodulator shorthand her posts
+ *   use, never appear on this site — copy, alt, comments, meta, JSON-LD.
+ * - Contact is phone/text plus Instagram, the training-page pattern:
+ *   not "Book with Amy" (reserved for Vagaro buttons). "Consultation"
+ *   keeps its clinical-routing meaning (§8.7) — every guest has one.
+ * - Photos (both from Amy's practice-site gallery, downloaded with the
+ *   operator's authorization 2026-09-02; her originals are the recorded
+ *   upgrade path): the van interior is a 4:5 extract of the web copy
+ *   that deliberately EXCLUDES the frame's left third — a sharps
+ *   container, an injection-site syringe organizer, loose vials, and a
+ *   license plate in the window — the prep-workflow class the photo
+ *   rubric rejects; nothing legible remains (the right-edge product
+ *   cartons do not resolve). The studio group frame shows two
+ *   identifiable clients whose website-use releases are NOT yet on the
+ *   record — it ships PREVIEW-ONLY under the open release flag recorded
+ *   in DECISIONS (the 2026-07-19 precedent) and comes off if Amy cannot
+ *   confirm them. Nobody is named in alt text.
+ */
+
+const pageTitle = 'Mobile Parties in Harrisburg & Charlotte, NC | Needle Girlie';
+const pageDescription =
+  'Amy Palacios, FNP, brings her Harrisburg studio to your home, office, or gathering in a van fitted out as a treatment room. Parties around Charlotte, planned by phone.';
+
+const jsonLd = [
+  service(
+    'Mobile parties',
+    'Amy Palacios, FNP, brings her Harrisburg practice to homes, offices, and gatherings around Charlotte in a van fitted out as a treatment room.',
+    `${siteConfig.url}/mobile`,
+  ),
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} jsonLd={jsonLd}>
+  <Header slot="header" />
+
+  <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <div class="grid items-start gap-10 md:grid-cols-[6fr_5fr]">
+      <div>
+        <p class="eyebrow">Mobile parties</p>
+        <hr class="rule-accent mt-4" aria-hidden="true" />
+        <h1 class="display-2 mt-6">Amy comes to you.</h1>
+        <p class="lead mt-6">
+          The studio has an address in Harrisburg. It also has wheels.
+        </p>
+        <div class="mt-8 max-w-prose space-y-4">
+          <p>
+            Amy Palacios, FNP, brings her practice to homes, offices, and
+            gatherings around Charlotte in a van fitted out as a treatment
+            room: a treatment chair, a supply cart, and the same products
+            she uses in the studio. Every treatment is a prescription
+            treatment, planned and performed by Amy herself.
+          </p>
+          <p>
+            A party works the way a studio visit does, one guest at a
+            time. Each person has their own consultation first, and
+            whether a treatment fits is decided with Amy, never assumed
+            for the group.
+          </p>
+          <p>
+            Dates and places are set directly with Amy: call or text, or
+            send her a message on <a
+              href={siteConfig.social.instagram}
+              target="_blank"
+              rel="noopener"
+              >Instagram<span class="sr-only"> (opens in new tab)</span></a
+            >.
+          </p>
+        </div>
+        <div class="mt-8">
+          <CTAButton variant="call" emphasis="chip" />
+        </div>
+      </div>
+      <figure class="mobile-van-figure ng-arch">
+        <Image
+          src={vanInterior}
+          alt="Inside the Mobile Aesthetics van: two quilted treatment chairs, a pink supply cart, and a wall-mounted screen."
+          widths={[480, 760, 1152]}
+          sizes="(min-width: 768px) 40vw, 90vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section
+    class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20"
+    aria-labelledby="how-title"
+  >
+    <hr class="rule-accent ng-trace" aria-hidden="true" />
+    <h2 class="heading-2 mt-6" id="how-title">How a party works</h2>
+    <ul role="list" class="how-list mt-8 max-w-prose">
+      <li>
+        <h3 class="how-step">You choose the place.</h3>
+        <p class="mt-2">
+          Your home, your office, a friend's house, or a venue you have
+          booked. Amy has set up in living rooms, offices, and salons.
+        </p>
+      </li>
+      <li>
+        <h3 class="how-step">Amy brings the studio.</h3>
+        <p class="mt-2">
+          The van comes with the chair and the supplies on board, and for
+          a smaller space Amy sets up inside.
+        </p>
+      </li>
+      <li>
+        <h3 class="how-step">Same clinician, same standards.</h3>
+        <p class="mt-2">
+          The consultation, the plan, and the hands are Amy's, wherever
+          the chair is.
+        </p>
+      </li>
+    </ul>
+  </section>
+
+  <section
+    class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20"
+    aria-labelledby="friends-title"
+  >
+    <div class="grid items-center gap-10 md:grid-cols-[5fr_6fr]">
+      <div>
+        <hr class="rule-accent ng-trace" aria-hidden="true" />
+        <h2 class="heading-2 mt-6" id="friends-title">
+          Bring the people you'd bring anyway.
+        </h2>
+        <p class="mt-6 max-w-prose">
+          Friends book together and take turns in the chair. Each guest
+          has their own consultation and their own plan, and nothing is
+          decided for the group.
+        </p>
+      </div>
+      {/* Studio group frame — PREVIEW-ONLY under the open release flag
+        * (two identifiable clients; DECISIONS 2026-09-02). The wide
+        * segmental arch, hand-copied from TreatmentLayout via the
+        * /about Girl Team recipe: the frame is the client's own 3:2 and
+        * every face must stay in the window. */}
+      <figure class="mobile-friends-figure">
+        <Image
+          src={studioFriends}
+          alt="Two clients laughing in Amy's Harrisburg studio while Amy prepares between the treatment chairs."
+          widths={[480, 760, 1080]}
+          sizes="(min-width: 768px) 50vw, 90vw"
+          loading="lazy"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="surface" data-surface="noir">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+      <p class="eyebrow">Mobile parties</p>
+      <h2 class="display-2 mt-4">
+        Your place.<br />
+        <span class="display-accent ng-shimmer">Amy's care.</span>
+      </h2>
+      <p class="mt-6">Parties around Charlotte, planned by phone.</p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <CTAButton variant="call" />
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  /* Hero figure — the /injector-training .training-portrait recipe,
+   * hand-copied (page-local frames stay page-local; the shared media-*
+   * classes are scoped to .treatment-body and unreachable here). Frame
+   * shape + border come from .ng-arch (global.css). The asset is
+   * already baked 4:5, so object-fit is inert and stays as the degrade
+   * path. */
+  .mobile-van-figure {
+    position: relative;
+    margin: 0;
+  }
+  .mobile-van-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 50%;
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
+  }
+  .mobile-van-figure::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  /* Friends figure — the segmental arch, hand-copied from /about's
+   * .about-team (itself the TreatmentLayout .media-band--segmental
+   * recipe): the wide sibling of the Roman arch at the photo's own 3:2,
+   * curve pinned to the top third, straight feet, 12px foot corners.
+   * The ::after mirrors the radius because no overflow clip runs on
+   * the figure. */
+  .mobile-friends-figure {
+    position: relative;
+    margin: 0;
+  }
+  .mobile-friends-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: 50% 50% 12px 12px / 34% 34% 12px 12px;
+    border: 1px solid var(--ng-magenta-600);
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
+  }
+  .mobile-friends-figure::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50% 50% 12px 12px / 34% 34% 12px 12px;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  /* Three-step list — the /injector-training .included-list rhythm
+   * (hairline rules between items), with a heading per step. */
+  .how-list li {
+    padding: 1rem 0;
+  }
+  .how-list li + li {
+    border-top: 1px solid var(--ng-hairline);
+  }
+  .how-step {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+</style>

@@ -26,6 +26,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
   identifiable clients — Amy confirms). Two more frames were held for
   releases. The van and party reels found on Instagram were catalogued
   by date for Amy's originals, not pulled (DECISIONS 2026-09-02).
+- Later the same day: the studio group frame is replaced by the van
+  film — Amy's own TikTok clip of 2026-06-17 (Amy treating a seated
+  guest in the van), saved through the platform's creator-enabled
+  download under the operator's standing authorization for her own
+  posts, after a sanctioned-source search (archive, Vagaro, Google
+  Business Profile, YouTube, Facebook, TikTok — DECISIONS 2026-09-02,
+  the film entry). A muted 9-second loop with in-view autoplay in the
+  bare frame, served at the 576px source's own 2× width (18rem) rather
+  than under a retina override; preview-only under the open release
+  flag for the guest. `studio-friends-session.jpg` deleted.
 - Gates: /mobile joins pa11y (needs-review cap authorized in the
   operator's words) and the Lighthouse set. BUILD_SPEC §6 gains the row;
   CLINICIAN-SIGN-OFF gains a non-gated review section.

@@ -318,17 +318,23 @@ public posts to get her reaction, and she should verify:
   it.
 - The van interior photo (from her own site, cropped to the chairs,
   cart, and screen) — and whether she has the original.
-- The studio group photo: the two clients pictured need their
-  website-use releases confirmed on her word, or the photo comes off
-  the page. Nobody is named.
+- The van film (her own TikTok clip of Jun 17 — Amy treating a seated
+  guest in the van — muted, looping small beside "Bring the people
+  you'd bring anyway."): the guest pictured needs their website-use
+  release confirmed on her word, or the film comes off the page.
+  Nobody is named. If she wants the clip's sound on the site, the
+  operator listens first and confirms no speech (and no competitor
+  name) on the record.
 - What the page does NOT say, and needs her answers on: which services
   travel, how far she travels, whether there is a minimum group size,
   whether solo mobile appointments exist, and what she calls the van.
 - The photos and clips the page is missing, all hers to supply as
-  originals: the van exterior, her posts of Jun 17 (in the van), Aug 11
-  (outside the van), Jul 20 and May 16 (home visits), May 25 (an office
-  party), and Apr 22–23 (the Albemarle venue), plus releases for the
-  colleague in the van portrait and for any client she wants shown.
+  originals: the Jun 17 van clip at full resolution (the page carries
+  the 576px platform copy, so it plays small until her original
+  arrives), the van exterior, her posts of Aug 11 (outside the van),
+  Jul 20 and May 16 (home visits), May 25 (an office party), and Apr
+  22–23 (the Albemarle venue), plus releases for the colleague in the
+  van portrait and for any client she wants shown.
 
 ## Operator: flipping the flags (your own hands only)
 

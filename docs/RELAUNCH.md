@@ -80,18 +80,21 @@ check will refuse it. On a branch off `main`:
   rendition of the carousel team film's master, replacing the
   2026-08-25 portrait object) + the /injector-training reel
   `training-reel.mp4` (2026-08-25) + the regenerative PRP-visit reel
-  `prp-visit.mp4` (2026-08-25) — the Evolysse film retired
+  `prp-visit.mp4` (2026-08-25) + the /mobile van film
+  `van-chair-treatment.mp4` (2026-09-02, a muted rendition — the
+  Range probe still applies) — the Evolysse film retired
   2026-08-21 and its Blob object was deleted the same day, so it is
   not a probe target). On /services/biostimulators,
-  /services/body-contouring, /about, /injector-training, and
-  /services/regenerative also probe
+  /services/body-contouring, /about, /injector-training,
+  /services/regenerative, and /mobile also probe
   `/js/treatment-video.js` (200, `text/javascript`) and confirm the
-  seven players carry `data-autoplay="inview"` (two on biostimulators,
+  eight players carry `data-autoplay="inview"` (two on biostimulators,
   one on body-contouring, two on /about: the ICON film — its scoped
   override, DECISIONS 2026-08-25 — and the team film; one on
   /injector-training, the training reel; one on
-  /services/regenerative, the PRP-visit reel) — the films autoplay
-  muted on approach.
+  /services/regenerative, the PRP-visit reel; one on /mobile, the van
+  film in its muted rendition — DECISIONS 2026-09-02) — the films
+  autoplay muted on approach.
 - Plausible: `/api/event` returns 202 from the production page;
   dashboard shows the first pageviews.
 - Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.

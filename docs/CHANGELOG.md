@@ -6,6 +6,44 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-02 — /mobile: "Amy comes to you." (new page, on a preview for Amy)
+
+- The site gains its first description of the mobile side of the
+  practice: a standalone page on the /injector-training pattern with a
+  "Mobile" nav item after Visit. Hero ("Amy comes to you." over the van
+  interior in the house arch, Call chip), "How a party works" in three
+  items, "Bring the people you'd bring anyway." beside the studio group
+  frame in the segmental arch, and a noir close ("Your place. Amy's
+  care."). Every fact traces to Amy's own public posts and practice
+  site; the unknowns (which services travel, how far, group minimums)
+  are deliberately not written and go to Amy as questions with the
+  preview link. "Party" is her own word, allowed by operator decision;
+  the competitor brand name her captions pair with it appears nowhere.
+- Both photos come from her practice site's gallery (operator-authorized
+  download): the van interior as a 4:5 crop that leaves the frame's
+  sharps container, syringe organizer, and vials outside the window, and
+  the studio group frame preview-only under an open release flag (two
+  identifiable clients — Amy confirms). Two more frames were held for
+  releases. The van and party reels found on Instagram were catalogued
+  by date for Amy's originals, not pulled (DECISIONS 2026-09-02).
+- Later the same day: the studio group frame is replaced by the van
+  film — Amy's own TikTok clip of 2026-06-17 (Amy treating a seated
+  guest in the van), saved through the platform's creator-enabled
+  download under the operator's standing authorization for her own
+  posts, after a sanctioned-source search (archive, Vagaro, Google
+  Business Profile, YouTube, Facebook, TikTok — DECISIONS 2026-09-02,
+  the film entry). A muted 9-second loop with in-view autoplay in the
+  bare frame, served at the 576px source's own 2× width (18rem) rather
+  than under a retina override; preview-only under the open release
+  flag for the guest. `studio-friends-session.jpg` deleted. The hero's
+  tiers went to 480/660/1152 at q70 in the same round: the poster's
+  21KB had pushed the page's LCP 55ms over its 2.5s budget, and the
+  lighter hero tier brought it back to 2.26s (DECISIONS, the film
+  entry's addendum).
+- Gates: /mobile joins pa11y (needs-review cap authorized in the
+  operator's words) and the Lighthouse set. BUILD_SPEC §6 gains the row;
+  CLINICIAN-SIGN-OFF gains a non-gated review section.
+
 ### 2026-08-27 — chip second pass: treatment router cards + the laser mid-page button
 
 - The freeze in the entry below narrowed the same day at operator

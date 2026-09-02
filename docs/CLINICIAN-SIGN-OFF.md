@@ -302,6 +302,40 @@ other.
 
 Anything she wants changed ships as its own PR before launch.
 
+## Also for Amy's review (not flag-gated): /mobile
+
+New page (2026-09-02), on its PR preview first and on the standing demo
+once merged: parties and the van. It is not treatment content, so no
+flag blocks the pipeline — but it is a first draft built from her
+public posts to get her reaction, and she should verify:
+
+- Every stated fact: she brings the practice to homes, offices, and
+  gatherings around Charlotte; the van is fitted out as a treatment
+  room with a chair and supplies; for a smaller space she sets up
+  inside; parties are planned by phone or text.
+- The word "party" on the site (operator decision) — and that the
+  brand name her captions use never appears, since she does not carry
+  it.
+- The van interior photo (from her own site, cropped to the chairs,
+  cart, and screen) — and whether she has the original.
+- The van film (her own TikTok clip of Jun 17 — Amy treating a seated
+  guest in the van — muted, looping small beside "Bring the people
+  you'd bring anyway."): the guest pictured needs their website-use
+  release confirmed on her word, or the film comes off the page.
+  Nobody is named. If she wants the clip's sound on the site, the
+  operator listens first and confirms no speech (and no competitor
+  name) on the record.
+- What the page does NOT say, and needs her answers on: which services
+  travel, how far she travels, whether there is a minimum group size,
+  whether solo mobile appointments exist, and what she calls the van.
+- The photos and clips the page is missing, all hers to supply as
+  originals: the Jun 17 van clip at full resolution (the page carries
+  the 576px platform copy, so it plays small until her original
+  arrives), the van exterior, her posts of Aug 11 (outside the van),
+  Jul 20 and May 16 (home visits), May 25 (an office party), and Apr
+  22–23 (the Albemarle venue), plus releases for the colleague in the
+  van portrait and for any client she wants shown.
+
 ## Operator: flipping the flags (your own hands only)
 
 After Amy approves, on a fresh branch off `phase-c`, run — for **each

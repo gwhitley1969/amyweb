@@ -400,7 +400,9 @@ silently following it. Known superseded points from earlier briefs:
   — in-class, no exception needed; DECISIONS same date), and
   /services/regenerative (2026-08-25, Amy's own speech-free PRP-visit
   reel — in-class; its on-camera provider is the constraint-2 sixth
-  exception; DECISIONS same date).
+  exception; DECISIONS same date), and /mobile (2026-09-02, Amy's own
+  van clip in a MUTED rendition — no audio track, so in-contract, no
+  exception; DECISIONS same date, the film entry).
   The budget stands.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.

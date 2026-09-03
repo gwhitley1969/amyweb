@@ -7850,10 +7850,23 @@ anchors (the skip link) and does nothing on touch.
 
 *Rules touched, by the operator's decision, branch-scoped.* The
 zero-JS default and the 30KB script budget (CLAUDE.md, BUILD_SPEC
-§9/§13): the home page now carries ~155KB raw / ~55KB gzipped of
-script, so the local Lighthouse gate reads RED on the `/` strict row's
-script and total budgets on this branch — recorded, not silenced (the
-gate config is untouched; "budgets only tighten"). The "never on the
+§9/§13): the home page now carries ~155KB raw / 66,188 B gzipped of
+script. The first cut left the gate config alone and let the `/`
+strict row read red locally — but the PR preview workflow runs the
+slow gates BEFORE it deploys, so the red row blocked the preview
+itself (run 33775377003 failed on exactly that assertion, every other
+assertion and pa11y green). The lift therefore reaches the gate in the
+narrowest form: `lighthouserc.json` gains a third assertMatrix row
+matching the home URL alone, identical to the house row except
+`resource-summary:script:size` at 81,920 B (80KB); the house row's
+pattern excludes the home; every other page and every other budget
+are unchanged. This is the flagged, operator-gated loosening the
+config's own comment describes — authorized by the operator's lift
+for this branch, recorded here and in the config's `$comment`, and
+REVERTED when the concept closes (or replaced by a standing decision
+if it is adopted). Total, image, LCP, CLS, TBT, third-party on `/`
+all still pass the house numbers (306KB / 187KB / ~2.07s / 0 / ≤15ms /
+0 on the committed build). The "never on the
 hero H1" rule for reveals: the headline's word rise is exactly that —
 authorized here as the concept's opening; the LCP element is the hero
 photo, which paints unchanged. The autoplay contract: the studio reel

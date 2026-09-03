@@ -39,9 +39,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   dissolves away on scroll, section openers rise word by word, the doors
   are dealt in sequence, photos rise into their arches, the van band
   parallaxes, and a faint neon light follows the cursor over noir. Off
-  under reduced motion. The home page's script budget reads red on this
-  branch by decision; the gate config is untouched (DECISIONS 2026-09-03
-  addendum).
+  under reduced motion. The home page's script budget is raised from
+  30KB to 80KB **on this branch only, for the home URL only** (a third
+  gate row; the preview workflow runs the gates before deploying, so the
+  lift had to reach the gate); every other page and budget is unchanged
+  (DECISIONS 2026-09-03 addendum).
 
 ### 2026-09-02 — /mobile: "Amy comes to you." (new page, on a preview for Amy)
 

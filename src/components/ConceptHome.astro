@@ -156,7 +156,12 @@ const CHEVRONS = [
         same day — "it changes pictures too fast"): each passage rests
         on its last frame for 3.5s before dissolving into the next, so
         the film reads as three held scenes rather than quick cuts.
-        Reduced motion = the portrait. */}
+        data-plays (second tweak, same day — "run two times, then rest
+        on the original hero pic"): after the second pass the film
+        dissolves out over the portrait it faded in from, the portrait
+        settles, and the film element is removed — it ends where it
+        began and never replays until the page reloads. Reduced motion
+        = the portrait. */}
     <div
       class="nc-hero__media"
       aria-hidden="true"
@@ -167,6 +172,7 @@ const CHEVRONS = [
       data-rate="0.5"
       data-ranges="10.4-11.72,2.5-3.25,6.15-6.78"
       data-hold="3.5"
+      data-plays="2"
     >
       {/* INTERIM AI-ASSISTED ASSET (disclosed — DECISIONS 2026-08-14):
         * the only available source is a 642px social-size save, well

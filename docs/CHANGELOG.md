@@ -46,7 +46,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   (DECISIONS 2026-09-03 addendum). First tweak on the operator's
   reaction: the hero film's three passages each rest on their last
   frame for 3.5 s before dissolving to the next, so the film no longer
-  cuts every couple of seconds.
+  cuts every couple of seconds. Second tweak: the film runs two passes,
+  then dissolves back to the portrait it started from and stays there.
 
 ### 2026-09-02 — /mobile: "Amy comes to you." (new page, on a preview for Amy)
 

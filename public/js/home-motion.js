@@ -161,29 +161,60 @@
         .filter((r) => r.length === 2 && r[1] > r[0]);
       let onScreen = true;
       let holding = false;
+      let done = false;
       if (ranges.length) {
         v.loop = false;
         const hold = Math.max(0, parseFloat(media.dataset.hold || '3'));
+        // data-plays: full passes through the windows before the film ends
+        // for good — it dissolves out over the portrait it faded in from,
+        // and the portrait settles (operator's second tweak, same day:
+        // "run two times, then rest on the original hero pic"). 0 or
+        // absent = loop forever. Off-screen time never counts: the film
+        // pauses when the hero leaves the viewport and resumes in place.
+        const plays = Math.max(0, parseInt(media.dataset.plays || '0', 10));
+        let passes = 0;
         let ri = 0;
         let seeking = false;
+        let timer = 0;
         const jump = (i) => {
           ri = i;
           seeking = true;
           v.currentTime = ranges[ri][0];
           gsap.fromTo(v, { opacity: 0.35 }, { opacity: 1, duration: 1.1, ease: 'power2.out', overwrite: 'auto' });
         };
+        const finish = () => {
+          done = true;
+          gsap.to(v, {
+            opacity: 0,
+            duration: 1.8,
+            ease: 'power2.inOut',
+            overwrite: 'auto',
+            onComplete: () => {
+              v.pause();
+              clearInterval(timer);
+              v.remove(); // the portrait is the page again; nothing keeps decoding
+            },
+          });
+          if (heroImg) gsap.fromTo(heroImg, { scale: 1.04 }, { scale: 1, duration: 3, ease: 'power2.out', overwrite: 'auto' });
+        };
         const endWindow = () => {
-          if (holding) return;
+          if (holding || done) return;
           holding = true;
           v.pause(); // rest on the last frame
           setTimeout(() => {
+            const next = (ri + 1) % ranges.length;
+            if (next === 0) passes += 1;
+            if (plays && passes >= plays) {
+              finish();
+              return;
+            }
             gsap.to(v, {
               opacity: 0.35,
               duration: 0.6,
               ease: 'power2.in',
               overwrite: 'auto',
               onComplete: () => {
-                jump((ri + 1) % ranges.length);
+                jump(next);
                 holding = false;
                 if (onScreen) v.play().catch(() => {});
               },
@@ -196,14 +227,14 @@
         // lag in a background tab): the video-frame callback, timeupdate,
         // and a 40ms interval — the margin is one 0.5× frame.
         const tick = () => {
-          if (!seeking && !holding && v.currentTime >= ranges[ri][1] - 0.05) endWindow();
+          if (!done && !seeking && !holding && v.currentTime >= ranges[ri][1] - 0.05) endWindow();
         };
         if ('requestVideoFrameCallback' in v) {
-          const onFrame = () => { tick(); v.requestVideoFrameCallback(onFrame); };
+          const onFrame = () => { tick(); if (!done) v.requestVideoFrameCallback(onFrame); };
           v.requestVideoFrameCallback(onFrame);
         }
         v.addEventListener('timeupdate', tick);
-        setInterval(tick, 40);
+        timer = setInterval(tick, 40);
         v.addEventListener('ended', () => { if (!holding) endWindow(); });
       }
       media.append(v);
@@ -221,7 +252,7 @@
           for (const e of entries) {
             onScreen = e.isIntersecting;
             if (onScreen) {
-              if (!holding) v.play().catch(() => {});
+              if (!holding && !done) v.play().catch(() => {});
             } else v.pause();
           }
         },

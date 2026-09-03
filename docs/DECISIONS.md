@@ -7891,3 +7891,16 @@ next (0.6s out, 1.1s in): three held scenes on a ~20s cycle instead
 of cuts every couple of seconds. The pause/resume-on-scroll logic
 respects the hold (leaving and returning mid-hold never restarts a
 window early).
+
+*Second tweak (same day).* "Let the hero film run two times, then
+after the second time it runs, stop or rest on the original hero pic
+where Amy is sitting on the counter." `data-plays="2"`: a pass
+completes when the third scene's hold ends; after the second pass the
+film dissolves out (1.8s) over the portrait it faded in from — the
+LCP still, never replaced — while the portrait settles (scale 1.04 →
+1 over 3s), and the video element is removed so nothing keeps
+decoding. It ends where it began. Off-screen time does not count
+(the film pauses when the hero leaves the viewport); once ended it
+stays ended until the page reloads. Timeline as measured: portrait →
+film in at ~3s → two passes of ~17.5s → back to the portrait at ~40s.
+`data-plays="1"` is the one-number change if two proves long.

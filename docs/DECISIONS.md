@@ -7876,3 +7876,18 @@ the ombre, the arches, and the card pinks are untouched. If the
 concept is adopted, these become standing decisions with their own
 CLAUDE.md lines; if not, the branch closes and nothing on `phase-c`
 changes.
+
+*Operator reaction and the first tweak (same day).* On the redeployed
+preview: "I don't know if anyone else will like it but I love where
+you took this. We can make some tweaks" — feedback from others is
+being gathered before more. First tweak: the hero film "changes
+pictures too fast." Cause: the three screened passages are 1.3s,
+0.75s, and 0.63s of the master — one to three seconds each at 0.5×
+before the dissolve. Slowing the rate further is not reliable (0.5×
+is the engines' floor), and widening the windows would re-admit the
+frames the trim excludes, so the film now RESTS on each passage's
+last frame for `data-hold` seconds (3.5s) before dissolving into the
+next (0.6s out, 1.1s in): three held scenes on a ~20s cycle instead
+of cuts every couple of seconds. The pause/resume-on-scroll logic
+respects the hold (leaving and returning mid-hold never restarts a
+window early).

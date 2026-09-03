@@ -150,21 +150,45 @@
       gsap.set(v, { opacity: 0 });
       // Windows: data-ranges="start-end,start-end" (seconds of the master)
       // plays only those passages in order and loops — a trim, recorded
-      // as an editorial choice (DECISIONS 2026-09-03 addendum). Cuts get
-      // a short dip so the joins read as dissolves.
+      // as an editorial choice (DECISIONS 2026-09-03 addendum). Each
+      // passage then RESTS on its last frame for data-hold seconds
+      // (operator's first tweak, same day: the passages are short, so
+      // without the hold the film cut every one to three seconds) and
+      // dissolves — 0.6s out, 1.1s in — into the next.
       const ranges = (media.dataset.ranges || '')
         .split(',')
         .map((r) => r.split('-').map(Number))
         .filter((r) => r.length === 2 && r[1] > r[0]);
+      let onScreen = true;
+      let holding = false;
       if (ranges.length) {
         v.loop = false;
+        const hold = Math.max(0, parseFloat(media.dataset.hold || '3'));
         let ri = 0;
         let seeking = false;
         const jump = (i) => {
           ri = i;
           seeking = true;
           v.currentTime = ranges[ri][0];
-          gsap.fromTo(v, { opacity: 0.55 }, { opacity: 1, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+          gsap.fromTo(v, { opacity: 0.35 }, { opacity: 1, duration: 1.1, ease: 'power2.out', overwrite: 'auto' });
+        };
+        const endWindow = () => {
+          if (holding) return;
+          holding = true;
+          v.pause(); // rest on the last frame
+          setTimeout(() => {
+            gsap.to(v, {
+              opacity: 0.35,
+              duration: 0.6,
+              ease: 'power2.in',
+              overwrite: 'auto',
+              onComplete: () => {
+                jump((ri + 1) % ranges.length);
+                holding = false;
+                if (onScreen) v.play().catch(() => {});
+              },
+            });
+          }, hold * 1000);
         };
         v.addEventListener('seeked', () => { seeking = false; });
         v.addEventListener('loadedmetadata', () => { v.currentTime = ranges[0][0]; }, { once: true });
@@ -172,7 +196,7 @@
         // lag in a background tab): the video-frame callback, timeupdate,
         // and a 40ms interval — the margin is one 0.5× frame.
         const tick = () => {
-          if (!seeking && v.currentTime >= ranges[ri][1] - 0.05) jump((ri + 1) % ranges.length);
+          if (!seeking && !holding && v.currentTime >= ranges[ri][1] - 0.05) endWindow();
         };
         if ('requestVideoFrameCallback' in v) {
           const onFrame = () => { tick(); v.requestVideoFrameCallback(onFrame); };
@@ -180,7 +204,7 @@
         }
         v.addEventListener('timeupdate', tick);
         setInterval(tick, 40);
-        v.addEventListener('ended', () => { jump(0); v.play().catch(() => {}); });
+        v.addEventListener('ended', () => { if (!holding) endWindow(); });
       }
       media.append(v);
       v.addEventListener(
@@ -195,8 +219,10 @@
       new IntersectionObserver(
         (entries) => {
           for (const e of entries) {
-            if (e.isIntersecting) v.play().catch(() => {});
-            else v.pause();
+            onScreen = e.isIntersecting;
+            if (onScreen) {
+              if (!holding) v.play().catch(() => {});
+            } else v.pause();
           }
         },
         { threshold: 0.1 },

@@ -43,7 +43,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   30KB to 80KB **on this branch only, for the home URL only** (a third
   gate row; the preview workflow runs the gates before deploying, so the
   lift had to reach the gate); every other page and budget is unchanged
-  (DECISIONS 2026-09-03 addendum).
+  (DECISIONS 2026-09-03 addendum). First tweak on the operator's
+  reaction: the hero film's three passages each rest on their last
+  frame for 3.5 s before dissolving to the next, so the film no longer
+  cuts every couple of seconds.
 
 ### 2026-09-02 — /mobile: "Amy comes to you." (new page, on a preview for Amy)
 

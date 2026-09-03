@@ -64,10 +64,10 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  * controls sit in a left column beside the film, so the noir stage
  * reads as a layout instead of a phone-shaped box in an empty band.
  * DOM order is unchanged (heading → stage → controls; grid areas do
- * the placement), so phones keep today's stack. Slide order is now
- * Amy's own films first — studio → team → J1 → J2 — superseding the
- * 2026-08-14 J1 → studio → J2 (→ team) order: the site's cinema
- * moment opens on Amy, not on a manufacturer's spot. The crossfade
+ * the placement), so phones keep today's stack. Slide order: the
+ * round put Amy's own films first for a few hours; the operator
+ * restored the recorded 2026-08-14 order the same day — the Jeuveau
+ * commercial opens (see the slides array). The crossfade
  * gained a settle (inactive slides rest at scale .97 and ease to 1 —
  * never above 1, so the J1/J2 safety screens are never cropped).
  */
@@ -80,7 +80,16 @@ const slides: {
    * presentation is carried as-is; leave them at the 1× default). */
   rate?: number;
 }[] = [
-  /* Order since 2026-09-03: Amy's own films open (DECISIONS same date). */
+  /* Order: the recorded 2026-08-14 sequence — J1 → studio → J2 → team.
+   * The scale-and-rhythm round briefly put Amy's own films first
+   * (studio → team → J1 → J2) and the operator reversed it the same
+   * day: "I want the Jeuveau commercial to play first" (DECISIONS
+   * 2026-09-03). */
+  {
+    file: 'commercial-j1',
+    label: 'Jeuveau commercial — Mobile Aesthetics with Evolus, film one',
+    poster: j1Poster,
+  },
   {
     file: 'commercial-studio',
     label: "A day inside Amy's Harrisburg studio",
@@ -88,19 +97,14 @@ const slides: {
     rate: 0.5,
   },
   {
-    file: 'commercial-team',
-    label: 'Girl team — Mobile Aesthetics',
-    poster: teamPoster,
-  },
-  {
-    file: 'commercial-j1',
-    label: 'Jeuveau commercial — Mobile Aesthetics with Evolus, film one',
-    poster: j1Poster,
-  },
-  {
     file: 'commercial-j2',
     label: 'Jeuveau commercial — Mobile Aesthetics with Evolus, film two',
     poster: j2Poster,
+  },
+  {
+    file: 'commercial-team',
+    label: 'Girl team — Mobile Aesthetics',
+    poster: teamPoster,
   },
 ];
 ---

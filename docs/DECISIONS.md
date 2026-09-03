@@ -7904,3 +7904,11 @@ decoding. It ends where it began. Off-screen time does not count
 stays ended until the page reloads. Timeline as measured: portrait →
 film in at ~3s → two passes of ~17.5s → back to the portrait at ~40s.
 `data-plays="1"` is the one-number change if two proves long.
+
+*Third tweak (same day) — the carousel order goes back.* "On the
+carousel, I want the Jeuveau commercial to play first." The Tier 1
+decision 2 above (Amy's films open: studio → team → J1 → J2) is
+REVERSED by the operator the same day: the recorded 2026-08-14 order
+— J1 → studio → J2 → team — stands, and the supersession recorded
+above is withdrawn. The band's composition (heading and controls
+beside the film) is unchanged; only the slides array moved.

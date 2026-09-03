@@ -48,6 +48,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   frame for 3.5 s before dissolving to the next, so the film no longer
   cuts every couple of seconds. Second tweak: the film runs two passes,
   then dissolves back to the portrait it started from and stays there.
+  Third tweak: the film band's order goes back to the Aug 14 sequence,
+  the Jeuveau commercial first (operator direction).
 
 ### 2026-09-02 — /mobile: "Amy comes to you." (new page, on a preview for Amy)
 

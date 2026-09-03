@@ -6,16 +6,24 @@
 // inlined CSS (+~70ms LCP on the heaviest page — the CI catch), so the
 // externalization is scoped to exactly this file. Behavior contract
 // lives in src/components/VideoCarousel.astro.
+//
+// PHONES (2026-09-03, DECISIONS same date — "the carousel doesn't
+// autoplay on phones", reported from Android): prefers-reduced-motion no
+// longer gates playback (operator decision: the films are content with a
+// pause control; only the CSS crossfade stands down), a refused play()
+// is retried inside the person's first gesture, and the built <video>
+// carries the muted + playsinline ATTRIBUTES as well as the properties.
 const stage = document.querySelector('[data-vc-stage]');
 if (stage) {
   const slideEls = [...stage.querySelectorAll('.vc-slide')];
   const bars = [...document.querySelectorAll('.vc-bar')];
   const fills = bars.map((b) => b.querySelector('.vc-fill'));
   const toggle = document.querySelector('.vc-toggle');
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let current = 0;
   let playing = false;
   let userPaused = false;
+  let inView = false;
+  let unlockArmed = false;
 
   // Facade: the <video> exists only after this runs for its slide.
   const buildVideo = (el, i) => {
@@ -24,7 +32,13 @@ if (stage) {
     v = document.createElement('video');
     v.muted = true;
     v.preload = 'auto';
+    // Attributes beside the properties: iOS is known to check the
+    // `muted` attribute on a script-built element when deciding whether
+    // it may start without a gesture; the legacy inline attribute is
+    // for older WebKit.
+    v.setAttribute('muted', '');
     v.setAttribute('playsinline', '');
+    v.setAttribute('webkit-playsinline', '');
     v.setAttribute('aria-label', el.dataset.label);
     // Per-slide tempo (data-rate; unset = 1). Both properties so a
     // media reload keeps the rate, and re-asserted on loadedmetadata
@@ -54,7 +68,7 @@ if (stage) {
       }
     });
     v.addEventListener('ended', () => {
-      if (i === current) show((current + 1) % slideEls.length, !reduced && !userPaused);
+      if (i === current) show((current + 1) % slideEls.length, !userPaused);
     });
     el.append(v);
     v.load();
@@ -66,6 +80,23 @@ if (stage) {
     toggle.setAttribute('aria-label', playing ? 'Pause the films' : 'Play the films');
   };
 
+  // A play() the phone refuses (iOS Low Power Mode, battery/data modes —
+  // no user activation yet) is retried INSIDE the person's first
+  // gesture, which is exactly what those policies wait for. A
+  // touch-scroll's touchend counts, so the first scroll unlocks the
+  // band. One-shot; re-armed only by another refusal.
+  const armUnlock = () => {
+    if (unlockArmed) return;
+    unlockArmed = true;
+    const events = ['touchend', 'pointerup', 'keydown'];
+    const retry = () => {
+      events.forEach((t) => document.removeEventListener(t, retry, true));
+      unlockArmed = false;
+      if (inView && !userPaused && !playing) play();
+    };
+    events.forEach((t) => document.addEventListener(t, retry, { capture: true, passive: true }));
+  };
+
   const play = () => {
     const v = buildVideo(slideEls[current], current);
     v.muted = true;
@@ -74,7 +105,11 @@ if (stage) {
         playing = true;
         sync();
       })
-      .catch(() => {});
+      .catch(() => {
+        playing = false;
+        sync();
+        armUnlock();
+      });
     // Warm the next slide so the crossfade lands on ready frames.
     const next = (current + 1) % slideEls.length;
     buildVideo(slideEls[next], next);
@@ -125,21 +160,22 @@ if (stage) {
     }
   });
 
-  if (!reduced) {
-    // Autoplay only once the stage is actually on screen; pause when it
-    // leaves; never resume over an explicit user pause.
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            if (!userPaused && !playing) play();
-          } else if (playing) {
-            pause();
-          }
+  // Autoplay only once the stage is actually on screen; pause when it
+  // leaves; never resume over an explicit user pause. Since 2026-09-03
+  // this runs under prefers-reduced-motion too (operator decision: the
+  // films are content; the CSS crossfade is what stands down).
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        inView = e.isIntersecting;
+        if (inView) {
+          if (!userPaused && !playing) play();
+        } else if (playing) {
+          pause();
         }
-      },
-      { threshold: 0.35 }
-    );
-    io.observe(stage);
-  }
+      }
+    },
+    { threshold: 0.35 }
+  );
+  io.observe(stage);
 }

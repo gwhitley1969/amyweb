@@ -51,9 +51,17 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *  - Nothing loads until the stage scrolls into view (mobile data +
  *    the / Lighthouse budgets never see a video byte), then the active
  *    slide autoplays muted and slides rotate on end.
- *  - prefers-reduced-motion: nothing autoplays and nothing fades; the
- *    control renders as Play and every start is user-initiated
- *    (WCAG 2.2.2 pause/stop/hide is the toggle button).
+ *  - prefers-reduced-motion (operator decision 2026-09-03, DECISIONS
+ *    same date): the films still autoplay muted and rotate — they are
+ *    content with a pause control (WCAG 2.2.2 pause/stop/hide is the
+ *    toggle button) — and only the crossfade stands down (CSS: the
+ *    switch becomes a cut). Before that date nothing autoplayed under
+ *    the preference, which is what an Android phone with "Remove
+ *    animations" on reported as "the carousel doesn't autoplay".
+ *  - Phones: a refused play() (iOS Low Power Mode, battery/data modes)
+ *    is retried inside the person's first touch or key press — a
+ *    touch-scroll's touchend counts — and the built <video> carries the
+ *    muted + playsinline ATTRIBUTES beside the properties (iOS quirk).
  *  - Progress bars are buttons (jump to a film); fills track playback.
  * Contrast on noir (recorded pairs): pink-500 fill 5.95:1; bar track
  * and toggle border paper@55% ≈ 5.3:1 (clears the 3:1 UI bar).

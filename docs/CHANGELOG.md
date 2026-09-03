@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-03 — Home carousel autoplays on phones
+
+- Reported from an Android phone: the film band did not autoplay. Two
+  causes fixed. The band no longer sits out when the phone reports
+  Reduce Motion (Android's "Remove animations", iOS Reduce Motion): the
+  films are content with a pause control, so they play and only the
+  crossfade drops to a cut (operator decision). And when a phone refuses
+  script-started playback (iOS Low Power Mode, battery or data modes),
+  the band now retries inside the person's first touch or key press —
+  the first scroll counts — instead of giving up on the Play button. The
+  built video also carries the muted and inline attributes Safari wants
+  (DECISIONS 2026-09-03).
+
 ### 2026-09-03 — Home: scale, rhythm, and four new moves (on a preview for Amy)
 
 - After the operator's design critique ("boring"), the home page's

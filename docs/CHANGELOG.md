@@ -6,6 +6,27 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-03 — /mobile: the viewfinder film replaces the van film
+
+- The friends section's film is now Amy's own 1080×1920 clip, sent to
+  the operator directly (an iPhone export with a camcorder-viewfinder
+  template burned in): Amy treating a seated guest in the van, two
+  shots joined by a zoom-blur. Screened frame by frame — the only
+  legible text is the template's chrome; the wide shot's tray holds
+  wrapped packets only; the seated guest's website-use release is
+  confirmed on file (the operator's word is the record), so no
+  preview-only flag. Muted: the operator listened (music only, no
+  speech), but the song is a commercial recording and a business site
+  needs a license a social platform's library does not grant — the
+  sounded cut waits on that license (DECISIONS 2026-09-03).
+- Content-named `van-viewfinder-treatment`, the 24rem-slot recipe
+  (810×1440, CRF 20, 5.39MB at 3.46Mbps), a poster from the rendition,
+  a one-cue caption file; the wrapper's cap lifts from 18rem to the
+  row's 24rem, the lift the 2026-09-02 entry pre-authorized. The van
+  film's poster and captions are deleted; its Blob object goes once no
+  open preview references it. The treatment-film phone-autoplay policy
+  is a separate PR by the operator's choice.
+
 ### 2026-09-02 — /mobile: "Amy comes to you." (new page, on a preview for Amy)
 
 - The site gains its first description of the mobile side of the

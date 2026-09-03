@@ -7362,3 +7362,346 @@ bands only again — the state the 2026-07-23 ombre entry described.
 The emphasis hierarchy (pink solid primary, chip secondary) now
 reads on every treatment page: the router card's chip above each
 closing band's solid/outline pair.
+
+## 2026-08-28 — the home hero "arrival" (linear.app-style load entrance): built under operator override, REJECTED on the preview — withdrawn
+
+**Context:** The operator directed a linear.app-style opening for the
+home screen. Investigated first-hand (live site, storage-cleared first
+visit, stylesheet + animation forensics): linear.app's headline itself
+carries NO entrance animation — the perceived opening is instant type
+on black plus a stage that comes alive around it. The operator chose an
+authored staggered fade-up ("the arrival") for the existing hero and
+overrode the motion rulebook's no-hero-entrance rule in their own words
+("There is no ban on entrance animation… I'm overriding it"). Built on
+PR #175 (`feat/hero-arrival`): pure CSS, zero JS, hero only — copy
+column staggered 100–580ms, photo warming from dark by filter only,
+bloom last. Fully verified before review: `npm run verify` green end to
+end; LCP 1887→1884ms median (the photo, the LCP element, never left
+opacity 1), CLS 0, TBT 0, perf 1.00; choreography proven frame-by-frame
+at 390/1440; reduced-motion instant-settle confirmed.
+
+**Decision (operator, on the PR #175 preview): REJECTED on sight and
+WITHDRAWN** — "It looks terrible. Let's go back to the way it was…
+Let's ditch this idea." PR #175 closed unmerged, branch deleted;
+`phase-c` never carried any of it, so there is nothing to revert — the
+home page is byte-identical to before the round. The override is
+withdrawn with the feature: the motion rulebook's no-hero-entrance rule
+stands exactly as written (the rulebook/BUILD_SPEC amendments lived
+only on the unmerged branch and died with it). The marquee precedent
+(2026-07-08): shipped to a preview, seen, rejected, recorded.
+
+**One observation preserved for the record:** the operator reported the
+rejected page showing "a white background." The arrival itself never
+paints white — every verified frame is the noir stage — so the likely
+mechanism is the home page's external stylesheet racing the HTML on the
+preview host's cold cache (a flash of unstyled content), which
+pre-exists the arrival and is independent of it. If a white-flash
+report ever resurfaces on a preview or production, investigate it as a
+FOUC/propagation matter, not a motion one.
+
+**Consequences:** entrance animation on the home hero is a REJECTED
+direction — do not re-pitch it unless the operator raises it (the
+featured-card do-not-re-pitch precedent, 2026-07-25). No CHANGELOG
+entry: nothing shipped. The full build/verification record lives in
+closed PR #175 and this entry.
+
+## 2026-09-02 — /mobile: the party-and-van page, built from Amy's own public photos (operator direction)
+
+**Context:** Mobile Aesthetics is mobile in fact: Amy hosts injectable
+parties at clients' homes, offices, salons, and venues, and she has a
+van fitted out as a treatment room. None of that is on needlegirlie.com,
+and the practice site never explains it either — its only public
+statement is a YouTube channel description. The operator wants the idea
+on a preview to show Amy, because getting time with her is difficult;
+the page is the ask. Two research passes fed it: the practice site's
+gallery (yourmobileaesthetics.com, a GoDaddy builder page — the van
+interior 2560×1920, a two-person van portrait 1920×2560, a 511px
+exterior, and a studio group frame 1600×1067) and, with the operator's
+own Instagram session in Chrome, a caption scan of the business
+account (@amypalaciosnp.mobileaesthetics) back to April 2026 plus the
+personal account's cross-posts. Party and van posts found, by date,
+all reels: Aug 20 (studio), Aug 11 (Amy and a colleague outside the
+van — "Mobile Parties"), Jul 24 (a client with a hand mirror in a
+living room), Jul 20 (Amy injecting a client on a sofa in a home),
+Jul 12 (a forehead close-up with a unit count in the caption), Jun 26
+(a drop-in announcement), Jun 17 (Amy treating a client in the van's
+chair — the van's first appearance in the feed; the burned-in text
+carries the competitor brand name), Jun 8 (Holden Beach), Jun 5 and
+Jun 4 (a Concord salon), Jun 3 (a Concord pop-up), May 25 (an office
+party with a waiting guest), May 16 (a home visit by a window), May 12
+and May 8 (studio promos), Apr 23 and Apr 22 (a venue in Albemarle).
+Nothing was pulled from Instagram: the media is login-gated and its
+terms forbid it, the browser tool refuses to return media URLs by
+design, the reels are phone-resolution with burned-in captions and
+music, two carry the competitor brand name in the picture, and every
+party frame shows a client in a private setting with no release on
+this record. The list above is what Amy is asked for originals of. The
+Facebook link resolves to her personal profile and its search surfaced
+friends' posts — stopped there. Yelp raised a device-verification
+wall — not bypassed.
+
+**Decisions (operator, AskUserQuestion 2026-09-02):** (1) DOWNLOAD the
+four practice-site photos — authorized in the operator's words. (2) A
+NEW PAGE, /mobile, over a /visit section — the operator's pick;
+BUILD_SPEC §6 gains the row on that authorization. (3) The studio
+group frame ships on the preview with the release flag OPEN. (4)
+"Party" — Amy's own word — is ALLOWED on the site (flagged once:
+injectable gatherings draw board scrutiny in several states, and this
+record kept the "Tox" shorthand off the site 2026-07-19). The
+competitor brand name Amy's captions pair with it never appears — she
+does not carry that product — and neither does the shorthand. (5) The
+pa11y needs-review cap for /mobile, authorized in the operator's own
+words ("I authorize the pa11y cap for /mobile") — the per-URL entry
+every ombre page needs.
+
+**Build:** the /injector-training pattern (a standalone src/pages route
+outside the treatments collection; no clinicianApproved gate; Amy
+reviews via the sign-off doc's non-gated section). Hero: eyebrow,
+"Amy comes to you.", three paragraphs, the Call chip, the van interior
+in the house arch. "How a party works": three items (you choose the
+place; Amy brings the studio; same clinician, same standards). "Bring
+the people you'd bring anyway.": the studio group frame in the
+segmental arch beside two sentences. Noir close: "Your place. Amy's
+care." + Call. Every fact traces to her public posts and site: homes,
+offices, gatherings; the van carries a chair and supplies; for a
+smaller space she sets up inside; booking by phone or text. NOT
+stated, because nothing on the record says it: which services travel,
+how far, group minimums, host rewards, pricing, whether solo mobile
+visits exist. Contact is phone + Instagram (the training pattern) —
+not "Book with Amy". The nav gains "Mobile" after Visit (both answer
+"where do I see Amy"). JSON-LD: one Service node. /mobile joins pa11y
+(with the cap) and the LHCI set (a tightening; the page carries an
+eager hero image, so it is measured, not assumed).
+
+**Assets (RUNBOOK "Replacing site photography"; the practice-site web
+copies are the source, Amy's originals the recorded upgrade path):**
+- `van-treatment-interior.jpg` — a 4:5 extract of the 2560×1920 web
+  copy (sharp, left 1000 / top 0 / 1536×1920, JPEG q92 — a second
+  generation from a web JPEG, accepted; no people, no release).
+  Screened at full resolution: the frame's LEFT THIRD holds a sharps
+  container with a biohazard label, a syringe organizer whose slots
+  are labeled with injection sites, four loose vials, and a license
+  plate through the rear window — the prep-workflow class the
+  2026-07-23 rubric excludes (the 2026-07-20 tray rejection). The
+  crop excludes all of it. Inside the window: two quilted treatment
+  chairs, the pink supply cart (sanitizer, wipe packets, gloves, cold
+  packs — nothing legible), the wall screen, the rug, and at the right
+  edge a second cart whose product cartons do not resolve at source
+  resolution (screening note, the strip frame-8 class). 1536px covers
+  the 1152 tier — retina met.
+- `studio-friends-session.jpg` — the practice-site frame byte-for-byte
+  (1600×1067, hash-unique against the repo). Amy in her studio between
+  two clients in the treatment chairs, one laughing; the cart's lower
+  shelf holds supply boxes whose labels do not resolve; Amy's
+  embroidered name and an Evolus logo on her scrubs (her own identity
+  and a product she carries). The two clients are identifiable and
+  their website-use releases are NOT on this record — the frame ships
+  PREVIEW-ONLY under the open flag (the 2026-07-19 precedent) and comes
+  off if Amy cannot confirm them. Nobody is named in alt text.
+- HELD, not committed: the two-person van portrait (the second woman's
+  name and credentials are embroidered on her scrubs — a staff member,
+  constraint 2 — and her consent is not on record; a crop to Amy alone
+  was considered and not taken) and the 511px exterior (below the
+  retina rule for every slot; two unidentified people). Both are on the
+  ask list; the exterior is the photo the page most wants.
+
+**Alternatives rejected:** a section on /visit (offered as the smaller
+change; the operator chose the page); pulling Instagram media (above);
+inventing the missing facts as copy (constraint 7 — they are questions
+for Amy instead); "Book with Amy" as the CTA (mobile booking is by
+phone per her own captions, and Vagaro is the studio's book).
+
+**Consequences:** the site describes the mobile side of the practice
+for the first time; the page is a first draft whose purpose is Amy's
+reaction, and every unknown above is a question to send with the
+preview link. The studio group frame's flag is the round's one open
+exposure, on a public-but-noindexed preview; it resolves either way on
+Amy's word. pa11y runs 25 URLs, LHCI 8. CHANGELOG, BUILD_SPEC §6,
+CLINICIAN-SIGN-OFF (non-gated section), and REDESIGN carry the page.
+
+## 2026-09-02 — /mobile: the van film replaces the studio group frame (the sanctioned-source search; TikTok's creator download)
+
+**Context:** the operator's verdict on the PR #177 preview: the studio
+group frame in the "Bring the people you'd bring anyway." slot "just
+doesn't belong" on a page about parties and the van. A search plan
+(approved 2026-09-02 after a "fine-toothed comb" correction pass) fixed
+the rubric — scene, people, legible text, prep tray, resolution, format
+— and the acquisition routes in order of legitimacy. Operator decisions
+before the search (AskUserQuestion): do NOT contact Amy yet; a STANDING
+AUTHORIZATION to save any of Amy's own posts from TikTok, Facebook,
+Vagaro, or Google Business Profile into the scratchpad for screening
+(Instagram stays identification-only; anything else is asked per file);
+a FILM preferred, a still as the fallback; NO retina override — stills
+capped at 540px, portrait films at the row's 24rem.
+
+**Search log (every source, what it held):**
+- Operator archive: `Videos\Advertising 1` (= `Advertising 2`,
+  byte-identical; 720×1280 HEVC, 33s) is Amy's Mobile Aesthetics promo
+  — Amy alone at the van's open door at t≈24s with an Instagram-handle
+  sticker beside her head and a footer carrying the practice-site URL
+  in pixels (a display-only URL is the constraint-2 fifth-exception
+  class — a new exception, not taken), team members on camera elsewhere
+  in the cut (constraint 2), loud audio with likely speech. The best
+  fallback; not used. `Advertising 3` (576×1024, 31s) is the
+  billboard/delivery reel — no van.
+- Instagram (identification only): the Tagged tab holds nothing of
+  parties or the van; the highlights were not stepped (the renderer
+  freezes on captures during playback); the business grid below April
+  2026 was scanned in the first entry.
+- Facebook: "Amy's Photos" and "Photos of Amy" are personal; the Reels
+  tab mirrors Instagram (no download); the Oct 2023 host-created event
+  page was not opened — host photos would need a per-file ask and could
+  not outrank an in-van film.
+- Vagaro (`/mobileaestheticshealthandbeautyassociates`): three gallery
+  photos (an event portrait with a man in a white coat, two two-person
+  outdoor portraits) + placeholder service-category tiles. No van.
+- Google Business Profile (the 283-review listing, "By owner"): about
+  two dozen photos — team portraits, studio frames, the exterior sign,
+  a syringe tray, lip close-ups, before/after pairs. No van, no party.
+  (A second "Mobile Aesthetics" medical-spa listing carries only the
+  logo.)
+- YouTube `@amypalacios704MobileAesthetics`: two videos (a 4:15
+  talking-head "Mobile Aesthetics", a DC clip) + shorts; the one short
+  tagged as a party is a tray of drawn syringes and vials — out on
+  sight. No download route for non-owners in any case.
+- TikTok — the account is `@mobile.aesthetics1` (the operator is logged
+  in; the handles the plan guessed do not exist). The profile grid
+  stops at 19 videos behind a terms-update banner (not clicked —
+  "Agree" is the operator's consent to give, not mine); video search
+  and the van hashtag page surfaced the rest. Amy's van posts, by date:
+  2025-09-29 (a multi-panel collage — the van's exterior, Amy's selfie
+  with an Instagram-handle sticker, two women in the van; 480×854 on
+  download; a reused sound); 2025-12-09 ×2 (a four-minute talking-head
+  selfie inside the van, and a 20s clip whose every frame carries a
+  burned-in unit count — a DQ by rule); 2026-06-17 (Amy treating a
+  seated guest in the van — the scene the page wants). The Aug 11
+  exterior clip is not among the 19 reachable grid items and no search
+  surfaced it. Four other high-view clips opened for identification
+  were studio or personal. TikTok's context menu offers the
+  creator-enabled "Download video" on her posts — the one sanctioned
+  Instagram-equivalent download; four files were saved to the
+  scratchpad for screening (post IDs 7555690211313716535,
+  7581649749087096077, 7581650367126031671, 7652468684375526670;
+  SHA-256 prefixes a66aa6d1, d055bd8f, e54cde57, e5b4d3f6). Three are
+  rejected above; none of the four is committed to the repo.
+
+**The winner — `van-chair-treatment.mp4`, Amy's TikTok post of
+2026-06-17 (post 7652468684375526670):** 9.1s, native 576×768 (the
+platform's download rendition; its player streams 720×960 and the
+Instagram original is presumably 1080×1350 — neither is a sanctioned
+route), H.264 + AAC, the platform's moving watermark (its logo + Amy's
+own handle). Screened at full resolution (fps=4 hunt sheet + zooms):
+the whole clip is inside the van — the quilted captain's chair, the
+window, Amy in black scrubs (her embroidered name and credential line
+resolve on her shirt — her own identity, the studio-frame class), pink
+gloves at the guest's brow and cheek; a sparkle overlay; NO burned-in
+caption on this cut (the Instagram version's cover carries the
+competitor brand name in cursive — evidently a platform text sticker,
+not baked into her master, which strengthens the originals ask). A
+supply box sits in the lower-left corner for roughly seven of the nine
+seconds (out of frame ≈2.0–4.0s): at full resolution it resolves to a
+nitrile-glove box and alcohol-pad packaging — no vials, no drawn
+syringes, no product names, no unit marks (the prep-tray class the
+rubric DQs is absent; recorded as "supplies visible, nothing clinical
+legible"). The seated guest is identifiable (profile, eyes closed).
+Audio: present (volumedetect mean −26.5dB, peak −10.2dB), content
+UNSCREENED — no transcription tooling here and no operator listen yet.
+
+**Rubric:** scene 5 (in-van treatment) · people HOLD (the guest's
+website-use release is not on the record) · text/watermark 1 (the
+own-handle platform mark — the class accepted on Amy's own Instagram
+reel, `amy-reel`) · prep tray 1 (supplies in frame, nothing clinical
+legible) · resolution 1 (below every plan threshold; served at exactly
+its 2× width instead — decision 3) · format +1 (film, muted). Nine with
+the HOLD open — it ships PREVIEW-ONLY under the open release flag, the
+same class as the frame it replaces.
+
+**Decisions:**
+1. The film replaces the studio group frame; `studio-friends-session.jpg`
+   is deleted (its only consumer). Outcome B of the plan: a
+   `TreatmentVideo` in a `.mobile-friends-film` wrapper, `frame="bare"`
+   (hairline + 12px foot corners on the video, never the arch — the
+   film-stage rule), the poster from the master at t=2.9s (the clean
+   window: Amy's hand at the guest's brow, no supply box, the handle
+   mark at mid-left), captions in `public/media/van-chair-treatment.vtt`.
+2. A MUTED rendition (`-an`, libx264 crf 20, faststart, native 576×768 —
+   no scale, no crop, no trim; 1.07MB): the source audio is unscreened,
+   so no sounded cut ships until the operator listens and confirms on
+   the record (a spoken competitor name would keep it muted for good).
+   With no audio track the `autoplay="inview"` opt-in is in-contract —
+   the speech-free rule exists so muted autoplay never guts narration,
+   and a muted rendition has nothing to gut; the carousel's
+   `commercial-team` rendition is the precedent. /mobile joins the
+   script's consumers (~2KB static file; the budget stands). CLAUDE.md's
+   opted-in-pages list is operator-maintained — the PR body asks for
+   the line.
+3. THE CAP, not an override: the 576px source covers 2× only to 288px,
+   so the wrapper is `width: min(18rem, 100%)`, centered in its column
+   (the row would otherwise hand it ~580px at desktop; the operator's
+   no-override decision is honored by the cap, exactly as the 540px
+   still cap would have been). Amy's original at 1080×1350 lifts the
+   cap to the row's 24rem — the first line of the originals ask.
+4. The captions file carries one bounded 2.4s cue describing the scene
+   ("Inside the van: Amy treats a guest seated in the treatment chair.")
+   plus the NOTE — a muted film's track exists for the a11y gate and the
+   description, and a film-long cue would paint the loop. The watermark
+   is not mirrored. The guest is never named — label, cue, alt,
+   comments, this entry.
+5. The TikTok download itself: a creator-enabled control on Amy's own
+   post, saved with the operator's standing authorization; the file's
+   source URL, date, ID, and hash are above. Instagram was not touched
+   for media.
+
+**Alternatives rejected:** a still from the clean window (576×720 after
+a 4:5 crop — below the 1080 floor; the operator prefers a film anyway);
+`Advertising 1` (van exterior only, a new display-URL exception, a trim
+around the team, unscreened speech); scaling the rendition up to 810px
+(adds no detail — the retina rule is about source pixels); serving the
+576px film at 24rem (a 1.5× override the operator declined in
+principle); shipping the source audio on the strength of a level meter
+(the rule is a listen, not a number); pulling the 720×960 stream or the
+Instagram original (not a sanctioned route).
+
+**Consequences:** the slot now shows the scene the page is about, as a
+muted nine-second loop, small (288px) by design until Amy's original
+arrives. Two open flags ride the preview, both hers to close: the
+guest's release and, if she wants sound, the operator's listen. The
+originals ask to Amy now leads with this clip. The Blob object
+`van-chair-treatment.mp4` is uploaded after this entry commits (RUNBOOK
+"Publishing a film"); RELAUNCH's probe list gains it and /mobile joins
+the autoplay-page list (eight players). pa11y 25, LHCI 8 — unchanged
+counts.
+
+**Addendum, same day — the LCP budget after the film landed:** the
+first full verify with the film on the page failed one Lighthouse
+assertion: /mobile's Largest Contentful Paint at 2555ms (median of
+three, spread 5ms) against the 2500ms budget, with pa11y 25/25 and every
+byte budget green (image 149KB of 240). The LCP element is the hero's
+lead paragraph, and Lighthouse's simulated LCP charges every resource
+that finished before the paint against it — so the poster (21KB,
+Medium priority, fetched at parse time; `preload="none"` does not
+cover a poster), the script (2KB), and the caption track (1KB) landed
+on a page that was already ~50ms inside the line. Fix in the content,
+not the gate: the hero's tiers went from 480/760/1152 to 480/660/1152
+at `quality={70}` (the house precedent for a quality prop is the cards
+at 62 and the carousel posters at 55; the hero's wash hides q70 with
+room to spare). Lighthouse's phone profile needs ~649px for the hero
+and now picks the 660 tier at 77KB instead of the 760 tier at 125KB
+— still above the pixels it needs, so the retina rule is untouched.
+Re-measured on /mobile alone: LCP 2257ms ×3 (was 2555), image 143KB,
+total 196KB; then the full verify again for the record. The
+/injector-training hero, same recipe, sits at 2330ms with no film on
+its page — the next film placed on a page of that shape should expect
+the same tuning.
+
+**Operator review (2026-09-02):** PR #177 approved on its preview in the
+operator's own words ("I've reviewed #177. I'm good with it") and, by
+their direction the same day, merged into `phase-c` ahead of Amy's
+reaction — she sees the page on the standing demo, per the sign-off
+doc's non-gated section; production stays dark. The operator also
+authorized the CLAUDE.md line: /mobile joins the "Opted-in pages
+today" list for the treatment-film autoplay script (the muted van
+film — no audio track, so in-contract, no exception). The two open
+flags carry forward unchanged: the seated guest's release and, only
+if Amy wants sound, the operator's listen-and-confirm on the source
+audio.

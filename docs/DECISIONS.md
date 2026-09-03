@@ -7913,6 +7913,22 @@ REVERSED by the operator the same day: the recorded 2026-08-14 order
 above is withdrawn. The band's composition (heading and controls
 beside the film) is unchanged; only the slides array moved.
 
+*The hero reel takes the carousel's phone policy (same day, after the
+#180 fix merged into this branch).* The carousel entry below records
+the operator's decision that films are content and autoplay under
+`prefers-reduced-motion`; the hero reel is the same class, so
+`home-motion.js` now splits: under reduced motion the choreography
+stands down exactly as before (html.motion is never set; every
+decorative move is guarded), but the hero film facade still runs —
+muted, its own dissolves and holds, the portrait underneath, the
+two-pass ending intact. The built `<video>` carries the muted +
+playsinline attributes, a refused `play()` arms the same first-gesture
+retry, and the fade-in now rides the first `playing` event so a film
+that was refused and later unlocked still fades in. Verified locally:
+reduced motion emulated → the reel plays over the portrait with no
+choreography; play() refused until a gesture → the portrait stays
+until the first tap, then the reel fades in.
+
 ## 2026-09-03 — Home carousel: autoplay on phones (reduced motion no longer gates the films; a refused play() retries on the first gesture)
 
 **Context.** The operator was told the home carousel does not

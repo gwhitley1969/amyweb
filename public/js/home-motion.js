@@ -4,8 +4,11 @@
  * GSAP 3.15 (core + ScrollTrigger + SplitText; free under the GSAP
  * standard license since 3.13) and Lenis 1.3 (MIT) are self-hosted in
  * /js/vendor — script-src stays 'self'. Everything here is ADDITIVE:
- * under reduced motion, or if these scripts fail, home-motion removes
- * html.motion and the page is the CSS-only home from the same branch.
+ * if these scripts fail, home-motion removes html.motion and the page
+ * is the CSS-only home from the same branch. Under reduced motion the
+ * choreography stands down the same way, but the hero FILM still plays
+ * (operator decision 2026-09-03 — films are content with the same
+ * standing as the carousel's; the #180 carousel entry in DECISIONS).
  *
  * Choreography:
  *  1. Load — the wordmark's neon flickers on; the headline rises word
@@ -26,19 +29,29 @@
   const html = document.documentElement;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const ok = window.gsap && window.ScrollTrigger && window.SplitText;
-  if (reduced || !ok) {
+  if (!ok) {
     html.classList.remove('motion');
     return;
   }
+  // Reduced motion: every decorative move stands down (motion-flag never
+  // set html.motion; this guard keeps the choreography off), but the
+  // hero FILM still plays — content with the same standing as the
+  // carousel's films (operator decision 2026-09-03): muted, its own
+  // dissolves only, the portrait underneath.
+  if (reduced) html.classList.remove('motion');
   window.__ncMotionReady = true;
   const { gsap, ScrollTrigger, SplitText } = window;
   gsap.registerPlugin(ScrollTrigger, SplitText);
   const finePointer = matchMedia('(pointer: fine)').matches;
   const q = (s, r = document) => r.querySelector(s);
   const qa = (s, r = document) => [...r.querySelectorAll(s)];
+  const hero = q('.nc-hero');
+  const copy = q('.nc-hero__copy');
+  const heroImg = q('.nc-hero__img');
+  const sign = q('.site-brand img');
 
   // ---- Lenis: weighted scroll on pointer devices; ScrollTrigger rides it.
-  if (window.Lenis && finePointer) {
+  if (!reduced && window.Lenis && finePointer) {
     const lenis = new window.Lenis({ lerp: 0.09, anchors: true });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((t) => lenis.raf(t * 1000));
@@ -47,11 +60,8 @@
 
   const NEON = 'rgba(254, 1, 154, ';
 
-  // ---- 1. The neon comes on
-  const hero = q('.nc-hero');
-  const copy = q('.nc-hero__copy');
-  const heroImg = q('.nc-hero__img');
-  const sign = q('.site-brand img');
+  // ---- 1. The neon comes on (choreography — off under reduced motion)
+  if (!reduced) {
   const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
   if (sign) {
@@ -118,17 +128,36 @@
     }
     if (rest.length) intro.from(rest, { autoAlpha: 0, y: 24, duration: 0.8, stagger: 0.12 }, '>-0.45');
   }
+  } // end of choreography 1
 
-  // ---- 2. Hero film facade: the studio reel, poster first, a beat after load
+  // ---- 2. Hero film facade: the studio reel, poster first, a beat after
+  // load. Runs under reduced motion too (the guard at the top). Phones:
+  // the muted + playsinline ATTRIBUTES ride beside the properties, and a
+  // refused play() is retried inside the person's first gesture — the
+  // same policy as the carousel's #180 fix (DECISIONS 2026-09-03).
   const media = q('[data-hero-film]');
   if (media) {
+    let unlockArmed = false;
+    const armUnlock = (v) => {
+      if (unlockArmed) return;
+      unlockArmed = true;
+      const events = ['touchend', 'pointerup', 'keydown'];
+      const retry = () => {
+        events.forEach((t) => document.removeEventListener(t, retry, true));
+        unlockArmed = false;
+        if (v.isConnected && v.paused) v.play().catch(() => {});
+      };
+      events.forEach((t) => document.addEventListener(t, retry, { capture: true, passive: true }));
+    };
     const attach = () => {
       const v = document.createElement('video');
       v.className = 'nc-hero__film';
       v.muted = true;
       v.loop = true;
       v.preload = 'auto';
+      v.setAttribute('muted', '');
       v.setAttribute('playsinline', '');
+      v.setAttribute('webkit-playsinline', '');
       v.setAttribute('aria-label', media.dataset.label || '');
       const rate = parseFloat(media.dataset.rate || '1');
       v.defaultPlaybackRate = v.playbackRate = rate;
@@ -216,7 +245,7 @@
               onComplete: () => {
                 jump(next);
                 holding = false;
-                if (onScreen) v.play().catch(() => {});
+                if (onScreen) v.play().catch(() => armUnlock(v));
               },
             });
           }, hold * 1000);
@@ -238,12 +267,17 @@
         v.addEventListener('ended', () => { if (!holding) endWindow(); });
       }
       media.append(v);
+      // The fade-in rides the first `playing` event, so a play() that
+      // was refused and later unlocked by a gesture still fades in.
+      v.addEventListener(
+        'playing',
+        () => gsap.to(v, { opacity: 1, duration: 1.6, ease: 'power2.out', overwrite: 'auto' }),
+        { once: true },
+      );
       v.addEventListener(
         'canplay',
         () => {
-          v.play()
-            .then(() => gsap.to(v, { opacity: 1, duration: 1.6, ease: 'power2.out' }))
-            .catch(() => {});
+          v.play().catch(() => armUnlock(v));
         },
         { once: true },
       );
@@ -252,7 +286,7 @@
           for (const e of entries) {
             onScreen = e.isIntersecting;
             if (onScreen) {
-              if (!holding && !done) v.play().catch(() => {});
+              if (!holding && !done) v.play().catch(() => armUnlock(v));
             } else v.pause();
           }
         },
@@ -265,6 +299,7 @@
     else addEventListener('load', later, { once: true });
   }
 
+  if (!reduced) {
   // ---- 3. Leaving the hero: the copy lifts away, the film swells
   if (hero && copy && media) {
     gsap
@@ -358,6 +393,8 @@
       { passive: true },
     );
   }
+
+  } // end of choreography 3–8
 
   addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
 })();

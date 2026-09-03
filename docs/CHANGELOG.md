@@ -51,8 +51,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   a four-chevron scroll cue pulses, the hero
   dissolves away on scroll, section openers rise word by word, the doors
   are dealt in sequence, photos rise into their arches, the van band
-  parallaxes, and a faint neon light follows the cursor over noir. Off
-  under reduced motion. The home page's script budget is raised from
+  parallaxes, and a faint neon light follows the cursor over noir. The
+  choreography is off under reduced motion; the hero reel still plays
+  there (the carousel's phone policy, below). The home page's script budget is raised from
   30KB to 80KB **on this branch only, for the home URL only** (a third
   gate row; the preview workflow runs the gates before deploying, so the
   lift had to reach the gate); every other page and budget is unchanged

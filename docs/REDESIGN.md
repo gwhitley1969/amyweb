@@ -132,7 +132,7 @@ pink."** Seven gaps, each a test every design decision must move:
   (Plausible: decided and PREPPED 2026-08-17 — ships dark; the flip
   is a relaunch-day config edit, RUNBOOK "Turning on analytics".)
 - **Review tags are OPEN on a side branch** (2026-08-22): every page
-  carries a short label (A–G on the non-service pages, 01–12 on the
+  carries a short label (A–H on the non-service pages — H is /mobile, added 2026-09-03 — 01–12 on the
   treatment pages, 13 on /injector-training) so a review pair can refer
   to pages by tag. They live ONLY on `review/page-numbers` (**PR #149**
   since 2026-08-25 — the original #138 was closed and reopened that day,

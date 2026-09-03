@@ -6,6 +6,30 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-03 — Home: scale, rhythm, and four new moves (on a preview for Amy)
+
+- After the operator's design critique ("boring"), the home page's
+  desktop composition steps up — phones are unchanged below 900px. The
+  hero photo now bleeds toward the headline, which grows to the full
+  display clamp over a one-sentence lead ("One clinician, every
+  appointment. Amy Palacios, FNP, in medical aesthetics since 2017.");
+  the copy stays on solid noir, never over the photo. The film band is
+  composed: its heading (same words, two display lines) and controls sit
+  beside the film, and Amy's own films open — studio → team → the two
+  Jeuveau spots. Section openers step up to display sizes over
+  one-sentence decks; the credentials line stays, compact. A new noir
+  band — "Amy comes to you." beside the van interior — punctuates the
+  ombre between the doors and the visit beat and gives /mobile its
+  first door on the home page.
+- The motion vocabulary gains four transform-only moves, zero JS: the
+  hero still settles once from 1.04 to 1, full-bleed band photos drift
+  against the scroll, rows of plates rise in sequence, and arched photos
+  inside whole-card links (home doors, /services cards) grow to 1.03 on
+  hover; the carousel's crossfade settles from .97 to 1 (never above, so
+  the spots' safety screens stay complete). All rest under reduced
+  motion. Three headline candidates go to Amy on the PR (DECISIONS
+  2026-09-03).
+
 ### 2026-09-02 — /mobile: "Amy comes to you." (new page, on a preview for Amy)
 
 - The site gains its first description of the mobile side of the

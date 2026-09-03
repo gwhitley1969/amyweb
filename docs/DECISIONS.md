@@ -7648,3 +7648,154 @@ film — no audio track, so in-contract, no exception). The two open
 flags carry forward unchanged: the seated guest's release and, only
 if Amy wants sound, the operator's listen-and-confirm on the source
 audio.
+
+## 2026-09-03 — Home: scale, rhythm, and four new moves (the design critique's Tier 1 + 2)
+
+**Context.** The operator found the site boring ("I don't see anything
+spectacular about this website") and asked for an honest opinion and
+what to change, with other sites for reference if needed. The
+assistant reviewed every page type on the standing demo (PR #97) at
+1280 and 390 — with the scroll reveals disabled so full-page captures
+show content — next to audiusa.com (the REDESIGN yardstick), Formula
+Fig, Peachy, Skin Laundry, Ever/Body, and Alchemy 43. (Mobbin was
+offered; the Chrome extension refused the domain, and it catalogs
+product UI rather than brand sites, so the direct comparisons stood
+in.) The verdict, delivered in chat: the site is clean, fast,
+accessible, and on-brand, and holds up at 390; at desktop it reads as
+small content islands on a very large pink field, and nothing on any
+page is a moment. The gap to the seven-gap yardstick is scale, rhythm,
+and asset quality — not animation: none of the six reference sites use
+motion graphics; their premium read is full-bleed imagery and film,
+huge type, and air. Specifically: (1) the cinematic stage is a
+phone-shaped box — a 4:5 stage capped at 720px with `contain`, so at
+1280 the film is ~570px wide in a full-width black band, opening on
+the Evolus spot, so the site's one cinema moment belonged to a
+manufacturer; (2) nothing is big — section openers at 39/31px over
+17px paragraphs, every section at the same padding and plate weight;
+(3) the ombre runs unbroken from ~1000 to ~4300px of the home with two
+text-only beats; (4) uneven photography on /services (phone snapshots
+beside shoot frames — gap 5's own "$2k tell"); (5) a category-generic
+headline; (6) the tilted Instagram print as the weakest home beat
+(Amy's named exception — it stays). The /about hero was first read as
+a contradiction (a group beside "the work of one clinician") and
+corrected on the record: the arch holds Amy's family portrait at her
+own request (2026-07-23) — her call, not a fix.
+
+The operator chose "mockups first". The assistant restyled the live
+demo in the browser only (Playwright `page.evaluate`; same photos,
+fonts, and tokens; no repo change) and delivered a side-by-side of the
+home's first three screens at 1280
+(`C:\Amy\.playwright-mcp\mock-side-by-side-1280.jpg`). The operator
+approved the direction, chose Tier 1 + Tier 2, and directed the build
+on a branch for a preview ("create what you are proposing").
+
+**Decision (Tier 1 — composition and type scale; home only).**
+
+1. *Hero.* At ≥900px the hero is a block with the photo absolutely
+   placed from 44% of the width to the right edge, masked in over its
+   first 30%, plus a bottom scrim in the media's own overlay; the copy
+   column is capped at 43vw (40rem at most) with a 4vw left pad so
+   every glyph sits on SOLID noir, left of the photo's edge — measured
+   at 900/1024/1280/1440/1920 (the first cut, 38% + a 36rem column,
+   overlapped the fade at tablet widths and was corrected before the
+   PR) — so the Phase C text-over-photo rule (opaque plate or nothing)
+   is kept, not excepted. The statement's cap grows to 7.25rem (was
+   6.5rem; the 7.2vw term stays so the headline clears the photo). The
+   lead is one factual sentence: "One clinician, every appointment. Amy
+   Palacios, FNP, in medical aesthetics since 2017." ("in Harrisburg
+   since 2017" was rejected — the studio's date is not on record; the
+   former lead, "The dedicated practice of Amy Palacios, FNP (AKA
+   Needle Girlie) and owner of Mobile Aesthetics, clinician-led
+   aesthetics since 2017.", is recorded here.) The headline itself is
+   unchanged; three candidates go to Amy on the PR — keep "Medical
+   Aesthetics, made personal." / "One clinician. Every appointment." /
+   "Every appointment is with Amy." Phones are unchanged (58vh photo
+   over the copy).
+2. *Carousel band.* At ≥900px the heading and the controls sit in a
+   left column beside the film (CSS grid areas; DOM order heading →
+   stage → controls unchanged, so phones keep today's stack and the
+   reading order is the same). The heading keeps its recorded wording
+   "Mobile Aesthetics. On screen." (2026-08-17), set as two display-1
+   lines at desktop and one line on phones; no deck (the 2026-08-15
+   fewest-words decision stands). Slide order becomes Amy's own films
+   first — studio → team → J1 → J2 — superseding the 2026-08-14
+   J1 → studio → J2 (→ team) order; `video-carousel.js` reads DOM
+   order, so no script change, and the studio reel's 0.5× travels with
+   its slide.
+3. *Openers.* "Your plan, your pace." at `heading-2 md:display-0`,
+   "What Amy offers" at `md:display-1`, "Unhurried, explained…" at
+   `md:display-2`; display-0's "home-hero only" note widened to the
+   home's openers. The intro deck is one sentence ("Book when you are
+   ready, or talk it through with Amy first. Every decision is made
+   with her, at your pace."); BUILD_SPEC §6's "Meet Amy" credentials
+   block STAYS as a compact line under it (the mock had dropped it).
+4. *The statement band.* A new noir section between the doors and the
+   visit beat: the van interior (`van-treatment-interior.jpg`, the
+   /mobile hero's screened 4:5 crop of 2026-09-02 — no people, no
+   packaging; reused, no new asset) bleeds from the left edge across
+   the photo column; the statement "Amy comes to you." + "Homes,
+   offices, and gatherings around Charlotte, in a van fitted out as a
+   treatment room." + "How a party works ›" sits on noir to its right —
+   never over the photo — and gives /mobile its first door on the home
+   page (until now it had only the nav item). The photo is a full-bleed
+   backdrop, so it is EXEMPT from the arch motif under the
+   hero-backdrop rationale ("not a framed picture", operator
+   2026-08-17) — the fifth exemption. Retina: the photo column is
+   `min(60%, 48rem)` — 768px CSS at 1280 and capped there above it —
+   against the 1536px source, 2× exactly; a 3:2 window at desktop
+   (`object-position: 50% 62%` keeps the chairs and carts, drops the
+   ceiling screen), 4:5 on phones. `quality={62}` (the door
+   precedent), lazy. THE FIRST PICK WAS REJECTED ON THE RECORD:
+   `amy-holding-neon.jpg` (Amy with her own sign, the /services
+   dermal-fillers card) rendered at band size shows the Evolysse carton
+   on the table legibly — a pixel-override class — and Amy retired
+   Evolysse content from the site 2026-08-21; at card size the carton
+   is illegible, which is why the /services use stands. The doors keep
+   their "Explore all twelve lines ›" link.
+
+**Decision (Tier 2 — four transform-only moves, zero JS).** The
+motion vocabulary's closed list (global.css header, DECISIONS
+2026-07-18) is extended, and the header rewritten to name them:
+*settle* — the hero still eases once from scale 1.04 to 1 over 14s
+(`.ng-settle`; the "never on the hero" rule targets opacity-0 reveals,
+which this is not; LCP paint and CLS untouched); *drift* — a
+full-bleed band photo travels ±24px against the scroll (`.ng-drift`,
+scroll-timeline like rise/trace; the host supplies the overflow);
+*stagger* — `.ng-rise-2/-3` push the second and third doors' rise
+ranges later; *hover-scale* — the arched photo inside a whole-card
+link grows to 1.03 on hover/focus (250ms, the card's rule-draw tempo),
+which also reaches the twelve /services cards through the same
+`.ng-lift` + `.ng-arch` contract; and the carousel's slide settle
+(.97 → 1 on the crossfade, never above 1, so the J1/J2 safety screens
+are never cropped). Reduced motion: the settle and the drift join
+rise/trace in the explicit `animation: none` list (a 0.01ms run would
+snap), the hover-scale rests at 1, the carousel keeps `transition:
+none` and rests at 1. BUILD_SPEC §5's "nothing pulses except the
+sign's slow breath" still holds — none of these pulse.
+
+**Alternatives rejected.** A motion-graphics layer (Lottie / GSAP /
+WebGL / Rive): breaks the 30KB zero-JS rule and the reduced-motion
+contract, cuts against "serious glamour; playfulness retired", and
+none of the references use one. Bare "On screen." as the carousel
+heading (the mock's line): a wording change to the recorded heading —
+offered, not taken without the operator's word. Dropping the
+credentials paragraph (the mock): BUILD_SPEC §6. Copy over the hero
+photo's fade tail (the mock's ~10% overlap): the plate rule instead. A
+separate repo for the proposal (the operator's alternative): the
+branch keeps the media origin, CI, and the preview environments. A
+treatment-page pilot (first media row as a full-container segmental
+band; the wrinkle-relaxers plaque below the prose): DEFERRED — PR #143
+is open on that file. Display-size openers on the other pages:
+deferred to their own round after Amy reacts. Changing the /about
+hero: not ours to change.
+
+**Consequences.** Home only + global.css; no new asset, no new script,
+no budget loosened; phones unchanged below 900px. The 2026-08-14 slide
+order is superseded; the arch exemption list is five; the motion
+vocabulary is nine moves plus the carousel's. Amy reviews on her phone
+first (the PR preview), then the standing demo once merged; the
+presentation-approval record in CLINICIAN-SIGN-OFF carries the round;
+the seven-gap boxes in REDESIGN stay unchecked until her verdicts.
+Tier 3 — the assets — is hers: a landscape hero film or her full-res
+hero original, 16:9 J1/J2 renditions from Evolus, a re-grade or
+re-shoot of the four /services snapshot cards.

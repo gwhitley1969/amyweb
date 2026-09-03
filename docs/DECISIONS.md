@@ -7781,3 +7781,19 @@ license (then the sounded cut is a re-encode with `-c:a copy` and a
 films. The Blob object uploads after this entry commits; the old object
 is deleted once zero-referenced. pa11y 25, LHCI 8 — unchanged counts;
 the /mobile gate numbers are recorded below once measured.
+
+**Gate (2026-09-03, PR #181):** `npm run verify` green on 896d9c7 —
+pa11y 25/25, Lighthouse CI every assertion on 8 URLs × 3. /mobile on
+the house row: perf 0.98, LCP 2407ms (median of three: 2407 / 2408 /
+2330 — was 2257 with the 21KB van poster; the 810-wide poster's WebP
+derivative is 51KB, not the 31–34KB the training-reel precedent
+suggested — a brighter, busier frame — and costs ~150ms, leaving 93ms
+inside the 2500 budget; no content tuning needed, none done), CLS 0,
+TBT 0, total 230KB, image 176KB of 240, script 1.4KB, media 0,
+third-party 0. Playwright on the built page: the film block 384px
+wide at 1280 (the row's cap) and the full 327px column at 390, the
+bare frame's magenta hairline and 12px corners intact, `width="810"
+height="1440"`, in-view autoplay muted and running from the media
+origin, click-to-play under prefers-reduced-motion (by design until
+the phone-policy PR), zero references to the retired file. The media
+origin answers 206 with `Content-Range 0-1023/5392161`.

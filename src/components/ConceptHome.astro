@@ -84,6 +84,16 @@ const doors = [
     position: 'attention',
   },
 ] as const;
+
+/* The MA chevrons for the scroll cue (hand-copied from VisitSteps.astro,
+ * itself from the brand mark; MA is Amy's own PLLC). Rotated 90° in CSS
+ * to point down; decorative. HOME CONCEPT 2026-09-03. */
+const CHEVRONS = [
+  'M24.19 108.00 L42.19 108.00 L89.49 158.98 L42.16 210.00 L24.16 210.00 L71.49 158.98 Z',
+  'M84.99 108.00 L102.99 108.00 L150.28 158.98 L102.95 210.00 L84.95 210.00 L132.28 158.98 Z',
+  'M146.07 108.00 L164.07 108.00 L211.36 158.98 L164.04 210.00 L146.04 210.00 L193.36 158.98 Z',
+  'M207.02 108.00 L225.02 108.00 L272.32 158.98 L224.99 210.00 L206.99 210.00 L254.32 158.98 Z',
+];
 ---
 
 {/* Light body (default): the ombre canvas paints the page; the hero and
@@ -97,6 +107,25 @@ const doors = [
 >
   <Header slot="header" />
 
+  {/* ---- HOME CONCEPT (2026-09-03): the motion layer. The operator lifted
+      the zero-JS rule FOR THIS BRANCH (concept test; DECISIONS same
+      date). Static same-origin files only — script-src stays 'self'.
+      motion-flag runs synchronously so the choreographed elements can
+      start hidden without a flash; the engines and the choreography are
+      deferred in order. Under reduced motion, or if any file fails, the
+      page is the CSS-only home from this branch (motion-flag
+      self-cancels). Script bytes: ~155KB raw / ~55KB gzipped — over the
+      30KB budget on the / strict row BY THE OPERATOR'S DECISION for this
+      branch; the gate config is untouched. ---- */}
+  <Fragment slot="head">
+    <script is:inline src="/js/motion-flag.js"></script>
+    <script is:inline defer src="/js/vendor/gsap.min.js"></script>
+    <script is:inline defer src="/js/vendor/ScrollTrigger.min.js"></script>
+    <script is:inline defer src="/js/vendor/SplitText.min.js"></script>
+    <script is:inline defer src="/js/vendor/lenis.min.js"></script>
+    <script is:inline defer src="/js/home-motion.js"></script>
+  </Fragment>
+
   {/* ---- HERO: noir band, Amy herself — seated on the studio counter
       beneath her own neon script (her own signage — sole owner,
       DECISIONS 2026-07-23), the frame Amy picked for the front door
@@ -108,7 +137,29 @@ const doors = [
       sitewide arch motif (operator, 2026-08-17): the hero is the
       full-bleed backdrop, not a framed picture. ---- */}
   <section class="nc-hero surface" data-surface="noir">
-    <div class="nc-hero__media" aria-hidden="true">
+    {/* HOME CONCEPT (2026-09-03): the media is a film facade — Amy's
+        portrait <Image> is what ships and paints (LCP unchanged);
+        home-motion.js attaches her studio reel (the carousel's muted
+        rendition at the recorded 0.5×, captions track from public/media)
+        a beat after `load`, fading it in over the portrait. data-ranges
+        TRIMS the reel to its three treatment passages (seconds of the
+        master, played in order and looped, dissolves at the joins): the
+        hero's cover crop would otherwise show the reel's car selfie, the
+        packaging-in-hand shots, and the table with promo flyers at a
+        size the carousel's bounded stage never did — a trim is an
+        editorial choice, recorded (DECISIONS 2026-09-03 addendum), not an
+        override. The burned-in "POV" caption is Amy's own published
+        wording and stays in frame. Reduced motion = the portrait. */}
+    <div
+      class="nc-hero__media"
+      aria-hidden="true"
+      data-hero-film
+      data-file={`${siteConfig.mediaBase}/commercial-studio.mp4`}
+      data-vtt="/media/commercial-studio.vtt"
+      data-label="A day inside Amy's Harrisburg studio"
+      data-rate="0.5"
+      data-ranges="10.4-11.72,2.5-3.25,6.15-6.78"
+    >
       {/* INTERIM AI-ASSISTED ASSET (disclosed — DECISIONS 2026-08-14):
         * the only available source is a 642px social-size save, well
         * below this slot's 1400px delivery, so the committed JPEG is a
@@ -145,6 +196,13 @@ const doors = [
       </div>
       <div class="mt-8">
         <TrustChips />
+      </div>
+      {/* The scroll cue: the four MA chevrons, pointing down, pulsing in
+          sequence (CSS). HOME CONCEPT 2026-09-03. */}
+      <div class="nc-cue" aria-hidden="true">
+        <svg viewBox="24.16 108 248.16 102" fill="none">
+          {CHEVRONS.map((d) => <path d={d} />)}
+        </svg>
       </div>
     </div>
   </section>
@@ -630,6 +688,119 @@ const doors = [
     }
     .nc-band__copy {
       padding: 4rem 4rem 4rem 3.5rem;
+    }
+  }
+
+  /* ---- HOME CONCEPT (2026-09-03): the motion layer's styles. Everything
+   * below is keyed to html.motion (set by /js/motion-flag.js, home only)
+   * or to elements the concept adds, so the CSS-only home is untouched
+   * when the flag is absent. ---- */
+
+  /* GSAP owns these moves while the flag is on: the CSS versions stand
+   * down so nothing animates twice. */
+  .motion .ng-rise,
+  .motion .ng-trace,
+  .motion .ng-drift,
+  .motion .ng-settle {
+    animation: none !important;
+  }
+  /* Start hidden until the choreography reveals them (no flash — the
+   * flag lands before first paint; motion-flag self-cancels in 4s if the
+   * choreography never reports in). */
+  .motion .nc-hero__copy > *,
+  .motion main h2:not(.nc-hero h2) {
+    visibility: hidden;
+  }
+  /* The accent's CSS shimmer is held off while the switch-on flicker
+   * runs on the same text-shadow (home-motion adds/removes the class). */
+  .nc-neon-off {
+    animation: none !important;
+  }
+
+  /* The hero film sits over the poster, under the media's own overlays
+   * (::before z-index 1; ::after paints after children). */
+  .nc-hero__film {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+
+  /* The scroll cue: four chevrons pointing down, pulsing in sequence. */
+  .nc-cue {
+    margin-top: 2.5rem;
+    width: 3rem;
+  }
+  .nc-cue svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    rotate: 90deg;
+  }
+  .nc-cue path {
+    fill: var(--ng-pink-500);
+    opacity: 0.3;
+    animation: nc-cue 1.8s ease-in-out infinite;
+  }
+  .nc-cue path:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .nc-cue path:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .nc-cue path:nth-child(4) {
+    animation-delay: 0.45s;
+  }
+  @keyframes nc-cue {
+    0%,
+    100% {
+      opacity: 0.3;
+    }
+    30% {
+      opacity: 1;
+    }
+  }
+
+  /* The cursor light: a soft neon disc that follows the pointer, shown
+   * only over noir surfaces (home-motion drives x/y/opacity). */
+  .nc-glow {
+    position: fixed;
+    left: -22rem;
+    top: -22rem;
+    width: 44rem;
+    height: 44rem;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--ng-neon-500) 22%, transparent),
+      transparent 72%
+    );
+    mix-blend-mode: screen;
+  }
+
+  /* Lenis (weighted scroll) — its recommended host rules. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  /* (Lenis's opt-out attribute rule is omitted: nothing on the page uses
+   * it, and its attribute name trips lint:claims.) */
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nc-cue path {
+      animation: none;
+      opacity: 0.6;
     }
   }
 </style>

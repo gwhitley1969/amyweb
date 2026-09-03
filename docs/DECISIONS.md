@@ -7799,3 +7799,67 @@ the seven-gap boxes in REDESIGN stay unchecked until her verdicts.
 Tier 3 — the assets — is hers: a landscape hero film or her full-res
 hero original, 16:9 J1/J2 renditions from Evolus, a re-grade or
 re-shoot of the four /services snapshot cards.
+
+**Addendum, same day — the operator lifts the zero-JS rule for this
+branch ("the neon comes on").** On seeing the CSS-only round on the
+#179 preview the operator said the page still read boring and, for
+this branch as a concept test, lifted the zero-JS default: "I really
+do want to see the homepage have some sort of movement, animation,
+video, or motion graphic(s)." Three choices taken on the record: the
+hero moves with Amy's own studio reel (over the widescreen team film,
+which would widen the other providers' exception, and over a Ken Burns
+still); the engine is GSAP, self-hosted (over a hand-written Web
+Animations layer that would have kept the gate green); and Lenis
+supplies weighted scrolling.
+
+*What ships on the branch.* `public/js/vendor/` carries GSAP 3.15.0
+core + ScrollTrigger + SplitText (free for all uses under the GSAP
+standard license since 3.13) and Lenis 1.3.26 (MIT), copied from the
+npm packages (added as devDependencies so the copies are
+reproducible); `public/js/motion-flag.js` (sync, in the head via a new
+BaseLayout `head` slot) sets `html.motion` before first paint and
+self-cancels in 4s if the choreography never reports in;
+`public/js/home-motion.js` is the choreography — the wordmark's neon
+flicker-on, the headline rising word by word (blur → sharp), "made
+personal." switching on like a tube (the CSS shimmer held off by
+`.nc-neon-off` during the flicker, then released), the lead/CTAs/chips
+following, a four-chevron scroll cue (the MA mark, pointing down,
+pulsing in sequence — CSS), the hero film facade (the studio reel's
+muted rendition at the recorded 0.5×, attached 2.5s after `load` over
+Amy's portrait, captions track, paused off-screen — TRIMMED to the
+reel's three treatment passages, 10.40–11.72s, 2.50–3.25s, and
+6.15–6.78s of the master, played in order and looped with a dip at
+each join: the first full-reel build showed, at hero size and under
+the cover crop, the reel's car selfie, the packaging-in-hand shots,
+and the table with promo flyers — passages the carousel's bounded
+4:5 stage carried small; a trim is an editorial choice, recorded, not
+an override; the burned-in "POV: Age gracefully together" caption is
+Amy's own published wording and stays in frame), the copy lifting away
+and the film swelling as the hero is left (scrubbed), every section
+opener rising word by word, decks settling, the three doors dealt in
+sequence, photos rising into their arches, the van band's photo moving
+against the scroll (the GSAP version of drift; the CSS moves stand
+down under `html.motion` so nothing animates twice), and a faint neon
+light following the cursor over noir surfaces (pointer devices only).
+script-src stays 'self': every file is a static same-origin asset.
+Reduced motion: motion-flag never sets the class, home-motion returns
+early — the page is the CSS-only home from this branch, poster in the
+hero. Split words carry SplitText's `aria: "auto"` (the heading keeps
+its text for assistive tech; the pieces are aria-hidden). Lenis keeps
+anchors (the skip link) and does nothing on touch.
+
+*Rules touched, by the operator's decision, branch-scoped.* The
+zero-JS default and the 30KB script budget (CLAUDE.md, BUILD_SPEC
+§9/§13): the home page now carries ~155KB raw / ~55KB gzipped of
+script, so the local Lighthouse gate reads RED on the `/` strict row's
+script and total budgets on this branch — recorded, not silenced (the
+gate config is untouched; "budgets only tighten"). The "never on the
+hero H1" rule for reveals: the headline's word rise is exactly that —
+authorized here as the concept's opening; the LCP element is the hero
+photo, which paints unchanged. The autoplay contract: the studio reel
+is Amy's own, speech-free by construction (no audio track), already
+autoplaying muted on the carousel — in-contract at the hero. Playfair,
+the ombre, the arches, and the card pinks are untouched. If the
+concept is adopted, these become standing decisions with their own
+CLAUDE.md lines; if not, the branch closes and nothing on `phase-c`
+changes.

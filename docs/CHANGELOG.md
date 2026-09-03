@@ -29,6 +29,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
   the spots' safety screens stay complete). All rest under reduced
   motion. Three headline candidates go to Amy on the PR (DECISIONS
   2026-09-03).
+- Later the same day the operator lifted the zero-JS rule **for this
+  branch as a concept test** and asked for real movement. The home page
+  gains a self-hosted GSAP + Lenis motion layer: the wordmark's neon
+  flickers on, the headline rises word by word and "made personal."
+  switches on like a tube, Amy's own studio reel (its three treatment
+  passages, looped) plays slow and muted in the hero over her portrait,
+  a four-chevron scroll cue pulses, the hero
+  dissolves away on scroll, section openers rise word by word, the doors
+  are dealt in sequence, photos rise into their arches, the van band
+  parallaxes, and a faint neon light follows the cursor over noir. Off
+  under reduced motion. The home page's script budget reads red on this
+  branch by decision; the gate config is untouched (DECISIONS 2026-09-03
+  addendum).
 
 ### 2026-09-02 — /mobile: "Amy comes to you." (new page, on a preview for Amy)
 

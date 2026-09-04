@@ -6,6 +6,47 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-03 — Treatment films take the carousel's phone policy
+
+- The treatment-film autoplay script (`treatment-video.js`, eight
+  players on six pages) now plays its films under prefers-reduced-motion
+  too — the carousel's 2026-09-03 decision extended to these players at
+  the operator's direction: the films are content with a pause control,
+  and the native controls are that pause (WCAG 2.2.2) and the
+  tap-for-sound. A play() the phone refuses (Low Power Mode, data
+  modes) is retried inside the person's first touch or key, and the
+  muted/playsinline attributes are set before the first attempt (the
+  WebKit quirk). Before this, reduced motion meant click-to-play; the
+  component, the spec, the runbook, and the six consumers' comments now
+  say so (DECISIONS 2026-09-03, the phone-policy entry).
+
+### 2026-09-03 — /mobile: the viewfinder film replaces the van film
+
+- The friends section's film is now Amy's own 1080×1920 clip, sent to
+  the operator directly (an iPhone export with a camcorder-viewfinder
+  template burned in): Amy treating a seated guest in the van, two
+  shots joined by a zoom-blur. Screened frame by frame — the only
+  legible text is the template's chrome; the wide shot's tray holds
+  wrapped packets only; the seated guest's website-use release is
+  confirmed on file (the operator's word is the record), so no
+  preview-only flag. Muted: the operator listened (music only, no
+  speech), but the song is a commercial recording and a business site
+  needs a license a social platform's library does not grant — the
+  sounded cut waits on that license (DECISIONS 2026-09-03).
+- Content-named `van-viewfinder-treatment`, the 24rem-slot recipe
+  (810×1440, CRF 20, 5.39MB at 3.46Mbps), a poster from the rendition,
+  a one-cue caption file; the wrapper's cap lifts from 18rem to the
+  row's 24rem, the lift the 2026-09-02 entry pre-authorized. The van
+  film's poster and captions are deleted; its Blob object goes once no
+  open preview references it. The treatment-film phone-autoplay policy
+  is a separate PR by the operator's choice.
+- Same day, on the preview: the template's tiled reveal (the first
+  2.33 s) replayed at the top of every loop, so the operator had it
+  trimmed — a re-encode from the master under the stem
+  `van-viewfinder-treatment-trim` (10.1 s, the poster and captions
+  re-cut with it; the untrimmed object deleted once the preview moved
+  off it; DECISIONS, the entry's trim addendum).
+
 ### 2026-09-03 — Home carousel autoplays on phones
 
 - Reported from an Android phone: the film band did not autoplay. Two

@@ -225,8 +225,10 @@ rendition is a 16:9 center crop of its portrait master — DECISIONS
 2026-08-26). `autoplay="inview"` (same
 day, operator direction) plays a film MUTED and looping while ~a third
 of it is on screen, via the static `public/js/treatment-video.js`
-(~2KB; reduced motion = click-to-play; the controls are the pause and
-the tap-for-sound) — opt in ONLY for Amy's own speech-free films,
+(~3KB; the controls are the pause and the tap-for-sound; since
+2026-09-03 the films play under reduced motion too and a refused
+play() retries inside the first gesture — the carousel's phone policy,
+DECISIONS same date) — opt in ONLY for Amy's own speech-free films,
 never a manufacturer film or one with narration (one scoped operator
 override: the ICON film on /about — DECISIONS 2026-08-25; the /about
 team film needs no override, being site-authored and speech-free).

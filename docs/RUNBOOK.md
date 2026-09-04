@@ -275,6 +275,59 @@ Master files stay in the operator's archive (C:\Amy\Videos,
 C:\Amy\New Pics) — renditions are re-derivable; the Blob copy is
 serving infrastructure, not the archive.
 
+## The home page's motion layer and the hero reel
+
+Adopted 2026-09-04 (DECISIONS 2026-09-03, the home entry and its
+tweaks; `docs/HOME-CONCEPT.md` is the working record). The home page —
+and only the home page — runs a scripted layer: self-hosted GSAP 3.15
+(core, ScrollTrigger, SplitText — free under the GSAP standard license
+since 3.13) and Lenis 1.3 (MIT) in `public/js/vendor/`, plus
+`public/js/motion-flag.js` (sets `html.motion` before paint,
+self-cancels in 4s) and `public/js/home-motion.js` (the choreography
+and the hero reel). The vendor files are copied from `node_modules`
+(`gsap`, `lenis` are devDependencies); updating one means copying the
+new build in and re-running `npm run verify` — script-src stays
+`'self'`, nothing loads from a CDN. If any script fails, the flag is
+removed and the page is the CSS-only home; under
+`prefers-reduced-motion` the choreography stands down and the hero
+reel still plays (the films policy). The Lighthouse matrix's home row
+carries an 80KB script budget for the layer (measured ~69KB gzipped);
+every other page keeps 30KB.
+
+**The hero reel** is a film facade: the portrait `<Image>` ships and
+paints; the script attaches the carousel's muted studio rendition
+(`commercial-studio.mp4`, the media origin) over it. Every setting is a
+data attribute on the `.nc-hero__media` element in
+`src/components/ConceptHome.astro`:
+
+| Knob | Today | Meaning |
+|---|---|---|
+| `data-first` | `5` | seconds the portrait holds the hero alone after load before the reel fades in |
+| `data-ranges` | `10.4-11.72,2.5-3.15,6.15-6.78` | the screened passages, seconds of the master, played in order |
+| `data-rate` | `0.5` | the reel's pace (0.5 is the browsers' floor) |
+| `data-xfade` | `0.8` | the freeze-frame dissolve at each join, seconds (a cut under reduced motion) |
+| `data-still` | `5` | seconds the film rests on the portrait at the end of every pass (`0` = passes run straight on) |
+| `data-plays` | `0` | passes before the film ends on the portrait for good (`0` = forever) |
+
+**Swapping or re-trimming the reel:** the hero's cover crop shows far
+more of a frame than the carousel's bounded stage, so screen at hero
+size — a contact sheet of the whole film (`ffmpeg -i in.mp4 -vf
+"fps=2,scale=200:-1,tile=8x4" -frames:v 1 sheet.png`) plus full-frame
+zooms of anything legible — and write the DECISIONS entry BEFORE the
+change. The studio reel's arrivals at the door are OUT (the wall print
+behind them names the competitor neuromodulator), as are its counter
+shots (retired packaging) and the car selfie; that is why the three
+passages exist. Confirm each window's end on a 10fps edge strip
+(`-ss <end-0.3> -t 0.6 -vf "fps=10,…"`): the second window's end was
+3.25 until such a strip showed the next shot's first frame inside it.
+Playback never shows a frame outside a window (the join freezes the
+last in-window frame onto a canvas before seeking), so a wrong end is a
+missing frame, not a leaked one — but keep the windows honest anyway.
+Verify a change with the built page: sample the film's opacity,
+`paused`, and `currentTime` every 50ms for a cycle (HOME-CONCEPT
+"How it was verified"); expect 0 frames outside a window, no visibly
+paused frame, and one fetch of the reel.
+
 ## Turning on analytics (Plausible — prepped 2026-08-17, ships dark)
 
 Everything is wired and gated behind `siteConfig.analytics`

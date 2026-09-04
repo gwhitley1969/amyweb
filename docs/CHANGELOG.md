@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-04 — The home documents catch up with the adopted concept (docs only)
+
+- After the #179 merge, six documents still described the home page as
+  it was before the concept: BUILD_SPEC §6's home row and §5's motion
+  sentence, RUNBOOK (a new section for the motion layer and the hero
+  reel's knobs), RELAUNCH's production probes, CLINICIAN-SIGN-OFF's
+  pending-demo row for Amy, REDESIGN's open items (the deferred rounds
+  and the headline candidates), and HOME-CONCEPT's commit table. All
+  six now describe the adopted page (DECISIONS 2026-09-04, the docs
+  entry).
+
 ### 2026-09-04 — Home concept adopted: merged into phase-c
 
 - The 2026-09-03 home concept ("the neon comes on") merged on the

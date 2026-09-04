@@ -6,6 +6,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-03 — The reduced-motion principle lines catch up (docs only)
+
+- CLAUDE.md constraint 6 gains its inline scoped exception — the films
+  autoplay muted under prefers-reduced-motion as content with a pause
+  control; every decorative move still stands down — and BUILD_SPEC's
+  quality-floor line, accessibility checklist, and §9 carousel sentence
+  say the same, after #180 and #182 had changed the contract lines but
+  not the principle lines (DECISIONS 2026-09-03, the docs entry).
+
 ### 2026-09-03 — Treatment films take the carousel's phone policy
 
 - The treatment-film autoplay script (`treatment-video.js`, eight
@@ -46,6 +55,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
   `van-viewfinder-treatment-trim` (10.1 s, the poster and captions
   re-cut with it; the untrimmed object deleted once the preview moved
   off it; DECISIONS, the entry's trim addendum).
+
+### 2026-09-03 — Home carousel autoplays on phones
+
+- Reported from an Android phone: the film band did not autoplay. Two
+  causes fixed. The band no longer sits out when the phone reports
+  Reduce Motion (Android's "Remove animations", iOS Reduce Motion): the
+  films are content with a pause control, so they play and only the
+  crossfade drops to a cut (operator decision). And when a phone refuses
+  script-started playback (iOS Low Power Mode, battery or data modes),
+  the band now retries inside the person's first touch or key press —
+  the first scroll counts — instead of giving up on the Play button. The
+  built video also carries the muted and inline attributes Safari wants
+  (DECISIONS 2026-09-03).
 
 ### 2026-09-02 — /mobile: "Amy comes to you." (new page, on a preview for Amy)
 

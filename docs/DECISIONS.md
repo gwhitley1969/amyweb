@@ -7649,6 +7649,71 @@ flags carry forward unchanged: the seated guest's release and, only
 if Amy wants sound, the operator's listen-and-confirm on the source
 audio.
 
+## 2026-09-03 — Home carousel: autoplay on phones (reduced motion no longer gates the films; a refused play() retries on the first gesture)
+
+**Context.** The operator was told the home carousel does not
+autoplay on phones — an Android phone. Investigated in detail on the
+#179 preview: emulating a 390px phone on a throttled 6 Mbps link, the
+band starts within half a second of scrolling into view even with the
+concept branch's hero reel downloading beside it, so bandwidth and the
+site's own timing are not the cause (the four renditions are
+6.3–7.9MB each — heavy, but progressive). The emulator's autoplay
+policy is permissive; real phones refuse script-started playback in
+known conditions, and `video-carousel.js` handled a refusal by
+swallowing the rejected promise and leaving the Play button — one
+attempt, never retried. The conditions: (1) `prefers-reduced-motion`
+— Android's "Remove animations" accessibility setting and iOS Reduce
+Motion both report it, and the carousel's contract since 2026-08-14
+was "nothing autoplays" under it; (2) iOS Low Power Mode and
+comparable battery/data modes, which refuse `play()` until the person
+has touched the page; (3) the iOS quirk that a script-built `<video>`
+wants the `muted` ATTRIBUTE, not only the property.
+
+**Decision (operator, 2026-09-03).** (a) The films autoplay under
+`prefers-reduced-motion` too: they are content with a pause control
+(WCAG 2.2.2 is the toggle button), not decoration; only the crossfade
+stands down (the CSS `transition: none` stays, so the slide switch is
+a cut). The decorative moves — reveals, the sign's breath, the concept
+branch's choreography — keep respecting the preference; constraint 6's
+"reduced-motion respected" is unchanged in spirit and this entry is
+its scoped exception. (b) A refused `play()` arms a one-shot retry
+inside the person's first `touchend` / `pointerup` / `keydown`
+(capture, passive), which is the user activation those policies wait
+for — a touch-scroll's `touchend` counts, so on a phone the first
+scroll unlocks the band. (c) The built `<video>` carries `muted` and
+`webkit-playsinline` attributes beside the properties. Shipped on its
+own branch into `phase-c` (the script is shared; the standing demo has
+the same behaviour) and merged into the concept branch so #179
+carries it.
+
+**Alternatives rejected.** Lower-bitrate phone renditions (the sizes
+are heavy, but the measured start times show they are not the
+blocker; a real option later — and never for J1/J2, whose burned-in
+safety text must stay legible). Keeping the reduced-motion gate and
+documenting it (the operator's direction is that the films play). An
+`autoplay` attribute (the IntersectionObserver already decides when;
+an attribute would start films out of view).
+
+**Consequences.** Script grows by ~0.6KB (budget untouched). Under
+reduced motion the band now moves; the treatment-page in-view script
+(`treatment-video.js`, "reduced motion = click-to-play") is NOT
+changed by this entry — widening the policy to those films is a
+separate operator call. Verified locally with a `play()` stub that
+refuses until a touch: the band shows Play after scrolling into view
+and starts on the first tap; and with reduced motion emulated, the
+band autoplays. A real iPhone or Android cannot be driven from here —
+the reporter's phone is the confirmation.
+
+**Operator review (2026-09-03):** merged into `phase-c` on the operator's
+word ("Go ahead and merge #180"), after the treatment-film policy
+(PR #182) had already landed — this branch took a merge of `phase-c`
+first (the append-only records were the only conflicts; CLAUDE.md's
+consumer list merged on its own with both 2026-09-03 sentences). With
+both merged, every film on the site plays under prefers-reduced-motion
+by the same rule; the principle-level lines (CLAUDE.md constraint 6,
+BUILD_SPEC's quality floor, §9's carousel sentence, and the
+accessibility checklist) catch up in a docs PR of their own, next.
+
 ## 2026-09-03 — /mobile: the viewfinder film replaces the van film (Amy's own 1080 clip; the sound held for a license)
 
 **Context:** the operator supplied `snoop.mp4` (their archive,
@@ -7920,3 +7985,43 @@ Power Mode on) stays the operator's. PR #180 (the carousel's own copy
 of this policy) is still open and edits the neighbouring sentence of
 CLAUDE.md's consumer list — it takes a merge of `phase-c` before it
 lands.
+
+## 2026-09-03 — The reduced-motion principle lines catch up with the film decisions (docs only)
+
+**Context.** Two decisions that day changed what plays under
+`prefers-reduced-motion`: the home carousel (PR #180) and the eight
+treatment-film players (PR #182) now autoplay muted under the
+preference, each recorded as a scoped exception to constraint 6's
+"reduced-motion respected". Asked before the merges whether every
+pertinent document had been updated, the assistant found the
+contract-level lines all changed (the scripts, the component, the
+consumer sentences in CLAUDE.md, BUILD_SPEC §9's treatment paragraph,
+RUNBOOK, the consumer comments) but four principle-level lines still
+read as if nothing plays under the preference — and constraint 6 did
+not carry its exception inline the way constraints 2 and 3 carry
+theirs. The operator's direction: merge #180, then open this PR.
+
+**Decision.** Docs only, no rendered byte changes:
+1. CLAUDE.md constraint 6 gains its inline scoped exception, in the
+   form the other constraints use: the FILMS autoplay muted under the
+   preference — content with a pause control (the toggle, the native
+   controls — WCAG 2.2.2's mechanism), not decoration; every decorative
+   move still stands down; widening it beyond films requires the human
+   operator.
+2. BUILD_SPEC's quality-floor line (§5) and accessibility checklist
+   (§13) name the exception beside the principle.
+3. BUILD_SPEC §9's carousel sentence — "reduced-motion serves posters +
+   play-on-request" — becomes the 2026-09-03 policy, with the old
+   behaviour dated (PR #180 had left that sentence as it was).
+
+**Alternatives rejected.** Leaving the principle lines alone on the
+grounds that DECISIONS records the exceptions (the constraints are
+what a reader checks first; an exception only in the log is the
+loophole the 2026-08-25 Laurel round closed elsewhere). Rewriting
+constraint 6 itself (the principle stands; the films are the
+exception).
+
+**Consequences.** Every statement of the reduced-motion rule now agrees:
+decorative motion stands down, films play with a pause control. Nothing
+else changes; the docs-only path skips the preview pipeline by design
+(`paths-ignore`), so the Relaunch guard is this PR's only check.

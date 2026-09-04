@@ -349,8 +349,9 @@ JSON-LD component (§10), Breadcrumbs (treatment pages), FAQ block (optional,
 only with approved content).
 
 Quality floor without announcing it: responsive to 360px, visible keyboard
-focus on every interactive element, `prefers-reduced-motion` respected, no
-layout shift from fonts or images.
+focus on every interactive element, `prefers-reduced-motion` respected (for
+every decorative move; the films are the scoped exception — CLAUDE.md
+constraint 6, DECISIONS 2026-09-03), no layout shift from fonts or images.
 
 ## 6. Sitemap & page specs
 
@@ -889,7 +890,11 @@ action.
   elements and zero video bytes until the stage scrolls into view;
   muted renditions; captions mirror each film's on-screen text
   (public/media/*.vtt — outside lint scope, controlled by the per-film
-  override entries); reduced-motion serves posters + play-on-request.
+  override entries); since 2026-09-03 the films autoplay under
+  reduced motion too (operator decision — content with a pause control;
+  only the crossfade stands down) and a refused play() retries inside
+  the person's first gesture on phones (DECISIONS 2026-09-03); before
+  that date reduced motion served posters + play-on-request.
   Treatment-page films (`TreatmentVideo`) are click-to-play with sound
   by default; the `autoplay="inview"` opt-in (2026-08-21, the two
   biostimulators reels — operator direction, DECISIONS same date) plays
@@ -979,7 +984,10 @@ action.
   target size ≥ 24×24 CSS px (2.2 criterion).
 - Meaningful alt text (decorative images `alt=""`); motifs/chevrons are
   decorative.
-- `prefers-reduced-motion` disables all non-essential animation.
+- `prefers-reduced-motion` disables all non-essential animation — the
+  films are content, not animation, and keep autoplaying muted with
+  their pause control (the 2026-09-03 scoped exception, CLAUDE.md
+  constraint 6).
 - Announce external links pattern (icon + visually-hidden "opens in new tab").
 - **Testing:** `npm run test:a11y` runs axe (via @axe-core/cli or pa11y-ci)
   against the built site's key templates; manual keyboard + screen-reader

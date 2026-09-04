@@ -32,8 +32,10 @@
  * Display weights are 500 with tight tracking ("serious glamour",
  * DECISIONS 2026-07-18): a lighter serif at scale reads editorial. */
 @utility display-0 {
-  /* Home-hero only. Apply responsively (e.g. display-2 md:display-0) so
-   * it never overflows a 360px viewport. */
+  /* The home hero and, since 2026-09-03, the home's section openers
+   * ("enormous type, few words" — REDESIGN gap 2). Apply responsively
+   * (e.g. heading-2 md:display-0) so it never overflows a 360px
+   * viewport. */
   font-family: var(--font-display);
   font-size: 4.75rem; /* 76px */
   line-height: 1.02;
@@ -214,7 +216,9 @@ body:not([data-surface='noir']) {
 }
 
 /* ---- Motion vocabulary ("serious glamour" + same-day client round) ----
- * EXACTLY these sanctioned moves (DECISIONS 2026-07-18):
+ * EXACTLY these sanctioned moves (DECISIONS 2026-07-18; four transform-
+ * only moves added 2026-09-03 — the scale-and-rhythm round, gap 6 of the
+ * REDESIGN yardstick, DECISIONS same date):
  *   bloom — the sign BREATHES: a slow, deep aura swell on the hero
  *     lockup only (5.6s — luxury tempo, not the retired 3.2s hum).
  *     Continuous, so it is perceivable whenever the visitor looks.
@@ -226,14 +230,37 @@ body:not([data-surface='noir']) {
  *   nudge — the 3px link-chevron hover translate (unchanged).
  *   aura — the STATIC halo (.ng-aura), the sign's reduced-motion and
  *     resting state.
+ *   settle — the hero still eases once from scale 1.04 to 1 over 14s
+ *     (.ng-settle). Transform only, from a near-identity start: LCP
+ *     paint and CLS are untouched, and the "never on the hero" rule
+ *     below is about opacity-0 reveals, which this is not.
+ *   drift — a full-bleed band photo slides 48px against the scroll
+ *     (.ng-drift; scroll-timeline, the rise/trace mechanism). The host
+ *     gives the image 48px of vertical overflow so no edge ever shows.
+ *   stagger — .ng-rise-2 / .ng-rise-3 push a sibling's rise range
+ *     later, so a row of plates arrives in sequence, not at once.
+ *   hover-scale — the photo inside an arch on a whole-card link
+ *     (.ng-lift) grows to 1.03 on hover/focus (250ms; the arch clips).
+ *   (The carousel's slide settle — .97 → 1 on the crossfade — rode with
+ *     the band's concept composition and was withdrawn with it on
+ *     2026-09-04; VideoCarousel.astro is phase-c's file again.)
  * The glow that moves lives in exactly two places — the sign and the
- * accent phrase; nothing else animates — the cap is the rule. All moves
- * are opacity/filter/transform/text-shadow only (no layout).
+ * accent phrase. Nothing else pulses: every other move is one-shot,
+ * scroll-scrubbed, or pointer-driven — the cap is the rule. All moves
+ * are opacity/filter/transform/text-shadow only (no layout). One
+ * scripted exception, standing since 2026-09-04 (operator adoption —
+ * DECISIONS 2026-09-03, the home entry): the home page's GSAP
+ * choreography in public/js/home-motion.js under html.motion; the CSS
+ * moves stand down under that flag so nothing animates twice.
  *
  * COMPLIANCE RULE: ng-rise / ng-trace are NEVER applied to
  * DisclaimerBlock, InvestigationalNotice, or BioteDisclaimer — an
  * opacity-0 initial state de-emphasizes compliance text. Also never
  * on the hero, page H1s, or the lockup (LCP + first-paint identity).
+ * Standing exception (operator adoption 2026-09-04): the HOME hero's
+ * headline rises word by word and the wordmark switches on — in
+ * home-motion.js only, with the LCP portrait painting unchanged; every
+ * other page's H1 and lockup keep the rule.
  *
  * Support: the @supports guard means browsers without scroll-timeline
  * simply render the finished state — content is never hidden. Reduced
@@ -330,6 +357,61 @@ body:not([data-surface='noir']) {
 .treatment-card:hover .chev-nudge,
 .treatment-card:focus-within .chev-nudge {
   translate: 3px 0;
+}
+
+/* ---- The 2026-09-03 moves (scale-and-rhythm round) ---- */
+
+/* settle — the hero still eases from 1.04 to 1, once. Host clips
+ * (.nc-hero__media has overflow hidden). */
+@keyframes ng-settle {
+  from {
+    scale: 1.04;
+  }
+  to {
+    scale: 1;
+  }
+}
+.ng-settle {
+  animation: ng-settle 14s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+
+/* drift — a full-bleed band photo travels ±24px against the scroll
+ * over the band's whole pass through the viewport. The HOST owns the
+ * overflow: image height calc(100% + 48px) and margin-top -24px, so the
+ * travel never exposes an edge (see .nc-band__media in ConceptHome). */
+@keyframes ng-drift {
+  from {
+    translate: 0 -24px;
+  }
+  to {
+    translate: 0 24px;
+  }
+}
+@supports (animation-timeline: view()) {
+  .ng-drift {
+    animation: ng-drift linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+  /* stagger — later siblings in a row rise later (later rules win the
+   * tie with .ng-rise above). */
+  .ng-rise-2 {
+    animation-range: entry 15% entry 55%;
+  }
+  .ng-rise-3 {
+    animation-range: entry 25% entry 65%;
+  }
+}
+
+/* hover-scale — the arched photo inside a whole-card link breathes in.
+ * The arch's overflow:hidden clips the growth; 250ms matches the card's
+ * top-rule draw. */
+.ng-arch img {
+  transition: scale 250ms ease;
+}
+.ng-lift:hover .ng-arch img,
+.ng-lift:focus-within .ng-arch img {
+  scale: 1.03;
 }
 
 /* ---- Elevation: the raised plate (client direction 2026-07-27) ----
@@ -445,9 +527,16 @@ body:not([data-surface='noir']) {
   }
   /* Scroll-timeline animations ignore duration overrides — stop them
    * outright. Base styles are the finished state, so everything stays
-   * fully visible. */
+   * fully visible. The 14s settle is killed the same way (a 0.01ms run
+   * would still snap), and the hover-scale rests at 1. */
   .ng-rise,
-  .ng-trace {
+  .ng-trace,
+  .ng-drift,
+  .ng-settle {
     animation: none !important;
+  }
+  .ng-lift:hover .ng-arch img,
+  .ng-lift:focus-within .ng-arch img {
+    scale: 1;
   }
 }

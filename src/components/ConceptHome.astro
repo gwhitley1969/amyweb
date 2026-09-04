@@ -15,6 +15,7 @@ import amyTreatingClient from '../assets/photos/amy-treating-client-neon.jpg';
 import skinbetterInHand from '../assets/photos/skinbetter-in-hand.jpg';
 import amyLavenderSuit from '../assets/photos/amy-lavender-suit.jpg';
 import igPost from '../assets/photos/amy-ig-post.jpg';
+import vanTreatmentInterior from '../assets/photos/van-treatment-interior.jpg';
 
 /**
  * THE HOME PAGE (C8 flipped 2026-08-04 — index.astro renders this
@@ -42,6 +43,22 @@ import igPost from '../assets/photos/amy-ig-post.jpg';
  * The three category doors: Injectables / Skin & Body / Wellness match
  * the /services menu groups exactly (serviceLines CATEGORIES); the door
  * lines enumerate each group's four treatment lines factually.
+ *
+ * SCALE + RHYTHM ROUND (2026-09-03, operator direction after the design
+ * critique; DECISIONS same date). At >=900px: the hero photo bleeds
+ * toward the copy (the copy stays on SOLID noir — the Phase C
+ * text-over-photo rule is kept, not excepted), the statement grows to
+ * the full display clamp over a one-sentence lead, the section openers
+ * step up to display sizes over one-sentence decks (the §6 credentials
+ * kept as a compact line), and a noir statement band ("Amy comes to
+ * you." beside the van interior — /mobile's first door on the home
+ * page) punctuates the ombre between the doors and the visit beat. The
+ * film band keeps phase-c's composition: the concept's side-by-side
+ * layout (heading + controls beside the film, the slide settle) was
+ * withdrawn 2026-09-04 at the operator's direction — "I want that part
+ * to look like what we have in PR #149" — and VideoCarousel.astro is
+ * phase-c's file again. Phones (<900px) are unchanged by
+ * design — reviews happen on Amy's phone first (REDESIGN gap 7).
  */
 
 /* Door photos replaced 2026-08-17 (Amy's picks, photo-replacement
@@ -73,6 +90,16 @@ const doors = [
   },
 ] as const;
 
+/* The MA chevrons for the scroll cue (hand-copied from VisitSteps.astro,
+ * itself from the brand mark; MA is Amy's own PLLC). Rotated 90° in CSS
+ * to point down; decorative. HOME CONCEPT 2026-09-03. */
+const CHEVRONS = [
+  'M24.19 108.00 L42.19 108.00 L89.49 158.98 L42.16 210.00 L24.16 210.00 L71.49 158.98 Z',
+  'M84.99 108.00 L102.99 108.00 L150.28 158.98 L102.95 210.00 L84.95 210.00 L132.28 158.98 Z',
+  'M146.07 108.00 L164.07 108.00 L211.36 158.98 L164.04 210.00 L146.04 210.00 L193.36 158.98 Z',
+  'M207.02 108.00 L225.02 108.00 L272.32 158.98 L224.99 210.00 L206.99 210.00 L254.32 158.98 Z',
+];
+
 // REVIEW SCAFFOLDING (ReviewNumber.astro) — letter tag for this route.
 // Keyed by pathname: this component also renders /styleguide/concept,
 // which is deliberately left untagged.
@@ -96,6 +123,28 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
     </div>
   )}
 
+  {/* ---- HOME CONCEPT (2026-09-03): the motion layer. The operator lifted
+      the zero-JS rule FOR THIS BRANCH (concept test; DECISIONS same
+      date). Static same-origin files only — script-src stays 'self'.
+      motion-flag runs synchronously so the choreographed elements can
+      start hidden without a flash; the engines and the choreography are
+      deferred in order. Under reduced motion, or if any file fails, the
+      page is the CSS-only home from this branch (motion-flag
+      self-cancels). Script bytes: ~155KB raw / ~65KB gzipped — over the
+      house 30KB script budget BY THE OPERATOR'S DECISION for this
+      branch: lighthouserc.json carries a HOME-ONLY row at 80KB for the
+      branch (the PR preview workflow runs the gates before deploying,
+      so the lift had to reach the gate or there is no preview); every
+      other budget and every other page keep the house row. ---- */}
+  <Fragment slot="head">
+    <script is:inline src="/js/motion-flag.js"></script>
+    <script is:inline defer src="/js/vendor/gsap.min.js"></script>
+    <script is:inline defer src="/js/vendor/ScrollTrigger.min.js"></script>
+    <script is:inline defer src="/js/vendor/SplitText.min.js"></script>
+    <script is:inline defer src="/js/vendor/lenis.min.js"></script>
+    <script is:inline defer src="/js/home-motion.js"></script>
+  </Fragment>
+
   {/* ---- HERO: noir band, Amy herself — seated on the studio counter
       beneath her own neon script (her own signage — sole owner,
       DECISIONS 2026-07-23), the frame Amy picked for the front door
@@ -107,7 +156,59 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
       sitewide arch motif (operator, 2026-08-17): the hero is the
       full-bleed backdrop, not a framed picture. ---- */}
   <section class="nc-hero surface" data-surface="noir">
-    <div class="nc-hero__media" aria-hidden="true">
+    {/* HOME CONCEPT (2026-09-03): the media is a film facade — Amy's
+        portrait <Image> is what ships and paints (LCP unchanged);
+        home-motion.js attaches her studio reel (the carousel's muted
+        rendition at the recorded 0.5×, captions track from public/media)
+        a beat after `load`, fading it in over the portrait. data-ranges
+        TRIMS the reel to its three treatment passages (seconds of the
+        master, played in order and looped, dissolves at the joins): the
+        hero's cover crop would otherwise show the reel's car selfie, the
+        packaging-in-hand shots, and the table with promo flyers at a
+        size the carousel's bounded stage never did — a trim is an
+        editorial choice, recorded (DECISIONS 2026-09-03 addendum), not an
+        override. The burned-in "POV" caption is Amy's own published
+        wording and stays in frame. The film runs CONTINUOUSLY (fourth
+        tweak, 2026-09-04 — "it looks like it stops completely, then it
+        begins again … it can continuously play the film"): at a
+        passage's last frame the frame is painted onto a canvas above the
+        player, the player seeks to the next passage and plays beneath
+        it, and the canvas dissolves away over data-xfade (0.8s) — no
+        rest, no visible seek, no frame outside a window (two alternating
+        players did the same and downloaded the reel four times over).
+        data-still (fifth tweak, same day — "we hardly see the pic of Amy
+        sitting on the table top with the needles in each hand … she
+        wants people to see that pic, clearly during the film"): at the
+        end of every pass the reel dissolves away (1.2s) to the portrait
+        beneath it, rests there for data-still seconds, and dissolves
+        back in (1.6s) at the first passage — the still is part of the
+        loop, not its end. With data-plays set, the last pass ends on
+        the portrait and stays. data-first (same tweak): the portrait
+        opens the page alone for that many seconds after load before the
+        reel is attached and fades in (2.5 before). This retires the first tweak's data-hold (the
+        3.5s rest WAS the stall the operator saw) and the second tweak's
+        two-pass ending (data-plays 0 = forever; the portrait stays
+        underneath and is never returned to). The second window's end
+        moved 3.25 → 3.15 the same day: a 10fps edge strip showed the
+        car selfie's first frame inside it. Reduced motion: the film
+        still plays (operator decision 2026-09-03 — films are content,
+        the carousel policy) with the joins as cuts; only the
+        choreography stands down. Phones: a refused play() retries on
+        the first gesture. */}
+    <div
+      class="nc-hero__media"
+      aria-hidden="true"
+      data-hero-film
+      data-file={`${siteConfig.mediaBase}/commercial-studio.mp4`}
+      data-vtt="/media/commercial-studio.vtt"
+      data-label="A day inside Amy's Harrisburg studio"
+      data-rate="0.5"
+      data-ranges="10.4-11.72,2.5-3.15,6.15-6.78"
+      data-plays="0"
+      data-xfade="0.8"
+      data-still="5"
+      data-first="5"
+    >
       {/* INTERIM AI-ASSISTED ASSET (disclosed — DECISIONS 2026-08-14):
         * the only available source is a 642px social-size save, well
         * below this slot's 1400px delivery, so the committed JPEG is a
@@ -121,7 +222,7 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
         alt=""
         widths={[760, 1080, 1400]}
         sizes="(max-width: 900px) 100vw, 58vw"
-        class="nc-photo nc-hero__img"
+        class="nc-photo nc-hero__img ng-settle"
         loading="eager"
         fetchpriority="high"
       />
@@ -132,9 +233,11 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
         Medical Aesthetics,
         <span class="display-accent ng-shimmer">made personal.</span>
       </h1>
-      <p class="lead mt-6 max-w-prose">
-        The dedicated practice of Amy Palacios, FNP (AKA Needle Girlie) and
-        owner of Mobile Aesthetics, clinician-led aesthetics since 2017.
+      {/* One sentence, the one thing only this practice can say (2026-09-03;
+          the former two-line lead is on the record in DECISIONS). */}
+      <p class="lead nc-hero__lead mt-6">
+        One clinician, every appointment. Amy Palacios, FNP, in medical
+        aesthetics since 2017.
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-4">
         <CTAButton variant="book" />
@@ -142,6 +245,13 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
       </div>
       <div class="mt-8">
         <TrustChips />
+      </div>
+      {/* The scroll cue: the four MA chevrons, pointing down, pulsing in
+          sequence (CSS). HOME CONCEPT 2026-09-03. */}
+      <div class="nc-cue" aria-hidden="true">
+        <svg viewBox="24.16 108 248.16 102" fill="none">
+          {CHEVRONS.map((d) => <path d={d} />)}
+        </svg>
       </div>
     </div>
   </section>
@@ -157,21 +267,21 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
       paragraph. Opener keeps the traced rule; the label is dropped
       (taste-audit eyebrow ration — the heading carries the section). ---- */}
   <section>
-    <div class="mx-auto grid max-w-6xl gap-10 px-6 py-20 md:grid-cols-[5fr_4fr] md:gap-16">
+    <div class="mx-auto grid max-w-6xl gap-10 px-6 py-20 md:grid-cols-[5fr_4fr] md:items-center md:gap-16 md:py-28">
       <div>
         <hr class="rule-accent ng-trace" aria-hidden="true" />
-        <h2 class="heading-2 md:display-2 mt-6">Your plan, your pace.</h2>
+        <h2 class="heading-2 md:display-0 mt-6">Your plan, your pace.</h2>
       </div>
-      <div class="ng-rise self-end">
-        <p class="lead">
-          Book an appointment whenever you are ready, or request a free consultation
-          first and talk it through with Amy. Either way, the plan is personal, and
-          every decision is made with her, at your pace.
+      <div class="ng-rise">
+        {/* One-sentence deck (2026-09-03); the §6 "Meet Amy" credentials
+            stay below it as a compact line — never dropped. */}
+        <p class="lead nc-lead-lg">
+          Book when you are ready, or talk it through with Amy first. Every
+          decision is made with her, at your pace.
         </p>
-        <p class="mt-4 max-w-prose">
-          Amy is a licensed family nurse practitioner with two decades of nursing
-          behind her, in medical aesthetics since 2017, and a Biote-certified
-          provider.
+        <p class="nc-credentials mt-6">
+          Licensed family nurse practitioner, two decades in nursing, in medical
+          aesthetics since 2017, and a Biote-certified provider.
           <a href="/about" class="nc-more">More about Amy
             <span class="chev-nudge" aria-hidden="true">&rsaquo;</span></a>
         </p>
@@ -188,11 +298,19 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
   <section>
     <div class="mx-auto max-w-6xl px-6 py-20">
       <hr class="rule-accent ng-trace" aria-hidden="true" />
-      <h2 class="heading-2 mt-6">What Amy offers</h2>
+      <h2 class="heading-2 md:display-1 mt-6">What Amy offers</h2>
       <div class="mt-10 grid gap-6 sm:grid-cols-3">
         {
-          doors.map((door) => (
-            <article class="nc-door ng-lift ng-rise">
+          /* ng-rise-2/-3: the second and third doors rise later (stagger,
+           * global.css, 2026-09-03). */
+          doors.map((door, i) => (
+            <article
+              class:list={[
+                'nc-door ng-lift ng-rise',
+                i === 1 && 'ng-rise-2',
+                i === 2 && 'ng-rise-3',
+              ]}
+            >
               <figure class="nc-door__arch ng-arch" aria-hidden="true">
                 <Image
                   src={door.photo}
@@ -222,6 +340,45 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
     </div>
   </section>
 
+  {/* ---- THE STATEMENT BAND: the ombre's noir punctuation (2026-09-03).
+      The van interior — Amy's treatment room on wheels, the /mobile
+      hero's screened 4:5 crop (2026-09-02; the frame's prep-workflow
+      third is outside the window), no people, no packaging — bleeds
+      from the left edge; the statement sits on noir to its right, never
+      over the photo (Phase C plate rule), and gives /mobile its first
+      door on the home page. As a full-bleed backdrop the photo is
+      EXEMPT from the arch motif under the hero-backdrop rationale — the
+      fifth exemption (DECISIONS 2026-09-03). Retina: the photo column
+      is min(60%, 48rem) — 768px CSS at 1280 and capped there above it —
+      against the 1536px source: 2× exactly. (The first pick for this
+      slot, Amy holding her neon sign, was rejected on the record: at
+      band size the Evolysse carton on the table reads, and Amy retired
+      Evolysse content from the site 2026-08-21.) ---- */}
+  <section class="nc-band surface" data-surface="noir" aria-labelledby="nc-band-heading">
+    <figure class="nc-band__media" aria-hidden="true">
+      <Image
+        src={vanTreatmentInterior}
+        alt=""
+        widths={[760, 1080, 1536]}
+        sizes="(min-width: 900px) min(60vw, 48rem), 100vw"
+        quality={62}
+        loading="lazy"
+        class="nc-photo ng-drift"
+      />
+    </figure>
+    <div class="nc-band__copy">
+      <h2 class="heading-2 md:display-1" id="nc-band-heading">Amy comes to you.</h2>
+      <p class="lead nc-lead-lg mt-6">
+        Homes, offices, and gatherings around Charlotte, in a van fitted out as a
+        treatment room.
+      </p>
+      <p class="mt-8">
+        <a href="/mobile" class="nc-more nc-more--lg">How a party works
+          <span class="chev-nudge" aria-hidden="true">&rsaquo;</span></a>
+      </p>
+    </div>
+  </section>
+
   {/* ---- THE VISIT + LOCATION: canvas beat, photo-free. The reassurance
       copy routes to /visit; LocationCard carries the §6 location strip
       (NAP + directions link-out). ---- */}
@@ -229,7 +386,7 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
     <div class="mx-auto grid max-w-6xl gap-10 px-6 py-20 md:grid-cols-[5fr_4fr] md:gap-16">
       <div>
         <hr class="rule-accent ng-trace" aria-hidden="true" />
-        <h2 class="heading-3 mt-6">Unhurried, explained, and yours to decide.</h2>
+        <h2 class="heading-2 md:display-2 mt-6">Unhurried, explained, and yours to decide.</h2>
         <p class="mt-4 max-w-prose">
           Time to talk before anything begins: nothing is rushed, and nothing is
           decided without you. See how a visit works, from booking to aftercare.
@@ -373,30 +530,52 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
       mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
     }
   }
+  /* >=900px (2026-09-03): the photo bleeds toward the copy. It is
+   * absolutely placed from 44% of the width to the right edge and masked
+   * in over its first 30% (full opacity from ~61% of the viewport). The
+   * copy column is capped at 43vw (40rem at most) with a 4vw left pad,
+   * so its widest line — "Aesthetics," at 7.2vw, or the balanced "made
+   * personal." at tablet widths — ends before 44% at every width from
+   * 900px up: every glyph sits on solid noir and the Phase C plate rule
+   * holds without an exception (measured at 900/1024/1280/1440/1920:
+   * glyph and paragraph right edges vs the media's left edge,
+   * 2026-09-03). A bottom scrim rides the media's own overlay (dark
+   * gloss, gap 4). The media box at 1280 is 708×~900 — the source's own
+   * 0.72 aspect, so the frame shows whole. */
   @media (min-width: 900px) {
     .nc-hero {
-      grid-template-columns: 45% 55%;
-      align-items: center;
-      min-height: 88vh;
+      display: block;
+      position: relative;
+      min-height: 92vh;
+      overflow: hidden;
     }
     .nc-hero__copy {
-      order: 0;
-      padding: 5rem 3rem 5rem 4rem;
+      position: relative;
+      z-index: 3;
+      max-width: min(40rem, 43vw);
+      padding: clamp(4rem, 9vh, 7rem) 1.5rem 4rem clamp(2rem, 4vw, 4rem);
     }
     .nc-hero__media {
-      order: 1;
-      height: 88vh;
-      mask-image: linear-gradient(to right, transparent 0%, black 14%);
+      position: absolute;
+      inset: 0 0 0 44%;
+      mask-image: linear-gradient(to right, transparent 0%, black 30%);
+    }
+    .nc-hero__media::after {
+      background:
+        linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, transparent 30%),
+        color-mix(in srgb, var(--ng-magenta-600) 12%, transparent);
     }
   }
 
   /* Magazine headline — bigger than display-0; upright only (the italic
    * face import is retired: font budget + swap-CLS discipline for the
-   * future / gates). */
+   * future / gates). Cap raised 2026-09-03 (gap 2: enormous type) — the
+   * vw term stays 7.2 so the headline clears the bleeding photo at every
+   * width (see the >=900px hero note above). */
   .nc-display {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: clamp(2.75rem, 7.2vw, 6.5rem);
+    font-size: clamp(2.75rem, 7.2vw, 7.25rem);
     line-height: 1.02;
     letter-spacing: -0.015em;
     text-wrap: balance;
@@ -496,5 +675,181 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
     display: block;
     width: 100%;
     height: auto;
+  }
+
+  /* ---- 2026-09-03 additions (scale-and-rhythm round) ---- */
+
+  /* The hero's one-sentence lead and the openers' decks: one step up
+   * from `lead` at desktop, so the bigger headings keep a companion. */
+  .nc-hero__lead {
+    max-width: 30rem;
+  }
+  .nc-lead-lg {
+    max-width: 34rem;
+  }
+  @media (min-width: 900px) {
+    .nc-hero__lead,
+    .nc-lead-lg {
+      font-size: 1.5rem;
+      line-height: 1.45;
+    }
+  }
+  /* The §6 credentials, compact under the intro deck. */
+  .nc-credentials {
+    max-width: 34rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  /* THE STATEMENT BAND — photo left, statement right, on noir; stacked
+   * on phones. The image box is 48px taller than its frame (inset -24px)
+   * so ng-drift's ±24px travel never exposes an edge. */
+  .nc-band {
+    display: grid;
+  }
+  .nc-band__media {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+  }
+  .nc-band__media img {
+    position: absolute;
+    inset: -24px 0 auto 0;
+    width: 100%;
+    height: calc(100% + 48px);
+    object-fit: cover;
+    /* the 3:2 desktop window keeps the chairs and carts, drops the
+     * ceiling screen; phones show the 4:5 frame whole */
+    object-position: 50% 62%;
+  }
+  .nc-band__copy {
+    padding: 3rem 1.5rem 4rem;
+  }
+  @media (min-width: 900px) {
+    .nc-band {
+      /* photo column capped at 48rem: 2× of the 1536px source */
+      grid-template-columns: min(60%, 48rem) 1fr;
+      align-items: center;
+    }
+    .nc-band__media {
+      aspect-ratio: 3 / 2;
+    }
+    .nc-band__copy {
+      padding: 4rem 4rem 4rem 3.5rem;
+    }
+  }
+
+  /* ---- HOME CONCEPT (2026-09-03): the motion layer's styles. Everything
+   * below is keyed to html.motion (set by /js/motion-flag.js, home only)
+   * or to elements the concept adds, so the CSS-only home is untouched
+   * when the flag is absent. ---- */
+
+  /* GSAP owns these moves while the flag is on: the CSS versions stand
+   * down so nothing animates twice. */
+  .motion .ng-rise,
+  .motion .ng-trace,
+  .motion .ng-drift,
+  .motion .ng-settle {
+    animation: none !important;
+  }
+  /* Start hidden until the choreography reveals them (no flash — the
+   * flag lands before first paint; motion-flag self-cancels in 4s if the
+   * choreography never reports in). */
+  .motion .nc-hero__copy > *,
+  .motion main h2:not(.nc-hero h2) {
+    visibility: hidden;
+  }
+  /* The accent's CSS shimmer is held off while the switch-on flicker
+   * runs on the same text-shadow (home-motion adds/removes the class). */
+  .nc-neon-off {
+    animation: none !important;
+  }
+
+  /* The hero film sits over the poster, under the media's own overlays
+   * (::before z-index 1; ::after paints after children). */
+  .nc-hero__film {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+
+  /* The scroll cue: four chevrons pointing down, pulsing in sequence. */
+  .nc-cue {
+    margin-top: 2.5rem;
+    width: 3rem;
+  }
+  .nc-cue svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    rotate: 90deg;
+  }
+  .nc-cue path {
+    fill: var(--ng-pink-500);
+    opacity: 0.3;
+    animation: nc-cue 1.8s ease-in-out infinite;
+  }
+  .nc-cue path:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .nc-cue path:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .nc-cue path:nth-child(4) {
+    animation-delay: 0.45s;
+  }
+  @keyframes nc-cue {
+    0%,
+    100% {
+      opacity: 0.3;
+    }
+    30% {
+      opacity: 1;
+    }
+  }
+
+  /* The cursor light: a soft neon disc that follows the pointer, shown
+   * only over noir surfaces (home-motion drives x/y/opacity). */
+  .nc-glow {
+    position: fixed;
+    left: -22rem;
+    top: -22rem;
+    width: 44rem;
+    height: 44rem;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--ng-neon-500) 22%, transparent),
+      transparent 72%
+    );
+    mix-blend-mode: screen;
+  }
+
+  /* Lenis (weighted scroll) — its recommended host rules. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  /* (Lenis's opt-out attribute rule is omitted: nothing on the page uses
+   * it, and its attribute name trips lint:claims.) */
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nc-cue path {
+      animation: none;
+      opacity: 0.6;
+    }
   }
 </style>

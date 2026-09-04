@@ -6,6 +6,45 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-04 — Home concept adopted: merged into phase-c
+
+- The 2026-09-03 home concept ("the neon comes on") merged on the
+  operator's word after tweaks 4–6 on its preview. Its branch-scoped
+  rule lifts are standing decisions now: the home page's self-hosted
+  GSAP + Lenis motion layer as the fourth sanctioned script consumer
+  (home URL only, ~69KB gzipped; the Lighthouse home row's 80KB script
+  budget is a standing carve-out; every other page keeps 30KB), the
+  home headline's word rise as the one exception to the never-animate
+  the-hero rule, and the hero reel on the autoplay-film list. The CSS
+  motion vocabulary stays the cap for CSS; the home's GSAP choreography
+  is its scripted exception. HOME-CONCEPT.md stays as the home's
+  working record. Standing previews refreshed (DECISIONS 2026-09-03,
+  the home entry's adoption paragraph).
+
+### 2026-09-04 — Home concept: the hero reel runs continuously, with a portrait beat
+
+- The operator saw the reel stall on the first passage's last frame (the
+  3.5s rest of the first tweak) and withdrew the two-pass ending: the
+  film now loops forever, every join a freeze-frame dissolve (the last
+  in-window frame painted onto a canvas above the player, the seek
+  hidden beneath it, 0.8s) — no rest, no visible seek, no frame outside
+  a window. A two-player version was measured at 33MB per visit and
+  rejected; the single player fetches the reel once (8.3MB). The second
+  window's end corrected 3.25 → 3.15 (the car selfie's first frame was
+  inside it). The reel's door scenes were checked for the loop and ruled
+  out (a wall print behind them names the competitor).
+- Same day: "she wants people to see that pic, clearly" — at the end of
+  every pass the reel dissolves to Amy's portrait beneath it, rests 5s
+  (`data-still`), and dissolves back in; the portrait also opens the
+  page alone for 5s (`data-first`) before the reel first comes in. Measured: an 11.2s cycle, the
+  portrait 5.3s of it; cuts and the same beat under reduced motion
+  (DECISIONS 2026-09-03, the home entry's fourth and fifth tweaks).
+- Same day: the film band goes back to phase-c's composition — the
+  operator wants it as PR #149 shows it (the heading centered over the
+  stage, the bars beneath); the concept's side-by-side layout and the
+  slide settle are withdrawn, `VideoCarousel.astro` is phase-c's file
+  again (the sixth tweak).
+
 ### 2026-09-03 — The reduced-motion principle lines catch up (docs only)
 
 - CLAUDE.md constraint 6 gains its inline scoped exception — the films
@@ -55,6 +94,52 @@ change lives in `docs/DECISIONS.md`; design specs live in
   `van-viewfinder-treatment-trim` (10.1 s, the poster and captions
   re-cut with it; the untrimmed object deleted once the preview moved
   off it; DECISIONS, the entry's trim addendum).
+
+### 2026-09-03 — Home: scale, rhythm, and four new moves (on a preview for Amy)
+
+- After the operator's design critique ("boring"), the home page's
+  desktop composition steps up — phones are unchanged below 900px. The
+  hero photo now bleeds toward the headline, which grows to the full
+  display clamp over a one-sentence lead ("One clinician, every
+  appointment. Amy Palacios, FNP, in medical aesthetics since 2017.");
+  the copy stays on solid noir, never over the photo. The film band is
+  composed: its heading (same words, two display lines) and controls sit
+  beside the film, and Amy's own films open — studio → team → the two
+  Jeuveau spots. Section openers step up to display sizes over
+  one-sentence decks; the credentials line stays, compact. A new noir
+  band — "Amy comes to you." beside the van interior — punctuates the
+  ombre between the doors and the visit beat and gives /mobile its
+  first door on the home page.
+- The motion vocabulary gains four transform-only moves, zero JS: the
+  hero still settles once from 1.04 to 1, full-bleed band photos drift
+  against the scroll, rows of plates rise in sequence, and arched photos
+  inside whole-card links (home doors, /services cards) grow to 1.03 on
+  hover; the carousel's crossfade settles from .97 to 1 (never above, so
+  the spots' safety screens stay complete). All rest under reduced
+  motion. Three headline candidates go to Amy on the PR (DECISIONS
+  2026-09-03).
+- Later the same day the operator lifted the zero-JS rule **for this
+  branch as a concept test** and asked for real movement. The home page
+  gains a self-hosted GSAP + Lenis motion layer: the wordmark's neon
+  flickers on, the headline rises word by word and "made personal."
+  switches on like a tube, Amy's own studio reel (its three treatment
+  passages, looped) plays slow and muted in the hero over her portrait,
+  a four-chevron scroll cue pulses, the hero
+  dissolves away on scroll, section openers rise word by word, the doors
+  are dealt in sequence, photos rise into their arches, the van band
+  parallaxes, and a faint neon light follows the cursor over noir. The
+  choreography is off under reduced motion; the hero reel still plays
+  there (the carousel's phone policy, below). The home page's script budget is raised from
+  30KB to 80KB **on this branch only, for the home URL only** (a third
+  gate row; the preview workflow runs the gates before deploying, so the
+  lift had to reach the gate); every other page and budget is unchanged
+  (DECISIONS 2026-09-03 addendum). First tweak on the operator's
+  reaction: the hero film's three passages each rest on their last
+  frame for 3.5 s before dissolving to the next, so the film no longer
+  cuts every couple of seconds. Second tweak: the film runs two passes,
+  then dissolves back to the portrait it started from and stays there.
+  Third tweak: the film band's order goes back to the Aug 14 sequence,
+  the Jeuveau commercial first (operator direction).
 
 ### 2026-09-03 — Home carousel autoplays on phones
 

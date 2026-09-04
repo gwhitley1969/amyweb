@@ -7771,6 +7771,400 @@ by the same rule; the principle-level lines (CLAUDE.md constraint 6,
 BUILD_SPEC's quality floor, §9's carousel sentence, and the
 accessibility checklist) catch up in a docs PR of their own, next.
 
+## 2026-09-03 — Home: scale, rhythm, and four new moves (the design critique's Tier 1 + 2)
+
+**Context.** The operator found the site boring ("I don't see anything
+spectacular about this website") and asked for an honest opinion and
+what to change, with other sites for reference if needed. The
+assistant reviewed every page type on the standing demo (PR #97) at
+1280 and 390 — with the scroll reveals disabled so full-page captures
+show content — next to audiusa.com (the REDESIGN yardstick), Formula
+Fig, Peachy, Skin Laundry, Ever/Body, and Alchemy 43. (Mobbin was
+offered; the Chrome extension refused the domain, and it catalogs
+product UI rather than brand sites, so the direct comparisons stood
+in.) The verdict, delivered in chat: the site is clean, fast,
+accessible, and on-brand, and holds up at 390; at desktop it reads as
+small content islands on a very large pink field, and nothing on any
+page is a moment. The gap to the seven-gap yardstick is scale, rhythm,
+and asset quality — not animation: none of the six reference sites use
+motion graphics; their premium read is full-bleed imagery and film,
+huge type, and air. Specifically: (1) the cinematic stage is a
+phone-shaped box — a 4:5 stage capped at 720px with `contain`, so at
+1280 the film is ~570px wide in a full-width black band, opening on
+the Evolus spot, so the site's one cinema moment belonged to a
+manufacturer; (2) nothing is big — section openers at 39/31px over
+17px paragraphs, every section at the same padding and plate weight;
+(3) the ombre runs unbroken from ~1000 to ~4300px of the home with two
+text-only beats; (4) uneven photography on /services (phone snapshots
+beside shoot frames — gap 5's own "$2k tell"); (5) a category-generic
+headline; (6) the tilted Instagram print as the weakest home beat
+(Amy's named exception — it stays). The /about hero was first read as
+a contradiction (a group beside "the work of one clinician") and
+corrected on the record: the arch holds Amy's family portrait at her
+own request (2026-07-23) — her call, not a fix.
+
+The operator chose "mockups first". The assistant restyled the live
+demo in the browser only (Playwright `page.evaluate`; same photos,
+fonts, and tokens; no repo change) and delivered a side-by-side of the
+home's first three screens at 1280
+(`C:\Amy\.playwright-mcp\mock-side-by-side-1280.jpg`). The operator
+approved the direction, chose Tier 1 + Tier 2, and directed the build
+on a branch for a preview ("create what you are proposing").
+
+**Decision (Tier 1 — composition and type scale; home only).**
+
+1. *Hero.* At ≥900px the hero is a block with the photo absolutely
+   placed from 44% of the width to the right edge, masked in over its
+   first 30%, plus a bottom scrim in the media's own overlay; the copy
+   column is capped at 43vw (40rem at most) with a 4vw left pad so
+   every glyph sits on SOLID noir, left of the photo's edge — measured
+   at 900/1024/1280/1440/1920 (the first cut, 38% + a 36rem column,
+   overlapped the fade at tablet widths and was corrected before the
+   PR) — so the Phase C text-over-photo rule (opaque plate or nothing)
+   is kept, not excepted. The statement's cap grows to 7.25rem (was
+   6.5rem; the 7.2vw term stays so the headline clears the photo). The
+   lead is one factual sentence: "One clinician, every appointment. Amy
+   Palacios, FNP, in medical aesthetics since 2017." ("in Harrisburg
+   since 2017" was rejected — the studio's date is not on record; the
+   former lead, "The dedicated practice of Amy Palacios, FNP (AKA
+   Needle Girlie) and owner of Mobile Aesthetics, clinician-led
+   aesthetics since 2017.", is recorded here.) The headline itself is
+   unchanged; three candidates go to Amy on the PR — keep "Medical
+   Aesthetics, made personal." / "One clinician. Every appointment." /
+   "Every appointment is with Amy." Phones are unchanged (58vh photo
+   over the copy).
+2. *Carousel band.* At ≥900px the heading and the controls sit in a
+   left column beside the film (CSS grid areas; DOM order heading →
+   stage → controls unchanged, so phones keep today's stack and the
+   reading order is the same). The heading keeps its recorded wording
+   "Mobile Aesthetics. On screen." (2026-08-17), set as two display-1
+   lines at desktop and one line on phones; no deck (the 2026-08-15
+   fewest-words decision stands). Slide order becomes Amy's own films
+   first — studio → team → J1 → J2 — superseding the 2026-08-14
+   J1 → studio → J2 (→ team) order; `video-carousel.js` reads DOM
+   order, so no script change, and the studio reel's 0.5× travels with
+   its slide.
+3. *Openers.* "Your plan, your pace." at `heading-2 md:display-0`,
+   "What Amy offers" at `md:display-1`, "Unhurried, explained…" at
+   `md:display-2`; display-0's "home-hero only" note widened to the
+   home's openers. The intro deck is one sentence ("Book when you are
+   ready, or talk it through with Amy first. Every decision is made
+   with her, at your pace."); BUILD_SPEC §6's "Meet Amy" credentials
+   block STAYS as a compact line under it (the mock had dropped it).
+4. *The statement band.* A new noir section between the doors and the
+   visit beat: the van interior (`van-treatment-interior.jpg`, the
+   /mobile hero's screened 4:5 crop of 2026-09-02 — no people, no
+   packaging; reused, no new asset) bleeds from the left edge across
+   the photo column; the statement "Amy comes to you." + "Homes,
+   offices, and gatherings around Charlotte, in a van fitted out as a
+   treatment room." + "How a party works ›" sits on noir to its right —
+   never over the photo — and gives /mobile its first door on the home
+   page (until now it had only the nav item). The photo is a full-bleed
+   backdrop, so it is EXEMPT from the arch motif under the
+   hero-backdrop rationale ("not a framed picture", operator
+   2026-08-17) — the fifth exemption. Retina: the photo column is
+   `min(60%, 48rem)` — 768px CSS at 1280 and capped there above it —
+   against the 1536px source, 2× exactly; a 3:2 window at desktop
+   (`object-position: 50% 62%` keeps the chairs and carts, drops the
+   ceiling screen), 4:5 on phones. `quality={62}` (the door
+   precedent), lazy. THE FIRST PICK WAS REJECTED ON THE RECORD:
+   `amy-holding-neon.jpg` (Amy with her own sign, the /services
+   dermal-fillers card) rendered at band size shows the Evolysse carton
+   on the table legibly — a pixel-override class — and Amy retired
+   Evolysse content from the site 2026-08-21; at card size the carton
+   is illegible, which is why the /services use stands. The doors keep
+   their "Explore all twelve lines ›" link.
+
+**Decision (Tier 2 — four transform-only moves, zero JS).** The
+motion vocabulary's closed list (global.css header, DECISIONS
+2026-07-18) is extended, and the header rewritten to name them:
+*settle* — the hero still eases once from scale 1.04 to 1 over 14s
+(`.ng-settle`; the "never on the hero" rule targets opacity-0 reveals,
+which this is not; LCP paint and CLS untouched); *drift* — a
+full-bleed band photo travels ±24px against the scroll (`.ng-drift`,
+scroll-timeline like rise/trace; the host supplies the overflow);
+*stagger* — `.ng-rise-2/-3` push the second and third doors' rise
+ranges later; *hover-scale* — the arched photo inside a whole-card
+link grows to 1.03 on hover/focus (250ms, the card's rule-draw tempo),
+which also reaches the twelve /services cards through the same
+`.ng-lift` + `.ng-arch` contract; and the carousel's slide settle
+(.97 → 1 on the crossfade, never above 1, so the J1/J2 safety screens
+are never cropped). Reduced motion: the settle and the drift join
+rise/trace in the explicit `animation: none` list (a 0.01ms run would
+snap), the hover-scale rests at 1, the carousel keeps `transition:
+none` and rests at 1. BUILD_SPEC §5's "nothing pulses except the
+sign's slow breath" still holds — none of these pulse.
+
+**Alternatives rejected.** A motion-graphics layer (Lottie / GSAP /
+WebGL / Rive): breaks the 30KB zero-JS rule and the reduced-motion
+contract, cuts against "serious glamour; playfulness retired", and
+none of the references use one. Bare "On screen." as the carousel
+heading (the mock's line): a wording change to the recorded heading —
+offered, not taken without the operator's word. Dropping the
+credentials paragraph (the mock): BUILD_SPEC §6. Copy over the hero
+photo's fade tail (the mock's ~10% overlap): the plate rule instead. A
+separate repo for the proposal (the operator's alternative): the
+branch keeps the media origin, CI, and the preview environments. A
+treatment-page pilot (first media row as a full-container segmental
+band; the wrinkle-relaxers plaque below the prose): DEFERRED — PR #143
+is open on that file. Display-size openers on the other pages:
+deferred to their own round after Amy reacts. Changing the /about
+hero: not ours to change.
+
+**Consequences.** Home only + global.css; no new asset, no new script,
+no budget loosened; phones unchanged below 900px. The 2026-08-14 slide
+order is superseded; the arch exemption list is five; the motion
+vocabulary is nine moves plus the carousel's. Amy reviews on her phone
+first (the PR preview), then the standing demo once merged; the
+presentation-approval record in CLINICIAN-SIGN-OFF carries the round;
+the seven-gap boxes in REDESIGN stay unchecked until her verdicts.
+Tier 3 — the assets — is hers: a landscape hero film or her full-res
+hero original, 16:9 J1/J2 renditions from Evolus, a re-grade or
+re-shoot of the four /services snapshot cards.
+
+**Addendum, same day — the operator lifts the zero-JS rule for this
+branch ("the neon comes on").** On seeing the CSS-only round on the
+#179 preview the operator said the page still read boring and, for
+this branch as a concept test, lifted the zero-JS default: "I really
+do want to see the homepage have some sort of movement, animation,
+video, or motion graphic(s)." Three choices taken on the record: the
+hero moves with Amy's own studio reel (over the widescreen team film,
+which would widen the other providers' exception, and over a Ken Burns
+still); the engine is GSAP, self-hosted (over a hand-written Web
+Animations layer that would have kept the gate green); and Lenis
+supplies weighted scrolling.
+
+*What ships on the branch.* `public/js/vendor/` carries GSAP 3.15.0
+core + ScrollTrigger + SplitText (free for all uses under the GSAP
+standard license since 3.13) and Lenis 1.3.26 (MIT), copied from the
+npm packages (added as devDependencies so the copies are
+reproducible); `public/js/motion-flag.js` (sync, in the head via a new
+BaseLayout `head` slot) sets `html.motion` before first paint and
+self-cancels in 4s if the choreography never reports in;
+`public/js/home-motion.js` is the choreography — the wordmark's neon
+flicker-on, the headline rising word by word (blur → sharp), "made
+personal." switching on like a tube (the CSS shimmer held off by
+`.nc-neon-off` during the flicker, then released), the lead/CTAs/chips
+following, a four-chevron scroll cue (the MA mark, pointing down,
+pulsing in sequence — CSS), the hero film facade (the studio reel's
+muted rendition at the recorded 0.5×, attached 2.5s after `load` over
+Amy's portrait, captions track, paused off-screen — TRIMMED to the
+reel's three treatment passages, 10.40–11.72s, 2.50–3.25s, and
+6.15–6.78s of the master, played in order and looped with a dip at
+each join: the first full-reel build showed, at hero size and under
+the cover crop, the reel's car selfie, the packaging-in-hand shots,
+and the table with promo flyers — passages the carousel's bounded
+4:5 stage carried small; a trim is an editorial choice, recorded, not
+an override; the burned-in "POV: Age gracefully together" caption is
+Amy's own published wording and stays in frame), the copy lifting away
+and the film swelling as the hero is left (scrubbed), every section
+opener rising word by word, decks settling, the three doors dealt in
+sequence, photos rising into their arches, the van band's photo moving
+against the scroll (the GSAP version of drift; the CSS moves stand
+down under `html.motion` so nothing animates twice), and a faint neon
+light following the cursor over noir surfaces (pointer devices only).
+script-src stays 'self': every file is a static same-origin asset.
+Reduced motion: motion-flag never sets the class, home-motion returns
+early — the page is the CSS-only home from this branch, poster in the
+hero. Split words carry SplitText's `aria: "auto"` (the heading keeps
+its text for assistive tech; the pieces are aria-hidden). Lenis keeps
+anchors (the skip link) and does nothing on touch.
+
+*Rules touched, by the operator's decision, branch-scoped.* The
+zero-JS default and the 30KB script budget (CLAUDE.md, BUILD_SPEC
+§9/§13): the home page now carries ~155KB raw / 66,188 B gzipped of
+script. The first cut left the gate config alone and let the `/`
+strict row read red locally — but the PR preview workflow runs the
+slow gates BEFORE it deploys, so the red row blocked the preview
+itself (run 33775377003 failed on exactly that assertion, every other
+assertion and pa11y green). The lift therefore reaches the gate in the
+narrowest form: `lighthouserc.json` gains a third assertMatrix row
+matching the home URL alone, identical to the house row except
+`resource-summary:script:size` at 81,920 B (80KB); the house row's
+pattern excludes the home; every other page and every other budget
+are unchanged. This is the flagged, operator-gated loosening the
+config's own comment describes — authorized by the operator's lift
+for this branch, recorded here and in the config's `$comment`, and
+REVERTED when the concept closes (or replaced by a standing decision
+if it is adopted). Total, image, LCP, CLS, TBT, third-party on `/`
+all still pass the house numbers (306KB / 187KB / ~2.07s / 0 / ≤15ms /
+0 on the committed build). The "never on the
+hero H1" rule for reveals: the headline's word rise is exactly that —
+authorized here as the concept's opening; the LCP element is the hero
+photo, which paints unchanged. The autoplay contract: the studio reel
+is Amy's own, speech-free by construction (no audio track), already
+autoplaying muted on the carousel — in-contract at the hero. Playfair,
+the ombre, the arches, and the card pinks are untouched. If the
+concept is adopted, these become standing decisions with their own
+CLAUDE.md lines; if not, the branch closes and nothing on `phase-c`
+changes.
+
+*Operator reaction and the first tweak (same day).* On the redeployed
+preview: "I don't know if anyone else will like it but I love where
+you took this. We can make some tweaks" — feedback from others is
+being gathered before more. First tweak: the hero film "changes
+pictures too fast." Cause: the three screened passages are 1.3s,
+0.75s, and 0.63s of the master — one to three seconds each at 0.5×
+before the dissolve. Slowing the rate further is not reliable (0.5×
+is the engines' floor), and widening the windows would re-admit the
+frames the trim excludes, so the film now RESTS on each passage's
+last frame for `data-hold` seconds (3.5s) before dissolving into the
+next (0.6s out, 1.1s in): three held scenes on a ~20s cycle instead
+of cuts every couple of seconds. The pause/resume-on-scroll logic
+respects the hold (leaving and returning mid-hold never restarts a
+window early).
+
+*Second tweak (same day).* "Let the hero film run two times, then
+after the second time it runs, stop or rest on the original hero pic
+where Amy is sitting on the counter." `data-plays="2"`: a pass
+completes when the third scene's hold ends; after the second pass the
+film dissolves out (1.8s) over the portrait it faded in from — the
+LCP still, never replaced — while the portrait settles (scale 1.04 →
+1 over 3s), and the video element is removed so nothing keeps
+decoding. It ends where it began. Off-screen time does not count
+(the film pauses when the hero leaves the viewport); once ended it
+stays ended until the page reloads. Timeline as measured: portrait →
+film in at ~3s → two passes of ~17.5s → back to the portrait at ~40s.
+`data-plays="1"` is the one-number change if two proves long.
+
+*Third tweak (same day) — the carousel order goes back.* "On the
+carousel, I want the Jeuveau commercial to play first." The Tier 1
+decision 2 above (Amy's films open: studio → team → J1 → J2) is
+REVERSED by the operator the same day: the recorded 2026-08-14 order
+— J1 → studio → J2 → team — stands, and the supersession recorded
+above is withdrawn. The band's composition (heading and controls
+beside the film) is unchanged; only the slides array moved.
+
+*The hero reel takes the carousel's phone policy (same day, after the
+#180 fix merged into this branch).* The carousel entry below records
+the operator's decision that films are content and autoplay under
+`prefers-reduced-motion`; the hero reel is the same class, so
+`home-motion.js` now splits: under reduced motion the choreography
+stands down exactly as before (html.motion is never set; every
+decorative move is guarded), but the hero film facade still runs —
+muted, its own dissolves and holds, the portrait underneath, the
+two-pass ending intact. The built `<video>` carries the muted +
+playsinline attributes, a refused `play()` arms the same first-gesture
+retry, and the fade-in now rides the first `playing` event so a film
+that was refused and later unlocked still fades in. Verified locally:
+reduced motion emulated → the reel plays over the portrait with no
+choreography; play() refused until a gesture → the portrait stays
+until the first tap, then the reel fades in.
+
+*Fourth tweak (2026-09-04) — the film runs continuously.* On the #179
+preview: "the hero film … always stalls on the pic where Amy has two
+fingers on a female's throat area. it looks like it stops completely,
+then it begins again. I'd like for that to be smoother and not just
+stall or stop … I've changed my mind. It can continuously play the
+film." Diagnosis (contact sheets and 10fps edge strips of the reel): the
+named frame is the last frame of the FIRST passage (10.4–11.72s — Amy's
+gloved fingers at the seated client's jaw), where the first tweak's
+`data-hold` paused the player for 3.5s before the dip-and-seek to the
+next passage. The hold WAS the stall. Operator choices (asked): joins
+= "Seamless crossfade"; speed = "Keep 0.5×". Decisions: (a) the hold is
+retired and the two-pass ending withdrawn — `data-plays="0"`, loop
+forever; (b) the joins are freeze-frame dissolves: at a passage's last
+in-window frame the frame is painted onto a canvas above the player
+(`drawImage` — a cross-origin source only taints the canvas, and it is
+never read back), the player pauses, seeks to the next passage and
+plays beneath, and the canvas dissolves away over `data-xfade` (0.8s,
+`power1.inOut`) — no frame past a window can show, the seek hides
+under the freeze, and the next passage is already moving beneath it.
+A two-player alternation (the first cut) did the same job but the
+browser fetched the reel once per player and again on each backward
+seek: 33MB measured for one visit against 8.3MB with the single player
+— rejected on bandwidth. (c) The second window's end moves 3.25 → 3.15:
+the 10fps strip shows the reel's car selfie beginning at ≈3.2s, so the
+recorded window carried its first frame — and the hold had been
+resting on it. (d) Under reduced motion the joins are cuts (the
+carousel's "only the crossfade stands down"); the film plays as before.
+(e) The reel's other studio scenes were checked for the loop and ruled
+out: the arrivals at the door (≈1.9–2.4s, 4.9–5.7s, 9.5–10.3s) have a
+wall print behind them reading "LIP FILLER JOURNEY" over the competitor
+neuromodulator's name — legible at hero size, and that word never
+appears on this site; the counter shots carry retired Evolysse
+packaging; the car selfie is not the studio. The loop stays on the
+three screened passages.
+
+*Fifth tweak (same day) — the portrait beat.* "We hardly see the pic
+of Amy sitting on the table top with the needles in each hand. It goes
+by it so fast that we don't completely see it. She wants people to see
+that pic, clearly during the film." With the film continuous, the
+portrait (the LCP still beneath the reel) showed only in the first
+~3s. Decision: `data-still` — at the end of every pass the reel
+freezes its last frame, the frame dissolves away (1.2s) to the portrait
+beneath, the portrait rests `data-still` seconds (5), and the reel
+dissolves back in (1.6s) at the first passage; the still is part of the
+loop, not its end. (`data-plays`, if set, now ends the film on the
+portrait and stays — the second tweak's ending, available as a knob.)
+And the portrait opens the page: `data-first` (5) is the delay after
+`load` before the reel is attached and fades in — 2.5s before, so the
+first thing a visitor sees holds for the same beat the loop gives it.
+The first cut of the beat faded the PLAYING video out and let it run
+past the third window — 43 samples of the car selfie at falling opacity
+in a 40s watch; the freeze-first rule fixed it (0 after). Measured on
+the built page (Playwright, 50ms samples): an 11.2s cycle — passages
+2.2 / 1.2 / 1.6s by dominance with three 0.8s dissolves, the portrait
+5.3s — 0 frames outside a window, 0 visibly paused samples, one 8.3MB
+fetch; a scroll away during the still and back resumes and progresses;
+reduced motion: the same cycle with cuts, portrait 5s. Script 15.5KB →
+18.8KB raw (the home row's 80KB budget stands). Records: HOME-CONCEPT
+(reel paragraph, commit table, knobs), CHANGELOG, this entry, the PR
+body. Gate: `npm run verify` green — pa11y 25/25, Lighthouse CI every
+assertion (the branch-only home row included); home: perf 0.99, LCP
+2080ms (median of 2228 / 2077 / 2080), CLS 0, TBT ≤43ms, total 316KB,
+image 192KB, script 69,035 B of the row's 81,920, media 0, third-party
+0.
+
+*Sixth tweak (2026-09-04) — the film band goes back.* "In PR #149,
+you'll notice that we have the carousel in the middle of the page with
+the header or title 'Mobile Aesthetics. On screen.'. I want that part
+to look like what we have in PR #149." Tier 1 decision 2's composition
+(the heading as two display-1 lines and the controls in a left column
+beside the film at ≥900px) is WITHDRAWN, and the Tier 2 carousel settle
+(inactive slides at .97 easing to 1) goes with it — both lived in
+`VideoCarousel.astro`, which is `phase-c`'s file again (`git checkout
+origin/phase-c -- src/components/VideoCarousel.astro`; the script was
+already identical, #180 having landed on both sides). Verified on the
+built page against the #149 preview at 1280: the same section box
+(1265×973), the heading centered in `heading-2`, the stage at 547px,
+no `.vc-inner`. The slide order is unaffected (J1 first, the recorded
+sequence, on both). The concept's other Tier 1 moves — the hero, the
+openers, the van band — stand. Records: the page header comment, the
+motion-vocabulary header in `global.css`, HOME-CONCEPT §2 and §6,
+CHANGELOG, the REDESIGN row, the PR body.
+
+*Adoption (2026-09-04).* On the #179 preview with tweaks 4–6 live, the
+operator: "go ahead and merge #179 and refresh the previews." The
+branch-scoped lifts recorded above become STANDING decisions, each
+with its own line: (1) the home page's motion layer — self-hosted GSAP
+3.15 (core, ScrollTrigger, SplitText) + Lenis 1.3 in
+`public/js/vendor/`, `public/js/motion-flag.js`, and
+`public/js/home-motion.js`, ~69KB gzipped together — is the fourth
+sanctioned script consumer, on the home URL ONLY (CLAUDE.md's locked
+decision gains the line); if any of it fails, the flag self-cancels and
+the page is the CSS-only home. (2) `lighthouserc.json`'s third
+assertMatrix row — the home URL alone, script 81,920 B, every other
+budget the house's — is a standing carve-out on the /services +
+/styleguide precedent (its `$comment` says so); every other page keeps
+30KB. (3) The home headline's word rise and the wordmark's switch-on
+are the one authorized exception to the motion header's "never on the
+hero, page H1s, or the lockup" — home only, in `home-motion.js`, with
+the LCP element (the portrait) painting unchanged. (4) The CSS motion
+vocabulary stays the closed cap for CSS; the home's GSAP choreography
+under `html.motion` is the standing scripted exception, and the CSS
+moves stand down under the flag so nothing animates twice. (5) The
+hero reel — the carousel's muted studio rendition trimmed to its
+screened passages, looping with the portrait beat — joins the
+autoplay-film list under the films policy (#180/#182/#183). The
+2026-09-03 plan said HOME-CONCEPT.md would be folded into REDESIGN.md
+at adoption; it is kept instead, as the home page's working record
+(the knobs, the timeline, the verification), with its header updated —
+a map is more useful than a longer settled row. After the merge the
+standing previews (#97, #149) are refreshed by the recorded no-checkout
+method; production stays dark. Amy's reaction on the demo is the next
+input; the headline pick (three candidates on the PR) is still hers.
+
 ## 2026-09-03 — /mobile: the viewfinder film replaces the van film (Amy's own 1080 clip; the sound held for a license)
 
 **Context:** the operator supplied `snoop.mp4` (their archive,

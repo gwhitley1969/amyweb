@@ -344,7 +344,12 @@
       ).observe(media);
       v.load();
     };
-    const later = () => setTimeout(attach, 2500);
+    // data-first: seconds the portrait holds the hero alone after `load`
+    // before the reel is attached and fades in (2.5 before the fifth
+    // tweak; the operator wants the portrait seen, so it opens the page
+    // for the same beat it gets each cycle).
+    const first = Math.max(0, parseFloat(media.dataset.first || '2.5'));
+    const later = () => setTimeout(attach, first * 1000);
     if (document.readyState === 'complete') later();
     else addEventListener('load', later, { once: true });
   }

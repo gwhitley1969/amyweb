@@ -85,6 +85,8 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   outside a window. At the end of every pass the reel dissolves away
   (1.2s) to **Amy's portrait beneath it, rests there `data-still`
   seconds (5)**, and dissolves back in (1.6s) at the first passage.
+  The portrait also opens the page: the reel is attached `data-first`
+  seconds (5) after load, not 2.5.
   Measured on the built page: an 11.2s cycle — the three passages
   ~5.5s with three dissolves, the portrait 5.3s — zero frames outside a
   window, no visible pause, one 8.3MB fetch of the reel. Off-screen
@@ -206,6 +208,7 @@ of scrolling into view even with the reel downloading.
 | `data-ranges` | same | `10.4-11.72,2.5-3.15,6.15-6.78` | the three passages, seconds of the master (the second end corrected 2026-09-04) |
 | `data-xfade` | same | `0.8` | the dissolve at each join, seconds (a cut under reduced motion) — 2026-09-04 |
 | `data-still` | same | `5` | seconds the film rests on the portrait at the end of every pass (`0` = passes run straight on) — 2026-09-04 |
+| `data-first` | same | `5` | seconds the portrait opens the page alone before the reel first fades in (2.5 before 2026-09-04) |
 | `data-plays` | same | `0` | passes before the film ends on the portrait for good (`0` = loop forever — the default since 2026-09-04) |
 | ~~`data-hold`~~ | — | retired 2026-09-04 | the 3.5s rest on each passage's last frame WAS the stall the operator saw; a leftover value is ignored |
 | attach delay | `home-motion.js` | 2,500 ms after `load` | keeps the reel out of the Lighthouse trace |

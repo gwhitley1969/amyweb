@@ -170,7 +170,9 @@ const CHEVRONS = [
         beneath it, rests there for data-still seconds, and dissolves
         back in (1.6s) at the first passage — the still is part of the
         loop, not its end. With data-plays set, the last pass ends on
-        the portrait and stays. This retires the first tweak's data-hold (the
+        the portrait and stays. data-first (same tweak): the portrait
+        opens the page alone for that many seconds after load before the
+        reel is attached and fades in (2.5 before). This retires the first tweak's data-hold (the
         3.5s rest WAS the stall the operator saw) and the second tweak's
         two-pass ending (data-plays 0 = forever; the portrait stays
         underneath and is never returned to). The second window's end
@@ -192,6 +194,7 @@ const CHEVRONS = [
       data-plays="0"
       data-xfade="0.8"
       data-still="5"
+      data-first="5"
     >
       {/* INTERIM AI-ASSISTED ASSET (disclosed — DECISIONS 2026-08-14):
         * the only available source is a 642px social-size save, well

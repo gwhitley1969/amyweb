@@ -8040,6 +8040,9 @@ beneath, the portrait rests `data-still` seconds (5), and the reel
 dissolves back in (1.6s) at the first passage; the still is part of the
 loop, not its end. (`data-plays`, if set, now ends the film on the
 portrait and stays — the second tweak's ending, available as a knob.)
+And the portrait opens the page: `data-first` (5) is the delay after
+`load` before the reel is attached and fades in — 2.5s before, so the
+first thing a visitor sees holds for the same beat the loop gives it.
 The first cut of the beat faded the PLAYING video out and let it run
 past the third window — 43 samples of the car selfie at falling opacity
 in a 40s watch; the freeze-first rule fixed it (0 after). Measured on

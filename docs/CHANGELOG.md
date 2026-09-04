@@ -20,7 +20,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   out (a wall print behind them names the competitor).
 - Same day: "she wants people to see that pic, clearly" — at the end of
   every pass the reel dissolves to Amy's portrait beneath it, rests 5s
-  (`data-still`), and dissolves back in. Measured: an 11.2s cycle, the
+  (`data-still`), and dissolves back in; the portrait also opens the
+  page alone for 5s (`data-first`) before the reel first comes in. Measured: an 11.2s cycle, the
   portrait 5.3s of it; cuts and the same beat under reduced motion
   (DECISIONS 2026-09-03, the home entry's fourth and fifth tweaks).
 - Same day: the film band goes back to phase-c's composition — the

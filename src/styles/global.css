@@ -247,12 +247,20 @@ body:not([data-surface='noir']) {
  * The glow that moves lives in exactly two places — the sign and the
  * accent phrase. Nothing else pulses: every other move is one-shot,
  * scroll-scrubbed, or pointer-driven — the cap is the rule. All moves
- * are opacity/filter/transform/text-shadow only (no layout).
+ * are opacity/filter/transform/text-shadow only (no layout). One
+ * scripted exception, standing since 2026-09-04 (operator adoption —
+ * DECISIONS 2026-09-03, the home entry): the home page's GSAP
+ * choreography in public/js/home-motion.js under html.motion; the CSS
+ * moves stand down under that flag so nothing animates twice.
  *
  * COMPLIANCE RULE: ng-rise / ng-trace are NEVER applied to
  * DisclaimerBlock, InvestigationalNotice, or BioteDisclaimer — an
  * opacity-0 initial state de-emphasizes compliance text. Also never
  * on the hero, page H1s, or the lockup (LCP + first-paint identity).
+ * Standing exception (operator adoption 2026-09-04): the HOME hero's
+ * headline rises word by word and the wordmark switches on — in
+ * home-motion.js only, with the LCP portrait painting unchanged; every
+ * other page's H1 and lockup keep the rule.
  *
  * Support: the @supports guard means browsers without scroll-timeline
  * simply render the finished state — content is never hidden. Reduced

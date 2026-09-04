@@ -6,6 +6,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-04 — Home concept adopted: merged into phase-c
+
+- The 2026-09-03 home concept ("the neon comes on") merged on the
+  operator's word after tweaks 4–6 on its preview. Its branch-scoped
+  rule lifts are standing decisions now: the home page's self-hosted
+  GSAP + Lenis motion layer as the fourth sanctioned script consumer
+  (home URL only, ~69KB gzipped; the Lighthouse home row's 80KB script
+  budget is a standing carve-out; every other page keeps 30KB), the
+  home headline's word rise as the one exception to the never-animate
+  the-hero rule, and the hero reel on the autoplay-film list. The CSS
+  motion vocabulary stays the cap for CSS; the home's GSAP choreography
+  is its scripted exception. HOME-CONCEPT.md stays as the home's
+  working record. Standing previews refreshed (DECISIONS 2026-09-03,
+  the home entry's adoption paragraph).
+
 ### 2026-09-04 — Home concept: the hero reel runs continuously, with a portrait beat
 
 - The operator saw the reel stall on the first passage's last frame (the

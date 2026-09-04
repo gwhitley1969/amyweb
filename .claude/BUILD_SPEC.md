@@ -1016,7 +1016,12 @@ action.
   (the ICON film, 2026-08-25 — the §5 film-class override above — and,
   same date, the Girl Team unit's team film, in-contract), and
   /injector-training (the training reel, 2026-08-25, in-class); the
-  second consumer is the dark Plausible tracker, §11.)*
+  second consumer is the dark Plausible tracker, §11. Fourth consumer,
+  2026-09-04 — the operator-adopted home concept (DECISIONS 2026-09-03,
+  the home entry): the home page's motion layer, self-hosted GSAP 3.15
+  + Lenis 1.3 + public/js/home-motion.js, ~69KB gzipped, on the home
+  URL only, with an 80KB script row in the Lighthouse matrix for that
+  URL; every other page keeps this 30KB budget.)*
 - Hero image: optimized, `fetchpriority="high"`, explicit dimensions;
   everything below fold lazy.
 - Fonts: 1 family (Playfair Display — since 2026-08-15), subsetted

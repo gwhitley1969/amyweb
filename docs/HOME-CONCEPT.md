@@ -1,14 +1,15 @@
 # The home concept branch — what is on `feat/home-scale-rhythm` (PR #179)
 
-> Branch-scoped working record, written 2026-09-03 at the operator's
-> request. It lives ONLY on this branch (the `docs/REVIEW-TAGS.md`
-> precedent): if the concept is adopted, its decisions become standing
-> ones with their own CLAUDE.md lines and this file is folded into
-> REDESIGN.md; if not, the branch closes and this file goes with it.
-> The *why* of every step is in `docs/DECISIONS.md` (the 2026-09-03
-> entries and addenda); this is the map. Nothing here is merged into
-> `phase-c`; production stays dark; the standing demos (#97, #149) are
-> untouched.
+> **Adopted 2026-09-04** — merged into `phase-c` on the operator's word
+> ("go ahead and merge #179 and refresh the previews"). The rule lifts
+> below are standing decisions now (DECISIONS 2026-09-03, the home
+> entry's adoption paragraph; CLAUDE.md's fourth sanctioned consumer;
+> the Lighthouse home row; the global.css motion header). This file
+> stays as the home page's working record — the map of what the page
+> does, the knobs, and how it was verified; the *why* of every step is
+> in `docs/DECISIONS.md`. Written 2026-09-03 at the operator's request
+> as a branch-scoped record; the standing demos (#97, #149) carry the
+> home since the merge; production stays dark.
 
 ## In one paragraph
 
@@ -189,9 +190,13 @@ The film band autoplays on phones per #180. Measured on a 390px
 emulation at a throttled 6 Mbps: the band starts within half a second
 of scrolling into view even with the reel downloading.
 
-## The rules this branch lifts, and how each reverts
+## The rules this branch lifted — standing since the 2026-09-04 adoption
 
-| Rule | Where it lives | What this branch does | If the concept closes |
+The "if the concept closes" column is history: each lift became a
+standing decision at the merge (DECISIONS, the home entry's adoption
+paragraph). The table is kept as the map of where each rule lives.
+
+| Rule | Where it lives | What this branch does | If the concept closes (historical) |
 |---|---|---|---|
 | Zero client-side JS by default; ≤30KB total script | CLAUDE.md locked decisions; BUILD_SPEC §9/§13; `lighthouserc.json` | The home page carries ~150KB raw / ~66KB gzipped of script. `lighthouserc.json` has a **third assertMatrix row for the home URL alone** with the script budget at 81,920 B; every other budget and page keeps the house row | Delete the third row and restore the first row's pattern (`d6be1bd`); delete `public/js/vendor/`, `home-motion.js`, `motion-flag.js`; remove the head-slot block from `ConceptHome.astro`; drop the two devDependencies |
 | "Never apply reveals to the hero, page H1s, or the lockup" | `global.css` motion header | The headline's word-by-word rise and the wordmark's switch-on are the concept's opening | Goes with the concept |
@@ -258,14 +263,16 @@ refuses until a gesture, a synthetic touch-scroll, the reel's window
 cadence and its two-pass ending. What cannot be verified from here: a
 real iPhone or Android — the reporting phone is the confirmation.
 
-## If the concept is adopted
+## Adopted (2026-09-04)
 
-Record standing decisions in DECISIONS and CLAUDE.md for: the home
-page's script exception and its budget row; GSAP/Lenis as sanctioned
-self-hosted dependencies; the hero H1 exception; the films-are-content
-reduced-motion policy (already standing via #180 if merged); the two
-new opted-in autoplay players (the hero reel joins the list). Then
-fold this file into REDESIGN.md and delete it.
+Done at the merge: the home page's script exception and its budget row
+(CLAUDE.md's fourth sanctioned consumer; the Lighthouse home row's
+`$comment`), GSAP/Lenis as sanctioned self-hosted dependencies on the
+home URL only, the hero H1 exception (the global.css motion header),
+the films policy (standing via #180/#182/#183), the hero reel on the
+autoplay-film list. This file is kept as the home's working record
+rather than folded into REDESIGN.md — the knobs and the verification
+are more useful as a map than as a settled row.
 
 ## Records index
 

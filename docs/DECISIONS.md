@@ -8077,6 +8077,37 @@ openers, the van band — stand. Records: the page header comment, the
 motion-vocabulary header in `global.css`, HOME-CONCEPT §2 and §6,
 CHANGELOG, the REDESIGN row, the PR body.
 
+*Adoption (2026-09-04).* On the #179 preview with tweaks 4–6 live, the
+operator: "go ahead and merge #179 and refresh the previews." The
+branch-scoped lifts recorded above become STANDING decisions, each
+with its own line: (1) the home page's motion layer — self-hosted GSAP
+3.15 (core, ScrollTrigger, SplitText) + Lenis 1.3 in
+`public/js/vendor/`, `public/js/motion-flag.js`, and
+`public/js/home-motion.js`, ~69KB gzipped together — is the fourth
+sanctioned script consumer, on the home URL ONLY (CLAUDE.md's locked
+decision gains the line); if any of it fails, the flag self-cancels and
+the page is the CSS-only home. (2) `lighthouserc.json`'s third
+assertMatrix row — the home URL alone, script 81,920 B, every other
+budget the house's — is a standing carve-out on the /services +
+/styleguide precedent (its `$comment` says so); every other page keeps
+30KB. (3) The home headline's word rise and the wordmark's switch-on
+are the one authorized exception to the motion header's "never on the
+hero, page H1s, or the lockup" — home only, in `home-motion.js`, with
+the LCP element (the portrait) painting unchanged. (4) The CSS motion
+vocabulary stays the closed cap for CSS; the home's GSAP choreography
+under `html.motion` is the standing scripted exception, and the CSS
+moves stand down under the flag so nothing animates twice. (5) The
+hero reel — the carousel's muted studio rendition trimmed to its
+screened passages, looping with the portrait beat — joins the
+autoplay-film list under the films policy (#180/#182/#183). The
+2026-09-03 plan said HOME-CONCEPT.md would be folded into REDESIGN.md
+at adoption; it is kept instead, as the home page's working record
+(the knobs, the timeline, the verification), with its header updated —
+a map is more useful than a longer settled row. After the merge the
+standing previews (#97, #149) are refreshed by the recorded no-checkout
+method; production stays dark. Amy's reaction on the demo is the next
+input; the headline pick (three candidates on the PR) is still hers.
+
 ## 2026-09-03 — /mobile: the viewfinder film replaces the van film (Amy's own 1080 clip; the sound held for a license)
 
 **Context:** the operator supplied `snoop.mp4` (their archive,

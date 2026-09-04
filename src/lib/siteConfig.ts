@@ -1,6 +1,9 @@
 // Single source of business facts used across the site.
 // Unknown values use {{TOKEN}} placeholders from BUILD_SPEC §17 — never invent
 // real values here; the operator supplies them.
+// NOTE (2026-08-05): preview environments deploy only on source-touching
+// diffs — docs-only pushes are paths-ignored (docs/RUNBOOK.md, "Where
+// phase-c is visible").
 export const siteConfig = {
   name: 'Needle Girlie',
   legalName: 'Needle Girlie — Amy Palacios, FNP',

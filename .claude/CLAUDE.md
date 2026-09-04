@@ -361,6 +361,14 @@ silently following it. Known superseded points from earlier briefs:
    contrast ≥ 4.5:1 — the brand hot pinks fail on white at body sizes; use
    the accessible ink tokens per BUILD_SPEC §5. Keyboard operable, visible
    focus, semantic landmarks, reduced-motion respected.
+   *Scoped exception (operator decisions 2026-09-03, DECISIONS same date
+   — the home carousel, then the treatment films): the site's FILMS
+   autoplay muted under `prefers-reduced-motion` too. They are content
+   with a pause control — the carousel's toggle and the native controls
+   are WCAG 2.2.2's mechanism — not decoration; every decorative move
+   (the reveals, the sign's breath, the crossfade) still stands down.
+   Widening this to anything that is not a film requires the human
+   operator.*
 
 7. **Placeholders, never inventions.** Unknown facts use `{{TOKEN}}`
    placeholders from BUILD_SPEC §17.
@@ -379,7 +387,11 @@ silently following it. Known superseded points from earlier briefs:
   (target: mobile nav at most, CSS-first preferred). Budget: ≤ 30 KB total JS.
   First sanctioned consumer (2026-08-14, operator-directed): the home video
   carousel's ~3KB static script — served from `public/js/` because the CSP
-  refuses inline scripts (DECISIONS 2026-08-14). Second sanctioned
+  refuses inline scripts (DECISIONS 2026-08-14); since 2026-09-03 its films
+  autoplay under prefers-reduced-motion too (operator decision — the films
+  are content with a pause control; only the crossfade stands down) and a
+  refused play() retries inside the person's first gesture on phones
+  (DECISIONS 2026-09-03). Second sanctioned
   consumer (2026-08-17, operator-directed, SHIPS DARK): the self-hosted
   Plausible tracker (~3.6KB, `public/js/plausible.js`) — renders only
   after the operator's relaunch-day flip (BUILD_SPEC §11). Third

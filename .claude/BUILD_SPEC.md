@@ -201,7 +201,14 @@ and sparse; nothing pulses except the sign's slow breath (since 2026-09-03 the
 vocabulary also carries four transform-only moves — the hero still's one-shot
 settle, a scroll-scrubbed drift on full-bleed band photos, a staggered rise for
 rows of plates, and a 1.03 hover scale on arched photos inside whole-card links,
-plus the carousel's slide settle — none of which pulse; DECISIONS 2026-09-03).
+none of which pulse; the carousel's slide settle was withdrawn 2026-09-04 with
+the band's concept composition; DECISIONS 2026-09-03). Since 2026-09-04 the HOME
+page also carries a scripted layer — self-hosted GSAP + Lenis, the neon switch-on,
+the word-by-word headline and openers, the hero reel's dissolves, the scrubbed hero
+exit, the dealt doors, the arch reveals, the band parallax, the cursor light — the
+one scripted exception to the closed CSS vocabulary (the global.css motion header;
+CLAUDE.md's fourth consumer; DECISIONS 2026-09-03, the home entry's adoption
+paragraph).
 Since 2026-08-14 the noir shell includes
 the home's cinematic video stage — four films crossfading
 chromeless on full-bleed noir (the operator's "Audi treatment";
@@ -362,7 +369,7 @@ constraint 6, DECISIONS 2026-09-03), no layout shift from fonts or images.
 
 | Route | Page | Purpose / key content | Primary CTA |
 |---|---|---|---|
-| `/` | Home | Hero (brand thesis — see below; since 2026-08-14 the hero photo is Amy's studio-counter portrait); **video carousel** directly below the hero (2026-08-14, fourth film added 2026-08-17: four films on a cinematic noir stage — autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, facade-loaded; DECISIONS both dates); "Meet Amy" trust block (FNP, since 2017, Biote-certified); **three category doors** routing to /services (amended 2026-07-25: the home ROUTES, it does not reprint the 12-card menu — DECISIONS same date); location strip; Get-the-App slot — satisfied by the sitewide footer block, not a home section | Book an appointment |
+| `/` | Home | Hero (brand thesis — see below; since 2026-08-14 the hero photo is Amy's studio-counter portrait; since 2026-09-04 — the adopted home concept, DECISIONS 2026-09-03 and its tweaks — the hero is a film facade over that portrait: the portrait paints (the LCP element, unchanged) and holds the hero alone for `data-first` 5s, then Amy's studio reel — the carousel's muted rendition trimmed to its three screened passages at 0.5× — fades in and loops with freeze-frame dissolves, returning to the portrait for `data-still` 5s at the end of every pass; the headline rises word by word and the wordmark switches on (GSAP, the home URL only — the fourth sanctioned script consumer, §13; the CSS-only home is the fallback if the scripts fail); the lead is one sentence ("One clinician, every appointment. Amy Palacios, FNP, in medical aesthetics since 2017."); the section openers step up to display sizes over one-sentence decks; and a noir "Amy comes to you." band beside the van interior — /mobile's first door on the home page, the fifth arch exemption — sits between the doors and the visit beat; docs/HOME-CONCEPT.md is the working record and carries the knobs); **video carousel** directly below the hero (2026-08-14, fourth film added 2026-08-17: four films on a cinematic noir stage — autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, facade-loaded; DECISIONS both dates); "Meet Amy" trust block (FNP, since 2017, Biote-certified); **three category doors** routing to /services (amended 2026-07-25: the home ROUTES, it does not reprint the 12-card menu — DECISIONS same date); location strip; Get-the-App slot — satisfied by the sitewide footer block, not a home section | Book an appointment |
 | `/services` | Services index | Short factual intro per line, linking to the 12 detail pages | Per-line → detail |
 | `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Book / Consult (2026-07-21, operator — was consult-routed) |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |

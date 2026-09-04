@@ -7797,3 +7797,38 @@ height="1440"`, in-view autoplay muted and running from the media
 origin, click-to-play under prefers-reduced-motion (by design until
 the phone-policy PR), zero references to the retired file. The media
 origin answers 206 with `Content-Range 0-1023/5392161`.
+
+**Addendum, same day — the reveal trimmed (operator direction on the
+PR #181 preview):** the template's tiled reveal — the first 2.2 s of
+the clip, followed by a one-frame blur at ≈2.2–2.3 s — replayed at the
+top of every 12-second loop, and the assistant flagged it with the
+preview. The operator's word: "Trim the first two seconds off the
+intro." Decision 3's "no trim: her edit carries as-is, reveal intro
+included" is superseded for the intro only. Cut point 2.333 s (frame
+70 at 30 fps — the first settled frame after the blur, verified on a
+10 fps sheet of 1.8–2.8 s), input-seeked on the master so the cut is
+frame-accurate: the same recipe otherwise (`-ss 2.333 -i snoop.mp4 -vf
+scale=810:1440 -an -c:v libx264 -crf 20 -preset medium -pix_fmt
+yuv420p -movflags +faststart`) → 810×1440, 10.13 s, 304 frames,
+5,109,705 bytes at 4.03 Mbps, moov first, md5
+`bf21fd08379268272494ecd42363c75f`. A NEW stem rather than an
+in-place replacement (RUNBOOK's preference; and an edge purge would
+not clear the operator's phone, which holds the untrimmed file for a
+day under the media route's `max-age=86400`): `van-viewfinder-
+treatment-trim` for all three artifacts — the poster re-cut from the
+new rendition at 7.167 s (the same frame as before, 9.5 s on the
+untrimmed timeline), the caption file's cue moved to 0.4–3.2 s (the
+clear window now opens at 0), the NOTE recording the trim. The
+untrimmed object `van-viewfinder-treatment.mp4` (uploaded 20:53Z, an
+hour earlier) is referenced only by this PR's preview and is deleted
+once the preview redeploys off it — a same-day correction, not a
+retirement. The page's header comment and the records (CHANGELOG,
+REDESIGN, RELAUNCH) carry the new stem; the gate numbers are recorded
+below once re-measured.
+
+**Gate (2026-09-03, the trimmed rendition):** `npm run verify` green —
+pa11y 25/25, Lighthouse CI every assertion on 8 URLs × 3. /mobile on
+the house row: perf 0.98, LCP 2406ms (median of three: 2405 / 2406 /
+2407 — unchanged from the untrimmed build, as expected: the poster is
+the same frame, its WebP derivative 52KB), CLS 0, TBT 0, total 232KB,
+image 178KB of 240, script 1.4KB, media 0, third-party 0.

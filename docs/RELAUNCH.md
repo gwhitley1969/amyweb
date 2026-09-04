@@ -81,8 +81,8 @@ check will refuse it. On a branch off `main`:
   2026-08-25 portrait object) + the /injector-training reel
   `training-reel.mp4` (2026-08-25) + the regenerative PRP-visit reel
   `prp-visit.mp4` (2026-08-25) + the /mobile viewfinder film
-  `van-viewfinder-treatment.mp4` (2026-09-03, a muted rendition — the
-  Range probe still applies; it replaced `van-chair-treatment.mp4`,
+  `van-viewfinder-treatment-trim.mp4` (2026-09-03, a muted rendition —
+  the Range probe still applies; it replaced `van-chair-treatment.mp4`,
   whose Blob object is deleted once no open preview references it, so
   that one is not a probe target) — the Evolysse film retired
   2026-08-21 and its Blob object was deleted the same day, so it is

@@ -8,7 +8,7 @@ import TreatmentVideo from '../components/TreatmentVideo.astro';
 import { siteConfig } from '../lib/siteConfig';
 import { service } from '../lib/schema';
 import vanInterior from '../assets/photos/van-treatment-interior.jpg';
-import vanViewfinderPoster from '../assets/photos/van-viewfinder-treatment-poster.jpg';
+import vanViewfinderPoster from '../assets/photos/van-viewfinder-treatment-trim-poster.jpg';
 
 /**
  * /mobile — the party-and-van page (added 2026-09-02 at the operator's
@@ -50,7 +50,10 @@ import vanViewfinderPoster from '../assets/photos/van-viewfinder-treatment-poste
  *   DECISIONS 2026-09-03, the viewfinder-film entry, which supersedes
  *   the 2026-09-02 van-film entry): Amy treating a seated guest in the
  *   van, two shots joined by a zoom-blur, with a short wide shot of the
- *   chair and the light stand. The seated guest's website-use release
+ *   chair and the light stand. The rendition opens on the settled
+ *   scene: the template's 2.33 s tiled reveal is trimmed at the
+ *   operator's direction (the entry's trim addendum), so the loop does
+ *   not replay it. The seated guest's website-use release
  *   is confirmed on file (the operator's confirmation, 2026-09-03, is
  *   the record) — no preview-only flag. The rendition is MUTED: the
  *   operator listened (music only, no speech), but the song is a
@@ -194,9 +197,9 @@ const jsonLd = [
         * describes the scene in one bounded cue. */}
       <div class="mobile-friends-film">
         <TreatmentVideo
-          src="/media/van-viewfinder-treatment.mp4"
+          src="/media/van-viewfinder-treatment-trim.mp4"
           poster={vanViewfinderPoster}
-          captionsSrc="/media/van-viewfinder-treatment.vtt"
+          captionsSrc="/media/van-viewfinder-treatment-trim.vtt"
           label="Inside the Mobile Aesthetics van, framed like a camcorder viewfinder: Amy treating a guest seated in the treatment chair"
           frame="bare"
           autoplay="inview"

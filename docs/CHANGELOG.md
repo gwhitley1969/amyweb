@@ -26,6 +26,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
   film's poster and captions are deleted; its Blob object goes once no
   open preview references it. The treatment-film phone-autoplay policy
   is a separate PR by the operator's choice.
+- Same day, on the preview: the template's tiled reveal (the first
+  2.33 s) replayed at the top of every loop, so the operator had it
+  trimmed — a re-encode from the master under the stem
+  `van-viewfinder-treatment-trim` (10.1 s, the poster and captions
+  re-cut with it; the untrimmed object deleted once the preview moved
+  off it; DECISIONS, the entry's trim addendum).
 
 ### 2026-09-02 — /mobile: "Amy comes to you." (new page, on a preview for Amy)
 

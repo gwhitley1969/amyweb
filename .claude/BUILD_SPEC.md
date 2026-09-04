@@ -354,8 +354,9 @@ JSON-LD component (§10), Breadcrumbs (treatment pages), FAQ block (optional,
 only with approved content).
 
 Quality floor without announcing it: responsive to 360px, visible keyboard
-focus on every interactive element, `prefers-reduced-motion` respected, no
-layout shift from fonts or images.
+focus on every interactive element, `prefers-reduced-motion` respected (for
+every decorative move; the films are the scoped exception — CLAUDE.md
+constraint 6, DECISIONS 2026-09-03), no layout shift from fonts or images.
 
 ## 6. Sitemap & page specs
 
@@ -377,7 +378,7 @@ layout shift from fonts or images.
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
 | `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); factual note that she practices within a multi-provider location; the EvolusLaurel ranking plaque + the ICON film (the film and the old recognition plate moved from wrinkle-relaxers at the client's direction 2026-08-18, superseding the 2026-07-21 ranking-free placement; the plate gave way to the Laurel 2026-08-25 — the same swap dermal-fillers made 2026-08-21 — retiring the resolved `{{EVOLUS_CLAIM}}` sentence sitewide, its `allowedStrings` entry withdrawn; §8.4); the Girl Team still + "Girl Team!" keystone plate (the site's first text-over-photo) + the "Visit Mobile Aesthetics" button — the second sanctioned yourmobileaesthetics.com link (constraint-2 fourth scoped exception, direct from Amy 2026-08-25; DECISIONS same date); below the button, the Mobile Aesthetics team film in a sounded rendition (`girl-team-film-wide.mp4` since 2026-08-26 — a 16:9 center crop of the master at operator direction, replacing the portrait `girl-team-film.mp4`; the carousel team film's constraint-2 second exception widened to this placement 2026-08-25; site-authored and speech-free, so its `autoplay="inview"` is in-contract, unlike the ICON film's override; DECISIONS both dates) | Request a consultation |
 | `/injector-training` | Private Injector Training | Professional-audience page (added 2026-08-04, operator-directed; DECISIONS same date): four hands-on, one-on-one courses for licensed medical professionals, prices flyer-verbatim (three at $5,000, Radiesse $7,500; three hours each, product included); curriculum topics under the fifth `allowedStrings` authorization (§8.1); outside the treatments collection and the clinician flag gate — Amy reviews via the sign-off doc's non-gated section; "Training" nav item. Since 2026-08-25 (DECISIONS same date): the dedicated hero portrait `amy-evolysse-cart.jpg` — a second Jeuveau-banner frame, headline/indication/partial ISI legible, its own pixel override — and Amy's training reel (`training-reel`, 19.8s, music bed) under the "Four courses" heading, carried as-is under operator override (burned-in curriculum cards + a legible per-vial quantity + the on-screen practice-site URL, constraint-2 fifth exception; all on-camera releases confirmed), autoplay in-class | Call (phone/Instagram routed — neither booking nor consultation language) |
-| `/mobile` | Mobile parties | The party-and-van page (added 2026-09-02, operator-directed; DECISIONS same date): Amy brings the practice to homes, offices, and gatherings around Charlotte in a van fitted out as a treatment room. Copy states only what her own public posts and practice site establish (the van carries a chair and supplies; for a smaller space she sets up inside; booking by phone or text) and deliberately leaves the open facts (which services travel, radius, group minimums, host rewards) unwritten pending Amy. "Party" is the client's word, allowed by operator decision; the competitor brand name her posts pair with it and the neuromodulator shorthand never appear. Media: the van interior from her practice-site gallery as a 4:5 crop excluding the prep-workflow left third, and — since later the same day — the van film, Amy's own 2026-06-17 TikTok clip saved through the platform's creator-enabled download under the operator's standing authorization (muted rendition, in-view autoplay, served at the 576px source's own 2× width), PREVIEW-ONLY under an open release flag for the seated guest. Outside the treatments collection and the clinician flag gate — Amy reviews via the sign-off doc's non-gated section; "Mobile" nav item after Visit | Call (phone/Instagram routed — mobile booking is by phone, not Vagaro) |
+| `/mobile` | Mobile parties | The party-and-van page (added 2026-09-02, operator-directed; DECISIONS same date): Amy brings the practice to homes, offices, and gatherings around Charlotte in a van fitted out as a treatment room. Copy states only what her own public posts and practice site establish (the van carries a chair and supplies; for a smaller space she sets up inside; booking by phone or text) and deliberately leaves the open facts (which services travel, radius, group minimums, host rewards) unwritten pending Amy. "Party" is the client's word, allowed by operator decision; the competitor brand name her posts pair with it and the neuromodulator shorthand never appear. Media: the van interior from her practice-site gallery as a 4:5 crop excluding the prep-workflow left third, and — since 2026-09-03 (DECISIONS same date), replacing the 2026-06-17 TikTok clip that shipped preview-only the day before — the viewfinder film, Amy's own 1080×1920 clip sent to the operator directly, a camcorder-viewfinder template burned in (the 810×1440 rendition at the row's 24rem film cap, in-view autoplay; muted because the song is a commercial recording — a sounded cut waits on a license, the operator's no-speech listen already on the record), the seated guest's website-use release confirmed on file. Outside the treatments collection and the clinician flag gate — Amy reviews via the sign-off doc's non-gated section; "Mobile" nav item after Visit | Call (phone/Instagram routed — mobile booking is by phone, not Vagaro) |
 | `/book` | RETIRED (2026-07-21, operator) | Was the Vagaro-handoff explainer; every "Book with Amy" now opens Vagaro directly, so the page was deleted before ever serving in production | — |
 | `/visit` | Visit Us | Address (hours are NOT listed — Amy's decision 2026-08-04, `{{HOURS}}` CLOSED; no page copy may promise or imply hours), parking note, "Get directions" link-out (no map iframe) | Directions / Book |
 | `/privacy`, `/terms`, `/medical-disclaimer` | Legal | Provider-drafted, launch form effective 2026-08-04 (draft markers removed at operator acceptance — DECISIONS same date; counsel review post-launch) | — |
@@ -894,14 +895,20 @@ action.
   elements and zero video bytes until the stage scrolls into view;
   muted renditions; captions mirror each film's on-screen text
   (public/media/*.vtt — outside lint scope, controlled by the per-film
-  override entries); reduced-motion serves posters + play-on-request.
+  override entries); since 2026-09-03 the films autoplay under
+  reduced motion too (operator decision — content with a pause control;
+  only the crossfade stands down) and a refused play() retries inside
+  the person's first gesture on phones (DECISIONS 2026-09-03); before
+  that date reduced motion served posters + play-on-request.
   Treatment-page films (`TreatmentVideo`) are click-to-play with sound
   by default; the `autoplay="inview"` opt-in (2026-08-21, the two
   biostimulators reels — operator direction, DECISIONS same date) plays
   a film MUTED and looping while ~a third of it is on screen via the
-  static `public/js/treatment-video.js` (~2KB; reduced motion =
-  click-to-play; the native controls are the pause and the
-  tap-for-sound). Opt in only for Amy's own speech-free films — never a
+  static `public/js/treatment-video.js` (~3KB; the native controls are
+  the pause and the tap-for-sound; since 2026-09-03 it plays under
+  reduced motion too and retries a refused play() inside the person's
+  first gesture — the carousel's phone policy, operator decision,
+  DECISIONS same date). Opt in only for Amy's own speech-free films — never a
   manufacturer film or one with narration. One scoped exception
   (operator override after the flag — DECISIONS 2026-08-25): the
   Evolus ICON film on /about autoplays muted at the client's
@@ -982,7 +989,10 @@ action.
   target size ≥ 24×24 CSS px (2.2 criterion).
 - Meaningful alt text (decorative images `alt=""`); motifs/chevrons are
   decorative.
-- `prefers-reduced-motion` disables all non-essential animation.
+- `prefers-reduced-motion` disables all non-essential animation — the
+  films are content, not animation, and keep autoplaying muted with
+  their pause control (the 2026-09-03 scoped exception, CLAUDE.md
+  constraint 6).
 - Announce external links pattern (icon + visually-hidden "opens in new tab").
 - **Testing:** `npm run test:a11y` runs axe (via @axe-core/cli or pa11y-ci)
   against the built site's key templates; manual keyboard + screen-reader

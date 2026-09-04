@@ -361,6 +361,14 @@ silently following it. Known superseded points from earlier briefs:
    contrast ≥ 4.5:1 — the brand hot pinks fail on white at body sizes; use
    the accessible ink tokens per BUILD_SPEC §5. Keyboard operable, visible
    focus, semantic landmarks, reduced-motion respected.
+   *Scoped exception (operator decisions 2026-09-03, DECISIONS same date
+   — the home carousel, then the treatment films): the site's FILMS
+   autoplay muted under `prefers-reduced-motion` too. They are content
+   with a pause control — the carousel's toggle and the native controls
+   are WCAG 2.2.2's mechanism — not decoration; every decorative move
+   (the reveals, the sign's breath, the crossfade) still stands down.
+   Widening this to anything that is not a film requires the human
+   operator.*
 
 7. **Placeholders, never inventions.** Unknown facts use `{{TOKEN}}`
    placeholders from BUILD_SPEC §17.
@@ -388,10 +396,14 @@ silently following it. Known superseded points from earlier briefs:
   Plausible tracker (~3.6KB, `public/js/plausible.js`) — renders only
   after the operator's relaunch-day flip (BUILD_SPEC §11). Third
   sanctioned consumer (2026-08-21, operator-directed): the treatment-film
-  autoplay-in-view script (~2KB, `public/js/treatment-video.js`) —
+  autoplay-in-view script (~3KB, `public/js/treatment-video.js`) —
   rendered only on pages whose `TreatmentVideo` players opt in with
-  `autoplay="inview"` (muted, loop-in-view, reduced motion =
-  click-to-play; DECISIONS 2026-08-21). Opted-in pages today:
+  `autoplay="inview"` (muted, loop-in-view; DECISIONS 2026-08-21) —
+  since 2026-09-03 its films autoplay under prefers-reduced-motion too
+  (operator decision — the carousel's policy extended to these players:
+  the films are content with a pause control) and a refused play()
+  retries inside the person's first gesture on phones (DECISIONS
+  2026-09-03). Opted-in pages today:
   /services/biostimulators and /services/body-contouring (both
   2026-08-21, Amy's own speech-free reels — the film class the opt-in
   was written for), /about (2026-08-25, the ICON film — a scoped

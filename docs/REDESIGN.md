@@ -121,8 +121,22 @@ pink."** Seven gaps, each a test every design decision must move:
   roll / photographer / IG source); replaces the AI-assisted interim
   asset with zero code changes.
 - **Amy's reactions**, remaining: the hero's enhanced rendering of her
-  own likeness (disclosed) and the capital-A headline. (The carousel
-  reactions arrived 2026-08-15 and shipped: head copy + reel tempo.)
+  own likeness (disclosed); the headline — three candidates since the
+  2026-09-03 round (keep "Medical Aesthetics, made personal." / "One
+  clinician. Every appointment." / "Every appointment is with Amy.");
+  the hero reel and its portrait beat (the pace and the hold are
+  one-number knobs, RUNBOOK "The home page's motion layer"); the new
+  lead and intro-deck wording; the van band. (The carousel reactions
+  arrived 2026-08-15 and shipped: head copy + reel tempo.)
+- **The home concept's deferred rounds** (2026-09-03, own PRs after
+  Amy reacts): the treatment pages' "one big picture" — a
+  full-container segmental band per page, the plaque below the prose on
+  wrinkle-relaxers — after PR #143 lands; display-size openers on
+  /services, /about, /mobile, /injector-training; and the Tier 3 asset
+  asks to Amy — a landscape hero film or her full-resolution hero
+  original (the interim AI-assisted still is disclosed), 16:9
+  renditions of the two Jeuveau spots, and a re-grade or re-shoot of
+  the four /services snapshot cards.
 - **Sound for the films** — the CAROUSEL renditions are muted;
   tap-for-sound + audio-faithful captions is a recorded follow-up if
   directed. (Treatment-page films keep their audio and play on click

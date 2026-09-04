@@ -52,7 +52,11 @@ merged here; the hero reel takes the same policy.
 | `1179506` | 14:55 | Merge of that fix into this branch |
 | `f9cce30` | 14:58 | **concept: the hero reel takes the carousel's phone policy** |
 | `94917b4` | 2026-09-04 | **concept: the hero reel runs continuously — freeze-frame dissolves, no rests, a portrait beat each cycle** (tweaks 4 + 5) |
-| (2026-09-04) | — | **design: the film band back to phase-c's composition** (tweak 6 — "look like what we have in PR #149") |
+| `f11493b` | 2026-09-04 | **design: the film band back to phase-c's composition** (tweak 6 — "look like what we have in PR #149") |
+| `a03cdc2` | 2026-09-04 | Merge of `phase-c` (#180–#183) — the PR had gone CONFLICTING and ran no workflow until this |
+| `4586aac` | 2026-09-04 | **concept: the portrait opens the page** — `data-first="5"` (tweak 5, second part) |
+| `6de13ab` | 2026-09-04 | **docs: the concept is adopted** — the lifts become standing decisions (CLAUDE.md, lighthouserc, global.css, BUILD_SPEC, this file) |
+| `17132bf` | 2026-09-04 | **Merge pull request #179 into `phase-c`** — the operator's "go ahead and merge #179 and refresh the previews" |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,

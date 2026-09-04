@@ -8419,3 +8419,39 @@ exception).
 decorative motion stands down, films play with a pause control. Nothing
 else changes; the docs-only path skips the preview pipeline by design
 (`paths-ignore`), so the Relaunch guard is this PR's only check.
+
+## 2026-09-04 — The home documents catch up with the adopted concept (docs only)
+
+**Context.** Asked after the #179 merge whether every pertinent document
+had been updated, the assistant audited `phase-c`: the rule-level
+records had moved with the adoption (CLAUDE.md, the Lighthouse row's
+comment, the global.css motion header, BUILD_SPEC §13, DECISIONS,
+CHANGELOG, REDESIGN's row, HOME-CONCEPT's header), but six places still
+described the home page as it was before the concept or did not mention
+it. The operator: "Go ahead and open the docs PR and merge it."
+
+**Decision.** Docs only, no rendered byte changes: (1) BUILD_SPEC §6's
+home row describes the adopted page — the film facade over the portrait
+with `data-first` and `data-still`, the neon choreography, the
+one-sentence lead, the display openers, the van band, the CSS-only
+fallback; §5's motion sentence names the scripted layer as the one
+exception to the closed CSS vocabulary and records the carousel settle's
+withdrawal. (2) RUNBOOK gains "The home page's motion layer and the hero
+reel": the vendor files and licenses, the flag and the fallback, the
+budget row, the knobs table, and how to swap or re-trim the reel (screen
+at hero size; the arrivals are out for the wall print's competitor
+name; 10fps edge strips for window ends; the continuity check). (3)
+RELAUNCH's production probes gain the six home scripts and the hero
+element's attributes. (4) CLINICIAN-SIGN-OFF's pending-demo row carries
+the concept layer for Amy — the reel and its portrait beat, the
+choreography — and drops the withdrawn composed band; her picks are
+named. (5) REDESIGN's open items carry the concept's deferred rounds
+(the treatment-page big picture after #143, openers on the other pages,
+the Tier 3 asset asks) and the headline candidates. (6) HOME-CONCEPT's
+commit table gets the last five hashes.
+
+**Consequences.** Every document that describes the home page now
+describes the adopted one. Nothing else changes; the docs-only path
+skips the preview pipeline (`paths-ignore`), so the Relaunch guard is
+this PR's only check; the standing previews are refreshed for branch
+parity, not for bytes.

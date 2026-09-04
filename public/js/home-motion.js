@@ -16,7 +16,9 @@
  *     lead, CTAs, chips, and the chevron cue follow.
  *  2. Hero film — Amy's own studio reel (the carousel's muted rendition,
  *     0.5× — the recorded tempo) is attached a beat after `load`, poster
- *     first, and fades in. Pauses off-screen.
+ *     first, and fades in; then runs continuously — a freeze-frame
+ *     dissolve joining the three screened passages (tweak 4,
+ *     2026-09-04). Pauses off-screen.
  *  3. Leaving the hero — the copy lifts away and the film swells (scrub).
  *  4. Every section opener rises word by word as it enters.
  *  5. Decks settle in; the three doors are dealt one after another.
@@ -36,8 +38,9 @@
   // Reduced motion: every decorative move stands down (motion-flag never
   // set html.motion; this guard keeps the choreography off), but the
   // hero FILM still plays — content with the same standing as the
-  // carousel's films (operator decision 2026-09-03): muted, its own
-  // dissolves only, the portrait underneath.
+  // carousel's films (operator decision 2026-09-03): muted, the joins
+  // as cuts instead of dissolves (the carousel's precedent), the
+  // portrait underneath.
   if (reduced) html.classList.remove('motion');
   window.__ncMotionReady = true;
   const { gsap, ScrollTrigger, SplitText } = window;
@@ -131,42 +134,72 @@
   } // end of choreography 1
 
   // ---- 2. Hero film facade: the studio reel, poster first, a beat after
-  // load. Runs under reduced motion too (the guard at the top). Phones:
-  // the muted + playsinline ATTRIBUTES ride beside the properties, and a
-  // refused play() is retried inside the person's first gesture — the
-  // same policy as the carousel's #180 fix (DECISIONS 2026-09-03).
+  // load, running CONTINUOUSLY (operator's fourth tweak, 2026-09-04 —
+  // DECISIONS, the home entry). One player, one freeze-frame canvas: at
+  // a passage's last in-window frame the frame is drawn onto the canvas
+  // (on top, opaque), the player seeks to the next passage and plays,
+  // and the canvas dissolves away over data-xfade seconds — so no frame
+  // past a window can show, the seek hides under the freeze, and the
+  // next passage is already moving beneath it. (Two alternating players
+  // did the same job but downloaded the reel four times over — 33 MB
+  // measured — so the freeze-frame carries the join instead.) Runs under
+  // reduced motion too (the guard at the top) with the dissolve reduced
+  // to a cut on `seeked`, the carousel's precedent. Phones: the muted +
+  // playsinline ATTRIBUTES ride beside the properties, and a refused
+  // play() is retried inside the person's first gesture — the same
+  // policy as the carousel's #180 fix.
   const media = q('[data-hero-film]');
   if (media) {
+    const rate = parseFloat(media.dataset.rate || '1');
+    // Windows: data-ranges="start-end,start-end" (seconds of the master),
+    // played in order and looped — a trim, recorded as an editorial
+    // choice (DECISIONS 2026-09-03 addendum; the second window's end
+    // corrected 2026-09-04). data-plays: passes before the film stops
+    // (0 = forever, the default since the fourth tweak). data-hold is
+    // retired (a leftover value is ignored). data-xfade: the dissolve,
+    // in seconds; 0 under reduced motion.
+    const ranges = (media.dataset.ranges || '')
+      .split(',')
+      .map((r) => r.split('-').map(Number))
+      .filter((r) => r.length === 2 && r[1] > r[0]);
+    const plays = Math.max(0, parseInt(media.dataset.plays || '0', 10));
+    const xfade = reduced ? 0 : Math.max(0, parseFloat(media.dataset.xfade || '0.8'));
+    // data-still: seconds the film rests on Amy's PORTRAIT at the end of
+    // every pass — the reel dissolves away to the still beneath it, waits,
+    // and dissolves back in at the first passage (operator's fifth tweak,
+    // 2026-09-04: "she wants people to see that pic, clearly"). 0 = the
+    // passes run straight into each other.
+    const still = Math.max(0, parseFloat(media.dataset.still || '0'));
     let unlockArmed = false;
-    const armUnlock = (v) => {
+    let onScreen = true;
+    let seeking = false;
+    let stopped = false;
+    let resting = false;
+    let v;
+    const armUnlock = () => {
       if (unlockArmed) return;
       unlockArmed = true;
       const events = ['touchend', 'pointerup', 'keydown'];
       const retry = () => {
         events.forEach((t) => document.removeEventListener(t, retry, true));
         unlockArmed = false;
-        if (v.isConnected && v.paused) v.play().catch(() => {});
+        if (v && onScreen && !stopped && !seeking && !resting && v.paused) v.play().catch(() => {});
       };
       events.forEach((t) => document.addEventListener(t, retry, { capture: true, passive: true }));
     };
     const attach = () => {
-      const v = document.createElement('video');
+      v = document.createElement('video');
       v.className = 'nc-hero__film';
       v.muted = true;
-      v.loop = true;
+      v.loop = !ranges.length;
       v.preload = 'auto';
       v.setAttribute('muted', '');
       v.setAttribute('playsinline', '');
       v.setAttribute('webkit-playsinline', '');
       v.setAttribute('aria-label', media.dataset.label || '');
-      const rate = parseFloat(media.dataset.rate || '1');
       v.defaultPlaybackRate = v.playbackRate = rate;
-      v.addEventListener('loadedmetadata', () => {
-        v.playbackRate = rate;
-      });
-      v.addEventListener('play', () => {
-        v.playbackRate = rate;
-      });
+      v.addEventListener('loadedmetadata', () => { v.playbackRate = rate; });
+      v.addEventListener('play', () => { v.playbackRate = rate; });
       const source = document.createElement('source');
       source.src = media.dataset.file;
       source.type = 'video/mp4';
@@ -177,96 +210,119 @@
       track.label = 'English';
       v.append(source, track);
       gsap.set(v, { opacity: 0 });
-      // Windows: data-ranges="start-end,start-end" (seconds of the master)
-      // plays only those passages in order and loops — a trim, recorded
-      // as an editorial choice (DECISIONS 2026-09-03 addendum). Each
-      // passage then RESTS on its last frame for data-hold seconds
-      // (operator's first tweak, same day: the passages are short, so
-      // without the hold the film cut every one to three seconds) and
-      // dissolves — 0.6s out, 1.1s in — into the next.
-      const ranges = (media.dataset.ranges || '')
-        .split(',')
-        .map((r) => r.split('-').map(Number))
-        .filter((r) => r.length === 2 && r[1] > r[0]);
-      let onScreen = true;
-      let holding = false;
-      let done = false;
+      media.append(v);
       if (ranges.length) {
-        v.loop = false;
-        const hold = Math.max(0, parseFloat(media.dataset.hold || '3'));
-        // data-plays: full passes through the windows before the film ends
-        // for good — it dissolves out over the portrait it faded in from,
-        // and the portrait settles (operator's second tweak, same day:
-        // "run two times, then rest on the original hero pic"). 0 or
-        // absent = loop forever. Off-screen time never counts: the film
-        // pauses when the hero leaves the viewport and resumes in place.
-        const plays = Math.max(0, parseInt(media.dataset.plays || '0', 10));
-        let passes = 0;
+        // The freeze frame: a canvas wearing the film's class (absolute,
+        // cover) above the player; painted with the passage's last frame
+        // at each join, then dissolved away.
+        const c = document.createElement('canvas');
+        c.className = 'nc-hero__film nc-hero__freeze';
+        c.setAttribute('aria-hidden', 'true');
+        gsap.set(c, { opacity: 0 });
+        media.append(c);
+        const cx = c.getContext('2d');
         let ri = 0;
-        let seeking = false;
-        let timer = 0;
-        const jump = (i) => {
-          ri = i;
-          seeking = true;
-          v.currentTime = ranges[ri][0];
-          gsap.fromTo(v, { opacity: 0.35 }, { opacity: 1, duration: 1.1, ease: 'power2.out', overwrite: 'auto' });
+        let passes = 0;
+        let joining = false;
+        v.addEventListener('seeked', () => { seeking = false; });
+        v.addEventListener('loadedmetadata', () => { seeking = true; v.currentTime = ranges[0][0]; }, { once: true });
+        // The portrait beat: the reel dissolves out to the still beneath
+        // (1.2s), rests `still` seconds, and dissolves back in (1.6s) at
+        // the first passage. With data-plays set, the last pass ends
+        // here and stays — the film ends where it began.
+        const freeze = () => {
+          // The last in-window frame onto the canvas, the player paused:
+          // nothing past the window can show. Returns whether it drew.
+          if (!(v.videoWidth && v.readyState >= 2)) { v.pause(); return false; }
+          try {
+            if (c.width !== v.videoWidth) { c.width = v.videoWidth; c.height = v.videoHeight; }
+            cx.drawImage(v, 0, 0, c.width, c.height);
+            v.pause();
+            gsap.set(c, { opacity: 1 });
+            return true;
+          } catch (e) { v.pause(); return false; }
         };
-        const finish = () => {
-          done = true;
-          gsap.to(v, {
+        const rest = () => {
+          resting = true;
+          const frozen = freeze();
+          // The still beneath appears as the frozen frame (or the paused
+          // player, if the draw failed) dissolves away.
+          const layer = frozen ? c : v;
+          if (frozen) gsap.set(v, { opacity: 0 });
+          gsap.to(layer, {
             opacity: 0,
-            duration: 1.8,
+            duration: xfade > 0 ? 1.2 : 0,
             ease: 'power2.inOut',
             overwrite: 'auto',
             onComplete: () => {
-              v.pause();
-              clearInterval(timer);
-              v.remove(); // the portrait is the page again; nothing keeps decoding
+              gsap.set(v, { opacity: 0 });
+              gsap.set(c, { opacity: 0 });
+              if (stopped) return;
+              ri = 0;
+              seeking = true;
+              v.currentTime = ranges[0][0];
+              setTimeout(() => {
+                const go = () => {
+                  resting = false;
+                  if (onScreen) v.play().catch(armUnlock);
+                  gsap.to(v, { opacity: 1, duration: xfade > 0 ? 1.6 : 0, ease: 'power2.out', overwrite: 'auto', onComplete: () => { joining = false; } });
+                };
+                if (seeking) v.addEventListener('seeked', go, { once: true });
+                else go();
+              }, still * 1000);
             },
           });
-          if (heroImg) gsap.fromTo(heroImg, { scale: 1.04 }, { scale: 1, duration: 3, ease: 'power2.out', overwrite: 'auto' });
         };
-        const endWindow = () => {
-          if (holding || done) return;
-          holding = true;
-          v.pause(); // rest on the last frame
-          setTimeout(() => {
-            const next = (ri + 1) % ranges.length;
-            if (next === 0) passes += 1;
-            if (plays && passes >= plays) {
-              finish();
-              return;
+        const join = () => {
+          if (joining || stopped) return;
+          joining = true;
+          const next = (ri + 1) % ranges.length;
+          if (next === 0) {
+            passes += 1;
+            if (plays && passes >= plays) stopped = true;
+            if (still > 0 || stopped) { rest(); return; }
+          }
+          // Freeze FIRST: the last in-window frame goes on the canvas and
+          // the player pauses — nothing past the window can show.
+          let frozen = false;
+          if (v.videoWidth && v.readyState >= 2) {
+            try {
+              if (c.width !== v.videoWidth) { c.width = v.videoWidth; c.height = v.videoHeight; }
+              cx.drawImage(v, 0, 0, c.width, c.height);
+              frozen = true;
+            } catch (e) { frozen = false; }
+          }
+          v.pause();
+          if (frozen) gsap.set(c, { opacity: 1 });
+          ri = next;
+          seeking = true;
+          v.currentTime = ranges[ri][0];
+          const go = () => {
+            if (onScreen && !stopped) v.play().catch(armUnlock);
+            if (frozen && xfade > 0) {
+              gsap.to(c, { opacity: 0, duration: xfade, ease: 'power1.inOut', overwrite: 'auto', onComplete: () => { joining = false; } });
+            } else {
+              gsap.set(c, { opacity: 0 });
+              joining = false;
             }
-            gsap.to(v, {
-              opacity: 0.35,
-              duration: 0.6,
-              ease: 'power2.in',
-              overwrite: 'auto',
-              onComplete: () => {
-                jump(next);
-                holding = false;
-                if (onScreen) v.play().catch(() => armUnlock(v));
-              },
-            });
-          }, hold * 1000);
+          };
+          v.addEventListener('seeked', go, { once: true });
         };
-        v.addEventListener('seeked', () => { seeking = false; });
-        v.addEventListener('loadedmetadata', () => { v.currentTime = ranges[0][0]; }, { once: true });
         // Three clocks watch the window's end (a frame callback alone can
         // lag in a background tab): the video-frame callback, timeupdate,
         // and a 40ms interval — the margin is one 0.5× frame.
         const tick = () => {
-          if (!done && !seeking && !holding && v.currentTime >= ranges[ri][1] - 0.05) endWindow();
+          if (stopped || joining || seeking) return;
+          if (v.currentTime >= ranges[ri][1] - 0.05) join();
         };
         if ('requestVideoFrameCallback' in v) {
-          const onFrame = () => { tick(); if (!done) v.requestVideoFrameCallback(onFrame); };
+          const onFrame = () => { tick(); if (!stopped) v.requestVideoFrameCallback(onFrame); };
           v.requestVideoFrameCallback(onFrame);
         }
         v.addEventListener('timeupdate', tick);
-        timer = setInterval(tick, 40);
-        v.addEventListener('ended', () => { if (!holding) endWindow(); });
+        setInterval(tick, 40);
+        v.addEventListener('ended', () => { if (!joining) join(); });
       }
-      media.append(v);
       // The fade-in rides the first `playing` event, so a play() that
       // was refused and later unlocked by a gesture still fades in.
       v.addEventListener(
@@ -274,19 +330,13 @@
         () => gsap.to(v, { opacity: 1, duration: 1.6, ease: 'power2.out', overwrite: 'auto' }),
         { once: true },
       );
-      v.addEventListener(
-        'canplay',
-        () => {
-          v.play().catch(() => armUnlock(v));
-        },
-        { once: true },
-      );
+      v.addEventListener('canplay', () => { v.play().catch(armUnlock); }, { once: true });
       new IntersectionObserver(
         (entries) => {
           for (const e of entries) {
             onScreen = e.isIntersecting;
             if (onScreen) {
-              if (!holding && !done) v.play().catch(() => armUnlock(v));
+              if (!stopped && !seeking && !resting && v.paused) v.play().catch(armUnlock);
             } else v.pause();
           }
         },

@@ -22,9 +22,10 @@ and asked for real movement: the page gained a self-hosted GSAP +
 Lenis choreography ("the neon comes on") and Amy's own studio reel in
 the hero. The preview workflow gates before it deploys, so the lift
 had to reach the gate as a home-only script row. Three tweaks
-followed on the operator's reaction (the reel holds on each scene,
-runs two passes and ends on the portrait; the film band's order went
-back to Jeuveau first). A phone report ("the carousel doesn't
+followed on the operator's reaction (the reel held on each scene and
+ran two passes to the portrait — both withdrawn 2026-09-04: it now runs
+continuously with a portrait beat each cycle; the film band's order
+went back to Jeuveau first). A phone report ("the carousel doesn't
 autoplay") was fixed on its own branch into `phase-c` (PR #180) and
 merged here; the hero reel takes the same policy.
 
@@ -49,6 +50,7 @@ merged here; the hero reel takes the same policy.
 | `ee384b8` | 14:51 | **fix: carousel autoplays on phones** — authored on `fix/carousel-phone-autoplay` (PR #180 into `phase-c`) |
 | `1179506` | 14:55 | Merge of that fix into this branch |
 | `f9cce30` | 14:58 | **concept: the hero reel takes the carousel's phone policy** |
+| (2026-09-04) | — | **concept: the hero reel runs continuously — freeze-frame dissolves, no rests, a portrait beat each cycle** (tweaks 4 + 5) |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,
@@ -72,14 +74,23 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   attaches Amy's studio reel — the carousel's muted rendition at the
   recorded 0.5× — and fades it in over the portrait. `data-ranges`
   trims it to its three treatment passages (seconds of the master:
-  `10.4–11.72`, `2.5–3.25`, `6.15–6.78`); each passage plays, **rests
-  on its last frame for 3.5s** (`data-hold`), and dissolves into the
-  next (0.6s out, 1.1s in). After **two passes** (`data-plays`) the
-  film dissolves out over the portrait it faded in from, the portrait
-  settles (1.04 → 1 over 3s), and the element is removed. Measured
-  timeline: portrait → reel in at ~3s → ~17.5s a pass → back to the
-  portrait at ~40s. Off-screen time does not count (the film pauses
-  when the hero leaves the viewport); it never replays until reload.
+  `10.4–11.72`, `2.5–3.15`, `6.15–6.78` — the second window's end
+  corrected from 3.25 on 2026-09-04, when a 10fps edge strip showed the
+  car selfie's first frame inside it). **Since 2026-09-04 the film runs
+  continuously** (tweaks 4 + 5): at a passage's last in-window frame
+  the frame is painted onto a canvas above the player, the player seeks
+  to the next passage and plays beneath it, and the canvas dissolves
+  away over `data-xfade` (0.8s) — no rest, no visible seek, no frame
+  outside a window. At the end of every pass the reel dissolves away
+  (1.2s) to **Amy's portrait beneath it, rests there `data-still`
+  seconds (5)**, and dissolves back in (1.6s) at the first passage.
+  Measured on the built page: an 11.2s cycle — the three passages
+  ~5.5s with three dissolves, the portrait 5.3s — zero frames outside a
+  window, no visible pause, one 8.3MB fetch of the reel. Off-screen
+  time does not count (the film pauses when the hero leaves the
+  viewport and resumes in place, the still included). The 3.5s rests
+  and the two-pass ending are withdrawn; `data-plays` still ends the
+  film on the portrait if set.
 - **The neon comes on (choreography).** The wordmark flickers on and
   settles into its breath; the headline rises word by word (blur →
   sharp); "made personal." switches on like a tube (the CSS shimmer
@@ -188,9 +199,11 @@ of scrolling into view even with the reel downloading.
 | Knob | Where | Now | Effect |
 |---|---|---|---|
 | `data-rate` | hero media, `ConceptHome.astro` | `0.5` | reel tempo (0.5 is the engines' floor) |
-| `data-ranges` | same | `10.4-11.72,2.5-3.25,6.15-6.78` | the three passages, seconds of the master |
-| `data-hold` | same | `3.5` | seconds each passage rests on its last frame |
-| `data-plays` | same | `2` | passes before the film ends on the portrait (`0` = loop forever) |
+| `data-ranges` | same | `10.4-11.72,2.5-3.15,6.15-6.78` | the three passages, seconds of the master (the second end corrected 2026-09-04) |
+| `data-xfade` | same | `0.8` | the dissolve at each join, seconds (a cut under reduced motion) — 2026-09-04 |
+| `data-still` | same | `5` | seconds the film rests on the portrait at the end of every pass (`0` = passes run straight on) — 2026-09-04 |
+| `data-plays` | same | `0` | passes before the film ends on the portrait for good (`0` = loop forever — the default since 2026-09-04) |
+| ~~`data-hold`~~ | — | retired 2026-09-04 | the 3.5s rest on each passage's last frame WAS the stall the operator saw; a leftover value is ignored |
 | attach delay | `home-motion.js` | 2,500 ms after `load` | keeps the reel out of the Lighthouse trace |
 | dissolves | `home-motion.js` | 0.6s out / 1.1s in; final 1.8s out | joins between passages; the ending |
 | Lenis `lerp` | `home-motion.js` | `0.09` | scroll weight (higher = snappier) |

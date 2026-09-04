@@ -6,6 +6,24 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-04 — Home concept: the hero reel runs continuously, with a portrait beat
+
+- The operator saw the reel stall on the first passage's last frame (the
+  3.5s rest of the first tweak) and withdrew the two-pass ending: the
+  film now loops forever, every join a freeze-frame dissolve (the last
+  in-window frame painted onto a canvas above the player, the seek
+  hidden beneath it, 0.8s) — no rest, no visible seek, no frame outside
+  a window. A two-player version was measured at 33MB per visit and
+  rejected; the single player fetches the reel once (8.3MB). The second
+  window's end corrected 3.25 → 3.15 (the car selfie's first frame was
+  inside it). The reel's door scenes were checked for the loop and ruled
+  out (a wall print behind them names the competitor).
+- Same day: "she wants people to see that pic, clearly" — at the end of
+  every pass the reel dissolves to Amy's portrait beneath it, rests 5s
+  (`data-still`), and dissolves back in. Measured: an 11.2s cycle, the
+  portrait 5.3s of it; cuts and the same beat under reduced motion
+  (DECISIONS 2026-09-03, the home entry's fourth and fifth tweaks).
+
 ### 2026-09-03 — Home carousel autoplays on phones
 
 - Reported from an Android phone: the film band did not autoplay. Two

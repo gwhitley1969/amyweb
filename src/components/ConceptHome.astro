@@ -152,18 +152,31 @@ const CHEVRONS = [
         size the carousel's bounded stage never did — a trim is an
         editorial choice, recorded (DECISIONS 2026-09-03 addendum), not an
         override. The burned-in "POV" caption is Amy's own published
-        wording and stays in frame. data-hold (operator's first tweak,
-        same day — "it changes pictures too fast"): each passage rests
-        on its last frame for 3.5s before dissolving into the next, so
-        the film reads as three held scenes rather than quick cuts.
-        data-plays (second tweak, same day — "run two times, then rest
-        on the original hero pic"): after the second pass the film
-        dissolves out over the portrait it faded in from, the portrait
-        settles, and the film element is removed — it ends where it
-        began and never replays until the page reloads. Reduced motion:
-        the film still plays (operator decision 2026-09-03 — films are
-        content, the carousel policy); only the choreography stands
-        down. Phones: a refused play() retries on the first gesture. */}
+        wording and stays in frame. The film runs CONTINUOUSLY (fourth
+        tweak, 2026-09-04 — "it looks like it stops completely, then it
+        begins again … it can continuously play the film"): at a
+        passage's last frame the frame is painted onto a canvas above the
+        player, the player seeks to the next passage and plays beneath
+        it, and the canvas dissolves away over data-xfade (0.8s) — no
+        rest, no visible seek, no frame outside a window (two alternating
+        players did the same and downloaded the reel four times over).
+        data-still (fifth tweak, same day — "we hardly see the pic of Amy
+        sitting on the table top with the needles in each hand … she
+        wants people to see that pic, clearly during the film"): at the
+        end of every pass the reel dissolves away (1.2s) to the portrait
+        beneath it, rests there for data-still seconds, and dissolves
+        back in (1.6s) at the first passage — the still is part of the
+        loop, not its end. With data-plays set, the last pass ends on
+        the portrait and stays. This retires the first tweak's data-hold (the
+        3.5s rest WAS the stall the operator saw) and the second tweak's
+        two-pass ending (data-plays 0 = forever; the portrait stays
+        underneath and is never returned to). The second window's end
+        moved 3.25 → 3.15 the same day: a 10fps edge strip showed the
+        car selfie's first frame inside it. Reduced motion: the film
+        still plays (operator decision 2026-09-03 — films are content,
+        the carousel policy) with the joins as cuts; only the
+        choreography stands down. Phones: a refused play() retries on
+        the first gesture. */}
     <div
       class="nc-hero__media"
       aria-hidden="true"
@@ -172,9 +185,10 @@ const CHEVRONS = [
       data-vtt="/media/commercial-studio.vtt"
       data-label="A day inside Amy's Harrisburg studio"
       data-rate="0.5"
-      data-ranges="10.4-11.72,2.5-3.25,6.15-6.78"
-      data-hold="3.5"
-      data-plays="2"
+      data-ranges="10.4-11.72,2.5-3.15,6.15-6.78"
+      data-plays="0"
+      data-xfade="0.8"
+      data-still="5"
     >
       {/* INTERIM AI-ASSISTED ASSET (disclosed — DECISIONS 2026-08-14):
         * the only available source is a 642px social-size save, well

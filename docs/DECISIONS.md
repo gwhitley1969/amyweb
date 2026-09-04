@@ -7929,6 +7929,68 @@ reduced motion emulated → the reel plays over the portrait with no
 choreography; play() refused until a gesture → the portrait stays
 until the first tap, then the reel fades in.
 
+*Fourth tweak (2026-09-04) — the film runs continuously.* On the #179
+preview: "the hero film … always stalls on the pic where Amy has two
+fingers on a female's throat area. it looks like it stops completely,
+then it begins again. I'd like for that to be smoother and not just
+stall or stop … I've changed my mind. It can continuously play the
+film." Diagnosis (contact sheets and 10fps edge strips of the reel): the
+named frame is the last frame of the FIRST passage (10.4–11.72s — Amy's
+gloved fingers at the seated client's jaw), where the first tweak's
+`data-hold` paused the player for 3.5s before the dip-and-seek to the
+next passage. The hold WAS the stall. Operator choices (asked): joins
+= "Seamless crossfade"; speed = "Keep 0.5×". Decisions: (a) the hold is
+retired and the two-pass ending withdrawn — `data-plays="0"`, loop
+forever; (b) the joins are freeze-frame dissolves: at a passage's last
+in-window frame the frame is painted onto a canvas above the player
+(`drawImage` — a cross-origin source only taints the canvas, and it is
+never read back), the player pauses, seeks to the next passage and
+plays beneath, and the canvas dissolves away over `data-xfade` (0.8s,
+`power1.inOut`) — no frame past a window can show, the seek hides
+under the freeze, and the next passage is already moving beneath it.
+A two-player alternation (the first cut) did the same job but the
+browser fetched the reel once per player and again on each backward
+seek: 33MB measured for one visit against 8.3MB with the single player
+— rejected on bandwidth. (c) The second window's end moves 3.25 → 3.15:
+the 10fps strip shows the reel's car selfie beginning at ≈3.2s, so the
+recorded window carried its first frame — and the hold had been
+resting on it. (d) Under reduced motion the joins are cuts (the
+carousel's "only the crossfade stands down"); the film plays as before.
+(e) The reel's other studio scenes were checked for the loop and ruled
+out: the arrivals at the door (≈1.9–2.4s, 4.9–5.7s, 9.5–10.3s) have a
+wall print behind them reading "LIP FILLER JOURNEY" over the competitor
+neuromodulator's name — legible at hero size, and that word never
+appears on this site; the counter shots carry retired Evolysse
+packaging; the car selfie is not the studio. The loop stays on the
+three screened passages.
+
+*Fifth tweak (same day) — the portrait beat.* "We hardly see the pic
+of Amy sitting on the table top with the needles in each hand. It goes
+by it so fast that we don't completely see it. She wants people to see
+that pic, clearly during the film." With the film continuous, the
+portrait (the LCP still beneath the reel) showed only in the first
+~3s. Decision: `data-still` — at the end of every pass the reel
+freezes its last frame, the frame dissolves away (1.2s) to the portrait
+beneath, the portrait rests `data-still` seconds (5), and the reel
+dissolves back in (1.6s) at the first passage; the still is part of the
+loop, not its end. (`data-plays`, if set, now ends the film on the
+portrait and stays — the second tweak's ending, available as a knob.)
+The first cut of the beat faded the PLAYING video out and let it run
+past the third window — 43 samples of the car selfie at falling opacity
+in a 40s watch; the freeze-first rule fixed it (0 after). Measured on
+the built page (Playwright, 50ms samples): an 11.2s cycle — passages
+2.2 / 1.2 / 1.6s by dominance with three 0.8s dissolves, the portrait
+5.3s — 0 frames outside a window, 0 visibly paused samples, one 8.3MB
+fetch; a scroll away during the still and back resumes and progresses;
+reduced motion: the same cycle with cuts, portrait 5s. Script 15.5KB →
+18.8KB raw (the home row's 80KB budget stands). Records: HOME-CONCEPT
+(reel paragraph, commit table, knobs), CHANGELOG, this entry, the PR
+body. Gate: `npm run verify` green — pa11y 25/25, Lighthouse CI every
+assertion (the branch-only home row included); home: perf 0.99, LCP
+2080ms (median of 2228 / 2077 / 2080), CLS 0, TBT ≤43ms, total 316KB,
+image 192KB, script 69,035 B of the row's 81,920, media 0, third-party
+0.
+
 ## 2026-09-03 — Home carousel: autoplay on phones (reduced motion no longer gates the films; a refused play() retries on the first gesture)
 
 **Context.** The operator was told the home carousel does not

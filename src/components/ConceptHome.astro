@@ -8,6 +8,8 @@ import TrustChips from './TrustChips.astro';
 import LocationCard from './LocationCard.astro';
 import VideoCarousel from './VideoCarousel.astro';
 import { siteConfig } from '../lib/siteConfig';
+import ReviewNumber from './ReviewNumber.astro';
+import { reviewTag } from '../lib/reviewTags';
 import needlegirlieHero from '../assets/photos/needlegirlie-hero.jpg';
 import amyTreatingClient from '../assets/photos/amy-treating-client-neon.jpg';
 import skinbetterInHand from '../assets/photos/skinbetter-in-hand.jpg';
@@ -97,6 +99,11 @@ const CHEVRONS = [
   'M146.07 108.00 L164.07 108.00 L211.36 158.98 L164.04 210.00 L146.04 210.00 L193.36 158.98 Z',
   'M207.02 108.00 L225.02 108.00 L272.32 158.98 L224.99 210.00 L206.99 210.00 L254.32 158.98 Z',
 ];
+
+// REVIEW SCAFFOLDING (ReviewNumber.astro) — letter tag for this route.
+// Keyed by pathname: this component also renders /styleguide/concept,
+// which is deliberately left untagged.
+const reviewPageTag = reviewTag(Astro.url.pathname);
 ---
 
 {/* Light body (default): the ombre canvas paints the page; the hero and
@@ -109,6 +116,12 @@ const CHEVRONS = [
   description="Needle Girlie — the medical-aesthetics practice of Amy Palacios, FNP, in Harrisburg, NC. Injectables, skin, body, and wellness, every appointment with Amy."
 >
   <Header slot="header" />
+
+  {reviewPageTag && (
+    <div class="mx-auto max-w-6xl px-6 pt-6">
+      <ReviewNumber n={reviewPageTag} />
+    </div>
+  )}
 
   {/* ---- HOME CONCEPT (2026-09-03): the motion layer. The operator lifted
       the zero-JS rule FOR THIS BRANCH (concept test; DECISIONS same

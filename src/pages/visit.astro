@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ReviewNumber from '../components/ReviewNumber.astro';
+import { reviewTag } from '../lib/reviewTags';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
@@ -13,6 +15,9 @@ import LocationCard from '../components/LocationCard.astro';
  * promise or imply hours. The parking note still waits on operator
  * wording (a new registry item, not yet in §17).
  */
+
+// REVIEW SCAFFOLDING (ReviewNumber.astro) — letter tag for this route.
+const reviewPageTag = reviewTag(Astro.url.pathname);
 ---
 
 <BaseLayout
@@ -22,6 +27,7 @@ import LocationCard from '../components/LocationCard.astro';
   <Header slot="header" />
 
   <section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    {reviewPageTag && <ReviewNumber n={reviewPageTag} />}
     <p class="eyebrow">The studio</p>
     <hr class="rule-accent mt-4" aria-hidden="true" />
     <h1 class="display-2 mt-6">Visit Amy</h1>

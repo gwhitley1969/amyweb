@@ -12,6 +12,8 @@ import EvolusLaurel from '../components/EvolusLaurel.astro';
 import VisitSteps from '../components/VisitSteps.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import TrustChips from '../components/TrustChips.astro';
+import ReviewNumber from '../components/ReviewNumber.astro';
+import { lineNumber } from '../lib/serviceLines';
 
 /**
  * Treatment page template (approved design plan + Mobbin-review addendum).
@@ -106,6 +108,13 @@ const crumbs = [
   { name: 'Services', href: '/services' },
   { name: title, href: Astro.url.pathname },
 ];
+
+// REVIEW SCAFFOLDING (see ReviewNumber.astro) — the page's /services menu
+// number, read from the URL so no content file and no route signature
+// changes. trailingSlash is 'never' (astro.config.mjs), so the last path
+// segment is the slug; non-menu routes such as the styleguide treatment
+// demo resolve to null and render no marker.
+const reviewNum = lineNumber(Astro.url.pathname.split('/').pop() ?? '');
 ---
 
 <BaseLayout title={seo.title} description={seo.description} jsonLd={jsonLd}>
@@ -114,6 +123,7 @@ const crumbs = [
   </Fragment>
 
   <article class="mx-auto max-w-3xl px-6 py-12">
+    {reviewNum && <ReviewNumber n={reviewNum} />}
     <Breadcrumbs items={crumbs} />
     <h1 class="heading-2 md:display-2 mt-6">{title}</h1>
     <hr class="rule-accent mt-4" />

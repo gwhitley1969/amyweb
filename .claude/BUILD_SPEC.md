@@ -894,9 +894,11 @@ action.
   by default; the `autoplay="inview"` opt-in (2026-08-21, the two
   biostimulators reels — operator direction, DECISIONS same date) plays
   a film MUTED and looping while ~a third of it is on screen via the
-  static `public/js/treatment-video.js` (~2KB; reduced motion =
-  click-to-play; the native controls are the pause and the
-  tap-for-sound). Opt in only for Amy's own speech-free films — never a
+  static `public/js/treatment-video.js` (~3KB; the native controls are
+  the pause and the tap-for-sound; since 2026-09-03 it plays under
+  reduced motion too and retries a refused play() inside the person's
+  first gesture — the carousel's phone policy, operator decision,
+  DECISIONS same date). Opt in only for Amy's own speech-free films — never a
   manufacturer film or one with narration. One scoped exception
   (operator override after the flag — DECISIONS 2026-08-25): the
   Evolus ICON film on /about autoplays muted at the client's

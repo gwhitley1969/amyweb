@@ -10,7 +10,7 @@ import TreatmentVideo from '../components/TreatmentVideo.astro';
 import { siteConfig } from '../lib/siteConfig';
 import { service } from '../lib/schema';
 import vanInterior from '../assets/photos/van-treatment-interior.jpg';
-import vanChairPoster from '../assets/photos/van-chair-treatment-poster.jpg';
+import vanViewfinderPoster from '../assets/photos/van-viewfinder-treatment-trim-poster.jpg';
 
 /**
  * /mobile — the party-and-van page (added 2026-09-02 at the operator's
@@ -47,22 +47,30 @@ import vanChairPoster from '../assets/photos/van-chair-treatment-poster.jpg';
  *   license plate in the window — the prep-workflow class the photo
  *   rubric rejects; nothing legible remains (the right-edge product
  *   cartons do not resolve). The friends-section film is Amy's own
- *   published van clip (her TikTok post of 2026-06-17), saved through
- *   the platform's creator-enabled download under the operator's
- *   standing authorization for her own posts (DECISIONS 2026-09-02,
- *   the film entry): Amy treating a seated guest in the van. It ships
- *   PREVIEW-ONLY under the open release flag (the guest is identifiable
- *   and no website-use release is on the record — the 2026-07-19
- *   precedent) and comes off if Amy cannot confirm it. The rendition
- *   is MUTED (the source audio is unscreened; a sounded cut waits on
- *   the operator's listen-and-confirm) and autoplays in view on that
- *   basis — no speech can reach a visitor. The platform's moving handle
- *   mark is the own-handle class; the supply box in the lower corner
- *   for most of the loop resolves to glove and alcohol-pad packaging —
- *   no vials, drawn syringes, or product names. The 576px source is
- *   served at its own 2× width (an 18rem cap — the retina rule kept by
- *   cap, not override; Amy's original lifts the cap to the row's
- *   24rem). Nobody is named in the label, the captions, or here.
+ *   clip, sent to the operator directly on 2026-09-03 (a 1080×1920
+ *   iPhone export with a camcorder-viewfinder template burned in —
+ *   DECISIONS 2026-09-03, the viewfinder-film entry, which supersedes
+ *   the 2026-09-02 van-film entry): Amy treating a seated guest in the
+ *   van, two shots joined by a zoom-blur, with a short wide shot of the
+ *   chair and the light stand. The rendition opens on the settled
+ *   scene: the template's 2.33 s tiled reveal is trimmed at the
+ *   operator's direction (the entry's trim addendum), so the loop does
+ *   not replay it. The seated guest's website-use release
+ *   is confirmed on file (the operator's confirmation, 2026-09-03, is
+ *   the record) — no preview-only flag. The rendition is MUTED: the
+ *   operator listened (music only, no speech), but the song is a
+ *   commercial recording, and a business site needs a license a social
+ *   platform's library does not grant — a sounded cut waits on that
+ *   license, not on another screen. Muted, the in-view autoplay is
+ *   in-contract. The only burned-in text is the template's chrome
+ *   (REC, RAW 9:16, HD, a battery glyph, "30 fps") — decoration, no
+ *   brand, no claim, no quantity; the tray in the wide shot holds
+ *   wrapped packets only, nothing clinical legible; a pink card in the
+ *   guest's hands does not resolve. The 810×1440 rendition (the
+ *   24rem-slot recipe) is served at the row's 24rem film cap — the
+ *   source's 2× need is met with room, so the cap is the row's, not
+ *   the retina rule's. Nobody is named in the label, the captions, or
+ *   here.
  */
 
 const pageTitle = 'Mobile Parties in Harrisburg & Charlotte, NC | Needle Girlie';
@@ -186,18 +194,19 @@ const jsonLd = [
           decided for the group.
         </p>
       </div>
-      {/* The van film — Amy's own 2026-06-17 clip, PREVIEW-ONLY under the
-        * open release flag (the seated guest; DECISIONS 2026-09-02, the
-        * film entry). Bare frame: the arch family's hairline + 12px foot
-        * corners on the video, never the arch itself (the film-stage
-        * rule). Muted rendition, so the in-view autoplay is in-contract;
-        * the caption file describes the scene in one bounded cue. */}
+      {/* The viewfinder film — Amy's own clip, sent 2026-09-03 (DECISIONS
+        * same date, the viewfinder-film entry; the seated guest's release
+        * is confirmed on file). Bare frame: the arch family's hairline +
+        * 12px foot corners on the video, never the arch itself (the
+        * film-stage rule). Muted rendition (the song waits on a license),
+        * so the in-view autoplay is in-contract; the caption file
+        * describes the scene in one bounded cue. */}
       <div class="mobile-friends-film">
         <TreatmentVideo
-          src="/media/van-chair-treatment.mp4"
-          poster={vanChairPoster}
-          captionsSrc="/media/van-chair-treatment.vtt"
-          label="Inside the Mobile Aesthetics van: Amy treating a guest seated in the treatment chair"
+          src="/media/van-viewfinder-treatment-trim.mp4"
+          poster={vanViewfinderPoster}
+          captionsSrc="/media/van-viewfinder-treatment-trim.vtt"
+          label="Inside the Mobile Aesthetics van, framed like a camcorder viewfinder: Amy treating a guest seated in the treatment chair"
           frame="bare"
           autoplay="inview"
         />
@@ -251,13 +260,15 @@ const jsonLd = [
     pointer-events: none;
   }
   /* Friends film — page-local sizing for the player (which is
-   * aspect-agnostic and sized by its container), so the cap IS the
-   * retina rule: the 576px source covers 2× only up to 18rem (288px),
-   * and the row would otherwise hand it ~580px at desktop. The bare
-   * frame supplies the hairline + foot corners; the margin-top reset
-   * undoes the standalone player's stage gap inside the grid. */
+   * aspect-agnostic and sized by its container): the row's 24rem
+   * (384px) portrait-film cap, the /injector-training standalone
+   * precedent, which the 810px rendition covers at 2× with room (the
+   * row would otherwise hand it ~580px at desktop). Since 2026-09-03;
+   * the 576px van film before it sat at 18rem, its own 2× width. The
+   * bare frame supplies the hairline + foot corners; the margin-top
+   * reset undoes the standalone player's stage gap inside the grid. */
   .mobile-friends-film {
-    width: min(18rem, 100%);
+    width: min(24rem, 100%);
     margin-inline: auto;
   }
   .mobile-friends-film :global(.video-figure) {

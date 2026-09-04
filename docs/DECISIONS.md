@@ -7985,3 +7985,43 @@ Power Mode on) stays the operator's. PR #180 (the carousel's own copy
 of this policy) is still open and edits the neighbouring sentence of
 CLAUDE.md's consumer list — it takes a merge of `phase-c` before it
 lands.
+
+## 2026-09-03 — The reduced-motion principle lines catch up with the film decisions (docs only)
+
+**Context.** Two decisions that day changed what plays under
+`prefers-reduced-motion`: the home carousel (PR #180) and the eight
+treatment-film players (PR #182) now autoplay muted under the
+preference, each recorded as a scoped exception to constraint 6's
+"reduced-motion respected". Asked before the merges whether every
+pertinent document had been updated, the assistant found the
+contract-level lines all changed (the scripts, the component, the
+consumer sentences in CLAUDE.md, BUILD_SPEC §9's treatment paragraph,
+RUNBOOK, the consumer comments) but four principle-level lines still
+read as if nothing plays under the preference — and constraint 6 did
+not carry its exception inline the way constraints 2 and 3 carry
+theirs. The operator's direction: merge #180, then open this PR.
+
+**Decision.** Docs only, no rendered byte changes:
+1. CLAUDE.md constraint 6 gains its inline scoped exception, in the
+   form the other constraints use: the FILMS autoplay muted under the
+   preference — content with a pause control (the toggle, the native
+   controls — WCAG 2.2.2's mechanism), not decoration; every decorative
+   move still stands down; widening it beyond films requires the human
+   operator.
+2. BUILD_SPEC's quality-floor line (§5) and accessibility checklist
+   (§13) name the exception beside the principle.
+3. BUILD_SPEC §9's carousel sentence — "reduced-motion serves posters +
+   play-on-request" — becomes the 2026-09-03 policy, with the old
+   behaviour dated (PR #180 had left that sentence as it was).
+
+**Alternatives rejected.** Leaving the principle lines alone on the
+grounds that DECISIONS records the exceptions (the constraints are
+what a reader checks first; an exception only in the log is the
+loophole the 2026-08-25 Laurel round closed elsewhere). Rewriting
+constraint 6 itself (the principle stands; the films are the
+exception).
+
+**Consequences.** Every statement of the reduced-motion rule now agrees:
+decorative motion stands down, films play with a pause control. Nothing
+else changes; the docs-only path skips the preview pipeline by design
+(`paths-ignore`), so the Relaunch guard is this PR's only check.

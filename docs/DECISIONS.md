@@ -7704,6 +7704,16 @@ and starts on the first tap; and with reduced motion emulated, the
 band autoplays. A real iPhone or Android cannot be driven from here —
 the reporter's phone is the confirmation.
 
+**Operator review (2026-09-03):** merged into `phase-c` on the operator's
+word ("Go ahead and merge #180"), after the treatment-film policy
+(PR #182) had already landed — this branch took a merge of `phase-c`
+first (the append-only records were the only conflicts; CLAUDE.md's
+consumer list merged on its own with both 2026-09-03 sentences). With
+both merged, every film on the site plays under prefers-reduced-motion
+by the same rule; the principle-level lines (CLAUDE.md constraint 6,
+BUILD_SPEC's quality floor, §9's carousel sentence, and the
+accessibility checklist) catch up in a docs PR of their own, next.
+
 ## 2026-09-03 — /mobile: the viewfinder film replaces the van film (Amy's own 1080 clip; the sound held for a license)
 
 **Context:** the operator supplied `snoop.mp4` (their archive,

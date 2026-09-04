@@ -7832,3 +7832,19 @@ the house row: perf 0.98, LCP 2406ms (median of three: 2405 / 2406 /
 2407 — unchanged from the untrimmed build, as expected: the poster is
 the same frame, its WebP derivative 52KB), CLS 0, TBT 0, total 232KB,
 image 178KB of 240, script 1.4KB, media 0, third-party 0.
+
+**Operator review (2026-09-03):** on the PR #181 preview with the
+trimmed rendition, the operator's words: "we are good on the music
+and the merge." Read as two decisions, recorded as such: the muted
+rendition STANDS — no music license is being sought, so the sounded
+cut is not pending (the entry's terms for it are unchanged should a
+license ever be on file; a sounded cut would then be its own PR with
+the license quoted here first) — and PR #181 is approved for merge
+into `phase-c` ahead of Amy's reaction (she sees /mobile on the
+standing demo, per the sign-off doc's non-gated section; production
+stays dark). The CLAUDE.md pointer re-date was not asked for and the
+line stays as written. Next: merge, refresh the standing previews (#97,
+#149) by the recorded no-checkout method, converged probes; the retired
+`van-chair-treatment.mp4` object stays until PR #179's preview (the
+home concept, which still carries the pre-swap /mobile) no longer
+references it.

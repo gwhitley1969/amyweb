@@ -23,6 +23,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   (`data-still`), and dissolves back in. Measured: an 11.2s cycle, the
   portrait 5.3s of it; cuts and the same beat under reduced motion
   (DECISIONS 2026-09-03, the home entry's fourth and fifth tweaks).
+- Same day: the film band goes back to phase-c's composition — the
+  operator wants it as PR #149 shows it (the heading centered over the
+  stage, the bars beneath); the concept's side-by-side layout and the
+  slide settle are withdrawn, `VideoCarousel.astro` is phase-c's file
+  again (the sixth tweak).
 
 ### 2026-09-03 — Home carousel autoplays on phones
 

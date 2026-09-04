@@ -7991,6 +7991,24 @@ assertion (the branch-only home row included); home: perf 0.99, LCP
 image 192KB, script 69,035 B of the row's 81,920, media 0, third-party
 0.
 
+*Sixth tweak (2026-09-04) — the film band goes back.* "In PR #149,
+you'll notice that we have the carousel in the middle of the page with
+the header or title 'Mobile Aesthetics. On screen.'. I want that part
+to look like what we have in PR #149." Tier 1 decision 2's composition
+(the heading as two display-1 lines and the controls in a left column
+beside the film at ≥900px) is WITHDRAWN, and the Tier 2 carousel settle
+(inactive slides at .97 easing to 1) goes with it — both lived in
+`VideoCarousel.astro`, which is `phase-c`'s file again (`git checkout
+origin/phase-c -- src/components/VideoCarousel.astro`; the script was
+already identical, #180 having landed on both sides). Verified on the
+built page against the #149 preview at 1280: the same section box
+(1265×973), the heading centered in `heading-2`, the stage at 547px,
+no `.vc-inner`. The slide order is unaffected (J1 first, the recorded
+sequence, on both). The concept's other Tier 1 moves — the hero, the
+openers, the van band — stand. Records: the page header comment, the
+motion-vocabulary header in `global.css`, HOME-CONCEPT §2 and §6,
+CHANGELOG, the REDESIGN row, the PR body.
+
 ## 2026-09-03 — Home carousel: autoplay on phones (reduced motion no longer gates the films; a refused play() retries on the first gesture)
 
 **Context.** The operator was told the home carousel does not

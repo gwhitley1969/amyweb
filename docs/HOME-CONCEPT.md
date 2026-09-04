@@ -50,7 +50,8 @@ merged here; the hero reel takes the same policy.
 | `ee384b8` | 14:51 | **fix: carousel autoplays on phones** — authored on `fix/carousel-phone-autoplay` (PR #180 into `phase-c`) |
 | `1179506` | 14:55 | Merge of that fix into this branch |
 | `f9cce30` | 14:58 | **concept: the hero reel takes the carousel's phone policy** |
-| (2026-09-04) | — | **concept: the hero reel runs continuously — freeze-frame dissolves, no rests, a portrait beat each cycle** (tweaks 4 + 5) |
+| `94917b4` | 2026-09-04 | **concept: the hero reel runs continuously — freeze-frame dissolves, no rests, a portrait beat each cycle** (tweaks 4 + 5) |
+| (2026-09-04) | — | **design: the film band back to phase-c's composition** (tweak 6 — "look like what we have in PR #149") |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,
@@ -101,15 +102,17 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 
 ### 2. The film band ("Mobile Aesthetics. On screen.")
 
-- **Composed at ≥900px:** the heading (recorded wording, two display-1
-  lines) and the controls sit in a left column beside the film — CSS
-  grid areas, DOM order unchanged, so phones keep the stack.
+- **Composition: phase-c's** (since 2026-09-04). The concept had
+  composed the band at ≥900px — the heading as two display-1 lines and
+  the controls in a left column beside the film — and the operator
+  withdrew it on the preview: "I want that part to look like what we
+  have in PR #149." `VideoCarousel.astro` is phase-c's file again:
+  the heading centered over the stage, the bars beneath.
 - **Order:** J1 → studio → J2 → team, the recorded 2026-08-14 sequence.
   (The round put Amy's films first for a few hours; the operator
   reversed it: "I want the Jeuveau commercial to play first.")
-- **Crossfade settle:** inactive slides rest at scale .97 and ease to
-  1 — never above 1, so the Jeuveau spots' safety screens are never
-  cropped.
+- **Crossfade settle:** withdrawn with the composition (it lived in
+  the same file); the crossfade is phase-c's plain one.
 - **Phones (PR #180, merged here):** the films autoplay under
   `prefers-reduced-motion` too (operator decision — content with a
   pause control; only the crossfade stands down); a refused `play()`
@@ -170,9 +173,10 @@ self-cancels and the page is the CSS-only home from commit `e119b87`.
 
 `ng-settle` (hero still 1.04 → 1 over 14s), `ng-drift` (band photo
 ±24px on the scroll timeline), `ng-rise-2/-3` (staggered rise for a
-row), hover-scale (`.ng-lift:hover .ng-arch img` → 1.03), and the
-carousel's slide settle. Under the concept flag the GSAP versions run
-and these stand down, so nothing animates twice.
+row), hover-scale (`.ng-lift:hover .ng-arch img` → 1.03) — and, until
+2026-09-04, the carousel's slide settle (withdrawn with the band's
+composition). Under the concept flag the GSAP versions run and these
+stand down, so nothing animates twice.
 
 ### 7. Phones
 

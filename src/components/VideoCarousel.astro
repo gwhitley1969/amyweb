@@ -65,19 +65,6 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *  - Progress bars are buttons (jump to a film); fills track playback.
  * Contrast on noir (recorded pairs): pink-500 fill 5.95:1; bar track
  * and toggle border paper@55% ≈ 5.3:1 (clears the 3:1 UI bar).
- *
- * SCALE + RHYTHM ROUND (2026-09-03, operator direction after the design
- * critique; DECISIONS same date): at >=900px the band is COMPOSED —
- * the heading (recorded wording, now two display-1 lines) and the
- * controls sit in a left column beside the film, so the noir stage
- * reads as a layout instead of a phone-shaped box in an empty band.
- * DOM order is unchanged (heading → stage → controls; grid areas do
- * the placement), so phones keep today's stack. Slide order: the
- * round put Amy's own films first for a few hours; the operator
- * restored the recorded 2026-08-14 order the same day — the Jeuveau
- * commercial opens (see the slides array). The crossfade
- * gained a settle (inactive slides rest at scale .97 and ease to 1 —
- * never above 1, so the J1/J2 safety screens are never cropped).
  */
 
 const slides: {
@@ -88,11 +75,6 @@ const slides: {
    * presentation is carried as-is; leave them at the 1× default). */
   rate?: number;
 }[] = [
-  /* Order: the recorded 2026-08-14 sequence — J1 → studio → J2 → team.
-   * The scale-and-rhythm round briefly put Amy's own films first
-   * (studio → team → J1 → J2) and the operator reversed it the same
-   * day: "I want the Jeuveau commercial to play first" (DECISIONS
-   * 2026-09-03). */
   {
     file: 'commercial-j1',
     label: 'Jeuveau commercial — Mobile Aesthetics with Evolus, film one',
@@ -118,19 +100,13 @@ const slides: {
 ---
 
 <section class="vc surface" data-surface="noir" aria-labelledby="vc-heading">
-  <div class="vc-inner">
   <div class="vc-head">
     {/* Heading only, no eyebrow — operator/Amy 2026-08-15: this
         section deliberately drops the label+heading signature (fewest
         words on the cinematic stage). Renamed from "The studio. On
         screen." 2026-08-17 (operator) when the team film joined — the
-        carousel now speaks for the whole practice. Since 2026-09-03 the
-        same words set as two display lines at >=900px (one line on
-        phones — the spans are inline there). */}
-    <h2 class="heading-2 md:display-1" id="vc-heading">
-      <span class="vc-title__line">Mobile Aesthetics.</span>
-      <span class="vc-title__line">On screen.</span>
-    </h2>
+        carousel now speaks for the whole practice. */}
+    <h2 class="heading-2" id="vc-heading">Mobile Aesthetics. On screen.</h2>
   </div>
 
   <div class="vc-stage" data-vc-stage>
@@ -177,7 +153,6 @@ const slides: {
       <svg class="vc-ic-pause" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h3v10H2zM7 1h3v10H7z" /></svg>
     </button>
   </div>
-  </div>
 </section>
 
 {/* Behavior lives in a STATIC same-origin file, not a component script:
@@ -193,78 +168,29 @@ const slides: {
   .vc {
     padding: 4.5rem 1.5rem 4rem;
   }
-  .vc-inner {
+  .vc-head {
     max-width: 72rem;
     margin-inline: auto;
-  }
-  .vc-head {
     text-align: center;
-  }
-  .vc-title__line {
-    display: inline;
   }
   .vc-stage {
     position: relative;
+    max-width: 72rem;
     margin: 2.5rem auto 0;
     /* Hug the 4:5 films on phones (no dead bands); the height cap takes
-     * over on wide screens. The 9:16 reel contains inside either way. */
+     * over on wide screens, where black space beside the portrait film
+     * is the look. The 9:16 reel contains inside either way. */
     aspect-ratio: 4 / 5;
     max-height: min(76vh, 720px);
   }
-  /* >=900px: the composed band — heading and controls stacked in the
-   * left column, the film in the right (grid areas; DOM order stays
-   * heading → stage → controls). The two 1fr rows split the film's
-   * height so the heading (end of row 1) and the controls (start of
-   * row 2) center as a group beside it. */
-  @media (min-width: 900px) {
-    .vc {
-      padding: 6rem 3rem 5.5rem;
-    }
-    .vc-inner {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      grid-template-rows: 1fr 1fr;
-      grid-template-areas:
-        'head stage'
-        'ui stage';
-      column-gap: 4rem;
-    }
-    .vc-head {
-      grid-area: head;
-      align-self: end;
-      text-align: left;
-      padding-bottom: 1.25rem;
-    }
-    .vc-title__line {
-      display: block;
-    }
-    .vc-stage {
-      grid-area: stage;
-      width: 100%;
-      margin: 0;
-    }
-    .vc-ui {
-      grid-area: ui;
-      align-self: start;
-      justify-content: flex-start;
-      margin-top: 1.25rem;
-    }
-  }
-  /* Crossfade + settle: an inactive slide rests at .97 and eases to 1
-   * as it fades in — never above 1, so `contain` still shows the J1/J2
-   * safety screens complete at every instant (the 2026-09-03 move). */
   .vc-slide {
     position: absolute;
     inset: 0;
     opacity: 0;
-    scale: 0.97;
-    transition:
-      opacity 0.7s ease,
-      scale 0.9s ease;
+    transition: opacity 0.7s ease;
   }
   .vc-slide.is-active {
     opacity: 1;
-    scale: 1;
   }
   /* The poster underlies the JS-built <video> (which lacks the style
    * scope attribute — hence :global). NEVER cover: the films' safety
@@ -351,7 +277,6 @@ const slides: {
   @media (prefers-reduced-motion: reduce) {
     .vc-slide {
       transition: none;
-      scale: 1;
     }
   }
 </style>

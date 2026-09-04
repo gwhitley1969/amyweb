@@ -241,8 +241,9 @@ body:not([data-surface='noir']) {
  *     later, so a row of plates arrives in sequence, not at once.
  *   hover-scale — the photo inside an arch on a whole-card link
  *     (.ng-lift) grows to 1.03 on hover/focus (250ms; the arch clips).
- *   (The carousel's slide settle — .97 → 1 on the crossfade — is the
- *     same family, scoped in VideoCarousel.astro.)
+ *   (The carousel's slide settle — .97 → 1 on the crossfade — rode with
+ *     the band's concept composition and was withdrawn with it on
+ *     2026-09-04; VideoCarousel.astro is phase-c's file again.)
  * The glow that moves lives in exactly two places — the sign and the
  * accent phrase. Nothing else pulses: every other move is one-shot,
  * scroll-scrubbed, or pointer-driven — the cap is the rule. All moves

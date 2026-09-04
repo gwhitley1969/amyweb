@@ -7648,3 +7648,203 @@ film — no audio track, so in-contract, no exception). The two open
 flags carry forward unchanged: the seated guest's release and, only
 if Amy wants sound, the operator's listen-and-confirm on the source
 audio.
+
+## 2026-09-03 — /mobile: the viewfinder film replaces the van film (Amy's own 1080 clip; the sound held for a license)
+
+**Context:** the operator supplied `snoop.mp4` (their archive,
+`C:\Amy\New Pics`) for the /mobile friends section in place of
+`van-chair-treatment.mp4`, the 576×768 TikTok download of 2026-09-02
+that shipped preview-only under an open release flag at an 18rem cap
+("Amy's original … lifts the cap to the row's 24rem" — that entry's
+decision 3 and the first line of its originals ask). Asked where the
+file came from, the operator chose "Amy sent it": her own clip, sent
+directly — site-authored under her authorization, no platform
+download, no standing-authorization route involved.
+
+**The file:** 1080×1920 (9:16), 12.47s, 30fps, HEVC Main + AAC-LC
+stereo, 7,864,856 bytes, `mp42`, creation time 2026-09-03T18:58:26Z,
+"Core Media" handlers (an iPhone export), md5
+`329cbf577fd6a72922cce3d5188ae279`. A camcorder-viewfinder template is
+burned in (REC ●, RAW 9:16[F], HD, a battery glyph, "30 fps", a menu
+glyph). Two shots joined by a zoom-blur (≈7.6s), a camera swing to a
+wide shot (≈4.8–6.3s), a second blur before the closing shot (≈11s),
+and a stepped reveal intro: per-frame mean luma rises 28→90
+monotonically over the first two seconds (a wipe, not a flash) with
+one single-frame spike at ≈8.1s — nowhere near WCAG 2.3.1's three
+flashes per second.
+
+**Screening record (full-resolution contact sheets at 1, 4, and 6fps
+plus zooms — the house method):** inside the van throughout. Amy in
+black scrubs and lavender gloves at a seated guest's forehead and
+brow, a syringe in her hand during the treatment itself (the treatment
+class, as in `radiesse-visit`; not the drawn-syringe-tray class the
+rubric DQs); her embroidered practice logo and name line resolve on
+her scrubs (her own identity — the studio-frame class). The seated
+guest is identifiable (profile, eyes closed; face visible in the wide
+shot), in a white sweatshirt, holding a pink card with gold lettering
+that does not resolve. The wide shot (≈1.5s): a phone/light stand, the
+van's screen (off), a metal tray at the right holding wrapped packets
+only — "supplies visible, nothing clinical legible", the van film's
+glove-box class — a pink tumbler and dark cases on the floor. The only
+legible text is the template's UI chrome: generic, no brand, no claim,
+no quantity, no watermark, no burned-in caption, no competitor name —
+so no pixel override is needed and none is recorded. Audio present
+(volumedetect mean −17.5dB, peak −8.1dB).
+
+**Rubric:** scene 5 (in-van treatment, the page's own subject) · people
+CLEAR — the seated guest's website-use release confirmed on file in
+the operator's words ("Release confirmed on file", 2026-09-03; the
+confirmation IS the record) · text/watermark 0 (template chrome only)
+· prep tray 1 (supplies in frame, nothing clinical legible) ·
+resolution 1 (a 1080 source; the first film on this page that meets
+the retina need of the row's cap) · format +1 (film, muted). No hold.
+
+**Decisions:**
+1. The viewfinder film replaces the van film, content-named
+   `van-viewfinder-treatment` (the van, the viewfinder template, the
+   treatment — a new filename, so no in-place swap and no edge purge;
+   RUNBOOK "Publishing a film"). Three artifacts: the Blob object,
+   `src/assets/photos/van-viewfinder-treatment-poster.jpg`,
+   `public/media/van-viewfinder-treatment.vtt`. The retired film's
+   poster and caption file are deleted in the same commit (their only
+   consumer goes — the girl-team-film precedent); its Blob object
+   `van-chair-treatment.mp4` stays until nothing open references it
+   (the standing previews #97/#149 and PR #179's preview serve it until
+   they are refreshed after the merge), then `az storage blob delete`.
+   Its open release flag (the guest of the 2026-06-17 clip) closes with
+   the film.
+2. A MUTED rendition, and why: asked about the sound, the operator
+   first chose "Listened: music only, keep it" — the listen is the
+   record: no speech, no competitor name — and then, on the licensing
+   flag, "A commercial song (Snoop Dogg or similar)". A social
+   platform's music library covers posts on that platform, not a
+   business website, and a commercial recording needs a sync license
+   there; the compliant path is `-an`. A sounded cut is one step away
+   — a license on file — not another screen. Muted, `autoplay="inview"`
+   is in-contract (the van-film reasoning: nothing to gut).
+3. The 24rem-slot recipe: `-vf scale=810:1440 -an -c:v libx264 -crf 20
+   -preset medium -pix_fmt yuv420p -movflags +faststart` → 810×1440
+   H.264 High, 5,392,161 bytes at 3.46Mbps, moov first, md5
+   `a7615123c492d172843226e4466e753e` — the training-reel / PRP-visit
+   sizing discipline ("810 ≈ 2× the retina need" of a 24rem slot), which
+   also trims the autoplay fetch. No crop, no trim: her edit carries
+   as-is, reveal intro included.
+4. The poster from the rendition at 9.5s (Amy's hand settled at the
+   guest's brow, both in profile, the REC chip lit), `-q:v 2`, 810×1440;
+   its intrinsic size sets the `<video>` box. The component requests it
+   at min(1280, source) — 810 — so the WebP derivative lands near the
+   training reel's 31–34KB against the van poster's 21KB.
+5. THE CAP IS THE ROW'S: `.mobile-friends-film` goes from
+   `min(18rem, 100%)` to `min(24rem, 100%)` — the lift the 2026-09-02
+   entry's decision 3 pre-authorized, now on a source that covers 2× at
+   24rem with room. The film block becomes 384×683 at desktop (the
+   /injector-training reel's shape); the grid's `items-center` handles
+   the taller column. The component and `treatment-video.js` are
+   untouched; `frame="bare"` stands.
+6. Captions: the muted-film pattern — a NOTE block (provenance, the
+   license hold, the listen, the release, the unmirrored template
+   chrome, nobody named) plus ONE bounded cue (2.4–5.2s, inside the
+   reveal's clear window) describing the scene. The two shots do not
+   change the scene, so one cue; a film-long cue would paint the loop.
+7. Records: this entry (committed BEFORE the upload — the written
+   rule), CHANGELOG, REDESIGN (a settled row; the originals ask loses
+   its first line), CLINICIAN-SIGN-OFF (the release ask closes; the
+   sound line becomes the license line; the "Jun 17 clip at full
+   resolution" item is satisfied), RELAUNCH's probe list, BUILD_SPEC's
+   /mobile row, the page's comments. CLAUDE.md's opted-in-pages line
+   stays TRUE as written (Amy's own van clip in a MUTED rendition — no
+   audio track, in-contract) and is operator-maintained: the PR body
+   asks whether to re-date its pointer; it is not edited unasked.
+8. Out of scope by the operator's choice ("Separate PR after this
+   swap"): the treatment-film script still bails under
+   prefers-reduced-motion and has no first-gesture retry — the home
+   carousel's phone policy (PR #180, open) reaches these eight players
+   in their own PR.
+
+**Alternatives rejected:** keeping the audio (no license; the
+platform's library is not a website license); a native 1080×1920
+rendition (5.96MB at CRF 23, 8.3MB at CRF 20 — the van film's "no
+scale" was about not upscaling a small source; for a 1080 source into
+a 24rem slot the house rule is the 810 downscale); trimming the reveal
+intro (not a flash; her edit); mirroring the template chrome into the
+captions (decoration, the watermark posture); a poster committed at
+1080 (≈73KB WebP measured, against ≈48KB at 768 and the 810 precedent's
+31–34KB — the LCP addendum of 2026-09-02 says every pre-paint byte on
+this page counts); editing CLAUDE.md's line without the operator's
+word.
+
+**Consequences:** the slot shows Amy's own 1080 clip at the row's full
+film width, muted, with no open flag — the first /mobile film that is
+neither preview-only nor capped by its source. Two things wait: a music
+license (then the sounded cut is a re-encode with `-c:a copy` and a
+`[Music]`-cue caption file) and the phone-policy PR for the treatment
+films. The Blob object uploads after this entry commits; the old object
+is deleted once zero-referenced. pa11y 25, LHCI 8 — unchanged counts;
+the /mobile gate numbers are recorded below once measured.
+
+**Gate (2026-09-03, PR #181):** `npm run verify` green on 896d9c7 —
+pa11y 25/25, Lighthouse CI every assertion on 8 URLs × 3. /mobile on
+the house row: perf 0.98, LCP 2407ms (median of three: 2407 / 2408 /
+2330 — was 2257 with the 21KB van poster; the 810-wide poster's WebP
+derivative is 51KB, not the 31–34KB the training-reel precedent
+suggested — a brighter, busier frame — and costs ~150ms, leaving 93ms
+inside the 2500 budget; no content tuning needed, none done), CLS 0,
+TBT 0, total 230KB, image 176KB of 240, script 1.4KB, media 0,
+third-party 0. Playwright on the built page: the film block 384px
+wide at 1280 (the row's cap) and the full 327px column at 390, the
+bare frame's magenta hairline and 12px corners intact, `width="810"
+height="1440"`, in-view autoplay muted and running from the media
+origin, click-to-play under prefers-reduced-motion (by design until
+the phone-policy PR), zero references to the retired file. The media
+origin answers 206 with `Content-Range 0-1023/5392161`.
+
+**Addendum, same day — the reveal trimmed (operator direction on the
+PR #181 preview):** the template's tiled reveal — the first 2.2 s of
+the clip, followed by a one-frame blur at ≈2.2–2.3 s — replayed at the
+top of every 12-second loop, and the assistant flagged it with the
+preview. The operator's word: "Trim the first two seconds off the
+intro." Decision 3's "no trim: her edit carries as-is, reveal intro
+included" is superseded for the intro only. Cut point 2.333 s (frame
+70 at 30 fps — the first settled frame after the blur, verified on a
+10 fps sheet of 1.8–2.8 s), input-seeked on the master so the cut is
+frame-accurate: the same recipe otherwise (`-ss 2.333 -i snoop.mp4 -vf
+scale=810:1440 -an -c:v libx264 -crf 20 -preset medium -pix_fmt
+yuv420p -movflags +faststart`) → 810×1440, 10.13 s, 304 frames,
+5,109,705 bytes at 4.03 Mbps, moov first, md5
+`bf21fd08379268272494ecd42363c75f`. A NEW stem rather than an
+in-place replacement (RUNBOOK's preference; and an edge purge would
+not clear the operator's phone, which holds the untrimmed file for a
+day under the media route's `max-age=86400`): `van-viewfinder-
+treatment-trim` for all three artifacts — the poster re-cut from the
+new rendition at 7.167 s (the same frame as before, 9.5 s on the
+untrimmed timeline), the caption file's cue moved to 0.4–3.2 s (the
+clear window now opens at 0), the NOTE recording the trim. The
+untrimmed object `van-viewfinder-treatment.mp4` (uploaded 20:53Z, an
+hour earlier) is referenced only by this PR's preview and is deleted
+once the preview redeploys off it — a same-day correction, not a
+retirement. The page's header comment and the records (CHANGELOG,
+REDESIGN, RELAUNCH) carry the new stem; the gate numbers are recorded
+below once re-measured.
+
+**Gate (2026-09-03, the trimmed rendition):** `npm run verify` green —
+pa11y 25/25, Lighthouse CI every assertion on 8 URLs × 3. /mobile on
+the house row: perf 0.98, LCP 2406ms (median of three: 2405 / 2406 /
+2407 — unchanged from the untrimmed build, as expected: the poster is
+the same frame, its WebP derivative 52KB), CLS 0, TBT 0, total 232KB,
+image 178KB of 240, script 1.4KB, media 0, third-party 0.
+
+**Operator review (2026-09-03):** on the PR #181 preview with the
+trimmed rendition, the operator's words: "we are good on the music
+and the merge." Read as two decisions, recorded as such: the muted
+rendition STANDS — no music license is being sought, so the sounded
+cut is not pending (the entry's terms for it are unchanged should a
+license ever be on file; a sounded cut would then be its own PR with
+the license quoted here first) — and PR #181 is approved for merge
+into `phase-c` ahead of Amy's reaction (she sees /mobile on the
+standing demo, per the sign-off doc's non-gated section; production
+stays dark). The CLAUDE.md pointer re-date was not asked for and the
+line stays as written. Next: merge, refresh the standing previews (#97,
+#149) by the recorded no-checkout method, converged probes; the retired
+`van-chair-treatment.mp4` object stays until PR #179's preview (the
+home concept, which still carries the pre-swap /mobile) no longer
+references it.

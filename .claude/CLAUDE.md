@@ -419,7 +419,24 @@ silently following it. Known superseded points from earlier briefs:
   exception; DECISIONS same date), and /mobile (2026-09-02, Amy's own
   van clip in a MUTED rendition — no audio track, so in-contract, no
   exception; DECISIONS same date, the film entry).
-  The budget stands.
+  Fourth sanctioned consumer (2026-09-04, operator-adopted after the
+  2026-09-03 concept test — DECISIONS 2026-09-03, the home entry's
+  adoption paragraph): the home page's motion layer — self-hosted GSAP
+  3.15 (core, ScrollTrigger, SplitText) + Lenis 1.3 in
+  `public/js/vendor/`, `public/js/motion-flag.js`, and
+  `public/js/home-motion.js`, ~69KB gzipped together — on the HOME URL
+  ONLY. The Lighthouse matrix's home row carries an 80KB script budget
+  for it (a standing carve-out, the /services + /styleguide precedent);
+  every other page keeps 30KB. If any of it fails, the flag self-cancels
+  and the page is the CSS-only home. It carries the one authorized
+  exception to the motion header's "never on the hero, page H1s, or the
+  lockup" rule (the home headline's word rise and the wordmark's
+  switch-on; the LCP portrait paints unchanged), and the hero reel —
+  the carousel's muted studio rendition trimmed to its screened
+  passages, looping with a portrait beat, autoplaying under reduced
+  motion by the films policy. Widening any of this to another page
+  requires the human operator.
+  The 30KB budget stands for every page but the home URL.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.
 - **Images** through `astro:assets` (responsive, AVIF/WebP, lazy below fold).

@@ -197,7 +197,12 @@ full frames never cropped or arched (a dome would clip faces; a cropped
 pair is an altered pair), the bare film frame's hairline + 12px
 corners, stacked and centred at a 30rem cap so every source stays at or
 above 2× (retina rule). Motion is scroll-driven
-and sparse; nothing pulses except the sign's slow breath. Since 2026-08-14 the noir shell includes
+and sparse; nothing pulses except the sign's slow breath (since 2026-09-03 the
+vocabulary also carries four transform-only moves — the hero still's one-shot
+settle, a scroll-scrubbed drift on full-bleed band photos, a staggered rise for
+rows of plates, and a 1.03 hover scale on arched photos inside whole-card links,
+plus the carousel's slide settle — none of which pulse; DECISIONS 2026-09-03).
+Since 2026-08-14 the noir shell includes
 the home's cinematic video stage — four films crossfading
 chromeless on full-bleed noir (the operator's "Audi treatment";
 DECISIONS 2026-08-14; the fourth film joined 2026-08-17; the
@@ -1011,7 +1016,12 @@ action.
   (the ICON film, 2026-08-25 — the §5 film-class override above — and,
   same date, the Girl Team unit's team film, in-contract), and
   /injector-training (the training reel, 2026-08-25, in-class); the
-  second consumer is the dark Plausible tracker, §11.)*
+  second consumer is the dark Plausible tracker, §11. Fourth consumer,
+  2026-09-04 — the operator-adopted home concept (DECISIONS 2026-09-03,
+  the home entry): the home page's motion layer, self-hosted GSAP 3.15
+  + Lenis 1.3 + public/js/home-motion.js, ~69KB gzipped, on the home
+  URL only, with an 80KB script row in the Lighthouse matrix for that
+  URL; every other page keeps this 30KB budget.)*
 - Hero image: optimized, `fetchpriority="high"`, explicit dimensions;
   everything below fold lazy.
 - Fonts: 1 family (Playfair Display — since 2026-08-15), subsetted

@@ -7848,3 +7848,75 @@ line stays as written. Next: merge, refresh the standing previews (#97,
 `van-chair-treatment.mp4` object stays until PR #179's preview (the
 home concept, which still carries the pre-swap /mobile) no longer
 references it.
+
+## 2026-09-03 — Treatment films take the carousel's phone policy (reduced motion no longer gates the eight opted-in players; a refused play() retries on the first gesture)
+
+**Context.** The home carousel's phone-autoplay round (2026-09-03,
+PR #180 — open into `phase-c` as this is written) found the three
+reasons a phone leaves a film on its poster: `prefers-reduced-motion`
+(Android's "Remove animations", iOS Reduce Motion) gating the script;
+battery/data modes refusing a script-started `play()` until the person
+has touched the page; and WebKit reading the `muted` ATTRIBUTE rather
+than the property. That entry scoped the treatment-page script out
+("widening the policy to those films is a separate operator call").
+During the /mobile film swap the same day the operator was asked and
+chose "Separate PR after this swap"; after the swap merged: "Go ahead
+with the phone-autoplay PR for the treatment films."
+
+**Decision (operator, 2026-09-03).** `public/js/treatment-video.js`
+takes the carousel's policy for every `autoplay="inview"` player —
+eight today: two on /services/biostimulators, one on
+/services/body-contouring, two on /about (the team film, and the ICON
+film under its own narration override), one each on
+/injector-training, /services/regenerative, and /mobile:
+1. The reduced-motion gate goes. The films are content with a pause
+   control (the native controls — WCAG 2.2.2's mechanism), not
+   decoration; constraint 6's "reduced-motion respected" keeps its
+   spirit for every decorative move, and this entry, like the
+   carousel's, is its scoped exception. Before: reduced motion =
+   click-to-play (2026-08-21).
+2. A refused `play()` arms a one-shot retry inside the person's first
+   `touchend` / `pointerup` / `keydown` (capture, passive) — the user
+   activation those policies wait for; a touch-scroll's `touchend`
+   counts, so the first scroll unlocks the film. The retry starts every
+   opted-in player that is in view and not user-paused; a further
+   refusal re-arms.
+3. `muted` (when starting muted), `playsinline`, and
+   `webkit-playsinline` are set as attributes before the first attempt
+   (the component already renders `playsinline`; the script re-asserts
+   it and adds the legacy form).
+4. Everything else stands: the muted-fallback retry, the user-pause
+   respect (the observer never resumes over it), the remembered
+   unmute, the 0.35 threshold and 200px pre-warm, `loop` while in view.
+5. Records: the component header and prop doc, CLAUDE.md's third
+   sanctioned-consumer sentence (the #180 wording, applied to this
+   script), BUILD_SPEC §9's film paragraph, RUNBOOK's treatment-film
+   paragraph, the six consumers' comments — the four page comments in
+   the policy commit, the two treatment MDX comments (biostimulators,
+   body-contouring — both `clinicianApproved: false` already, so no
+   flag moves) in their own content commit, the audit-trail rule.
+
+**Alternatives rejected.** Leaving the treatment films click-to-play
+under reduced motion while the carousel plays (two policies for one
+kind of content on one site); an `autoplay` attribute (the observer
+decides when); per-page opt-outs (the ICON film's override is about
+narration, not motion — its autoplay was the client's own direction).
+
+**Consequences.** The script grows from 2.2KB to ~3.4KB (the 30KB
+budget untouched; each opted-in page carries it alone). Under reduced
+motion the eight films now move on approach; the pause is one tap
+away. **Gate (2026-09-03):** `npm run verify` green — pa11y 25/25,
+Lighthouse CI every assertion on 8 URLs × 3; the opted-in pages carry
+the script at 2,001 bytes over the wire (3,648 raw) and every page
+holds its numbers (/mobile LCP 2408ms, /about 2262ms,
+/injector-training 2339ms; perf ≥ 0.98 everywhere; home script 2,175
+bytes — the carousel, unchanged here).
+
+**Operator review (2026-09-03):** on the PR #182 preview, the
+operator's word: "go ahead and merge." Merged into `phase-c` the same
+evening; the standing previews (#97, #149) refreshed by the recorded
+no-checkout method; the real-phone confirmation (Reduce Motion on, Low
+Power Mode on) stays the operator's. PR #180 (the carousel's own copy
+of this policy) is still open and edits the neighbouring sentence of
+CLAUDE.md's consumer list — it takes a merge of `phase-c` before it
+lands.

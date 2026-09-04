@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-03 — Treatment films take the carousel's phone policy
+
+- The treatment-film autoplay script (`treatment-video.js`, eight
+  players on six pages) now plays its films under prefers-reduced-motion
+  too — the carousel's 2026-09-03 decision extended to these players at
+  the operator's direction: the films are content with a pause control,
+  and the native controls are that pause (WCAG 2.2.2) and the
+  tap-for-sound. A play() the phone refuses (Low Power Mode, data
+  modes) is retried inside the person's first touch or key, and the
+  muted/playsinline attributes are set before the first attempt (the
+  WebKit quirk). Before this, reduced motion meant click-to-play; the
+  component, the spec, the runbook, and the six consumers' comments now
+  say so (DECISIONS 2026-09-03, the phone-policy entry).
+
 ### 2026-09-03 — /mobile: the viewfinder film replaces the van film
 
 - The friends section's film is now Amy's own 1080×1920 clip, sent to

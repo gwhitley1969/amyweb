@@ -6,6 +6,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-03 — The reduced-motion principle lines catch up (docs only)
+
+- CLAUDE.md constraint 6 gains its inline scoped exception — the films
+  autoplay muted under prefers-reduced-motion as content with a pause
+  control; every decorative move still stands down — and BUILD_SPEC's
+  quality-floor line, accessibility checklist, and §9 carousel sentence
+  say the same, after #180 and #182 had changed the contract lines but
+  not the principle lines (DECISIONS 2026-09-03, the docs entry).
+
 ### 2026-09-03 — Treatment films take the carousel's phone policy
 
 - The treatment-film autoplay script (`treatment-video.js`, eight

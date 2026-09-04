@@ -96,7 +96,14 @@ check will refuse it. On a branch off `main`:
   /injector-training, the training reel; one on
   /services/regenerative, the PRP-visit reel; one on /mobile, the
   viewfinder film in its muted rendition — DECISIONS 2026-09-03) — the
-  films autoplay muted on approach.
+  films autoplay muted on approach. On the home page also probe the
+  motion layer (adopted 2026-09-04, DECISIONS 2026-09-03):
+  `/js/motion-flag.js`, `/js/home-motion.js`, and the four vendor files
+  `/js/vendor/gsap.min.js`, `ScrollTrigger.min.js`, `SplitText.min.js`,
+  `lenis.min.js` (all 200, `text/javascript`); the hero's
+  `data-hero-film` element carries `data-first="5"`, `data-still="5"`,
+  and the three screened `data-ranges`; the reel object is
+  `commercial-studio.mp4`, already in the film list above.
 - Plausible: `/api/event` returns 202 from the production page;
   dashboard shows the first pageviews.
 - Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.

@@ -7911,3 +7911,12 @@ the script at 2,001 bytes over the wire (3,648 raw) and every page
 holds its numbers (/mobile LCP 2408ms, /about 2262ms,
 /injector-training 2339ms; perf ≥ 0.98 everywhere; home script 2,175
 bytes — the carousel, unchanged here).
+
+**Operator review (2026-09-03):** on the PR #182 preview, the
+operator's word: "go ahead and merge." Merged into `phase-c` the same
+evening; the standing previews (#97, #149) refreshed by the recorded
+no-checkout method; the real-phone confirmation (Reduce Motion on, Low
+Power Mode on) stays the operator's. PR #180 (the carousel's own copy
+of this policy) is still open and edits the neighbouring sentence of
+CLAUDE.md's consumer list — it takes a merge of `phase-c` before it
+lands.

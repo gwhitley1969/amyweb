@@ -7,10 +7,14 @@
 // same films production does (docs/REDESIGN.md media-origin record).
 param swaDefaultHostname string
 param mediaOriginHostname string
+param apiOriginHostname string // func-needlegirlie-api.azurewebsites.net (the app repo, Phase A)
+param loginOriginHostname string = 'needlegirlieapp.ciamlogin.com' // the external tenant's default host (DECISIONS 17 of the app)
 
 var apexHost = 'needlegirlie.com'
 var wwwHost = 'www.needlegirlie.com'
 var mediaHost = 'media.needlegirlie.com'
+var apiHost = 'api.needlegirlie.com'
+var loginHost = 'login.needlegirlie.com'
 // Legacy domain Amy owns; both hosts redirect to the canonical apex
 // (BUILD_SPEC §2).
 var legacyWwwHost = 'www.needlegirl.com'
@@ -146,6 +150,134 @@ resource mediaOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2024-02-01' = 
     weight: 1000
     enabledState: 'Enabled'
     enforceCertificateNameCheck: true
+  }
+}
+
+// API origin (the Needle Girlie app, 2026-09): its own origin group WITH a
+// health probe against /healthz — this origin scales to more than one
+// instance and the probe keeps the always-ready path exercised.
+resource apiOriginGroup 'Microsoft.Cdn/profiles/originGroups@2024-02-01' = {
+  parent: profile
+  name: 'og-api'
+  properties: {
+    loadBalancingSettings: {
+      sampleSize: 4
+      successfulSamplesRequired: 3
+      additionalLatencyInMilliseconds: 50
+    }
+    healthProbeSettings: {
+      probePath: '/healthz'
+      probeRequestType: 'GET'
+      probeProtocol: 'Https'
+      probeIntervalInSeconds: 100
+    }
+  }
+}
+
+resource apiOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2024-02-01' = {
+  parent: apiOriginGroup
+  name: 'func'
+  properties: {
+    hostName: apiOriginHostname
+    originHostHeader: apiOriginHostname
+    httpPort: 80
+    httpsPort: 443
+    priority: 1
+    weight: 1000
+    enabledState: 'Enabled'
+    enforceCertificateNameCheck: true
+  }
+}
+
+resource apiDomain 'Microsoft.Cdn/profiles/customDomains@2024-02-01' = {
+  parent: profile
+  name: 'api-needlegirlie-com'
+  properties: {
+    hostName: apiHost
+    tlsSettings: {
+      certificateType: 'ManagedCertificate'
+      minimumTlsVersion: 'TLS12'
+    }
+  }
+}
+
+// API route: bound ONLY to api.needlegirlie.com; no caching (every response
+// is per-user); HTTPS only; not linked to the default *.azurefd.net domain.
+resource apiRoute 'Microsoft.Cdn/profiles/afdEndpoints/routes@2024-02-01' = {
+  parent: endpoint
+  name: 'api'
+  dependsOn: [apiOrigin]
+  properties: {
+    originGroup: { id: apiOriginGroup.id }
+    supportedProtocols: ['Https']
+    patternsToMatch: ['/*']
+    forwardingProtocol: 'HttpsOnly'
+    httpsRedirect: 'Disabled'
+    linkToDefaultDomain: 'Disabled'
+    customDomains: [{ id: apiDomain.id }]
+  }
+}
+
+// Sign-in host (2026-09-06, the app's DECISIONS 17): the External ID custom
+// URL domain. Front Door forwards login.needlegirlie.com to the external
+// tenant's ciamlogin host and Entra answers with the custom host in every
+// URL it renders. Single origin, no probe (like og-swa). Host name and
+// origin host header MUST be identical (Microsoft's custom-URL-domain
+// procedure).
+resource loginOriginGroup 'Microsoft.Cdn/profiles/originGroups@2024-02-01' = {
+  parent: profile
+  name: 'og-login'
+  properties: {
+    loadBalancingSettings: {
+      sampleSize: 4
+      successfulSamplesRequired: 3
+      additionalLatencyInMilliseconds: 50
+    }
+  }
+}
+
+resource loginOrigin 'Microsoft.Cdn/profiles/originGroups/origins@2024-02-01' = {
+  parent: loginOriginGroup
+  name: 'ciam'
+  properties: {
+    hostName: loginOriginHostname
+    originHostHeader: loginOriginHostname
+    httpPort: 80
+    httpsPort: 443
+    priority: 1
+    weight: 1000
+    enabledState: 'Enabled'
+    enforceCertificateNameCheck: true
+  }
+}
+
+resource loginDomain 'Microsoft.Cdn/profiles/customDomains@2024-02-01' = {
+  parent: profile
+  name: 'login-needlegirlie-com'
+  properties: {
+    hostName: loginHost
+    tlsSettings: {
+      certificateType: 'ManagedCertificate'
+      minimumTlsVersion: 'TLS12'
+    }
+  }
+}
+
+// Sign-in route: bound ONLY to login.needlegirlie.com; HTTPS only with the
+// HTTP -> HTTPS redirect on (a typed URL must still land on the sign-in
+// page); NO caching — every response is a per-user auth page or a token.
+resource loginRoute 'Microsoft.Cdn/profiles/afdEndpoints/routes@2024-02-01' = {
+  parent: endpoint
+  name: 'login'
+  dependsOn: [loginOrigin]
+  properties: {
+    originGroup: { id: loginOriginGroup.id }
+    supportedProtocols: ['Http', 'Https']
+    patternsToMatch: ['/*']
+    forwardingProtocol: 'HttpsOnly'
+    httpsRedirect: 'Enabled'
+    linkToDefaultDomain: 'Disabled'
+    customDomains: [{ id: loginDomain.id }]
   }
 }
 
@@ -303,3 +435,5 @@ output wwwValidationToken string = wwwDomain.properties.validationProperties.val
 output legacyWwwValidationToken string = legacyWwwDomain.properties.validationProperties.validationToken
 output legacyApexValidationToken string = legacyApexDomain.properties.validationProperties.validationToken
 output mediaValidationToken string = mediaDomain.properties.validationProperties.validationToken
+output apiValidationToken string = apiDomain.properties.validationProperties.validationToken
+output loginValidationToken string = loginDomain.properties.validationProperties.validationToken

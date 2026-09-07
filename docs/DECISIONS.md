@@ -8455,3 +8455,56 @@ describes the adopted one. Nothing else changes; the docs-only path
 skips the preview pipeline (`paths-ignore`), so the Relaunch guard is
 this PR's only check; the standing previews are refreshed for branch
 parity, not for bytes.
+
+## 2026-09-07 — api.needlegirlie.com and login.needlegirlie.com join the Front Door
+
+**Context.** The Needle Girlie app (a separate repo and subscription,
+`ng-app`) needs two public hostnames that the client's DNS zone and
+this website's Front Door profile already own: the API
+(`func-needlegirlie-api.azurewebsites.net`, Phase A) and the sign-in
+endpoint for the External ID custom URL domain
+(`needlegirlieapp.ciamlogin.com`, the app's DECISIONS 17). Both are
+added here, the same way `media.needlegirlie.com` was: a dedicated
+origin group, custom domain, and route on the existing `afd-needlegirlie`
+profile, plus the matching zone records.
+
+**Decision.** `infra/frontdoor.bicep` gains an `og-api` origin group
+pointed at the Function App's own hostname, WITH a health probe against
+`/healthz` (this origin can scale past one instance, unlike the
+single-origin `og-swa`/`og-media` groups); the `api` custom domain and
+route, bound only to `api.needlegirlie.com`, no caching (every response
+is per-user), HTTPS-only with the redirect disabled (an API caller gets
+a clean failure, not a 301), and not linked to the default
+`*.azurefd.net` domain. It also gains an `og-login` origin group
+pointed at `needlegirlieapp.ciamlogin.com` (no probe, single origin,
+like `og-swa`), and the `login` custom domain and route, bound only to
+`login.needlegirlie.com`, no caching (every response is a per-user auth
+page or a token), HTTPS with the HTTP -> HTTPS redirect on (a typed URL
+must still land on the sign-in page). `infra/dns.bicep` gains the
+`api`/`_dnsauth.api` and `login`/`_dnsauth.login` CNAME + TXT record
+pairs, both pointed at the shared Front Door endpoint hostname.
+`infra/main.bicep` wires `apiOriginHostname` (defaulted to the Function
+App's hostname) through to the `frontdoor` module and passes the two new
+validation-token outputs to the `dns` module; `loginOriginHostname`
+keeps its own default in `frontdoor.bicep`.
+
+**Alternatives rejected.** A `/api/*` path added to the apex route
+instead of a dedicated hostname — it would couple the API to the static
+site's CSP and the apex's lockdown/redirect rules (BUILD_SPEC §2 of the
+app repo). A second Front Door profile dedicated to sign-in, which is
+what Microsoft's own custom-URL-domain walkthrough sets up — the
+existing Standard profile already carries the apex, www, and media
+hosts, and adding a second profile would be a second fixed cost for no
+functional gain; this profile carries the sign-in host for egress only.
+
+**Consequences.** This website's Bicep now carries a dependency, by
+hostname only, on a resource (`func-needlegirlie-api`) that lives in
+`rg-needlegirlie-app` under a different subscription (`ng-app`) — a
+one-way reference with no cross-subscription resource ID, no shared
+state beyond the DNS/Front Door layer. Deploying `main.bicep` now
+requires the Function App to exist first (or the default hostname
+param to be overridden) for the origin health probe to have something
+to probe; the DNS `login` CNAME cannot deploy until the external
+tenant's temporary ownership TXT at the same name is verified and
+deleted (the app's Task 6, sequenced ahead of this repo's deploy step).
+

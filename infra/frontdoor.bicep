@@ -1,10 +1,15 @@
 // Azure Front Door (Standard) — edge for needlegirlie.com (BUILD_SPEC §2, §15).
 // Managed TLS, HTTPS redirect, www -> apex 301, edge cache + compression.
-// No WAF ({{WAF_DECISION}} open); no /api routes (v1 has no API).
+// No WAF ({{WAF_DECISION}} open); this website is still fully static (no
+// /api route of its OWN, no server code — CLAUDE.md hard constraint 1).
 // Since 2026-08-17 also fronts the media origin: media.needlegirlie.com
 // -> Blob (storage.bicep), its own route + origin group on this same
 // endpoint. The stable hostname is deliberate — PR previews play the
 // same films production does (docs/REDESIGN.md media-origin record).
+// Since 2026-09 also fronts two hosts for the separate Needle Girlie
+// app (a different repo and subscription, ng-app): api.needlegirlie.com
+// -> the app's Function App, and login.needlegirlie.com -> the app's
+// External ID custom URL domain — see docs/DECISIONS.md.
 param swaDefaultHostname string
 param mediaOriginHostname string
 param apiOriginHostname string // func-needlegirlie-api.azurewebsites.net (the app repo, Phase A)

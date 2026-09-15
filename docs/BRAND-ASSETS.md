@@ -5,15 +5,15 @@
 The logo is the client's delivery of 2026-09-15: the same "Needle Girlie"
 composition as before (the serif wordmark, the syringe standing in for the
 second "l", the lips at the top right) re-rendered as glossy metallic pink
-with a soft glow. The creator's transparent-background export — the fourth
-file of the day — is archived byte-identical in this repo (DECISIONS
-2026-09-15 and its three same-day addenda; the three earlier files were
-withdrawn before anything merged — two for colour, one because it arrived
-on solid black and its keyed derivatives blew the image budgets):
+with a soft glow. The creator's transparent-background export in the
+brand hue — the fifth file of the day — is archived byte-identical in this
+repo (DECISIONS 2026-09-15 and its four same-day addenda; the four earlier
+files were withdrawn before anything merged — three for colour, one because
+it arrived on solid black and its keyed derivatives blew the image budgets):
 
 | File | Facts | Role |
 |---|---|---|
-| `src/assets/brand/source/needle-girlie-logo-metallic-master.png` | 2172×724, RGBA — letterforms opaque, glow alpha 1–63, background alpha 0; SHA-256 `891ffe09eee83485afbe57fcf8af151533fc92acbc517cb9349342cd5ddd5170` (the creator's export of the third delivery's artwork with real alpha; it superseded `fb703588…8f0f0` on black, `c7315bfd…1f44f1`, and `b07abf18…9b41ff`) | **the master** — every variant is cropped from it |
+| `src/assets/brand/source/needle-girlie-logo-metallic-master.png` | 2172×724, RGBA — letterforms opaque, glow soft, background alpha 0; lettering mid-tone `#f32d8b`, hue 332° (the site's pink-500 is 330°); SHA-256 `0275862069b34b14259dc7793113cb9f3a11bc5d6ab3c1e4369559e11f466cbe` (it superseded `891ffe09…5170`, `fb703588…8f0f0` on black, `c7315bfd…1f44f1`, and `b07abf18…9b41ff`) | **the master** — every variant is cropped from it |
 
 **Never redraw, restyle, trace, or AI-upscale the logo** (BUILD_SPEC §3).
 Variants are *crops* of the master (plus a black tile for the favicons) —
@@ -50,7 +50,7 @@ One deterministic run writes every committed derivative from the master:
 
 | Output | What it is |
 |---|---|
-| `src/assets/brand/needle-girlie-wordmark-metallic-alpha.png` | the wordmark: the master cropped to its alpha≥16 bounds (2120×638 at x 42, y 58) plus a 12px pad → **2142×662 at (30,46), aspect 3.236**. A cut at ≤6% alpha over noir is below perception, so the glow ends inside the image with no box edge. The script asserts ≥2080px wide (the styleguide sign's 2× tier at its 1040px cap) — no consumer's largest srcset tier is ever upscaled. |
+| `src/assets/brand/needle-girlie-wordmark-metallic-alpha.png` | the wordmark: the master cropped to its alpha≥16 bounds (2145×664 at x 27, y 46) plus a 12px pad → **2157×688 at (15,34), aspect 3.135**. A cut at ≤6% alpha over noir is below perception, so the glow ends inside the image with no box edge. The script asserts ≥2080px wide (the styleguide sign's 2× tier at its 1040px cap) — no consumer's largest srcset tier is ever upscaled. |
 | `public/favicon.ico` | 16/32/48 px PNG entries in an ICO container the script writes itself (no dependency): the **lips** (master rect 333×265 at (1839,66)) scaled to 84% of a black tile |
 | `public/icons/apple-touch-icon.png` | the same tile at 180×180 |
 
@@ -84,12 +84,12 @@ step.
 Two Astro facts to keep in mind when adding a consumer (Astro 5.18, verified
 in `service.js`): `widths` above the source are clamped to it, but
 `densities` are NOT — sharp will upscale — so every density tier must fit
-inside the derivative's 2142px; and `widths` without an explicit `width`
+inside the derivative's 2157px; and `widths` without an explicit `width`
 makes the `<img src>` fallback the ORIGINAL-width encode, so always pass
 `width`.
 
 The header's nav popover offset below 1024px is derived from the wordmark's
-aspect (`3.236` in `Header.astro`); a future asset with a different aspect
+aspect (`3.135` in `Header.astro`); a future asset with a different aspect
 changes that one number.
 
 ## Retired 2026-09-15 (dormant — kept, not deleted; operator decision)

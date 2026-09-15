@@ -8769,3 +8769,32 @@ memory: never commit or push until the verify log's exit line has been
 read. Docs, `Header.astro`, `Hero.astro`, and the script carry the
 figures; every gate and header measurement was re-run on this master
 (numbers in the PR).
+
+## 2026-09-15 — Fifth file: the creator's export in the brand hue is the master (same day, before merge)
+
+**Context.** The fourth file's colour still read wrong to Amy. Measured,
+its lettering sat at hue ~340° (mid-tone `#f44580`), red of the site's
+pinks (pink-500 `#ec4899` at 330°, neon `#fe019a` at 324°); the operator
+took those numbers to the creator, who returned the same artwork shifted
+toward magenta.
+
+**Decision.** The fifth file is the master in place (2172×724 RGBA,
+SHA-256 `0275862069b34b14259dc7793113cb9f3a11bc5d6ab3c1e4369559e11f466cbe`;
+lettering mid-tone `#f32d8b`, hue 332°). Same pipeline, nothing new:
+the wordmark is the alpha≥16 bounds 2145×664 at (27,46) plus the 12px
+pad → **2157×688 at (15,34), aspect 3.135** (crop-only proven, max
+channel difference 0; this render's halo is a little broader, hence the
+taller crop); the header's aspect number follows (~140px tall at 440);
+header tiers 30/47/82KB; the lips rectangle from the fourth file
+(333×265 at 1839,66) holds — the layout is identical and the edge
+assertions pass. The hotfix PR carries the identical files.
+
+**Alternatives rejected.** None new; this is the fourth-file decision
+with a colour-corrected input.
+
+**Consequences.** BRAND-ASSETS, CHANGELOG, REDESIGN, and `Header.astro`
+carry the figures; both PRs redeploy; every gate and header measurement
+re-run with the exit lines read. The brief that produced this file —
+a transparent-background PNG, ≥2200px wide, the lettering's mid-tone
+set numerically to the site's pink-500 — is the template for any future
+logo request (BRAND-ASSETS).

@@ -81,11 +81,14 @@ As mapped in CLAUDE.md. Additional conventions:
 
 - `src/content/treatments/` — one MDX file per treatment line (9 files), schema in §7.
 - `src/content/config.ts` — zod schemas; treat schema changes as reviewed changes.
-- `public/` — favicon set, logo assets, robots.txt (generated), official store
+- `public/` — favicon set (`favicon.ico` 16/32/48 + `icons/apple-touch-icon.png`,
+  derived from the logo 2026-09-15), robots.txt (generated), official store
   badges (Phase 4 asset — placeholder only for now).
-- Brand logo source files are provided by the operator (white-background and
-  black-background PNGs). Derive favicon/OG variants from them; never redraw
-  or restyle the logo.
+- Brand logo source files are provided by the operator — since 2026-09-15 the
+  client's transparent-background raster master and its on-black rendering,
+  archived in `src/assets/brand/source/` (docs/BRAND-ASSETS.md; DECISIONS
+  same date). Derive favicon/OG variants from them by cropping
+  (`scripts/derive-logo.mjs`); never redraw or restyle the logo.
 
 ## 4. Technical configuration requirements
 
@@ -220,10 +223,11 @@ Amy's singular voice.
 
 **Signature elements:** the section opener — an eyebrow label over a short
 magenta accent rule that traces in — and the sign's static aura. The
-logo's chevron run remains inside the logo artwork only; the motif is
-retired from UI chrome (client, 2026-07-18 — see docs/DECISIONS.md).
+chevron motif is retired from UI chrome (client, 2026-07-18 — see
+docs/DECISIONS.md) and, since the 2026-09-15 logo, from the logo artwork
+too — the new mark carries no chevron run (DECISIONS same date).
 
-### Color tokens (provisional — verify by pixel-sampling the logo PNGs)
+### Color tokens (sampled from the 2026-07 logo sources; values retained unchanged for the 2026-09-15 metallic mark — DECISIONS same date)
 
 | Token | Provisional value | Role |
 |---|---|---|

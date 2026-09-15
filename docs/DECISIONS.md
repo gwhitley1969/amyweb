@@ -8508,3 +8508,119 @@ to probe; the DNS `login` CNAME cannot deploy until the external
 tenant's temporary ownership TXT at the same name is verified and
 deleted (the app's Task 6, sequenced ahead of this repo's deploy step).
 
+
+## 2026-09-15 — The new Needle Girlie logo replaces the mark sitewide (client delivery)
+
+**Context.** Amy delivered a new logo: the same "Needle Girlie"
+composition as the 2026-07 mark — the serif wordmark, the syringe
+standing in for the second "l", the lips at the top right — re-rendered
+as glossy metallic pink with a soft glow. Two files arrived: an opaque
+rendering on solid black and, on request, a transparent-background
+version (2172×724, RGBA — letterforms alpha 253, glow alpha 1–63,
+background 0). The old mark was a Claude Design HTML master exported to
+PNG (DECISIONS 2026-07-07) and rendered in three places on `phase-c`,
+all pure-black surfaces — the header (`needle-girlie-wordmark-alpha.png`,
+1604×342), the footer (same file), and the styleguide sign (the chevron
+lockup) — plus the Under Construction placeholder on `main`. Real alpha
+is load-bearing: the home page's neon switch-on
+(`public/js/home-motion.js`) and the styleguide sign's aura apply
+`drop-shadow()` to the image's silhouette, which on an opaque rectangle
+would glow as a box. The operator's calls at plan time: the
+transparent file is the master; the live placeholder takes the new
+mark now; a favicon set from the logo is in scope (OG image and JSON-LD
+logo stay Phase D); the old logo files stay dormant, not deleted.
+
+**Decision.** (1) The transparent delivery is archived byte-identical as
+`src/assets/brand/source/needle-girlie-logo-metallic-master.png`
+(SHA-256 `b07abf18…9b41ff`), the on-black rendering beside it as
+`…-metallic-on-black.png` (`c2c5f99d…89efb50a`) for reference only.
+(2) Every rendered variant is a CROP of the master by the new
+`scripts/derive-logo.mjs` (sharp via `createRequire`, the
+`export-logo.mjs` pattern — sharp is an optional transitive of astro,
+not a declared dependency; a one-off authoring tool, never a build
+step): the wordmark `needle-girlie-wordmark-metallic-alpha.png` is the
+master's alpha≥16 bounds (2100×554 at 44,104) plus a 12px pad →
+2124×578 at (32,92), aspect 3.675 — a cut at ≤6% alpha over noir is
+below perception, so no box edge; proven crop-only (the derivative's
+RGBA equals `master.extract(rect)` with a maximum channel difference
+of 0); the script asserts ≥2080px so the styleguide sign's 2× tier is
+never upscaled. (3) Consumers: the header at `width={440}
+widths={[440,600,880]}` with a `sizes` of plain breakpoints (a phone
+fetches the 440 or 600 tier, 27/41KB, instead of the 72KB 2× file
+`densities` would have given it); the footer unchanged at
+`width={160} densities={[1,2]}`; the styleguide sign at `width={1040}
+widths={[480,800,1200,2080]}` — an explicit `width` on every consumer,
+because `widths` alone makes Astro's `<img src>` fallback the
+original-width encode (verified in `service.js`; `densities` are never
+clamped to the source either, so every tier must fit inside 2124px).
+(4) The favicon set, the site's first logo-derived one: the lips
+(master rect 342×214 at 1830,136 — the "i" dot ends at x≈1815, the
+final "e" starts at y≈352; the script asserts the crop's left and
+bottom edges carry no opaque pixel) scaled to 84% of a black tile as
+`public/favicon.ico` (16/32/48 PNG entries in an ICO container the
+script writes itself) and `public/icons/apple-touch-icon.png` (180);
+two `<link>`s in BaseLayout; the generic "NG" placeholder
+`favicon.svg` retired. The syringe was the first thought and lost on
+measurement: its column is flanked by the "d"/"e" glow and the baseline
+streak and is a 155×510 sliver, ~5px wide at 16px. (5) The header
+absorbs the taller aspect (3.675 vs 4.69: ~120px tall at 440, was 94)
+with the widths unchanged from 390px up; two fixes the bolder mark
+exposed ride along — on the tightest phones the wordmark box had
+overlapped the Book button since 2026-08-15 (measured: 14px at 360,
+2px at 375 — invisible with the old mark's thin lips), so the rendered
+width is now one custom property `--wordmark-w` =
+`clamp(130px, min(44vw, 100vw - 218px), 300px)` (the cap bites only
+below 390px) and the credit line steps down to 11px caps under 390px
+(the 165px line, not the wordmark, set the link's width there; the
+pink-500-on-noir pair holds 5.95:1); and the nav popover's three
+hand-tuned offsets (6.75 / 8.25 / 13.5rem — one of them 1px inside the
+header at 1023 and 39px adrift at 1024) become formulas: below 1024
+`calc(2rem + var(--wordmark-w) / 3.675 + 1.75rem)`, above it
+`calc(3rem + clamp(128px, 12.5vw, 160px) + 0.25rem)` (the badge is the
+tallest element there). Measured on the built page: the mark clears
+the button by 6px at 360/375/390 and the popover clears the header by
+3–8px at 360/375/390/639/1023/1024/1280. (6) The Under Construction
+placeholder on `main` takes the same mark and favicons by a hotfix PR
+branched from `main` (RUNBOOK "Hotfixing production during the
+takedown era"): the identical files at the same paths, the import swap
+plus an explicit `width={780}`, the two favicon links, `favicon.svg`
+deleted — no docs on `main`; this entry is the record for both PRs.
+(7) Palette tokens unchanged (the metallic lettering is a ramp with no
+single hex; `#ec4899` stays the site's pink; the 2026-08-26
+"the word Girlie is literally that hex" pin is historical). (8) The
+old HTML masters, six PNG derivatives, and `export-logo.mjs` stay in
+the repo, dormant, listed in BRAND-ASSETS "Retired".
+
+**Alternatives rejected.** An SVG trace or rebuild of the new mark —
+forbidden by "never redraw, restyle, trace, or AI-upscale" (BUILD_SPEC
+§3), and unlike the 2026-08-15 Mobile Aesthetics badge, which was pure
+geometry, this art is illustrative (metallic ramps, a glow), so that
+rebuild precedent does not transfer. Keying the on-black file's
+background to alpha in-repo — lossless on #000 but moot once the
+transparent delivery existed. The syringe as the favicon glyph (above).
+Deleting the retired assets under the orphan rule — the operator chose
+dormant (the caricature precedent). `densities` for the header — the
+phone would fetch the 72KB 2× file for a 172px slot. Raising the home
+row's image budget — not needed: the home page measures 189,882 B of
+images against the 245,760 B budget (was ~187KB; Lighthouse's phone
+profile picks the 440 tier), /services 224,376 B against 393,216 B,
+every gate green on the PR build (performance 98–100 on all eight
+URLs). A web manifest, theme-color, OG image, and JSON-LD `logo` — not
+asked; Phase D.
+
+**Consequences.** The site's mark is a raster with no vector source;
+future variants are crops of the master by `derive-logo.mjs`, and a
+different master with a different aspect changes one number (3.675) in
+`Header.astro`. The Playfair Display decision (2026-07-08, 2026-08-15)
+was made because the wordmark's face was verifiable from the HTML
+master; it now stands on visual continuity — the new render is evidently
+built on the old Playfair composition. The chevron motif, retired from
+the UI 2026-07-18, has left the logo artwork too. `favicon.svg` is gone
+and the new icon paths are new, so no purge is needed; browsers cache
+favicons far longer than the edge (RUNBOOK "Manual cache purge"). At
+relaunch the revert-of-the-revert will also conflict on
+`src/layouts/BaseLayout.astro` — take the launch-tree side (RELAUNCH
+step 1). Amy's presentation approval covers the new logo (the sign-off
+doc's pending row). BUILD_SPEC §3/§5, BRAND-ASSETS (rewritten),
+REDESIGN, RUNBOOK, RELAUNCH, CHANGELOG, and `tokens.css`'s header
+comment carry the change.

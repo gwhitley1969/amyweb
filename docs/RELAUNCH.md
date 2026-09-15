@@ -40,6 +40,15 @@ check will refuse it. On a branch off `main`:
 1. `git revert e57a4448f77e8ff64c623cd1d734fddfb0f00801` — restores
    the launch tree. Expect a conflict on `src/pages/index.astro`
    (PR #99 edited the placeholder): **take the launch-tree side**.
+   Since 2026-09-15 also expect one on `src/layouts/BaseLayout.astro`
+   (the logo hotfix PR replaced its favicon link on `main`): take the
+   launch-tree side there too — step 2 brings the identical new links
+   from `phase-c`. The brand files that hotfix added
+   (`src/assets/brand/source/needle-girlie-logo-metallic-*.png`,
+   `src/assets/brand/needle-girlie-wordmark-metallic-alpha.png`,
+   `public/favicon.ico`, `public/icons/apple-touch-icon.png`) are
+   byte-identical on both sides and merge clean; `public/favicon.svg`
+   is deleted on both.
 2. `git merge phase-c` — brings every post-takedown revision.
 3. In the same PR: delete `src/assets/photos/studio-counter-portrait.jpg`
    (the placeholder's photo — zero-reference once the placeholder
@@ -106,6 +115,9 @@ check will refuse it. On a branch off `main`:
   `commercial-studio.mp4`, already in the film list above.
 - Plausible: `/api/event` returns 202 from the production page;
   dashboard shows the first pageviews.
+- The favicon set serves: `/favicon.ico` (200, `image/x-icon` or
+  `image/vnd.microsoft.icon`) and `/icons/apple-touch-icon.png` (200,
+  `image/png`) — the 2026-09-15 logo-derived set.
 - Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.
 - Converged multi-pass probes (3 consecutive clean passes, plain +
   cache-busted) before telling Amy it's live.

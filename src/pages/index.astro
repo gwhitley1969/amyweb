@@ -3,10 +3,11 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CaricatureWindow from '../components/CaricatureWindow.astro';
 import { siteConfig } from '../lib/siteConfig';
-// Derivative of the original Claude-designed logo, rendered at 4x from the
-// canonical HTML source (src/assets/brand/source/) and cropped with a black
+// The client's 2026-09-15 logo — the same crop the site's header uses
+// (docs/BRAND-ASSETS.md on phase-c; DECISIONS 2026-09-15). Replaces the
+// 4x export of the retired Claude-designed HTML master, which was cropped with a black
 // margin so the glow fades out inside the image. Art untouched.
-import logo from '../assets/brand/needle-girlie-logo-on-black-trimmed.png';
+import logo from '../assets/brand/needle-girlie-wordmark-metallic-alpha.png';
 // Amy on the studio counter beneath her own neon — the "she's inside
 // getting it ready" moment, photographic. Replaced the commissioned
 // caricature at Amy's direction (2026-08-05); the caricature asset stays
@@ -28,6 +29,7 @@ import studioPortrait from '../assets/photos/studio-counter-portrait.jpg';
     <Image
       src={logo}
       alt="Needle Girlie"
+      width={780}
       widths={[480, 800, 1560]}
       sizes="(max-width: 820px) 94vw, 780px"
       class="construction-sign w-full max-w-[780px]"

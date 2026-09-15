@@ -15,7 +15,7 @@ change lives in `docs/DECISIONS.md`; design specs live in
   rendered variant is a crop of the delivered transparent master
   (`src/assets/brand/source/`), proven pixel-for-pixel; nothing is
   redrawn or resampled. The header wordmark keeps its widths from
-  390px up but is taller (aspect 3.675 vs 4.69 — ~120px on desktop,
+  390px up but is taller (aspect 3.472 vs 4.69 — ~127px on desktop,
   was 94), served as 440/600/880 tiers with `sizes` so phones fetch
   the small file. Two header fixes the bolder mark exposed: on the
   tightest phones the wordmark box had overlapped the Book button

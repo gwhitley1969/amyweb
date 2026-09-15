@@ -41,12 +41,14 @@ const PAD = 12;
 /** The styleguide sign's largest srcset tier (2x of its 1040px cap). */
 const MIN_WIDTH = 2080;
 
-/** Favicon glyph crops (master pixel coordinates), measured 2026-09-15. The
- * lips sit alone at the top right; the syringe column is flanked by the
- * "d" and "e" and is a 155x510 sliver, ~5px wide at 16px — kept as the
- * alternative only. */
+/** Favicon glyph crops (master pixel coordinates), measured 2026-09-15 on
+ * the colour-corrected master: the "i" dot's opaque pixels end at x=1819
+ * and the lips' begin at x=1820; the lips end at y=347 and the final "e"
+ * begins at y=348. The lips sit alone at the top right; the syringe
+ * column is flanked by the "d" and "e" and is a 155x510 sliver, ~5px wide
+ * at 16px — kept as the alternative only. */
 const GLYPHS = {
-  lips: { left: 1830, top: 136, width: 342, height: 214 },
+  lips: { left: 1820, top: 130, width: 352, height: 218 },
   syringe: { left: 820, top: 95, width: 156, height: 510 },
 };
 /** The glyph fills this fraction of the tile's longer side. */
@@ -109,19 +111,21 @@ console.log(
 );
 
 // ---- 2. The favicon glyph: a crop on a black tile ---------------------------
-/** A letter crossing the crop boundary leaves opaque pixels on the edge; the
- * glyph itself is interior. Assert the left and bottom edges are clean (the
- * lips' neighbours — the "i" dot and the final "e" — lie left and below). */
+/** A letter crossing the crop boundary leaves opaque pixels on the edge.
+ * The lips' neighbours are the "i" dot (left of the crop, in its LOWER
+ * half — the lips' own left tip is in the upper half) and the final "e"
+ * (below the crop, under its LEFT part — the lower lip's tip is under the
+ * right part). Assert those two edge zones carry no opaque pixel. */
 function assertCleanEdges(rect) {
   const edge = 2;
-  for (let y = rect.top; y < rect.top + rect.height; y++) {
+  for (let y = rect.top + Math.floor(rect.height / 2); y < rect.top + rect.height; y++) {
     for (let x = rect.left; x < rect.left + edge; x++) {
-      if (alphaAt(x, y) >= 128) throw new Error(`glyph crop: opaque pixel on the left edge at (${x},${y})`);
+      if (alphaAt(x, y) >= 128) throw new Error(`glyph crop: opaque pixel on the lower left edge at (${x},${y})`);
     }
   }
   for (let y = rect.top + rect.height - edge; y < rect.top + rect.height; y++) {
-    for (let x = rect.left; x < rect.left + rect.width; x++) {
-      if (alphaAt(x, y) >= 128) throw new Error(`glyph crop: opaque pixel on the bottom edge at (${x},${y})`);
+    for (let x = rect.left; x < rect.left + Math.floor(rect.width * 0.4); x++) {
+      if (alphaAt(x, y) >= 128) throw new Error(`glyph crop: opaque pixel on the lower left bottom edge at (${x},${y})`);
     }
   }
 }

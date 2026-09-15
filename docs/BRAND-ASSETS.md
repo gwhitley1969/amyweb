@@ -5,13 +5,13 @@
 The logo is the client's delivery of 2026-09-15: the same "Needle Girlie"
 composition as before (the serif wordmark, the syringe standing in for the
 second "l", the lips at the top right) re-rendered as glossy metallic pink
-with a soft glow. Two raster files were delivered; both are archived
-byte-identical in this repo (DECISIONS 2026-09-15):
+with a soft glow. The transparent delivery is archived byte-identical in this repo
+(DECISIONS 2026-09-15; its first-cut predecessor and an opaque on-black
+rendering were withdrawn the same day when the colours were corrected):
 
 | File | Facts | Role |
 |---|---|---|
-| `src/assets/brand/source/needle-girlie-logo-metallic-master.png` | 2172×724, RGBA — letterforms opaque (alpha 253), glow alpha 1–63, background alpha 0; SHA-256 `b07abf1855883f08681808096cb44cfb12fedc73815ce90bfd5490aeb49b41ff` | **the master** — every variant is cropped from it |
-| `src/assets/brand/source/needle-girlie-logo-metallic-on-black.png` | 2172×724, 24-bit RGB on solid #000; SHA-256 `c2c5f99dec60e55eafb55b7ef1ca746c90dabc9e78e3cbf2e1797cce89efb50a` | the designer's on-black rendering — reference only, rendered nowhere |
+| `src/assets/brand/source/needle-girlie-logo-metallic-master.png` | 2172×724, RGBA — letterforms opaque, glow alpha 1–63, background alpha 0; SHA-256 `c7315bfd15dfe674acfe3358e767bb9fc91a5a46bf22ec61133623008d1f44f1` (the colour-corrected delivery, same day — it superseded a first transparent file `b07abf18…9b41ff` whose colours Amy rejected) | **the master** — every variant is cropped from it |
 
 **Never redraw, restyle, trace, or AI-upscale the logo** (BUILD_SPEC §3).
 Variants are *crops* of the master (plus a black tile for the favicons) —
@@ -43,14 +43,14 @@ One deterministic run writes every committed derivative from the master:
 
 | Output | What it is |
 |---|---|
-| `src/assets/brand/needle-girlie-wordmark-metallic-alpha.png` | the wordmark: the master cropped to its alpha≥16 bounds (2100×554 at x 44, y 104) plus a 12px pad → **2124×578 at (32,92), aspect 3.675**. A cut at ≤6% alpha over noir is below perception, so the glow ends inside the image with no box edge. The script asserts ≥2080px wide (the styleguide sign's 2× tier) — no consumer's largest srcset tier is ever upscaled. |
-| `public/favicon.ico` | 16/32/48 px PNG entries in an ICO container the script writes itself (no dependency): the **lips** (master rect 342×214 at (1830,136)) scaled to 84% of a black tile |
+| `src/assets/brand/needle-girlie-wordmark-metallic-alpha.png` | the wordmark: the master cropped to its alpha≥16 bounds (2118×593 at x 35, y 94) plus a 12px pad → **2142×617 at (23,82), aspect 3.472**. A cut at ≤6% alpha over noir is below perception, so the glow ends inside the image with no box edge. The script asserts ≥2080px wide (the styleguide sign's 2× tier) — no consumer's largest srcset tier is ever upscaled. |
+| `public/favicon.ico` | 16/32/48 px PNG entries in an ICO container the script writes itself (no dependency): the **lips** (master rect 352×218 at (1820,130)) scaled to 84% of a black tile |
 | `public/icons/apple-touch-icon.png` | the same tile at 180×180 |
 
 The favicon glyph is the lips, not the syringe: the syringe column is
 flanked by the "d" and "e" glow and the baseline streak, and at 16px it is a
-~5px sliver; the lips isolate cleanly (the "i" dot ends at x≈1815, the final
-"e" starts at y≈352 — the script asserts the crop's left and bottom edges
+~5px sliver; the lips isolate cleanly (the "i" dot ends at x=1819, the final
+"e" starts at y=348 — the script asserts the crop's left and bottom edges
 carry no opaque pixel) and read at 16px. `--glyph=syringe` and
 `--candidates=<dir>` exist for a side-by-side pick.
 
@@ -72,12 +72,12 @@ step.
 Two Astro facts to keep in mind when adding a consumer (Astro 5.18, verified
 in `service.js`): `widths` above the source are clamped to it, but
 `densities` are NOT — sharp will upscale — so every density tier must fit
-inside the derivative's 2124px; and `widths` without an explicit `width`
+inside the derivative's 2142px; and `widths` without an explicit `width`
 makes the `<img src>` fallback the ORIGINAL-width encode, so always pass
 `width`.
 
 The header's nav popover offset below 1024px is derived from the wordmark's
-aspect (`3.675` in `Header.astro`); a future asset with a different aspect
+aspect (`3.472` in `Header.astro`); a future asset with a different aspect
 changes that one number.
 
 ## Retired 2026-09-15 (dormant — kept, not deleted; operator decision)

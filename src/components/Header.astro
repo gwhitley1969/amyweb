@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { siteConfig } from '../lib/siteConfig';
 /* The wordmark is a crop of the client's 2026-09-15 raster master (see
- * docs/BRAND-ASSETS.md; DECISIONS same date) — 2124x578, aspect 3.675.
+ * docs/BRAND-ASSETS.md; DECISIONS same date) — 2142x617, aspect 3.472.
  * The nav popover's offset below 1024px is derived from that aspect
  * (WORDMARK_ASPECT in the styles) — a future asset swap changes one number. */
 import wordmark from '../assets/brand/needle-girlie-wordmark-metallic-alpha.png';
@@ -330,12 +330,12 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     inset: auto 1rem auto auto;
     /* Clears the brand block at every width below 1024px: the header's
      * vertical padding (2rem) + the wordmark's fluid height (its rendered
-     * width over the asset's aspect, 3.675 — WORDMARK_ASPECT) + the
+     * width over the asset's aspect, 3.472 — WORDMARK_ASPECT) + the
      * credit line and its gap (1.5rem). Derived, not tuned per
      * breakpoint — the 2026-08-15 rem values (6.75 / 8.25) were retuned
      * twice and still overlapped the header at 639px; the 2026-09-15
-     * logo's taller aspect (3.675 vs 4.69) made a formula the honest fix. */
-    top: calc(2rem + var(--wordmark-w) / 3.675 + 1.75rem);
+     * logo's taller aspect (3.472 vs 4.69) made a formula the honest fix. */
+    top: calc(2rem + var(--wordmark-w) / 3.472 + 1.75rem);
     min-width: 12rem;
     margin: 0;
     padding: 0.5rem 0;
@@ -343,13 +343,15 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     border-radius: 0.25rem;
     list-style: none;
   }
-  /* ≥1024px: the badge is the tallest element, so the header is py-6
-   * (3rem) + the badge's fluid height; the menu anchors just below it
-   * (hybrid nav). Was a fixed 13.5rem, right only at the 160px end of
-   * the badge clamp (39px adrift at 1024). */
+  /* ≥1024px: the header is py-6 (3rem) + the taller of the badge's fluid
+   * height and the brand block (wordmark height + credit line); the menu
+   * anchors just below it (hybrid nav). Was a fixed 13.5rem, right only
+   * at the 160px end of the badge clamp (39px adrift at 1024). */
   @media (min-width: 1024px) {
     .site-nav-popover {
-      top: calc(3rem + clamp(128px, 12.5vw, 160px) + 0.25rem);
+      top: calc(
+        3rem + max(clamp(128px, 12.5vw, 160px), var(--wordmark-w) / 3.472 + 1.5rem) + 0.25rem
+      );
     }
   }
   /* Browsers without Popover support ignore the attribute; the list then

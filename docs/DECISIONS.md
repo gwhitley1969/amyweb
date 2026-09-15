@@ -8624,3 +8624,40 @@ step 1). Amy's presentation approval covers the new logo (the sign-off
 doc's pending row). BUILD_SPEC §3/§5, BRAND-ASSETS (rewritten),
 REDESIGN, RUNBOOK, RELAUNCH, CHANGELOG, and `tokens.css`'s header
 comment carry the change.
+
+## 2026-09-15 — The logo master is the colour-corrected delivery (same day, before merge)
+
+**Context.** With PR #186 (phase-c) and the placeholder hotfix PR #187
+(main) open on their previews, Amy sent a corrected file: "the colors
+are off on the first one" — the same composition and canvas
+(2172×724, RGBA), a lighter, cooler metallic pink with a wider glow.
+Neither PR had merged.
+
+**Decision.** The corrected file replaces the master in place
+(`needle-girlie-logo-metallic-master.png`, SHA-256
+`c7315bfd15dfe674acfe3358e767bb9fc91a5a46bf22ec61133623008d1f44f1`;
+the first transparent file, `b07abf18…9b41ff`, and its opaque on-black
+companion leave the PR — a wrong-colour rendering that never merged
+has no record value beyond this entry). `derive-logo.mjs` re-run
+unchanged in method: the wordmark crop is now the alpha≥16 bounds
+2118×593 at (35,94) plus the 12px pad → **2142×617 at (23,82), aspect
+3.472** (the wider glow — was 2124×578, 3.675); crop-only proven again
+(max channel difference 0). The header's one aspect number moves
+3.675 → 3.472 (the wordmark is ~127px tall at 440, was 120 on the first
+cut and 94 on the old mark). The lips crop moves to 352×218 at
+(1820,130): on this master the "i" dot's opaque pixels end at x=1819
+and the lips' begin at 1820, the lips end at y=347 and the final "e"
+begins at 348, so the script's edge assertions became zone-aware (the
+lower half of the left edge, the left 40% of the bottom edge — where
+those two letters can be). The hotfix PR carries the identical files.
+Everything else in the previous entry stands.
+
+**Alternatives rejected.** Keeping the first master dormant beside the
+new one — dormancy is for the retired 2026-07 mark that once shipped;
+an unmerged wrong-colour file is noise in a public repo. Re-measuring
+by hand instead of re-running the script — the script IS the record.
+
+**Consequences.** Both PRs redeploy their previews; the gates and the
+header measurements were re-run on the corrected master (numbers in
+the PR). BRAND-ASSETS, CHANGELOG, REDESIGN, and `Header.astro` carry
+the new figures.

@@ -2,13 +2,16 @@
 /**
  * Derive every committed logo variant from the raster master (see
  * docs/BRAND-ASSETS.md, "Deriving a variant"). The master is the client's
- * raster delivery (2026-09-15: the creator's transparent-background export).
- * A master delivered on solid black without alpha is keyed to alpha below
- * first (that path shipped for a few hours the same day; its derivatives
- * were too heavy for the image budgets — DECISIONS). Every output is a CROP
- * (plus a black tile for the favicons) — never a resample of the wordmark
- * itself, never a colour edit: the logo is not redrawn, restyled, traced,
- * or upscaled (BUILD_SPEC §3).
+ * raster delivery (2026-09-15: the "b" file — the metallic rendering the
+ * client chose, whose delivered colour is re-mapped to the home hero's
+ * "made personal." accent by the RECOLOR step below, an operator override
+ * of the never-restyle rule recorded in DECISIONS). A master delivered on
+ * solid black without alpha is keyed to alpha first (that path shipped for
+ * a few hours the same day; its derivatives were too heavy for the image
+ * budgets). Every output is a CROP of the (keyed, recoloured) master plus a
+ * black tile for the favicons — never a resample of the wordmark itself,
+ * never a redraw, trace, or upscale (BUILD_SPEC §3); shapes and alpha are
+ * the client's pixels exactly.
  *
  * Usage:
  *   node scripts/derive-logo.mjs [--glyph=lips|syringe] [--candidates=<dir>]
@@ -45,17 +48,14 @@ const PAD = 12;
 const MIN_WIDTH = 2080;
 
 /** Favicon glyph crops (master pixel coordinates), measured 2026-09-15 on
- * the creator's transparent export (2172x724, the fourth file of the day):
- * the "i" dot's solid pixels end at x=1836 and the lips' tip begins at
- * 1841; under the lips the lower lip's edge runs 15-24px above the top of
- * the final "e" except at the far right, where the lip reaches y=338 while
- * the "e" begins at 331 — so the cut at y=331 keeps the "e" out at the cost
- * of ≤8px off the lower lip's right-bottom edge (~3% of the tile, invisible
- * at 16-180px). The rect starts at y=66 to keep the sparkle above the lips.
- * The syringe column is flanked by the "d" and "e" and is a sliver, ~5px
- * wide at 16px — kept as the alternative only. */
+ * the "b" master (2172x724): the "i" dot's opaque pixels end at x=1814 and
+ * the lips' tip begins at 1841; the lower lip ends at y=347 and the final
+ * "e" begins at 352, with row 348 clean between them — so the rect is clean
+ * on every edge (no lip rows lost). The syringe column is flanked by the
+ * "d" and "e" and is a sliver, ~5px wide at 16px — kept as the alternative
+ * only. Re-measure (--measure) whenever the master changes. */
 const GLYPHS = {
-  lips: { left: 1839, top: 66, width: 333, height: 265 },
+  lips: { left: 1830, top: 136, width: 342, height: 214 },
   syringe: { left: 850, top: 80, width: 160, height: 500 },
 };
 /** "Solid" for the edge assertions: alpha 250 is a letter body, not a glow
@@ -111,8 +111,99 @@ if (!hasAlpha) {
   data = keyed;
   console.log(`keyed: the master has no alpha channel — black keyed to alpha (gain ${KEY_GAIN})`);
 }
+/** Recolour (operator override of the never-restyle rule, DECISIONS
+ * 2026-09-15, the fifth addendum): the client chose the 2026-09-15 "b"
+ * delivery's metallic rendering but in the colour of the home hero's
+ * "made personal." accent — pale pink-300 lettering (#f9a8d4) over the
+ * neon-500 glow (#fe019a). The mapping is a per-pixel OKLCH transform,
+ * shapes and alpha untouched: for opaque pixels (alpha ≥ RECOLOR.solidA)
+ * the hue is offset so the lettering's mid-tone lands on the target hue,
+ * chroma is scaled so the mid-tone chroma matches, and lightness is
+ * re-curved (L^γ, 0 and 1 fixed) so the mid-tone L matches; for the soft
+ * pixels (the glow) the hue is set to the neon's and chroma scaled toward
+ * it, L kept. The mid-tone is the median-L band of the opaque pixels;
+ * hues are averaged circularly. Set RECOLOR to null to ship the master's
+ * own colour. */
+const RECOLOR = {
+  letters: '#f9a8d4',
+  glow: '#fe019a',
+  solidA: 250,
+  glowChromaCap: 0.32,
+};
+const lin = (c) => { c /= 255; return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
+const unlin = (c) => { c = Math.max(0, Math.min(1, c)); return c <= 0.0031308 ? c * 12.92 : 1.055 * Math.pow(c, 1 / 2.4) - 0.055; };
+function toOklab(r, g, b) {
+  const R = lin(r), G = lin(g), B = lin(b);
+  const l = Math.cbrt(0.4122214708 * R + 0.5363325363 * G + 0.0514459929 * B);
+  const m = Math.cbrt(0.2119034982 * R + 0.6806995451 * G + 0.1073969566 * B);
+  const s = Math.cbrt(0.0883024619 * R + 0.2817188376 * G + 0.6299787005 * B);
+  return [0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s, 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s];
+}
+function fromOklabLinear(L, a, b) {
+  const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
+  const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
+  const s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
+  return [4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s, -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s, -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s];
+}
+const inGamut = ([r, g, b]) => r >= -0.0005 && r <= 1.0005 && g >= -0.0005 && g <= 1.0005 && b >= -0.0005 && b <= 1.0005;
+/** OKLCH → sRGB, pulling chroma in until the colour fits the gamut. */
+function lchToRgb(L, Cc, h) {
+  const rad = (h * Math.PI) / 180;
+  let c = Cc;
+  for (let i = 0; i < 20; i++) {
+    const rgb = fromOklabLinear(L, c * Math.cos(rad), c * Math.sin(rad));
+    if (inGamut(rgb)) return rgb.map((v) => Math.round(unlin(v) * 255));
+    c *= 0.92;
+  }
+  return fromOklabLinear(L, 0, 0).map((v) => Math.round(unlin(v) * 255));
+}
+const toLch = (r, g, b) => { const [L, a, bb] = toOklab(r, g, b); const Cc = Math.hypot(a, bb); let h = (Math.atan2(bb, a) * 180) / Math.PI; if (h < 0) h += 360; return [L, Cc, h]; };
+const hexLch = (hex) => { const n = parseInt(hex.slice(1), 16); return toLch(n >> 16, (n >> 8) & 255, n & 255); };
+const meanHue = (arr) => { let sx = 0, sy = 0; for (const p of arr) { sx += Math.cos((p[2] * Math.PI) / 180); sy += Math.sin((p[2] * Math.PI) / 180); } const h = (Math.atan2(sy, sx) * 180) / Math.PI; return h < 0 ? h + 360 : h; };
+if (RECOLOR) {
+  const solid = [];
+  const glow = [];
+  for (let y = 0; y < H; y += 2) {
+    for (let x = 0; x < W; x += 2) {
+      const i = (y * W + x) * 4;
+      const a = data[i + 3];
+      if (a === 0) continue;
+      const p = toLch(data[i], data[i + 1], data[i + 2]);
+      if (a >= RECOLOR.solidA) solid.push(p);
+      else if (a >= 8 && a < 128) glow.push(p);
+    }
+  }
+  solid.sort((p, q) => p[0] - q[0]);
+  const mean = (arr, k) => arr.reduce((s, p) => s + p[k], 0) / arr.length;
+  const band = solid.slice((solid.length * 3) / 8 | 0, (solid.length * 5) / 8 | 0);
+  const mid = { L: mean(band, 0), C: mean(band, 1), h: meanHue(band) };
+  const gl = { C: mean(glow, 1) };
+  const [tL, tC, th] = hexLch(RECOLOR.letters);
+  const [, gC, gh] = hexLch(RECOLOR.glow);
+  let dh = th - mid.h; if (dh > 180) dh -= 360; if (dh < -180) dh += 360;
+  const cScale = tC / mid.C;
+  const gamma = Math.log(tL) / Math.log(mid.L);
+  const glowScale = gC / gl.C;
+  const out = Buffer.from(data);
+  for (let i = 0; i < data.length; i += 4) {
+    const a = data[i + 3];
+    if (a === 0) continue;
+    const [L, Cc, h] = toLch(data[i], data[i + 1], data[i + 2]);
+    const [r, g, b] = a >= RECOLOR.solidA
+      ? lchToRgb(Math.pow(L, gamma), Cc * cScale, (h + dh + 360) % 360)
+      : lchToRgb(L, Math.min(RECOLOR.glowChromaCap, Cc * glowScale), gh);
+    out[i] = r; out[i + 1] = g; out[i + 2] = b;
+  }
+  data = out;
+  console.log(
+    `recolour: letters mid-tone L ${mid.L.toFixed(3)} C ${mid.C.toFixed(3)} h ${mid.h.toFixed(1)}° → ${RECOLOR.letters} ` +
+      `(hue ${dh >= 0 ? '+' : ''}${dh.toFixed(1)}°, chroma ×${cScale.toFixed(3)}, lightness γ ${gamma.toFixed(3)}); ` +
+      `glow → ${RECOLOR.glow} (chroma ×${glowScale.toFixed(2)}, cap ${RECOLOR.glowChromaCap})`,
+  );
+}
 /** Every extract below reads from this RGBA buffer (the master itself when
- * it was delivered with alpha, the keyed copy otherwise). */
+ * it was delivered with alpha and no recolour applies; the keyed and/or
+ * recoloured copy otherwise). */
 const src = () => sharp(data, { raw: { width: W, height: H, channels: 4 } });
 const alphaAt = (x, y) => data[(y * W + x) * C + 3];
 
@@ -276,7 +367,11 @@ if (kitDir) {
   const { createHash } = await import('node:crypto');
   await mkdir(resolve(kitDir), { recursive: true });
   const sha = async (p) => createHash('sha256').update(await readFile(resolve(p))).digest('hex');
-  await copyFile(resolve(MASTER), resolve(kitDir, 'needle-girlie-logo-master-transparent.png'));
+  /** The kit's master is the full canvas AS THE SITE SHIPS IT — keyed
+   * and/or recoloured — never the raw delivery, whose colour differs
+   * under the RECOLOR override; a crop of the raw file would not match
+   * the site. The delivery itself stays archived in this repo. */
+  await src().png().toFile(resolve(kitDir, 'needle-girlie-logo-master-transparent.png'));
   await copyFile(resolve(WORDMARK_OUT), resolve(kitDir, 'needle-girlie-wordmark-transparent.png'));
   await src()
     .extract(crop)
@@ -307,7 +402,7 @@ one mark, pixel for pixel.
 
 | File | What it is | Use |
 |---|---|---|
-| needle-girlie-logo-master-transparent.png | the master: ${W}×${H}, RGBA (transparent background) — SHA-256 ${await sha(MASTER)} | the source for any crop you need; never recolour, redraw, trace, or upscale it |
+| needle-girlie-logo-master-transparent.png | the master as the site ships it: ${W}×${H}, RGBA (transparent background), in the site's colour${RECOLOR ? ' (the client\'s delivery re-mapped to the "made personal." accent — the delivered file, SHA-256 ' + (await sha(MASTER)) + ', is archived in the website repo and is NOT this colour)' : ''} | the source for any crop you need; never recolour, redraw, trace, or upscale it |
 | needle-girlie-wordmark-transparent.png | the wordmark crop the site uses: ${crop.width}×${crop.height}, aspect ${(crop.width / crop.height).toFixed(3)} (art + 12px of glow margin) | headers, splash screens, about screens — on a black surface |
 | needle-girlie-wordmark-on-black-preview.png | the same crop flattened onto #000 | for looking at, not for shipping |
 | needle-girlie-lips-transparent.png | the lips crop (${GLYPHS.lips.width}×${GLYPHS.lips.height}) the icons are made from | if you need the lips alone |
@@ -317,8 +412,9 @@ one mark, pixel for pixel.
 
 | Token | Hex | Role |
 |---|---|---|
-| Brand pink | #ec4899 | the wordmark's pink (the lettering's mid-tone measures hue 332°, this token is 330°); display text, buttons on black |
-| Neon | #fe019a | the glow only — never text |
+| Pale pink | #f9a8d4 | THE MARK'S LETTERING: its mid-tone is set to this value (the site's "made personal." accent colour); also body text on black |
+| Neon | #fe019a | THE MARK'S GLOW (and the site's neon text-shadow) — never text |
+| Brand pink | #ec4899 | the site's brand pink: display text, buttons on black |
 | Deep magenta | #d6337e | accents, rules — never behind white text |
 | Pale pink | #f9a8d4 | tints; body text on black |
 | Blush | #fdf2f8 | light canvas start |

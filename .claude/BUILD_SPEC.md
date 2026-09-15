@@ -85,12 +85,17 @@ As mapped in CLAUDE.md. Additional conventions:
   derived from the logo 2026-09-15), robots.txt (generated), official store
   badges (Phase 4 asset — placeholder only for now).
 - Brand logo source files are provided by the operator — since 2026-09-15 the
-  creator's transparent-background raster master (RGBA, 2172px wide),
-  archived in `src/assets/brand/source/` (docs/BRAND-ASSETS.md; DECISIONS
-  same date). Derive favicon/OG variants from it by cropping
-  (`scripts/derive-logo.mjs`); never redraw or restyle the logo. Ask for
-  transparent exports, never files on solid black: keying is possible but
-  its derivatives break the image budgets (DECISIONS 2026-09-15).
+  client's transparent-background raster master (the "b" delivery, RGBA,
+  2172px wide), archived in `src/assets/brand/source/` (docs/BRAND-ASSETS.md;
+  DECISIONS same date). Derive favicon/OG variants from it by cropping
+  (`scripts/derive-logo.mjs`); never redraw or restyle the logo. *Scoped
+  override (operator, 2026-09-15, after the flag — DECISIONS the fifth
+  addendum): the script re-maps the master's colour to the home hero's
+  "made personal." accent (pink-300 lettering over the neon-500 glow) by a
+  recorded OKLCH transform; shapes and alpha are untouched. Changing the
+  target colours or dropping the re-map requires the human operator.* Ask
+  for transparent exports, never files on solid black: keying is possible
+  but its derivatives break the image budgets (DECISIONS 2026-09-15).
 
 ## 4. Technical configuration requirements
 

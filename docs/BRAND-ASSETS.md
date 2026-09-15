@@ -5,25 +5,39 @@
 The logo is the client's delivery of 2026-09-15: the same "Needle Girlie"
 composition as before (the serif wordmark, the syringe standing in for the
 second "l", the lips at the top right) re-rendered as glossy metallic pink
-with a soft glow. The creator's transparent-background export in the
-brand hue — the fifth file of the day — is archived byte-identical in this
-repo (DECISIONS 2026-09-15 and its four same-day addenda; the four earlier
-files were withdrawn before anything merged — three for colour, one because
-it arrived on solid black and its keyed derivatives blew the image budgets):
+with a soft glow. Five files arrived on 2026-09-15; the client chose the
+second ("b") for its metallic rendering, in the colour of the home hero's
+"made personal." accent — so the master is "b", archived byte-identical,
+and its colour is re-mapped by the derivation script (the operator's
+override, below). DECISIONS 2026-09-15 and its five same-day addenda hold
+the day's record (the other four files — two rejected for colour, one that
+arrived on solid black and whose keyed derivatives blew the image budgets,
+and the brand-hue export that briefly went live — are superseded).
 
 | File | Facts | Role |
 |---|---|---|
-| `src/assets/brand/source/needle-girlie-logo-metallic-master.png` | 2172×724, RGBA — letterforms opaque, glow soft, background alpha 0; lettering mid-tone `#f32d8b`, hue 332° (the site's pink-500 is 330°); SHA-256 `0275862069b34b14259dc7793113cb9f3a11bc5d6ab3c1e4369559e11f466cbe` (it superseded `891ffe09…5170`, `fb703588…8f0f0` on black, `c7315bfd…1f44f1`, and `b07abf18…9b41ff`) | **the master** — every variant is cropped from it |
+| `src/assets/brand/source/needle-girlie-logo-metallic-master.png` | the "b" delivery: 2172×724, RGBA — letterforms opaque (alpha 253), glow alpha 1–63, background 0; delivered lettering mid-tone `#f7809b` (OKLCH L 0.742, C 0.147, hue 7°, a coral pink); SHA-256 `b07abf1855883f08681808096cb44cfb12fedc73815ce90bfd5490aeb49b41ff` | **the master** — shapes and alpha ship exactly; colour re-mapped |
 
-**Never redraw, restyle, trace, or AI-upscale the logo** (BUILD_SPEC §3).
-Variants are *crops* of the master (plus a black tile for the favicons) —
-never a resample of the wordmark, never a colour or alpha edit (proven on
-the committed derivative: max channel difference 0 against the master
-extract). There is no vector source; a vector version would be a redraw and
-is not produced. Ask the creator for a transparent-background PNG (RGBA) at
-≥2200px wide; never a file on solid black — `derive-logo.mjs` CAN key black
-to alpha (exact over #000), but the keyed glow encodes 2–3× heavier and
-broke the Lighthouse image and LCP budgets when tried on 2026-09-15.
+**Never redraw, restyle, trace, or AI-upscale the logo** (BUILD_SPEC §3) —
+with one scoped override (operator, 2026-09-15, after the flag; DECISIONS
+the fifth addendum): **the colour re-map to the "made personal." accent.**
+The client's brief was "b, in the colour of 'made personal.'" — on the noir
+hero that phrase is pale pink-300 `#f9a8d4` text over a neon-500 `#fe019a`
+text-shadow. The script's `RECOLOR` step maps every pixel in OKLCH, shapes
+and alpha untouched: opaque pixels (alpha ≥250) take a hue offset of
+−21.3° (the lettering's circular-mean mid-tone hue 7.3° → 346°), a chroma
+scale of ×0.745 (0.147 → 0.110), and a lightness curve L^0.653 (0.742 →
+0.823, 0 and 1 fixed); soft pixels (the glow) take the neon's hue (354°)
+and ×2.20 chroma, capped at 0.32, lightness kept. Proven on the committed
+derivative: the alpha channel equals the master's crop exactly, and the
+recoloured lettering's mid-tone measures `#f9a8d4` at L 0.823 / C 0.110 /
+h 346. The mapping is deterministic; re-running the script reproduces it.
+Setting `RECOLOR` to `null` ships "b" in its delivered colour. Everything
+else stays crop-only: no resample of the wordmark, no vector version (a
+redraw). For any future file: ask the creator for a transparent-background
+PNG (RGBA) ≥2200px wide, never on solid black — the script CAN key black to
+alpha (exact over #000), but the keyed glow encodes 2–3× heavier and broke
+the Lighthouse image and LCP budgets when tried.
 
 The master composites cleanly on the site's noir surfaces (the header,
 footer, hero band, and 404 are pure #000) and acceptably on white, so no
@@ -50,19 +64,17 @@ One deterministic run writes every committed derivative from the master:
 
 | Output | What it is |
 |---|---|
-| `src/assets/brand/needle-girlie-wordmark-metallic-alpha.png` | the wordmark: the master cropped to its alpha≥16 bounds (2145×664 at x 27, y 46) plus a 12px pad → **2157×688 at (15,34), aspect 3.135**. A cut at ≤6% alpha over noir is below perception, so the glow ends inside the image with no box edge. The script asserts ≥2080px wide (the styleguide sign's 2× tier at its 1040px cap) — no consumer's largest srcset tier is ever upscaled. |
-| `public/favicon.ico` | 16/32/48 px PNG entries in an ICO container the script writes itself (no dependency): the **lips** (master rect 333×265 at (1839,66)) scaled to 84% of a black tile |
+| `src/assets/brand/needle-girlie-wordmark-metallic-alpha.png` | the wordmark: the recoloured master cropped to its alpha≥16 bounds (2100×554 at x 44, y 104) plus a 12px pad → **2124×578 at (32,92), aspect 3.675**. A cut at ≤6% alpha over noir is below perception, so the glow ends inside the image with no box edge. The script asserts ≥2080px wide (the styleguide sign's 2× tier at its 1040px cap) — no consumer's largest srcset tier is ever upscaled. |
+| `public/favicon.ico` | 16/32/48 px PNG entries in an ICO container the script writes itself (no dependency): the **lips** (master rect 342×214 at (1830,136), recoloured like the wordmark) scaled to 84% of a black tile |
 | `public/icons/apple-touch-icon.png` | the same tile at 180×180 |
 
 The favicon glyph is the lips, not the syringe: the syringe column is
 flanked by the "d" and "e" glow and the baseline streak, and at 16px it is a
-~5px sliver. The lips isolate almost cleanly: the "i" dot's solid pixels
-end at x=1836 and the lips' tip begins at 1841; under the lips the lower
-lip's edge runs 15–24px above the top of the final "e" except at the far
-right, where the lip reaches y=338 while the "e" begins at 331, so the cut
-at y=331 keeps the "e" out at the cost of ≤8px off the lower lip's
-right-bottom edge — ~3% of the tile, invisible at 16–180px. The script
-asserts the lower-left edge zones carry no solid letter pixel (alpha ≥250).
+~5px sliver. On the "b" master the lips isolate cleanly: the "i" dot's
+opaque pixels end at x=1814 and the lips' tip begins at 1841; the lower lip
+ends at y=347 and the final "e" begins at 352 with a clean row between, so
+no lip pixel is lost. The script asserts the lower-left edge zones carry no
+solid letter pixel (alpha ≥250).
 `--glyph=syringe`, `--candidates=<dir>`, and `--measure` (prints the lips
 neighbourhood) exist for placing and comparing.
 
@@ -96,12 +108,12 @@ step.
 Two Astro facts to keep in mind when adding a consumer (Astro 5.18, verified
 in `service.js`): `widths` above the source are clamped to it, but
 `densities` are NOT — sharp will upscale — so every density tier must fit
-inside the derivative's 2157px; and `widths` without an explicit `width`
+inside the derivative's 2124px; and `widths` without an explicit `width`
 makes the `<img src>` fallback the ORIGINAL-width encode, so always pass
 `width`.
 
 The header's nav popover offset below 1024px is derived from the wordmark's
-aspect (`3.135` in `Header.astro`); a future asset with a different aspect
+aspect (`3.675` in `Header.astro`); a future asset with a different aspect
 changes that one number.
 
 ## Retired 2026-09-15 (dormant — kept, not deleted; operator decision)

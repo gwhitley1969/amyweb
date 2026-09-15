@@ -8798,3 +8798,70 @@ re-run with the exit lines read. The brief that produced this file —
 a transparent-background PNG, ≥2200px wide, the lettering's mid-tone
 set numerically to the site's pink-500 — is the template for any future
 logo request (BRAND-ASSETS).
+
+## 2026-09-15 — The "b" rendering in the "made personal." colour: a recorded recolour (operator override of the never-restyle rule)
+
+**Context.** With the brand-hue export (the fifth file) live on the
+placeholder and on both previews, the client's verdict was that
+everyone preferred the SECOND file's rendering ("b" — the lighter,
+chromier metallic) but wanted it in the colour of the home hero's
+"made personal." accent. That accent is not one colour: on the noir
+hero it is pale pink-300 `#f9a8d4` text (the noir `--ng-display-accent`)
+over a neon-500 `#fe019a` text-shadow (`ng-shimmer`). Measured in
+OKLCH, "b"'s lettering is a coral pink (mid-tone `#f7809b`, hue 7°,
+L 0.742, C 0.147) and its glow a muted rose — about 21° red of the
+accent, darker and more saturated than its text, and far less
+saturated than its glow. Three renders of "b" re-mapped in OKLCH (A:
+matched to the accent in hue, chroma, and lightness; B: hue only; C:
+matched to the brand pink) were put in front of the operator on a
+contact sheet with the accent's swatches; the operator chose A. The
+rule flagged: BUILD_SPEC §3 and BRAND-ASSETS say never restyle the
+logo; a colour re-map is a restyle by the letter. The alternative
+offered — send the exact values to the creator — was declined
+("do it in-repo"), and production was to stay on the fifth-file logo
+until this ships.
+
+**Decision.** (1) "b" is the master in place (SHA-256
+`b07abf1855883f08681808096cb44cfb12fedc73815ce90bfd5490aeb49b41ff`,
+byte-identical to the delivery, recovered from the first commit of
+the day where it had already been archived). (2) `derive-logo.mjs`
+gains a `RECOLOR` step, applied before the crop so the favicons
+inherit it: a per-pixel OKLCH transform, shapes and alpha untouched.
+Opaque pixels (alpha ≥250): hue offset −21.3° (the lettering's
+circular-mean mid-tone hue 7.3° → 346°), chroma ×0.745 (0.147 →
+0.110), lightness L^0.653 (0.742 → 0.823; 0 and 1 fixed). Soft
+pixels (the glow): hue set to the neon's 354°, chroma ×2.20 capped at
+0.32, lightness kept. Out-of-gamut results pull chroma in until they
+fit sRGB. Proven on the committed derivative: the alpha channel equals
+the master's crop exactly (max difference 0), and the recoloured
+lettering's median-L band measures `#f9a8d4` at L 0.823 / C 0.110 /
+h 346 — the target to three decimals. (3) The crop is "b"'s: 2124×578
+at (32,92), aspect 3.675; the header's aspect number returns to
+3.675; the styleguide sign keeps its 1040px cap (2080 tier covered).
+Lips rectangle 342×214 at (1830,136) — on this master the dot ends at
+x=1814, the lips begin at 1841, and row 348 is clean between the lower
+lip (≤347) and the "e" (≥352), so the tile loses nothing. (4) The
+override is scoped: these two target colours, this transform, this
+master; `RECOLOR = null` ships the delivered colour; changing the
+targets or dropping the re-map requires the human operator (BUILD_SPEC
+§3 carries the scoped-override sentence). (5) A new hotfix PR from
+`main` carries the identical files to the placeholder.
+
+**Alternatives rejected.** Sending the spec to the creator — declined
+by the operator after five files in a day; the mapping is a recorded,
+deterministic function of the delivered pixels, not a hand edit. Hue
+rotation alone (variant B) — keeps "b"'s depth but does not match the
+accent's lightness; the client asked for the accent's colour. The
+brand pink `#ec4899` (variant C) — the site's pink, but not what "made
+personal." is set in. A gradient map (luminance → a pink ramp) — would
+discard the render's own hue variation between highlight and shadow;
+the OKLCH offset keeps it.
+
+**Consequences.** The site's mark is a client rendering with a
+recorded colour transform on top; anyone reading the master file sees
+coral pink and must read this entry or BRAND-ASSETS to know why the
+site is pale pink. The brand kit for the mobile team (the `--kit`
+export) must be regenerated from this state so the app carries the
+same recoloured mark — done in the same session. Verify re-run on both
+trees with the exit lines read. The fifth-file logo stays live on the
+placeholder until the new hotfix PR merges on the operator's word.

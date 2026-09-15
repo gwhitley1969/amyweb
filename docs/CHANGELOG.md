@@ -12,15 +12,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
   (serif wordmark, the syringe as the second "l", the lips) in glossy
   pink with a glow — replaces the 2026-07 Claude-Design mark in the
   header and footer of every page and on the styleguide sign. Every
-  rendered variant is a crop of the delivered master
-  (`src/assets/brand/source/` — the creator's transparent-background
-  export in the brand hue, the fifth file of the day: three earlier
-  ones were withdrawn for colour and one, on solid black, because its
-  keyed derivatives broke the image and LCP budgets), proven
-  pixel-for-pixel; nothing is
-  redrawn or resampled. The header wordmark keeps its widths from
-  390px up but is taller (aspect 3.135 vs 4.69 — ~140px on desktop,
-  was 94), served as 440/600/880 tiers with `sizes` so phones fetch
+  rendered variant is a crop of the master (`src/assets/brand/source/`
+  — the client's "b" delivery, chosen for its metallic rendering among
+  the day's five files) with its colour re-mapped to the home hero's
+  "made personal." accent — pale pink-300 lettering over the neon-500
+  glow — by a recorded OKLCH transform in the derivation script
+  (operator override of the never-restyle rule; shapes and alpha are
+  the delivered pixels exactly, proven). Nothing is redrawn or
+  resampled. The header wordmark keeps its widths from 390px up but is
+  taller (aspect 3.675 vs 4.69 — ~120px on desktop, was 94), served as
+  440/600/880 tiers with `sizes` so phones fetch
   the small file. Two header fixes the bolder mark exposed: on the
   tightest phones the wordmark box had overlapped the Book button
   since 2026-08-15 (14px at 360, 2px at 375 — invisible with the old

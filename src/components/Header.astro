@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { siteConfig } from '../lib/siteConfig';
 /* The wordmark is a crop of the client's 2026-09-15 raster master (see
- * docs/BRAND-ASSETS.md; DECISIONS same date) — 1975x620, aspect 3.185.
+ * docs/BRAND-ASSETS.md; DECISIONS same date) — 2142x662, aspect 3.236.
  * The nav popover's offset below 1024px is derived from that aspect
  * (WORDMARK_ASPECT in the styles) — a future asset swap changes one number. */
 import wordmark from '../assets/brand/needle-girlie-wordmark-metallic-alpha.png';
@@ -330,12 +330,12 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     inset: auto 1rem auto auto;
     /* Clears the brand block at every width below 1024px: the header's
      * vertical padding (2rem) + the wordmark's fluid height (its rendered
-     * width over the asset's aspect, 3.185 — WORDMARK_ASPECT) + the
+     * width over the asset's aspect, 3.236 — WORDMARK_ASPECT) + the
      * credit line and its gap (1.5rem). Derived, not tuned per
      * breakpoint — the 2026-08-15 rem values (6.75 / 8.25) were retuned
      * twice and still overlapped the header at 639px; the 2026-09-15
-     * logo's taller aspect (3.185 vs 4.69) made a formula the honest fix. */
-    top: calc(2rem + var(--wordmark-w) / 3.185 + 1.75rem);
+     * logo's taller aspect (3.236 vs 4.69) made a formula the honest fix. */
+    top: calc(2rem + var(--wordmark-w) / 3.236 + 1.75rem);
     min-width: 12rem;
     margin: 0;
     padding: 0.5rem 0;
@@ -350,7 +350,7 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
   @media (min-width: 1024px) {
     .site-nav-popover {
       top: calc(
-        3rem + max(clamp(128px, 12.5vw, 160px), var(--wordmark-w) / 3.185 + 1.5rem) + 0.25rem
+        3rem + max(clamp(128px, 12.5vw, 160px), var(--wordmark-w) / 3.236 + 1.5rem) + 0.25rem
       );
     }
   }

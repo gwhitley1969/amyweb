@@ -8716,3 +8716,56 @@ would ship the sign 5% below 2× at that width (the retina hard rule).
 change; both PRs redeploy; every gate and header measurement was
 re-run (numbers in the PR). If a future master arrives with alpha,
 nothing changes but the file.
+
+## 2026-09-15 — Fourth file: the creator's transparent export is the master; the keyed on-black route is withdrawn (same day, before merge)
+
+**Context.** The third delivery's keyed derivatives failed `npm run
+verify` on both branches: the Lighthouse LCP budget (2500ms) by ~57ms
+on /styleguide (the sign is its LCP element), /about and /mobile (a
+text paragraph delayed by the heavier header image under simulated
+throttling), and on the placeholder (the logo is its LCP) — because a
+keyed glow encodes 2–3× heavier than a delivered alpha channel (the
+header's 2× tier went 72KB → 187KB; the alpha plane and the
+un-premultiplied colour noise in the near-black halo both compress
+badly; smoothing the halo colour recovered only a quarter and cost
+round-trip exactness). The operator asked the creator for what the
+assistant specified — a transparent-background PNG, ≥2200px wide, the
+same artwork — and it arrived within the hour.
+
+**Decision.** (1) The creator's export is the master in place
+(2172×724 RGBA, SHA-256
+`891ffe09eee83485afbe57fcf8af151533fc92acbc517cb9349342cd5ddd5170`);
+the on-black third file leaves the PR. (2) The wordmark is a pure crop
+again: alpha≥16 bounds 2120×638 at (42,58) plus the 12px pad →
+**2142×662 at (30,46), aspect 3.236** (crop-only proven: max channel
+difference 0); the header's aspect number follows (~136px tall at 440).
+Header tiers 29/46/80KB (440/600/880) — the second master's class,
+which passed. (3) The styleguide sign returns to its 1040px cap with the
+2080 tier; the script's width floor is 2080 again. (4) Lips crop
+333×265 at (1839,66): the "i" dot's solid pixels end at x=1836 and the
+lips' tip begins at 1841 (a four-pixel gap); under the lips the lower
+lip's edge runs 15–24px above the top of the final "e" except at the far
+right, where the lip reaches y=338 while the "e" begins at 331 — the cut
+at y=331 keeps the "e" out at the cost of ≤8px off the lower lip's
+right-bottom edge (~3% of the tile, invisible at 16–180px); the rect
+starts at y=66 to keep the sparkle. (5) The keying step stays in
+`derive-logo.mjs` as a documented capability that a delivered alpha
+channel bypasses; BRAND-ASSETS and BUILD_SPEC §3 now say to ask for
+transparent exports, never files on solid black. (6) The hotfix PR
+carries the identical files.
+
+**Alternatives rejected.** Shipping the keyed master with a trimmed
+invisible tail and a lower WebP quality — untested against the budget
+and, even if it passed, a permanently heavier header on every page for
+no visual gain once a proper export existed. Raising the LCP budget —
+never; the gates only tighten. Serving the keyed master at gain 1 —
+the alpha plane, not the gain, was the cost.
+
+**Consequences.** Both branches were pushed on the failing third-file
+state before the failure was read — the assistant's verify chain did
+not gate on the exit code; the CI runs for those pushes are red and are
+superseded by this commit. Rule going forward, recorded in the working
+memory: never commit or push until the verify log's exit line has been
+read. Docs, `Header.astro`, `Hero.astro`, and the script carry the
+figures; every gate and header measurement was re-run on this master
+(numbers in the PR).

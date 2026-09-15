@@ -13,12 +13,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
   pink with a glow — replaces the 2026-07 Claude-Design mark in the
   header and footer of every page and on the styleguide sign. Every
   rendered variant is a crop of the delivered master
-  (`src/assets/brand/source/` — the third delivery of the day, on solid
-  black, keyed to alpha in-repo: exact over the site's black surfaces,
-  proven); nothing is redrawn or resampled. The header wordmark keeps
-  its widths from 390px up but is taller (aspect 3.185 vs 4.69 —
-  ~138px on desktop, was 94), served as 440/600/880 tiers with `sizes`
-  so phones fetch
+  (`src/assets/brand/source/` — the creator's transparent-background
+  export, the fourth file of the day: two earlier ones were withdrawn
+  for colour and one, on solid black, because its keyed derivatives
+  broke the image and LCP budgets), proven pixel-for-pixel; nothing is
+  redrawn or resampled. The header wordmark keeps its widths from
+  390px up but is taller (aspect 3.236 vs 4.69 — ~136px on desktop,
+  was 94), served as 440/600/880 tiers with `sizes` so phones fetch
   the small file. Two header fixes the bolder mark exposed: on the
   tightest phones the wordmark box had overlapped the Book button
   since 2026-08-15 (14px at 360, 2px at 375 — invisible with the old

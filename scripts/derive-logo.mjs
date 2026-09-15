@@ -2,11 +2,13 @@
 /**
  * Derive every committed logo variant from the raster master (see
  * docs/BRAND-ASSETS.md, "Deriving a variant"). The master is the client's
- * raster delivery (2026-09-15; the third of that day arrived on solid black
- * and is keyed to alpha below). Every output is a CROP (plus a black tile
- * for the favicons) — never a resample of the wordmark itself, never a
- * colour edit: the logo is not redrawn, restyled, traced, or upscaled
- * (BUILD_SPEC §3).
+ * raster delivery (2026-09-15: the creator's transparent-background export).
+ * A master delivered on solid black without alpha is keyed to alpha below
+ * first (that path shipped for a few hours the same day; its derivatives
+ * were too heavy for the image budgets — DECISIONS). Every output is a CROP
+ * (plus a black tile for the favicons) — never a resample of the wordmark
+ * itself, never a colour edit: the logo is not redrawn, restyled, traced,
+ * or upscaled (BUILD_SPEC §3).
  *
  * Usage:
  *   node scripts/derive-logo.mjs [--glyph=lips|syringe] [--candidates=<dir>]
@@ -39,22 +41,25 @@ const APPLE_OUT = 'public/icons/apple-touch-icon.png';
  * RGB ~(16,6,10) — below perception — so the cut leaves no box edge. */
 const ALPHA_FLOOR = 16;
 const PAD = 12;
-/** The styleguide sign's largest srcset tier (2x of its 960px cap). */
-const MIN_WIDTH = 1920;
+/** The styleguide sign's largest srcset tier (2x of its 1040px cap). */
+const MIN_WIDTH = 2080;
 
 /** Favicon glyph crops (master pixel coordinates), measured 2026-09-15 on
- * the third delivery (1983x793): the "i" dot ends at x=1652 and the lips'
- * tip begins at 1680; the lower lip's lowest point (y=336, at x~1810) sits
- * level with the top of the final "e" (y=332, x 1685-1820), so the cut at
- * y=332 keeps the "e" out at the cost of the lip's bottom five rows (~2% of
- * the tile). The syringe column is flanked by the "d" and "e" and is a
- * ~125x440 sliver, ~5px wide at 16px — kept as the alternative only. */
+ * the creator's transparent export (2172x724, the fourth file of the day):
+ * the "i" dot's solid pixels end at x=1836 and the lips' tip begins at
+ * 1841; under the lips the lower lip's edge runs 15-24px above the top of
+ * the final "e" except at the far right, where the lip reaches y=338 while
+ * the "e" begins at 331 — so the cut at y=331 keeps the "e" out at the cost
+ * of ≤8px off the lower lip's right-bottom edge (~3% of the tile, invisible
+ * at 16-180px). The rect starts at y=66 to keep the sparkle above the lips.
+ * The syringe column is flanked by the "d" and "e" and is a sliver, ~5px
+ * wide at 16px — kept as the alternative only. */
 const GLYPHS = {
-  lips: { left: 1670, top: 95, width: 313, height: 237 },
-  syringe: { left: 760, top: 90, width: 125, height: 440 },
+  lips: { left: 1839, top: 66, width: 333, height: 265 },
+  syringe: { left: 850, top: 80, width: 160, height: 500 },
 };
-/** "Solid" for the edge assertions: at KEY_GAIN 2 an alpha of 250 means a
- * source luma of ~125 — a letter body, not its keyed glow halo. */
+/** "Solid" for the edge assertions: alpha 250 is a letter body, not a glow
+ * halo (for a keyed master it means a source luma of ~125). */
 const SOLID = 250;
 /** The glyph fills this fraction of the tile's longer side. */
 const TILE_FILL = 0.84;

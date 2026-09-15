@@ -2,10 +2,11 @@
 /**
  * Derive every committed logo variant from the raster master (see
  * docs/BRAND-ASSETS.md, "Deriving a variant"). The master is the client's
- * transparent-background PNG (2026-09-15). Every output is a CROP (plus a
- * black tile for the favicons) — never a resample of the wordmark itself,
- * never a colour or alpha edit: the logo is not redrawn, restyled, traced,
- * or upscaled (BUILD_SPEC §3).
+ * raster delivery (2026-09-15; the third of that day arrived on solid black
+ * and is keyed to alpha below). Every output is a CROP (plus a black tile
+ * for the favicons) — never a resample of the wordmark itself, never a
+ * colour edit: the logo is not redrawn, restyled, traced, or upscaled
+ * (BUILD_SPEC §3).
  *
  * Usage:
  *   node scripts/derive-logo.mjs [--glyph=lips|syringe] [--candidates=<dir>]
@@ -38,19 +39,23 @@ const APPLE_OUT = 'public/icons/apple-touch-icon.png';
  * RGB ~(16,6,10) — below perception — so the cut leaves no box edge. */
 const ALPHA_FLOOR = 16;
 const PAD = 12;
-/** The styleguide sign's largest srcset tier (2x of its 1040px cap). */
-const MIN_WIDTH = 2080;
+/** The styleguide sign's largest srcset tier (2x of its 960px cap). */
+const MIN_WIDTH = 1920;
 
 /** Favicon glyph crops (master pixel coordinates), measured 2026-09-15 on
- * the colour-corrected master: the "i" dot's opaque pixels end at x=1819
- * and the lips' begin at x=1820; the lips end at y=347 and the final "e"
- * begins at y=348. The lips sit alone at the top right; the syringe
- * column is flanked by the "d" and "e" and is a 155x510 sliver, ~5px wide
- * at 16px — kept as the alternative only. */
+ * the third delivery (1983x793): the "i" dot ends at x=1652 and the lips'
+ * tip begins at 1680; the lower lip's lowest point (y=336, at x~1810) sits
+ * level with the top of the final "e" (y=332, x 1685-1820), so the cut at
+ * y=332 keeps the "e" out at the cost of the lip's bottom five rows (~2% of
+ * the tile). The syringe column is flanked by the "d" and "e" and is a
+ * ~125x440 sliver, ~5px wide at 16px — kept as the alternative only. */
 const GLYPHS = {
-  lips: { left: 1820, top: 130, width: 352, height: 218 },
-  syringe: { left: 820, top: 95, width: 156, height: 510 },
+  lips: { left: 1670, top: 95, width: 313, height: 237 },
+  syringe: { left: 760, top: 90, width: 125, height: 440 },
 };
+/** "Solid" for the edge assertions: at KEY_GAIN 2 an alpha of 250 means a
+ * source luma of ~125 — a letter body, not its keyed glow halo. */
+const SOLID = 250;
 /** The glyph fills this fraction of the tile's longer side. */
 const TILE_FILL = 0.84;
 
@@ -67,10 +72,66 @@ if (!GLYPHS[glyph]) {
 }
 
 const master = sharp(resolve(MASTER));
-const { width: W, height: H } = await master.metadata();
-const { data, info } = await master.clone().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-const C = info.channels;
+const { width: W, height: H, hasAlpha } = await master.metadata();
+const raw = await master.clone().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+const C = raw.info.channels;
+let data = raw.data;
+
+/** A delivery on solid black (no alpha channel) is keyed to alpha here —
+ * the 2026-09-15 third delivery. Luminance key with a solid core:
+ * alpha = min(1, KEY_GAIN · max(R,G,B)/255), colour un-premultiplied
+ * (RGB · 255 / alpha). Compositing the result over #000 gives back the
+ * delivered pixels exactly (±1 from rounding), and every surface the mark
+ * sits on is pure #000, so this is a derivation, not a restyle. KEY_GAIN 2
+ * makes the letterforms fully opaque (their dark shading would otherwise
+ * be translucent) while the glow keeps its soft falloff; a pixel's
+ * on-black appearance is the same at any gain ≥ 1. */
+const KEY_GAIN = 2;
+if (!hasAlpha) {
+  const keyed = Buffer.alloc(data.length);
+  for (let i = 0; i < data.length; i += 4) {
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    const a = Math.min(255, Math.round((KEY_GAIN * Math.max(r, g, b) * 255) / 255));
+    if (a === 0) {
+      keyed[i] = keyed[i + 1] = keyed[i + 2] = keyed[i + 3] = 0;
+      continue;
+    }
+    keyed[i] = Math.min(255, Math.round((r * 255) / a));
+    keyed[i + 1] = Math.min(255, Math.round((g * 255) / a));
+    keyed[i + 2] = Math.min(255, Math.round((b * 255) / a));
+    keyed[i + 3] = a;
+  }
+  data = keyed;
+  console.log(`keyed: the master has no alpha channel — black keyed to alpha (gain ${KEY_GAIN})`);
+}
+/** Every extract below reads from this RGBA buffer (the master itself when
+ * it was delivered with alpha, the keyed copy otherwise). */
+const src = () => sharp(data, { raw: { width: W, height: H, channels: 4 } });
 const alphaAt = (x, y) => data[(y * W + x) * C + 3];
+
+if (args.includes('--measure')) {
+  // Print the lips neighbourhood so the glyph rectangle can be placed:
+  // per column, the opaque rows near the "i" dot; per row, the opaque
+  // columns under the lips (the final "e" begins where they widen left).
+  const r = { left: Math.round(W * 0.8), right: W - 1, top: Math.round(H * 0.1), bottom: Math.round(H * 0.55) };
+  const cols = [];
+  for (let x = r.left; x <= r.right; x += 4) {
+    const ys = [];
+    for (let y = r.top; y <= r.bottom; y++) if (alphaAt(x, y) >= 128) ys.push(y);
+    cols.push(`${x}:${ys.length ? ys[0] + '..' + ys[ys.length - 1] : '-'}`);
+  }
+  console.log('cols', cols.join(' '));
+  const rows = [];
+  for (let y = r.top; y <= r.bottom; y += 4) {
+    const xs = [];
+    for (let x = r.left; x <= r.right; x++) if (alphaAt(x, y) >= 128) xs.push(x);
+    rows.push(`${y}:${xs.length ? xs[0] + '..' + xs[xs.length - 1] : '-'}`);
+  }
+  console.log('rows', rows.join(' '));
+  process.exit(0);
+}
 
 /** Bounding box of pixels with alpha >= floor. */
 function bbox(floor) {
@@ -103,7 +164,7 @@ if (crop.width < MIN_WIDTH) {
   console.error(`wordmark crop is ${crop.width}px wide — below the ${MIN_WIDTH}px floor`);
   process.exit(1);
 }
-await sharp(resolve(MASTER)).extract(crop).png().toFile(resolve(WORDMARK_OUT));
+await src().extract(crop).png().toFile(resolve(WORDMARK_OUT));
 console.log(
   `wordmark: alpha>=${ALPHA_FLOOR} art ${art.width}x${art.height} at (${art.left},${art.top}); ` +
     `crop ${crop.width}x${crop.height} at (${crop.left},${crop.top}) [pad ${PAD}] ` +
@@ -120,12 +181,12 @@ function assertCleanEdges(rect) {
   const edge = 2;
   for (let y = rect.top + Math.floor(rect.height / 2); y < rect.top + rect.height; y++) {
     for (let x = rect.left; x < rect.left + edge; x++) {
-      if (alphaAt(x, y) >= 128) throw new Error(`glyph crop: opaque pixel on the lower left edge at (${x},${y})`);
+      if (alphaAt(x, y) >= SOLID) throw new Error(`glyph crop: solid pixel on the lower left edge at (${x},${y})`);
     }
   }
   for (let y = rect.top + rect.height - edge; y < rect.top + rect.height; y++) {
     for (let x = rect.left; x < rect.left + Math.floor(rect.width * 0.4); x++) {
-      if (alphaAt(x, y) >= 128) throw new Error(`glyph crop: opaque pixel on the lower left bottom edge at (${x},${y})`);
+      if (alphaAt(x, y) >= SOLID) throw new Error(`glyph crop: solid pixel on the lower left bottom edge at (${x},${y})`);
     }
   }
 }
@@ -135,7 +196,7 @@ async function tile(rect, size) {
   const scale = (size * TILE_FILL) / longest;
   const gw = Math.max(1, Math.round(rect.width * scale));
   const gh = Math.max(1, Math.round(rect.height * scale));
-  const glyphBuf = await sharp(resolve(MASTER))
+  const glyphBuf = await src()
     .extract(rect)
     .resize({ width: gw, height: gh, fit: 'fill', kernel: 'lanczos3' })
     .png()

@@ -85,10 +85,11 @@ As mapped in CLAUDE.md. Additional conventions:
   derived from the logo 2026-09-15), robots.txt (generated), official store
   badges (Phase 4 asset — placeholder only for now).
 - Brand logo source files are provided by the operator — since 2026-09-15 the
-  client's transparent-background raster master and its on-black rendering,
-  archived in `src/assets/brand/source/` (docs/BRAND-ASSETS.md; DECISIONS
-  same date). Derive favicon/OG variants from them by cropping
-  (`scripts/derive-logo.mjs`); never redraw or restyle the logo.
+  client's raster master (delivered on solid black; keyed to alpha in-repo,
+  exact over the site's black surfaces), archived in
+  `src/assets/brand/source/` (docs/BRAND-ASSETS.md; DECISIONS same date).
+  Derive favicon/OG variants from it by cropping (`scripts/derive-logo.mjs`);
+  never redraw or restyle the logo.
 
 ## 4. Technical configuration requirements
 

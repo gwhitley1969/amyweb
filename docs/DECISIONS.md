@@ -8661,3 +8661,58 @@ by hand instead of re-running the script — the script IS the record.
 header measurements were re-run on the corrected master (numbers in
 the PR). BRAND-ASSETS, CHANGELOG, REDESIGN, and `Header.astro` carry
 the new figures.
+
+## 2026-09-15 — Third delivery: the master arrives on solid black and is keyed to alpha (same day, before merge)
+
+**Context.** The colour-corrected second file still read wrong to Amy
+("the color from the last logo is still off"); a third file arrived —
+the same composition rendered in a hot pink close to the site's own
+`#ec4899`, but as a 1983×793 24-bit PNG on solid black with no alpha
+channel, at a different scale from the two 2172×724 RGBA files before
+it. Every surface the mark sits on is pure #000 (header, footer, hero
+band, 404, the styleguide sign, the placeholder).
+
+**Decision.** (1) The third file is the master in place (SHA-256
+`fb703588db00d33c17dab7527fe5aaba772515a41145c73149dccd596ab8f0f0`;
+the second, `c7315bfd…1f44f1`, leaves the PR like the first). (2)
+`derive-logo.mjs` keys a no-alpha master before cropping: a luminance
+key with a solid core — alpha = min(1, 2·max(R,G,B)/255), colour
+un-premultiplied (RGB·255/alpha). Composited over #000 it reproduces
+the delivered pixels (proven on the committed derivative: max channel
+difference 1, from rounding, no channel off by more), so on the site
+the keyed mark IS the delivered mark; the gain of 2 keeps the
+letterforms fully opaque (their dark shading would otherwise be
+translucent) while the glow keeps its falloff, which also keeps the
+neon switch-on's drop-shadow tracing solid letterforms. A master
+delivered WITH alpha bypasses the step. (3) Wordmark crop: the keyed
+master's alpha≥16 bounds 1963×596 at (20,82) plus the 12px pad →
+**1975×620 at (8,70), aspect 3.185**; the header's aspect number
+follows (the wordmark is ~138px tall at 440 — the badge no longer sets
+the desktop header alone, which the popover formula's `max()` already
+handles; the desktop header is 211px, was 209). (4) The styleguide
+sign's cap drops 1040 → 960px with a 1920 top tier: the master is
+1983px wide, so 2× retina holds only to 960 (the old lockup was 1879px
+and allowed 1040); the script's width floor is 1920. Header (880) and
+placeholder (1560) are unaffected. (5) Lips crop 313×237 at (1670,95):
+the "i" dot ends at x=1652 and the lips' tip begins at 1680, but the
+lower lip's lowest point (y=336, at x≈1810) sits level with the top of
+the final "e" (y=332, x 1685–1820) — no horizontal cut separates them,
+so the cut at y=332 keeps the "e" out and costs the lip its bottom
+five rows (~2% of the tile; invisible at 16–180px). The edge
+assertions now test for solid letter pixels (alpha ≥250, i.e. source
+luma ≥125) rather than the keyed glow halo. (6) The hotfix PR carries
+the identical files.
+
+**Alternatives rejected.** Asking for a transparent export first — the
+key is exact on the only surfaces in use, and the day had already cost
+two round trips. A gain of 1 (the textbook key) — exact on black too,
+but the letterforms' dark shading would be translucent and the
+drop-shadow silhouette weaker there. Keeping the second master dormant
+— same reasoning as the first addendum. Keeping the 1040px sign cap —
+would ship the sign 5% below 2× at that width (the retina hard rule).
+
+**Consequences.** BRAND-ASSETS, BUILD_SPEC §3, CHANGELOG, REDESIGN,
+`Header.astro`, `Hero.astro`, and the script's header carry the
+change; both PRs redeploy; every gate and header measurement was
+re-run (numbers in the PR). If a future master arrives with alpha,
+nothing changes but the file.

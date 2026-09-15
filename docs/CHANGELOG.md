@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-15 — The header wordmark grows: 600px on desktop
+
+- Client direction after the recoloured mark landed on the preview:
+  "bigger — it should stand out more than the Mobile Aesthetics logo."
+  The header wordmark's desktop cap goes 440 → 600px (46vw between
+  1024 and 1305px), the tablet cap 300 → 340px; phones are unchanged
+  (the badge, Book button, and menu fix that row). At 600 the mark is
+  ~163px tall beside the 160px badge and the desktop header grows
+  from 209 to ~236px, as the client allowed. Served tiers gain a
+  1200px step for 2× at 600. The popover offset follows automatically
+  (it is derived from the wordmark's width). Measured: the mark clears
+  the Book button by 95px+ from 1024px up, the popover clears the
+  header at every width (DECISIONS 2026-09-15, the sixth addendum).
+
 ### 2026-09-15 — The new Needle Girlie logo
 
 - The client's metallic re-render of the mark — the same composition

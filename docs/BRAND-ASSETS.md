@@ -99,7 +99,7 @@ step.
 
 | Consumer | Asset | How it is requested |
 |---|---|---|
-| `src/components/Header.astro` | wordmark | `width={440} widths={[440,600,880]}` + `sizes` mirroring the two clamps — a phone fetches the tier its slot needs (the 2× file is ~72KB WebP; the image budget is 245KB per page). Rendered width is the header's `--wordmark-w` custom property: `clamp(130px, min(44vw, 100vw - 218px), 300px)` on phones (the cap keeps the mark clear of the Book button below 390px), `clamp(340px, 36vw, 440px)` from 1024px |
+| `src/components/Header.astro` | wordmark | `width={600} widths={[440,600,900,1200]}` + `sizes` mirroring the clamps — a phone fetches the tier its slot needs (the image budget is 245KB per page). Rendered width is the header's `--wordmark-w` custom property: `clamp(130px, min(44vw, 100vw - 218px), 340px)` below 1024px (the cap keeps the mark clear of the Book button below 390px), `clamp(420px, 46vw, 600px)` from 1024px — the 600px desktop cap is the client's 2026-09-15 "bigger than the Mobile Aesthetics badge" direction (was 440; the mark is ~163px tall beside the 160px badge, the header ~236px) |
 | `src/components/Footer.astro` | wordmark | `width={160} densities={[1,2]}` |
 | `src/components/Hero.astro` (the styleguide sign) | wordmark | `width={1040} widths={[480,800,1200,2080]}` + `sizes`, capped at 1040px (the 2172px master covers the 2080 tier) |
 | `src/layouts/BaseLayout.astro` | favicon.ico + apple-touch-icon | two `<link>`s |

@@ -8865,3 +8865,42 @@ export) must be regenerated from this state so the app carries the
 same recoloured mark — done in the same session. Verify re-run on both
 trees with the exit lines read. The fifth-file logo stays live on the
 placeholder until the new hotfix PR merges on the operator's word.
+
+## 2026-09-15 — The header wordmark grows to 600px on desktop (client direction)
+
+**Context.** With the recoloured "b" mark on the previews ("the color
+is perfect, the font is great, the design is great"), the client asked
+for it bigger — "it should stand out more than the Mobile Aesthetics
+logo to the left" — accepting a taller header. At the 440px desktop
+cap the mark was ~120px tall beside the 160px badge (the badge sat
+taller since its 2026-08-15 enlargement).
+
+**Decision.** `--wordmark-w` on desktop goes `clamp(340px, 36vw, 440px)`
+→ `clamp(420px, 46vw, 600px)`; below 1024px the tablet cap goes 300 →
+340px and the phone expression is unchanged (`clamp(130px, min(44vw,
+100vw - 218px), 340px)` — on phones the badge, the Book button, and the
+menu fix the row, so the mark cannot grow there without a different
+header layout). The image gains a 1200px tier (`widths` 440/600/900/
+1200, `width={600}`, `sizes` "(min-width: 1024px) 600px, (min-width:
+773px) 340px, 44vw"). The popover offsets follow automatically — both
+are formulas of `--wordmark-w`. The badge is untouched: the client asked
+for a bigger mark, not a smaller badge, and the badge's size is its own
+2026-08-15 client decision. Measured on the built page: 471×128 at 1024
+(header 201px), 589×160 at 1280 (233px), 600×163 from 1305px (236px,
+was 209); the mark clears the Book button by 95–112px on desktop and
+6px on phones as before; the popover clears the header by 3–8px at
+every width. Lighthouse's phone profile fetches the same 440 tier as
+before, so the image budgets are unchanged; verify green.
+
+**Alternatives rejected.** Shrinking the badge to make the mark lead —
+reverses a client-picked size without being asked. A stacked phone
+header (mark on its own row) so phones grow too — a layout change to
+the hybrid-nav shell, offered to the operator as a follow-up, not
+absorbed. Growing past 600 — at 46vw the mark already spans the
+container's middle third; the header is the tallest chrome on the site
+at 236px.
+
+**Consequences.** Every page's header is ~27px taller on desktop; the
+LCP portrait on the home page and every page's content start that much
+lower. CLINICIAN-SIGN-OFF's pending row names the larger mark. The
+brand kit is unaffected (the asset did not change).

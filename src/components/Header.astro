@@ -82,7 +82,7 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
             logo the artwork carries no chevron run either. Mobile width is
             a clamp so the row (mark + wordmark + menu toggle) fits 360px
             screens. `widths` + `sizes` (not `densities`) so a phone fetches
-            the tier its slot needs, not the 2x-of-440 file — the metallic
+            the tier its slot needs, not the 2x-of-600 file — the metallic
             mark's derivatives are heavier than the old flat one (image
             budget, DECISIONS 2026-09-15). The sizes mirror the two clamps
             with plain breakpoints. The rendered width is --wordmark-w
@@ -90,9 +90,9 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
         <Image
           src={wordmark}
           alt="Needle Girlie — home"
-          width={440}
-          widths={[440, 600, 880]}
-          sizes="(min-width: 1024px) 440px, (min-width: 682px) 300px, 44vw"
+          width={600}
+          widths={[440, 600, 900, 1200]}
+          sizes="(min-width: 1024px) 600px, (min-width: 773px) 340px, 44vw"
           class="site-brand-wordmark h-auto"
         />
         {/* Credential line under the wordmark (operator 2026-07-19).
@@ -155,11 +155,17 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
      * only below ~390px; the 2026-08-15 clamp overflowed the row by
      * 14px at 360 and 2px at 375 (measured 2026-09-15) — invisible with
      * the old mark's thin lips, plain with the 2026-09-15 mark's. */
-    --wordmark-w: clamp(130px, min(44vw, 100vw - 218px), 300px);
+    --wordmark-w: clamp(130px, min(44vw, 100vw - 218px), 340px);
   }
+  /* ≥1024px: 600px cap (was 440 until 2026-09-15 — client direction after
+   * the recoloured mark: "bigger, it should stand out more than the Mobile
+   * Aesthetics badge"). At 600 the mark is ~163px tall beside the 160px
+   * badge and the header grows to ~235px (accepted). Row fit: the 1152px
+   * container leaves ~730px for the mark beside the 160px badge and the
+   * Book + menu group. The tablet cap went 300 → 340 in the same round. */
   @media (min-width: 1024px) {
     .site-header {
-      --wordmark-w: clamp(340px, 36vw, 440px);
+      --wordmark-w: clamp(420px, 46vw, 600px);
     }
   }
   .site-brand-wordmark {

@@ -6,6 +6,22 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-15 — The phone header stacks so the mark can shine
+
+- Client direction: the mark "looks too small on a phone… needs to be
+  more pronounced; most people will see the site on their phones."
+  Below 640px the header is now two rows: the Needle Girlie mark alone
+  on top, centred, spanning the phone's width (358×98 at 390, was
+  172×47; capped at 380px from 412px up), the credential line under it;
+  the Mobile Aesthetics badge, Book, and menu on a utility row beneath.
+  Nothing shrinks and nothing hides. The header is ~200px tall on
+  phones (was 101) and scrolls away — it is not sticky. Tablets and
+  desktop keep the single row. CSS only; the popover offset follows
+  the stack; the header image becomes an AVIF source with a WebP
+  fallback (quality 50) with 660/720/1080 tiers — the first WebP build
+  tipped /mobile past its LCP budget, and AVIF put the phone tier back
+  at the old ~27KB (DECISIONS 2026-09-15, the seventh addendum).
+
 ### 2026-09-15 — The header wordmark grows: 600px on desktop
 
 - Client direction after the recoloured mark landed on the preview:

@@ -8904,3 +8904,65 @@ at 236px.
 LCP portrait on the home page and every page's content start that much
 lower. CLINICIAN-SIGN-OFF's pending row names the larger mark. The
 brand kit is unaffected (the asset did not change).
+
+## 2026-09-15 — The phone header stacks: the mark on its own row (client direction)
+
+**Context.** With the recoloured mark approved and grown to 600px on
+desktop, the client's next word was the phone: "it looks too small on a
+phone… it needs to be more pronounced… most people are going to see
+this site on their phones." In the single-row shell the mark's phone
+width is fixed by everything else on the row — the 48px badge and its
+gap, the 72px Book button, the 44px menu button, and the gaps — at
+172×47 on a 390px phone. Shrinking Book, the gaps, the padding, and the
+menu icon to their minimums buys about 40px (~214px, +24%) and crowds
+the row. Three previews went to the operator (brand on top; utility row
+on top; shrink-everything); the pick was brand on top.
+
+**Decision.** Below 640px the header is a two-row grid: the brand link
+alone on top, centred, its width `min(100vw - 2rem, 380px)` (the
+container's inner width, capped for large phones and foldables); the
+badge, Book, and menu on a utility row beneath. CSS only — the
+`.site-brand-group` wrapper dissolves with `display: contents` so the
+badge and the brand link are grid items; the DOM is unchanged. Nothing
+shrinks: Book stays visible at 72×31 (hybrid nav, 2026-08-15), the badge
+stays 48px (client-picked, the sanctioned outbound link), the menu keeps
+its 44px target. Phone vertical padding drops 1rem → 0.75rem; the credit
+line's under-390px step-down (this morning) is deleted — it existed to
+fit the single row. The image becomes a `<Picture>` — an AVIF source
+with a WebP fallback, quality 50 — with 660/720/1080 tiers added and a
+`sizes` of "(max-width: 413px) 90vw, (max-width: 639px) 380px, …": the
+first build (WebP, 92vw) fetched a 48KB 720 tier on phones, +24KB on
+every page, and /mobile failed the LCP budget at 2557ms (the named
+risk); AVIF at q50 puts the 660 tier the synthetic phone fetches at
+26.7KB — the old weight — and a real DPR-3 phone fetches the 1080 tier
+at 49KB. WebP quality alone barely helped (the alpha plane dominates:
+50 → 44KB at q55). The 90vw hint, not 92, is what lands the 412 × 1.75
+profile on 660 rather than 720; a 500–639px device fetches for the
+380px cap, not 92vw of its width. The popover offset on
+phones is a formula of the stack (paddings + the mark's height at the
+3.675 aspect + gap-and-credit + row gap + the 3rem utility row + air);
+640–1023 keeps the single-row formula, ≥1024 unchanged. Measured on the
+built page: mark 288×79 at 320 (header 181px), 328×89 at 360 (192),
+358×98 at 390 (200, was 101), 380×104 from 412 to 639 (206); the popover
+clears the header by 3px at every width from 320 to 1280; no horizontal
+overflow; tab order badge → brand → Book → menu; the home hero image
+starts at y=200 at 390 (in the first screen). The stacked shell's one
+recorded compromise: the badge's focus stop comes before the brand's
+although it now sits below it (DOM order; reordering the DOM would move
+the same mismatch to desktop; axe has no rule for it).
+
+**Alternatives rejected.** Shrink-everything (above). Utility row on top
+— the brand should lead the page. Hiding the badge or Book on phones —
+each is a client/operator decision and the badge is the sanctioned link.
+A sticky header — would make ~200px a permanent tax on every scroll; the
+header is in-flow and scrolls away. Reordering the DOM for phone focus
+order — moves the mismatch to desktop.
+
+**Consequences.** Phone headers are ~200px tall (was 101); every page's
+content starts ~100px lower on the first screen. The header image is
+AVIF on every page now (WebP fallback), which also shrinks the desktop
+tiers (1200px: 103KB → 57KB); the Lighthouse figures on the PR are the
+record — the first build proved the /mobile LCP risk and the AVIF
+route, not the budget, resolved it. BUILD_SPEC §5's header
+description, REDESIGN's hybrid-nav row, BRAND-ASSETS' consumer row, and
+CLINICIAN-SIGN-OFF's pending row carry the stacked shell.

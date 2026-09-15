@@ -360,10 +360,17 @@ under the constraint-2 scoped exception; the NG wordmark + credential
 centered in the row's slack, home link; a persistent outlined Book CTA
 and the popover menu button on the right. HYBRID NAV: the zero-JS
 Popover-API menu carries Services/About/Visit/Training at EVERY width —
-there is no inline desktop nav — and Book never hides. Brand scales
-fluidly: badge 48–80px / wordmark clamp to 300px below 1024px; badge
-128–160px / wordmark to 440px above. The one-breakpoint mobile shell
-fixed the Z Fold-class collision, DECISIONS 2026-08-15), Footer (NAP, social, legal
+there is no inline desktop nav — and Book never hides. Since 2026-09-15
+(client direction, DECISIONS the seventh addendum of that date) PHONES
+STACK: below 640px the mark sits alone on top, centred, spanning the
+container (`min(100vw - 2rem, 380px)` — 358×98 at 390) with the credential
+line under it, and the badge, Book, and menu form a utility row beneath;
+the header is ~200px tall there and is not sticky. From 640px the single
+row holds: wordmark 44vw between 281 and 340px with the badge at 48–80px;
+from 1024px the wordmark is `clamp(420px, 46vw, 600px)` beside the
+128–160px badge (the 600px cap is the same day's "bigger than the badge"
+direction; the header is ~236px). The one-breakpoint mobile shell of
+2026-08-15 fixed the Z Fold-class collision, DECISIONS 2026-08-15), Footer (NAP, social, legal
 links, Get-the-App slot), Hero, TreatmentCard, ServiceLineGrid, CTAButton
 (variants: book / consult / call), DisclaimerBlock, InvestigationalNotice,
 BioteDisclaimer, LocationCard (address, hours, directions link-out),

@@ -263,3 +263,82 @@ if (candidatesDir) {
   }
   console.log(`candidates: both glyphs at 16/32/180 -> ${candidatesDir}`);
 }
+
+// ---- 3. Hand-off kit (--kit=<dir>): the same files for other teams -----------
+/** The mobile app team's brand kit (2026-09-15, operator request): the
+ * master, the site's wordmark crop, icon tiles from the same lips crop at
+ * app-store sizes, a flattened preview, and a README with the colour tokens
+ * and the rules. Every image is produced by the code above — nothing is
+ * hand-made — so the app and the site provably share one mark. */
+const kitDir = opt('kit', '');
+if (kitDir) {
+  const { copyFile, readFile } = await import('node:fs/promises');
+  const { createHash } = await import('node:crypto');
+  await mkdir(resolve(kitDir), { recursive: true });
+  const sha = async (p) => createHash('sha256').update(await readFile(resolve(p))).digest('hex');
+  await copyFile(resolve(MASTER), resolve(kitDir, 'needle-girlie-logo-master-transparent.png'));
+  await copyFile(resolve(WORDMARK_OUT), resolve(kitDir, 'needle-girlie-wordmark-transparent.png'));
+  await src()
+    .extract(crop)
+    .flatten({ background: { r: 0, g: 0, b: 0 } })
+    .png()
+    .toFile(resolve(kitDir, 'needle-girlie-wordmark-on-black-preview.png'));
+  /** App-store icons must carry no alpha channel (Apple rejects them), so
+   * the kit's tiles are flattened to opaque RGB — they are black tiles
+   * anyway. Above ~396px the tile scales the 333px lips crop UP (plain
+   * bicubic, no AI); the README says so. */
+  const NATIVE_TILE = Math.floor(GLYPHS.lips.width / TILE_FILL);
+  for (const size of [1024, 512, 192, 180, 120, 96, 72, 48]) {
+    const buf = await sharp(await tile(GLYPHS.lips, size)).removeAlpha().png().toBuffer();
+    await writeFile(resolve(kitDir, `needle-girlie-icon-lips-${size}.png`), buf);
+  }
+  await src()
+    .extract(GLYPHS.lips)
+    .png()
+    .toFile(resolve(kitDir, 'needle-girlie-lips-transparent.png'));
+  const readme = `# Needle Girlie brand kit — logo (exported ${new Date().toISOString().slice(0, 10)})
+
+Produced by needlegirlie.com's \`scripts/derive-logo.mjs\` from the client's
+master file. Every image here is a crop of that master (plus a black tile for
+the icons) — the same crops the website ships — so the app and the site share
+one mark, pixel for pixel.
+
+## Files
+
+| File | What it is | Use |
+|---|---|---|
+| needle-girlie-logo-master-transparent.png | the master: ${W}×${H}, RGBA (transparent background) — SHA-256 ${await sha(MASTER)} | the source for any crop you need; never recolour, redraw, trace, or upscale it |
+| needle-girlie-wordmark-transparent.png | the wordmark crop the site uses: ${crop.width}×${crop.height}, aspect ${(crop.width / crop.height).toFixed(3)} (art + 12px of glow margin) | headers, splash screens, about screens — on a black surface |
+| needle-girlie-wordmark-on-black-preview.png | the same crop flattened onto #000 | for looking at, not for shipping |
+| needle-girlie-lips-transparent.png | the lips crop (${GLYPHS.lips.width}×${GLYPHS.lips.height}) the icons are made from | if you need the lips alone |
+| needle-girlie-icon-lips-{1024,512,192,180,120,96,72,48}.png | square app-icon tiles: the lips on an opaque black tile (no alpha channel — store rules), filling ${Math.round(TILE_FILL * 100)}% of the side | 180 = iOS home screen; 192 = Android launcher; the rest as needed. The website's favicon and apple-touch-icon are these same tiles at 16/32/48/180. **Caution:** the lips crop is ${GLYPHS.lips.width}px wide, so tiles above ${NATIVE_TILE}px are plain bicubic UPSCALES (1024 = ${(1024 / NATIVE_TILE).toFixed(1)}×) and will look soft on a store listing. For the 1024 App Store / Play icon, ask the logo creator for the lips exported alone at ≥1000px wide, on transparent, same colour — do not ship the upscaled tile as the final listing icon. |
+
+## Colour (the site's tokens — the mark's own pink is the first one)
+
+| Token | Hex | Role |
+|---|---|---|
+| Brand pink | #ec4899 | the wordmark's pink (the lettering's mid-tone measures hue 332°, this token is 330°); display text, buttons on black |
+| Neon | #fe019a | the glow only — never text |
+| Deep magenta | #d6337e | accents, rules — never behind white text |
+| Pale pink | #f9a8d4 | tints; body text on black |
+| Blush | #fdf2f8 | light canvas start |
+| Ink pink | #b01366 | links and button fills on light surfaces (4.5:1 on white) |
+| Ink | #221820 | body text on light |
+| Noir | #000000 | the surface the mark lives on — pure black, by design |
+
+Contrast pairs verified for the site (WCAG 2.x): white on #000 21:1; #f9a8d4 on #000 11.6:1;
+#ec4899 on #000 5.95:1 (body text on black only — it FAILS on white at body sizes, 3.5:1);
+#b01366 on white 6.7:1. Brand pinks fail on white at body sizes: use ink pink for text on light.
+
+## Rules
+
+- The mark sits on pure black. It composites acceptably on white, but that is not the brand's surface.
+- Never recolour, restyle, redraw, trace, or AI-upscale the logo; never add effects to it (it carries its own glow).
+- Crop from the master; do not resample the wordmark file up. The master is 2172px wide — 2× retina holds up to ~1086 CSS/pt wide.
+- Keep the glow: crop with margin (the wordmark file already has it). A tight crop leaves a visible box edge.
+- Need another size or crop? Ask the website team to run the script; do not rebuild by hand.
+- Typeface: the lettering is Playfair Display (the site's one text face). Use Playfair Display for anything set next to the mark.
+`;
+  await writeFile(resolve(kitDir, 'README.md'), readme);
+  console.log(`kit: master, wordmark, preview, lips, 8 icon tiles, README -> ${kitDir}`);
+}

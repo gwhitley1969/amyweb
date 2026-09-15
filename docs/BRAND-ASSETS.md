@@ -66,6 +66,18 @@ asserts the lower-left edge zones carry no solid letter pixel (alpha ≥250).
 `--glyph=syringe`, `--candidates=<dir>`, and `--measure` (prints the lips
 neighbourhood) exist for placing and comparing.
 
+**Hand-off kit for other teams** (`--kit=<dir>`, added 2026-09-15 for the
+mobile app team): writes the master, the site's wordmark crop, a flattened
+preview, the lips crop, opaque app-icon tiles at 1024/512/192/180/120/96/
+72/48 (no alpha channel — store rules), and a README with the colour tokens,
+verified contrast pairs, and the usage rules. Every image comes from the
+code above, so the app and the site share one mark pixel for pixel. The
+tiles above ~396px upscale the 333px lips crop (plain bicubic) and the
+README says so — a store-listing icon wants the lips exported alone at
+≥1000px by the creator. The kit is written OUTSIDE the repo
+(`C:\Amy\needle-girlie-brand-kit-<date>\` + zip) and is not committed;
+re-run the command to regenerate it after any master change.
+
 `sharp` is reached through `createRequire`, as `export-logo.mjs` did: it is
 an optional transitive dependency of `astro`, not a declared one. The script
 is a one-off authoring tool whose outputs are committed; it is never a build

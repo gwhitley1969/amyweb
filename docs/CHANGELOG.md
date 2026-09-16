@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-16 — The logo round merges into phase-c
+
+- PR #186 — the recoloured "b" mark everywhere, the favicon set, the
+  600px desktop wordmark, and the stacked phone header — merged on the
+  operator's word after the phone preview; the standing demo (#97) and
+  the review preview (#149) refreshed the same day. The placeholder on
+  needlegirlie.com has carried the same mark since #188 (2026-09-15).
+
 ### 2026-09-15 — The phone header stacks so the mark can shine
 
 - Client direction: the mark "looks too small on a phone… needs to be

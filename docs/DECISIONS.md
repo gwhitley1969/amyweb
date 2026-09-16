@@ -9017,3 +9017,68 @@ parameters (barrel edges, rows, gaps — measured on these two files)
 live in the package's README, not in this repo; the app repo should
 carry its own DECISIONS entry when the icons land there. Nothing on
 the website changed.
+
+## 2026-09-16 — The app icon joins the footer's coming-soon box (co-founder request)
+
+**Context.** A co-founder asked for the Needle Girlie app's icon "just
+above" the box that reads "The Needle Girlie app is coming / Look for it
+on the App Store and Google Play", seen at the bottom of the home page.
+The box is `GetTheApp.astro`, the footer's third column — not a home
+section (the home redesign entry's §6 deviation) — and every page
+renders the footer itself through `<Footer slot="footer" />`
+(`ConceptHome` for the home URL, the treatment and legal layouts, the
+standalone pages); the styleguide's component gallery renders a second,
+standalone instance. The operator's picks: the icon wherever the box
+renders; 128px; the box may move down.
+
+**Decision.** The iOS artwork from the app-icon package (the entry
+above) — the framed "girlie" mark, cleaned, recoloured, syringe slimmed
+— is committed byte-identical as
+`src/assets/brand/needle-girlie-app-icon-ios.png` (the package's
+`ios-1024-transparent.png`, 1024×1024 RGBA, SHA-256
+`bb1d8797f71e11e1b31f93b8bac5bd85236a8c76a4a27ad714b0c3955f07b346`), and
+`GetTheApp.astro` renders it above the box inside one wrapper element:
+`<Picture formats={['avif']} fallbackFormat="webp" quality={50}
+width={128} densities={[1, 2]}>` (the header's AVIF-first pattern; built
+tiers 5,990 B at 128px and 13,110 B at 256px AVIF, 9,600 / 24,672 B
+WebP; lazy by default; width and height declared, so no layout shift),
+alt "Needle Girlie app icon", 8rem wide with 1rem below it, then the
+untouched box. Left-aligned, as every footer column is. The wrapper is
+load-bearing: the styleguide renders the component as a grid child, and
+a fragment root would split the icon and the box into two cells.
+Measured on the built page: 128×128 at x=24 on phones (the box 144px
+lower), at x=851 in the desktop footer's third column; the treatment
+pages and the styleguide instance identical; the unit adds no
+horizontal overflow (the home URL's 19px scroll width at 390 after a
+scroll is pre-existing — the hero's `nc-hero__img` under the motion
+layer, present with the unit hidden; noted, not this change's).
+BUILD_SPEC §9's rule stands: official store badges stay off until real
+links exist; the icon is the client's own artwork, not a badge.
+Verify green (exit 0): the icon is NOT among Lighthouse's fetched
+requests on any of the eight gated URLs — the lazy footer image sits
+beyond the phone profile's lazy-load reach (the plan's assumption that
+the full-page scroll would fetch it, as it does the menu cards higher
+up, was wrong on the measurement) — so the page image totals are the
+pre-change figures: home 189,216 B, /about 184,669 B, /mobile
+183,359 B, /services 223,710 B, /styleguide 95,396 B against their
+budgets; LCP medians 2,181 / 2,336 / 2,482 ms (mobile, the tightest);
+performance 98–100 on every URL. A real visitor who scrolls to the
+footer fetches the tier for their DPR (13KB at 2×).
+
+**Alternatives rejected.** Home only — a prop on the `<Footer>` that
+`ConceptHome` renders; the slot is sitewide by prior decision and one
+component edit is simpler. The opaque `ios-1024-on-black.png` — hard
+tile corners on any non-black surface (the styleguide demo). The Android
+artwork — the same mark unframed; the framed iOS file is what reads as
+an app icon. Official store badges — prohibited until live (§9). A link
+on the icon — nothing to link to yet.
+
+**Consequences.** The footer's third column starts 144px lower on
+desktop, and the footer is that much taller where the column was not
+already the tallest; the gated image totals do not move (above), and a
+visitor who reaches the footer pays the 6–13KB tier once per page. The
+icon's source now lives in this repo, so the site and the
+package share it byte for byte; a new icon from the creator goes
+through the package's script first, then replaces this file. The
+styleguide gallery instance sits on the light surface (a demo;
+recorded, not fixed).

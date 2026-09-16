@@ -1,24 +1,51 @@
 ---
+import { Picture } from 'astro:assets';
 import { siteConfig } from '../lib/siteConfig';
+/* The app's own icon — the iOS artwork from the 2026-09-15/16 icon
+ * package, committed byte-identical (docs/BRAND-ASSETS.md, "App icons"). */
+import appIcon from '../assets/brand/needle-girlie-app-icon-ios.png';
 
 /**
  * Get-the-App module (BUILD_SPEC §9): feature-flagged OFF in v1. The
  * coming-soon state is text only — official store badges are prohibited
  * until real store links exist (badge guidelines). At activation (later
  * phase): official badge artwork + app_badge_click events.
+ * Since 2026-09-16 (co-founder request, DECISIONS same date) the
+ * coming-soon state carries the app's icon above the text — the client's
+ * own artwork, not a store badge, so the badge rule stands untouched.
  */
 ---
 
 {
   !siteConfig.appLinks.enabled && (
-    <div class="get-the-app">
-      <p class="font-semibold">The Needle Girlie app is coming</p>
-      <p class="mt-1">Look for it on the App Store and Google Play.</p>
+    <div class="get-the-app-unit">
+      <Picture
+        src={appIcon}
+        alt="Needle Girlie app icon"
+        formats={['avif']}
+        fallbackFormat="webp"
+        quality={50}
+        width={128}
+        densities={[1, 2]}
+        class="get-the-app-icon"
+      />
+      <div class="get-the-app">
+        <p class="font-semibold">The Needle Girlie app is coming</p>
+        <p class="mt-1">Look for it on the App Store and Google Play.</p>
+      </div>
     </div>
   )
 }
 
 <style is:global>
+  /* The unit is one element on purpose: the styleguide renders this
+   * component as a grid child, and a fragment root would split the icon
+   * and the box into two cells. */
+  .get-the-app-icon {
+    width: 8rem; /* 128px; the intrinsic ratio is 1:1 */
+    height: auto;
+    margin-bottom: 1rem;
+  }
   .get-the-app {
     background: var(--ng-card); /* blush on light; transparent on noir */
     /* solid hairline — dashed read construction-playful (pivot 2026-07-18) */

@@ -103,6 +103,7 @@ step.
 | `src/components/Footer.astro` | wordmark | `width={160} densities={[1,2]}` |
 | `src/components/Hero.astro` (the styleguide sign) | wordmark | `width={1040} widths={[480,800,1200,2080]}` + `sizes`, capped at 1040px (the 2172px master covers the 2080 tier) |
 | `src/layouts/BaseLayout.astro` | favicon.ico + apple-touch-icon | two `<link>`s |
+| `src/components/GetTheApp.astro` (the footer's third column on every page; the styleguide gallery) | the app icon — `needle-girlie-app-icon-ios.png` (the "App icons" section below) | `<Picture formats={['avif']} fallbackFormat="webp" quality={50} width={128} densities={[1,2]}>` — 128px, left-aligned, 1rem above the coming-soon text; built tiers 6KB / 13KB AVIF (2026-09-16, co-founder request) |
 | `main` only — the Under Construction placeholder (`src/pages/index.astro`) | wordmark | `width={780} widths={[480,800,1560]}` (hotfix PR, DECISIONS 2026-09-15) |
 
 Two Astro facts to keep in mind when adding a consumer (Astro 5.18, verified
@@ -134,7 +135,19 @@ sharp). Nothing renders them; git history and this table are their record.
 The chevron run that lived inside the old lockup artwork is gone with it —
 the motif is retired everywhere (it left the UI 2026-07-18).
 
-## App icons (the mobile team) — outside this repo
+## App icons (the mobile team; the footer's coming-soon box)
+
+Since 2026-09-16 (co-founder request, DECISIONS same date, the footer
+entry) the package's `ios-1024-transparent.png` — the framed iOS icon —
+is committed byte-identical as
+`src/assets/brand/needle-girlie-app-icon-ios.png` (1024×1024 RGBA,
+1,030,503 bytes, SHA-256
+`bb1d8797f71e11e1b31f93b8bac5bd85236a8c76a4a27ad714b0c3955f07b346`) and
+rendered by `GetTheApp.astro` above the coming-soon text (the Consumers
+row above). Its 1024px master is a downscale of the package's 1254px
+clean file, per the package's own "downscale from the 1024s" rule; the
+largest tier the site serves is 256px. A new icon from the creator goes
+through the package's script first, then replaces this file.
 
 The Needle Girlie app's launcher/store icons are a different artwork from
 the wordmark (the creator's "girlie" script + syringe, framed on iOS),

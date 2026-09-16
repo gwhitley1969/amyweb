@@ -9185,3 +9185,23 @@ package README's regeneration steps are now three commands; the
 frame-only export and the composite are recorded, re-runnable
 transforms. Nothing about the website's layout changes; the footer PR
 carries the new file.
+
+## 2026-09-16 — Addendum: the footer's app icon is centred over the box (operator direction)
+
+**Context.** The footer entry above placed the icon left-aligned, as
+every footer column's content is. After the composite icon landed on the
+#189 preview the operator asked for it centred over "The Needle Girlie
+app is coming" box.
+
+**Decision.** `.get-the-app-icon` takes `margin: 0 auto 1rem` — the one
+change. Measured on the built page: the icon's centre and the box's
+centre coincide at 390 (both 195px) and at 1280 (icon 1021, box
+1021.5); the styleguide gallery instance centres the same way. Nothing
+else moves; verify green (exit 0).
+
+**Alternatives rejected.** Centring the box's text too — not asked; the
+box keeps its left-aligned copy. A flex/grid wrapper — a margin does it.
+
+**Consequences.** The icon is the one centred element in the footer, by
+the operator's choice; BRAND-ASSETS' consumer row and REDESIGN's row say
+"centred".

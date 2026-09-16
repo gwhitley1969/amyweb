@@ -103,7 +103,7 @@ step.
 | `src/components/Footer.astro` | wordmark | `width={160} densities={[1,2]}` |
 | `src/components/Hero.astro` (the styleguide sign) | wordmark | `width={1040} widths={[480,800,1200,2080]}` + `sizes`, capped at 1040px (the 2172px master covers the 2080 tier) |
 | `src/layouts/BaseLayout.astro` | favicon.ico + apple-touch-icon | two `<link>`s |
-| `src/components/GetTheApp.astro` (the footer's third column on every page; the styleguide gallery) | the app icon — `needle-girlie-app-icon-ios.png` (the "App icons" section below) | `<Picture formats={['avif']} fallbackFormat="webp" quality={50} width={128} densities={[1,2]}>` — 128px, left-aligned, 1rem above the coming-soon text; built tiers 6KB / 13KB AVIF (2026-09-16, co-founder request) |
+| `src/components/GetTheApp.astro` (the footer's third column on every page; the styleguide gallery) | the app icon — `needle-girlie-app-icon-ios.png` (the "App icons" section below) | `<Picture formats={['avif']} fallbackFormat="webp" quality={50} width={128} densities={[1,2]}>` — 128px, centred over the box, 1rem above the coming-soon text; built tiers 6KB / 13KB AVIF (2026-09-16, co-founder request; centred the same day on the operator's word) |
 | `main` only — the Under Construction placeholder (`src/pages/index.astro`) | wordmark | `width={780} widths={[480,800,1560]}` (hotfix PR, DECISIONS 2026-09-15) |
 
 Two Astro facts to keep in mind when adding a consumer (Astro 5.18, verified

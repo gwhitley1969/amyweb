@@ -26,6 +26,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   the same drawing. Colour and the Android files unchanged. The committed
   icon is the composite (SHA in BRAND-ASSETS). DECISIONS 2026-09-16, the
   icon entry's two addenda.
+- Then, on the operator's word: the icon is centred over the box rather
+  than left-aligned (a one-line CSS change; DECISIONS 2026-09-16, the
+  footer entry's addendum).
 
 ### 2026-09-16 — The logo round merges into phase-c
 

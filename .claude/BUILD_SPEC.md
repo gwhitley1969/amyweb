@@ -903,7 +903,10 @@ action.
   badges until the links are live** (badge guidelines prohibit non-functional
   or modified badges). At activation (later phase): official Apple/Google
   badge artwork, real URLs, `app_badge_click` events per store. Module
-  appears on Home and in the footer.
+  appears on Home and in the footer. Since 2026-09-16 (co-founder
+  request, DECISIONS same date) the coming-soon state shows the app's
+  own icon above the text — the client's artwork, not a store badge, so
+  the badge rule is untouched.
 - **Video (only if `{{MEDIA_SCOPE}}` includes it):** `youtube-nocookie.com`
   embeds, lazy-loaded facade pattern (thumbnail + click-to-load) to protect
   CWV and privacy.

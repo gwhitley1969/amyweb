@@ -41,7 +41,10 @@ const jsonLd = JSON.stringify(localBusiness());
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <SeoHead title={title} description={description} ogImage={ogImage} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {/* Favicons derived from the logo (scripts/derive-logo.mjs, 2026-09-15):
+        the ICO carries 16/32/48; iOS takes the 180px tile. */}
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
     {/* The one family (§13): this latin woff2 now serves body AND display,
         so the preload covers nearly all text on the page. */}

@@ -81,11 +81,21 @@ As mapped in CLAUDE.md. Additional conventions:
 
 - `src/content/treatments/` — one MDX file per treatment line (9 files), schema in §7.
 - `src/content/config.ts` — zod schemas; treat schema changes as reviewed changes.
-- `public/` — favicon set, logo assets, robots.txt (generated), official store
+- `public/` — favicon set (`favicon.ico` 16/32/48 + `icons/apple-touch-icon.png`,
+  derived from the logo 2026-09-15), robots.txt (generated), official store
   badges (Phase 4 asset — placeholder only for now).
-- Brand logo source files are provided by the operator (white-background and
-  black-background PNGs). Derive favicon/OG variants from them; never redraw
-  or restyle the logo.
+- Brand logo source files are provided by the operator — since 2026-09-15 the
+  client's transparent-background raster master (the "b" delivery, RGBA,
+  2172px wide), archived in `src/assets/brand/source/` (docs/BRAND-ASSETS.md;
+  DECISIONS same date). Derive favicon/OG variants from it by cropping
+  (`scripts/derive-logo.mjs`); never redraw or restyle the logo. *Scoped
+  override (operator, 2026-09-15, after the flag — DECISIONS the fifth
+  addendum): the script re-maps the master's colour to the home hero's
+  "made personal." accent (pink-300 lettering over the neon-500 glow) by a
+  recorded OKLCH transform; shapes and alpha are untouched. Changing the
+  target colours or dropping the re-map requires the human operator.* Ask
+  for transparent exports, never files on solid black: keying is possible
+  but its derivatives break the image budgets (DECISIONS 2026-09-15).
 
 ## 4. Technical configuration requirements
 
@@ -220,10 +230,11 @@ Amy's singular voice.
 
 **Signature elements:** the section opener — an eyebrow label over a short
 magenta accent rule that traces in — and the sign's static aura. The
-logo's chevron run remains inside the logo artwork only; the motif is
-retired from UI chrome (client, 2026-07-18 — see docs/DECISIONS.md).
+chevron motif is retired from UI chrome (client, 2026-07-18 — see
+docs/DECISIONS.md) and, since the 2026-09-15 logo, from the logo artwork
+too — the new mark carries no chevron run (DECISIONS same date).
 
-### Color tokens (provisional — verify by pixel-sampling the logo PNGs)
+### Color tokens (sampled from the 2026-07 logo sources; values retained unchanged for the 2026-09-15 metallic mark — DECISIONS same date)
 
 | Token | Provisional value | Role |
 |---|---|---|
@@ -349,10 +360,17 @@ under the constraint-2 scoped exception; the NG wordmark + credential
 centered in the row's slack, home link; a persistent outlined Book CTA
 and the popover menu button on the right. HYBRID NAV: the zero-JS
 Popover-API menu carries Services/About/Visit/Training at EVERY width —
-there is no inline desktop nav — and Book never hides. Brand scales
-fluidly: badge 48–80px / wordmark clamp to 300px below 1024px; badge
-128–160px / wordmark to 440px above. The one-breakpoint mobile shell
-fixed the Z Fold-class collision, DECISIONS 2026-08-15), Footer (NAP, social, legal
+there is no inline desktop nav — and Book never hides. Since 2026-09-15
+(client direction, DECISIONS the seventh addendum of that date) PHONES
+STACK: below 640px the mark sits alone on top, centred, spanning the
+container (`min(100vw - 2rem, 380px)` — 358×98 at 390) with the credential
+line under it, and the badge, Book, and menu form a utility row beneath;
+the header is ~200px tall there and is not sticky. From 640px the single
+row holds: wordmark 44vw between 281 and 340px with the badge at 48–80px;
+from 1024px the wordmark is `clamp(420px, 46vw, 600px)` beside the
+128–160px badge (the 600px cap is the same day's "bigger than the badge"
+direction; the header is ~236px). The one-breakpoint mobile shell of
+2026-08-15 fixed the Z Fold-class collision, DECISIONS 2026-08-15), Footer (NAP, social, legal
 links, Get-the-App slot), Hero, TreatmentCard, ServiceLineGrid, CTAButton
 (variants: book / consult / call), DisclaimerBlock, InvestigationalNotice,
 BioteDisclaimer, LocationCard (address, hours, directions link-out),

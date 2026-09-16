@@ -8,6 +8,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ### 2026-09-16 — The app icon joins the footer's coming-soon box
 
+- Merged into phase-c the same day (PR #189, on the operator's word after
+  the preview); the standing demo (#97) and the review preview (#149)
+  refreshed.
 - Co-founder request: the Needle Girlie app's icon (the framed iOS
   artwork from the icon package, committed to the repo byte-identical)
   now sits 128px wide just above "The Needle Girlie app is coming" in

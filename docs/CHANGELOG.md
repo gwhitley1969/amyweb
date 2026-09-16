@@ -13,6 +13,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   operator's word after the phone preview; the standing demo (#97) and
   the review preview (#149) refreshed the same day. The placeholder on
   needlegirlie.com has carried the same mark since #188 (2026-09-15).
+- Outside the site: the app team's icon package (haze cleaned, the
+  site's colour mapping, syringe slimmed 15%) — `C:\Amy\icons-clean\`;
+  BRAND-ASSETS "App icons"; DECISIONS 2026-09-16.
 
 ### 2026-09-15 — The phone header stacks so the mark can shine
 

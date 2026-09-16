@@ -8966,3 +8966,54 @@ record — the first build proved the /mobile LCP risk and the AVIF
 route, not the budget, resolved it. BUILD_SPEC §5's header
 description, REDESIGN's hybrid-nav row, BRAND-ASSETS' consumer row, and
 CLINICIAN-SIGN-OFF's pending row carry the stacked shell.
+
+## 2026-09-16 — App icons for the Needle Girlie app: cleaned, recoloured to the site's mark, syringe slimmed (operator request; outside this repo)
+
+**Context.** The mobile team received the brand kit (the `--kit` export)
+and, separately, two icon files from the logo creator — `Android Icon
+2.png` and `iOS icon 2.png` (1254×1254 RGBA: the "girlie" script and
+syringe, the iOS one inside a neon rounded-square frame) — whose render
+carried a blotchy magenta haze and the creator's original coral pink.
+The operator asked for them in the website logo's colour with the haze
+cleaned up (2026-09-15), then for the syringe "slimmed down a little"
+(2026-09-16). The app has its own repo and record; the website repo
+holds the brand's colour mapping, which is why the work ran here.
+
+**Decision.** A separate script, `clean-icon.mjs`, kept OUTSIDE this
+repo with its outputs (`C:\Amy\icons-clean\`, zipped as
+`C:\Amy\needle-girlie-app-icons-2026-09-15.zip`, README inside): (1)
+the haze is separated from the artwork by STRUCTURE, not colour —
+Sobel edges on OKLCH lightness mark the chrome (tube, letters,
+syringe); grown 6px, closed 12px, with enclosed holes filled only where
+the delivered pixels are themselves solid (the barrel's liquid, not a
+letter counter) — and everything outside the art is replaced by a
+synthetic neon glow (44px falloff); (2) the same OKLCH recolour as the
+site's wordmark (lettering mid-tone → pink-300 `#f9a8d4`, glow →
+neon-500 `#fe019a`), anchors measured per file; (3) the syringe is 15%
+slimmer by a smooth horizontal warp — the barrel's span compresses
+(Android 190 → 163px, iOS 161 → 133px) and the lettering either side
+slides inward by the balance, so the "r" and "l" that cross IN FRONT of
+the barrel stay continuous (a stroke crossing it steepens slightly);
+plain column removal was rejected for exactly that reason. On iOS the
+slide is taken on the right only (the "g" sits ~50px from the left
+frame bar) and fades out in the right gap, so the frame is
+pixel-identical to the unslimmed version (max channel difference 2,
+from glow rounding). The operator chose 15% from a 10/15/20% contact
+sheet. Deliverables: opaque 1024 App Store icon (no alpha channel),
+Android adaptive foreground (art inset to the 66% safe zone) +
+background layers, Play listing icon, and the transparent sources.
+
+**Alternatives rejected.** Hue/lightness thresholds for the haze — the
+haze near the tube is as bright and as pink as the tube. Hole-filling
+by size — filled the "g" counter with haze. Squeezing the syringe by
+column removal — cuts the strokes that cross the barrel. Asking the
+creator for slimmer icon files — the operator asked for it here, and
+the warp is a recorded, re-runnable transform of the delivered pixels.
+
+**Consequences.** The app team's icons carry the website mark's exact
+colours; the brand kit's README now points at the icon package instead
+of asking the creator for a store-icon crop. The icon script and its
+parameters (barrel edges, rows, gaps — measured on these two files)
+live in the package's README, not in this repo; the app repo should
+carry its own DECISIONS entry when the icons land there. Nothing on
+the website changed.

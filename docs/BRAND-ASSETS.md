@@ -134,6 +134,20 @@ sharp). Nothing renders them; git history and this table are their record.
 The chevron run that lived inside the old lockup artwork is gone with it —
 the motif is retired everywhere (it left the UI 2026-07-18).
 
+## App icons (the mobile team) — outside this repo
+
+The Needle Girlie app's launcher/store icons are a different artwork from
+the wordmark (the creator's "girlie" script + syringe, framed on iOS),
+prepared 2026-09-15/16 at the operator's request in the website mark's
+colours: haze removed by a structure-based mask, the same OKLCH recolour
+as above, and the syringe slimmed 15% by a smooth horizontal warp (DECISIONS
+2026-09-16). Package: `C:\Amy\icons-clean\` (zip
+`C:\Amy\needle-girlie-app-icons-2026-09-15.zip`) with its own README, the
+script (`clean-icon.mjs`, which needs this repo's `sharp`), the exact
+command lines, and store-ready files (opaque 1024 App Store icon, Android
+adaptive layers, Play icon). It supersedes the brand kit's lips tiles for
+app-icon use; the kit's tiles remain the website's favicon family.
+
 ## Still open
 
 - OG share image (BUILD_SPEC §10 — Phase D): a 1200×630 card of the mark on

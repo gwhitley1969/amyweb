@@ -141,8 +141,12 @@ Since 2026-09-16 (co-founder request, DECISIONS same date, the footer
 entry) the package's `ios-1024-transparent.png` — the framed iOS icon —
 is committed byte-identical as
 `src/assets/brand/needle-girlie-app-icon-ios.png` (1024×1024 RGBA,
-1,030,503 bytes, SHA-256
-`bb1d8797f71e11e1b31f93b8bac5bd85236a8c76a4a27ad714b0c3955f07b346`) and
+955,229 bytes, SHA-256
+`645bc276de0fa1f68550138571f1312c61535c5d33e86ccc5c34788ad1cbef55` — the
+same afternoon's composite: the cleaned iOS frame with the Android
+delivery's art downscaled inside it, DECISIONS 2026-09-16 the icon
+entry's second addendum; the morning's `bb1d8797…` and the frame
+re-clean's `4480…` are superseded) and
 rendered by `GetTheApp.astro` above the coming-soon text (the Consumers
 row above). Its 1024px master is a downscale of the package's 1254px
 clean file, per the package's own "downscale from the 1024s" rule; the
@@ -153,8 +157,12 @@ The Needle Girlie app's launcher/store icons are a different artwork from
 the wordmark (the creator's "girlie" script + syringe, framed on iOS),
 prepared 2026-09-15/16 at the operator's request in the website mark's
 colours: haze removed by a structure-based mask, the same OKLCH recolour
-as above, and the syringe slimmed 15% by a smooth horizontal warp (DECISIONS
-2026-09-16). Package: `C:\Amy\icons-clean\` (zip
+as above, the syringe slimmed 15% by a smooth horizontal warp, and — the
+same afternoon, on the team's word — the iOS icon composed from its
+frame (rebuilt from the ridges alone, a shorter glow) and the Android
+delivery's art downscaled inside it, because the iOS delivery's lettering
+is a softer render than the Android's (DECISIONS 2026-09-16, the icon
+entry and its two addenda). Package: `C:\Amy\icons-clean\` (zip
 `C:\Amy\needle-girlie-app-icons-2026-09-15.zip`) with its own README, the
 script (`clean-icon.mjs`, which needs this repo's `sharp`), the exact
 command lines, and store-ready files (opaque 1024 App Store icon, Android

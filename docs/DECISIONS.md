@@ -9082,3 +9082,106 @@ package share it byte for byte; a new icon from the creator goes
 through the package's script first, then replaces this file. The
 styleguide gallery instance sits on the light surface (a demo;
 recorded, not fixed).
+
+## 2026-09-16 — Addendum: the iOS icon's frame rebuilt from its ridges (team request)
+
+**Context.** With the footer icon on the #189 preview, the team asked for
+the iOS icon files to be "crisp and clear" like `android-1024-on-black.png`
+— the iOS ones "still have a haze or some kind of halo" — keeping the
+frame. Measured on the morning's output against the delivery: the
+delivered frame is a neon tube — a bright ridge and a dark ridge inside a
+broad, FLAT, near-opaque pink band (alpha 230–253, no lightness
+structure) that blends outward into the halo. The art mask (edges grown
+6px, closed 12px — sized for the lettering, whose bodies are bounded by
+highlights on both sides) kept that band as solid, so the tube came out
+43–47px wide where its ridges span ~30px, with flat pale shoulders, and
+the 44px glow wrapped the widened band. The Android icon has no such
+element, which is why it read clean with the same parameters.
+
+**Decision.** `clean-icon.mjs` gains a frame step, off by default: the
+solid component with the largest bounding box (the frame encloses
+everything else) is re-masked from its ridges alone — edges grown 3px,
+closed 12px, never beyond the opaque pixels — and given its own glow, 20px
+at 45% (the art keeps 44px at 55%), with the kept edge feathered over 3px
+into the glow so the ridge mask's pixel steps do not print. The recolour
+anchors are measured before the frame step, so the mapping — hue −8.0°,
+chroma ×0.423, γ 0.451 on this file — is the one the approved lettering
+already carries; the lettering, the syringe, the slim warp, and every
+Android file are byte-identical to the morning's. Chosen from a 2/3/4px
+× 20/28px contact sheet and a hard-vs-feathered edge sheet at 3×; the
+ring is one continuous component at every setting. Deliverables
+regenerated in place (`ios-*`, `ios-PREVIEW.png`, plus
+`ios-FRAME-BEFORE-AFTER.png` beside the Android reference; README step 4
+and the command line updated; zip rebuilt). The website's committed icon
+is the re-cleaned file — `needle-girlie-app-icon-ios.png` is now 966,386
+bytes, SHA-256
+`4480404684a520e747f5ff5ca92e71f36872c298e605c4890f9aa4b07ab5f88f`,
+superseding the morning's `bb1d8797…` on PR #189.
+
+**Alternatives rejected.** Shrinking the art mask's grow/close globally —
+the lettering bodies (flat between two highlights, up to ~49px wide)
+would fragment. Eroding the loose frame mask by a fixed amount — the
+shoulders are asymmetric (4px outside, ~12px inside on the bars), so a
+fixed erosion cuts a ridge on one side and leaves haze on the other.
+Redrawing the frame as a synthetic rounded tube — a restyle of the
+creator's artwork; the ridges themselves are clean and worth keeping.
+Dropping the frame — the team wants it.
+
+**Consequences.** The iOS files carry the same crisp read as the Android
+ones; the frame's glow is shorter than the lettering's by design (a long
+straight edge shows a wide glow as a band where a letter cluster shows it
+as a rim). The package README records the frame options and the rule that
+they apply only to a framed icon. The footer PR's Lighthouse figures are
+unaffected (the footer image is never fetched by the gate).
+
+## 2026-09-16 — Second addendum: the iOS icon's art is the Android delivery's, downscaled into the cleaned frame (team request)
+
+**Context.** With the frame rebuilt (the addendum above), the team's word
+was "still off": the syringe and the word "girlie" on iOS had to be as
+crisp as `android-1024-on-black.png`. Measured: at 3× the iOS lettering
+carries a pale rim of retained near-opaque haze around every stroke (the
+frame's shoulder problem again — the haze hugs the art more opaquely in
+the iOS delivery than in the Android one) and, underneath that, the iOS
+delivery itself is a softer render: cropped at the same physical
+magnification, the Android "g" has crisp ridges and a thin dark outline
+where the iOS "g" has a wide bloom and no outline (`RAW-COMPARE` in the
+session's scratch). No mask setting fixes a soft source. The two
+deliveries carry the same drawing; the iOS one adds the frame.
+
+**Decision.** The iOS icon is composed from two cleaned parts:
+`clean-icon.mjs --frameOnly` emits the iOS frame alone (the addendum's
+ridge mask and 20px glow, the art dropped), and a new `compose-ios.mjs`
+places the cleaned, recoloured, slimmed ANDROID art inside it — scaled
+by 0.8244 (the fit of the delivered iOS art's solid bounding box, 980×934,
+to the Android art's, 1163×1133; a DOWNscale, lanczos, premultiplied),
+centred on the delivered art's centre, alpha-composited over the frame.
+The script refuses an upscale and refuses any solid-art-over-solid-frame
+overlap (measured 0 px). The pale rim goes with the native art; the
+lettering and syringe are the pixels the team already called clean.
+Deliverables replaced in place (`ios-clean-transparent.png`,
+`ios-1024-transparent.png`, `ios-1024-on-black.png`; the frame-only
+source `ios-frame-only-transparent.png` added; `ios-PREVIEW.png` now a
+four-panel row: delivery / first clean / final / Android; README step 5
+and the command lines; zip rebuilt). The website's committed icon is the
+composite — `needle-girlie-app-icon-ios.png` is 955,229 bytes, SHA-256
+`645bc276de0fa1f68550138571f1312c61535c5d33e86ccc5c34788ad1cbef55`,
+superseding the addendum's `4480…` on PR #189.
+
+**Alternatives rejected.** A tighter art mask on the native iOS art
+(grow 3) — removes the rim, not the bloom; the source is soft. Unsharp
+masking or deconvolution of the iOS art — invents edges the render does
+not have and halos of its own; a restyle in the wrong direction. Asking
+the creator for a sharper iOS render — the right long-term source, but
+the team asked for it now and the Android delivery already is that
+render; the ask is noted for the next delivery. Keeping the native art
+and accepting the difference — the team said no.
+
+**Consequences.** The iOS and Android icons share one set of art pixels;
+only the frame is iOS-specific. The composed art sits at 0.824 of the
+Android scale inside the frame, slightly smaller than the delivered iOS
+layout's height-fit (the delivered art was proportionally wider, so a
+single uniform scale that clears the frame is the height fit). The
+package README's regeneration steps are now three commands; the
+frame-only export and the composite are recorded, re-runnable
+transforms. Nothing about the website's layout changes; the footer PR
+carries the new file.

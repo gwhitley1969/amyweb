@@ -8455,3 +8455,514 @@ describes the adopted one. Nothing else changes; the docs-only path
 skips the preview pipeline (`paths-ignore`), so the Relaunch guard is
 this PR's only check; the standing previews are refreshed for branch
 parity, not for bytes.
+
+## 2026-09-07 — api.needlegirlie.com and login.needlegirlie.com join the Front Door
+
+**Context.** The Needle Girlie app (a separate repo and subscription,
+`ng-app`) needs two public hostnames that the client's DNS zone and
+this website's Front Door profile already own: the API
+(`func-needlegirlie-api.azurewebsites.net`, Phase A) and the sign-in
+endpoint for the External ID custom URL domain
+(`needlegirlieapp.ciamlogin.com`, the app's DECISIONS 17). Both are
+added here, the same way `media.needlegirlie.com` was: a dedicated
+origin group, custom domain, and route on the existing `afd-needlegirlie`
+profile, plus the matching zone records.
+
+**Decision.** `infra/frontdoor.bicep` gains an `og-api` origin group
+pointed at the Function App's own hostname, WITH a health probe against
+`/healthz` (this origin can scale past one instance, unlike the
+single-origin `og-swa`/`og-media` groups); the `api` custom domain and
+route, bound only to `api.needlegirlie.com`, no caching (every response
+is per-user), HTTPS-only with the redirect disabled (an API caller gets
+a clean failure, not a 301), and not linked to the default
+`*.azurefd.net` domain. It also gains an `og-login` origin group
+pointed at `needlegirlieapp.ciamlogin.com` (no probe, single origin,
+like `og-swa`), and the `login` custom domain and route, bound only to
+`login.needlegirlie.com`, no caching (every response is a per-user auth
+page or a token), HTTPS with the HTTP -> HTTPS redirect on (a typed URL
+must still land on the sign-in page). `infra/dns.bicep` gains the
+`api`/`_dnsauth.api` and `login`/`_dnsauth.login` CNAME + TXT record
+pairs, both pointed at the shared Front Door endpoint hostname.
+`infra/main.bicep` wires `apiOriginHostname` (defaulted to the Function
+App's hostname) through to the `frontdoor` module and passes the two new
+validation-token outputs to the `dns` module; `loginOriginHostname`
+keeps its own default in `frontdoor.bicep`.
+
+**Alternatives rejected.** A `/api/*` path added to the apex route
+instead of a dedicated hostname — it would couple the API to the static
+site's CSP and the apex's lockdown/redirect rules (BUILD_SPEC §2 of the
+app repo). A second Front Door profile dedicated to sign-in, which is
+what Microsoft's own custom-URL-domain walkthrough sets up — the
+existing Standard profile already carries the apex, www, and media
+hosts, and adding a second profile would be a second fixed cost for no
+functional gain; this profile carries the sign-in host for egress only.
+
+**Consequences.** This website's Bicep now carries a dependency, by
+hostname only, on a resource (`func-needlegirlie-api`) that lives in
+`rg-needlegirlie-app` under a different subscription (`ng-app`) — a
+one-way reference with no cross-subscription resource ID, no shared
+state beyond the DNS/Front Door layer. Deploying `main.bicep` now
+requires the Function App to exist first (or the default hostname
+param to be overridden) for the origin health probe to have something
+to probe; the DNS `login` CNAME cannot deploy until the external
+tenant's temporary ownership TXT at the same name is verified and
+deleted (the app's Task 6, sequenced ahead of this repo's deploy step).
+
+
+## 2026-09-15 — The new Needle Girlie logo replaces the mark sitewide (client delivery)
+
+**Context.** Amy delivered a new logo: the same "Needle Girlie"
+composition as the 2026-07 mark — the serif wordmark, the syringe
+standing in for the second "l", the lips at the top right — re-rendered
+as glossy metallic pink with a soft glow. Two files arrived: an opaque
+rendering on solid black and, on request, a transparent-background
+version (2172×724, RGBA — letterforms alpha 253, glow alpha 1–63,
+background 0). The old mark was a Claude Design HTML master exported to
+PNG (DECISIONS 2026-07-07) and rendered in three places on `phase-c`,
+all pure-black surfaces — the header (`needle-girlie-wordmark-alpha.png`,
+1604×342), the footer (same file), and the styleguide sign (the chevron
+lockup) — plus the Under Construction placeholder on `main`. Real alpha
+is load-bearing: the home page's neon switch-on
+(`public/js/home-motion.js`) and the styleguide sign's aura apply
+`drop-shadow()` to the image's silhouette, which on an opaque rectangle
+would glow as a box. The operator's calls at plan time: the
+transparent file is the master; the live placeholder takes the new
+mark now; a favicon set from the logo is in scope (OG image and JSON-LD
+logo stay Phase D); the old logo files stay dormant, not deleted.
+
+**Decision.** (1) The transparent delivery is archived byte-identical as
+`src/assets/brand/source/needle-girlie-logo-metallic-master.png`
+(SHA-256 `b07abf18…9b41ff`), the on-black rendering beside it as
+`…-metallic-on-black.png` (`c2c5f99d…89efb50a`) for reference only.
+(2) Every rendered variant is a CROP of the master by the new
+`scripts/derive-logo.mjs` (sharp via `createRequire`, the
+`export-logo.mjs` pattern — sharp is an optional transitive of astro,
+not a declared dependency; a one-off authoring tool, never a build
+step): the wordmark `needle-girlie-wordmark-metallic-alpha.png` is the
+master's alpha≥16 bounds (2100×554 at 44,104) plus a 12px pad →
+2124×578 at (32,92), aspect 3.675 — a cut at ≤6% alpha over noir is
+below perception, so no box edge; proven crop-only (the derivative's
+RGBA equals `master.extract(rect)` with a maximum channel difference
+of 0); the script asserts ≥2080px so the styleguide sign's 2× tier is
+never upscaled. (3) Consumers: the header at `width={440}
+widths={[440,600,880]}` with a `sizes` of plain breakpoints (a phone
+fetches the 440 or 600 tier, 27/41KB, instead of the 72KB 2× file
+`densities` would have given it); the footer unchanged at
+`width={160} densities={[1,2]}`; the styleguide sign at `width={1040}
+widths={[480,800,1200,2080]}` — an explicit `width` on every consumer,
+because `widths` alone makes Astro's `<img src>` fallback the
+original-width encode (verified in `service.js`; `densities` are never
+clamped to the source either, so every tier must fit inside 2124px).
+(4) The favicon set, the site's first logo-derived one: the lips
+(master rect 342×214 at 1830,136 — the "i" dot ends at x≈1815, the
+final "e" starts at y≈352; the script asserts the crop's left and
+bottom edges carry no opaque pixel) scaled to 84% of a black tile as
+`public/favicon.ico` (16/32/48 PNG entries in an ICO container the
+script writes itself) and `public/icons/apple-touch-icon.png` (180);
+two `<link>`s in BaseLayout; the generic "NG" placeholder
+`favicon.svg` retired. The syringe was the first thought and lost on
+measurement: its column is flanked by the "d"/"e" glow and the baseline
+streak and is a 155×510 sliver, ~5px wide at 16px. (5) The header
+absorbs the taller aspect (3.675 vs 4.69: ~120px tall at 440, was 94)
+with the widths unchanged from 390px up; two fixes the bolder mark
+exposed ride along — on the tightest phones the wordmark box had
+overlapped the Book button since 2026-08-15 (measured: 14px at 360,
+2px at 375 — invisible with the old mark's thin lips), so the rendered
+width is now one custom property `--wordmark-w` =
+`clamp(130px, min(44vw, 100vw - 218px), 300px)` (the cap bites only
+below 390px) and the credit line steps down to 11px caps under 390px
+(the 165px line, not the wordmark, set the link's width there; the
+pink-500-on-noir pair holds 5.95:1); and the nav popover's three
+hand-tuned offsets (6.75 / 8.25 / 13.5rem — one of them 1px inside the
+header at 1023 and 39px adrift at 1024) become formulas: below 1024
+`calc(2rem + var(--wordmark-w) / 3.675 + 1.75rem)`, above it
+`calc(3rem + clamp(128px, 12.5vw, 160px) + 0.25rem)` (the badge is the
+tallest element there). Measured on the built page: the mark clears
+the button by 6px at 360/375/390 and the popover clears the header by
+3–8px at 360/375/390/639/1023/1024/1280. (6) The Under Construction
+placeholder on `main` takes the same mark and favicons by a hotfix PR
+branched from `main` (RUNBOOK "Hotfixing production during the
+takedown era"): the identical files at the same paths, the import swap
+plus an explicit `width={780}`, the two favicon links, `favicon.svg`
+deleted — no docs on `main`; this entry is the record for both PRs.
+(7) Palette tokens unchanged (the metallic lettering is a ramp with no
+single hex; `#ec4899` stays the site's pink; the 2026-08-26
+"the word Girlie is literally that hex" pin is historical). (8) The
+old HTML masters, six PNG derivatives, and `export-logo.mjs` stay in
+the repo, dormant, listed in BRAND-ASSETS "Retired".
+
+**Alternatives rejected.** An SVG trace or rebuild of the new mark —
+forbidden by "never redraw, restyle, trace, or AI-upscale" (BUILD_SPEC
+§3), and unlike the 2026-08-15 Mobile Aesthetics badge, which was pure
+geometry, this art is illustrative (metallic ramps, a glow), so that
+rebuild precedent does not transfer. Keying the on-black file's
+background to alpha in-repo — lossless on #000 but moot once the
+transparent delivery existed. The syringe as the favicon glyph (above).
+Deleting the retired assets under the orphan rule — the operator chose
+dormant (the caricature precedent). `densities` for the header — the
+phone would fetch the 72KB 2× file for a 172px slot. Raising the home
+row's image budget — not needed: the home page measures 189,882 B of
+images against the 245,760 B budget (was ~187KB; Lighthouse's phone
+profile picks the 440 tier), /services 224,376 B against 393,216 B,
+every gate green on the PR build (performance 98–100 on all eight
+URLs). A web manifest, theme-color, OG image, and JSON-LD `logo` — not
+asked; Phase D.
+
+**Consequences.** The site's mark is a raster with no vector source;
+future variants are crops of the master by `derive-logo.mjs`, and a
+different master with a different aspect changes one number (3.675) in
+`Header.astro`. The Playfair Display decision (2026-07-08, 2026-08-15)
+was made because the wordmark's face was verifiable from the HTML
+master; it now stands on visual continuity — the new render is evidently
+built on the old Playfair composition. The chevron motif, retired from
+the UI 2026-07-18, has left the logo artwork too. `favicon.svg` is gone
+and the new icon paths are new, so no purge is needed; browsers cache
+favicons far longer than the edge (RUNBOOK "Manual cache purge"). At
+relaunch the revert-of-the-revert will also conflict on
+`src/layouts/BaseLayout.astro` — take the launch-tree side (RELAUNCH
+step 1). Amy's presentation approval covers the new logo (the sign-off
+doc's pending row). BUILD_SPEC §3/§5, BRAND-ASSETS (rewritten),
+REDESIGN, RUNBOOK, RELAUNCH, CHANGELOG, and `tokens.css`'s header
+comment carry the change.
+
+## 2026-09-15 — The logo master is the colour-corrected delivery (same day, before merge)
+
+**Context.** With PR #186 (phase-c) and the placeholder hotfix PR #187
+(main) open on their previews, Amy sent a corrected file: "the colors
+are off on the first one" — the same composition and canvas
+(2172×724, RGBA), a lighter, cooler metallic pink with a wider glow.
+Neither PR had merged.
+
+**Decision.** The corrected file replaces the master in place
+(`needle-girlie-logo-metallic-master.png`, SHA-256
+`c7315bfd15dfe674acfe3358e767bb9fc91a5a46bf22ec61133623008d1f44f1`;
+the first transparent file, `b07abf18…9b41ff`, and its opaque on-black
+companion leave the PR — a wrong-colour rendering that never merged
+has no record value beyond this entry). `derive-logo.mjs` re-run
+unchanged in method: the wordmark crop is now the alpha≥16 bounds
+2118×593 at (35,94) plus the 12px pad → **2142×617 at (23,82), aspect
+3.472** (the wider glow — was 2124×578, 3.675); crop-only proven again
+(max channel difference 0). The header's one aspect number moves
+3.675 → 3.472 (the wordmark is ~127px tall at 440, was 120 on the first
+cut and 94 on the old mark). The lips crop moves to 352×218 at
+(1820,130): on this master the "i" dot's opaque pixels end at x=1819
+and the lips' begin at 1820, the lips end at y=347 and the final "e"
+begins at 348, so the script's edge assertions became zone-aware (the
+lower half of the left edge, the left 40% of the bottom edge — where
+those two letters can be). The hotfix PR carries the identical files.
+Everything else in the previous entry stands.
+
+**Alternatives rejected.** Keeping the first master dormant beside the
+new one — dormancy is for the retired 2026-07 mark that once shipped;
+an unmerged wrong-colour file is noise in a public repo. Re-measuring
+by hand instead of re-running the script — the script IS the record.
+
+**Consequences.** Both PRs redeploy their previews; the gates and the
+header measurements were re-run on the corrected master (numbers in
+the PR). BRAND-ASSETS, CHANGELOG, REDESIGN, and `Header.astro` carry
+the new figures.
+
+## 2026-09-15 — Third delivery: the master arrives on solid black and is keyed to alpha (same day, before merge)
+
+**Context.** The colour-corrected second file still read wrong to Amy
+("the color from the last logo is still off"); a third file arrived —
+the same composition rendered in a hot pink close to the site's own
+`#ec4899`, but as a 1983×793 24-bit PNG on solid black with no alpha
+channel, at a different scale from the two 2172×724 RGBA files before
+it. Every surface the mark sits on is pure #000 (header, footer, hero
+band, 404, the styleguide sign, the placeholder).
+
+**Decision.** (1) The third file is the master in place (SHA-256
+`fb703588db00d33c17dab7527fe5aaba772515a41145c73149dccd596ab8f0f0`;
+the second, `c7315bfd…1f44f1`, leaves the PR like the first). (2)
+`derive-logo.mjs` keys a no-alpha master before cropping: a luminance
+key with a solid core — alpha = min(1, 2·max(R,G,B)/255), colour
+un-premultiplied (RGB·255/alpha). Composited over #000 it reproduces
+the delivered pixels (proven on the committed derivative: max channel
+difference 1, from rounding, no channel off by more), so on the site
+the keyed mark IS the delivered mark; the gain of 2 keeps the
+letterforms fully opaque (their dark shading would otherwise be
+translucent) while the glow keeps its falloff, which also keeps the
+neon switch-on's drop-shadow tracing solid letterforms. A master
+delivered WITH alpha bypasses the step. (3) Wordmark crop: the keyed
+master's alpha≥16 bounds 1963×596 at (20,82) plus the 12px pad →
+**1975×620 at (8,70), aspect 3.185**; the header's aspect number
+follows (the wordmark is ~138px tall at 440 — the badge no longer sets
+the desktop header alone, which the popover formula's `max()` already
+handles; the desktop header is 211px, was 209). (4) The styleguide
+sign's cap drops 1040 → 960px with a 1920 top tier: the master is
+1983px wide, so 2× retina holds only to 960 (the old lockup was 1879px
+and allowed 1040); the script's width floor is 1920. Header (880) and
+placeholder (1560) are unaffected. (5) Lips crop 313×237 at (1670,95):
+the "i" dot ends at x=1652 and the lips' tip begins at 1680, but the
+lower lip's lowest point (y=336, at x≈1810) sits level with the top of
+the final "e" (y=332, x 1685–1820) — no horizontal cut separates them,
+so the cut at y=332 keeps the "e" out and costs the lip its bottom
+five rows (~2% of the tile; invisible at 16–180px). The edge
+assertions now test for solid letter pixels (alpha ≥250, i.e. source
+luma ≥125) rather than the keyed glow halo. (6) The hotfix PR carries
+the identical files.
+
+**Alternatives rejected.** Asking for a transparent export first — the
+key is exact on the only surfaces in use, and the day had already cost
+two round trips. A gain of 1 (the textbook key) — exact on black too,
+but the letterforms' dark shading would be translucent and the
+drop-shadow silhouette weaker there. Keeping the second master dormant
+— same reasoning as the first addendum. Keeping the 1040px sign cap —
+would ship the sign 5% below 2× at that width (the retina hard rule).
+
+**Consequences.** BRAND-ASSETS, BUILD_SPEC §3, CHANGELOG, REDESIGN,
+`Header.astro`, `Hero.astro`, and the script's header carry the
+change; both PRs redeploy; every gate and header measurement was
+re-run (numbers in the PR). If a future master arrives with alpha,
+nothing changes but the file.
+
+## 2026-09-15 — Fourth file: the creator's transparent export is the master; the keyed on-black route is withdrawn (same day, before merge)
+
+**Context.** The third delivery's keyed derivatives failed `npm run
+verify` on both branches: the Lighthouse LCP budget (2500ms) by ~57ms
+on /styleguide (the sign is its LCP element), /about and /mobile (a
+text paragraph delayed by the heavier header image under simulated
+throttling), and on the placeholder (the logo is its LCP) — because a
+keyed glow encodes 2–3× heavier than a delivered alpha channel (the
+header's 2× tier went 72KB → 187KB; the alpha plane and the
+un-premultiplied colour noise in the near-black halo both compress
+badly; smoothing the halo colour recovered only a quarter and cost
+round-trip exactness). The operator asked the creator for what the
+assistant specified — a transparent-background PNG, ≥2200px wide, the
+same artwork — and it arrived within the hour.
+
+**Decision.** (1) The creator's export is the master in place
+(2172×724 RGBA, SHA-256
+`891ffe09eee83485afbe57fcf8af151533fc92acbc517cb9349342cd5ddd5170`);
+the on-black third file leaves the PR. (2) The wordmark is a pure crop
+again: alpha≥16 bounds 2120×638 at (42,58) plus the 12px pad →
+**2142×662 at (30,46), aspect 3.236** (crop-only proven: max channel
+difference 0); the header's aspect number follows (~136px tall at 440).
+Header tiers 29/46/80KB (440/600/880) — the second master's class,
+which passed. (3) The styleguide sign returns to its 1040px cap with the
+2080 tier; the script's width floor is 2080 again. (4) Lips crop
+333×265 at (1839,66): the "i" dot's solid pixels end at x=1836 and the
+lips' tip begins at 1841 (a four-pixel gap); under the lips the lower
+lip's edge runs 15–24px above the top of the final "e" except at the far
+right, where the lip reaches y=338 while the "e" begins at 331 — the cut
+at y=331 keeps the "e" out at the cost of ≤8px off the lower lip's
+right-bottom edge (~3% of the tile, invisible at 16–180px); the rect
+starts at y=66 to keep the sparkle. (5) The keying step stays in
+`derive-logo.mjs` as a documented capability that a delivered alpha
+channel bypasses; BRAND-ASSETS and BUILD_SPEC §3 now say to ask for
+transparent exports, never files on solid black. (6) The hotfix PR
+carries the identical files.
+
+**Alternatives rejected.** Shipping the keyed master with a trimmed
+invisible tail and a lower WebP quality — untested against the budget
+and, even if it passed, a permanently heavier header on every page for
+no visual gain once a proper export existed. Raising the LCP budget —
+never; the gates only tighten. Serving the keyed master at gain 1 —
+the alpha plane, not the gain, was the cost.
+
+**Consequences.** Both branches were pushed on the failing third-file
+state before the failure was read — the assistant's verify chain did
+not gate on the exit code; the CI runs for those pushes are red and are
+superseded by this commit. Rule going forward, recorded in the working
+memory: never commit or push until the verify log's exit line has been
+read. Docs, `Header.astro`, `Hero.astro`, and the script carry the
+figures; every gate and header measurement was re-run on this master
+(numbers in the PR).
+
+## 2026-09-15 — Fifth file: the creator's export in the brand hue is the master (same day, before merge)
+
+**Context.** The fourth file's colour still read wrong to Amy. Measured,
+its lettering sat at hue ~340° (mid-tone `#f44580`), red of the site's
+pinks (pink-500 `#ec4899` at 330°, neon `#fe019a` at 324°); the operator
+took those numbers to the creator, who returned the same artwork shifted
+toward magenta.
+
+**Decision.** The fifth file is the master in place (2172×724 RGBA,
+SHA-256 `0275862069b34b14259dc7793113cb9f3a11bc5d6ab3c1e4369559e11f466cbe`;
+lettering mid-tone `#f32d8b`, hue 332°). Same pipeline, nothing new:
+the wordmark is the alpha≥16 bounds 2145×664 at (27,46) plus the 12px
+pad → **2157×688 at (15,34), aspect 3.135** (crop-only proven, max
+channel difference 0; this render's halo is a little broader, hence the
+taller crop); the header's aspect number follows (~140px tall at 440);
+header tiers 30/47/82KB; the lips rectangle from the fourth file
+(333×265 at 1839,66) holds — the layout is identical and the edge
+assertions pass. The hotfix PR carries the identical files.
+
+**Alternatives rejected.** None new; this is the fourth-file decision
+with a colour-corrected input.
+
+**Consequences.** BRAND-ASSETS, CHANGELOG, REDESIGN, and `Header.astro`
+carry the figures; both PRs redeploy; every gate and header measurement
+re-run with the exit lines read. The brief that produced this file —
+a transparent-background PNG, ≥2200px wide, the lettering's mid-tone
+set numerically to the site's pink-500 — is the template for any future
+logo request (BRAND-ASSETS).
+
+## 2026-09-15 — The "b" rendering in the "made personal." colour: a recorded recolour (operator override of the never-restyle rule)
+
+**Context.** With the brand-hue export (the fifth file) live on the
+placeholder and on both previews, the client's verdict was that
+everyone preferred the SECOND file's rendering ("b" — the lighter,
+chromier metallic) but wanted it in the colour of the home hero's
+"made personal." accent. That accent is not one colour: on the noir
+hero it is pale pink-300 `#f9a8d4` text (the noir `--ng-display-accent`)
+over a neon-500 `#fe019a` text-shadow (`ng-shimmer`). Measured in
+OKLCH, "b"'s lettering is a coral pink (mid-tone `#f7809b`, hue 7°,
+L 0.742, C 0.147) and its glow a muted rose — about 21° red of the
+accent, darker and more saturated than its text, and far less
+saturated than its glow. Three renders of "b" re-mapped in OKLCH (A:
+matched to the accent in hue, chroma, and lightness; B: hue only; C:
+matched to the brand pink) were put in front of the operator on a
+contact sheet with the accent's swatches; the operator chose A. The
+rule flagged: BUILD_SPEC §3 and BRAND-ASSETS say never restyle the
+logo; a colour re-map is a restyle by the letter. The alternative
+offered — send the exact values to the creator — was declined
+("do it in-repo"), and production was to stay on the fifth-file logo
+until this ships.
+
+**Decision.** (1) "b" is the master in place (SHA-256
+`b07abf1855883f08681808096cb44cfb12fedc73815ce90bfd5490aeb49b41ff`,
+byte-identical to the delivery, recovered from the first commit of
+the day where it had already been archived). (2) `derive-logo.mjs`
+gains a `RECOLOR` step, applied before the crop so the favicons
+inherit it: a per-pixel OKLCH transform, shapes and alpha untouched.
+Opaque pixels (alpha ≥250): hue offset −21.3° (the lettering's
+circular-mean mid-tone hue 7.3° → 346°), chroma ×0.745 (0.147 →
+0.110), lightness L^0.653 (0.742 → 0.823; 0 and 1 fixed). Soft
+pixels (the glow): hue set to the neon's 354°, chroma ×2.20 capped at
+0.32, lightness kept. Out-of-gamut results pull chroma in until they
+fit sRGB. Proven on the committed derivative: the alpha channel equals
+the master's crop exactly (max difference 0), and the recoloured
+lettering's median-L band measures `#f9a8d4` at L 0.823 / C 0.110 /
+h 346 — the target to three decimals. (3) The crop is "b"'s: 2124×578
+at (32,92), aspect 3.675; the header's aspect number returns to
+3.675; the styleguide sign keeps its 1040px cap (2080 tier covered).
+Lips rectangle 342×214 at (1830,136) — on this master the dot ends at
+x=1814, the lips begin at 1841, and row 348 is clean between the lower
+lip (≤347) and the "e" (≥352), so the tile loses nothing. (4) The
+override is scoped: these two target colours, this transform, this
+master; `RECOLOR = null` ships the delivered colour; changing the
+targets or dropping the re-map requires the human operator (BUILD_SPEC
+§3 carries the scoped-override sentence). (5) A new hotfix PR from
+`main` carries the identical files to the placeholder.
+
+**Alternatives rejected.** Sending the spec to the creator — declined
+by the operator after five files in a day; the mapping is a recorded,
+deterministic function of the delivered pixels, not a hand edit. Hue
+rotation alone (variant B) — keeps "b"'s depth but does not match the
+accent's lightness; the client asked for the accent's colour. The
+brand pink `#ec4899` (variant C) — the site's pink, but not what "made
+personal." is set in. A gradient map (luminance → a pink ramp) — would
+discard the render's own hue variation between highlight and shadow;
+the OKLCH offset keeps it.
+
+**Consequences.** The site's mark is a client rendering with a
+recorded colour transform on top; anyone reading the master file sees
+coral pink and must read this entry or BRAND-ASSETS to know why the
+site is pale pink. The brand kit for the mobile team (the `--kit`
+export) must be regenerated from this state so the app carries the
+same recoloured mark — done in the same session. Verify re-run on both
+trees with the exit lines read. The fifth-file logo stays live on the
+placeholder until the new hotfix PR merges on the operator's word.
+
+## 2026-09-15 — The header wordmark grows to 600px on desktop (client direction)
+
+**Context.** With the recoloured "b" mark on the previews ("the color
+is perfect, the font is great, the design is great"), the client asked
+for it bigger — "it should stand out more than the Mobile Aesthetics
+logo to the left" — accepting a taller header. At the 440px desktop
+cap the mark was ~120px tall beside the 160px badge (the badge sat
+taller since its 2026-08-15 enlargement).
+
+**Decision.** `--wordmark-w` on desktop goes `clamp(340px, 36vw, 440px)`
+→ `clamp(420px, 46vw, 600px)`; below 1024px the tablet cap goes 300 →
+340px and the phone expression is unchanged (`clamp(130px, min(44vw,
+100vw - 218px), 340px)` — on phones the badge, the Book button, and the
+menu fix the row, so the mark cannot grow there without a different
+header layout). The image gains a 1200px tier (`widths` 440/600/900/
+1200, `width={600}`, `sizes` "(min-width: 1024px) 600px, (min-width:
+773px) 340px, 44vw"). The popover offsets follow automatically — both
+are formulas of `--wordmark-w`. The badge is untouched: the client asked
+for a bigger mark, not a smaller badge, and the badge's size is its own
+2026-08-15 client decision. Measured on the built page: 471×128 at 1024
+(header 201px), 589×160 at 1280 (233px), 600×163 from 1305px (236px,
+was 209); the mark clears the Book button by 95–112px on desktop and
+6px on phones as before; the popover clears the header by 3–8px at
+every width. Lighthouse's phone profile fetches the same 440 tier as
+before, so the image budgets are unchanged; verify green.
+
+**Alternatives rejected.** Shrinking the badge to make the mark lead —
+reverses a client-picked size without being asked. A stacked phone
+header (mark on its own row) so phones grow too — a layout change to
+the hybrid-nav shell, offered to the operator as a follow-up, not
+absorbed. Growing past 600 — at 46vw the mark already spans the
+container's middle third; the header is the tallest chrome on the site
+at 236px.
+
+**Consequences.** Every page's header is ~27px taller on desktop; the
+LCP portrait on the home page and every page's content start that much
+lower. CLINICIAN-SIGN-OFF's pending row names the larger mark. The
+brand kit is unaffected (the asset did not change).
+
+## 2026-09-15 — The phone header stacks: the mark on its own row (client direction)
+
+**Context.** With the recoloured mark approved and grown to 600px on
+desktop, the client's next word was the phone: "it looks too small on a
+phone… it needs to be more pronounced… most people are going to see
+this site on their phones." In the single-row shell the mark's phone
+width is fixed by everything else on the row — the 48px badge and its
+gap, the 72px Book button, the 44px menu button, and the gaps — at
+172×47 on a 390px phone. Shrinking Book, the gaps, the padding, and the
+menu icon to their minimums buys about 40px (~214px, +24%) and crowds
+the row. Three previews went to the operator (brand on top; utility row
+on top; shrink-everything); the pick was brand on top.
+
+**Decision.** Below 640px the header is a two-row grid: the brand link
+alone on top, centred, its width `min(100vw - 2rem, 380px)` (the
+container's inner width, capped for large phones and foldables); the
+badge, Book, and menu on a utility row beneath. CSS only — the
+`.site-brand-group` wrapper dissolves with `display: contents` so the
+badge and the brand link are grid items; the DOM is unchanged. Nothing
+shrinks: Book stays visible at 72×31 (hybrid nav, 2026-08-15), the badge
+stays 48px (client-picked, the sanctioned outbound link), the menu keeps
+its 44px target. Phone vertical padding drops 1rem → 0.75rem; the credit
+line's under-390px step-down (this morning) is deleted — it existed to
+fit the single row. The image becomes a `<Picture>` — an AVIF source
+with a WebP fallback, quality 50 — with 660/720/1080 tiers added and a
+`sizes` of "(max-width: 413px) 90vw, (max-width: 639px) 380px, …": the
+first build (WebP, 92vw) fetched a 48KB 720 tier on phones, +24KB on
+every page, and /mobile failed the LCP budget at 2557ms (the named
+risk); AVIF at q50 puts the 660 tier the synthetic phone fetches at
+26.7KB — the old weight — and a real DPR-3 phone fetches the 1080 tier
+at 49KB. WebP quality alone barely helped (the alpha plane dominates:
+50 → 44KB at q55). The 90vw hint, not 92, is what lands the 412 × 1.75
+profile on 660 rather than 720; a 500–639px device fetches for the
+380px cap, not 92vw of its width. The popover offset on
+phones is a formula of the stack (paddings + the mark's height at the
+3.675 aspect + gap-and-credit + row gap + the 3rem utility row + air);
+640–1023 keeps the single-row formula, ≥1024 unchanged. Measured on the
+built page: mark 288×79 at 320 (header 181px), 328×89 at 360 (192),
+358×98 at 390 (200, was 101), 380×104 from 412 to 639 (206); the popover
+clears the header by 3px at every width from 320 to 1280; no horizontal
+overflow; tab order badge → brand → Book → menu; the home hero image
+starts at y=200 at 390 (in the first screen). The stacked shell's one
+recorded compromise: the badge's focus stop comes before the brand's
+although it now sits below it (DOM order; reordering the DOM would move
+the same mismatch to desktop; axe has no rule for it).
+
+**Alternatives rejected.** Shrink-everything (above). Utility row on top
+— the brand should lead the page. Hiding the badge or Book on phones —
+each is a client/operator decision and the badge is the sanctioned link.
+A sticky header — would make ~200px a permanent tax on every scroll; the
+header is in-flow and scrolls away. Reordering the DOM for phone focus
+order — moves the mismatch to desktop.
+
+**Consequences.** Phone headers are ~200px tall (was 101); every page's
+content starts ~100px lower on the first screen. The header image is
+AVIF on every page now (WebP fallback), which also shrinks the desktop
+tiers (1200px: 103KB → 57KB); the Lighthouse figures on the PR are the
+record — the first build proved the /mobile LCP risk and the AVIF
+route, not the budget, resolved it. BUILD_SPEC §5's header
+description, REDESIGN's hybrid-nav row, BRAND-ASSETS' consumer row, and
+CLINICIAN-SIGN-OFF's pending row carry the stacked shell.

@@ -1,7 +1,11 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import { siteConfig } from '../lib/siteConfig';
-import wordmark from '../assets/brand/needle-girlie-wordmark-alpha.png';
+/* The wordmark is a crop of the client's 2026-09-15 raster master (see
+ * docs/BRAND-ASSETS.md; DECISIONS same date) — 2124x578, aspect 3.675.
+ * The nav popover's offset below 1024px is derived from that aspect
+ * (WORDMARK_ASPECT in the styles) — a future asset swap changes one number. */
+import wordmark from '../assets/brand/needle-girlie-wordmark-metallic-alpha.png';
 import maMark from '../assets/brand/mobile-aesthetics-mark.svg';
 
 /**
@@ -74,15 +78,33 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
       <a href="/" class="site-brand shrink-0">
         {/* Big by design — operator/client direction: the brand leads.
             Scaled up twice per client review 2026-07-18. Chevron motif
-            retired from the UI same day (client) — it lives on only inside
-            the logo artwork itself. Mobile width is a clamp so the row
-            (mark + wordmark + menu toggle) fits 360px screens. */}
-        <Image
+            retired from the UI same day (client); since the 2026-09-15
+            logo the artwork carries no chevron run either. On phones the
+            mark spans the container on its own row (the stacked shell,
+            2026-09-15). `widths` + `sizes` (not `densities`) so a phone fetches
+            the tier its slot needs, not the 2x-of-600 file — the metallic
+            mark's derivatives are heavier than the old flat one (image
+            budget, DECISIONS 2026-09-15). The sizes mirror the two clamps
+            with plain breakpoints. The rendered width is --wordmark-w
+            (styles below) so the popover offset can share it. */}
+        {/* <Picture>, AVIF first with a WebP fallback, quality 50 (2026-09-15,
+            the stacked phone shell): the phone tier went 440 → 720px and the
+            extra ~24KB of WebP tipped /mobile past its LCP budget; AVIF at
+            q50 puts the 660/720 tiers back at the old ~27KB. `quality`
+            applies to the WebP fallback too (pre-2022 phones), accepted for
+            a glow-heavy image. The 90vw phone hint (not 92) lands
+            Lighthouse's synthetic phone on the 660 tier. `class` goes to the
+            inner <img>, so home-motion's `.site-brand img` still matches. */}
+        <Picture
           src={wordmark}
           alt="Needle Girlie — home"
-          width={440}
-          densities={[1, 2, 3]}
-          class="h-auto w-[clamp(155px,44vw,300px)] lg:w-[clamp(340px,36vw,440px)]"
+          formats={['avif']}
+          fallbackFormat="webp"
+          quality={50}
+          width={600}
+          widths={[440, 600, 660, 720, 900, 1080, 1200]}
+          sizes="(max-width: 413px) 90vw, (max-width: 639px) 380px, (min-width: 1024px) 600px, (min-width: 773px) 340px, 44vw"
+          class="site-brand-wordmark h-auto"
         />
         {/* Credential line under the wordmark (operator 2026-07-19).
             pink-500 small text is legal on noir ONLY — see the (min 4.5)
@@ -135,6 +157,34 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
 <style is:global>
   .site-header {
     border-bottom: 1px solid var(--ng-hairline);
+    /* The wordmark's rendered width — one expression, read by the image
+     * and by the nav popover's offset. PHONES (<640px, the stacked shell
+     * below): the mark spans the container's inner width — 100vw minus
+     * the 1rem side paddings — capped at 380px for large phones and
+     * foldables; 358×97 at 390 (was 172×47 in the single row, whose width
+     * the badge, Book, and menu fixed — client direction 2026-09-15:
+     * "more pronounced on phones", DECISIONS the seventh addendum). */
+    --wordmark-w: min(100vw - 2rem, 380px);
+  }
+  /* 640–1023px: the single row, 44vw between 281 and 340px. */
+  @media (min-width: 640px) {
+    .site-header {
+      --wordmark-w: clamp(281px, 44vw, 340px);
+    }
+  }
+  /* ≥1024px: 600px cap (was 440 until 2026-09-15 — client direction after
+   * the recoloured mark: "bigger, it should stand out more than the Mobile
+   * Aesthetics badge"). At 600 the mark is ~163px tall beside the 160px
+   * badge and the header grows to ~235px (accepted). Row fit: the 1152px
+   * container leaves ~730px for the mark beside the 160px badge and the
+   * Book + menu group. The tablet cap went 300 → 340 in the same round. */
+  @media (min-width: 1024px) {
+    .site-header {
+      --wordmark-w: clamp(420px, 46vw, 600px);
+    }
+  }
+  .site-brand-wordmark {
+    width: var(--wordmark-w);
   }
   /* Left group: the Mobile Aesthetics mark sits beside the brand link.
    * The mark's height (not width) is the control — its 247:172 box keeps
@@ -153,12 +203,52 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
   .site-brand {
     margin-inline: auto;
   }
-  /* Hybrid nav (2026-08-15): the centered-brand shell is the layout at
-   * EVERY width — badge left, wordmark centered in the slack, Book +
-   * menu right. Only the brand scale changes with the viewport. */
+  /* Hybrid nav (2026-08-15): the centered-brand shell — badge left,
+   * wordmark centered in the slack, Book + menu right — is the layout
+   * from 640px up. Only the brand scale changes with the viewport. */
   @media (min-width: 1024px) {
     .site-brand-group {
       gap: 1.25rem;
+    }
+  }
+  /* PHONES (<640px) STACK (client direction 2026-09-15 — "the mark needs
+   * to be more pronounced; most people see the site on their phones";
+   * operator pick among three previews: brand on top; DECISIONS the
+   * seventh addendum). The row becomes a two-row grid: the brand link
+   * alone on top, centered and as wide as the container; the badge,
+   * Book, and menu on a utility row beneath. The brand-group wrapper
+   * dissolves (display: contents) so the badge and the brand link are
+   * grid items directly; the DOM — and so the tab order: badge, brand,
+   * Book, menu — is unchanged, which puts the badge's focus stop before
+   * the brand's although it now sits below it (recorded; reordering the
+   * DOM would move the same mismatch to desktop). The container's
+   * utilities carry over: gap-4 is the column gap, justify-between is
+   * inert beside a 1fr track. The popover is position: fixed and
+   * unaffected. */
+  @media (max-width: 639px) {
+    .site-header > div {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas:
+        'brand brand brand'
+        'badge . nav';
+      row-gap: 0.5rem;
+      align-items: center;
+      padding-block: 0.75rem;
+    }
+    .site-brand-group {
+      display: contents;
+    }
+    .site-brand {
+      grid-area: brand;
+      justify-self: center;
+      margin-inline: 0;
+    }
+    .site-brand-mark-link {
+      grid-area: badge;
+    }
+    .site-nav {
+      grid-area: nav;
     }
   }
   /* inline-flex so the focus ring hugs the badge, not a text line box */
@@ -289,8 +379,14 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     /* popover-open state */
     position: fixed;
     inset: auto 1rem auto auto;
-    top: 6.75rem; /* clears the brand block — re-tuned for the clamped
-                     mobile wordmark (2026-08-15, MA-mark row) */
+    /* Clears the header at every width, derived from the wordmark's
+     * rendered width over the asset's aspect (3.675 — WORDMARK_ASPECT)
+     * rather than tuned per breakpoint (the 2026-08-15 rem values were
+     * retuned twice and still overlapped at 639px). PHONES, the stacked
+     * shell: paddings (1.5rem) + the mark's height + its gap and the
+     * credit line (1.375rem) + the row gap (0.5rem) + the utility row
+     * (3rem, the 48px badge) + air (0.25rem). */
+    top: calc(1.5rem + var(--wordmark-w) / 3.675 + 1.375rem + 0.5rem + 3rem + 0.25rem);
     min-width: 12rem;
     margin: 0;
     padding: 0.5rem 0;
@@ -298,18 +394,22 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     border-radius: 0.25rem;
     list-style: none;
   }
-  /* 640–1023px: the wordmark clamp reaches 300px (64px tall), so the
-   * brand block runs ~121px — the popover anchors below it. */
+  /* 640–1023px, the single row: the header's vertical padding (2rem) +
+   * the mark's height + the credit line and its gap (1.75rem). */
   @media (min-width: 640px) {
     .site-nav-popover {
-      top: 8.25rem;
+      top: calc(2rem + var(--wordmark-w) / 3.675 + 1.75rem);
     }
   }
-  /* ≥1024px: py-6 + the 160px badge makes the header ~208px — the menu
-   * anchors below it (hybrid nav). */
+  /* ≥1024px: the header is py-6 (3rem) + the taller of the badge's fluid
+   * height and the brand block (wordmark height + credit line); the menu
+   * anchors just below it (hybrid nav). Was a fixed 13.5rem, right only
+   * at the 160px end of the badge clamp (39px adrift at 1024). */
   @media (min-width: 1024px) {
     .site-nav-popover {
-      top: 13.5rem;
+      top: calc(
+        3rem + max(clamp(128px, 12.5vw, 160px), var(--wordmark-w) / 3.675 + 1.5rem) + 0.25rem
+      );
     }
   }
   /* Browsers without Popover support ignore the attribute; the list then

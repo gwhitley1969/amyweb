@@ -6,6 +6,30 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-16 — The app icon joins the footer's coming-soon box
+
+- Co-founder request: the Needle Girlie app's icon (the framed iOS
+  artwork from the icon package, committed to the repo byte-identical)
+  now sits 128px wide just above "The Needle Girlie app is coming" in
+  the footer's third column — on every page, since the footer is
+  sitewide; the box moves 144px down on desktop. AVIF with a WebP
+  fallback, 13KB at 2×. Official store badges stay off until the links
+  are live. DECISIONS 2026-09-16 (the footer entry); BRAND-ASSETS "App
+  icons"; BUILD_SPEC §9.
+- Same afternoon, on the team's word that the iOS files still carried a
+  halo the Android one did not: first the icon package's iOS frame was
+  rebuilt from its ridges alone with a shorter glow (the delivered tube's
+  flat pink band had been kept as solid); then, when the lettering and
+  syringe still read softer than the Android file's, the iOS icon became
+  a composite — that cleaned frame with the Android delivery's art
+  downscaled inside it, the iOS delivery's art being a softer render of
+  the same drawing. Colour and the Android files unchanged. The committed
+  icon is the composite (SHA in BRAND-ASSETS). DECISIONS 2026-09-16, the
+  icon entry's two addenda.
+- Then, on the operator's word: the icon is centred over the box rather
+  than left-aligned (a one-line CSS change; DECISIONS 2026-09-16, the
+  footer entry's addendum).
+
 ### 2026-09-16 — The logo round merges into phase-c
 
 - PR #186 — the recoloured "b" mark everywhere, the favicon set, the

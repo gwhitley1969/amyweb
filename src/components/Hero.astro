@@ -1,6 +1,10 @@
 ---
 import { Image } from 'astro:assets';
-import lockup from '../assets/brand/needle-girlie-lockup-alpha.png';
+/* The 2026-09-15 logo (docs/BRAND-ASSETS.md) — the same crop the header
+ * uses; the old chevron lockup is dormant in src/assets/brand/. The cap is
+ * 1040px: the 2172px master covers its 2080px 2x tier (a 1983px interim
+ * file forced 960 for a few hours on 2026-09-15). */
+import lockup from '../assets/brand/needle-girlie-wordmark-metallic-alpha.png';
 
 /**
  * The sign, composed ("serious glamour", DECISIONS 2026-07-18): noir
@@ -24,7 +28,8 @@ const { promise, eyebrow } = Astro.props;
     <Image
       src={lockup}
       alt="Needle Girlie"
-      widths={[480, 800, 1200, 1879]}
+      width={1040}
+      widths={[480, 800, 1200, 2080]}
       sizes="(max-width: 1100px) 94vw, 1040px"
       class="ng-aura ng-aura-live w-full max-w-[1040px]"
       loading="eager"

@@ -90,7 +90,12 @@ carrying no post-takedown `phase-c` commits. Merging deploys production and
 purges the Front Door cache like any other `main` merge. Precedent and the
 reason this path exists at all: the Xtend-AI footer credit was lost from the
 placeholder by the takedown revert and went unnoticed for nineteen days
-(DECISIONS 2026-08-24).
+(DECISIONS 2026-08-24). Second precedent: the 2026-09-15 logo swap — the
+placeholder took the new mark and favicons by a hotfix PR carrying the same
+asset files, byte-identical at the same paths as the `phase-c` PR, so the
+relaunch two-step merges them clean; the record for both PRs lives in the
+`phase-c` DECISIONS entry, never on `main` (the append-only docs would
+collide at relaunch).
 
 ## Where `phase-c` is visible
 
@@ -510,6 +515,16 @@ az afd endpoint purge -g rg-needlegirlie-web --profile-name afd-needlegirlie \
 
 HTML is edge-cached ~5 minutes (`max-age=300`); hashed `/_astro/*` assets are
 immutable and never need purging.
+
+Assets served from `public/` at stable paths — the favicons
+(`/favicon.ico`, `/icons/apple-touch-icon.png`), captions, the scripts — are
+edge-cached like any static file AND, for the favicons, cached by browsers
+far longer than the edge. Replace them under a NEW filename with a normal
+PR, never in place (the film rule above); if an in-place replacement is
+ever unavoidable, purge its path with `--content-paths '/favicon.ico'` and
+expect visitors' tabs to show the old icon until their browser cache turns
+over. The 2026-09-15 favicon set shipped on new paths (the placeholder
+`favicon.svg` retired), so no purge was needed.
 
 ## Preview access
 

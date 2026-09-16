@@ -13,6 +13,7 @@ param dnsZoneResourceGroup string = 'rg-corp'
 
 param budgetContactEmails array = ['genewhitley2017@gmail.com']
 param budgetStartDate string
+param apiOriginHostname string = 'func-needlegirlie-api.azurewebsites.net'
 
 resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   name: 'rg-needlegirlie-web'
@@ -41,6 +42,7 @@ module frontdoor 'frontdoor.bicep' = {
   params: {
     swaDefaultHostname: swa.outputs.defaultHostname
     mediaOriginHostname: storage.outputs.blobHostname
+    apiOriginHostname: apiOriginHostname
   }
 }
 
@@ -53,6 +55,8 @@ module dns 'dns.bicep' = {
     apexValidationToken: frontdoor.outputs.apexValidationToken
     wwwValidationToken: frontdoor.outputs.wwwValidationToken
     mediaValidationToken: frontdoor.outputs.mediaValidationToken
+    apiValidationToken: frontdoor.outputs.apiValidationToken
+    loginValidationToken: frontdoor.outputs.loginValidationToken
   }
 }
 

@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 /**
+ * RETIRED 2026-09-15: the logo master is a client raster now; every
+ * variant comes from scripts/derive-logo.mjs. Kept for the dormant HTML
+ * sources (docs/BRAND-ASSETS.md, "Retired").
+ *
  * Export a raster variant from a canonical logo HTML source (see
  * docs/BRAND-ASSETS.md). Renders the design in headless Chrome at high
  * device scale — a faithful export of the original, never a redraw — then

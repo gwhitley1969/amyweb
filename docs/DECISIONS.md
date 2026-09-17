@@ -9205,3 +9205,94 @@ box keeps its left-aligned copy. A flex/grid wrapper — a margin does it.
 **Consequences.** The icon is the one centred element in the footer, by
 the operator's choice; BRAND-ASSETS' consumer row and REDESIGN's row say
 "centred".
+
+## 2026-09-17 — The home hero film is remade: one living-portrait film replaces the three reel passages (AI-assisted, disclosed; operator decision after the compliance flag)
+
+**Context.** The operator on the home hero's moving media: "too choppy
+… a little too amateuristic", asking for a cinematic treatment and
+making Higgsfield (the operator's own account) available. Measured, not
+opinion: (1) the three screened passages are 1.32 / 0.65 / 0.63s of
+source — 2.6s of footage in all, and the 2026-09-04 screen rules out
+the rest of the reel, so no re-trim can lengthen it; (2) the rendition
+is 30fps and plays at 0.5×, so the hero showed 15 frames a second (the
+2026-08-15 entry calls the master 60fps; its sample table is ~30fps —
+corrected here); (3) every join paused the player behind a frozen
+canvas while it seeked, and with 10 keyframes in the file the three
+seeks decode ~0.9 / 0.7 / 2.1s of video; (4) the portrait (0.719,
+`object-position 50% 20%`, the `.nc-photo` filter) and the film
+(0.5625, `50% 30%`, no filter) never registered, so each dissolve
+shifted framing and tone.
+
+**Decision.** `hero-living-portrait.mp4` (media origin; 3,555,553 B;
+SHA-256 40867d3ede754e207faa64d4043d3d7bb97f0cc46908c1bc8444091545c5f2cd;
+1080×1502 — the portrait's own aspect; 24fps; 11.25s; no audio)
+replaces the passages. Played at 1× with the native `loop`:
+`data-ranges`, `data-plays`, `data-xfade`, `data-still` are removed
+from the hero element, `data-rate` is 1, `data-first` stays 5 (it keeps
+the film out of the Lighthouse trace). `home-motion.js` is unchanged in
+behaviour — with no ranges it already takes the native-loop path and
+skips the canvas, the joins, and the three clocks; the ranges machinery
+stays, unused. `.nc-hero__film` takes the portrait's `object-position`
+and the `.nc-photo` filter. The film opens and ends on the hero
+portrait itself (frame 0 is the photograph), so the fade from still to
+film registers.
+The cut: the portrait → Amy turns to the camera and smiles (generated)
+→ the black-scrubs portrait, fast push → the neon-sign portrait, a
+two-layer slide → a short abstract pink light insert (generated) → the
+lavender-suit portrait, she pushes off the wall and runs a hand through
+her hair (generated) → the stool portrait → a crossfade back to the
+hero portrait. Every source still is already published on this site
+and shows Amy alone.
+*How it got here (same day).* The first plan kept Amy pixel-locked (her
+pixels the photograph's, the AI moving only light and background). The
+one take bought for it put no motion in the wall at all, so the proof
+was built with light animated in code and a two-layer camera push:
+30fps, 0 paused samples, frame 0 identical to the still. The
+operator's verdict: "Honestly, it's boring." Offered three directions
+with the likeness risk restated, the operator chose the fast cut with
+AI "living moments", lifting the pixel-lock for those shots only, and
+on seeing it: "That looks great!!!"
+
+**Generative rules (standing policy for any AI video on this site).**
+Inputs are only stills already published here, Amy alone — no clients,
+no other providers, no archive-only photos leave for a third-party
+service (uploaded this round: the hero portrait, the lavender-suit
+portrait, and the neon-sign portrait for its cutout matte). Never
+generated: a treatment, an injection, a client, a product, packaging,
+text, a result. Every generated take is screened frame by frame at hero
+size; a take is cut or rejected where the face drifts, skin is smoothed
+or aged, an instrument warps, or lettering changes. Disclosure follows
+the 2026-08-14 portrait precedent: recorded here, in the component
+comment, and in the VTT note; Amy is told, and her preview sign-off on
+her own likeness is the informed control.
+
+**Screen (this film).** Used ranges only: the hero take 0–3.2s, the
+lavender take 1.2–4.4s. The lavender take's last seconds push into a
+close-up where the model drew heavy lines round the eyes — cut before
+it, and never to be used. In the hero take the neon lettering, the
+embroidery, and the syringes hold; an earring appears that the photo
+does not show (accepted, noted). The front of Amy's face in that take
+is the model's — the photograph shows her in three-quarter profile —
+which is exactly what her sign-off is for. Two stills are 1067px wide
+against the 1080 canvas (1.2% under the no-upscale line, inside a
+moving camera that scales every frame anyway) — recorded, accepted.
+The xfade filter's `dissolve` is a speckle transition, not a crossfade;
+the shipped file uses `fade`.
+
+**Alternatives rejected.** Polish the three passages (they stay 1–2s at
+15fps). A hybrid keeping the longest real clip (it would read rougher
+than everything round it). AI-extending the real treatment clips (it
+would fabricate a treatment on a real client). The pixel-locked
+cinemagraph (built, shown, declined as boring). Every shot as an AI
+performance (more likeness risk than the cut needs).
+
+**Consequences.** The hero fetch falls 8.3MB → 3.6MB; one fetch, no
+seeks. Measured on the running page at 1280 and 390: 24 presented
+frames a second, 0 paused samples, largest frame gap 50ms across the
+loop point. `commercial-studio.mp4` stays for the carousel. The reel's
+"portrait beat" is now inside the film (it opens and closes on the
+portrait). Amy's reaction is pending on the preview; her sign-off gates
+production like every other likeness decision. Working files and the
+render scripts live in `C:\Amy\hero-film\` (outside the repo).
+Higgsfield credits used: 227 of the operator's 3,010. The operator is
+to confirm the plan's commercial-use terms.

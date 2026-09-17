@@ -6,6 +6,29 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-17 — The home hero film is remade (a living-portrait film, AI-assisted)
+
+- The operator found the hero's moving media "too choppy". Measured:
+  2.6 seconds of footage across three passages, 15 frames a second at
+  the 0.5× rate, a frozen frame at every seek, and a film that never
+  lined up with the portrait under it.
+- One purpose-made 11-second film replaces the passages
+  (`hero-living-portrait.mp4`, 24fps, plays straight through and loops;
+  3.6MB against 8.3MB). It opens and ends on the hero portrait and cuts
+  through four more of Amy's published portraits with camera moves. Two
+  shots are AI performances generated from her own photos (she turns
+  and smiles; she pushes off the wall and runs a hand through her hair)
+  and one short pink light insert is generated outright — AI-assisted
+  and disclosed; Amy's sign-off on her generated likeness gates
+  production. A first, pixel-locked version was built and declined as
+  boring.
+- Standing rules for any AI video on the site are recorded: published,
+  Amy-only photos in; never a generated treatment, client, product,
+  text, or result; every take screened frame by frame.
+- DECISIONS 2026-09-17; RUNBOOK "The home page's motion layer and the
+  hero film"; HOME-CONCEPT; BUILD_SPEC §6; CLAUDE.md's fourth-consumer
+  paragraph.
+
 ### 2026-09-16 — The app icon joins the footer's coming-soon box
 
 - Merged into phase-c the same day (PR #189, on the operator's word after

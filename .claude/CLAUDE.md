@@ -435,8 +435,8 @@ silently following it. Known superseded points from earlier briefs:
   since 2026-09-17 the purpose-made living-portrait film (AI-assisted,
   disclosed — DECISIONS same date; it replaced the studio reel's three
   screened passages and their portrait beat), opening and ending on
-  the portrait, autoplaying under reduced motion by the films policy. Widening any of this to another page
-  requires the human operator.
+  the portrait, autoplaying under reduced motion by the films policy.
+  Widening any of this to another page requires the human operator.
   The 30KB budget stands for every page but the home URL.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.

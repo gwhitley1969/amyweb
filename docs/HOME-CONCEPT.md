@@ -57,6 +57,7 @@ merged here; the hero reel takes the same policy.
 | `4586aac` | 2026-09-04 | **concept: the portrait opens the page** — `data-first="5"` (tweak 5, second part) |
 | `6de13ab` | 2026-09-04 | **docs: the concept is adopted** — the lifts become standing decisions (CLAUDE.md, lighthouserc, global.css, BUILD_SPEC, this file) |
 | `17132bf` | 2026-09-04 | **Merge pull request #179 into `phase-c`** — the operator's "go ahead and merge #179 and refresh the previews" |
+| `dcd223a` | 2026-09-17 | **feat(home): the hero film is remade as a living-portrait film** — PR #190 (`feat/hero-living-portrait`); the three reel passages retire, `hero-living-portrait.mp4` loops natively; AI-assisted, disclosed (DECISIONS 2026-09-17) |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,

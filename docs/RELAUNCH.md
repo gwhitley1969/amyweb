@@ -111,7 +111,7 @@ check will refuse it. On a branch off `main`:
   `/js/vendor/gsap.min.js`, `ScrollTrigger.min.js`, `SplitText.min.js`,
   `lenis.min.js` (all 200, `text/javascript`); the hero's
   `data-hero-film` element carries `data-first="5"` and `data-rate="1"`
-  and no `data-ranges`; the film object is `hero-living-portrait-v2.mp4`
+  and no `data-ranges`; the film object is `hero-living-portrait-v3.mp4`
   on the media origin (206 on a range request, `video/mp4`) — since
   2026-09-17, DECISIONS same date.
 - Plausible: `/api/event` returns 202 from the production page;

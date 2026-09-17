@@ -9353,3 +9353,27 @@ production like every other likeness decision. Working files and the
 render scripts live in `C:\Amy\hero-film\` (outside the repo).
 Higgsfield credits used: 227 of the operator's 3,010. The operator is
 to confirm the plan's commercial-use terms.
+
+## 2026-09-17 — Addendum: the review preview carries the hero film ahead of the merge (operator direction)
+
+**Context.** PR #190 is open, waiting on Amy's look and the operator's
+merge word. The operator: "go ahead and refresh it for PR #149 as
+well."
+
+**Decision.** `origin/feat/hero-living-portrait` merged into
+`review/page-numbers` (merge `dc27c59`, clean), so the #149 review
+preview plays the new film now. Verified: CI green, three cache-busted
+probes show `hero-living-portrait.mp4` on the hero element, the VTT
+serves 200.
+
+**Alternatives rejected.** Merging #190 into phase-c first and
+refreshing from there (the usual route) — the merge word has not been
+given, and a preview branch is the right place for work still in
+review. Leaving #149 on the old reel until the merge — not what was
+asked.
+
+**Consequences.** #149 is ahead of phase-c by this one feature until
+#190 merges; the later phase-c refresh will be a no-op for these files.
+The standing demo (#97) is refreshed from phase-c after the merge, as
+always. The production film record, the render scripts, and the takes
+are documented in `C:\Amy\hero-film\README.md` (outside the repo).

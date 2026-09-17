@@ -25,6 +25,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - Standing rules for any AI video on the site are recorded: published,
   Amy-only photos in; never a generated treatment, client, product,
   text, or result; every take screened frame by frame.
+- PR #190 into phase-c, open. The review preview (#149) carries the
+  film ahead of the merge, at the operator's word — the feature branch
+  merged into `review/page-numbers`; the standing demo (#97) follows
+  the merge.
+- How it was made (tools, scripts, the takes, the screen) is written up
+  in `C:\Amy\hero-film\README.md`, outside the repo.
 - DECISIONS 2026-09-17; RUNBOOK "The home page's motion layer and the
   hero film"; HOME-CONCEPT; BUILD_SPEC §6; CLAUDE.md's fourth-consumer
   paragraph.

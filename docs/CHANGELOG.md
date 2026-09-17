@@ -34,6 +34,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
   eased push — still, then movement, no offset. The file is
   `hero-living-portrait-v2.mp4` (11.9s, 3.5MB). DECISIONS 2026-09-17,
   the opening addendum.
+- Later the same day, a founder found Amy's head turn in the opening
+  unsettling. Measured: the turn ran 2.4 seconds at one constant speed
+  (a real one takes about half a second), only her head moved, and her
+  real face dissolved into the generated one for 0.7s while nothing else
+  moved. The shot was regenerated for real-time motion — her eyes lead,
+  a blink, a half-second turn, then a laugh — the blank stare before the
+  laugh was compressed, and the handoff from the photograph is now a
+  0.2s dissolve just before she moves. The shot is a second shorter. The
+  file is `hero-living-portrait-v3.mp4` (11.0s, 3.4MB). DECISIONS
+  2026-09-17, the head-turn addendum.
 - PR #190 into phase-c, open. The review preview (#149) carries the
   film ahead of the merge, at the operator's word — the feature branch
   merged into `review/page-numbers`; the standing demo (#97) follows

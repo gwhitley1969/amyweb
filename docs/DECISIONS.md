@@ -9428,3 +9428,68 @@ take without a border fill (black edges).
 opening is 0.65s longer (the film 11.25 → 11.90s). Credits: 108 more
 (335 of 3,010 used). `register.cjs`, `render-open.cjs`, and
 `track2.cjs` join the working folder; its README carries the recipe.
+
+## 2026-09-17 — Addendum: the hero film's head turn is remade at human speed (founder request)
+
+**Context.** A founder on the opening shot, where Amy turns her head to
+the camera: make it natural, "not necessarily in slow-speed" — it
+unsettled them. Measured on the v2 take (`motion-profile.cjs`, head-box
+frame-to-frame energy): (1) the turn ran 2.42s as a flat plateau (peak ÷
+mean 1.58) where a real head turn is about half a second with a peaked
+speed; (2) the torso moved 19% as much as the head — a head rotating on
+a still body; (3) at the handoff the photograph's face and the take's
+first frame differ by 8–11 levels in the face box and the film
+crossfaded between them for 0.7s while nothing else moved — a slow face
+morph; (4) the take's codec (B-B-B-P) refreshes detail every 4th frame,
+so the face's texture pulsed 6 times a second (ratio 1.53; the static
+wall does not pulse). Causes 1 and 2 were my own prompt: "slowly and
+smoothly turns her head", "holds still", "hands steady".
+
+**Decision.** Four new takes (Higgsfield, Seedance 2.5, the same
+mirror-padded canvas start image, the camera locked as before), two
+prompts. P1, shipped: real-time speed, someone off-camera says her name,
+her eyes move first, the head turns in about half a second with a blink,
+shoulders follow, she laughs, her hands shift naturally with the
+syringes rigid. P2, the alternate: she keeps the photograph's
+three-quarter angle, laughs, glances, never faces the camera head-on.
+The chosen take (P1, first) turns in 0.46s with peak ÷ mean 4.6 as
+generated; its camera fit is identical at the first, middle, and last
+frame (scale 0.986, x +23, y −7). In post (`retime.cjs`): 1.6s of the
+take's motionless lead-in is dropped, and the 1.5s neutral look between
+the turn and the laugh is compressed to 0.5s with the skipped frames
+averaged (shutter blur) — so she turns and laughs, rather than turns
+and stares. The handoff (`render-open2.cjs`): a per-channel tone match
+to the photograph, and the dissolve cut from 0.7s to 0.2s and placed
+just before she moves. The tone match barely moved the face difference
+(8.05 → 7.62): the difference is the model's re-rendering of her face,
+not tone, so the short dissolve is what carries it. The shot is 3.4s
+(was 4.3s). Shipped film: `hero-living-portrait-v3.mp4` (media origin;
+3,354,390 B; SHA-256
+ce734dfca6701e69ca772cecd9913d86d7600a9c459cdd48539a13dcf92b8783;
+1080×1502, 24fps, 11.00s, no audio); frame 0 is still the photograph
+(mean diff 1.58 — grain and codec). Measured on the shipped encode: the
+turn 0.42s, peak ÷ mean 3.43, torso ÷ head in the turn 0.30, face pulse
+1.24 (from 1.53; my 1.15 target was not met — a temporal denoise did
+not move it, the re-encode and grain took it this far). A direct fit
+across the dissolve shows no background hop (scale 1.003, x −2, y −1 —
+the push itself).
+
+**Screen.** Used range: neon lettering, the syringes, and the jumpsuit
+embroidery hold; no earring this time; the laugh's lines are natural,
+no smoothing or ageing. The head-on face is still the model's — Amy's
+sign-off, as before. Rejected: P1's second take (a theatrical
+head-toss). Kept ready in `C:\Amy\hero-film\candidates\`: the P2
+stays-in-profile opening and the v2 take retimed (a zero-credit
+fallback that fixes the speed only).
+
+**Alternatives rejected.** Retiming the v2 take alone (fixes cause 1,
+leaves the still body and the morph). Frame interpolation (the problem
+was tempo and performance, not frame rate). Motion transfer from a
+driving video — the most natural result available, but it needs a
+real, cleared clip of the move; if a generated turn still bothers
+anyone, the clean answer is a three-second phone clip of Amy doing it.
+
+**Consequences.** A new filename again; v1 and v2 stay on the origin,
+unreferenced. The film is 11.00s (was 11.90s). Credits: 216 this round
+(551 of 3,010 used, 2,459 left). The prompting lesson is in RUNBOOK
+("Remaking the hero film") and the working folder's README.

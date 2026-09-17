@@ -300,7 +300,7 @@ carries an 80KB script budget for the layer (measured ~69KB gzipped);
 every other page keeps 30KB.
 
 **The hero film** is a film facade: the portrait `<Image>` ships and
-paints; the script attaches `hero-living-portrait-v2.mp4` (the media
+paints; the script attaches `hero-living-portrait-v3.mp4` (the media
 origin) over it and fades it in. Since 2026-09-17 (DECISIONS same date)
 it is one purpose-made 11s file played at 1× with the native loop — it
 opens and ends on the portrait itself, so there is nothing to trim or
@@ -329,6 +329,16 @@ sheet.png` plus zooms of every face and every region with lettering)
 and cut where the face drifts, skin is smoothed or aged, an instrument
 warps, or lettering changes; the DECISIONS entry is written BEFORE the
 site change; publish under a NEW filename ("Publishing a film").
+Prompting people (the 2026-09-17 head-turn addendum): never ask a
+video model for "slow", "smooth", or "still" human motion — it returns
+a constant-speed, head-only, animatronic move. Ask for real-time speed
+and a reason to move (someone says her name), eyes first, a blink, the
+body following; lock the CAMERA, not the person. Then measure the take
+(`motion-profile.cjs`: a head turn is ~0.35–0.7s with a peaked speed
+profile) and fix timing in post if needed (`retime.cjs` — skipped
+frames are averaged, which is real shutter blur). Keep the dissolve from
+photograph to take short (~0.2s) and just before she moves: the model
+re-renders the face, so a slow dissolve is a face morph.
 Verify on the running page: count `requestVideoFrameCallback`
 presentations for a loop and sample `paused` every 50ms — expect the
 film's frame rate, 0 paused samples, no frame gap over ~100ms at the

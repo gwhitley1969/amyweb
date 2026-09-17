@@ -25,6 +25,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - Standing rules for any AI video on the site are recorded: published,
   Amy-only photos in; never a generated treatment, client, product,
   text, or result; every take screened frame by frame.
+- Same day, on a founder's word that the opening "jitters" where the
+  still turns into movement: measured, the AI shot began about 20px off
+  the photograph and the film hid that under a fast 0.75s zoom and a
+  0.3s crossfade, so the background hopped for a third of a second. The
+  shot was regenerated with a locked camera at the film's own framing,
+  fitted to the photograph once, and the opening is now one continuous
+  eased push — still, then movement, no offset. The file is
+  `hero-living-portrait-v2.mp4` (11.9s, 3.5MB). DECISIONS 2026-09-17,
+  the opening addendum.
 - PR #190 into phase-c, open. The review preview (#149) carries the
   film ahead of the merge, at the operator's word — the feature branch
   merged into `review/page-numbers`; the standing demo (#97) follows

@@ -300,7 +300,7 @@ carries an 80KB script budget for the layer (measured ~69KB gzipped);
 every other page keeps 30KB.
 
 **The hero film** is a film facade: the portrait `<Image>` ships and
-paints; the script attaches `hero-living-portrait.mp4` (the media
+paints; the script attaches `hero-living-portrait-v2.mp4` (the media
 origin) over it and fades it in. Since 2026-09-17 (DECISIONS same date)
 it is one purpose-made 11s file played at 1× with the native loop — it
 opens and ends on the portrait itself, so there is nothing to trim or

@@ -289,7 +289,7 @@ and only the home page — runs a scripted layer: self-hosted GSAP 3.15
 since 3.13) and Lenis 1.3 (MIT) in `public/js/vendor/`, plus
 `public/js/motion-flag.js` (sets `html.motion` before paint,
 self-cancels in 4s) and `public/js/home-motion.js` (the choreography
-and the hero reel). The vendor files are copied from `node_modules`
+and the hero film). The vendor files are copied from `node_modules`
 (`gsap`, `lenis` are devDependencies); updating one means copying the
 new build in and re-running `npm run verify` — script-src stays
 `'self'`, nothing loads from a CDN. If any script fails, the flag is

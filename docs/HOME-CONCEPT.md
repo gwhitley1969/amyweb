@@ -30,6 +30,16 @@ went back to Jeuveau first). A phone report ("the carousel doesn't
 autoplay") was fixed on its own branch into `phase-c` (PR #180) and
 merged here; the hero reel takes the same policy.
 
+**Since 2026-09-17** the hero reel is gone: the founders found it
+choppy, and after four rounds (a pixel-locked cinemagraph — "boring";
+the fast cut with AI living moments — "That looks great!!!"; a hop at
+the handoff; the head turn's speed; the eyes) the hero plays
+`hero-living-portrait-v4.mp4`, one purpose-made looping film that opens
+and ends on the portrait — AI-assisted and disclosed (DECISIONS
+2026-09-17, the entry and its addenda; merged in PR #190). Everything
+below about the reel, its passages, and its knobs is that round's
+record.
+
 ## Previews
 
 | What | Where |
@@ -179,8 +189,9 @@ six tags through it (nothing else uses the slot).
 **Under `prefers-reduced-motion`:** the flag is never set, every
 decorative move is guarded off, the CSS reveals/settle/drift are off
 — but the **films play** (the operator's 2026-09-03 decision: films
-are content): the hero reel over the portrait with its own dissolves
-and holds, and the carousel. **If any script fails:** the flag
+are content): the hero film over the portrait (since 2026-09-17 one
+looping file; before that the reel with its dissolves and holds), and
+the carousel. **If any script fails:** the flag
 self-cancels and the page is the CSS-only home from commit `e119b87`.
 
 ### 6. Tier 2, the CSS moves (in `global.css`, independent of the engines)
@@ -235,8 +246,10 @@ paragraph). The table is kept as the map of where each rule lives.
 
 ## What is pending
 
-- **Amy's review** on the #179 preview, phone first: the reel in the
-  hero and its two-pass ending, the van band, the display sizes, the
+- **Amy's review** — now on the standing demo (#97), phone first: the
+  hero film and her sign-off on her own generated likeness in it
+  (2026-09-17; the reel and its two-pass ending are history), the van
+  band, the display sizes, the
   new lead and intro deck wording, and her pick among three headline
   candidates — keep "Medical Aesthetics, made personal." / "One
   clinician. Every appointment." / "Every appointment is with Amy."
@@ -280,8 +293,9 @@ Done at the merge: the home page's script exception and its budget row
 (CLAUDE.md's fourth sanctioned consumer; the Lighthouse home row's
 `$comment`), GSAP/Lenis as sanctioned self-hosted dependencies on the
 home URL only, the hero H1 exception (the global.css motion header),
-the films policy (standing via #180/#182/#183), the hero reel on the
-autoplay-film list. This file is kept as the home's working record
+the films policy (standing via #180/#182/#183), the hero film on the
+autoplay-film list (the reel until 2026-09-17, the living-portrait film
+since). This file is kept as the home's working record
 rather than folded into REDESIGN.md — the knobs and the verification
 are more useful as a map than as a settled row.
 

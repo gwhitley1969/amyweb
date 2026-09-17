@@ -9320,3 +9320,54 @@ asked.
 The standing demo (#97) is refreshed from phase-c after the merge, as
 always. The production film record, the render scripts, and the takes
 are documented in `C:\Amy\hero-film\README.md` (outside the repo).
+
+## 2026-09-17 — Addendum: the hero film's opening is rebuilt so the still becomes movement without a hop (founder request)
+
+**Context.** A founder on the film's first seconds — Amy on the
+counter, the still turning into movement: it "jitters too much", smoother
+if possible. Measured on the shipped file: the opening was the
+photograph zoomed 1.00→1.043 in 0.75s, then a 0.3s crossfade into the
+generated shot, whose first frame was assumed to be the photograph's top
+3:4 crop scaled to cover. A background-only fit (the subject masked
+out) puts that frame at scale 1.027, x −30, y −5 — about 15–20px from
+the assumption. A block tracker on the door edge shows the hop: shifts
+of (−4,9), (−6,0), (−3,0), (−6,6), (0,−3) across frames 11–18, exactly
+the crossfade. The generated shot also carried its own push-in, so the
+error could not be fitted once and held.
+
+**Decision.** The shot is regenerated (Higgsfield, Seedance 2.5, same
+published portrait) with three changes: the start image is the film
+canvas itself, mirror-padded 24px a side to the model's 3:4 so nothing
+is cropped or stretched; the prompt locks the camera for the whole shot
+and holds Amy still for the first second; and the take is fitted to the
+photograph once (scale 1.018, x −11, y −25 — the same at the first,
+middle, and last frame, so the camera really is locked) and resampled
+onto the photograph's coordinates, its thin uncovered border filled from
+the photograph under a 14px feather. The opening is then a single
+continuous move: the photograph holds 0.5s, the take crossfades in over
+0.7s already registered, and one smootherstep push (1.00→1.05, from
+rest) runs across the whole 4.3s. The tracker on the new opening shows
+no shift larger than the hair's own movement. The film is
+`hero-living-portrait-v2.mp4` (media origin; 3,521,454 B; SHA-256
+495ccdc5b952c896567db2a45c3c6bde16bf15d39689addfdcc44b0b888680f3;
+1080×1502, 24fps, 11.90s, no audio); frame 0 is still the photograph.
+The rest of the cut is unchanged. Of the two takes bought, the first
+opened with Amy's head turned the other way from the photograph —
+rejected.
+
+**Screen.** The used range (0–3.8s of the take): neon lettering,
+embroidery, and syringes hold; the front of her face is again the
+model's (her sign-off, as before); the faint earring reappears in the
+last frames despite the prompt — accepted, noted.
+
+**Alternatives rejected.** Slowing the pre-zoom and lengthening the
+crossfade on the old take (its own push-in keeps the fit moving, so a
+double image remains). Frame interpolation to a higher frame rate (the
+hop was a registration error, not a frame-rate one). Shrinking the
+take without a border fill (black edges).
+
+**Consequences.** A new filename, per the publishing rule;
+`hero-living-portrait.mp4` stays on the origin, unreferenced. The
+opening is 0.65s longer (the film 11.25 → 11.90s). Credits: 108 more
+(335 of 3,010 used). `register.cjs`, `render-open.cjs`, and
+`track2.cjs` join the working folder; its README carries the recipe.

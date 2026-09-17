@@ -57,7 +57,7 @@ merged here; the hero reel takes the same policy.
 | `4586aac` | 2026-09-04 | **concept: the portrait opens the page** — `data-first="5"` (tweak 5, second part) |
 | `6de13ab` | 2026-09-04 | **docs: the concept is adopted** — the lifts become standing decisions (CLAUDE.md, lighthouserc, global.css, BUILD_SPEC, this file) |
 | `17132bf` | 2026-09-04 | **Merge pull request #179 into `phase-c`** — the operator's "go ahead and merge #179 and refresh the previews" |
-| `dcd223a` | 2026-09-17 | **feat(home): the hero film is remade as a living-portrait film** — PR #190 (`feat/hero-living-portrait`); the three reel passages retire, `hero-living-portrait.mp4` loops natively; AI-assisted, disclosed (DECISIONS 2026-09-17) |
+| `dcd223a` | 2026-09-17 | **feat(home): the hero film is remade as a living-portrait film** — PR #190 (`feat/hero-living-portrait`); the three reel passages retire, `hero-living-portrait-v2.mp4` loops natively; AI-assisted, disclosed (DECISIONS 2026-09-17) |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,
@@ -77,7 +77,7 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   Palacios, FNP, in medical aesthetics since 2017."* Below 900px the
   hero is the phase-c stack.
 - **The film since 2026-09-17.** The reel described in the next item
-  is history: the hero now plays `hero-living-portrait.mp4`, one
+  is history: the hero now plays `hero-living-portrait-v2.mp4`, one
   purpose-made 11s film (24fps, native loop, 3.6MB) that opens and ends
   on the portrait and needs no ranges, joins, or rest — AI-assisted and
   disclosed (DECISIONS 2026-09-17). `data-first` 5 and the 1.6s fade-in

@@ -44,6 +44,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
   0.2s dissolve just before she moves. The shot is a second shorter. The
   file is `hero-living-portrait-v3.mp4` (11.0s, 3.4MB). DECISIONS
   2026-09-17, the head-turn addendum.
+- One more pass on the opening, on the operator's and a founder's
+  word: Amy's eyes moved to the camera before her head did. In the take
+  she blinks early and reopens her eyes on the camera, then holds a
+  one-second side-eye before turning. Her eyes now keep the photograph's
+  gaze until the head starts, and the change happens inside the blink
+  she already makes as she turns — a composite of the take's own earlier
+  frames, nothing newly generated, and every frame after the blink is
+  unchanged. The file is `hero-living-portrait-v4.mp4`. DECISIONS
+  2026-09-17, the eyes addendum.
 - PR #190 into phase-c, open. The review preview (#149) carries the
   film ahead of the merge, at the operator's word — the feature branch
   merged into `review/page-numbers`; the standing demo (#97) follows

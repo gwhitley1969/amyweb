@@ -6,8 +6,68 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-17 — The home hero film is remade (a living-portrait film, AI-assisted)
+
+- The operator found the hero's moving media "too choppy". Measured:
+  2.6 seconds of footage across three passages, 15 frames a second at
+  the 0.5× rate, a frozen frame at every seek, and a film that never
+  lined up with the portrait under it.
+- One purpose-made 11-second film replaces the passages
+  (`hero-living-portrait.mp4`, 24fps, plays straight through and loops;
+  3.6MB against 8.3MB). It opens and ends on the hero portrait and cuts
+  through four more of Amy's published portraits with camera moves. Two
+  shots are AI performances generated from her own photos (she turns
+  and smiles; she pushes off the wall and runs a hand through her hair)
+  and one short pink light insert is generated outright — AI-assisted
+  and disclosed; Amy's sign-off on her generated likeness gates
+  production. A first, pixel-locked version was built and declined as
+  boring.
+- Standing rules for any AI video on the site are recorded: published,
+  Amy-only photos in; never a generated treatment, client, product,
+  text, or result; every take screened frame by frame.
+- Same day, on a founder's word that the opening "jitters" where the
+  still turns into movement: measured, the AI shot began about 20px off
+  the photograph and the film hid that under a fast 0.75s zoom and a
+  0.3s crossfade, so the background hopped for a third of a second. The
+  shot was regenerated with a locked camera at the film's own framing,
+  fitted to the photograph once, and the opening is now one continuous
+  eased push — still, then movement, no offset. The file is
+  `hero-living-portrait-v2.mp4` (11.9s, 3.5MB). DECISIONS 2026-09-17,
+  the opening addendum.
+- Later the same day, a founder found Amy's head turn in the opening
+  unsettling. Measured: the turn ran 2.4 seconds at one constant speed
+  (a real one takes about half a second), only her head moved, and her
+  real face dissolved into the generated one for 0.7s while nothing else
+  moved. The shot was regenerated for real-time motion — her eyes lead,
+  a blink, a half-second turn, then a laugh — the blank stare before the
+  laugh was compressed, and the handoff from the photograph is now a
+  0.2s dissolve just before she moves. The shot is a second shorter. The
+  file is `hero-living-portrait-v3.mp4` (11.0s, 3.4MB). DECISIONS
+  2026-09-17, the head-turn addendum.
+- One more pass on the opening, on the operator's and a founder's
+  word: Amy's eyes moved to the camera before her head did. In the take
+  she blinks early and reopens her eyes on the camera, then holds a
+  one-second side-eye before turning. Her eyes now keep the photograph's
+  gaze until the head starts, and the change happens inside the blink
+  she already makes as she turns — a composite of the take's own earlier
+  frames, nothing newly generated, and every frame after the blink is
+  unchanged. The file is `hero-living-portrait-v4.mp4`. DECISIONS
+  2026-09-17, the eyes addendum.
+- Merged into phase-c the same day (PR #190, on the operator's "merge
+  it", everyone happy with the fourth cut); the standing demo (#97) and
+  the review preview (#149) refreshed. #149 had carried the film ahead
+  of the merge at the operator's word.
+- How it was made (tools, scripts, the takes, the screen) is written up
+  in `C:\Amy\hero-film\README.md`, outside the repo.
+- DECISIONS 2026-09-17; RUNBOOK "The home page's motion layer and the
+  hero film"; HOME-CONCEPT; BUILD_SPEC §6; CLAUDE.md's fourth-consumer
+  paragraph.
+
 ### 2026-09-16 — The app icon joins the footer's coming-soon box
 
+- Merged into phase-c the same day (PR #189, on the operator's word after
+  the preview); the standing demo (#97) and the review preview (#149)
+  refreshed.
 - Co-founder request: the Needle Girlie app's icon (the framed iOS
   artwork from the icon package, committed to the repo byte-identical)
   now sits 128px wide just above "The Needle Girlie app is coming" in

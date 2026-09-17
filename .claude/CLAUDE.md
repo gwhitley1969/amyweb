@@ -431,11 +431,12 @@ silently following it. Known superseded points from earlier briefs:
   and the page is the CSS-only home. It carries the one authorized
   exception to the motion header's "never on the hero, page H1s, or the
   lockup" rule (the home headline's word rise and the wordmark's
-  switch-on; the LCP portrait paints unchanged), and the hero reel —
-  the carousel's muted studio rendition trimmed to its screened
-  passages, looping with a portrait beat, autoplaying under reduced
-  motion by the films policy. Widening any of this to another page
-  requires the human operator.
+  switch-on; the LCP portrait paints unchanged), and the hero film —
+  since 2026-09-17 the purpose-made living-portrait film (AI-assisted,
+  disclosed — DECISIONS same date; it replaced the studio reel's three
+  screened passages and their portrait beat), opening and ending on
+  the portrait, autoplaying under reduced motion by the films policy.
+  Widening any of this to another page requires the human operator.
   The 30KB budget stands for every page but the home URL.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.

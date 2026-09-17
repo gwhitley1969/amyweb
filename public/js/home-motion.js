@@ -14,11 +14,11 @@
  *  1. Load — the wordmark's neon flickers on; the headline rises word
  *     by word (blur → sharp); "made personal." switches on like a tube;
  *     lead, CTAs, chips, and the chevron cue follow.
- *  2. Hero film — Amy's own studio reel (the carousel's muted rendition,
- *     0.5× — the recorded tempo) is attached a beat after `load`, poster
- *     first, and fades in; then runs continuously — a freeze-frame
- *     dissolve joining the three screened passages (tweak 4,
- *     2026-09-04). Pauses off-screen.
+ *  2. Hero film — attached a beat after `load`, poster first, and fades
+ *     in. Since 2026-09-17 it is one purpose-made looping file (no
+ *     data-ranges, the native loop); the ranges path below — freeze-frame
+ *     dissolves joining screened passages (tweak 4, 2026-09-04) — stays
+ *     for a film that needs trimming. Pauses off-screen.
  *  3. Leaving the hero — the copy lifts away and the film swells (scrub).
  *  4. Every section opener rises word by word as it enters.
  *  5. Decks settle in; the three doors are dealt one after another.

@@ -280,7 +280,7 @@ Master files stay in the operator's archive (C:\Amy\Videos,
 C:\Amy\New Pics) — renditions are re-derivable; the Blob copy is
 serving infrastructure, not the archive.
 
-## The home page's motion layer and the hero reel
+## The home page's motion layer and the hero film
 
 Adopted 2026-09-04 (DECISIONS 2026-09-03, the home entry and its
 tweaks; `docs/HOME-CONCEPT.md` is the working record). The home page —
@@ -299,39 +299,54 @@ reel still plays (the films policy). The Lighthouse matrix's home row
 carries an 80KB script budget for the layer (measured ~69KB gzipped);
 every other page keeps 30KB.
 
-**The hero reel** is a film facade: the portrait `<Image>` ships and
-paints; the script attaches the carousel's muted studio rendition
-(`commercial-studio.mp4`, the media origin) over it. Every setting is a
-data attribute on the `.nc-hero__media` element in
-`src/components/ConceptHome.astro`:
+**The hero film** is a film facade: the portrait `<Image>` ships and
+paints; the script attaches `hero-living-portrait-v4.mp4` (the media
+origin) over it and fades it in. Since 2026-09-17 (DECISIONS same date)
+it is one purpose-made 11s file played at 1× with the native loop — it
+opens and ends on the portrait itself, so there is nothing to trim or
+join. The settings are data attributes on the `.nc-hero__media`
+element in `src/components/ConceptHome.astro`:
 
 | Knob | Today | Meaning |
 |---|---|---|
-| `data-first` | `5` | seconds the portrait holds the hero alone after load before the reel fades in |
-| `data-ranges` | `10.4-11.72,2.5-3.15,6.15-6.78` | the screened passages, seconds of the master, played in order |
-| `data-rate` | `0.5` | the reel's pace (0.5 is the browsers' floor) |
-| `data-xfade` | `0.8` | the freeze-frame dissolve at each join, seconds (a cut under reduced motion) |
-| `data-still` | `5` | seconds the film rests on the portrait at the end of every pass (`0` = passes run straight on) |
-| `data-plays` | `0` | passes before the film ends on the portrait for good (`0` = forever) |
+| `data-first` | `5` | seconds the portrait holds the hero alone after load before the film fades in (also what keeps the film out of the Lighthouse trace) |
+| `data-rate` | `1` | playback rate |
+| `data-ranges` and its companions `data-xfade`, `data-still`, `data-plays` | absent | the 2026-09-04 trim machinery — windows of a longer film joined by freeze-frame dissolves, with a rest on the portrait. Still in `home-motion.js`, unused; setting `data-ranges` brings it back |
 
-**Swapping or re-trimming the reel:** the hero's cover crop shows far
-more of a frame than the carousel's bounded stage, so screen at hero
-size — a contact sheet of the whole film (`ffmpeg -i in.mp4 -vf
-"fps=2,scale=200:-1,tile=8x4" -frames:v 1 sheet.png`) plus full-frame
-zooms of anything legible — and write the DECISIONS entry BEFORE the
-change. The studio reel's arrivals at the door are OUT (the wall print
-behind them names the competitor neuromodulator), as are its counter
-shots (retired packaging) and the car selfie; that is why the three
-passages exist. Confirm each window's end on a 10fps edge strip
-(`-ss <end-0.3> -t 0.6 -vf "fps=10,…"`): the second window's end was
-3.25 until such a strip showed the next shot's first frame inside it.
-Playback never shows a frame outside a window (the join freezes the
-last in-window frame onto a canvas before seeking), so a wrong end is a
-missing frame, not a leaked one — but keep the windows honest anyway.
-Verify a change with the built page: sample the film's opacity,
-`paused`, and `currentTime` every 50ms for a cycle (HOME-CONCEPT
-"How it was verified"); expect 0 frames outside a window, no visibly
-paused frame, and one fetch of the reel.
+**Remaking the hero film.** Working files and the render scripts are in
+`C:\Amy\hero-film\` (outside the repo): `render-move.cjs` turns a
+still into a moving clip (flat, or two-layer with a cutout matte),
+`assemble.cjs` cuts the clips together (xfade `fade` is the
+crossfade — `dissolve` is a speckle effect), ffmpeg is a winget
+install. House rules, all from DECISIONS 2026-09-17: the canvas is
+1080×1502, the portrait's own aspect, and the film's first and last
+frames are the hero portrait at 1.00 so the handoff registers;
+generative inputs are only published, Amy-only stills; nothing
+generated shows a treatment, a client, a product, or text; every
+generated take is screened at hero size (contact sheet
+`ffmpeg -i in.mp4 -vf "fps=4,scale=270:-1,tile=12x4" -frames:v 1
+sheet.png` plus zooms of every face and every region with lettering)
+and cut where the face drifts, skin is smoothed or aged, an instrument
+warps, or lettering changes; the DECISIONS entry is written BEFORE the
+site change; publish under a NEW filename ("Publishing a film").
+Prompting people (the 2026-09-17 head-turn addendum): never ask a
+video model for "slow", "smooth", or "still" human motion — it returns
+a constant-speed, head-only, animatronic move. Ask for real-time speed
+and a reason to move (someone says her name), eyes first, a blink, the
+body following; lock the CAMERA, not the person. Do not write "her
+eyes move first" either — the model stretched that into a one-second
+side-eye before the head moved; ask for eyes and head together with a
+blink on the turn, and if a take you like still has it, `eye-patch.cjs`
+carries the earlier gaze forward and lets go inside the blink. Then measure the take
+(`motion-profile.cjs`: a head turn is ~0.35–0.7s with a peaked speed
+profile) and fix timing in post if needed (`retime.cjs` — skipped
+frames are averaged, which is real shutter blur). Keep the dissolve from
+photograph to take short (~0.2s) and just before she moves: the model
+re-renders the face, so a slow dissolve is a face morph.
+Verify on the running page: count `requestVideoFrameCallback`
+presentations for a loop and sample `paused` every 50ms — expect the
+film's frame rate, 0 paused samples, no frame gap over ~100ms at the
+loop point, and one fetch of the file.
 
 ## Turning on analytics (Plausible — prepped 2026-08-17, ships dark)
 

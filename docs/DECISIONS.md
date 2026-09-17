@@ -9488,3 +9488,20 @@ frame as the patch (no micro-movement).
 nothing newly generated, no credits. A new filename again; v1–v3 stay on
 the origin, unreferenced. The prompting note in RUNBOOK gains the
 "eyes first" lesson.
+
+## 2026-09-17 — Addendum: Higgsfield commercial use confirmed (operator)
+
+**Context.** The hero-film entry left one item for the operator: whether
+the Higgsfield plan allows commercial use of what it generates.
+
+**Decision.** Confirmed by the operator, 2026-09-17: "Higgsfield Ultra
+plan covers commercial work." The operator's confirmation is the record,
+as with the releases; the film ships under it.
+
+**Alternatives rejected.** None — a fact, not a choice.
+
+**Consequences.** The open item closes. What still gates production for
+the hero film is Amy's sign-off on her generated likeness
+(CLINICIAN-SIGN-OFF, the pending-demo row). If the plan is ever
+downgraded or the account changes hands, re-check the terms before
+generating anything new for the site.

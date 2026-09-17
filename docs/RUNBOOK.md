@@ -300,7 +300,7 @@ carries an 80KB script budget for the layer (measured ~69KB gzipped);
 every other page keeps 30KB.
 
 **The hero film** is a film facade: the portrait `<Image>` ships and
-paints; the script attaches `hero-living-portrait-v3.mp4` (the media
+paints; the script attaches `hero-living-portrait-v4.mp4` (the media
 origin) over it and fades it in. Since 2026-09-17 (DECISIONS same date)
 it is one purpose-made 11s file played at 1× with the native loop — it
 opens and ends on the portrait itself, so there is nothing to trim or
@@ -333,7 +333,11 @@ Prompting people (the 2026-09-17 head-turn addendum): never ask a
 video model for "slow", "smooth", or "still" human motion — it returns
 a constant-speed, head-only, animatronic move. Ask for real-time speed
 and a reason to move (someone says her name), eyes first, a blink, the
-body following; lock the CAMERA, not the person. Then measure the take
+body following; lock the CAMERA, not the person. Do not write "her
+eyes move first" either — the model stretched that into a one-second
+side-eye before the head moved; ask for eyes and head together with a
+blink on the turn, and if a take you like still has it, `eye-patch.cjs`
+carries the earlier gaze forward and lets go inside the blink. Then measure the take
 (`motion-profile.cjs`: a head turn is ~0.35–0.7s with a peaked speed
 profile) and fix timing in post if needed (`retime.cjs` — skipped
 frames are averaged, which is real shutter blur). Keep the dissolve from

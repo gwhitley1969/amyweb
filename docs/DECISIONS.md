@@ -9436,3 +9436,55 @@ anyone, the clean answer is a three-second phone clip of Amy doing it.
 unreferenced. The film is 11.00s (was 11.90s). Credits: 216 this round
 (551 of 3,010 used, 2,459 left). The prompting lesson is in RUNBOOK
 ("Remaking the hero film") and the working folder's README.
+
+## 2026-09-17 — Addendum: in the hero film's opening, Amy's eyes and head now move together (operator and founder request)
+
+**Context.** The operator and a founder like the v3 opening; one change:
+"her eyes move to the right before her head does … can we get them to
+move at the same time, so it doesn't look so weird?" In the take (24fps):
+frames 1–28 her eyes look off to the side, the photograph's gaze; 29–32
+she blinks and reopens her eyes ON the camera; 33–58 is a full second of
+side-eye, head still turned away; the head starts at 57–59; a second
+blink runs 60–62; from 63 she faces the camera. The film uses the take
+from frame 39, so every take frame it showed before the turn was a
+side-eye frame: the photograph (eyes away) dissolved at 0.62–0.82s into
+eyes already on the camera, and the head started at 0.79s. The cause was
+my prompt — "her eyes move first".
+
+**Decision.** The approved take stays; only the eyes are patched
+(`eye-patch.cjs`, the working folder). For take frames 39–60 the eye
+region comes from the same take 30 frames earlier (gaze away, with its
+natural micro-movement): two feathered ellipses, the near eye and lids
+(centre 603,270, radii 25×15, 6px feather) and the visible sliver of the
+far eye (650,289, 13×11, 4px), placed per frame by a block match of the
+face with the eyes masked out (offsets 0 to −1px through frame 58,
+−2,−1 at 59, −4,−2 at 60; residual 0.8–2.5 levels). The lag lines the
+take's first blink (29–30) up with its second (59–60), so the patch is
+held at full strength through 59, half at 60, and gone at 61 — it lets
+go inside closed lids. On screen: eyes away, the head starts and she
+blinks, the eyes open on the camera. The rest of the pipeline is
+unchanged (same trim, retime, fit, dissolve, push). Film:
+`hero-living-portrait-v4.mp4` (media origin; 3,355,746 B; SHA-256
+34562b50a2975d1345ab275ee93d6bc7d8b38af0ec2025066d095b7aabb7ce25;
+1080×1502, 24fps, 11.00s, no audio).
+
+**Checked.** A 2× eye strip of film frames 14–30, v3 against v4: v3's
+iris slides to the camera across frames 16–20; v4's holds the away gaze
+to the blink, and from the blink on the two rows match. Outside the
+masks the patched frames are the take's own pixels. v3 against v4, whole
+frame: mean difference 1.0–1.3 at frames 10, 20, 40, 60 — encode noise,
+nothing else moved. Frame 0 against the photograph 1.58, as before. The
+fit across the dissolve is still only the push (scale 1.003, −2, −1).
+
+**Alternatives rejected.** A new generation with the prompt corrected
+(it would replace a performance the founders approved to fix twenty
+frames of eyes — kept as the fallback, not needed). Cutting the
+side-eye frames out (the head drifts a few pixels across them, so the
+cut pops). Holding the photograph until the head starts and dissolving
+during the turn (a double image of a moving head). A single frozen eye
+frame as the patch (no micro-movement).
+
+**Consequences.** This is a composite of frames the model already made —
+nothing newly generated, no credits. A new filename again; v1–v3 stay on
+the origin, unreferenced. The prompting note in RUNBOOK gains the
+"eyes first" lesson.

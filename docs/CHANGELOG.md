@@ -53,10 +53,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   frames, nothing newly generated, and every frame after the blink is
   unchanged. The file is `hero-living-portrait-v4.mp4`. DECISIONS
   2026-09-17, the eyes addendum.
-- PR #190 into phase-c, open. The review preview (#149) carries the
-  film ahead of the merge, at the operator's word — the feature branch
-  merged into `review/page-numbers`; the standing demo (#97) follows
-  the merge.
+- Merged into phase-c the same day (PR #190, on the operator's "merge
+  it", everyone happy with the fourth cut); the standing demo (#97) and
+  the review preview (#149) refreshed. #149 had carried the film ahead
+  of the merge at the operator's word.
 - How it was made (tools, scripts, the takes, the screen) is written up
   in `C:\Amy\hero-film\README.md`, outside the repo.
 - DECISIONS 2026-09-17; RUNBOOK "The home page's motion layer and the

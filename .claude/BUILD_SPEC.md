@@ -214,7 +214,7 @@ rows of plates, and a 1.03 hover scale on arched photos inside whole-card links,
 none of which pulse; the carousel's slide settle was withdrawn 2026-09-04 with
 the band's concept composition; DECISIONS 2026-09-03). Since 2026-09-04 the HOME
 page also carries a scripted layer — self-hosted GSAP + Lenis, the neon switch-on,
-the word-by-word headline and openers, the hero reel's dissolves, the scrubbed hero
+the word-by-word headline and openers, the hero film's fade-in (since 2026-09-17 one looping file — no scripted dissolves), the scrubbed hero
 exit, the dealt doors, the arch reveals, the band parallax, the cursor light — the
 one scripted exception to the closed CSS vocabulary (the global.css motion header;
 CLAUDE.md's fourth consumer; DECISIONS 2026-09-03, the home entry's adoption

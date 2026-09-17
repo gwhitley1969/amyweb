@@ -57,6 +57,7 @@ merged here; the hero reel takes the same policy.
 | `4586aac` | 2026-09-04 | **concept: the portrait opens the page** — `data-first="5"` (tweak 5, second part) |
 | `6de13ab` | 2026-09-04 | **docs: the concept is adopted** — the lifts become standing decisions (CLAUDE.md, lighthouserc, global.css, BUILD_SPEC, this file) |
 | `17132bf` | 2026-09-04 | **Merge pull request #179 into `phase-c`** — the operator's "go ahead and merge #179 and refresh the previews" |
+| `dcd223a` | 2026-09-17 | **feat(home): the hero film is remade as a living-portrait film** — PR #190 (`feat/hero-living-portrait`); the three reel passages retire, `hero-living-portrait-v4.mp4` loops natively; AI-assisted, disclosed (DECISIONS 2026-09-17) |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,
@@ -75,7 +76,13 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   lead is one sentence: *"One clinician, every appointment. Amy
   Palacios, FNP, in medical aesthetics since 2017."* Below 900px the
   hero is the phase-c stack.
-- **The reel.** A film facade: the portrait `<Image>` is what ships
+- **The film since 2026-09-17.** The reel described in the next item
+  is history: the hero now plays `hero-living-portrait-v4.mp4`, one
+  purpose-made 11s film (24fps, native loop, 3.6MB) that opens and ends
+  on the portrait and needs no ranges, joins, or rest — AI-assisted and
+  disclosed (DECISIONS 2026-09-17). `data-first` 5 and the 1.6s fade-in
+  are all that remain of the knobs below.
+- **The reel (2026-09-03 to 2026-09-17).** A film facade: the portrait `<Image>` is what ships
   and paints (it is the LCP element); 2.5s after `load`, `home-motion`
   attaches Amy's studio reel — the carousel's muted rendition at the
   recorded 0.5× — and fades it in over the portrait. `data-ranges`
@@ -213,15 +220,15 @@ paragraph). The table is kept as the map of where each rule lives.
 
 | Knob | Where | Now | Effect |
 |---|---|---|---|
-| `data-rate` | hero media, `ConceptHome.astro` | `0.5` | reel tempo (0.5 is the engines' floor) |
-| `data-ranges` | same | `10.4-11.72,2.5-3.15,6.15-6.78` | the three passages, seconds of the master (the second end corrected 2026-09-04) |
+| `data-rate` | hero media, `ConceptHome.astro` | `1` since 2026-09-17 (`0.5` for the reel) | film tempo (0.5 is the engines' floor) |
+| `data-ranges` | same | absent since 2026-09-17 (the living-portrait film needs no trim; with it go `data-xfade`, `data-still`, `data-plays`) — was `10.4-11.72,2.5-3.15,6.15-6.78` | the three passages, seconds of the master (the second end corrected 2026-09-04) |
 | `data-xfade` | same | `0.8` | the dissolve at each join, seconds (a cut under reduced motion) — 2026-09-04 |
 | `data-still` | same | `5` | seconds the film rests on the portrait at the end of every pass (`0` = passes run straight on) — 2026-09-04 |
 | `data-first` | same | `5` | seconds the portrait opens the page alone before the reel first fades in (2.5 before 2026-09-04) |
 | `data-plays` | same | `0` | passes before the film ends on the portrait for good (`0` = loop forever — the default since 2026-09-04) |
 | ~~`data-hold`~~ | — | retired 2026-09-04 | the 3.5s rest on each passage's last frame WAS the stall the operator saw; a leftover value is ignored |
-| attach delay | `home-motion.js` | 2,500 ms after `load` | keeps the reel out of the Lighthouse trace |
-| dissolves | `home-motion.js` | 0.6s out / 1.1s in; final 1.8s out | joins between passages; the ending |
+| attach delay | `data-first` (default 2.5 in `home-motion.js`) | 5 s after `load` | keeps the film out of the Lighthouse trace |
+| dissolves | `home-motion.js` | 1.6s fade-in; with ranges set: 0.8s joins, 1.2s out / 1.6s in round the rest | the film's arrival; the trim machinery's joins |
 | Lenis `lerp` | `home-motion.js` | `0.09` | scroll weight (higher = snappier) |
 | hero settle | `global.css` / `home-motion.js` | 14s / 2.4s | the still's one-shot scale |
 | slide order | `VideoCarousel.astro` slides array | J1 → studio → J2 → team | the band |

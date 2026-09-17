@@ -9205,3 +9205,286 @@ box keeps its left-aligned copy. A flex/grid wrapper — a margin does it.
 **Consequences.** The icon is the one centred element in the footer, by
 the operator's choice; BRAND-ASSETS' consumer row and REDESIGN's row say
 "centred".
+
+## 2026-09-17 — The home hero film is remade: one living-portrait film replaces the three reel passages (AI-assisted, disclosed; operator decision after the compliance flag)
+
+**Context.** The operator on the home hero's moving media: "too choppy
+… a little too amateuristic", asking for a cinematic treatment and
+making Higgsfield (the operator's own account) available. Measured, not
+opinion: (1) the three screened passages are 1.32 / 0.65 / 0.63s of
+source — 2.6s of footage in all, and the 2026-09-04 screen rules out
+the rest of the reel, so no re-trim can lengthen it; (2) the rendition
+is 30fps and plays at 0.5×, so the hero showed 15 frames a second (the
+2026-08-15 entry calls the master 60fps; its sample table is ~30fps —
+corrected here); (3) every join paused the player behind a frozen
+canvas while it seeked, and with 10 keyframes in the file the three
+seeks decode ~0.9 / 0.7 / 2.1s of video; (4) the portrait (0.719,
+`object-position 50% 20%`, the `.nc-photo` filter) and the film
+(0.5625, `50% 30%`, no filter) never registered, so each dissolve
+shifted framing and tone.
+
+**Decision.** `hero-living-portrait.mp4` (media origin; 3,555,553 B;
+SHA-256 40867d3ede754e207faa64d4043d3d7bb97f0cc46908c1bc8444091545c5f2cd;
+1080×1502 — the portrait's own aspect; 24fps; 11.25s; no audio)
+replaces the passages. Played at 1× with the native `loop`:
+`data-ranges`, `data-plays`, `data-xfade`, `data-still` are removed
+from the hero element, `data-rate` is 1, `data-first` stays 5 (it keeps
+the film out of the Lighthouse trace). `home-motion.js` is unchanged in
+behaviour — with no ranges it already takes the native-loop path and
+skips the canvas, the joins, and the three clocks; the ranges machinery
+stays, unused. `.nc-hero__film` takes the portrait's `object-position`
+and the `.nc-photo` filter. The film opens and ends on the hero
+portrait itself (frame 0 is the photograph), so the fade from still to
+film registers.
+The cut: the portrait → Amy turns to the camera and smiles (generated)
+→ the black-scrubs portrait, fast push → the neon-sign portrait, a
+two-layer slide → a short abstract pink light insert (generated) → the
+lavender-suit portrait, she pushes off the wall and runs a hand through
+her hair (generated) → the stool portrait → a crossfade back to the
+hero portrait. Every source still is already published on this site
+and shows Amy alone.
+*How it got here (same day).* The first plan kept Amy pixel-locked (her
+pixels the photograph's, the AI moving only light and background). The
+one take bought for it put no motion in the wall at all, so the proof
+was built with light animated in code and a two-layer camera push:
+30fps, 0 paused samples, frame 0 identical to the still. The
+operator's verdict: "Honestly, it's boring." Offered three directions
+with the likeness risk restated, the operator chose the fast cut with
+AI "living moments", lifting the pixel-lock for those shots only, and
+on seeing it: "That looks great!!!"
+
+**Generative rules (standing policy for any AI video on this site).**
+Inputs are only stills already published here, Amy alone — no clients,
+no other providers, no archive-only photos leave for a third-party
+service (uploaded this round: the hero portrait, the lavender-suit
+portrait, and the neon-sign portrait for its cutout matte). Never
+generated: a treatment, an injection, a client, a product, packaging,
+text, a result. Every generated take is screened frame by frame at hero
+size; a take is cut or rejected where the face drifts, skin is smoothed
+or aged, an instrument warps, or lettering changes. Disclosure follows
+the 2026-08-14 portrait precedent: recorded here, in the component
+comment, and in the VTT note; Amy is told, and her preview sign-off on
+her own likeness is the informed control.
+
+**Screen (this film).** Used ranges only: the hero take 0–3.2s, the
+lavender take 1.2–4.4s. The lavender take's last seconds push into a
+close-up where the model drew heavy lines round the eyes — cut before
+it, and never to be used. In the hero take the neon lettering, the
+embroidery, and the syringes hold; an earring appears that the photo
+does not show (accepted, noted). The front of Amy's face in that take
+is the model's — the photograph shows her in three-quarter profile —
+which is exactly what her sign-off is for. Two stills are 1067px wide
+against the 1080 canvas (1.2% under the no-upscale line, inside a
+moving camera that scales every frame anyway) — recorded, accepted.
+The xfade filter's `dissolve` is a speckle transition, not a crossfade;
+the shipped file uses `fade`.
+
+**Alternatives rejected.** Polish the three passages (they stay 1–2s at
+15fps). A hybrid keeping the longest real clip (it would read rougher
+than everything round it). AI-extending the real treatment clips (it
+would fabricate a treatment on a real client). The pixel-locked
+cinemagraph (built, shown, declined as boring). Every shot as an AI
+performance (more likeness risk than the cut needs).
+
+**Consequences.** The hero fetch falls 8.3MB → 3.6MB; one fetch, no
+seeks. Measured on the running page at 1280 and 390: 24 presented
+frames a second, 0 paused samples, largest frame gap 50ms across the
+loop point. `commercial-studio.mp4` stays for the carousel. The reel's
+"portrait beat" is now inside the film (it opens and closes on the
+portrait). Amy's reaction is pending on the preview; her sign-off gates
+production like every other likeness decision. Working files and the
+render scripts live in `C:\Amy\hero-film\` (outside the repo).
+Higgsfield credits used: 227 of the operator's 3,010. The operator is
+to confirm the plan's commercial-use terms.
+
+## 2026-09-17 — Addendum: the review preview carries the hero film ahead of the merge (operator direction)
+
+**Context.** PR #190 is open, waiting on Amy's look and the operator's
+merge word. The operator: "go ahead and refresh it for PR #149 as
+well."
+
+**Decision.** `origin/feat/hero-living-portrait` merged into
+`review/page-numbers` (merge `dc27c59`, clean), so the #149 review
+preview plays the new film now. Verified: CI green, three cache-busted
+probes show `hero-living-portrait.mp4` on the hero element, the VTT
+serves 200.
+
+**Alternatives rejected.** Merging #190 into phase-c first and
+refreshing from there (the usual route) — the merge word has not been
+given, and a preview branch is the right place for work still in
+review. Leaving #149 on the old reel until the merge — not what was
+asked.
+
+**Consequences.** #149 is ahead of phase-c by this one feature until
+#190 merges; the later phase-c refresh will be a no-op for these files.
+The standing demo (#97) is refreshed from phase-c after the merge, as
+always. The production film record, the render scripts, and the takes
+are documented in `C:\Amy\hero-film\README.md` (outside the repo).
+
+## 2026-09-17 — Addendum: the hero film's opening is rebuilt so the still becomes movement without a hop (founder request)
+
+**Context.** A founder on the film's first seconds — Amy on the
+counter, the still turning into movement: it "jitters too much", smoother
+if possible. Measured on the shipped file: the opening was the
+photograph zoomed 1.00→1.043 in 0.75s, then a 0.3s crossfade into the
+generated shot, whose first frame was assumed to be the photograph's top
+3:4 crop scaled to cover. A background-only fit (the subject masked
+out) puts that frame at scale 1.027, x −30, y −5 — about 15–20px from
+the assumption. A block tracker on the door edge shows the hop: shifts
+of (−4,9), (−6,0), (−3,0), (−6,6), (0,−3) across frames 11–18, exactly
+the crossfade. The generated shot also carried its own push-in, so the
+error could not be fitted once and held.
+
+**Decision.** The shot is regenerated (Higgsfield, Seedance 2.5, same
+published portrait) with three changes: the start image is the film
+canvas itself, mirror-padded 24px a side to the model's 3:4 so nothing
+is cropped or stretched; the prompt locks the camera for the whole shot
+and holds Amy still for the first second; and the take is fitted to the
+photograph once (scale 1.018, x −11, y −25 — the same at the first,
+middle, and last frame, so the camera really is locked) and resampled
+onto the photograph's coordinates, its thin uncovered border filled from
+the photograph under a 14px feather. The opening is then a single
+continuous move: the photograph holds 0.5s, the take crossfades in over
+0.7s already registered, and one smootherstep push (1.00→1.05, from
+rest) runs across the whole 4.3s. The tracker on the new opening shows
+no shift larger than the hair's own movement. The film is
+`hero-living-portrait-v2.mp4` (media origin; 3,521,454 B; SHA-256
+495ccdc5b952c896567db2a45c3c6bde16bf15d39689addfdcc44b0b888680f3;
+1080×1502, 24fps, 11.90s, no audio); frame 0 is still the photograph.
+The rest of the cut is unchanged. Of the two takes bought, the first
+opened with Amy's head turned the other way from the photograph —
+rejected.
+
+**Screen.** The used range (0–3.8s of the take): neon lettering,
+embroidery, and syringes hold; the front of her face is again the
+model's (her sign-off, as before); the faint earring reappears in the
+last frames despite the prompt — accepted, noted.
+
+**Alternatives rejected.** Slowing the pre-zoom and lengthening the
+crossfade on the old take (its own push-in keeps the fit moving, so a
+double image remains). Frame interpolation to a higher frame rate (the
+hop was a registration error, not a frame-rate one). Shrinking the
+take without a border fill (black edges).
+
+**Consequences.** A new filename, per the publishing rule;
+`hero-living-portrait.mp4` stays on the origin, unreferenced. The
+opening is 0.65s longer (the film 11.25 → 11.90s). Credits: 108 more
+(335 of 3,010 used). `register.cjs`, `render-open.cjs`, and
+`track2.cjs` join the working folder; its README carries the recipe.
+
+## 2026-09-17 — Addendum: the hero film's head turn is remade at human speed (founder request)
+
+**Context.** A founder on the opening shot, where Amy turns her head to
+the camera: make it natural, "not necessarily in slow-speed" — it
+unsettled them. Measured on the v2 take (`motion-profile.cjs`, head-box
+frame-to-frame energy): (1) the turn ran 2.42s as a flat plateau (peak ÷
+mean 1.58) where a real head turn is about half a second with a peaked
+speed; (2) the torso moved 19% as much as the head — a head rotating on
+a still body; (3) at the handoff the photograph's face and the take's
+first frame differ by 8–11 levels in the face box and the film
+crossfaded between them for 0.7s while nothing else moved — a slow face
+morph; (4) the take's codec (B-B-B-P) refreshes detail every 4th frame,
+so the face's texture pulsed 6 times a second (ratio 1.53; the static
+wall does not pulse). Causes 1 and 2 were my own prompt: "slowly and
+smoothly turns her head", "holds still", "hands steady".
+
+**Decision.** Four new takes (Higgsfield, Seedance 2.5, the same
+mirror-padded canvas start image, the camera locked as before), two
+prompts. P1, shipped: real-time speed, someone off-camera says her name,
+her eyes move first, the head turns in about half a second with a blink,
+shoulders follow, she laughs, her hands shift naturally with the
+syringes rigid. P2, the alternate: she keeps the photograph's
+three-quarter angle, laughs, glances, never faces the camera head-on.
+The chosen take (P1, first) turns in 0.46s with peak ÷ mean 4.6 as
+generated; its camera fit is identical at the first, middle, and last
+frame (scale 0.986, x +23, y −7). In post (`retime.cjs`): 1.6s of the
+take's motionless lead-in is dropped, and the 1.5s neutral look between
+the turn and the laugh is compressed to 0.5s with the skipped frames
+averaged (shutter blur) — so she turns and laughs, rather than turns
+and stares. The handoff (`render-open2.cjs`): a per-channel tone match
+to the photograph, and the dissolve cut from 0.7s to 0.2s and placed
+just before she moves. The tone match barely moved the face difference
+(8.05 → 7.62): the difference is the model's re-rendering of her face,
+not tone, so the short dissolve is what carries it. The shot is 3.4s
+(was 4.3s). Shipped film: `hero-living-portrait-v3.mp4` (media origin;
+3,354,390 B; SHA-256
+ce734dfca6701e69ca772cecd9913d86d7600a9c459cdd48539a13dcf92b8783;
+1080×1502, 24fps, 11.00s, no audio); frame 0 is still the photograph
+(mean diff 1.58 — grain and codec). Measured on the shipped encode: the
+turn 0.42s, peak ÷ mean 3.43, torso ÷ head in the turn 0.30, face pulse
+1.24 (from 1.53; my 1.15 target was not met — a temporal denoise did
+not move it, the re-encode and grain took it this far). A direct fit
+across the dissolve shows no background hop (scale 1.003, x −2, y −1 —
+the push itself).
+
+**Screen.** Used range: neon lettering, the syringes, and the jumpsuit
+embroidery hold; no earring this time; the laugh's lines are natural,
+no smoothing or ageing. The head-on face is still the model's — Amy's
+sign-off, as before. Rejected: P1's second take (a theatrical
+head-toss). Kept ready in `C:\Amy\hero-film\candidates\`: the P2
+stays-in-profile opening and the v2 take retimed (a zero-credit
+fallback that fixes the speed only).
+
+**Alternatives rejected.** Retiming the v2 take alone (fixes cause 1,
+leaves the still body and the morph). Frame interpolation (the problem
+was tempo and performance, not frame rate). Motion transfer from a
+driving video — the most natural result available, but it needs a
+real, cleared clip of the move; if a generated turn still bothers
+anyone, the clean answer is a three-second phone clip of Amy doing it.
+
+**Consequences.** A new filename again; v1 and v2 stay on the origin,
+unreferenced. The film is 11.00s (was 11.90s). Credits: 216 this round
+(551 of 3,010 used, 2,459 left). The prompting lesson is in RUNBOOK
+("Remaking the hero film") and the working folder's README.
+
+## 2026-09-17 — Addendum: in the hero film's opening, Amy's eyes and head now move together (operator and founder request)
+
+**Context.** The operator and a founder like the v3 opening; one change:
+"her eyes move to the right before her head does … can we get them to
+move at the same time, so it doesn't look so weird?" In the take (24fps):
+frames 1–28 her eyes look off to the side, the photograph's gaze; 29–32
+she blinks and reopens her eyes ON the camera; 33–58 is a full second of
+side-eye, head still turned away; the head starts at 57–59; a second
+blink runs 60–62; from 63 she faces the camera. The film uses the take
+from frame 39, so every take frame it showed before the turn was a
+side-eye frame: the photograph (eyes away) dissolved at 0.62–0.82s into
+eyes already on the camera, and the head started at 0.79s. The cause was
+my prompt — "her eyes move first".
+
+**Decision.** The approved take stays; only the eyes are patched
+(`eye-patch.cjs`, the working folder). For take frames 39–60 the eye
+region comes from the same take 30 frames earlier (gaze away, with its
+natural micro-movement): two feathered ellipses, the near eye and lids
+(centre 603,270, radii 25×15, 6px feather) and the visible sliver of the
+far eye (650,289, 13×11, 4px), placed per frame by a block match of the
+face with the eyes masked out (offsets 0 to −1px through frame 58,
+−2,−1 at 59, −4,−2 at 60; residual 0.8–2.5 levels). The lag lines the
+take's first blink (29–30) up with its second (59–60), so the patch is
+held at full strength through 59, half at 60, and gone at 61 — it lets
+go inside closed lids. On screen: eyes away, the head starts and she
+blinks, the eyes open on the camera. The rest of the pipeline is
+unchanged (same trim, retime, fit, dissolve, push). Film:
+`hero-living-portrait-v4.mp4` (media origin; 3,355,746 B; SHA-256
+34562b50a2975d1345ab275ee93d6bc7d8b38af0ec2025066d095b7aabb7ce25;
+1080×1502, 24fps, 11.00s, no audio).
+
+**Checked.** A 2× eye strip of film frames 14–30, v3 against v4: v3's
+iris slides to the camera across frames 16–20; v4's holds the away gaze
+to the blink, and from the blink on the two rows match. Outside the
+masks the patched frames are the take's own pixels. v3 against v4, whole
+frame: mean difference 1.0–1.3 at frames 10, 20, 40, 60 — encode noise,
+nothing else moved. Frame 0 against the photograph 1.58, as before. The
+fit across the dissolve is still only the push (scale 1.003, −2, −1).
+
+**Alternatives rejected.** A new generation with the prompt corrected
+(it would replace a performance the founders approved to fix twenty
+frames of eyes — kept as the fallback, not needed). Cutting the
+side-eye frames out (the head drifts a few pixels across them, so the
+cut pops). Holding the photograph until the head starts and dissolving
+during the turn (a double image of a moving head). A single frozen eye
+frame as the patch (no micro-movement).
+
+**Consequences.** This is a composite of frames the model already made —
+nothing newly generated, no credits. A new filename again; v1–v3 stay on
+the origin, unreferenced. The prompting note in RUNBOOK gains the
+"eyes first" lesson.

@@ -156,57 +156,37 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
       sitewide arch motif (operator, 2026-08-17): the hero is the
       full-bleed backdrop, not a framed picture. ---- */}
   <section class="nc-hero surface" data-surface="noir">
-    {/* HOME CONCEPT (2026-09-03): the media is a film facade — Amy's
-        portrait <Image> is what ships and paints (LCP unchanged);
-        home-motion.js attaches her studio reel (the carousel's muted
-        rendition at the recorded 0.5×, captions track from public/media)
-        a beat after `load`, fading it in over the portrait. data-ranges
-        TRIMS the reel to its three treatment passages (seconds of the
-        master, played in order and looped, dissolves at the joins): the
-        hero's cover crop would otherwise show the reel's car selfie, the
-        packaging-in-hand shots, and the table with promo flyers at a
-        size the carousel's bounded stage never did — a trim is an
-        editorial choice, recorded (DECISIONS 2026-09-03 addendum), not an
-        override. The burned-in "POV" caption is Amy's own published
-        wording and stays in frame. The film runs CONTINUOUSLY (fourth
-        tweak, 2026-09-04 — "it looks like it stops completely, then it
-        begins again … it can continuously play the film"): at a
-        passage's last frame the frame is painted onto a canvas above the
-        player, the player seeks to the next passage and plays beneath
-        it, and the canvas dissolves away over data-xfade (0.8s) — no
-        rest, no visible seek, no frame outside a window (two alternating
-        players did the same and downloaded the reel four times over).
-        data-still (fifth tweak, same day — "we hardly see the pic of Amy
-        sitting on the table top with the needles in each hand … she
-        wants people to see that pic, clearly during the film"): at the
-        end of every pass the reel dissolves away (1.2s) to the portrait
-        beneath it, rests there for data-still seconds, and dissolves
-        back in (1.6s) at the first passage — the still is part of the
-        loop, not its end. With data-plays set, the last pass ends on
-        the portrait and stays. data-first (same tweak): the portrait
-        opens the page alone for that many seconds after load before the
-        reel is attached and fades in (2.5 before). This retires the first tweak's data-hold (the
-        3.5s rest WAS the stall the operator saw) and the second tweak's
-        two-pass ending (data-plays 0 = forever; the portrait stays
-        underneath and is never returned to). The second window's end
-        moved 3.25 → 3.15 the same day: a 10fps edge strip showed the
-        car selfie's first frame inside it. Reduced motion: the film
-        still plays (operator decision 2026-09-03 — films are content,
-        the carousel policy) with the joins as cuts; only the
-        choreography stands down. Phones: a refused play() retries on
-        the first gesture. */}
+    {/* HOME CONCEPT (2026-09-03; the film remade 2026-09-17): the media
+        is a film facade — Amy's portrait <Image> is what ships and paints
+        (LCP unchanged); home-motion.js attaches the hero film data-first
+        seconds after `load` and fades it in over the portrait (1.6s).
+        THE FILM (DECISIONS 2026-09-17): hero-living-portrait.mp4 — one
+        purpose-made 11s file at 24fps, played at 1× with the native
+        loop; no ranges, no seeks, no joins in script. It opens and ends
+        on this very portrait (frame 0 is the photograph, same aspect,
+        same object-position, same filter — the handoff registers), and
+        cuts through four more of Amy's published stills with camera
+        moves. It replaces the three sub-2-second passages of the studio
+        reel (15fps at the 0.5× rate, a frozen frame at every seek — the
+        operator: "too choppy"). AI-ASSISTED, DISCLOSED: two shots are
+        Higgsfield (Seedance 2.5) performances generated FROM Amy's own
+        published photos — this portrait and the lavender-suit portrait —
+        and a short abstract light insert is generated outright; the
+        other shots are the photographs themselves under a digital
+        camera. Operator decision after the compliance flag; Amy's
+        preview sign-off on her own likeness is the informed control.
+        Nothing generated shows a treatment, a client, a product, or
+        text. Reduced motion: the film still plays (films policy,
+        2026-09-03); only the choreography stands down. Phones: a
+        refused play() retries on the first gesture. */}
     <div
       class="nc-hero__media"
       aria-hidden="true"
       data-hero-film
-      data-file={`${siteConfig.mediaBase}/commercial-studio.mp4`}
-      data-vtt="/media/commercial-studio.vtt"
-      data-label="A day inside Amy's Harrisburg studio"
-      data-rate="0.5"
-      data-ranges="10.4-11.72,2.5-3.15,6.15-6.78"
-      data-plays="0"
-      data-xfade="0.8"
-      data-still="5"
+      data-file={`${siteConfig.mediaBase}/hero-living-portrait.mp4`}
+      data-vtt="/media/hero-living-portrait.vtt"
+      data-label="Amy in her Harrisburg studio"
+      data-rate="1"
       data-first="5"
     >
       {/* INTERIM AI-ASSISTED ASSET (disclosed — DECISIONS 2026-08-14):
@@ -774,7 +754,8 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 30%;
+    object-position: 50% 20%;
+    filter: grayscale(10%) contrast(1.03) brightness(1.08);
   }
 
   /* The scroll cue: four chevrons pointing down, pulsing in sequence. */

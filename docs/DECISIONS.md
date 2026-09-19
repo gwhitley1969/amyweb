@@ -10090,3 +10090,37 @@ untouched. **Operator passage drafted** (the passages file, §4):
 CLAUDE.md constraint 3's exception list and BUILD_SPEC §8 rule 4.
 Verification: `verify:fast` green with the exit line read; full
 `npm run verify` green on the final tree before the push.
+
+## 2026-09-19 — Addendum: the round's operator passages applied to CLAUDE.md and BUILD_SPEC.md, on the operator's word
+
+**Context:** The three entries above each ended with passages drafted
+for the two operator-gated files and held outside the repo
+(`C:\Amy\operator-passages-2026-09-19.md`, sections 1–4), because those
+files change only on the operator's explicit word. Asked whether to
+merge PR #192, the operator chose **"Merge + apply passages"**.
+
+**Decision:** The passages went in as drafted, in one commit on the
+same branch, before the merge — so the rulebook and the site move
+together and the day's overrides never read as violations to the next
+person who opens the repo. **CLAUDE.md constraint 3:** the
+laser-treatments booking answer (under "never answer 'is this right for
+me'"), the hormone page's FDA-box exemption (under "Biote symptom
+language must carry the FDA disclaimer"), and — closing the
+outcome/superiority exception list — the regenerative lead and the
+/about hero sentence. **BUILD_SPEC.md:** §6 (the laser row's cell and a
+dated pointer under the CTA-label note), §7 (the `schemaDescription`
+schema line; the copy-pattern amendment for the supervision clause;
+briefs 6, 8, and 12), §8 (rule 4's third scoped exception, rule 7's
+scoped exception, the Enforcement paragraph's exempt-file note — and its
+stale "scans `src/content/**` and `src/pages/**`" clause corrected to
+the six directories the linter has scanned since 2026-07-08).
+
+**Alternatives rejected:** merging first and leaving the rulebook out
+of step (offered as the second option, declined); the operator pasting
+by hand (offered since the morning; they delegated it).
+
+**Consequences:** Text-only changes to two files no gate reads;
+`compliance/banned-patterns.json` and every script untouched. Each
+passage restates an override's exact wording by design — CLAUDE.md and
+BUILD_SPEC.md are the authorization record, not site text, and
+lint:claims does not scan them.

@@ -316,6 +316,36 @@ silently following it. Known superseded points from earlier briefs:
      pixel override above) carries the banner headline this sentence
      paraphrases, legible in the served file. Changing the wording,
      the page scope, or that photo requires the human operator.
+     And the exact `summary` sentence on /services/regenerative — `PRP
+     (Platelet-Rich Plasma) treatments prepared from your blood can be used
+     by themselves or combined with microneedling to stimulate hair
+     re-growth and reduce the signs of skin aging.` (operator override
+     after the compliance flag — DECISIONS 2026-09-19, the addendum; a
+     house-hedged version was offered and declined). It states outcomes
+     beyond the two 2026-08-01 card sentences and contains no token
+     lint:claims can see, so the authorization lives here and in DECISIONS,
+     never in `allowedStrings` — a green linter never authorizes it. It
+     renders as the VISIBLE LEAD ONLY: the page's `schemaDescription` keeps
+     the Service JSON-LD description factual, and the wording is never
+     restated in the SEO description, OG tags, alt text, comments, or
+     JSON-LD. Changing the wording, the page, or removing
+     `schemaDescription` requires the human operator.
+     And the exact sentence in the /about hero — `This is all before
+     personally investing in excess of $100,000 in Medical Aesthetics
+     training to bring "top of class" abilities to her clientele.`
+     (operator override after the compliance flag — DECISIONS 2026-09-19,
+     the /about addendum; a descriptive swap and a fact-only ending were
+     offered and declined). Its quoted phrase is superiority-class
+     (BUILD_SPEC §8.4) and contains no token lint:claims' superiority
+     patterns can see — the banned list does not gain a bare "top"
+     pattern, the EvolusLaurel precedent — so the authorization lives here
+     and in DECISIONS, never in `allowedStrings`; a green linter never
+     authorizes it. The wording is exact and the scope is that one
+     sentence on /about; the phrase is never restated anywhere else —
+     meta descriptions, OG tags, alt text, comments, or JSON-LD. The
+     figure and the BA's field come from Amy directly (operator,
+     2026-09-19). Changing the wording or the page scope requires the
+     human operator.
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing
@@ -332,9 +362,40 @@ silently following it. Known superseded points from earlier briefs:
      a wrapped copy matches nothing and trips every verb), and those
      verbs must never be restated elsewhere in the same file.*
    - **Never** answer "is this right for me" in copy — route to a consultation.
+     *Scoped exception (operator override after the compliance flag —
+     DECISIONS 2026-09-19): the exact FAQ answer on
+     /services/laser-treatments to "Can I book a laser treatment
+     directly?" — `Yes! All services can be booked with the expectation of
+     a procedure.` It tells visitors to expect a procedure ahead of Amy's
+     assessment and supersedes, in copy, the 2026-08-21 consult-first
+     decision for the three Versa Pro applications. It contains no token
+     lint:claims can see, so the authorization lives here and in DECISIONS,
+     never in `allowedStrings` — a green linter never authorizes it. The
+     wording is exact and the scope is that one answer on that one page;
+     it is never restated anywhere else — body copy, other FAQ answers,
+     alt text, comments, meta descriptions, OG tags, or JSON-LD. Coupling:
+     that page's "Three tools, one conversation" section and its
+     skin-types FAQ answer still route suitability to a consultation; with
+     the layout-injected disclaimer they are what keeps this rule
+     satisfied on the page, and trimming them requires the human
+     operator.*
    - Retatrutide (if published) **must** carry the investigational /
      not-FDA-approved disclosure. Biote symptom language **must** carry the
-     FDA disclaimer. Every treatment page carries the medical disclaimer
+     FDA disclaimer.
+     *Scoped exception (the clinician's direction, operator decision after
+     the compliance flag — DECISIONS 2026-09-19):
+     /services/hormone-optimization carries its symptom-awareness language
+     WITHOUT the FDA disclaimer box (`bioteDisclaimer: false`). The
+     linter's symptom check exempts that one file by exact path — an edit
+     made by the operator's own hand, self-tested so it neither fails its
+     own page nor leaks to another. Everything else stands: symptom
+     vocabulary is authorized on that page and nowhere else, any other
+     page using it still requires the disclaimer, and disease and
+     condition names stay banned there as everywhere. `BioteDisclaimer`
+     and its `allowedStrings` sentence stay in the repo, dormant —
+     restoring the box is a one-word flag flip. Widening the exemption
+     requires the human operator.*
+     Every treatment page carries the medical disclaimer
      (layout-injected — pages cannot opt out).
    - These rules apply to **all text**: page copy, headings, meta
      descriptions, alt text, structured data, OG tags, and microcopy.

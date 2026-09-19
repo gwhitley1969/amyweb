@@ -1,4 +1,6 @@
 ---
+import { siteConfig } from '../lib/siteConfig';
+
 /**
  * FAQ accordion on native <details>/<summary> — zero JS by design; browsers
  * without support have no such gap (details is universal since 2020), and
@@ -8,6 +10,25 @@
  * §8-required text are NEVER placed inside an accordion — collapsed
  * compliance text is not conspicuous. Editorial Q&A only. The marker
  * chevron is plain text-colored punctuation, NOT the signature motif.
+ *
+ * INLINE BOOKING LINK (operator direction 2026-09-19; first use: the
+ * body-contouring answer to "Can I book Evolve directly?"). Answers are
+ * plain frontmatter strings, so a linked word is written as a marker:
+ *
+ *     Feel free to [book](cta:book) now!
+ *
+ * `cta:book` is the ONLY target. It renders CTAButton's book mechanics
+ * in the house inline-link idiom (the /services intro's "BOOK",
+ * 2026-08-18): siteConfig.booking.vagaroUrl, the declarative book_click
+ * event, the new-tab attrs + sr-only note, underline + var(--ng-link)
+ * (on the ombre canvas a link is told apart by its underline, never by
+ * color alone). Arbitrary URLs are deliberately NOT supported: every
+ * outbound destination on this site is screened first
+ * (compliance/README), and a content string must not be able to add
+ * one. An unknown target or a malformed marker FAILS THE BUILD rather
+ * than printing brackets on a page. No schema change — `a` stays a
+ * string; anything that later reads answers as plain text (FAQPage
+ * JSON-LD is Phase D) must reduce the marker to its text first.
  */
 interface Props {
   heading?: string;
@@ -15,6 +36,35 @@ interface Props {
 }
 
 const { heading = 'Have questions?', items } = Astro.props;
+
+type AnswerPart = { text: string; link?: 'book' };
+
+const LINK_MARKER = /\[([^\]]+)\]\(cta:([^)]*)\)/g;
+
+function answerParts(q: string, a: string): AnswerPart[] {
+  const parts: AnswerPart[] = [];
+  let last = 0;
+  for (const m of a.matchAll(LINK_MARKER)) {
+    const at = m.index ?? 0;
+    const text = m[1] ?? '';
+    const target = m[2] ?? '';
+    if (target !== 'book') {
+      throw new Error(
+        `FaqAccordion: unknown link target "cta:${target}" in the answer to "${q}". Only cta:book exists.`,
+      );
+    }
+    if (at > last) parts.push({ text: a.slice(last, at) });
+    parts.push({ text, link: 'book' });
+    last = at + m[0].length;
+  }
+  if (last < a.length) parts.push({ text: a.slice(last) });
+  if (parts.some((part) => !part.link && part.text.includes(']('))) {
+    throw new Error(
+      `FaqAccordion: malformed link marker in the answer to "${q}". The only form is [text](cta:book).`,
+    );
+  }
+  return parts;
+}
 ---
 
 {
@@ -32,7 +82,22 @@ const { heading = 'Have questions?', items } = Astro.props;
                 &rsaquo;
               </span>
             </summary>
-            <p class="faq__a">{item.a}</p>
+            <p class="faq__a">{
+              answerParts(item.q, item.a).map((part) =>
+                part.link === 'book' ? (
+                  <a
+                    href={siteConfig.booking.vagaroUrl}
+                    class="underline underline-offset-4"
+                    style="color: var(--ng-link)"
+                    data-event="book_click"
+                    target="_blank"
+                    rel="noopener"
+                  >{part.text}<span class="sr-only"> (opens in new tab)</span></a>
+                ) : (
+                  part.text
+                )
+              )
+            }</p>
           </details>
         ))}
       </div>

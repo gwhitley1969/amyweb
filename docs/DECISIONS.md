@@ -9628,3 +9628,219 @@ film's CSS are unchanged. A desktop headless browser cannot show an
 iPhone's loop behaviour — the operator checks the loop point on a
 phone. Amy's sign-off on her generated likeness still gates production;
 the footage is the same. v1–v4 stay on the origin, unreferenced.
+
+## 2026-09-19 — the operator's copy round across six treatment pages: a booking-link marker for FAQ answers, the laser booking answer (operator override), and the hormone page's FDA box
+
+**Context:** The operator spent the day on the tagged review preview
+(PR #149) with a colleague and relayed copy changes page by page —
+their colleagues' wording, and in one case Amy's direct instruction —
+mostly dictated, twice typed into a page by hand in VS Code. Six
+treatment pages moved: body-contouring (06), laser-treatments (07),
+skincare (08), weight-loss-glp-1 (09), iv-therapy (11), and
+hormone-optimization (12). All of it sits on one branch,
+`content/copy-round-2026-09-19` (PR #192 into `phase-c`), one commit per
+change (the 2026-08-24 one-change-per-commit form), pushed once, and
+merged into `review/page-numbers` ahead of the `phase-c` merge so the
+review pair sees it with tags (the 2026-09-17 hero-film precedent). One
+correction came first and is recorded because it will recur: PR #149's
+branch never merges, so a change made only there never reaches the
+site — work lands on a branch off `phase-c` and is fed to #149 from
+there.
+
+**Decision 1 — FAQ answers can carry the booking link.** The operator
+asked for the word "book" in a body-contouring FAQ answer to link to
+Amy's Vagaro page. FAQ answers are plain frontmatter strings rendered
+as escaped text, so `FaqAccordion` now understands one marker —
+`[text](cta:book)` — and renders it with CTAButton's book mechanics in
+the house inline-link idiom (the /services intro's "BOOK", 2026-08-18):
+`siteConfig.booking.vagaroUrl`, `data-event="book_click"`, new-tab attrs
++ the sr-only note, underline + `var(--ng-link)`. `cta:book` is the ONLY
+target; arbitrary URLs are deliberately unsupported, because every
+outbound destination on this site is screened first (compliance/README)
+and a content string must not be able to add one. An unknown target or
+a malformed marker fails the build — both negative-tested on a
+throwaway page (exit 1, a clear message). No schema change (`a` stays
+`z.string()`). Proven inert: with the component change alone, all 25
+built pages were byte-identical to the build before it; with the
+content edit, exactly one built file differed. Anything that later
+reads answers as plain text (FAQPage JSON-LD is Phase D) must reduce
+the marker to its text first — the component header says so.
+
+**Decision 2 — the copy, page by page (all operator-directed; every
+page's flag was already `false` except hormone-optimization's):**
+- **body-contouring.** FAQ "What does an Evolve session feel like?" now
+  closes "Amy sets the level of intensity with you before it starts."
+  FAQ "Can I book Evolve directly?" now answers "Yes! This line starts
+  with a consultation, free as always, so the area and the plan can be
+  settled before anything starts. Feel free to book now!" with "book"
+  the first `cta:book` link (it replaced "...before anything is
+  scheduled. Request one online or by phone."). The operator's own two
+  body edits: "Where it's used" closes "is settled in a conversation
+  with Amy before anything begins."; "Individualized, with Amy" reads
+  "...plans and performs every treatment herself at her Harrisburg
+  studio in the greater Charlotte area. It starts with a conversation
+  and the process begins!"
+- **laser-treatments.** "Laser hair removal" ends at "It's priced by
+  area, a single treatment or a series of six." (the direct-booking
+  clause comes off; the fact is still on the Epileve card, in "Three
+  tools, one conversation", and under the price sheet's Book button).
+  "Individualized, with Amy" closes "It starts with hitting book." FAQ
+  "What does a treatment feel like?" closes "before anything begins."
+  FAQ "How many treatments will I need?" drops "at a consultation," and
+  gains ", if necessary". FAQ "Can I book a laser treatment directly?"
+  — the override below.
+- **skincare.** FAQ "Where do skincare purchases happen?" opens "In the
+  studio at any time" (was "at any appointment").
+- **weight-loss-glp-1.** FAQ on the three medications closes "Which one
+  belongs in your plan is decided in consultation." — ", if any," comes
+  off (the 2026-08-24 VisitSteps step-2 class: drift, not a rule break;
+  the choice still routes to a consultation).
+- **iv-therapy.** The `summary` gains "All available, based on your
+  body's needs." — it also feeds the Service JSON-LD description
+  (verified claims-clean in the built page; the /services menu card and
+  the SEO description are separate strings, untouched). FAQ "Can I
+  choose what goes into my drip?" closes "a price menu" (was "price
+  list"). FAQ "How do I book?" reads: Online with the "Book with Amy"
+  button. — "through Vagaro" and the phone clause come off; the
+  dictated text omitted the article and the existing "the" was kept,
+  reported to the operator as a one-word revert if wanted.
+- **hormone-optimization.** The "Hormone lab draw" card gains "Amy's
+  labs include, at a minimum, a Complete Blood Count (CBC),
+  Comprehensive Metabolic Panel (CMP), Thyroid-Stimulating Hormone
+  (TSH), Triiodothyronine (T3), Thyroxine (T4), Testosterone,
+  Estradiol, Follicle-Stimulating Hormone (FSH), Vitamin D, and Vitamin
+  B12. This is a $618 value at other labs for the same panel." — test
+  names only (no values, ranges, cadence, or condition names; §7.8
+  holds); "$618.00" carried as "$618", the sitewide whole-dollar format
+  (the 2026-08-01 precedent). This was the last approved page: the edit
+  reset `clinicianApproved` in the same commit (constraint 4) — flags
+  now read **0 true / 12 false**.
+
+**The flags of the round, each raised once:**
+1. *"Under clinician supervision" comes off two more pages* —
+   body-contouring (the operator's own edit) and laser-treatments
+   (dictated). The record now reads: kept on wrinkle-relaxers
+   (2026-08-23), dropped on dermal-fillers (2026-08-26),
+   body-contouring, and laser-treatments. No gate requires the phrase
+   (the 2026-08-23 research stands) and "plans and performs every
+   treatment herself" carries the fact on both pages.
+2. *Consultation-language trims, logged against the 2026-08-24 trend
+   note as that entry instructs:* body-contouring's body copy now says
+   "consultation" nowhere (two FAQ answers, the SEO description, and the
+   layout-injected DisclaimerBlock carry BUILD_SPEC §8.7); laser's
+   closing line and its how-many answer lose the word; weight-loss loses
+   ", if any,". Each is individually compliant and trips no pattern.
+3. **The laser booking answer — OPERATOR OVERRIDE, flagged BEFORE the
+   edit.** Dictated: "Yes! All services can be booked with the
+   expectation of a procedure." It tells every visitor that a booked
+   visit is a treatment, ahead of Amy's assessment — the site's first
+   copy that affirms the outcome of the "is this right for me" question
+   CLAUDE.md constraint 3 and BUILD_SPEC §8.7 route to a consultation —
+   and it reverses, in copy, the operator's own 2026-08-21 decision that
+   the three Versa Pro applications stay consult-first. Two compliant
+   wordings that kept the yes were offered (a treatment-visit sentence
+   with "Amy confirming the right plan with you before anything
+   begins"; and the bare "Yes! All services can be booked directly.");
+   the operator chose the dictated sentence (AskUserQuestion,
+   2026-09-19). It trips no `lint:claims` pattern, so there is NO
+   `allowedStrings` entry — the authorization lives here and in commit
+   `d0fe932`, the EvolusLaurel / wrinkle-relaxers-deck shape: a green
+   linter never authorizes it. Scope: that one FAQ answer on that one
+   page; never restated elsewhere. **Coupling, left untouched on
+   purpose:** the same page's "Three tools, one conversation" still
+   says the applicator choice is "one of them, a sequence, or none ... a
+   consultation decision" and "whether the honest answer is neither",
+   and its skin-types FAQ still says suitability "is decided with Amy at
+   a consultation". Those passages and the DisclaimerBlock are what keep
+   §8.7 routing on the page; trimming them to match this answer is a
+   fresh flag, not a tidy.
+4. *The "$618 value at other labs" sentence* is a comparative price
+   claim about other labs. It trips no pattern. The operator was asked
+   for its basis (which labs' prices, as of when); the answer is the
+   substantiation record, the way the Evolus designation's basis was
+   recorded 2026-08-19. **PENDING at the time of this entry** — it is
+   added here as a dated addendum when supplied.
+5. *Skincare's "at any time"* can read as walk-in availability on a site
+   that lists no hours by Amy's decision (2026-08-04 — no copy may
+   promise or imply them). Noted once; shipped as dictated.
+6. **The hormone page's FDA box — Amy's direction, OPERATOR DECISION
+   after the flag.** Relayed: delete the box carrying Biote's FDA
+   sentence, "the medical disclaimer link at the bottom of every page
+   will suffice". Flagged BEFORE any edit: the page uses seven of the
+   linter's symptom words (fatigue, low energy, night sweats, hot
+   flashes, brain fog, libido, mood swings); CLAUDE.md constraint 3 and
+   BUILD_SPEC §7.8 permit that language only beside the disclaimer; the
+   linter's self-tested inverse check fails the build without
+   `bioteDisclaimer: true`; /medical-disclaimer does not contain the
+   sentence at all (verified — that page was written in the claims-safe
+   lexicon), and a disclosure sits adjacent to the copy it qualifies,
+   never behind a link (2026-07-08 standing rule). The shape is the
+   2026-07-21 Retatrutide request. Four paths were offered
+   (AskUserQuestion): keep the exact sentence as one plain line with no
+   box (recommended — no rule change, no MDX edit); remove the box AND
+   the symptom wording; remove the box only, with a rule change; park
+   it and take the reasons back to Amy. **The operator chose: remove the
+   box only.** Mechanism, kept as narrow as the choice allows: the
+   symptom inverse check is NOT switched off — it gains one exact-path
+   exemption, `src/content/treatments/hormone-optimization.mdx`, so
+   every other treatment file still needs the disclaimer to use symptom
+   vocabulary ("libido" still cannot reach the peptide page), plus two
+   new self-test cases proving the exemption neither fails its own page
+   nor leaks to another (mutation-tested both ways on a scratch copy:
+   the self-test fails with the right message). **The gate edit is the
+   operator's own act** — a prepared patch applied with their own
+   command (the 2026-07-21 own-hand allowlist edit and the 2026-08-05
+   own-command flag flip are the precedents; CLAUDE.md: never weaken a
+   gate — loosening requires the human operator). The page then takes
+   `bioteDisclaimer: false`. `BioteDisclaimer.astro` stays in the repo,
+   dormant (the styleguide still renders it), so restoring the box is a
+   one-word flag flip; its `allowedStrings` entry stays because the
+   component's source line and the styleguide still carry the sentence
+   (the "an authorization nothing uses" rule is not engaged).
+   **Executed the same day:** the operator applied the patch in their own
+   terminal (commit `d96fb4b` — verified byte-for-byte against the prepared
+   patch, and inert on its own: self-test and scan passed with the page
+   still flagged), then the page took `bioteDisclaimer: false` (commit
+   `c238b89`). Verified: the pre-exemption checker run against the final
+   tree FAILS with the symptom inverse check, so the exemption and
+   nothing else is what lets the page build; on the built page the FDA
+   sentence and its notice element are gone, the layout-injected medical
+   DisclaimerBlock and the symptom copy remain, and the styleguide still
+   renders the dormant component.
+
+**Echoes left deliberately mismatched (the operator was shown each; a
+future session must not sync them unasked — the 2026-08-24 precedent):**
+body-contouring's "What a session is like" still says "sets the level
+with you" beside the FAQ's "level of intensity"; body-contouring's
+"price list" beside iv-therapy's "price menu"; skincare's body copy
+still says "pick products up at any appointment" beside the FAQ's "at
+any time".
+
+**Alternatives rejected:** raw HTML in FAQ strings via `set:html`
+(arbitrary URLs from content, hand-written link attributes, the Vagaro
+URL duplicated outside siteConfig); a schema field naming the word to
+link (ambiguous when the word repeats; an operator-gated schema change
+for less); a shared inline-link component now (cross-component
+whitespace prints inside a sentence; the /services intro is the first
+hand-mirror and this the second — a third consumer earns the
+extraction, the 2026-08-27 chip precedent); editing in the #149
+worktree (the branch never merges); pushing after each change (every
+push redeploys a preview, and #149 is the one the review pair is
+reading — the 2026-09-03 flapping lesson); switching the symptom check
+off outright (would un-police symptom vocabulary sitewide for a
+one-page decision).
+
+**Consequences:** `compliance/banned-patterns.json` is untouched all
+round — nothing was allowlisted. No page is clinician-approved (0/12);
+the consolidated pre-relaunch re-approval now covers every treatment
+page, and CLINICIAN-SIGN-OFF names the laser booking sentence and the
+hormone page's changes for Amy by name. **Operator passages, drafted
+and delivered with the PR, theirs to place:** CLAUDE.md constraint 3
+(a scoped-exception sentence for the laser answer under "Never answer
+'is this right for me'", and the hormone-page exception beside "Biote
+symptom language must carry the FDA disclaimer"); BUILD_SPEC §6 (the
+laser row's "Request a consultation" cell), §7.12 ("The three Versa Pro
+applications stay consult-routed"), §7.8, and §8's Enforcement
+paragraph. Verification: `verify:fast` green with the exit line read
+after every change; full `npm run verify` green before the push
+(numbers in the PR).

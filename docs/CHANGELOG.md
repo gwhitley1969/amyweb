@@ -6,6 +6,69 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-19 — Copy round across six treatment pages; FAQ answers can link to booking
+
+- The operator and a colleague went through the tagged review preview
+  (#149) page by page and relayed wording changes — their colleagues'
+  words throughout, Amy's own instruction for the hormone page's FDA
+  box. One branch, one commit per change, pushed once (PR #192 into
+  phase-c); the review preview carries it ahead of the merge.
+- **New: a linked word inside an FAQ answer.** Writing
+  `[book](cta:book)` in an answer turns that word into the booking link
+  — the same Vagaro address, new-tab behaviour, and underline as the
+  "BOOK" link on /services. It can only make the booking link; any
+  other target, or a pasted web address, stops the build. No other page
+  changed by a byte when the component gained it.
+- **Body contouring:** the first FAQ answer now closes "Amy sets the
+  level of intensity with you before it starts."; "Can I book Evolve
+  directly?" now answers "Yes! This line starts with a consultation,
+  free as always, so the area and the plan can be settled before
+  anything starts. Feel free to book now!" with "book" linked. The
+  operator's own edits: "Where it's used" closes "settled in a
+  conversation with Amy before anything begins."; "Individualized, with
+  Amy" drops "under clinician supervision" and closes "It starts with a
+  conversation and the process begins!"
+- **Laser treatments:** the hair-removal paragraph ends at "It's priced
+  by area, a single treatment or a series of six."; "Individualized,
+  with Amy" drops the supervision clause and closes "It starts with
+  hitting book."; two FAQ answers are trimmed ("before anything
+  begins"; "adjusted along the way, if necessary"); and "Can I book a
+  laser treatment directly?" now answers "Yes! All services can be
+  booked with the expectation of a procedure." — **shipped under
+  operator override after the compliance flag**: it tells visitors to
+  expect a procedure ahead of Amy's assessment and reverses, in copy,
+  the 2026-08-21 consult-first decision for the three Versa Pro
+  applications. The page's "Three tools, one conversation" section and
+  its skin-types answer still route suitability to a consultation and
+  must stay as they are.
+- **Skincare:** purchases happen "In the studio at any time" (was "at
+  any appointment").
+- **Weight loss:** "Which one belongs in your plan is decided in
+  consultation." — ", if any," comes off.
+- **IV therapy:** the lead gains "All available, based on your body's
+  needs." (it also feeds the page's structured-data description); "a
+  price menu" replaces "a price list"; "How do I book?" now reads:
+  Online with the "Book with Amy" button.
+- **Hormone optimization:** the lab-draw card lists what Amy's labs
+  include (CBC, CMP, TSH, T3, T4, Testosterone, Estradiol, FSH, Vitamin
+  D, Vitamin B12) and adds "This is a $618 value at other labs for the
+  same panel." — a comparative price claim whose basis the operator is
+  supplying for the record. The edit reset this page's approval flag;
+  **no treatment page is clinician-approved now (0 of 12)** — Amy's
+  consolidated re-approval before relaunch covers all twelve.
+- **Hormone optimization, the FDA box:** at Amy's direction the boxed FDA
+  sentence ("These statements have not been evaluated by…") comes off the
+  page; its symptom wording stays. Flagged before the change — the rule
+  has been that symptom language appears only beside that sentence, and
+  the footer's medical-disclaimer page does not carry it — and decided by
+  the operator from four offered paths. The claims checker now exempts
+  this one page by exact path (the operator's own edit; every other page
+  keeps the rule, and two new self-tests prove the exemption stays
+  exact). The disclaimer component stays in the repo, dormant: one word
+  restores the box.
+- Nothing was added to the compliance allowlist; the banned-pattern
+  list is untouched. (DECISIONS 2026-09-19.)
+
 ### 2026-09-18 — The home hero film, re-ordered (the hair shot opens; the turn and the laugh finish)
 
 - The founders' request: the shot where Amy runs a hand through her

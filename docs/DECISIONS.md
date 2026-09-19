@@ -9787,3 +9787,169 @@ applications stay consult-routed"), §7.8, and §8's Enforcement
 paragraph. Verification: `verify:fast` green with the exit line read
 after every change; full `npm run verify` green before the push
 (numbers in the PR).
+
+## 2026-09-19 — Addendum: the copy round's second batch — the supervision sweep, booking links sitewide, and the regenerative lead (operator override, visible text only)
+
+**Context:** After the first batch reached the tagged preview (PR #192,
+the entry above), the operator and their colleague kept going the same
+afternoon: thirty-two more commits on the same branch, one per change,
+pushed once. Five more treatment pages moved (wrinkle-relaxers,
+dermal-fillers, biostimulators, regenerative, skin-rejuvenation), plus
+three sitewide changes.
+
+**Decision 1 — "under clinician supervision" is swept off the treatment
+pages, with the operator's reason on the record: "there is no doctor on
+staff."** It began on wrinkle-relaxers — REVERSING the operator's own
+2026-08-23 call to keep the clause there — and, shown where else the
+clause lived, the operator said "sweep the clause": biostimulators,
+regenerative, skin-rejuvenation, and the /services Peptide Therapy card
+("Peptide therapy options, individualized."). With dermal-fillers
+(2026-08-26), body-contouring, and laser-treatments (this morning), no
+treatment page carries the clause now. The reason is a sound one: the
+phrase can read as a supervising physician, and BUILD_SPEC §8.8 says to
+state Amy's credentials exactly. No gate requires it (the 2026-08-23
+research stands). **Left for the operator's separate call, listed for
+them:** weight-loss's "medically supervised program" wording (lead,
+deck, Phentermine card, the "Who supervises the program?" FAQ, SEO
+description, /services card — the standard term for a prescription
+program, and BUILD_SPEC §7.1's own words), peptide-therapy's SEO
+description ("Clinician-supervised…"), and /medical-disclaimer's
+"offered only under clinician supervision". BUILD_SPEC §7's copy pattern
+still says "individualized under clinician supervision" — an operator
+passage.
+
+**Decision 2 — VisitSteps step 3 reads "Confidently book your
+appointment." sitewide.** Pointed at on wrinkle-relaxers; the sentence
+lives in the shared component, so it was surfaced before editing (the
+2026-08-24 lesson) and the operator chose all twelve pages over a
+page-scoped override, as on 2026-08-24 and 2026-08-26. "When you are
+ready" was the step's pacing hedge; step 1 still says "whenever you are
+ready".
+
+**Decision 3 — every standalone "book" in running text and FAQ answers
+links to Amy's Vagaro page.** The operator asked for it "anywhere you
+see that". A scan of the built site found 120 occurrences: most already
+links (the header button, every "Book with Amy", the /services "BOOK",
+the morning's FAQ link), and 32 unlinked contexts in four classes. Two
+classes were excluded in every option, with reasons the operator
+accepted: the ten FAQ QUESTIONS (a link inside `<summary>` hijacks the
+click that opens the answer and fails axe's nested-interactive rule) and
+/mobile's "Friends book together" (mobile parties book by phone, not
+Vagaro — DECISIONS 2026-09-02). From three offered scopes the operator
+chose **all sentences + FAQ answers, headings plain** ("Book — or ask
+first" sits directly on top of step 1's "Book an appointment…", and two
+stacked identical links were declined). Result: 45 new links on 14
+pages — steps 1 and 3 on all twelve treatment pages, the home intro,
+/about, and page-specific sentences on iv-therapy, wrinkle-relaxers,
+laser-treatments, weight-loss, peptide-therapy, and dermal-fillers. In
+the two "How do I book?" answers the whole button name is the link
+("Book with Amy"), reported to the operator. Mechanism: `BookLink.astro`
+— the shared in-sentence link the morning's entry deferred to "a third
+consumer", which this is — for .astro pages and MDX bodies, and the
+`[text](cta:book)` marker moved from FaqAccordion into
+`src/lib/inlineLinks.ts` so VisitSteps uses it too (same rules: cta:book
+only, no arbitrary URLs, a bad marker fails the build). Verified on the
+built site: **no visible letter changed on any page** (before/after text
+comparison), no link inside any FAQ question, clean spacing round all
+46 inline links, pa11y 25/25 with the links in place. Meta descriptions
+cannot hold links and are untouched.
+
+**Decision 4 — the copy, page by page:**
+- **dermal-fillers.** FAQ "Which filler products does Amy offer?" closes
+  "Which product is used in your plan is decided between you and Amy."
+  (", if any," and "in consultation" come off). FAQ "Does filler hurt?"
+  gains "Also, Amy applies additional topical lidocaine to minimize any
+  discomfort." — a process fact with its purpose, no strength or amount,
+  and the person-to-person hedge still follows it.
+- **biostimulators.** The deck closes "naturally created over time"
+  (noted once: a touch more result-shaped than "planned across time",
+  but it names the mechanism the category is defined by; layout-only, so
+  it reaches no meta or JSON-LD). FAQ "What is a biostimulator?" gains
+  "production" and loses ", if either," (the dictated "work" kept as
+  "works" — a typo). "How long does it last?" closes "before the
+  procedure." "Can I book a biostimulator appointment directly?" now
+  answers "Yes. Although this line starts with a consultation, so the
+  right approach can be chosen, the procedure can be performed
+  immediately at your appointment."
+- **regenerative.** The lead — Decision 5. FAQ "Can I book a
+  regenerative treatment directly?" now answers "Yes. This line starts
+  with a consultation so that Amy can explain each option plainly. The
+  procedure can be performed immediately."
+- **skin-rejuvenation.** The peels card: "Each peel is customized to
+  suit your skin's specific needs." "Chemical peels" opens "the
+  traditional idea, refined" (was "older"). "A longer view" closes "one
+  approach, a customized plan." (was 'a sequence, or an honest "not
+  yet."'). FAQ: "how the skin typically feels after."; "It's planned
+  individually with Amy, and adjusted along the way."; "Which chemical
+  peel is right for me?" loses "That's exactly what a consultation is
+  for."; "Can I book a skin-rejuvenation treatment directly?" now
+  answers "Yes, absolutely! Book anytime for your convenience." ("Book"
+  linked, per Decision 3).
+
+**Decision 5 — the regenerative lead: OPERATOR OVERRIDE, flagged BEFORE
+the edit, and kept OUT of structured data.** Dictated: "PRP
+(Platelet-Rich Plasma) treatments prepared from your blood can be used
+by themselves or combined with microneedling to stimulate hair re-growth
+and reduce the signs of skin aging." The flag: it states outcomes on a
+line where BUILD_SPEC §7.6 bars them and where the 2026-08-01 override
+was scoped to two card sentences ("anything further reverts to the
+rule"); "reduce the signs of skin aging" is the anti-aging angle the
+registry bans by name and passes only because the pattern looks for the
+literal compound; and `summary` also fed the Service JSON-LD
+description, which would have made it the site's first outcome claim in
+structured data. Three paths were offered (AskUserQuestion): a
+house-hedged version of the same sentence (recommended), the dictated
+sentence as visible text only, or the dictated sentence everywhere. **The
+operator chose visible text only.** Mechanism: a new optional
+`schemaDescription` field (operator-approved schema change) overrides
+the JSON-LD description alone; absent, `summary` is used as before —
+three sampled pages' Service JSON-LD is hash-identical. Verified on the
+built page: the outcome wording appears exactly once (the lead); the
+JSON-LD and meta descriptions are unchanged. No pattern trips, so NO
+`allowedStrings` entry — the authorization is this entry and commit
+`bad0ccd`; a green linter never authorizes it. Scope: that sentence, the
+`summary` field of that page; never restated in the SEO description,
+alt text, comments, OG, or JSON-LD.
+
+**The trend note (2026-08-24), brought current.** This batch took
+hedges or consultation wording off: step 3 ("when you are ready");
+dermal-fillers (", if any,", "in consultation"); biostimulators (",
+if either,"; "free as always" in the booking answer); regenerative's
+booking answer (its decide-with-you clause); skin-rejuvenation (the
+peels card's "chosen in consultation", the "not yet" ending, "at a
+consultation", the right-for-me answer's opening sentence, and the
+booking answer's whole consultation clause). Each is individually
+compliant and none trips a pattern. **Two were noted to the operator by
+name** because they sit closest to CLAUDE.md constraint 3's "never
+answer 'is this right for me' — route to a consultation": the literal
+right-for-me peel question (its answer still hands the choice to Amy
+and keeps "a different approach entirely") and skin-rejuvenation's
+booking answer (no consultation clause at all, on a line BUILD_SPEC §6
+lists consult-routed). The three same-visit booking answers
+(biostimulators, regenerative; and laser's, under the morning's
+override) differ in kind: the first two keep the consultation clause
+and say the procedure "can be performed"; only laser's promises one.
+**What now carries §8.7 on these pages, and must not be trimmed without
+a fresh flag:** the layout-injected DisclaimerBlock everywhere;
+regenerative's "whether it makes sense for you, is decided with Amy in
+a consultation"; skin-rejuvenation's "consultation conversation"
+passages and its closing "It starts with a consultation, free as
+always"; biostimulators' "exactly what a consultation is for".
+
+**Alternatives rejected:** linking the FAQ questions or /mobile (above);
+linking headings (offered, declined); a page-scoped step 3 (offered,
+declined — three files of plumbing for one sentence); the hedged
+regenerative lead (offered, declined) and the everywhere variant
+(declined); switching every page's JSON-LD to `seo.description` instead
+of adding a field (would change eleven pages' structured data for one
+page's override).
+
+**Consequences:** `compliance/banned-patterns.json` untouched — nothing
+allowlisted all day. All twelve flags stay `false`. CLINICIAN-SIGN-OFF
+carries the batch page by page plus two cross-cutting notes (step 3;
+the booking links). **Operator passages added to the drafted file:**
+BUILD_SPEC §7's copy-pattern sentence (the supervision clause), §7.6
+and CLAUDE.md constraint 3 (the regenerative lead), and §7's schema
+block (`schemaDescription`). Verification: `verify:fast` green with the
+exit line read after every change; full `npm run verify` green on the
+final tree before the push.

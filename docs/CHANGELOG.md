@@ -22,7 +22,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - On a first visit the still now dissolves into the hair shot instead
   of coming alive in place — inherent in the new order.
 - The file is `hero-living-portrait-v5.mp4` (11.17s). DECISIONS
-  2026-09-18.
+  2026-09-18. Merged into phase-c the same day (PR #191, on the
+  operator's "go ahead and merge it"); the review preview (#149) had
+  carried it ahead of the merge, and both standing previews were
+  refreshed after it.
 
 ### 2026-09-17 — The home hero film is remade (a living-portrait film, AI-assisted)
 

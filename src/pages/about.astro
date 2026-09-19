@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
+import BookLink from '../components/BookLink.astro';
 import TrustChips from '../components/TrustChips.astro';
 import EvolusLaurel from '../components/EvolusLaurel.astro';
 import TreatmentVideo from '../components/TreatmentVideo.astro';
@@ -391,7 +392,7 @@ const CHEVRONS = [
         </div>
         <h3 class="heading-4 mt-10">Booked your way.</h3>
         <p class="mt-2 max-w-prose">
-          Book an appointment whenever you are ready, or start with a free
+          <BookLink>Book</BookLink> an appointment whenever you are ready, or start with a free
           consultation, available upon request. Either way, the plan is
           personal, and it is made with Amy.
         </p>

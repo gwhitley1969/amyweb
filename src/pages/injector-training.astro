@@ -9,6 +9,7 @@ import { siteConfig } from '../lib/siteConfig';
 import { service } from '../lib/schema';
 import amyEvolysseCart from '../assets/photos/amy-evolysse-cart.jpg';
 import trainingReelPoster from '../assets/photos/training-reel-poster.jpg';
+import ReviewNumber from '../components/ReviewNumber.astro';
 
 /**
  * /injector-training — Private Injector Training (added 2026-08-04 at the
@@ -77,6 +78,10 @@ const jsonLd = [
   <Header slot="header" />
 
   <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    {/* REVIEW SCAFFOLDING (ReviewNumber.astro): 13 is a working label for
+        the review round, not a /services menu position — this page is not
+        one of the twelve lines. Goes with the review branch. */}
+    <ReviewNumber n="13" />
     <div class="grid items-start gap-10 md:grid-cols-[6fr_5fr]">
       <div>
         <p class="eyebrow">For licensed medical professionals</p>

@@ -78,4 +78,11 @@ export const siteConfig = {
     enabled: false as boolean,
     provider: 'none' as 'none' | 'plausible',
   },
+  // REVIEW SCAFFOLDING — added for the numbered-page review round.
+  // Renders the small corner marker (01..13) that lets the review pair
+  // refer to each service page by its /services menu number. Set false
+  // to switch every marker off in one edit.
+  // This whole feature is short-lived: it lives on the review branch
+  // only and is deleted with it. Nothing here renders on phase-c.
+  reviewNumbers: true as boolean,
 } as const;

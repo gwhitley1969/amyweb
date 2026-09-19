@@ -28,6 +28,15 @@ const treatments = defineCollection({
     title: z.string(),
     line: z.enum(SERVICE_LINES),
     summary: z.string(),
+    // Optional override for the Service JSON-LD description ONLY
+    // (2026-09-19 — operator-approved schema change, DECISIONS same
+    // date). `summary` renders as the lead under the H1 AND, by default,
+    // feeds structured data. When a page's visible lead ships under an
+    // operator override of the claim rules, this field keeps the
+    // structured-data description factual: overrides never reach meta
+    // descriptions, OG tags, or JSON-LD. Absent = `summary` is used, so
+    // every other page is unchanged. §8 applies to it like any string.
+    schemaDescription: z.string().optional(),
     // Optional editorial standfirst (2026-07-20 — replaced the AtAGlance
     // fact card at operator direction): one short, claims-clean display
     // line rendered as the blush statement card under the lead. §8

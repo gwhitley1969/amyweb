@@ -1,4 +1,7 @@
 ---
+import BookLink from './BookLink.astro';
+import { parseInlineLinks } from '../lib/inlineLinks';
+
 /**
  * FAQ accordion on native <details>/<summary> — zero JS by design; browsers
  * without support have no such gap (details is universal since 2020), and
@@ -8,6 +11,19 @@
  * §8-required text are NEVER placed inside an accordion — collapsed
  * compliance text is not conspicuous. Editorial Q&A only. The marker
  * chevron is plain text-colored punctuation, NOT the signature motif.
+ *
+ * INLINE BOOKING LINK (operator direction 2026-09-19; first use: the
+ * body-contouring answer to "Can I book Evolve directly?"). Answers are
+ * plain frontmatter strings, so a linked word is written as a marker —
+ *
+ *     Feel free to [book](cta:book) now!
+ *
+ * — parsed by src/lib/inlineLinks.ts (the rules live there: cta:book is
+ * the ONLY target, arbitrary URLs are deliberately unsupported, a bad
+ * marker fails the build) and rendered with BookLink. No schema change —
+ * the answer stays a string. The QUESTION never takes a marker: it renders
+ * inside <summary>, and a link there would hijack the click that opens
+ * the answer (axe: nested-interactive).
  */
 interface Props {
   heading?: string;
@@ -32,7 +48,11 @@ const { heading = 'Have questions?', items } = Astro.props;
                 &rsaquo;
               </span>
             </summary>
-            <p class="faq__a">{item.a}</p>
+            <p class="faq__a">{
+              parseInlineLinks(item.a, `the FAQ answer to "${item.q}"`).map((part) =>
+                part.link === 'book' ? <BookLink>{part.text}</BookLink> : part.text
+              )
+            }</p>
           </details>
         ))}
       </div>

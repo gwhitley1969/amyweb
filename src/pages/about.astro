@@ -2,8 +2,11 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
+import ReviewNumber from '../components/ReviewNumber.astro';
+import { reviewTag } from '../lib/reviewTags';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
+import BookLink from '../components/BookLink.astro';
 import TrustChips from '../components/TrustChips.astro';
 import EvolusLaurel from '../components/EvolusLaurel.astro';
 import TreatmentVideo from '../components/TreatmentVideo.astro';
@@ -56,6 +59,9 @@ import girlTeamFilmWidePoster from '../assets/photos/girl-team-film-wide-poster.
  * in new copy on this page.
  */
 
+// REVIEW SCAFFOLDING (ReviewNumber.astro) — letter tag for this route.
+const reviewPageTag = reviewTag(Astro.url.pathname);
+
 /* MA chevron plate data — hand-copied VERBATIM 2026-08-26 from
  * VisitSteps.astro (which copied it from
  * src/assets/brand/mobile-aesthetics-mark-header.svg 2026-08-19;
@@ -95,6 +101,7 @@ const CHEVRONS = [
   <Header slot="header" />
 
   <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    {reviewPageTag && <ReviewNumber n={reviewPageTag} />}
     <div class="grid items-start gap-10 md:grid-cols-[6fr_5fr]">
       <div>
         <p class="eyebrow">About</p>
@@ -391,7 +398,7 @@ const CHEVRONS = [
         </div>
         <h3 class="heading-4 mt-10">Booked your way.</h3>
         <p class="mt-2 max-w-prose">
-          Book an appointment whenever you are ready, or start with a free
+          <BookLink>Book</BookLink> an appointment whenever you are ready, or start with a free
           consultation, available upon request. Either way, the plan is
           personal, and it is made with Amy.
         </p>

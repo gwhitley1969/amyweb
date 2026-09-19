@@ -1,4 +1,7 @@
 ---
+import BookLink from './BookLink.astro';
+import { parseInlineLinks } from '../lib/inlineLinks';
+
 /**
  * "Your visit, step by step" — the process walkthrough adopted from the
  * Mobbin review (docs/DECISIONS.md). Copy is process-only — nothing about
@@ -16,6 +19,13 @@
  * Non-visual parity: the retired counter was announced by screen
  * readers, so each h3 opens with an sr-only "Step N." — the <ol>
  * semantics stand as before.
+ *
+ * Booking links (operator direction 2026-09-19 — every "book" in running
+ * text links to Vagaro; DECISIONS same date): the step BODIES are plain
+ * strings, so the word is written with the [text](cta:book) marker
+ * (src/lib/inlineLinks.ts) and rendered with BookLink. The step TITLES
+ * stay plain — "Book — or ask first" sits directly on top of "Book an
+ * appointment…", and the operator chose not to stack two identical links.
  */
 const FOIL_STOPS = [
   ['0.00', '#fdaedb'],
@@ -45,7 +55,7 @@ const CHEVRONS = [
 const steps = [
   {
     title: 'Book — or ask first',
-    body: 'Book an appointment whenever you are ready, or request a free consultation and talk it through before anything is scheduled.',
+    body: '[Book](cta:book) an appointment whenever you are ready, or request a free consultation and talk it through before anything is scheduled.',
   },
   {
     title: 'Personalized plan',
@@ -53,7 +63,7 @@ const steps = [
   },
   {
     title: 'Treatment visit',
-    body: 'Confidently book your appointment when you are ready. Every visit includes time for questions before anything begins.',
+    body: 'Confidently [book](cta:book) your appointment. Every visit includes time for questions before anything begins.',
   },
   {
     title: 'Aftercare guidance',
@@ -87,7 +97,11 @@ const steps = [
               <span class="sr-only">Step {i + 1}. </span>
               {s.title}
             </h3>
-            <p class="mt-2">{s.body}</p>
+            <p class="mt-2">{
+              parseInlineLinks(s.body, `the visit step "${s.title}"`).map((part) =>
+                part.link === 'book' ? <BookLink>{part.text}</BookLink> : part.text
+              )
+            }</p>
           </div>
         </li>
       ))

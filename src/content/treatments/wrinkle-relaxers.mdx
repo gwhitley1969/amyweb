@@ -58,13 +58,14 @@ faq:
   - q: "Who performs the treatment?"
     a: "Amy Palacios, FNP, a licensed family nurse practitioner. Every appointment is with Amy herself."
   - q: "How do I book?"
-    a: 'Online through Vagaro with the "Book with Amy" button, or by phone at 704-579-7108.'
+    a: 'Online through Vagaro with the "[Book with Amy](cta:book)" button, or by phone at 704-579-7108.'
 seo:
   title: "Wrinkle Relaxers in Harrisburg & Charlotte, NC | Needle Girlie"
   description: "Jeuveau, Xeomin, and Daxxify with Amy Palacios, FNP, in Harrisburg, NC: prescription wrinkle relaxers, planned one face at a time. Book online, or start with a free consultation."
 ---
 
 import { Image } from 'astro:assets';
+import BookLink from '../../components/BookLink.astro';
 import blazerBrowInjection from '../../assets/photos/blazer-brow-injection.jpg';
 import handMirrorMaleClient from '../../assets/photos/hand-mirror-male-client.jpg';
 import jeuveauBannerStudio from '../../assets/photos/jeuveau-banner-studio.jpg';
@@ -120,7 +121,7 @@ a consultation.
 ## Not just for women
 
 Expression lines aren't gender defined, and neither is this chair. Men
-book the same appointments for the same reason anyone does: lines
+<BookLink>book</BookLink> the same appointments for the same reason anyone does: lines
 they'd rather not see. The visit is identical — same products, same
 unhurried planning, with Amy.
 

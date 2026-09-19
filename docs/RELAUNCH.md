@@ -111,9 +111,9 @@ check will refuse it. On a branch off `main`:
   `/js/vendor/gsap.min.js`, `ScrollTrigger.min.js`, `SplitText.min.js`,
   `lenis.min.js` (all 200, `text/javascript`); the hero's
   `data-hero-film` element carries `data-first="5"` and `data-rate="1"`
-  and no `data-ranges`; the film object is `hero-living-portrait-v4.mp4`
-  on the media origin (206 on a range request, `video/mp4`) — since
-  2026-09-17, DECISIONS same date.
+  and no `data-ranges`; the film object is `hero-living-portrait-v5.mp4`
+  on the media origin (206 on a range request, `video/mp4`) — the film
+  since 2026-09-17, this cut since 2026-09-18 (DECISIONS, both dates).
 - Plausible: `/api/event` returns 202 from the production page;
   dashboard shows the first pageviews.
 - The favicon set serves: `/favicon.ico` (200, `image/x-icon` or

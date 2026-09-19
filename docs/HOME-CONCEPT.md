@@ -34,9 +34,13 @@ merged here; the hero reel takes the same policy.
 choppy, and after four rounds (a pixel-locked cinemagraph — "boring";
 the fast cut with AI living moments — "That looks great!!!"; a hop at
 the handoff; the head turn's speed; the eyes) the hero plays
-`hero-living-portrait-v4.mp4`, one purpose-made looping film that opens
-and ends on the portrait — AI-assisted and disclosed (DECISIONS
-2026-09-17, the entry and its addenda; merged in PR #190). Everything
+`hero-living-portrait-v5.mp4`, one purpose-made looping film —
+AI-assisted and disclosed (DECISIONS 2026-09-17, the entry and its
+addenda; merged in PR #190). Through v4 it opened and ended on the
+portrait; since 2026-09-18, at the founders' request, the same shots
+run in a new order: the hair shot opens, the portrait comes alive,
+turns and laughs at the finish, and the loop point sits inside a white
+flash (DECISIONS 2026-09-18). Everything
 below about the reel, its passages, and its knobs is that round's
 record.
 
@@ -68,6 +72,7 @@ record.
 | `6de13ab` | 2026-09-04 | **docs: the concept is adopted** — the lifts become standing decisions (CLAUDE.md, lighthouserc, global.css, BUILD_SPEC, this file) |
 | `17132bf` | 2026-09-04 | **Merge pull request #179 into `phase-c`** — the operator's "go ahead and merge #179 and refresh the previews" |
 | `dcd223a` | 2026-09-17 | **feat(home): the hero film is remade as a living-portrait film** — PR #190 (`feat/hero-living-portrait`); the three reel passages retire, `hero-living-portrait-v4.mp4` loops natively; AI-assisted, disclosed (DECISIONS 2026-09-17) |
+| `7aa832c` | 2026-09-18 | **feat(home): the hero film re-ordered** — PR #191 (`feat/hero-film-reorder`), the founders' request: the hair shot opens, the turn and the laugh finish; same footage, `hero-living-portrait-v5.mp4`; the loop point inside a white flash, the fade-in waits 0.2s (DECISIONS 2026-09-18) |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,
@@ -87,11 +92,14 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   Palacios, FNP, in medical aesthetics since 2017."* Below 900px the
   hero is the phase-c stack.
 - **The film since 2026-09-17.** The reel described in the next item
-  is history: the hero now plays `hero-living-portrait-v4.mp4`, one
-  purpose-made 11s film (24fps, native loop, 3.6MB) that opens and ends
-  on the portrait and needs no ranges, joins, or rest — AI-assisted and
-  disclosed (DECISIONS 2026-09-17). `data-first` 5 and the 1.6s fade-in
-  are all that remain of the knobs below.
+  is history: the hero now plays `hero-living-portrait-v5.mp4`, one
+  purpose-made 11s film (24fps, native loop, 3.6MB) that needs no
+  ranges, joins, or rest — AI-assisted and disclosed (DECISIONS
+  2026-09-17). Since 2026-09-18 it opens on the hair shot and finishes
+  on the portrait coming alive (the turn, the laugh); its loop point is
+  a white flash, and the fade-in waits 0.2s so the flash never shows on
+  a first visit. `data-first` 5 and the 1.6s fade-in are all that
+  remain of the knobs below.
 - **The reel (2026-09-03 to 2026-09-17).** A film facade: the portrait `<Image>` is what ships
   and paints (it is the LCP element); 2.5s after `load`, `home-motion`
   attaches Amy's studio reel — the carousel's muted rendition at the
@@ -239,7 +247,7 @@ paragraph). The table is kept as the map of where each rule lives.
 | `data-plays` | same | `0` | passes before the film ends on the portrait for good (`0` = loop forever — the default since 2026-09-04) |
 | ~~`data-hold`~~ | — | retired 2026-09-04 | the 3.5s rest on each passage's last frame WAS the stall the operator saw; a leftover value is ignored |
 | attach delay | `data-first` (default 2.5 in `home-motion.js`) | 5 s after `load` | keeps the film out of the Lighthouse trace |
-| dissolves | `home-motion.js` | 1.6s fade-in; with ranges set: 0.8s joins, 1.2s out / 1.6s in round the rest | the film's arrival; the trim machinery's joins |
+| dissolves | `home-motion.js` | 1.6s fade-in after a 0.2s wait (since 2026-09-18 — the film's from-white opening frames pass unseen); with ranges set: 0.8s joins, 1.2s out / 1.6s in round the rest | the film's arrival; the trim machinery's joins |
 | Lenis `lerp` | `home-motion.js` | `0.09` | scroll weight (higher = snappier) |
 | hero settle | `global.css` / `home-motion.js` | 14s / 2.4s | the still's one-shot scale |
 | slide order | `VideoCarousel.astro` slides array | J1 → studio → J2 → team | the band |
@@ -248,7 +256,8 @@ paragraph). The table is kept as the map of where each rule lives.
 
 - **Amy's review** — now on the standing demo (#97), phone first: the
   hero film and her sign-off on her own generated likeness in it
-  (2026-09-17; the reel and its two-pass ending are history), the van
+  (2026-09-17, re-ordered 2026-09-18 — same footage; the reel and its
+  two-pass ending are history), the van
   band, the display sizes, the
   new lead and intro deck wording, and her pick among three headline
   candidates — keep "Medical Aesthetics, made personal." / "One

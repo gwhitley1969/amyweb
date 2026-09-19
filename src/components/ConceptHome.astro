@@ -146,14 +146,19 @@ const CHEVRONS = [
     {/* HOME CONCEPT (2026-09-03; the film remade 2026-09-17): the media
         is a film facade — Amy's portrait <Image> is what ships and paints
         (LCP unchanged); home-motion.js attaches the hero film data-first
-        seconds after `load` and fades it in over the portrait (1.6s).
-        THE FILM (DECISIONS 2026-09-17): hero-living-portrait-v4.mp4 — one
+        seconds after `load` and fades it in over the portrait (1.6s, after
+        a 0.2s wait — the film opens from white, see below).
+        THE FILM (DECISIONS 2026-09-17; re-ordered 2026-09-18 at the
+        founders' request): hero-living-portrait-v5.mp4 — one
         purpose-made 11s file at 24fps, played at 1× with the native
-        loop; no ranges, no seeks, no joins in script. It opens and ends
-        on this very portrait (frame 0 is the photograph, same aspect,
-        same object-position, same filter — the handoff registers), and
-        cuts through four more of Amy's published stills with camera
-        moves. It replaces the three sub-2-second passages of the studio
+        loop; no ranges, no seeks, no joins in script. It opens on the
+        lavender-suit shot (a hand through her hair), cuts through
+        three more of Amy's published stills with camera moves, and
+        finishes on this very portrait coming alive — she turns and
+        laughs (the photograph at 1.00, same aspect, same
+        object-position, same filter). The loop point sits inside a
+        white flash: the file's last and first frames are flat white,
+        so a player's hitch at the loop can only lengthen the flash. It replaces the three sub-2-second passages of the studio
         reel (15fps at the 0.5× rate, a frozen frame at every seek — the
         operator: "too choppy"). AI-ASSISTED, DISCLOSED: two shots are
         Higgsfield (Seedance 2.5) performances generated FROM Amy's own
@@ -170,7 +175,7 @@ const CHEVRONS = [
       class="nc-hero__media"
       aria-hidden="true"
       data-hero-film
-      data-file={`${siteConfig.mediaBase}/hero-living-portrait-v4.mp4`}
+      data-file={`${siteConfig.mediaBase}/hero-living-portrait-v5.mp4`}
       data-vtt="/media/hero-living-portrait.vtt"
       data-label="Amy in her Harrisburg studio"
       data-rate="1"

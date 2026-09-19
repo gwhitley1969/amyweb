@@ -34,9 +34,13 @@ merged here; the hero reel takes the same policy.
 choppy, and after four rounds (a pixel-locked cinemagraph — "boring";
 the fast cut with AI living moments — "That looks great!!!"; a hop at
 the handoff; the head turn's speed; the eyes) the hero plays
-`hero-living-portrait-v4.mp4`, one purpose-made looping film that opens
-and ends on the portrait — AI-assisted and disclosed (DECISIONS
-2026-09-17, the entry and its addenda; merged in PR #190). Everything
+`hero-living-portrait-v5.mp4`, one purpose-made looping film —
+AI-assisted and disclosed (DECISIONS 2026-09-17, the entry and its
+addenda; merged in PR #190). Through v4 it opened and ended on the
+portrait; since 2026-09-18, at the founders' request, the same shots
+run in a new order: the hair shot opens, the portrait comes alive,
+turns and laughs at the finish, and the loop point sits inside a white
+flash (DECISIONS 2026-09-18). Everything
 below about the reel, its passages, and its knobs is that round's
 record.
 
@@ -87,11 +91,14 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   Palacios, FNP, in medical aesthetics since 2017."* Below 900px the
   hero is the phase-c stack.
 - **The film since 2026-09-17.** The reel described in the next item
-  is history: the hero now plays `hero-living-portrait-v4.mp4`, one
-  purpose-made 11s film (24fps, native loop, 3.6MB) that opens and ends
-  on the portrait and needs no ranges, joins, or rest — AI-assisted and
-  disclosed (DECISIONS 2026-09-17). `data-first` 5 and the 1.6s fade-in
-  are all that remain of the knobs below.
+  is history: the hero now plays `hero-living-portrait-v5.mp4`, one
+  purpose-made 11s film (24fps, native loop, 3.6MB) that needs no
+  ranges, joins, or rest — AI-assisted and disclosed (DECISIONS
+  2026-09-17). Since 2026-09-18 it opens on the hair shot and finishes
+  on the portrait coming alive (the turn, the laugh); its loop point is
+  a white flash, and the fade-in waits 0.2s so the flash never shows on
+  a first visit. `data-first` 5 and the 1.6s fade-in are all that
+  remain of the knobs below.
 - **The reel (2026-09-03 to 2026-09-17).** A film facade: the portrait `<Image>` is what ships
   and paints (it is the LCP element); 2.5s after `load`, `home-motion`
   attaches Amy's studio reel — the carousel's muted rendition at the

@@ -9562,3 +9562,69 @@ the hero film is Amy's sign-off on her generated likeness
 (CLINICIAN-SIGN-OFF, the pending-demo row). If the plan is ever
 downgraded or the account changes hands, re-check the terms before
 generating anything new for the site.
+
+## 2026-09-18 — Addendum: the hero film re-ordered — the hair shot opens, the turn and the laugh finish (founders)
+
+**Context.** The founders love the film and asked for two scenes to
+trade places: the shot where Amy runs her right hand through her hair
+and smiles at the camera should open the film, and the shot where she
+sits on the table, turns her head and laughs should be the finish.
+"Everything else can stay the same." The v4 cycle was: the portrait
+comes alive (turn, laugh) → black scrubs → neon sign → pink light → the
+hair shot → the stool pull-back → the still portrait (the loop point).
+
+**Decision.** The same seven clips, the same frames, re-ordered: the
+hair shot → black scrubs → neon sign → pink light → the stool pull-back
+→ (its slow dissolve, as before) the still portrait → the portrait comes
+alive, she turns and laughs → loop. The stool shot still dissolves into
+the portrait, the portrait still holds ~1.2s before it moves, and the
+still-to-living join is the one the loop made in v4, now a straight cut
+inside the file (both frames are the photograph at 1.00; measured
+frame-to-frame change across it 0.11, the same as its neighbours).
+Every shot matched against v4 frame for frame (difference 1.1–2.4
+levels: grain and encode). Nothing newly generated; no credits.
+
+The loop point moves, so it needed a new home. In v4 a player's hitch
+at the native loop fell on the still portrait and could not be seen;
+after the re-order it would fall between two moving shots and read as a
+freeze. So the loop point sits inside a white flash — the cut's own
+grammar (it already flashes twice): the film's last three frames go to
+white and its first four come back from it, and the file's last and
+first frames are flat white (measured: luma 232–238 across the whole
+frame). A hitch can only lengthen the flash. This supersedes the
+2026-09-17 house rule "the film's first and last frames are the hero
+portrait at 1.00" with: **the loop point sits on flat frames.**
+
+One script change rides with it: the facade's 1.6s fade-in now waits
+0.2s after the first `playing` event (`public/js/home-motion.js`), so
+the four from-white frames pass while the film is still invisible.
+Without it the cubic fade would already be ~8–28% opaque over those
+frames — a faint brightening pulse over the portrait on the first
+visit. Harmless for any future film; no size change.
+
+The shipped file: `hero-living-portrait-v5.mp4` (media origin;
+3,572,728 B; SHA-256
+fc370766ab16ea0f5d41746ab46e25318aabe84317312eb0f6b56f0aaba920f1;
+1080×1502, 24fps, 268 frames / 11.17s, no audio). The caption file keeps
+its one bounded cue, reworded to the new order.
+
+**Alternatives rejected.** A literal two-slot swap (the stool shot and
+the still portrait would follow the laugh — the film would not finish
+on it, and the portrait would appear twice a cycle). The loop point on
+moving footage (a visible freeze on phones). Rotating a pre-rendered
+strip around the flash (it depended on frame arithmetic the clips do
+not honour — three of them are a fraction shorter than their nominal
+lengths). ffmpeg's `fade` with a white colour (it forces an RGB round
+trip on two whole shots; an xfade against a white source stays in YUV
+like the other flashes). A new generation (it would replace
+performances the founders approved).
+
+**Consequences.** On a first visit the still portrait no longer comes
+alive in place: it dissolves into the hair shot, and the
+portrait-comes-alive moment arrives late in each cycle (~8.5s). That is
+inherent in the order asked for; flagged to the operator in the plan,
+approved. `data-first` 5, the hero still (the LCP element) and the
+film's CSS are unchanged. A desktop headless browser cannot show an
+iPhone's loop behaviour — the operator checks the loop point on a
+phone. Amy's sign-off on her generated likeness still gates production;
+the footage is the same. v1–v4 stay on the origin, unreferenced.

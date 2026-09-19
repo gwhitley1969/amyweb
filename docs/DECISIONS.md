@@ -9953,3 +9953,73 @@ and CLAUDE.md constraint 3 (the regenerative lead), and §7's schema
 block (`schemaDescription`). Verification: `verify:fast` green with the
 exit line read after every change; full `npm run verify` green on the
 final tree before the push.
+
+## 2026-09-19 — Addendum: the copy round's third batch — /about gains a credentials paragraph, its quoted ranking phrase under operator override
+
+**Context:** The same evening, the same branch (PR #192), one more
+change from the operator and their colleague on the tagged preview: the
+/about hero. One commit (`3a865d2`), pushed once with this entry.
+
+**Decision 1 — the new paragraph.** After "It's the job." the hero now
+reads: "Amy holds a BA in Psychology, a BSN, and a Master of Nursing,
+and is a licensed Family Nurse Practitioner. This is all before
+personally investing in excess of $100,000 in Medical Aesthetics
+training to bring "top of class" abilities to her clientele. Amy never
+stops training and advancing her knowledge of the business." The
+dictated first sentence did not parse ("Amy brings with a BA … and a
+licensed Family Nurse Practitioner"; "a BSN in Nursing"); three forms
+were offered (AskUserQuestion) and the operator chose "Amy holds…" —
+the smallest fix that keeps "a licensed Family Nurse Practitioner" word
+for word, the site's existing credential phrasing (BUILD_SPEC §8.8:
+state credentials exactly). Sentences two and three are verbatim.
+
+**Decision 2 — removed:** "She brought that training into medical
+aesthetics in 2017 and became a nurse practitioner the following year."
+Both years still stand in the milestones timeline directly below, so
+no fact leaves the page.
+
+**Decision 3 — "top of class": OPERATOR OVERRIDE, flagged BEFORE the
+edit.** The flag: the phrase is superiority-class (BUILD_SPEC §8.4,
+CLAUDE.md constraint 3 — the "#1" / "best" / "top-rated" family), it
+can also be read literally as an unsubstantiated class rank, and no
+lint:claims pattern sees it (the registry deliberately has no bare
+"top" pattern — the EvolusLaurel precedent), so a green linter would
+not mean it was authorized. Offered: a descriptive swap ("advanced
+skills", recommended), the dictated wording, or ending the sentence at
+the fact. **The operator chose the dictated wording.** Authorization =
+this entry and commit `3a865d2`; NO `allowedStrings` entry. Scope: that
+one sentence in the /about hero, wording exact, quotation marks
+included; the phrase is never restated anywhere else — meta
+description, OG, JSON-LD, alt text, or comments (the page header
+comment records the override without repeating it). Verified on the
+built page: the phrase renders once, in the body; nothing new reaches
+`<head>`.
+
+**Decision 4 — two facts new to the record, source logged.** The BA's
+field (Psychology) and the "in excess of $100,000" personal training
+investment. Asked for the source, the operator answered: **from Amy,
+directly, 2026-09-19.** This extends the 2026-08-27 credentials
+confirmation (BA, BSN, Master of Nursing, FNP). The figure is Amy's own
+statement about her own spend; it is not a price, a comparison with
+another provider, or a clinical claim. Her exact post-nominals remain
+unverified, as on 2026-08-27 — "Master of Nursing" stays spelled out.
+
+**Noted, not changed:** "her knowledge of the business" can read as
+commercial rather than clinical knowledge ("the field" would not);
+raised to the operator, left as dictated.
+
+**Alternatives rejected:** the descriptive swap and the fact-only ending
+(offered, declined); "Amy brings with her … her license as a Family
+Nurse Practitioner" (offered, declined); an `allowedStrings` entry (no
+pattern trips, and an entry nothing needs is a loophole); adding a
+"top" pattern to the registry (would false-positive ordinary copy —
+the 2026-08-19 reasoning stands).
+
+**Consequences:** /about is not flag-gated, so no `clinicianApproved`
+flag moves; CLINICIAN-SIGN-OFF's /about notes carry the paragraph so it
+reaches Amy in the consolidated review, superseding that slice of her
+2026-08-04 wording confirmation. `compliance/banned-patterns.json`
+untouched. **Operator passage drafted** (the passages file, §4):
+CLAUDE.md constraint 3's exception list and BUILD_SPEC §8 rule 4.
+Verification: `verify:fast` green with the exit line read; full
+`npm run verify` green on the final tree before the push.

@@ -16,7 +16,8 @@
  *     lead, CTAs, chips, and the chevron cue follow.
  *  2. Hero film — attached a beat after `load`, poster first, and fades
  *     in. Since 2026-09-17 it is one purpose-made looping file (no
- *     data-ranges, the native loop); the ranges path below — freeze-frame
+ *     data-ranges, the native loop; since 2026-09-18 its loop point
+ *     sits inside a white flash, so the fade-in waits 0.2s); the ranges path below — freeze-frame
  *     dissolves joining screened passages (tweak 4, 2026-09-04) — stays
  *     for a film that needs trimming. Pauses off-screen.
  *  3. Leaving the hero — the copy lifts away and the film swells (scrub).
@@ -324,10 +325,12 @@
         v.addEventListener('ended', () => { if (!joining) join(); });
       }
       // The fade-in rides the first `playing` event, so a play() that
-      // was refused and later unlocked by a gesture still fades in.
+      // was refused and later unlocked by a gesture still fades in. The
+      // 0.2s delay lets the film's from-white opening frames (its loop
+      // point is a white flash — DECISIONS 2026-09-18) pass unseen.
       v.addEventListener(
         'playing',
-        () => gsap.to(v, { opacity: 1, duration: 1.6, ease: 'power2.out', overwrite: 'auto' }),
+        () => gsap.to(v, { opacity: 1, duration: 1.6, delay: 0.2, ease: 'power2.out', overwrite: 'auto' }),
         { once: true },
       );
       v.addEventListener('canplay', () => { v.play().catch(armUnlock); }, { once: true });

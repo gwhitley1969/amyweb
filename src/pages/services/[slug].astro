@@ -22,7 +22,9 @@ const { Content } = await render(entry);
 
 const pageUrl = `${siteConfig.url}/services/${entry.id}`;
 const jsonLd = [
-  service(entry.data.title, entry.data.summary, pageUrl),
+  // schemaDescription (optional) keeps structured data factual when the
+  // visible lead ships under a claims override — DECISIONS 2026-09-19.
+  service(entry.data.title, entry.data.schemaDescription ?? entry.data.summary, pageUrl),
   breadcrumbList([
     { name: 'Home', url: siteConfig.url },
     { name: 'Services', url: `${siteConfig.url}/services` },

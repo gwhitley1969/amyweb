@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
+import BookLink from '../components/BookLink.astro';
 import TrustChips from '../components/TrustChips.astro';
 import EvolusLaurel from '../components/EvolusLaurel.astro';
 import TreatmentVideo from '../components/TreatmentVideo.astro';
@@ -27,6 +28,17 @@ import girlTeamFilmWidePoster from '../assets/photos/girl-team-film-wide-poster.
  * Amy via the operator 2026-08-27; the milestone credential line
  * carries all four from that date ("Master of Nursing" spelled out:
  * her exact post-nominals are unverified; DECISIONS 2026-08-27).
+ * The hero's credentials paragraph (operator-dictated 2026-09-19,
+ * replacing the "2017 … the following year" sentence — the milestones
+ * still carry both years): the BA's field and the training-investment
+ * figure come from Amy directly, via the operator, same date. Its
+ * second sentence closes on a quoted ranking phrase that ships under
+ * OPERATOR OVERRIDE after the compliance flag (BUILD_SPEC §8.4; no
+ * lint:claims pattern sees it, so a green linter never authorizes
+ * it). The wording is exact and the scope is that one sentence; the
+ * phrase is never restated anywhere else — meta description, OG,
+ * JSON-LD, alt text, or comments, this one included (DECISIONS
+ * 2026-09-19, the /about addendum).
  * Sole ownership of Mobile Aesthetics:
  * DECISIONS 2026-07-23. "AKA Needle Girlie": the client-dictated byline,
  * DECISIONS 2026-07-30. The "Inside Evolus" film lives here since
@@ -111,8 +123,11 @@ const CHEVRONS = [
             every detail right isn't a flourish. It's the job.
           </p>
           <p>
-            She brought that training into medical aesthetics in 2017 and
-            became a nurse practitioner the following year.
+            Amy holds a BA in Psychology, a BSN, and a Master of Nursing,
+            and is a licensed Family Nurse Practitioner. This is all before
+            personally investing in excess of $100,000 in Medical Aesthetics
+            training to bring "top of class" abilities to her clientele. Amy
+            never stops training and advancing her knowledge of the business.
           </p>
           <p>
             Today the studio is hers: Amy owns Mobile Aesthetics in
@@ -391,7 +406,7 @@ const CHEVRONS = [
         </div>
         <h3 class="heading-4 mt-10">Booked your way.</h3>
         <p class="mt-2 max-w-prose">
-          Book an appointment whenever you are ready, or start with a free
+          <BookLink>Book</BookLink> an appointment whenever you are ready, or start with a free
           consultation, available upon request. Either way, the plan is
           personal, and it is made with Amy.
         </p>

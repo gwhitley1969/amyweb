@@ -53,7 +53,7 @@ faq:
   - q: "How does Amy decide which peptide is right for me?"
     a: "That's what a consultation is for. Amy reviews your history and your goals and builds a plan around what makes clinical sense, including advising against peptides if that's the honest answer."
   - q: "Can I book peptide therapy directly?"
-    a: "Yes. Book online with Amy anytime, or call. A free consultation is always available first if you'd like to talk things through before scheduling."
+    a: "Yes. [Book](cta:book) online with Amy anytime, or call. A free consultation is always available first if you'd like to talk things through before scheduling."
   - q: "Who gives the treatment?"
     a: "Amy Palacios, FNP, a licensed family nurse practitioner. She plans it and gives it herself: every visit is with Amy."
 seo:
@@ -62,6 +62,7 @@ seo:
 ---
 
 import { Image } from 'astro:assets';
+import BookLink from '../../components/BookLink.astro';
 import amyPortrait from '../../assets/photos/amy-in-pink-scrubs.jpg';
 
 ## What it is
@@ -105,5 +106,5 @@ of her.
 ## Individualized, with Amy
 
 Amy Palacios, FNP, plans and gives every peptide treatment herself at
-her Harrisburg studio, in the greater Charlotte area. Book directly, or ask for
+her Harrisburg studio, in the greater Charlotte area. <BookLink>Book</BookLink> directly, or ask for
 a free consultation first, whichever you prefer.

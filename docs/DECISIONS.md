@@ -10067,3 +10067,28 @@ by hand (offered since the morning; they delegated it).
 passage restates an override's exact wording by design — CLAUDE.md and
 BUILD_SPEC.md are the authorization record, not site text, and
 lint:claims does not scan them.
+
+## 2026-09-19 — Addendum: the basis for "a $618 value at other labs" (hormone-optimization lab-draw card)
+
+**Context:** The first 2026-09-19 entry (flag 4) shipped the lab-draw
+card's sentence "This is a $618 value at other labs for the same panel."
+with its substantiation marked PENDING. Asked for the basis, the
+operator answered the same evening.
+
+**The basis, in the operator's words:** "The $618 is what LabCorp
+charges for the same labs." — i.e. LabCorp's price for the panel the
+card lists (CBC, CMP, TSH, T3, T4, Testosterone, Estradiol, FSH,
+Vitamin D, Vitamin B12), as known to the operator and Amy on
+2026-09-19. This is the substantiation record for the sentence, the
+way the Evolus designation's basis was recorded 2026-08-19.
+
+**Noted once, not changed:** the sentence says "other labs" (plural,
+unnamed) while the basis is one named lab. "At a national lab" would
+match the basis more exactly without naming a third party on the site;
+raised to the operator with this entry, shipped wording unchanged
+unless they say otherwise. LabCorp is not named anywhere in site text.
+
+**Consequences:** Flag 4 of the first 2026-09-19 entry is resolved —
+no longer pending. The figure is a third party's price and will drift:
+re-confirm it whenever the lab-draw price or the panel changes, and at
+the pre-relaunch re-approval. No site text, gate, or registry changes.

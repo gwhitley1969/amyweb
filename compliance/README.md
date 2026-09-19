@@ -208,6 +208,17 @@ excluded by editorial judgment no pattern encodes.
   component rendered the unresolved `{{BIOTE_FDA_DISCLAIMER}}` token, so the
   check passed while no disclaimer was actually shown — the flag was
   enforced, its payload was not.)*
+  **One file is exempt since 2026-09-19:**
+  `src/content/treatments/hormone-optimization.mdx`, matched by exact path
+  (`SYMPTOM_EXEMPT_PAGE` in the linter). Amy directed the FDA disclaimer
+  box off that page while its symptom wording stays; the operator decided
+  it after the compliance flag and made the gate edit by their own hand
+  (DECISIONS 2026-09-19). Every other treatment file keeps the rule, and
+  two self-test cases prove the exemption neither fails its own page nor
+  leaks to another. So on that one page a green `lint:claims` no longer
+  means the disclaimer is rendered — the page's `bioteDisclaimer` flag is
+  the thing to read, and flipping it back to `true` restores the box (the
+  component and its `allowedStrings` sentence stay in the repo, dormant).
 
 **What the flag does and does not unlock.** `bioteDisclaimer: true` permits
 the *symptom-awareness vocabulary* listed above. It does **not** permit

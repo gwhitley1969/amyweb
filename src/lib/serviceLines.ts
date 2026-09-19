@@ -96,7 +96,7 @@ export const serviceLines: ServiceLine[] = [
   {
     slug: 'peptide-therapy',
     title: 'Peptide Therapy',
-    summary: 'Peptide therapy options, individualized under clinician supervision.',
+    summary: 'Peptide therapy options, individualized.',
     href: '/services/peptide-therapy',
     category: 'wellness',
   },

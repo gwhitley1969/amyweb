@@ -397,7 +397,7 @@ constraint 6, DECISIONS 2026-09-03), no layout shift from fonts or images.
 | `/services/regenerative` | Regenerative Treatments | §7 brief | Request a consultation |
 | `/services/skin-rejuvenation` | Skin Rejuvenation | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
 | `/services/body-contouring` | Body Contouring | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
-| `/services/laser-treatments` | Laser Treatments | §7 brief (added 2026-07-22, Venus Versa; renamed Venus Versa Pro 2026-08-04; priced + Venus Epileve laser hair removal added 2026-08-21) | Request a consultation (hair removal: Book with Amy) |
+| `/services/laser-treatments` | Laser Treatments | §7 brief (added 2026-07-22, Venus Versa; renamed Venus Versa Pro 2026-08-04; priced + Venus Epileve laser hair removal added 2026-08-21) | Request a consultation (hair removal: Book with Amy) *(copy amended 2026-09-19, operator override: the page's booking FAQ now says all services can be booked — the §8.7 scoped exception; DECISIONS same date)* |
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
@@ -417,7 +417,10 @@ consultation"); **"appointment"** is used for booking/conversion contexts
 CTA label amendment (operator, 2026-07-20): every conversion button is
 labeled **"Book with Amy"**, including consult-routed ones. The table's
 "Request a consultation" cells describe routing intent in prose, not
-button behavior; consult-variant buttons pointed at `/book` until the
+button behavior; since 2026-09-19 the booking FAQ answers on
+biostimulators, regenerative, skin-rejuvenation, and laser-treatments also
+say yes to booking directly (DECISIONS 2026-09-19 and its addendum);
+consult-variant buttons pointed at `/book` until the
 2026-07-21 routing amendment below.
 
 Routing amendment (operator, 2026-07-21): a button reading "Book with
@@ -446,6 +449,7 @@ No claims in the hero (no outcomes, no "#1" until substantiated).
   title: string,
   line: enum(12 lines),
   summary: string,            // 1–2 sentences, factual
+  schemaDescription?: string, // Service JSON-LD description ONLY (2026-09-19); absent = summary. Keeps structured data factual when a lead ships under a claims override
   deck?: string,              // editorial standfirst card (2026-07-20, replaced AtAGlance); §8 applies
   products: string[],         // named products only, from this spec
   ctaType: 'book' | 'consult' | 'shop',
@@ -484,6 +488,14 @@ No claims in the hero (no outcomes, no "#1" until substantiated).
 All copy pattern: *what it is → who it's generally for, in general factual
 terms → individualized under clinician supervision → CTA*. No mechanisms-of-
 action hype, no outcomes, no dosing, ever.
+
+*(Amended 2026-09-19, operator direction: the literal clause "under
+clinician supervision" no longer appears on any treatment page or on
+the /services menu — "there is no doctor on staff", and the clause can
+read as a supervising physician (§8.8: state credentials exactly). The
+beat is carried by "Amy … plans and performs every treatment herself".
+The weight-loss line's "medically supervised program" wording (§7.1) is
+unchanged. DECISIONS 2026-09-19, the addendum.)*
 
 1. **Weight Loss & GLP-1 Therapy** — prescription medications offered in
    a medically supervised weight-management program: **Semaglutide**,
@@ -625,6 +637,12 @@ action hype, no outcomes, no dosing, ever.
    wording under a recorded override of this brief's no-outcome-claims
    rule, scoped to those two exact sentences; anything further reverts
    to the rule — DECISIONS 2026-08-01.)*
+   *(Amended 2026-09-19, operator override after the compliance flag: the
+   page's lead states outcomes — "…to stimulate hair re-growth and reduce
+   the signs of skin aging" — as client wording, verbatim, visible text
+   only; `schemaDescription` keeps the structured-data description
+   factual. Scope: that one sentence; anything further reverts to the
+   rule. DECISIONS 2026-09-19, the addendum.)*
 7. **IV Therapy & Vitamin Support** — Myers' Cocktail, Immunity IV, vitamin
    shots, Glutathione, B12, NAD IV. **Glutathione: absolutely no disease
    claims** (no neuroprotective / Alzheimer's / Parkinson's / chemotherapy
@@ -646,6 +664,14 @@ action hype, no outcomes, no dosing, ever.
    exactly as everywhere else, disclaimer or not. Biote's post-procedure
    timeline — insertion intervals, procedures per year, lab cadence — is
    frequency/protocol material and never appears on the site.)*
+   *(Amended 2026-09-19 — the clinician's direction, operator decision
+   after the compliance flag: the page no longer renders the FDA
+   disclaimer box (`bioteDisclaimer: false`) while keeping its
+   symptom-awareness language; the linter exempts this one file by exact
+   path, the operator's own edit. The rest of this brief stands —
+   symptom vocabulary here and nowhere else, disease and condition names
+   banned, no protocol material; the lab-draw card lists test names
+   only. DECISIONS 2026-09-19.)*
 9. **Skincare (Skinbetter Science)** — medical-grade skincare available
    through Amy's partner storefront; shop link-out (`{{SKINBETTER_URL}}`).
 10. **Skin Rejuvenation** *(added 2026-07-19, Vagaro alignment; expanded
@@ -720,6 +746,12 @@ action hype, no outcomes, no dosing, ever.
     menu item names only — the exclusions above otherwise stand, and
     the manufacturer-name rule stands. The three Versa Pro applications
     stay consult-routed.
+    *(Amended 2026-09-19, operator override after the compliance flag:
+    the page's booking FAQ answers "Yes! All services can be booked with
+    the expectation of a procedure." — the §8.7 scoped exception.
+    `ctaType` stays `consult`, and "Three tools, one conversation" plus
+    the skin-types FAQ still route suitability to a consultation.
+    DECISIONS 2026-09-19.)*
     **Venus Epileve laser hair removal** *(added 2026-08-21 — the
     line's fourth service and its one true laser; operator-confirmed as
     offered)*: a laser hair-removal device, described by that fact alone
@@ -849,10 +881,20 @@ action hype, no outcomes, no dosing, ever.
    CLAUDE.md constraint 3 rather than in `allowedStrings` (the
    photo-override precedent); the ranking never appears in meta
    descriptions, OG tags, alt text, or JSON-LD. Nothing else.*
+   *(Third scoped exception, 2026-09-19 — operator override after the
+   compliance flag: one sentence in the /about hero carries a quoted
+   ranking phrase as client wording, verbatim. Exact sentence and scope
+   in CLAUDE.md constraint 3; DECISIONS 2026-09-19, the /about
+   addendum.)*
 5. Off-label promotion (e.g., positioning any product for an unapproved use).
 6. Presenting investigational compounds as approved, safe, or effective.
 7. Medical advice or suitability answers — "is this right for me" always
    routes to a consultation.
+   *Scoped exception (operator override after the compliance flag —
+   DECISIONS 2026-09-19): the exact laser-treatments FAQ answer "Yes! All
+   services can be booked with the expectation of a procedure." — that
+   answer, that page. Recorded here and in CLAUDE.md constraint 3, NOT
+   in `allowedStrings` (no pattern sees it). Nothing else.*
 8. Credential inflation: Amy is an **FNP** (nurse practitioner). Never imply
    physician status; state credentials exactly.
 9. Testimonials, reviews, or before/after content (deferred by SOW).
@@ -864,12 +906,15 @@ action hype, no outcomes, no dosing, ever.
 DisclaimerBlock on every treatment page; consultation routing as the clinical
 fallback; the consultation/appointment language convention (§6).
 
-**Enforcement — `scripts/lint-claims.mjs`:** scans `src/content/**` and
-`src/pages/**` against `compliance/banned-patterns.json` (regex classes for
+**Enforcement — `scripts/lint-claims.mjs`:** scans every text file under
+`src/` — content, pages, components, layouts, lib, and styles, comments
+included — against `compliance/banned-patterns.json` (regex classes for
 dosing vocabulary, disease names, guarantee language, superiority claims,
 banned product angles). Inverse checks: `investigational: true` files must
 contain the investigational disclosure string; `bioteDisclaimer: true` files
 must not contain symptom lists unless the disclaimer component is present.
+*(Since 2026-09-19 one file is exempt by exact path —
+/services/hormone-optimization, the operator's own gate edit; §7.8.)*
 Runs in `npm run verify` and CI. The banned list only ever grows; loosening it
 requires the human operator. The registry's `allowedStrings` entry
 (2026-07-20 override) strips its exact strings from a line before the

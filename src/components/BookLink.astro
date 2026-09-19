@@ -1,0 +1,34 @@
+---
+import { siteConfig } from '../lib/siteConfig';
+
+/**
+ * Inline booking link — a linked word (or short phrase) INSIDE a sentence.
+ * The in-text form of CTAButton's book variant, never restyled per use:
+ * the one Vagaro destination (siteConfig.booking.vagaroUrl — one label,
+ * one destination, operator 2026-07-21), the declarative book_click event
+ * (BUILD_SPEC §11), the new-tab attrs + sr-only note, and the house
+ * inline-link idiom (underline + var(--ng-link): on the ombre canvas a
+ * link is told apart by its underline, never by color alone — DECISIONS
+ * 2026-07-23; the token re-scopes itself on noir).
+ *
+ * Extracted 2026-09-19 when the operator directed every "book" in running
+ * text and FAQ answers to link to Vagaro (DECISIONS same date): the
+ * /services intro's bold "BOOK" (2026-08-18) was the first hand-mirror of
+ * these mechanics and the FAQ marker the second; the sweep is the third
+ * consumer, which earns the shared component. Consumers: MDX bodies and
+ * .astro pages use it directly; FaqAccordion and VisitSteps render it for
+ * the `[text](cta:book)` marker (src/lib/inlineLinks.ts).
+ *
+ * WHERE IT MUST NOT GO: inside a <summary> or any other control (a link
+ * inside the FAQ question would hijack the click that opens the answer and
+ * fails axe's nested-interactive rule), and on /mobile or
+ * /injector-training, where the way to reach Amy is the phone, not Vagaro
+ * (DECISIONS 2026-09-02, 2026-08-04).
+ *
+ * No <style> block on purpose (utility classes only — no scope attribute),
+ * and the anchor stays on ONE line: whitespace inside an inline link
+ * prints, and a sentence may end right after it.
+ */
+---
+
+<a href={siteConfig.booking.vagaroUrl} class="underline underline-offset-4" style="color: var(--ng-link)" data-event="book_click" target="_blank" rel="noopener"><slot /><span class="sr-only"> (opens in new tab)</span></a>

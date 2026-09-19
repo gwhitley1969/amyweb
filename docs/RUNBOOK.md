@@ -300,11 +300,12 @@ carries an 80KB script budget for the layer (measured ~69KB gzipped);
 every other page keeps 30KB.
 
 **The hero film** is a film facade: the portrait `<Image>` ships and
-paints; the script attaches `hero-living-portrait-v4.mp4` (the media
-origin) over it and fades it in. Since 2026-09-17 (DECISIONS same date)
-it is one purpose-made 11s file played at 1× with the native loop — it
-opens and ends on the portrait itself, so there is nothing to trim or
-join. The settings are data attributes on the `.nc-hero__media`
+paints; the script attaches `hero-living-portrait-v5.mp4` (the media
+origin) over it and fades it in (1.6s, after a 0.2s wait). Since
+2026-09-17 (DECISIONS same date) it is one purpose-made 11s file played
+at 1× with the native loop, so there is nothing to trim or join. Since
+2026-09-18 (the founders' order) it opens on the hair shot and finishes
+on the portrait coming alive; the loop point sits inside a white flash. The settings are data attributes on the `.nc-hero__media`
 element in `src/components/ConceptHome.astro`:
 
 | Knob | Today | Meaning |
@@ -319,8 +320,12 @@ still into a moving clip (flat, or two-layer with a cutout matte),
 `assemble.cjs` cuts the clips together (xfade `fade` is the
 crossfade — `dissolve` is a speckle effect), ffmpeg is a winget
 install. House rules, all from DECISIONS 2026-09-17: the canvas is
-1080×1502, the portrait's own aspect, and the film's first and last
-frames are the hero portrait at 1.00 so the handoff registers;
+1080×1502, the portrait's own aspect; the loop point sits on FLAT
+frames — a player can hitch at the native loop, so the file's last and
+first frames are either the still portrait at 1.00 (v1–v4) or flat
+white inside a flash (v5, DECISIONS 2026-09-18; `seam.cjs` prints
+them), never two moving shots; wherever the still portrait turns into
+a living take, it is the photograph at 1.00 so the handoff registers;
 generative inputs are only published, Amy-only stills; nothing
 generated shows a treatment, a client, a product, or text; every
 generated take is screened at hero size (contact sheet
@@ -346,7 +351,8 @@ re-renders the face, so a slow dissolve is a face morph.
 Verify on the running page: count `requestVideoFrameCallback`
 presentations for a loop and sample `paused` every 50ms — expect the
 film's frame rate, 0 paused samples, no frame gap over ~100ms at the
-loop point, and one fetch of the file.
+loop point, and one fetch of the file. A desktop browser loops cleanly
+where a phone may not: look at the loop point on a real iPhone too.
 
 ## Turning on analytics (Plausible — prepped 2026-08-17, ships dark)
 

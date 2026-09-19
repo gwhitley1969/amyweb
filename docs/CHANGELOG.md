@@ -6,6 +6,24 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-18 — The home hero film, re-ordered (the hair shot opens; the turn and the laugh finish)
+
+- The founders' request: the shot where Amy runs a hand through her
+  hair and smiles now opens the film, and the shot where she sits on
+  the table, turns and laughs now finishes it. Every shot is the same
+  footage at the same length; nothing new was generated.
+- The order: the hair shot, black scrubs, the neon sign, the pink
+  light, the stool pull-back dissolving into the still portrait, which
+  holds, comes alive, turns and laughs — then the loop.
+- The loop point moved from the still portrait into a white flash: the
+  file's last and first frames are flat white, so a phone's hitch at
+  the loop can only lengthen the flash. The page's fade-in waits 0.2s
+  so those white frames never show on a first visit.
+- On a first visit the still now dissolves into the hair shot instead
+  of coming alive in place — inherent in the new order.
+- The file is `hero-living-portrait-v5.mp4` (11.17s). DECISIONS
+  2026-09-18.
+
 ### 2026-09-17 — The home hero film is remade (a living-portrait film, AI-assisted)
 
 - The operator found the hero's moving media "too choppy". Measured:

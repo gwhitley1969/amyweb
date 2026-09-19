@@ -35,23 +35,24 @@ clinicianApproved: false
 draft: false
 faq:
   - q: "Do I need a consultation before booking?"
-    a: "No. A consultation is never required for this line, and one is free if you'd like it. Book an appointment directly, or ask to talk through the menu first."
+    a: "No. A consultation is never required for this line, and one is free if you'd like it. [Book](cta:book) an appointment directly, or ask to talk through the menu first."
   - q: "What's the difference between an IV and a shot?"
     a: "An IV goes into a vein through a small catheter and runs in gradually while you sit. A shot is a single injection into muscle and is done in moments. Which form something comes in is set by what it is, not by preference. Each card above says which."
   - q: "How long should I plan for?"
-    a: "It depends on what you book: a shot is quick, an infusion takes longer. Amy confirms what to plan for when you book."
+    a: "It depends on what you [book](cta:book): a shot is quick, an infusion takes longer. Amy confirms what to plan for when you [book](cta:book)."
   - q: "Can I choose what goes into my drip?"
     a: "The menu above is what Amy offers, and she goes through the contents with you before anything is given. Anything beyond that is a conversation with Amy, not something settled from a price menu."
   - q: "Who administers them?"
     a: "Amy Palacios, FNP, a licensed family nurse practitioner. Every appointment is with Amy herself."
   - q: "How do I book?"
-    a: 'Online with the "Book with Amy" button.'
+    a: 'Online with the "[Book with Amy](cta:book)" button.'
 seo:
   title: "IV Therapy & Vitamin Support in Harrisburg & Charlotte, NC | Needle Girlie"
   description: "IV infusions and vitamin shots with Amy Palacios, FNP, in Harrisburg, NC: Myers' Cocktail, Immunity IV, NAD IV, Glutathione, and B12. Book an appointment directly."
 ---
 
 import { Image } from 'astro:assets';
+import BookLink from '../../components/BookLink.astro';
 import ivInfusionLaptop from '../../assets/photos/iv-infusion-laptop.jpg';
 import ivMaleClient from '../../assets/photos/iv-male-client.jpg';
 
@@ -105,7 +106,7 @@ handing you off partway through.
 
 ## Booked directly
 
-Most of Amy's lines begin with a consultation. This one doesn't: book an
+Most of Amy's lines begin with a consultation. This one doesn't: <BookLink>book</BookLink> an
 appointment straight from the menu above.
 
 A consultation is still there if you want one, and it's still free. Some people
@@ -130,7 +131,7 @@ ordinary way to start.
 ## Individualized, with Amy
 
 Amy Palacios, FNP, administers every infusion and every shot herself at her
-Harrisburg studio, in the greater Charlotte area. Book directly, or ask for a
+Harrisburg studio, in the greater Charlotte area. <BookLink>Book</BookLink> directly, or ask for a
 free consultation first, whichever you prefer.
 
   </div>

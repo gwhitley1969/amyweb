@@ -6,6 +6,55 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-19 — Copy round, second batch: the supervision clause swept, "book" links to Vagaro sitewide, five more pages
+
+- Same day, same branch (PR #192), thirty-two more commits pushed once.
+- **"Under clinician supervision" is gone from the treatment pages.** The
+  operator's reason: "there is no doctor on staff" — the clause can read
+  as a supervising physician. It came off wrinkle-relaxers (reversing
+  the 2026-08-23 call to keep it there), biostimulators, regenerative,
+  skin-rejuvenation, and the /services Peptide Therapy card. Weight
+  loss's "medically supervised program" wording, the peptide page's
+  search description, and the medical-disclaimer page were listed for
+  the operator and left as they are.
+- **"Your visit, step by step", step 3** now opens "Confidently book your
+  appointment." on all twelve treatment pages ("when you are ready"
+  comes off).
+- **Every "book" in running text and FAQ answers is now a link to Amy's
+  Vagaro page** — 45 new links on 14 pages: steps 1 and 3 on every
+  treatment page, the home intro, /about, and sentences on six treatment
+  pages. Same destination, new-tab behaviour, and underline as the
+  "Book with Amy" buttons. Left plain on purpose: the ten FAQ questions
+  (a link inside one would hijack the click that opens the answer), the
+  two headings, and /mobile's "Friends book together" (mobile parties
+  book by phone). Checked on the built site: not one visible letter
+  changed on any page; accessibility 25/25 with the links in place.
+- **Dermal fillers:** "Which product is used in your plan is decided
+  between you and Amy."; "Does filler hurt?" gains "Also, Amy applies
+  additional topical lidocaine to minimize any discomfort."
+- **Biostimulators:** the pink statement card closes "naturally created
+  over time"; three FAQ answers reworded — the booking answer now says
+  "Yes. Although this line starts with a consultation, so the right
+  approach can be chosen, the procedure can be performed immediately at
+  your appointment."
+- **Regenerative:** the first line is the client's sentence, **under
+  operator override after the compliance flag** — "…to stimulate hair
+  re-growth and reduce the signs of skin aging." It shows as visible
+  text only: the page's structured-data description keeps the previous
+  factual sentence (a new optional `schemaDescription` field makes that
+  possible; no other page changes). The booking answer now says "Yes.
+  This line starts with a consultation so that Amy can explain each
+  option plainly. The procedure can be performed immediately."
+- **Skin rejuvenation:** the peels card ("Each peel is customized to
+  suit your skin's specific needs."), "the traditional idea, refined",
+  "one approach, a customized plan.", and four FAQ answers — including
+  "Yes, absolutely! Book anytime for your convenience." and the
+  right-for-me answer without its opening consultation sentence. Both
+  were noted to the operator; the page's other consultation passages
+  now carry that routing and stay as written.
+- Nothing was added to the compliance allowlist. (DECISIONS 2026-09-19,
+  the addendum.)
+
 ### 2026-09-19 — Copy round across six treatment pages; FAQ answers can link to booking
 
 - The operator and a colleague went through the tagged review preview

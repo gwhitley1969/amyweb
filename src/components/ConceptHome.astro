@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import CTAButton from './CTAButton.astro';
+import BookLink from './BookLink.astro';
 import TrustChips from './TrustChips.astro';
 import LocationCard from './LocationCard.astro';
 import VideoCarousel from './VideoCarousel.astro';
@@ -261,7 +262,7 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
         {/* One-sentence deck (2026-09-03); the §6 "Meet Amy" credentials
             stay below it as a compact line — never dropped. */}
         <p class="lead nc-lead-lg">
-          Book when you are ready, or talk it through with Amy first. Every
+          <BookLink>Book</BookLink> when you are ready, or talk it through with Amy first. Every
           decision is made with her, at your pace.
         </p>
         <p class="nc-credentials mt-6">

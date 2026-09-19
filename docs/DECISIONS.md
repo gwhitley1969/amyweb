@@ -9958,7 +9958,8 @@ final tree before the push.
 
 **Context:** The same evening, the same branch (PR #192), one more
 change from the operator and their colleague on the tagged preview: the
-/about hero. One commit (`3a865d2`), pushed once with this entry.
+/about hero (commit `3a865d2`), then the menu label that points to it;
+pushed once with this entry.
 
 **Decision 1 — the new paragraph.** After "It's the job." the hero now
 reads: "Amy holds a BA in Psychology, a BSN, and a Master of Nursing,
@@ -10003,6 +10004,15 @@ confirmation (BA, BSN, Master of Nursing, FNP). The figure is Amy's own
 statement about her own spend; it is not a price, a comparison with
 another provider, or a clinical claim. Her exact post-nominals remain
 unverified, as on 2026-08-27 — "Master of Nursing" stays spelled out.
+
+**Decision 5 — the menu label "About" becomes "About Amy".** The last
+change of the batch, operator direction: the header menu's link to
+/about (`Header.astro`'s `nav` array; the label renders uppercase).
+Label only — the href, the page's own "About" eyebrow, its title and
+H1 are untouched. The header is on every page, so the full check was
+re-run after this change. BUILD_SPEC §5's hybrid-nav note lists the
+menu as "Services/About/Visit/Training" (already without Mobile) — a
+descriptive list, left for the operator with the other passages.
 
 **Noted, not changed:** "her knowledge of the business" can read as
 commercial rather than clinical knowledge ("the field" would not);

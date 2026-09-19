@@ -8,7 +8,7 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ### 2026-09-19 — Copy round, third batch: /about gains Amy's credentials paragraph
 
-- Same day, same branch (PR #192), one more commit.
+- Same day, same branch (PR #192), two more changes.
 - **/about, the opening section.** A new second paragraph, right after
   "It's the job.": "Amy holds a BA in Psychology, a BSN, and a Master of
   Nursing, and is a licensed Family Nurse Practitioner. This is all
@@ -26,6 +26,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - Removed from the same section: "She brought that training into medical
   aesthetics in 2017 and became a nurse practitioner the following
   year." The timeline below still shows both years.
+- **The menu** now says "About Amy" (was "About") on every page. The
+  link and the page are unchanged.
 - Nothing was added to the compliance allowlist. (DECISIONS 2026-09-19,
   the /about addendum.)
 

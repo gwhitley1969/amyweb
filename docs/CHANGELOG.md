@@ -6,6 +6,31 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-19 — Copy round, third batch: /about gains Amy's credentials paragraph
+
+- Same day, same branch (PR #192), two more changes.
+- **/about, the opening section.** A new second paragraph, right after
+  "It's the job.": "Amy holds a BA in Psychology, a BSN, and a Master of
+  Nursing, and is a licensed Family Nurse Practitioner. This is all
+  before personally investing in excess of $100,000 in Medical
+  Aesthetics training to bring "top of class" abilities to her
+  clientele. Amy never stops training and advancing her knowledge of
+  the business." The first sentence is the operator's pick from three
+  grammatical forms of the dictated one; the rest is verbatim.
+- The quoted phrase ships **under operator override after the
+  compliance flag** (a ranking-style phrase; a descriptive swap and a
+  fact-only ending were offered and declined). It lives in that one
+  sentence only and is not repeated anywhere else on the site.
+- The BA's field and the $100,000 figure are new to the record — from
+  Amy directly, the operator confirms.
+- Removed from the same section: "She brought that training into medical
+  aesthetics in 2017 and became a nurse practitioner the following
+  year." The timeline below still shows both years.
+- **The menu** now says "About Amy" (was "About") on every page. The
+  link and the page are unchanged.
+- Nothing was added to the compliance allowlist. (DECISIONS 2026-09-19,
+  the /about addendum.)
+
 ### 2026-09-19 — Copy round, second batch: the supervision clause swept, "book" links to Vagaro sitewide, five more pages
 
 - Same day, same branch (PR #192), thirty-two more commits pushed once.

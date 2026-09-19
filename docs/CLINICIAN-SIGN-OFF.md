@@ -174,6 +174,21 @@ direction; facts Amy confirmed to the operator 2026-08-27): the
 Nursing." — it was "The credential reads FNP, BSN.", also part of
 the 2026-08-04 confirmed wording. "Master of Nursing" is spelled
 out pending her exact post-nominal letters (DECISIONS 2026-08-27).
+**NEW 2026-09-19 — a third /about copy change (operator direction;
+the two new facts from Amy directly, the operator confirms):** the
+opening section gains a second paragraph — "Amy holds a BA in
+Psychology, a BSN, and a Master of Nursing, and is a licensed Family
+Nurse Practitioner. This is all before personally investing in excess
+of $100,000 in Medical Aesthetics training to bring "top of class"
+abilities to her clientele. Amy never stops training and advancing her
+knowledge of the business." — and loses "She brought that training
+into medical aesthetics in 2017 and became a nurse practitioner the
+following year." (the timeline keeps both years). Hers to read by
+name: the quoted phrase, which shipped under the operator's override
+after the compliance flag (a ranking-style claim about her skills, in
+one sentence only), the $100,000 figure, and "BA in Psychology". This
+supersedes that slice of the wording she confirmed 2026-08-04
+(DECISIONS 2026-09-19, the /about addendum).
 ~~Known defect queued for the same pass: `studio-wide.jpg` alt
 text ("two clients") vs its one-client 4:5 window~~ — RESOLVED
 2026-08-25: the asset was replaced and deleted in the iv-therapy

@@ -15,7 +15,10 @@ import { siteConfig } from '../lib/siteConfig';
  * 2026-09-03, with a refused play() retried inside the person's first
  * gesture (the carousel's phone policy extended to these players; see
  * the prop). The captions track is required either way — the a11y gate
- * (axe video-caption) fails without it.
+ * (axe video-caption) fails without it. The track renders `default`
+ * (on for every visitor), so a film with NO audio ships a caption file
+ * with no cues and carries its description in `label` (DECISIONS
+ * 2026-09-20 — a descriptive cue painted over the /mobile film).
  *
  * MEDIA ORIGIN (2026-08-17, DECISIONS same date): the .mp4 serves from
  * siteConfig.mediaBase (Blob behind the same Front Door). The `src`

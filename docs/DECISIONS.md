@@ -10092,3 +10092,63 @@ unless they say otherwise. LabCorp is not named anywhere in site text.
 no longer pending. The figure is a third party's price and will drift:
 re-confirm it whenever the lab-draw price or the panel changes, and at
 the pre-relaunch re-approval. No site text, gate, or registry changes.
+
+## 2026-09-20 — Silent films ship a captions track with no cues (Amy's phone painted a description over the hero)
+
+**Context:** Amy sent a phone screenshot (`captions01.png`, a preview
+URL): a grey box over the home hero reading "Amy in her Harrisburg
+studio: she runs a hand through her hair and smiles…". That is the one
+cue of `public/media/hero-living-portrait.vtt`. Every film gets a
+captions track; on a silent film the house pattern (2026-09-03, the
+/mobile viewfinder-film entry, item 6; reused for the hero 2026-09-17)
+put ONE descriptive cue in it. The hero's track is not `default`, so it
+draws only when the device asks for captions — her iPhone almost
+certainly has Closed Captions + SDH on (Settings → Accessibility →
+Subtitles & Captioning; the setting sticks once on). Working as built,
+built wrong: a film with no audio has nothing to caption, and a
+description is a text alternative, not a caption. Looking further:
+`TreatmentVideo` renders its track `default`, so the /mobile van film's
+cue painted over the film for EVERY visitor (checked in a browser on
+preview #149: mode `showing`, the cue active at 1–3s) — the class the
+2026-08-25 team-film entry had already warned about. ffprobe of all 13
+captioned films: six carry no audio — the hero, the /mobile film, and
+the four carousel renditions.
+
+**Decision (operator: "fix every silent film"):** the four
+SITE-AUTHORED silent films — `hero-living-portrait`,
+`van-viewfinder-treatment-trim`, `commercial-studio`,
+`commercial-team` — keep their `<track kind="captions">` element and
+ship a caption file with NO cues. The removed wording moves into each
+file's NOTE (the in-repo record stands; a NOTE never contains the cue
+arrow). The description is the player's label: the hero's `data-label`
+becomes the old cue's sentence (a record more than a fix — the hero's
+media wrapper is `aria-hidden` by design, so assistive technology never
+reaches that video); /mobile's `label` already was the description; the
+two carousel labels are unchanged (each is also its progress button's
+name, and constraint 2 allows no new team wording). Caption URLs gain
+`?v=2`: `/media/*` serves with a one-day max-age, so a phone that had
+the old file would have kept its cue for a day.
+
+**The two Evolus commercials are untouched (operator, asked
+directly):** their caption files are a transcript of the films'
+on-screen text, the safety information included — manufacturer creative
+carried as-is, and the only text form of that safety information a
+screen reader can reach. Known remainder: a captions-on phone still
+shows those boxes, on those two films only.
+
+**Rejected:** removing the track element, or `kind="descriptions"` /
+`metadata` — axe `video-caption` fails on the static `TreatmentVideo`
+players, and three players would follow two rules; leaving the cues
+(it covers the most important picture on the site); lengthening the
+studio slide's label (it would lengthen a button name); emptying the
+Evolus transcripts (operator declined).
+
+**Consequences:** supersedes the one-bounded-descriptive-cue pattern
+for silent films going forward — a film with no audio track ships a
+cue-less caption file and carries its description in the label;
+sounded films are unchanged (`[Music]` cues, transcripts). A cue-less
+file is valid WebVTT (tested in Chrome: track `readyState` 2, zero
+cues, no error; Safari cannot be tested from the build machine — Amy's
+phone is that test). Bump the `?v=` whenever a served caption file
+changes. No film re-encoded or re-uploaded; no treatment content
+touched. RUNBOOK carries the rule.

@@ -193,13 +193,14 @@ const jsonLd = [
         * is confirmed on file). Bare frame: the arch family's hairline +
         * 12px foot corners on the video, never the arch itself (the
         * film-stage rule). Muted rendition (the song waits on a license),
-        * so the in-view autoplay is in-contract; the caption file
-        * describes the scene in one bounded cue. */}
+        * so the in-view autoplay is in-contract; no audio, so the caption
+        * file carries no cues and the label is the description
+        * (DECISIONS 2026-09-20; ?v= is the cache-bust). */}
       <div class="mobile-friends-film">
         <TreatmentVideo
           src="/media/van-viewfinder-treatment-trim.mp4"
           poster={vanViewfinderPoster}
-          captionsSrc="/media/van-viewfinder-treatment-trim.vtt"
+          captionsSrc="/media/van-viewfinder-treatment-trim.vtt?v=2"
           label="Inside the Mobile Aesthetics van, framed like a camcorder viewfinder: Amy treating a guest seated in the treatment chair"
           frame="bare"
           autoplay="inview"

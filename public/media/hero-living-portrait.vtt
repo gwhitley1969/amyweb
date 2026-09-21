@@ -8,9 +8,13 @@ and no burned-in text of its own. AI-ASSISTED, DISCLOSED: two shots are
 Higgsfield (Seedance 2.5) performances generated from her published
 portraits, and one short abstract light insert is generated outright;
 the other shots are the photographs under a digital camera move.
-Nothing generated shows a treatment, a client, a product, or text. One
-bounded cue describes the film for the muted play; a film-long cue
-would paint over the whole loop.
+Nothing generated shows a treatment, a client, a product, or text.
 
-00:00.400 --> 00:03.200
-Amy in her Harrisburg studio: she runs a hand through her hair and smiles, then a quick run of her portraits, and she turns to the camera, laughing.
+NOTE
+NO CUES, ON PURPOSE (docs/DECISIONS.md 2026-09-20). The film has no
+audio, so there is nothing to caption; a cue here painted a box over the
+portrait on every phone with captions switched on. The description is
+the player's label (ConceptHome.astro, data-label). This file stays as
+the film's in-repo record. The film shows: Amy in her Harrisburg studio:
+she runs a hand through her hair and smiles, then a quick run of her
+portraits, and she turns to the camera, laughing.

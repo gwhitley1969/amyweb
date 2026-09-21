@@ -6,6 +6,26 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-20 — Silent films no longer paint a description over the picture
+
+- Amy's phone showed a grey box of text over the home hero ("Amy in her
+  Harrisburg studio: she runs a hand through her hair…"). It was the
+  film's caption file: her iPhone has captions switched on, and the
+  silent films each carried one descriptive cue.
+- The same cue class showed to EVERY visitor on /mobile for the first
+  three seconds of the van film (that player's captions are on by
+  default).
+- Fixed on the four site-authored silent films — the home hero, the
+  /mobile film, and the carousel's studio and team films: the captions
+  track stays (the accessibility gate needs it) but carries no cues;
+  the wording is kept in each file's notes, and the hero's label now
+  carries its description.
+- The two Evolus Jeuveau commercials keep their captions — a transcript
+  of their on-screen text, safety information included (operator
+  decision). A captions-on phone still shows boxes on those two.
+- Caption URLs carry `?v=2` so phones drop the cached old files at
+  once. No film changed. DECISIONS 2026-09-20.
+
 ### 2026-09-19 — Copy round, third batch: /about gains Amy's credentials paragraph
 
 - Same day, same branch (PR #192), two more changes.

@@ -1,12 +1,14 @@
 WEBVTT
 
 NOTE
-Captions mirror the film's burned-in text (Mobile Aesthetics team film,
-carried under operator override — DECISIONS 2026-08-17). The web
-rendition carries no audio track.
+Mobile Aesthetics team film, carried under operator override —
+DECISIONS 2026-08-17. The web rendition carries no audio track.
 
-00:00.000 --> 00:02.000
-Girl team.
-
-00:02.000 --> 00:13.800
-The Mobile Aesthetics team together in the studio — group portraits under the neon sign and a black-and-white photo-shoot montage.
+NOTE
+NO CUES, ON PURPOSE (docs/DECISIONS.md 2026-09-20). The film has no
+audio, so there is nothing to caption; a cue here painted a box over the
+film on every phone with captions switched on. The slide's label names
+the film (VideoCarousel.astro) and is unchanged. This file stays as the
+film's in-repo record. Burned-in text: "Girl team." The film shows: the
+Mobile Aesthetics team together in the studio — group portraits under
+the neon sign and a black-and-white photo-shoot montage.

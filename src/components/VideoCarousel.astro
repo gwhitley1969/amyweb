@@ -37,10 +37,16 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *    and the number is the tuning knob. 0.5 is also the practical
  *    floor — engines clamp below it). The manufacturer films always
  *    play at 1× — their presentation is carried as-is.
- *  Renditions are muted (no audio track); captions mirror each film's
- *  on-screen text (track added with each built video — the axe
- *  video-caption rule audits rendered <video> elements; not `default`,
- *  the text is already burned into the pixels).
+ *  Renditions are muted (no audio track). Every built video carries a
+ *  captions track (the axe video-caption rule audits rendered <video>
+ *  elements; not `default`). Since 2026-09-20 (DECISIONS same date) the
+ *  two site-authored films ship a track with NO cues — nothing to
+ *  caption, and a cue painted a box over the film on every phone with
+ *  captions switched on; the two manufacturer films keep their
+ *  transcript of the on-screen text, safety information included
+ *  (carried as-is — operator decision). The ?v= on data-vtt is a
+ *  cache-bust (the files serve with a one-day max-age) — bump it when
+ *  a caption file changes.
  *  Since 2026-08-17 the .mp4 files serve from siteConfig.mediaBase
  *  (Blob behind the same Front Door) — data-file is absolute. The
  *  .vtt captions stay same-origin in public/media/ ON PURPOSE
@@ -115,7 +121,7 @@ const slides: {
         <div
           class:list={['vc-slide', { 'is-active': i === 0 }]}
           data-file={`${siteConfig.mediaBase}/${s.file}.mp4`}
-          data-vtt={`/media/${s.file}.vtt`}
+          data-vtt={`/media/${s.file}.vtt?v=2`}
           data-label={s.label}
           data-rate={s.rate}
         >

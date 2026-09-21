@@ -25,6 +25,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   decision). A captions-on phone still shows boxes on those two.
 - Caption URLs carry `?v=2` so phones drop the cached old files at
   once. No film changed. DECISIONS 2026-09-20.
+- Merged into phase-c 2026-09-21 (PR #194, on the operator's word);
+  both standing previews (#97, #149) refreshed after it.
 
 ### 2026-09-19 — Copy round, third batch: /about gains Amy's credentials paragraph
 

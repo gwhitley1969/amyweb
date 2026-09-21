@@ -171,14 +171,19 @@ const CHEVRONS = [
         Nothing generated shows a treatment, a client, a product, or
         text. Reduced motion: the film still plays (films policy,
         2026-09-03); only the choreography stands down. Phones: a
-        refused play() retries on the first gesture. */}
+        refused play() retries on the first gesture. CAPTIONS (DECISIONS
+        2026-09-20): the film has no audio, so its captions track ships
+        with NO cues — a cue painted a box over this portrait on every
+        phone with captions switched on. The description lives in
+        data-label; the ?v= on data-vtt is a cache-bust (the file is
+        served with a one-day max-age) — bump it if the file changes. */}
     <div
       class="nc-hero__media"
       aria-hidden="true"
       data-hero-film
       data-file={`${siteConfig.mediaBase}/hero-living-portrait-v5.mp4`}
-      data-vtt="/media/hero-living-portrait.vtt"
-      data-label="Amy in her Harrisburg studio"
+      data-vtt="/media/hero-living-portrait.vtt?v=2"
+      data-label="Amy in her Harrisburg studio: she runs a hand through her hair and smiles, then a quick run of her portraits, and she turns to the camera, laughing."
       data-rate="1"
       data-first="5"
     >

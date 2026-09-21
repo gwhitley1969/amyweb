@@ -1,9 +1,14 @@
 WEBVTT
 
 NOTE
-Captions mirror the film's burned-in text (Amy's own published reel,
-carried as-is under operator override — DECISIONS 2026-08-14). The web
-rendition carries no audio track.
+Amy's own published reel, carried as-is under operator override —
+DECISIONS 2026-08-14. The web rendition carries no audio track.
 
-00:00.000 --> 00:15.000
-POV: Age gracefully together. A day inside Amy's Harrisburg studio — clients arriving, appointments in the chair, and the products on the counter.
+NOTE
+NO CUES, ON PURPOSE (docs/DECISIONS.md 2026-09-20). The film has no
+audio, so there is nothing to caption; a cue here painted a box over the
+film on every phone with captions switched on. The slide's label names
+the film (VideoCarousel.astro). This file stays as the film's in-repo
+record. Burned-in text: "POV: Age gracefully together." The film shows:
+a day inside Amy's Harrisburg studio — clients arriving, appointments in
+the chair, and the products on the counter.

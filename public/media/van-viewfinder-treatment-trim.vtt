@@ -11,11 +11,15 @@ operator listened (music only, no speech), but the song is a
 commercial recording and a business website needs a license a social
 platform's library does not grant — a sounded cut waits on that
 license. The only burned-in text is the template's chrome (REC, RAW
-9:16, HD, a battery glyph, "30 fps"), which the cue does not mirror.
+9:16, HD, a battery glyph, "30 fps"), which is not mirrored anywhere.
 The seated guest's website-use release is confirmed on file (the
-operator's confirmation is the record); nobody is named anywhere. One
-bounded cue describes the scene for the muted play; a film-long cue
-would paint over the whole loop.
+operator's confirmation is the record); nobody is named anywhere.
 
-00:00.400 --> 00:03.200
-Inside the van, framed like a camcorder viewfinder: Amy treats a guest seated in the treatment chair.
+NOTE
+NO CUES, ON PURPOSE (docs/DECISIONS.md 2026-09-20). The film has no
+audio, so there is nothing to caption; this player's track is on by
+default, so a cue here painted a box over the film for every visitor.
+The description is the player's label (src/pages/mobile.astro). This
+file stays as the film's in-repo record. The film shows: inside the van,
+framed like a camcorder viewfinder, Amy treats a guest seated in the
+treatment chair.

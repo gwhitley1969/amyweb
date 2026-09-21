@@ -185,10 +185,17 @@ To add or swap a film:
 3. **Poster frame:** `ffmpeg -ss <t> -i rendition.mp4 -frames:v 1
    -q:v 2 src/assets/photos/commercial-<name>-poster.jpg` (pick a
    visually simple frame — posters count toward the / image budget).
-4. **Captions:** `public/media/commercial-<name>.vtt` mirroring the
-   film's on-screen text (the a11y gate requires a track on every
-   built video; VTT files are outside lint:claims scope — the per-film
-   override entry is the control).
+4. **Captions:** `public/media/commercial-<name>.vtt` (the a11y gate
+   requires a track on every built video; VTT files are outside
+   lint:claims scope — the per-film override entry is the control).
+   The renditions are silent, so since 2026-09-20 (DECISIONS same
+   date) a SITE-AUTHORED film's file carries NO cues — provenance,
+   burned-in text, and a description go in NOTE blocks (never type the
+   cue arrow inside a NOTE); a cue paints a box over the film on every
+   phone with captions switched on. A MANUFACTURER film's file is the
+   transcript of its on-screen text, safety information included.
+   Caption files serve with a one-day max-age: bump the `?v=` on
+   `data-vtt` when one changes.
 5. Add the slide to the `slides` array in VideoCarousel.astro (the
    films render `object-fit: contain`, uncropped — for the Evolus
    spots that is a compliance requirement). Optional `rate` field =
@@ -219,7 +226,11 @@ rendition KEEPS its audio (`-c:a copy`; `-crf 20` for an HEVC source,
 a lossless `-c copy` remux when the source is already H.264/AAC), the
 captions are faithful to the audio (a transcript when there is
 speech; bounded `[Music]` cues when there is none — a film-long cue
-paints "[Music]" over the whole play), the poster is committed to
+paints "[Music]" over the whole play; a rendition with NO audio track
+ships a caption file with no cues and carries its description in
+`label` — this player's track is on by default, so any cue paints over
+the film for every visitor, DECISIONS 2026-09-20; bump the `?v=` on
+`captionsSrc` when a served caption file changes), the poster is committed to
 `src/assets/photos/<name>-poster.jpg` and is never requested above
 its source width (the component clamps), and a film placed INSIDE a
 media row takes `frame="bare"` so it sits with the bare arches (the

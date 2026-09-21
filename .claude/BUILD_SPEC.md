@@ -966,7 +966,9 @@ action.
   flag; team releases confirmed on file; no claims content — DECISIONS
   same date). Facade-loaded per the pattern above: zero video
   elements and zero video bytes until the stage scrolls into view;
-  muted renditions; captions mirror each film's on-screen text
+  muted renditions; the manufacturer films' captions mirror their
+  on-screen text, and since 2026-09-20 the site-authored films ship a
+  captions track with no cues (DECISIONS same date)
   (public/media/*.vtt — outside lint scope, controlled by the per-film
   override entries); since 2026-09-03 the films autoplay under
   reduced motion too (operator decision — content with a pause control;

@@ -20,6 +20,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   change there.
 - BUILD_SPEC's header description matches (operator-authorized).
   DECISIONS 2026-09-23.
+- Merged into phase-c 2026-09-23 (PR #197, on the operator's word);
+  both standing previews (#97, #149) refreshed after it.
 
 ### 2026-09-23 — The menu says "Visit Amy"
 

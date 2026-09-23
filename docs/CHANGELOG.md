@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-23 — The menu says "Visit Amy"
+
+- The header menu's "Visit" line now reads "Visit Amy" (shown as VISIT
+  AMY) on every page, at the operator's direction — the same change
+  "About" → "About Amy" made on 2026-09-19. The link and the /visit page
+  are unchanged; the menu now uses the page's own title. DECISIONS
+  2026-09-23.
+
 ### 2026-09-20 — Silent films no longer paint a description over the picture
 
 - Amy's phone showed a grey box of text over the home hero ("Amy in her

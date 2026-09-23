@@ -10152,3 +10152,38 @@ cues, no error; Safari cannot be tested from the build machine — Amy's
 phone is that test). Bump the `?v=` whenever a served caption file
 changes. No film re-encoded or re-uploaded; no treatment content
 touched. RUNBOOK carries the rule.
+
+## 2026-09-23 — The menu label "Visit" becomes "Visit Amy" (operator direction)
+
+**Context:** Operator direction: the header menu's "VISIT" line should
+read "VISIT AMY". The label is one entry in `Header.astro`'s `nav` array
+— the menu at every width (hybrid nav, 2026-08-15), shown uppercase by
+`.site-nav-link`'s `text-transform` — and the header is on every page.
+It is the 2026-09-19 "About" → "About Amy" change (the /about addendum's
+Decision 5, commit `c74960c`) repeated for the next item.
+
+**Decision:** `{ label: 'Visit Amy', href: '/visit' }` — the label only.
+The href and the /visit page are untouched; that page has titled itself
+"Visit Amy" (its `<title>` and H1) since C1, so the menu item now reads
+the same words as the page it opens. The Mobile item's comment follows
+("after Visit Amy"). Checked against the final website SOW (Phase 2,
+2026-07-06 — the operator directed on 2026-09-23 that the build abide by
+it): §3 calls this a "Visit Us" page, wording the voice rule bars (no
+first-person plural; `lint:voice`), and a label edit is §7's routine
+update — no scope, exclusion, §5 promise, or running cost is touched.
+Neither linter flags the new wording.
+
+**Alternatives rejected:** none — the wording was dictated and the
+precedent is exact.
+
+**Consequences:** the menu reads SERVICES · ABOUT AMY · VISIT AMY ·
+MOBILE · TRAINING on all 25 built pages (on /visit itself with
+`aria-current="page"`, the current-page marker). No `clinicianApproved`
+flag is involved — the header is not treatment content. BUILD_SPEC §5's
+hybrid-nav sentence ("Services/About/Visit/Training") now lags three
+ways (no Mobile, and neither "Amy" label) — the operator's file, left
+for their word as on 2026-09-19. A records fix rides the same PR:
+REDESIGN's 2026-09-19 copy-round row is marked merged (it still read
+"On a preview"; #192 merged 2026-09-19, `0d0ad61`). Verification: full
+`npm run verify` green on this tree, exit line read — pa11y 25/25,
+Lighthouse CI every assertion on 8 URLs × 3 runs.

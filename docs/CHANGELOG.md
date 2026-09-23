@@ -13,6 +13,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   "About" → "About Amy" made on 2026-09-19. The link and the /visit page
   are unchanged; the menu now uses the page's own title. DECISIONS
   2026-09-23.
+- Merged into phase-c 2026-09-23 (PR #195, on the operator's word);
+  both standing previews (#97, #149) refreshed after it.
 
 ### 2026-09-20 — Silent films no longer paint a description over the picture
 

@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-23 — Three stale descriptions corrected
+
+- The sign-off sheet's list of changes since launch now describes the
+  header menu as built: the menu at every width, with Book always
+  visible beside it (it said "hamburger-only nav").
+- A code comment in the header still gave the proportions of the Mobile
+  Aesthetics lockup the header retired on 2026-08-15; it now describes
+  the square full badge that replaced it.
+- The preview pipeline's comment now counts the accessibility sweep's 25
+  pages and Lighthouse's 8 (it said 23 and 6).
+- Text only: nothing on the site looks or reads differently, and no
+  treatment page or approval flag is involved. DECISIONS 2026-09-23.
+
 ### 2026-09-23 — The menu says "Visit Amy"
 
 - The header menu's "Visit" line now reads "Visit Amy" (shown as VISIT

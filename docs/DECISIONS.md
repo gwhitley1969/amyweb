@@ -10197,3 +10197,98 @@ Training; §6's /mobile row places its nav item "after Visit Amy"; and
 §6's /visit row names the page "Visit Amy" — the title it has carried
 since C1 — with a pointer to the SOW's "Visit Us" and the voice rule
 that bars "us". Text-only; no gate reads the file.
+
+## 2026-09-23 — The Mobile Aesthetics badge grows: 72px on phones, level with the Needle Girlie lockup from 640px (client request)
+
+**Context:** Amy asked, through the operator, for the Mobile Aesthetics
+logo in the header to be bigger — "without completely disrupting the
+entire header" (the operator's condition). Earlier the same day a header
+that stacked the badge over the wordmark at equal size (menu left, Book
+right) was built locally and rejected on sight for how it looked on
+desktop; it was never pushed and nothing of it ships. This entry changes
+the badge's SIZE only. Measured on the live demo (PR #97) first: the
+badge was 48px on every phone (on the utility row under the wordmark —
+the stacked shell of 2026-09-15), 48–72px on tablets (`clamp(48px, 7vw,
+80px)`; the 80 cap is never reached below 1024), and 128–160px on
+desktop (the 2026-08-15 co-brand scale). From 640px up the row's height
+is set by the brand block — the wordmark plus the credential line — not
+by the badge, so the badge had room to grow there without moving
+anything; on phones its row is only as tall as the badge.
+
+**Decision (operator, choosing among sized options with the header cost
+stated — a throwaway CSS mock on the live demo first, then before/after
+renders of the built page):** one custom property, `--ma-h` on
+`.site-header`, is the badge's height — the `--wordmark-w` pattern: one
+expression, read by the badge and by the menu popover's offsets. Phones:
+`72px` (was 48); the utility row, and so the phone header, is 24px
+taller. From 640px: `calc(var(--wordmark-w) / 3.675 + 1.5rem)` — exactly
+the brand block's height (the wordmark at its 3.675 aspect + the 0.375rem
+gap + the 1.125rem credential line), declared once and re-resolving
+against the ≥1024px `--wordmark-w`; the header's height does not change
+there. The popover's phone offset reads `--ma-h` in place of the fixed
+3rem utility row; from 640px it reads the taller of `--ma-h` and the
+brand block (the ≥1024 form extended to tablets — equal today, and the
+menu stays clear if either one changes). Measured on the built page:
+
+| Width | Header before → after | Badge before → after |
+|---|---|---|
+| 320 | 181 → 205 | 48 → 72 |
+| 390 | 200 → 224 | 48 → 72 |
+| 412–639 | 206 → 230 | 48 → 72 |
+| 640 | 134 → 134 | 48 → 101 |
+| 768 | 149 → 149 | 54 → 116 |
+| 1024 | 201 → 201 | 128 → 152 |
+| 1280 | 233 → 233 | 160 → 184 |
+| 1440 | 236 → 236 | 160 → 187 |
+
+The menu clears the header by 2.8–3.6px at every width from 320 to
+1440; no horizontal overflow; the header's markup is byte-identical to
+the live demo's (a CSS-only change); the tab order is unchanged. From
+640px the badge's top is level with the wordmark's, and the wordmark
+re-centres in the slack beside the larger badge (12–31px to the right).
+
+**Flags, raised once, answered by the operator's choices:** (1) the
+2026-09-15 direction wanted the mark to "stand out more than the Mobile
+Aesthetics logo". From 640px the badge is now level with the mark +
+credential line — on desktop ~24px taller than the wordmark image
+itself. The mark still leads: 2.8–3.2× the badge's width and 2.1–2.8×
+its area (6.7× on phones, on its own row). Amy's own request supersedes.
+(2) The badge is the sanctioned outbound link (constraint 2's first
+exception names the header badge and fixes no size), so a bigger badge
+is a bigger exit to yourmobileaesthetics.com; no link, mention, or text
+is added. Checked against the final website SOW: a §7 routine update —
+no scope, exclusion, §5 promise, or running cost is touched; REDESIGN's
+round close is not frozen, so it is not change-order scope.
+
+**Supersedes:** the 2026-09-15 phone-stack entry's "the badge stays 48px
+(client-picked, the sanctioned outbound link)"; the 2026-08-15 desktop
+scale `clamp(128px, 12.5vw, 160px)`; and the 2026-08-15 hybrid-nav
+entry's "the badge starts at 48px to make room" (a single-row phone
+constraint the stacked shell removed).
+
+**Alternatives rejected:** re-laying out the header (the stacked
+version, rejected the same day); growing the desktop header past the
+lockup (it is already the tallest chrome on the site at 236px); cropping
+the SVG's viewBox to its white frame (the #131313 plate barely shows on
+the black header, so the badge would read larger in the same box — but
+it alters the full badge the operator picked on 2026-08-15); 64px or
+80px on phones (offered; 80 would stand taller than the wordmark on
+320px phones).
+
+**Consequences:** every page's content starts 24px lower on phones (the
+header ~224px at 390, 205 at 320, 230 from 412 to 639); tablet and
+desktop headers are unchanged. The wordmark's 3.675 aspect now also
+sizes the badge from 640px — a wordmark with a different aspect resizes
+it (BRAND-ASSETS notes it). No DOM, link, alt, or asset change; not
+treatment content, so no `clinicianApproved` flag. CLINICIAN-SIGN-OFF's
+pending presentation row carries the larger badge; REDESIGN's badge and
+hybrid-nav rows and BUILD_SPEC §5 (on the operator's authorization, same
+day) carry the new sizes. Known and unchanged: without the Popover API
+(Safari 16 and earlier) the fallback inline menu already overflows
+phones and overlaps the tablet row — measured identical before and
+after; a separate fix. Verification: full `npm run verify` green on this
+tree, exit line read — build, `astro check` 0/0/0, lint:claims,
+lint:voice, pa11y 25/25, Lighthouse CI every assertion on 8 URLs × 3
+runs, CLS 0 on every URL. The thin LCP budgets did not move: /mobile
+2,482ms (its recorded median before the change; still a text paragraph)
+and /about 2,335ms (2,336 before), against 2,500.

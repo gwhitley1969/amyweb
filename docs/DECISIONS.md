@@ -10187,3 +10187,13 @@ REDESIGN's 2026-09-19 copy-round row is marked merged (it still read
 "On a preview"; #192 merged 2026-09-19, `0d0ad61`). Verification: full
 `npm run verify` green on this tree, exit line read — pa11y 25/25,
 Lighthouse CI every assertion on 8 URLs × 3 runs.
+
+**Addendum, same day — BUILD_SPEC brought current (operator
+authorization).** Before the merge the operator authorized the spec edit
+("you can change BUILD_SPEC.md also"), so the file moves with the site
+in the same PR. Three passages now match what is built: §5's hybrid-nav
+sentence lists the menu as Services / About Amy / Visit Amy / Mobile /
+Training; §6's /mobile row places its nav item "after Visit Amy"; and
+§6's /visit row names the page "Visit Amy" — the title it has carried
+since C1 — with a pointer to the SOW's "Visit Us" and the voice rule
+that bars "us". Text-only; no gate reads the file.

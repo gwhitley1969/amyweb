@@ -366,12 +366,15 @@ there is no inline desktop nav — and Book never hides. Since 2026-09-15
 (client direction, DECISIONS the seventh addendum of that date) PHONES
 STACK: below 640px the mark sits alone on top, centred, spanning the
 container (`min(100vw - 2rem, 380px)` — 358×98 at 390) with the credential
-line under it, and the badge, Book, and menu form a utility row beneath;
-the header is ~200px tall there and is not sticky. From 640px the single
-row holds: wordmark 44vw between 281 and 340px with the badge at 48–80px;
-from 1024px the wordmark is `clamp(420px, 46vw, 600px)` beside the
-128–160px badge (the 600px cap is the same day's "bigger than the badge"
-direction; the header is ~236px). The one-breakpoint mobile shell of
+line under it, and the badge (72px since 2026-09-23, Amy's request), Book,
+and menu form a utility row beneath; the header is ~224px tall there and is
+not sticky. From 640px the single row holds: wordmark 44vw between 281 and
+340px with the badge exactly as tall as the wordmark + credential line
+(101–117px); from 1024px the wordmark is `clamp(420px, 46vw, 600px)` beside
+the badge, still level with the wordmark + credential line (152–187px), so
+the badge never sets the header's height there (the 600px cap is the same
+day's "bigger than the badge" direction — the mark still leads at ~3× the
+badge's width; the header is ~236px). The one-breakpoint mobile shell of
 2026-08-15 fixed the Z Fold-class collision, DECISIONS 2026-08-15), Footer (NAP, social, legal
 links, Get-the-App slot), Hero, TreatmentCard, ServiceLineGrid, CTAButton
 (variants: book / consult / call), DisclaimerBlock, InvestigationalNotice,

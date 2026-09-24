@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-24 — The Mobile Aesthetics badge's lettering is white
+
+- The letters in the header's Mobile Aesthetics badge read as gray:
+  MOBILE AESTHETICS was silver fading toward gray, and PLLC, Amy's
+  name, and the phone number were flat gray. All of them are now white,
+  the same white as the badge's frame.
+- The letters are also a touch heavier, so they read as white on phones
+  and ordinary monitors, not only on the sharpest screens; the extra
+  weight brings them back to about the weight of the practice's original
+  logo artwork. The pink chevrons, the black tile, the frame, and the
+  badge's size and link are unchanged.
+- The brand kit's logo generator carries the change, so a future rebuild
+  keeps it. DECISIONS 2026-09-24.
+
 ### 2026-09-24 — The header menu works on older iPhones
 
 - Browsers without the pop-up menu feature the header relies on — Safari

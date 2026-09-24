@@ -19,6 +19,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   badge's size and link are unchanged.
 - The brand kit's logo generator carries the change, so a future rebuild
   keeps it. DECISIONS 2026-09-24.
+- Merged into phase-c 2026-09-24 (PR #199, on the operator's word);
+  both standing previews (#97, #149) refreshed after it.
 
 ### 2026-09-24 — The header menu works on older iPhones
 

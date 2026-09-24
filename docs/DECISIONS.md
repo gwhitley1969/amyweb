@@ -10478,3 +10478,81 @@ assertion on 8 URLs × 3 runs, CLS 0 on every URL; the thin LCP budgets
 did not move (/mobile 2,481ms, /about 2,336ms, against 2,500). The
 final comment wording re-passed `verify:fast` (exit 0) and builds the
 byte-identical stylesheet the full run tested.
+
+## 2026-09-24 — The Mobile Aesthetics badge's lettering goes white, a touch heavier (operator direction)
+
+**Context:** The operator: every letter in the header's Mobile
+Aesthetics badge reads gray; the letters should be white. The badge
+(`src/assets/brand/mobile-aesthetics-mark.svg`, an `<img>` in
+`Header.astro`, so page CSS cannot reach inside it) is written by
+`src/assets/brand/source/mobile-aesthetics/build-ma-mark.py`
+(2026-08-15). Its type had two paints. MOBILE, AESTHETICS, AMY PALACIOS
+NP, and the phone number took a vertical `chrome` gradient, `#fbfafb`
+at y=43 to `#c6c3c6` at y=82 of the 300-unit tile (the operator's
+2026-08-15 brightening of the reference's measured `#f4f2f3→#9b989b`);
+the name and phone lines sit below y=82, where a gradient holds its end
+colour, so they were solid `#c6c3c6`. PLLC was a flat `#a9a6a8`. Each
+glyph also carries an outline in its own paint, 0.4 units. The
+letterforms (Julius Sans One) are hairlines at header size — the I of
+MOBILE is 0.9 units wide, 1.3 with the outline: 0.8 CSS px on the
+187px desktop badge, 0.3 on the 72px phone badge — so they anti-alias
+toward the `#131313` plate, and colour alone does not reach white on a
+standard-density screen.
+
+**Decision (operator, from renders of the live #97 header at 1x, 2x,
+and 3x density — now / white / white with a 0.7 outline / white with a
+1.0 outline):** every line of type in the frame's own white (`#fdfdfd`),
+the glyph outline 0.4 → 0.7 units; the chrome gradient leaves the file.
+The generator carries the change (constants `TYPE = FRAME` and
+`TYPE_STROKE = '0.7'`; `defs()` no longer writes the gradient), and
+both of its outputs — the badge and the retired header lockup (brand
+kit only; nothing imports it) — are edited in lockstep. Letter
+brightness measured in Chromium (the 90th-percentile grey level of the
+rendered letters; 255 is white, the plate 19), before → after:
+
+| Screen (badge size) | AESTHETICS | PLLC | Phone number |
+|---|---|---|---|
+| iPhone, 3x (72px) | 174 → 224 | 107 → 188 | 138 → 207 |
+| Retina, 2x, 1440px+ wide (187px) | 198 → 248 | 141 → 242 | 172 → 243 |
+| Standard 1x, 1440px+ wide (187px) | 157 → 210 | 116 → 187 | 130 → 194 |
+| Standard 1x, 1024px wide (152px) | 141 → 190 | 102 → 185 | 120 → 179 |
+
+The heavier outline restores the logo's weight rather than departing
+from it: measured on single letter stems against the practice's
+reference render (F-437304, 300px; ±~0.3 units, since it is a raster),
+the reference's strokes are ~1.4–1.9 units wide, the rebuild's were
+1.25–1.4, and at 0.7 they are 1.5–1.6.
+
+**Alternatives rejected:** colour only (offered; the hairlines stay
+light gray on standard 1x screens); a 1.0 outline (offered, not
+chosen); a CSS filter on the `<img>` (it brightens the plate and the
+chevrons too); inlining the SVG to recolour it from CSS (35 KB of
+markup on every page); editing the SVGs without the generator (its
+next run would put the gray back).
+
+**Consequences:** the badge steps further from the practice's
+reference render than the 2026-08-15 brightening did — the reference's
+lettering is a light silver fade, the header's is now white (flagged
+once; MA is Amy's own PLLC, and the call is the operator's). The
+chevrons, the plate, the frame, and every path's geometry are
+unchanged; the file shrinks 611 bytes (35,010 → 34,399). The generator
+was not re-run: Pillow and fontTools are not installed here, and the
+Julius Sans One font file was never committed. The outputs were edited
+to what it now emits and proven two ways — an element-by-element
+comparison of old and new (only the type paints differ; every path's
+`d` is byte-identical) and a standard-library check that the edited
+generator's `defs()` and path template reproduce the committed files
+byte for byte. The lockup's chevrons, the verbatim source of the
+VisitSteps and /about plates, are unchanged. Amy's sign-off row gains
+the change. Not treatment content; no `clinicianApproved` flag.
+Verification: built against phase-c, the only changed file is the badge
+(new hashed name, content = the committed SVG) and all 25 pages' HTML
+is identical apart from that name — every stylesheet and script byte
+for byte; the built badge is pixel-identical to the render the operator
+picked at 390 (3x), 640 and 768 (2x), 1024 and 1280 (1x), and 1440
+(2x), its heights unchanged (72 / 100.6 / 115.9 / 152.2 / 184.2 /
+187.3px), no horizontal overflow. Full `npm run verify` green, exit
+line read — build, `astro check` 0/0/0, lint:claims, lint:voice, pa11y
+25/25, Lighthouse CI every assertion on 8 URLs × 3 runs, CLS 0 on
+every URL; the thin LCP budgets did not move (/mobile 2,481ms, /about
+2,335ms, against 2,500).

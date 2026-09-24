@@ -10388,3 +10388,93 @@ other stale copies: none current — the older counts elsewhere
 the rejected alternative. Verification: full `npm run verify` green on
 this tree, exit line read — pa11y 25/25, Lighthouse CI every assertion
 on 8 URLs × 3 runs.
+
+## 2026-09-24 — The no-Popover header fallback: the links get their own row (Safari 16 and earlier)
+
+**Context:** The header menu is the native Popover API, support floor
+Safari 17 — "unsupported browsers ignore the attribute and show the nav
+expanded" (2026-07-08, Phase B). The fallback that shows it expanded was
+written that day for the header of the time — an inline desktop link row
+from the small breakpoint up, the popover on phones only — and set the
+list `position: static; display: flex` where it stood, inside the nav. The header changed
+around it: the hybrid nav (2026-08-15) moved the page links into the
+popover at every width (five since 2026-09-02), and the stacked phone
+shell and the 600px wordmark (2026-09-15) filled the row. The no-Popover
+path was not re-tested; the 2026-09-23 badge entry recorded it as broken,
+outside that change. Reproduced by emulation in Chromium — the `popover`
+attribute stripped from the served HTML (Safari 16 ignores it, so no UA
+popover styles apply) and the served `@supports not
+selector(:popover-open)` block switched on in place — on the live demo
+(PR #97, whose header is byte-identical to phase-c's): phones 320–639px
+rendered 802px wide (the inline list's min-content widened the grid's
+`auto` track; the wordmark sat off-centre and the badge collapsed to 0px
+wide); 640 and 768 rendered 794px wide; from 640px up, Book and the menu
+button covered the badge and the links covered the wordmark, desktop
+included; and the menu button showed at every width, opening nothing.
+The audience: Safari before 17 — chiefly the iPhone 8, 8 Plus, and X,
+which stop at iOS 16.
+
+**Decision (operator, from before/after renders at 375, 768, and
+1280px):** CSS only, all of it inside the `@supports not
+selector(:popover-open)` block, so a browser with the Popover API
+applies none of it. The inert menu button is hidden (leaving the
+accessibility tree with it); the links become a centered, wrapping row
+(`0.5rem 0.625rem` link padding; the overlay's min-width, padding, and
+border off). Phones give the nav a third grid row, and Book stays on the
+utility row opposite the badge — absolutely positioned, centered on that
+row by the popover offset's own derivation (the top padding + the mark's
+height + 1.35rem for its gap and the credit line + the row gap + half of
+`--ma-h`). From 640px the nav — Book first, then the links — wraps onto
+its own full-width line under the badge + wordmark row, which keeps its
+layout. No DOM change: the tab order is the skip link, badge, wordmark,
+Book, then the five links (the dead "Menu" stop is gone). Measured in the
+emulation on the built page — `/visit`, `/`, and `/services/iv-therapy`,
+11 widths each, identical across the three:
+
+| Width | Before (no Popover) | After: header height |
+|---|---|---|
+| 320–639 | page 802px wide; badge 0px; wordmark off-centre | 279–335px |
+| 640 | 794px wide; Book + menu over the badge, links over the wordmark | 227px (Book above the links) |
+| 768–1023 | links over the wordmark (794px wide at 768) | 206px |
+| 1024–1440 | links, Book, and menu over the wordmark | 258–293px |
+
+After, at every width: no horizontal overflow, no header box overlapping
+another, every link inside the header.
+
+**Alternatives rejected:** a Popover polyfill (JavaScript plus a new
+dependency, against the zero-JS header); a second, `<details>` menu for
+old browsers (duplicate nav markup on every page); `display: contents`
+on the nav, so Book and the links could take separate rows without
+positioning (WebKit — the engine this path serves — has a history of
+dropping an element's semantics under `display: contents`, here the
+Primary landmark); tighter link padding to fit Book and the links on one
+line at 640px (about 4px to spare — any rendering difference wraps it
+anyway); leaving the fallback as it was.
+
+**Consequences:** browsers with the Popover API are unaffected, byte for
+byte — built against phase-c, the only changed file is the one
+stylesheet, identical outside this block (108 → 680 characters), and
+all 25 pages' HTML is identical apart from that stylesheet's hashed
+name; the modern header measured identical to the live demo's at all 11
+widths. On no-Popover browsers the header is taller than the modern one,
+the links showing rather than behind a button: ~310px on a 375px iPhone
+8 against ~220 on a current phone, 206 on tablets, 258–293 on desktop;
+from 640 to ~675px Book takes its own line above the links. Book's phone
+position shares the popover offset's derivation, so a change to the
+phone brand block (the wordmark's aspect, the credit line, the row gap)
+moves both — the comment names the shared terms. The gates cannot see
+this path (pa11y and Lighthouse run in Chromium, which has the Popover
+API): the evidence is the emulation, a throwaway script — no dependency
+or gate added — and there is no Safari 16 here to test on. Resolves the
+2026-09-23 badge entry's "Known and unchanged" note. Not treatment
+content; no `clinicianApproved` flag. Found on the way: Tailwind's
+automatic source detection reads `docs/` too — a draft of this entry
+quoted the 2026-07-08 header's breakpoint utility by name and put one
+unused rule (23 bytes) into the production stylesheet; the wording was
+changed, and scoping the scan is a separate question. Verification:
+full `npm run verify` green, exit line read — build, `astro check`
+0/0/0, lint:claims, lint:voice, pa11y 25/25, Lighthouse CI every
+assertion on 8 URLs × 3 runs, CLS 0 on every URL; the thin LCP budgets
+did not move (/mobile 2,481ms, /about 2,336ms, against 2,500). The
+final comment wording re-passed `verify:fast` (exit 0) and builds the
+byte-identical stylesheet the full run tested.

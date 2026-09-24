@@ -6,6 +6,25 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-24 — The header menu works on older iPhones
+
+- Browsers without the pop-up menu feature the header relies on — Safari
+  before version 17, chiefly the iPhone 8, 8 Plus, and X, which stop at
+  iOS 16 — spilled the menu's links into the header: phone pages scrolled
+  sideways (about 800px wide), the Mobile Aesthetics badge vanished, and
+  the logo sat off-centre; on tablets and desktop the links, Book, and
+  the menu button sat on top of the badge and the logo. The menu button
+  showed everywhere but opened nothing.
+- Those browsers now show the five page links spelled out in a row under
+  the header, the current page underlined as before; the dead menu
+  button is hidden. On phones Book stays beside the badge; on tablets and
+  desktop it leads the row of links.
+- The header is taller on those devices, since the links are always
+  showing (about 310px on an iPhone 8). Every current browser gets the
+  site byte for byte as before. DECISIONS 2026-09-24.
+- Merged into phase-c 2026-09-24 (PR #198, on the operator's word);
+  both standing previews (#97, #149) refreshed after it.
+
 ### 2026-09-23 — Three stale descriptions corrected
 
 - The sign-off sheet's list of changes since launch now describes the

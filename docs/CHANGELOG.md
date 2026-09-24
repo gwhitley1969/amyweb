@@ -19,6 +19,23 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - Text only: nothing on the site looks or reads differently, and no
   treatment page or approval flag is involved. DECISIONS 2026-09-23.
 
+### 2026-09-23 — The Mobile Aesthetics badge is bigger
+
+- At Amy's request, the Mobile Aesthetics badge in the header is bigger
+  on every screen, and nothing else in the header moves: the Needle
+  Girlie logo, "AMY PALACIOS, FNP", Book, and the menu keep their places
+  and sizes.
+- Phones: 72px (was 48). The badge has its own row under the logo, so
+  the phone header is 24px taller (about 224px on a typical iPhone).
+- Tablets and desktop: the badge is exactly as tall as the Needle Girlie
+  logo and its name line together — 101–117px on tablets (was 48–72),
+  152–187px on desktop (was 128–160) — so the header's height does not
+  change there.
+- BUILD_SPEC's header description matches (operator-authorized).
+  DECISIONS 2026-09-23.
+- Merged into phase-c 2026-09-23 (PR #197, on the operator's word);
+  both standing previews (#97, #149) refreshed after it.
+
 ### 2026-09-23 — The menu says "Visit Amy"
 
 - The header menu's "Visit" line now reads "Visit Amy" (shown as VISIT

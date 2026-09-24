@@ -146,18 +146,25 @@ def text_paths(text, cap_px, x0, x1, baseline, fill_ref):
             sp = SVGPathPen(glyphset)
             glyphset[gname].draw(TransformPen(sp, tr))
             d = sp.getCommands()
-            out.append(f'<path d="{d}" fill="{fill_ref}" stroke="{fill_ref}" stroke-width="0.4"/>')
+            out.append(f'<path d="{d}" fill="{fill_ref}" stroke="{fill_ref}" stroke-width="{TYPE_STROKE}"/>')
         xx += w * scale + track
     return out
 
 # ---------- measured constants (from diagnostics above, frozen) ----------
-# type: silver chrome = vertical brightness fade (MOBILE brighter than
-# AESTHETICS; one gradient spanning both lines reproduces the ratio).
+# type in the REFERENCE: silver chrome = vertical brightness fade (MOBILE
+# brighter than AESTHETICS; one gradient spanning both lines reproduced it).
 # No reflection exists in the reference â€” the faint band under
 # AESTHETICS is PLLC itself (x 138-157, y 90-94, dim gray).
-CHROME_TOP, CHROME_BOT = '#fbfafb', '#c6c3c6'
+# That fade measured #f4f2f3 -> #9b989b, with PLLC in #a9a6a8; operator
+# review 2026-08-15 brightened it to #fbfafb -> #c6c3c6. Since 2026-09-24
+# every line of type is the frame's white and the glyph outline is 0.7
+# (was 0.4): the letters read gray at header size, and 0.7 brings the
+# stroke back to about the reference's weight (operator's pick from 1x/2x/3x
+# renders; DECISIONS 2026-09-24). No chrome gradient ships.
 PLATE = '#131313'
 FRAME = '#fdfdfd'
+TYPE = FRAME
+TYPE_STROKE = '0.7'
 # chevron foil: highlight sweeps ACROSS the band (per-chevron averages
 # ch1 #fda6d8 / ch2 #fd78d4 / ch3 #e967b6 / ch4 #fc9ad6)
 GRAD_STOPS = [(0, '#fdaedb'), (0.13, '#fda6d8'), (0.38, '#fd78d4'),
@@ -174,14 +181,11 @@ def chevron_path(x_apex_inner, y_top, y_bot, y_apex, slab, slope):
     d = 'M' + ' L'.join(f'{x:.2f} {y:.2f}' for x, y in pts) + ' Z'
     return f'<path d="{d}" fill="url(#foil)"/>'
 
-def defs(x_left, x_right, type_top, type_bot):
+def defs(x_left, x_right):
     stops = ''.join(
         f'<stop offset="{o:.2f}" stop-color="{c}"/>' for o, c in GRAD_STOPS)
     return f'''<defs>
     <linearGradient id="foil" gradientUnits="userSpaceOnUse" x1="{x_left}" y1="0" x2="{x_right}" y2="0">{stops}</linearGradient>
-    <linearGradient id="chrome" gradientUnits="userSpaceOnUse" x1="0" y1="{type_top}" x2="0" y2="{type_bot}">
-      <stop offset="0" stop-color="{CHROME_TOP}"/><stop offset="1" stop-color="{CHROME_BOT}"/>
-    </linearGradient>
   </defs>'''
 
 # chevron geometry (fit): regenerate all four from the fitted params
@@ -191,14 +195,14 @@ for k in range(4):
     chev_elems.append(chevron_path(xa, y0b, y1b, y_mid, W, s))
 
 # ---------- FULL MARK (viewBox = the 300px reference frame) ----------
-mobile = text_paths('MOBILE', 12.6, 99, 196, 55.6, 'url(#chrome)')
-aesth  = text_paths('AESTHETICS', 13.8, 69, 226, 81.8, 'url(#chrome)')
-pllc   = text_paths('PLLC', 4.8, 138, 157.5, 94.6, '#a9a6a8')
-amy    = text_paths('AMY PALACIOS NP', 7.4, 85, 217, 238.8, 'url(#chrome)')
-phone  = text_paths('704·579·7108', 7.8, 107, 195, 253.6, 'url(#chrome)')
+mobile = text_paths('MOBILE', 12.6, 99, 196, 55.6, TYPE)
+aesth  = text_paths('AESTHETICS', 13.8, 69, 226, 81.8, TYPE)
+pllc   = text_paths('PLLC', 4.8, 138, 157.5, 94.6, TYPE)
+amy    = text_paths('AMY PALACIOS NP', 7.4, 85, 217, 238.8, TYPE)
+phone  = text_paths('704·579·7108', 7.8, 107, 195, 253.6, TYPE)
 
 full = f'''<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300" role="img" aria-label="Mobile Aesthetics PLLC">
-  {defs(24, 271, 43, 82)}
+  {defs(24, 271)}
   <rect x="3" y="3" width="294" height="294" fill="{PLATE}"/>
   <rect x="21.5" y="17.5" width="252.5" height="252.5" fill="none" stroke="{FRAME}" stroke-width="3.5"/>
   {''.join(mobile)}
@@ -212,7 +216,7 @@ full = f'''<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" view
 # ---------- HEADER LOCKUP (type + chevrons; noir header is the plate) ----------
 # viewBox tight: x 24..271, y from MOBILE top (43) to band bottom
 lock = f'''<svg xmlns="http://www.w3.org/2000/svg" width="247" height="172" viewBox="24 40 247 172" role="img" aria-label="Mobile Aesthetics PLLC">
-  {defs(24, 271, 43, 82)}
+  {defs(24, 271)}
   {''.join(mobile)}
   {''.join(aesth)}
   {''.join(chev_elems)}

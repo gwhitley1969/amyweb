@@ -14,7 +14,9 @@ import maMark from '../assets/brand/mobile-aesthetics-mark.svg';
  * Noir sitewide header (approved design plan). Mobile nav uses the native
  * Popover API — zero JS: the browser handles toggling, Esc-close, and
  * light-dismiss. Browsers without support (pre-Safari 17) ignore the
- * attribute, so the nav simply renders expanded — graceful degradation.
+ * attribute, so the nav renders expanded on its own row under the brand
+ * and the menu button hides — graceful degradation (the feature query at
+ * the end of the styles; DECISIONS 2026-09-24).
  * The header/page edge is a hard cut: chrome, not a content boundary —
  * it never takes a chevron seam.
  */
@@ -432,14 +434,73 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
       top: calc(3rem + max(var(--ma-h), var(--wordmark-w) / 3.675 + 1.5rem) + 0.25rem);
     }
   }
-  /* Browsers without Popover support ignore the attribute; the list then
-   * flows inline — give it sane inline styling instead of the overlay's. */
+  /* NO POPOVER API (Safari before 17 — the iPhone 8, 8 Plus, and X stop
+   * at iOS 16): the attribute is ignored, so the list renders in the page
+   * and the menu button opens nothing. The nav renders EXPANDED instead
+   * (DECISIONS 2026-07-08), on its own row under the brand — the header
+   * row has no room for the five links at any width, since the hybrid nav
+   * (2026-08-15) put every link in the menu and the stacked phone shell
+   * (2026-09-15) filled the phone row. Poured into that row inline (the
+   * 2026-07-08 fallback), the list made phones ~802px wide and covered the
+   * badge and the wordmark from 640px up (DECISIONS 2026-09-24).
+   * Everything here sits inside the feature query, so Popover browsers
+   * never apply any of it. */
   @supports not selector(:popover-open) {
+    /* nothing to open — hidden, and so out of the accessibility tree */
+    .site-nav-toggle {
+      display: none;
+    }
+    .site-nav {
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 0.25rem;
+    }
+    /* A centered, wrapping row of links: the overlay's box (min-width,
+     * padding, border) and the dropdown's roomy link padding stand down. */
     .site-nav-popover {
       position: static;
-      border: none;
       display: flex;
-      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0 0.25rem;
+      min-width: 0;
+      padding: 0;
+      border: none;
+    }
+    .site-nav-popover .site-nav-link {
+      padding: 0.5rem 0.625rem;
+    }
+    /* PHONES: the nav takes a third grid row under the utility row, and
+     * Book stays on the utility row opposite the badge, where the popover
+     * layout has it — centered on that row by the popover offset's own
+     * derivation: the top padding (0.75rem) + the mark's height + its gap
+     * and the credit line (1.35rem: 0.375rem + 0.8125rem × 1.2) + the row
+     * gap (0.5rem) + half the badge row (--ma-h). The DOM is unchanged, so
+     * the tab order is too, less the hidden button. */
+    @media (max-width: 639px) {
+      .site-header > div {
+        position: relative;
+        grid-template-areas:
+          'brand brand brand'
+          'badge . .'
+          'nav nav nav';
+      }
+      .site-book-cta {
+        position: absolute;
+        right: 1rem;
+        top: calc(0.75rem + var(--wordmark-w) / 3.675 + 1.35rem + 0.5rem + var(--ma-h) / 2);
+        transform: translateY(-50%);
+      }
+    }
+    /* 640px up: the nav — Book first, then the links — wraps onto its own
+     * full-width line; the badge + wordmark row above keeps its layout. */
+    @media (min-width: 640px) {
+      .site-header > div {
+        flex-wrap: wrap;
+      }
+      .site-nav {
+        flex-basis: 100%;
+      }
     }
   }
 </style>

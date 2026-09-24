@@ -10349,3 +10349,42 @@ lint:voice, pa11y 25/25, Lighthouse CI every assertion on 8 URLs × 3
 runs, CLS 0 on every URL. The thin LCP budgets did not move: /mobile
 2,482ms (its recorded median before the change; still a text paragraph)
 and /about 2,335ms (2,336 before), against 2,500.
+
+## 2026-09-23 — Three stale descriptions corrected (header comment, sign-off sheet, CI comment)
+
+**Context:** Three texts had drifted from what ships (verified on
+`origin/phase-c` @ `4f7ab6a`). (1) `Header.astro`'s comment above
+`.site-brand-group` gave the badge a 247:172 box — the ratio of the
+retired header lockup (`mobile-aesthetics-mark-header.svg`, viewBox
+`24 40 247 172`), which left the header when the operator picked the
+full badge (2026-08-15, "Operator picks the full badge for the
+header"); the header imports `mobile-aesthetics-mark.svg`, a square
+300x300. (2) The sign-off sheet's "Visual drift since 2026-08-05"
+paragraph — the list Amy reviews against — called the nav
+"hamburger-only"; it is the hybrid nav (2026-08-15): the menu carries
+the page links at every width and Book stays visible beside it.
+(3) `pr-preview.yml`'s paths-ignore comment read "pa11y over 23 URLs,
+Lighthouse 3x over 6"; `.pa11yci.json` now lists 25 URLs and
+`lighthouserc.json` 8, three runs each.
+
+**Decision:** correct all three to match: the comment names the full
+badge's square 300x300 box; the sheet reads "the hybrid nav (the menu
+at every width, with Book always visible beside it)"; the CI comment
+reads "pa11y over 25 URLs, Lighthouse 3x over 8". The `Header.astro`
+change is a comment only.
+
+**Alternatives rejected:** none of substance — each is a correction to
+a record. The CI comment's "~5.5 minutes" was measured and left: two
+of the day's runs spent 6.2 and 5.7 minutes in the gates — PR #195's
+(run 35868437372, fast 23s + slow 348s) and the #97 refresh (run
+35882030745, fast 23s + slow 317s) — close to the stated figure.
+
+**Consequences:** no rendered byte, gate, or config value changes; no
+treatment content; no `clinicianApproved` flag is involved. Swept for
+other stale copies: none current — the older counts elsewhere
+(PHASE-C's 2026-08-04 status note, the 2026-08-17 audit, the
+2026-07-23 skincare spec) are dated records, right for their dates, and
+"hamburger-only" survives only in the 2026-08-15 hybrid-nav entry, as
+the rejected alternative. Verification: full `npm run verify` green on
+this tree, exit line read — pa11y 25/25, Lighthouse CI every assertion
+on 8 URLs × 3 runs.

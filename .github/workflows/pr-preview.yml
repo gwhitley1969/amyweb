@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
     # Documentation-only changes skip the pipeline. The gates below are ~5.5
-    # minutes of fixed work (pa11y over 23 URLs, Lighthouse 3x over 6) and none
+    # minutes of fixed work (pa11y over 25 URLs, Lighthouse 3x over 8) and none
     # of them read docs/ or *.md — a markdown edit cannot change a built byte.
     # This is NOT a weakened gate: paths-ignore skips only when EVERY changed
     # file matches, so a PR touching any source file still runs everything and

@@ -29,7 +29,7 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - The band's photo used to drift slightly as the page scrolled; the film
   panel does not move. The /mobile page keeps the van photo.
 - CLAUDE.md and BUILD_SPEC record the film's overrides and its player
-  script (operator-authorized). DECISIONS 2026-09-25.
+  script (operator-authorized). DECISIONS 2026-09-25; PR #203.
 
 ### 2026-09-25 — The Mobile Aesthetics badge is bigger on phones
 

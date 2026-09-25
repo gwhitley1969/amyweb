@@ -87,8 +87,12 @@ interface Props {
    * (operator override after the flag — DECISIONS 2026-08-25): the
    * Evolus ICON film on /about autoplays muted at the client's
    * direction; its "sound on" caption stays as the tap-for-sound
-   * nudge. The rule stands for every other film; a further exception
-   * requires the human operator.* */
+   * nudge. A second (operator override after the flag — DECISIONS
+   * 2026-09-25, the van film's sound addendum): the home band's
+   * van-trip film, Amy's own, whose rendition carries her voice at
+   * 2:01–2:17, autoplays muted through its own player
+   * (/js/band-film.js), sound one tap away. The rule stands for every
+   * other film; a further exception requires the human operator.* */
   autoplay?: 'inview';
 }
 

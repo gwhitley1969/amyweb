@@ -177,6 +177,18 @@ on the record: Amy holding her neon sign — at band size the Evolysse
 carton on the table reads, and Amy retired Evolysse content
 2026-08-21.*
 
+**Since 2026-09-25** (DECISIONS same date) the photo is gone: the band
+plays Amy's van-trip film — the whole 2:50 clip, muted and looping, with
+Amy's own voice one tap away (2:01–2:17; the songs removed) —
+whole in a 9:16 panel at the /mobile film's 24rem width and bare film
+frame (centred above the statement on phones; at >=900px in the left
+half, against the statement). `/js/band-film.js` builds the player on
+approach, only after a real user input. The drift and the GSAP
+parallax are retired; the film stage is exempt from the arch like every
+film stage. The film is AI-upscaled (Topaz, via Higgsfield) and
+disclosed, with the source's own pixels wherever the upscale drew
+lettering of its own and for its whole prep shot.
+
 ### 5. The motion layer (files)
 
 | File | Bytes | Role |
@@ -205,7 +217,7 @@ self-cancels and the page is the CSS-only home from commit `e119b87`.
 ### 6. Tier 2, the CSS moves (in `global.css`, independent of the engines)
 
 `ng-settle` (hero still 1.04 → 1 over 14s), `ng-drift` (band photo
-±24px on the scroll timeline), `ng-rise-2/-3` (staggered rise for a
+±24px on the scroll timeline; no consumer since 2026-09-25), `ng-rise-2/-3` (staggered rise for a
 row), hover-scale (`.ng-lift:hover .ng-arch img` → 1.03) — and, until
 2026-09-04, the carousel's slide settle (withdrawn with the band's
 composition). Under the concept flag the GSAP versions run and these
@@ -231,7 +243,7 @@ paragraph). The table is kept as the map of where each rule lives.
 | Zero client-side JS by default; ≤30KB total script | CLAUDE.md locked decisions; BUILD_SPEC §9/§13; `lighthouserc.json` | The home page carries ~150KB raw / ~66KB gzipped of script. `lighthouserc.json` has a **third assertMatrix row for the home URL alone** with the script budget at 81,920 B; every other budget and page keeps the house row | Delete the third row and restore the first row's pattern (`d6be1bd`); delete `public/js/vendor/`, `home-motion.js`, `motion-flag.js`; remove the head-slot block from `ConceptHome.astro`; drop the two devDependencies |
 | "Never apply reveals to the hero, page H1s, or the lockup" | `global.css` motion header | The headline's word-by-word rise and the wordmark's switch-on are the concept's opening | Goes with the concept |
 | Motion vocabulary is a closed list | `global.css` motion header; BUILD_SPEC §5 | +4 transform-only CSS moves (Tier 2, standing if merged) and the GSAP choreography (concept) | Tier 2 is the operator's call per tier; the choreography goes with the concept |
-| Arch on every photo | REDESIGN settled decisions | Fifth exemption: the van band's full-bleed backdrop (Tier 1) | Tier 1 is the operator's call |
+| Arch on every photo | REDESIGN settled decisions | Fifth exemption: the van band's full-bleed backdrop (Tier 1; the backdrop became a film panel 2026-09-25 — film stages are exempt anyway) | Tier 1 is the operator's call |
 | Carousel: nothing autoplays under reduced motion | `VideoCarousel.astro` contract (2026-08-14) | Films autoplay; only the crossfade stands down — **this one is PR #180 into `phase-c`, not branch-scoped** | Stands if #180 merges |
 | Carousel slide order | DECISIONS 2026-08-14 | Briefly Amy's films first; restored the same day | Nothing to revert |
 

@@ -6,6 +6,36 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-25 — The "Amy comes to you." band plays Amy's van-trip film
+
+- On the home page, the "Amy comes to you." band now plays Amy's van-trip
+  video instead of the photo of the van's interior. The whole clip plays
+  (2 minutes 50 seconds): the van and its cabin, the drive over a bridge,
+  and a holiday event. It plays muted and loops, with Amy's voice one tap
+  away: at 2:01 she speaks to camera at the destination. Only her voice
+  plays. The clip's two songs are removed, because they aren't licensed
+  for a website. Captions of her words are available in the player (off
+  by default).
+- It shows whole, uncropped, in a phone-shaped panel the size of the
+  /mobile page's film, with the statement beside it on desktop and below
+  it on phones. It starts playing when a visitor scrolls to it and pauses
+  when they scroll away. The video controls let anyone pause it, and a
+  pause is respected.
+- The video downloads only after a visitor scrolls, taps, or presses a
+  key near it, so the page's first load is unchanged. A full view is
+  about 35 MB.
+- The supplied copy was small (320 pixels wide), so it was enlarged with
+  an AI upscaler at the operator's direction, and that is disclosed.
+  Wherever the upscaler drew letters of its own (on signs, the van's front
+  plate, and the tray labels), and for the whole prep shot, the film
+  shows the original's own pixels instead.
+- The band's photo used to drift slightly as the page scrolled; the film
+  panel does not move. The /mobile page keeps the van photo.
+- CLAUDE.md and BUILD_SPEC record the film's overrides and its player
+  script (operator-authorized). DECISIONS 2026-09-25; PR #203.
+- Merged into phase-c 2026-09-25 (PR #203, on the operator's word); both
+  standing previews (#97, #149) refreshed after it.
+
 ### 2026-09-25 — The Mobile Aesthetics badge is bigger on phones
 
 - At Amy's request, the Mobile Aesthetics badge in the header is bigger

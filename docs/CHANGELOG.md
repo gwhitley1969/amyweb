@@ -20,6 +20,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - Tablets and desktop are unchanged.
 - BUILD_SPEC's header description matches (operator-authorized).
   DECISIONS 2026-09-25.
+- Merged into phase-c 2026-09-25 (PR #202, on the operator's word);
+  both standing previews (#97, #149) refreshed after it.
 
 ### 2026-09-25 — The Evolysse film opens the home carousel
 

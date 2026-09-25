@@ -1,0 +1,24 @@
+WEBVTT
+
+NOTE
+The home band's film (docs/DECISIONS.md 2026-09-25): Amy's van-trip
+clip, the whole 2:50, supplied by the operator on 2026-09-25 as a
+320×568 copy. The web rendition carries NO audio track (Amy speaks to
+camera in the source; the site plays it silent). AI-ASSISTED,
+DISCLOSED: the frames were upscaled with Topaz (via Higgsfield) at the
+operator's direction, overriding the site's 2026-09-17 generative rules
+for this film only. Wherever the upscale drew lettering the source
+cannot show, and for one whole shot, the film carries the source's own
+pixels instead; the film was screened shot by shot against the source.
+The burned-in text is the footage's own (the van's lettering, a
+venue's signs, a street number, hat patches), mirrored nowhere. A
+guest's website-use release is confirmed on file (the operator's
+confirmation is the record); nobody is named anywhere.
+
+NOTE
+NO CUES, ON PURPOSE (docs/DECISIONS.md 2026-09-20). The film has no
+audio, so there is nothing to caption; a cue here would paint a box
+over the film. The description is the player's label (ConceptHome.astro,
+data-label). This file stays as the film's in-repo record. The film
+shows: Amy's trip in the Mobile Aesthetics van: the van and its cabin,
+the drive over a bridge, and a holiday event.

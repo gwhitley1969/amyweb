@@ -24,7 +24,8 @@
  *  4. Every section opener rises word by word as it enters.
  *  5. Decks settle in; the three doors are dealt one after another.
  *  6. Photos rise into their arches and settle.
- *  7. The van band's photo parallaxes against the scroll.
+ *  7. (Retired 2026-09-25 — the van band is a film panel now, played by
+ *     /js/band-film.js; it does not parallax.)
  *  8. A faint magenta light follows the cursor over noir surfaces.
  * Lenis gives the scroll its weight (pointer devices only; anchors kept).
  */
@@ -420,16 +421,8 @@
     });
   });
 
-  // ---- 7. The van band: the photo moves against the scroll (the host's
-  // 24px overflow bounds the travel — ±4% of ~550px)
-  const bandImg = q('.nc-band__media img');
-  if (bandImg) {
-    gsap.fromTo(
-      bandImg,
-      { yPercent: -4 },
-      { yPercent: 4, ease: 'none', scrollTrigger: { trigger: '.nc-band', start: 'top bottom', end: 'bottom top', scrub: true } },
-    );
-  }
+  // ---- 7. (Retired 2026-09-25.) The van band's photo parallax: the band
+  // now holds a film panel (/js/band-film.js), which does not move.
 
   // ---- 8. The cursor light over noir
   if (finePointer) {

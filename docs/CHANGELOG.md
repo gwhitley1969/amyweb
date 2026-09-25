@@ -6,6 +6,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-25 — Caption files are served as captions
+
+- The films' caption files were served labelled as generic binary data
+  (`application/octet-stream`). They now carry the caption type,
+  `text/vtt`. Current Firefox and Chrome were tested, and both already
+  showed every caption either way, as did Safari on Amy's iPhone
+  (2026-09-20). Nothing visible changes; the files are now labelled
+  correctly. DECISIONS 2026-09-25.
+
 ### 2026-09-24 — The Mobile Aesthetics badge's lettering is white
 
 - The letters in the header's Mobile Aesthetics badge read as gray:

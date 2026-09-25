@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { siteConfig } from '../lib/siteConfig';
+import evolyssePoster from '../assets/photos/commercial-evolysse-poster.jpg';
 import j1Poster from '../assets/photos/commercial-j1-poster.jpg';
 import studioPoster from '../assets/photos/commercial-studio-poster.jpg';
 import j2Poster from '../assets/photos/commercial-j2-poster.jpg';
@@ -9,7 +10,7 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
 /**
  * HOME VIDEO CAROUSEL — the cinematic noir stage (operator direction
  * 2026-08-14, DECISIONS same date: "the way Audi presents video").
- * Four films crossfade on a full-bleed black stage: no player
+ * Five films crossfade on a full-bleed black stage: no player
  * chrome, thin progress bars, one understated pause control.
  *
  * FACADE PATTERN (BUILD_SPEC §9; also the perf fix — measured): the
@@ -20,7 +21,20 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  * contains zero media elements and zero video bytes.
  *
  * The films (J1/studio/J2 cleared 2026-08-14; team cleared
- * 2026-08-17 — DECISIONS, both dates):
+ * 2026-08-17; Evolysse 2026-09-25 — DECISIONS, each date):
+ *  - commercial-evolysse — the Evolus-produced Evolysse spot
+ *    (US-EVY-2600017), FIRST in the rotation (operator direction
+ *    2026-09-25). OPERATOR OVERRIDE after the compliance flag, carried
+ *    AS-IS: a results-comparison segment, the location's co-branding
+ *    with its phone, QR code and microsite, and a spelling error on
+ *    Amy's title card. It ran on dermal-fillers 2026-07-21 → 2026-08-21
+ *    and was retired at the client's direction; this is its return.
+ *    Muted like every film here, so its voiceover — which carries the
+ *    spoken risk statement its on-screen lines do not — is heard
+ *    nowhere; the caption file transcribes it, off by default like
+ *    every track (operator decision after the flag). The one 16:9 film:
+ *    the stage's `width: 100%` is what lets it present large. NEVER
+ *    trim or crop it; plays at 1×.
  *  - commercial-j1 / commercial-j2 — Evolus co-op Jeuveau spots
  *    (US-JUV-2600126) carried AS-IS, manufacturer safety text intact.
  *    NEVER trim or crop them: object-fit stays `contain` so the
@@ -42,11 +56,11 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *  elements; not `default`). Since 2026-09-20 (DECISIONS same date) the
  *  two site-authored films ship a track with NO cues — nothing to
  *  caption, and a cue painted a box over the film on every phone with
- *  captions switched on; the two manufacturer films keep their
- *  transcript of the on-screen text, safety information included
- *  (carried as-is — operator decision). The ?v= on data-vtt is a
- *  cache-bust (the files serve with a one-day max-age) — bump it when
- *  a caption file changes.
+ *  captions switched on; the manufacturer films keep their transcript
+ *  of the on-screen text, safety information included (carried as-is —
+ *  operator decision; the Evolysse file adds its voiceover). The ?v=
+ *  on data-vtt is a cache-bust (the files serve with a one-day
+ *  max-age) — bump it when a caption file changes.
  *  Since 2026-08-17 the .mp4 files serve from siteConfig.mediaBase
  *  (Blob behind the same Front Door) — data-file is absolute. The
  *  .vtt captions stay same-origin in public/media/ ON PURPOSE
@@ -81,6 +95,11 @@ const slides: {
    * presentation is carried as-is; leave them at the 1× default). */
   rate?: number;
 }[] = [
+  {
+    file: 'commercial-evolysse',
+    label: 'Evolysse commercial — Mobile Aesthetics with Evolus',
+    poster: evolyssePoster,
+  },
   {
     file: 'commercial-j1',
     label: 'Jeuveau commercial — Mobile Aesthetics with Evolus, film one',
@@ -181,6 +200,14 @@ const slides: {
   }
   .vc-stage {
     position: relative;
+    /* A DEFINITE width, so the height cap never narrows the stage. With
+     * an auto width, max-height transfers through the 4:5 ratio and the
+     * stage shrank to a 4:5 box on wide screens (486×608 at 1280×800),
+     * which played the 16:9 Evolysse film at 486×274. At 100% the box
+     * stays full-width once the cap binds (1152×608 there → the film at
+     * 1081×608), and every portrait film renders at exactly its old
+     * size — measured at five viewports, DECISIONS 2026-09-25. */
+    width: 100%;
     max-width: 72rem;
     margin: 2.5rem auto 0;
     /* Hug the 4:5 films on phones (no dead bands); the height cap takes
@@ -230,14 +257,15 @@ const slides: {
     background: transparent;
     cursor: pointer;
   }
-  /* Four bars at 64px + gaps + the 44px toggle = 344px — wider than a
-   * 390px phone's 342px content box (and the 344px fold cover's 296px).
-   * 48px bars bring the row to 280px, inside both; the 48×32 button
-   * stays above the 24px WCAG target. A fifth film would need 40px
-   * bars or a wrapping row. */
+  /* Five bars at 64px + four 8px gaps + the 20px gap + the 44px toggle
+   * = 416px — wider than a 390px phone's 342px content box (and the
+   * 344px fold cover's 296px). 40px bars bring the row to 296px: the
+   * fold cover's content box exactly, 46px spare at 390; the 40×32
+   * button stays above the 24px WCAG target. (Four films ran 48px
+   * bars, 2026-08-17.) A sixth film needs a wrapping row. */
   @media (max-width: 600px) {
     .vc-bar {
-      width: 48px;
+      width: 40px;
     }
   }
   .vc-track {

@@ -6,6 +6,27 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-25 — The Evolysse film opens the home carousel
+
+- The home page's film carousel now has five films, and the first to play
+  is the Evolus-produced Evolysse commercial. It is the same film that was
+  on the dermal-fillers page from July 21 until it was removed at the
+  client's direction on August 21; it returns at the operator's direction,
+  under an override recorded after the compliance flag. The other four
+  films follow in their existing order.
+- Like every film in the carousel it plays muted. Its voiceover, which
+  carries its spoken safety information, is transcribed in its captions
+  file, which is off by default (the operator's choice; captions on by
+  default was recommended).
+- The carousel's stage now keeps its full width on larger screens, so this
+  widescreen film plays large (1081×608 on a 1280×800 screen, instead of
+  486×274). The four upright films play at exactly their old size. On
+  phones the progress bars are slightly narrower (40px), so five of them
+  and the pause button still fit the narrowest phones.
+- DECISIONS 2026-09-25.
+- Merged into phase-c 2026-09-25 (PR #200, on the operator's word); both
+  standing previews (#97, #149) refreshed after it.
+
 ### 2026-09-24 — The Mobile Aesthetics badge's lettering is white
 
 - The letters in the header's Mobile Aesthetics badge read as gray:

@@ -83,7 +83,10 @@ each with its device-console readout, and the weight-loss weigh-in
 frame with its aftercare sign, all
 enumerated in CLAUDE.md constraint 3 with their DECISIONS entries).
 The home-carousel films and their caption files (three cleared
-2026-08-14; the team film 2026-08-17, constraint-2 override) ship under
+2026-08-14; the team film 2026-08-17, constraint-2 override; the
+Evolus-produced Evolysse film, played first, 2026-09-25 — constraint-3
+override after the flag, muted with its voiceover transcribed in a
+caption file that is off by default) ship under
 exactly this regime, and so do the site-authored, sounded films: the
 two on /services/biostimulators (2026-08-21 — Amy's own reels:
 constraint-3 and constraint-2 overrides for the Radiesse-visit film,

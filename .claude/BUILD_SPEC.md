@@ -220,9 +220,10 @@ one scripted exception to the closed CSS vocabulary (the global.css motion heade
 CLAUDE.md's fourth consumer; DECISIONS 2026-09-03, the home entry's adoption
 paragraph).
 Since 2026-08-14 the noir shell includes
-the home's cinematic video stage — four films crossfading
+the home's cinematic video stage — five films crossfading
 chromeless on full-bleed noir (the operator's "Audi treatment";
-DECISIONS 2026-08-14; the fourth film joined 2026-08-17; the
+DECISIONS 2026-08-14; the fourth film joined 2026-08-17, the fifth —
+the Evolysse film, played first — 2026-09-25; the
 stage-surface question, noir vs
 arch-on-ombre, is an open client call — docs/REDESIGN.md). Playfulness is retired from
 the design language; personality lives in the type, the photography, and
@@ -392,7 +393,7 @@ constraint 6, DECISIONS 2026-09-03), no layout shift from fonts or images.
 
 | Route | Page | Purpose / key content | Primary CTA |
 |---|---|---|---|
-| `/` | Home | Hero (brand thesis — see below; since 2026-08-14 the hero photo is Amy's studio-counter portrait; since 2026-09-04 — the adopted home concept, DECISIONS 2026-09-03 and its tweaks — the hero is a film facade over that portrait: the portrait paints (the LCP element, unchanged) and holds the hero alone for `data-first` 5s, then the hero film fades in and loops — since 2026-09-17 the purpose-made living-portrait film (`hero-living-portrait-v5.mp4`, 11s, 24fps, native loop; since 2026-09-18, at the founders' request, it opens on the hair shot and finishes on the portrait coming alive — the turn and the laugh — with its loop point inside a white flash; AI-assisted and disclosed, DECISIONS 2026-09-17 and its 2026-09-18 addendum — it replaced the studio reel's three screened passages at 0.5×, their freeze-frame dissolves, and the `data-still` portrait beat); the headline rises word by word and the wordmark switches on (GSAP, the home URL only — the fourth sanctioned script consumer, §13; the CSS-only home is the fallback if the scripts fail); the lead is one sentence ("One clinician, every appointment. Amy Palacios, FNP, in medical aesthetics since 2017."); the section openers step up to display sizes over one-sentence decks; and a noir "Amy comes to you." band beside the van interior — /mobile's first door on the home page, the fifth arch exemption — sits between the doors and the visit beat; docs/HOME-CONCEPT.md is the working record and carries the knobs); **video carousel** directly below the hero (2026-08-14, fourth film added 2026-08-17: four films on a cinematic noir stage — autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, facade-loaded; DECISIONS both dates); "Meet Amy" trust block (FNP, since 2017, Biote-certified); **three category doors** routing to /services (amended 2026-07-25: the home ROUTES, it does not reprint the 12-card menu — DECISIONS same date); location strip; Get-the-App slot — satisfied by the sitewide footer block, not a home section | Book an appointment |
+| `/` | Home | Hero (brand thesis — see below; since 2026-08-14 the hero photo is Amy's studio-counter portrait; since 2026-09-04 — the adopted home concept, DECISIONS 2026-09-03 and its tweaks — the hero is a film facade over that portrait: the portrait paints (the LCP element, unchanged) and holds the hero alone for `data-first` 5s, then the hero film fades in and loops — since 2026-09-17 the purpose-made living-portrait film (`hero-living-portrait-v5.mp4`, 11s, 24fps, native loop; since 2026-09-18, at the founders' request, it opens on the hair shot and finishes on the portrait coming alive — the turn and the laugh — with its loop point inside a white flash; AI-assisted and disclosed, DECISIONS 2026-09-17 and its 2026-09-18 addendum — it replaced the studio reel's three screened passages at 0.5×, their freeze-frame dissolves, and the `data-still` portrait beat); the headline rises word by word and the wordmark switches on (GSAP, the home URL only — the fourth sanctioned script consumer, §13; the CSS-only home is the fallback if the scripts fail); the lead is one sentence ("One clinician, every appointment. Amy Palacios, FNP, in medical aesthetics since 2017."); the section openers step up to display sizes over one-sentence decks; and a noir "Amy comes to you." band beside the van interior — /mobile's first door on the home page, the fifth arch exemption — sits between the doors and the visit beat; docs/HOME-CONCEPT.md is the working record and carries the knobs); **video carousel** directly below the hero (2026-08-14, fourth film added 2026-08-17, the Evolysse film added FIRST 2026-09-25: five films on a cinematic noir stage — autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, facade-loaded; DECISIONS both dates); "Meet Amy" trust block (FNP, since 2017, Biote-certified); **three category doors** routing to /services (amended 2026-07-25: the home ROUTES, it does not reprint the 12-card menu — DECISIONS same date); location strip; Get-the-App slot — satisfied by the sitewide footer block, not a home section | Book an appointment |
 | `/services` | Services index | Short factual intro per line, linking to the 12 detail pages | Per-line → detail |
 | `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Book / Consult (2026-07-21, operator — was consult-routed) |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |
@@ -605,7 +606,8 @@ unchanged. DECISIONS 2026-09-19, the addendum.)*
    2026-07-21 override; the Evolus-produced Evolysse film that shipped
    beside it under the same date's as-is override was REMOVED from the
    page at the client's direction 2026-08-21 (DECISIONS same date) — the
-   page carries no video, and its photography is Amy's round-5 picks
+   page carries no video (the film returned 2026-09-25 as the home
+   carousel's first film, not here — §8 and DECISIONS same date), and its photography is Amy's round-5 picks
    (two hand-mirror frames and the lip-injection detail beside "Lips,
    styled"). The §8.4 Evolus ranking sentence
    was authorized on this page 2026-07-21 → 2026-08-21 (the standalone
@@ -821,11 +823,18 @@ unchanged. DECISIONS 2026-09-19, the addendum.)*
    /services/biostimulators, whose cut reads as a before/after sequence
    and whose carton shot shows a per-vial unit quantity — carried as-is
    under operator override, client release on file (her Instagram reel
-   on the same page carries no claims content). Nothing else — the
-   Evolus-produced Evolysse film on /services/dermal-fillers carried the
-   same as-is exception from 2026-07-21 until 2026-08-21, when the client
-   removed it from the site; that exception is RETIRED (DECISIONS
-   2026-08-21). And — operator override after the compliance flag,
+   on the same page carries no claims content). And the Evolus-produced
+   Evolysse film: on /services/dermal-fillers under the same as-is
+   exception from 2026-07-21 until 2026-08-21, when the client removed it
+   from the site (DECISIONS 2026-08-21); RE-ADDED 2026-09-25 by the
+   operator, after the compliance flag, as the home carousel's FIRST film
+   (`commercial-evolysse`) and nowhere else — carried as-is (its
+   before/after segment, the location's co-branding with its phone
+   number, QR code, and microsite, and a spelling error on Amy's title
+   card) and muted like every carousel film, so its spoken risk statement
+   is heard nowhere; the caption file transcribes the voiceover, off by
+   default (operator decision after the flag; DECISIONS 2026-09-25).
+   And — operator override after the compliance flag,
    DECISIONS 2026-08-21 — the client photo-pairs section ("They showed
    up for themselves") on /services/weight-loss-glp-1: three
    client-supplied side-by-side photo pairs, the site's first
@@ -960,7 +969,7 @@ action.
 - **Video (only if `{{MEDIA_SCOPE}}` includes it):** `youtube-nocookie.com`
   embeds, lazy-loaded facade pattern (thumbnail + click-to-load) to protect
   CWV and privacy.
-- **Home video carousel (2026-08-14, DECISIONS same date):** four
+- **Home video carousel (2026-08-14, DECISIONS same date):** five
   self-hosted films on the media origin (`media.needlegirlie.com`,
   §2 — in `public/media/` until 2026-08-17) — two Evolus co-op Jeuveau
   spots carried AS-IS with complete FDA safety information (never
@@ -969,10 +978,15 @@ action.
   releases confirmed), plus the Mobile Aesthetics team film as film 4
   (2026-08-17: constraint-2 operator override after the compliance
   flag; team releases confirmed on file; no claims content — DECISIONS
-  same date). Facade-loaded per the pattern above: zero video
+  same date), and — played FIRST since 2026-09-25 — the Evolus-produced
+  Evolysse film, carried as-is under operator override after the
+  compliance flag (§8; its voiceover, muted here, is transcribed in its
+  caption file, off by default — DECISIONS same date). The stage is
+  full-width (`width: 100%`) so that 16:9 film presents large while
+  the portrait films keep their size. Facade-loaded per the pattern above: zero video
   elements and zero video bytes until the stage scrolls into view;
   muted renditions; the manufacturer films' captions mirror their
-  on-screen text, and since 2026-09-20 the site-authored films ship a
+  on-screen text (the Evolysse file adds its voiceover), and since 2026-09-20 the site-authored films ship a
   captions track with no cues (DECISIONS same date)
   (public/media/*.vtt — outside lint scope, controlled by the per-film
   override entries); since 2026-09-03 the films autoplay under

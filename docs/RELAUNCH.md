@@ -82,7 +82,8 @@ check will refuse it. On a branch off `main`:
   www → apex; HTTP → HTTPS; production indexable (previews stay
   noindexed); OG cards render; 404 at the edge.
 - Films play from media.needlegirlie.com on production (206 Range
-  probes; the four carousel films + the ICON film on /about + the two
+  probes; the five carousel films (the Evolysse film `commercial-evolysse.mp4`
+  since 2026-09-25) + the ICON film on /about + the two
   biostimulators reels `radiesse-visit.mp4` / `amy-reel.mp4` + the
   body-contouring reel `evolve-reel.mp4` + the /about team film
   `girl-team-film-wide.mp4` (2026-08-26 — the widescreen sounded
@@ -94,8 +95,9 @@ check will refuse it. On a branch off `main`:
   the Range probe still applies; it replaced `van-chair-treatment.mp4`,
   whose Blob object is deleted once no open preview references it, so
   that one is not a probe target) — the Evolysse film retired
-  2026-08-21 and its Blob object was deleted the same day, so it is
-  not a probe target). On /services/biostimulators,
+  2026-08-21 and its Blob object `evolysse-film.mp4` was deleted the
+  same day, so that name is not a probe target; the film returned
+  2026-09-25 as the carousel's first film under the new name above). On /services/biostimulators,
   /services/body-contouring, /about, /injector-training,
   /services/regenerative, and /mobile also probe
   `/js/treatment-video.js` (200, `text/javascript`) and confirm the

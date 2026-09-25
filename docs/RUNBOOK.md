@@ -203,10 +203,12 @@ To add or swap a film:
    in DECISIONS 2026-08-15). Amy's own films ONLY — manufacturer
    films always play at 1×, their presentation is carried as-is.
    0.5 is the floor (engines clamp below); slower means re-editing.
-   Bars-row width: at four films the progress bars run 48px under
-   600px (64px above); a FIFTH film overflows the 344px fold cover —
-   revisit the bar width (~40px) or let the row wrap (the math lives
-   in the component's bars comment).
+   Bars-row width: at five films (since 2026-09-25) the progress bars
+   run 40px under 600px (64px above) — the row is 296px, the 344px
+   fold cover's content box exactly, so a SIXTH film needs a wrapping
+   row (the math lives in the component's bars comment). The stage is
+   full-width (`width: 100%`, 2026-09-25): a widescreen film presents
+   large on desktop while portrait films keep their size.
 6. `npm run verify` green → PR → preview → Amy's word → merge.
 
 **One master, two renditions (2026-08-25):** the team film's master

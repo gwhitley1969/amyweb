@@ -199,10 +199,25 @@ silently following it. Known superseded points from earlier briefs:
      outcome promises, before/after implications, or unsubstantiated
      superiority claims ("#1", "best"). *Scoped exceptions (operator
      overrides after the compliance flags — DECISIONS 2026-07-21): the
-     Evolus-produced Evolysse film on /services/dermal-fillers — RETIRED
-     2026-08-21: the film was removed from the site at the client's
-     direction and renders nowhere (DECISIONS same date; re-adding it
-     requires the human operator); the Evolus ICON
+     Evolus-produced Evolysse film (piece US-EVY-2600017) — on
+     /services/dermal-fillers 2026-07-21 → 2026-08-21, when it was
+     removed at the client's direction (DECISIONS same date); RE-ADDED
+     2026-09-25 by the human operator, after the compliance flag, as
+     the FIRST film of the home carousel (`commercial-evolysse`;
+     DECISIONS same date) and nowhere else. Carried as-is: its
+     before/after segment ("Actual patient, results may vary."), the
+     location's co-branding with its phone number, QR code, and
+     microsite address, the spelling error on Amy's title card, and its
+     cartons' small print (a fill volume at the edge of legibility at
+     the rendition's native 1920px — the committed poster is 960px so
+     the still never carries it legibly).
+     Muted like every carousel film, so its voiceover — which carries
+     the film's spoken risk statement, beyond the four safety lines on
+     screen — is heard nowhere; its transcript lives in the caption
+     file, off by default (operator decision after the flag; captions
+     on by default was recommended and declined). Moving the film,
+     unmuting it, turning its captions on by default, or any other
+     placement requires the human operator; the Evolus ICON
      event film on /about (moved from /services/wrinkle-relaxers at the
      client's direction 2026-08-18, exception terms unchanged; carried
      as-is — manufacturer comparative-efficacy remarks, named
@@ -219,8 +234,8 @@ silently following it. Known superseded points from earlier briefs:
      DECISIONS 2026-08-14) — the two Evolus co-op Jeuveau commercials
      carried as-is with their complete FDA safety information (never
      trimmed or cropped), and Amy's own studio reel under operator
-     override with both client releases confirmed on file. (The fourth
-     carousel film — the 2026-08-17 team film — contains no claims and
+     override with both client releases confirmed on file. (The
+     carousel's team film — added 2026-08-17 — contains no claims and
      needs no exception here; its override lives under constraint 2.)
      And five photos (operator overrides after the compliance flags —
      DECISIONS 2026-08-18, 2026-08-21, and 2026-08-25): the /services hormone-optimization menu

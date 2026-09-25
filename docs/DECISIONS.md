@@ -10500,6 +10500,167 @@ line read — build, `astro check` 0/0/0, lint:claims, lint:voice, pa11y
 every URL; the thin LCP budgets did not move (/mobile 2,481ms, /about
 2,335ms, against 2,500).
 
+## 2026-09-25 — The Evolysse film returns as the home carousel's first film (operator override after the compliance flag)
+
+**Context:** The operator asked (2026-09-24) to add
+`C:\Amy\Videos\Mobile EVOLYSSE OPTION 3_2_1.mp4` to the home carousel
+and play it first — five films instead of four. It is not a new film.
+It is byte-identical to the copy in `C:\Amy\Videos\Commerical 1\`
+(sha256 `b5eb0574…`), and it carries the same name and Evolus piece code
+(US-EVY-2600017) as the film that ran on /services/dermal-fillers from
+2026-07-21 until the client had it removed on 2026-08-21, when its Blob
+object `evolysse-film.mp4` was deleted and the CLAUDE.md exception was
+marked retired ("re-adding it requires the human operator"). This is
+that operator call. The master is 1920×1080, 30fps, 30.5s, H.264 with
+AAC stereo narration.
+
+**Screen (house method):** contact sheets at one frame per second, the
+lower strip every half second, and full-resolution crops.
+- 0–2s: Amy's title card — her photo, the MA chevrons, "Amy Palacios /
+  Nurse Practicioner" (a spelling error).
+- 3–5s: the Evolysse Smooth carton in ice. Its small print includes the
+  fill volume, at the edge of legibility at the native 1920px.
+- 6–9s: a model, labeled "Actual patient, results may vary."
+- About 10–13s: a side-by-side of the same patient, labeled BEFORE and
+  AFTER 2 WEEKS.
+- 14–21s: a second model and "EVOLYSSE" graffiti.
+- 22–30s: the Form carton and syringes, the location's phone number
+  (704-368-3759, not Amy's line), and "Talk to your doctor about
+  Evolysse™".
+- Throughout: a QR code and the address of a location-branded Evolus
+  microsite.
+
+The footer's on-screen safety text is four lines, one at a time: the
+indication (10–13s); certain medications and the risk of infection,
+bleeding, or bruising (13–18.5s); not for people with severe allergies,
+including to lidocaine (18.5–23.5s); and the risk of infection with all
+injection procedures (23.5–30.5s). The serious-risk statement is in the
+voiceover only: the risk of unintentional injection into a blood vessel
+(vision abnormalities, blindness, stroke), the common side effects, and
+the tell-your-provider list. The July transcript (operator-verified,
+commit c966e6f) still fits this file: its 12.88s break sits on a
+measured 12.83–13.03s pause, and the speech ends by 29.98s.
+
+**Flags shown (once):**
+- The before/after segment now sits in the home carousel's first slot,
+  on a page with no medical disclaimer.
+- The location's co-branding, phone number, QR code, and microsite.
+- The title-card spelling error.
+- Muting — every carousel film is muted — drops the spoken risk
+  statement. The Jeuveau films can be muted because their full safety
+  screens are burned in; this film's cannot.
+- On a phone its on-screen safety lines are about 3px tall.
+
+The recommendation was captions on by default for this film alone. A
+Chromium test in the real stage geometry showed them sitting in the
+black band under the film on phones, and covering the film's own safety
+line on desktop unless a strip were reserved under it. Holding for
+Amy's confirmation was also offered.
+
+**Decision (operator, 2026-09-25):** add the film first, muted,
+captions off by default — the Jeuveau pattern. This is an override
+after the flag. The film is carried as-is: never trimmed or cropped,
+played at 1×.
+
+**Mechanics:**
+- **Rendition:** the RUNBOOK recipe (H.264 CRF 23, preset medium, no
+  audio, faststart), 1920×1080, 2.58 Mbps, 9,840,398 bytes. Uploaded as
+  `commercial-evolysse.mp4` — a new name, so no purge, and the name
+  deleted in August is not reused.
+- **Poster:** `commercial-evolysse-poster.jpg`, the carton frame at 4.0s.
+  It is visually simple, and shows no patient and no spelling error. It
+  is committed at 960×540 rather than the rendition's full frame: the
+  carousel never serves a poster wider than 720, and at 960 the
+  carton's fill volume is unreadable even in the served fallback `src`
+  file, so the still needs no pixel exception of its own. Built
+  derivatives: 480w 10,102 B, 720w 18,792 B, 960 `src` 27,584 B.
+- **Captions:** `public/media/commercial-evolysse.vtt`. It holds the
+  voiceover (the July text on its July timings, safety information
+  included) and the on-screen text, marked "On screen". The title card
+  is given correctly spelled. The location's phone number, QR code, and
+  microsite address stay display-only pixels, not transcribed — the
+  training-reel precedent: the site's text never prints them.
+- **The slide:** first in `slides`, labeled "Evolysse commercial —
+  Mobile Aesthetics with Evolus" (the Jeuveau pattern). The other four
+  keep their order, so two Evolus films now play back to back.
+  `video-carousel.js` is unchanged.
+
+**The stage, fixed in the same change.** Measured on #97, `.vc-stage`
+(4:5 aspect ratio, a 76vh/720px height cap, auto width) did not stay
+full-width once the cap bound: the cap transferred through the ratio
+and the box shrank to 4:5 — 486×608 at 1280×800 — which would have
+played the 16:9 film at 486×274. A definite `width: 100%` fixes it.
+Measured in-page, before → after, the stage and each film class:
+
+| Viewport | Stage | 16:9 film | 4:5 films | 9:16 films |
+|---|---|---|---|---|
+| 390×844 | 342×428 (same) | 342×192 (same) | same | same |
+| 768×1024 | 576 → 705 wide, 720 tall | 576×324 → 705×397 | 576×720 | 405×720 |
+| 1024×768 | 467 → 961 wide, 584 tall | 467×263 → 961×541 | 467×584 | 328×584 |
+| 1280×800 | 486 → 1152 wide, 608 tall | 486×274 → 1081×608 | 486×608 | 342×608 |
+| 844×390 | 237 → 781 wide, 296 tall | 237×133 → 527×296 | 237×296 | 167×296 |
+
+Every portrait film keeps exactly its size, and the stage's height does
+not change, so nothing below it moves. On a phone held upright a 16:9
+film is inherently small (342×192 at 390).
+
+**Five bars:** five bars at 40px, four 8px gaps, the 20px gap, and the
+44px toggle make 296px — the 344px fold cover's content box exactly
+(46px spare at 390). The 40×32 buttons stay above the 24px target. A
+sixth film needs a wrapping row.
+
+**Alternatives rejected:**
+- Captions on by default — recommended, declined by the operator.
+- Holding for Amy — offered, declined.
+- A sound button — the voiceover would still go unheard by default.
+- Trimming or cropping — never, for a manufacturer piece.
+- Reusing the name `evolysse-film.mp4`.
+- A full-frame 1920 poster — its fallback `src` would carry the fill
+  volume legibly.
+- A 1280w poster tier for desktop sharpness — the phone profile
+  (412px at 1.75x needs 721 device px) would fetch it on every phone.
+- A stage that changes shape per slide — layout shift on every rotation.
+
+**Consequences:**
+- CLAUDE.md constraint 3 re-grants the retired exception for exactly
+  this slide. It records what is carried, the muting, and captions off
+  by default; moving the film, unmuting it, turning its captions on, or
+  any other placement requires the human operator. BUILD_SPEC's
+  carousel, home-row, dermal-fillers, and §8 passages follow; the plan's
+  approval authorized the governing-doc edits (the 2026-08-18
+  precedent).
+- Amy's sign-off row carries it as NEW: this is the film she had
+  removed.
+- RELAUNCH's probe list gains `commercial-evolysse.mp4`.
+- REDESIGN's media-origin row is recounted: eighteen Blob objects,
+  fourteen referenced. The four earlier hero-film cuts are unreferenced,
+  and deleting them is an operator cleanup item, not part of this
+  change.
+- The carousel's CSS lives in the stylesheet shared with /styleguide,
+  so that file's name changes; its content differs only by the two
+  rules above.
+- Not treatment content; no `clinicianApproved` flag.
+
+Verification: built against phase-c, the change is exactly the new
+slide's markup and fifth bar on the two pages that render the carousel
+(/ and /styleguide/concept), the three poster derivatives, the caption
+file, and the shared stylesheet — renamed, its content differing only
+by the two rules above (/styleguide and /styleguide/treatment-demo
+change only that stylesheet's name); `video-carousel.js` and every
+other page are byte-identical. Checked in headless Chrome at nine
+widths (344–1440) against #97: no horizontal overflow (the bars row
+fills the 344px fold cover's 296px exactly), every portrait film's
+size and the stage's height identical; slide 1 plays the new file
+muted with no decoded audio and its captions track disabled, and its
+end hands over to J1. The served film answers a Range request with 206,
+`video/mp4`, 9,840,398 bytes, one video stream and no audio, index at
+the front. Full `npm run verify` green, exit line read — build, `astro
+check` 0/0/0, lint:claims, lint:voice, pa11y 25/25, Lighthouse CI every
+assertion on 8 URLs × 3 runs. The home row measures image 208,279 B of
+245,760 (the new poster's 720w file adds 19,097 B), total 333,461 B of
+358,400, script 69,266 B of 81,920, media 0 — no film byte in the
+load; LCP 2,186 ms, CLS 0, performance 0.99.
+
 ## 2026-09-25 — Caption files serve as `text/vtt` (they were `application/octet-stream`)
 
 **Context:** A curl on 2026-09-25 found every caption file in
@@ -10507,8 +10668,9 @@ every URL; the thin LCP budgets did not move (/mobile 2,481ms, /about
 `X-Content-Type-Options: nosniff`. SWA's defaults have no entry for
 `.vtt`, and neither template in `config/swa/` added one. The worry:
 Firefox reportedly refuses a track that is not `text/vtt`, which would
-silently drop the captions on the two manufacturer films, the ones that
-carry safety information. It was measured before anything changed.
+silently drop the manufacturer films' captions, which carry safety
+information (commercial-evolysse.vtt among them since PR #200). It was
+measured before anything changed.
 Firefox 156.0.1 (the installed release) and Chrome 148 ran headless
 through Puppeteer, and Firefox was driven over WebDriver BiDi, so it was
 the stock browser. A local server sent the same bytes of

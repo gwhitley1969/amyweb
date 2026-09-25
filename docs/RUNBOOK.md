@@ -367,6 +367,21 @@ film's frame rate, 0 paused samples, no frame gap over ~100ms at the
 loop point, and one fetch of the file. A desktop browser loops cleanly
 where a phone may not: look at the loop point on a real iPhone too.
 
+**The van band's film** (since 2026-09-25, DECISIONS same date) is
+`van-trip.mp4` on the media origin, played by `public/js/band-film.js`
+in the "Amy comes to you." band. The player is built on approach,
+only after a real user input, which is what keeps the 35MB film out
+of the page load and the Lighthouse trace. The settings are data
+attributes on the band's `[data-band-film]` figure in
+`ConceptHome.astro`: `data-file`, `data-vtt` and `data-label`. To
+rebuild the film, use `C:\Amy\van-film\` (outside the repo; its
+README has the steps). The master is an AI upscale of the supplied
+copy. `patches.json` lists every spot where the source's own pixels
+replace lettering the upscaler drew, plus the prep shot whole, and
+`render.sh` builds the web file. Publish any new cut under a NEW
+filename ("Publishing a film"), and take the poster from the new
+file's frame 0.
+
 ## Turning on analytics (Plausible — prepped 2026-08-17, ships dark)
 
 Everything is wired and gated behind `siteConfig.analytics`

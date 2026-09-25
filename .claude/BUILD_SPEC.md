@@ -367,9 +367,11 @@ there is no inline desktop nav — and Book never hides. Since 2026-09-15
 (client direction, DECISIONS the seventh addendum of that date) PHONES
 STACK: below 640px the mark sits alone on top, centred, spanning the
 container (`min(100vw - 2rem, 380px)` — 358×98 at 390) with the credential
-line under it, and the badge (72px since 2026-09-23, Amy's request), Book,
-and menu form a utility row beneath; the header is ~224px tall there and is
-not sticky. From 640px the single row holds: wordmark 44vw between 281 and
+line under it, and the badge (as tall as the wordmark + credential line
+since 2026-09-25, Amy's request — 127px from 412px, 121 at 390, 102 at 320;
+it was 72px from 2026-09-23), Book, and menu form a utility row beneath;
+the header is ~274px tall there at 390 (~286 from 412) and is not sticky.
+From 640px the single row holds: wordmark 44vw between 281 and
 340px with the badge exactly as tall as the wordmark + credential line
 (101–117px); from 1024px the wordmark is `clamp(420px, 46vw, 600px)` beside
 the badge, still level with the wordmark + credential line (152–187px), so

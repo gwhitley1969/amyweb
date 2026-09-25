@@ -10717,3 +10717,102 @@ assertion on 8 URLs × 3 runs. The home row measures image 208,279 B of
 245,760 (the new poster's 720w file adds 19,097 B), total 333,461 B of
 358,400, script 69,266 B of 81,920, media 0 — no film byte in the
 load; LCP 2,186 ms, CLS 0, performance 0.99.
+
+## 2026-09-25 — The Mobile Aesthetics badge grows on phones: as tall as the Needle Girlie lockup at every width (client request)
+
+**Context:** Two days after the badge went from 48 to 72px on phones
+(2026-09-23), the operator sent a phone screenshot of /mobile on the
+live demo (PR #97) with the badge marked: it is "very tiny", and Amy
+wants it more pronounced — on phones mostly; it looks fine on desktop.
+The screenshot measures to a 412px-wide phone, where the badge renders
+at 72px and the header at 230px. On phones the badge shares the utility
+row under the wordmark with Book and the menu (the stacked shell of
+2026-09-15), and that row is exactly as tall as the badge, so every
+pixel of badge is a pixel of header. At 412px the row had 185px of empty
+space between the badge and Book, so the badge could grow without
+touching anything. Nothing else on the site reads the header's height
+(the home motion script touches only the wordmark image).
+
+**Decision (operator, from a throwaway comparison on the live demo —
+today's header and two options stacked at 412px, the header cost stated
+for each):** the badge's height is ONE expression at every width — the
+one tablets and desktop have used since 2026-09-23: the wordmark's
+height at its 3.675 aspect plus 1.5rem (the credit line and its gap from
+640px). In `Header.astro` the phone declaration `--ma-h: 72px` becomes
+`calc(var(--wordmark-w) / 3.675 + 1.5rem)` on `.site-header`, and the
+640px rule's own copy of it goes: declared once, it re-resolves against
+each breakpoint's `--wordmark-w`, the mechanism the ≥1024px rule already
+relied on. CSS only. The popover's phone offset and the no-Popover
+fallback's Book position read `--ma-h`, so both follow. On phones the
+badge is about 2px taller than the lockup above it, whose credit line is
+smaller there (0.8125rem, not 0.9375) — invisible on stacked rows.
+Measured on the built page (/mobile, /, and /visit, identical across the
+three):
+
+| Width | Badge (was 72px) | Phone header |
+|---|---|---|
+| 320 | 102px | 205 → 235px |
+| 344 (Fold cover) | 109px | 212 → 249px |
+| 360 | 113px | 216 → 257px |
+| 375 | 117px | 220 → 265px |
+| 390 | 121px | 224 → 274px |
+| 412–639 | 127px | 230 → 286px |
+| 640 and up | unchanged (101–187px) | unchanged |
+
+**Flags, raised once, accepted with the pick:** (1) the 2026-09-15
+direction wanted the wordmark to "stand out more than the Mobile
+Aesthetics logo"; on phones the badge now stands taller than the
+wordmark image (127 against 103px at 412). The wordmark still leads — on
+top, centred, about 3× the badge's width. Amy's request supersedes. (2)
+The badge is the sanctioned outbound link to yourmobileaesthetics.com
+(constraint 2's first exception names the header badge and fixes no
+size), so this is a bigger exit again; no link, mention, or text is
+added. (3) Every page's content starts 30–55px lower on phones; the
+header is not sticky, so the cost is the first screen only — on the
+home page the portrait still fits Lighthouse's 412×823 phone screen (its
+bottom moves from 708 to 763px). (4) /mobile's LCP budget had 19ms of
+headroom (2,481ms of 2,500); no byte is added, and the figure is read in
+verify (below). (5) The badge's small print — Amy's name and
+704·579·7108 — becomes nearly legible on phones; the number is the
+site's own (`siteConfig.phone`).
+
+**Supersedes:** the 2026-09-23 entry's phone value (72px, chosen from
+64/72/80). The tablet and desktop sizes are unchanged.
+
+**Alternatives rejected:** 103px on a 412px phone — the badge as tall as
+the wordmark image, never taller (offered; only 78px on 320px phones,
+6px more than today); a fixed phone size (the one expression scales with
+the phone and leaves one rule instead of two); cropping the SVG's
+viewBox to its white frame (the badge would read larger in the same box,
+but it alters the full badge picked 2026-08-15); re-laying out the phone
+header (a header stacking the badge over the wordmark was rejected on
+sight 2026-09-23); a bigger badge on tablets and desktop (the operator:
+it looks fine on desktop).
+
+**Consequences:** phone headers are 30–55px taller (~274px on a 390px
+iPhone, ~286 from 412). The wordmark's 3.675 aspect now sizes the badge
+at every width (BRAND-ASSETS notes it). No DOM, link, alt, asset, or
+script change; not treatment content, so no `clinicianApproved` flag.
+Checked against the final website SOW: a §7 routine update — no scope,
+exclusion, §5 promise, or running cost is touched. CLINICIAN-SIGN-OFF's
+pending presentation row, REDESIGN's badge and hybrid-nav rows,
+BRAND-ASSETS, and BUILD_SPEC §5 (on the operator's plan approval, same
+day) carry the new sizes.
+
+Verification: built against phase-c, the only changed file is the
+stylesheet holding the header's rules — renamed, its content differing
+only in the two `--ma-h` declarations (the phone value replaced, the
+640px copy removed) — and all 25 pages' HTML is identical apart from
+that stylesheet's name. Measured in headless Chrome on /mobile, /, and
+/visit at 15 widths from 320 to 1440, with the Popover API and in the
+no-Popover emulation (the 2026-09-24 method): the badge and header
+heights above; from 640px every header box identical to phase-c's, in
+both modes; no horizontal overflow; no header box overlapping another;
+Book and the menu centred on the badge row (Book too in the no-Popover
+fallback); the menu clears the header by ~3.2px on phones. Full `npm
+run verify` green, exit line read — build, `astro check` 0/0/0,
+lint:claims, lint:voice, pa11y 25/25, Lighthouse CI every assertion on
+8 URLs × 3 runs, CLS 0 on every URL; the thin LCP budgets did not move
+(/mobile 2,482ms, /about 2,334ms, against 2,500), and the home row's
+image bytes are unchanged (208,279 B) and its total 9 B lower (333,452
+B — the stylesheet is 13 bytes smaller uncompressed).

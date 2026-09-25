@@ -75,6 +75,7 @@ record.
 | `17132bf` | 2026-09-04 | **Merge pull request #179 into `phase-c`** — the operator's "go ahead and merge #179 and refresh the previews" |
 | `dcd223a` | 2026-09-17 | **feat(home): the hero film is remade as a living-portrait film** — PR #190 (`feat/hero-living-portrait`); the three reel passages retire, `hero-living-portrait-v4.mp4` loops natively; AI-assisted, disclosed (DECISIONS 2026-09-17) |
 | `7aa832c` | 2026-09-18 | **feat(home): the hero film re-ordered** — PR #191 (`feat/hero-film-reorder`), the founders' request: the hair shot opens, the turn and the laugh finish; same footage, `hero-living-portrait-v5.mp4`; the loop point inside a white flash, the fade-in waits 0.2s (DECISIONS 2026-09-18) |
+| `13f1614` | 2026-09-25 | **feat(home): the hero film ends on a smile, not a laugh** — PR #207 (`feat/hero-film-smile`), Amy's request: a new Seedance 2.5 take spliced in after the turn, her eyes open; `hero-living-portrait-v6.mp4` (DECISIONS 2026-09-25) |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,

@@ -16,9 +16,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   is a second AI performance (Higgsfield, Seedance 2.5), started from
   the moment she faces the camera and joined inside a still moment, so
   the turn the founders approved is untouched.
-- The file is `hero-living-portrait-v6.mp4` (11.04s, 3.5MB). DECISIONS
-  2026-09-25; the making-of is in `C:\Amy\hero-film\README.md`, outside
-  the repo.
+- The file is `hero-living-portrait-v6.mp4` (11.04s, 3.5MB), in PR #207.
+  DECISIONS 2026-09-25; the making-of is in `C:\Amy\hero-film\README.md`,
+  outside the repo.
 
 ### 2026-09-25 — Shared links show Amy's share card
 

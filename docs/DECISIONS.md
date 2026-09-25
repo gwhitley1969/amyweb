@@ -11395,7 +11395,8 @@ plan that the 2026-09-17 commercial-use addendum rests on.
 3,513,005 B; SHA-256
 4711c4f079756e767fbf0130cd325a28ff87a6bb208d8ecc96c0891d2d1d1ec7;
 1080×1502, 24fps, 265 frames / 11.04s, no audio). It is encoded exactly
-as v5 was: CRF 22, the same grain, the same white flash.
+as v5 was: CRF 22, the same grain, the same white flash. It ships in
+PR #207.
 
 **Alternatives rejected.**
 - Her own soft closed-lip smile from the existing take (zero credits):

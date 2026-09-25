@@ -113,10 +113,11 @@ inside the derivative's 2124px; and `widths` without an explicit `width`
 makes the `<img src>` fallback the ORIGINAL-width encode, so always pass
 `width`.
 
-The header's nav popover offsets and, from 640px, the Mobile Aesthetics
-badge's height are derived from the wordmark's aspect (`3.675` in
-`Header.astro`; DECISIONS 2026-09-23); a future asset with a different
-aspect changes that one number — and resizes the badge with it.
+The header's nav popover offsets and the Mobile Aesthetics badge's
+height, at every width, are derived from the wordmark's aspect (`3.675`
+in `Header.astro`; DECISIONS 2026-09-23 and 2026-09-25); a future asset
+with a different aspect changes that one number — and resizes the badge
+with it.
 
 ## Retired 2026-09-15 (dormant — kept, not deleted; operator decision)
 

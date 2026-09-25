@@ -18,6 +18,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   banner's headline can be read in the card images (DECISIONS
   2026-09-25).
 - Both cards crop to the top of the photo, so Amy's face stays in frame.
+- Merged into phase-c 2026-09-25 (PR #204, on the operator's word); both
+  standing previews (#97, #149) refreshed after it.
 
 ### 2026-09-25 — The "Amy comes to you." band plays Amy's van-trip film
 

@@ -11,8 +11,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - On the home page, the "Amy comes to you." band now plays Amy's van-trip
   video instead of the photo of the van's interior. The whole clip plays
   (2 minutes 50 seconds): the van and its cabin, the drive over a bridge,
-  and a holiday event. It is silent (the file has no sound track) and
-  loops.
+  and a holiday event. It plays muted and loops, with Amy's voice one tap
+  away: at 2:01 she speaks to camera at the destination. Only her voice
+  plays. The clip's two songs are removed, because they aren't licensed
+  for a website. Captions of her words are available in the player (off
+  by default).
 - It shows whole, uncropped, in a phone-shaped panel the size of the
   /mobile page's film, with the statement beside it on desktop and below
   it on phones. It starts playing when a visitor scrolls to it and pauses

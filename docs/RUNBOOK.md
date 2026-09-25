@@ -368,7 +368,7 @@ loop point, and one fetch of the file. A desktop browser loops cleanly
 where a phone may not: look at the loop point on a real iPhone too.
 
 **The van band's film** (since 2026-09-25, DECISIONS same date) is
-`van-trip.mp4` on the media origin, played by `public/js/band-film.js`
+`van-trip-sound.mp4` on the media origin, played by `public/js/band-film.js`
 in the "Amy comes to you." band. The player is built on approach,
 only after a real user input, which is what keeps the 35MB film out
 of the page load and the Lighthouse trace. The settings are data
@@ -378,7 +378,10 @@ rebuild the film, use `C:\Amy\van-film\` (outside the repo; its
 README has the steps). The master is an AI upscale of the supplied
 copy. `patches.json` lists every spot where the source's own pixels
 replace lettering the upscaler drew, plus the prep shot whole, and
-`render.sh` builds the web file. Publish any new cut under a NEW
+`render.sh` builds the silent web file, `van-trip.mp4`. `sound.sh` adds
+Amy's own voice (2:01–2:17 only; the clip's two songs stay out, because
+they aren't licensed for the website) to make `van-trip-sound.mp4`.
+Publish any new cut under a NEW
 filename ("Publishing a film"), and take the poster from the new
 file's frame 0.
 

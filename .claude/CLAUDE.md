@@ -538,8 +538,14 @@ silently following it. Known superseded points from earlier briefs:
   approach and only after a real user input, so the page's load (and
   Lighthouse's full-page pass) never fetches the film; muted, looping in
   view, native controls as the pause mechanism, autoplaying under
-  reduced motion by the films policy. Widening it to another page
-  requires the human operator.
+  reduced motion by the films policy. Since the same day's sound
+  addendum the rendition (`van-trip-sound.mp4`) carries Amy's own voice
+  at 2:01–2:17 and silence elsewhere (the clip's two songs removed — not
+  licensed for the website), so it is the speech-free autoplay rule's
+  second scoped exception after the ICON film (operator override after
+  the flag; the rule lives in TreatmentVideo.astro's header): sound one
+  tap away, a person's unmute remembered, captions off by default.
+  Widening it to another page requires the human operator.
   The 30KB budget stands for every page but the home URL.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.

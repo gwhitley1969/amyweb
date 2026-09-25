@@ -10974,3 +10974,123 @@ The home row against phase-c (medians):
 /mobile (2,480ms) and /about (2,338ms) stay under 2,500. The
 preview's checks (the real CSP, the media origin, Range 206) are on the
 PR.
+
+## 2026-09-25 — Addendum: the van film's sound — Amy's voice only (the songs removed; the speech-free autoplay rule's second exception; operator decisions after the flags)
+
+**Context.** The operator asked how hard it would be to let viewers turn
+on the sound "so they can choose to hear what Amy is saying". The clip's
+audio, measured:
+- **0:00–2:01.2:** loud and steady (−14.7 LUFS), with a regular beat.
+  The operator identified two songs: "Check Out (What I Got)" by Danger
+  Twins (2023; listed for sync licensing through peermusic's catalog) and
+  "I'll Never Let You Go" (feat. 9ver) by BCD Studio (2022; marketed as
+  "no-copyright sounds" for TikTok, with no written licence for a
+  website).
+- **2:01.2–2:17.3:** Amy's words to camera outside the van at the
+  destination, at −34.5 LUFS. The operator: she "says where they are
+  and who they are there to see".
+- **2:17.3–2:38:** quiet room sound under the prep shot and the party.
+- **2:38–2:50:** digital silence.
+
+**Flags.**
+1. Neither song is licensed for a business website. Platform music
+   licences do not travel, as with the /mobile film's held sound on
+   2026-09-03.
+2. The person she names: naming someone at a treatment party on a
+   medical practice's site discloses a client relationship, so it needs
+   a website release and a HIPAA marketing authorization (the
+   before/after precedent, 2026-08-21).
+3. Captions become required (WCAG 2.2 AA 1.2.2), and they are site text
+   under the claim rules.
+4. The house rule autoplays only speech-free films ("never … one with
+   narration, which muted autoplay would gut"). Its one exception was
+   the ICON film (2026-08-25).
+5. Her words start about two minutes into the loop.
+
+**Decisions** (operator, AskUserQuestion):
+1. **Amy's voice only.** Both songs out; her part plays, brought up to a
+   speaking level; the rest is silent.
+2. **The named person:** a website release and a HIPAA marketing
+   authorization are both on file (the operator's confirmation is the
+   record), so the name stays in the audio and the captions. It is never
+   restated in site text outside the captions file.
+3. **Keep autoplay:** muted in view, with sound one tap away. This is
+   the speech-free rule's second scoped exception, recorded in the rule's
+   own home (TreatmentVideo.astro's header) and in CLAUDE.md's script
+   list.
+4. **Captions off by default.** Captions on by default was recommended,
+   because most visitors see the film muted.
+5. **Transcript:** Higgsfield's video analysis first. It ran on the
+   already-uploaded clip (job `7e652c3e…`, about six minutes).
+   - **What it heard:** her part as "…in Holden Beach with [the host]
+     to do a mobile aesthetic party at her place at Winn-Lynn and
+     Company, Punky's Place. So excited to be here!" The host's full
+     name is kept out of this public record; it is in her voice and
+     the caption file, which the operator's confirmation covers.
+   - **Confirmed by the operator,** listening to the sound rendition:
+     the words and the name's spelling, and that the mid-sentence start
+     sounds fine (her first words fall under the end of the song).
+   - **Its limits:** the same analysis confirmed both songs by their
+     lyrics, but its claim that music continues after 2:17 is wrong
+     (measured near-silence, then digital silence). It is a draft, not
+     a record.
+
+**Captions.** Four cues, 2:01.2–2:17.28, split at her measured pauses
+(25ms loudness map); the player requests `van-trip.vtt?v=2`. The caption
+file, like every site file, is also in the public repository.
+- **Screened:** against `banned-patterns.json` (no hits) and the voice
+  rule (no first-person plural). The linters do not read caption files,
+  but the claim rules apply to all site text.
+- **Accepted:** her "Holden Beach" makes the earlier minor flag
+  explicit, a beach-town visit under the band's "around Charlotte"
+  copy.
+
+**The sound rendition** (`C:\Amy\van-film\sound.sh`):
+- **Before 2:01.2:** silenced; the songs end there, per the spectrogram
+  and a 0.1s loudness map.
+- **Her part:** fades in over 80ms at 2:01.2. Highpass 80Hz, a gentle
+  compressor (−34dB threshold, 3:1), +20.5dB, and a −1dBFS limiter.
+  Result: −18.0 LUFS, peaks −3.0dBFS.
+- **After the cut into the prep shot (2:17.30):** faded out and silent
+  (a −65dBFS residue), so nothing but her words plays. The prep shot's
+  and the party's room sound was never screened by ear.
+- **Muxing:** AAC 96k, muxed with `van-trip.mp4`'s video stream copied
+  untouched. The web video's frames sit within 10ms of the source's
+  (6ms in her part), so lip sync holds.
+- **The file:** `van-trip-sound.mp4`, 34,970,330 B (+361KB), published
+  under a new name on the media origin. The silent `van-trip.mp4` blob is
+  deleted once no open preview references it.
+
+**Player.** `band-film.js` remembers a person's unmute: the film restarts
+with sound when it scrolls back into view, and falls back to muted if
+the browser refuses (the treatment-video.js pattern). The label mentions
+that Amy speaks and that the film starts muted. The caption file gains
+her cues and its NOTE the provenance; `?v=2`.
+
+**Consequences.**
+- CLAUDE.md's fifth-consumer paragraph and TreatmentVideo's header record
+  the second exception.
+- CHANGELOG, CLINICIAN-SIGN-OFF, RELAUNCH (the probe target is now
+  `van-trip-sound.mp4`), RUNBOOK, HOME-CONCEPT, REDESIGN and BUILD_SPEC
+  say the film has her voice.
+- SOW divergence #4 is unchanged in kind; egress rises by 361KB per full
+  view.
+
+**Verification.**
+- **Local headless Chrome**, emulating a touch phone, with the sound
+  rendition served with Range support:
+  - the film autoplays MUTED, and the file carries an audio track;
+  - captions are off by default, and the four cues load, all inside
+    2:01.2–2:17.28;
+  - an unmute is recorded and survives scrolling away and back: the
+    film restarts with sound.
+- **Firefox 156:** plays muted with the audio track present.
+- **The audio:** silence before 2:01.2 (peak −inf); her part at
+  −18.0 LUFS (peak −3.0dBFS); after 2:17.3, a −65dBFS residue.
+- **The gate:** full `npm run verify` green, exit line read: `astro
+  check` 0/0/0, lint:claims, lint:voice, pa11y 25/25, and Lighthouse
+  CI passing every assertion on 8 URLs × 3 runs.
+- **The home row:** total 336,160 B; script 71,875 B (`band-film.js`,
+  2,640 B over the wire); image 208,279 B; media 0, with no request for
+  the film; LCP 2,171ms. /mobile (2,484ms) and /about (2,337ms) stay
+  under 2,500.

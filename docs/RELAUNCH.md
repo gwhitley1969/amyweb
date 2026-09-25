@@ -118,7 +118,7 @@ check will refuse it. On a branch off `main`:
   since 2026-09-17, this cut since 2026-09-18 (DECISIONS, both dates).
   Also the van band's film (2026-09-25, DECISIONS same date):
   `/js/band-film.js` (200, `text/javascript`), and the band's
-  `data-band-film` element points at `van-trip.mp4` on the media
+  `data-band-film` element points at `van-trip-sound.mp4` on the media
   origin (206 on a range request, `video/mp4`).
 - Plausible: `/api/event` returns 202 from the production page;
   dashboard shows the first pageviews.

@@ -1,5 +1,5 @@
 {
-  "$comment": "SWA config for PR PREVIEW environments (BUILD_SPEC §4/§14). No Front Door lockdown — previews must stay reachable. Previews are PUBLIC (password protection removed at operator direction, DECISIONS 2026-07-21); X-Robots-Tag keeps unapproved drafts out of search indexes and must never be copied to production.json. Other shared headers/caching must stay in sync with production.json.",
+  "$comment": "SWA config for PR PREVIEW environments (BUILD_SPEC §4/§14). No Front Door lockdown — previews must stay reachable. Previews are PUBLIC (password protection removed at operator direction, DECISIONS 2026-07-21); X-Robots-Tag keeps unapproved drafts out of search indexes and must never be copied to production.json. Other shared headers, caching and MIME types must stay in sync with production.json.",
   "trailingSlash": "never",
   "globalHeaders": {
     "X-Robots-Tag": "noindex, nofollow",
@@ -28,5 +28,8 @@
     "404": {
       "rewrite": "/404.html"
     }
+  },
+  "mimeTypes": {
+    ".vtt": "text/vtt; charset=utf-8"
   }
 }

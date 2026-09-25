@@ -113,9 +113,9 @@ check will refuse it. On a branch off `main`:
   `/js/vendor/gsap.min.js`, `ScrollTrigger.min.js`, `SplitText.min.js`,
   `lenis.min.js` (all 200, `text/javascript`); the hero's
   `data-hero-film` element carries `data-first="5"` and `data-rate="1"`
-  and no `data-ranges`; the film object is `hero-living-portrait-v5.mp4`
+  and no `data-ranges`; the film object is `hero-living-portrait-v6.mp4`
   on the media origin (206 on a range request, `video/mp4`) — the film
-  since 2026-09-17, this cut since 2026-09-18 (DECISIONS, both dates).
+  since 2026-09-17, this cut since 2026-09-25 (DECISIONS, both dates).
   Also the van band's film (2026-09-25, DECISIONS same date):
   `/js/band-film.js` (200, `text/javascript`), and the band's
   `data-band-film` element points at `van-trip-sound.mp4` on the media

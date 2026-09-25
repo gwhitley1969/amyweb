@@ -34,13 +34,15 @@ merged here; the hero reel takes the same policy.
 choppy, and after four rounds (a pixel-locked cinemagraph — "boring";
 the fast cut with AI living moments — "That looks great!!!"; a hop at
 the handoff; the head turn's speed; the eyes) the hero plays
-`hero-living-portrait-v5.mp4`, one purpose-made looping film —
+`hero-living-portrait-v6.mp4`, one purpose-made looping film —
 AI-assisted and disclosed (DECISIONS 2026-09-17, the entry and its
 addenda; merged in PR #190). Through v4 it opened and ended on the
 portrait; since 2026-09-18, at the founders' request, the same shots
 run in a new order: the hair shot opens, the portrait comes alive,
 turns and laughs at the finish, and the loop point sits inside a white
-flash (DECISIONS 2026-09-18). Everything
+flash (DECISIONS 2026-09-18); since 2026-09-25, at Amy's request, she
+smiles rather than laughs (a new generated take, DECISIONS same date).
+Everything
 below about the reel, its passages, and its knobs is that round's
 record.
 
@@ -92,11 +94,12 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   Palacios, FNP, in medical aesthetics since 2017."* Below 900px the
   hero is the phase-c stack.
 - **The film since 2026-09-17.** The reel described in the next item
-  is history: the hero now plays `hero-living-portrait-v5.mp4`, one
-  purpose-made 11s film (24fps, native loop, 3.6MB) that needs no
+  is history: the hero now plays `hero-living-portrait-v6.mp4`, one
+  purpose-made 11s film (24fps, native loop, 3.5MB) that needs no
   ranges, joins, or rest — AI-assisted and disclosed (DECISIONS
   2026-09-17). Since 2026-09-18 it opens on the hair shot and finishes
-  on the portrait coming alive (the turn, the laugh); its loop point is
+  on the portrait coming alive (the turn and, since 2026-09-25 at Amy's
+  request, a warm smile); its loop point is
   a white flash, and the fade-in waits 0.2s so the flash never shows on
   a first visit. `data-first` 5 and the 1.6s fade-in are all that
   remain of the knobs below.
@@ -268,7 +271,8 @@ paragraph). The table is kept as the map of where each rule lives.
 
 - **Amy's review** — now on the standing demo (#97), phone first: the
   hero film and her sign-off on her own generated likeness in it
-  (2026-09-17, re-ordered 2026-09-18 — same footage; the reel and its
+  (2026-09-17, re-ordered 2026-09-18; its finish a new smile take since
+  2026-09-25; the reel and its
   two-pass ending are history), the van
   band, the display sizes, the
   new lead and intro deck wording, and her pick among three headline

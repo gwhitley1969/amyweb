@@ -313,12 +313,14 @@ carries an 80KB script budget for the layer (measured ~69KB gzipped);
 every other page keeps 30KB.
 
 **The hero film** is a film facade: the portrait `<Image>` ships and
-paints; the script attaches `hero-living-portrait-v5.mp4` (the media
+paints; the script attaches `hero-living-portrait-v6.mp4` (the media
 origin) over it and fades it in (1.6s, after a 0.2s wait). Since
 2026-09-17 (DECISIONS same date) it is one purpose-made 11s file played
 at 1× with the native loop, so there is nothing to trim or join. Since
 2026-09-18 (the founders' order) it opens on the hair shot and finishes
-on the portrait coming alive; the loop point sits inside a white flash. The settings are data attributes on the `.nc-hero__media`
+on the portrait coming alive; the loop point sits inside a white flash.
+Since 2026-09-25 (Amy's request) the portrait turns and smiles rather
+than laughs. The settings are data attributes on the `.nc-hero__media`
 element in `src/components/ConceptHome.astro`:
 
 | Knob | Today | Meaning |
@@ -336,7 +338,7 @@ install. House rules, all from DECISIONS 2026-09-17: the canvas is
 1080×1502, the portrait's own aspect; the loop point sits on FLAT
 frames — a player can hitch at the native loop, so the file's last and
 first frames are either the still portrait at 1.00 (v1–v4) or flat
-white inside a flash (v5, DECISIONS 2026-09-18; `seam.cjs` prints
+white inside a flash (v5 on, DECISIONS 2026-09-18; `seam.cjs` prints
 them), never two moving shots; wherever the still portrait turns into
 a living take, it is the photograph at 1.00 so the handoff registers;
 generative inputs are only published, Amy-only stills; nothing
@@ -361,6 +363,14 @@ profile) and fix timing in post if needed (`retime.cjs` — skipped
 frames are averaged, which is real shutter blur). Keep the dissolve from
 photograph to take short (~0.2s) and just before she moves: the model
 re-renders the face, so a slow dissolve is a face morph.
+To change what a performance does after a still moment (DECISIONS
+2026-09-25, the smile): generate a new take FROM a frame inside that
+stillness, keep every earlier frame, and splice there (`splice.cjs`).
+Seedance re-frames its input by a percent or two, so align the new
+frames to the old take (a background-only fit, `register.cjs` then
+`refine-fit.cjs`) and tone-match them before a short dissolve inside
+the stillness. Edits of a whole take (Seedance `video_edit`, Kling Omni
+Edit) kept the old motion there.
 Verify on the running page: count `requestVideoFrameCallback`
 presentations for a loop and sample `paused` every 50ms — expect the
 film's frame rate, 0 paused samples, no frame gap over ~100ms at the

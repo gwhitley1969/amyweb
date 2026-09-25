@@ -3,10 +3,10 @@ import { Picture } from 'astro:assets';
 import { siteConfig } from '../lib/siteConfig';
 /* The wordmark is a crop of the client's 2026-09-15 raster master (see
  * docs/BRAND-ASSETS.md; DECISIONS same date) — 2124x578, aspect 3.675.
- * The nav popover's offsets and, from 640px, the Mobile Aesthetics badge's
- * height (DECISIONS 2026-09-23) are derived from that aspect
- * (WORDMARK_ASPECT in the styles) — a future asset swap changes one number,
- * and resizes the badge with it. */
+ * The nav popover's offsets and the Mobile Aesthetics badge's height, at
+ * every width (DECISIONS 2026-09-23 and 2026-09-25), are derived from that
+ * aspect (WORDMARK_ASPECT in the styles) — a future asset swap changes one
+ * number, and resizes the badge with it. */
 import wordmark from '../assets/brand/needle-girlie-wordmark-metallic-alpha.png';
 import maMark from '../assets/brand/mobile-aesthetics-mark.svg';
 
@@ -93,8 +93,8 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
             mark's derivatives are heavier than the old flat one (image
             budget, DECISIONS 2026-09-15). The sizes mirror the two clamps
             with plain breakpoints. The rendered width is --wordmark-w
-            (styles below) so the popover offset and, from 640px, the
-            badge's height can share it. */}
+            (styles below) so the popover offset and the badge's height
+            can share it. */}
         {/* <Picture>, AVIF first with a WebP fallback, quality 50 (2026-09-15,
             the stacked phone shell): the phone tier went 440 → 720px and the
             extra ~24KB of WebP tipped /mobile past its LCP budget; AVIF at
@@ -166,8 +166,8 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
   .site-header {
     border-bottom: 1px solid var(--ng-hairline);
     /* The wordmark's rendered width — one expression, read by the image,
-     * by the nav popover's offset, and (from 640px, through --ma-h) by the
-     * badge's height. PHONES (<640px, the stacked shell
+     * by the nav popover's offset, and (through --ma-h) by the badge's
+     * height. PHONES (<640px, the stacked shell
      * below): the mark spans the container's inner width — 100vw minus
      * the 1rem side paddings — capped at 380px for large phones and
      * foldables; 358×97 at 390 (was 172×47 in the single row, whose width
@@ -175,23 +175,27 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
      * "more pronounced on phones", DECISIONS the seventh addendum). */
     --wordmark-w: min(100vw - 2rem, 380px);
     /* The Mobile Aesthetics badge's rendered height — the same pattern:
-     * one expression, read by the badge and by the popover's offsets.
-     * PHONES: 72px on the utility row (48 until 2026-09-23, when Amy
-     * asked for a bigger badge; DECISIONS same date). The row, and so the
-     * phone header, is 24px taller for it (~224px at 390). */
-    --ma-h: 72px;
+     * one expression, read by the badge and by the popover's offsets, and
+     * one rule at EVERY width: the wordmark's height at the 3.675 aspect +
+     * 1.5rem (the credit line and its gap from 640px). Declared once here,
+     * it re-resolves against each breakpoint's --wordmark-w below, since
+     * both live on .site-header. PHONES (since 2026-09-25, when Amy asked
+     * again for a bigger badge; DECISIONS same date — 48px until
+     * 2026-09-23, then 72): 102px at 320, 121 at 390, 127 from 412 to 639,
+     * on the utility row — about 2px taller than the lockup above it,
+     * whose credit line is smaller there. The row, and so the phone
+     * header, grows with it (~274px at 390, ~286 from 412). */
+    --ma-h: calc(var(--wordmark-w) / 3.675 + 1.5rem);
   }
   /* 640–1023px: the single row, 44vw between 281 and 340px. From here up
-   * the badge is exactly as tall as the brand block beside it — the
-   * wordmark's height at the 3.675 aspect + the credit line and its gap
-   * (1.5rem) — so it grows into the row's existing height and the header
-   * keeps its height (2026-09-23: 101–117px on tablets, 152–187px on
-   * desktop). Declared once: it re-resolves against the ≥1024px
-   * --wordmark-w below, since both live on .site-header. */
+   * the badge (--ma-h above) is exactly as tall as the brand block beside
+   * it — the wordmark's height at the 3.675 aspect + the credit line and
+   * its gap (1.5rem) — so it grows into the row's existing height and the
+   * header keeps its height (2026-09-23: 101–117px on tablets, 152–187px
+   * on desktop). */
   @media (min-width: 640px) {
     .site-header {
       --wordmark-w: clamp(281px, 44vw, 340px);
-      --ma-h: calc(var(--wordmark-w) / 3.675 + 1.5rem);
     }
   }
   /* ≥1024px: 600px cap (was 440 until 2026-09-15 — client direction after
@@ -282,13 +286,14 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
   }
   .site-brand-mark {
     width: auto;
-    /* --ma-h (set on .site-header above): 72px on phones; from 640px
-     * exactly the brand block's height, so the tablet and desktop headers
-     * keep their height (Amy's request 2026-09-23 — it was 48px on
-     * phones, 48–72px on tablets, and 128–160px on desktop, the
-     * 2026-08-15 co-brand scale after 112px read "awkwardly small";
-     * DECISIONS both dates). The square SVG's width/height attributes
-     * keep the aspect. */
+    /* --ma-h (set on .site-header above): the wordmark's height + 1.5rem
+     * at every width — 102–127px on phones (Amy's request 2026-09-25; it
+     * was 72px from 2026-09-23 and 48px until then); from 640px exactly
+     * the brand block's height, so the tablet and desktop headers keep
+     * their height (Amy's request 2026-09-23 — it was 48–72px on tablets
+     * and 128–160px on desktop, the 2026-08-15 co-brand scale after 112px
+     * read "awkwardly small"; DECISIONS all three dates). The square SVG's
+     * width/height attributes keep the aspect. */
     height: var(--ma-h);
   }
   /* Brand lockup: wordmark with the credential line beneath. Same
@@ -405,8 +410,8 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
      * 2026-08-15 rem values were retuned twice and still overlapped at
      * 639px). PHONES, the stacked shell: paddings (1.5rem) + the mark's
      * height + its gap and the credit line (1.375rem) + the row gap
-     * (0.5rem) + the utility row (--ma-h: the 72px badge is the tallest
-     * item on it) + air (0.25rem). */
+     * (0.5rem) + the utility row (--ma-h: the badge is the tallest item
+     * on it) + air (0.25rem). */
     top: calc(1.5rem + var(--wordmark-w) / 3.675 + 1.375rem + 0.5rem + var(--ma-h) + 0.25rem);
     min-width: 12rem;
     margin: 0;

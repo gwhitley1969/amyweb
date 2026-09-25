@@ -10702,8 +10702,9 @@ which means two places to keep in step instead of one mapping.
 **Consequences:** the generated `dist/staticwebapp.config.json` carries
 the mapping in both variants. The generator was run each way: production
 is still locked to Front Door, and preview is still noindexed. Every
-other built file is byte-identical to phase-c (305 files hashed, the
-config excluded), and the stylesheet names were re-checked after these
+other built file is byte-identical to phase-c without this change,
+the config excluded: 305 files at 10dfb64, and 309 again after PR #200
+merged (a250b97). The stylesheet names were re-checked after these
 records were written. No `?v=` bump: only the header changes, not the
 bytes. In production, the release's Front Door purge (`/*`) clears the
 edges. A browser that fetched a caption file within the last day keeps

@@ -2,13 +2,16 @@ WEBVTT
 
 NOTE
 The home hero film (docs/DECISIONS.md 2026-09-17; re-ordered
-2026-09-18, same footage). Site-authored from
+2026-09-18; since 2026-09-25 it finishes on a warm smile, not a laugh,
+at Amy's request). Site-authored from
 Amy's own published photographs; the web file carries NO audio track
 and no burned-in text of its own. AI-ASSISTED, DISCLOSED: two shots are
 Higgsfield (Seedance 2.5) performances generated from her published
-portraits, and one short abstract light insert is generated outright;
-the other shots are the photographs under a digital camera move.
-Nothing generated shows a treatment, a client, a product, or text.
+portraits (the closing smile is a second Seedance 2.5 take, started
+from a frame of the first), and one short abstract light insert is
+generated outright; the other shots are the photographs under a
+digital camera move. Nothing generated shows a treatment, a client, a
+product, or text.
 
 NOTE
 NO CUES, ON PURPOSE (docs/DECISIONS.md 2026-09-20). The film has no
@@ -17,4 +20,4 @@ portrait on every phone with captions switched on. The description is
 the player's label (ConceptHome.astro, data-label). This file stays as
 the film's in-repo record. The film shows: Amy in her Harrisburg studio:
 she runs a hand through her hair and smiles, then a quick run of her
-portraits, and she turns to the camera, laughing.
+portraits, and she turns to the camera with a warm smile.

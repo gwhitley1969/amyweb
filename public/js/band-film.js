@@ -10,11 +10,16 @@
 //    the person has touched, clicked, scrolled a wheel, or pressed a key.
 //    Lighthouse's full-page pass loads lazy images without any input, so
 //    it never builds the player or fetches the film.
-//  - It plays MUTED (the rendition has no audio track) when roughly a
-//    third of it is on screen, loops while in view, and pauses when it
-//    leaves — the treatment-video.js values. The native controls are the
-//    pause mechanism (WCAG 2.2.2), so it runs under prefers-reduced-motion
-//    too: the films policy (CLAUDE.md constraint 6).
+//  - It plays MUTED when roughly a third of it is on screen, loops while
+//    in view, and pauses when it leaves — the treatment-video.js values.
+//    The native controls are the pause mechanism (WCAG 2.2.2) and the
+//    tap-for-sound, so it runs under prefers-reduced-motion too: the films
+//    policy (CLAUDE.md constraint 6).
+//  - Since 2026-09-25 (the sound addendum) the rendition carries Amy's own
+//    voice at 2:01–2:17 and silence elsewhere (the songs are removed). A
+//    person's unmute is remembered, so the film restarts with sound when
+//    it scrolls back into view (the treatment-video.js pattern); if the
+//    browser refuses sound, it falls back to muted.
 //  - The muted/playsinline attributes are set before the first play():
 //    WebKit's autoplay policy reads the ATTRIBUTES (the carousel's
 //    recorded lesson); webkit-playsinline is for older iOS.
@@ -46,9 +51,14 @@ if (fig && fig.dataset.file && 'IntersectionObserver' in window) {
     unlockEvents.forEach((t) => document.addEventListener(t, retry, { capture: true, passive: true }));
   };
   const start = () => {
-    v.muted = true;
-    v.setAttribute('muted', '');
-    v.play().catch(armUnlock);
+    const wantSound = v.dataset.unmuted === '1';
+    v.muted = !wantSound;
+    if (!wantSound) v.setAttribute('muted', '');
+    v.play().catch(() => {
+      v.muted = true;
+      v.setAttribute('muted', '');
+      v.play().catch(armUnlock);
+    });
   };
 
   const build = () => {
@@ -81,6 +91,9 @@ if (fig && fig.dataset.file && 'IntersectionObserver' in window) {
     });
     v.addEventListener('play', () => {
       delete v.dataset.userPaused;
+    });
+    v.addEventListener('volumechange', () => {
+      v.dataset.unmuted = v.muted ? '0' : '1';
     });
     fig.append(v);
     new IntersectionObserver(

@@ -1,5 +1,5 @@
 {
-  "$comment": "SWA config for PRODUCTION (BUILD_SPEC §4/§14). Locks the origin to Azure Front Door: direct hits on the *.azurestaticapps.net hostname must return 403. __FRONT_DOOR_ID__ is injected at build by scripts/generate-swa-config.mjs from the FRONT_DOOR_ID variable — the build fails if it is missing. Shared headers/caching must stay in sync with preview.json.",
+  "$comment": "SWA config for PRODUCTION (BUILD_SPEC §4/§14). Locks the origin to Azure Front Door: direct hits on the *.azurestaticapps.net hostname must return 403. __FRONT_DOOR_ID__ is injected at build by scripts/generate-swa-config.mjs from the FRONT_DOOR_ID variable — the build fails if it is missing. Shared headers, caching and MIME types must stay in sync with preview.json.",
   "trailingSlash": "never",
   "networking": {
     "allowedIpRanges": ["AzureFrontDoor.Backend"]
@@ -36,5 +36,8 @@
     "404": {
       "rewrite": "/404.html"
     }
+  },
+  "mimeTypes": {
+    ".vtt": "text/vtt; charset=utf-8"
   }
 }

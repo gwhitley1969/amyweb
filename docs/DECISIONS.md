@@ -10660,3 +10660,54 @@ assertion on 8 URLs × 3 runs. The home row measures image 208,279 B of
 245,760 (the new poster's 720w file adds 19,097 B), total 333,461 B of
 358,400, script 69,266 B of 81,920, media 0 — no film byte in the
 load; LCP 2,186 ms, CLS 0, performance 0.99.
+
+## 2026-09-25 — Caption files serve as `text/vtt` (they were `application/octet-stream`)
+
+**Context:** A curl on 2026-09-25 found every caption file in
+`public/media/` served as `application/octet-stream`, beside the global
+`X-Content-Type-Options: nosniff`. SWA's defaults have no entry for
+`.vtt`, and neither template in `config/swa/` added one. The worry:
+Firefox reportedly refuses a track that is not `text/vtt`, which would
+silently drop the manufacturer films' captions, which carry safety
+information (commercial-evolysse.vtt among them since PR #200). It was
+measured before anything changed.
+Firefox 156.0.1 (the installed release) and Chrome 148 ran headless
+through Puppeteer, and Firefox was driven over WebDriver BiDi, so it was
+the stock browser. A local server sent the same bytes of
+commercial-j1.vtt under seven Content-Types: `text/vtt`,
+`text/vtt; charset=utf-8`, octet-stream with and without nosniff,
+`text/plain`, `text/html` and `image/png`. Both browsers loaded all 8
+cues every time. A 404 control reported an error (readyState 3), which
+shows the probe does catch a refused track. On the #97 preview (octet-stream
++ nosniff), Firefox loaded the built tracks on /about (3 and 20 cues)
+and /injector-training (3), and injected probes of commercial-j1 (8)
+and evolus-icon (20). The reported strictness does not hold for current
+Firefox, and nothing is broken today.
+
+**Decision:** serve the registered type anyway, with
+`"mimeTypes": { ".vtt": "text/vtt; charset=utf-8" }` in both templates,
+kept in step. Each template's `$comment` now lists MIME types among what
+must stay in sync. WebVTT is UTF-8 by definition, so the charset
+parameter is for readers other than browsers, such as a caption file
+opened directly or audit tooling. The type is right by standard, not by
+each client's leniency.
+
+**Alternatives rejected:** leaving it. It works in every browser
+measured, but it leans on leniency for files whose content includes
+safety information. A `Content-Type` header on a `/media/*.vtt` route
+rule. SWA applies at most one route rule per request, so that rule
+would have to sit before the `/media/*` caching rule and repeat it,
+which means two places to keep in step instead of one mapping.
+
+**Consequences:** the generated `dist/staticwebapp.config.json` carries
+the mapping in both variants. The generator was run each way: production
+is still locked to Front Door, and preview is still noindexed. Every
+other built file is byte-identical to phase-c without this change,
+the config excluded: 305 files at 10dfb64, and 309 again after PR #200
+merged (a250b97). The stylesheet names were re-checked after these
+records were written. No `?v=` bump: only the header changes, not the
+bytes. In production, the release's Front Door purge (`/*`) clears the
+edges. A browser that fetched a caption file within the last day keeps
+the old header until the one-day max-age runs out. That is harmless,
+since browsers load the file either way. Not treatment content; no
+`clinicianApproved` flag.

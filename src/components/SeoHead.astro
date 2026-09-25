@@ -4,7 +4,8 @@ import { siteConfig } from '../lib/siteConfig';
 interface Props {
   title: string;
   description: string;
-  /** Optional OG image URL (branded OG images land in Phase D). */
+  /** Optional page-specific share image URL. Without one, the page shares
+   *  the default link-share card below. */
   ogImage?: string | undefined;
   ogType?: 'website' | 'article';
 }
@@ -15,6 +16,27 @@ const { title, description, ogImage, ogType = 'website' } = Astro.props;
 // explicitly stamped PUBLIC_ENV=production may be crawled.
 const isProduction = import.meta.env.PUBLIC_ENV === 'production';
 const canonical = new URL(Astro.url.pathname, Astro.site);
+
+// The default link-share card (DECISIONS 2026-09-25, Amy's request): her
+// studio-counter portrait in the arch beside the metallic wordmark,
+// 1200×630, served from public/og/ at a stable absolute URL that link
+// previews can fetch. Apps cache previews by URL, so a new card ships under
+// a NEW filename. The same file and this same component are on main (the
+// placeholder) and phase-c, byte-identical, so the relaunch merges clean.
+interface ShareImage {
+  url: string;
+  width?: number;
+  height?: number;
+  alt?: string;
+}
+const share: ShareImage = ogImage
+  ? { url: ogImage }
+  : {
+      url: new URL('/og/needle-girlie-share.jpg', Astro.site).href,
+      width: 1200,
+      height: 630,
+      alt: 'Amy Palacios, FNP, seated on her studio counter beside the Needle Girlie logo',
+    };
 ---
 
 <title>{title}</title>
@@ -27,8 +49,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
-{ogImage && <meta property="og:image" content={ogImage} />}
-<meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+<meta property="og:image" content={share.url} />
+{share.width && <meta property="og:image:width" content={String(share.width)} />}
+{share.height && <meta property="og:image:height" content={String(share.height)} />}
+{share.alt && <meta property="og:image:alt" content={share.alt} />}
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-{ogImage && <meta name="twitter:image" content={ogImage} />}
+<meta name="twitter:image" content={share.url} />
+{share.alt && <meta name="twitter:image:alt" content={share.alt} />}

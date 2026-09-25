@@ -11283,3 +11283,90 @@ override as CLAUDE.md's eighth pixel-level override, but §8.1's closed
 list never gained it, so the two lists disagreed. Its line is added in
 this PR, ahead of the two card photos'. The override itself is
 unchanged.
+
+## 2026-09-25 — The link-share card: Amy's studio-counter portrait becomes every page's share image (the live placeholder now, the site at relaunch; client request)
+
+**Context.** Amy wants a specific picture shown when people share a
+needlegirlie.com link: `C:\Amy\pics\needlegirlie.png`, the
+studio-counter portrait on the live Under Construction page (Amy seated
+on the counter, a syringe in each hand).
+- **Until now no page had a share image.** `SeoHead` emitted `og:image`
+  only when a page passed `ogImage`, and none did. Shared links showed
+  no picture, and the Twitter card was the small `summary`.
+- **BUILD_SPEC already asked for one:** the SEO section's "branded OG
+  image (generate from the logo assets)"; the component's own comment
+  deferred it to "Phase D".
+
+**The photo.** A 642×893 PNG whose alpha channel is fully opaque, sha256
+`04a33e1c…0686d1`. Its screens from the placeholder (2026-08-05) and the
+hero (2026-08-14) hold for this use:
+- Amy is the only person pictured.
+- The syringes carry no legible labels or unit text.
+- The neon script, the scrub embroidery and the hand-mirror engraving
+  are her own branding.
+- Under the counter, a wipes canister's name is partly legible at 4×
+  zoom and unreadable at card size.
+
+The card uses this original, not the AI-assisted `needlegirlie-hero.jpg`:
+at 528px tall in the card it is scaled down, never up.
+
+**Design (the operator picked mockup A of two, 2026-09-25).** A 1200×630
+card in the live page's look:
+- a noir ground;
+- the photo in the placeholder's arch (a hairline pink-300 border and a
+  static neon-500 glow);
+- the metallic wordmark;
+- "Amy Palacios, FNP" in pink-300 and "Mobile Aesthetics · Harrisburg,
+  NC" beneath, both in the site's Playfair Display. The mockup read
+  "Medical Aesthetics"; the operator changed it to the practice name.
+
+The rejected mockup B was the photo alone on a blurred fill. The card's
+words are site text under the claim rules: they name her, her
+credential, the practice and the town.
+
+**The file:** `public/og/needle-girlie-share.jpg`.
+- **Size and format:** 1200×630, 79,502 B, JPEG at quality 88 with 4:4:4
+  chroma, no metadata, sha256 `9bd4b3e0…0578c4`.
+- **How it is built:** in `C:\Amy\share-card\`, outside the repo
+  (`card.html`, `render.cjs` and a README). Chrome renders the template
+  at 2×, and sharp scales it down with lanczos.
+
+**Mechanics.**
+- **`SeoHead.astro`:** every page shares the default card unless it
+  passes its own `ogImage`. The head now carries:
+  - `og:image` as an absolute URL,
+    `https://needlegirlie.com/og/needle-girlie-share.jpg`;
+  - `og:image:width` and `og:image:height`, so a first share renders
+    without waiting for the app to fetch the image;
+  - `og:image:alt` and `twitter:image:alt`;
+  - the `summary_large_image` Twitter card, on every page.
+- **Two PRs, byte-identical** (RUNBOOK "Hotfixing production during the
+  takedown era"):
+  - the image and `SeoHead.astro` go to `main` in hotfix PR #206, so
+    the live placeholder shows the card now;
+  - they go to `phase-c` in this PR (#205), at the same paths with
+    the same bytes, so the relaunch merges them clean;
+  - the record for both lives here, never on `main`.
+- **A stable path, never replaced in place:** apps cache previews by
+  image URL, so a new card ships under a new filename (RUNBOOK "Changing
+  the link-share card").
+
+**Verification.**
+- **phase-c output:** all 25 pages differ from the phase-c build only in
+  their share tags, and all 25 carry the card. The only new file is the
+  image; no stylesheet or script changed.
+- **main output:** the placeholder carries the same tags and the same
+  file.
+- **`npm run verify` exit 0 on phase-c:** `astro check` 0 errors;
+  lint:claims and lint:voice green; pa11y 25/25. Every Lighthouse budget
+  held: the tags add about 100 B to a page (the home page's total went
+  from 336,160 to 336,256 B), and no page fetches the image.
+
+**Consequences.**
+- **Old shares:** links shared before the change keep their cached,
+  picture-less preview until each app re-reads the page. Facebook's
+  Sharing Debugger and LinkedIn's Post Inspector force a re-read; they
+  need a login, so that step is the operator's.
+- **The relaunch keeps the card,** because phase-c carries the same file
+  and tags.
+- **Amy's pending look sign-off** gains the card (CLINICIAN-SIGN-OFF).

@@ -477,6 +477,26 @@ each shipped page lives in DECISIONS):
 8. `npm run verify` green → PR → preview probes converge → Amy's
    word → merge.
 
+## Changing the link-share card
+
+What a shared needlegirlie.com link shows (DECISIONS 2026-09-25) is
+`public/og/needle-girlie-share.jpg`: 1200×630, the default `og:image` and
+`twitter:image` that `src/components/SeoHead.astro` gives every page (a
+page can pass its own `ogImage`). It is built outside the repo in
+`C:\Amy\share-card\` (`card.html` + `render.cjs`; its README has the
+steps). To change it:
+1. Edit `card.html` (its words are site text: the claim rules apply),
+   run `node render.cjs`, and screen the result like any photo.
+2. Commit it under a NEW filename and point `SeoHead`'s default at it.
+   Apps cache previews by image URL, so a file replaced in place leaves
+   old previews stale. While `main` is still the placeholder, ship the
+   same file and the same `SeoHead.astro` to `main` too, byte-identical
+   (a hotfix PR — "Hotfixing production during the takedown era").
+3. After production deploys, refresh the two big caches: Facebook's
+   Sharing Debugger (developers.facebook.com/tools/debug, "Scrape
+   Again") and LinkedIn's Post Inspector (linkedin.com/post-inspector).
+   Both need a login; other apps re-read on their own schedule.
+
 ## Changing the storefront QR (or adding another QR)
 
 The QR on /services/skincare (`src/assets/brand/skinbetter-registration-qr.svg`,

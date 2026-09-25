@@ -125,6 +125,11 @@ check will refuse it. On a branch off `main`:
 - The favicon set serves: `/favicon.ico` (200, `image/x-icon` or
   `image/vnd.microsoft.icon`) and `/icons/apple-touch-icon.png` (200,
   `image/png`) — the 2026-09-15 logo-derived set.
+- The link-share card serves: `/og/needle-girlie-share.jpg` (200,
+  `image/jpeg`, 1200×630), and every page's head names it as `og:image`
+  and `twitter:image` with a `summary_large_image` card (DECISIONS
+  2026-09-25). The live placeholder carries the same file since the same
+  date, so a relaunch that dropped it would show as a changed preview.
 - Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.
 - Converged multi-pass probes (3 consecutive clean passes, plain +
   cache-busted) before telling Amy it's live.

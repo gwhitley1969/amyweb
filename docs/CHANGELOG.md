@@ -6,6 +6,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-25 — The Mobile Aesthetics badge is bigger on phones
+
+- At Amy's request, the Mobile Aesthetics badge in the header is bigger
+  again on phones: 127px on most phones (was 72), 121px on a typical
+  iPhone, and 102px on the smallest phones. It now follows the same rule
+  as on tablets and desktop: as tall as the Needle Girlie logo and its
+  name line together.
+- The badge has its own row under the logo, so the phone header is
+  taller for it: about 55px on most phones (about 286px tall) and 49px
+  on a typical iPhone (about 274px). Book and the menu stay beside the
+  badge, centred on its row.
+- Tablets and desktop are unchanged.
+- BUILD_SPEC's header description matches (operator-authorized).
+  DECISIONS 2026-09-25.
+
 ### 2026-09-25 — The Evolysse film opens the home carousel
 
 - The home page's film carousel now has five films, and the first to play

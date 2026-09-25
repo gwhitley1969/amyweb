@@ -6,6 +6,22 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-25 — Shared links show Amy's share card
+
+- When someone shares a needlegirlie.com link, the preview now shows a
+  card: Amy on her studio counter in the pink-glowing arch, beside the
+  Needle Girlie logo, with "Amy Palacios, FNP" and "Mobile Aesthetics ·
+  Harrisburg, NC". It has the look of the live Under Construction page,
+  and every page uses it.
+- The live Under Construction page gets it by a hotfix to `main`, and
+  the relaunched site keeps it: both carry the same file.
+- Links shared before the change keep their old, picture-less preview
+  until each app re-reads the page.
+- Merged into phase-c 2026-09-25 (PR #205) and live on the Under
+  Construction page the same day (hotfix PR #206 into main), on the
+  operator's word ("go ahead and merge both when they're green"); both
+  standing previews (#97, #149) refreshed after it.
+
 ### 2026-09-25 — Two /services menu cards carry new photos of Amy
 
 - On /services, card 01 (Neurotoxins - Wrinkle Relaxers) now shows Amy

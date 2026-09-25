@@ -33,6 +33,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   panel does not move. The /mobile page keeps the van photo.
 - CLAUDE.md and BUILD_SPEC record the film's overrides and its player
   script (operator-authorized). DECISIONS 2026-09-25; PR #203.
+- Merged into phase-c 2026-09-25 (PR #203, on the operator's word); both
+  standing previews (#97, #149) refreshed after it.
 
 ### 2026-09-25 — The Mobile Aesthetics badge is bigger on phones
 

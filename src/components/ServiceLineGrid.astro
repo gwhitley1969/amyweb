@@ -2,8 +2,8 @@
 import type { ImageMetadata } from 'astro';
 import TreatmentCard from './TreatmentCard.astro';
 import { CATEGORIES, serviceLines } from '../lib/serviceLines';
-import templeInjection from '../assets/photos/temple-injection.jpg';
-import amyHoldingNeon from '../assets/photos/amy-holding-neon.jpg';
+import amyJeuveauVialEvolysse from '../assets/photos/amy-jeuveau-vial-evolysse.jpg';
+import amyEvolysseFormBanner from '../assets/photos/amy-evolysse-form-banner.jpg';
 import radiesseSyringes from '../assets/photos/radiesse-syringes.jpg';
 import deviceFacialSession from '../assets/photos/device-facial-session.jpg';
 import pixel8InHand from '../assets/photos/pixel8-in-hand.jpg';
@@ -32,6 +32,15 @@ import bioteBannerScale from '../assets/photos/biote-banner-scale.jpg';
  * 2026-08-18 later the same day); swapping any pick is an asset-map
  * edit here, zero page changes (RUNBOOK "Replacing site
  * photography").
+ *
+ * Cards 01 and 02 since 2026-09-25: new photos of Amy supplied by the
+ * operator, committed exactly as supplied under overrides after the
+ * compliance flag
+ * (CLAUDE.md constraint 3; DECISIONS same date). 01 shows Amy holding up
+ * a Jeuveau vial beside a stack of Evolysse cartons; 02 shows her holding
+ * two Evolysse cartons in front of a Jeuveau banner. Only Amy is
+ * pictured. No text from the vials, the cartons, or the banner is ever
+ * restated in site text, these comments included.
  */
 interface Props {
   featuredSlugs?: string[];
@@ -44,8 +53,11 @@ const { featuredSlugs = [] } = Astro.props;
 // is saliency-seeking and nailed the door crops); percentages are a
 // CSS concept sharp rejects. Anchors verified on element screenshots.
 const linePhotos: Record<string, { photo: ImageMetadata; position: string }> = {
-  'wrinkle-relaxers': { photo: templeInjection, position: 'attention' },
-  'dermal-fillers': { photo: amyHoldingNeon, position: 'attention' },
+  // 01 and 02 (2026-09-25) anchor 'top': the saliency pick cut Amy's face
+  // at the eyes on 01, and on 02 the top window keeps the banner's lower
+  // lines out of every served crop.
+  'wrinkle-relaxers': { photo: amyJeuveauVialEvolysse, position: 'top' },
+  'dermal-fillers': { photo: amyEvolysseFormBanner, position: 'top' },
   biostimulators: { photo: radiesseSyringes, position: 'attention' },
   regenerative: { photo: deviceFacialSession, position: 'bottom' },
   'skin-rejuvenation': { photo: pixel8InHand, position: 'attention' },

@@ -23,7 +23,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   486×274). The four upright films play at exactly their old size. On
   phones the progress bars are slightly narrower (40px), so five of them
   and the pause button still fit the narrowest phones.
-- DECISIONS 2026-09-25. PR #200 (draft, into phase-c).
+- DECISIONS 2026-09-25.
+- Merged into phase-c 2026-09-25 (PR #200, on the operator's word); both
+  standing previews (#97, #149) refreshed after it.
 
 ### 2026-09-24 — The Mobile Aesthetics badge's lettering is white
 

@@ -11219,3 +11219,10 @@ ninth and tenth pixel-level overrides, recorded in two places:
   No `clinicianApproved` flag is involved, because the /services index
   is not treatment content.
 - The SOW's claim-override divergence grows by two.
+
+**BUILD_SPEC §8.1 catch-up** (operator authorization, 2026-09-25: "yes
+add the line"). The van-band entry above recorded the film's prep-shot
+override as CLAUDE.md's eighth pixel-level override, but §8.1's closed
+list never gained it, so the two lists disagreed. Its line is added in
+this PR, ahead of the two card photos'. The override itself is
+unchanged.

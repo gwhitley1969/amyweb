@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-25 — Two /services menu cards carry new photos of Amy
+
+- On /services, card 01 (Neurotoxins - Wrinkle Relaxers) now shows Amy
+  holding up a Jeuveau vial beside a stack of Evolysse cartons. Card 02
+  (Dermal Fillers) shows her holding two Evolysse Form cartons in front
+  of a Jeuveau banner. They replace the temple-injection photo and the
+  photo of Amy with her neon sign.
+- Both are used exactly as supplied, at the operator's direction after
+  the compliance flag. The vial's and the cartons' labels and the
+  banner's headline can be read in the card images (DECISIONS
+  2026-09-25).
+- Both cards crop to the top of the photo, so Amy's face stays in frame.
+
 ### 2026-09-25 — The "Amy comes to you." band plays Amy's van-trip film
 
 - On the home page, the "Amy comes to you." band now plays Amy's van-trip

@@ -208,7 +208,22 @@ silently following it. Known superseded points from earlier briefs:
      own. Fixed terms: this film, the home band; no label or packaging
      text from it is ever restated in site text — copy, the player's
      label, the captions file, comments, meta, OG, JSON-LD; changing any
-     of it requires the human operator.* Nothing else;
+     of it requires the human operator.* *Ninth and tenth pixel-level
+     overrides, the sixth and seventh under this bullet (operator
+     override after the compliance flag — DECISIONS 2026-09-25): the
+     /services menu photos of card 01 (`amy-jeuveau-vial-evolysse.jpg`)
+     and card 02 (`amy-evolysse-form-banner.jpg`), committed exactly as
+     supplied. In 01 a Jeuveau vial's per-vial unit count and the
+     Evolysse cartons' fill-volume and product-description line are
+     legible in the served card derivatives; in 02 part of an Evolysse
+     carton's fill-volume line is (02's Jeuveau banner is recorded under
+     the next bullet). Both are the vial-central and product-box classes
+     the 2026-07-23 photo rubric excluded; the recommended defocus bake
+     was declined. Fixed terms: these frames, those two cards of the
+     ServiceLineGrid menu (/services, and /styleguide, which renders
+     it); no text from the vials, the cartons, or the banner is ever
+     restated in site text — copy, alt, comments, meta, OG, JSON-LD;
+     changing any of it requires the human operator.* Nothing else;
      changing that list requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
@@ -252,8 +267,8 @@ silently following it. Known superseded points from earlier briefs:
      override with both client releases confirmed on file. (The
      carousel's team film — added 2026-08-17 — contains no claims and
      needs no exception here; its override lives under constraint 2.)
-     And five photos (operator overrides after the compliance flags —
-     DECISIONS 2026-08-18, 2026-08-21, and 2026-08-25): the /services hormone-optimization menu
+     And six photos (operator overrides after the compliance flags —
+     DECISIONS 2026-08-18, 2026-08-21, 2026-08-25, and 2026-09-25): the /services hormone-optimization menu
      card's photo (`biote-banner-scale.jpg`), in which the Biote
      banner's outcome-promise lines and symptom poster are legible,
      on a page carrying no Biote disclaimer; the /services
@@ -272,7 +287,13 @@ silently following it. Known superseded points from earlier briefs:
      and part of its safety-information fine print legible in the
      served file (the jeuveau-banner-studio override is fixed to its
      own frame and page, so this frame carries its own; no banner
-     content is ever restated in site text) —
+     content is ever restated in site text); and the /services
+     dermal-fillers menu card's photo (`amy-evolysse-form-banner.jpg`,
+     DECISIONS 2026-09-25) — a third Jeuveau banner frame, its headline
+     fragment legible in the served card derivatives and its indication
+     line, below every served crop, blurred but partly readable in the
+     committed file (its carton quantity is the dosing bullet's tenth
+     override; same terms) —
      pixel content is invisible to lint:claims, which is why these
      exceptions are recorded here.
      And the client photo-pairs section — "They showed up for

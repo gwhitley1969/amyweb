@@ -813,7 +813,22 @@ unchanged. DECISIONS 2026-09-19, the addendum.)*
    diluent-use fine print — are legible in the served source beside
    the prepared PRP syringes; the recommended crop-out and defocus
    bakes were declined; no text from the packaging is ever restated in
-   site text; same terms. Nothing else.*
+   site text; same terms. And the home band's van-trip film
+   (`van-trip`, DECISIONS 2026-09-25), carried with its prep shot: a
+   rolling tray of syringes in printed, labelled slots, one
+   injection-area label legible, with a vial and syringe in Amy's
+   hands (the prep-workflow class the 2026-07-23 rubric excluded); no
+   label or packaging text from it is ever restated in site text, the
+   player's label and the captions file included; same terms. And the
+   /services menu photos of cards 01
+   (`amy-jeuveau-vial-evolysse.jpg`) and 02
+   (`amy-evolysse-form-banner.jpg`) (DECISIONS 2026-09-25), committed
+   exactly as supplied: a Jeuveau vial's per-vial unit count and
+   Evolysse cartons' fill-volume line are legible in the served card
+   derivatives (02's Jeuveau banner headline is a claims-class
+   override, CLAUDE.md constraint 3); the recommended defocus bake was
+   declined; no text from the vials, the cartons, or the banner is ever
+   restated in site text; same terms. Nothing else.*
 2. Disease claims: treat / cure / prevent / diagnose; disease names in benefit
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).
 3. Efficacy/outcome promises: guarantees, specific results, numbers,

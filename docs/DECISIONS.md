@@ -11151,3 +11151,135 @@ her cues and its NOTE the provenance; `?v=2`.
   2,640 B over the wire); image 208,279 B; media 0, with no request for
   the film; LCP 2,171ms. /mobile (2,484ms) and /about (2,337ms) stay
   under 2,500.
+
+## 2026-09-25 — /services: menu cards 01 and 02 carry new photos of Amy, exactly as supplied (operator overrides after the compliance flag)
+
+**Context.** Operator direction (2026-09-25): replace the photo on menu
+card 01, Neurotoxins - Wrinkle Relaxers, with `C:\Amy\pics\button01.jpg`,
+and on card 02, Dermal Fillers, with `C:\Amy\pics\button02.jpg`.
+- **The files:** both are 1067×1600 sRGB JPEGs. Their metadata holds a
+  Lightroom profile name and a tone curve, and no GPS.
+  - button01: sha256 `da6aab4a…d843af`, 287,932 B.
+  - button02: sha256 `e616287c…cf63c8`, 236,432 B.
+- **New frames:** neither matches any photo in `C:\Amy\pics`,
+  `C:\Amy\New Pics` or `src/assets`. That was checked by byte hash and
+  by a 24×36 grey signature that would catch re-exports; the nearest
+  mean difference was 29.4 of 255.
+
+**Screen.** Two things ship:
+- the card's 4:5 derivatives, 400, 640 and 880 wide;
+- the full frame, because astro copies the source JPEG into `_astro/`
+  and the repository is public.
+
+**01:**
+- **The scene:** Amy in a pink blouse at a marble table, holding up a
+  Jeuveau vial. Beside her are a stack of Evolysse Form and Smooth
+  cartons and a glass jar of vials, with three more vials in front.
+- **Legible in the 880 derivative:**
+  - the held vial's brand and its per-vial unit count;
+  - the cartons' brand names;
+  - their end-panel line, which gives the fill volume and describes the
+    product as an injectable hyaluronic acid with lidocaine;
+  - the lid edges, which name the gel's processing technology and its
+    maker.
+- **Illegible:** the jar's labels and barcodes.
+- **The front vials:** their unit count is legible in the full frame,
+  but the card's crop cuts most of them.
+
+**02:**
+- **The scene:** Amy in a pink dress holding two Evolysse Form cartons,
+  crossed, in front of a Jeuveau banner: a model's face and red "11"
+  numerals.
+- **Legible in the 880 derivative:**
+  - the banner's headline fragment ("…OUR 11s") and the numerals;
+  - the cartons' brand and "FORM";
+  - part of one carton's fill-volume line (her fingers cover the rest).
+- **The banner's indication line:** it sits below the card's crop in
+  every derivative. In the full frame it is blurred but partly readable.
+
+**People:** only Amy is pictured (the banner's model is part of a
+printed ad), so no release is needed.
+
+**Flag (once).**
+- Both frames are in the classes the 2026-07-23 rubric excluded:
+  vial-central, product-box and Jeuveau-banner frames.
+- A legible vial or carton quantity is constraint 3's dosing class. The
+  training reel's "100 U" jar shot shipped only under an override.
+- A legible banner headline is the class of the jeuveau-banner-studio
+  and amy-evolysse-cart overrides. Each is fixed to its own frame and
+  page, so neither covers these.
+- Offered:
+  - a defocus bake of the quantities, the carton panels and the
+    headline, with card 02 committed at its 4:5 crop (recommended: a
+    narrower, brand-only override);
+  - the photos exactly as supplied;
+  - holding for other frames.
+
+**Decision (operator, 2026-09-25): exactly as supplied.** These are the
+ninth and tenth pixel-level overrides, recorded in two places:
+- **CLAUDE.md constraint 3:** under the dosing bullet, and 02's banner
+  also joins the banner photos under the claims bullet.
+- **BUILD_SPEC §8.1.**
+
+**Fixed terms:**
+- **Scope:** these two frames, in cards 01 and 02 of the
+  ServiceLineGrid menu (/services, and /styleguide, which renders it).
+- **Never restated:** no text from the vials, the cartons or the banner
+  (quantities, product descriptions, headline, indication language) is
+  ever restated in site text: copy, alt, comments, meta, OG, JSON-LD.
+- **Changes:** changing the frames or the slots, or restating any of it,
+  requires the human operator.
+
+**Mechanics.**
+- **Assets:** byte-identical copies under content names,
+  `amy-jeuveau-vial-evolysse.jpg` (01) and
+  `amy-evolysse-form-banner.jpg` (02).
+- **Anchors:** both are `'top'` in `linePhotos`.
+  - **01:** sharp's saliency pick (`'attention'`, the map's default)
+    started its window 267px down the frame and cut Amy's face at the
+    eyes. `'top'` keeps her face and the held vial.
+  - **02:** `'attention'` already chose the top window. `'top'` pins it,
+    so the banner's indication line stays out of every derivative by
+    construction.
+- **Bytes** (webp at quality 62, for the 400/640/880 widths):
+
+  | Card | New photo | Photo it replaced |
+  |---|---|---|
+  | 01 | 13,434 / 25,374 / 39,020 | 12,910 / 24,892 / 39,532 (`temple-injection.jpg`) |
+  | 02 | 9,998 / 17,476 / 26,004 | 7,534 / 14,736 / 24,222 (`amy-holding-neon.jpg`) |
+
+- **Outgoing assets:** `temple-injection.jpg` and `amy-holding-neon.jpg`
+  had no other consumers, so they are deleted (RUNBOOK "Replacing site
+  photography", step 6).
+- **The comments:** ServiceLineGrid's header records the provenance and
+  the override without restating any text in the pixels.
+- **Alt text:** the cards keep `alt=""`, decorative to the labelled link.
+
+**Verification.**
+- **Dist against the phase-c build:** only the two cards' image sets
+  and the /services and /styleguide HTML differ. The stylesheet is
+  unchanged.
+- **Element renders** at 390, 768, 1280 and 1440, before and after: each
+  card shows its new photo with `alt=""`, and nothing overflows
+  horizontally.
+- **`npm run verify` exit 0:**
+  - `astro check` 0 errors; lint:claims and lint:voice green; pa11y 25/25.
+  - Lighthouse on /services: images 226,664 B and total 280,443 B (budgets
+    393,216 and 524,288), LCP 1,805ms, performance 1.00.
+- **lint:claims** is green, but it cannot see pixels, so the screen
+  above is the control.
+
+**Consequences.**
+- The pixel-override list grows by two. The 2026-07-23 rubric's
+  exclusions stand for every other slot.
+- Amy's pending look sign-off (CLINICIAN-SIGN-OFF) gains the two cards.
+  No `clinicianApproved` flag is involved, because the /services index
+  is not treatment content.
+- The SOW's claim-override divergence grows by two.
+
+**BUILD_SPEC §8.1 catch-up** (operator authorization, 2026-09-25: "yes
+add the line"). The van-band entry above recorded the film's prep-shot
+override as CLAUDE.md's eighth pixel-level override, but §8.1's closed
+list never gained it, so the two lists disagreed. Its line is added in
+this PR, ahead of the two card photos'. The override itself is
+unchanged.

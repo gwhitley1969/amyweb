@@ -16,7 +16,7 @@ import amyTreatingClient from '../assets/photos/amy-treating-client-neon.jpg';
 import skinbetterInHand from '../assets/photos/skinbetter-in-hand.jpg';
 import amyLavenderSuit from '../assets/photos/amy-lavender-suit.jpg';
 import igPost from '../assets/photos/amy-ig-post.jpg';
-import vanTreatmentInterior from '../assets/photos/van-treatment-interior.jpg';
+import vanTripPoster from '../assets/photos/van-trip-poster.jpg';
 
 /**
  * THE HOME PAGE (C8 flipped 2026-08-04 — index.astro renders this
@@ -52,8 +52,10 @@ import vanTreatmentInterior from '../assets/photos/van-treatment-interior.jpg';
  * the full display clamp over a one-sentence lead, the section openers
  * step up to display sizes over one-sentence decks (the §6 credentials
  * kept as a compact line), and a noir statement band ("Amy comes to
- * you." beside the van interior — /mobile's first door on the home
- * page) punctuates the ombre between the doors and the visit beat. The
+ * you." — /mobile's first door on the home page; beside the van
+ * interior photo until 2026-09-25, beside Amy's van-trip film since —
+ * see the band's own note) punctuates the ombre between the doors and
+ * the visit beat. The
  * film band keeps phase-c's composition: the concept's side-by-side
  * layout (heading + controls beside the film, the slide settle) was
  * withdrawn 2026-09-04 at the operator's direction — "I want that part
@@ -331,30 +333,63 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
     </div>
   </section>
 
-  {/* ---- THE STATEMENT BAND: the ombre's noir punctuation (2026-09-03).
-      The van interior — Amy's treatment room on wheels, the /mobile
-      hero's screened 4:5 crop (2026-09-02; the frame's prep-workflow
-      third is outside the window), no people, no packaging — bleeds
-      from the left edge; the statement sits on noir to its right, never
-      over the photo (Phase C plate rule), and gives /mobile its first
-      door on the home page. As a full-bleed backdrop the photo is
-      EXEMPT from the arch motif under the hero-backdrop rationale — the
-      fifth exemption (DECISIONS 2026-09-03). Retina: the photo column
-      is min(60%, 48rem) — 768px CSS at 1280 and capped there above it —
-      against the 1536px source: 2× exactly. (The first pick for this
-      slot, Amy holding her neon sign, was rejected on the record: at
-      band size the Evolysse carton on the table reads, and Amy retired
-      Evolysse content from the site 2026-08-21.) ---- */}
+  {/* ---- THE STATEMENT BAND: the ombre's noir punctuation (2026-09-03);
+      the statement sits on noir beside the media, never over it (Phase C
+      plate rule), and gives /mobile its first door on the home page.
+      SINCE 2026-09-25 (operator direction; DECISIONS same date) the
+      media is AMY'S VAN-TRIP FILM, the whole 2:50 clip the operator
+      supplied, looping: the van, its cabin, the drive, and a holiday
+      event. SOUND (the same day's sound addendum): the rendition carries
+      Amy's own voice only — her words to camera at the destination,
+      2:01–2:17, brought up to a speaking level; the clip's two songs are
+      removed (not licensed for the website) and the rest is silent. It
+      autoplays muted with the sound one tap away — the speech-free
+      autoplay rule's second scoped exception, after the ICON film
+      (operator override after the flag); captions of her words ship
+      off by default. The person she names is confirmed by the operator
+      to have a website release and a HIPAA marketing authorization on
+      file; the name is never restated in site text outside the captions
+      file. It shows WHOLE
+      in a phone-shaped 9:16 panel (the /mobile film's 24rem width and
+      bare film frame), not cropped into the band's old window. The
+      panel's poster is the film's first frame; /js/band-film.js builds
+      the player on approach, only after a real user input, so
+      Lighthouse's full-page pass never fetches the film (native
+      controls are the pause mechanism; it plays under reduced motion —
+      the films policy, constraint 6). AI-ASSISTED, DISCLOSED: the
+      supplied copy was 320px wide, and the operator chose an AI upscale
+      (Topaz, via Higgsfield) over the site's 2026-09-17 generative
+      rules, for this film only. Wherever the upscale drew lettering the
+      source cannot show, and for the whole prep shot, the film carries
+      the source's own pixels instead (the operator's decision after the
+      frame screen). OPERATOR OVERRIDES after the compliance flags, fixed to
+      this film and this band: a guest (release on file, not one of the
+      location's providers), the van's driver, and an eight-second prep
+      passage (CLAUDE.md constraint 3 — no label or packaging text from
+      it is ever restated in site text, this comment included). The
+      label names nothing beyond the van, the drive, Amy speaking, and
+      the event. The
+      band's photo until that date — the van interior, the /mobile
+      hero's frame — drifted against the scroll; the film panel does
+      not. (The first pick for this slot in 2026-09, Amy holding her neon
+      sign, was rejected on the record: at band size the Evolysse carton
+      on the table reads.) ---- */}
   <section class="nc-band surface" data-surface="noir" aria-labelledby="nc-band-heading">
-    <figure class="nc-band__media" aria-hidden="true">
+    <figure
+      class="nc-band__media"
+      data-band-film
+      data-file={`${siteConfig.mediaBase}/van-trip-sound.mp4`}
+      data-vtt="/media/van-trip.vtt?v=2"
+      data-label="Amy's trip in the Mobile Aesthetics van: the van and its cabin, the drive over a bridge, Amy speaking to camera at the destination, and a holiday event. It starts muted; turn on the sound to hear her."
+    >
       <Image
-        src={vanTreatmentInterior}
+        src={vanTripPoster}
         alt=""
-        widths={[760, 1080, 1536]}
-        sizes="(min-width: 900px) min(60vw, 48rem), 100vw"
+        widths={[400, 810]}
+        sizes="(min-width: 432px) 24rem, calc(100vw - 3rem)"
         quality={62}
         loading="lazy"
-        class="nc-photo ng-drift"
+        class="nc-photo"
       />
     </figure>
     <div class="nc-band__copy">
@@ -369,6 +404,9 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
       </p>
     </div>
   </section>
+  {/* The band film's player — a static same-origin file (script-src
+      'self'), the VideoCarousel pattern. */}
+  <script type="module" src="/js/band-film.js" is:inline></script>
 
   {/* ---- THE VISIT + LOCATION: canvas beat, photo-free. The reassurance
       copy routes to /visit; LocationCard carries the §6 location strip
@@ -692,39 +730,48 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
     line-height: 1.6;
   }
 
-  /* THE STATEMENT BAND — photo left, statement right, on noir; stacked
-   * on phones. The image box is 48px taller than its frame (inset -24px)
-   * so ng-drift's ±24px travel never exposes an edge. */
+  /* THE STATEMENT BAND — the film panel beside the statement, on noir;
+   * stacked on phones, panel first. Since 2026-09-25 the media is a
+   * 9:16 panel at the /mobile film's 24rem width in the bare film frame
+   * (TreatmentVideo's hairline + 12px corners), the frame WHOLE, never
+   * cropped. Retina: 24rem is 384px CSS at most, against the 810px
+   * rendition and poster — 2.1×. Until then the media was a full-bleed
+   * photo window (4:5 phones, 3:2 desktop) that drifted with the
+   * scroll; the panel does not move. */
   .nc-band {
     display: grid;
   }
   .nc-band__media {
     position: relative;
-    margin: 0;
+    justify-self: center;
+    width: min(24rem, 100% - 3rem);
+    margin: 3rem 0 0;
     overflow: hidden;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 9 / 16;
+    border-radius: 12px;
+    border: 1px solid var(--ng-magenta-600);
+    background: var(--ng-noir);
   }
-  .nc-band__media img {
+  /* the poster and, once built, the film over it (/js/band-film.js) */
+  .nc-band__media img,
+  .nc-band__film {
     position: absolute;
-    inset: -24px 0 auto 0;
+    inset: 0;
     width: 100%;
-    height: calc(100% + 48px);
+    height: 100%;
     object-fit: cover;
-    /* the 3:2 desktop window keeps the chairs and carts, drops the
-     * ceiling screen; phones show the 4:5 frame whole */
-    object-position: 50% 62%;
   }
   .nc-band__copy {
     padding: 3rem 1.5rem 4rem;
   }
   @media (min-width: 900px) {
     .nc-band {
-      /* photo column capped at 48rem: 2× of the 1536px source */
-      grid-template-columns: min(60%, 48rem) 1fr;
+      grid-template-columns: 1fr 1fr;
       align-items: center;
     }
     .nc-band__media {
-      aspect-ratio: 3 / 2;
+      justify-self: end;
+      margin: 4.5rem 0;
     }
     .nc-band__copy {
       padding: 4rem 4rem 4rem 3.5rem;

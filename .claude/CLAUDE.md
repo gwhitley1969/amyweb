@@ -193,7 +193,22 @@ silently following it. Known superseded points from earlier briefs:
      defocus bake were both declined. Fixed terms: this frame, this
      page; no text from the packaging is ever restated in site text —
      copy, alt, comments, meta, OG, JSON-LD; changing any of it
-     requires the human operator.* Nothing else;
+     requires the human operator.* *Eighth pixel-level override, the
+     fifth under this bullet (operator override after the compliance
+     flag — DECISIONS 2026-09-25): the home band's van-trip film
+     (`van-trip`), Amy's whole 2:50 clip, carried with its prep shot
+     (2:17.3–2:25.8): a rolling tray of syringes in printed, labelled
+     slots — one injection-area label legible — with a vial and syringe
+     in Amy's hands and a sharps container behind (the prep-workflow
+     class the 2026-07-23 rubric excluded). That shot carries the
+     supplied copy's own pixels; the rest of the film is an AI upscale
+     (Topaz, via Higgsfield) under the operator's override of the
+     2026-09-17 generative rules for this film only, disclosed, with the
+     source's pixels put back wherever the upscale drew lettering of its
+     own. Fixed terms: this film, the home band; no label or packaging
+     text from it is ever restated in site text — copy, the player's
+     label, the captions file, comments, meta, OG, JSON-LD; changing any
+     of it requires the human operator.* Nothing else;
      changing that list requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
@@ -515,6 +530,22 @@ silently following it. Known superseded points from earlier briefs:
   finishes on the portrait coming alive, its loop point inside a white
   flash), autoplaying under reduced motion by the films policy.
   Widening any of this to another page requires the human operator.
+  Fifth sanctioned consumer (2026-09-25, operator-directed — DECISIONS
+  same date): the home band's film player, `public/js/band-film.js`
+  (~5KB raw, ~2KB gzipped, inside the home row's 80KB), rendered only by
+  ConceptHome's band (the home page and its /styleguide/concept
+  mirror). It builds the van-trip film's `<video>` on
+  approach and only after a real user input, so the page's load (and
+  Lighthouse's full-page pass) never fetches the film; muted, looping in
+  view, native controls as the pause mechanism, autoplaying under
+  reduced motion by the films policy. Since the same day's sound
+  addendum the rendition (`van-trip-sound.mp4`) carries Amy's own voice
+  at 2:01–2:17 and silence elsewhere (the clip's two songs removed — not
+  licensed for the website), so it is the speech-free autoplay rule's
+  second scoped exception after the ICON film (operator override after
+  the flag; the rule lives in TreatmentVideo.astro's header): sound one
+  tap away, a person's unmute remembered, captions off by default.
+  Widening it to another page requires the human operator.
   The 30KB budget stands for every page but the home URL.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.

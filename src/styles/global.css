@@ -237,6 +237,8 @@ body:not([data-surface='noir']) {
  *   drift — a full-bleed band photo slides 48px against the scroll
  *     (.ng-drift; scroll-timeline, the rise/trace mechanism). The host
  *     gives the image 48px of vertical overflow so no edge ever shows.
+ *     No consumer since 2026-09-25: its only one, the home van band,
+ *     became a film panel that does not move. The primitive stays.
  *   stagger — .ng-rise-2 / .ng-rise-3 push a sibling's rise range
  *     later, so a row of plates arrives in sequence, not at once.
  *   hover-scale — the photo inside an arch on a whole-card link

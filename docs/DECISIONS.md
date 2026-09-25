@@ -10816,3 +10816,338 @@ lint:claims, lint:voice, pa11y 25/25, Lighthouse CI every assertion on
 (/mobile 2,482ms, /about 2,334ms, against 2,500), and the home row's
 image bytes are unchanged (208,279 B) and its total 9 B lower (333,452
 B — the stylesheet is 13 bytes smaller uncompressed).
+
+## 2026-09-25 — Home: the van band plays Amy's van-trip film (the whole clip, AI-upscaled, silent and looping; operator overrides after the compliance flags)
+
+**Context.** The operator asked for the van-interior photo in the home
+page's "Amy comes to you." band to be replaced with a video,
+`C:\Amy\Videos\VID_20260923_081757.mp4`. Measured with `ffprobe
+-count_frames`: 320×568, H.264 Main plus AAC stereo, 170.02s, 5,100
+frames at 30 fps, 17,549,042 B, sha256 `23a76a9c…602655`. It matches no
+other file in the archive and nothing in this log, so it is not a
+retired film. Its linear resolution is about 0.21× the still's
+(1536×1920).
+
+Screened at 1 fps over the whole clip, and at 2–4 fps with burned-in
+timestamps wherever there are faces or text:
+
+| Time | What's on screen |
+|---|---|
+| 0:00–0:13 | Walking up to the black van; its front plate reads MOBILE AESTHETICS |
+| 0:13–0:16.5 | The side door, with Amy and two roadside signs reflected in it |
+| 0:16.5–0:25 | The door opens and the camera sweeps the cabin |
+| 0:26–0:32 | The van's driver, faint through the partition |
+| 0:32–0:36 | Amy talking in her seat |
+| 0:37–1:30 | The drive over a bridge to a beach town |
+| 1:32–1:42 | A roundabout, the venue's number "1107" and its signs |
+| 1:44–1:58 | The van's "Mobile Aesthetics" lettering |
+| 1:59–2:17 | Amy talking to camera by the van |
+| **2:17.3–2:25.8** | **The prep shot:** Amy, her name embroidered on her scrubs, beside a rolling tray of syringes in printed, labelled slots (one injection-area label legible), handling a vial and syringe, with a sharps container behind |
+| 2:25.8–2:38 | A holiday party |
+| 2:38–2:50 | Letterboxed; Amy with a guest at 2:47–2:50 |
+
+**Decisions.** Each was the operator's (AskUserQuestion), made after the
+flag on it:
+1. **The whole clip plays**, silent and looping. The rendition carries
+   no audio track, so the talking shots play without sound. It autoplays
+   muted in view, and the native controls are the pause mechanism.
+2. **Keep everything:**
+   - the prep shot, which is the prep-workflow class the 2026-07-23 photo
+     rubric excluded, with a legible label. It becomes CLAUDE.md
+     constraint 3's eighth pixel-level override;
+   - the guest at 2:47–2:50. Her website-use release is on file and she
+     is not one of the location's providers; the operator's confirmation
+     is the record;
+   - the driver.
+
+   Cutting or blurring those spots was recommended and declined.
+3. **Layout:** the whole portrait frame, uncropped, in a 9:16 panel at
+   the /mobile film's 24rem width and bare film frame. The band's old
+   cropped window was not used.
+4. **AI upscale.** Amy's original file was recommended; the operator
+   chose an AI upscale of the 320px copy. The flag: an upscale overrides
+   this log's 2026-09-17 generative rules, under which only published,
+   Amy-only stills leave for a third-party service and AI never renders
+   a treatment, a product, packaging or text. The override covers this
+   film only. The operator uploaded both the test clip and the full clip
+   to Higgsfield through its upload widget.
+5. **After the frame screen:** the source's own pixels go back wherever
+   the upscale drew lettering of its own. Patching only the plate and
+   tray, or dropping AI altogether, were the alternatives offered.
+6. **Poster:** the film's first frame, with a store's sign behind the
+   van. The recommended van-lettering frame at 1:52 was declined.
+
+**Upscale.**
+- **Test:** a 19s clip of the two hardest passages (the van's lettering
+  with Amy's face, and the prep shot), run on both providers:
+
+  | Provider | Settings | Credits | Result |
+  |---|---|---|---|
+  | Topaz | 1080p | 8 | Kept her likeness; left the tray labels as unreadable as the source |
+  | ByteDance | ugc preset, 1080p, 30 fps | 0.38 | Invented skin texture around her eyes; letter-like marks on the tray labels |
+
+- **Full run:** Topaz, 47 credits (1,615.12 → 1,568.12), 1080×1920 HEVC,
+  5,100 frames, saved as
+  `C:\Amy\Videos\VID_20260923_081757_upscaled_1080p.mp4` (sha256
+  `291051dd…41762e`).
+  - Scored frame by frame against the source (luma SSIM, frames paired
+    by index): median 0.975, minimum 0.902.
+  - A ByteDance full-clip run, started for comparison, failed and is not
+    used.
+- **Colour:** Topaz read the source as BT.601 and wrote untagged BT.709
+  values. `colormatrix=bt709:bt601` restores the source's colours (luma
+  PSNR against the source rose from 35.1 to 37.5 dB).
+
+**Frame screen and patches.** The upscale kept the faces (Amy, the
+guest, the driver), the van's own lettering, every sign readable in the
+source, and the hat patches. Where the source's text cannot be read,
+though, it drew crisp letters of its own:
+- the front plate ("MOBILE AESTHETICO" at 0:07);
+- the grille badge while small;
+- a store sign's LED panel;
+- the signs reflected in the door;
+- a water tower;
+- four signs seen through a side window at 1:28–1:30;
+- a highway sign at the roundabout;
+- a chalkboard at the venue door;
+- a road sign through a cabin window;
+- a small wall sign;
+- the prep shot's tray labels.
+
+Those spots carry the source's own pixels, lanczos-scaled and composited
+through a feathered, keyframed mask:
+- **Keyframed boxes:** ten, covering 1.2–10% of the frame each, except
+  the side-window view, up to 49% for three seconds. The reflected signs'
+  box stops at Amy's hairline, so her face keeps the upscale.
+- **The prep shot:** the source for the whole shot, cut to cut (frames
+  4119–4373), so no label in it is AI-rendered.
+- **Checked:** every box, frame by frame, in a tinted debug render.
+
+The build files are in `C:\Amy\van-film`: `patches.json`,
+`make-mask.cjs`, `render.sh` and a README.
+
+**Rendition.**
+- **Format:** 810×1440 (2.1× the 384px panel, on upscaled pixels,
+  disclosed), H.264 High, no audio track, faststart, tagged BT.709.
+- **CRF:** the ladder against the plan's 25–35 MB target: CRF 24 49.9 MB,
+  26 39.0, 27 **34.6 MB (shipped)**, 28 30.8. CRF 27 is visually matched
+  to the lossless composite at 2×.
+- **File:** 34,609,537 B, sha256 `10c190bc…440f34`, published as
+  `van-trip.mp4` on the media origin. Its container keeps Topaz's own
+  "AI-enhanced" description tag.
+- **Poster:** its frame 0, `src/assets/photos/van-trip-poster.jpg`
+  (810×1440; served as WebP at 400w 17,464 B and 810w 42,396 B).
+- **Captions:** `public/media/van-trip.vtt`, with no cues (the 2026-09-20
+  rule). The description is the player's label; the provenance and the
+  disclosure are in its NOTE.
+
+**Page.**
+- **ConceptHome:**
+  - The figure is no longer `aria-hidden`: native controls inside an
+    aria-hidden subtree fail axe `aria-hidden-focus`, and the film is
+    labelled content.
+  - The poster is a lazy `<Image>`.
+- **`/js/band-film.js`** (new; 4,986 B raw, 2,025 B gzipped; CLAUDE.md's
+  fifth sanctioned consumer):
+  - It builds the `<video>` once, when the band is within 1.5 viewports
+    **and** the page has had a real input (wheel, touch, key, pointer).
+    Neither a page load nor Lighthouse's full-page pass ever fetches the
+    film.
+  - At a third in view it plays muted and loops; it pauses when out of
+    view.
+  - A user's pause is never overridden.
+  - A refused `play()` is retried inside the next gesture.
+  - It plays under reduced motion (the films policy, constraint 6).
+- **Motion retired:** the band's drift (CSS `ng-drift` and the GSAP
+  parallax, `home-motion.js` §7) is gone. `ng-drift` has no consumer
+  now; the primitive stays.
+- **/mobile** keeps the van-interior still.
+
+**Flags accepted.**
+- A silent loop of Amy speaking.
+- About 35 MB per full view. Blob and Front Door egress grow with plays,
+  outside the SOW's $45–55 (SOW divergence #10). The off-ramp is to
+  revert the band to the still in one commit and delete the blob.
+- The SOW's embedded-video wording (divergence #4).
+- Holiday footage year-round.
+- A beach-town trip under copy that says "around Charlotte".
+- Third-party signs and a street number legible.
+
+**Alternatives rejected:**
+- Amy's full-size original (recommended; declined);
+- the 320px copy as-is, which would need a retina override;
+- cutting or blurring the three spots;
+- a sounded, tap-to-play player with captions;
+- the cropped band window;
+- ByteDance;
+- leaving the upscaler's lettering in place.
+
+**Consequences.**
+- **CLAUDE.md:** constraint 3 gains the eighth pixel-level override, and
+  the JS paragraph its fifth sanctioned consumer. BUILD_SPEC's motion
+  lines and home row follow. Both are covered by the operator's plan
+  approval (the badge entry's precedent).
+- **Other records:** REDESIGN, HOME-CONCEPT §4, CLINICIAN-SIGN-OFF's
+  pending row and RELAUNCH's probe list.
+- **Not treatment content,** so no `clinicianApproved` flag. Amy's
+  preview sign-off covers her upscaled likeness and the prep shot.
+
+**Verification.** Built against phase-c `d28c482`, apart from the new
+files (`band-film.js`, the caption file, the poster's two WebPs) and the
+still's three retired band sizes:
+- one stylesheet changes: the band's rules;
+- only the home page and its /styleguide/concept mirror change markup:
+  the band's figure, poster and script tag.
+
+**Headless Chrome** at 320/390/412/768/1024/1280/1440:
+- The panel is `min(24rem, 100% - 3rem)` at 9:16: centred on phones,
+  beside the statement from 900px, with no horizontal overflow.
+- No player and no film request on load, at a full-page viewport, or
+  after scrolling without input.
+- After a wheel or key input the player builds with controls, loop,
+  muted, playsinline, the poster, and a non-default track with no cues.
+- It plays in view and pauses out of view; a user's pause holds; it
+  plays under reduced motion and with GSAP blocked.
+- axe on the built band: no violations (`video-caption` and
+  `aria-hidden-focus` pass).
+
+**Firefox 156** (Puppeteer BiDi) **and Chrome:** the player builds and
+plays the 170.02s film, which loops back to the start.
+
+**The gate:** `npm run verify` green, exit line read: build, `astro check`
+0/0/0, lint:claims, lint:voice, pa11y 25/25, and Lighthouse CI passing
+every assertion on 8 URLs × 3 runs.
+
+The home row against phase-c (medians):
+
+| | phase-c | This change |
+|---|---|---|
+| Total | 333,452 B | 335,883 B |
+| Script | 69,266 B | 71,641 B (`band-film.js`, 2,406 B over the wire) |
+| Image | 208,279 B | 208,279 B (unchanged) |
+| Media | 0 | 0; no request for the film |
+| LCP | 2,174ms | 2,173ms |
+
+/mobile (2,480ms) and /about (2,338ms) stay under 2,500. The
+preview's checks (the real CSP, the media origin, Range 206) are on the
+PR.
+
+## 2026-09-25 — Addendum: the van film's sound — Amy's voice only (the songs removed; the speech-free autoplay rule's second exception; operator decisions after the flags)
+
+**Context.** The operator asked how hard it would be to let viewers turn
+on the sound "so they can choose to hear what Amy is saying". The clip's
+audio, measured:
+- **0:00–2:01.2:** loud and steady (−14.7 LUFS), with a regular beat.
+  The operator identified two songs: "Check Out (What I Got)" by Danger
+  Twins (2023; listed for sync licensing through peermusic's catalog) and
+  "I'll Never Let You Go" (feat. 9ver) by BCD Studio (2022; marketed as
+  "no-copyright sounds" for TikTok, with no written licence for a
+  website).
+- **2:01.2–2:17.3:** Amy's words to camera outside the van at the
+  destination, at −34.5 LUFS. The operator: she "says where they are
+  and who they are there to see".
+- **2:17.3–2:38:** quiet room sound under the prep shot and the party.
+- **2:38–2:50:** digital silence.
+
+**Flags.**
+1. Neither song is licensed for a business website. Platform music
+   licences do not travel, as with the /mobile film's held sound on
+   2026-09-03.
+2. The person she names: naming someone at a treatment party on a
+   medical practice's site discloses a client relationship, so it needs
+   a website release and a HIPAA marketing authorization (the
+   before/after precedent, 2026-08-21).
+3. Captions become required (WCAG 2.2 AA 1.2.2), and they are site text
+   under the claim rules.
+4. The house rule autoplays only speech-free films ("never … one with
+   narration, which muted autoplay would gut"). Its one exception was
+   the ICON film (2026-08-25).
+5. Her words start about two minutes into the loop.
+
+**Decisions** (operator, AskUserQuestion):
+1. **Amy's voice only.** Both songs out; her part plays, brought up to a
+   speaking level; the rest is silent.
+2. **The named person:** a website release and a HIPAA marketing
+   authorization are both on file (the operator's confirmation is the
+   record), so the name stays in the audio and the captions. It is never
+   restated in site text outside the captions file.
+3. **Keep autoplay:** muted in view, with sound one tap away. This is
+   the speech-free rule's second scoped exception, recorded in the rule's
+   own home (TreatmentVideo.astro's header) and in CLAUDE.md's script
+   list.
+4. **Captions off by default.** Captions on by default was recommended,
+   because most visitors see the film muted.
+5. **Transcript:** Higgsfield's video analysis first. It ran on the
+   already-uploaded clip (job `7e652c3e…`, about six minutes).
+   - **What it heard:** her part as "…in Holden Beach with [the host]
+     to do a mobile aesthetic party at her place at Winn-Lynn and
+     Company, Punky's Place. So excited to be here!" The host's full
+     name is kept out of this public record; it is in her voice and
+     the caption file, which the operator's confirmation covers.
+   - **Confirmed by the operator,** listening to the sound rendition:
+     the words and the name's spelling, and that the mid-sentence start
+     sounds fine (her first words fall under the end of the song).
+   - **Its limits:** the same analysis confirmed both songs by their
+     lyrics, but its claim that music continues after 2:17 is wrong
+     (measured near-silence, then digital silence). It is a draft, not
+     a record.
+
+**Captions.** Four cues, 2:01.2–2:17.28, split at her measured pauses
+(25ms loudness map); the player requests `van-trip.vtt?v=2`. The caption
+file, like every site file, is also in the public repository.
+- **Screened:** against `banned-patterns.json` (no hits) and the voice
+  rule (no first-person plural). The linters do not read caption files,
+  but the claim rules apply to all site text.
+- **Accepted:** her "Holden Beach" makes the earlier minor flag
+  explicit, a beach-town visit under the band's "around Charlotte"
+  copy.
+
+**The sound rendition** (`C:\Amy\van-film\sound.sh`):
+- **Before 2:01.2:** silenced; the songs end there, per the spectrogram
+  and a 0.1s loudness map.
+- **Her part:** fades in over 80ms at 2:01.2. Highpass 80Hz, a gentle
+  compressor (−34dB threshold, 3:1), +20.5dB, and a −1dBFS limiter.
+  Result: −18.0 LUFS, peaks −3.0dBFS.
+- **After the cut into the prep shot (2:17.30):** faded out and silent
+  (a −65dBFS residue), so nothing but her words plays. The prep shot's
+  and the party's room sound was never screened by ear.
+- **Muxing:** AAC 96k, muxed with `van-trip.mp4`'s video stream copied
+  untouched. The web video's frames sit within 10ms of the source's
+  (6ms in her part), so lip sync holds.
+- **The file:** `van-trip-sound.mp4`, 34,970,330 B (+361KB), published
+  under a new name on the media origin. The silent `van-trip.mp4` blob is
+  deleted once no open preview references it.
+
+**Player.** `band-film.js` remembers a person's unmute: the film restarts
+with sound when it scrolls back into view, and falls back to muted if
+the browser refuses (the treatment-video.js pattern). The label mentions
+that Amy speaks and that the film starts muted. The caption file gains
+her cues and its NOTE the provenance; `?v=2`.
+
+**Consequences.**
+- CLAUDE.md's fifth-consumer paragraph and TreatmentVideo's header record
+  the second exception.
+- CHANGELOG, CLINICIAN-SIGN-OFF, RELAUNCH (the probe target is now
+  `van-trip-sound.mp4`), RUNBOOK, HOME-CONCEPT, REDESIGN and BUILD_SPEC
+  say the film has her voice.
+- SOW divergence #4 is unchanged in kind; egress rises by 361KB per full
+  view.
+
+**Verification.**
+- **Local headless Chrome**, emulating a touch phone, with the sound
+  rendition served with Range support:
+  - the film autoplays MUTED, and the file carries an audio track;
+  - captions are off by default, and the four cues load, all inside
+    2:01.2–2:17.28;
+  - an unmute is recorded and survives scrolling away and back: the
+    film restarts with sound.
+- **Firefox 156:** plays muted with the audio track present.
+- **The audio:** silence before 2:01.2 (peak −inf); her part at
+  −18.0 LUFS (peak −3.0dBFS); after 2:17.3, a −65dBFS residue.
+- **The gate:** full `npm run verify` green, exit line read: `astro
+  check` 0/0/0, lint:claims, lint:voice, pa11y 25/25, and Lighthouse
+  CI passing every assertion on 8 URLs × 3 runs.
+- **The home row:** total 336,160 B; script 71,875 B (`band-film.js`,
+  2,640 B over the wire); image 208,279 B; media 0, with no request for
+  the film; LCP 2,171ms. /mobile (2,484ms) and /about (2,337ms) stay
+  under 2,500.

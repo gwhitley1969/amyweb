@@ -11876,9 +11876,9 @@ decisions 5 and 6):
    above, whose decision 1 scoped "Tox" to the band's copy and comment
    and said it never reaches meta, OG, alt text or JSON-LD: on this one
    page the name does. The body copy keeps the shorthand as the document
-   has it ("Tox Party", "the Tox experience"). No other page says it;
-   the competitor brand name the shorthand stands in for still never
-   appears anywhere. The 2026-07-19 shorthand rule stands for every
+   has it ("Tox Party", "the Tox experience"). No other page's copy says
+   it (the nav label, by its nature, is on every page); the competitor
+   brand name the shorthand stands in for still never appears anywhere. The 2026-07-19 shorthand rule stands for every
    other page.
 3. **The band becomes a door, with the call button.** The van-trip film
    stays: its terms are fixed to "this film, the home band" (CLAUDE.md
@@ -11976,9 +11976,10 @@ no photo and no film, the page carries itself on type and its surfaces:
   close.
 - **What the site says.** The party offer, its terms and its host reward
   live on one page, in the operator's words; the home page names the
-  offer, invites the call and points at the page. "Tox" renders on
-  /tox-to-go, / and the /styleguide/concept mirror, nowhere else; in a
-  document head only on /tox-to-go.
+  offer, invites the call and points at the page. "Tox" renders in the
+  nav label on every page, in copy on /tox-to-go, / and the
+  /styleguide/concept mirror, and in a document head only on
+  /tox-to-go.
 - **Amy's confirmations move to the page** (the sign-off doc's non-gated
   section, one section replacing two): the terms; the host reward
   against her professional guidance; the word "Tox"; booking by phone;
@@ -12004,3 +12005,34 @@ no photo and no film, the page carries itself on type and its surfaces:
   /tox-to-go.
 - **Nothing else changes.** No new script, dependency or cost; the
   van-trip film, its player and its overrides are untouched.
+
+**Verification** (PR #209; the site change is two commits — `b105ecf`,
+the four deletions, and `cfdc865`, the page, the band, the nav, the
+comment notes and the gate lists; a staging slip split them, and the
+tree was verified whole):
+- **The gate:** `npm run verify` exit 0 on the records commit and on
+  the site change — `astro check` 0 errors; lint:claims and lint:voice
+  green; pa11y 25/25 with /tox-to-go in the list (0 errors); every
+  Lighthouse assertion held on 8 URLs × 3 runs.
+  - /tox-to-go: total 118,561 B, script 0, image 67,072 B, media 0;
+    LCP 1,578–1,581ms — its largest paint is a paragraph, not an
+    image; CLS 0; performance and accessibility 1.00.
+  - The home row: total 336,360 B (+93 B against the v8 hero), script
+    71,888 B, image 208,279 B, media 0; LCP 2,166–2,179ms; CLS 0.
+- **The build against phase-c:** `dist/mobile/` absent,
+  `dist/tox-to-go/index.html` present; the sitemap lists /tox-to-go and
+  not /mobile; no built page links to /mobile; / and
+  /styleguide/concept change only inside the band; every other page
+  changes only in the header's nav item.
+- **The records commit changed no stylesheet name;** the site change
+  changed the home page's and the site-wide stylesheets (the band's
+  rules gone, the new page's added).
+- **The name's reach:** "Tox" is in the nav label on every page, in
+  copy on /tox-to-go, / and /styleguide/concept, and in a document
+  head only on /tox-to-go (the title, the description, the OG tags, the
+  JSON-LD Service).
+- **The buttons:** both call buttons on the page and the band's are
+  `tel:+17045797108` with the call event; the page loads no script.
+- **The plates** render in view at 1280 and 390, with and without
+  reduced motion (opacity 1 once entered; visible from the start under
+  reduced motion).

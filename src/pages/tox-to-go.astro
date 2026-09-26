@@ -23,7 +23,9 @@ import { service } from '../lib/schema';
  *   of copy — the offer, the $600 hostess credit, the three
  *   requirements, the tagline — is the operator's own Tox To Go
  *   document, reproduced without rephrasing (headings sentence-cased,
- *   the one house change; the two eyebrows are the only added words).
+ *   the one house change; the two eyebrows and the heading's "Party" —
+ *   the operator's direction on the preview, 2026-09-26 — are the only
+ *   added words).
  *   The figures are the operator's, not the site's (constraint 7:
  *   nothing here is invented). Do not change a word without the
  *   operator; the home band carries the same lead and sentence, so the
@@ -83,7 +85,7 @@ const jsonLd = [
   <section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
     <p class="eyebrow">Private parties</p>
     <hr class="rule-accent mt-4" aria-hidden="true" />
-    <h1 class="display-2 md:display-1 mt-6">Tox To Go</h1>
+    <h1 class="display-2 md:display-1 mt-6">Tox To Go Party</h1>
     <p class="lead mt-6">Your place. Your people. Your glow.</p>
     <div class="mt-8 max-w-prose space-y-4">
       <p>Turn your next get-together into a little something extra.</p>
@@ -185,11 +187,12 @@ const jsonLd = [
 <style>
   /* The number under a call button, for screens that cannot place a
    * call — the home band's 2026-09-26 recipe, hand-copied (page-local
-   * styles stay page-local). It inherits the surface's text color:
-   * ink-900 on the canvas, paper on noir. */
+   * styles stay page-local), a step larger than the band's at the
+   * operator's direction on the preview ("hard to read"). It inherits
+   * the surface's text color: ink-900 on the canvas, paper on noir. */
   .tox-phone {
     margin-top: 0.75rem;
-    font-size: 0.9375rem;
+    font-size: 1.125rem;
     letter-spacing: 0.02em;
   }
   /* The requirement plates on noir: static boxes — the noir card is

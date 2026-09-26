@@ -11884,7 +11884,8 @@ decisions 5 and 6):
    stays: its terms are fixed to "this film, the home band" (CLAUDE.md
    constraint 3, the eighth pixel override; the fifth script consumer),
    so moving it was never on the table. Beside it: the heading "Tox To
-   Go", the tagline, one sentence from the document, "Book your Tox To
+   Go" (since the preview, "Tox To Go Party" — the addendum), the
+   tagline, one sentence from the document, "Book your Tox To
    Go party" calling Amy with her number under it, and "See the hostess
    perk ›" to /tox-to-go ("Hostess Perk" is the document's own phrase).
    The subheads, the requirements, the sum and the closing tagline leave
@@ -11931,8 +11932,9 @@ gating the merge; the name's ownership, not a trademark clearance;
 the code's own record). Every sentence is the document's; the two
 eyebrows ("Private parties", "Tox To Go") are the only added words. With
 no photo and no film, the page carries itself on type and its surfaces:
-- the opening, on the canvas, in one column: the eyebrow, "Tox To Go" as
-  the h1 at the larger display size, the tagline as the lead, the
+- the opening, on the canvas, in one column: the eyebrow, "Tox To Go
+  Party" as the h1 at the larger display size (the addendum), the
+  tagline as the lead, the
   introduction, the Call button wearing the document's line with the
   number under it;
 - the offer, on a noir band (the operator's pick over the plain canvas):
@@ -12036,3 +12038,19 @@ tree was verified whole):
 - **The plates** render in view at 1280 and 390, with and without
   reduced motion (opacity 1 once entered; visible from the start under
   reduced motion).
+
+**Addendum (the operator, on the preview, 2026-09-26).** "It really
+looks pretty good. Can you change on the home page the title of the
+section to 'Tox To Go Party'. Do the same thing to the /tox-to-go page
+as well. Make the heading 'Tox To Go Party'. Also, make the phone number
+on the /tox-to-go page a little larger. It's hard to read."
+- The band's h2 and the page's h1 read "Tox To Go Party". The offer's
+  name stays "Tox To Go" everywhere else: the page title, the
+  description, the JSON-LD name, the nav label and the closing band's
+  eyebrow.
+- The number under the page's two call buttons is a step larger (18px,
+  from 15px). The band's number, the same recipe, is unchanged and can
+  follow on the operator's word.
+- The rule that the words are the document's stands: "Party" in the
+  heading is the operator's own addition, and the page's header comment
+  says so.

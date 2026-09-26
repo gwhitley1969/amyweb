@@ -13,7 +13,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   host gets a $600 service credit when the party has at least 7 guests,
   the guests' services average $300 each, and the services happen at the
   party. "Book your Tox To Go party" calls Amy's phone, and her number
-  shows under the button. The page has no photo or film: the big title,
+  shows under the button, in a size that reads. The page has no photo
+  or film: the big title ("Tox To Go Party", the operator's wording on
+  the preview),
   the offer on a black band with the $600 in glowing pink and the three
   requirements in a row, then the closing lines.
 - The page replaces /mobile, which is deleted. That page's photo of the
@@ -23,8 +25,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   /mobile never served in production, so there is no redirect. The menu
   item "Mobile" now reads "Tox To Go".
 - Near the bottom of the home page, the band beside Amy's van-trip film
-  is now the page's door: "Tox To Go", the tagline, one sentence, the
-  same "Book your Tox To Go party" button, and "See the hostess perk ›".
+  is now the page's door: "Tox To Go Party", the tagline, one sentence,
+  the same "Book your Tox To Go party" button, and "See the hostess perk
+  ›".
   "How a party works" is gone from the home page, at the operator's
   direction. The film is unchanged.
 - The words are the operator's document, as written. The site uses

@@ -202,7 +202,9 @@ lettering of its own and for its whole prep shot.
 **Since 2026-09-26** (DECISIONS same date, the Tox To Go page entry) the
 band is the door to /tox-to-go, the page that replaced /mobile and
 carries the operator's Tox To Go offer in full. Beside the film: the
-heading "Tox To Go", its tagline "Your place. Your people. Your glow.",
+heading "Tox To Go Party" (the operator's direction on the preview; it
+read "Tox To Go" for an hour), its tagline "Your place. Your people. Your
+glow.",
 one sentence from the document, the button "Book your Tox To Go party"
 (it calls Amy's phone, her number under it) and "See the hostess perk ›"
 to /tox-to-go. The copy is short again, so the panel and the words are

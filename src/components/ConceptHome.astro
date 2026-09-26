@@ -50,7 +50,7 @@ import vanTripPoster from '../assets/photos/van-trip-poster.jpg';
  * the full display clamp over a one-sentence lead, the section openers
  * step up to display sizes over one-sentence decks (the §6 credentials
  * kept as a compact line), and a noir statement band ("Amy comes to
- * you." — /mobile's first door on the home page; beside the van
+ * you." — /mobile's first door on the home page, /tox-to-go's since 2026-09-26; beside the van
  * interior photo until 2026-09-25, beside Amy's van-trip film since —
  * see the band's own note) punctuates the ombre between the doors and
  * the visit beat. The
@@ -330,7 +330,8 @@ const CHEVRONS = [
 
   {/* ---- THE STATEMENT BAND: the ombre's noir punctuation (2026-09-03);
       the statement sits on noir beside the media, never over it (Phase C
-      plate rule), and gives /mobile its first door on the home page.
+      plate rule), and gave /mobile its first door on the home page
+      (/tox-to-go's door since 2026-09-26).
       SINCE 2026-09-25 (operator direction; DECISIONS same date) the
       media is AMY'S VAN-TRIP FILM, the whole 2:50 clip the operator
       supplied, looping: the van, its cabin, the drive, and a holiday
@@ -345,7 +346,7 @@ const CHEVRONS = [
       to have a website release and a HIPAA marketing authorization on
       file; the name is never restated in site text outside the captions
       file. It shows WHOLE
-      in a phone-shaped 9:16 panel (the /mobile film's 24rem width and
+      in a phone-shaped 9:16 panel (the former /mobile film's 24rem width and
       bare film frame), not cropped into the band's old window. The
       panel's poster is the film's first frame; /js/band-film.js builds
       the player on approach, only after a real user input, so
@@ -364,25 +365,27 @@ const CHEVRONS = [
       it is ever restated in site text, this comment included). The
       label names nothing beyond the van, the drive, Amy speaking, and
       the event. The
-      band's photo until that date — the van interior, the /mobile
+      band's photo until that date — the van interior, the former /mobile
       hero's frame — drifted against the scroll; the film panel does
       not. (The first pick for this slot in 2026-09, Amy holding her neon
       sign, was rejected on the record: at band size the Evolysse carton
       on the table reads.)
       THE WORDS, SINCE 2026-09-26 (operator; DECISIONS same date, the Tox
-      To Go entry): the operator's Tox To Go document, as written — the
-      party offer, its $600 hostess credit and three requirements.
-      "Tox" is allowed in this band's copy and in this comment only
-      (operator override after the flag); it never reaches meta, OG,
-      alt text or JSON-LD, and the competitor brand name still never
-      appears. "Book your Tox To Go party" calls Amy: the call variant
-      wearing the document's line, her number printed under it for
-      screens that cannot place a call ("Book with Amy" stays
-      Vagaro-only). A consultation sentence was offered and declined;
-      the copy answers no suitability question. The subheads are h3 at
-      the 25px heading size (the accent needs 39px); the closing tagline
-      carries the accent. At >=900px the panel holds in view beside the
-      longer copy. ---- */}
+      To Go page entry): the band is the DOOR to /tox-to-go — the "Amy
+      comes to you." shape again: the document's title, its lead, one
+      sentence, the call button ("Book your Tox To Go party", the call
+      variant wearing the document's line, her number under it for
+      screens that cannot place a call — "Book with Amy" stays
+      Vagaro-only) and "See the hostess perk ›". The offer, the $600
+      hostess credit, the three requirements and the closing tagline
+      live on the page; they sat here for one round the same day, before
+      the operator asked for the page (/tox-to-go replaces /mobile).
+      "Tox" is allowed in this copy and in this comment by operator
+      override after the flag; on the home page it never reaches meta,
+      OG, alt text or JSON-LD, and the competitor brand name still never
+      appears. The copy answers no suitability question. The panel and
+      the copy are about a height again, so the band centres them as
+      before. ---- */}
   <section class="nc-band surface" data-surface="noir" aria-labelledby="nc-band-heading">
     <figure
       class="nc-band__media"
@@ -404,48 +407,16 @@ const CHEVRONS = [
     <div class="nc-band__copy">
       <h2 class="heading-2 md:display-1" id="nc-band-heading">Tox To Go</h2>
       <p class="lead nc-lead-lg mt-6">Your place. Your people. Your glow.</p>
-      <div class="nc-tox mt-8">
-        <p>Turn your next get-together into a little something extra.</p>
-        <p>
-          With Tox To Go, you can host a private Tox Party for your friends and
-          family in the comfort of your own home. Gather your favorite people,
-          enjoy time together, and Amy will bring the Tox experience to you.
-        </p>
-        <h3 class="heading-4 nc-tox__head">Hostess perk: $600 Service Credit</h3>
-        <p>
-          Hosting has its rewards! When your Tox To Go party meets the
-          qualifying requirements, the hostess receives a $600 credit toward
-          services as Amy's thank-you for bringing everyone together.
-        </p>
-        <h3 class="heading-4 nc-tox__head">Party requirements</h3>
-        <p>To qualify for the Hostess Service Credit:</p>
-        <ul role="list" class="nc-tox__terms">
-          <li>Minimum of 7 guests</li>
-          <li>Average service purchase of $300 per guest</li>
-          <li>Services are provided during your scheduled private Tox To Go event</li>
-        </ul>
-        <p>
-          That's a minimum of $2,100 in services among your guests—and a $600
-          Service Credit for the hostess.
-        </p>
-        <h3 class="heading-4 nc-tox__head">Gather your people. Amy will come to you.</h3>
-        <p>
-          No waiting room. No coordinating everyone's schedule around a trip to
-          the office. Just invite your friends and family, choose your location,
-          and make an event of it.
-        </p>
-      </div>
-      <p class="heading-2 md:display-2 nc-tox__close">
-        Your&nbsp;place. Your&nbsp;people.<br />
-        <span class="display-accent ng-shimmer">Your glow.</span>
+      <p class="mt-6 max-w-prose">
+        With Tox To Go, you can host a private Tox Party for your friends and
+        family in the comfort of your own home.
       </p>
-      <p class="lead mt-8">Ready to host?</p>
-      <div class="mt-4">
+      <div class="mt-8">
         <CTAButton variant="call" label="Book your Tox To Go party" />
-        <p class="nc-tox__phone">{siteConfig.phone}</p>
+        <p class="nc-band__phone">{siteConfig.phone}</p>
       </div>
-      <p class="mt-8">
-        <a href="/mobile" class="nc-more nc-more--lg">How a party works
+      <p class="mt-6">
+        <a href="/tox-to-go" class="nc-more nc-more--lg">See the hostess perk
           <span class="chev-nudge" aria-hidden="true">&rsaquo;</span></a>
       </p>
     </div>
@@ -778,7 +749,7 @@ const CHEVRONS = [
 
   /* THE STATEMENT BAND — the film panel beside the statement, on noir;
    * stacked on phones, panel first. Since 2026-09-25 the media is a
-   * 9:16 panel at the /mobile film's 24rem width in the bare film frame
+   * 9:16 panel at the former /mobile film's 24rem width in the bare film frame
    * (TreatmentVideo's hairline + 12px corners), the frame WHOLE, never
    * cropped. Retina: 24rem is 384px CSS at most, against the 810px
    * rendition and poster — 2.1×. Until then the media was a full-bleed
@@ -810,32 +781,9 @@ const CHEVRONS = [
   .nc-band__copy {
     padding: 3rem 1.5rem 4rem;
   }
-  /* The Tox To Go words (2026-09-26): a readable measure, paragraph
-   * rhythm, room above each h3 subhead, the requirements as /mobile's
-   * hairline list (its .how-list recipe, hand-copied — page-local styles
-   * stay page-local; the hairline is the noir surface's vivid pink), the
-   * closing tagline, and the number under the call button for screens
-   * that cannot place a call. */
-  .nc-tox,
-  .nc-tox__close {
-    max-width: 36rem;
-  }
-  .nc-tox > * + * {
-    margin-top: 1rem;
-  }
-  .nc-tox > .nc-tox__head {
-    margin-top: 2.25rem;
-  }
-  .nc-tox__terms li {
-    padding: 0.75rem 0;
-  }
-  .nc-tox__terms li + li {
-    border-top: 1px solid var(--ng-hairline);
-  }
-  .nc-tox__close {
-    margin-top: 3rem;
-  }
-  .nc-tox__phone {
+  /* The number under the band's call button, for screens that cannot
+   * place a call (2026-09-26). It inherits noir's text color. */
+  .nc-band__phone {
     margin-top: 0.75rem;
     font-size: 0.9375rem;
     letter-spacing: 0.02em;
@@ -843,18 +791,11 @@ const CHEVRONS = [
   @media (min-width: 900px) {
     .nc-band {
       grid-template-columns: 1fr 1fr;
-      align-items: start;
+      align-items: center;
     }
-    /* Since 2026-09-26 the copy runs about twice the panel's height, so
-     * the panel holds in view while it scrolls past: centred in the
-     * viewport, or 1.5rem from the top when the viewport is shorter than
-     * the 42.67rem panel. Sticky keeps it a containing block for the
-     * absolute poster and film. */
     .nc-band__media {
       justify-self: end;
       margin: 4.5rem 0;
-      position: sticky;
-      top: max(1.5rem, calc(50vh - 21.34rem));
     }
     .nc-band__copy {
       padding: 4rem 4rem 4rem 3.5rem;

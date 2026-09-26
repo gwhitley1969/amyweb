@@ -6,6 +6,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-26 — The home page's "Amy comes to you." band becomes Tox To Go
+
+- Near the bottom of the home page, the band beside Amy's van-trip film
+  now presents Tox To Go: host a private party at home, and Amy brings
+  the treatments to you.
+- It spells out the hostess perk. The host gets a $600 service credit
+  when the party has at least 7 guests, the guests' services average
+  $300 each, and the services happen at the party.
+- "Book your Tox To Go party" calls Amy's phone, and her number shows
+  under the button. "How a party works" still leads to /mobile.
+- The words are the operator's document, as written. The site uses
+  "Tox" here for the first time, by the operator's decision.
+- Amy confirms the offer's terms on the preview before it merges. The
+  record is DECISIONS 2026-09-26, the Tox To Go entry.
+
 ### 2026-09-26 — The home hero film's smile is warmer
 
 - The client felt the smile at the end of the home hero film wasn't

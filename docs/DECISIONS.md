@@ -11699,3 +11699,118 @@ v5–v7 were and ships in PR #208. v7 stays on the origin, unreferenced.
   media 0, with no request for the film; LCP 2,164–2,240ms.
 - **The blob:** a range request returns 206 and `video/mp4`; the served
   bytes match the file's SHA-256.
+
+## 2026-09-26 — Home: the "Amy comes to you." band becomes Tox To Go (the operator's copy; "Tox" allowed in it)
+
+**Context.** The operator supplied the band's new words as a document
+(`C:\Amy\Tox To Go.docx`, written 2026-09-26, outside the repo): a
+host-your-own party offer called Tox To Go. It replaces the statement
+band's heading, sentence and link text beside Amy's van-trip film.
+- **The copy, about 190 words:**
+  - the name and a tagline, "Your place. Your people. Your glow.";
+  - an introduction;
+  - a hostess credit of $600 toward services, with three qualifying
+    requirements: a minimum of 7 guests, an average service purchase of
+    $300 per guest, and the services provided during the scheduled
+    party;
+  - a closing line and a booking line.
+- **It is clean against the linters.** As written, it trips no
+  lint:claims pattern and no lint:voice word.
+- **Three records bear on it:**
+  - 2026-07-19 kept Amy's informal service shorthand ("Tox") off the
+    site. 2026-09-02 reaffirmed that when it allowed "party", and the
+    /mobile header comment carried the rule.
+  - 2026-09-02 left group minimums, host rewards and pricing out of
+    /mobile, because nothing on the record stated them (constraint 7).
+    The document now states them, from the operator.
+  - 2026-09-02 made party booking phone or text, with Vagaro as the
+    studio's book.
+
+**Decisions** (operator, 2026-09-26; AskUserQuestion plus two
+messages):
+1. **"Tox" is allowed in this band, as written.** The operator overruled
+   the shorthand rule after the flag: "I'll overrule the /mobile page
+   header on enforcing a ban on 'tox'."
+   - Scope: the band's rendered copy and its source comment.
+   - It never reaches meta, OG, alt text or JSON-LD.
+   - The competitor brand name that the shorthand stands in for still
+     never appears anywhere.
+2. **The van-trip film stays** beside the new words. Its label, captions
+   and overrides are unchanged.
+3. **"Book your Tox To Go party" calls Amy.**
+   - The operator first picked a Book button to Vagaro. The same hour
+     they changed it: "don't send them to Vagaro, send them to call
+     Amy", then "make sure the 'Book Your Tox To Go Party' points to
+     Amy's phone number".
+   - The button's own text is the document's line. It dials her number,
+     with the call event.
+   - Her number is printed under it, for screens that can't place a
+     call.
+   - "Book with Amy" stays Vagaro-only. This is the one Book-worded
+     button that calls; SOW §4 describes the Book buttons as Vagaro's.
+4. **The copy runs as written.**
+   - A consultation sentence was offered after the flag and declined:
+     "Every guest has their own consultation first, and whether a
+     treatment fits is decided with Amy", /mobile's own wording.
+   - The copy answers no "is this right for me" question, so no
+     CLAUDE.md exception is needed.
+   - The home page's next section still says nothing is decided without
+     you.
+5. **"How a party works ›" stays,** under the button: the home page's
+   in-page door to /mobile.
+
+**House style** (stated to the operator, not objected to): headings in
+sentence case. The body keeps the document's words and capitals ("Tox
+Party", "Hostess Service Credit", "Service Credit").
+
+**Flags recorded (once each), not blocking:**
+- **The hostess credit is tied to what the guests buy.**
+  - Some state boards scrutinise rewards for bringing in paying
+    patients; 2026-09-02 already notes the scrutiny of injectable
+    gatherings.
+  - SOW §8 makes pricing Amy's to confirm.
+  - The terms are on her preview checklist (CLINICIAN-SIGN-OFF), and the
+    merge waits for her OK.
+- **The name.** Two web searches (2026-09-26) found no business called
+  "Tox To Go".
+  - A Charlotte med spa trades as "The Tox", and "Tox party" is common
+    trade slang.
+  - This is not a trademark clearance. If Amy wants to own the name, a
+    USPTO search is the next step.
+
+**The band** (`ConceptHome.astro`), top to bottom:
+- the heading "Tox To Go": the section's h2, with its id and its word
+  rise kept;
+- the tagline as the lead;
+- two paragraphs of introduction;
+- three subheads, at the 25px heading size (the pink accent needs 39px):
+  - "Hostess perk: $600 Service Credit";
+  - "Party requirements", with the three requirements as a list and the
+    $2,100 sum;
+  - "Gather your people. Amy will come to you.";
+- the tagline again, at display size, with "Your glow." in the accent
+  and its shimmer (the treatment of /mobile's closing line);
+- "Ready to host?", then the button, the number and the /mobile link.
+
+At 900px and up the film panel holds in view beside the longer copy.
+Phones keep the film above the words.
+
+**Alternatives declined:**
+- a Book button to Vagaro (chosen first, then reversed by the operator);
+- the consultation sentence;
+- removing the film (a text-only band);
+- a Call button reading the number, with the document's line above it
+  (offered first; the operator wanted the document's words on the
+  button).
+
+**Consequences.**
+- **What the home page now says.** It names the neuromodulator
+  shorthand for the first time, and it states a party offer: a minimum,
+  an average spend per guest and a host reward.
+  - /mobile's copy still states none of them, and its header comment
+    now points here.
+  - Party booking from the home page is by phone, as it is on /mobile.
+- **Amy confirms the terms and the wording on the preview** (the new
+  non-gated section in CLINICIAN-SIGN-OFF). Nothing merges before that.
+- **Nothing else changes.** No new script, dependency or cost; the
+  band's film, its player and its overrides are untouched.

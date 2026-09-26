@@ -195,6 +195,18 @@ film stage. The film is AI-upscaled (Topaz, via Higgsfield) and
 disclosed, with the source's own pixels wherever the upscale drew
 lettering of its own and for its whole prep shot.
 
+**Since 2026-09-26** (DECISIONS same date, the Tox To Go entry) the words
+beside the film are the operator's Tox To Go document, as written. There
+is the heading "Tox To Go" and its tagline, an introduction, and three
+subheads at the 25px heading size: the $600 hostess credit, the party
+requirements (a list) and "Gather your people". The tagline comes again at
+display size, with "Your glow." in the accent and shimmer, then "Ready to
+host?". The button "Book your Tox To Go party" calls Amy's phone, with her
+number under it, and "How a party works ›" still goes to /mobile. The
+copy is about twice the panel's height, so at >=900px the grid aligns to
+the top and the film panel holds in view while the words scroll past.
+Phones are unchanged: the film first, then the words.
+
 ### 5. The motion layer (files)
 
 | File | Bytes | Role |

@@ -435,7 +435,7 @@ const CHEVRONS = [
       own published wording, riding her ownership of the post. Her
       on-record caption sign-off is a C8 prerequisite; the slot is
       post-agnostic if she prefers a different post. ---- */}
-  <section>
+  <section class="nc-voice">
     <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 md:grid-cols-[6fr_5fr] md:gap-16">
       <div class="nc-post ng-rise">
         <Image
@@ -707,6 +707,15 @@ const CHEVRONS = [
     display: block;
     width: 100%;
     height: auto;
+  }
+  /* The print's section clips x (2026-09-26, DECISIONS same date): the
+   * motion layer holds the print's photo at 1.18, unseen, until its
+   * reveal plays (home-motion step 6). Inside the tilted print that box
+   * reached past the right edge at about 420-640px wide from the moment
+   * the lazy photo loaded, so the page scrolled sideways there. clip,
+   * not hidden: no scroll container, and y stays visible. */
+  .nc-voice {
+    overflow-x: clip;
   }
 
   /* ---- 2026-09-03 additions (scale-and-rhythm round) ---- */

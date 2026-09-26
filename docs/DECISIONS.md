@@ -11756,3 +11756,361 @@ v5–v7 were and ships in PR #208. v7 stays on the origin, unreferenced.
   media 0, with no request for the film; LCP 2,164–2,240ms.
 - **The blob:** a range request returns 206 and `video/mp4`; the served
   bytes match the file's SHA-256.
+
+## 2026-09-26 — Home: the "Amy comes to you." band becomes Tox To Go (the operator's copy; "Tox" allowed in it)
+
+**Context.** The operator supplied the band's new words as a document
+(`C:\Amy\Tox To Go.docx`, written 2026-09-26, outside the repo): a
+host-your-own party offer called Tox To Go. It replaces the statement
+band's heading, sentence and link text beside Amy's van-trip film.
+- **The copy, about 190 words:**
+  - the name and a tagline, "Your place. Your people. Your glow.";
+  - an introduction;
+  - a hostess credit of $600 toward services, with three qualifying
+    requirements: a minimum of 7 guests, an average service purchase of
+    $300 per guest, and the services provided during the scheduled
+    party;
+  - a closing line and a booking line.
+- **It is clean against the linters.** As written, it trips no
+  lint:claims pattern and no lint:voice word.
+- **Three records bear on it:**
+  - 2026-07-19 kept Amy's informal service shorthand ("Tox") off the
+    site. 2026-09-02 reaffirmed that when it allowed "party", and the
+    /mobile header comment carried the rule.
+  - 2026-09-02 left group minimums, host rewards and pricing out of
+    /mobile, because nothing on the record stated them (constraint 7).
+    The document now states them, from the operator.
+  - 2026-09-02 made party booking phone or text, with Vagaro as the
+    studio's book.
+
+**Decisions** (operator, 2026-09-26; AskUserQuestion plus two
+messages):
+1. **"Tox" is allowed in this band, as written.** The operator overruled
+   the shorthand rule after the flag: "I'll overrule the /mobile page
+   header on enforcing a ban on 'tox'."
+   - Scope: the band's rendered copy and its source comment.
+   - It never reaches meta, OG, alt text or JSON-LD.
+   - The competitor brand name that the shorthand stands in for still
+     never appears anywhere.
+2. **The van-trip film stays** beside the new words. Its label, captions
+   and overrides are unchanged.
+3. **"Book your Tox To Go party" calls Amy.**
+   - The operator first picked a Book button to Vagaro. The same hour
+     they changed it: "don't send them to Vagaro, send them to call
+     Amy", then "make sure the 'Book Your Tox To Go Party' points to
+     Amy's phone number".
+   - The button's own text is the document's line. It dials her number,
+     with the call event.
+   - Her number is printed under it, for screens that can't place a
+     call.
+   - "Book with Amy" stays Vagaro-only. This is the one Book-worded
+     button that calls; SOW §4 describes the Book buttons as Vagaro's.
+4. **The copy runs as written.**
+   - A consultation sentence was offered after the flag and declined:
+     "Every guest has their own consultation first, and whether a
+     treatment fits is decided with Amy", /mobile's own wording.
+   - The copy answers no "is this right for me" question, so no
+     CLAUDE.md exception is needed.
+   - The home page's next section still says nothing is decided without
+     you.
+5. **"How a party works ›" stays,** under the button: the home page's
+   in-page door to /mobile.
+
+**House style** (stated to the operator, not objected to): headings in
+sentence case. The body keeps the document's words and capitals ("Tox
+Party", "Hostess Service Credit", "Service Credit").
+
+**Flags recorded (once each), not blocking:**
+- **The hostess credit is tied to what the guests buy.**
+  - Some state boards scrutinise rewards for bringing in paying
+    patients; 2026-09-02 already notes the scrutiny of injectable
+    gatherings.
+  - SOW §8 makes pricing Amy's to confirm.
+  - The terms are on her preview checklist (CLINICIAN-SIGN-OFF), and the
+    merge waits for her OK.
+- **The name.** Two web searches (2026-09-26) found no business called
+  "Tox To Go".
+  - A Charlotte med spa trades as "The Tox", and "Tox party" is common
+    trade slang.
+  - This is not a trademark clearance. If Amy wants to own the name, a
+    USPTO search is the next step.
+
+**The band** (`ConceptHome.astro`), top to bottom:
+- the heading "Tox To Go": the section's h2, with its id and its word
+  rise kept;
+- the tagline as the lead;
+- two paragraphs of introduction;
+- three subheads, at the 25px heading size (the pink accent needs 39px):
+  - "Hostess perk: $600 Service Credit";
+  - "Party requirements", with the three requirements as a list and the
+    $2,100 sum;
+  - "Gather your people. Amy will come to you.";
+- the tagline again, at display size, with "Your glow." in the accent
+  and its shimmer (the treatment of /mobile's closing line);
+- "Ready to host?", then the button, the number and the /mobile link.
+
+At 900px and up the film panel holds in view beside the longer copy.
+Phones keep the film above the words.
+
+**Alternatives declined:**
+- a Book button to Vagaro (chosen first, then reversed by the operator);
+- the consultation sentence;
+- removing the film (a text-only band);
+- a Call button reading the number, with the document's line above it
+  (offered first; the operator wanted the document's words on the
+  button).
+
+**Consequences.**
+- **What the home page now says.** It names the neuromodulator
+  shorthand for the first time, and it states a party offer: a minimum,
+  an average spend per guest and a host reward.
+  - /mobile's copy still states none of them, and its header comment
+    now points here.
+  - Party booking from the home page is by phone, as it is on /mobile.
+- **Amy confirms the terms and the wording on the preview** (the new
+  non-gated section in CLINICIAN-SIGN-OFF). Nothing merges before that.
+- **Nothing else changes.** No new script, dependency or cost; the
+  band's film, its player and its overrides are untouched.
+
+**Verification** (PR #209; the site commit `163afbb`):
+- **The gate:** `npm run verify` exit 0 on both commits.
+  - `astro check` 0 errors; lint:claims and lint:voice green; pa11y
+    25/25.
+  - Every Lighthouse assertion held on 8 URLs × 3 runs.
+  - The home row: total 336,991 B (+724 B against the v8 hero), script
+    71,875 B, image 208,279 B, and media 0 (no request for either
+    film). LCP 2,164–2,166ms, CLS 0.
+- **The build against phase-c:**
+  - Only `/` and `/styleguide/concept` change, and only inside the band:
+    the HTML before and after it is byte-identical apart from the
+    stylesheet link.
+  - The home page's own stylesheet changes, and the site-wide one
+    doesn't. The docs commit changed no stylesheet.
+- **The button** is `tel:+17045797108` with the call event, and its text
+  is the document's line.
+- **The closing tagline** breaks only between its phrases. Astro's HTML
+  compression drops a whitespace-only gap between two tags, so the
+  phrases are held together with no-break spaces, not wrapped spans.
+
+## 2026-09-26 — Tox To Go becomes its own page and replaces /mobile (the home band is its door)
+
+**Context.** The entry above put the operator's Tox To Go document in
+the home page's statement band beside Amy's van-trip film, with "How a
+party works ›" still leading to /mobile (PR #209, `163afbb`). The same
+day, on the same PR, before anything merged, the operator changed the
+shape of it:
+- "Get rid of /mobile and get rid of 'How a party works' on the
+  homepage. We don't need it now."
+- "take the 'Tox To Go' section on the home page and move it and make
+  it its own page. Think of it as replacing /mobile."
+- **What /mobile was** (2026-09-02, the page entry; 2026-09-03, the
+  viewfinder film): "Amy comes to you." over the van interior, "How a
+  party works" in three steps, "Bring the people you'd bring anyway."
+  beside the viewfinder film, and a noir close. Its copy stated only
+  what her public posts established and left the terms (which services
+  travel, how far, a minimum, a host reward) as questions for Amy.
+  Production never served it; the standing demo (#97) and the review
+  preview (#149) have carried it since 2026-09-02.
+- **The document states what /mobile left unwritten:** a minimum of 7
+  guests, an average service purchase of $300 per guest, services
+  provided during the scheduled party, and a $600 hostess credit. Two
+  pages saying different amounts of the same thing was the reason to
+  fold them.
+
+**Decisions** (operator, 2026-09-26: four AskUserQuestion answers, then
+the plan approved; the approval carries the authorizations named in
+decisions 5 and 6):
+1. **One page, `/tox-to-go`, replaces `/mobile`.** `src/pages/mobile.astro`
+   is deleted. The new page is built on the same pattern: a standalone
+   route outside the treatments collection, no clinicianApproved gate,
+   Amy's review via the sign-off doc's non-gated section. No redirect:
+   production never served /mobile, and the /book retirement
+   (2026-07-21) was the same plain deletion plus the gate lists.
+2. **The name reaches the page's chrome.** "Tox To Go" is the page's
+   title and meta description (and so its OG and Twitter tags, which
+   the head derives from them), its JSON-LD Service name, and the nav
+   label — "Tox To Go" where it read "Mobile". This widens the entry
+   above, whose decision 1 scoped "Tox" to the band's copy and comment
+   and said it never reaches meta, OG, alt text or JSON-LD: on this one
+   page the name does. The body copy keeps the shorthand as the document
+   has it ("Tox Party", "the Tox experience"). No other page's copy says
+   it (the nav label, by its nature, is on every page); the competitor
+   brand name the shorthand stands in for still never appears anywhere. The 2026-07-19 shorthand rule stands for every
+   other page.
+3. **The band becomes a door, with the call button.** The van-trip film
+   stays: its terms are fixed to "this film, the home band" (CLAUDE.md
+   constraint 3, the eighth pixel override; the fifth script consumer),
+   so moving it was never on the table. Beside it: the heading "Tox To
+   Go" (since the preview, "Tox To Go Party" — the addendum), the
+   tagline, one sentence from the document, "Book your Tox To
+   Go party" calling Amy with her number under it, and "See the hostess
+   perk ›" to /tox-to-go ("Hostess Perk" is the document's own phrase).
+   The subheads, the requirements, the sum and the closing tagline leave
+   the band for the page. The copy is short again, so the panel no
+   longer holds in view while words scroll past. The entry above's
+   decision 5 ("How a party works ›" stays) is superseded.
+4. **"How a party works" is gone** — from the home page, and with the
+   page it pointed at. No link on the site reads it.
+5. **/mobile's media retire with it.** Offered the van interior photo
+   and the viewfinder film for the new page, the operator chose
+   neither: the page is words and its closing band. The two image files
+   and the film's caption file leave the repo (the approval of the plan
+   is the word for the deletions); the film's Blob object stays on the
+   media origin, unreferenced; the seated guest's website-use release
+   stays on file. CLAUDE.md's list of pages opted into the
+   treatment-film autoplay script loses /mobile, on the operator's word
+   (the approval of the plan): the list is operator-maintained and not
+   edited unasked (the 2026-09-03 entry). Retired with the page besides:
+   the three steps, the friends copy, the close's wording, the open
+   questions for Amy (which services travel, how far, a minimum group,
+   solo visits, the van's name) and the asks for more originals (the
+   van exterior, the reels by date, the colleague's consent for the
+   held van portrait). The operator: "We don't need it now." The Tox To
+   Go copy states its own terms; if any of those questions is wanted
+   again, it comes back as its own item.
+6. **The gates.** `/tox-to-go` takes `/mobile`'s place in `.pa11yci.json`
+   with the needs-review cap, the per-URL entry every ombre page needs,
+   authorized by the operator's approval of the plan that named it (the
+   2026-09-02 precedent asked for the operator's own words; the plan
+   carried the line and the operator approved it), and in
+   `lighthouserc.json` on the house row. pa11y 25, LHCI 8 — the counts
+   are unchanged.
+7. **Booking stays a call.** "Book your Tox To Go party" dials Amy on the
+   page as it did in the band; "Book with Amy" stays Vagaro-only;
+   nothing on the page links to Vagaro (the BookLink rule moves from
+   /mobile to /tox-to-go).
+
+**Flags** (recorded once, in the entry above; nothing new to flag): the
+hostess credit tied to what the guests buy, with Amy's confirmation
+gating the merge; the name's ownership, not a trademark clearance;
+"Tox" on the site, now reaching a page title and the nav.
+
+**The page** (`src/pages/tox-to-go.astro`; the file's header comment is
+the code's own record). Every sentence is the document's; the two
+eyebrows ("Private parties", "Tox To Go") are the only added words. With
+no photo and no film, the page carries itself on type and its surfaces:
+- the opening, on the canvas, in one column: the eyebrow, "Tox To Go
+  Party" as the h1 at the larger display size (the addendum), the
+  tagline as the lead, the
+  introduction, the Call button wearing the document's line with the
+  number under it;
+- the offer, on a noir band (the operator's pick over the plain canvas):
+  "Hostess perk: $600 Service Credit" with the credit in the accent and
+  its shimmer, the perk paragraph, "Party requirements", the three
+  requirements as numbered plates in a row (their numerals decorative
+  and hidden from assistive technology; static boxes, no elevation), and
+  the $2,100 sum at lead size;
+- "Gather your people. Amy will come to you." as a two-column split on
+  the canvas, the heading left and the paragraph right at lead size;
+- the close, on noir: the tagline at display size with "Your glow." in
+  the accent and its shimmer, "Ready to host?", the Call button and the
+  number.
+
+**Alternatives declined:**
+- keeping /mobile beside the new page (two pages, different amounts of
+  the same offer; "We don't need it now");
+- a redirect from /mobile (never served in production; the /book
+  precedent);
+- keeping the full copy on the home page as well (one place for the
+  terms; the door is enough);
+- moving the van-trip film to the page (its overrides are fixed to the
+  band);
+- carrying the van interior photo and the viewfinder film over to the
+  page (offered as both and as the film alone; declined);
+- the offer on the plain canvas (offered; the noir band chosen);
+- a page name and nav label without "Tox" (the operator's name for the
+  offer is the page's name);
+- "Host a party ›" as the door's link (the call button already invites
+  hosting; the link names what the page shows).
+
+**Consequences.**
+- **The site's shape.** Twenty-five pa11y URLs and eight Lighthouse
+  URLs, as before — one URL swapped. The sitemap gains /tox-to-go and
+  loses /mobile (the integration writes it; nothing by hand). The
+  "Mobile" nav label is gone. Two image files and one caption file leave
+  the repo; the media origin's inventory is unchanged, with one more
+  object unreferenced.
+- **The new page's speed.** With no eager image, its largest paint is
+  text, so the budget /mobile met by a few milliseconds is no longer
+  close.
+- **What the site says.** The party offer, its terms and its host reward
+  live on one page, in the operator's words; the home page names the
+  offer, invites the call and points at the page. "Tox" renders in the
+  nav label on every page, in copy on /tox-to-go, / and the
+  /styleguide/concept mirror, and in a document head only on
+  /tox-to-go.
+- **Amy's confirmations move to the page** (the sign-off doc's non-gated
+  section, one section replacing two): the terms; the host reward
+  against her professional guidance; the word "Tox"; booking by phone;
+  the name. Nothing merges before her OK.
+- **Records.** CLAUDE.md's opted-in list (the /mobile clause removed);
+  BUILD_SPEC §5 (the nav) and §6 (a /tox-to-go row; the /mobile row
+  retired in the /book style; the home row's band clause); REDESIGN (a
+  new settled row; status notes on the /mobile and viewfinder-film rows;
+  the media inventory; the originals open item closed; the
+  deferred-rounds list; the review-tag line after #149's refresh);
+  RELAUNCH's probe lists (seven players); HOME-CONCEPT §4 and its commit
+  table; CLINICIAN-SIGN-OFF (the pending row's fragments; the new
+  section); CHANGELOG (the day's entry rewritten to the state that
+  ships — nothing had merged, the smile entry's precedent); RUNBOOK's
+  band paragraph; BRAND-ASSETS' LCP note annotated. The 2026-09-02,
+  2026-09-03 and 2026-09-25 entries, the earlier CHANGELOG entries and
+  the dated code comments stay as written.
+- **SOW scope.** The extra page is /tox-to-go, not /mobile (the
+  divergences memo, item 9, after the merge).
+- **The review preview (#149).** Its tag "H" is keyed to /mobile;
+  refreshing it after the merge means resolving the delete of
+  `mobile.astro` against the branch's tag and re-homing H to
+  /tox-to-go.
+- **Nothing else changes.** No new script, dependency or cost; the
+  van-trip film, its player and its overrides are untouched.
+
+**Verification** (PR #209; the site change is two commits — `b105ecf`,
+the four deletions, and `cfdc865`, the page, the band, the nav, the
+comment notes and the gate lists; a staging slip split them, and the
+tree was verified whole):
+- **The gate:** `npm run verify` exit 0 on the records commit and on
+  the site change — `astro check` 0 errors; lint:claims and lint:voice
+  green; pa11y 25/25 with /tox-to-go in the list (0 errors); every
+  Lighthouse assertion held on 8 URLs × 3 runs.
+  - /tox-to-go: total 118,561 B, script 0, image 67,072 B, media 0;
+    LCP 1,578–1,581ms — its largest paint is a paragraph, not an
+    image; CLS 0; performance and accessibility 1.00.
+  - The home row: total 336,360 B (+93 B against the v8 hero), script
+    71,888 B, image 208,279 B, media 0; LCP 2,166–2,179ms; CLS 0.
+- **The build against phase-c:** `dist/mobile/` absent,
+  `dist/tox-to-go/index.html` present; the sitemap lists /tox-to-go and
+  not /mobile; no built page links to /mobile; / and
+  /styleguide/concept change only inside the band; every other page
+  changes only in the header's nav item.
+- **The records commit changed no stylesheet name;** the site change
+  changed the home page's and the site-wide stylesheets (the band's
+  rules gone, the new page's added).
+- **The name's reach:** "Tox" is in the nav label on every page, in
+  copy on /tox-to-go, / and /styleguide/concept, and in a document
+  head only on /tox-to-go (the title, the description, the OG tags, the
+  JSON-LD Service).
+- **The buttons:** both call buttons on the page and the band's are
+  `tel:+17045797108` with the call event; the page loads no script.
+- **The plates** render in view at 1280 and 390, with and without
+  reduced motion (opacity 1 once entered; visible from the start under
+  reduced motion).
+
+**Addendum (the operator, on the preview, 2026-09-26).** "It really
+looks pretty good. Can you change on the home page the title of the
+section to 'Tox To Go Party'. Do the same thing to the /tox-to-go page
+as well. Make the heading 'Tox To Go Party'. Also, make the phone number
+on the /tox-to-go page a little larger. It's hard to read."
+- The band's h2 and the page's h1 read "Tox To Go Party". The offer's
+  name stays "Tox To Go" everywhere else: the page title, the
+  description, the JSON-LD name, the nav label and the closing band's
+  eyebrow.
+- The number under the page's two call buttons is a step larger (18px,
+  from 15px). The band's number, the same recipe, is unchanged and can
+  follow on the operator's word. **Then, on the preview again, with
+  screenshots of all three places:** "I need the phone number to be
+  larger." The number is 24px and semibold under all three buttons —
+  the page's two and the band's — a line in its own right.
+- The rule that the words are the document's stands: "Party" in the
+  heading is the operator's own addition, and the page's header comment
+  says so.

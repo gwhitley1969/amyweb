@@ -313,7 +313,7 @@ carries an 80KB script budget for the layer (measured ~69KB gzipped);
 every other page keeps 30KB.
 
 **The hero film** is a film facade: the portrait `<Image>` ships and
-paints; the script attaches `hero-living-portrait-v6.mp4` (the media
+paints; the script attaches `hero-living-portrait-v7.mp4` (the media
 origin) over it and fades it in (1.6s, after a 0.2s wait). Since
 2026-09-17 (DECISIONS same date) it is one purpose-made 11s file played
 at 1× with the native loop, so there is nothing to trim or join. Since
@@ -370,7 +370,11 @@ Seedance re-frames its input by a percent or two, so align the new
 frames to the old take (a background-only fit, `register.cjs` then
 `refine-fit.cjs`) and tone-match them before a short dissolve inside
 the stillness. Edits of a whole take (Seedance `video_edit`, Kling Omni
-Edit) kept the old motion there.
+Edit) kept the old motion there. To change how a performance LOOKS
+(DECISIONS 2026-09-26, v7), make the target still first — an image
+edit of the take's own frame, guided by published photos, pasted back so
+only the face changes — then generate from the frame INTO it as the end
+frame; edits of the old take kept its look.
 Verify on the running page: count `requestVideoFrameCallback`
 presentations for a loop and sample `paused` every 50ms — expect the
 film's frame rate, 0 paused samples, no frame gap over ~100ms at the

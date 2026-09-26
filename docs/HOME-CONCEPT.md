@@ -34,7 +34,7 @@ merged here; the hero reel takes the same policy.
 choppy, and after four rounds (a pixel-locked cinemagraph — "boring";
 the fast cut with AI living moments — "That looks great!!!"; a hop at
 the handoff; the head turn's speed; the eyes) the hero plays
-`hero-living-portrait-v6.mp4`, one purpose-made looping film —
+`hero-living-portrait-v7.mp4`, one purpose-made looping film —
 AI-assisted and disclosed (DECISIONS 2026-09-17, the entry and its
 addenda; merged in PR #190). Through v4 it opened and ended on the
 portrait; since 2026-09-18, at the founders' request, the same shots
@@ -76,6 +76,7 @@ record.
 | `dcd223a` | 2026-09-17 | **feat(home): the hero film is remade as a living-portrait film** — PR #190 (`feat/hero-living-portrait`); the three reel passages retire, `hero-living-portrait-v4.mp4` loops natively; AI-assisted, disclosed (DECISIONS 2026-09-17) |
 | `7aa832c` | 2026-09-18 | **feat(home): the hero film re-ordered** — PR #191 (`feat/hero-film-reorder`), the founders' request: the hair shot opens, the turn and the laugh finish; same footage, `hero-living-portrait-v5.mp4`; the loop point inside a white flash, the fade-in waits 0.2s (DECISIONS 2026-09-18) |
 | `13f1614` | 2026-09-25 | **feat(home): the hero film ends on a smile, not a laugh** — PR #207 (`feat/hero-film-smile`), Amy's request: a new Seedance 2.5 take spliced in after the turn, her eyes open; `hero-living-portrait-v6.mp4` (DECISIONS 2026-09-25) |
+| `97ed407` | 2026-09-26 | **feat(home): the hero film's smile re-made to look like Amy's own** — PR #207 (`feat/hero-film-smile`), the operator on v6: "doesn't look good at all"; a Seedance 2.5 take generated into a still of her smile (Nano Banana Pro, guided by her published photos); `hero-living-portrait-v7.mp4` (DECISIONS 2026-09-26 addendum) |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,
@@ -95,7 +96,7 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   Palacios, FNP, in medical aesthetics since 2017."* Below 900px the
   hero is the phase-c stack.
 - **The film since 2026-09-17.** The reel described in the next item
-  is history: the hero now plays `hero-living-portrait-v6.mp4`, one
+  is history: the hero now plays `hero-living-portrait-v7.mp4`, one
   purpose-made 11s film (24fps, native loop, 3.5MB) that needs no
   ranges, joins, or rest — AI-assisted and disclosed (DECISIONS
   2026-09-17). Since 2026-09-18 it opens on the hair shot and finishes

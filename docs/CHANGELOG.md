@@ -6,19 +6,23 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
-### 2026-09-25 — The home hero film ends on a warm smile, not a laugh
+### 2026-09-26 — The home hero film ends on Amy's own warm smile, not a laugh
 
 - At the end of the home hero film Amy turns to the camera and now
   breaks into a warm smile, her eyes open, instead of bursting out
   laughing. It is her request.
+- The smile is shaped on her own. A first version (2026-09-25) did not
+  look like her, so before it merged the ending was re-made. A still of
+  her smile was made first from the film's own frame, guided by her
+  published photos, and the new performance smiles into it.
 - Everything before that moment is the same footage: the hair shot, the
   portraits, and the portrait coming alive and turning. The new ending
   is a second AI performance (Higgsfield, Seedance 2.5), started from
   the moment she faces the camera and joined inside a still moment, so
   the turn the founders approved is untouched.
-- The file is `hero-living-portrait-v6.mp4` (11.04s, 3.5MB), in PR #207.
-  DECISIONS 2026-09-25; the making-of is in `C:\Amy\hero-film\README.md`,
-  outside the repo.
+- The file is `hero-living-portrait-v7.mp4` (11.04s, 3.5MB), in PR #207.
+  DECISIONS 2026-09-25 and its 2026-09-26 addendum; the making-of is in
+  `C:\Amy\hero-film\README.md`, outside the repo.
 
 ### 2026-09-25 — Shared links show Amy's share card
 

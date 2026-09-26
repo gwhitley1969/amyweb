@@ -12050,7 +12050,10 @@ on the /tox-to-go page a little larger. It's hard to read."
   eyebrow.
 - The number under the page's two call buttons is a step larger (18px,
   from 15px). The band's number, the same recipe, is unchanged and can
-  follow on the operator's word.
+  follow on the operator's word. **Then, on the preview again, with
+  screenshots of all three places:** "I need the phone number to be
+  larger." The number is 24px and semibold under all three buttons —
+  the page's two and the band's — a line in its own right.
 - The rule that the words are the document's stands: "Party" in the
   heading is the operator's own addition, and the page's header comment
   says so.

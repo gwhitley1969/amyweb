@@ -187,12 +187,16 @@ const jsonLd = [
 <style>
   /* The number under a call button, for screens that cannot place a
    * call — the home band's 2026-09-26 recipe, hand-copied (page-local
-   * styles stay page-local), a step larger than the band's at the
-   * operator's direction on the preview ("hard to read"). It inherits
-   * the surface's text color: ink-900 on the canvas, paper on noir. */
+   * styles stay page-local). Sized at the operator's direction on the
+   * preview — "hard to read" at 15px, "I need the phone number to be
+   * larger" at 18px — so it is a line in its own right: 24px, semibold,
+   * the same on the band. It inherits the surface's text color: ink-900
+   * on the canvas, paper on noir. */
   .tox-phone {
-    margin-top: 0.75rem;
-    font-size: 1.125rem;
+    margin-top: 0.875rem;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-weight: 600;
     letter-spacing: 0.02em;
   }
   /* The requirement plates on noir: static boxes — the noir card is

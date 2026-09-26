@@ -783,10 +783,14 @@ const CHEVRONS = [
     padding: 3rem 1.5rem 4rem;
   }
   /* The number under the band's call button, for screens that cannot
-   * place a call (2026-09-26). It inherits noir's text color. */
+   * place a call (2026-09-26): 24px, semibold, at the operator's
+   * direction on the preview ("I need the phone number to be larger"),
+   * the same as the page's. It inherits noir's text color. */
   .nc-band__phone {
-    margin-top: 0.75rem;
-    font-size: 0.9375rem;
+    margin-top: 0.875rem;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-weight: 600;
     letter-spacing: 0.02em;
   }
   @media (min-width: 900px) {

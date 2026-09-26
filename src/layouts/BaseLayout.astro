@@ -8,13 +8,17 @@ import { localBusiness } from '../lib/schema';
 
 interface Props {
   title: string;
+  /** Optional title for the share preview only (og:title, twitter:title);
+   * SeoHead falls back to `title`. The placeholder sets one (DECISIONS
+   * 2026-09-26 on phase-c, the link-share card entry). */
+  shareTitle?: string | undefined;
   description: string;
   /** Page surface: light "studio" (default) or dark "sign" (BUILD_SPEC §5 plan). */
   surface?: 'light' | 'noir';
   ogImage?: string | undefined;
 }
 
-const { title, description, surface = 'light', ogImage } = Astro.props;
+const { title, shareTitle, description, surface = 'light', ogImage } = Astro.props;
 const jsonLd = JSON.stringify(localBusiness());
 ---
 
@@ -23,7 +27,7 @@ const jsonLd = JSON.stringify(localBusiness());
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <SeoHead title={title} description={description} ogImage={ogImage} />
+    <SeoHead title={title} shareTitle={shareTitle} description={description} ogImage={ogImage} />
     {/* Favicons derived from the logo (scripts/derive-logo.mjs on phase-c, 2026-09-15):
         the ICO carries 16/32/48; iOS takes the 180px tile. */}
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />

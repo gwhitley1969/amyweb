@@ -549,7 +549,9 @@ silently following it. Known superseded points from earlier briefs:
   screened passages and their portrait beat; re-ordered 2026-09-18 at
   the founders' request, same footage — it opens on the hair shot and
   finishes on the portrait coming alive, its loop point inside a white
-  flash), autoplaying under reduced motion by the films policy.
+  flash; since 2026-09-25, at Amy's request, the portrait smiles rather
+  than laughs, a new generated take — DECISIONS same date), autoplaying
+  under reduced motion by the films policy.
   Widening any of this to another page requires the human operator.
   Fifth sanctioned consumer (2026-09-25, operator-directed — DECISIONS
   same date): the home band's film player, `public/js/band-film.js`

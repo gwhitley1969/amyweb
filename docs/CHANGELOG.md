@@ -17,7 +17,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   touch in code. They also picked the take that smiles into it,
   accepting that her eyes close a little more than in the still.
 - Everything before that moment is the same footage.
-- The file is `hero-living-portrait-v8.mp4` (11.54s, 3.6MB). The record
+- The file is `hero-living-portrait-v8.mp4` (11.54s, 3.6MB), in PR #208.
+  The record
   is DECISIONS 2026-09-26, the second addendum; the making-of is in
   `C:\Amy\hero-film\README.md`, outside the repo.
 

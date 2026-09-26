@@ -11657,7 +11657,7 @@ warmth:
 3,586,116 B; SHA-256
 6ffa50b7311d2a652501c14c4610680524dbff7e86cd36f916af05eb658ec594;
 1080×1502, 24fps, 277 frames / 11.54s, no audio). It is encoded as
-v5–v7 were. v7 stays on the origin, unreferenced.
+v5–v7 were and ships in PR #208. v7 stays on the origin, unreferenced.
 
 **Alternatives rejected.**
 - Edits of v7's take: edits keep a take's look.
@@ -11689,3 +11689,13 @@ v5–v7 were. v7 stays on the origin, unreferenced.
 - **Detail:** after the join the face carries 0.93–1.02 of its
   pre-join detail.
 - **Per frame:** every frame used was screened at hero size.
+- **The site:** only the hero element's `data-file` and `data-vtt`
+  change, on `/` and `/styleguide/concept`, plus the caption file. No
+  stylesheet changed.
+- **The gate:** `npm run verify` exit 0 on both commits — `astro check`
+  0/0/0, lint:claims and lint:voice green, pa11y 25/25, and every
+  Lighthouse assertion held on 8 URLs × 3 runs. The home row: total
+  336,267 B (+2 B against v7), script 71,875 B, image 208,279 B, and
+  media 0, with no request for the film; LCP 2,164–2,240ms.
+- **The blob:** a range request returns 206 and `video/mp4`; the served
+  bytes match the file's SHA-256.

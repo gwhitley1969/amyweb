@@ -6,6 +6,28 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-26 — Shared links show the pink share card and the practice's name
+
+- The card a shared needlegirlie.com link shows is re-made on the
+  website's own pink canvas: Amy in the arch, the Needle Girlie logo on
+  a black plate, and "Amy Palacios, FNP", "Mobile Aesthetics" and
+  "Harrisburg, NC" in type about twice the size it was, so it reads on a
+  phone. The client picked the canvas look; the operator picked the
+  two-line location.
+- The line under the picture now reads "Mobile Aesthetics · Harrisburg,
+  NC" for a shared home page. It read "Medical Aesthetics in Harrisburg,
+  NC", which is the page's title; that title stays as it is for search.
+- Why the card changed colour: since iOS 18, Messages colours the bar
+  under a link's picture from the picture itself. The black card gave a
+  dark plum bar, and no setting on the site controls it.
+- The live Under Construction page gets both by a hotfix to `main`, and
+  the relaunched site keeps them: both carry the same files.
+- Links shared before the change keep their old preview until each app
+  re-reads the page. The 2026-09-25 card's file stays on the site until
+  relaunch for those previews.
+- It is PR #212 (phase-c) and hotfix PR #213 (main); the record is
+  DECISIONS 2026-09-26, the link-share card entry.
+
 ### 2026-09-26 — Tox To Go is its own page, replacing /mobile; the home band is its door
 
 - The site gains /tox-to-go: host a private party at your place, and

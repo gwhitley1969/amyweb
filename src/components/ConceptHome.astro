@@ -528,9 +528,17 @@ const CHEVRONS = [
     mix-blend-mode: screen;
   }
 
-  /* HERO — split editorial: type left, photo right; stacked on mobile. */
+  /* HERO — split editorial: type left, photo right; stacked on mobile.
+   * x is clipped at every width (2026-09-26, DECISIONS same date): the
+   * exit swell (home-motion step 3, scale 1.12 from 60% 40%) pushes the
+   * media's box about 5% of the width past the right edge, and below
+   * 900px nothing else clipped it, so the whole page panned sideways and
+   * mobile Chrome widened its layout viewport. clip, not hidden: no
+   * scroll container, and y stays visible, so nothing on screen changes.
+   * The >=900px overflow: hidden below still governs desktop. */
   .nc-hero {
     display: grid;
+    overflow-x: clip;
   }
   .nc-hero__img {
     width: 100%;

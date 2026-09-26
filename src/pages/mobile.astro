@@ -4,6 +4,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
+import ReviewNumber from '../components/ReviewNumber.astro';
+import { reviewTag } from '../lib/reviewTags';
 import TreatmentVideo from '../components/TreatmentVideo.astro';
 import { siteConfig } from '../lib/siteConfig';
 import { service } from '../lib/schema';
@@ -75,6 +77,9 @@ const pageTitle = 'Mobile Parties in Harrisburg & Charlotte, NC | Needle Girlie'
 const pageDescription =
   'Amy Palacios, FNP, brings her Harrisburg studio to your home, office, or gathering in a van fitted out as a treatment room. Parties around Charlotte, planned by phone.';
 
+// REVIEW SCAFFOLDING (ReviewNumber.astro) — letter tag for this route.
+const reviewPageTag = reviewTag(Astro.url.pathname);
+
 const jsonLd = [
   service(
     'Mobile parties',
@@ -88,6 +93,7 @@ const jsonLd = [
   <Header slot="header" />
 
   <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    {reviewPageTag && <ReviewNumber n={reviewPageTag} />}
     <div class="grid items-start gap-10 md:grid-cols-[6fr_5fr]">
       <div>
         <p class="eyebrow">Mobile parties</p>

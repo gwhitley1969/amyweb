@@ -11370,3 +11370,250 @@ credential, the practice and the town.
 - **The relaunch keeps the card,** because phase-c carries the same file
   and tags.
 - **Amy's pending look sign-off** gains the card (CLINICIAN-SIGN-OFF).
+
+## 2026-09-25 — The home hero film ends on a warm smile, not a laugh (a new generated take from the moment she faces the camera; Amy's request)
+
+**Context.** Amy asked (relayed by the operator, 2026-09-25) for a change
+to the finish of the home hero film. She sits on the studio counter with
+syringes in both hands and turns from her left shoulder to the camera;
+in v5 she then bursts out laughing. She wants her simply to smile when
+she faces forward.
+- **Where the laugh comes from.** The closing shot is Higgsfield take
+  P1-t1 (Seedance 2.5, 2026-09-17), whose prompt asked for "a genuine
+  relaxed laugh". In v5 the laugh runs from about 9.5s into the white
+  flash. Just before it the take holds a soft closed-lip smile, its
+  stillest stretch after the turn (f0083–f0090), which v5 compressed
+  with the rest of the neutral look.
+- **It replaces a performance the founders approved** (2026-09-17, kept
+  in the 2026-09-18 re-order, which rejected "a new generation" for
+  exactly that reason). This change is Amy's own request.
+
+**Decisions** (operator, AskUserQuestion, 2026-09-25):
+1. **A warm smile with teeth**, the only style made. Mid-build the
+   operator added: no squinting at all.
+2. **The input rule (2026-09-17).** The new take starts from a frame of
+   P1-t1 where she has just turned and settled (f0086), sent back to
+   Higgsfield. The operator ruled this within the rule:
+   - it shows Amy alone;
+   - it is Higgsfield's own output, made from the hero portrait's
+     mirror-padded canvas;
+   - the hero portrait is the same photo as the live placeholder's
+     image.
+   v5 shows that frame only inside a four-frame blend (f0083–f0086,
+   mean difference 0.25 of 255). A face crop of the neon-sign portrait,
+   already uploaded 2026-09-17, went up as an identity reference for two
+   of the takes.
+3. **Review:** the best take by the screen goes straight to a PR
+   preview for Amy's phone check.
+4. **Budget:** up to 700 Higgsfield credits.
+
+**Round 1: six takes, 277 credits.** The account is still on the ultra
+plan that the 2026-09-17 commercial-use addendum rests on.
+- **Four new takes from the settled frame** (Seedance 2.5, 4s, 1080p,
+  camera locked): someone off-camera says something kind, and within
+  half a second her smile widens into a warm, bright smile with her
+  teeth showing; she does not laugh. Two of them also carried the face
+  reference.
+- **Two edits of the whole take,** asked to turn the laugh into a
+  smile: Seedance 2.5 `video_edit` and Kling 3.0 Omni Edit.
+- **Result.**
+  - Both edits kept the laugh's motion and its squint. The Kling edit
+    also gave her an open, talking mouth in the untouched lead-in.
+  - The reference takes smiled with narrowed eyes and gained no visible
+    likeness.
+  - **Shipped: take SM1-t1.** It holds her soft smile, then her lips
+    part (its frame 32) into a warm, open-eyed smile with natural
+    teeth.
+
+**The screen** (the 2026-09-17 rules, frame by frame at hero size).
+- **What holds:** her face, her teeth, both hands and the syringes, the
+  neon script, the scrub embroidery, the mirror engraving and the
+  labelled items under the counter. No smoothing, ageing or heavy lines.
+- **The camera is locked:** its fit to f0086 is the same at the take's
+  first, middle and last frame.
+- **The eyes stay open.** The visible eye area stays at 1.13–1.23 of the
+  stare's through take frame 61, then drops to 0.75 by frame 65 as a
+  crinkle starts. So the film uses the take only through frame 60.
+
+**The splice** (the working folder's README, v6).
+- **Unchanged:** every shot before the closing one, and the closing shot
+  through the turn, use v5's source frames.
+- **The settle:** the turn's own deceleration plays at real speed
+  (f0070–f0078).
+- **The join:** a six-frame dissolve (0.25s) inside the still stretch
+  hands over to the new take. The smile begins about 0.67s after the
+  turn.
+- **Alignment:** Seedance re-frames its input (this take by scale 1.007,
+  −8/−12px). So the new frames are aligned to the old take (a
+  background-only fit, refined to sub-pixel) and tone-matched before the
+  dissolve.
+
+**The file built:** `hero-living-portrait-v6.mp4` (media origin;
+3,513,005 B; SHA-256
+4711c4f079756e767fbf0130cd325a28ff87a6bb208d8ecc96c0891d2d1d1ec7;
+1080×1502, 24fps, 265 frames / 11.04s, no audio). It is encoded exactly
+as v5 was: CRF 22, the same grain, the same white flash. It went up on
+PR #207's preview and was superseded before merge by v7: the operator
+found its smile did not look like her (the addendum below).
+
+**Alternatives rejected.**
+- Her own soft closed-lip smile from the existing take (zero credits):
+  the operator chose a warm smile with teeth.
+- The two edit routes, which kept the laugh.
+- The reference takes, and SM1-t2, the runner-up: their smiles arrive
+  with narrowed eyes.
+- Trimming the laugh without a new take: the film would end on a stare.
+
+**Consequences.**
+- **Amy's sign-off:** her pending sign-off on her generated likeness now
+  covers new footage (CLINICIAN-SIGN-OFF).
+- **Disclosure:** the component comment and the VTT note (now `?v=3`)
+  name the second take. The label now reads "she turns to the camera
+  with a warm smile".
+- **Old files:** v5 stays on the origin, unreferenced, as v1–v4 do.
+  Deleting them is an operator cleanup item.
+- **Credits:** 277 of the 700 approved (1,568.12 → 1,291.12).
+
+**Verification.**
+- **The loop seam:** the file's first and last frames are flat white
+  (luma 233–238).
+- **Against v5:**
+  - frames 0–144 are bit-identical (the grain is deterministic);
+  - every frame through the end of the turn (frame 219) is within 1.25
+    of 255, which is x264's choices only.
+- **The join:** the frame-to-frame change across it (0.89–1.40) sits at
+  the film's own grain level (0.64–1.14 around it). v5's laugh changed
+  1.7–3.0 at the same place.
+- **Detail:** after the join the face carries 0.89 of the old take's
+  fine detail, which is not visible at hero size.
+- **The site:** only the hero element's three attributes change, on `/`
+  and `/styleguide/concept`, plus the caption file. No stylesheet
+  changed.
+- **The gate:** `npm run verify` exit 0 — `astro check` 0/0/0,
+  lint:claims and lint:voice green, pa11y 25/25, and every Lighthouse
+  assertion held on 8 URLs × 3 runs. The home row: total 336,267 B
+  (+11 B), script 71,875 B, image 208,279 B, and media 0, with no
+  request for the film; LCP 2,060–2,237ms.
+
+## 2026-09-26 — Addendum: the hero film's smile is re-made to look like Amy's own (v7, before merge)
+
+**Context.** On PR #207's preview the operator: "The smile in the film
+doesn't look good at all", sharing four photos of Amy smiling as
+examples of her natural smile (not for the film).
+- **What was wrong, measured** by hand on grid crops (working folder,
+  `stage0/landmarks.md`). Against her front-on photos, v6's smile is:
+  - wider: the mouth 1.13 × the distance between her pupils, against her
+    0.97–1.08;
+  - thinner-lipped: the lower lip 0.10 of the mouth's width, against her
+    0.15–0.21;
+  - narrower-eyed: the lid gap 0.34 of the eye's width, against her
+    0.38–0.41.
+- **Why it showed.** The closing shot opens on the hero portrait itself,
+  her real smile in the same lipstick and light, about a second before
+  the generated smile. A generic smile there reads as someone else.
+
+**Decisions** (operator, AskUserQuestion, 2026-09-26):
+1. The photos are examples only.
+2. Review goes straight to the PR preview; the take is picked by the
+   screen.
+3. Budget: up to 700 more credits.
+4. Only the smile changes. The turn the founders approved stays.
+
+**The input rule (2026-09-17).** Two of the four photos are published
+here: the lavender-suit portrait (byte-identical to
+`amy-lavender-suit.jpg`) and the master of `lavender-suit-stool.jpg`.
+Two are not: a pink-scrubs shot with Evolysse cartons, and a neon-sign
+shot. Only published material went to Higgsfield:
+- face crops, with no lettering or packaging, of the hero portrait, the
+  lavender-suit portrait and the stool portrait;
+- the neon-sign portrait's face crop, already uploaded 2026-09-25;
+- a head crop of the take's settled frame, which was ruled within the
+  rule 2026-09-25.
+
+The two unpublished photos never left the PC; they were only the
+screening guide.
+
+**Method: the target still first, then video into it.**
+- **The still** (17 image edits, 32.25 credits): the settled frame's head
+  crop, edited with the four face crops as the guide. The prompts keep
+  the composition and her pose and use the photos only for her smile.
+  Nano Banana Pro, GPT Image 2.5, Seedream 5.0 Pro and Seedream 4.5 were
+  tried.
+  - Each edit's lower face was pasted back into the settled frame: fitted
+    on the hair and background, tone- and detail-matched. Her eyes stay
+    the frame's own.
+  - **Picked: a Nano Banana Pro edit.** Her mouth is 1.02–1.04 × her
+    pupil distance, with her upper teeth over a fuller lower lip.
+  - **Rejected:** GPT Image 2.5, where the teeth barely show (its filter
+    also flagged one plain face edit, uncharged); Seedream 4.5, which
+    re-composed the frame; and a first Nano Banana Pro run whose prompt
+    called the frame "a close-up", so it zoomed in and turned her head.
+- **The moving smile** (9 jobs, 182 credits). These routes were tried:
+  - Seedance 2.5 from the settled frame INTO the still, as its end frame
+    (two takes);
+  - Wan 3.0 and MiniMax H3 the same way;
+  - Kling 3.0 Omni Edit and Seedance `video_edit` of v6's take, toward the
+    still.
+
+  **Shipped: Seedance 2.5 take SE-sd1**, with no image references. It
+  holds her settled look, then her lips part into the still's soft smile.
+  - Her eyes are open in every frame used (round 1's dark-eye metric,
+    1.07–1.35 of the hold).
+  - The camera is locked: the same fit, 0.986/−8.1/−6.9, at its first,
+    middle and last frames.
+  - The neon script, the embroidery, the mirror engraving, the boxes'
+    labels, both hands and the syringes hold.
+  - Face detail is 1.00–1.07 of its opening.
+
+  **Rejected:**
+  - the second Seedance take (the one with face references) and both Wan
+    takes: a talking mouth and closed eyes, and Wan (30fps) moves at
+    once;
+  - MiniMax: failed at Higgsfield, refunded;
+  - the three edits: they kept v6's grin.
+- **The splice** is v6's recipe. The turn and settle are unchanged, a
+  six-frame dissolve sits inside the still stretch, and the smile starts
+  on v6's beat. It keeps the same 29 smile frames and ends three frames
+  before a blink.
+
+**The shipped file:** `hero-living-portrait-v7.mp4` (media origin;
+3,521,569 B; SHA-256
+c0d943a6d2e2913f13b4e6806f2bb5215d7765c5814167528d6a9be25523a8f7;
+1080×1502, 24fps, 265 frames / 11.04s, no audio). It is encoded as v5
+and v6 were and ships in PR #207. v6 stays on the origin, unreferenced;
+it never merged.
+
+**Alternatives rejected.**
+- Sending the two unpublished photos as references: the rule, and the
+  published ones sufficed.
+- Training a Soul ID: its identity model feeds only Higgsfield's Soul
+  image models.
+- Editing v6's take: the edits kept its grin.
+- Her closed-lip smile from the existing take: the operator wants teeth.
+
+**Consequences.**
+- **Credits:** 214.25 of the 700 (1,291.12 → 1,076.87).
+- **Disclosure:** the component comment and the VTT note (now `?v=4`)
+  name the still's edit: Nano Banana Pro, guided by her published photos.
+- **Amy's sign-off:** her pending sign-off on her generated likeness
+  covers the new footage (CLINICIAN-SIGN-OFF).
+- **The method is recorded in RUNBOOK:** to change how a performance
+  looks, make the target still first, then generate into it.
+
+**Verification.**
+- **The loop seam:** flat white (luma 233–238).
+- **Against v6:**
+  - frames 0–156 are bit-identical;
+  - every frame through the settle is within 1.24 of 255, x264's choices
+    only. OPEN6's shared input frames are byte-identical to OPEN5's.
+- **The join:** 1.00–1.47 per frame, against 0.9–1.3 around it.
+- **Detail:** after the join the face carries 0.90–1.04 of the old
+  take's detail (v6: 0.90–0.94).
+- **The site:** only the hero element's `data-file` and `data-vtt`
+  change, on `/` and `/styleguide/concept`, plus the caption file. No
+  stylesheet changed.
+- **The gate:** `npm run verify` exit 0 — `astro check` 0/0/0,
+  lint:claims and lint:voice green, pa11y 25/25, and every Lighthouse
+  assertion held on 8 URLs × 3 runs. The home row: total 336,265 B
+  (−2 B against v6), script 71,875 B, image 208,279 B, and media 0, with
+  no request for the film; LCP 2,165–2,176ms.

@@ -11560,3 +11560,132 @@ it never merged.
   assertion held on 8 URLs × 3 runs. The home row: total 336,265 B
   (−2 B against v6), script 71,875 B, image 208,279 B, and media 0, with
   no request for the film; LCP 2,165–2,176ms.
+
+## 2026-09-26 — Second addendum: the hero film's smile is made warmer (v8; the client: "meh")
+
+**Context.** After v7 merged (PR #207), the client said the closing
+smile isn't warm enough: Amy looks like she's saying "meh", like she
+doesn't care (relayed by the operator). They want it warmer without
+going over the top.
+- **What was wrong, measured** (working folder,
+  `stage2/base/corner-lift.md`). The corner lift is the height of the
+  mouth's centre above the mean of its corners, divided by the mouth's
+  width. It is measured square to the pupil line and averaged over three
+  differently gridded placements.
+  - v7's smile: 0.025 (the still) and 0.029 (the take). Its corners sit
+    level with the middle of the mouth.
+  - Her three front-on photos: 0.109, 0.120 and 0.132. The first still
+    reads 0.116 when softened to the film's sharpness, so the film's
+    softness doesn't bias the measure.
+- **Her eyes and cheeks never joined in.** v7's still pasted back only
+  the lower face; the eyes stayed the settled frame's, under 2026-09-25's
+  "no squinting at all". A smile only in the mouth reads as polite.
+- **The arc goes down.** Her real smile at 8.5s, then a closed-lip look
+  for about 0.7s, then a small smile for about 1.1s before the flash.
+
+**Decisions** (operator, AskUserQuestion, 2026-09-26):
+1. **Smiling eyes are allowed.** Her lower lids lift with her cheeks and
+   her upper lids stay up; never narrower than in her own photos (about
+   0.88 of the settled look's opening). This narrows 2026-09-25's "no
+   squinting at all".
+2. **Stills first.** The operator picks the warmth level on stills; the
+   take then goes straight to the preview.
+3. **Budget:** up to 500 credits.
+4. **Length:** the smile may hold up to 0.5s longer if the take keeps her
+   eyes open with no blink.
+5. **The still** (from four, AskUserQuestion): the warmer edit with its
+   two mouth corners lifted 3px in code. It was flagged as a code
+   touch-up; the plan had rejected a code warp as a whole method, and
+   here it only refines a real edit.
+6. **The take** (AskUserQuestion, between the two usable takes): SE8-sd2
+   over SE8-sd4. It was
+   flagged that sd2's eyes close past the still's once her lips part:
+   0.69–0.86 of the settled look's opening against the still's 0.90–0.91,
+   past the line in decision 1. **Operator override after the flag.**
+
+**The input rule (2026-09-17)** is unchanged. Only published, Amy-only
+material went to Higgsfield:
+- v7's head crop of the settled frame;
+- v7's four face crops of her published photos;
+- the picked still: Higgsfield's own output, the settled frame (ruled
+  within the rule 2026-09-25) with Higgsfield's own edit of its face.
+
+The two unpublished photos stayed on the PC; they appear only in hand
+measurements.
+
+**Method**, v7's (the target still first, then video into it), aimed at
+warmth:
+- **The still** (18 image edits, 39 credits; Nano Banana Pro and
+  Seedream 5.0 Pro). The prompts ask for her warm smile: the corners turn
+  up, the cheeks rise and the lower lids lift, while the upper lids,
+  irises and brows stay. Each edit's whole face, brows to chin, is pasted
+  back into the settled frame; v7 pasted only the lower face.
+  - **Rejected:** 8 edits re-framed the crop, 3 lowered the upper lids (a
+    squint), and Seedream's went wide like v6's grin (about 1.14 × the
+    pupil distance).
+  - **Picked (operator):** a Nano Banana Pro edit with its two mouth
+    corners lifted 3px in code, a smooth local lift with no widening.
+    - Corner lift 0.098 (v7: 0.025).
+    - The mouth is 1.10 × the pupil distance.
+    - The eyes are 0.91 / 0.90 of the settled look's opening, with the
+      upper lids unchanged.
+- **The moving smile** (six Seedance 2.5 takes from the settled frame
+  INTO the still, 288 credits). The second round's prompt pins her eyes
+  to the final frame's opening.
+  - **Shipped: take SE8-sd2** (the operator's choice). It holds her
+    settled look, then the corners lift, her lips part, and she holds a
+    warm smile to the end, the head steady, with no blink.
+    - The camera is locked: 0.986/−8.0/−6.75 at its first, middle and
+      last frames.
+    - The neon script, the embroidery, the mirror engraving, the boxes'
+      labels, both hands and the syringes hold.
+  - **Rejected:**
+    - one take squints and tilts after about 0.6s of smile;
+    - in two, once the room is aligned, her face sits 7–8px low, so the
+      dissolve would jump;
+    - one has a talking mouth;
+    - the runner-up, SE8-sd4, keeps the still's eyes, but its teeth come
+      late and its face drifts 4–5px across the dissolve.
+  - **The eye measure changed.** Round 1's dark-eye count reads a softer
+    rendering as a narrower eye. The lid edges down each iris column, at
+    a per-image half-level threshold, replaced it.
+- **The splice** is v7's. The turn and settle are unchanged, and a
+  six-frame dissolve sits inside the still stretch. Then come 41 smile
+  frames (v7: 29), so the smile holds 0.5s longer.
+
+**The shipped file:** `hero-living-portrait-v8.mp4` (media origin;
+3,586,116 B; SHA-256
+6ffa50b7311d2a652501c14c4610680524dbff7e86cd36f916af05eb658ec594;
+1080×1502, 24fps, 277 frames / 11.54s, no audio). It is encoded as
+v5–v7 were. v7 stays on the origin, unreferenced.
+
+**Alternatives rejected.**
+- Edits of v7's take: edits keep a take's look.
+- A code warp as the whole method: it can't raise the cheeks or make the
+  eyes smile. It is used only as the 3px refinement of a real edit.
+- Re-making the turn: the founders approved it, and it wasn't asked for.
+- The runner-up take (above), and a third take round (144 more credits).
+
+**Consequences.**
+- **Credits:** 327 of the 500 (1,076.87 → 749.87).
+- **Disclosure:** the component comment and the VTT note (now `?v=5`)
+  name the still's edit: its whole face by Nano Banana Pro, guided by
+  her published photos, with its corners lifted 3px in code.
+- **The eye rule:** 2026-09-25's "no squinting at all" is narrowed by
+  decision 1, and this take goes past that too, by the operator's
+  override after the flag (decision 6).
+- **Amy's sign-off:** her pending sign-off on her generated likeness
+  covers the new footage (CLINICIAN-SIGN-OFF).
+- **RUNBOOK** adds: a smile reads warm only when the corners lift and
+  the cheeks and eyes join in. Measure the corner lift, paste the whole
+  face, and pin the eyes in the prompt.
+
+**Verification.**
+- **The loop seam:** flat white (luma 233–238).
+- **Against v7:** 156 of frames 0–228 are bit-identical. The rest,
+  through the settle, are within 1.27 of 255 (x264's choices).
+- **The join:** 0.99–1.42 per frame across the whole frame and 0.67–0.90
+  in the face box, against v7's 1.00–1.47 / 0.76–1.76.
+- **Detail:** after the join the face carries 0.93–1.02 of its
+  pre-join detail.
+- **Per frame:** every frame used was screened at hero size.

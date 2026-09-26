@@ -11834,3 +11834,173 @@ Phones keep the film above the words.
 - **The closing tagline** breaks only between its phrases. Astro's HTML
   compression drops a whitespace-only gap between two tags, so the
   phrases are held together with no-break spaces, not wrapped spans.
+
+## 2026-09-26 — Tox To Go becomes its own page and replaces /mobile (the home band is its door)
+
+**Context.** The entry above put the operator's Tox To Go document in
+the home page's statement band beside Amy's van-trip film, with "How a
+party works ›" still leading to /mobile (PR #209, `163afbb`). The same
+day, on the same PR, before anything merged, the operator changed the
+shape of it:
+- "Get rid of /mobile and get rid of 'How a party works' on the
+  homepage. We don't need it now."
+- "take the 'Tox To Go' section on the home page and move it and make
+  it its own page. Think of it as replacing /mobile."
+- **What /mobile was** (2026-09-02, the page entry; 2026-09-03, the
+  viewfinder film): "Amy comes to you." over the van interior, "How a
+  party works" in three steps, "Bring the people you'd bring anyway."
+  beside the viewfinder film, and a noir close. Its copy stated only
+  what her public posts established and left the terms (which services
+  travel, how far, a minimum, a host reward) as questions for Amy.
+  Production never served it; the standing demo (#97) and the review
+  preview (#149) have carried it since 2026-09-02.
+- **The document states what /mobile left unwritten:** a minimum of 7
+  guests, an average service purchase of $300 per guest, services
+  provided during the scheduled party, and a $600 hostess credit. Two
+  pages saying different amounts of the same thing was the reason to
+  fold them.
+
+**Decisions** (operator, 2026-09-26: four AskUserQuestion answers, then
+the plan approved; the approval carries the authorizations named in
+decisions 5 and 6):
+1. **One page, `/tox-to-go`, replaces `/mobile`.** `src/pages/mobile.astro`
+   is deleted. The new page is built on the same pattern: a standalone
+   route outside the treatments collection, no clinicianApproved gate,
+   Amy's review via the sign-off doc's non-gated section. No redirect:
+   production never served /mobile, and the /book retirement
+   (2026-07-21) was the same plain deletion plus the gate lists.
+2. **The name reaches the page's chrome.** "Tox To Go" is the page's
+   title and meta description (and so its OG and Twitter tags, which
+   the head derives from them), its JSON-LD Service name, and the nav
+   label — "Tox To Go" where it read "Mobile". This widens the entry
+   above, whose decision 1 scoped "Tox" to the band's copy and comment
+   and said it never reaches meta, OG, alt text or JSON-LD: on this one
+   page the name does. The body copy keeps the shorthand as the document
+   has it ("Tox Party", "the Tox experience"). No other page says it;
+   the competitor brand name the shorthand stands in for still never
+   appears anywhere. The 2026-07-19 shorthand rule stands for every
+   other page.
+3. **The band becomes a door, with the call button.** The van-trip film
+   stays: its terms are fixed to "this film, the home band" (CLAUDE.md
+   constraint 3, the eighth pixel override; the fifth script consumer),
+   so moving it was never on the table. Beside it: the heading "Tox To
+   Go", the tagline, one sentence from the document, "Book your Tox To
+   Go party" calling Amy with her number under it, and "See the hostess
+   perk ›" to /tox-to-go ("Hostess Perk" is the document's own phrase).
+   The subheads, the requirements, the sum and the closing tagline leave
+   the band for the page. The copy is short again, so the panel no
+   longer holds in view while words scroll past. The entry above's
+   decision 5 ("How a party works ›" stays) is superseded.
+4. **"How a party works" is gone** — from the home page, and with the
+   page it pointed at. No link on the site reads it.
+5. **/mobile's media retire with it.** Offered the van interior photo
+   and the viewfinder film for the new page, the operator chose
+   neither: the page is words and its closing band. The two image files
+   and the film's caption file leave the repo (the approval of the plan
+   is the word for the deletions); the film's Blob object stays on the
+   media origin, unreferenced; the seated guest's website-use release
+   stays on file. CLAUDE.md's list of pages opted into the
+   treatment-film autoplay script loses /mobile, on the operator's word
+   (the approval of the plan): the list is operator-maintained and not
+   edited unasked (the 2026-09-03 entry). Retired with the page besides:
+   the three steps, the friends copy, the close's wording, the open
+   questions for Amy (which services travel, how far, a minimum group,
+   solo visits, the van's name) and the asks for more originals (the
+   van exterior, the reels by date, the colleague's consent for the
+   held van portrait). The operator: "We don't need it now." The Tox To
+   Go copy states its own terms; if any of those questions is wanted
+   again, it comes back as its own item.
+6. **The gates.** `/tox-to-go` takes `/mobile`'s place in `.pa11yci.json`
+   with the needs-review cap, the per-URL entry every ombre page needs,
+   authorized by the operator's approval of the plan that named it (the
+   2026-09-02 precedent asked for the operator's own words; the plan
+   carried the line and the operator approved it), and in
+   `lighthouserc.json` on the house row. pa11y 25, LHCI 8 — the counts
+   are unchanged.
+7. **Booking stays a call.** "Book your Tox To Go party" dials Amy on the
+   page as it did in the band; "Book with Amy" stays Vagaro-only;
+   nothing on the page links to Vagaro (the BookLink rule moves from
+   /mobile to /tox-to-go).
+
+**Flags** (recorded once, in the entry above; nothing new to flag): the
+hostess credit tied to what the guests buy, with Amy's confirmation
+gating the merge; the name's ownership, not a trademark clearance;
+"Tox" on the site, now reaching a page title and the nav.
+
+**The page** (`src/pages/tox-to-go.astro`; the file's header comment is
+the code's own record). Every sentence is the document's; the two
+eyebrows ("Private parties", "Tox To Go") are the only added words. With
+no photo and no film, the page carries itself on type and its surfaces:
+- the opening, on the canvas, in one column: the eyebrow, "Tox To Go" as
+  the h1 at the larger display size, the tagline as the lead, the
+  introduction, the Call button wearing the document's line with the
+  number under it;
+- the offer, on a noir band (the operator's pick over the plain canvas):
+  "Hostess perk: $600 Service Credit" with the credit in the accent and
+  its shimmer, the perk paragraph, "Party requirements", the three
+  requirements as numbered plates in a row (their numerals decorative
+  and hidden from assistive technology; static boxes, no elevation), and
+  the $2,100 sum at lead size;
+- "Gather your people. Amy will come to you." as a two-column split on
+  the canvas, the heading left and the paragraph right at lead size;
+- the close, on noir: the tagline at display size with "Your glow." in
+  the accent and its shimmer, "Ready to host?", the Call button and the
+  number.
+
+**Alternatives declined:**
+- keeping /mobile beside the new page (two pages, different amounts of
+  the same offer; "We don't need it now");
+- a redirect from /mobile (never served in production; the /book
+  precedent);
+- keeping the full copy on the home page as well (one place for the
+  terms; the door is enough);
+- moving the van-trip film to the page (its overrides are fixed to the
+  band);
+- carrying the van interior photo and the viewfinder film over to the
+  page (offered as both and as the film alone; declined);
+- the offer on the plain canvas (offered; the noir band chosen);
+- a page name and nav label without "Tox" (the operator's name for the
+  offer is the page's name);
+- "Host a party ›" as the door's link (the call button already invites
+  hosting; the link names what the page shows).
+
+**Consequences.**
+- **The site's shape.** Twenty-five pa11y URLs and eight Lighthouse
+  URLs, as before — one URL swapped. The sitemap gains /tox-to-go and
+  loses /mobile (the integration writes it; nothing by hand). The
+  "Mobile" nav label is gone. Two image files and one caption file leave
+  the repo; the media origin's inventory is unchanged, with one more
+  object unreferenced.
+- **The new page's speed.** With no eager image, its largest paint is
+  text, so the budget /mobile met by a few milliseconds is no longer
+  close.
+- **What the site says.** The party offer, its terms and its host reward
+  live on one page, in the operator's words; the home page names the
+  offer, invites the call and points at the page. "Tox" renders on
+  /tox-to-go, / and the /styleguide/concept mirror, nowhere else; in a
+  document head only on /tox-to-go.
+- **Amy's confirmations move to the page** (the sign-off doc's non-gated
+  section, one section replacing two): the terms; the host reward
+  against her professional guidance; the word "Tox"; booking by phone;
+  the name. Nothing merges before her OK.
+- **Records.** CLAUDE.md's opted-in list (the /mobile clause removed);
+  BUILD_SPEC §5 (the nav) and §6 (a /tox-to-go row; the /mobile row
+  retired in the /book style; the home row's band clause); REDESIGN (a
+  new settled row; status notes on the /mobile and viewfinder-film rows;
+  the media inventory; the originals open item closed; the
+  deferred-rounds list; the review-tag line after #149's refresh);
+  RELAUNCH's probe lists (seven players); HOME-CONCEPT §4 and its commit
+  table; CLINICIAN-SIGN-OFF (the pending row's fragments; the new
+  section); CHANGELOG (the day's entry rewritten to the state that
+  ships — nothing had merged, the smile entry's precedent); RUNBOOK's
+  band paragraph; BRAND-ASSETS' LCP note annotated. The 2026-09-02,
+  2026-09-03 and 2026-09-25 entries, the earlier CHANGELOG entries and
+  the dated code comments stay as written.
+- **SOW scope.** The extra page is /tox-to-go, not /mobile (the
+  divergences memo, item 9, after the merge).
+- **The review preview (#149).** Its tag "H" is keyed to /mobile;
+  refreshing it after the merge means resolving the delete of
+  `mobile.astro` against the branch's tag and re-homing H to
+  /tox-to-go.
+- **Nothing else changes.** No new script, dependency or cost; the
+  van-trip film, its player and its overrides are untouched.

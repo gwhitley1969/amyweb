@@ -387,8 +387,9 @@ where a phone may not: look at the loop point on a real iPhone too.
 
 **The van band's film** (since 2026-09-25, DECISIONS same date) is
 `van-trip-sound.mp4` on the media origin, played by `public/js/band-film.js`
-in the home statement band ("Amy comes to you." until 2026-09-26, Tox
-To Go since). The player is built on approach,
+in the home statement band ("Amy comes to you." until 2026-09-26, the
+Tox To Go door since — the offer itself is on /tox-to-go). The player is
+built on approach,
 only after a real user input, which is what keeps the 35MB film out
 of the page load and the Lighthouse trace. The settings are data
 attributes on the band's `[data-band-film]` figure in

@@ -78,7 +78,7 @@ record.
 | `13f1614` | 2026-09-25 | **feat(home): the hero film ends on a smile, not a laugh** — PR #207 (`feat/hero-film-smile`), Amy's request: a new Seedance 2.5 take spliced in after the turn, her eyes open; `hero-living-portrait-v6.mp4` (DECISIONS 2026-09-25) |
 | `97ed407` | 2026-09-26 | **feat(home): the hero film's smile re-made to look like Amy's own** — PR #207 (`feat/hero-film-smile`), the operator on v6: "doesn't look good at all"; a Seedance 2.5 take generated into a still of her smile (Nano Banana Pro, guided by her published photos); `hero-living-portrait-v7.mp4` (DECISIONS 2026-09-26 addendum) |
 | `a22c3b1` | 2026-09-26 | **feat(home): the hero film's smile made warmer (v8)** — PR #208 (`feat/hero-film-warm-smile`), the client on v7: "meh"; a Seedance 2.5 take generated into a warmer still (a Nano Banana Pro whole-face edit, guided by her published photos, its mouth corners lifted 3px in code); `hero-living-portrait-v8.mp4` (DECISIONS 2026-09-26, second addendum) |
-| `163afbb` | 2026-09-26 | **feat(home): the statement band becomes Tox To Go** — PR #209 (`feat/home-tox-to-go`), the operator's document as written beside the van-trip film: the $600 hostess credit and its requirements; "Tox" allowed in this band by the operator; "Book your Tox To Go party" calls Amy; the film panel holds in view at >=900px (DECISIONS 2026-09-26, the Tox To Go entry) |
+| `163afbb` | 2026-09-26 | **feat(home): the statement band becomes Tox To Go** — PR #209 (`feat/home-tox-to-go`), the operator's document as written beside the van-trip film: the $600 hostess credit and its requirements; "Tox" allowed in this band by the operator; "Book your Tox To Go party" calls Amy; the film panel holds in view at >=900px (DECISIONS 2026-09-26, the Tox To Go entry) — superseded on the same PR by the page commit, the row below, before anything merged |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,
@@ -177,7 +177,8 @@ interior (`van-treatment-interior.jpg`, the /mobile hero's screened
 crop — no people, no packaging) bleeds from the left edge across
 `min(60%, 48rem)` (2× of the 1536px source); *"Amy comes to you."* +
 one sentence + "How a party works ›" sits on noir to its right. It
-gives /mobile its first door on the home page. Full-bleed backdrop →
+gave /mobile its first door on the home page (that page retired
+2026-09-26; the band is /tox-to-go's door since). Full-bleed backdrop →
 the fifth arch exemption. The photo drifts against the scroll (CSS
 `ng-drift`; GSAP parallax under the concept). *Rejected first pick,
 on the record: Amy holding her neon sign — at band size the Evolysse
@@ -187,7 +188,8 @@ carton on the table reads, and Amy retired Evolysse content
 **Since 2026-09-25** (DECISIONS same date) the photo is gone: the band
 plays Amy's van-trip film — the whole 2:50 clip, muted and looping, with
 Amy's own voice one tap away (2:01–2:17; the songs removed) —
-whole in a 9:16 panel at the /mobile film's 24rem width and bare film
+whole in a 9:16 panel at the viewfinder film's 24rem width (that film
+retired with /mobile 2026-09-26; the width stands) and bare film
 frame (centred above the statement on phones; at >=900px in the left
 half, against the statement). `/js/band-film.js` builds the player on
 approach, only after a real user input. The drift and the GSAP
@@ -196,17 +198,19 @@ film stage. The film is AI-upscaled (Topaz, via Higgsfield) and
 disclosed, with the source's own pixels wherever the upscale drew
 lettering of its own and for its whole prep shot.
 
-**Since 2026-09-26** (DECISIONS same date, the Tox To Go entry) the words
-beside the film are the operator's Tox To Go document, as written. There
-is the heading "Tox To Go" and its tagline, an introduction, and three
-subheads at the 25px heading size: the $600 hostess credit, the party
-requirements (a list) and "Gather your people". The tagline comes again at
-display size, with "Your glow." in the accent and shimmer, then "Ready to
-host?". The button "Book your Tox To Go party" calls Amy's phone, with her
-number under it, and "How a party works ›" still goes to /mobile. The
-copy is about twice the panel's height, so at >=900px the grid aligns to
-the top and the film panel holds in view while the words scroll past.
-Phones are unchanged: the film first, then the words.
+**Since 2026-09-26** (DECISIONS same date, the Tox To Go page entry) the
+band is the door to /tox-to-go, the page that replaced /mobile and
+carries the operator's Tox To Go offer in full. Beside the film: the
+heading "Tox To Go", its tagline "Your place. Your people. Your glow.",
+one sentence from the document, the button "Book your Tox To Go party"
+(it calls Amy's phone, her number under it) and "See the hostess perk ›"
+to /tox-to-go. The copy is short again, so the panel and the words are
+centred against each other as before; the film, its player and its
+overrides are unchanged. Phones are unchanged: the film first, then the
+words. (For a day on the same PR the band carried the whole offer — the
+$600 hostess credit, the requirements, the closing tagline and "How a
+party works ›" to /mobile; the operator moved it to its own page before
+anything merged.)
 
 ### 5. The motion layer (files)
 

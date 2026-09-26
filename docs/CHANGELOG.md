@@ -6,20 +6,40 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
-### 2026-09-26 — The home page's "Amy comes to you." band becomes Tox To Go
+### 2026-09-26 — Tox To Go is its own page, replacing /mobile; the home band is its door
 
+- The site gains /tox-to-go: host a private party at your place, and
+  Amy brings the treatments to you. It spells out the hostess perk. The
+  host gets a $600 service credit when the party has at least 7 guests,
+  the guests' services average $300 each, and the services happen at the
+  party. "Book your Tox To Go party" calls Amy's phone, and her number
+  shows under the button. The page has no photo or film: the big title,
+  the offer on a black band with the $600 in glowing pink and the three
+  requirements in a row, then the closing lines.
+- The page replaces /mobile, which is deleted. That page's photo of the
+  van's interior, Amy's viewfinder film of a guest in the van's chair,
+  the three "How a party works" steps, the "Bring the people you'd bring
+  anyway" copy and the questions the page left for Amy are gone with it.
+  /mobile never served in production, so there is no redirect. The menu
+  item "Mobile" now reads "Tox To Go".
 - Near the bottom of the home page, the band beside Amy's van-trip film
-  now presents Tox To Go: host a private party at home, and Amy brings
-  the treatments to you.
-- It spells out the hostess perk. The host gets a $600 service credit
-  when the party has at least 7 guests, the guests' services average
-  $300 each, and the services happen at the party.
-- "Book your Tox To Go party" calls Amy's phone, and her number shows
-  under the button. "How a party works" still leads to /mobile.
+  is now the page's door: "Tox To Go", the tagline, one sentence, the
+  same "Book your Tox To Go party" button, and "See the hostess perk ›".
+  "How a party works" is gone from the home page, at the operator's
+  direction. The film is unchanged.
 - The words are the operator's document, as written. The site uses
-  "Tox" here for the first time, by the operator's decision.
+  "Tox" for the first time, by the operator's decision; the name "Tox To
+  Go" is in the page's title, its description (the text a shared link
+  shows), its structured data and the menu.
+- For a day on the same PR the whole offer sat in the home band, with
+  "How a party works" still leading to /mobile; the operator moved it to
+  its own page before anything merged.
+- Gates: /tox-to-go takes /mobile's place in the pa11y list (the
+  needs-review cap authorized by the operator's approval of the plan)
+  and the Lighthouse set — 25 and 8, unchanged. CLAUDE.md's autoplay
+  page list loses /mobile on the operator's word.
 - Amy confirms the offer's terms on the preview before it merges. It is
-  PR #209; the record is DECISIONS 2026-09-26, the Tox To Go entry.
+  PR #209; the record is DECISIONS 2026-09-26, the Tox To Go page entry.
 
 ### 2026-09-26 — The home hero film's smile is warmer
 

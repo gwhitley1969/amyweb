@@ -11814,3 +11814,23 @@ Phones keep the film above the words.
   non-gated section in CLINICIAN-SIGN-OFF). Nothing merges before that.
 - **Nothing else changes.** No new script, dependency or cost; the
   band's film, its player and its overrides are untouched.
+
+**Verification** (PR #209; the site commit `163afbb`):
+- **The gate:** `npm run verify` exit 0 on both commits.
+  - `astro check` 0 errors; lint:claims and lint:voice green; pa11y
+    25/25.
+  - Every Lighthouse assertion held on 8 URLs × 3 runs.
+  - The home row: total 336,991 B (+724 B against the v8 hero), script
+    71,875 B, image 208,279 B, and media 0 (no request for either
+    film). LCP 2,164–2,166ms, CLS 0.
+- **The build against phase-c:**
+  - Only `/` and `/styleguide/concept` change, and only inside the band:
+    the HTML before and after it is byte-identical apart from the
+    stylesheet link.
+  - The home page's own stylesheet changes, and the site-wide one
+    doesn't. The docs commit changed no stylesheet.
+- **The button** is `tel:+17045797108` with the call event, and its text
+  is the document's line.
+- **The closing tagline** breaks only between its phrases. Astro's HTML
+  compression drops a whitespace-only gap between two tags, so the
+  phrases are held together with no-break spaces, not wrapped spans.

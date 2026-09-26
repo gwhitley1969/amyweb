@@ -18,8 +18,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   under the button. "How a party works" still leads to /mobile.
 - The words are the operator's document, as written. The site uses
   "Tox" here for the first time, by the operator's decision.
-- Amy confirms the offer's terms on the preview before it merges. The
-  record is DECISIONS 2026-09-26, the Tox To Go entry.
+- Amy confirms the offer's terms on the preview before it merges. It is
+  PR #209; the record is DECISIONS 2026-09-26, the Tox To Go entry.
 
 ### 2026-09-26 — The home hero film's smile is warmer
 

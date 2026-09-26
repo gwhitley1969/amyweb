@@ -78,6 +78,7 @@ record.
 | `13f1614` | 2026-09-25 | **feat(home): the hero film ends on a smile, not a laugh** — PR #207 (`feat/hero-film-smile`), Amy's request: a new Seedance 2.5 take spliced in after the turn, her eyes open; `hero-living-portrait-v6.mp4` (DECISIONS 2026-09-25) |
 | `97ed407` | 2026-09-26 | **feat(home): the hero film's smile re-made to look like Amy's own** — PR #207 (`feat/hero-film-smile`), the operator on v6: "doesn't look good at all"; a Seedance 2.5 take generated into a still of her smile (Nano Banana Pro, guided by her published photos); `hero-living-portrait-v7.mp4` (DECISIONS 2026-09-26 addendum) |
 | `a22c3b1` | 2026-09-26 | **feat(home): the hero film's smile made warmer (v8)** — PR #208 (`feat/hero-film-warm-smile`), the client on v7: "meh"; a Seedance 2.5 take generated into a warmer still (a Nano Banana Pro whole-face edit, guided by her published photos, its mouth corners lifted 3px in code); `hero-living-portrait-v8.mp4` (DECISIONS 2026-09-26, second addendum) |
+| `163afbb` | 2026-09-26 | **feat(home): the statement band becomes Tox To Go** — PR #209 (`feat/home-tox-to-go`), the operator's document as written beside the van-trip film: the $600 hostess credit and its requirements; "Tox" allowed in this band by the operator; "Book your Tox To Go party" calls Amy; the film panel holds in view at >=900px (DECISIONS 2026-09-26, the Tox To Go entry) |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,

@@ -347,8 +347,8 @@ Anything she wants changed ships as its own PR before launch.
 
 ## Also for Amy's review (not flag-gated): Tox To Go on the home page
 
-New 2026-09-26, on its PR preview first and on the standing demo once
-merged. The home page's band beside her van-trip film now presents Tox To
+New 2026-09-26, on its PR preview first (PR #209) and on the standing demo
+once merged. The home page's band beside her van-trip film now presents Tox To
 Go, in the operator's words as written. It is not treatment content, so no
 flag blocks the pipeline, but it states an offer in her name. The merge
 waits for her to confirm:

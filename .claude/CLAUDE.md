@@ -528,9 +528,12 @@ silently following it. Known superseded points from earlier briefs:
   — in-class, no exception needed; DECISIONS same date), and
   /services/regenerative (2026-08-25, Amy's own speech-free PRP-visit
   reel — in-class; its on-camera provider is the constraint-2 sixth
-  exception; DECISIONS same date), and /mobile (2026-09-02, Amy's own
-  van clip in a MUTED rendition — no audio track, so in-contract, no
-  exception; DECISIONS same date, the film entry).
+  exception; DECISIONS same date). /mobile was on this list from
+  2026-09-02 (Amy's own van clip in a MUTED rendition — no audio track,
+  so in-contract, no exception; DECISIONS same date, the film entry)
+  until 2026-09-26, when the page and its film retired, replaced by
+  /tox-to-go, which carries no film (DECISIONS 2026-09-26, the Tox To
+  Go page entry; the clause removed on the operator's word).
   Fourth sanctioned consumer (2026-09-04, operator-adopted after the
   2026-09-03 concept test — DECISIONS 2026-09-03, the home entry's
   adoption paragraph): the home page's motion layer — self-hosted GSAP

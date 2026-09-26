@@ -90,24 +90,26 @@ check will refuse it. On a branch off `main`:
   rendition of the carousel team film's master, replacing the
   2026-08-25 portrait object) + the /injector-training reel
   `training-reel.mp4` (2026-08-25) + the regenerative PRP-visit reel
-  `prp-visit.mp4` (2026-08-25) + the /mobile viewfinder film
-  `van-viewfinder-treatment-trim.mp4` (2026-09-03, a muted rendition —
-  the Range probe still applies; it replaced `van-chair-treatment.mp4`,
-  whose Blob object is deleted once no open preview references it, so
-  that one is not a probe target) — the Evolysse film retired
+  `prp-visit.mp4` (2026-08-25) — the viewfinder film
+  `van-viewfinder-treatment-trim.mp4` (2026-09-03) retired with /mobile
+  on 2026-09-26 and its Blob object stays, unreferenced, so it is not a
+  probe target, nor is `van-chair-treatment.mp4`, which it had replaced
+  and whose object is deleted once no open preview references it — the
+  Evolysse film retired
   2026-08-21 and its Blob object `evolysse-film.mp4` was deleted the
   same day, so that name is not a probe target; the film returned
   2026-09-25 as the carousel's first film under the new name above). On /services/biostimulators,
-  /services/body-contouring, /about, /injector-training,
-  /services/regenerative, and /mobile also probe
+  /services/body-contouring, /about, /injector-training, and
+  /services/regenerative also probe
   `/js/treatment-video.js` (200, `text/javascript`) and confirm the
-  eight players carry `data-autoplay="inview"` (two on biostimulators,
+  seven players carry `data-autoplay="inview"` (two on biostimulators,
   one on body-contouring, two on /about: the ICON film — its scoped
   override, DECISIONS 2026-08-25 — and the team film; one on
   /injector-training, the training reel; one on
-  /services/regenerative, the PRP-visit reel; one on /mobile, the
-  viewfinder film in its muted rendition — DECISIONS 2026-09-03) — the
-  films autoplay muted on approach. On the home page also probe the
+  /services/regenerative, the PRP-visit reel; the eighth, /mobile's
+  viewfinder film, retired with that page 2026-09-26 — DECISIONS same
+  date) — the films autoplay muted on approach. On the home page also
+  probe the
   motion layer (adopted 2026-09-04, DECISIONS 2026-09-03):
   `/js/motion-flag.js`, `/js/home-motion.js`, and the four vendor files
   `/js/vendor/gsap.min.js`, `ScrollTrigger.min.js`, `SplitText.min.js`,
@@ -120,7 +122,11 @@ check will refuse it. On a branch off `main`:
   Also the van band's film (2026-09-25, DECISIONS same date):
   `/js/band-film.js` (200, `text/javascript`), and the band's
   `data-band-film` element points at `van-trip-sound.mp4` on the media
-  origin (206 on a range request, `video/mp4`).
+  origin (206 on a range request, `video/mp4`). The band's "See the
+  hostess perk ›" and the header's "Tox To Go" item resolve to
+  `/tox-to-go` (200). `/mobile` is not a probe target: it retired
+  2026-09-26 with no redirect, so a 404 there is correct (DECISIONS
+  2026-09-26, the Tox To Go page entry).
 - Plausible: `/api/event` returns 202 from the production page;
   dashboard shows the first pageviews.
 - The favicon set serves: `/favicon.ico` (200, `image/x-icon` or

@@ -23,6 +23,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - The file is `hero-living-portrait-v7.mp4` (11.04s, 3.5MB), in PR #207.
   DECISIONS 2026-09-25 and its 2026-09-26 addendum; the making-of is in
   `C:\Amy\hero-film\README.md`, outside the repo.
+- Merged into phase-c 2026-09-26 (PR #207, on the operator's word: "let's
+  keep it", then "merge it"); both standing previews (#97, #149)
+  refreshed after it.
 
 ### 2026-09-25 — Shared links show Amy's share card
 

@@ -353,7 +353,9 @@ page, which is deleted. The page carries the operator's words as written;
 the home page's band beside her van-trip film names it, carries the same
 call button and links to it ("See the hostess perk ›"). It is not
 treatment content, so no flag blocks the pipeline, but it states an offer
-in her name. The merge waits for her to confirm:
+in her name. It merged into phase-c on the operator's word (2026-09-26),
+so she sees it on the standing demo; production stays gated by her
+sign-off. She confirms:
 
 - **The terms, exactly as they read.** The hostess gets a $600 credit
   toward services when the party has a minimum of 7 guests, an average

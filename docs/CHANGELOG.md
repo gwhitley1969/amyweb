@@ -41,8 +41,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
   needs-review cap authorized by the operator's approval of the plan)
   and the Lighthouse set — 25 and 8, unchanged. CLAUDE.md's autoplay
   page list loses /mobile on the operator's word.
-- Amy confirms the offer's terms on the preview before it merges. It is
-  PR #209; the record is DECISIONS 2026-09-26, the Tox To Go page entry.
+- Amy confirms the offer's terms on the standing demo; production stays
+  gated by her sign-off. It is PR #209; the record is DECISIONS
+  2026-09-26, the Tox To Go page entry.
+- Merged into phase-c 2026-09-26 (PR #209, on the operator's word: "go
+  ahead and merge and refresh PRs #97 and #149"); both standing previews
+  (#97, #149) refreshed after it.
 
 ### 2026-09-26 — The home hero film's smile is warmer
 

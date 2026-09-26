@@ -6,6 +6,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-26 — The home page no longer shifts sideways on phones
+
+- Once you scrolled past the top of the home page on a phone or small
+  tablet, the whole page could be nudged sideways: about 19px on a
+  typical iPhone, 15–43px across widths below 900px. The hero photo's
+  gentle swell as you scroll away was spilling past the right edge of
+  the screen.
+- Further down, on the largest phones and small tablets, the Instagram
+  post's photo did the same, by up to 17px, while it waited to fade in.
+- Both are now trimmed at the screen's edge, so the page stays put.
+  Everything looks exactly as before, and wider screens are unchanged.
+  DECISIONS 2026-09-26.
+
 ### 2026-09-26 — The home hero film's smile is warmer
 
 - The client felt the smile at the end of the home hero film wasn't

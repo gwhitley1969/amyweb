@@ -11699,3 +11699,62 @@ v5–v7 were and ships in PR #208. v7 stays on the origin, unreferenced.
   media 0, with no request for the film; LCP 2,164–2,240ms.
 - **The blob:** a range request returns 206 and `video/mp4`; the served
   bytes match the file's SHA-256.
+
+## 2026-09-26 — Home: no sideways scroll on phones (the hero and the Instagram print's section clip x)
+
+**Context.** Two motion-layer moves put a box past the screen's right
+edge, and below 900px nothing clipped either, so the page itself grew
+wider and panned sideways on phones:
+- **The hero's exit swell** (home-motion.js step 3, scrubbed) scales
+  the hero's media box to 1.12 from 60% 40%, 4.8% of the width past the
+  edge; from 900px the hero clipped it. Reported and reproduced on
+  phase-c 0c077a4 (the repo's puppeteer, headless): at 390px,
+  scrollWidth 390 at the top, 405 at scrollY 1200 and 409 from 1500 on,
+  and mobile Chrome's layout viewport widened with it. Every width from
+  320 to 899 did the same, by 15–43px.
+- **The Instagram print's reveal** (step 6), found once the hero was
+  fixed. The print's photo waits at 1.18, unseen, until the reveal
+  plays. It is lazy, so the box appears when it loads, about 1,300px of
+  scrolling before the reveal. Inside the tilted print it then reached
+  past the edge at about 420–640px wide (1px at 420, 2 at 430, 17 at
+  600) until the reveal ran it off. The hero's larger overflow had
+  masked it.
+
+Reduced motion runs neither move.
+
+**Decision.** `overflow-x: clip` on both sections: in the hero's base
+rule, outside the media query, and on the print's section (a new
+class). From 900px the hero's existing `overflow: hidden` still wins,
+so desktop is unchanged. One commit each.
+
+**Alternatives rejected.** An x clip on html or body: it can break
+`position: sticky`, and the statement band's panel is sticky from 900px
+in PR #209. `hidden`: a scroll container, for no gain. Clipping both
+axes: on a fast scroll back to the top, the lagging swell rises up to
+21px past the hero's top edge, on screen, for about 0.3s, and a y clip
+would cut it. Smaller or re-anchored moves: a different look.
+
+**Consequences.** +42 B in the stylesheet that `/` and the three
+/styleguide pages share, and `/` and /styleguide/concept gain the
+section's class; nothing else in the build changes. Safari before 16
+ignores `clip` and keeps the old pan (no regression). Not treatment
+content; no `clinicianApproved` flag.
+
+**Verification.** After both fixes, stepping down the whole page 300px
+at a time and sampling every frame, the page never overflows at 16
+widths from 320 to 899 (phone emulation). At settled positions the same
+holds with motion, under reduced motion and in desktop emulation, with
+no pan: 390 at 390 after scrolling to 3000. The swell still reaches
+1.12, and the print's reveal still plays in full. Firefox 156 agrees;
+before the fixes it panned 4–43px (the hero) and 2–17px (the print).
+Pixels, with Chrome's deferred image decode off so runs repeat exactly:
+the hero in 96 frames (7 phone widths × 6 scroll positions, with motion
+and reduced, plus 900 and 1280) matches phase-c byte for byte in 89.
+The other 7 are 430 and 600px mid-swell, where the original's box
+already passed the edge. Their geometry is the same, and they differ
+only by sub-pixel rounding: mostly one level of 255, with larger deltas
+on single-pixel edge rows. The print's section at rest matches in all 14
+frames. `npm run verify` exit 0 on all three commits: `astro check`
+0/0/0, both linters, pa11y 25/25, every Lighthouse assertion on 8 URLs
+× 3 runs, and /mobile's LCP 2,480–2,483ms against 2,500 across the
+runs. The records change no built file.

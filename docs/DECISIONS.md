@@ -12573,3 +12573,37 @@ once its checks are green, and the standing demo (#97) and the review
 preview (#149) are refreshed from phase-c after it, so both show the
 new name at /tox-together. The merge record rides the PR's first push:
 nothing is pushed to the branch after its checks start.
+
+## 2026-09-27 — /tox-together: the hostess perk addresses the host as "you" (the operator's wording)
+
+**Context.** The offer section of /tox-together spoke of the host in
+the third person. The operator (2026-09-27), with the page under
+review: "it says in the second sentence 'the hostess receives a $600
+credit...', change that to 'you receive a $600 credit...' and at the
+bottom of the section change the last part to 'That's a minimum of
+$2100 in services among your guests - and a $600 Service Credit for
+you.'"
+
+**Decision.** Two phrases change, in that section only:
+- "the hostess receives a $600 credit toward services" becomes "you
+  receive a $600 credit toward services";
+- "and a $600 Service Credit for the hostess." becomes "and a $600
+  Service Credit for you."
+
+**Kept as they were** (an assumption, reported to the operator): the
+figure is written "$2,100", with its comma, and the clause is joined by
+the long dash, as on the page before. The message's "$2100" and hyphen
+read as typing, since the change asked for was the ending.
+
+**Not changed.** The heading "Hostess perk", "the Hostess Service
+Credit", the three requirements and every figure. The page's meta
+description still says "the hostess receives a $600 service credit";
+it was not part of the request.
+
+**Compliance.** No new flag. The sentence states a term of the offer,
+not a treatment outcome, and answers no suitability question. The
+terms stay on Amy's non-gated item in CLINICIAN-SIGN-OFF.
+
+**Verification.** `npm run build`, `npm run check`, lint:claims and
+lint:voice on the change; the PR's own run carries pa11y and
+Lighthouse.

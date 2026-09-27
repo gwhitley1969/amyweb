@@ -34,7 +34,7 @@ seo:
 ---
 
 import { Image } from 'astro:assets';
-import prpTreatment from '../../assets/photos/prp-treatment.jpg';
+import deviceFacialSession from '../../assets/photos/device-facial-session.jpg';
 import prpBloodDraw from '../../assets/photos/prp-blood-draw.jpg';
 import prpSyringes from '../../assets/photos/prp-syringes.jpg';
 import TreatmentVideo from '../../components/TreatmentVideo.astro';
@@ -43,8 +43,11 @@ import prpVisitPoster from '../../assets/photos/prp-visit-poster.jpg';
 {/* The page's opening media moment at band scale (definition first,
   * then the treatment itself); the 2026-08-25 round added the two rows
   * and the film below, so the band now leads a full rhythm instead of
-  * standing alone. The band runs tall because the source is a vertical
-  * composition — see the media-band--tall note in TreatmentLayout. */}
+  * standing alone. Since 2026-09-27 (operator direction) the band and
+  * the /services card swapped photos: the band carries the device
+  * session, the card the PRP visit. The source is a tall portrait, so
+  * the 9:8 window is anchored on the device and the client's face —
+  * see the device-facial-session knob in TreatmentLayout. */}
 <section class="media-band media-band--tall">
   <div class="media-copy">
 
@@ -58,9 +61,9 @@ before anything is scheduled.
   </div>
   <figure class="media-figure">
     <Image
-      src={prpTreatment}
-      alt="Amy Palacios, FNP, in pink gloves guides a fine-gauge syringe at a reclined client's brow during a PRP visit at her Harrisburg studio."
-      widths={[448, 672, 895]}
+      src={deviceFacialSession}
+      alt="A pink-gloved hand guides a handheld device across a reclined client's face while the other steadies her jaw, at Amy's Harrisburg studio."
+      widths={[448, 672, 744]}
       sizes="(max-width: 48rem) 92vw, 45rem"
     />
   </figure>

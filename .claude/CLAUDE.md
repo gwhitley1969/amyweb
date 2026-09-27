@@ -532,7 +532,8 @@ silently following it. Known superseded points from earlier briefs:
   2026-09-02 (Amy's own van clip in a MUTED rendition — no audio track,
   so in-contract, no exception; DECISIONS same date, the film entry)
   until 2026-09-26, when the page and its film retired, replaced by
-  /tox-to-go, which carries no film (DECISIONS 2026-09-26, the Tox To
+  the party page — /tox-together since 2026-09-27, /tox-to-go for the
+  day before — which carries no film (DECISIONS 2026-09-26, the Tox To
   Go page entry; the clause removed on the operator's word).
   Fourth sanctioned consumer (2026-09-04, operator-adopted after the
   2026-09-03 concept test — DECISIONS 2026-09-03, the home entry's

@@ -80,6 +80,7 @@ record.
 | `a22c3b1` | 2026-09-26 | **feat(home): the hero film's smile made warmer (v8)** — PR #208 (`feat/hero-film-warm-smile`), the client on v7: "meh"; a Seedance 2.5 take generated into a warmer still (a Nano Banana Pro whole-face edit, guided by her published photos, its mouth corners lifted 3px in code); `hero-living-portrait-v8.mp4` (DECISIONS 2026-09-26, second addendum) |
 | `163afbb` | 2026-09-26 | **feat(home): the statement band becomes Tox To Go** — PR #209 (`feat/home-tox-to-go`), the operator's document as written beside the van-trip film: the $600 hostess credit and its requirements; "Tox" allowed in this band by the operator; "Book your Tox To Go party" calls Amy; the film panel holds in view at >=900px (DECISIONS 2026-09-26, the Tox To Go entry) — superseded on the same PR by the page commit, the row below, before anything merged |
 | `b105ecf` + `cfdc865` | 2026-09-26 | **feat: Tox To Go becomes its own page, replacing /mobile; the home band is its door** — PR #209 (`feat/home-tox-to-go`), the operator: the offer moves off the band onto /tox-to-go (no photo, no film — the /mobile media declined); the band keeps the van-trip film and becomes a short door — the name, the tagline, one sentence, the call button with the number, "See the hostess perk ›"; the nav item reads "Tox To Go"; "How a party works ›" is gone. Two commits by a staging slip: the four deletions, then the page and the rest (DECISIONS 2026-09-26, the Tox To Go page entry) |
+| `d38c96b` | 2026-09-27 | **content: Tox To Go is renamed Tox Together; the page moves to /tox-together** — PR #217 (`feat/tox-together`), the operator's rename: the band's heading reads "Tox Together Party", its sentence "With Tox Together…", its button "Book your Tox Together party", and "See the hostess perk ›" leads to /tox-together; the film and the band's layout are unchanged (DECISIONS 2026-09-27, the Tox Together entry) |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,
@@ -179,7 +180,7 @@ crop — no people, no packaging) bleeds from the left edge across
 `min(60%, 48rem)` (2× of the 1536px source); *"Amy comes to you."* +
 one sentence + "How a party works ›" sits on noir to its right. It
 gave /mobile its first door on the home page (that page retired
-2026-09-26; the band is /tox-to-go's door since). Full-bleed backdrop →
+2026-09-26; the band is the party page's door since). Full-bleed backdrop →
 the fifth arch exemption. The photo drifts against the scroll (CSS
 `ng-drift`; GSAP parallax under the concept). *Rejected first pick,
 on the record: Amy holding her neon sign — at band size the Evolysse
@@ -200,14 +201,18 @@ disclosed, with the source's own pixels wherever the upscale drew
 lettering of its own and for its whole prep shot.
 
 **Since 2026-09-26** (DECISIONS same date, the Tox To Go page entry) the
-band is the door to /tox-to-go, the page that replaced /mobile and
-carries the operator's Tox To Go offer in full. Beside the film: the
-heading "Tox To Go Party" (the operator's direction on the preview; it
-read "Tox To Go" for an hour), its tagline "Your place. Your people. Your
+band is the door to the party page, which replaced /mobile and carries
+the operator's offer in full. **The names below are the 2026-09-27
+ones** (DECISIONS same date): the operator renamed the offer Tox
+Together and moved the page to /tox-together; for the day before, every
+"Tox Together" here read "Tox To Go" and the page sat at /tox-to-go.
+Beside the film: the
+heading "Tox Together Party" ("Party" is the operator's direction on the
+preview), its tagline "Your place. Your people. Your
 glow.",
-one sentence from the document, the button "Book your Tox To Go party"
+one sentence from the document, the button "Book your Tox Together party"
 (it calls Amy's phone, her number under it) and "See the hostess perk ›"
-to /tox-to-go. The copy is short again, so the panel and the words are
+to /tox-together. The copy is short again, so the panel and the words are
 centred against each other as before; the film, its player and its
 overrides are unchanged. Phones are unchanged: the film first, then the
 words. (For a day on the same PR the band carried the whole offer — the

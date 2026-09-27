@@ -12513,3 +12513,120 @@ confirmation of the card, of the black bar and of the title on the
 operator's phone. No screenshot came with it, so the bar's colour is
 confirmed by eye and is not measured; the predicted value stays
 26/26/26 until a screenshot is read.
+
+## 2026-09-27 — Tox To Go is renamed Tox Together, and its page moves to /tox-together (the operator's rename)
+
+**Context.** The party page and its door on the home page were a day
+old (the two 2026-09-26 entries above; PR #209) when the operator
+renamed the offer.
+- **The operator (2026-09-27):** "On the homepage, there is a section
+  called 'Tox To Go Party', we want to rename that section to 'Tox
+  Together Party'." Four screenshots marked seven places on the home
+  page's band and on the page, with: "If I missed one, then please
+  correct it."
+- **What the screenshots marked:** the band's heading, the page's
+  heading, the call button twice, the hostess-perk sentence and the
+  small label above the closing headline.
+- **What the sweep added:** the band's sentence and its button, the
+  page's opening sentence, the third requirement, and the menu item;
+  and, where no screenshot can show them, the page's title, its
+  description, its JSON-LD name and its address.
+- **The 2026-09-26 addendum had split the name:** "Tox To Go Party" in
+  the two headings, "Tox To Go" everywhere else. The rename had to say
+  whether that split carries over.
+
+**Decisions** (operator, 2026-09-27: two AskUserQuestion answers, then
+the plan approved):
+1. **The name is renamed everywhere.** "Tox Together Party" in the two
+   headings; "Tox Together" wherever the short name stood — the menu
+   item, the small label, the sentences, the buttons ("Book your Tox
+   Together party"), the page's title and description (and so its OG
+   and Twitter tags), and its JSON-LD Service name. The 2026-09-26
+   split carries over under the new name.
+2. **The page moves to `/tox-together`.** `src/pages/tox-to-go.astro` is
+   renamed, the band's link, the menu item and the JSON-LD address
+   follow, and the pa11y and Lighthouse lists swap the address (25 and
+   8, unchanged). No redirect: production never served /tox-to-go, the
+   reasoning of the /mobile and /book deletions.
+3. **The general words stay.** "Tox Party", "Tox Parties" and "the Tox
+   experience" are the document's trade shorthand, not the offer's
+   name.
+4. **Nothing else in the copy changes.** The opening paragraph now says
+   "Tox Together" and, a sentence later, "enjoy time together". The
+   words are the operator's document, so the echo is left as it is and
+   reported to the operator.
+
+**Compliance.** No new flag.
+- The 2026-09-26 permission for "Tox" covers this page's copy, title,
+  description, JSON-LD name, address and menu item, and the home
+  band's copy. The rename stays inside it: the shorthand is on no
+  other page, and the competitor brand name still never appears.
+- "Together" describes the guests. The voice rule's tokens are
+  unaffected, and lint:voice reads the built pages.
+- The page is outside the treatments collection, so no clinician flag
+  resets. Amy's non-gated item in CLINICIAN-SIGN-OFF carries the new
+  name.
+
+**The name.** Two web searches (2026-09-27) found no business called
+"Tox Together", in the trade at large or around Charlotte. As on
+2026-09-26, this is not a trademark clearance; a USPTO search is the
+step if Amy wants to own the name.
+
+**Alternatives declined:**
+- renaming only what a visitor reads, leaving the title, the
+  description and the JSON-LD name (offered): search results and link
+  previews would have shown the old name;
+- renaming only the seven marked places (offered);
+- keeping the address /tox-to-go (offered): it would carry the old
+  name for good, or need a redirect if moved after launch.
+
+**The records.** The two 2026-09-26 entries are history and stand as
+written, as do the 2026-09-26 changelog entry and the commit rows that
+name PR #209. Descriptions of the site as it is now carry the new name
+and address: BUILD_SPEC §5 and §6, CLAUDE.md's script-consumer list,
+CLINICIAN-SIGN-OFF, HOME-CONCEPT, REDESIGN, RELAUNCH and RUNBOOK. The
+operator's source document keeps its filename.
+
+**Consequences.**
+- **Preview links to /tox-to-go stop working** on every preview built
+  from this change on. The standing demo (#97) and the review preview
+  (#149) show the new name and address from their next refresh.
+- **RELAUNCH's probes** expect /tox-together (200) and treat a 404 at
+  /tox-to-go, as at /mobile, as correct.
+- **The headings are longer by three letters.** They were checked for
+  wrapping and for sideways scroll at phone, tablet and desktop widths
+  (Verification).
+- **Nothing else changes.** No stylesheet rule, script, dependency or
+  cost.
+
+**Verification.**
+- **The gate:** `npm run verify` exit 0 on the change — `astro check` 0
+  errors and 0 warnings; lint:claims and lint:voice green; pa11y 25/25
+  with /tox-together in the list; every Lighthouse assertion held on
+  8 URLs × 3 runs.
+- **The built site:** no file contains the old name or the old address
+  in any spelling; `/tox-together/` is built and `/tox-to-go/` is not
+  (404 on a local serve); the sitemap lists the new address.
+- **The headings,** read at 344, 390, 768, 1280 and 1440px:
+  - the page's title is one line from 768px and two lines on phones
+    ("Tox Together" over "Party", at 49px);
+  - the home band's heading is one line at 390px and wider, two at
+    344px;
+  - the menu item is one line at every width;
+  - the call button is one line from 390px and wraps to two lines at
+    344px, where the old wording fit on one.
+- **Sideways scroll:** the page has none at any width. The home page's
+  (17px at 344, 19px at 390, 37px at 768) comes from the hero's media
+  alone, which is open PR #210's subject; nothing in the band reaches
+  past the viewport.
+- **The records alone changed no built byte** (the stylesheet names
+  and hashes are the same before and after they were written).
+- **The PR:** #217 into phase-c.
+
+**Merged (2026-09-27), on the operator's word.** With the branch
+verified and not yet pushed, the operator asked for the preview link
+and then wrote: "merge it and refresh PRs #97 and #149". The PR merges
+once its checks are green, and the standing demo (#97) and the review
+preview (#149) are refreshed from phase-c after it, so both show the
+new name at /tox-together. The merge record rides the PR's first push:
+nothing is pushed to the branch after its checks start.

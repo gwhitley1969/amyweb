@@ -9,9 +9,11 @@ import { siteConfig } from '../lib/siteConfig';
 import { service } from '../lib/schema';
 
 /**
- * /tox-to-go — Tox To Go, the private-party page (added 2026-09-26 at
- * the operator's direction; DECISIONS same date, the Tox To Go page
- * entry). It REPLACES /mobile (2026-09-02 → 2026-09-26; deleted
+ * /tox-together — Tox Together, the private-party page (added
+ * 2026-09-26 at the operator's direction as /tox-to-go, "Tox To Go";
+ * renamed and moved 2026-09-27, the operator again — DECISIONS both
+ * dates; production never served the old address, so no redirect).
+ * It REPLACES /mobile (2026-09-02 → 2026-09-26; deleted
  * outright, the /book precedent — production never served it, so no
  * redirect). The home band (ConceptHome) is this page's door: the
  * name, the tagline, one sentence, the same call button and a link
@@ -27,7 +29,8 @@ import { service } from '../lib/schema';
  *   document, reproduced without rephrasing (headings sentence-cased,
  *   the one house change; the two eyebrows and the heading's "Party" —
  *   the operator's direction on the preview, 2026-09-26 — are the only
- *   added words).
+ *   added words; the name reads "Tox Together" wherever the document
+ *   says "Tox To Go" — the operator's rename, 2026-09-27).
  *   The figures are the operator's, not the site's (constraint 7:
  *   nothing here is invented). Do not change a word without the
  *   operator; the home band carries the same lead and sentence, so the
@@ -41,7 +44,7 @@ import { service } from '../lib/schema';
  * - "Party" is the client's own word, allowed by operator decision
  *   (2026-09-02, flagged once — injectable gatherings draw board
  *   scrutiny in several states; the flag stands on the record).
- * - Contact is the phone: "Book your Tox To Go party" is the call
+ * - Contact is the phone: "Book your Tox Together party" is the call
  *   variant wearing the document's line, the number printed under it
  *   for screens that cannot place a call. Not "Book with Amy"
  *   (reserved for Vagaro buttons), and BookLink never renders here
@@ -64,18 +67,18 @@ import { service } from '../lib/schema';
  *   is lost when a reader never hears the numbers.
  */
 
-const pageTitle = 'Tox To Go: Private Tox Parties at Home | Needle Girlie';
+const pageTitle = 'Tox Together: Private Tox Parties at Home | Needle Girlie';
 const pageDescription =
-  'Host a private Tox Party at home with Amy Palacios, FNP, around Charlotte, NC. When a Tox To Go party qualifies, the hostess receives a $600 service credit.';
+  'Host a private Tox Party at home with Amy Palacios, FNP, around Charlotte, NC. When a Tox Together party qualifies, the hostess receives a $600 service credit.';
 
 // REVIEW SCAFFOLDING (ReviewNumber.astro) — letter tag for this route.
 const reviewPageTag = reviewTag(Astro.url.pathname);
 
 const jsonLd = [
   service(
-    'Tox To Go',
+    'Tox Together',
     'Private Tox Parties at home: Amy Palacios, FNP, brings the Tox experience to gatherings of friends and family around Charlotte, NC.',
-    `${siteConfig.url}/tox-to-go`,
+    `${siteConfig.url}/tox-together`,
   ),
 ];
 ---
@@ -91,18 +94,18 @@ const jsonLd = [
     {reviewPageTag && <ReviewNumber n={reviewPageTag} />}
     <p class="eyebrow">Private parties</p>
     <hr class="rule-accent mt-4" aria-hidden="true" />
-    <h1 class="display-2 md:display-1 mt-6">Tox To Go Party</h1>
+    <h1 class="display-2 md:display-1 mt-6">Tox Together Party</h1>
     <p class="lead mt-6">Your place. Your people. Your glow.</p>
     <div class="mt-8 max-w-prose space-y-4">
       <p>Turn your next get-together into a little something extra.</p>
       <p>
-        With Tox To Go, you can host a private Tox Party for your friends and
+        With Tox Together, you can host a private Tox Party for your friends and
         family in the comfort of your own home. Gather your favorite people,
         enjoy time together, and Amy will bring the Tox experience to you.
       </p>
     </div>
     <div class="mt-8">
-      <CTAButton variant="call" emphasis="chip" label="Book your Tox To Go party" />
+      <CTAButton variant="call" emphasis="chip" label="Book your Tox Together party" />
       <p class="tox-phone">{siteConfig.phone}</p>
     </div>
   </section>
@@ -123,7 +126,7 @@ const jsonLd = [
         Hostess&nbsp;perk: <span class="display-accent ng-shimmer">$600 Service Credit</span>
       </h2>
       <p class="lead mt-6 max-w-prose">
-        Hosting has its rewards! When your Tox To Go party meets the
+        Hosting has its rewards! When your Tox Together party meets the
         qualifying requirements, the hostess receives a $600 credit toward
         services as Amy's thank-you for bringing everyone together.
       </p>
@@ -140,7 +143,7 @@ const jsonLd = [
         </li>
         <li class="tox-plate ng-rise ng-rise-3">
           <span class="tox-plate__num" aria-hidden="true">03</span>
-          <p class="mt-3">Services are provided during your scheduled private Tox To Go event</p>
+          <p class="mt-3">Services are provided during your scheduled private Tox Together event</p>
         </li>
       </ol>
       <p class="lead mt-8 max-w-prose">
@@ -174,14 +177,14 @@ const jsonLd = [
       and the call with the number under it. ---- */}
   <section class="surface" data-surface="noir">
     <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
-      <p class="eyebrow">Tox To Go</p>
+      <p class="eyebrow">Tox Together</p>
       <h2 class="display-2 mt-4">
         Your&nbsp;place. Your&nbsp;people.<br />
         <span class="display-accent ng-shimmer">Your glow.</span>
       </h2>
       <p class="lead mt-6">Ready to host?</p>
       <div class="mt-8">
-        <CTAButton variant="call" label="Book your Tox To Go party" />
+        <CTAButton variant="call" label="Book your Tox Together party" />
         <p class="tox-phone">{siteConfig.phone}</p>
       </div>
     </div>

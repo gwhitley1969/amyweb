@@ -3,8 +3,8 @@ import { Image } from 'astro:assets';
 import PracticeLink from './PracticeLink.astro';
 import { siteConfig } from '../lib/siteConfig';
 import evolyssePoster from '../assets/photos/commercial-evolysse-poster.jpg';
-import j1Poster from '../assets/photos/commercial-j1-poster.jpg';
-import studioPoster from '../assets/photos/commercial-studio-poster.jpg';
+import vanPromoPoster from '../assets/photos/commercial-van-promo-poster.jpg';
+import billboardPoster from '../assets/photos/commercial-billboard-poster.jpg';
 import j2Poster from '../assets/photos/commercial-j2-poster.jpg';
 import teamPoster from '../assets/photos/commercial-team-poster.jpg';
 
@@ -21,8 +21,9 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  * script builds each <video> on demand instead, so the load trace
  * contains zero media elements and zero video bytes.
  *
- * The films (J1/studio/J2 cleared 2026-08-14; team cleared
- * 2026-08-17; Evolysse 2026-09-25 — DECISIONS, each date):
+ * The films (J2 cleared 2026-08-14; team cleared 2026-08-17; Evolysse
+ * 2026-09-25; the promo and the billboard-day reel 2026-09-27 —
+ * DECISIONS, each date):
  *  - commercial-evolysse — the Evolus-produced Evolysse spot
  *    (US-EVY-2600017), FIRST in the rotation (operator direction
  *    2026-09-25). OPERATOR OVERRIDE after the compliance flag, carried
@@ -36,26 +37,52 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *    every track (operator decision after the flag). The one 16:9 film:
  *    the stage's `width: 100%` is what lets it present large. NEVER
  *    trim or crop it; plays at 1×.
- *  - commercial-j1 / commercial-j2 — Evolus co-op Jeuveau spots
- *    (US-JUV-2600126) carried AS-IS, manufacturer safety text intact.
- *    NEVER trim or crop them: object-fit stays `contain` so the
- *    burned-in safety screens render complete.
+ *  - commercial-van-promo — Amy's own Mobile Aesthetics promo, second
+ *    in the rotation since 2026-09-27: her studio, then the black van
+ *    and the location's other providers stepping out of it. OPERATOR
+ *    OVERRIDES after the compliance flags: constraint 2's eighth
+ *    exception (the other providers on camera, releases confirmed on
+ *    file; the practice's web address printed on every frame and on
+ *    the poster — display-only, never printed in site text) and
+ *    constraint 3's eleventh pixel-level override (the studio
+ *    segment's product cartons and its tray with printed slot labels).
+ *    Its label, its caption file and these comments name nobody and
+ *    restate none of that packaging or labelling. 720px wide, so below
+ *    the 2× sharpness rule at the stage's height cap (1.78×) — a
+ *    recorded exception. Plays at 1×.
+ *  - commercial-billboard — Amy's own reel of the day her billboard
+ *    went up and a delivery reached her studio, third since
+ *    2026-09-27. OPERATOR OVERRIDE after the compliance flag, carried
+ *    AS-IS (constraint 3): the billboard photo's headline and brand
+ *    lockup, a wall poster titling a competitor brand this site never
+ *    names, and the manufacturer's boxes; both people on camera besides
+ *    Amy are released (operator, same date). No text from the
+ *    billboard, the poster or the boxes is ever restated — label,
+ *    captions, these comments. A 576px copy: below the 2× sharpness
+ *    rule on tablets and desktops (1.42× at the height cap) — a
+ *    recorded exception until Amy's original arrives. Plays at 1×.
+ *  - commercial-j2 — the Evolus co-op Jeuveau spot (US-JUV-2600126)
+ *    carried AS-IS, manufacturer safety text intact. NEVER trim or crop
+ *    it: object-fit stays `contain` so the burned-in safety screens
+ *    render complete. Its twin, commercial-j1, ran from 2026-08-14
+ *    until the promo replaced it on 2026-09-27.
  *  - commercial-team — the Mobile Aesthetics "Girl team" film.
  *    Constraint-2 OPERATOR OVERRIDE 2026-08-17 (it features the
  *    location's other providers; flag raised, override chosen);
  *    releases for the five team members confirmed on file. Plays
  *    at 1×.
- *  - commercial-studio — Amy's own published reel, operator override.
- *    Plays at 0.5× (operator/Amy 2026-08-15, tuned across three
- *    reviews: 0.8 and 0.65 both still read too fast — slowed at the
- *    player via data-rate/playbackRate; the master file is untouched
- *    and the number is the tuning knob. 0.5 is also the practical
- *    floor — engines clamp below it). The manufacturer films always
- *    play at 1× — their presentation is carried as-is.
+ *  No film sets a rate now. The studio reel (commercial-studio, from
+ *  2026-08-14 until the billboard-day reel replaced it on 2026-09-27)
+ *  played at 0.5× (operator/Amy 2026-08-15, tuned across
+ *  three reviews: 0.8 and 0.65 both still read too fast — slowed at the
+ *  player via data-rate/playbackRate, the master untouched; 0.5 is also
+ *  the practical floor — engines clamp below it). The knob stays for
+ *  Amy's own films; the manufacturer films always play at 1× — their
+ *  presentation is carried as-is.
  *  Renditions are muted (no audio track). Every built video carries a
  *  captions track (the axe video-caption rule audits rendered <video>
  *  elements; not `default`). Since 2026-09-20 (DECISIONS same date) the
- *  two site-authored films ship a track with NO cues — nothing to
+ *  site-authored films ship a track with NO cues — nothing to
  *  caption, and a cue painted a box over the film on every phone with
  *  captions switched on; the manufacturer films keep their transcript
  *  of the on-screen text, safety information included (carried as-is —
@@ -102,19 +129,18 @@ const slides: {
     poster: evolyssePoster,
   },
   {
-    file: 'commercial-j1',
-    label: 'Jeuveau commercial — Mobile Aesthetics with Evolus, film one',
-    poster: j1Poster,
+    file: 'commercial-van-promo',
+    label: "Mobile Aesthetics promo — Amy's studio and the van",
+    poster: vanPromoPoster,
   },
   {
-    file: 'commercial-studio',
-    label: "A day inside Amy's Harrisburg studio",
-    poster: studioPoster,
-    rate: 0.5,
+    file: 'commercial-billboard',
+    label: "Billboard day and a delivery at Amy's studio",
+    poster: billboardPoster,
   },
   {
     file: 'commercial-j2',
-    label: 'Jeuveau commercial — Mobile Aesthetics with Evolus, film two',
+    label: 'Jeuveau commercial — Mobile Aesthetics with Evolus',
     poster: j2Poster,
   },
   {

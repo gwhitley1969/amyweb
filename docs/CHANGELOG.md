@@ -27,6 +27,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   relaunch for those previews.
 - It is PR #212 (phase-c) and hotfix PR #213 (main); the record is
   DECISIONS 2026-09-26, the link-share card entry.
+- Merged 2026-09-26 on the operator's word ("go ahead and merge … I
+  want the new card working asap"): the hotfix (PR #213) into main
+  first, so the live Under Construction page got the card at once, then
+  PR #212 into phase-c; both standing previews (#97, #149) refreshed
+  after it.
 
 ### 2026-09-26 — Tox To Go is its own page, replacing /mobile; the home band is its door
 

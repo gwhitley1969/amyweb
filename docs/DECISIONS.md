@@ -12222,3 +12222,13 @@ read from a phone screenshot).
 - **Byte identity:** the head component and the new card have the same
   sha256 on both branches.
 - **The PRs:** #212 into phase-c, #213 into main (the hotfix).
+
+**Merged (2026-09-26), on the operator's word:** "go ahead and merge,
+then refresh PR #97 and #149 and also make sure the OG image that you
+just modified applies the the construction page in production now. I
+want the new card working asap." The hotfix (PR #213) merged first, so
+production deployed at once; PR #212 followed when its last preview run
+had finished, and both standing previews (#97, #149) were refreshed
+after it. The operator merged before the phone test, so the bar's
+colour on a phone is still unread: its reading follows in an addendum
+when a screenshot arrives.

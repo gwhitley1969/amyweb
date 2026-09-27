@@ -1,0 +1,17 @@
+WEBVTT
+
+NOTE
+Amy's own Mobile Aesthetics promo, carried as-is under operator
+overrides — DECISIONS 2026-09-27. The web rendition carries no audio
+track.
+
+NOTE
+NO CUES, ON PURPOSE (docs/DECISIONS.md 2026-09-20). The web rendition
+has no audio, so there is nothing to caption; a cue here would paint a
+box over the film on every phone with captions switched on. The slide's
+label names the film (VideoCarousel.astro). This file is the film's
+in-repo record. Burned-in text: the practice's name, its web address and
+Amy's Instagram handle, display-only overlays that are not transcribed.
+The film shows: Amy in her studio with the products on the counter, then
+women in matching uniforms stepping out of the black van one by one, and
+the group together beside it.

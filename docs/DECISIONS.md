@@ -12807,3 +12807,9 @@ the card (loses the client).
 Consequences: no copy changes; the page stays `clinicianApproved:
 false`. Checked by `npm run verify` exit 0 and element screenshots at
 390 and 1280 wide.
+
+**Merged (2026-09-27), on the operator's word** ("it's fine to merge").
+The operator reviewed PR #220's own preview first; both pages served
+the swapped photos on five of five loads each. The standing demo (#97)
+and the review preview (#149) are refreshed from phase-c after the
+merge.

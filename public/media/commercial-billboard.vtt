@@ -1,0 +1,16 @@
+WEBVTT
+
+NOTE
+Amy's own reel of the day her billboard went up and a delivery arrived
+at her studio, carried as-is under operator override — DECISIONS
+2026-09-27. The web rendition carries no audio track.
+
+NOTE
+NO CUES, ON PURPOSE (docs/DECISIONS.md 2026-09-20). The web rendition
+has no audio, so there is nothing to caption; a cue here would paint a
+box over the film on every phone with captions switched on. The slide's
+label names the film (VideoCarousel.astro). This file is the film's
+in-repo record. Burned-in text: the opening caption card, "Billboard is
+up / I85 / From concord mills to poplar tent." The film shows: a photo
+of Amy's billboard, then Amy in her studio as a delivery of boxes
+arrives.

@@ -297,7 +297,7 @@ paragraph). The table is kept as the map of where each rule lives.
 | dissolves | `home-motion.js` | 1.6s fade-in after a 0.2s wait (since 2026-09-18 — the film's from-white opening frames pass unseen); with ranges set: 0.8s joins, 1.2s out / 1.6s in round the rest | the film's arrival; the trim machinery's joins |
 | Lenis `lerp` | `home-motion.js` | `0.09` | scroll weight (higher = snappier) |
 | hero settle | `global.css` / `home-motion.js` | 14s / 2.4s | the still's one-shot scale |
-| slide order | `VideoCarousel.astro` slides array | J1 → studio → J2 → team | the band |
+| slide order | `VideoCarousel.astro` slides array | Evolysse → Amy's promo → her billboard-day reel → Jeuveau → team (since 2026-09-27; J1 → studio → J2 → team until 2026-09-25, when the Evolysse film went first) | the band |
 
 ## What is pending
 

@@ -145,7 +145,21 @@ silently following it. Known superseded points from earlier briefs:
    green gate authorizes nothing beyond these terms: any other link
    text, any other address on that site, and any mention of the other
    providers still require the human operator.*
-   *Outside these seven exceptions the other providers are still never
+   *Eighth scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-09-27): the home carousel's second film
+   (`commercial-van-promo`), Amy's own Mobile Aesthetics promo. Six
+   women in matching uniforms step out of the black van and stand
+   together beside it — Amy and the location's other providers,
+   everyone on camera with a website release confirmed on file
+   (operator, same date); none is legibly named at the film's 720px.
+   The practice's web address is printed on every frame and on the
+   film's poster — a DISPLAY-ONLY pixel reference, not a link (the
+   fifth exception's class); the site's text never prints it. Fixed
+   terms: this film and its poster, in the carousel; its label, its
+   caption file and comments name nobody; another placement requires
+   the human operator. (Its product cartons and tray are constraint
+   3's eleventh pixel-level override.)*
+   *Outside these eight exceptions the other providers are still never
    named or implied in any needlegirlie.com text, and adding any
    further film or mention, or any link outside the seventh
    exception's terms, requires the human operator.*
@@ -248,8 +262,22 @@ silently following it. Known superseded points from earlier briefs:
      ServiceLineGrid menu (/services, and /styleguide, which renders
      it); no text from the vials, the cartons, or the banner is ever
      restated in site text — copy, alt, comments, meta, OG, JSON-LD;
-     changing any of it requires the human operator.* Nothing else;
-     changing that list requires the human operator.
+     changing any of it requires the human operator.* *Eleventh
+     pixel-level override, the eighth under this bullet (operator
+     override after the compliance flag — DECISIONS 2026-09-27): the
+     home carousel's second film (`commercial-van-promo`), Amy's own
+     promo, carried as-is with its studio segment: a tray printed
+     "Mobile Aesthetics" holding syringes in labelled slots, several
+     injection-area labels legible, syringes in Amy's hands, and
+     product cartons (Radiesse+, a pink "LIPS+" carton, Jeuveau — no
+     quantity legible) — the prep-workflow and product-box classes the
+     2026-07-23 photo rubric excluded. Fixed terms: this film and its
+     poster, in the carousel; no label or packaging text from it is
+     ever restated in site text — copy, the slide's label, the captions
+     file, comments, meta, OG, JSON-LD; changing any of it requires the
+     human operator. (Its other providers and printed address are
+     constraint 2's eighth exception.)* Nothing else; changing that list
+     requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
      superiority claims ("#1", "best"). *Scoped exceptions (operator
@@ -285,13 +313,28 @@ silently following it. Known superseded points from earlier briefs:
      `allowedStrings` entry was withdrawn with the operator's
      authorization and the ranking vocabulary is banned everywhere
      again; re-adding the sentence requires the human operator;
-     and three of the home-carousel films (operator clearances,
-     DECISIONS 2026-08-14) — the two Evolus co-op Jeuveau commercials
-     carried as-is with their complete FDA safety information (never
-     trimmed or cropped), and Amy's own studio reel under operator
-     override with both client releases confirmed on file. (The
-     carousel's team film — added 2026-08-17 — contains no claims and
-     needs no exception here; its override lives under constraint 2.)
+     and the home-carousel Jeuveau commercial (operator clearance,
+     DECISIONS 2026-08-14) — the Evolus co-op spot `commercial-j2`,
+     carried as-is with its complete FDA safety information (never
+     trimmed or cropped). Its twin `commercial-j1` and Amy's own studio
+     reel (both client releases confirmed on file), cleared the same
+     day, RETIRED 2026-09-27 when two of Amy's own films replaced them
+     (DECISIONS same date); re-adding either requires the human
+     operator. (The carousel's team film — added 2026-08-17 — contains
+     no claims and needs no exception here; its override lives under
+     constraint 2.) And Amy's billboard-day reel, the carousel's third
+     film since 2026-09-27 (`commercial-billboard`; operator override
+     after the compliance flag — DECISIONS same date), carried as-is:
+     its opening photo of her Evolysse billboard, whose outcome-promise
+     headline and brand lockup are legible; a wall poster titling a
+     competitor neuromodulator brand the site's own copy never names;
+     and the manufacturer's boxes and shipping cartons (the product-box
+     class; no quantity legible). Both people on camera besides Amy are
+     released (operator, same date). Fixed terms: this film and its
+     poster, in the carousel; no text from the billboard, the poster or
+     the boxes is ever restated in site text — copy, the slide's label,
+     the captions file, comments, meta, OG, JSON-LD; changing any of it
+     requires the human operator.
      And six photos (operator overrides after the compliance flags —
      DECISIONS 2026-08-18, 2026-08-21, 2026-08-25, and 2026-09-25): the /services hormone-optimization menu
      card's photo (`biote-banner-scale.jpg`), in which the Biote

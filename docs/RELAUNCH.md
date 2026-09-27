@@ -132,10 +132,12 @@ check will refuse it. On a branch off `main`:
   `/js/band-film.js` (200, `text/javascript`), and the band's
   `data-band-film` element points at `van-trip-sound.mp4` on the media
   origin (206 on a range request, `video/mp4`). The band's "See the
-  hostess perk ›" and the header's "Tox To Go" item resolve to
-  `/tox-to-go` (200). `/mobile` is not a probe target: it retired
+  hostess perk ›" and the header's "Tox Together" item resolve to
+  `/tox-together` (200). `/mobile` is not a probe target: it retired
   2026-09-26 with no redirect, so a 404 there is correct (DECISIONS
-  2026-09-26, the Tox To Go page entry).
+  2026-09-26, the Tox To Go page entry). Nor is `/tox-to-go`: the
+  page moved to `/tox-together` 2026-09-27 before production ever
+  served it, so a 404 there is correct too (DECISIONS 2026-09-27).
 - Plausible: `/api/event` returns 202 from the production page;
   dashboard shows the first pageviews.
 - The favicon set serves: `/favicon.ico` (200, `image/x-icon` or

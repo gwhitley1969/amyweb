@@ -18,15 +18,18 @@ import logo from '../assets/brand/needle-girlie-wordmark-metallic-alpha.png';
 // native — srcset stays native-max; a higher-res original sharpens it
 // with no code change.
 import studioPortrait from '../assets/photos/studio-counter-portrait.jpg';
-// The share title (2026-09-26, operator; DECISIONS same date on phase-c, the
-// link-share card entry): the line a shared link's preview prints under the
-// card is the practice and the town, the card's own line. The title tag
-// keeps its search wording.
+// The share title (2026-09-26, operator; reworded 2026-09-27; DECISIONS of
+// both dates on phase-c): the line a shared link's preview prints under the
+// card is the practice and the town, the card's own lines. It is written as
+// an expression because each half is held together by a no-break space
+// ( , after "Mobile" and after "Harrisburg,"): a phone can then break
+// the line only between the practice and the town. The title tag keeps its
+// search wording.
 ---
 
 <BaseLayout
   title="Needle Girlie | Medical Aesthetics in Harrisburg, NC"
-  shareTitle="Mobile Aesthetics · Harrisburg, NC"
+  shareTitle={'Mobile Aesthetics Harrisburg, NC'}
   description="Needle Girlie — the medical-aesthetics practice of Amy Palacios, FNP, in Harrisburg, NC. The site is under construction."
   surface="noir"
 >

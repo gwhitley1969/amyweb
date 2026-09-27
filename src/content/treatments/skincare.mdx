@@ -32,7 +32,7 @@ faq:
   - q: "Does Amy carry the full Skinbetter Science line?"
     a: "Yes. As an authorized provider, Amy can supply any product in the line. The storefront carries the complete range; the studio shelf holds a rotating selection to browse in person."
   - q: "Why does the storefront say Mobile Aesthetics?"
-    a: "Mobile Aesthetics is Amy's own practice: the storefront runs under the practice name. A purchase there is a purchase with Amy."
+    a: "[Mobile Aesthetics](site:practice) is Amy's own practice: the storefront runs under the practice name. A purchase there is a purchase with Amy."
   - q: "How do I know which products suit my skin?"
     a: "That's a conversation with Amy: ask at any appointment, or request a free consultation."
 seo:
@@ -42,6 +42,7 @@ seo:
 
 import { Image } from 'astro:assets';
 import StorefrontCallout from '../../components/StorefrontCallout.astro';
+import PracticeLink from '../../components/PracticeLink.astro';
 import amyHoldingSkinbetter from '../../assets/photos/amy-holding-skinbetter.jpg';
 import skinbetterOverCards from '../../assets/photos/skinbetter-over-cards.jpg';
 
@@ -85,7 +86,7 @@ There are two routes, and both run through Amy's practice.
 what you're taking home with Amy while you're in the chair.
 
 **Online**: the shop button on this page opens the Skinbetter Science
-storefront. It runs under **Mobile Aesthetics**, Amy's own practice,
+storefront. It runs under **<PracticeLink>Mobile Aesthetics</PracticeLink>**, Amy's own practice,
 so that's the name you'll see when it opens. A first order creates a
 Skinbetter account tied to the practice, and orders ship directly to
 your door.

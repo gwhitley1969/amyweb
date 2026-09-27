@@ -388,7 +388,16 @@ links, Get-the-App slot), Hero, TreatmentCard, ServiceLineGrid, CTAButton
 BioteDisclaimer, LocationCard (address, hours, directions link-out),
 GetTheApp (feature-flagged, §9), DraftBanner (§7), SEO head component,
 JSON-LD component (§10), Breadcrumbs (treatment pages), FAQ block (optional,
-only with approved content).
+only with approved content), BookLink and PracticeLink (the two links a
+sentence may hold: "book" to Amy's Vagaro page since 2026-09-19, and —
+since 2026-09-27, under CLAUDE.md constraint 2's seventh scoped exception
+— the practice's name to the practice site, wherever visible text says
+it: the Footer's and the LocationCard's address blocks, three /about
+sentences, a skincare sentence and FAQ answer, and the home carousel's
+heading. In plain strings both are written as markers,
+`src/lib/inlineLinks.ts`. `npm run lint:practice-link`, the last of the
+fast gates, fails a built page that names the practice in visible text
+outside that link; an FAQ question is the one place the name stays plain).
 
 Quality floor without announcing it: responsive to 360px, visible keyboard
 focus on every interactive element, `prefers-reduced-motion` respected (for

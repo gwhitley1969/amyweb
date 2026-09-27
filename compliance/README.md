@@ -150,6 +150,24 @@ link to that same destination (the /about Girl Team button,
 an already-screened destination does not carry authorization forward
 to a new consumer.
 
+The third use of that destination (2026-09-27) is a CLASS, not a
+placement: the operator had the practice's name linked wherever
+visible text says it, sitewide. It was flagged, the destination was
+screened again that day, and it ships as constraint 2's seventh scoped
+exception (DECISIONS same date). It is the one case where the
+authorization does reach new copy: a new visible mention of the name
+takes the same link on the same terms. `npm run lint:practice-link`
+(`scripts/lint-practice-link.mjs`, part of `verify:fast`) reads the
+built pages and fails when the name stands in visible text outside
+that link, and when a link to the practice site departs from the
+terms: another address on that site, a missing new-tab attribute, or a
+place inside an FAQ question or a button. Two limits to keep in mind.
+The gate reads this repo's pages and never the far side of the link,
+so a change on the practice site is only ever seen by a person. And a
+green gate authorizes nothing outside the exception: any other link
+text, any other destination, and any mention of the other providers
+still go to the operator.
+
 **QR codes are both blindness classes at once** (first instance: the
 storefront QR on /services/skincare, 2026-08-25): the encoded URL is
 pixels no linter reads, AND it is an outbound destination in

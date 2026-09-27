@@ -12474,3 +12474,42 @@ prints the bar Messages will draw, over the 900 variations.
 - **The PRs:** #214 into phase-c, #215 into main (the hotfix).
 - **The bar's colour on a phone is read after production deploys.** The
   reading goes in an addendum here.
+
+**Merged (2026-09-27), on the operator's word.**
+- **A test before the merge.** With both PRs open and nothing merged,
+  the operator texted a production link and reported: "I tested it and
+  it failed. It used the old card". Production was unchanged at that
+  moment, so the old card was the right answer. Asked, the operator
+  chose "Merge now". The link used for that test keeps the preview the
+  phone built for it, so the next test needed a new query string.
+- **The merges.** The hotfix (PR #215) merged first, at 14:15 UTC, so
+  production changed at once; PR #214 followed within the minute, its
+  last preview run having finished. Both standing previews (#97, #149)
+  were refreshed after it.
+- **Production,** three consecutive clean passes, plain and
+  cache-busted: the home page and the not-found page name the new card
+  and carry the new share title, no-break spaces in place; the title
+  tag is unchanged; the card served is the file that was built (the
+  same sha256); both earlier cards still answer 200. The production
+  run finished green, its cache purge included.
+- **The standing previews** converged on their first three passes, and
+  their runs finished green.
+- **No orphan environment:** the list reads default, 97, 149, 201, 210.
+  The test pages' PR #211 is closed unmerged, its branch kept.
+- **One check failed and then passed on identical code** (the
+  escalation rule of 2026-07-19: the operator is flagged with the
+  evidence, and no assertion is touched). The hotfix's first preview
+  run failed two Lighthouse metrics on both of its URLs: performance
+  0.92 and 0.90 against 0.95, and total blocking time 317 ms and 380 ms
+  against 200 ms. The change edits share tags and adds a file that no
+  page fetches, so it cannot move either metric. Re-run once, the
+  identical commit passed. `main` still measures each URL once, where
+  phase-c asserts the median of three, so a slow runner shows through
+  there.
+
+**Addendum (2026-09-27) — the phone.** The operator, after the merge:
+"I checked the production and it worked correctly." That is the
+confirmation of the card, of the black bar and of the title on the
+operator's phone. No screenshot came with it, so the bar's colour is
+confirmed by eye and is not measured; the predicted value stays
+26/26/26 until a screenshot is read.

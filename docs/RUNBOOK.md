@@ -754,7 +754,10 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
   rerun once; if the identical code passes, the pre-agreed escalation rule
   applies — flag the operator with the evidence before touching any
   assertion. Expected verify wall time is ~6 minutes (3 Lighthouse runs
-  per URL).
+  per URL). On `main`, while it is the placeholder, the config still
+  measures each URL ONCE, so a slow runner shows through more easily
+  there: a hotfix's run failed that way on 2026-09-27 (PR #215) and
+  passed unchanged on its one re-run. The same rule applies.
 - **Production build fails with "FRONT_DOOR_ID is missing":** intentional —
   a production artifact must never ship without the origin lockdown GUID.
 - **Stale page after a deploy:** hard refresh (Ctrl+F5); remember the 5-min

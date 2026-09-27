@@ -6,6 +6,43 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-27 — /about leads with a new picture of Amy; her family picture moves into the text
+
+- The About page's lead picture is now Amy in a pink dress, seated on
+  her studio counter. It sits to the right of "Amy Palacios, FNP" and
+  is shown whole, in the house arch.
+- The family picture is about two-thirds of its old size. It sits
+  under the section's last paragraph and above the "Book with Amy"
+  button.
+- On a phone the order is: the heading, the opening line, the new
+  picture, the three paragraphs, the family picture, the button. Until
+  now a phone showed the family picture last, after the button.
+- Sizes, width by height in px:
+
+  | Picture | Desktop, 1280 wide | Phone, 390 wide |
+  |---|---|---|
+  | The new picture | 484 × 724 | 342 × 512 |
+  | The family picture, now | 320 × 400 | 246 × 307 |
+  | The family picture, before | 484 × 604 | 342 × 427 |
+
+- The family picture's size and the phone order are the operator's
+  picks, made from mock sheets of the page.
+- No wording changed. The button and its link are the same.
+- The new picture shows product cartons and vials, which the photo
+  rules of 2026-07-23 set aside, so it went up on the operator's
+  approval after the flag. Only the cartons' brand and product names
+  can be read in it, and the site's own copy already says them, so no
+  rule exception was needed.
+- The family picture led this page at Amy's own request. Its new place
+  is the operator's direction, and her pending look approval carries
+  it.
+- On a desktop the text column now runs about 400 px below the new
+  picture, so the lower right of the section is open canvas.
+- The live Under Construction page does not change. The new layout
+  goes live at relaunch.
+- It is PR #221 (`feat/about-lead-photo`) into phase-c; the record is
+  DECISIONS 2026-09-27, the /about lead portrait entry.
+
 ### 2026-09-27 — "Mobile Aesthetics" is a link to the practice site wherever a page says it
 
 - Wherever a page's visible text says "Mobile Aesthetics", the name is

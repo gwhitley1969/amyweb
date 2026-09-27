@@ -6,6 +6,42 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-27 — "Mobile Aesthetics" is a link to the practice site wherever a page says it
+
+- Wherever a page's visible text says "Mobile Aesthetics", the name is
+  now a link to yourmobileaesthetics.com. It opens in a new tab, like
+  every outbound link here.
+- Where: the address block in every page's footer and in the location
+  card (home and /visit); three sentences on /about; one sentence and
+  one FAQ answer on /services/skincare; and the home film carousel's
+  heading, "Mobile Aesthetics. On screen."
+- That is 36 new links. With the header badge on every page and the
+  /about button, the site carries 62 links to the practice site.
+- No wording changed. Not one visible letter moved.
+- One place stays plain text: the skincare FAQ question "Why does the
+  storefront say Mobile Aesthetics?". A link inside the control that
+  opens an answer would take its click. The answer under it has the
+  link.
+- Photo descriptions, film labels, page descriptions, share titles and
+  caption files cannot hold a link and are untouched.
+- This is the operator's override of the "Amy's services only" rule,
+  made after the flag: the practice site lists the location's other
+  providers. It is CLAUDE.md constraint 2's seventh scoped exception.
+- A new build gate, `lint:practice-link`, fails a page that names the
+  practice in visible text without the link, so new copy cannot miss
+  it.
+- On the home page the linked heading rises whole. The other section
+  headings still rise word by word.
+- The live Under Construction page has no visible mention, so
+  production does not change until relaunch.
+- It is PR #219 (`feat/practice-name-links`) into phase-c; the record
+  is DECISIONS 2026-09-27, the practice's-name entry.
+- Merged 2026-09-27 on the operator's word ("Merge now"), its checks
+  green on two runs. The PR's own preview never served (Azure's 404, a
+  known fault with new preview environments), so the operator judged
+  the look from screenshots of the same build; both standing previews
+  (#97, #149) refreshed after the merge.
+
 ### 2026-09-27 — /tox-together: the hostess perk speaks to "you"
 
 - In the "Hostess perk" section, "the hostess receives a $600 credit"

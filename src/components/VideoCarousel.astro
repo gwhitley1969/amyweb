@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import PracticeLink from './PracticeLink.astro';
 import { siteConfig } from '../lib/siteConfig';
 import evolyssePoster from '../assets/photos/commercial-evolysse-poster.jpg';
 import j1Poster from '../assets/photos/commercial-j1-poster.jpg';
@@ -124,14 +125,25 @@ const slides: {
 ];
 ---
 
-<section class="vc surface" data-surface="noir" aria-labelledby="vc-heading">
+{/* The section is NAMED by an explicit label since 2026-09-27, no longer
+    by the heading's id: the heading now holds a link, and the link's
+    hidden new-tab note would otherwise land in the region's name. Keep
+    the label's words the same as the heading's. */}
+<section class="vc surface" data-surface="noir" aria-label="Mobile Aesthetics. On screen.">
   <div class="vc-head">
     {/* Heading only, no eyebrow — operator/Amy 2026-08-15: this
         section deliberately drops the label+heading signature (fewest
         words on the cinematic stage). Renamed from "The studio. On
         screen." 2026-08-17 (operator) when the team film joined — the
-        carousel now speaks for the whole practice. */}
-    <h2 class="heading-2" id="vc-heading">Mobile Aesthetics. On screen.</h2>
+        carousel now speaks for the whole practice.
+        Since 2026-09-27 the practice's name is a LINK to the practice
+        site (operator override of constraint 2 after the flag — every
+        visible mention, this heading included by the operator's choice;
+        DECISIONS same date). The site's first link inside a heading:
+        the home motion layer raises a heading that holds a link WHOLE
+        (public/js/home-motion.js, section 4), because a word split
+        drops the underline and hides the link's name. */}
+    <h2 class="heading-2" id="vc-heading"><PracticeLink>Mobile Aesthetics</PracticeLink>. On screen.</h2>
   </div>
 
   <div class="vc-stage" data-vc-stage>

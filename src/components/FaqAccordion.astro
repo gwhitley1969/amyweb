@@ -1,5 +1,6 @@
 ---
 import BookLink from './BookLink.astro';
+import PracticeLink from './PracticeLink.astro';
 import { parseInlineLinks } from '../lib/inlineLinks';
 
 /**
@@ -18,12 +19,18 @@ import { parseInlineLinks } from '../lib/inlineLinks';
  *
  *     Feel free to [book](cta:book) now!
  *
- * — parsed by src/lib/inlineLinks.ts (the rules live there: cta:book is
- * the ONLY target, arbitrary URLs are deliberately unsupported, a bad
- * marker fails the build) and rendered with BookLink. No schema change —
+ * — parsed by src/lib/inlineLinks.ts (the rules live there: two targets
+ * only, arbitrary URLs are deliberately unsupported, a bad marker fails
+ * the build) and rendered with BookLink. No schema change —
  * the answer stays a string. The QUESTION never takes a marker: it renders
  * inside <summary>, and a link there would hijack the click that opens
  * the answer (axe: nested-interactive).
+ *
+ * THE PRACTICE'S NAME (operator direction 2026-09-27 — every visible
+ * "Mobile Aesthetics" links to the practice site; DECISIONS same date):
+ * an answer writes it as [Mobile Aesthetics](site:practice), rendered
+ * with PracticeLink. A question keeps the name as plain text, for the
+ * reason above; the lint:practice-link gate allows exactly that.
  */
 interface Props {
   heading?: string;
@@ -50,7 +57,9 @@ const { heading = 'Have questions?', items } = Astro.props;
             </summary>
             <p class="faq__a">{
               parseInlineLinks(item.a, `the FAQ answer to "${item.q}"`).map((part) =>
-                part.link === 'book' ? <BookLink>{part.text}</BookLink> : part.text
+                part.link === 'book' ? <BookLink>{part.text}</BookLink>
+                : part.link === 'practice' ? <PracticeLink>{part.text}</PracticeLink>
+                : part.text
               )
             }</p>
           </details>

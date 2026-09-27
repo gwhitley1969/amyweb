@@ -370,6 +370,22 @@
   // ---- 4. Section openers rise word by word
   qa('main h2').forEach((h2) => {
     if (h2.closest('.nc-hero')) return;
+    // A heading that holds a LINK rises whole (2026-09-27: the practice's
+    // name in the carousel heading is a link). A word split would cost the
+    // link twice: the word boxes are inline-blocks, which do not carry the
+    // anchor's underline, and aria 'auto' hides them, which leaves the
+    // link without a name for a screen reader.
+    if (h2.querySelector('a')) {
+      gsap.set(h2, { visibility: 'visible' });
+      gsap.from(h2, {
+        autoAlpha: 0,
+        yPercent: 40,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: h2, start: 'top 85%', once: true },
+      });
+      return;
+    }
     const split = new SplitText(h2, { type: 'words', aria: 'auto' });
     gsap.set(h2, { visibility: 'visible' });
     gsap.from(split.words, {

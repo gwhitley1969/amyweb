@@ -73,6 +73,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   (`commercial-van-promo.mp4`, `commercial-billboard.mp4`). The
   retired films' posters and caption files leave the repo; their
   media objects stay until open PRs no longer use them.
+- It is PR #222 (`feat/carousel-ad2-ad3`), merged into phase-c on the
+  operator's word; the standing demo (#97) and the review preview
+  (#149) show it. The record is in DECISIONS, 2026-09-27.
 
 ### 2026-09-27 — "Mobile Aesthetics" is a link to the practice site wherever a page says it
 

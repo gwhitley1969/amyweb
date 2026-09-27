@@ -532,7 +532,10 @@ each shipped page lives in DECISIONS):
    object-position; the twelve /services menu cards 640×800 at their
    per-photo gravity anchors from the ServiceLineGrid map; arch
    frames clip corners) — screenshot each changed slot at 390 and
-   desktop before calling it done.
+   desktop before calling it done. One portrait is not cropped: the
+   /about lead shows its master whole at 2:3 since 2026-09-27, and
+   the family portrait under that section's text keeps the 4:5
+   window (DECISIONS same date).
 8. `npm run verify` green → PR → preview probes converge → Amy's
    word → merge.
 

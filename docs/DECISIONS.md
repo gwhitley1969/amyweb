@@ -13282,3 +13282,25 @@ sides of each record kept, and the full check chain passed again on
 the result before the merge. The standing demo (#97) and the review
 preview (#149) are refreshed from phase-c after the merge; #149's
 refresh is the hand merge named above.
+
+**After the merge (2026-09-27).**
+- **The merge:** PR #221 merged at 19:35 UTC as `98a3e69`, at the head
+  `4bb53e4` whose checks had passed.
+- **The standing demo (#97)** was refreshed to `293212b` by a clean
+  merge; that branch does not touch the page.
+- **The review preview (#149)** was refreshed to `5c31bbc` by the hand
+  merge: its page tag line kept, the new markup taken. The fast gates
+  passed on the result before it was pushed.
+- **Both refreshes passed their checks,** and both probes converged on
+  their first three passes, each pass making ten requests across four
+  pages, plain and cache-busted. On the demo the nine picture files
+  the page names answered with their built sizes.
+- **Environments:** the PR's own was removed when it closed. The list
+  holds default, 97, 149, 201 and 210, so nothing is stray.
+- **The main checkout** was fast-forwarded to `98a3e69`.
+- **Standing documents brought up to date** in PR #224, a records-only
+  change: RUNBOOK's crop list, BUILD_SPEC §5 and its /about row, and
+  REDESIGN's arch row now say that the lead portrait is shown whole.
+  Those are descriptions of the design and the page. The rulebook
+  (BUILD_SPEC §8), CLAUDE.md and compliance/ are unchanged, as decided
+  above.

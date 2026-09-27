@@ -69,8 +69,10 @@ silently following it. Known superseded points from earlier briefs:
    DECISIONS 2026-08-15): the header badge links out to Amy's own
    practice site, `siteConfig.mobileAestheticsUrl`
    (yourmobileaesthetics.com), whose pages name the location's other
-   providers. The first of two sanctioned outbound references to that
-   site (the second is the fourth exception below, 2026-08-25).*
+   providers. The first sanctioned outbound reference to that site
+   (the second is the fourth exception below, 2026-08-25; since
+   2026-09-27 the practice's name links there too — the seventh
+   exception below).*
    *Second scoped exception (operator override after the
    compliance flag — DECISIONS 2026-08-17; placement widened
    2026-08-25): the Mobile Aesthetics team film, which shows the
@@ -109,8 +111,10 @@ silently following it. Known superseded points from earlier briefs:
    flag — DECISIONS 2026-08-25): the /injector-training reel
    (`training-reel`), Amy's own film, whose closing contact card
    displays yourmobileaesthetics.com on screen — a DISPLAY-ONLY
-   pixel reference, not a link; the sanctioned outbound links remain
-   exactly the two above, and the site's text never prints the URL.
+   pixel reference, not a link; this film adds no outbound link (the
+   sanctioned ones are the header badge, the /about button and, since
+   2026-09-27, the practice's name under the seventh exception
+   below), and the site's text never prints the URL.
    (The film's on-camera people are all released and none is another
    provider — its content override lives under constraint 3.)*
    *Sixth scoped exception (operator override after the compliance
@@ -121,9 +125,30 @@ silently following it. Known superseded points from earlier briefs:
    frame, never named); their consent for needlegirlie.com use is
    confirmed on file. The film's label and captions never attribute
    the hands-on treatment to anyone.*
-   *Outside these six exceptions the other providers are still never
+   *Seventh scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-09-27): the practice's NAME as a link.
+   Wherever VISIBLE site text names Mobile Aesthetics, the name links
+   to `siteConfig.mobileAestheticsUrl` through `PracticeLink` (in a
+   plain string, the `[Mobile Aesthetics](site:practice)` marker). The
+   operator chose every visible mention: the address block of every
+   page's footer and of the location card, three sentences on /about,
+   one sentence and one FAQ answer on /services/skincare, and the
+   home carousel's heading. The destination was screened again that
+   day and still lists the location's other providers. Fixed terms:
+   the link text is the practice's name and nothing else; the
+   destination is that one address; a new tab, `noopener`, the
+   `ma_site_click` event and the hidden new-tab note; an FAQ QUESTION
+   keeps the name as plain text (a link inside the control that opens
+   the answer is not allowed). New copy that names the practice in
+   visible text takes the link under this same exception, and
+   `npm run lint:practice-link` fails a build where it does not. A
+   green gate authorizes nothing beyond these terms: any other link
+   text, any other address on that site, and any mention of the other
+   providers still require the human operator.*
+   *Outside these seven exceptions the other providers are still never
    named or implied in any needlegirlie.com text, and adding any
-   further link, film, or mention requires the human operator.*
+   further film or mention, or any link outside the seventh
+   exception's terms, requires the human operator.*
 
 3. **Medical-marketing claim discipline.** A licensed clinician is advertising
    medical treatments. The full rulebook is BUILD_SPEC §8. Core rules:

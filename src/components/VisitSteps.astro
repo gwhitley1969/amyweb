@@ -1,5 +1,6 @@
 ---
 import BookLink from './BookLink.astro';
+import PracticeLink from './PracticeLink.astro';
 import { parseInlineLinks } from '../lib/inlineLinks';
 
 /**
@@ -26,6 +27,9 @@ import { parseInlineLinks } from '../lib/inlineLinks';
  * (src/lib/inlineLinks.ts) and rendered with BookLink. The step TITLES
  * stay plain — "Book — or ask first" sits directly on top of "Book an
  * appointment…", and the operator chose not to stack two identical links.
+ * The marker's second target, [Mobile Aesthetics](site:practice)
+ * (2026-09-27), renders with PracticeLink; no step names the practice
+ * today, and the branch is here so that one that does cannot print plain.
  */
 const FOIL_STOPS = [
   ['0.00', '#fdaedb'],
@@ -99,7 +103,9 @@ const steps = [
             </h3>
             <p class="mt-2">{
               parseInlineLinks(s.body, `the visit step "${s.title}"`).map((part) =>
-                part.link === 'book' ? <BookLink>{part.text}</BookLink> : part.text
+                part.link === 'book' ? <BookLink>{part.text}</BookLink>
+                : part.link === 'practice' ? <PracticeLink>{part.text}</PracticeLink>
+                : part.text
               )
             }</p>
           </div>

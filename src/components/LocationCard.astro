@@ -1,4 +1,5 @@
 ---
+import PracticeLink from './PracticeLink.astro';
 import { siteConfig } from '../lib/siteConfig';
 
 /**
@@ -28,8 +29,11 @@ const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encode
   <p class="mt-2">
     {siteConfig.legalName}<br />
     {/* The location's name (operator, 2026-08-17) — the factual
-        practices-within note constraint 2 permits; Amy's own PLLC. */}
-    Mobile Aesthetics<br />
+        practices-within note constraint 2 permits; Amy's own PLLC.
+        Since 2026-09-27 the name LINKS to the practice site (operator
+        override of constraint 2 after the flag — every visible
+        mention; DECISIONS same date). */}
+    <PracticeLink>Mobile Aesthetics</PracticeLink><br />
     {siteConfig.address}
   </p>
   <p class="mt-2">

@@ -7,6 +7,7 @@ import { reviewTag } from '../lib/reviewTags';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
 import BookLink from '../components/BookLink.astro';
+import PracticeLink from '../components/PracticeLink.astro';
 import TrustChips from '../components/TrustChips.astro';
 import EvolusLaurel from '../components/EvolusLaurel.astro';
 import TreatmentVideo from '../components/TreatmentVideo.astro';
@@ -59,6 +60,12 @@ import girlTeamFilmWidePoster from '../assets/photos/girl-team-film-wide-poster.
  * day — the team film below the button in a sounded rendition, the
  * constraint-2 SECOND exception (the carousel team film) widened to
  * this placement (DECISIONS 2026-08-25; see the film comment below).
+ * Since 2026-09-27 the practice's NAME is a link to the practice site
+ * wherever this page's visible text says it — three sentences here,
+ * through PracticeLink — under constraint 2's seventh scoped operator
+ * override (every visible mention, sitewide; DECISIONS same date). No
+ * word of any sentence changed. With the header badge, the button and
+ * the footer, this page carries six links to that site.
  * Hero portrait is Amy's family (client-requested
  * 2026-07-23; on-record consent covers everyone pictured incl. the
  * minors); alt text names no one but Amy. The studio photo (8K0A9862)
@@ -136,7 +143,7 @@ const CHEVRONS = [
             never stops training and advancing her knowledge of the business.
           </p>
           <p>
-            Today the studio is hers: Amy owns Mobile Aesthetics in
+            Today the studio is hers: Amy owns <PracticeLink>Mobile Aesthetics</PracticeLink> in
             Harrisburg, North Carolina, just northeast of Charlotte. She
             practices there alongside other independent providers, and
             Needle Girlie is the dedicated home of her own work.
@@ -251,7 +258,7 @@ const CHEVRONS = [
             <div>
               <h3 class="heading-4">Today &middot; Needle Girlie</h3>
               <p class="mt-2">
-                Owner of Mobile Aesthetics, a Biote-certified provider, and the
+                Owner of <PracticeLink>Mobile Aesthetics</PracticeLink>, a Biote-certified provider, and the
                 one clinician behind every Needle Girlie appointment.
               </p>
             </div>
@@ -399,7 +406,7 @@ const CHEVRONS = [
         <h2 class="heading-2 mt-6">The name on the wall.</h2>
         <div class="mt-6 max-w-prose space-y-4">
           <p>
-            The neon script over the studio reads Mobile Aesthetics — Amy's
+            The neon script over the studio reads <PracticeLink>Mobile Aesthetics</PracticeLink> — Amy's
             own practice. Needle Girlie is the name she goes by, and this
             site exists so there is zero confusion about who you are booking
             with: one clinician, under her own sign.

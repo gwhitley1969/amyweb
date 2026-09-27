@@ -8,7 +8,9 @@ interface Props {
    *  previews is that og:title carries no site name (og:site_name does),
    *  so a page whose title tag keeps the brand for search can share a
    *  plain line. Only the home page sets one: the practice and the town,
-   *  the card's own line (DECISIONS 2026-09-26). */
+   *  the card's own lines, each half held together by no-break spaces so
+   *  a phone breaks the line between them (DECISIONS 2026-09-26 and
+   *  2026-09-27). */
   shareTitle?: string | undefined;
   description: string;
   /** Optional page-specific share image URL. Without one, the page shares
@@ -26,16 +28,23 @@ const isProduction = import.meta.env.PUBLIC_ENV === 'production';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
 // The default link-share card (DECISIONS 2026-09-25, Amy's request; re-made
-// 2026-09-26): her studio-counter portrait in the arch beside the metallic
-// wordmark, 1200×630, served from public/og/ at a stable absolute URL that
-// link previews can fetch. Since iOS 18, Messages colours the bar under a
-// preview from the picture itself, so the card is on the site's pink canvas
-// (the 2026-09-25 noir card gave a dark plum bar; no tag controls it). Apps
-// cache previews by URL, so a new card ships under a NEW filename, named by
-// its render date; the 2026-09-25 file stays in public/og/ until relaunch
-// for previews that apps had cached. The same files and this same component
-// are on main (the placeholder) and phase-c, byte-identical, so the relaunch
-// merges clean.
+// 2026-09-26 and 2026-09-27): a black panel with the metallic wordmark, her
+// name, the practice and the town, beside her studio-counter portrait in the
+// arch on the site's canvas; 1200×630, served from public/og/ at a stable
+// absolute URL that link previews can fetch.
+// WHY THE BLACK PANEL, AND WHY ON THE LEFT: Messages colours the bar under a
+// preview from the picture, and no tag controls it. It reads the middle of
+// the card from the top-left, uses the heaviest colour, and gives every dark
+// colour the hue of the first dark patch it met (DECISIONS 2026-09-27, read
+// from Apple's code). The black card of 2026-09-25 gave a plum bar and the
+// pink card of 2026-09-26 a grey one; this card gives the black bar the
+// operator asked for. Any new card is checked with the share-card folder's
+// predictor before it ships (RUNBOOK "Changing the link-share card").
+// Apps cache previews by URL, so a new card ships under a NEW filename, named
+// by its render date; the earlier cards' files stay in public/og/ until
+// relaunch for previews that apps had cached. The same files and this same
+// component are on main (the placeholder) and phase-c, byte-identical, so the
+// relaunch merges clean.
 interface ShareImage {
   url: string;
   width?: number;
@@ -45,7 +54,7 @@ interface ShareImage {
 const share: ShareImage = ogImage
   ? { url: ogImage }
   : {
-      url: new URL('/og/needle-girlie-share-2026-09-26.jpg', Astro.site).href,
+      url: new URL('/og/needle-girlie-share-2026-09-27.jpg', Astro.site).href,
       width: 1200,
       height: 630,
       alt: 'Amy Palacios, FNP, seated on her studio counter beside the Needle Girlie logo',

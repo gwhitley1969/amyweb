@@ -499,23 +499,42 @@ each shipped page lives in DECISIONS):
 
 ## Changing the link-share card
 
-What a shared needlegirlie.com link shows (DECISIONS 2026-09-25) is
-`public/og/needle-girlie-share.jpg`: 1200×630, the default `og:image` and
-`twitter:image` that `src/components/SeoHead.astro` gives every page (a
-page can pass its own `ogImage`). It is built outside the repo in
-`C:\Amy\share-card\` (`card.html` + `render.cjs`; its README has the
-steps). To change it:
+What a shared needlegirlie.com link shows (DECISIONS 2026-09-25; re-made
+2026-09-26) is `public/og/needle-girlie-share-2026-09-26.jpg`: 1200×630,
+the default `og:image` and `twitter:image` that
+`src/components/SeoHead.astro` gives every page (a page can pass its own
+`ogImage`). It is built outside the repo in `C:\Amy\share-card\`
+(`card.html` + `render.cjs`; its README has the steps). To change it:
 1. Edit `card.html` (its words are site text: the claim rules apply),
-   run `node render.cjs`, and screen the result like any photo.
-2. Commit it under a NEW filename and point `SeoHead`'s default at it.
-   Apps cache previews by image URL, so a file replaced in place leaves
-   old previews stale. While `main` is still the placeholder, ship the
+   run `node render.cjs`, and screen the result like any photo. The
+   output is named by its render date.
+2. Commit it under that NEW filename and point `SeoHead`'s default at
+   it. Apps cache previews by image URL, so a file replaced in place
+   leaves old previews stale. Keep the previous card's file until
+   relaunch: nothing references it, but an app that stored its address
+   still asks for it. While `main` is still the placeholder, ship the
    same file and the same `SeoHead.astro` to `main` too, byte-identical
    (a hotfix PR — "Hotfixing production during the takedown era").
 3. After production deploys, refresh the two big caches: Facebook's
    Sharing Debugger (developers.facebook.com/tools/debug, "Scrape
    Again") and LinkedIn's Post Inspector (linkedin.com/post-inspector).
-   Both need a login; other apps re-read on their own schedule.
+   Both need a login; other apps re-read on their own schedule. In
+   Messages, a link with a fresh query string shows the new preview at
+   once.
+
+**The line under the picture is the share title, not the card.**
+`SeoHead` takes an optional share title and falls back to the page's
+title; the layout passes it through. The home page sets "Mobile
+Aesthetics · Harrisburg, NC" (DECISIONS 2026-09-26). The title tag is
+separate: it is what search shows, and it keeps the brand.
+
+**The bar under the picture in Messages is Apple's.** Since iOS 18 it is
+coloured from the picture: the 2026-09-25 noir card gave a dark plum,
+and no tag controls it. A card's colour is therefore a share-preview
+decision. A PR preview cannot show a candidate card, because a preview's
+share tags name production; test candidates from raw pages that carry
+their own share tags, on a draft PR that never merges, texted from an
+iPhone (DECISIONS 2026-09-26; the share-card README has the tools).
 
 ## Changing the storefront QR (or adding another QR)
 

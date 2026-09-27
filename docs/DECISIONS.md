@@ -12630,3 +12630,46 @@ once its checks are green, and the standing demo (#97) and the review
 preview (#149) are refreshed from phase-c after it, so both show the
 new name at /tox-together. The merge record rides the PR's first push:
 nothing is pushed to the branch after its checks start.
+
+## 2026-09-27 — /tox-together: the hostess perk addresses the host as "you" (the operator's wording)
+
+**Context.** The offer section of /tox-together spoke of the host in
+the third person. The operator (2026-09-27), with the page under
+review: "it says in the second sentence 'the hostess receives a $600
+credit...', change that to 'you receive a $600 credit...' and at the
+bottom of the section change the last part to 'That's a minimum of
+$2100 in services among your guests - and a $600 Service Credit for
+you.'"
+
+**Decisions** (operator, 2026-09-27: the request, then three
+AskUserQuestion answers on the PR's preview):
+1. **Two phrases change in the offer section:**
+   - "the hostess receives a $600 credit toward services" becomes "you
+     receive a $600 credit toward services";
+   - "and a $600 Service Credit for the hostess." becomes "and a $600
+     Service Credit for you."
+2. **The figure and the dash stay as the page had them:** "$2,100",
+   with its comma, and the long dash. The request's "$2100" and hyphen
+   were typing (the operator: "Keep as is").
+3. **The meta description follows** (and so the OG and Twitter
+   descriptions): "When your Tox Together party qualifies, you receive
+   a $600 service credit." It read "When a Tox Together party
+   qualifies, the hostess receives a $600 service credit." Offered with
+   it: leaving the description alone.
+4. **Merge and refresh** once the checks are green.
+
+**Not changed.** The heading "Hostess perk", "the Hostess Service
+Credit", the three requirements and every figure.
+
+**Compliance.** No new flag. The sentence states a term of the offer,
+not a treatment outcome, and answers no suitability question. The
+terms stay on Amy's non-gated item in CLINICIAN-SIGN-OFF.
+
+**Verification.** `npm run build`, `npm run check`, lint:claims and
+lint:voice on the change; the PR's own run carries pa11y and
+Lighthouse. Both sentences and the description were read from the
+built page, and the first two on the PR's preview.
+
+**Merged (2026-09-27), on the operator's word** ("Merge and refresh"):
+PR #218 into phase-c once its checks are green, with the standing demo
+(#97) and the review preview (#149) refreshed after it.

@@ -363,14 +363,20 @@ const reviewNum = lineNumber(Astro.url.pathname.split('/').pop() ?? '');
     object-position: 50% 42%;
   }
   /* Tall band variant (regenerative, 2026-07-26): since the 2026-08-17
-   * base-band change both bands share 9:8 — for prp-treatment it
-   * matches the server-side crop exactly, so object-fit is inert and
-   * stays only as the degrade path. The variant survives as the
+   * base-band change both bands share 9:8. The variant survives as the
    * centered-composition contract (50% 50%). Equal specificity to the
    * rules above — it must stay below them to win. */
   .treatment-body .media-band--tall .media-figure img {
     aspect-ratio: 9 / 8;
     object-position: 50% 50%;
+  }
+  /* The regenerative band since 2026-09-27 (swapped with the /services
+   * card): the device-session frame is a 744x1612 portrait, so the 9:8
+   * window holds ~41% of it. Anchored low it keeps the device, both
+   * gloved hands, and the client's face; the practitioner's hair frames
+   * the top. Higher specificity than the tall variant, so it wins. */
+  .treatment-body .media-band .media-figure img[src*='device-facial-session'] {
+    object-position: 50% 84%;
   }
   /* Segmental band variant (wrinkle-relaxers, 2026-08-18 — client
    * feedback: "we need to see everyone in the picture"): the frame's

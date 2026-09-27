@@ -5,7 +5,7 @@ import { CATEGORIES, serviceLines } from '../lib/serviceLines';
 import amyJeuveauVialEvolysse from '../assets/photos/amy-jeuveau-vial-evolysse.jpg';
 import amyEvolysseFormBanner from '../assets/photos/amy-evolysse-form-banner.jpg';
 import radiesseSyringes from '../assets/photos/radiesse-syringes.jpg';
-import deviceFacialSession from '../assets/photos/device-facial-session.jpg';
+import prpTreatment from '../assets/photos/prp-treatment.jpg';
 import pixel8InHand from '../assets/photos/pixel8-in-hand.jpg';
 import evolveBeltSelfie from '../assets/photos/evolve-belt-selfie.jpg';
 import laserEyeShields from '../assets/photos/laser-eye-shields.jpg';
@@ -59,7 +59,12 @@ const linePhotos: Record<string, { photo: ImageMetadata; position: string }> = {
   'wrinkle-relaxers': { photo: amyJeuveauVialEvolysse, position: 'top' },
   'dermal-fillers': { photo: amyEvolysseFormBanner, position: 'top' },
   biostimulators: { photo: radiesseSyringes, position: 'attention' },
-  regenerative: { photo: deviceFacialSession, position: 'bottom' },
+  // 04 since 2026-09-27 (operator direction): swapped with the
+  // regenerative page's band photo — the card takes the PRP visit, the
+  // band takes the device session. Anchored 'left': the saliency pick
+  // centred on Amy and cut the client to his chin; left keeps him whole
+  // with Amy's face and the neon at the right edge.
+  regenerative: { photo: prpTreatment, position: 'left' },
   'skin-rejuvenation': { photo: pixel8InHand, position: 'attention' },
   // 9:16 selfie vs a 4:5 arch: no cover crop holds face AND belt
   // (face = top ~29% of the frame, belt = bottom ~30%), and the

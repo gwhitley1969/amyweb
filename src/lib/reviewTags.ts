@@ -21,7 +21,7 @@ const TAGS: Record<string, string> = {
   '/privacy': 'E',
   '/terms': 'F',
   '/medical-disclaimer': 'G',
-  '/tox-to-go': 'H',
+  '/tox-together': 'H',
 };
 
 /** Letter tag for a route, or null when the route is deliberately untagged. */

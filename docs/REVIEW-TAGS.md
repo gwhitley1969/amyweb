@@ -21,7 +21,7 @@
 | **E** | `/privacy` | **05** | `/services/skin-rejuvenation` |
 | **F** | `/terms` | **06** | `/services/body-contouring` |
 | **G** | `/medical-disclaimer` | **07** | `/services/laser-treatments` |
-| **H** | `/tox-to-go` | **08** | `/services/skincare` |
+| **H** | `/tox-together` | **08** | `/services/skincare` |
 | **13** | `/injector-training` | **09** | `/services/weight-loss-glp-1` |
 | | | **10** | `/services/peptide-therapy` |
 | | | **11** | `/services/iv-therapy` |
@@ -47,7 +47,7 @@ Seven files, all page/layout/lib. **No content file is involved.**
 | `src/lib/reviewTags.ts` | The letter map, keyed by pathname. Whole file is scaffolding. |
 | `src/layouts/TreatmentLayout.astro` | Renders 01–12 (derives the slug from the URL). |
 | `src/layouts/LegalLayout.astro` | Renders E/F/G. |
-| `src/components/ConceptHome.astro`, `src/pages/{about,visit,injector-training,tox-to-go}.astro`, `src/pages/services/index.astro` | Render A/C/D/13/H/B. |
+| `src/components/ConceptHome.astro`, `src/pages/{about,visit,injector-training,tox-together}.astro`, `src/pages/services/index.astro` | Render A/C/D/13/H/B. |
 
 Every render site is guarded, so a page with no tag renders nothing.
 

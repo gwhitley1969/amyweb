@@ -12784,3 +12784,32 @@ from the same build, were told why the preview could not be shown, and
 chose to merge. The standing demo (#97) and the review preview (#149)
 are refreshed from phase-c after the merge, and the links are read
 there.
+
+## 2026-09-27 — Regenerative: the /services card and the page's first photo swap places (operator direction)
+
+Context: the operator asked to swap the /services "04 Regenerative
+Treatments" card photo with the first photo on /services/regenerative
+(the PRP visit, a man in the chair).
+Decision: the card now carries `prp-treatment.jpg`, cropped from the
+left of the frame (the saliency crop centred on Amy and cut the client
+to his chin). The page's opening band now carries
+`device-facial-session.jpg`. That frame is a tall portrait inside the
+band's fixed 9:8 arch, so a per-image anchor holds the window low, on
+the device, both gloved hands and the client's face. Its source is
+744px wide, so the band's top srcset width drops from 895 to 744 (no
+upscaling). The new alt describes the scene and names nobody; the
+practitioner's face is hidden by her hair and the 2026-08-18 screening
+record does not say who it is. Both frames were already screened and
+cleared (2026-07-26 and 2026-08-18); nothing new is published.
+Alternatives rejected: changing the band's arch shape for a portrait
+(a layout change the operator did not ask for); the saliency crop on
+the card (loses the client).
+Consequences: no copy changes; the page stays `clinicianApproved:
+false`. Checked by `npm run verify` exit 0 and element screenshots at
+390 and 1280 wide.
+
+**Merged (2026-09-27), on the operator's word** ("it's fine to merge").
+The operator reviewed PR #220's own preview first; both pages served
+the swapped photos on five of five loads each. The standing demo (#97)
+and the review preview (#149) are refreshed from phase-c after the
+merge.

@@ -6,6 +6,31 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-27 — The share card gains a black panel, for a black bar in Messages
+
+- The card a shared needlegirlie.com link shows is re-made again: a
+  black panel on the left with the Needle Girlie logo, "Amy Palacios,
+  FNP", "Mobile Aesthetics" and "Harrisburg, NC"; Amy's photo at the
+  same size on the website's pink canvas on the right. The words and
+  the type sizes are unchanged.
+- Why: on the operator's iPhone the bar under the pink card came out
+  grey, and the operator asked for black with white lettering. Messages
+  takes that bar's colour from the picture. How it does so was read
+  from Apple's code and checked against both phone readings: it uses
+  the heaviest colour in the middle of the card, and the first dark
+  patch from the top-left gives the dark colours their hue. So the
+  black sits on the left, bare at the top.
+- The bar is as black as Messages draws one, RGB 26/26/26: it lifts
+  every dark colour a little.
+- The line under the picture of a shared home page now reads "Mobile
+  Aesthetics" and "Harrisburg, NC" on two lines, without the dot. It
+  had been breaking before "NC" on wide phones.
+- The live Under Construction page gets both by a hotfix to `main`.
+- The operator chose to ship without a phone test on a preview, so the
+  bar is read on the operator's phone after production deploys.
+- It is PR #214 (phase-c) and hotfix PR #215 (main); the record is
+  DECISIONS 2026-09-27.
+
 ### 2026-09-26 — Shared links show the pink share card and the practice's name
 
 - The card a shared needlegirlie.com link shows is re-made on the

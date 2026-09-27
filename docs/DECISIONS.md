@@ -12969,3 +12969,12 @@ is the largest file the page serves.
   section's markup changed, so its refresh takes a hand merge: its
   line is kept and the new markup is taken.
 - **The PR:** #221 into phase-c.
+
+**Merged (2026-09-27), on the operator's word** ("Merge now"). The
+PR's checks passed, and its own preview served the page: the probe
+converged on its first three passes, twice, and every picture file
+answered with its built size. The operator was shown before-and-after
+sheets from the real build at desktop, tablet and phone widths, and
+the preview link. The standing demo (#97) and the review preview
+(#149) are refreshed from phase-c after the merge; #149's refresh is
+the hand merge named above.

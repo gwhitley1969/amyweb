@@ -42,6 +42,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   goes live at relaunch.
 - It is PR #221 (`feat/about-lead-photo`) into phase-c; the record is
   DECISIONS 2026-09-27, the /about lead portrait entry.
+- Merged 2026-09-27 on the operator's word ("Merge now"), its checks
+  green and its own preview serving the page; both standing previews
+  (#97, #149) refreshed after the merge.
 
 ### 2026-09-27 — "Mobile Aesthetics" is a link to the practice site wherever a page says it
 

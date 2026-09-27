@@ -47,6 +47,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   home carousel's films), so it was brought into the branch and the
   checks were run again. Both standing previews (#97, #149) refreshed
   after the merge.
+- Closing records, PR #224: RUNBOOK's crop list, BUILD_SPEC's arch
+  paragraph and /about row, and REDESIGN's arch row now say the lead
+  picture is shown whole. DECISIONS gained what happened after the
+  merge. No page changed.
 
 ### 2026-09-27 — Home carousel: two of Amy's own films replace the second and third
 

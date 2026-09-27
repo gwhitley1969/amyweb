@@ -1063,11 +1063,12 @@ action.
   and meta description (claim-clean), canonical URLs, Open Graph + Twitter
   cards with a branded OG image (generate from the logo assets).
   *(The OG image is the link-share card since 2026-09-25, re-made on
-  the site's canvas 2026-09-26. Since 2026-09-26 `og:title` and
-  `twitter:title` may differ from `<title>` through the head's share
-  title, set on the home page only: "Mobile Aesthetics · Harrisburg,
-  NC"; the home `<title>` keeps its search wording — DECISIONS
-  2026-09-26, the link-share card entry.)*
+  the site's canvas 2026-09-26 and with a black panel 2026-09-27. Since
+  2026-09-26 `og:title` and `twitter:title` may differ from `<title>`
+  through the head's share title, set on the home page only: "Mobile
+  Aesthetics Harrisburg, NC" since 2026-09-27, its halves held by
+  no-break spaces; the home `<title>` keeps its search wording —
+  DECISIONS 2026-09-26, the link-share card entry, and 2026-09-27.)*
 - `sitemap.xml` (@astrojs/sitemap), `robots.txt` (allow all in production;
   previews are noindexed via meta).
 - Semantic heading hierarchy; one `h1` per page; descriptive internal link text.

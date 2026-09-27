@@ -176,10 +176,13 @@ app-icon use; the kit's tiles remain the website's favicon family.
 - A JSON-LD `logo` (BUILD_SPEC §10 — Phase D), derivable from the master
   with the same script when directed. The OG share image this item also
   listed exists: the link-share card (DECISIONS 2026-09-25; re-made on
-  the site's canvas 2026-09-26), built in `C:\Amy\share-card\` rather
-  than by this script. On that card the wordmark sits on a noir plate:
+  the site's canvas 2026-09-26, and with a black panel 2026-09-27),
+  built in `C:\Amy\share-card\` rather than by this script. On that card
+  the wordmark sits on noir, the card's black panel since 2026-09-27:
   measured 2026-09-26, its lettering does not read on the site's pinks
-  or on blush (DECISIONS same date).
+  or on blush (DECISIONS same date). It carries no added glow there: a
+  glow's tail tints the bar Messages draws under the card (DECISIONS
+  2026-09-27).
 - The palette tokens were pixel-sampled from the retired HTML sources
   (BUILD_SPEC §5); their values are deliberately unchanged for the metallic
   mark (`src/styles/tokens.css` header note). Re-pinning is an operator

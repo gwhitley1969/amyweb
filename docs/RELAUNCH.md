@@ -92,7 +92,12 @@ check will refuse it. On a branch off `main`:
   noindexed); OG cards render; 404 at the edge.
 - Films play from media.needlegirlie.com on production (206 Range
   probes; the five carousel films (the Evolysse film `commercial-evolysse.mp4`
-  since 2026-09-25) + the ICON film on /about + the two
+  since 2026-09-25; since 2026-09-27 Amy's promo
+  `commercial-van-promo.mp4` and her billboard-day reel
+  `commercial-billboard.mp4`, which replaced `commercial-j1.mp4` and
+  `commercial-studio.mp4` — those two objects stay unreferenced while
+  open PRs still build the old carousel, so they are not probe targets)
+  + the ICON film on /about + the two
   biostimulators reels `radiesse-visit.mp4` / `amy-reel.mp4` + the
   body-contouring reel `evolve-reel.mp4` + the /about team film
   `girl-team-film-wide.mp4` (2026-08-26 — the widescreen sounded

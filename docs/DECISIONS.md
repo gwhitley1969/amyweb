@@ -12813,3 +12813,192 @@ The operator reviewed PR #220's own preview first; both pages served
 the swapped photos on five of five loads each. The standing demo (#97)
 and the review preview (#149) are refreshed from phase-c after the
 merge.
+
+## 2026-09-27 — Home carousel: Amy's promo and her billboard-day reel replace films two and three (operator overrides after the compliance flags)
+
+**Context.** The operator asked for the carousel's second film to be
+replaced with `C:\Amy\Videos\Advertising 2\AD2.MP4` and its third with
+`C:\Amy\Videos\Advertising 3\AD3.MP4` ("We're not done after that":
+more carousel changes follow). The second film was the Evolus co-op
+Jeuveau commercial `commercial-j1`; the third was Amy's studio reel
+`commercial-studio`, played at 0.5×. The questions below named both,
+and the operator answered without correcting either.
+
+Neither file is new to the archive:
+- **AD2** is byte-identical to `Advertising 1\087c2532….MP4` (sha256
+  `d90f762c…f5f420f`), the promo the 2026-09-02 /mobile search logged
+  and did not use. That screen recorded the van, the team, the address
+  footer and the handle. It did not record the studio segment's
+  product cartons or its syringe tray; this screen adds them. HEVC Main
+  720×1280, 30 fps, 993 frames, 33.1 s, AAC stereo.
+- **AD3** (sha256 `e9a8ccae…abc96d`) is the reel that search called
+  "the billboard/delivery reel". Its container tags
+  (`comment=vid:v12025gd0000d4hhmh7og65mcfgpqfug`, `vid_md5`, a Lavf
+  encoder) are the pattern of a TikTok download. That is an inference
+  from the tags; no platform watermark appears. HEVC Main 576×1024,
+  30 fps, 941 frames, 31.37 s, HE-AACv2 stereo.
+
+Nothing in this log names either as a retired film.
+
+**Screen.** 1 fps sheets, then 4 fps sheets with burned-in timestamps,
+a 10 fps strip across AD3's first cut, and full-resolution zooms of
+every label, shirt and face.
+
+AD2:
+
+| Time | On screen |
+|---|---|
+| 0–2.75 s | Amy in the studio under the neon, shaking hands with someone out of frame (an arm and a hand only) |
+| 0–14.75 s | On the counter: Radiesse+ cartons, a pink "LIPS+" carton, five Jeuveau cartons on an Evolus box (no quantity legible in any zoom), and a tray printed "Mobile Aesthetics" holding syringes in labelled slots — "Frontalis", "Glabella" and "Crow's…" legible. Amy holds syringes at about 5–9 s and a clipboard at about 10.75–14.75 s. Two dissolves, at about 4.25–4.75 s and 10.25–10.75 s |
+| 15.0–25.0 s | Six women in matching black uniforms step out of the black van one at a time, the same six twice over (15.0–20.0 s, then 20.0–25.0 s). The 2026-09-02 screen took the last of them (about 23.5–25 s) for Amy. The names embroidered on the shirts are not legible at 720 px |
+| 25.0–26.75 s | The van's open door and empty interior; a hand at the door's edge |
+| 27.0–28.75 s | The same six in a parking lot |
+| 29.0–33.1 s | The group, darkened, under a large Instagram logo and Amy's handle |
+
+Overlays: "Mobile Aesthetics / Yourmobileaesthetics.com" on every frame
+(dimmed from 29 s), and "@amypalaciosnp.mobileaesthetics" from 0.25 s.
+That handle is Amy's own account, the one `siteConfig.ts` links.
+
+AD3:
+
+| Time | On screen |
+|---|---|
+| 0–2.9 s | A photo of Amy's Evolysse billboard over a caption card: "Billboard is up / I85 / From concord mills to poplar tent". The billboard reads "LOST THE WEIGHT? NOW SMOOTH FACIAL WRINKLES", with the Evolysse lockup and the Evolus mark, a line of safety print barely legible at 576 px, "AVAILABLE NOW AT MOBILE AESTHETICS", 704.579.7108 (Amy's number, the site's own), and "AMY PALACIOS NP". It pictures Amy and a second woman |
+| 3.0–5.5 s | Amy's selfie video; a blonde woman in glasses beside her until about 4.5 s |
+| 5.75–6.0 s | A pan across the room; a vertical banner on the wall, nothing legible |
+| 6.25–9.25 s | A parcel-delivery driver bringing in white "evolve with us" shipping cartons, his face clear |
+| 9.5–12.0 s | Amy again; the woman in glasses beside her from about 10.75 s |
+| 11.25–19.25 s | A wall poster titled "LIP FILLER JOURNEY" and "BOTOX JOURNEY", legible (the poster class the studio reel carried). From 12.25 s, Amy behind stacked black Evolus boxes (small labels, nothing legible); framed photos on the wall too small to identify anyone |
+| 19.5–24.75 s | The white shipping cartons ("OPEN IMMEDIATELY UPON RECEIPT", "REFRIGERATE 36–46°F", "DO NOT FREEZE"; no quantity). The woman in glasses stands by them, her face clear at about 21.5–23 s |
+| 25.0–29.25 s | The driver loading a hand truck, his face in profile at about 28.25–29.25 s |
+| 29.5–31.37 s | Black Evolus boxes; the picture sits right of a black band (the source's own) |
+
+Both films have Amy speaking on their audio. Like every carousel
+rendition, the web files carry no audio track, so her words are not
+heard.
+
+**Flags shown and the operator's decisions** (AskUserQuestion,
+2026-09-27):
+1. **AD2.** Flagged: the location's other providers on camera
+   (constraint 2); the practice-site address printed on every frame
+   (the fifth constraint-2 exception's display-only class); and the tray
+   and cartons (constraint 3 — the prep-workflow and product-box
+   classes the 2026-07-23 rubric excluded). Offered: use it as-is with
+   releases on file; use only Amy's first 15 seconds (the address and
+   the tray would remain); or skip AD2. Chosen: **"Use as-is — releases
+   on file."** The option stated that choosing it confirms everyone on
+   camera has a website release on file, so the operator's answer is
+   that record.
+2. **AD3's people.** Flagged: the driver and the woman in glasses, with
+   no release for either on this record. Offered: both released, use
+   as-is (with a note if she is one of the location's providers); blur
+   the driver's face; or hold AD3. Chosen: **"Both released — use
+   as-is"**, with no note, so she is not recorded as one of the
+   providers.
+3. **AD3's content.** Flagged: the billboard's outcome-promise headline
+   and the competitor-brand poster. Offered: carry both as-is, never
+   restated in site text; or skip AD3. Chosen: **"Carry as-is
+   (override)."**
+4. **AD3's resolution:** 576×1024, against the studio reel's
+   1080×1920. The operator asked whether a Higgsfield upscale was worth
+   it. I advised against it:
+   - the gain at 1.9× is small;
+   - the film is full of small lettering that upscalers redraw — the
+     billboard's safety print, the box labels, the poster. The van
+     film's Topaz run invented letters in about a dozen places (the
+     2026-09-25 van-band entry);
+   - it would need a new exception to the 2026-09-17 generative rules,
+     for three people's faces and for packaging.
+
+   Offered: ship as-is and ask Amy for her original (recommended); a
+   test upscale of about 10 seconds; a full upscale. Chosen: **"Ship
+   as-is; ask Amy."**
+
+**Sharpness.** The rule (BUILD_SPEC §5) is that every source is at or
+above 2× its displayed size. The stage (measured 2026-09-25) shows a
+9:16 film:
+- 240 px wide on a 390 px phone;
+- 342 px wide at 1280×800;
+- 405 px wide at its 720 px height cap (portrait tablets and large
+  desktops).
+
+AD2 is 3.0×, 2.1× and 1.78× of those; AD3 is 2.4×, 1.68× and 1.42×.
+(The remaining Jeuveau film is 1.875× at the cap.) Both films and their
+posters ship under a sharpness-rule exception, recorded here and in
+REDESIGN (the precedent is the 2026-08-21 480p reel). Amy's original of
+AD3 would lift it for that film.
+
+**Mechanics.**
+- **Renditions:** the RUNBOOK carousel recipe with colour tags, at
+  CRF 23 like the studio reel (whose master was also HEVC):
+  `ffmpeg -i <master> -map 0:v:0 -an -c:v libx264 -crf 23 -preset medium -pix_fmt yuv420p -colorspace bt709 -color_primaries bt709 -color_trc bt709 -movflags +faststart`.
+  - `commercial-van-promo.mp4`: 7,223,679 B, sha256
+    `5da3dcd5…3947df`, H.264 High 720×1280, 993 frames, 1.75 Mbps.
+  - `commercial-billboard.mp4`: 5,925,008 B, sha256 `e362da58…8a92bc`,
+    H.264 High 576×1024, 941 frames, 1.51 Mbps. That is about three
+    times its HEVC source, and in line with the other films.
+
+  Both are BT.709 limited range, with the index first and no audio
+  stream: native size, uncropped, untrimmed, played at 1×. They go up
+  under new names, so nothing is purged.
+- **Posters,** taken from the renditions:
+  - `commercial-van-promo-poster.jpg`, at 25.6 s: the open van, with
+    no face and no product (the overlays are the film's own).
+    720×1280, 103,557 B.
+  - `commercial-billboard-poster.jpg`, at 4.9 s: Amy alone, her name on
+    her scrubs. 576×1024, 64,647 B; Astro serves it at 480w and 576w.
+
+  The size Lighthouse loads weighs 36,446 B + 19,448 B, against the
+  retiring posters' 13,534 B + 32,014 B (+10,346 B). The new figures
+  were computed with Astro's own encoder settings, which reproduce the
+  existing posters byte for byte.
+- **Captions:** `commercial-van-promo.vtt` and
+  `commercial-billboard.vtt`, NOTE blocks only (the 2026-09-20 rule for
+  site-authored silent films). They hold the provenance, AD3's caption
+  card and a description that names nobody. They never carry the
+  practice-site address, any tray, carton, billboard or poster text, or
+  the competitor brand name.
+- **Slides:**
+  - 2: `commercial-van-promo`, labelled "Mobile Aesthetics promo — Amy's
+    studio and the van";
+  - 3: `commercial-billboard`, labelled "Billboard day and a delivery at
+    Amy's studio";
+  - the remaining Jeuveau film's label drops ", film two".
+
+  No film sets `rate` now.
+- **Retired from the repo:** the posters and caption files of J1 and
+  the studio reel. Their Blob objects stay, because open PRs #201 and
+  #210 still build the old carousel; deleting them later is an
+  operator cleanup item.
+
+**Alternatives rejected:**
+- trimming AD2 to Amy's part, or skipping it;
+- blurring the driver, or holding or skipping AD3;
+- a test or a full AI upscale;
+- waiting for Amy's original;
+- a poster of Amy at the van door: 44,468 B at 720w. Every full-colour
+  AD2 frame measured 37–44 KB, and the van interior is the lightest
+  frame without a face.
+
+**Consequences.**
+- **CLAUDE.md:**
+  - constraint 2 gains its eighth scoped exception (AD2's other
+    providers and printed address);
+  - constraint 3's dosing bullet gains its eleventh pixel-level
+    override (AD2's tray and cartons);
+  - its claims bullet retires J1 and the studio reel and adds AD3's
+    billboard, poster and boxes.
+
+  BUILD_SPEC §6, §8 and §9, compliance/README, REDESIGN, HOME-CONCEPT's
+  settings table, RUNBOOK, RELAUNCH and CLINICIAN-SIGN-OFF follow. The
+  plan's approval authorized the governing-doc edits (the 2026-08-18
+  precedent).
+- **The website SOW's gaps** on other providers, claims and self-hosted
+  video each gain an instance. The two slots' films weigh 13.1 MB
+  together instead of 16.2 MB, so a full view of the carousel moves a
+  little less media.
+- **The home page's total-bytes budget** keeps about 10 KB.
+- **No approval flag.** This is not treatment content, so no
+  `clinicianApproved` flag applies. Amy sees both films on the standing
+  demo, and her sign-off row carries them as new.
+- **Amy's original.** The operator asks Amy for her original of AD3.

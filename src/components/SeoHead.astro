@@ -3,6 +3,13 @@ import { siteConfig } from '../lib/siteConfig';
 
 interface Props {
   title: string;
+  /** Optional title for the share preview only (og:title, twitter:title);
+   *  without one the preview shares `title`. Apple's guidance for link
+   *  previews is that og:title carries no site name (og:site_name does),
+   *  so a page whose title tag keeps the brand for search can share a
+   *  plain line. Only the home page sets one: the practice and the town,
+   *  the card's own line (DECISIONS 2026-09-26). */
+  shareTitle?: string | undefined;
   description: string;
   /** Optional page-specific share image URL. Without one, the page shares
    *  the default link-share card below. */
@@ -10,19 +17,25 @@ interface Props {
   ogType?: 'website' | 'article';
 }
 
-const { title, description, ogImage, ogType = 'website' } = Astro.props;
+const { title, shareTitle, description, ogImage, ogType = 'website' } = Astro.props;
+const ogTitle = shareTitle ?? title;
 
 // Preview/local builds are never indexable (BUILD_SPEC §4). Only a build
 // explicitly stamped PUBLIC_ENV=production may be crawled.
 const isProduction = import.meta.env.PUBLIC_ENV === 'production';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
-// The default link-share card (DECISIONS 2026-09-25, Amy's request): her
-// studio-counter portrait in the arch beside the metallic wordmark,
-// 1200×630, served from public/og/ at a stable absolute URL that link
-// previews can fetch. Apps cache previews by URL, so a new card ships under
-// a NEW filename. The same file and this same component are on main (the
-// placeholder) and phase-c, byte-identical, so the relaunch merges clean.
+// The default link-share card (DECISIONS 2026-09-25, Amy's request; re-made
+// 2026-09-26): her studio-counter portrait in the arch beside the metallic
+// wordmark, 1200×630, served from public/og/ at a stable absolute URL that
+// link previews can fetch. Since iOS 18, Messages colours the bar under a
+// preview from the picture itself, so the card is on the site's pink canvas
+// (the 2026-09-25 noir card gave a dark plum bar; no tag controls it). Apps
+// cache previews by URL, so a new card ships under a NEW filename, named by
+// its render date; the 2026-09-25 file stays in public/og/ until relaunch
+// for previews that apps had cached. The same files and this same component
+// are on main (the placeholder) and phase-c, byte-identical, so the relaunch
+// merges clean.
 interface ShareImage {
   url: string;
   width?: number;
@@ -32,7 +45,7 @@ interface ShareImage {
 const share: ShareImage = ogImage
   ? { url: ogImage }
   : {
-      url: new URL('/og/needle-girlie-share.jpg', Astro.site).href,
+      url: new URL('/og/needle-girlie-share-2026-09-26.jpg', Astro.site).href,
       width: 1200,
       height: 630,
       alt: 'Amy Palacios, FNP, seated on her studio counter beside the Needle Girlie logo',
@@ -46,7 +59,7 @@ const share: ShareImage = ogImage
 
 <meta property="og:site_name" content={siteConfig.name} />
 <meta property="og:type" content={ogType} />
-<meta property="og:title" content={title} />
+<meta property="og:title" content={ogTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={share.url} />
@@ -54,7 +67,7 @@ const share: ShareImage = ogImage
 {share.height && <meta property="og:image:height" content={String(share.height)} />}
 {share.alt && <meta property="og:image:alt" content={share.alt} />}
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content={title} />
+<meta name="twitter:title" content={ogTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={share.url} />
 {share.alt && <meta name="twitter:image:alt" content={share.alt} />}

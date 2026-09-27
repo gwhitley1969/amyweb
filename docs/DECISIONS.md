@@ -12114,3 +12114,178 @@ on the /tox-to-go page a little larger. It's hard to read."
 - The rule that the words are the document's stands: "Party" in the
   heading is the operator's own addition, and the page's header comment
   says so.
+
+## 2026-09-26 — The link-share card re-made on the site's canvas with larger type, and a share title of its own (Messages colours the bar under a preview from the picture)
+
+**Context.** The client shared needlegirlie.com in Messages and sent the
+operator a screenshot. The operator (2026-09-26): "we have a problem
+with the OG Image. It should NOT say "Medical Aesthetics in", that line
+should read "Mobile Aesthetics" and that's it, it will read "Harrisburg,
+NC" on the line below. Also the color on the lower part of the image
+should be same pink we use for the website and logo, not what looks like
+burgundy currently."
+
+The screenshot shows three things, and only one is a file of ours:
+- **The picture** is the 2026-09-25 card (the entry of that date).
+- **The bold line under it** is the page's title. The head sent "Needle
+  Girlie | Medical Aesthetics in Harrisburg, NC" as the title and as the
+  share title (`og:title`, `twitter:title`); it had no way to send a
+  different one. Messages dropped "Needle Girlie | " because it repeats
+  `og:site_name`.
+- **The dark bar is the Messages app's own.** Since iOS 18 it colours
+  the title-and-domain area from the preview picture instead of grey.
+  The site sends no colour of any kind (neither branch has a theme
+  colour tag), and Apple's technote on link previews (TN3156) documents
+  none.
+  - Measured on the screenshot, which is light mode: RGB 34/5/17, hue
+    335°, lightness 8%.
+  - Measured on the card: 71% of it is near-black, and its chromatic
+    pixels (the pink glow and type) average hue 335°.
+  - So the bar took the picture's pink hue at the picture's darkness.
+    The card's own bottom rows are pure black, so the bar is not a
+    sample of the picture's edge.
+
+The only lever on the bar is therefore the picture itself, and the line
+under it needed a mechanism the head did not have.
+
+**Decisions** (operator, 2026-09-26: three AskUserQuestion answers, the
+plan approved, then the client's pick and two choices on the renders):
+1. **A share title of its own, on the home page only.** `og:title` and
+   `twitter:title` read "Mobile Aesthetics · Harrisburg, NC": the card's
+   own line, with its middle dot. The title tag stays "Needle Girlie |
+   Medical Aesthetics in Harrisburg, NC". Offered both, the operator
+   chose "only the share title" over changing the page title too, so
+   search keeps its wording. The head takes an optional share title and
+   falls back to the title; the layout passes it through; the home page
+   sets it (the home component on phase-c, the placeholder's page on
+   main). Apple's guidance is the same: no site name in `og:title`.
+2. **The card is re-made on the site's pink,** because only a mostly
+   pink picture can turn the bar pink. The operator chose "re-make the
+   card in the site's pink, test on your iPhone" over keeping the noir
+   card.
+3. **The canvas card,** the client's pick of three candidates (the
+   operator relaying: "they like the card").
+4. **Larger type, the location on two lines.** The operator: "definitely
+   need "Mobile Aesthetics - Harrisburg, NC" larger"; then, shown one
+   line at 39px beside two lines at 52px, "Go with the two-line
+   version."
+5. **A new file, named by its render date:**
+   `public/og/needle-girlie-share-2026-09-26.jpg`. The 2026-09-25 file
+   stays in the repo until relaunch: no page references it and nothing
+   fetches it, but an app that stored its address still asks for it. It
+   is a deliberate exception to the orphan rule (the PR #101 precedent),
+   and RELAUNCH's after-relaunch list carries its deletion.
+6. **Two PRs, as on 2026-09-25** (RUNBOOK "Hotfixing production during
+   the takedown era"): the head component and the image go to phase-c
+   and to main byte-identical, the layout and the home page are edited
+   by hand on each branch, and the record for both lives here.
+
+**The card** (1200×630, the same words: her name, her credential, the
+practice, the town):
+- **The ground** is the website's own canvas: blush at the top, sweeping
+  to the site's pink four fifths of the way down, and held there.
+- **The photo** is the same, at the same size and crop, in the site's
+  light-canvas arch: a magenta hairline and the framed-print shadow. It
+  has no glow, because glows are for dark surfaces.
+- **The wordmark sits on a noir plate,** its aura kept inside the plate.
+  Measured, the metallic lettering does not read on the pinks: on the
+  site's pink, on blush and on the ramp's middle only 16–25% of its
+  letter pixels reach 3:1 against the ground, against 86% on noir. The
+  brand-assets note that it composites "acceptably on white" is
+  generous. The plate is the site's own grammar: the mark only ever
+  sits on noir.
+- **The type** is ink-900, the canvas's text colour (4.88:1 on the
+  site's pink, more above it): "Amy Palacios, FNP" at 60px semibold,
+  then "Mobile Aesthetics" and "Harrisburg, NC" each on a line of its
+  own at 52px medium. They were 38px and 25px. Messages shows the card
+  at about a quarter of its size on a phone, so 25px was about six
+  points. The line break stands in for the middle dot.
+- **The photo's screens hold** (the 2026-09-25 entry): it is shown no
+  larger than before.
+
+**The file.** 106,187 B, JPEG at quality 88 with 4:4:4 chroma, no
+metadata, sha256 `77533969…3700040c`. It is built in
+`C:\Amy\share-card\` like the first card; the renderer now takes a
+template and an output name and names its output by date, and the folder
+gained two measuring tools (a card's colour statistics; the bar's colour
+read from a phone screenshot).
+
+**Alternatives declined:**
+- changing the page's title too (offered; search keeps "Medical
+  Aesthetics");
+- "Mobile Aesthetics, Harrisburg, NC" with a comma (offered);
+- a line break forced into the share title (a test page only: how other
+  apps treat a line break in a title is unverified, so it never ships);
+- keeping the noir card (the bar stays plum);
+- the flat card, a solid field of the site's pink, and the band card,
+  the noir card with a pink base (the two other candidates);
+- the location on one line at 39px, the largest that fits one line
+  (offered beside the two-line version);
+- the wordmark directly on the pink (it fails the measurement above);
+- a theme colour tag (Messages does not read one for a preview; with the
+  web manifest it stays Phase D, the 2026-09-15 entry);
+- share titles for the other pages (theirs keep "… | Needle Girlie";
+  Apple's guidance would drop the site's name there too, a separate
+  decision).
+
+**Consequences.**
+- **Every app's headline for a shared home link** becomes "Mobile
+  Aesthetics · Harrisburg, NC": Messages, Facebook, LinkedIn, WhatsApp,
+  Slack. The site's name shows separately where an app shows it, and
+  the wordmark is in the picture.
+- **Every page's card changes,** since all of them share the default.
+- **Caches.** A preview an app has cached keeps the old card until the
+  app re-reads the page. Facebook's Sharing Debugger and LinkedIn's Post
+  Inspector force a re-read (the operator's step; both need a login). In
+  Messages, a link with a fresh query string shows the new preview at
+  once.
+- **A PR preview cannot show a candidate card:** a preview's share tags
+  name production. Candidates were tested from raw pages with their own
+  share tags, on a draft PR that never merges (Verification).
+- **Amy's pending look sign-off:** the card's item is amended, not
+  duplicated (CLINICIAN-SIGN-OFF).
+- **The relaunch:** the placeholder's page and the layout on main are
+  edited again, so step 1's two expected conflicts stand; the head
+  component and the image are identical on both sides.
+- **Nothing else changes.** No stylesheet, script, dependency or cost;
+  no page fetches the card.
+
+**Verification.**
+- **The test pages:** PR #211 (draft, never merged) serves raw pages
+  under `public/share-test/`, each with its own share tags and an image
+  address on that preview's host: the old card with the old title (the
+  control), the old card with the new title, the forced line break, and
+  the candidates. Every page and image answered three consecutive clean
+  probe rounds, plain and cache-busted.
+- **The bar's colour on a phone is not read yet.** The phone test is the
+  operator's (the preview is built on the sending phone, iOS 18 or
+  later). The card's colour statistics predict a pink: mean lightness
+  59% against the noir card's 18%, chromatic hue 331°, and the dominant
+  colour the site's pink. The reading goes in an addendum here, and the
+  test PR closes after it.
+- **The render is reproducible:** the live template rendered again gives
+  the same bytes as the file on the test page.
+- **The gate:** `npm run verify` exit 0 on the change — `astro check` 0
+  errors; lint:claims and lint:voice green (lint:voice reads the new
+  share title); pa11y 25/25; every Lighthouse assertion held on 8 URLs
+  × 3 runs.
+- **The build against phase-c:** the records alone changed no built
+  byte (every file identical, the stylesheet names included). The
+  change adds one file, the new card, and edits only share tags: the
+  image address on all 25 pages (`og:image`, `twitter:image`), and the
+  share title on two (`og:title`, `twitter:title` on the home page and
+  on its /styleguide/concept mirror, which preview builds emit). The
+  home page's title tag is unchanged, and no page fetches the card.
+- **Byte identity:** the head component and the new card have the same
+  sha256 on both branches.
+- **The PRs:** #212 into phase-c, #213 into main (the hotfix).
+
+**Merged (2026-09-26), on the operator's word:** "go ahead and merge,
+then refresh PR #97 and #149 and also make sure the OG image that you
+just modified applies the the construction page in production now. I
+want the new card working asap." The hotfix (PR #213) merged first, so
+production deployed at once; PR #212 followed when its last preview run
+had finished, and both standing previews (#97, #149) were refreshed
+after it. The operator merged before the phone test, so the bar's
+colour on a phone is still unread: its reading follows in an addendum
+when a screenshot arrives.

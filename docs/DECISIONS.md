@@ -12289,3 +12289,188 @@ had finished, and both standing previews (#97, #149) were refreshed
 after it. The operator merged before the phone test, so the bar's
 colour on a phone is still unread: its reading follows in an addendum
 when a screenshot arrives.
+
+## 2026-09-27 — The link-share card gains a black panel so that Messages draws a black bar, and the share title holds two lines (how Messages picks the bar's colour, read from Apple's code)
+
+**Context.** This entry carries the reading the 2026-09-26 entry
+promised, and the change that followed from it.
+- **The reading.** On the operator's iPhone 16 Pro Max the bar under
+  the pink card is a neutral grey, RGB 146/144/144, with white
+  lettering. The 2026-09-26 entry predicted a pink. That prediction was
+  wrong, and so was the model behind it (the picture's pink hue at the
+  picture's darkness): it had been fitted to one reading.
+- **The title broke badly** on that phone: "Mobile Aesthetics ·
+  Harrisburg," on the first line and "NC" alone on the second.
+- **The operator (2026-09-27):** "I want that area black, with the
+  white lettering."
+
+**How Messages picks the bar's colour.** Apple documents none of it, so
+it was read from Apple's code: public listings of the LinkPresentation
+framework for iOS 18.2 and for iOS 26.1, which carry the same steps and
+the same constants.
+1. Messages takes the **middle 80%** of the picture (it drops a tenth
+   on every side), draws it into a 22×22 bitmap and reads the inner
+   20×20 cells.
+2. It groups cells of like colour: a cell joins a group when its hue,
+   its saturation and its brightness are each within 0.08 of the
+   group's first cell. Cells on the left edge and in the top corners
+   count up to three times.
+3. **Every very dark group merges into one family, and the family
+   keeps the colour of the first dark cell in reading order** (from the
+   top-left, row by row). Greys of low contrast merge the same way.
+4. The heaviest colour wins.
+5. The bar is that colour with its brightness moved by a tenth: up when
+   the colour is dark, down when it is light.
+6. **No tag sets it.** The code stores the page's theme colour, but the
+   routine that builds a preview's look never reads it.
+
+**The reading of the code is confirmed by both phones.** A simulation of
+those steps, run on the two cards that had been read on a phone:
+
+| Card | Heaviest colour (simulated) | Predicted bar | Bar on the phone |
+|---|---|---|---|
+| 2026-09-25, the black card | black, tinted by the pink glow round the arch | 34/0/17 | 34/5/17 |
+| 2026-09-26, the pink card | the grey wall in the photo, 15% | 141/142/143 | 146/144/144 |
+
+- **The pink card gave a grey** because its pinks are a gradient: the
+  grouping splits them into many small groups, and the photo's grey
+  wall, on the weighted left edge, outweighed each of them.
+- **The black card gave a plum** because the first dark cell Messages
+  met was black with a trace of the arch's glow, and the whole dark
+  family took that cell's hue.
+
+**Two rules for a black bar** follow from the steps:
+- pure black has to be the heaviest colour in the middle of the card;
+- the first dark cell in reading order has to be pure black, so black
+  sits at the top-left of the middle area with no glow near it.
+
+**One limit.** Messages lifts every dark colour's brightness by a tenth,
+so the darkest bar it draws is RGB 26/26/26, a near-black, and only when
+the winning colour is a pure, neutral black. White lettering on a dark
+bar is Messages' own choice.
+
+**Decisions** (operator, 2026-09-27: four AskUserQuestion answers and
+the plan approved):
+1. **The look is a black panel beside the photo.** Offered with it: a
+   black band across the top with the logo in it (the photo a quarter
+   smaller), and an all-black card.
+2. **The layout is mirrored: the black panel on the left, the photo on
+   the right.** The operator first picked the photo on the left. The
+   simulation, run over 900 variations of the unknowns, gave a tinted
+   dark bar in about a quarter of them for that layout: reading from the
+   left, the first dark cell is the seam between the pink canvas and
+   the black panel. Shown that, the operator chose "Mirror it" over the
+   photo on the left under a black band (the photo 16% smaller) and
+   over the first pick with its risk.
+3. **The share title reads in two lines, without the dot:** "Mobile
+   Aesthetics" and "Harrisburg, NC". It is one line of text whose two
+   halves are each held together by no-break spaces, so the only place
+   it can break is between the practice and the town. It is what the
+   operator first asked for on 2026-09-26 ("that line should read
+   "Mobile Aesthetics" and that's it, it will read "Harrisburg, NC" on
+   the line below"). Offered with it: keeping the dot, a comma, and
+   leaving the title alone.
+4. **No phone test on a preview.** Offered the test first, the operator
+   chose to ship straight to production. Production is therefore the
+   first real test (Consequences).
+5. **A new file, named by its render date:**
+   `public/og/needle-girlie-share-2026-09-27.jpg`. Both earlier files
+   stay until relaunch, for the same reason as before: an app that
+   stored a card's address still asks for it.
+6. **Two PRs, as on 2026-09-25 and 2026-09-26:** the head component and
+   the image go to phase-c and to main byte-identical, the home page is
+   edited by hand on each branch, and the record for both lives here.
+
+**The card** (1200×630, the same words: her name, her credential, the
+practice, the town):
+- **The left 700px is pure black,** from the card's left edge. On it:
+  the metallic wordmark at 560px, its top edge 150px down with nothing
+  above it and no added glow; "Amy Palacios, FNP" in the logo's light
+  pink at 60px semibold; "Mobile Aesthetics" and "Harrisburg, NC" in
+  white at 52px medium, a line each. The type sizes are the 2026-09-26
+  card's.
+- **The right 500px is the website's canvas,** blush sweeping to the
+  site's pink, with the photo centred on it in the site's light-canvas
+  arch: the magenta hairline and the framed-print shadow.
+- **The photo is the same file at the same size and crop,** so its
+  2026-09-25 screens hold.
+- **The wordmark is on noir again,** its native ground; the 2026-09-26
+  plate is gone with the pink behind it.
+
+**The file.** 93,632 B, JPEG at quality 88 with 4:4:4 chroma, no
+metadata, sha256 `a6c04b07…45535484`. It is built in
+`C:\Amy\share-card\` like the two before it. That folder gained the
+predictor: a re-implementation of the steps above that reads a card and
+prints the bar Messages will draw, over the 900 variations.
+
+**Alternatives declined:**
+- the black band across the top, and the all-black card (offered);
+- the photo on the left, as first picked, and the photo on the left
+  under a black band (offered after the stress test);
+- a theme colour tag (step 6: the preview never reads it; with the web
+  manifest it stays Phase D);
+- a phone test on a preview before shipping (offered);
+- the dot or a comma in the share title, and leaving it alone (offered);
+- a line break forced into the share title (still untested in any app
+  but Messages; it stays the fallback if Messages ignores the no-break
+  spaces);
+- an added glow on the wordmark (a glow's tail is what tinted the first
+  card's bar).
+
+**Consequences.**
+- **Production is the first real test.** The simulation matches two
+  readings, but it is a reading of Apple's code, and how Apple's bitmap
+  draw resamples is not known. If the bar is not black on the
+  operator's phone, the predictor is corrected against the three
+  readings and a second card ships under a new name. The test pages on
+  PR #211 stay up until the reading is in.
+- **Messages may ignore the no-break spaces.** Then the line reads as
+  before without the dot, and can still break before "NC".
+- **The bar is a near-black, not the panel's black.** A faint step
+  between the card's black panel and the bar may show.
+- **Every app's headline for a shared home link** becomes "Mobile
+  Aesthetics Harrisburg, NC". Where an app shows it on one line, it
+  reads without a separator.
+- **Every page's card changes,** since all of them share the default.
+- **Older phones:** before iOS 18, Messages draws its own light grey
+  bar with dark lettering whatever the picture is.
+- **Caches,** as on 2026-09-26: Facebook's Sharing Debugger and
+  LinkedIn's Post Inspector force a re-read; in Messages a link with a
+  fresh query string shows the new preview at once.
+- **Amy's pending look sign-off:** the card's item is amended, not
+  duplicated (CLINICIAN-SIGN-OFF). She has not seen this look.
+- **The relaunch:** the placeholder's page on main is edited again, so
+  step 1's expected conflicts stand; the head component and the three
+  cards are identical on both sides. RELAUNCH's after-relaunch list
+  carries the deletion of both earlier cards.
+- **Nothing else changes.** No stylesheet, script, dependency or cost;
+  no page fetches the card.
+
+**Verification.**
+- **The predictor on the new card:** a black bar, 26/26/26, in 900 of
+  900 variations; black outweighs the runner-up (the photo's grey wall)
+  by 2.15 times at worst.
+- **The predictor on the two earlier cards** gives the plum and the
+  grey of the table above, which is the control.
+- **The gate:** `npm run verify` exit 0 on the change — `astro check` 0
+  errors; lint:claims and lint:voice green (lint:voice reads the new
+  share title); pa11y 25/25; every Lighthouse assertion held on 8 URLs
+  × 3 runs. On the hotfix, main's own chain: exit 0, pa11y 5/5, both
+  Lighthouse URLs.
+- **The build against phase-c:** the records alone changed no built
+  byte (all 306 files identical, the stylesheet names included). The
+  change adds one file, the new card, and edits only share tags: the
+  image address on all 25 pages (`og:image`, `twitter:image`), and the
+  share title on two (`og:title`, `twitter:title` on the home page and
+  on its /styleguide/concept mirror). The home page's title tag is
+  unchanged, and no page fetches the card. The hotfix's build against
+  main differs the same way: one new file, the image address on its 5
+  pages, the share title on its home page.
+- **The share title's bytes,** read from the built pages on both
+  branches: a no-break space after "Mobile" and after "Harrisburg,",
+  an ordinary space between the halves.
+- **Byte identity:** the head component and the new card have the same
+  sha256 on both branches.
+- **The PRs:** #214 into phase-c, #215 into main (the hotfix).
+- **The bar's colour on a phone is read after production deploys.** The
+  reading goes in an addendum here.

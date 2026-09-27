@@ -50,10 +50,13 @@ check will refuse it. On a branch off `main`:
    byte-identical on both sides and merge clean; `public/favicon.svg`
    is deleted on both. Since 2026-09-26 the share-title hotfix edited
    the placeholder's page and the layout on `main` again (each gained
-   the share title): the same rule, take the launch-tree side.
-   `src/components/SeoHead.astro` and both share cards
+   the share title): the same rule, take the launch-tree side. The
+   2026-09-27 hotfix edited the placeholder's page once more (the share
+   title's wording): the same rule again.
+   `src/components/SeoHead.astro` and the three share cards
    (`public/og/needle-girlie-share.jpg`,
-   `public/og/needle-girlie-share-2026-09-26.jpg`) are byte-identical on
+   `public/og/needle-girlie-share-2026-09-26.jpg`,
+   `public/og/needle-girlie-share-2026-09-27.jpg`) are byte-identical on
    both sides and merge clean.
 2. `git merge phase-c` — brings every post-takedown revision.
 3. In the same PR: delete `src/assets/photos/studio-counter-portrait.jpg`
@@ -138,15 +141,17 @@ check will refuse it. On a branch off `main`:
 - The favicon set serves: `/favicon.ico` (200, `image/x-icon` or
   `image/vnd.microsoft.icon`) and `/icons/apple-touch-icon.png` (200,
   `image/png`) — the 2026-09-15 logo-derived set.
-- The link-share card serves: `/og/needle-girlie-share-2026-09-26.jpg`
+- The link-share card serves: `/og/needle-girlie-share-2026-09-27.jpg`
   (200, `image/jpeg`, 1200×630), and every page's head names it as
   `og:image` and `twitter:image` with a `summary_large_image` card. The
-  home page's `og:title` and `twitter:title` read "Mobile Aesthetics ·
-  Harrisburg, NC" while its title tag keeps "Needle Girlie | Medical
-  Aesthetics in Harrisburg, NC" (DECISIONS 2026-09-25 and 2026-09-26).
-  The live placeholder carries the same file and tags since 2026-09-26,
-  so a relaunch that dropped them would show as a changed preview. The
-  2026-09-25 card, `/og/needle-girlie-share.jpg`, still serves (200) for
+  home page's `og:title` and `twitter:title` read "Mobile Aesthetics
+  Harrisburg, NC", with a no-break space after "Mobile" and after
+  "Harrisburg,", while its title tag keeps "Needle Girlie | Medical
+  Aesthetics in Harrisburg, NC" (DECISIONS 2026-09-25, 2026-09-26 and
+  2026-09-27). The live placeholder carries the same file and tags since
+  2026-09-27, so a relaunch that dropped them would show as a changed
+  preview. The two earlier cards, `/og/needle-girlie-share.jpg` and
+  `/og/needle-girlie-share-2026-09-26.jpg`, still serve (200) for
   previews that apps had cached.
 - Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.
 - Converged multi-pass probes (3 consecutive clean passes, plain +
@@ -168,7 +173,9 @@ check will refuse it. On a branch off `main`:
 - Update docs/REDESIGN.md, PHASE-C.md, CHANGELOG, and memory records
   to the relaunched state; the takedown-era warnings in RUNBOOK get
   their close-out edits (the two-step section becomes historical).
-- Delete `public/og/needle-girlie-share.jpg`, the 2026-09-25 card, in an
-  ordinary PR. It was kept for previews that apps had cached (DECISIONS
-  2026-09-26). It cannot go in the relaunch PR itself: the file is on
-  `phase-c`, so `gutted-merge-guard` would report it missing.
+- Delete the two earlier share cards, `public/og/needle-girlie-share.jpg`
+  (2026-09-25) and `public/og/needle-girlie-share-2026-09-26.jpg`, in an
+  ordinary PR. They were kept for previews that apps had cached
+  (DECISIONS 2026-09-26 and 2026-09-27). They cannot go in the relaunch
+  PR itself: the files are on `phase-c`, so `gutted-merge-guard` would
+  report them missing.

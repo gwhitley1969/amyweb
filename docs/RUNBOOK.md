@@ -500,14 +500,16 @@ each shipped page lives in DECISIONS):
 ## Changing the link-share card
 
 What a shared needlegirlie.com link shows (DECISIONS 2026-09-25; re-made
-2026-09-26) is `public/og/needle-girlie-share-2026-09-26.jpg`: 1200×630,
+2026-09-26 and 2026-09-27) is
+`public/og/needle-girlie-share-2026-09-27.jpg`: 1200×630,
 the default `og:image` and `twitter:image` that
 `src/components/SeoHead.astro` gives every page (a page can pass its own
 `ogImage`). It is built outside the repo in `C:\Amy\share-card\`
 (`card.html` + `render.cjs`; its README has the steps). To change it:
 1. Edit `card.html` (its words are site text: the claim rules apply),
    run `node render.cjs`, and screen the result like any photo. The
-   output is named by its render date.
+   output is named by its render date. Then run `node predict-bar.cjs`
+   on the output: it must pass (see the bar, below).
 2. Commit it under that NEW filename and point `SeoHead`'s default at
    it. Apps cache previews by image URL, so a file replaced in place
    leaves old previews stale. Keep the previous card's file until
@@ -525,16 +527,31 @@ the default `og:image` and `twitter:image` that
 **The line under the picture is the share title, not the card.**
 `SeoHead` takes an optional share title and falls back to the page's
 title; the layout passes it through. The home page sets "Mobile
-Aesthetics · Harrisburg, NC" (DECISIONS 2026-09-26). The title tag is
-separate: it is what search shows, and it keeps the brand.
+Aesthetics Harrisburg, NC" (DECISIONS 2026-09-27; it was "Mobile
+Aesthetics · Harrisburg, NC" for a day). The two spaces inside the
+halves, after "Mobile" and after "Harrisburg,", are no-break spaces,
+written in the source as ` `: the line can only break between the
+practice and the town. Keep them when the wording changes. The title tag
+is separate: it is what search shows, and it keeps the brand.
 
-**The bar under the picture in Messages is Apple's.** Since iOS 18 it is
-coloured from the picture: the 2026-09-25 noir card gave a dark plum,
-and no tag controls it. A card's colour is therefore a share-preview
-decision. A PR preview cannot show a candidate card, because a preview's
-share tags name production; test candidates from raw pages that carry
-their own share tags, on a draft PR that never merges, texted from an
-iPhone (DECISIONS 2026-09-26; the share-card README has the tools).
+**The bar under the picture in Messages is Apple's, and the picture sets
+its colour** (DECISIONS 2026-09-27 has the steps, read from Apple's
+code). No tag controls it. Messages reads the middle of the card from
+the top-left, takes the heaviest colour, and gives every dark colour the
+hue of the first dark patch it met. For the black bar the card has now:
+- pure black has to be the heaviest colour in the middle of the card;
+- the first dark patch from the top-left has to be pure black, so the
+  black panel is on the left, bare at the top, and the logo has no glow.
+
+The earlier cards show what happens otherwise: the 2026-09-25 black card
+gave a dark plum (its glow tinted the first dark patch), the 2026-09-26
+pink card a grey (the photo's wall outweighed the pinks). The darkest
+bar Messages draws is RGB 26/26/26. **Check every new card with the
+predictor before it ships** (`predict-bar.cjs` in the share-card folder;
+its README has the rest). A PR preview cannot show a candidate card,
+because a preview's share tags name production; to test on a phone
+first, serve raw pages that carry their own share tags from a draft PR
+that never merges, and text them from an iPhone (DECISIONS 2026-09-26).
 
 ## Changing the storefront QR (or adding another QR)
 

@@ -13048,3 +13048,10 @@ The home row (medians):
 added the practice-name links and 644 B of motion script, so the total
 and script columns include it; its image bytes are unchanged. The image
 rise is exactly the posters' +10,346 B.
+
+**Merged (2026-09-27), on the operator's word** ("Merge and refresh").
+PR #222's checks passed. Its own preview served the new lineup on six
+of six loads, with both caption files answering 200 and the retired J1
+caption file 404. The preview link had been sent before the operator's
+answer. The standing demo (#97) and the review preview (#149) are
+refreshed from phase-c after the merge.

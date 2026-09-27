@@ -30,6 +30,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
   bar is read on the operator's phone after production deploys.
 - It is PR #214 (phase-c) and hotfix PR #215 (main); the record is
   DECISIONS 2026-09-27.
+- Merged 2026-09-27 on the operator's word ("Merge now"): the hotfix
+  (PR #215) into main first, then PR #214 into phase-c; both standing
+  previews (#97, #149) refreshed after it. The test pages' PR #211 is
+  closed unmerged.
+- Confirmed on the operator's phone in production the same day ("I
+  checked the production and it worked correctly").
 
 ### 2026-09-26 — Shared links show the pink share card and the practice's name
 

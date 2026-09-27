@@ -6,6 +6,32 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-27 — Home carousel: two of Amy's own films replace the second and third
+
+- The carousel now plays, in order: the Evolysse commercial, Amy's
+  Mobile Aesthetics promo, her billboard-day reel, the Jeuveau
+  commercial and the team film. Still five films, muted, one after
+  another.
+- **Film two** is Amy's promo: her studio, then six women in uniform
+  stepping out of the black van. It replaces the first Jeuveau
+  commercial.
+- **Film three** is her reel of the day her billboard went up and a
+  delivery reached her studio. It replaces the studio reel, which
+  played at half speed; no film plays slowed now.
+- The remaining Jeuveau commercial's label no longer says "film two".
+- Both are carried exactly as supplied under operator overrides after
+  the compliance flags. The promo shows the location's other
+  providers, prints the practice's web address, and shows a syringe
+  tray with its slot labels and product cartons. The reel shows the
+  billboard's headline, a wall poster naming another brand, and
+  boxes. Everyone on camera has a release on file.
+- The reel is a 576-pixel copy, so it looks softer on laptops and
+  tablets; Amy's original would fix that.
+- The two films are served from the media origin
+  (`commercial-van-promo.mp4`, `commercial-billboard.mp4`). The
+  retired films' posters and caption files leave the repo; their
+  media objects stay until open PRs no longer use them.
+
 ### 2026-09-27 — "Mobile Aesthetics" is a link to the practice site wherever a page says it
 
 - Wherever a page's visible text says "Mobile Aesthetics", the name is

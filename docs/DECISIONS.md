@@ -12616,3 +12616,171 @@ built page, and the first two on the PR's preview.
 **Merged (2026-09-27), on the operator's word** ("Merge and refresh"):
 PR #218 into phase-c once its checks are green, with the standing demo
 (#97) and the review preview (#149) refreshed after it.
+
+## 2026-09-27 — The practice's name becomes a link to the practice site wherever visible text says it (operator override of constraint 2; a build gate holds it)
+
+**Context.** The operator asked: "Everywhere it says 'Mobile
+Aesthetics', I need that to be changed to a hyperlink pointing to
+https://yourmobileaesthetics.com". A scan of the built site (phase-c,
+all 25 pages) found the name in these places:
+
+| Where | Pages | Before | After |
+|---|---|---|---|
+| Footer, the address block's second line | all 25 | plain text | link |
+| Location card, the address block's second line | home, /visit, the two styleguide pages | plain text | link |
+| /about, three sentences | 1 | plain text | link |
+| /services/skincare, one body sentence and one FAQ answer | 1 | plain text | link |
+| The home carousel's heading, "Mobile Aesthetics. On screen." | home and its styleguide mirror | plain text | link on the two words |
+| /services/skincare, one FAQ question | 1 | plain text | plain text |
+| Header badge | all 25 | link | unchanged |
+| /about, the "Visit Mobile Aesthetics" button | 1 | link | unchanged |
+
+The live Under Construction page has no visible mention (read on
+`main` and on needlegirlie.com the same day), so production does not
+change. The links go live at relaunch.
+
+**The flag, raised once before any work.**
+- **The destination** was fetched again on 2026-09-27. It answers, and
+  it is still Amy's own practice site. It still lists the location's
+  other providers under a heading of their own, each with a booking
+  button, and one of them offers injectables. It also carries wording
+  this site bans: a ranking sentence this site retired on 2026-08-25,
+  and outcome language. A link restates none of it.
+- **The rule.** Constraint 2 allowed two links to that site: the header
+  badge (2026-08-15) and the /about button (2026-08-25).
+  compliance/README holds that a destination screened once does not
+  carry its authorization to a new consumer. This request is a new
+  consumer many times over.
+- **The contract.** The SOW promises a site that is "exclusively
+  yours". The two links already departed from it; this widens that.
+- **The funnel.** Every page gains a second exit to the practice site,
+  in the footer. /about carries six.
+
+**Decision (operator, 2026-09-27, after the flag).**
+1. **Scope: every visible mention.** Offered with it: all but the home
+   heading (the booking sweep of 2026-09-19 kept headings plain), and
+   sentences only.
+2. **Future copy: a build gate.** Offered with it: a runbook note
+   alone.
+
+The plan was approved the same day. It is recorded as constraint 2's
+**seventh scoped exception**.
+
+**What was built.**
+- **One component,** `PracticeLink.astro`, BookLink's sibling: the one
+  destination (`siteConfig.mobileAestheticsUrl`), a new tab with
+  `noopener`, the `ma_site_click` event, the hidden new-tab note, and
+  the house look for a link in text. It reuses BookLink's styling, so
+  the stylesheet is byte-identical.
+- **One marker for plain strings,** beside the booking marker in
+  `src/lib/inlineLinks.ts`: `[Mobile Aesthetics](site:practice)`. Its
+  label must be the practice's name; any other label fails the build,
+  as an unknown target and an arbitrary URL already did. FaqAccordion
+  and VisitSteps render it.
+- **The edits:** Footer, LocationCard, three sentences in
+  `about.astro`, the carousel heading in `VideoCarousel.astro`, and
+  the body sentence and one FAQ answer in `skincare.mdx` (its own
+  commit; `clinicianApproved` was false and stays false). No visible
+  letter changed.
+- **The heading is the site's first link inside a heading,** and it met
+  the home page's motion layer. That layer splits every section
+  heading into words to raise them one by one. A split would have cost
+  the link twice: the word boxes do not carry the anchor's line under
+  the text, and the split hides its pieces from screen readers, which
+  leaves the link without a name. So `home-motion.js` now raises a
+  heading that holds a link whole. The other six section headings
+  split as before.
+- **The carousel section is named by its own label** with the
+  heading's words. It was named by the heading itself, and the link's
+  hidden note would have landed in the region's name.
+- **The gate,** `scripts/lint-practice-link.mjs`, run as
+  `npm run lint:practice-link` at the end of `verify:fast`. It reads
+  the built pages and fails on four things:
+  1. the practice's name in visible text outside a link to the
+     practice site;
+  2. a link to the practice site without the new tab, `noopener`, the
+     event or the hidden note;
+  3. a link to the practice site at any address but the screened one;
+  4. a link to the practice site inside an FAQ question or a button.
+
+  It reads the address from `siteConfig.ts`, carries a self-test, and
+  its failure message says how to fix the page.
+
+**What stays plain, and why.**
+- **The FAQ question** ("Why does the storefront say Mobile
+  Aesthetics?"). It renders inside the control that opens the answer. A
+  link there would take the click, and it fails the accessibility
+  check. The booking sweep left FAQ questions plain for the same
+  reason. The answer under it carries the link. The gate allows this
+  one place, and a page's title tag.
+- **Text that is not page text:** photo descriptions, the films'
+  screen-reader labels, /about's page description, the home page's
+  share title and the caption files. None of these can hold a link.
+
+**Alternatives declined.**
+- **An automatic rewrite of the built pages,** wrapping every mention
+  in a link as a build step. New copy would be linked without anyone
+  deciding it, and the link would be missing from the source a
+  reviewer reads.
+- **Keeping the word split on the linked heading** with its screen
+  reader handling switched off. The link would still lose its line
+  under the text for the length of the rise.
+- **A runbook note without a gate** (offered, not chosen).
+- **Editing the preview workflow's step label** to name the new gate.
+  The chain lives in `package.json`, both workflows call it, and no
+  workflow file changed.
+
+**Consequences.**
+- **36 new links; 62 in all.** 25 header badges, 25 footers, 4 location
+  cards, 4 sentences, 1 FAQ answer, 2 headings, 1 button.
+- **New copy that names the practice takes the link** under the same
+  exception. A branch that adds a plain mention fails its fast gates
+  once it carries this change, and the message tells the writer what
+  to do.
+- **What the exception does not cover:** any other link text, any
+  other address on the practice site, and any mention of the other
+  providers. Each still needs the human operator.
+- **The records:** CLAUDE.md constraint 2 (the seventh exception, and
+  the two places that counted the sanctioned links), siteConfig's
+  comment, compliance/README, BUILD_SPEC's component inventory,
+  REDESIGN, RUNBOOK ("Naming the practice in copy"), HOME-CONCEPT
+  (the choreography line) and CLINICIAN-SIGN-OFF. Amy has not seen
+  these links.
+- **The preview workflow's step label** still lists the older gates by
+  name. What it runs is `verify:fast`, which includes this one.
+- **No stylesheet rule, no dependency, no cost.** `home-motion.js`
+  grows by 644 bytes before compression (19,217 to 19,861), inside
+  the home page's script budget.
+
+**Verification.**
+- **The gate, proven both ways.** On the build before the change it
+  fails with 36 findings, every one of them rule 1. On the build after,
+  it passes: 25 pages, 62 links. Its self-test passes.
+- **Visible text is identical on all 25 pages,** before and after. The
+  only text added is the hidden new-tab note, 36 times.
+- **Every link to the practice site** carries the four attributes. None
+  sits inside an FAQ question or a button. The spacing round each
+  inline link was read from the built pages.
+- **The stylesheets are byte-identical,** before and after the code,
+  and again after these records were written.
+- **Rendered at 390 and 1280 pixels wide:** the footer, the location
+  card, the three /about sentences, the skincare sentence and FAQ
+  answer, and the home heading with the motion layer on and under
+  reduced motion.
+- **`npm run verify` exit 0:** `astro check` 0 errors, 0 warnings and
+  0 hints over 59 files; lint:claims,
+  lint:voice and lint:practice-link green; pa11y 25/25; every
+  Lighthouse assertion on 8 URLs × 3 runs.
+- **The PR:** #219 into phase-c.
+
+**Merged (2026-09-27), on the operator's word** ("Merge now"). The
+PR's checks passed on two runs; the second was a re-run made to force a
+fresh upload. Its own preview environment deployed both times and then
+answered Azure's 404 on every request for more than twenty minutes,
+the known fault with new preview environments, while both standing
+previews served normally. So the operator was not shown a live
+preview. They were shown the rendered links as two screenshot sheets
+from the same build, were told why the preview could not be shown, and
+chose to merge. The standing demo (#97) and the review preview (#149)
+are refreshed from phase-c after the merge, and the links are read
+there.

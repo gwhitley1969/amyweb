@@ -55,7 +55,8 @@ design: `allowedForwardedHosts` only admits the real hostnames.
    in DECISIONS and NOT in `allowedStrings` (compliance/README
    "Authorizations the registry does not hold").
 2. Open a PR. CI runs the fast gates (build, `check`, `lint:claims`,
-   `lint:voice` — about 20 seconds together), deploys a **preview
+   `lint:voice`, and since 2026-09-27 `lint:practice-link` — about 20
+   seconds together), deploys a **preview
    environment**, and only then runs the slow gates (pa11y, Lighthouse).
    Previews are **public and noindexed** — no password (DECISIONS
    2026-07-21) — so the URL can go straight to Amy, but only **once the
@@ -96,6 +97,43 @@ asset files, byte-identical at the same paths as the `phase-c` PR, so the
 relaunch two-step merges them clean; the record for both PRs lives in the
 `phase-c` DECISIONS entry, never on `main` (the append-only docs would
 collide at relaunch).
+
+## Naming the practice in copy
+
+Since 2026-09-27 the practice's name, "Mobile Aesthetics", is a link to
+the practice site wherever a page's visible text says it (the
+operator's override of CLAUDE.md constraint 2, the seventh scoped
+exception; DECISIONS same date). New copy follows the same rule.
+
+- **In an `.astro` page or an MDX body,** wrap the name in the
+  PracticeLink component (`src/components/PracticeLink.astro`), the way
+  BookLink wraps "book". Keep the component's anchor on one line, and
+  put no space between it and a comma or a full stop that follows.
+- **In a plain string** (an FAQ answer in a treatment page's
+  frontmatter, a visit step), write the marker:
+  `[Mobile Aesthetics](site:practice)`. The label has to be the
+  practice's name; anything else fails the build.
+- **In an FAQ question,** leave the name as plain text. The question
+  is the control that opens its answer, and a link there would take
+  the click. Put the link in the answer.
+- **Inside any other control** (a button, another link), reword so
+  the name is not there, or ask the operator.
+- **Text that is not page text** needs nothing: photo descriptions,
+  screen-reader labels, page descriptions, share titles, JSON-LD and
+  caption files cannot hold a link.
+
+The gate `npm run lint:practice-link` runs last in the fast gates and
+fails a build that breaks any of this. It prints the page, the rule
+and the words round the mention. It also holds every link to the
+practice site to its terms: the one screened address, a new tab with
+`noopener`, the `ma_site_click` event and the hidden new-tab note.
+
+**What the exception does not cover.** Any other link text, any other
+address on the practice site, and any mention of the location's other
+providers. Those go to the operator first, however green the gates
+are. The gate reads this repo's pages and never the practice site
+itself, so screen the destination again when its content is known to
+have changed.
 
 ## Where `phase-c` is visible
 

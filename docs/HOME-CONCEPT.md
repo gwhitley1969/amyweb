@@ -167,7 +167,11 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   `md:display-1`, "Unhurried, explained…" at `md:display-2` (display-0
   is no longer "home hero only"). One-sentence decks; the §6
   credentials stay as a compact line under the intro deck.
-- Choreography: every section opener rises word by word as it enters;
+- Choreography: every section opener rises word by word as it enters
+  (since 2026-09-27 an opener that holds a link rises whole — the
+  carousel's heading, whose first two words link to the practice site;
+  a word split would drop the link's line under the text and hide its
+  name from screen readers; DECISIONS same date);
   decks settle; the three doors are dealt one after another; photos
   rise into their arches and settle; arched photos in whole-card links
   grow 3% on hover (CSS — this reaches the twelve /services cards too).

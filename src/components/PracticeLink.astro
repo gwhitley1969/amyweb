@@ -1,0 +1,38 @@
+---
+import { siteConfig } from '../lib/siteConfig';
+
+/**
+ * The practice's name as a link: wherever VISIBLE site text names
+ * Mobile Aesthetics, the name links to Amy's practice site (operator
+ * direction 2026-09-27, "everywhere it says" it; DECISIONS same date).
+ * BookLink's sibling, never restyled per use: the one destination
+ * (siteConfig.mobileAestheticsUrl), the declarative ma_site_click event,
+ * the new-tab attrs + sr-only note, and the house inline-link idiom
+ * (underline + var(--ng-link): a link is told apart by its underline,
+ * never by color alone; the token re-scopes itself on noir).
+ *
+ * EVERY USE IS AN OPERATOR OVERRIDE of hard constraint 2: the
+ * destination lists the location's other providers (screened 2026-08-15,
+ * again 2026-09-27). CLAUDE.md constraint 2 carries this as its seventh
+ * scoped exception. The scope is the practice's NAME as link text and
+ * that one destination. Any other label, any other destination, and any
+ * mention of the other providers still need the human operator.
+ *
+ * Consumers: .astro pages and MDX bodies use it directly; FaqAccordion
+ * and VisitSteps render it for the `[text](site:practice)` marker
+ * (src/lib/inlineLinks.ts). The build's lint:practice-link gate
+ * (scripts/lint-practice-link.mjs) fails a page whose visible text names
+ * the practice outside this link.
+ *
+ * WHERE IT MUST NOT GO: inside a <summary> or any other control. A link
+ * inside the FAQ question would hijack the click that opens the answer
+ * and fails axe's nested-interactive rule, so an FAQ question keeps the
+ * name as plain text (the gate allows exactly that).
+ *
+ * No <style> block on purpose (utility classes only, no scope attribute),
+ * and the anchor stays on ONE line: whitespace inside an inline link
+ * prints, and a sentence may end right after it.
+ */
+---
+
+<a href={siteConfig.mobileAestheticsUrl} class="underline underline-offset-4" style="color: var(--ng-link)" data-event="ma_site_click" target="_blank" rel="noopener"><slot>Mobile Aesthetics</slot><span class="sr-only"> (opens in new tab)</span></a>

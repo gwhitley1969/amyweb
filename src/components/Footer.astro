@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 /* The 2026-09-15 logo — the header's crop (docs/BRAND-ASSETS.md). */
 import wordmark from '../assets/brand/needle-girlie-wordmark-metallic-alpha.png';
 import GetTheApp from './GetTheApp.astro';
+import PracticeLink from './PracticeLink.astro';
 import { siteConfig } from '../lib/siteConfig';
 
 /**
@@ -28,8 +29,10 @@ const socialEntries = Object.entries(siteConfig.social).filter(
         {siteConfig.legalName}<br />
         {/* The location's name (operator, 2026-08-17) — the same
           * constraint-2-permitted factual note the location card
-          * carries; Amy's own PLLC. */}
-        Mobile Aesthetics<br />
+          * carries; Amy's own PLLC. Since 2026-09-27 the name LINKS to
+          * the practice site (operator override of constraint 2 after
+          * the flag — every visible mention; DECISIONS same date). */}
+        <PracticeLink>Mobile Aesthetics</PracticeLink><br />
         {siteConfig.address}
       </p>
       <p class="mt-2 text-sm">

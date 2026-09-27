@@ -45,10 +45,13 @@ export const siteConfig = {
   // The practice site of Amy's own PLLC. Destination screened
   // 2026-08-15: it names the location's other providers, which hard
   // constraint 2 otherwise bans linking to — every link to it is an
-  // OPERATOR OVERRIDE scoped in CLAUDE.md constraint 2. TWO sanctioned
-  // references: the header badge (DECISIONS 2026-08-15) and the /about
-  // Girl Team button (DECISIONS 2026-08-25, direct from Amy). Adding
-  // any further consumer requires the human operator.
+  // OPERATOR OVERRIDE scoped in CLAUDE.md constraint 2. THREE sanctioned
+  // kinds of reference: the header badge (DECISIONS 2026-08-15), the
+  // /about Girl Team button (DECISIONS 2026-08-25, direct from Amy),
+  // and — since 2026-09-27 — the practice's NAME wherever visible text
+  // says it, through PracticeLink (destination screened again that
+  // day; DECISIONS same date). Adding any other consumer, label or
+  // destination requires the human operator.
   mobileAestheticsUrl: 'https://yourmobileaesthetics.com',
   social: {
     // {{SOCIAL_LINKS}} supplied by operator 2026-07-18. The Yelp listing

@@ -6,6 +6,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-27 — /tox-together: the hostess perk speaks to "you"
+
+- In the "Hostess perk" section, "the hostess receives a $600 credit"
+  now reads "you receive a $600 credit", and the closing line ends "a
+  $600 Service Credit for you" (it ended "for the hostess").
+- The text a search result or a shared link shows follows: "When your
+  Tox Together party qualifies, you receive a $600 service credit."
+- The operator's wording. The figures, the three requirements and the
+  heading are unchanged.
+- It is PR #218 (`content/tox-together-you`) into phase-c; the record
+  is DECISIONS 2026-09-27, the hostess-perk entry.
+- Merged 2026-09-27 on the operator's word ("Merge and refresh"), once
+  its checks were green; both standing previews (#97, #149) refreshed
+  after it.
+
 ### 2026-09-27 — Tox To Go is renamed Tox Together, and its page moves to /tox-together
 
 - The private-party offer has a new name. The home page's section and

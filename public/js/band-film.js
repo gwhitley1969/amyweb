@@ -1,5 +1,5 @@
 // The home band's film — Amy's van-trip clip in the home band ("Amy comes
-// to you." 2026-09-25; the Tox To Go door since 2026-09-26 — DECISIONS
+// to you." 2026-09-25; the Tox Together door since 2026-09-26 — DECISIONS
 // both dates). Served as a static same-origin
 // file BY DESIGN (CSP script-src 'self', no unsafe-inline — DECISIONS
 // 2026-08-14). The markup contract lives in ConceptHome.astro: a

@@ -6,6 +6,37 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-27 — Tox To Go is renamed Tox Together, and its page moves to /tox-together
+
+- The private-party offer has a new name. The home page's section and
+  the page's big title read "Tox Together Party"; the three call
+  buttons read "Book your Tox Together party"; the menu item reads "Tox
+  Together".
+- The name changes in the running text too: "With Tox Together, you can
+  host…", "When your Tox Together party meets…", "your scheduled
+  private Tox Together event", and the small label above the closing
+  headline.
+- The page's address is /tox-together. The old address, /tox-to-go, is
+  gone without a forwarding rule: the live site never served it.
+  Preview links to the old address stop working.
+- The page's title and the text a shared link or a search result shows
+  carry the new name.
+- Nothing else changes: the offer, the $600 hostess credit, its three
+  requirements, the phone number and the van-trip film are as they
+  were. "Tox Party" and "Tox Parties", the general words, stay.
+- The operator marked seven places on four screenshots and asked for
+  any that were missed; the sweep found six more places a visitor
+  reads, plus the title, the description and the address.
+- Two web searches found no business called "Tox Together". This is
+  not a trademark clearance.
+- Gates: /tox-together takes /tox-to-go's place in the pa11y list and
+  the Lighthouse list (25 and 8, unchanged).
+- It is PR #217 (`feat/tox-together`) into phase-c; the record is
+  DECISIONS 2026-09-27, the Tox Together entry.
+- Merged 2026-09-27 on the operator's word ("merge it and refresh PRs
+  #97 and #149"), once its checks were green; both standing previews
+  (#97, #149) refreshed after it.
+
 ### 2026-09-27 — The share card gains a black panel, for a black bar in Messages
 
 - The card a shared needlegirlie.com link shows is re-made again: a

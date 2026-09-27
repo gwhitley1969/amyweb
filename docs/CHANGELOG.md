@@ -36,6 +36,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   production does not change until relaunch.
 - It is PR #219 (`feat/practice-name-links`) into phase-c; the record
   is DECISIONS 2026-09-27, the practice's-name entry.
+- Merged 2026-09-27 on the operator's word ("Merge now"), its checks
+  green on two runs. The PR's own preview never served (Azure's 404, a
+  known fault with new preview environments), so the operator judged
+  the look from screenshots of the same build; both standing previews
+  (#97, #149) refreshed after the merge.
 
 ### 2026-09-27 — /tox-together: the hostess perk speaks to "you"
 

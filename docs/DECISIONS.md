@@ -12772,3 +12772,15 @@ The plan was approved the same day. It is recorded as constraint 2's
   lint:voice and lint:practice-link green; pa11y 25/25; every
   Lighthouse assertion on 8 URLs × 3 runs.
 - **The PR:** #219 into phase-c.
+
+**Merged (2026-09-27), on the operator's word** ("Merge now"). The
+PR's checks passed on two runs; the second was a re-run made to force a
+fresh upload. Its own preview environment deployed both times and then
+answered Azure's 404 on every request for more than twenty minutes,
+the known fault with new preview environments, while both standing
+previews served normally. So the operator was not shown a live
+preview. They were shown the rendered links as two screenshot sheets
+from the same build, were told why the preview could not be shown, and
+chose to merge. The standing demo (#97) and the review preview (#149)
+are refreshed from phase-c after the merge, and the links are read
+there.

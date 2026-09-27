@@ -43,8 +43,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - It is PR #221 (`feat/about-lead-photo`) into phase-c; the record is
   DECISIONS 2026-09-27, the /about lead portrait entry.
 - Merged 2026-09-27 on the operator's word ("Merge now"), its checks
-  green and its own preview serving the page; both standing previews
-  (#97, #149) refreshed after the merge.
+  green and its own preview serving the page. phase-c moved first (the
+  home carousel's films), so it was brought into the branch and the
+  checks were run again. Both standing previews (#97, #149) refreshed
+  after the merge.
 
 ### 2026-09-27 — Home carousel: two of Amy's own films replace the second and third
 

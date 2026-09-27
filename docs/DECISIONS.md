@@ -13167,7 +13167,8 @@ is the largest file the page serves.
 - **Dist against the phase-c build (`ddae8dd`):** only
   `about/index.html` and the two photos' image sets differ. The lead
   adds four files; the family portrait adds three and retires one.
-  Every stylesheet and the other 24 pages are byte-identical.
+  Every stylesheet and the other 24 pages are byte-identical. The same
+  holds against `85762be`, after phase-c was brought into the branch.
 - **The About page's visible text, its 29 links, its headings and its
   head tags** are identical, at 390 and at 1280.
 - **Renders at 17 widths, 320 to 1920:** nothing overflows
@@ -13217,6 +13218,10 @@ PR's checks passed, and its own preview served the page: the probe
 converged on its first three passes, twice, and every picture file
 answered with its built size. The operator was shown before-and-after
 sheets from the real build at desktop, tablet and phone widths, and
-the preview link. The standing demo (#97) and the review preview
-(#149) are refreshed from phase-c after the merge; #149's refresh is
-the hand merge named above.
+the preview link. phase-c then moved under the PR (PR #222, the home
+carousel's films), and the first merge was refused for conflicts in
+three record files. phase-c was brought into the branch with both
+sides of each record kept, and the full check chain passed again on
+the result before the merge. The standing demo (#97) and the review
+preview (#149) are refreshed from phase-c after the merge; #149's
+refresh is the hand merge named above.

@@ -149,9 +149,13 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   withdrew it on the preview: "I want that part to look like what we
   have in PR #149." `VideoCarousel.astro` is phase-c's file again:
   the heading centered over the stage, the bars beneath.
-- **Order:** J1 → studio → J2 → team, the recorded 2026-08-14 sequence.
-  (The round put Amy's films first for a few hours; the operator
-  reversed it: "I want the Jeuveau commercial to play first.")
+- **Order:** since 2026-09-27, Evolysse → Amy's promo → her
+  billboard-day reel → Jeuveau → team (DECISIONS 2026-09-25 and
+  2026-09-27). The concept round kept J1 → studio → J2 → team, the
+  recorded 2026-08-14 sequence. (It put Amy's films first for a few
+  hours; the operator reversed it: "I want the Jeuveau commercial to
+  play first.") The Evolysse film went first on 2026-09-25, and on
+  2026-09-27 Amy's two films replaced J1 and the studio reel.
 - **Crossfade settle:** withdrawn with the composition (it lived in
   the same file); the crossfade is phase-c's plain one.
 - **Phones (PR #180, merged here):** the films autoplay under

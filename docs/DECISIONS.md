@@ -12997,8 +12997,54 @@ AD3 would lift it for that film.
   video each gain an instance. The two slots' films weigh 13.1 MB
   together instead of 16.2 MB, so a full view of the carousel moves a
   little less media.
-- **The home page's total-bytes budget** keeps about 10 KB.
+- **The home page's total-bytes budget** keeps 11,398 B (measured
+  below).
 - **No approval flag.** This is not treatment content, so no
   `clinicianApproved` flag applies. Amy sees both films on the standing
   demo, and her sign-off row carries them as new.
 - **Amy's original.** The operator asks Amy for her original of AD3.
+
+**Verification.** Built against phase-c `ddae8dd`:
+- **The built diff:** only `/` and `/styleguide/concept` change markup —
+  slides 2 to 4, the bars' labels and the posters' srcsets. The new
+  posters' files and caption files are added and the retired ones
+  removed. Every stylesheet and every other page is byte-identical,
+  checked again after these records were written.
+- **The posters as served:** 720w 36,446 B and 480w 23,458 B (the
+  promo); 576w 19,448 B and 480w 15,526 B (the reel) — the predicted
+  bytes exactly.
+- **Headless Chrome under the generated SWA headers,** at 390 and 1280
+  wide:
+  - bars 2 and 3 each build a player whose source is the new
+    media-origin file, at its native size, muted (the property and the
+    attribute), playing, with no decoded audio;
+  - each player's captions track is disabled, and both caption files
+    hold zero cues;
+  - the end of film 2 hands over to film 3, and the end of film 3 to
+    film 4;
+  - no console errors and no content-policy refusals. The only failed
+    requests are the aborted downloads left behind when the test seeks
+    near the end or closes the page.
+- **Sideways overflow** is identical to the phase-c build at
+  344/390/768/1280 wide (none at load in either).
+- **The published files:** Range requests answer 206 with `video/mp4`,
+  a one-day cache, and the byte counts above. ffprobe of the served
+  files reads one H.264 stream each (993 and 941 frames) and no audio.
+- **The gate:** `npm run verify` exit 0, exit line read. That covers the
+  build, `astro check` 0/0/0, lint:claims, lint:voice,
+  lint:practice-link (25 pages, 62 links), pa11y 25/25, and every
+  Lighthouse assertion on 8 URLs × 3 runs.
+
+The home row (medians):
+
+| | Before | After | Budget |
+|---|---|---|---|
+| Total | 336,401 B | 347,002 B | 358,400 B |
+| Image | 208,279 B | 218,625 B | 245,760 B |
+| Script | 71,890 B | 72,085 B | 81,920 B |
+| LCP | 2,169 ms | 2,189 ms | 2,500 ms |
+
+"Before" is the 2026-09-27 10:32 run, taken before PR #219. That PR
+added the practice-name links and 644 B of motion script, so the total
+and script columns include it; its image bytes are unchanged. The image
+rise is exactly the posters' +10,346 B.

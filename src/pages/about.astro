@@ -12,6 +12,7 @@ import TrustChips from '../components/TrustChips.astro';
 import EvolusLaurel from '../components/EvolusLaurel.astro';
 import TreatmentVideo from '../components/TreatmentVideo.astro';
 import { siteConfig } from '../lib/siteConfig';
+import amyPinkDressCounter from '../assets/photos/amy-pink-dress-counter.jpg';
 import familyPortrait from '../assets/photos/family-portrait.jpg';
 import iconPoster from '../assets/photos/evolus-icon-poster.jpg';
 import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
@@ -66,9 +67,28 @@ import girlTeamFilmWidePoster from '../assets/photos/girl-team-film-wide-poster.
  * override (every visible mention, sitewide; DECISIONS same date). No
  * word of any sentence changed. With the header badge, the button and
  * the footer, this page carries six links to that site.
- * Hero portrait is Amy's family (client-requested
- * 2026-07-23; on-record consent covers everyone pictured incl. the
- * minors); alt text names no one but Amy. The studio photo (8K0A9862)
+ * Lead portrait since 2026-09-27 (operator direction; DECISIONS same
+ * date): amy-pink-dress-counter.jpg, frame 8K0A3317 of the 2026-03-29
+ * shoot, committed exactly as supplied and shown WHOLE at its own 2:3.
+ * The arch's house window is 4:5, which would cut her at the ankles;
+ * the weigh-in frame and the Girl Team still keep their own shape for
+ * the same reason. Amy alone, so no release. The frame is in the
+ * product-box and vial classes the 2026-07-23 photo survey set aside,
+ * so it ships on the operator's approval for THIS frame in THIS slot.
+ * Screened at full resolution, which is what ships: the cartons' brand
+ * and product names are readable (names the site's own copy already
+ * carries), and so is the tail of a wall print at the top left, which
+ * the arch covers on the page; the cartons' small print, every vial
+ * label, the jar's contents and a label under the counter are not.
+ * Nothing printed on the packaging is restated here or in the alt
+ * text, which leaves the products out, as the studio print's does.
+ * The family portrait (client-requested 2026-07-23; on-record consent
+ * covers everyone pictured incl. the minors) led this page until that
+ * date. It now sits in the text column, smaller, under the last
+ * paragraph and above the button: the operator's direction, which is
+ * the confirmation the 2026-07-23 entry asks of any new placement.
+ * Its crop, wash and alt text are unchanged; the alt names no one but
+ * Amy. The studio photo (8K0A9862)
  * publishes uncropped with the legible "MobileAesthetics" neon — her own
  * signage, the prp-treatment precedent; a brand call, ACCEPTED with
  * Amy's 2026-08-04 approval and still reversible on her word
@@ -120,8 +140,14 @@ const CHEVRONS = [
 
   <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
     {reviewPageTag && <ReviewNumber n={reviewPageTag} />}
-    <div class="grid items-start gap-10 md:grid-cols-[6fr_5fr]">
-      <div>
+    {/* Three parts in reading order: the opening, the lead portrait,
+      * the body. A phone and a screen reader both meet the portrait
+      * after the opening line (the operator's pick, 2026-09-27). From
+      * 768px the portrait takes the right column beside both text
+      * parts, and the text column's geometry is what it always was.
+      * The layout rules are in the style block below. */}
+    <div class="about-hero">
+      <div class="about-hero__intro">
         <p class="eyebrow">About</p>
         <hr class="rule-accent mt-4" aria-hidden="true" />
         <h1 class="display-2 mt-6">Amy Palacios, FNP</h1>
@@ -129,7 +155,23 @@ const CHEVRONS = [
           Needle Girlie is the work of one clinician. Every consultation,
           every plan, every appointment — Amy herself.
         </p>
-        <div class="mt-8 max-w-prose space-y-4">
+      </div>
+      {/* widths stop at the master's own 1067px, so sharp never
+        * upscales; the size hints are the portrait's true width at
+        * every viewport (the old 40vw hint ran 23px short just under
+        * 1152px). */}
+      <figure class="about-portrait ng-arch">
+        <Image
+          src={amyPinkDressCounter}
+          alt="Amy Palacios, FNP, in a pink dress, seated on her studio counter."
+          widths={[480, 640, 760, 1067]}
+          sizes="(min-width: 1152px) 484px, (min-width: 768px) calc(45.45vw - 40px), (min-width: 528px) 480px, calc(100vw - 48px)"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+      <div class="about-hero__body">
+        <div class="max-w-prose space-y-4">
           <p>
             Before the studio, there was the hospital floor. Amy spent two
             decades in nursing, much of it in critical care, where getting
@@ -149,20 +191,23 @@ const CHEVRONS = [
             Needle Girlie is the dedicated home of her own work.
           </p>
         </div>
+        {/* The family portrait at two-thirds of its old size (the
+          * operator's pick from three, 2026-09-27): 20rem, or 72% of
+          * the column where that is less. Lazy: it sits below the
+          * first screen. */}
+        <figure class="about-family ng-arch">
+          <Image
+            src={familyPortrait}
+            alt="Amy Palacios, FNP, with her family."
+            widths={[360, 520, 640, 760]}
+            sizes="(min-width: 904px) 320px, (min-width: 768px) calc(39.27vw - 35px), (min-width: 493px) 320px, calc(72vw - 35px)"
+            loading="lazy"
+          />
+        </figure>
         <div class="mt-8">
           <CTAButton variant="consult" emphasis="chip" />
         </div>
       </div>
-      <figure class="about-portrait ng-arch">
-        <Image
-          src={familyPortrait}
-          alt="Amy Palacios, FNP, with her family."
-          widths={[480, 760, 1080]}
-          sizes="(min-width: 768px) 40vw, 90vw"
-          loading="eager"
-          fetchpriority="high"
-        />
-      </figure>
     </div>
   </section>
 
@@ -459,25 +504,86 @@ const CHEVRONS = [
 </BaseLayout>
 
 <style is:global>
+  /* The hero's three parts (2026-09-27; DECISIONS same date). One
+   * column on phones, in reading order. From 768px the section's own
+   * 6fr/5fr columns and 2.5rem gap, with the portrait beside both text
+   * parts. The second row is the flexible one, so the opening keeps
+   * its own height and the body follows it at the 2rem that has always
+   * separated the lead from the paragraphs. */
+  .about-hero {
+    display: grid;
+    row-gap: 2rem;
+  }
+  @media (min-width: 768px) {
+    .about-hero {
+      grid-template-columns: 6fr 5fr;
+      grid-template-rows: auto 1fr;
+      column-gap: 2.5rem;
+      align-items: start;
+    }
+    .about-hero__intro {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .about-hero__body {
+      grid-column: 1;
+      grid-row: 2;
+    }
+  }
   /* Same light-wash grade as the /services strip. Frame shape + border
    * come from .ng-arch (global.css) — the sitewide arch motif,
-   * 2026-08-17. */
+   * 2026-08-17. The lead portrait shows its master whole, at the
+   * master's own 2:3 (the header comment has the reason). In the
+   * single column it stops at 30rem, so the 1067px master always holds
+   * twice the slot (retina rule). */
   .about-portrait {
     position: relative;
     margin: 0;
+    max-width: 30rem;
+  }
+  @media (min-width: 768px) {
+    .about-portrait {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      max-width: none;
+    }
   }
   .about-portrait img {
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 2 / 3;
     object-fit: cover;
-    /* group portrait: faces sit mid-frame, not top-of-frame like the
-     * old single-subject shot — anchor the crop to the group */
-    object-position: 50% 38%;
     filter: grayscale(15%) contrast(1.03) brightness(1.05);
   }
   .about-portrait::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  /* The family portrait in the text column: the frame, crop, anchor
+   * and wash it wore as the page's lead until 2026-09-27, at
+   * two-thirds of the size. */
+  .about-family {
+    position: relative;
+    margin: 2rem 0 0;
+    width: min(20rem, 72%);
+  }
+  .about-family img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    /* group portrait: faces sit mid-frame, not top-of-frame like a
+     * single-subject shot — anchor the crop to the group */
+    object-position: 50% 38%;
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
+  }
+  .about-family::after {
     content: '';
     position: absolute;
     inset: 0;

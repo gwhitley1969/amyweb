@@ -13112,3 +13112,173 @@ of six loads, with both caption files answering 200 and the retired J1
 caption file 404. The preview link had been sent before the operator's
 answer. The standing demo (#97) and the review preview (#149) are
 refreshed from phase-c after the merge.
+
+## 2026-09-27 — /about: a new lead portrait of Amy, shown whole; the family portrait moves into the text column, smaller (operator direction; the picture approved for this slot after the flag)
+
+**Context.** Operator direction (2026-09-27): "I need the attached
+picture to be the lead on the /about page. This picture will be the
+first pic on the page and to the right of the section 'Amy Palacios,
+FNP'. The current picture that is in that spot will be made smaller
+than it currently is and will be below the last paragraph of the 'Amy
+Palacios, FNP' section BUT above the 'Book with Amy' button."
+- **The file:** `C:\Amy\New Pics\about.jpg`, a 1067×1600 sRGB JPEG,
+  276,746 B, sha256 `8a404b01…f0eb45`. Its metadata names frame
+  8K0A3317 of the 2026-03-29 shoot, taken between the frames of
+  /services cards 02 and 01. It holds no GPS block and no location
+  field. It carries the photographer's credit and rights notice, as the
+  shoot frames already committed do.
+- **A new frame:** compared by a 24×36 grey signature, which catches a
+  copy or a re-export, with the 76 images under `src/assets` and
+  `public` and the 153 others in `C:\Amy\pics` and `C:\Amy\New Pics`.
+  The nearest is card 01's photo, at a mean difference of 30.7 of 255.
+- **What it replaces as the lead:** the family portrait, which Amy
+  asked for on 2026-07-23 and kept on 2026-08-03. The 2026-09-03 entry
+  calls that "her call, not a fix".
+
+**Screen** (RUNBOOK "Replacing site photography", step 1). The file was
+read at three and four times its size, because the full 1067px frame
+is the largest file the page serves.
+- **The scene:** Amy in a pink dress, seated on her studio counter.
+  Beside her are a stack of four filler cartons, six small vials and a
+  tall glass jar of vials. Only Amy is pictured, so no release is
+  needed.
+- **Readable:**
+  - on the cartons, the brand, its two product names and the maker's
+    name. The dermal-fillers page says all four in its own copy;
+  - at the top left, the tail of a wall print ("…like nobody is
+    watching"). On the page the arch covers it; the file still shows
+    it.
+- **Not readable:** the cartons' small print, every vial label, the
+  jar's contents, and a small label on the appliance under the counter.
+
+**Flag (once).**
+- **The class.** The frame is in the product-box and vial classes the
+  2026-07-23 rubric excluded, and the 2026-09-25 entry says those
+  exclusions stand for every other slot. So it needs the operator's
+  approval for this slot.
+- **No exception.** compliance/README keeps operator overrides for
+  frames "whose pixels carry text the site's own copy could not say".
+  No quantity and no claim is readable here, and the readable names
+  are ones the site's copy says. Constraint 3 is not engaged. The
+  precedent is the Revanesse hand mirror of 2026-08-21.
+- **Two earlier calls went the other way,** and both were put to the
+  operator. On 2026-08-21 Amy had the Evolysse film and two carton
+  photos taken off dermal-fillers. On 2026-09-03 a pick for the home
+  band was dropped because a carton's name could be read in it. Since
+  2026-09-25 the film and two card photos are back at the operator's
+  direction. Listing this frame in CLAUDE.md as an override was
+  offered.
+- **The family portrait** leads the page at Amy's own request, and its
+  2026-07-23 entry asks for the operator's confirmation of "any other
+  placement of the family".
+- **Recommended:** the picture exactly as supplied.
+
+**Decision (operator, 2026-09-27: the plan approved as written).**
+- The picture ships exactly as supplied, approved for this frame in
+  this slot. CLAUDE.md, BUILD_SPEC and compliance/ do not change.
+- The family portrait's new placement is confirmed by the operator's
+  own request.
+- From mock sheets (renders of the built page, re-arranged in a
+  headless browser and photographed; nothing in the repo changed), the
+  operator picked:
+  - the family portrait at **two-thirds** of its size, over
+    four-fifths and one-half;
+  - on phones, the new picture **after the opening line**, over the
+    very top of the page.
+
+**What was built.**
+- **Asset:** a byte-identical copy,
+  `src/assets/photos/amy-pink-dress-counter.jpg` (content-named).
+- **Alt text:** "Amy Palacios, FNP, in a pink dress, seated on her
+  studio counter." It leaves the products out, as the studio print's
+  alt does. /injector-training's portrait names its cartons; the About
+  page's own precedent was followed.
+- **The section** is three parts in source order: the opening (label,
+  rule, heading, lead), the lead portrait, and the body (the three
+  paragraphs, the family portrait, the button). A phone and a screen
+  reader both meet the portrait after the opening line. From 768px the
+  portrait takes the right column beside both text parts. The columns,
+  the gap and the text's positions are unchanged.
+- **The lead portrait is shown whole,** at the master's own 2:3, in the
+  arch with the light wash. The arch's house window is 4:5, which
+  would shed the bottom sixth of this frame: her ankles and shoes. The
+  weigh-in frame (2026-08-21) and the Girl Team still (2026-08-25)
+  keep their own shape for the same reason. In the single column the
+  portrait stops at 480px wide, so the master always holds twice the
+  slot.
+- **The family portrait** keeps its 4:5 crop, its anchor, its wash and
+  its alt text. It is 320px wide, or 72% of the column where that is
+  less, and it loads lazily.
+- **Widths:** 480/640/760/1067 for the lead, 360/520/640/760 for the
+  family portrait. The size hints are exact at every viewport; the old
+  40vw hint ran 23px short just under 1152px.
+
+| Picture | Before | After |
+|---|---|---|
+| New portrait, 1280 wide | not on the page | 484×724, right column |
+| Family portrait, 1280 wide | 484×604, right column | 320×400, under the last paragraph |
+| New portrait, 390 wide | not on the page | 342×512, after the opening line |
+| Family portrait, 390 wide | 342×427, after the button | 246×307, above the button |
+
+**Verification.**
+- **Dist against the phase-c build (`ddae8dd`):** only
+  `about/index.html` and the two photos' image sets differ. The lead
+  adds four files; the family portrait adds three and retires one.
+  Every stylesheet and the other 24 pages are byte-identical. The same
+  holds against `85762be`, after phase-c was brought into the branch.
+- **The About page's visible text, its 29 links, its headings and its
+  head tags** are identical, at 390 and at 1280.
+- **Renders at 17 widths, 320 to 1920:** nothing overflows
+  horizontally. Every screen takes a file at its own density or above,
+  except 430-wide 3× phones, which take 2.8×, above the retina rule's
+  2×.
+- **`npm run verify` exit 0:** `astro check` 0 errors, 0 warnings and
+  0 hints over 59 files; lint:claims, lint:voice and
+  lint:practice-link green (25 pages, 62 links); pa11y 25/25; every
+  Lighthouse assertion on 8 URLs × 3 runs.
+- **Lighthouse on /about,** median of 3, beside the phase-c build run
+  the same way:
+
+  | Check | Before | After | Limit |
+  |---|---|---|---|
+  | Largest paint | 2,337 ms | 2,336 ms | 2,500 ms |
+  | Performance | 0.98 | 0.98 | 0.95 |
+  | Images | 184,635 B | 202,322 B | 245,760 B |
+  | Total | 243,781 B | 261,837 B | 358,400 B |
+  | Document | 8,019 B | 8,388 B | 16,384 B |
+  | Layout shift | 0 | 0 | 0.1 |
+
+- **Before the repo changed,** the same numbers were taken from a
+  hand-made copy of the built site with the section re-arranged. The
+  real build matched it at all 17 widths, and to the byte on the image
+  files.
+- **lint:claims cannot see pixels,** so the screen above is the
+  control.
+
+**Consequences.**
+- On a desktop the text column now runs 400px below the portrait, so
+  the lower right of the section is open canvas. It follows from the
+  order asked for.
+- The element Lighthouse times for the largest paint on its phone test
+  changes from the header wordmark to the new portrait. The time is
+  unchanged.
+- Amy's pending look sign-off gains the change, in the approval row and
+  in the list of visual changes (CLINICIAN-SIGN-OFF). /about is not
+  flag-gated, so no `clinicianApproved` flag moves.
+- The page-number preview (#149) adds its tag line where this
+  section's markup changed, so its refresh takes a hand merge: its
+  line is kept and the new markup is taken.
+- **The PR:** #221 into phase-c.
+
+**Merged (2026-09-27), on the operator's word** ("Merge now"). The
+PR's checks passed, and its own preview served the page: the probe
+converged on its first three passes, twice, and every picture file
+answered with its built size. The operator was shown before-and-after
+sheets from the real build at desktop, tablet and phone widths, and
+the preview link. phase-c then moved under the PR (PR #222, the home
+carousel's films), and the first merge was refused for conflicts in
+three record files. phase-c was brought into the branch with both
+sides of each record kept, and the full check chain passed again on
+the result before the merge. The standing demo (#97) and the review
+preview (#149) are refreshed from phase-c after the merge; #149's
+refresh is the hand merge named above.

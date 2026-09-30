@@ -74,7 +74,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - The old silent files: the promo's and the billboard reel's were
   deleted from the media origin on the operator's word (nothing open
   loaded them; copies kept outside the repo). The other five wait for
-  PRs #201 and #210, the operator's choice. No page changed.
+  PRs #201 and #210, the operator's choice. Records, PR #231. No page
+  changed.
+- Closing records: DECISIONS gained the merges of #230 and #231, the
+  preview refreshes after each, and the main checkout's updates. No
+  page changed.
 
 ### 2026-09-30 — "studio" becomes "medspa" across the site's text
 

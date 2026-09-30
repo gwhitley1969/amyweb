@@ -13700,6 +13700,26 @@ phase-c after the merge.
   sound files as published, the script that rebuilds them and the
   browser tests, with a README. The scratch copies go when the session
   is deleted. RUNBOOK points to the folder.
+- **The follow-up records** (the RUNBOOK pointer and the facts above)
+  were PR #230, merged at 16:39 UTC as `caa2dfe` on the operator's word
+  ("Merge, refresh, update"). #97 was refreshed to `9ced3e2` and #149 to
+  `41b67c6`; both runs passed. The main checkout was fast-forwarded to
+  `caa2dfe`.
+- **The silent-file records** were PR #231, merged at 17:08 UTC as
+  `655d0bb` on the same words. `phase-c` was merged into it first:
+  PR #229 had recounted the media row before the deletion, and #231
+  corrected it to twenty-nine objects. #97 was refreshed to `d570062`
+  and #149 to `f057122`; both runs passed, and both previews served the
+  five sound files, the script and the five caption files on ten checks
+  in a row. The environments were default, 97, 149, 201 and 210. The
+  main checkout was fast-forwarded to `655d0bb`.
+- **Then PR #232** (the hero film's records, another session) merged at
+  17:15 UTC as `d773b9f`. That session refreshed both previews again,
+  #97 to `3f32c51` and #149 to `47d2443`, on top of the refreshes above;
+  both runs passed. The main checkout was fast-forwarded to `d773b9f` on
+  the operator's word ("update the main checkout").
+- **The merge of these closing lines,** and of any later records-only
+  change to this entry, is in `git log`, not here.
 
 ## 2026-09-30 — The home hero film rests on the portrait as a still, and the pink-scrubs photo comes alive (v9; Amy's request; the operator's decisions after the flags)
 

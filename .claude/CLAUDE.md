@@ -525,6 +525,16 @@ silently following it. Known superseded points from earlier briefs:
      "us", "let's" — never appears in rendered site text (a "we" implies
      a team, which implies the other providers at the location — see
      constraint 2). Enforced by `npm run lint:voice` over the built HTML.
+   - Place-name convention (Amy's direction, relayed by the operator,
+     2026-09-30; DECISIONS same date): the place where Amy works is
+     **"the medspa"**, one word, never "studio", in all rendered site
+     text: page copy, alt text, film labels, meta descriptions and OG
+     tags. One exception, the operator's choice: the /about Girl Team
+     photo's alt text keeps "studio", because that room is a photo
+     studio. No gate enforces this (a build check was offered and
+     declined), so new copy has to be read for it. File names, code
+     comments and records written before that date keep the old word,
+     and so does the Under Construction page on `main` until relaunch.
 
 4. **Clinician approval gates production.** Treatment content ships with
    `clinicianApproved: false` until Amy signs off. The production pipeline

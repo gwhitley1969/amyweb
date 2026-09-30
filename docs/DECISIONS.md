@@ -13955,3 +13955,42 @@ but we'll stop the motion."
 **Consequences.**
 - One generated performance is left in the film, where v8 had two.
 - The hero media shows nothing that a model made on 2026-09-30.
+
+**The site change (PR #229).**
+- **Two files:** `src/components/ConceptHome.astro` (the file name, the
+  caption file's `?v=6`, the description, the comment) and the caption
+  file (both notes, no cues).
+- **`npm run verify` exit 0** on the tree that holds the change and the
+  records: `astro check` 0 errors; lint:claims, lint:voice and
+  lint:practice-link green (25 pages, 62 links); pa11y 25/25; every
+  Lighthouse assertion on 8 URLs × 3 runs.
+- **Against a build of phase-c (`35a7776`):** 3 of 311 files differ,
+  the home page, its style-guide mirror and the caption file. Both
+  pages are identical but for the file name, the caption version and
+  the description. Every stylesheet is byte-identical, after the
+  records too.
+- **The home page, median of 3,** beside that build run the same way:
+
+  | Check | Before | After | Limit |
+  |---|---|---|---|
+  | Largest paint | 2,172 ms | 2,174 ms | 2,500 ms |
+  | Performance | 0.99 | 0.99 | 0.95 |
+  | Total | 348,794 B | 348,792 B | 358,400 B |
+  | Media | 0 | 0 | — |
+
+  The film is not fetched during that test.
+- **phase-c moved under the PR** (PR #230, records only). It was
+  brought into the branch with both sides of the one conflict kept, in
+  this file. The fast gates passed on the result, and its build is
+  byte-identical to the one the full chain passed on.
+- **The PR's run passed** at `d3ffdb9`, and its preview served the
+  change on three clean passes in a row, each of twelve requests, plain
+  and cache-busted.
+- **On the running preview,** at 1280 and at 390 wide: the page names
+  v10 and `?v=6` and makes one request for the film; the fade-in
+  starts at film time 0.21 s, after the white frames; 23.9 frames a
+  second with 0 paused samples of 500; the loop wraps in 92 and 67 ms.
+- **The media origin** holds 31 objects after the upload; a range
+  request for v10 answers 206 with `video/mp4`, and the served hash
+  matches.
+- **Still unconfirmed:** the loop on a real iPhone, and Amy's look.

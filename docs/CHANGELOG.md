@@ -6,6 +6,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-30 — /visit: where Amy sees people
+
+- The lead is the operator's sentence: Amy's main medspa is in
+  Harrisburg, NC, and she also sees people in Waxhaw, Ballantyne,
+  Concord and Charlotte, and at mobile parties in North and South
+  Carolina. "mobile parties" links to the Tox Together page.
+- The old lead ("Amy sees clients in Harrisburg, North Carolina, just
+  northeast of Charlotte. Directions and contact are below.") is gone.
+  The address card, the heading and the search description are
+  unchanged.
+- DECISIONS 2026-09-30, the /visit entry.
+
 ### 2026-09-30 — The home hero film rests on the portrait as a still, and the pink-scrubs portrait joins it (v10)
 
 - Amy's request: the closing shot's turn and smile are gone. The film

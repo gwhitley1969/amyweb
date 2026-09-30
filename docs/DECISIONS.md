@@ -14083,3 +14083,35 @@ the iPhone loop check are still to come.
   it); a second eyebrow paragraph (the split fade above).
 - **Consequences:** one more link to the practice site on `/` and its
   style-guide mirror; CLAUDE.md's list of chosen mentions gains it.
+
+## 2026-09-30 — /visit: where Amy sees people
+
+- **Context:** the operator's new lead for /visit, in his words:
+  "Amy's main medspa is in Harrisburg, NC but she also sees people in
+  Waxhaw, Ballantyne, Concord, and Charlotte locations along with
+  mobile parties in North and South Carolina", replacing the lead that
+  had stood since 2026-08-04 ("Amy sees clients in Harrisburg, North
+  Carolina, just northeast of Charlotte. Directions and contact are
+  below.").
+- **Decision (operator, four choices, 2026-09-30):** the sentence as
+  typed with a period and a comma before "but"; the old second
+  sentence dropped; "mobile parties" linking to /tox-together, the
+  party page, in the house inline-link idiom (PracticeLink's); the
+  page's search description left alone. Nothing else on the page
+  changes: the heading, the eyebrow, the location card with the one
+  Harrisburg address, the closing band.
+- **Checked:** the sentence trips none of the banned patterns and none
+  of the voice tokens; it says "medspa", the house word; the About and
+  Training pages, which call Harrisburg her medspa, still agree with
+  "main medspa"; neither standing preview branch touches the
+  paragraph.
+- **Flagged once, then built on the operator's word:** the sentence
+  advertises Amy's services in South Carolina, where a nurse
+  practitioner needs that state's own licence. The site cannot check
+  it and does not claim it; the operator carries the fact.
+- **Rejected:** the description updated to name the other places
+  (offered for local search; the operator kept the address-only
+  description); the sentence exactly as typed, without the period.
+- **Consequences:** the other places have no address on the site, and
+  the card keeps the one they can drive to. The pages' JSON-LD still
+  carries the Harrisburg address only.

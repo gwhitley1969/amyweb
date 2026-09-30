@@ -27,6 +27,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - 120 of the 450 Higgsfield credits approved were used, on footage that
   does not ship.
 - DECISIONS 2026-09-30, the hero film entry and its addendum.
+- Closing records: the merge, both standing previews refreshed and
+  serving the new film, the environments and the media origin. No page
+  changed.
 
 ### 2026-09-30 — Home carousel: a Sound button and a captions button; the five films have their own sound
 

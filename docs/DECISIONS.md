@@ -13682,3 +13682,323 @@ phase-c after the merge.
   sound files as published, the script that rebuilds them and the
   browser tests, with a README. The scratch copies go when the session
   is deleted. RUNBOOK points to the folder.
+
+## 2026-09-30 — The home hero film rests on the portrait as a still, and the pink-scrubs photo comes alive (v9; Amy's request; the operator's decisions after the flags)
+
+**Context.** Amy does not like the film's closing shot, in which the
+portrait comes alive, turns to the camera and smiles. The operator
+(2026-09-30): "Amy doesn't like it. We are going to have to change that
+and remove the movement and the smile, just leave it as a still photo. I
+would like to add a second motion in the film." The second motion was to
+come from another photo of her, and to be flattering.
+- **What leaves the film:** the portrait take of 2026-09-17, its turn
+  (the founders' finish since 2026-09-18) and its smile (2026-09-25, and
+  the two 2026-09-26 addenda: v6, v7 and v8, 818.25 credits).
+- **The lesson those rounds left:** the client turned down three
+  AI-made versions of her own face. The model redraws her face in every
+  take, and a prompt cannot keep the photograph's.
+
+**The search.**
+- **Pictures:** all 158 in `C:\Amy\pics` and `C:\Amy\New Pics`. Four
+  are iPhone files: two photos of a laptop screen, each saved twice.
+- **Videos:** 25 files, 17 distinct, across those folders and
+  `C:\Amy\Videos`. None has two and a half seconds of Amy alone that is
+  steady, sharp and free of text or products. So no real footage could
+  do the job.
+- **Seven candidate photos** were screened at three to four times their
+  size and then judged three ways: by the rules, as the client might,
+  and as an editor.
+
+| Candidate | Why it was or was not used |
+|---|---|
+| Pink scrubs (`amy-in-pink-scrubs.jpg`) | **Used.** Published, Amy alone, no product or device in frame, her own smile to the camera, a new look for the film |
+| Pink dress on the counter | Cartons and a jar of vials that no crop removes; both hands rest against them; approved for the /about slot only |
+| Black scrubs, the stool | Already in the film as stills; the stool is the hair shot's suit |
+| Neon sign | A syringe in a vial in gloved hands, under lettering her hair touches |
+| Chin on hands | Not published now; a close-up of her face |
+| White vest at the window | A laser handpiece in her hand in every usable crop |
+
+**Decisions (operator, 2026-09-30).**
+1. **The photo:** the pink scrubs.
+2. **The movement:** her face untouched; only her hair and shoulders
+   move. Offered and declined: natural movement as in the hair shot, and
+   both versions side by side.
+3. **The ending:** the still portrait under a slow camera drift. A
+   completely still hold was offered and declined.
+4. **Credits:** up to 450.
+5. **Sharpness:** the pink scrubs is kept and its softer picture
+   accepted as an exception (the flag below). Switching to the stool
+   photo was offered and declined.
+6. **The stool shot** moves from fifth to third.
+7. **The draft:** "Draft 2 is the best", of the first three shown.
+8. **The version:** the living one, over the same film with the pink
+   scrubs as a plain still.
+
+**The photo screen** (RUNBOOK "Replacing site photography", step 1).
+- **The file:** `src/assets/photos/amy-in-pink-scrubs.jpg`, 1067×896,
+  on the Peptide Therapy page since 2026-07-21. It is rows 0 to 895 of
+  frame 8K0A9734 (mean difference 0.86, a re-save). The rest of that
+  frame was never published: cartons, a syringe tray, vials, brochures
+  and a printed picture of another person.
+- **The film's crop:** columns 220 to 864, full height, 48 columns left
+  of centre so that her hair clears the hero's fade on desktops and her
+  elbow (column 839) stays in frame.
+- **In frame:** Amy alone. No product, package, syringe or device.
+- **Lettering:** the two lines of embroidery on her scrubs, with a lock
+  of hair across the middle of both. At film size "NP" can be read and
+  the practice's name is a word shape, as in the black-scrubs shot. A
+  grey garment tag and a teal one are marks, not words.
+- **Also in frame:** her rings, bracelet and earring, the red
+  drawstring, a corner of the bare marble top under her hand.
+
+**Flags (once), and what the operator decided.**
+- **The founders' request is reversed.** On 2026-09-18 the founders
+  asked that the film finish on the portrait turning and that
+  "Everything else can stay the same". The turn goes on Amy's word, and
+  the stool shot moves on the operator's. The records do not show the
+  founders being told. Approved.
+- **The sharpness rule** (BUILD_SPEC §5: a source holds twice its
+  displayed size). The crop is 644 px wide and is enlarged 1.68 times to
+  fill the 1080 frame, with a plain resize and no AI upscaler.
+
+  | Screen | Space the film fills | Pink scrubs, 644 px | The 1067 px stills |
+  |---|---|---|---|
+  | 390 phone | 390 px | 1.65× | 2.7× |
+  | 1280 desktop | 717 px | 0.90× | 1.49× |
+  | 1920 desktop | 1075 px | 0.60× | 0.99× |
+
+  The closing portrait comes from a 642 px picture under the 2026-08-14
+  exception. The shot ships under a sharpness-rule exception, the
+  operator's of this date, recorded here and in REDESIGN. The
+  photographer's full-size file of this frame would lift it.
+- **The hair shot's face is AI-made too.** It stays. If Amy's objection
+  reaches it, that is a separate change.
+- **Her face does not blink** in the new shot. The film's other stills
+  do not either.
+- **The film's written description** is not read out by screen readers
+  (the wrapper is hidden from them; DECISIONS 2026-09-20). Unchanged.
+
+**The cut** (`assemble.cjs` in the working folder; `assemble-v8.cjs`
+is the v8 cut).
+
+| # | Shot | Length | Into the next |
+|---|---|---|---|
+| 1 | Hair shot, lavender suit (generated, 2026-09-17), unchanged | 3.2 s | white flash, 0.25 s |
+| 2 | Black scrubs, a still, unchanged | 1.3 s | slide left, 0.3 s |
+| 3 | The stool, a still; fifth through v8 | 1.3 s | fade, 0.25 s |
+| 4 | Neon sign, a still, unchanged | 1.6 s | fade, 0.25 s |
+| 5 | Pink light (generated), unchanged | 0.9 s | fade, 0.3 s |
+| 6 | **Pink scrubs, living** | 3.0 s | fade, 0.5 s |
+| 7 | **The portrait, a still** drifting from 1.00 to 1.03 | 2.8 s | to white, the loop |
+
+- **The opening is v8's:** frames 0 to 72 are bit-identical, so the
+  page's fade-in and its 0.2 s wait stand.
+- **The loop** stays inside the white flash; the file's first and last
+  frames are flat white.
+- **The drift** is code (`render-move.cjs`, smootherstep, anchored at
+  600,420 as v8's push was). The photograph is within two pixels of its
+  own size when the fade into it ends. Nothing in the picture moves.
+- **The pink light** now dissolves straight into the pink scrubs.
+
+**The living shot.**
+- **The one file sent to Higgsfield:** the published photo cropped to
+  columns 206 to 878 and resized to 1128×1504 (`PS-up.png`). Its middle
+  1080×1502 is the film frame (`PS-ref.png`), and the fit, the paste and
+  every check use it.
+- **The drafts.** Six Seedance 2.5 drafts at 12 credits each.
+  - Drafts 1 to 3 asked for a fan or a draught. Drafts 1 and 3 gave
+    the photograph as the first frame only: her hair flew out on both
+    sides, and in draft 3 her head swayed about two pixels each way.
+  - **Draft 2** also gave the photograph as the LAST frame. Only the
+    hair on the left lifts, in one arc, and settles back; her head
+    stayed within about a pixel. The operator picked it.
+  - Drafts 4 to 6 asked for a light breeze: a few strands lift for a
+    second. Shown for comparison and not used.
+- **The take:** draft 2 finished at 1080p (48 credits), which repeated
+  the draft's movement. 97 frames at 1248×1664.
+- **What the model did to her.** It kept her pose. It redrew her face
+  (smoother and paler), and it greyed her skin, hair and scrubs in the
+  middle of the take. It uncovered her right ear, which the photograph
+  hides under hair, and drew a stud earring on it to match the other
+  ear.
+- **The edit** (new scripts `ps-*.cjs`):
+  1. each frame is fitted to the photograph on the edges of the wall
+     and cabinets only (scale 0.984 to 0.986, shift within 0.8 px), and
+     its tone matched there;
+  2. a colour map per frame, fitted where nothing moves, puts the
+     take's colour back on the photograph's;
+  3. ONE mask for the whole shot covers everywhere the moving hair
+     goes, with a soft margin. Inside it the pixels are the take's, wall
+     included, so no ghost of the old hair shows. Outside it they are
+     the photograph's;
+  4. her face (her skin only, feathered inward), both hands and the
+     lettering with the lock of hair across it are always the
+     photograph's;
+  5. the camera push (1.00 to 1.04) and the grade go on afterwards in
+     code.
+- **Measured on the 72 frames used** (take frames 6 to 77):
+  - her face, the lettering and both hands differ from the photograph
+    by 0;
+  - at most 18.3% of a frame is the take's;
+  - across the whole take her head sat within 1.8 px of the
+    photograph's and tilted under 0.2°.
+- **The grade:** the wall made neutral, the blacks lifted, the
+  saturation at 0.82. The photo's saturation was 0.29 against 0.07 to
+  0.13 for the film's other shots; graded it is 0.21. Under the page's
+  own filter 0.03% of it clips.
+
+**The generative rules (2026-09-17).**
+- **Inputs:** a crop of a still already published here, Amy alone.
+- **Never generated:** no generated pixel shows a treatment, a client,
+  a product, packaging or text. The lettering is the photograph's.
+- **Generated:** her hair on the left, the wall behind it, and the ear
+  with its earring that the lifted hair uncovers. An earring the photo
+  does not show was accepted and noted in the first cut (2026-09-17);
+  this one is named to the operator, who chose the living version after
+  it.
+- **No override** of the rules was needed.
+- **The plan** is still the ultra plan the 2026-09-17 commercial-use
+  confirmation rests on.
+
+**The file built:** `hero-living-portrait-v9.mp4` (media origin;
+4,199,096 B; SHA-256
+a4c41d3fb39a1eb2a4df6f9b42b2bcfb75dc71dcb8c7445e751a676795259fa1;
+1080×1502, 24fps, 295 frames / 12.29s, no audio), encoded as v8 was.
+
+**Credits:** 120 of the 450 approved: six drafts and one full take
+(749.87 → 629.87).
+
+**Alternatives rejected.**
+- Real footage: none exists (above).
+- The pink dress, the stool and the other candidates (the table above).
+- A film with the pink scrubs as a plain still: built with no credits,
+  shown to the operator, and kept as the fallback.
+- Following a swaying head with the photograph's face: written, and not
+  needed for this take.
+
+**Verification (the film).**
+- **The seam:** frame 0 reads 233..237 and frame 294 reads 232..238.
+- **Against v8:** frames 0 to 72 identical; frames 73 to 93 within 1.6
+  of 255, which is x264's choices.
+- **The joins:** the two new fades change 12.7 to 15.0 per frame (the
+  pink light into the pink scrubs) and 2.8 to 3.1 (into the portrait).
+  The shot itself changes 1.1 to 1.5 per frame (2.2 at one keyframe),
+  with no jump.
+- **The screen:** every fourth frame of the shot near hero size, and
+  the joins at full size: no seam found at the hairline, the sleeve or
+  the cabinet lines.
+
+**Consequences.**
+- **Amy's sign-off** on her generated likeness now covers this shot and
+  no longer covers the portrait take (CLINICIAN-SIGN-OFF). It gates
+  production as before.
+- **Disclosure:** the component comment and the caption file's note
+  name the two shots and what is generated in each.
+- **v8** stays on the media origin, unreferenced.
+- **A lesson for the next film:** give the photograph as the first AND
+  the last frame and the model keeps her in place; then lay her own
+  face back in the edit (RUNBOOK).
+
+## 2026-09-30 — Addendum: the hair movement is withdrawn before merge; the pink-scrubs portrait joins the film as a still (v10)
+
+**Context.** The entry above was built and its film (v9) uploaded: the
+pink-scrubs portrait with her hair lifting, only the hair generated.
+PR #229 was open and unmerged, and Amy had not seen it. The operator,
+the same day: "The hair blowing has been nixxed. I've been told to not
+do that. We will still keep the picture in the rotation of the film,
+but we'll stop the motion."
+
+**Decision (operator, 2026-09-30).**
+- **The pink-scrubs shot is the photograph under a camera push,** as
+  the film's other portraits are. Nothing in it is generated.
+- **It holds 1.8 seconds,** like the other portraits. Three seconds,
+  the length it had with the moving hair, was offered and declined.
+- **Everything else in the entry above stands:** the still ending under
+  a slow drift, the stool shot third, the crop, the grade, the
+  sharpness exception and the flags.
+
+**What was built.**
+- **The shot:** `PS-ref.png` pushed from 1.00 to 1.05 (cubic ease-out,
+  anchored on her face), then graded: 43 frames.
+- **The cut:** the entry's table with row 6 a still of 1.8 s. Nominal
+  length 11.05 s.
+- **The file:** `hero-living-portrait-v10.mp4` (media origin;
+  3,697,841 B; SHA-256
+  802f94ea4e9b2314102aa3e4e7e746f1fe6f36d63a862020ed6776759aaa9c44;
+  1080×1502, 24fps, 267 frames / 11.13s, no audio), encoded as v8 was.
+- **v9** stays on the media origin, unreferenced and never merged, as
+  v6 does. No file was overwritten.
+
+**What this changes in the entry above.**
+- **Generated footage in the film** is now the opening hair shot and
+  the light insert, both from 2026-09-17. This change adds none.
+- **Amy's sign-off** on her generated likeness covers the hair shot
+  only. The portrait take it used to cover is gone, and the pink-scrubs
+  shot needs none.
+- **The disclosure** in the component comment and the caption file says
+  so, and the film's description ends "then a quick run of her
+  portraits, and the film rests on her portrait."
+- **The credits** were spent on footage that does not ship: 120 of the
+  450 approved (749.87 → 629.87). No more were spent.
+- **The working folder** keeps the take, the scripts and the method
+  (its README; RUNBOOK has the lesson).
+
+**Verification (the film).**
+- **The seam:** frame 0 reads 233..237 and frame 266 reads 232..238.
+- **Against v8:** frames 0 to 72 identical; frames 73 to 93 within 1.6.
+- **The joins:** the pink light into the pink scrubs changes 12.6 to
+  15.1 per frame, the shot 1.9 falling to 0.3 as its push settles, and
+  the fade into the portrait 2.4 to 3.1.
+- **The pink-scrubs frames** are the photograph, resized, pushed and
+  graded in code. No frame of the take is in the film.
+
+**Consequences.**
+- One generated performance is left in the film, where v8 had two.
+- The hero media shows nothing that a model made on 2026-09-30.
+
+**The site change (PR #229).**
+- **Two files:** `src/components/ConceptHome.astro` (the file name, the
+  caption file's `?v=6`, the description, the comment) and the caption
+  file (both notes, no cues).
+- **`npm run verify` exit 0** on the tree that holds the change and the
+  records: `astro check` 0 errors; lint:claims, lint:voice and
+  lint:practice-link green (25 pages, 62 links); pa11y 25/25; every
+  Lighthouse assertion on 8 URLs × 3 runs.
+- **Against a build of phase-c (`35a7776`):** 3 of 311 files differ,
+  the home page, its style-guide mirror and the caption file. Both
+  pages are identical but for the file name, the caption version and
+  the description. Every stylesheet is byte-identical, after the
+  records too.
+- **The home page, median of 3,** beside that build run the same way:
+
+  | Check | Before | After | Limit |
+  |---|---|---|---|
+  | Largest paint | 2,172 ms | 2,174 ms | 2,500 ms |
+  | Performance | 0.99 | 0.99 | 0.95 |
+  | Total | 348,794 B | 348,792 B | 358,400 B |
+  | Media | 0 | 0 | — |
+
+  The film is not fetched during that test.
+- **phase-c moved under the PR** (PR #230, records only). It was
+  brought into the branch with both sides of the one conflict kept, in
+  this file. The fast gates passed on the result, and its build is
+  byte-identical to the one the full chain passed on.
+- **The PR's run passed** at `d3ffdb9`, and its preview served the
+  change on three clean passes in a row, each of twelve requests, plain
+  and cache-busted.
+- **On the running preview,** at 1280 and at 390 wide: the page names
+  v10 and `?v=6` and makes one request for the film; the fade-in
+  starts at film time 0.21 s, after the white frames; 23.9 frames a
+  second with 0 paused samples of 500; the loop wraps in 92 and 67 ms.
+- **The media origin** holds 31 objects after the upload; a range
+  request for v10 answers 206 with `video/mp4`, and the served hash
+  matches.
+- **Still unconfirmed:** the loop on a real iPhone, and Amy's look.
+
+**Merged (2026-09-30), on the operator's word ("Merge now").** The
+operator had watched both still versions as files and chosen the
+1.8 second one, and was given the preview link and pictures from the
+running preview. PR #229, once its last check run had passed. The
+standing demo (#97) and the review preview (#149) are refreshed from
+phase-c after the merge; both trial merges were clean. Amy's look and
+the iPhone loop check are still to come.

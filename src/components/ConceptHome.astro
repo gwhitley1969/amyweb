@@ -5,6 +5,7 @@ import Header from './Header.astro';
 import Footer from './Footer.astro';
 import CTAButton from './CTAButton.astro';
 import BookLink from './BookLink.astro';
+import PracticeLink from './PracticeLink.astro';
 import TrustChips from './TrustChips.astro';
 import LocationCard from './LocationCard.astro';
 import VideoCarousel from './VideoCarousel.astro';
@@ -220,7 +221,14 @@ const CHEVRONS = [
       />
     </div>
     <div class="nc-hero__copy">
-      <p class="eyebrow">Harrisburg, NC · By appointment</p>
+      {/* The practice's name above the place line (operator direction
+          2026-09-30; DECISIONS same date): one eyebrow, two lines, so
+          home-motion's eyebrow fade carries both. The name is the
+          practice link (CLAUDE.md constraint 2, seventh exception). */}
+      <p class="eyebrow">
+        <span class="block"><PracticeLink>Mobile Aesthetics</PracticeLink></span>
+        <span class="block mt-2">Harrisburg, NC · By appointment</span>
+      </p>
       <h1 class="nc-display mt-5">
         Medical Aesthetics,
         <span class="display-accent ng-shimmer">made personal.</span>

@@ -14046,3 +14046,20 @@ the iPhone loop check are still to come.
 - **Still to come:** Amy's look on the standing demo, and the loop on a
   real iPhone.
 - **These facts** go in as a records-only change. No page changed.
+
+## 2026-09-30 — The practice's name above the home hero's place line
+
+- **Context:** the operator asked for "MOBILE AESTHETICS" on the home
+  page, directly above "Harrisburg, NC · By appointment" (a marked-up
+  screenshot).
+- **Decision:** the hero's eyebrow becomes one paragraph with two
+  lines: the practice's name, then the place line. The name is the
+  practice link (PracticeLink), as constraint 2's seventh exception
+  requires of new visible mentions; its terms are unchanged (the name
+  as link text, the one screened address, a new tab). One paragraph,
+  not two, because the home motion layer fades the first eyebrow in
+  on its own and would stagger a second one with the rest of the copy.
+- **Rejected:** the name as plain text (the practice-link gate fails
+  it); a second eyebrow paragraph (the split fade above).
+- **Consequences:** one more link to the practice site on `/` and its
+  style-guide mirror; CLAUDE.md's list of chosen mentions gains it.

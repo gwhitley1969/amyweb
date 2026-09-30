@@ -13994,3 +13994,11 @@ but we'll stop the motion."
   request for v10 answers 206 with `video/mp4`, and the served hash
   matches.
 - **Still unconfirmed:** the loop on a real iPhone, and Amy's look.
+
+**Merged (2026-09-30), on the operator's word ("Merge now").** The
+operator had watched both still versions as files and chosen the
+1.8 second one, and was given the preview link and pictures from the
+running preview. PR #229, once its last check run had passed. The
+standing demo (#97) and the review preview (#149) are refreshed from
+phase-c after the merge; both trial merges were clean. Amy's look and
+the iPhone loop check are still to come.

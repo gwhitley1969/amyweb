@@ -226,6 +226,15 @@ pink."** Seven gaps, each a test every design decision must move:
   the change merges.~~ DONE 2026-09-30: the operator confirmed the
   product line and the six names by ear on the preview; Amy has not
   read the captions.
+- **Blob cleanup: the old carousel films** — the promo's and the
+  billboard reel's silent files were deleted 2026-09-30 on the
+  operator's word (nothing open loaded them). The Evolysse, Jeuveau and
+  team silent files, `commercial-j1.mp4` and `commercial-studio.mp4`
+  wait for open PRs #201 and #210 to merge, close or take `phase-c`
+  (the operator's choice). Copies and the delete command are in
+  `C:\Amy\carousel-sound\` (DECISIONS 2026-09-30, the carousel sound
+  entry). The media-architecture row above still counts the two
+  deleted files; its next recount corrects it.
 - ~~**Blob cleanup** — `evolysse-film.mp4` on media.needlegirlie.com~~
   DONE 2026-08-21 (operator direction): blob deleted, edge path purged,
   404 verified at the media origin; neighbours unaffected (DECISIONS

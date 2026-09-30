@@ -46,6 +46,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   build script and the browser tests are kept (outside the repo) and
   states the one-soundtrack rule with the van band's film; DECISIONS
   gained the closing facts. No page changed.
+- The old silent files: the promo's and the billboard reel's were
+  deleted from the media origin on the operator's word (nothing open
+  loaded them; copies kept outside the repo). The other five wait for
+  PRs #201 and #210, the operator's choice. No page changed.
 
 ### 2026-09-30 — "studio" becomes "medspa" across the site's text
 

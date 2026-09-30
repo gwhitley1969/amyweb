@@ -13884,3 +13884,60 @@ a4c41d3fb39a1eb2a4df6f9b42b2bcfb75dc71dcb8c7445e751a676795259fa1;
 - **A lesson for the next film:** give the photograph as the first AND
   the last frame and the model keeps her in place; then lay her own
   face back in the edit (RUNBOOK).
+
+## 2026-09-30 — Addendum: the hair movement is withdrawn before merge; the pink-scrubs portrait joins the film as a still (v10)
+
+**Context.** The entry above was built and its film (v9) uploaded: the
+pink-scrubs portrait with her hair lifting, only the hair generated.
+PR #229 was open and unmerged, and Amy had not seen it. The operator,
+the same day: "The hair blowing has been nixxed. I've been told to not
+do that. We will still keep the picture in the rotation of the film,
+but we'll stop the motion."
+
+**Decision (operator, 2026-09-30).**
+- **The pink-scrubs shot is the photograph under a camera push,** as
+  the film's other portraits are. Nothing in it is generated.
+- **It holds 1.8 seconds,** like the other portraits. Three seconds,
+  the length it had with the moving hair, was offered and declined.
+- **Everything else in the entry above stands:** the still ending under
+  a slow drift, the stool shot third, the crop, the grade, the
+  sharpness exception and the flags.
+
+**What was built.**
+- **The shot:** `PS-ref.png` pushed from 1.00 to 1.05 (cubic ease-out,
+  anchored on her face), then graded: 43 frames.
+- **The cut:** the entry's table with row 6 a still of 1.8 s. Nominal
+  length 11.05 s.
+- **The file:** `hero-living-portrait-v10.mp4` (media origin;
+  3,697,841 B; SHA-256
+  802f94ea4e9b2314102aa3e4e7e746f1fe6f36d63a862020ed6776759aaa9c44;
+  1080×1502, 24fps, 267 frames / 11.13s, no audio), encoded as v8 was.
+- **v9** stays on the media origin, unreferenced and never merged, as
+  v6 does. No file was overwritten.
+
+**What this changes in the entry above.**
+- **Generated footage in the film** is now the opening hair shot and
+  the light insert, both from 2026-09-17. This change adds none.
+- **Amy's sign-off** on her generated likeness covers the hair shot
+  only. The portrait take it used to cover is gone, and the pink-scrubs
+  shot needs none.
+- **The disclosure** in the component comment and the caption file says
+  so, and the film's description ends "then a quick run of her
+  portraits, and the film rests on her portrait."
+- **The credits** were spent on footage that does not ship: 120 of the
+  450 approved (749.87 → 629.87). No more were spent.
+- **The working folder** keeps the take, the scripts and the method
+  (its README; RUNBOOK has the lesson).
+
+**Verification (the film).**
+- **The seam:** frame 0 reads 233..237 and frame 266 reads 232..238.
+- **Against v8:** frames 0 to 72 identical; frames 73 to 93 within 1.6.
+- **The joins:** the pink light into the pink scrubs changes 12.6 to
+  15.1 per frame, the shot 1.9 falling to 0.3 as its push settles, and
+  the fade into the portrait 2.4 to 3.1.
+- **The pink-scrubs frames** are the photograph, resized, pushed and
+  graded in code. No frame of the take is in the film.
+
+**Consequences.**
+- One generated performance is left in the film, where v8 had two.
+- The hero media shows nothing that a model made on 2026-09-30.

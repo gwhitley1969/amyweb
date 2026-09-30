@@ -411,7 +411,7 @@ constraint 6, DECISIONS 2026-09-03), no layout shift from fonts or images.
 
 | Route | Page | Purpose / key content | Primary CTA |
 |---|---|---|---|
-| `/` | Home | Hero (brand thesis — see below; since 2026-08-14 the hero photo is Amy's studio-counter portrait; since 2026-09-04 — the adopted home concept, DECISIONS 2026-09-03 and its tweaks — the hero is a film facade over that portrait: the portrait paints (the LCP element, unchanged) and holds the hero alone for `data-first` 5s, then the hero film fades in and loops — since 2026-09-17 the purpose-made living-portrait film (`hero-living-portrait-v8.mp4`, 11.5s, 24fps, native loop; since 2026-09-18, at the founders' request, it opens on the hair shot and finishes on the portrait coming alive — the turn and, since 2026-09-25 at Amy's request, a warm smile rather than a laugh, re-made 2026-09-26 to look like her own and made warmer the same day — with its loop point inside a white flash; AI-assisted and disclosed, DECISIONS 2026-09-17, its 2026-09-18 addendum and 2026-09-25 with its two 2026-09-26 addenda — it replaced the studio reel's three screened passages at 0.5×, their freeze-frame dissolves, and the `data-still` portrait beat); the headline rises word by word and the wordmark switches on (GSAP, the home URL only — the fourth sanctioned script consumer, §13; the CSS-only home is the fallback if the scripts fail); the lead is one sentence ("One clinician, every appointment. Amy Palacios, FNP, in medical aesthetics since 2017."); the section openers step up to display sizes over one-sentence decks; and a noir statement band — "Amy comes to you." until 2026-09-26, since then the party page's door (Tox Together since the 2026-09-27 rename; it read Tox To Go for a day): the name, its tagline, one sentence, "Book your Tox Together party" calling Amy's phone, and "See the hostess perk ›" to /tox-together, the page that carries the offer ("Tox" allowed in this band by operator decision — DECISIONS 2026-09-26, the band entry, then the page entry; for a day on the same PR the band carried the whole offer with "How a party works ›" to /mobile, superseded before anything merged); beside the van interior photo until 2026-09-25 (the fifth arch exemption), since then beside Amy's van-trip film in a 9:16 panel (the whole 2:50 clip looping, muted with Amy's own voice one tap away — the songs removed; AI-upscaled and disclosed; DECISIONS same date) — sits between the doors and the visit beat; docs/HOME-CONCEPT.md is the working record and carries the knobs); **video carousel** directly below the hero (2026-08-14, fourth film added 2026-08-17, the Evolysse film added FIRST 2026-09-25, films two and three replaced 2026-09-27 by Amy's promo and her billboard-day reel: five films on a cinematic noir stage — autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, facade-loaded; DECISIONS each date); "Meet Amy" trust block (FNP, since 2017, Biote-certified); **three category doors** routing to /services (amended 2026-07-25: the home ROUTES, it does not reprint the 12-card menu — DECISIONS same date); location strip; Get-the-App slot — satisfied by the sitewide footer block, not a home section | Book an appointment |
+| `/` | Home | Hero (brand thesis — see below; since 2026-08-14 the hero photo is Amy's studio-counter portrait; since 2026-09-04 — the adopted home concept, DECISIONS 2026-09-03 and its tweaks — the hero is a film facade over that portrait: the portrait paints (the LCP element, unchanged) and holds the hero alone for `data-first` 5s, then the hero film fades in and loops — since 2026-09-17 the purpose-made living-portrait film (`hero-living-portrait-v8.mp4`, 11.5s, 24fps, native loop; since 2026-09-18, at the founders' request, it opens on the hair shot and finishes on the portrait coming alive — the turn and, since 2026-09-25 at Amy's request, a warm smile rather than a laugh, re-made 2026-09-26 to look like her own and made warmer the same day — with its loop point inside a white flash; AI-assisted and disclosed, DECISIONS 2026-09-17, its 2026-09-18 addendum and 2026-09-25 with its two 2026-09-26 addenda — it replaced the studio reel's three screened passages at 0.5×, their freeze-frame dissolves, and the `data-still` portrait beat); the headline rises word by word and the wordmark switches on (GSAP, the home URL only — the fourth sanctioned script consumer, §13; the CSS-only home is the fallback if the scripts fail); the lead is one sentence ("One clinician, every appointment. Amy Palacios, FNP, in medical aesthetics since 2017."); the section openers step up to display sizes over one-sentence decks; and a noir statement band — "Amy comes to you." until 2026-09-26, since then the party page's door (Tox Together since the 2026-09-27 rename; it read Tox To Go for a day): the name, its tagline, one sentence, "Book your Tox Together party" calling Amy's phone, and "See the hostess perk ›" to /tox-together, the page that carries the offer ("Tox" allowed in this band by operator decision — DECISIONS 2026-09-26, the band entry, then the page entry; for a day on the same PR the band carried the whole offer with "How a party works ›" to /mobile, superseded before anything merged); beside the van interior photo until 2026-09-25 (the fifth arch exemption), since then beside Amy's van-trip film in a 9:16 panel (the whole 2:50 clip looping, muted with Amy's own voice one tap away — the songs removed; AI-upscaled and disclosed; DECISIONS same date) — sits between the doors and the visit beat; docs/HOME-CONCEPT.md is the working record and carries the knobs); **video carousel** directly below the hero (2026-08-14, fourth film added 2026-08-17, the Evolysse film added FIRST 2026-09-25, films two and three replaced 2026-09-27 by Amy's promo and her billboard-day reel: five films on a cinematic noir stage — autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, facade-loaded; since 2026-09-30 the films carry their own sound, one tap away on a Sound button, with a captions (CC) button beside it; DECISIONS each date); "Meet Amy" trust block (FNP, since 2017, Biote-certified); **three category doors** routing to /services (amended 2026-07-25: the home ROUTES, it does not reprint the 12-card menu — DECISIONS same date); location strip; Get-the-App slot — satisfied by the sitewide footer block, not a home section | Book an appointment |
 | `/services` | Services index | Short factual intro per line, linking to the 12 detail pages | Per-line → detail |
 | `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Book / Consult (2026-07-21, operator — was consult-routed) |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |
@@ -881,9 +881,18 @@ unchanged. DECISIONS 2026-09-19, the addendum.)*
    (`commercial-evolysse`) and nowhere else — carried as-is (its
    before/after segment, the location's co-branding with its phone
    number, QR code, and microsite, and a spelling error on Amy's title
-   card) and muted like every carousel film, so its spoken risk statement
-   is heard nowhere; the caption file transcribes the voiceover, off by
-   default (operator decision after the flag; DECISIONS 2026-09-25).
+   card). It starts muted like every carousel film; since 2026-09-30
+   (operator direction, DECISIONS same date) the carousel's Sound button
+   plays its own sound, so its spoken risk statement is one tap away;
+   the caption file transcribes the voiceover, off by default and one
+   tap away on the CC button (operator decision after the flag;
+   DECISIONS 2026-09-25).
+   And the SOUND of Amy's promo, the carousel's second film
+   (`commercial-van-promo`; operator override after the compliance flag,
+   DECISIONS 2026-09-30): a re-worded song whose words make an outcome
+   promise with a time frame and speak as a collective, carried as-is
+   in the film's sound and in its caption file's cues (the sung words,
+   confirmed by ear) and restated nowhere else in site text.
    And Amy's billboard-day reel, the home carousel's third film since
    2026-09-27 (`commercial-billboard`; operator override after the
    compliance flag, DECISIONS same date), carried as-is: its opening
@@ -1032,8 +1041,9 @@ action.
   §2 — in `public/media/` until 2026-08-17). In order since
   2026-09-27: the Evolus-produced Evolysse film, played FIRST since
   2026-09-25, carried as-is under operator override after the
-  compliance flag (§8; its voiceover, muted here, is transcribed in its
-  caption file, off by default — DECISIONS same date); Amy's own
+  compliance flag (§8; its voiceover, one tap away since 2026-09-30, is
+  transcribed in its caption file, off by default — DECISIONS same
+  date); Amy's own
   Mobile Aesthetics promo (the studio, then the van and the location's
   other providers — CLAUDE.md constraint 2's eighth exception and
   constraint 3's eleventh pixel-level override) and her billboard-day
@@ -1052,10 +1062,24 @@ action.
   2026-09-27). The stage is
   full-width (`width: 100%`) so that 16:9 film presents large while
   the portrait films keep their size. Facade-loaded per the pattern above: zero video
-  elements and zero video bytes until the stage scrolls into view;
-  muted renditions; the manufacturer films' captions mirror their
-  on-screen text (the Evolysse file adds its voiceover), and since 2026-09-20 the site-authored films ship a
-  captions track with no cues (DECISIONS same date)
+  elements and zero video bytes until the stage scrolls into view.
+  SOUND (2026-09-30, Amy's request — DECISIONS same date): the
+  renditions carry each film's own sound (`commercial-<name>-sound.mp4`;
+  the picture is the earlier silent file's, copied bit for bit; one
+  plain volume offset per film brings them to a common level) and
+  still START muted; a Sound button beside pause turns sound on for
+  the film playing and every film after it, never at load and never
+  stored; a film the browser refuses to start with sound plays muted.
+  Three of the films carry commercial songs (operator override of the
+  music position) and the promo's song carries words the site's own
+  copy may not (operator override — §8 and CLAUDE.md constraints 2
+  and 3). CAPTIONS: a CC button shows each film's track (not
+  `default`); each file is faithful to the sound — the Evolysse file
+  its voiceover with its on-screen text, the Jeuveau file its
+  on-screen text with a music note, the billboard-day reel's and the
+  team film's bounded `[Music]` cues, the promo's its sung words; a
+  film with NO audio track would still ship a track with no cues (the
+  2026-09-20 rule, DECISIONS same date)
   (public/media/*.vtt — outside lint scope, controlled by the per-film
   override entries); since 2026-09-03 the films autoplay under
   reduced motion too (operator decision — content with a pause control;
@@ -1082,9 +1106,10 @@ action.
   confirmation is the record, DECISIONS 2026-08-25 + 2026-08-26) and
   the /injector-training training reel (`training-reel` — Amy's own,
   speech-free, no exception needed; DECISIONS same date).
-  Amy's reel plays at 0.5× via per-slide `data-rate`/playbackRate
-  (operator/Amy tuning 2026-08-15 — DECISIONS same date; the master
-  file is untouched, captions track media time). Rates are for Amy's
+  No carousel film sets a playback rate now: Amy's studio reel played
+  at 0.5× via per-slide `data-rate`/playbackRate until it retired
+  2026-09-27 (operator/Amy tuning 2026-08-15 — DECISIONS same date; the
+  master file untouched, captions track media time). Rates are for Amy's
   own films ONLY — the manufacturer films always play at 1×; their
   presentation is part of the carried-as-is posture.
   Add/replace procedure: docs/RUNBOOK.md ("Adding or replacing a
@@ -1176,8 +1201,10 @@ action.
 
 - LCP < 2.5 s, CLS < 0.1, INP < 200 ms on emulated mid-tier mobile.
 - Total JS ≤ 30 KB (target ~0); no client framework hydration. *(First
-  consumer, 2026-08-14: the home carousel's ~3KB static script
-  (public/js/video-carousel.js) — the budget and the no-hydration rule
+  consumer, 2026-08-14: the home carousel's static script
+  (public/js/video-carousel.js; ~3KB at first, 10,460 B raw and 3,781 B
+  compressed since the 2026-09-30 Sound and captions buttons) — the
+  budget and the no-hydration rule
   are unchanged; DECISIONS same date. Third consumer, 2026-08-21: the
   treatment-film autoplay-in-view script, public/js/treatment-video.js,
   ~2KB, rendered only on pages whose films opt in — today

@@ -86,15 +86,25 @@ The home-carousel films and their caption files (three cleared
 2026-08-14, of which two — the first Jeuveau spot and Amy's studio
 reel — retired 2026-09-27; the team film 2026-08-17, constraint-2
 override; the Evolus-produced Evolysse film, played first, 2026-09-25
-— constraint-3 override after the flag, muted with its voiceover
+— constraint-3 override after the flag, its voiceover
 transcribed in a caption file that is off by default; and, since
 2026-09-27, Amy's promo — constraint-2 and constraint-3 overrides for
 the other providers on camera, the printed practice-site address, and
 the studio segment's tray and cartons — and her billboard-day reel —
 a constraint-3 override for the billboard's headline, a
-competitor-brand wall poster, and the manufacturer's boxes; both new
-caption files carry notes only, never that text) ship under
-exactly this regime, and so do the site-authored, sounded films: the
+competitor-brand wall poster, and the manufacturer's boxes; neither
+caption file carries that text) ship under
+exactly this regime. Since 2026-09-30 the five carousel films carry
+their own SOUND, one tap away on the carousel's Sound button
+(DECISIONS same date), so the regime covers what is heard as well:
+the two Evolus films' sound is the manufacturer's, carried as-is; the
+promo's re-worded song names the other providers and makes a promise
+(operator overrides of constraints 2 and 3 after the flags), and its
+caption file carries the sung words, the one place they are written;
+the promo's, the billboard-day reel's and the team film's songs play
+under the operator's override of the music-licence position; the
+reel's and the team film's caption files carry bounded `[Music]`
+cues, never a song's words. So do the site-authored, sounded films: the
 two on /services/biostimulators (2026-08-21 — Amy's own reels:
 constraint-3 and constraint-2 overrides for the Radiesse-visit film,
 a retina-rule override for the 480p reel), the body-contouring Evolve

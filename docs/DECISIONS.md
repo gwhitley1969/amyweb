@@ -13549,3 +13549,56 @@ URLs go to `?v=3`.
   record (the /about team film, the two biostimulators reels, the
   body-contouring reel, the training reel).
 - **Open:** the music licences; the promo's confirmed words.
+
+**Verification.**
+- **Before any repository change,** a copy of `phase-c` at `1112663`
+  was exported to a scratch folder, edited, built beside an unchanged
+  copy and run through the project's own gates. The repository's build
+  then came out byte-identical to that copy, all 311 files.
+- **The full chain** ended with exit 0 on the branch before this
+  paragraph was written: build, type check 0/0/0, claims, voice,
+  practice links (25 pages, 62 links), pa11y 25 of 25, Lighthouse on 8
+  pages. With this paragraph the fast gates passed again and the build
+  was byte-identical to the one the chain ran on.
+- **Against the baseline build:** 12 of 311 files differ: the home page
+  (+672 B), its /styleguide/concept mirror, the carousel script, the
+  five caption files, the one scoped stylesheet (6,739 to 7,969 B,
+  renamed by its hash) and two styleguide pages that change only by
+  that name. The main stylesheet is byte-identical, records included.
+
+| Home row | Before | After | Budget |
+|---|---|---|---|
+| Total | 347,002 B | 348,792 B | 358,400 B |
+| Script | 72,085 B | 73,504 B | 81,920 B |
+| Image | 218,625 B | 218,625 B | 245,760 B |
+| Largest paint, median of 3 | 2,171 ms | 2,170 ms | 2,500 ms |
+
+- **The five objects** answer 206 as `video/mp4` with one video and one
+  audio stream each and the frame counts above; each served file's
+  sha256 is the built file's.
+- **Chrome** (headless, the strict autoplay policy, test code carrying
+  no user gesture), on the real build and the real media origin: the
+  film autoplays muted with no input; a scripted click with no gesture
+  is refused sound, and the film carries on muted with the button off;
+  a real click turns sound on; the three players not yet needed exist
+  and have fetched nothing; all five hand-overs play on with sound,
+  the promo's (whose sound track is shorter than its picture) and the
+  team film's back to film one included; a jump to film four plays
+  with sound; a scroll away pauses and a scroll back resumes with
+  sound; CC shows cues and carries to the next film; Sound off mutes
+  without pausing; Sound on while paused stays paused; a hidden tab
+  (simulated) pauses and resumes; unmuting the van film turns the
+  carousel's sound off, and the carousel's Sound mutes the van film. No
+  console or CSP errors.
+- **Firefox 157:** the same run, less the no-gesture step (every test
+  call there carries a gesture). All passed.
+- **An old page with the new script:** the films autoplay, hand over
+  and pause; no errors.
+- **Layout** at thirteen widths from 320 to 1920: two rows at 320 to
+  390 and at 601 to 632, one row elsewhere; the section is 44 px taller
+  where there are two. The page's sideways overflow is identical
+  before and after at every width. At 320 px the pause button, squeezed
+  to 20 px wide before, is 44 px again.
+- **Not testable from the build machine:** an iPhone (the hand-over
+  follows WebKit's source; the operator's phone on the preview is the
+  test), a phone with captions switched on, and how the films sound.

@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-30 — Vitamin B12 is priced on /services/iv-therapy
+
+- The Vitamin B12 card now reads "$25 per shot", the operator's price and
+  the same wording as the Glutathione card beside it. It was the one card
+  left without a price when the page was built on 2026-07-22.
+- The page stays `clinicianApproved: false`; the sign-off sheet asks Amy
+  to confirm the price. DECISIONS 2026-09-30.
+
 ### 2026-09-30 — The home hero film rests on the portrait as a still, and the pink-scrubs portrait joins it (v10)
 
 - Amy's request: the closing shot's turn and smile are gone. The film

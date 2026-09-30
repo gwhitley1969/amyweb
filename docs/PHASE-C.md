@@ -594,7 +594,8 @@ currently through the clinician gate):
       menu: five cards tagged **IV infusion** / **Shot**; identity-only
       copy (what each substance *is*, never what it does); prices only
       where verified (Myers' $125, Immunity IV $125, NAD IV $200,
-      Glutathione $25 per shot — **only B12 left blank**, still open).
+      Glutathione $25 per shot — **only B12 left blank**; B12 priced
+      2026-09-30, $25 per shot, the operator's price).
       Immunity IV's ingredients are named as composition only; the
       product-name rule above is unaffected. `pricingDisplay: none`,
       since the `consult` line contradicts a book-direct page with fixed

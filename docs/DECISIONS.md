@@ -13669,6 +13669,20 @@ phase-c after the merge.
   was deleted.
 - **These facts** go in as a records-only change. No page changed.
 
+**Closing (2026-09-30).**
+- **The records-only change** was PR #228, merged at 16:09 UTC as
+  `35a7776` on the operator's word ("Merge and refresh"). It started
+  only the guard check.
+- **Both previews were refreshed again** to carry it, #97 to `85a5048`
+  and #149 to `0f39cc3`, by clean merges of three record files. Both
+  runs passed and both previews still serve the change.
+- **The main checkout** was fast-forwarded to `35a7776` on the
+  operator's word.
+- **Outside the repo,** `C:\Amy\carousel-sound\` now holds the five
+  sound files as published, the script that rebuilds them and the
+  browser tests, with a README. The scratch copies go when the session
+  is deleted. RUNBOOK points to the folder.
+
 ## 2026-09-30 — The home hero film rests on the portrait as a still, and the pink-scrubs photo comes alive (v9; Amy's request; the operator's decisions after the flags)
 
 **Context.** Amy does not like the film's closing shot, in which the

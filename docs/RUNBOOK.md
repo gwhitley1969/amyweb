@@ -293,6 +293,25 @@ To add or swap a film:
    large on desktop while portrait films keep their size.
 6. `npm run verify` green → PR → preview → Amy's word → merge.
 
+**The carousel's sound files and tests** live outside the repo, in
+`C:\Amy\carousel-sound\` (its README has the steps): the five
+`commercial-<name>-sound.mp4` files as published, `build.sh`, which
+rebuilds them from the masters, and the browser tests of the Sound and
+CC buttons. Two things those tests rely on. Test code must carry no
+user gesture, or a browser's refusal to start sound cannot be seen
+(Puppeteer's `page.evaluate` grants one; the Chrome runs use a CDP
+`Runtime.evaluate` with `userGesture: false`). And no iPhone can be
+driven from the build machine: WebKit lets a player start with sound
+only if that one player was made or unmuted inside a tap, which is why
+the Sound tap makes and unmutes all five players, and why the
+operator's phone on the preview is the test (confirmed 2026-09-30).
+
+**One soundtrack at a time on the home page.** The carousel and the
+van band's film can both play sound. Turning the carousel's Sound on
+mutes the band's film, and unmuting the band's film turns the
+carousel's sound off. `video-carousel.js` does both; `band-film.js` is
+unchanged, and its own record of a person's unmute follows.
+
 **One master, two renditions (2026-08-25):** the team film's master
 (`team.MOV`, operator archive) serves as BOTH the carousel rendition
 (`commercial-team-sound.mp4` since 2026-09-30; the silent
@@ -503,7 +522,9 @@ Amy's own voice (2:01–2:17 only; the clip's two songs stay out, because
 they aren't licensed for the website) to make `van-trip-sound.mp4`.
 Publish any new cut under a NEW
 filename ("Publishing a film"), and take the poster from the new
-file's frame 0.
+file's frame 0. Since 2026-09-30 this film shares the page with the
+carousel's sound: see "One soundtrack at a time on the home page"
+above.
 
 ## Turning on analytics (Plausible — prepped 2026-08-17, ships dark)
 

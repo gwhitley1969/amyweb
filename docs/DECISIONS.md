@@ -14020,3 +14020,29 @@ running preview. PR #229, once its last check run had passed. The
 standing demo (#97) and the review preview (#149) are refreshed from
 phase-c after the merge; both trial merges were clean. Amy's look and
 the iPhone loop check are still to come.
+
+## 2026-09-30 — Addendum: after the merge of PR #229 (the hero film, v10)
+
+- **The merge:** PR #229 merged at 17:03 UTC as `843277a`, at the head
+  `b71dad9`, whose check runs had passed and finished. Nothing was
+  still deploying.
+- **The standing demo (#97)** was refreshed to `a80e30c` and **the
+  review preview (#149)** to `d7fa6b4`, both by clean merges made with
+  `merge-tree` and `commit-tree`, since both branches are checked out
+  in other worktrees. Both runs passed.
+- **Both previews served the new film** on three clean passes in a
+  row, each pass of twelve requests, plain and cache-busted: the home
+  page names `hero-living-portrait-v10.mp4` and `?v=6` with the new
+  description, the style-guide mirror names the file, and the caption
+  file carries the new notes. So the link Amy keeps shows it.
+- **Environments:** the PR's own was removed when it closed, and its
+  host answers 404. The list holds default, 97, 149, 201 and 210, so
+  nothing is stray.
+- **The media origin** held 31 objects after the v10 upload; another
+  session then deleted two old silent carousel files (PR #231), and
+  REDESIGN's row carries that recount. `hero-living-portrait-v9.mp4`
+  stays there, unreferenced.
+- **The main checkout** is on the newest phase-c.
+- **Still to come:** Amy's look on the standing demo, and the loop on a
+  real iPhone.
+- **These facts** go in as a records-only change. No page changed.

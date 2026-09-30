@@ -13735,6 +13735,24 @@ phase-c after the merge.
   runs passed and both previews still serve the change.
 - **The main checkout** was fast-forwarded to `35a7776` on the
   operator's word.
+- **The silent files, 2026-09-30 (the operator: "delete the old silent
+  film files").** Every open branch's carousel was read first:
+  `phase-c`, #97, #149 and #229 load only the sound files, and #201
+  and #210 still load the silent Evolysse, Jeuveau and team files with
+  `commercial-j1.mp4` and `commercial-studio.mp4`; `main` has no
+  carousel. No live preview's page named the promo's or the billboard
+  reel's silent file.
+  - **Deleted:** `commercial-van-promo.mp4` and
+    `commercial-billboard.mp4`. Both now answer 404 at the media
+    address; their sound files still serve. The storage has no soft
+    delete, so byte-identical copies of all five silent files are kept
+    in `C:\Amy\carousel-sound\silent\` first, and that folder's
+    `build.sh` now reads its pictures from there (it reproduced the five
+    published sound files byte for byte).
+  - **Kept, on the operator's choice ("Wait for #201 and #210"):** the
+    other five, until those two PRs are merged, closed or updated from
+    `phase-c`. Deleting them now would stop the films in those two
+    previews' carousels.
 - **Outside the repo,** `C:\Amy\carousel-sound\` now holds the five
   sound files as published, the script that rebuilds them and the
   browser tests, with a README. The scratch copies go when the session

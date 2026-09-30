@@ -14100,21 +14100,58 @@ the iPhone loop check are still to come.
   page's `clinicianApproved` stays false, and the sign-off sheet asks
   Amy to confirm the price.
 
+## 2026-09-30 — /visit: where Amy sees people
+
+- **Context:** the operator's new lead for /visit, in his words:
+  "Amy's main medspa is in Harrisburg, NC but she also sees people in
+  Waxhaw, Ballantyne, Concord, and Charlotte locations along with
+  mobile parties in North and South Carolina", replacing the lead that
+  had stood since 2026-08-04 ("Amy sees clients in Harrisburg, North
+  Carolina, just northeast of Charlotte. Directions and contact are
+  below.").
+- **Decision (operator, four choices, 2026-09-30):** the sentence as
+  typed with a period and a comma before "but"; the old second
+  sentence dropped; "mobile parties" linking to /tox-together, the
+  party page, in the house inline-link idiom (PracticeLink's); the
+  page's search description left alone. Nothing else on the page
+  changes: the heading, the eyebrow, the location card with the one
+  Harrisburg address, the closing band.
+- **Checked:** the sentence trips none of the banned patterns and none
+  of the voice tokens; it says "medspa", the house word; the About and
+  Training pages, which call Harrisburg her medspa, still agree with
+  "main medspa"; neither standing preview branch touches the
+  paragraph.
+- **Flagged once, then built on the operator's word:** the sentence
+  advertises Amy's services in South Carolina, where a nurse
+  practitioner needs that state's own licence. The site cannot check
+  it and does not claim it; the operator carries the fact.
+- **Rejected:** the description updated to name the other places
+  (offered for local search; the operator kept the address-only
+  description); the sentence exactly as typed, without the period.
+- **Consequences:** the other places have no address on the site, and
+  the card keeps the one they can drive to. The pages' JSON-LD still
+  carries the Harrisburg address only.
+
 ## 2026-09-30 — Regenerative card: the PRP photo gets a colour grade (operator direction)
 
 - **Context:** the operator found the /services "04 Regenerative
   Treatments" card photo (`prp-treatment.jpg`) washed out, the client
   most of all, and asked for a little warmth on him and on Amy and a
   lighter grey wall.
-- **Decision:** a local colour grade of the committed file, no
-  generated pixels. The client's skin is warmed and slightly
+- **Decision:** a local colour grade, no generated pixels, derived in
+  one generation from the master (`prp01.png`, its top 895x796, the
+  same window as before) per the RUNBOOK's tone-fix rule. The client's skin is warmed and slightly
   deepened; Amy's arms take a lighter version of the same; the grey
   wall (the neon-lit part included) is lifted about 30% of the way
   toward white, sparing highlights. Amy's face keeps the photo's own
   colour and brightness, untouched. Masks were drawn from
   colour plus traced outlines of both heads, so the hair, the gloves,
-  the scrubs, his shirt and the chair are untouched. Re-encoded JPEG
-  q92, same 895x796 frame.
+  the scrubs, his shirt and the chair are untouched. Recipe: the sharp
+  script `C:\Amy\photo-grades\prp-treatment\grade.cjs`, run as
+  `node grade.cjs M 0.55 0.3 0.4 0` (client skin warmth 0.55, wall
+  lift 0.3, Amy's arms 0.4, her face and hair 0); JPEG q92 at 4:4:4.
+  It reproduces the committed file byte for byte; the folder's README
+  explains the masks.
 - **Rejected, on sight:** a stronger grade (the operator chose the
   gentle one); Amy's face matched to her extended arm (too yellow),
   and her face lightened (too pale), so her face is exactly the

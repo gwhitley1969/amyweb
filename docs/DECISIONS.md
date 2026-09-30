@@ -13389,3 +13389,163 @@ the merge; #149's refresh is the hand merge named above.
 - **The main checkout** was fast-forwarded to `441126a`.
 - **These facts** went in as PR #226, a records-only change. No
   page changed.
+
+## 2026-09-30 — Home carousel: a Sound button and a captions button; the five films carry their own sound (Amy's request; operator overrides after the flags)
+
+**Context.** The operator, 2026-09-30: Amy wants visitors to be able to
+turn sound on in the home carousel, for all five films. It could not be
+done: the five files on the media origin had no audio track (stripped
+when each was published), and the player had no sound control and no
+captions control. Sound was a recorded follow-up from the carousel's
+first day (the 2026-08-14 entry: "restoring sound (tap-for-sound +
+audio-faithful captions) is a recorded follow-up if directed").
+
+**What each film's sound is.** Measured on the masters with ffprobe,
+EBU R128 loudness and spectrograms, and read by a machine transcript
+(Whisper large-v3-turbo through ffmpeg's own filter, on the build
+machine; nothing was uploaded). A machine transcript of singing is a
+draft, not a record.
+
+| Film | Master | Its sound | Loudness |
+|---|---|---|---|
+| 1 Evolysse | `Mobile EVOLYSSE OPTION 3_2_1.mp4` | The Evolus voiceover over their music; the transcript matches the caption file's, line for line | −22.0 LUFS |
+| 2 Amy's promo | `Advertising 2\AD2.MP4` | A re-worded pop song: a quiet opening to 14.8 s (−35.9 LUFS), a loud roll-call of first names from 15.1 to 26.7 s (−13.9), silence, then a loud hit at 29.4–30.8 s (−7.9, peaking over full scale) | −13.0 LUFS |
+| 3 Billboard-day reel | `Advertising 3\AD3.MP4` | A commercial song with lyrics from 1 s to the end; no speech found | −18.3 LUFS |
+| 4 Jeuveau | `F-437304_Mobile Aesthetics_J2.mp4` | The manufacturer's music; no speech found in two reads | −11.2 LUFS |
+| 5 Team film | `New Pics\team.MOV` | A pop song with its lyric; the track /about has played since 2026-08-25 | −19.3 LUFS |
+
+**A correction.** The 2026-09-27 entry for films two and three says
+"Both films have Amy speaking on their audio." That was read off the
+picture and is wrong: the promo is sung and the reel is a song.
+
+**Flags shown (once).**
+1. **Music licences.** The promo, the reel and the team film carry
+   commercial songs. The project's position (2026-09-03 and 2026-09-25)
+   is that a commercial song needs a licence for a business website and
+   that a platform's licence does not travel; the van film's two songs
+   were removed for that reason. No licence is on record for these
+   three.
+2. **The promo's words.** Its song names the location's other
+   providers by first name, makes an outcome promise with a time frame,
+   and speaks as a collective, in a re-working of a well-known song's
+   lyric. Constraint 2 forbids the first (the eighth exception's terms
+   said the film's label, caption file and comments name nobody),
+   constraint 3 the second, the voice rule the third. One line the
+   machine could not make out; it may name products.
+3. **Captions become required** (WCAG 2.2 AA 1.2.2) once the films have
+   sound, and a caption file is site text in a public repository.
+4. **The Evolysse film.** CLAUDE.md said unmuting it requires the human
+   operator; the 2026-09-25 entry rejected a sound button because the
+   voiceover "would still go unheard by default".
+
+The recommendation was sound for the two Evolus films only, with Amy's
+three films silent until the music question is settled.
+
+**Decisions** (operator, AskUserQuestion, 2026-09-30).
+1. **The reel's and the team film's songs: "Play both: accept the
+   risk."** An override of the music position, for these carousel films.
+2. **The promo's sound: "Play it as-is (override)."**
+3. **The controls: "Labelled Sound button."**
+4. **The promo's captions: "The sung words."** The accessible choice and
+   the van film's precedent; a description only, and a plain music cue,
+   were offered. The operator or Amy confirms the exact words by ear
+   before the change merges; that confirmation is the record.
+5. **The Evolysse film** plays its own sound when the visitor turns
+   Sound on: the request is the operator's direction. It still starts
+   muted and its captions stay off by default. Its spoken risk
+   statement, heard nowhere before, is now one tap away.
+
+**The five sound renditions.** New objects beside the silent ones, never
+in place (the edge caches a film for a day).
+- **Picture:** each file's video stream is the served silent file's,
+  copied bit for bit (stream checksums compared, all five identical), so
+  no frame changed and nothing was re-screened. The posters stay.
+- **Sound:** from the master, AAC-LC 128k, one plain volume offset per
+  film. No compression and no limiting. The target is −18 LUFS, the van
+  film's level, capped so that no film peaks above −1 dBFS. As
+  delivered the Jeuveau spot is 10.8 LU louder than the Evolysse film.
+- **The promo has three offsets,** one per section of its own mix,
+  switched inside its own silences at 14.83 s and 28 s. Its opening is
+  22 dB below its roll-call.
+
+| Object | Offset | Result | Peak | Bytes | sha256 |
+|---|---|---|---|---|---|
+| `commercial-evolysse-sound.mp4` | +1.5 dB (the peak cap) | −20.6 LUFS | −1.1 dBFS | 10,360,603 | `d18949925242b80257e14bf1bc56fe2587b9f520e7dc8ea4ad503fd552a9342e` |
+| `commercial-van-promo-sound.mp4` | +16.5 / −4.1 / −10.1 dB | −19.4 / −18.0 / −18.0 (whole −18.6) | −1.3 | 7,715,942 | `134c6e2fa671febba76632dd07b3fbd4be5a9f69dddae42a923713e12cedc3c4` |
+| `commercial-billboard-sound.mp4` | +0.3 dB | −18.1 | −5.7 | 6,453,086 | `d19da597872069e52e9c9c2183ca6b77f9d03574b1671179c32bf5d46089377a` |
+| `commercial-j2-sound.mp4` | −6.8 dB | −18.1 | −6.9 | 8,721,149 | `b46a0bcb6a2ce6e98098529caae90b691a46ee47f1632b2b579a0bd3d1f5b725` |
+| `commercial-team-sound.mp4` | +1.3 dB | −18.1 | −4.4 | 6,795,532 | `1774130248a2915190ee975c1c2902ea68ebad150d98cb89b958031dff11ac10` |
+
+  Frame counts as before (915, 993, 941, 1024, 416); index before media.
+  Together 40.05 MB against the silent files' 37.67 MB.
+- **The command:**
+  `ffmpeg -i <served>.mp4 -i <master> -map 0:v:0 -map 1:a:0 -c:v copy -af "volume=<N>dB" -c:a aac -b:a 128k -movflags +faststart <name>-sound.mp4`.
+  The promo's filter is
+  `asetnsamples=n=256,volume='if(lt(t,14.83),6.683,if(lt(t,28),0.6237,0.3126))':eval=frame:precision=float`.
+
+**The player.**
+- **Two toggle buttons** join the pause button: Sound (a speaker and the
+  word) and CC. On, they fill pink: noir on pink-500, 5.95:1.
+- **Sound stays on** from film to film and when the stage scrolls away
+  and back. It is never on at load and is not stored, so a reload starts
+  muted.
+- **iPhones.** WebKit lets a player start with sound only if that one
+  player was made, or unmuted, inside a tap (its source,
+  `HTMLMediaElement.cpp`, read 2026-09-30). The carousel builds a player
+  per film, so the Sound tap makes all five and unmutes each inside that
+  tap; those not yet needed are made with preload "none" and fetch
+  nothing until their turn.
+- **A refusal falls back:** a film the browser will not start with sound
+  plays muted and the button shows off.
+- **One soundtrack at a time:** turning Sound on mutes any other film on
+  the page, and unmuting another film turns the carousel's sound off.
+  The van film sits at least 1,475 px below the stage.
+- **A hidden tab pauses the films.** A pause is respected: turning Sound
+  on never starts a paused film.
+- **CC** shows each film's captions track. Until it is pressed the
+  button follows the device; after, the visitor's choice holds.
+- **Layout:** the three controls are one group and wrap under the bars
+  wherever the two groups do not fit a row, which is every phone. The
+  section is 44 px taller there.
+- **The script** is 10,460 B (3,781 B compressed), up from 6,331, and
+  does not assume the two buttons exist: the page and the script are
+  cached apart, five minutes each.
+
+**The caption files.** Each is faithful to the sound (RUNBOOK's rule
+for a sounded film). The Evolysse file's cues were already its
+voiceover with its on-screen text. The Jeuveau file gains a music note
+on its first cue. The reel's and the team film's carry two bounded
+music cues each; a song's words are not written out. The promo's
+carries its sung words; its note says the first-person plural, the
+promise and the names are the song's, written there and nowhere else
+in the site's text. Every note calls the place the medspa. The caption
+URLs go to `?v=3`.
+
+**Alternatives rejected.**
+- Sound for the two Evolus films only: recommended, declined.
+- A description, or a plain music cue, for the promo's captions.
+- Sound on by default: a browser will not start a film with sound.
+- Storing the choice: the site sets no cookie and keeps no storage.
+- One shared player for all five films: it would end the crossfade.
+- Replacing the five objects in place: a day of stale copies at the
+  edge, and open PRs #201 and #210 still load three of them.
+- One offset for the promo: its opening would be close to inaudible.
+- A limiter, to bring the Evolysse film up the last 2.5 LU.
+- No level matching: a jump of up to 10.8 LU at a hand-over.
+
+**Consequences.**
+- CLAUDE.md: constraint 2's second and eighth exceptions, constraint 3's
+  Evolysse clause, a new clause for the promo's sound and the three
+  songs, a scoped note on the voice convention, and the script list's
+  first consumer. BUILD_SPEC §6, §8, §9 and §13 follow. The plan's
+  approval authorized the governing-doc edits.
+- The rule against autoplaying a narrated film muted lives in
+  `TreatmentVideo.astro`'s header. The carousel is a different player;
+  the header now says that it starts every film muted with sound one tap
+  away.
+- The five silent objects stay until nothing open loads them.
+- **Not part of this change, flagged once:** five other films on the
+  site carry music, by their own caption files, with no licence on
+  record (the /about team film, the two biostimulators reels, the
+  body-contouring reel, the training reel).
+- **Open:** the music licences; the promo's confirmed words.

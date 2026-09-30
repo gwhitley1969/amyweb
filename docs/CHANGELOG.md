@@ -13,6 +13,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
   tabletop's vials, cartons and tray, whose fine print would have needed
   an exception. The old syringes photo is removed. DECISIONS 2026-09-30.
 
+### 2026-09-30 — /visit: where Amy sees people
+
+- The lead is the operator's sentence: Amy's main medspa is in
+  Harrisburg, NC, and she also sees people in Waxhaw, Ballantyne,
+  Concord and Charlotte, and at mobile parties in North and South
+  Carolina. "mobile parties" links to the Tox Together page.
+- The old lead ("Amy sees clients in Harrisburg, North Carolina, just
+  northeast of Charlotte. Directions and contact are below.") is gone.
+  The address card, the heading and the search description are
+  unchanged.
+- DECISIONS 2026-09-30, the /visit entry.
+
 ### 2026-09-30 — Vitamin B12 is priced on /services/iv-therapy
 
 - The Vitamin B12 card now reads "$25 per shot", the operator's price and

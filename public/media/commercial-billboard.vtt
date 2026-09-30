@@ -3,14 +3,22 @@ WEBVTT
 NOTE
 Amy's own reel of the day her billboard went up and a delivery arrived
 at her medspa, carried as-is under operator override — DECISIONS
-2026-09-27. The web rendition carries no audio track.
+2026-09-27 (the film) and 2026-09-30 (its sound).
 
 NOTE
-NO CUES, ON PURPOSE (docs/DECISIONS.md 2026-09-20). The web rendition
-has no audio, so there is nothing to caption; a cue here would paint a
-box over the film on every phone with captions switched on. The slide's
-label names the film (VideoCarousel.astro). This file is the film's
-in-repo record. Burned-in text: the opening caption card, "Billboard is
-up / I85 / From concord mills to poplar tent." The film shows: a photo
-of Amy's billboard, then Amy in her medspa as a delivery of boxes
-arrives.
+SOUND, since 2026-09-30: the web rendition carries the reel's own
+sound, a song from start to finish with no speech (a machine transcript
+made on the build machine found only the song; the operator's
+confirmation by ear is the record), and starts muted. The cues are
+bounded "[Music]" cues, the house form for a film with music and no
+speech: a film-long cue would sit over the whole play, and the song's
+words are not written out. Burned-in text: the opening caption card,
+"Billboard is up / I85 / From concord mills to poplar tent." The film
+shows: a photo of Amy's billboard, then Amy in her medspa as a delivery
+of boxes arrives.
+
+00:04.000 --> 00:07.000
+[Music]
+
+00:18.000 --> 00:21.000
+[Music]

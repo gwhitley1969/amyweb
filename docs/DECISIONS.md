@@ -13247,3 +13247,125 @@ refresh is the hand merge named above.
   Those are descriptions of the design and the page. The rulebook
   (BUILD_SPEC §8), CLAUDE.md and compliance/ are unchanged, as decided
   above.
+
+## 2026-09-30 — "studio" becomes "medspa" in the site's text (Amy's direction, relayed by the operator; the live placeholder, one photo description and the file names keep the old word)
+
+**Context.** The operator, 2026-09-30, after a conversation with Amy:
+"on the website (the entire website), everywhere it says 'studio', she
+wants it replaced with 'medspa', and yes she wants medspa as one word."
+
+**What was counted.** On a build of `phase-c` at `9009fe1` the word
+appeared 123 times in the 25 built pages, always in small letters and
+never at the start of a sentence.
+
+| Where a reader meets it | In the built pages | Source lines |
+|---|---|---|
+| Text on the page | 25 | 25 |
+| Photo descriptions (alt text) | 18 | 18 |
+| Film labels for screen readers | 15 | 8 |
+| The share card's description, two tags on every page | 50 | 1 |
+| The Skincare page's search and share description | 3 | 1 |
+| Picture file addresses | 12 | 3 file names |
+
+**Decision (the operator's four answers, 2026-09-30).**
+- **The live Under Construction page is not changed** ("No, new site
+  only"). It says "Amy's inside, getting the studio ready." until
+  relaunch. A hotfix into `main` was recommended and declined.
+- **The Girl Team photo's description keeps the word** ("Keep 'studio'
+  here"). That room is a photo studio, so the plain swap would say
+  something untrue. "A white room" was recommended and declined.
+- **No build check** ("No check"). An addition to the voice gate was
+  recommended and declined. The rule is written down instead.
+- **The three picture file names keep the word** ("Leave the names").
+  Two of them are cited in CLAUDE.md's override records.
+
+**What was built.**
+- **Page sources:** 52 lines in 19 files, one word each. The twelve
+  treatment pages hold 36 of them. The others are /about (7),
+  /injector-training (3), /visit, /services, the home hero film's
+  label, two carousel labels and the share card's description in the
+  head component.
+- **In the built pages** 110 occurrences now read "medspa". 13 keep the
+  old word: the 12 file addresses and the Girl Team description.
+- **Caption files:** six of them describe their film in a note, seven
+  mentions in all. The notes now match the labels. No cue changed, so
+  no file's version number moved.
+- **The rule:** one bullet in CLAUDE.md beside the consultation and
+  voice conventions, the same rule in BUILD_SPEC §6, and a paragraph in
+  RUNBOOK's copy-writing section. It names the one exception and says
+  no gate enforces it.
+- **Not changed:** code comments (27 lines in the page sources and one
+  in a script), the names the code gives the three pictures, every
+  record written before today, and everything on `main`.
+
+**Overrides.** Six photos and six films that carry recorded operator
+overrides had one word of their description or label changed: the
+PiXel8 cart, the Epileve window, the PRP syringes, the Jeuveau banner
+band, the weigh-in rear view and the Evolysse cart; the Radiesse visit,
+the training reel, the PRP visit, the promo, the billboard reel and the
+team film. No override term is touched. Nothing printed on a banner, a
+carton or a label is restated, and nobody is named.
+
+**The flags.** All twelve treatment pages were already unapproved, so
+no approval flag moved. The sign-off page lists the change for Amy and
+its six quoted sentences carry the new word.
+
+**Alternatives rejected.** Renaming the three pictures: it would mean
+editing the override records that cite them, for a word no visitor
+reads. Changing code comments: the same reasoning. Rewriting earlier
+log entries: the logs are history.
+
+**Verification.**
+- **The count on the real build:** 13 of the old word (12 file
+  addresses, 1 description) and 110 of the new one, by the same script
+  that counted 123.
+- **Against the baseline build:** 31 of 311 files differ, the 25 pages
+  and the 6 caption files. Putting the old word back makes every one of
+  them byte-identical to the baseline. No file was added or removed,
+  and every stylesheet, script and image is byte-identical.
+- **Every page at 390 and 1280 wide,** 50 reads: visible text identical
+  but for the word, links and headings identical and in the same order,
+  no page wider. One page is taller, /services/skincare on a phone, by
+  28 px: one line wraps differently.
+- **The claims list:** the new word and a sample of the new sentences
+  were tried against all 52 banned patterns before the change. None
+  matched.
+- **The full chain** ended with exit 0 before anything was committed:
+  build, type check, claims, voice, practice links (25 pages, 62
+  links), pa11y 25 of 25, Lighthouse on 8 pages.
+
+| Lighthouse, median of 3 | Largest paint | Performance |
+|---|---|---|
+| / | 2,160 ms | 0.99 |
+| /about | 2,337 ms | 0.98 |
+| /services | 1,806 ms | 1.00 |
+| /services/wrinkle-relaxers | 1,657 ms | 1.00 |
+| /services/hormone-optimization | 1,505 ms | 1.00 |
+| /injector-training | 2,332 ms | 0.98 |
+| /tox-together | 1,582 ms | 1.00 |
+| /styleguide | 1,958 ms | 0.99 |
+
+**Consequences.**
+- **Relaunch.** The head component was byte-identical on `main` and
+  `phase-c`. It now differs by one word, in the share card's
+  description. A trial merge showed a one-line conflict there and
+  nothing else in the file. RELAUNCH says to take the `phase-c` side.
+- **Share-card hotfixes.** RUNBOOK's rule is to ship the same head
+  component to `main`. A later card hotfix that copies the file whole
+  carries the new word to the live page, so the merge question has to
+  say so.
+- **The review preview (#149)** adds its page tag on the line directly
+  above the Visit page's label, so its refresh after the merge needs a
+  hand merge in that one file: its tag line kept, the new label taken.
+  The standing demo (#97) touches none of the changed files.
+- **New copy** has to be read for the word. Nothing fails a build that
+  brings it back.
+- **Amy has not seen the new wording on the pages.** Production is
+  unchanged.
+
+**Merged (2026-09-30), on the operator's word ("Merge now").** PR
+#225. Its own preview served the new wording on three clean passes
+in a row, each reading five pages and one caption file, plain and
+cache-busted, before the merge question was asked. The standing demo
+(#97) and the review preview (#149) are refreshed from phase-c after
+the merge; #149's refresh is the hand merge named above.

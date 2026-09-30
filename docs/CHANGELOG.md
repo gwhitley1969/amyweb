@@ -6,6 +6,28 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-30 — "studio" becomes "medspa" across the site's text
+
+- Amy's direction, relayed by the operator: wherever the site said
+  "studio" it now says "medspa", one word.
+- 52 source lines in 19 files: 25 places in page text, 17 photo
+  descriptions, 8 film labels, the share card's description and the
+  Skincare page's search description. In the built pages 110
+  occurrences changed.
+- The notes in six caption files follow their films' labels. No cue
+  changed.
+- What keeps the old word: the Girl Team photo's description (a photo
+  studio, the operator's choice), three picture file names, code
+  comments, and the live Under Construction page.
+- The rule is written into CLAUDE.md, BUILD_SPEC and RUNBOOK. No
+  build check was added, at the operator's choice.
+- RELAUNCH and RUNBOOK note that the shared head component now
+  differs from `main` by one word.
+- All twelve treatment pages changed. No approval flag moved.
+- Merged 2026-09-30 on the operator's word ("Merge now"), PR #225,
+  its own preview serving the new wording. Both standing previews
+  (#97, #149) refreshed after the merge.
+
 ### 2026-09-27 — /about leads with a new picture of Amy; her family picture moves into the text
 
 - The About page's lead picture is now Amy in a pink dress, seated on

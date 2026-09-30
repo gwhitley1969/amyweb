@@ -13,6 +13,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
   tabletop's vials, cartons and tray, whose fine print would have needed
   an exception. The old syringes photo is removed. DECISIONS 2026-09-30.
 
+### 2026-09-30 — The /services Regenerative card photo is regraded
+
+- The PRP photo on the "04 Regenerative Treatments" card is warmer on
+  the client and on Amy's arms, and the grey wall is lighter. Amy's face
+  is unchanged. A colour grade only: no
+  generated pixels, same frame, no copy or alt changes.
+  DECISIONS 2026-09-30.
+
 ### 2026-09-30 — /visit: where Amy sees people
 
 - The lead is the operator's sentence: Amy's main medspa is in

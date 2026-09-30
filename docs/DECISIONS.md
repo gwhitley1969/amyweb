@@ -14083,3 +14083,19 @@ the iPhone loop check are still to come.
   it); a second eyebrow paragraph (the split fade above).
 - **Consequences:** one more link to the practice site on `/` and its
   style-guide mirror; CLAUDE.md's list of chosen mentions gains it.
+
+## 2026-09-30 — Vitamin B12 is priced: $25 per shot (the operator's price)
+
+- **Context:** when /services/iv-therapy was built (2026-07-22), the
+  Vitamin B12 card was the one card left without a price, rather than
+  invent one; that entry recorded it as the page's open blank. The
+  operator has now supplied it: a Vitamin B12 shot is $25.
+- **Decision:** the card's price line reads "$25 per shot", the same
+  string as the Glutathione card beside it, the page's other shot.
+- **Rejected:** a bare "$25", which would read differently from the
+  Glutathione card next to it.
+- **Consequences:** every card on the page now carries a price, and the
+  2026-07-22 blank is closed. A plain-dollar string, so no allowlist
+  entry is needed; no structured data carries the card prices. The
+  page's `clinicianApproved` stays false, and the sign-off sheet asks
+  Amy to confirm the price.

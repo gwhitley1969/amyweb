@@ -13645,3 +13645,26 @@ URLs go to `?v=3`.
 PR #227, once its checks had passed on the corrected captions. The
 standing demo (#97) and the review preview (#149) are refreshed from
 phase-c after the merge.
+
+**After the merge (2026-09-30).**
+- **The merge:** PR #227 merged at 15:56 UTC as `474319e`, at the head
+  `03a0932`. Both of its check runs had finished green, the first
+  push's and the corrected captions', and nothing was still deploying.
+- **The standing demo (#97)** was refreshed to `76e5bf7` and **the
+  review preview (#149)** to `cf5de84`, both by clean merges that carry
+  exactly this change (18 files).
+- **Both refreshes passed their checks,** and both previews served the
+  change on three clean rounds in a row. Each round was three passes
+  reading the home page (five sound files, caption URLs at `?v=4`, the
+  two buttons), the script and the five caption files with their cue
+  counts, cache-busted. On both previews every film-to-film hand-over
+  played on with sound in Chrome.
+- **Environments:** the PR's own was removed when it closed, and its
+  host answers 404. The list holds default, 97, 149, 201 and 210, so
+  nothing is stray.
+- **The media origin** holds 29 objects. The promo's and the
+  billboard-day reel's silent files are now loaded by nothing open;
+  the other three silent files, `commercial-j1.mp4` and
+  `commercial-studio.mp4` are still loaded by PRs #201 and #210. None
+  was deleted.
+- **These facts** go in as a records-only change. No page changed.

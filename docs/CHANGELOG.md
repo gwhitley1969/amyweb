@@ -40,6 +40,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   sound from one film to the next and that the levels sound right.
 - Merged 2026-09-30 on the operator's word ("Merge and refresh"), PR
   #227. Both standing previews (#97, #149) refreshed after the merge.
+- Closing records, PR #228: DECISIONS gained what happened after the
+  merge. No page changed.
 
 ### 2026-09-30 — "studio" becomes "medspa" across the site's text
 

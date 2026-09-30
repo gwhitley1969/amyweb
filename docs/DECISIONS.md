@@ -14124,7 +14124,9 @@ the iPhone loop check are still to come.
 - **Flagged once, then built on the operator's word:** the sentence
   advertises Amy's services in South Carolina, where a nurse
   practitioner needs that state's own licence. The site cannot check
-  it and does not claim it; the operator carries the fact.
+  it and does not claim it; the operator carries the fact. **Closed
+  the same day, after the merge of PR #235:** the operator confirmed
+  that Amy is licensed in South Carolina. The sentence stands.
 - **Rejected:** the description updated to name the other places
   (offered for local search; the operator kept the address-only
   description); the sentence exactly as typed, without the period.

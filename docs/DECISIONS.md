@@ -14187,3 +14187,34 @@ the iPhone loop check are still to come.
 - **Consequences:** `radiesse-syringes.jpg` has no other consumer and is
   deleted (git history keeps it). The card's photo is decorative, so no
   alt text changes; no page copy changes.
+
+## 2026-09-30 — IV card gets a new photo; Hormone card brightened (operator direction)
+
+- **Context:** the operator supplied a new picture for the /services "11
+  IV Therapy & Vitamin Support" card (`C:\Amy\pics\button11.heic`,
+  an iPhone HEIC, 5712x4284 with a -90 degree display rotation) and asked
+  for the "12 Hormone Optimization" card to be brighter.
+- **Card 11 screening (full resolution):** three women having IV drips in
+  the medspa's lounge; Amy is not pictured. The operator confirmed all
+  three are clients with website releases on file (the woman in blue
+  scrubs is a client, not staff). The shelf in the doorway carries two
+  Radiesse posters whose sales lines are legible, and a PRP sign.
+- **Decision (11):** a 4:5 crop on the three women that leaves the
+  posters and the sign out (decoded with ffmpeg 9, which reads the HEIC
+  tile grid and applies the rotation; sharp here reads AVIF only; then
+  x 450, y 1950, 2880x3600, resized to 1200x1500, JPEG q92), committed
+  as `iv-drips-three-clients.jpg`. What remains legible: a footwear
+  brand on two slides. The IV bag labels and the shelf's jars are not
+  readable. No exception needed.
+- **Decision (12):** re-derived from the master (`B12.jpg`, single
+  generation) at sharp `modulate({ brightness: 1.6, saturation: 1.05 })`,
+  JPEG q92, same content name (zero code change); up from the 1.28 lift
+  of the earlier entry. Chosen from 1.45 / 1.6 / 1.75 on a side-by-side
+  sheet. The banner was already legible and ships under its recorded
+  constraint-3 override; the lift changes exposure, not what the frame
+  discloses.
+- **Rejected:** the whole-room crop for 11 (the posters' headline stays
+  readable on the card); 1.75 for 12 (the banner and scale go flat white).
+- **Consequences:** `iv-drip-neon.jpg` has no other consumer and is
+  deleted (git history keeps it). Both photos are decorative, so no alt
+  text or copy changes.

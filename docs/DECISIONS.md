@@ -14099,3 +14099,26 @@ the iPhone loop check are still to come.
   entry is needed; no structured data carries the card prices. The
   page's `clinicianApproved` stays false, and the sign-off sheet asks
   Amy to confirm the price.
+
+## 2026-09-30 — Regenerative card: the PRP photo gets a colour grade (operator direction)
+
+- **Context:** the operator found the /services "04 Regenerative
+  Treatments" card photo (`prp-treatment.jpg`) washed out, the client
+  most of all, and asked for a little warmth on him and on Amy and a
+  lighter grey wall.
+- **Decision:** a local colour grade of the committed file, no
+  generated pixels. The client's skin is warmed and slightly
+  deepened; Amy's arms take a lighter version of the same; the grey
+  wall (the neon-lit part included) is lifted about 30% of the way
+  toward white, sparing highlights. Amy's face keeps the photo's own
+  colour and brightness, untouched. Masks were drawn from
+  colour plus traced outlines of both heads, so the hair, the gloves,
+  the scrubs, his shirt and the chair are untouched. Re-encoded JPEG
+  q92, same 895x796 frame.
+- **Rejected, on sight:** a stronger grade (the operator chose the
+  gentle one); Amy's face matched to her extended arm (too yellow),
+  and her face lightened (too pale), so her face is exactly the
+  photo's.
+- **Consequences:** only the card changes (the /services menu and the
+  style guide, which renders it); no copy or alt text changes, and
+  nothing new is shown. The pre-grade file stays in git history.

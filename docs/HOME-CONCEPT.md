@@ -34,14 +34,18 @@ merged here; the hero reel takes the same policy.
 choppy, and after four rounds (a pixel-locked cinemagraph — "boring";
 the fast cut with AI living moments — "That looks great!!!"; a hop at
 the handoff; the head turn's speed; the eyes) the hero plays
-`hero-living-portrait-v8.mp4`, one purpose-made looping film —
+`hero-living-portrait-v10.mp4`, one purpose-made looping film —
 AI-assisted and disclosed (DECISIONS 2026-09-17, the entry and its
 addenda; merged in PR #190). Through v4 it opened and ended on the
 portrait; since 2026-09-18, at the founders' request, the same shots
 run in a new order: the hair shot opens, the portrait comes alive,
 turns and laughs at the finish, and the loop point sits inside a white
 flash (DECISIONS 2026-09-18); since 2026-09-25, at Amy's request, she
-smiles rather than laughs (a new generated take, DECISIONS same date).
+smiled rather than laughed (a new generated take, DECISIONS same date);
+since 2026-09-30, at Amy's request, the turn and the smile are gone:
+the film rests on the portrait as a still, and her pink-scrubs portrait
+joins the stills before it (DECISIONS 2026-09-30, the hero film entry
+and its addendum).
 Everything
 below about the reel, its passages, and its knobs is that round's
 record.
@@ -81,6 +85,7 @@ record.
 | `163afbb` | 2026-09-26 | **feat(home): the statement band becomes Tox To Go** — PR #209 (`feat/home-tox-to-go`), the operator's document as written beside the van-trip film: the $600 hostess credit and its requirements; "Tox" allowed in this band by the operator; "Book your Tox To Go party" calls Amy; the film panel holds in view at >=900px (DECISIONS 2026-09-26, the Tox To Go entry) — superseded on the same PR by the page commit, the row below, before anything merged |
 | `b105ecf` + `cfdc865` | 2026-09-26 | **feat: Tox To Go becomes its own page, replacing /mobile; the home band is its door** — PR #209 (`feat/home-tox-to-go`), the operator: the offer moves off the band onto /tox-to-go (no photo, no film — the /mobile media declined); the band keeps the van-trip film and becomes a short door — the name, the tagline, one sentence, the call button with the number, "See the hostess perk ›"; the nav item reads "Tox To Go"; "How a party works ›" is gone. Two commits by a staging slip: the four deletions, then the page and the rest (DECISIONS 2026-09-26, the Tox To Go page entry) |
 | `d38c96b` | 2026-09-27 | **content: Tox To Go is renamed Tox Together; the page moves to /tox-together** — PR #217 (`feat/tox-together`), the operator's rename: the band's heading reads "Tox Together Party", its sentence "With Tox Together…", its button "Book your Tox Together party", and "See the hostess perk ›" leads to /tox-together; the film and the band's layout are unchanged (DECISIONS 2026-09-27, the Tox Together entry) |
+| `d40d258` | 2026-09-30 | **feat(home): the hero film rests on the portrait as a still; the pink-scrubs portrait joins the stills (v10)** — PR #229 (`feat/hero-film-v9`), Amy's request relayed by the operator: the closing turn and smile are gone, the portrait is a still under a slow camera drift, the stool shot moves from fifth to third, and her pink-scrubs portrait joins the run of stills; a version with her hair moving (v9, commit `0293437`) was built and withdrawn before merge on the operator's word (DECISIONS 2026-09-30, the hero film entry and its addendum) |
 
 Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
 `VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,
@@ -100,13 +105,14 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   Palacios, FNP, in medical aesthetics since 2017."* Below 900px the
   hero is the phase-c stack.
 - **The film since 2026-09-17.** The reel described in the next item
-  is history: the hero now plays `hero-living-portrait-v8.mp4`, one
-  purpose-made 11.5s film (24fps, native loop, 3.6MB) that needs no
+  is history: the hero now plays `hero-living-portrait-v10.mp4`, one
+  purpose-made 11.1s film (24fps, native loop, 3.7MB) that needs no
   ranges, joins, or rest — AI-assisted and disclosed (DECISIONS
-  2026-09-17). Since 2026-09-18 it opens on the hair shot and finishes
-  on the portrait coming alive (the turn and, since 2026-09-25 at Amy's
-  request, a warm smile, made warmer 2026-09-26); its loop point is
-  a white flash, and the fade-in waits 0.2s so the flash never shows on
+  2026-09-17). Since 2026-09-18 it opens on the hair shot; since
+  2026-09-30, at Amy's request, it rests on the portrait as a still
+  under a slow camera drift, and her pink-scrubs portrait joins the
+  stills; the hair shot is its one generated performance; its loop
+  point is a white flash, and the fade-in waits 0.2s so the flash never shows on
   a first visit. `data-first` 5 and the 1.6s fade-in are all that
   remain of the knobs below.
 - **The reel (2026-09-03 to 2026-09-17).** A film facade: the portrait `<Image>` is what ships
@@ -307,8 +313,9 @@ paragraph). The table is kept as the map of where each rule lives.
 
 - **Amy's review** — now on the standing demo (#97), phone first: the
   hero film and her sign-off on her own generated likeness in it
-  (2026-09-17, re-ordered 2026-09-18; its finish a new smile take since
-  2026-09-25; the reel and its
+  (2026-09-17, re-ordered 2026-09-18; since 2026-09-30 the portrait is
+  a still, so the hair shot is the only generated one left; the reel
+  and its
   two-pass ending are history), the van
   band, the display sizes, the
   new lead and intro deck wording, and her pick among three headline

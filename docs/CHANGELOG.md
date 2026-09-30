@@ -6,6 +6,28 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-30 — The home hero film rests on the portrait as a still, and the pink-scrubs portrait joins it (v10)
+
+- Amy's request: the closing shot's turn and smile are gone. The film
+  now rests on her counter portrait as a still photo under a slow
+  camera drift.
+- Her pink-scrubs portrait joins the run of stills, 1.8 seconds under a
+  camera push. The stool shot moves from fifth to third, so the pink
+  light dissolves into the pink scrubs. The opening hair shot is
+  unchanged.
+- Made and withdrawn the same day, before merge: a version (v9) in
+  which her hair lifted on a breeze, only the hair generated and her
+  face, hands and lettering the photograph's. The operator was told not
+  to move her hair, so the picture is a still.
+- `hero-living-portrait-v10.mp4` on the media origin: 11.13s, 267
+  frames, 3,697,841 B. v8 and v9 stay there, unreferenced.
+- The film's description and the caption file's notes say what it shows
+  now (`?v=6`). The pink-scrubs still ships under a sharpness
+  exception.
+- 120 of the 450 Higgsfield credits approved were used, on footage that
+  does not ship.
+- DECISIONS 2026-09-30, the hero film entry and its addendum.
+
 ### 2026-09-30 — Home carousel: a Sound button and a captions button; the five films have their own sound
 
 - Amy's request: visitors can turn sound on in the carousel. The films

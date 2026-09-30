@@ -416,14 +416,15 @@ carries an 80KB script budget for the layer (measured ~69KB gzipped);
 every other page keeps 30KB.
 
 **The hero film** is a film facade: the portrait `<Image>` ships and
-paints; the script attaches `hero-living-portrait-v8.mp4` (the media
+paints; the script attaches `hero-living-portrait-v10.mp4` (the media
 origin) over it and fades it in (1.6s, after a 0.2s wait). Since
-2026-09-17 (DECISIONS same date) it is one purpose-made 11.5s file played
+2026-09-17 (DECISIONS same date) it is one purpose-made 11.1s file played
 at 1× with the native loop, so there is nothing to trim or join. Since
-2026-09-18 (the founders' order) it opens on the hair shot and finishes
-on the portrait coming alive; the loop point sits inside a white flash.
-Since 2026-09-25 (Amy's request) the portrait turns and smiles rather
-than laughs; since 2026-09-26 (the client) the smile is warmer. The settings are data attributes on the `.nc-hero__media`
+2026-09-18 (the founders' order) it opens on the hair shot; the loop
+point sits inside a white flash. Since 2026-09-30 (Amy's request) it
+rests on the portrait as a still under a slow camera drift, with no
+turn and no smile, and her pink-scrubs portrait joins the stills. The
+hair shot is its one generated performance. The settings are data attributes on the `.nc-hero__media`
 element in `src/components/ConceptHome.astro`:
 
 | Knob | Today | Meaning |
@@ -482,6 +483,21 @@ the corners lift and the cheeks and eyes join in (DECISIONS 2026-09-26,
 v8): measure the corner lift, paste the whole face, and pin the eyes in
 the prompt ("as open as in the final frame") — asked for smiling eyes,
 Seedance closes them past the end frame.
+To make a photograph live without changing her face (DECISIONS
+2026-09-30; built as v9 and withdrawn before merge on the operator's
+word, so the method is here and the footage is not in the film): give
+the photograph as the first AND the last frame.
+The model then keeps her in place and brings her hair back to rest;
+with the photograph as the first frame only, she swayed. A draft costs
+a quarter of a take and a finished draft repeats its movement; the CLI
+refuses `--draft_job_id`, so finish a draft through the Higgsfield
+connector. The model still redraws her face and greys her colour
+mid-take, so the edit lays the photograph back (`ps-*.cjs` in the
+working folder): fit each frame on the background's edges, match its
+colour where nothing moves, keep the take only inside ONE mask that
+covers everywhere the moving hair goes, and keep her face (her skin
+only), her hands and any lettering the photograph's. `ps-check.cjs`
+proves those areas equal the photograph.
 Verify on the running page: count `requestVideoFrameCallback`
 presentations for a loop and sample `paused` every 50ms — expect the
 film's frame rate, 0 paused samples, no frame gap over ~100ms at the

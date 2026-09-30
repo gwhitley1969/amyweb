@@ -4,7 +4,7 @@ import TreatmentCard from './TreatmentCard.astro';
 import { CATEGORIES, serviceLines } from '../lib/serviceLines';
 import amyJeuveauVialEvolysse from '../assets/photos/amy-jeuveau-vial-evolysse.jpg';
 import amyEvolysseFormBanner from '../assets/photos/amy-evolysse-form-banner.jpg';
-import radiesseSyringes from '../assets/photos/radiesse-syringes.jpg';
+import amySyringeRaisedNeon from '../assets/photos/amy-syringe-raised-neon.jpg';
 import prpTreatment from '../assets/photos/prp-treatment.jpg';
 import pixel8InHand from '../assets/photos/pixel8-in-hand.jpg';
 import evolveBeltSelfie from '../assets/photos/evolve-belt-selfie.jpg';
@@ -58,7 +58,11 @@ const linePhotos: Record<string, { photo: ImageMetadata; position: string }> = {
   // lines out of every served crop.
   'wrinkle-relaxers': { photo: amyJeuveauVialEvolysse, position: 'top' },
   'dermal-fillers': { photo: amyEvolysseFormBanner, position: 'top' },
-  biostimulators: { photo: radiesseSyringes, position: 'attention' },
+  // 03 since 2026-09-30 (operator direction): Amy holding up a syringe,
+  // cut 4:5 from the supplied frame so the served file is the card's
+  // window and nothing below her elbow but two box tops shows; the crop
+  // leaves the rest of the tabletop out (screening in DECISIONS same date).
+  biostimulators: { photo: amySyringeRaisedNeon, position: 'centre' },
   // 04 since 2026-09-27 (operator direction): swapped with the
   // regenerative page's band photo — the card takes the PRP visit, the
   // band takes the device session. Anchored 'left': the saliency pick

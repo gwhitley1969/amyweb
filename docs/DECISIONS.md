@@ -14099,3 +14099,29 @@ the iPhone loop check are still to come.
   entry is needed; no structured data carries the card prices. The
   page's `clinicianApproved` stays false, and the sign-off sheet asks
   Amy to confirm the price.
+
+## 2026-09-30 — Biostimulators card: a new photo of Amy (operator direction)
+
+- **Context:** the operator supplied a new picture for the /services "03
+  Biostimulators" card (`C:\Amy\pics\button03.jpg`, 3683x2978, an iPhone
+  frame): Amy at a tabletop display with product cartons, two jars of
+  used vials and a labelled syringe tray.
+- **Screening (full resolution):** the full frame carries a per-vial
+  quantity legible on the used neuromodulator vials in the jar and on
+  their cartons, and injection-area labels on the tray: the dosing and
+  prep-workflow classes that have needed an override every time they
+  appeared (card 01, the training reel). Three 4:5 crops were shown
+  with that flag: the left crop as shot (override needed), the same
+  with the jar softened, and a crop centred on Amy.
+- **Decision:** the crop centred on Amy (x 640, y 25, 1380x1725 from the
+  master; sharp extract, JPEG q92, metadata stripped), committed as
+  `amy-syringe-raised-neon.jpg`. It shows Amy holding up a syringe, part
+  of the neon sign (not legible as the practice's name), her Evolus
+  scrubs, the top of a Radiesse carton and the top of a filler carton
+  whose lot sticker is upside down and unreadable. No quantity, label
+  or claim text is legible. Only Amy is pictured. No exception needed.
+- **Rejected:** the left crop (it needed an override for the vial
+  quantity) and the softened jar (the blur showed).
+- **Consequences:** `radiesse-syringes.jpg` has no other consumer and is
+  deleted (git history keeps it). The card's photo is decorative, so no
+  alt text changes; no page copy changes.

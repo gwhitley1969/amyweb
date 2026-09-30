@@ -53,11 +53,18 @@ check will refuse it. On a branch off `main`:
    the share title): the same rule, take the launch-tree side. The
    2026-09-27 hotfix edited the placeholder's page once more (the share
    title's wording): the same rule again.
-   `src/components/SeoHead.astro` and the three share cards
+   The three share cards
    (`public/og/needle-girlie-share.jpg`,
    `public/og/needle-girlie-share-2026-09-26.jpg`,
    `public/og/needle-girlie-share-2026-09-27.jpg`) are byte-identical on
-   both sides and merge clean.
+   both sides and merge clean. `src/components/SeoHead.astro` was
+   identical too until 2026-09-30. Since the medspa wording change it
+   differs by one word, in the share card's description: `phase-c`
+   says "medspa", and the placeholder on `main` was left as it is at
+   the operator's decision (DECISIONS 2026-09-30). Expect a one-line
+   conflict in that file in step 2: **take the `phase-c` side**. A
+   trial merge on 2026-09-30 showed that line and nothing else in the
+   file.
 2. `git merge phase-c` — brings every post-takedown revision.
 3. In the same PR: delete `src/assets/photos/studio-counter-portrait.jpg`
    (the placeholder's photo — zero-reference once the placeholder

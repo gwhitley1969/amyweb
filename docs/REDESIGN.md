@@ -35,8 +35,8 @@ pink."** Seven gaps, each a test every design decision must move:
 | **Scope: EVOLVE the current design** — ombre canvas + plate system stay; new photos/video/type/arches layer on (full reset offered, declined) | Settled | flag-once satisfied |
 | **Type: Playfair Display everywhere** — headings AND body, matching the logo's own face; body bumped to 17px/1.65; **DM Sans retired** (scope answer 2026-08-15: Playfair takes the small UI text too — weight is the legibility knob, never a second family). The wordmark master changed 2026-09-15 (a raster; the lettering reads as the same Playfair letterforms) — the face decision stands on visual continuity | **Shipped** (PR #103, merged 2026-08-15) | mobile-readability flagged and accepted; DECISIONS 2026-08-15 + 2026-09-15 |
 | **Home hero: Amy's studio-counter portrait** (interim AI-assisted 1400w blend, disclosed; her full-res original drops in with zero code changes) | **Shipped** (PR #101) | DECISIONS 2026-08-14 |
-| **Home video carousel** — Evolysse → Amy's promo → her billboard-day reel → Jeuveau → team film on a cinematic noir stage (the team film joined 2026-08-17; the Evolysse film, retired from dermal-fillers 2026-08-21, returned FIRST 2026-09-25 under operator override after the compliance flag — muted, its voiceover transcribed in a caption file that is off by default; the stage went full-width the same day so the 16:9 film presents large while the portrait films keep their size; on 2026-09-27 Amy's Mobile Aesthetics promo and her billboard-day reel replaced the first Jeuveau spot and the studio reel, under operator overrides after the compliance flags — the other providers and the printed practice-site address in the promo, its tray and cartons, the billboard's headline and a competitor-brand poster in the reel — and a sharpness exception for both); autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, reduced motion = cuts instead of crossfades (the films play under it since 2026-09-03) | **Shipped** (PR #101; the fifth film: PR #200 — **merged into `phase-c`** 2026-09-25, operator: "merge #200 and refresh #97 and #149"); films two and three replaced 2026-09-27 — PR #222, **merged into `phase-c`** (operator: "Merge and refresh"; both standing previews refreshed and probed the same day, five of five loads each) | DECISIONS 2026-08-14 ×3 + 2026-09-25 + 2026-09-27 |
-| **Media architecture: Blob media origin** — `media.needlegirlie.com` via the same Front Door (~$1–2/mo); the .mp4 films upload to Blob — the container holds twenty-four objects as of 2026-09-27 (recounted with `az storage blob list`), fourteen of them referenced: the five carousel films (`commercial-evolysse.mp4` uploaded 2026-09-25; `commercial-van-promo.mp4` and `commercial-billboard.mp4` 2026-09-27), the ICON film, the two biostimulators reels, the body-contouring reel, the widescreen sounded /about team-film rendition (`girl-team-film-wide.mp4`, 2026-08-26), the /injector-training training reel (`training-reel.mp4`), the regenerative PRP-visit reel (`prp-visit.mp4`), the home van-band film (`van-trip-sound.mp4`, 2026-09-25), and the home hero film (`hero-living-portrait-v8.mp4`, 2026-09-26); the seven earlier hero-film cuts (`hero-living-portrait.mp4`, `-v2` to `-v7`), since 2026-09-26 the viewfinder film (`van-viewfinder-treatment-trim.mp4`, retired with /mobile — DECISIONS same date, the Tox To Go page entry), and since 2026-09-27 the first Jeuveau spot and the studio reel (`commercial-j1.mp4`, `commercial-studio.mp4` — kept while open PRs #201 and #210 still build the old carousel) are unreferenced (the Evolysse film's first object, `evolysse-film.mp4`, deleted 2026-08-21 after the film retired — its 2026-09-25 return uses a new name; the portrait team-film object `girl-team-film.mp4`, replaced 2026-08-26, is deleted once no open PR references it), repo sheds 53MB; captions stay in-repo (compliance audit trail, same-origin = no CORS); previews play production media by design; publish procedure in RUNBOOK "Publishing a film" | **Built** (2026-08-17, external-audit Finding 5; Git-LFS declined — CI bandwidth trap) | DECISIONS 2026-08-17 |
+| **Home video carousel** — Evolysse → Amy's promo → her billboard-day reel → Jeuveau → team film on a cinematic noir stage (the team film joined 2026-08-17; the Evolysse film, retired from dermal-fillers 2026-08-21, returned FIRST 2026-09-25 under operator override after the compliance flag — muted, its voiceover transcribed in a caption file that is off by default; the stage went full-width the same day so the 16:9 film presents large while the portrait films keep their size; on 2026-09-27 Amy's Mobile Aesthetics promo and her billboard-day reel replaced the first Jeuveau spot and the studio reel, under operator overrides after the compliance flags — the other providers and the printed practice-site address in the promo, its tray and cartons, the billboard's headline and a competitor-brand poster in the reel — and a sharpness exception for both; on 2026-09-30, at Amy's request, the five films gained their own sound — they still start muted, and a Sound button turns it on for the film playing and every film after it — with a captions (CC) button, under operator overrides after the flags: three commercial songs with no licence on record, and the promo's sung words, which name the other providers and make a promise); autoplay muted on visibility, sound one tap away, crossfade rotation, WCAG 2.2.2 pause, reduced motion = cuts instead of crossfades (the films play under it since 2026-09-03) | **Shipped** (PR #101; the fifth film: PR #200 — **merged into `phase-c`** 2026-09-25, operator: "merge #200 and refresh #97 and #149"); films two and three replaced 2026-09-27 — PR #222, **merged into `phase-c`** (operator: "Merge and refresh"; both standing previews refreshed and probed the same day, five of five loads each); sound and captions 2026-09-30 — in review on its own PR (the promo's words to be confirmed by ear before merge) | DECISIONS 2026-08-14 ×3 + 2026-09-25 + 2026-09-27 + 2026-09-30 |
+| **Media architecture: Blob media origin** — `media.needlegirlie.com` via the same Front Door (~$1–2/mo); the .mp4 films upload to Blob — the container holds twenty-nine objects as of 2026-09-30 (recounted with `az storage blob list`), fourteen of them referenced: the five carousel films in their sound renditions (`commercial-evolysse-sound.mp4`, `commercial-van-promo-sound.mp4`, `commercial-billboard-sound.mp4`, `commercial-j2-sound.mp4`, `commercial-team-sound.mp4`, uploaded 2026-09-30), the ICON film, the two biostimulators reels, the body-contouring reel, the widescreen sounded /about team-film rendition (`girl-team-film-wide.mp4`, 2026-08-26), the /injector-training training reel (`training-reel.mp4`), the regenerative PRP-visit reel (`prp-visit.mp4`), the home van-band film (`van-trip-sound.mp4`, 2026-09-25), and the home hero film (`hero-living-portrait-v8.mp4`, 2026-09-26); the seven earlier hero-film cuts (`hero-living-portrait.mp4`, `-v2` to `-v7`), since 2026-09-26 the viewfinder film (`van-viewfinder-treatment-trim.mp4`, retired with /mobile — DECISIONS same date, the Tox To Go page entry), and since 2026-09-27 the first Jeuveau spot and the studio reel (`commercial-j1.mp4`, `commercial-studio.mp4` — kept while open PRs #201 and #210 still build the old carousel), and since 2026-09-30 the five silent carousel files the sound renditions replaced (`commercial-evolysse.mp4`, `commercial-van-promo.mp4`, `commercial-billboard.mp4`, `commercial-j2.mp4`, `commercial-team.mp4` — those two PRs still load three of them) are unreferenced (the Evolysse film's first object, `evolysse-film.mp4`, deleted 2026-08-21 after the film retired — its 2026-09-25 return uses a new name; the portrait team-film object `girl-team-film.mp4`, replaced 2026-08-26, is deleted once no open PR references it), repo sheds 53MB; captions stay in-repo (compliance audit trail, same-origin = no CORS); previews play production media by design; publish procedure in RUNBOOK "Publishing a film" | **Built** (2026-08-17, external-audit Finding 5; Git-LFS declined — CI bandwidth trap) | DECISIONS 2026-08-17 |
 | **Mobile Aesthetics badge in the header** — SVG vector rebuild (Julius Sans One outlines, measured geometry; lockup variant stays in the brand kit); FULL BADGE — as tall as the Needle Girlie lockup at every width: since 2026-09-25 (Amy's request, again) 102–127px on phones (127 from 412px, 121 at 390, 102 at 320; was 72px from 2026-09-23, 48 until then) and, since 2026-09-23, exactly as tall as the lockup beside it from 640px: 101–117px tablets / 152–187px desktop (was 48–72px tablets, 128–160px desktop), so the header's height is unchanged from 640px; lettering white since 2026-09-24 (operator direction — was silver-gray; the outline a touch heavier); **links out to yourmobileaesthetics.com** (new tab — constraint-2 operator override, the one sanctioned outbound reference) | **Shipped** (PR #102, merged 2026-08-15); enlarged 2026-09-23 — **merged into `phase-c`** (PR #197; operator: "go ahead and merge it and refresh #97 and #149"); lettering white 2026-09-24 — **merged into `phase-c`** (PR #199; operator: "merge #199 and refresh #97 and #149"); larger on phones 2026-09-25 — **merged into `phase-c`** (PR #202; operator: "merge #202 and refresh #97 and #149") | F-437304 asset set; DECISIONS 2026-08-15 (four entries) + 2026-09-23 + 2026-09-24 + 2026-09-25; CLAUDE.md constraint-2 exception |
 | **Hybrid nav** — hamburger menu carries the page links at EVERY width (inline desktop nav retired); Book is the one styled button, always visible; centered-brand shell at all widths (fixed the Z Fold collision, which predated the badge). **Phones stack since 2026-09-15** (client direction: the mark "too small on a phone"): below 640px the mark sits alone on top spanning the width (358×98 at 390, was 172×47), the badge + Book + menu on a utility row beneath; header ~200px (~224px once the badge grew to 72px, 2026-09-23; since 2026-09-25, with the badge as tall as the lockup, ~274px at 390 and ~286 from 412), not sticky; nothing shrinks or hides. Tablets/desktop keep the single row (desktop mark 600px since the same day) | **Shipped** (PR #102, merged 2026-08-15); phone stack in PR #186 | operator decision after options; DECISIONS 2026-08-15 + 2026-09-15 (seventh addendum) |
 | **Pink arches around pictures** — house frame motif, generalized from the category-door arch into the shared `.ng-arch` recipe; every photo sitewide (Amy's direction 2026-08-17), exempting the hero backdrop, all film stages, the homepage Instagram post (Amy's named exception), and the lip style-guide diagram. 2026-08-18 evolutions (client direction, PR #126): the treatment pages' white paper mats + print tilts retired — every treatment photo now a bare arch on the pink canvas, matching /services; and the arch family gained its wide sibling, the segmental arch (`media-band--segmental`, curve over straight feet at 3:2), for landscape frames that must show full content. 2026-09-27 (operator direction, PR #221): the /about lead portrait keeps its master's own 2:3, the second portrait shown whole after the weigh-in frame's 3:4 | **Built** (2026-08-17; bare-arch + segmental 2026-08-18; the 2:3 lead portrait 2026-09-27) | DECISIONS 2026-08-17 + 2026-08-18 + 2026-09-27 (the /about lead portrait entry) |
@@ -70,7 +70,27 @@ pink."** Seven gaps, each a test every design decision must move:
 | **/about: a new lead portrait; the family portrait moves into the text column (2026-09-27)** — the operator's request: the supplied picture (Amy in a pink dress on her studio counter, frame 8K0A3317, exactly as supplied) leads the page to the right of the opening section, shown whole at its own 2:3 in the arch (the 4:5 house window would cut her at the ankles; the weigh-in frame and the Girl Team still are the precedents); the family portrait, which led the page at Amy's own request, drops to two-thirds of its size and sits under the last paragraph, above "Book with Amy"; on phones the new picture follows the opening line; the size and the phone order are the operator's picks from mock sheets; the picture is in the product-box and vial classes the 2026-07-23 rubric excluded and went up on the operator's approval after the flag (only the cartons' brand and product names are readable, names the site's own copy says, so no constraint is engaged and no exception is written); no wording changed; pa11y 25, LHCI 8 | **Merged into `phase-c`** 2026-09-27 (PR #221, on the operator's word: "Merge now"; Amy has not seen it, and production stays gated by her sign-off) | DECISIONS 2026-09-27 (the /about lead portrait entry); CLINICIAN-SIGN-OFF |
 | **"studio" becomes "medspa" in the site's text (2026-09-30)** — Amy's direction, relayed by the operator ("everywhere it says 'studio', she wants it replaced with 'medspa', and yes she wants medspa as one word"). Counted on a build: 123 occurrences in the 25 pages, of which 110 changed — 25 in page text, 17 photo descriptions, 15 film labels (8 in source), the share card's description on every page, and the Skincare page's search description. 13 stay: the three picture file names (12 addresses) and the Girl Team photo's description, which keeps the word at the operator's choice (a photo studio). The notes in six caption files follow the labels. The operator's other answers: the live Under Construction page is not changed, no build check, no file renamed. The rule is in CLAUDE.md, BUILD_SPEC §6 and RUNBOOK. Six pictures and six films under recorded overrides had one word of their description or label changed; no override term is touched. The built pages differ from the baseline by this word and nothing else; every stylesheet, script and image is byte-identical | **Merged into `phase-c`** 2026-09-30 (PR #225, on the operator's word: "Merge now"; Amy has not seen it on the pages, and production is unchanged) | DECISIONS 2026-09-30; CLINICIAN-SIGN-OFF; RELAUNCH (the head component now differs from `main` by one word) |
 
-## Carousel record (J1/studio/J2 cleared 2026-08-14; team film 2026-08-17; Evolysse film first, 2026-09-25; films two and three replaced 2026-09-27)
+## Carousel record (J1/studio/J2 cleared 2026-08-14; team film 2026-08-17; Evolysse film first, 2026-09-25; films two and three replaced 2026-09-27; sound and captions 2026-09-30)
+
+- **2026-09-30 — the films carry their own sound; a Sound button and a
+  captions button join the pause button (Amy's request):** five new
+  objects, `commercial-<name>-sound.mp4`, each the silent file's
+  picture copied bit for bit with the master's sound beside it, one
+  plain volume offset per film to a common level (the promo has three,
+  one per section of its own mix). The films still start muted; Sound
+  stays on from film to film until the visitor turns it off, is never
+  on at load and is never stored. The Sound tap makes and unmutes all
+  five players inside the tap, which is what WebKit needs on an
+  iPhone; a film the browser refuses to start with sound plays muted
+  and the button shows off. One soundtrack at a time on the page; a
+  hidden tab pauses the films. **Operator overrides** after the flags:
+  the promo's, the billboard-day reel's and the team film's songs are
+  commercial songs with no licence on record, and the promo's words
+  name the other providers and make a promise (CLAUDE.md constraints 2
+  and 3). Its caption file carries the sung words; the reel's and the
+  team film's carry bounded `[Music]` cues; the two Evolus files keep
+  their text. Layout: the three controls are one group and wrap under
+  the bars on every phone (the section is 44px taller there).
 
 - **2026-09-27 — Amy's promo and her billboard-day reel replace films
   two and three (operator request):** `commercial-van-promo.mp4` (Amy's
@@ -116,13 +136,17 @@ pink."** Seven gaps, each a test every design decision must move:
   still reads fast someday, the lever is re-editing the reel, not the
   rate. The Evolus films always play at 1× (carried as-is).
 
-- **Slides (since 2026-09-27):** `commercial-evolysse.mp4` /
-  `commercial-van-promo.mp4` / `commercial-billboard.mp4` /
-  `commercial-j2.mp4` / `commercial-team.mp4` on the media origin, muted
-  H.264 renditions of the operator's masters; the two manufacturer
-  films' captions mirror their on-screen text (the Evolysse file adds
-  its voiceover), and the three site-authored films ship a captions
-  track with no cues (silent films have nothing to caption — DECISIONS
+- **Slides (the order since 2026-09-27; the sound renditions since
+  2026-09-30):** `commercial-evolysse-sound.mp4` /
+  `commercial-van-promo-sound.mp4` / `commercial-billboard-sound.mp4` /
+  `commercial-j2-sound.mp4` / `commercial-team-sound.mp4` on the media
+  origin, H.264 renditions of the operator's masters with each film's
+  own sound (AAC); they start muted. Each caption file is faithful to
+  the sound: the two manufacturer films' carry their on-screen text
+  (the Evolysse file adds its voiceover, the Jeuveau file a music
+  note), the billboard-day reel's and the team film's carry bounded
+  `[Music]` cues, and the promo's carries its sung words. A film with
+  no audio track would still ship a track with no cues (DECISIONS
   2026-09-20).
 - **J2** — the Evolus co-op Jeuveau DTC commercial (piece code
   US-JUV-2600126), carried **as-is** with complete burned-in FDA safety
@@ -137,7 +161,9 @@ pink."** Seven gaps, each a test every design decision must move:
   and zero video bytes at page load; script is a static file
   (public/js/video-carousel.js) because the CSP refuses inline scripts
   (DECISIONS 2026-08-14, two entries). First client-side JS on the
-  site (~3KB of the 30KiB budget; third-party stays 0).
+  site (~3KB of the 30KiB budget at first; 10,460 B raw and 3,781 B
+  compressed since the 2026-09-30 Sound and captions buttons, inside
+  the home row's 80KB; third-party stays 0).
 
 ## Open items
 
@@ -182,10 +208,22 @@ pink."** Seven gaps, each a test every design decision must move:
   original (the interim AI-assisted still is disclosed), a 16:9
   rendition of the Jeuveau spot (two until 2026-09-27), and a re-grade or re-shoot of
   the four /services snapshot cards.
-- **Sound for the films** — the CAROUSEL renditions are muted;
+- ~~**Sound for the films** — the CAROUSEL renditions are muted;
   tap-for-sound + audio-faithful captions is a recorded follow-up if
-  directed. (Treatment-page films keep their audio and play on click
-  — the biostimulators reels joined that class 2026-08-21.)
+  directed.~~ DONE 2026-09-30 at Amy's request: the five carousel
+  films carry their own sound behind a Sound button, with a captions
+  button (DECISIONS same date). (Treatment-page films keep their
+  audio — the biostimulators reels joined that class 2026-08-21.)
+- **Music licences** — the carousel's promo, billboard-day reel and
+  team film play commercial songs under the operator's 2026-09-30
+  override, with no licence on record; five other sounded films (the
+  /about team film, the two biostimulators reels, the body-contouring
+  reel, the training reel) carry music on a no-speech confirmation
+  alone. The position in DECISIONS 2026-09-03 and 2026-09-25 is that
+  a commercial song needs a licence for a business website.
+- **The promo's sung words** — its caption file ships a machine draft
+  to the preview; the operator or Amy confirms the words by ear before
+  the change merges.
 - ~~**Blob cleanup** — `evolysse-film.mp4` on media.needlegirlie.com~~
   DONE 2026-08-21 (operator direction): blob deleted, edge path purged,
   404 verified at the media origin; neighbours unaffected (DECISIONS

@@ -238,7 +238,7 @@ anything merged.)
 | `public/js/vendor/lenis.min.js` | 18,722 | Lenis 1.3.26 (MIT) — weighted scroll, pointer devices only, anchors kept |
 | `public/js/motion-flag.js` | 743 | sync, in the head: sets `html.motion` before first paint; self-cancels in 4s if the choreography never reports in |
 | `public/js/home-motion.js` | ~15.5K | the choreography, the reel facade, the cursor light |
-| `public/js/video-carousel.js` | 6,331 | the film band (phase-c file; the #180 fix) |
+| `public/js/video-carousel.js` | 10,460 | the film band (phase-c file; the #180 fix; 6,331 until the 2026-09-30 Sound and captions buttons) |
 
 All static same-origin files: `script-src 'self'` is untouched. GSAP
 and Lenis are also devDependencies, so the copies are reproducible.

@@ -6,6 +6,34 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-30 — Home carousel: a Sound button and a captions button; the five films have their own sound
+
+- Amy's request: visitors can turn sound on in the carousel. The films
+  still start muted. A Sound button beside pause turns on the sound of
+  the film playing and of every film after it; a CC button shows
+  captions.
+- Five new files on the media origin, `commercial-<name>-sound.mp4`.
+  The picture in each is the silent file's, copied bit for bit; the
+  sound is the master's, set to one level across the five films by a
+  plain volume offset each (the promo has three, one per section of
+  its own mix).
+- Operator overrides after the flags: three of the films carry
+  commercial songs with no licence on record, and the promo's song
+  names the other providers and makes a promise. Its caption file
+  carries the sung words.
+- Sound is never on at load and is not stored. A film the browser
+  refuses to start with sound plays muted. Turning it on mutes any
+  other film on the page; a hidden tab pauses the films.
+- The five caption files follow the sound: two bounded music cues on
+  the billboard-day reel and the team film, a music note on the
+  Jeuveau file, the Evolysse file's cues unchanged. Caption URLs go
+  to `?v=3`.
+- On phones the three controls sit on their own row under the
+  progress bars; the carousel section is 44 px taller there.
+- CLAUDE.md, BUILD_SPEC, RUNBOOK, REDESIGN, RELAUNCH, the compliance
+  README, the sign-off page and HOME-CONCEPT follow. DECISIONS
+  2026-09-30 has the measurements.
+
 ### 2026-09-30 — "studio" becomes "medspa" across the site's text
 
 - Amy's direction, relayed by the operator: wherever the site said

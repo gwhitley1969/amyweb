@@ -12,7 +12,7 @@ import laserEyeShields from '../assets/photos/laser-eye-shields.jpg';
 import skinbetterTrioForward from '../assets/photos/skinbetter-trio-forward.jpg';
 import inbodyWeighIn from '../assets/photos/inbody-weigh-in.jpg';
 import lavenderSuitStool from '../assets/photos/lavender-suit-stool.jpg';
-import ivDripNeon from '../assets/photos/iv-drip-neon.jpg';
+import ivDripsThreeClients from '../assets/photos/iv-drips-three-clients.jpg';
 import bioteBannerScale from '../assets/photos/biote-banner-scale.jpg';
 
 /**
@@ -83,7 +83,11 @@ const linePhotos: Record<string, { photo: ImageMetadata; position: string }> = {
   skincare: { photo: skinbetterTrioForward, position: 'centre' },
   'weight-loss-glp-1': { photo: inbodyWeighIn, position: 'attention' },
   'peptide-therapy': { photo: lavenderSuitStool, position: 'attention' },
-  'iv-therapy': { photo: ivDripNeon, position: 'centre' },
+  // 11 since 2026-09-30 (operator direction): three clients having IV
+  // drips, cut 4:5 from the supplied frame so the served file is the
+  // card's window; the crop leaves the shelf's posters out (screening in
+  // DECISIONS same date).
+  'iv-therapy': { photo: ivDripsThreeClients, position: 'centre' },
   'hormone-optimization': { photo: bioteBannerScale, position: 'top' },
 };
 

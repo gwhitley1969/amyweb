@@ -26,13 +26,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
   other film on the page; a hidden tab pauses the films.
 - The five caption files follow the sound: two bounded music cues on
   the billboard-day reel and the team film, a music note on the
-  Jeuveau file, the Evolysse file's cues unchanged. Caption URLs go
-  to `?v=3`.
+  Jeuveau file, the Evolysse file's cues unchanged. The promo's file
+  carries its sung words: a machine draft on the preview, then the
+  product line and the six names as the operator heard and spelled
+  them the same day. Caption URLs go to `?v=4` (`?v=3` for the
+  draft).
 - On phones the three controls sit on their own row under the
   progress bars; the carousel section is 44 px taller there.
 - CLAUDE.md, BUILD_SPEC, RUNBOOK, REDESIGN, RELAUNCH, the compliance
   README, the sign-off page and HOME-CONCEPT follow. DECISIONS
   2026-09-30 has the measurements.
+- On the preview the operator confirmed that an iPhone carries the
+  sound from one film to the next and that the levels sound right.
+- Merged 2026-09-30 on the operator's word ("Merge and refresh"), PR
+  #227. Both standing previews (#97, #149) refreshed after the merge.
 
 ### 2026-09-30 — "studio" becomes "medspa" across the site's text
 

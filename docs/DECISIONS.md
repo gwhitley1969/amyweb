@@ -13602,3 +13602,46 @@ URLs go to `?v=3`.
 - **Not testable from the build machine:** an iPhone (the hand-over
   follows WebKit's source; the operator's phone on the preview is the
   test), a phone with captions switched on, and how the films sound.
+
+**On the preview (PR #227, 2026-09-30).**
+- **The preview** passed its checks and answered correctly on three
+  clean rounds of probes in a row, then ten of ten. The browser runs
+  above passed again against the preview itself, in Chrome and in
+  Firefox.
+- **The operator's phone:** "I tried the iPhone in 'Low Power' Mode on
+  and didn't notice any difference in sound quality", and "The videos
+  look fine on both a desktop and iPhone."
+- **The promo's words, confirmed by ear.** The draft shipped with two
+  placeholders. Two more machine reads agreed with each other but not
+  with the ear: the operator heard the product line as "Jeuveau, Versa,
+  Radiesse" ("I think she actually says…"), and spelled the six first
+  names. The caption file carries both exactly as typed ("Put it as I
+  typed it"; "Just spell it out like I did"). The names are in that
+  file and are not printed in this log.
+- **No competitor's brand is written.** The machine's draft of that
+  line was nonsense, and the guess made from it put a competitor's
+  brand first; the ear corrected it. All three products are ones the
+  site's own pages already name.
+- **The roll-call is sung twice,** so it has two cues. The other five
+  lines are the machine's reading, shown on the preview and not
+  disputed.
+- **Caption URLs go to `?v=4`:** the preview had served the draft under
+  `?v=3`. The full chain ran again on the corrected captions and ended
+  with exit 0; the home row's total is 348,794 B (two bytes more, the
+  five caption URLs) and its largest paint 2,175 ms, median of 3.
+- **CLAUDE.md:** the eleventh pixel-level override now says that two of
+  the sung product names are also printed on the film's cartons, and
+  that the caption cues carry them as the song's words.
+- **The iPhone hand-over, confirmed.** Asked whether, with Sound on,
+  the sound kept playing when one film ended and the next started, the
+  operator answered "Yes, it kept playing". No iPhone can be driven
+  from the build machine, so that answer is the test.
+- **The levels, heard.** Asked how the five films' levels seemed, the
+  operator answered "They sound right".
+- **Still unconfirmed:** a phone with captions switched on, and Amy's
+  own reading of the promo's captions.
+
+**Merged (2026-09-30), on the operator's word ("Merge and refresh").**
+PR #227, once its checks had passed on the corrected captions. The
+standing demo (#97) and the review preview (#149) are refreshed from
+phase-c after the merge.

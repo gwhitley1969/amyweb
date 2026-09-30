@@ -289,7 +289,11 @@ silently following it. Known superseded points from earlier briefs:
      ever restated in site text — copy, the slide's label, the captions
      file, comments, meta, OG, JSON-LD; changing any of it requires the
      human operator. (Its other providers and printed address are
-     constraint 2's eighth exception.)* Nothing else; changing that list
+     constraint 2's eighth exception. Since 2026-09-30 the film's song
+     names three products, two of which are also printed on those
+     cartons; the caption cues carry them as the song's sung words —
+     the claims bullet's clause for this film's sound, DECISIONS same
+     date — and that is not a reading of the packaging.)* Nothing else; changing that list
      requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
@@ -355,7 +359,8 @@ silently following it. Known superseded points from earlier briefs:
      (`commercial-van-promo`; operator override after the compliance
      flag — DECISIONS 2026-09-30), carried as-is and heard only when a
      visitor turns the carousel's Sound button on: a re-worded song
-     whose words make an outcome promise with a time frame and speak
+     whose words make an outcome promise with a time frame, name three
+     products the site already names, and speak
      as a collective. The words live in the film's sound and in its
      caption file's cues (operator decision: the sung words, confirmed
      by ear) and nowhere else — never restated in copy, the slide's

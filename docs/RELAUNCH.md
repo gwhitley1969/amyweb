@@ -150,7 +150,7 @@ check will refuse it. On a branch off `main`:
   Also the carousel's sound (2026-09-30, DECISIONS same date):
   `/js/video-carousel.js` (200, `text/javascript`); the five slides'
   `data-file` values end in `-sound.mp4` and their `data-vtt` values in
-  `?v=3` or later; on a phone and a desktop, the Sound button turns the
+  `?v=4` or later; on a phone and a desktop, the Sound button turns the
   playing film's sound on and it carries to the next film, and the CC
   button shows captions. The band's "See the
   hostess perk ›" and the header's "Tox Together" item resolve to

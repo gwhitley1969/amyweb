@@ -683,9 +683,8 @@ silently following it. Known superseded points from earlier briefs:
   the founders' request — it opens on the hair shot, its loop point
   inside a white flash; since 2026-09-30, at Amy's request, the closing
   portrait is a still under a slow camera drift, the turn and the smile
-  gone, and the pink scrubs shot is the film's second living moment,
-  only her hair generated and her face the photograph's — DECISIONS
-  same date), autoplaying
+  gone, and her pink-scrubs portrait joins the stills — DECISIONS
+  same date and its addendum), autoplaying
   under reduced motion by the films policy.
   Widening any of this to another page requires the human operator.
   Fifth sanctioned consumer (2026-09-25, operator-directed — DECISIONS

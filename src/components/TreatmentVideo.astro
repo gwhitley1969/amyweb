@@ -93,7 +93,12 @@ interface Props {
    * van-trip film, Amy's own, whose rendition carries her voice at
    * 2:01–2:17, autoplays muted through its own player
    * (/js/band-film.js), sound one tap away. The rule stands for every
-   * other film; a further exception requires the human operator.* */
+   * other film; a further exception requires the human operator.*
+   * The home carousel is a different player with its own contract
+   * (VideoCarousel.astro): since 2026-09-30, at the operator's
+   * direction, its five films carry their own sound and every one
+   * starts muted with sound one tap away, the narrated Evolysse film
+   * included (DECISIONS same date). */
   autoplay?: 'inview';
 }
 

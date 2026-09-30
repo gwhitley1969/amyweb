@@ -12,7 +12,9 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  * HOME VIDEO CAROUSEL — the cinematic noir stage (operator direction
  * 2026-08-14, DECISIONS same date: "the way Audi presents video").
  * Five films crossfade on a full-bleed black stage: no player
- * chrome, thin progress bars, one understated pause control.
+ * chrome, thin progress bars, and three small controls — pause, and
+ * since 2026-09-30 Sound and captions (Amy's request, DECISIONS same
+ * date).
  *
  * FACADE PATTERN (BUILD_SPEC §9; also the perf fix — measured): the
  * server renders ONLY poster images. Parser-instantiated <video>
@@ -31,10 +33,11 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *    with its phone, QR code and microsite, and a spelling error on
  *    Amy's title card. It ran on dermal-fillers 2026-07-21 → 2026-08-21
  *    and was retired at the client's direction; this is its return.
- *    Muted like every film here, so its voiceover — which carries the
- *    spoken risk statement its on-screen lines do not — is heard
- *    nowhere; the caption file transcribes it, off by default like
- *    every track (operator decision after the flag). The one 16:9 film:
+ *    It starts muted like every film here. Since 2026-09-30 (operator
+ *    direction) its voiceover — which carries the spoken risk statement
+ *    its on-screen lines do not — plays when the Sound button is on;
+ *    the caption file transcribes it, off by default like every track
+ *    (operator decision after the flag). The one 16:9 film:
  *    the stage's `width: 100%` is what lets it present large. NEVER
  *    trim or crop it; plays at 1×.
  *  - commercial-van-promo — Amy's own Mobile Aesthetics promo, second
@@ -46,10 +49,14 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *    the poster — display-only, never printed in site text) and
  *    constraint 3's eleventh pixel-level override (the studio
  *    segment's product cartons and its tray with printed slot labels).
- *    Its label, its caption file and these comments name nobody and
- *    restate none of that packaging or labelling. 720px wide, so below
- *    the 2× sharpness rule at the stage's height cap (1.78×) — a
- *    recorded exception. Plays at 1×.
+ *    Its label and these comments name nobody and restate none of that
+ *    packaging or labelling. 720px wide, so below the 2× sharpness rule
+ *    at the stage's height cap (1.78×) — a recorded exception. Plays
+ *    at 1×. Its SOUND, since 2026-09-30, is a further OPERATOR OVERRIDE
+ *    after the flags: a re-worded pop song that names people and makes
+ *    a promise this site's own copy may not. The caption file carries
+ *    the sung words (operator decision — the one place they are
+ *    written); the label and these comments still restate none of it.
  *  - commercial-billboard — Amy's own reel of the day her billboard
  *    went up and a delivery reached her studio, third since
  *    2026-09-27. OPERATOR OVERRIDE after the compliance flag, carried
@@ -61,16 +68,20 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *    captions, these comments. A 576px copy: below the 2× sharpness
  *    rule on tablets and desktops (1.42× at the height cap) — a
  *    recorded exception until Amy's original arrives. Plays at 1×.
+ *    Its sound is a commercial song, start to finish (operator
+ *    override of the music-licence position, 2026-09-30).
  *  - commercial-j2 — the Evolus co-op Jeuveau spot (US-JUV-2600126)
  *    carried AS-IS, manufacturer safety text intact. NEVER trim or crop
  *    it: object-fit stays `contain` so the burned-in safety screens
- *    render complete. Its twin, commercial-j1, ran from 2026-08-14
- *    until the promo replaced it on 2026-09-27.
+ *    render complete. Its sound is the manufacturer's music, with no
+ *    voiceover. Its twin, commercial-j1, ran from 2026-08-14 until the
+ *    promo replaced it on 2026-09-27.
  *  - commercial-team — the Mobile Aesthetics "Girl team" film.
  *    Constraint-2 OPERATOR OVERRIDE 2026-08-17 (it features the
  *    location's other providers; flag raised, override chosen);
  *    releases for the five team members confirmed on file. Plays
- *    at 1×.
+ *    at 1×. Its sound is the song its /about rendition has played
+ *    since 2026-08-25 (the same 2026-09-30 music override).
  *  No film sets a rate now. The studio reel (commercial-studio, from
  *  2026-08-14 until the billboard-day reel replaced it on 2026-09-27)
  *  played at 0.5× (operator/Amy 2026-08-15, tuned across
@@ -79,16 +90,27 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *  the practical floor — engines clamp below it). The knob stays for
  *  Amy's own films; the manufacturer films always play at 1× — their
  *  presentation is carried as-is.
- *  Renditions are muted (no audio track). Every built video carries a
- *  captions track (the axe video-caption rule audits rendered <video>
- *  elements; not `default`). Since 2026-09-20 (DECISIONS same date) the
- *  site-authored films ship a track with NO cues — nothing to
- *  caption, and a cue painted a box over the film on every phone with
- *  captions switched on; the manufacturer films keep their transcript
- *  of the on-screen text, safety information included (carried as-is —
- *  operator decision; the Evolysse file adds its voiceover). The ?v=
- *  on data-vtt is a cache-bust (the files serve with a one-day
- *  max-age) — bump it when a caption file changes.
+ *  SOUND (2026-09-30, Amy's request — DECISIONS same date). Every
+ *  rendition carries its film's own sound; each is the `video` name
+ *  below, a new object beside the silent one it replaced (the picture
+ *  stream is that file's, copied bit for bit). The films still START
+ *  muted; the Sound button turns sound on for the film playing and
+ *  every film after it. One plain volume offset per film (no
+ *  compression, no limiting) brings them to a common level — figures
+ *  in DECISIONS — and the promo alone has three, one per section of
+ *  its own mix.
+ *  CAPTIONS. Every built video carries a captions track (the axe
+ *  video-caption rule audits rendered <video> elements; not
+ *  `default`); the CC button shows it, as does a device with captions
+ *  switched on. With sound, each file is faithful to the sound: the
+ *  Evolysse file is its voiceover with its on-screen text; the Jeuveau
+ *  file its on-screen text, safety information included, with a music
+ *  note; the billboard-day reel and the team film carry bounded
+ *  [Music] cues (a film-long cue would sit over the whole play); the
+ *  promo's carries its sung words. A film with NO audio track would
+ *  still ship a track with no cues (the 2026-09-20 rule). The ?v= on
+ *  data-vtt is a cache-bust (the files serve with a one-day max-age)
+ *  — bump it when a caption file changes.
  *  Since 2026-08-17 the .mp4 files serve from siteConfig.mediaBase
  *  (Blob behind the same Front Door) — data-file is absolute. The
  *  .vtt captions stay same-origin in public/media/ ON PURPOSE
@@ -111,12 +133,22 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *    touch-scroll's touchend counts — and the built <video> carries the
  *    muted + playsinline ATTRIBUTES beside the properties (iOS quirk).
  *  - Progress bars are buttons (jump to a film); fills track playback.
+ *  - Sound and CC are toggle buttons (aria-pressed). Sound stays on
+ *    from film to film and when the stage scrolls away and back; it is
+ *    never on at load and never stored (no cookie, no storage). A film
+ *    the browser will not start with sound plays muted and the button
+ *    shows off. A pause is left alone: turning sound on never starts a
+ *    paused film. Details in public/js/video-carousel.js.
  * Contrast on noir (recorded pairs): pink-500 fill 5.95:1; bar track
- * and toggle border paper@55% ≈ 5.3:1 (clears the 3:1 UI bar).
+ * and control borders paper@55% ≈ 5.3:1 (clears the 3:1 UI bar); a
+ * pressed Sound or CC button is noir on pink-500, 5.95:1.
  */
 
 const slides: {
+  /** The film's name: its caption file is /media/<file>.vtt. */
   file: string;
+  /** The object the player loads from the media origin (no extension). */
+  video: string;
   label: string;
   poster: ImageMetadata;
   /** Playback rate — set ONLY on Amy's own films (the Evolus films'
@@ -125,26 +157,31 @@ const slides: {
 }[] = [
   {
     file: 'commercial-evolysse',
+    video: 'commercial-evolysse-sound',
     label: 'Evolysse commercial — Mobile Aesthetics with Evolus',
     poster: evolyssePoster,
   },
   {
     file: 'commercial-van-promo',
+    video: 'commercial-van-promo-sound',
     label: "Mobile Aesthetics promo — Amy's medspa and the van",
     poster: vanPromoPoster,
   },
   {
     file: 'commercial-billboard',
+    video: 'commercial-billboard-sound',
     label: "Billboard day and a delivery at Amy's medspa",
     poster: billboardPoster,
   },
   {
     file: 'commercial-j2',
+    video: 'commercial-j2-sound',
     label: 'Jeuveau commercial — Mobile Aesthetics with Evolus',
     poster: j2Poster,
   },
   {
     file: 'commercial-team',
+    video: 'commercial-team-sound',
     label: 'Girl team — Mobile Aesthetics',
     poster: teamPoster,
   },
@@ -177,8 +214,8 @@ const slides: {
       slides.map((s, i) => (
         <div
           class:list={['vc-slide', { 'is-active': i === 0 }]}
-          data-file={`${siteConfig.mediaBase}/${s.file}.mp4`}
-          data-vtt={`/media/${s.file}.vtt?v=2`}
+          data-file={`${siteConfig.mediaBase}/${s.video}.mp4`}
+          data-vtt={`/media/${s.file}.vtt?v=4`}
           data-label={s.label}
           data-rate={s.rate}
         >
@@ -211,10 +248,24 @@ const slides: {
         ))
       }
     </div>
-    <button class="vc-toggle" type="button" data-state="paused" aria-label="Play the films">
-      <svg class="vc-ic-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" /></svg>
-      <svg class="vc-ic-pause" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h3v10H2zM7 1h3v10H7z" /></svg>
-    </button>
+    <div class="vc-controls">
+      <button class="vc-toggle" type="button" data-state="paused" aria-label="Play the films">
+        <svg class="vc-ic-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" /></svg>
+        <svg class="vc-ic-pause" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h3v10H2zM7 1h3v10H7z" /></svg>
+      </button>
+      {/* Toggle buttons: the name stays put and aria-pressed carries the
+          state. The CC button's name holds its two visible letters
+          (WCAG 2.5.3, label in name). */}
+      <button class="vc-sound" type="button" aria-pressed="false">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M2 6h3l4-3v10l-4-3H2z" />
+          <path class="vc-ic-off" d="M11.5 6l3 4m0-4l-3 4" />
+          <path class="vc-ic-on" d="M11 5.5a3.5 3.5 0 0 1 0 5m1.8-7a6 6 0 0 1 0 9" />
+        </svg>
+        <span>Sound</span>
+      </button>
+      <button class="vc-cc" type="button" aria-pressed="false" aria-label="Captions (CC)">CC</button>
+    </div>
   </div>
 </section>
 
@@ -274,12 +325,21 @@ const slides: {
     height: 100%;
     object-fit: contain;
   }
+  /* Two groups, the bars and the controls, side by side where they fit
+   * and on two rows where they do not (every phone: see the bars
+   * comment below). */
   .vc-ui {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 1.25rem;
+    gap: 0.75rem 1.25rem;
     margin-top: 1.5rem;
+  }
+  .vc-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
   .vc-bars {
     display: flex;
@@ -295,12 +355,16 @@ const slides: {
     background: transparent;
     cursor: pointer;
   }
-  /* Five bars at 64px + four 8px gaps + the 20px gap + the 44px toggle
-   * = 416px — wider than a 390px phone's 342px content box (and the
-   * 344px fold cover's 296px). 40px bars bring the row to 296px: the
-   * fold cover's content box exactly, 46px spare at 390; the 40×32
-   * button stays above the 24px WCAG target. (Four films ran 48px
-   * bars, 2026-08-17.) A sixth film needs a wrapping row. */
+  /* Five bars at 64px + four 8px gaps = 352px — wider than a 390px
+   * phone's 342px content box (and the 344px fold cover's 296px). 40px
+   * bars make the group 232px; the 40×32 button stays above the 24px
+   * WCAG target. (Four films ran 48px bars, 2026-08-17.) Since
+   * 2026-09-30 the controls are their own group (three buttons, 213px
+   * as measured) and wrap under the bars wherever the two do not fit
+   * one row: every phone, and windows 601–632px wide, where the bars
+   * are already at 64px. So the bars no longer share their row on a
+   * phone, and a sixth film's bars (280px) would fit the fold cover
+   * too. */
   @media (max-width: 600px) {
     .vc-bar {
       width: 40px;
@@ -324,10 +388,12 @@ const slides: {
     transform: scaleX(0);
     transform-origin: left;
   }
-  .vc-toggle {
+  .vc-toggle,
+  .vc-sound,
+  .vc-cc {
     display: grid;
     place-items: center;
-    width: 44px;
+    min-width: 44px;
     height: 44px;
     border: 1px solid color-mix(in srgb, var(--ng-paper) 55%, transparent);
     border-radius: 2px;
@@ -339,6 +405,50 @@ const slides: {
     width: 12px;
     height: 12px;
     fill: currentColor;
+  }
+  /* The label type is the eyebrow's (13px, 600, tracked capitals) in the
+   * control's own color. The right padding is smaller by the tracking
+   * the last letter carries, so the word sits centered. */
+  .vc-sound,
+  .vc-cc {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .vc-sound {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 calc(0.875rem - 0.18em) 0 0.875rem;
+  }
+  .vc-cc {
+    padding: 0 0 0 0.18em;
+  }
+  .vc-sound svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+  .vc-sound .vc-ic-off,
+  .vc-sound .vc-ic-on {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+  }
+  .vc-sound[aria-pressed='false'] .vc-ic-on,
+  .vc-sound[aria-pressed='true'] .vc-ic-off {
+    display: none;
+  }
+  /* On: noir on pink-500 (5.95:1). */
+  .vc-sound[aria-pressed='true'],
+  .vc-cc[aria-pressed='true'] {
+    border-color: var(--ng-pink-500);
+    background: var(--ng-pink-500);
+    color: var(--ng-noir);
   }
   .vc-toggle[data-state='paused'] .vc-ic-pause {
     display: none;

@@ -42,6 +42,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   #227. Both standing previews (#97, #149) refreshed after the merge.
 - Closing records, PR #228: DECISIONS gained what happened after the
   merge. No page changed.
+- Follow-up records, PR #230: RUNBOOK says where the sound files, their
+  build script and the browser tests are kept (outside the repo) and
+  states the one-soundtrack rule with the van band's film; DECISIONS
+  gained the closing facts. No page changed.
 
 ### 2026-09-30 — "studio" becomes "medspa" across the site's text
 

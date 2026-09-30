@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-09-30 — /services: new IV card photo, brighter Hormone card
+
+- Card 11 now shows three clients having IV drips in the medspa's
+  lounge, cut 4:5 from a new frame the operator supplied; the crop
+  leaves out the shelf's posters. The old IV photo is removed.
+- Card 12's photo is brighter, re-derived from its master. Same frame,
+  no copy or alt changes. DECISIONS 2026-09-30.
+
 ### 2026-09-30 — The /services Biostimulators card has a new photo of Amy
 
 - Card 03 now shows Amy holding up a syringe beside the neon sign, cut

@@ -14133,3 +14133,57 @@ the iPhone loop check are still to come.
 - **Consequences:** the other places have no address on the site, and
   the card keeps the one they can drive to. The pages' JSON-LD still
   carries the Harrisburg address only.
+
+## 2026-09-30 — Regenerative card: the PRP photo gets a colour grade (operator direction)
+
+- **Context:** the operator found the /services "04 Regenerative
+  Treatments" card photo (`prp-treatment.jpg`) washed out, the client
+  most of all, and asked for a little warmth on him and on Amy and a
+  lighter grey wall.
+- **Decision:** a local colour grade, no generated pixels, derived in
+  one generation from the master (`prp01.png`, its top 895x796, the
+  same window as before) per the RUNBOOK's tone-fix rule. The client's skin is warmed and slightly
+  deepened; Amy's arms take a lighter version of the same; the grey
+  wall (the neon-lit part included) is lifted about 30% of the way
+  toward white, sparing highlights. Amy's face keeps the photo's own
+  colour and brightness, untouched. Masks were drawn from
+  colour plus traced outlines of both heads, so the hair, the gloves,
+  the scrubs, his shirt and the chair are untouched. Recipe: the sharp
+  script `C:\Amy\photo-grades\prp-treatment\grade.cjs`, run as
+  `node grade.cjs M 0.55 0.3 0.4 0` (client skin warmth 0.55, wall
+  lift 0.3, Amy's arms 0.4, her face and hair 0); JPEG q92 at 4:4:4.
+  It reproduces the committed file byte for byte; the folder's README
+  explains the masks.
+- **Rejected, on sight:** a stronger grade (the operator chose the
+  gentle one); Amy's face matched to her extended arm (too yellow),
+  and her face lightened (too pale), so her face is exactly the
+  photo's.
+- **Consequences:** only the card changes (the /services menu and the
+  style guide, which renders it); no copy or alt text changes, and
+  nothing new is shown. The pre-grade file stays in git history.
+
+## 2026-09-30 — Biostimulators card: a new photo of Amy (operator direction)
+
+- **Context:** the operator supplied a new picture for the /services "03
+  Biostimulators" card (`C:\Amy\pics\button03.jpg`, 3683x2978, an iPhone
+  frame): Amy at a tabletop display with product cartons, two jars of
+  used vials and a labelled syringe tray.
+- **Screening (full resolution):** the full frame carries a per-vial
+  quantity legible on the used neuromodulator vials in the jar and on
+  their cartons, and injection-area labels on the tray: the dosing and
+  prep-workflow classes that have needed an override every time they
+  appeared (card 01, the training reel). Three 4:5 crops were shown
+  with that flag: the left crop as shot (override needed), the same
+  with the jar softened, and a crop centred on Amy.
+- **Decision:** the crop centred on Amy (x 640, y 25, 1380x1725 from the
+  master; sharp extract, JPEG q92, metadata stripped), committed as
+  `amy-syringe-raised-neon.jpg`. It shows Amy holding up a syringe, part
+  of the neon sign (not legible as the practice's name), her Evolus
+  scrubs, the top of a Radiesse carton and the top of a filler carton
+  whose lot sticker is upside down and unreadable. No quantity, label
+  or claim text is legible. Only Amy is pictured. No exception needed.
+- **Rejected:** the left crop (it needed an override for the vial
+  quantity) and the softened jar (the blur showed).
+- **Consequences:** `radiesse-syringes.jpg` has no other consumer and is
+  deleted (git history keeps it). The card's photo is decorative, so no
+  alt text changes; no page copy changes.

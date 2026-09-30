@@ -34,14 +34,18 @@ merged here; the hero reel takes the same policy.
 choppy, and after four rounds (a pixel-locked cinemagraph — "boring";
 the fast cut with AI living moments — "That looks great!!!"; a hop at
 the handoff; the head turn's speed; the eyes) the hero plays
-`hero-living-portrait-v8.mp4`, one purpose-made looping film —
+`hero-living-portrait-v9.mp4`, one purpose-made looping film —
 AI-assisted and disclosed (DECISIONS 2026-09-17, the entry and its
 addenda; merged in PR #190). Through v4 it opened and ended on the
 portrait; since 2026-09-18, at the founders' request, the same shots
 run in a new order: the hair shot opens, the portrait comes alive,
 turns and laughs at the finish, and the loop point sits inside a white
 flash (DECISIONS 2026-09-18); since 2026-09-25, at Amy's request, she
-smiles rather than laughs (a new generated take, DECISIONS same date).
+smiled rather than laughed (a new generated take, DECISIONS same date);
+since 2026-09-30, at Amy's request, the turn and the smile are gone:
+the film rests on the portrait as a still, and her pink-scrubs portrait
+comes alive before it, her hair lifting and her face the photograph's
+(DECISIONS 2026-09-30, the hero film entry).
 Everything
 below about the reel, its passages, and its knobs is that round's
 record.
@@ -100,13 +104,14 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   Palacios, FNP, in medical aesthetics since 2017."* Below 900px the
   hero is the phase-c stack.
 - **The film since 2026-09-17.** The reel described in the next item
-  is history: the hero now plays `hero-living-portrait-v8.mp4`, one
-  purpose-made 11.5s film (24fps, native loop, 3.6MB) that needs no
+  is history: the hero now plays `hero-living-portrait-v9.mp4`, one
+  purpose-made 12.3s film (24fps, native loop, 4.2MB) that needs no
   ranges, joins, or rest — AI-assisted and disclosed (DECISIONS
-  2026-09-17). Since 2026-09-18 it opens on the hair shot and finishes
-  on the portrait coming alive (the turn and, since 2026-09-25 at Amy's
-  request, a warm smile, made warmer 2026-09-26); its loop point is
-  a white flash, and the fade-in waits 0.2s so the flash never shows on
+  2026-09-17). Since 2026-09-18 it opens on the hair shot; since
+  2026-09-30, at Amy's request, it rests on the portrait as a still
+  under a slow camera drift, and her pink-scrubs portrait is its second
+  living shot (her hair lifts; her face is the photograph's); its loop
+  point is a white flash, and the fade-in waits 0.2s so the flash never shows on
   a first visit. `data-first` 5 and the 1.6s fade-in are all that
   remain of the knobs below.
 - **The reel (2026-09-03 to 2026-09-17).** A film facade: the portrait `<Image>` is what ships
@@ -307,8 +312,9 @@ paragraph). The table is kept as the map of where each rule lives.
 
 - **Amy's review** — now on the standing demo (#97), phone first: the
   hero film and her sign-off on her own generated likeness in it
-  (2026-09-17, re-ordered 2026-09-18; its finish a new smile take since
-  2026-09-25; the reel and its
+  (2026-09-17, re-ordered 2026-09-18; since 2026-09-30 the portrait is
+  a still and the pink-scrubs shot is the new generated one; the reel
+  and its
   two-pass ending are history), the van
   band, the display sizes, the
   new lead and intro deck wording, and her pick among three headline

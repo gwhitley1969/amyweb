@@ -680,10 +680,12 @@ silently following it. Known superseded points from earlier briefs:
   since 2026-09-17 the purpose-made living-portrait film (AI-assisted,
   disclosed — DECISIONS same date; it replaced the studio reel's three
   screened passages and their portrait beat; re-ordered 2026-09-18 at
-  the founders' request, same footage — it opens on the hair shot and
-  finishes on the portrait coming alive, its loop point inside a white
-  flash; since 2026-09-25, at Amy's request, the portrait smiles rather
-  than laughs, a new generated take — DECISIONS same date), autoplaying
+  the founders' request — it opens on the hair shot, its loop point
+  inside a white flash; since 2026-09-30, at Amy's request, the closing
+  portrait is a still under a slow camera drift, the turn and the smile
+  gone, and the pink scrubs shot is the film's second living moment,
+  only her hair generated and her face the photograph's — DECISIONS
+  same date), autoplaying
   under reduced motion by the films policy.
   Widening any of this to another page requires the human operator.
   Fifth sanctioned consumer (2026-09-25, operator-directed — DECISIONS

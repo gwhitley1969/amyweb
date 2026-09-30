@@ -102,11 +102,12 @@ check will refuse it. On a branch off `main`:
   2026-09-30 — `commercial-evolysse-sound.mp4`,
   `commercial-van-promo-sound.mp4`, `commercial-billboard-sound.mp4`,
   `commercial-j2-sound.mp4`, `commercial-team-sound.mp4`, each with one
-  video and one audio stream; the five silent files they replaced, and
-  `commercial-j1.mp4` and `commercial-studio.mp4`, which Amy's promo
-  and her billboard-day reel replaced on 2026-09-27, stay unreferenced
-  while open PRs still build an older carousel, so none of those seven
-  is a probe target)
+  video and one audio stream; none of the silent files they replaced
+  is a probe target: the promo's and the billboard reel's were deleted
+  2026-09-30, and the Evolysse, Jeuveau and team silent files, with
+  `commercial-j1.mp4` and `commercial-studio.mp4` (replaced
+  2026-09-27), stay only while open PRs #201 and #210 still build an
+  older carousel)
   + the ICON film on /about + the two
   biostimulators reels `radiesse-visit.mp4` / `amy-reel.mp4` + the
   body-contouring reel `evolve-reel.mp4` + the /about team film

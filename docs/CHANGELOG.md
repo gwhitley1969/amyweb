@@ -24,6 +24,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - RELAUNCH and RUNBOOK note that the shared head component now
   differs from `main` by one word.
 - All twelve treatment pages changed. No approval flag moved.
+- Merged 2026-09-30 on the operator's word ("Merge now"), PR #225,
+  its own preview serving the new wording. Both standing previews
+  (#97, #149) refreshed after the merge.
 
 ### 2026-09-27 — /about leads with a new picture of Amy; her family picture moves into the text
 

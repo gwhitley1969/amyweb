@@ -13362,3 +13362,10 @@ log entries: the logs are history.
   brings it back.
 - **Amy has not seen the new wording on the pages.** Production is
   unchanged.
+
+**Merged (2026-09-30), on the operator's word ("Merge now").** PR
+#225. Its own preview served the new wording on three clean passes
+in a row, each reading five pages and one caption file, plain and
+cache-busted, before the merge question was asked. The standing demo
+(#97) and the review preview (#149) are refreshed from phase-c after
+the merge; #149's refresh is the hand merge named above.

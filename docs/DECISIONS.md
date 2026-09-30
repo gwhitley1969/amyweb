@@ -13426,3 +13426,23 @@ in a row, each reading five pages and one caption file, plain and
 cache-busted, before the merge question was asked. The standing demo
 (#97) and the review preview (#149) are refreshed from phase-c after
 the merge; #149's refresh is the hand merge named above.
+
+**After the merge (2026-09-30).**
+- **The merge:** PR #225 merged at 13:51 UTC as `441126a`, at the head
+  `d94d5f9`. Both of its check runs had finished green, the first
+  push's and the merge record's.
+- **The standing demo (#97)** was refreshed to `ec32f7f` by a clean
+  merge.
+- **The review preview (#149)** was refreshed to `7dd8470` by the hand
+  merge in the Visit page: its tag line kept, the new label taken.
+  The fast gates passed on the result before it was pushed, and its
+  built pages gave the same counts, 13 and 110.
+- **Both refreshes passed their checks,** and both previews served
+  the new wording on three clean passes in a row, each pass reading
+  five pages and one caption file, plain and cache-busted.
+- **Environments:** the PR's own was removed when it closed, and its
+  host answers 404. The list holds default, 97, 149, 201 and 210, so
+  nothing is stray.
+- **The main checkout** was fast-forwarded to `441126a`.
+- **These facts** went in as PR #226, a records-only change. No
+  page changed.

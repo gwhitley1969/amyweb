@@ -439,6 +439,14 @@ for clinical-routing contexts ("is this right for me → request a
 consultation"); **"appointment"** is used for booking/conversion contexts
 ("book an appointment"). Do not mix them.
 
+Place name (Amy's direction, relayed by the operator, 2026-09-30;
+DECISIONS same date): the place where Amy works is **"the medspa"**,
+one word, never "studio", in all rendered text: copy, alt text, film
+labels, meta and share descriptions. One exception, the operator's
+choice: the /about Girl Team photo's alt text keeps "studio" (a photo
+studio). Not gated. File names, code comments and earlier records keep
+the old word.
+
 CTA label amendment (operator, 2026-07-20): every conversion button is
 labeled **"Book with Amy"**, including consult-routed ones. The table's
 "Request a consultation" cells describe routing intent in prose, not

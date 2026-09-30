@@ -135,6 +135,14 @@ are. The gate reads this repo's pages and never the practice site
 itself, so screen the destination again when its content is known to
 have changed.
 
+**The place is "the medspa".** Since 2026-09-30, at Amy's direction,
+copy calls the place where she works the medspa: one word, never
+"studio" (DECISIONS same date). That covers page text, photo
+descriptions, film labels, page descriptions and the notes in caption
+files. One description keeps the old word, the Girl Team photo's on
+/about, because that room is a photo studio. No gate checks this, so
+read new copy for it. File names and code comments are left alone.
+
 ## Where `phase-c` is visible
 
 `pr-preview.yml` triggers on `pull_request` only — never on `push`. The
@@ -559,6 +567,11 @@ the default `og:image` and `twitter:image` that
    still asks for it. While `main` is still the placeholder, ship the
    same file and the same `SeoHead.astro` to `main` too, byte-identical
    (a hotfix PR — "Hotfixing production during the takedown era").
+   Since 2026-09-30 the two copies of `SeoHead.astro` differ by one
+   word: the card's description says "medspa" on `phase-c` only, the
+   live page having been left as it is (DECISIONS same date). A card
+   hotfix that copies the file whole carries that word to the live
+   page, so say so when asking for the merge.
 3. After production deploys, refresh the two big caches: Facebook's
    Sharing Debugger (developers.facebook.com/tools/debug, "Scrape
    Again") and LinkedIn's Post Inspector (linkedin.com/post-inspector).

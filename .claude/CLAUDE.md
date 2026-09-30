@@ -76,8 +76,10 @@ silently following it. Known superseded points from earlier briefs:
    *Second scoped exception (operator override after the
    compliance flag — DECISIONS 2026-08-17; placement widened
    2026-08-25): the Mobile Aesthetics team film, which shows the
-   location's other five providers on camera — the muted
-   home-carousel rendition (`commercial-team`) and, since 2026-08-25
+   location's other five providers on camera — the home-carousel
+   rendition (`commercial-team`; it starts muted and, since
+   2026-09-30, carries the film's song one tap away — DECISIONS same
+   date) and, since 2026-08-25
    at the client's direction, the sounded rendition inside the
    /about Girl Team unit (autoplay muted in view, music one tap
    away) — since 2026-08-26 the widescreen `girl-team-film-wide`, a
@@ -155,10 +157,21 @@ silently following it. Known superseded points from earlier briefs:
    The practice's web address is printed on every frame and on the
    film's poster — a DISPLAY-ONLY pixel reference, not a link (the
    fifth exception's class); the site's text never prints it. Fixed
-   terms: this film and its poster, in the carousel; its label, its
-   caption file and comments name nobody; another placement requires
+   terms: this film and its poster, in the carousel; its label and
+   comments name nobody; another placement requires
    the human operator. (Its product cartons and tray are constraint
-   3's eleventh pixel-level override.)*
+   3's eleventh pixel-level override.) Since 2026-09-30 (operator
+   override after the compliance flag — DECISIONS same date) the
+   film's own SOUND plays when a visitor turns the carousel's Sound
+   button on: a re-worded song that names the location's other
+   providers aloud, by first name. Its caption file carries the sung
+   words, the names with them (operator decision: the accessible
+   choice, the words confirmed by ear — the operator's or Amy's
+   confirmation is the record). That file's cues are the one place
+   the names are written; they are never restated in any other site
+   text — copy, the slide's label, comments, meta, OG, JSON-LD. (The
+   song's promise and its collective voice are recorded under
+   constraint 3.)*
    *Outside these eight exceptions the other providers are still never
    named or implied in any needlegirlie.com text, and adding any
    further film or mention, or any link outside the seventh
@@ -276,7 +289,11 @@ silently following it. Known superseded points from earlier briefs:
      ever restated in site text — copy, the slide's label, the captions
      file, comments, meta, OG, JSON-LD; changing any of it requires the
      human operator. (Its other providers and printed address are
-     constraint 2's eighth exception.)* Nothing else; changing that list
+     constraint 2's eighth exception. Since 2026-09-30 the film's song
+     names three products, two of which are also printed on those
+     cartons; the caption cues carry them as the song's sung words —
+     the claims bullet's clause for this film's sound, DECISIONS same
+     date — and that is not a reading of the packaging.)* Nothing else; changing that list
      requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
@@ -294,12 +311,15 @@ silently following it. Known superseded points from earlier briefs:
      cartons' small print (a fill volume at the edge of legibility at
      the rendition's native 1920px — the committed poster is 960px so
      the still never carries it legibly).
-     Muted like every carousel film, so its voiceover — which carries
+     It starts muted like every carousel film. Since 2026-09-30
+     (operator direction — DECISIONS same date) the carousel's Sound
+     button plays its own sound, so its voiceover — which carries
      the film's spoken risk statement, beyond the four safety lines on
-     screen — is heard nowhere; its transcript lives in the caption
+     screen — is one tap away; its transcript lives in the caption
      file, off by default (operator decision after the flag; captions
-     on by default was recommended and declined). Moving the film,
-     unmuting it, turning its captions on by default, or any other
+     on by default was recommended and declined) and one tap away on
+     the CC button. Moving the film, starting it with sound, turning
+     its captions on by default, or any other
      placement requires the human operator; the Evolus ICON
      event film on /about (moved from /services/wrinkle-relaxers at the
      client's direction 2026-08-18, exception terms unchanged; carried
@@ -335,6 +355,25 @@ silently following it. Known superseded points from earlier briefs:
      the boxes is ever restated in site text — copy, the slide's label,
      the captions file, comments, meta, OG, JSON-LD; changing any of it
      requires the human operator.
+     And the SOUND of Amy's promo, the carousel's second film
+     (`commercial-van-promo`; operator override after the compliance
+     flag — DECISIONS 2026-09-30), carried as-is and heard only when a
+     visitor turns the carousel's Sound button on: a re-worded song
+     whose words make an outcome promise with a time frame, name three
+     products the site already names, and speak
+     as a collective. The words live in the film's sound and in its
+     caption file's cues (operator decision: the sung words, confirmed
+     by ear) and nowhere else — never restated in copy, the slide's
+     label, comments, meta, OG, JSON-LD. (The names it sings are
+     constraint 2's eighth exception.) Fixed terms: this film, in the
+     carousel; changing any of it requires the human operator.
+     And the three commercial songs the carousel's films carry since
+     the same date — the promo's, the billboard-day reel's and the
+     team film's — play under the operator's override of the music
+     position (DECISIONS 2026-09-03 and 2026-09-25: a commercial song
+     needs a licence for a business website; none is on record), for
+     these three carousel renditions only; another film or placement
+     with unlicensed music requires the human operator.
      And six photos (operator overrides after the compliance flags —
      DECISIONS 2026-08-18, 2026-08-21, 2026-08-25, and 2026-09-25): the /services hormone-optimization menu
      card's photo (`biote-banner-scale.jpg`), in which the Biote
@@ -525,6 +564,12 @@ silently following it. Known superseded points from earlier briefs:
      "us", "let's" — never appears in rendered site text (a "we" implies
      a team, which implies the other providers at the location — see
      constraint 2). Enforced by `npm run lint:voice` over the built HTML.
+     *One scoped exception (operator decision after the flag —
+     DECISIONS 2026-09-30): the caption cues of the carousel's promo
+     (`public/media/commercial-van-promo.vtt`) carry its song's own
+     first-person plural, because they are the sung words. The gate
+     does not read caption files; the rule still governs every other
+     caption file and all other site text.*
    - Place-name convention (Amy's direction, relayed by the operator,
      2026-09-30; DECISIONS same date): the place where Amy works is
      **"the medspa"**, one word, never "studio", in all rendered site
@@ -576,12 +621,18 @@ silently following it. Known superseded points from earlier briefs:
 - **Zero client-side JS by default.** Islands only where genuinely required
   (target: mobile nav at most, CSS-first preferred). Budget: ≤ 30 KB total JS.
   First sanctioned consumer (2026-08-14, operator-directed): the home video
-  carousel's ~3KB static script — served from `public/js/` because the CSP
+  carousel's static script (~3KB at first; 10,460 B raw, 3,781 B
+  compressed, since 2026-09-30) — served from `public/js/` because the CSP
   refuses inline scripts (DECISIONS 2026-08-14); since 2026-09-03 its films
   autoplay under prefers-reduced-motion too (operator decision — the films
   are content with a pause control; only the crossfade stands down) and a
   refused play() retries inside the person's first gesture on phones
-  (DECISIONS 2026-09-03). Second sanctioned
+  (DECISIONS 2026-09-03); since 2026-09-30 (Amy's request — DECISIONS
+  same date) the five films carry their own sound and still start
+  muted, with a Sound button and a captions (CC) button beside pause:
+  sound stays on from film to film until the visitor turns it off, is
+  never on at load and is never stored, and a film the browser refuses
+  to start with sound plays muted. Second sanctioned
   consumer (2026-08-17, operator-directed, SHIPS DARK): the self-hosted
   Plausible tracker (~3.6KB, `public/js/plausible.js`) — renders only
   after the operator's relaunch-day flip (BUILD_SPEC §11). Third

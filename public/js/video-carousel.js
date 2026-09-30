@@ -13,25 +13,70 @@
 // pause control; only the CSS crossfade stands down), a refused play()
 // is retried inside the person's first gesture, and the built <video>
 // carries the muted + playsinline ATTRIBUTES as well as the properties.
+//
+// SOUND (2026-09-30, DECISIONS same date): the films carry their own
+// sound and still start muted — a browser starts a film by itself only
+// muted. The Sound button switches it on for the film playing and for
+// every film after it, until the person switches it off.
+//  - WebKit (every browser on an iPhone) lets a player start with sound
+//    only when that one player was made, or unmuted, inside a tap. So
+//    the tap that turns sound on makes the player of every film and
+//    unmutes each one right there; the films not yet needed are made
+//    with preload "none" and fetch nothing until their turn comes.
+//  - If a browser still refuses to start a film with sound, that film
+//    plays muted and the button shows off (the treatment-video.js
+//    fallback); one more tap turns it back on.
+//  - One soundtrack at a time: turning sound on here mutes any other
+//    film on the page, and unmuting another film turns this one off.
+//  - A hidden tab pauses the films, so sound never plays on unseen.
+// CAPTIONS: the CC button shows each film's captions track. Until the
+// person presses it, the button follows the device (a phone with
+// captions switched on shows them by itself); after, their choice holds.
 const stage = document.querySelector('[data-vc-stage]');
 if (stage) {
   const slideEls = [...stage.querySelectorAll('.vc-slide')];
   const bars = [...document.querySelectorAll('.vc-bar')];
   const fills = bars.map((b) => b.querySelector('.vc-fill'));
   const toggle = document.querySelector('.vc-toggle');
+  const soundBtn = document.querySelector('.vc-sound');
+  const ccBtn = document.querySelector('.vc-cc');
   let current = 0;
   let playing = false;
   let userPaused = false;
   let inView = false;
   let unlockArmed = false;
+  let soundOn = false;
+  let ccOn = false;
+  let ccTouched = false;
+  // The page and this file are cached apart (five minutes each), so just
+  // after a release one can be newer than the other: the two buttons may
+  // be missing, and the films must still play.
+  const press = (btn, on) => btn && btn.setAttribute('aria-pressed', String(on));
+
+  const setCc = (on) => {
+    ccOn = on;
+    for (const el of slideEls) {
+      const v = el.querySelector('video');
+      if (v && v.textTracks[0]) v.textTracks[0].mode = on ? 'showing' : 'disabled';
+    }
+    press(ccBtn, on);
+  };
 
   // Facade: the <video> exists only after this runs for its slide.
-  const buildVideo = (el, i) => {
+  // `cold` makes the player without fetching anything (see SOUND above);
+  // a later warm call starts the fetch.
+  const buildVideo = (el, i, cold) => {
     let v = el.querySelector('video');
-    if (v) return v;
+    if (v) {
+      if (!cold && v.preload !== 'auto') {
+        v.preload = 'auto';
+        v.load();
+      }
+      return v;
+    }
     v = document.createElement('video');
     v.muted = true;
-    v.preload = 'auto';
+    v.preload = cold ? 'none' : 'auto';
     // Attributes beside the properties: iOS is known to check the
     // `muted` attribute on a script-built element when deciding whether
     // it may start without a gesture; the legacy inline attribute is
@@ -62,6 +107,13 @@ if (stage) {
     track.srclang = 'en';
     track.label = 'English';
     v.append(source, track);
+    if (ccOn) track.track.mode = 'showing';
+    v.textTracks.addEventListener('change', () => {
+      const showing = track.track.mode === 'showing';
+      if (showing === ccOn) return;
+      if (ccTouched) track.track.mode = ccOn ? 'showing' : 'disabled';
+      else setCc(showing);
+    });
     v.addEventListener('timeupdate', () => {
       if (i === current && v.duration) {
         fills[i].style.transform = `scaleX(${v.currentTime / v.duration})`;
@@ -71,13 +123,30 @@ if (stage) {
       if (i === current) show((current + 1) % slideEls.length, !userPaused);
     });
     el.append(v);
-    v.load();
+    if (!cold) v.load();
     return v;
   };
 
   const sync = () => {
     toggle.dataset.state = playing ? 'playing' : 'paused';
     toggle.setAttribute('aria-label', playing ? 'Pause the films' : 'Play the films');
+  };
+
+  // `gesture` is true only inside the person's tap on the Sound button.
+  const setSound = (on, gesture) => {
+    soundOn = on;
+    slideEls.forEach((el, i) => {
+      const v = on && gesture ? buildVideo(el, i, true) : el.querySelector('video');
+      if (!v) return;
+      v.muted = !on;
+      if (!on) v.setAttribute('muted', '');
+    });
+    press(soundBtn, on);
+    if (on) {
+      for (const o of document.querySelectorAll('video')) {
+        if (!stage.contains(o) && !o.muted) o.muted = true;
+      }
+    }
   };
 
   // A play() the phone refuses (iOS Low Power Mode, battery/data modes —
@@ -99,16 +168,24 @@ if (stage) {
 
   const play = () => {
     const v = buildVideo(slideEls[current], current);
-    v.muted = true;
+    v.muted = !soundOn;
+    const started = () => {
+      playing = true;
+      sync();
+    };
+    const refused = () => {
+      playing = false;
+      sync();
+      armUnlock();
+    };
     v.play()
-      .then(() => {
-        playing = true;
-        sync();
-      })
-      .catch(() => {
-        playing = false;
-        sync();
-        armUnlock();
+      .then(started)
+      .catch((err) => {
+        // Refused WITH sound: carry on muted and show the button off.
+        if (soundOn && !v.muted && err && err.name === 'NotAllowedError') {
+          setSound(false);
+          v.play().then(started).catch(refused);
+        } else refused();
       });
     // Warm the next slide so the crossfade lands on ready frames.
     const next = (current + 1) % slideEls.length;
@@ -158,6 +235,34 @@ if (stage) {
       userPaused = false;
       play();
     }
+  });
+
+  if (soundBtn) soundBtn.addEventListener('click', () => {
+    setSound(!soundOn, true);
+    // A browser that paused the film because the unmute had no gesture
+    // behind it (a scripted click) is caught here: play() falls back.
+    if (soundOn && playing) play();
+  });
+
+  if (ccBtn) ccBtn.addEventListener('click', () => {
+    ccTouched = true;
+    setCc(!ccOn);
+  });
+
+  // Another film on the page was unmuted: this one goes quiet.
+  document.addEventListener(
+    'volumechange',
+    (e) => {
+      const o = e.target;
+      if (soundOn && o instanceof HTMLMediaElement && !stage.contains(o) && !o.muted) setSound(false);
+    },
+    true
+  );
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (playing) pause();
+    } else if (inView && !userPaused && !playing) play();
   });
 
   // Autoplay only once the stage is actually on screen; pause when it

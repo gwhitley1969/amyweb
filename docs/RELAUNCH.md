@@ -98,12 +98,15 @@ check will refuse it. On a branch off `main`:
   www → apex; HTTP → HTTPS; production indexable (previews stay
   noindexed); OG cards render; 404 at the edge.
 - Films play from media.needlegirlie.com on production (206 Range
-  probes; the five carousel films (the Evolysse film `commercial-evolysse.mp4`
-  since 2026-09-25; since 2026-09-27 Amy's promo
-  `commercial-van-promo.mp4` and her billboard-day reel
-  `commercial-billboard.mp4`, which replaced `commercial-j1.mp4` and
-  `commercial-studio.mp4` — those two objects stay unreferenced while
-  open PRs still build the old carousel, so they are not probe targets)
+  probes; the five carousel films in their sound renditions since
+  2026-09-30 — `commercial-evolysse-sound.mp4`,
+  `commercial-van-promo-sound.mp4`, `commercial-billboard-sound.mp4`,
+  `commercial-j2-sound.mp4`, `commercial-team-sound.mp4`, each with one
+  video and one audio stream; the five silent files they replaced, and
+  `commercial-j1.mp4` and `commercial-studio.mp4`, which Amy's promo
+  and her billboard-day reel replaced on 2026-09-27, stay unreferenced
+  while open PRs still build an older carousel, so none of those seven
+  is a probe target)
   + the ICON film on /about + the two
   biostimulators reels `radiesse-visit.mp4` / `amy-reel.mp4` + the
   body-contouring reel `evolve-reel.mp4` + the /about team film
@@ -143,7 +146,13 @@ check will refuse it. On a branch off `main`:
   Also the van band's film (2026-09-25, DECISIONS same date):
   `/js/band-film.js` (200, `text/javascript`), and the band's
   `data-band-film` element points at `van-trip-sound.mp4` on the media
-  origin (206 on a range request, `video/mp4`). The band's "See the
+  origin (206 on a range request, `video/mp4`).
+  Also the carousel's sound (2026-09-30, DECISIONS same date):
+  `/js/video-carousel.js` (200, `text/javascript`); the five slides'
+  `data-file` values end in `-sound.mp4` and their `data-vtt` values in
+  `?v=4` or later; on a phone and a desktop, the Sound button turns the
+  playing film's sound on and it carries to the next film, and the CC
+  button shows captions. The band's "See the
   hostess perk ›" and the header's "Tox Together" item resolve to
   `/tox-together` (200). `/mobile` is not a probe target: it retired
   2026-09-26 with no redirect, so a 404 there is correct (DECISIONS

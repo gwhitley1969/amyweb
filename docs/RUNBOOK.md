@@ -210,9 +210,12 @@ treatment content exists.
 ## Adding or replacing a homepage commercial
 
 The home carousel (src/components/VideoCarousel.astro; behavior in
-public/js/video-carousel.js) plays muted films from the media origin
+public/js/video-carousel.js) plays films from the media origin
 (`https://media.needlegirlie.com` — Blob behind the same Front Door,
-built 2026-08-17; see "Publishing a film" below). Captions stay in
+built 2026-08-17; see "Publishing a film" below). Since 2026-09-30
+(DECISIONS same date) the films carry their own sound: they start
+muted, a Sound button turns sound on for the film playing and every
+film after it, and a CC button shows the captions. Captions stay in
 public/media/ — in-repo, same-origin, ON PURPOSE (compliance-screened
 text keeps its git audit trail, and same-origin tracks need no CORS).
 To add or swap a film:
@@ -222,27 +225,56 @@ To add or swap a film:
    -frames:v 1 sheet.png`, vet every legible word/brand; on-camera
    clients need releases confirmed on the record; manufacturer films
    carry as-is or not at all (never trim safety screens); each film
-   gets its DECISIONS entry before it ships.
-2. **Encode the web rendition** (muted, ~2–4 Mbps):
-   `ffmpeg -i master.mp4 -an -c:v libx264 -crf 23 -preset medium
+   gets its DECISIONS entry before it ships. **Screen the sound too**
+   (since 2026-09-30 the carousel plays it): what is said or sung is
+   held to the same rules as what is shown, and a commercial song
+   needs a licence for a business website or the operator's recorded
+   override. A machine transcript can be made on the build machine,
+   with nothing uploaded — ffmpeg's `whisper` filter and a ggml model
+   file:
+   `ffmpeg -i in.wav -af "whisper=model=<model.bin>:language=en:queue=30:destination=out.srt:format=srt" -f null -`
+   — but it is a draft (singing reads badly, and it invents a word or
+   two over music); the operator's ear is the record. Measure the level
+   with `ffmpeg -i in.mp4 -vn -af ebur128=peak=true -f null -`.
+2. **Encode the web rendition** (~2–4 Mbps, with its sound):
+   `ffmpeg -i master.mp4 -c:v libx264 -crf 23 -preset medium
+   -pix_fmt yuv420p -af "volume=<N>dB" -c:a aac -b:a 128k
    -movflags +faststart commercial-<name>.mp4` (a working file — the
    rendition is uploaded to the media origin, never committed), then
-   **publish it** per "Publishing a film" below.
+   **publish it** per "Publishing a film" below. **The level rule:**
+   one plain volume offset per film, no compression and no limiting,
+   to bring it to −18 LUFS, the other films' level — but never so far
+   that its peak passes −1 dBFS (the Evolysse film stops at −20.6 LUFS
+   for that reason). The five films in the carousel today were made
+   another way, because their silent files were already published:
+   each `commercial-<name>-sound.mp4` is the silent file's picture
+   copied bit for bit (`-c:v copy`) with the master's sound beside it;
+   the promo has three offsets, one per section of its own mix
+   (figures and commands in DECISIONS 2026-09-30).
 3. **Poster frame:** `ffmpeg -ss <t> -i rendition.mp4 -frames:v 1
    -q:v 2 src/assets/photos/commercial-<name>-poster.jpg` (pick a
    visually simple frame — posters count toward the / image budget).
 4. **Captions:** `public/media/commercial-<name>.vtt` (the a11y gate
    requires a track on every built video; VTT files are outside
    lint:claims scope — the per-film override entry is the control).
-   The renditions are silent, so since 2026-09-20 (DECISIONS same
-   date) a SITE-AUTHORED film's file carries NO cues — provenance,
-   burned-in text, and a description go in NOTE blocks (never type the
-   cue arrow inside a NOTE); a cue paints a box over the film on every
-   phone with captions switched on. A MANUFACTURER film's file is the
-   transcript of its on-screen text, safety information included.
+   Since 2026-09-30 the films have sound, so each file is faithful to
+   the sound, the rule the treatment-page films follow below: a
+   transcript where there is speech (the Evolysse file; the promo's
+   sung words, by the operator's decision), bounded `[Music]` cues
+   where there is music and no speech (a film-long cue sits over the
+   whole play; a song's words are not written out). A MANUFACTURER
+   film's file also carries its on-screen text, safety information
+   included. Provenance, burned-in text, and a description go in NOTE
+   blocks (never type the cue arrow inside a NOTE). A film with NO
+   audio track still ships a file with no cues (DECISIONS 2026-09-20):
+   a cue paints a box over the film on every phone with captions
+   switched on, and the carousel's CC button now shows the track to
+   anyone who asks for it.
    Caption files serve with a one-day max-age: bump the `?v=` on
    `data-vtt` when one changes.
-5. Add the slide to the `slides` array in VideoCarousel.astro (the
+5. Add the slide to the `slides` array in VideoCarousel.astro: `file`
+   is the film's name and its caption file's, `video` the object the
+   player loads (the
    films render `object-fit: contain`, uncropped — for the Evolus
    spots that is a compliance requirement). Optional `rate` field =
    per-slide playback tempo (no film sets one now; the studio reel ran
@@ -251,16 +283,21 @@ To add or swap a film:
    films always play at 1×, their presentation is carried as-is.
    0.5 is the floor (engines clamp below); slower means re-editing.
    Bars-row width: at five films (since 2026-09-25) the progress bars
-   run 40px under 600px (64px above) — the row is 296px, the 344px
-   fold cover's content box exactly, so a SIXTH film needs a wrapping
-   row (the math lives in the component's bars comment). The stage is
+   run 40px at 600px wide and under (64px above), 232px in all. Since
+   2026-09-30 the three controls are their own group and wrap under
+   the bars on every phone, so the bars have the row to themselves
+   there: a sixth film's bars (280px) would still fit the 344px fold
+   cover's 296px content box (the math lives in the component's bars
+   comment). The stage is
    full-width (`width: 100%`, 2026-09-25): a widescreen film presents
    large on desktop while portrait films keep their size.
 6. `npm run verify` green → PR → preview → Amy's word → merge.
 
 **One master, two renditions (2026-08-25):** the team film's master
-(`team.MOV`, operator archive) serves as BOTH the muted carousel
-rendition `commercial-team.mp4` AND the sounded /about rendition —
+(`team.MOV`, operator archive) serves as BOTH the carousel rendition
+(`commercial-team-sound.mp4` since 2026-09-30; the silent
+`commercial-team.mp4` before, whose object stays until no open PR
+loads it) AND the sounded /about rendition —
 since 2026-08-26 the widescreen `girl-team-film-wide.mp4`, a 16:9
 center crop (DECISIONS same date; it replaced the portrait
 `girl-team-film.mp4`, whose Blob object is deleted once no open PR

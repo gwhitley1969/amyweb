@@ -2,6 +2,8 @@
 import BaseLayout from './BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ReviewNumber from '../components/ReviewNumber.astro';
+import { reviewTag } from '../lib/reviewTags';
 
 /**
  * Legal-page template (§6, Phase C7; launch form 2026-08-04). The
@@ -21,6 +23,9 @@ interface Props {
 }
 
 const { heading, title, description } = Astro.props;
+
+// REVIEW SCAFFOLDING (ReviewNumber.astro) — letter tag for this route.
+const reviewPageTag = reviewTag(Astro.url.pathname);
 ---
 
 <BaseLayout title={title} description={description}>
@@ -29,6 +34,7 @@ const { heading, title, description } = Astro.props;
   </Fragment>
 
   <article class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    {reviewPageTag && <ReviewNumber n={reviewPageTag} />}
     <p class="eyebrow">Legal</p>
     <hr class="rule-accent mt-4" aria-hidden="true" />
     <h1 class="display-2 mt-6">{heading}</h1>

@@ -14411,6 +14411,17 @@ the iPhone loop check are still to come.
     meta, OG, JSON-LD. Her words are written in the caption cues and
     nowhere else. Moving the film, adding another, or changing any of it
     requires the human operator.
+- **Addendum, same day (operator direction):** the printed caption under the
+  frame ("Why Amy chose Biote — sound on.") is removed; the frontmatter
+  sets no `caption`. The native controls carry the tap-for-sound, and the
+  default-on captions still carry her words.
+- **Second addendum, same day (operator direction):** the white paper mat
+  around the frame is removed: the film takes the player's bare frame (no
+  mat, padding or shadow; a magenta hairline and 12px corners), through a
+  new optional `frame` on the treatment `film` field. The bare frame was
+  written for films inside a media row; this standalone use is the
+  operator's choice. The site's other standalone films keep the mat.
+
 ## 2026-10-02 — laser-treatments: Amy's film of a client's IPL session plays beside "Photo-rejuvenation" (whole, with its sound; operator overrides after the compliance flags)
 
 **Context.** The operator asked (2026-10-02) for `C:\Amy\Videos\Laser.mp4`

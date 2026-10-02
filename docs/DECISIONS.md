@@ -14426,8 +14426,9 @@ the iPhone loop check are still to come.
      song with sung words, so this is the speech-free autoplay rule's
      **fourth scoped exception** (after ICON, the van-trip film and the
      Biote film), recorded in the component header and CLAUDE.md. Like
-     ICON and Biote, it gets a printed caption — "The IV lounge — sound
-     on." — as the tap-for-sound nudge; its sung words stay in the
+     ICON and Biote, it gets a printed caption — "Sound on." (kept
+     short so it holds one line in the 16rem frame) — as the
+     tap-for-sound nudge; its sung words stay in the
      default-on captions.
   2. The column drops from `max-w-sm` (24rem; 384×683 with the mat at
      desktop) to `max-w-64` (16rem; about 256×455). The 810×1440

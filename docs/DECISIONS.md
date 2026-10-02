@@ -14275,3 +14275,84 @@ the iPhone loop check are still to come.
 - **Consequences:** `iv-drip-neon.jpg` has no other consumer and is
   deleted (git history keeps it). Both photos are decorative, so no alt
   text or copy changes.
+
+## 2026-10-02 — IV lounge film replaces "Individualized, with Amy" (operator direction)
+
+- **Context:** the operator asked for the closing section of
+  /services/iv-therapy — the "Individualized, with Amy" heading, its
+  paragraph and its photo (`iv-male-client.jpg`, Amy tending a male
+  client's arm; DECISIONS 2026-08-25) — to come out, and for a new film
+  to take its place: `C:\Amy\Videos\IV-Video.mp4`, and to judge whether
+  it needs upscaling (Higgsfield credits were offered).
+- **Source, probed first-hand:** 1080×1920 (9:16) HEVC Main, yuv420p,
+  SDR bt709, 30fps, 9.18s, AAC-LC stereo 44.1kHz, 8,168,708 bytes,
+  ~7.1Mbps. A handheld phone clip in the medspa's lounge.
+- **Screening (contact sheet at 1fps plus full-resolution crops):**
+  - *People:* Amy, in black scrubs, adjusting the drips at the IV poles
+    (operator-identified); staff in black in the background (the
+    operator: staff, not providers); clients in the yellow chairs, two
+    identifiable, whose website-use releases are confirmed on file
+    (operator, same date). No constraint-2 exception is needed.
+  - *Signage:* in the first ~2s, a Mobile Aesthetics sign above the
+    left shelf, legible at full resolution — the practice's name, its
+    phone number and photos of two women (the operator: Amy and a
+    non-provider). The doorway shelf — the one the 2026-09-30 IV-card
+    crop left out — is in about half the film: a model portrait, the
+    Radiesse posters (sales lines blurred but partly readable) and
+    brochures. At the end, a skincare display with jars and a poster.
+    The IV bag labels are not readable. No dosing is legible.
+  - *Sound:* a commercial song, with the people in the room under it
+    (the operator: speech plus a commercial song). A machine transcript
+    on the build machine (Whisper large-v3-turbo q5 through ffmpeg's
+    own filter; nothing uploaded) reads sung words from 0 to 5.9s —
+    "Big boom in the room / Hard go, kaboom, kaboom" — then music. The
+    operator confirmed the words by ear (same date; that is the record)
+    and found no spoken words to caption. Nothing said or
+    sung names a provider, a product or an outcome. Loudness −22.3 LUFS
+    integrated, peak −9.4dBFS.
+- **Decisions (operator, after the flags):**
+  1. The signage is carried as-is — CLAUDE.md constraint 3's twelfth
+     pixel-level override. This knowingly departs, for this film only,
+     from the 2026-09-30 IV-card decision that cropped the posters out:
+     a handheld pan cannot be cropped, and a tracked blur was declined.
+  2. The sound is kept as-is, song included, under the operator's
+     override of the music position (no licence on record) — the route
+     the three carousel songs took; CLAUDE.md records it.
+  3. Sound, so no autoplay: the film plays when the viewer starts it,
+     with its sound and captions (the sung words as cues, ♪-marked).
+  4. The section goes whole — heading, paragraph and photo. The page's
+     "individualized → CTA" beat stays carried by "Two ways it's given"
+     ("Amy places the line herself"), "What a visit looks like" ("Amy
+     is the one who places the line and the one who stays with you")
+     and "Booked directly", with its book link.
+- **No upscale:** the film sits standalone in a 24rem column, so 2×
+  needs 768px; the 1080 source already exceeds it, and the house rule
+  for a 1080 source into a 24rem slot is the 810 downscale. Its soft
+  frames are motion blur from the pans, which an upscaler cannot
+  remove. No Higgsfield credits spent. The real fix is the codec: HEVC
+  does not play in Firefox or in many Chrome setups.
+- **Mechanics:**
+  - Rendition (the RUNBOOK treatment-film recipe, 24rem slot):
+    `ffmpeg -i IV-Video.mp4 -vf scale=810:1440 -c:v libx264 -crf 20
+    -preset medium -pix_fmt yuv420p -c:a copy -movflags +faststart
+    iv-lounge.mp4` → 810×1440 H.264 High, 30fps, 9.20s, AAC copied,
+    5,574,485 bytes at 4.85Mbps, moov first, md5
+    `08e33b5a2feaf1fad7f6c3db0072d466`. Uploaded as `iv-lounge.mp4` —
+    a new name, so no purge.
+  - Poster: the rendition's frame at 2.4s (Amy at the pole with the
+    drip, the sign already out of frame), `-q:v 2`, 810×1440, committed
+    as `src/assets/photos/iv-lounge-poster.jpg`.
+  - Captions: `public/media/iv-lounge.vtt` — the house NOTE blocks, the
+    sung words as cues, then `[Music]`; no text from the signage.
+  - Player: `TreatmentVideo` standalone in `mx-auto max-w-sm` (the
+    regenerative PRP film's pattern), default mat frame, no `autoplay`.
+- **Rejected:** a Higgsfield upscale (see above); a tracked blur of the
+  posters or a trim of the sign's opening (the operator chose as-is);
+  dropping the audio (offered as the licence-safe path; the operator
+  kept the sound); muted autoplay (a film with speech would need a
+  third autoplay exception); `frame="bare"` (that frame is for a film
+  inside a media row).
+- **Consequences:** `iv-male-client.jpg` has no other consumer and is
+  deleted (git history keeps it). iv-therapy's flag stays
+  `clinicianApproved: false`; CLINICIAN-SIGN-OFF carries the change for
+  Amy, in its row and in the presentation record.

@@ -14,6 +14,8 @@ import FaqAccordion from '../components/FaqAccordion.astro';
 import TrustChips from '../components/TrustChips.astro';
 import ReviewNumber from '../components/ReviewNumber.astro';
 import { lineNumber } from '../lib/serviceLines';
+import TreatmentVideo from '../components/TreatmentVideo.astro';
+import type { ImageMetadata } from 'astro';
 
 /**
  * Treatment page template (approved design plan + Mobbin-review addendum).
@@ -23,7 +25,9 @@ import { lineNumber } from '../lib/serviceLines';
  *   (optional; replaced AtAGlance 2026-07-20, operator direction) ->
  *   Evolus laurel plaque (optional, frontmatter-gated — 2026-08-19,
  *   operator-approved; copy + authorization live in the component) ->
- *   intro -> products -> flag-driven notices ADJACENT to products -> body ->
+ *   intro -> film (optional, frontmatter `film` — 2026-10-02, operator-
+ *   approved; DECISIONS same date) -> products -> flag-driven notices
+ *   ADJACENT to products -> body ->
  *   visit steps -> FAQ (only when items provided) ->
  *   consult router -> DisclaimerBlock (light surface, NEVER collapsed) ->
  *   seam -> noir CTA band + trust chips.
@@ -84,6 +88,18 @@ interface Props {
   /** Page JSON-LD (service + breadcrumbs) built by the route via
    * src/lib/schema.ts — forwarded to BaseLayout untouched. */
   jsonLd?: object[];
+  /** Optional film directly above "What Amy offers" — TreatmentVideo's
+   * props, from the content file's `film` field. The player's own figure
+   * carries the top margin; the wrapper only sets the width (the
+   * standalone 24rem column the in-body films use). */
+  film?: {
+    src: string;
+    poster: ImageMetadata;
+    captionsSrc: string;
+    label: string;
+    caption?: string;
+    autoplay?: 'inview';
+  };
 }
 
 const {
@@ -101,6 +117,7 @@ const {
   faq = [],
   seo,
   jsonLd = [],
+  film,
 } = Astro.props;
 
 const crumbs = [
@@ -134,6 +151,14 @@ const reviewNum = lineNumber(Astro.url.pathname.split('/').pop() ?? '');
     {evolusLaurel && <EvolusLaurel />}
 
     <slot name="intro" />
+
+    {
+      film && (
+        <div class="mx-auto max-w-sm">
+          <TreatmentVideo {...film} />
+        </div>
+      )
+    }
 
     {
       productDetails.length > 0 ? (

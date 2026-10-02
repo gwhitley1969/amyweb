@@ -350,9 +350,17 @@ of it is on screen, via the static `public/js/treatment-video.js`
 2026-09-03 the films play under reduced motion too and a refused
 play() retries inside the first gesture — the carousel's phone policy,
 DECISIONS same date) — opt in ONLY for Amy's own speech-free films,
-never a manufacturer film or one with narration (one scoped operator
-override: the ICON film on /about — DECISIONS 2026-08-25; the /about
-team film needs no override, being site-authored and speech-free).
+never a manufacturer film or one with narration (two scoped operator
+overrides: the ICON film on /about — DECISIONS 2026-08-25 — and Amy's
+Biote film on /services/hormone-optimization, which speaks throughout —
+DECISIONS 2026-10-02; the /about team film needs no override, being
+site-authored and speech-free). A film can sit directly above "What
+Amy offers" through the treatment frontmatter's optional `film` field
+(TreatmentVideo's props; the layout renders it), since 2026-10-02; a
+film further down a page stays in the MDX body. That film's rendition
+was graded and trimmed, so it was re-encoded, with its sound raised to
+the level rule's −18 LUFS rather than copied (recipe in
+`C:\Amy\biote-film\`).
 
 Scripts on this site are STATIC FILES (public/js/) — never component
 `<script>` blocks; see the troubleshooting entry below for why.

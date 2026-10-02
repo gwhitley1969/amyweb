@@ -14411,3 +14411,7 @@ the iPhone loop check are still to come.
     meta, OG, JSON-LD. Her words are written in the caption cues and
     nowhere else. Moving the film, adding another, or changing any of it
     requires the human operator.
+- **Addendum, same day (operator direction):** the printed caption under the
+  frame ("Why Amy chose Biote — sound on.") is removed; the frontmatter
+  sets no `caption`. The native controls carry the tap-for-sound, and the
+  default-on captions still carry her words.

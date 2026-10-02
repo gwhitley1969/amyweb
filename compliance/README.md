@@ -110,7 +110,7 @@ constraint-3 and constraint-2 overrides for the Radiesse-visit film,
 a retina-rule override for the 480p reel), the body-contouring Evolve
 reel (2026-08-21, no override needed), and the /about team film's
 sounded rendition (2026-08-25 — the carousel team film under its
-widened constraint-2 exception); every sounded caption file carries
+widened constraint-2 exception); each of those caption files carries
 bounded `[Music]` cues on the operator's no-speech confirmation. From
 2026-08-25 the /injector-training round adds both kinds at once: the
 hero portrait `amy-evolysse-cart.jpg` (a second Jeuveau-banner frame
@@ -134,7 +134,17 @@ Biote banner's outcome lines and the wall's symptom poster legible as
 pixels, and her own spoken lines promising a plan that works for you —
 one constraint-3 override fixed to the film and its poster on that
 page; her words live only in its caption cues, which also keep her
-"we" under the voice rule's second caption-file exception). Since 2026-08-17 the film FILES live outside the
+"we" under the voice rule's second caption-file exception). And, the
+same date, the laser page's IPL-session film `ipl-visit`, Amy's own
+film, carried whole with its sound: a member of Amy's own staff doing
+the hands-on treatment on camera (the constraint-2 ninth exception);
+spoken words that name what the treatment is for, promise a result and
+invite scheduling, over closing shots of a client's skin after the
+treatment (the constraint-3 clause; the client's release and HIPAA
+marketing authorization on file); a recognition plaque in the room,
+mirrored. Its caption file carries the spoken words, confirmed by the
+operator's ear (the voice rule's third caption-file exception), and the
+track shows by default. Since 2026-08-17 the film FILES live outside the
 repo entirely (Blob, served as media.needlegirlie.com — RUNBOOK
 "Publishing a film"): the frame-level screen and DECISIONS entry
 happen BEFORE the upload, and the caption .vtt stays in-repo precisely
@@ -232,6 +242,17 @@ Current members of that class:
   the location's other providers — but its patterns cannot see: the
   gate bans only first-person plural tokens. A green `lint:voice`
   never authorizes it.
+- The /services/laser-treatments who-performs wording, "a member of
+  her own staff", in one FAQ answer and one body sentence (operator
+  decision, DECISIONS 2026-10-02; CLAUDE.md constraint 2, ninth scoped
+  exception). Team language of the same class: no pattern sees it, and
+  a green `lint:voice` never authorizes it. Exact wording, those two
+  lines only.
+- The caption cues of that page's IPL-session film,
+  `public/media/ipl-visit.vtt` (operator overrides, DECISIONS
+  2026-10-02; CLAUDE.md constraint 3 and the voice convention). Spoken
+  words that match no pattern, in a file no gate reads: caption files
+  are outside every linter's scope.
 
 The practical consequence, and the reason this section exists: **a green
 `lint:claims` is not evidence that a string is authorized, and an empty

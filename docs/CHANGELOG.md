@@ -6,6 +6,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-10-02 — /services/hormone-optimization: the Biote film loses its caption line and white frame
+
+- No text under the film (the "Why Amy chose Biote — sound on." line is
+  gone), and the white frame around it is replaced by a thin pink
+  hairline with rounded corners. Her captions and the sound button are
+  unchanged. The treatment `film` field gains an optional `frame`.
+  DECISIONS 2026-10-02, the Biote film addenda; PR #245.
+
 ### 2026-10-02 — /services/iv-therapy: the IV lounge film autoplays, smaller
 
 - It now plays muted when scrolled into view, like the other films, and the

@@ -16,7 +16,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
   CLAUDE.md and BUILD_SPEC §8.
 - "What it is" names both blends. The page now has ten cards, in five
   even rows on wide screens. `clinicianApproved` stays false.
-  DECISIONS 2026-10-02.
+  DECISIONS 2026-10-02; PR #248.
+
+### 2026-10-02 — /services/hormone-optimization: the Biote film loses its caption line and white frame
+
+- No text under the film (the "Why Amy chose Biote — sound on." line is
+  gone), and the white frame around it is replaced by a thin pink
+  hairline with rounded corners. Her captions and the sound button are
+  unchanged. The treatment `film` field gains an optional `frame`.
+  DECISIONS 2026-10-02, the Biote film addenda; PR #245.
 
 ### 2026-10-02 — /services/iv-therapy: the IV lounge film autoplays, smaller
 

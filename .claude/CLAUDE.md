@@ -520,6 +520,22 @@ silently following it. Known superseded points from earlier briefs:
      figure and the BA's field come from Amy directly (operator,
      2026-09-19). Changing the wording or the page scope requires the
      human operator.
+     And Amy's Biote film (`biote-why`) on
+     /services/hormone-optimization, directly above "What Amy offers"
+     (operator override after the compliance flag — DECISIONS
+     2026-10-02; a blur of the banner's claim lines was offered and
+     declined), carried as-is: the Biote roll-up banner beside her, its
+     outcome-promise headline and "patients tell us they experience"
+     lines legible on every frame and on the poster, and the wall's
+     Biote symptom poster; and her own spoken lines, which promise a
+     plan that "gives you the results that you need" and "is what works
+     for you". Pixel and sound content are invisible to lint:claims,
+     which is why the authorization lives here. Her words are written in
+     the film's caption cues and nowhere else. Fixed terms: this film
+     and its poster, on this page; no text from the banner or the
+     poster, and none of her spoken claims, is ever restated in site
+     text — copy, the label, comments, meta, OG, JSON-LD; changing any
+     of it requires the human operator.
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing
@@ -583,9 +599,12 @@ silently following it. Known superseded points from earlier briefs:
      *One scoped exception (operator decision after the flag —
      DECISIONS 2026-09-30): the caption cues of the carousel's promo
      (`public/media/commercial-van-promo.vtt`) carry its song's own
-     first-person plural, because they are the sung words. The gate
-     does not read caption files; the rule still governs every other
-     caption file and all other site text.*
+     first-person plural, because they are the sung words. A second
+     (operator decision after the flag — DECISIONS 2026-10-02): the
+     caption cues of Amy's Biote film (`public/media/biote-why.vtt`)
+     keep her spoken "we" word for word. The gate does not read caption
+     files; the rule still governs every other caption file and all
+     other site text.*
    - Place-name convention (Amy's direction, relayed by the operator,
      2026-09-30; DECISIONS same date): the place where Amy works is
      **"the medspa"**, one word, never "studio", in all rendered site
@@ -673,7 +692,10 @@ silently following it. Known superseded points from earlier briefs:
   — in-class, no exception needed; DECISIONS same date), and
   /services/regenerative (2026-08-25, Amy's own speech-free PRP-visit
   reel — in-class; its on-camera provider is the constraint-2 sixth
-  exception; DECISIONS same date). /mobile was on this list from
+  exception; DECISIONS same date), and /services/hormone-optimization
+  (2026-10-02, Amy's Biote film, speaking to camera throughout — the
+  third scoped override of the speech-free autoplay rule after the ICON
+  film and the van-trip film; DECISIONS same date). /mobile was on this list from
   2026-09-02 (Amy's own van clip in a MUTED rendition — no audio track,
   so in-contract, no exception; DECISIONS same date, the film entry)
   until 2026-09-26, when the page and its film retired, replaced by

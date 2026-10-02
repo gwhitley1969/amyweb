@@ -363,7 +363,9 @@ speech whose captions show while it plays muted — both DECISIONS
 site-authored and speech-free). A film can sit directly above "What
 Amy offers" through the treatment frontmatter's optional `film` field
 (TreatmentVideo's props; the layout renders it), since 2026-10-02; a
-film further down a page stays in the MDX body. That film's rendition
+film further down a page stays in the MDX body. The field takes the
+player's `frame` too: the Biote film sets `bare` (no white mat) and no
+printed caption, at the operator's direction. That film's rendition
 was graded and trimmed, so it was re-encoded, with its sound raised to
 the level rule's −18 LUFS rather than copied (recipe in
 `C:\Amy\biote-film\`).

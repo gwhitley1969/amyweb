@@ -14478,6 +14478,13 @@ the iPhone loop check are still to come.
   new optional `frame` on the treatment `film` field. The bare frame was
   written for films inside a media row; this standalone use is the
   operator's choice. The site's other standalone films keep the mat.
+- **Correction, same day:** "the site's other standalone films keep the
+  mat" was already untrue when the second addendum merged: PR #244 (the
+  IV lounge film addendum, merged first) had moved the standalone IV
+  lounge film to the bare frame too. Checked in source after both
+  merges: three films keep the mat (the regenerative PRP-visit reel, the
+  /injector-training reel and the /about ICON film); every other
+  TreatmentVideo is bare.
 
 ## 2026-10-02 — laser-treatments: Amy's film of a client's IPL session plays beside "Photo-rejuvenation" (whole, with its sound; operator overrides after the compliance flags)
 

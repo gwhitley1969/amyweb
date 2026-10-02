@@ -328,9 +328,10 @@ and the /about Girl Team unit).
 screen → DECISIONS → upload order, with four differences (first
 site-authored pair: /services/biostimulators, 2026-08-21): the
 rendition KEEPS its audio (`-c:a copy`; `-crf 20` for an HEVC source,
-a lossless `-c copy` remux when the source is already H.264/AAC; one
-departure, the laser page's IPL film, whose speech was too quiet to
-follow: one plain volume lift to the carousel's level rule,
+a lossless `-c copy` remux when the source is already H.264/AAC; the
+laser page's IPL film departs from the copy rule, as the Biote film
+does below: its speech was too quiet to follow, so it takes one plain
+volume lift to the carousel's level rule,
 `-af "volume=12.7dB" -c:a aac -b:a 128k`, DECISIONS 2026-10-02), the
 captions are faithful to the audio (a transcript when there is
 speech; bounded `[Music]` cues when there is none — a film-long cue
@@ -353,12 +354,19 @@ of it is on screen, via the static `public/js/treatment-video.js`
 2026-09-03 the films play under reduced motion too and a refused
 play() retries inside the first gesture — the carousel's phone policy,
 DECISIONS same date) — opt in ONLY for Amy's own speech-free films,
-never a manufacturer film or one with narration (two scoped operator
-overrides: the ICON film on /about — DECISIONS 2026-08-25 — and Amy's
-IPL-session film on /services/laser-treatments, a film with speech
-whose captions show while it plays muted — DECISIONS 2026-10-02; the
-/about team film needs no override, being site-authored and
-speech-free).
+never a manufacturer film or one with narration (three scoped operator
+overrides: the ICON film on /about — DECISIONS 2026-08-25 — Amy's
+Biote film on /services/hormone-optimization, which speaks throughout,
+and her IPL-session film on /services/laser-treatments, a film with
+speech whose captions show while it plays muted — both DECISIONS
+2026-10-02; the /about team film needs no override, being
+site-authored and speech-free). A film can sit directly above "What
+Amy offers" through the treatment frontmatter's optional `film` field
+(TreatmentVideo's props; the layout renders it), since 2026-10-02; a
+film further down a page stays in the MDX body. That film's rendition
+was graded and trimmed, so it was re-encoded, with its sound raised to
+the level rule's −18 LUFS rather than copied (recipe in
+`C:\Amy\biote-film\`).
 
 Scripts on this site are STATIC FILES (public/js/) — never component
 `<script>` blocks; see the troubleshooting entry below for why.

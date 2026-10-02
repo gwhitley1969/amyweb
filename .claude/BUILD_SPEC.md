@@ -697,7 +697,10 @@ DECISIONS 2026-10-02.)*
    offering bioidentical hormone replacement therapy. Symptom-awareness
    framing (fatigue, sleep, mood, etc.) is permitted **only** with the FDA
    disclaimer Biote itself uses, rendered via `BioteDisclaimer`. Logo /
-   co-marketing usage pending `{{BIOTE_PERMISSION}}` — text-only until then.
+   co-marketing usage ~~pending `{{BIOTE_PERMISSION}}` — text-only until
+   then~~ — **RESOLVED 2026-10-02** (operator: Amy has Biote's OK to show
+   its banner and logo; DECISIONS same date, the Biote film entry). The
+   claim rules still govern what any Biote imagery may carry.
    *(Updated 2026-07-22 — `{{BIOTE_FDA_DISCLAIMER}}` RESOLVED §17. The
    disclaimer had been rendering as a visible placeholder token, so the
    symptom-awareness permission was never actually usable; it is now.
@@ -963,6 +966,16 @@ DECISIONS 2026-10-02.)*
    (`jeuveau-banner-studio.jpg`, §8 pixel override 2026-08-18) has
    the Jeuveau banner headline this sentence paraphrases legible in
    the served file, so the two overrides now bear on each other.
+   And — operator override after the compliance flag, DECISIONS
+   2026-10-02 — Amy's Biote film (`biote-why`) on
+   /services/hormone-optimization, carried as-is: the Biote banner's
+   outcome-promise lines and the wall's symptom poster legible in its
+   pixels and on its poster, and her spoken lines promising a plan that
+   "gives you the results that you need" and "is what works for you"
+   (the blur of the banner's claim lines was declined). Her words live
+   in the film's caption cues only; nothing from the banner, the poster
+   or her spoken claims is ever restated in site text. Scope: this film
+   and its poster, on this page.
    Nothing else.*
 4. Unsubstantiated superiority: "#1", "best", "top-rated" — banned.
    *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator
@@ -1142,12 +1155,17 @@ action.
   (operator override after the flag — DECISIONS 2026-08-25): the
   Evolus ICON film on /about autoplays muted at the client's
   direction; its "sound on" caption stays as the tap-for-sound nudge.
-  A further one (operator override after the flag — DECISIONS
-  2026-10-02): Amy's own film of a client's IPL session on
+  A second on this player (operator override after the flag —
+  DECISIONS 2026-10-02): Amy's Biote film on
+  /services/hormone-optimization, placed by the frontmatter `film`
+  field above "What Amy offers", speaking to camera throughout, her
+  words in the default-on captions (the home band's van-trip film,
+  DECISIONS 2026-09-25, is the same class of exception on its own
+  player). A third on this player (operator override after the flag —
+  DECISIONS 2026-10-02): Amy's own film of a client's IPL session on
   /services/laser-treatments, a film with speech, autoplays muted with
-  its captions showing, sound one tap away (the rule's third exception,
-  counting the home band's van film, which plays through its own
-  player).
+  its captions showing, sound one tap away (the rule's fourth
+  exception, counting the van-trip film).
   The rule stands for every other film. In-contract consumers added
   2026-08-25: the team film's sounded rendition on /about
   (`girl-team-film-wide.mp4` since the 2026-08-26 widescreen re-render
@@ -1261,9 +1279,10 @@ action.
   (the ICON film, 2026-08-25 — the §5 film-class override above — and,
   same date, the Girl Team unit's team film, in-contract),
   /injector-training (the training reel, 2026-08-25, in-class),
-  /services/regenerative (the PRP-visit reel, 2026-08-25, in-class), and
-  /services/laser-treatments (the IPL-session film, 2026-10-02 — a film
-  with speech, the §9 exception); the
+  /services/regenerative (the PRP-visit reel, 2026-08-25, in-class),
+  /services/hormone-optimization (the Biote film, 2026-10-02) and
+  /services/laser-treatments (the IPL-session film, 2026-10-02) — two
+  films with speech, the §9 exceptions; the
   second consumer is the dark Plausible tracker, §11. Fourth consumer,
   2026-09-04 — the operator-adopted home concept (DECISIONS 2026-09-03,
   the home entry): the home page's motion layer, self-hosted GSAP 3.15
@@ -1401,7 +1420,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{VENUS_VERSA_MENU}}` | Laser-treatments menu from Amy (which Venus Versa applications are priced, and how) | **Resolved 2026-08-21** — the two Mobile Aesthetics pricing flyers (view-only); all four cards priced, Epileve laser hair removal added (§7.12) |
 | `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | RESOLVED 2026-07-21 (operator override — exact sentence in `allowedStrings`, two Evolus product pages; §8.4). RETIRED 2026-08-25 — the sentence's last consumer swapped for the EvolusLaurel plaque; entry withdrawn (§8.4) |
 | `{{BIOTE_FDA_DISCLAIMER}}` | Biote's exact required FDA wording, rendered by `BioteDisclaimer` | RESOLVED 2026-07-22 (operator-authorized — Biote's own printed brochure wording; exact sentence in `allowedStrings`, fourth authorization. Had been shipping as a *visible placeholder token* on the hormone page; §7.8) |
-| `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | Open decision |
+| `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | RESOLVED 2026-10-02 (operator: Amy has Biote's OK to show its banner and logo; DECISIONS same date, the Biote film entry — also covers the 2026-08-18 /services card photo) |
 | `{{RETATRUTIDE_COUNSEL}}` | Attorney-approved investigational wording | Open decision |
 | `{{MEDIA_SCOPE}}` | How much photo/video goes on-site | RESOLVED 2026-08-04 — closed as the practice already in force: every photo/film ships on a per-item operator approval, recorded in DECISIONS (no blanket scope; C8 prerequisite (c) satisfied) |
 | `{{ANALYTICS_PROVIDER}}` | Plausible (default) or alternative | RESOLVED in two steps: NONE at launch (2026-08-04, operator-delegated); **Plausible chosen 2026-08-17** (operator, external-audit Finding 6) and fully prepped SHIPS-DARK — the relaunch-day flip is a two-value `siteConfig.analytics` edit (~$9/mo starts then; procedure RUNBOOK "Turning on analytics"; §11 has the design) |

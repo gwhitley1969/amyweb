@@ -115,9 +115,10 @@ check will refuse it. On a branch off `main`:
   rendition of the carousel team film's master, replacing the
   2026-08-25 portrait object) + the /injector-training reel
   `training-reel.mp4` (2026-08-25) + the regenerative PRP-visit reel
-  `prp-visit.mp4` (2026-08-25) + the IV lounge film `iv-lounge.mp4`
-  (2026-10-02) + the laser page's IPL-session film `ipl-visit.mp4`
-  (2026-10-02) — the viewfinder film
+  `prp-visit.mp4` (2026-08-25) + the iv-therapy lounge film
+  `iv-lounge.mp4` (2026-10-02, click-to-play) + the
+  hormone-optimization Biote film `biote-why.mp4` (2026-10-02) + the
+  laser page's IPL-session film `ipl-visit.mp4` (2026-10-02) — the viewfinder film
   `van-viewfinder-treatment-trim.mp4` (2026-09-03) retired with /mobile
   on 2026-09-26 and its Blob object stays, unreferenced, so it is not a
   probe target, nor is `van-chair-treatment.mp4`, which it had replaced
@@ -127,17 +128,20 @@ check will refuse it. On a branch off `main`:
   same day, so that name is not a probe target; the film returned
   2026-09-25 as the carousel's first film under the new name above). On /services/biostimulators,
   /services/body-contouring, /about, /injector-training,
-  /services/regenerative, and /services/laser-treatments also probe
+  /services/regenerative, /services/hormone-optimization, and
+  /services/laser-treatments also probe
   `/js/treatment-video.js` (200, `text/javascript`) and confirm the
-  eight players carry `data-autoplay="inview"` (two on biostimulators,
+  nine players carry `data-autoplay="inview"` (two on biostimulators,
   one on body-contouring, two on /about: the ICON film — its scoped
   override, DECISIONS 2026-08-25 — and the team film; one on
   /injector-training, the training reel; one on
   /services/regenerative, the PRP-visit reel; one on
-  /services/laser-treatments, the IPL-session film — a film with
-  speech, its scoped override, DECISIONS 2026-10-02; an earlier one,
-  /mobile's viewfinder film, retired with that page 2026-09-26 —
-  DECISIONS same date) — the films autoplay muted on approach. On the home page also
+  /services/hormone-optimization, the Biote film — its scoped override,
+  DECISIONS 2026-10-02; one on /services/laser-treatments, the
+  IPL-session film — a film with speech, its scoped override, DECISIONS
+  same date; /mobile's viewfinder film, an earlier eighth, retired with
+  that page 2026-09-26 — DECISIONS same date) — the films
+  autoplay muted on approach. On the home page also
   probe the
   motion layer (adopted 2026-09-04, DECISIONS 2026-09-03):
   `/js/motion-flag.js`, `/js/home-motion.js`, and the four vendor files

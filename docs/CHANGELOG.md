@@ -21,6 +21,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
   overrides (CLAUDE.md constraints 2 and 3). Transcoded from the HEVC
   master to H.264 at 720×1280, with one plain volume lift. DECISIONS
   2026-10-02.
+### 2026-10-02 — /services/hormone-optimization: Amy's Biote film above "What Amy offers"
+
+- Amy, beside the Biote banner at her medspa, on why she chose Biote.
+  It starts muted with her words as captions when it comes into view,
+  and sound is one tap away. The off-camera "go ahead" at its start is
+  cut, the picture is brightened, and her voice is raised to the
+  site's level.
+- Treatment pages gain an optional `film` field that places a film
+  directly above "What Amy offers" (a reviewed schema change).
+- The banner's printed promises, her spoken lines, her "we" in the
+  captions and the muted autoplay of a speech film are carried under
+  recorded operator overrides; `{{BIOTE_PERMISSION}}` is resolved
+  (Amy has Biote's OK). DECISIONS 2026-10-02.
 
 ### 2026-10-02 — /services/iv-therapy: the IV lounge film replaces "Individualized, with Amy"
 

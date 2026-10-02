@@ -288,7 +288,8 @@
 > men's section read as an appendix). **"Menopause" is excluded exactly
 > as "Low T" is**: neither trips a pattern, but naming a condition the
 > pellets are *for* contradicts the disclaimer above it. No imagery
-> (§7.8 text-only pending `{{BIOTE_PERMISSION}}`).
+> (§7.8 text-only pending `{{BIOTE_PERMISSION}}` — **RESOLVED 2026-10-02**,
+> operator: Amy has Biote's OK; the page now carries Amy's Biote film).
 > `clinicianApproved: false` — DECISIONS 2026-07-22.
 
 > **STATUS UPDATE 2026-07-22:** **IV Therapy & Vitamin Support built.**
@@ -481,7 +482,7 @@ these. From the §17 registry:
 | `{{NEUROMOD_LIST}}` (confirm: Jeuveau, Daxxify — sources disagree) | wrinkle-relaxers page | Operator + Amy |
 | `{{PRICING_DISPLAY_MODE}}` (default 'consult') | all treatment pages | Operator |
 | ~~`{{BIOTE_FDA_DISCLAIMER}}` (Biote's exact required wording)~~ | ~~hormone-optimization page~~ | **RESOLVED 2026-07-22** — Biote's own brochure wording; exact sentence in `allowedStrings` (fourth authorization) |
-| `{{BIOTE_PERMISSION}}` (logo/co-marketing) | text-only until resolved | Operator |
+| ~~`{{BIOTE_PERMISSION}}` (logo/co-marketing)~~ | ~~text-only until resolved~~ | **RESOLVED 2026-10-02** — operator: Amy has Biote's OK to show its banner and logo (DECISIONS same date, the Biote film entry) |
 | `{{RETATRUTIDE_COUNSEL}}` (attorney wording) | publishing Retatrutide at all | Operator + counsel |
 | `{{EVOLUS_CLAIM}}` (substantiation) | /about Evolus mention; "#1" stays banned until resolved | Operator |
 | `{{VAGARO_SERVICE_LINKS}}` (optional deep links) | nicer per-page CTAs | Operator |
@@ -603,7 +604,8 @@ currently through the clinician gate):
       `peptide-therapy.mdx` and must move together**.
 - [x] `hormone-optimization` — Biote BHRT; symptom-awareness framing ONLY
       with `bioteDisclaimer: true` (layout injects `{{BIOTE_FDA_DISCLAIMER}}`);
-      text-only re: Biote branding until `{{BIOTE_PERMISSION}}`.
+      text-only re: Biote branding until `{{BIOTE_PERMISSION}}` (RESOLVED
+      2026-10-02 — Amy's Biote film now sits above "What Amy offers").
       ctaType: consult. Built 2026-07-22 from the Vagaro menu
       (Hormones/Biote = lab draw, Pellets) plus the operator-supplied
       Biote source. **The disclaimer had been rendering as a visible

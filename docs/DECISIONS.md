@@ -14248,8 +14248,9 @@ the iPhone loop check are still to come.
     (the operator: speech plus a commercial song). A machine transcript
     on the build machine (Whisper large-v3-turbo q5 through ffmpeg's
     own filter; nothing uploaded) reads sung words from 0 to 5.9s —
-    "Big boom in the room / Hard go, kaboom, kaboom" — then music; it
-    is a draft until the operator confirms it by ear. Nothing said or
+    "Big boom in the room / Hard go, kaboom, kaboom" — then music. The
+    operator confirmed the words by ear (same date; that is the record)
+    and found no spoken words to caption. Nothing said or
     sung names a provider, a product or an outcome. Loudness −22.3 LUFS
     integrated, peak −9.4dBFS.
 - **Decisions (operator, after the flags):**

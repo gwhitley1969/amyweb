@@ -6,6 +6,18 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-10-02 — /services/peptide-therapy: a tenth card, KLOW; both blends read "$265 for six weeks"
+
+- A new card right after GLOW: KLOW (KPV / GHK-Cu / BPC-157 / TB-500).
+  It says what the blend is and nothing about what it does.
+- The GLOW and KLOW price lines read "$265 for six weeks". GLOW's
+  figure is unchanged; the words "for six weeks" are new. They ship
+  under the operator's exception to the dosing rule, recorded in
+  CLAUDE.md and BUILD_SPEC §8.
+- "What it is" names both blends. The page now has ten cards, in five
+  even rows on wide screens. `clinicianApproved` stays false.
+  DECISIONS 2026-10-02.
+
 ### 2026-10-02 — /services/iv-therapy: the IV lounge film autoplays, smaller
 
 - It now plays muted when scrolled into view, like the other films, and the

@@ -14705,3 +14705,85 @@ page's row pattern already puts a film left of its text).
   site-wide sound toggle on every treatment film); a new smaller
   rendition (the bytes saved do not justify a second upload for a 9s
   film).
+
+## 2026-10-02 — peptide-therapy: a tenth card, KLOW; GLOW and KLOW read "$265 for six weeks" (operator direction; the time span is the operator's exception after the compliance flag)
+
+- **Context:** the operator asked for a new peptide blend, KLOW, on
+  /services/peptide-therapy, priced by Amy at $265 for six weeks, and
+  said GLOW is $265 for six weeks as well. GLOW has shown "$265" since
+  it first appeared on the page (`3fed7f3`, 2026-07-21), so no figure
+  changes; the words "for six weeks" are what is new. The operator
+  supplied a screenshot of KLOW's product sheet. It is a
+  hard-constraint-8 document, the same kind as the nine peptide sheets
+  of 2026-07-21: view-only, never committed, never quoted. Only the
+  four ingredient names were taken from it. Its amounts, its mixing
+  line, its schedule, its cycle and its "Uses" wording were not, and
+  this entry does not describe them. Amy's Vagaro menu lists neither
+  blend (read 2026-10-02), so the operator's word is the record for the
+  price and for the six weeks.
+- **Decisions (operator, 2026-10-02):**
+  1. **The card.** "KLOW (KPV / GHK-Cu / BPC-157 / TB-500)", placed
+     right after GLOW, in the sheet's name order and the page's
+     spelling of each peptide. Its text says what the blend is and
+     nothing about what it does: "A blend of four peptides: KPV,
+     GHK-Cu, BPC-157, and TB-500. KPV is a tripeptide (lysine, proline,
+     and valine)." That is BUILD_SPEC §7's rule for this page. The
+     2026-08-01 override covers the nine card sentences as shipped and
+     was not extended. That KPV is that tripeptide was checked against
+     published sources.
+  2. **The price line** on the GLOW card and the KLOW card:
+     "$265 for six weeks". Flagged before the operator chose: the
+     rulebook bans duration wording (BUILD_SPEC §8, rule 1); the
+     2026-07-21 entry left the peptide sheets' duration column out as
+     a cycling protocol; and the 2026-07-22 ruling that admitted "a
+     course of six" as a unit of sale did so because it carries no
+     frequency and no interval. A span of weeks is not a count, so that
+     ruling does not reach it. It ships as the operator's scoped
+     exception, written into CLAUDE.md's dosing bullet and BUILD_SPEC
+     §8: the exact wording, those two price lines, no amount, no
+     frequency, no cycle, no other time span anywhere, never restated
+     in other site text. It trips no pattern, so it is not an
+     `allowedStrings` entry, and a green linter never authorizes it.
+  3. **"What it is"** names both blends: "**Copper peptides**: GHK-Cu,
+     and two blends that include it, GLOW and KLOW."
+- **Changed after the plan's review, before the operator approved it:**
+  the operator first saw the card as "A blend built around GHK-Cu,
+  paired with the KPV, BPC-157, and TB-500 peptides." A reviewer showed
+  that "built around", said of KLOW, could only rest on the sheet's
+  amounts, which are prohibited input. So the card and the body
+  sentence say only what the names say. The GLOW card keeps its own
+  wording. The same review moved the price line from a reading of the
+  unit-of-sale ruling to the scoped exception above. The operator
+  approved the plan with both changes stated at its top.
+- **Rejected:** a bare "$265" on both cards (offered as the strict
+  reading; the operator chose the time span); the sheet's "Uses"
+  wording on the card (one of its words is gate-blocked and the rest
+  is the benefit language §7's peptide brief bans; offered as a new
+  override and declined); holding the card until Amy writes a line of
+  her own (if she does, it returns to the operator as a new override,
+  as on 2026-08-01).
+- **Consequences:**
+  - Ten cards. `{{PEPTIDES_PUBLIC_LIST}}` is the ten-item list
+    (BUILD_SPEC §17). At 640px and wider the cards sit in five even
+    rows of two; the last card no longer takes a full row.
+  - Three cards now say what the price buys (the two blends, and
+    Glutathione's "per shot"); seven show a bare price. A time span on
+    any of those would widen the exception and needs the operator.
+  - The page's 2026-07-21 no-disclosure decision for compounded
+    peptides now covers a tenth name. "The ones Amy offers are
+    prescription treatments" and "plans and gives every peptide
+    treatment herself" now cover KLOW too; both lines are unchanged and
+    are on the sign-off sheet for Amy to confirm, with the name, the
+    two sentences, the price and the six weeks. The six weeks is the
+    operator's figure.
+  - No structured data, page description or share text carries the
+    card names or prices. `clinicianApproved` stays false.
+  - Measured on the final tree: `npm run verify` exit 0; against an
+    unchanged build of `phase-c` at `a64b2b6` one built file differs,
+    the peptide page, and the three stylesheet files are
+    byte-identical; no sideways scroll at eight widths from 360 to
+    1510.
+  - Two code comments (the card component's header and the content
+    schema's note on product cards) say a price line must be an
+    allowlist string and a card's text one sentence. Both were already
+    out of date and are left for a separate change.

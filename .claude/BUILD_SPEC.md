@@ -587,6 +587,12 @@ DECISIONS 2026-10-02.)*
    copy reverts to the rule. The gate-blocked vocabulary stayed out —
    anti-aging, healing, and libido; no pattern, allowlist, or inverse
    check was touched.)*
+   *(Amended 2026-10-02, operator: a tenth card, KLOW — a blend of
+   KPV, GHK-Cu, BPC-157 and TB-500 — written to this brief's rule:
+   what it is, nothing about what it does. The 2026-08-01 override
+   still covers the nine card sentences as shipped and nothing
+   further. The GLOW and KLOW price lines read "$265 for six weeks"
+   under §8 rule 1's scoped exception — DECISIONS 2026-10-02.)*
 3. **Neuromodulators ("wrinkle relaxers")** — prescription injectable
    treatments for temporary softening of dynamic lines: **Jeuveau**,
    **Xeomin**, **Daxxify** (`{{NEUROMOD_LIST}}` RESOLVED 2026-07-19 from
@@ -885,7 +891,13 @@ DECISIONS 2026-10-02.)*
    prep-workflow and product-box classes the 2026-07-23 rubric
    excluded); no label or packaging text from it is ever restated in
    site text, the slide's label and the captions file included; same
-   terms. Nothing else.*
+   terms. And one price line (operator decision after the compliance
+   flag — DECISIONS 2026-10-02): "$265 for six weeks" on the GLOW and
+   KLOW cards of /services/peptide-therapy only — a time span beside a
+   price, duration-class under this rule. It states no amount, no
+   frequency and no cycle; the wording is exact, the scope is those
+   two price lines, it is never restated elsewhere, and no other time
+   span appears on that page or any other. Nothing else.*
 2. Disease claims: treat / cure / prevent / diagnose; disease names in benefit
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).
 3. Efficacy/outcome promises: guarantees, specific results, numbers,
@@ -1413,7 +1425,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{PHONE}}` / `{{HOURS}}` / `{{ADDRESS_DISPLAY}}` | NAP details as displayed | PHONE resolved 2026-07-07; ADDRESS resolved 2026-07-18; **HOURS CLOSED 2026-08-04 — Amy's decision: hours are not listed on the website, anywhere. Not a pending value: the siteConfig field, the LocationCard line, and the JSON-LD openingHours property were all removed (DECISIONS 2026-08-04). Listing hours later is a deliberate re-add, not a token resolve.** |
 | `{{SOCIAL_LINKS}}` | Verified handles (IG, FB, YouTube, Yelp, TikTok) | RESOLVED 2026-07-18 (FB/IG/Yelp only; Yelp is the location's — flagged) |
 | `{{AMY_BIO}}` | Approved bio facts & credentials | RESOLVED 2026-07-19 (operator-supplied listing; Amy's wording confirmation pending — DECISIONS) |
-| `{{PEPTIDES_PUBLIC_LIST}}` | Which peptides appear publicly | RESOLVED 2026-07-21 (operator — Amy's nine-item injectable menu: BPC-157/TB-500, GHK-Cu, GLOW, Glutathione, Ipamorelin, MOTS-c, NAD+, Sermorelin, Tesamorelin; DECISIONS 2026-07-21. Registry status flip operator-authorized 2026-08-01) |
+| `{{PEPTIDES_PUBLIC_LIST}}` | Which peptides appear publicly | RESOLVED 2026-07-21 (operator — Amy's nine-item injectable menu: BPC-157/TB-500, GHK-Cu, GLOW, Glutathione, Ipamorelin, MOTS-c, NAD+, Sermorelin, Tesamorelin; DECISIONS 2026-07-21. Registry status flip operator-authorized 2026-08-01. KLOW added 2026-10-02, operator — ten items; DECISIONS 2026-10-02) |
 | `{{NEUROMOD_LIST}}` | Confirmed neuromodulator products | RESOLVED 2026-07-19 (live Vagaro menu, operator-confirmed: Jeuveau, Xeomin, Daxxify) |
 | `{{PRICING_DISPLAY_MODE}}` | none / consult / startingAt (default: consult) | Open decision |
 | `{{CHEMICAL_PEELS_MENU}}` | Peel menu from Amy (brands, tiers, per-peel pricing beyond the $180 start) | Open — page carries a compliant placeholder (2026-07-22) |

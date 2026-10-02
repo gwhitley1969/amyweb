@@ -540,7 +540,10 @@ currently through the clinician gate):
       upgraded 2026-08-01 to the client's wording near-verbatim under
       a recorded override of the no-benefit-claims rule; gate-blocked
       vocabulary (anti-aging, healing, libido) excluded — DECISIONS
-      2026-08-01. ctaType: book (since 2026-07-21).
+      2026-08-01. ctaType: book (since 2026-07-21). A tenth card,
+      KLOW, added 2026-10-02 at the operator's direction, saying only
+      what it is; GLOW and KLOW read "$265 for six weeks" under a
+      scoped exception — DECISIONS 2026-10-02.
 - [x] `wrinkle-relaxers` — `{{NEUROMOD_LIST}}`; treatment areas factually
       (forehead, frown lines, crow's feet). ctaType: book/consult.
 - [x] `dermal-fillers` — approved 2026-07-21 (the first page ever

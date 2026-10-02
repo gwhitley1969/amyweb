@@ -337,6 +337,19 @@ silently following it. Known superseded points from earlier briefs:
      treatments, which BUILD_SPEC §7.12 treats as protocol-class; that
      override is the claims bullet's clause for the film — DECISIONS
      2026-10-02.)*
+     *A further scoped exception, which is not an allowlist entry
+     (operator decision after the compliance flag — DECISIONS
+     2026-10-02): the exact price line "$265 for six weeks" on the GLOW
+     card and the KLOW card of /services/peptide-therapy. A time span
+     beside a price is duration-class (BUILD_SPEC §8, rule 1). It
+     states no amount, no frequency and no cycle, and it trips no
+     pattern, so the authorization lives here and in DECISIONS, never
+     in `allowedStrings` — a green linter never authorizes it. The
+     wording is exact and the scope is those two price lines: no other
+     time span on that page or any other, and it is never restated in
+     body copy, FAQ answers, alt text, comments, meta descriptions, OG
+     tags, or JSON-LD. Changing the wording or the scope requires the
+     human operator.*
      Nothing else; changing that list
      requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or

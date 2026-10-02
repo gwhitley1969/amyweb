@@ -14673,3 +14673,35 @@ page's row pattern already puts a film left of its text).
   caption file is served as `application/octet-stream` and loads. The
   preview is probed and played again after the second merge, before
   the operator and Amy look.
+
+## 2026-10-02 — IV lounge film addendum: it autoplays, and is smaller (operator direction)
+
+- **Context:** on the merged page (PR #241) the operator found the film
+  too big ("It's huge") and asked that it autoplay like every other
+  film on the site: start muted, with a way to turn the sound on while
+  it plays.
+- **Decisions:**
+  1. `autoplay="inview"` — muted when about a third of it is on screen,
+     looping in view, paused off screen; the native controls' speaker
+     is the sound toggle, and an unmute is remembered
+     (`public/js/treatment-video.js`, unchanged). The film carries a
+     song with sung words, so this is the speech-free autoplay rule's
+     **fifth scoped exception** (after ICON, the van-trip film, the
+     Biote film and the laser IPL film), recorded in the component header and CLAUDE.md. No printed caption
+     under the frame: one was tried ("The IV lounge — sound on.", then
+     "Sound on.") and removed at the operator's direction the same day;
+     its sung words stay in the default-on captions.
+  2. The column drops from `max-w-sm` (24rem; 384×683 with the mat at
+     desktop) to `max-w-64` (16rem; about 256×455). The 810×1440
+     rendition is kept (no re-encode, no re-upload): above 2× for the
+     new slot, so still sharp on 3× phones.
+  3. The caption file's NOTE now says it autoplays; `captionsSrc` takes
+     `?v=2` per the RUNBOOK's bump rule.
+  4. No white frame: `frame="bare"` (no paper mat — only the bare
+     variant's magenta hairline and 12px corners), at the operator's
+     direction the same day. A departure from the FRAME note's
+     "mat for standalone films", for this film only.
+- **Rejected:** a custom sound button (the native control is the
+  site-wide sound toggle on every treatment film); a new smaller
+  rendition (the bytes saved do not justify a second upload for a 9s
+  film).

@@ -7,7 +7,8 @@ as-is under operator overrides — DECISIONS 2026-10-02.
 NOTE
 SOUND: the web rendition keeps the clip's own sound, a commercial song
 carried under the operator's override of the music position (no
-licence on record), and the film plays only when the viewer starts it.
+licence on record). Since 2026-10-02 it autoplays muted in view, sound
+one tap away (the operator; DECISIONS same date).
 These cues are the song's sung words, written here and nowhere else in
 this site's text. Where the words come from: a machine transcript made
 on the build machine, nothing uploaded, as the operator heard and

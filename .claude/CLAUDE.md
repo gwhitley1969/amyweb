@@ -419,8 +419,8 @@ silently following it. Known superseded points from earlier briefs:
      these three carousel renditions only; another film or placement
      with unlicensed music requires the human operator. One more since
      2026-10-02, by that route (DECISIONS same date): the song on the
-     /services/iv-therapy lounge film (`iv-lounge`), which plays only
-     when the viewer starts it; its sung words live in its caption
+     /services/iv-therapy lounge film (`iv-lounge`), which autoplays
+     muted in view, sound one tap away; its sung words live in its caption
      cues and nowhere else.
      And six photos (operator overrides after the compliance flags —
      DECISIONS 2026-08-18, 2026-08-21, 2026-08-25, and 2026-09-25): the /services hormone-optimization menu
@@ -774,7 +774,11 @@ silently following it. Known superseded points from earlier briefs:
   /services/laser-treatments (2026-10-02, Amy's own film of a client's
   IPL session, a film WITH speech — the rule's fourth scoped override,
   after the flag; muted on approach with its captions showing, sound
-  one tap away; DECISIONS same date). /mobile was on this list from
+  one tap away; DECISIONS same date), and
+  /services/iv-therapy (2026-10-02, the IV lounge film, its song with
+  sung words — the fifth scoped override of that rule, at the
+  operator's direction, with no printed caption under it; DECISIONS
+  same date). /mobile was on this list from
   2026-09-02 (Amy's own van clip in a MUTED rendition — no audio track,
   so in-contract, no exception; DECISIONS same date, the film entry)
   until 2026-09-26, when the page and its film retired, replaced by

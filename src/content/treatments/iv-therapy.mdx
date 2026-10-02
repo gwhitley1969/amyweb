@@ -120,13 +120,20 @@ ordinary way to start.
   * Amy at the drips is operator-identified; the others are staff; the
   * clients' website-use releases are confirmed on file. Its signage is
   * carried as-is (CLAUDE.md constraint 3, twelfth pixel-level override)
-  * and its song plays under the operator's music override. Sound, so
-  * no autoplay: it plays when the viewer starts it. */}
-<div class="mx-auto max-w-sm">
+  * and its song plays under the operator's music override. It
+  * autoplays muted in view with sound one tap away — the speech-free
+  * autoplay rule's fifth scoped exception (operator direction, same
+  * date); no printed caption under it, at the operator's direction — in a
+  * 16rem column, smaller than the 24rem standalone default at the
+  * operator's direction, and bare (no white mat; the hairline and
+  * rounded corners only), also at the operator's direction. */}
+<div class="mx-auto max-w-64">
   <TreatmentVideo
+    frame="bare"
+    autoplay="inview"
     src="/media/iv-lounge.mp4"
     poster={ivLoungePoster}
-    captionsSrc="/media/iv-lounge.vtt"
+    captionsSrc="/media/iv-lounge.vtt?v=2"
     label="Amy Palacios, FNP, adjusts an IV drip as clients relax in the lounge at her Harrisburg medspa"
   />
 </div>

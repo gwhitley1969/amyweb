@@ -14415,3 +14415,255 @@ the iPhone loop check are still to come.
   frame ("Why Amy chose Biote — sound on.") is removed; the frontmatter
   sets no `caption`. The native controls carry the tap-for-sound, and the
   default-on captions still carry her words.
+
+## 2026-10-02 — laser-treatments: Amy's film of a client's IPL session plays beside "Photo-rejuvenation" (whole, with its sound; operator overrides after the compliance flags)
+
+**Context.** The operator asked (2026-10-02) for `C:\Amy\Videos\Laser.mp4`
+on /services/laser-treatments, to the left of "Photo-rejuvenation". The
+work was planned first: the film screened, its sound read on this
+machine, the change built in a scratch copy of `phase-c` at `652f8b8`
+and run through `npm run verify` (exit 0), and the plan put to three
+reviewers told to refute it before the operator saw it (48 findings;
+four became questions to the operator, the rest corrections).
+
+**The master, probed.** HEVC Main, stored 1280×720 with a −90 rotation
+(upright 720×1280), 30 fps, 756 frames, 25.2 s; AAC-LC stereo, −30.7
+LUFS, peak −13.9 dBFS; 8,762,407 B; sha256
+`f2e0444df5019d559c393d36279b62d98b1f672dd3fc7a4fcba3050da0c6838e`;
+creation tag 2026-09-28, no location tag. Its hash matches no other
+film in the operator's archive, and no earlier record names it.
+
+**Screening record** (timed sheets at 2 and 5 frames a second,
+full-size frames, 4× crops; the sound by level map, spectrum and a
+local transcript):
+- **0 to 17.5 s.** Amy films herself in laser glasses and speaks.
+  Behind her a second woman runs the handpiece over a client's upper
+  chest; the Venus Versa Pro console stands beside them. From about
+  10.8 to 13.4 s the camera turns to the treatment, and the client's
+  face shows under eye shields.
+- **17.5 s to the end.** A plain cut, then close shots of the client's
+  shoulder and chest; from about 21 s the camera rises to her face,
+  eyes closed, smiling.
+- **No burned-in text and no music.** The sound is speech over the
+  device's hum (the operator's ear is the record).
+- **Names.** Neither the second woman nor the client wears a name tag
+  or lettering.
+- **Mirrored text.** The footage is a selfie camera's, so the
+  practice's neon and a wall plaque read backwards. Flipped and
+  enlarged four times, the plaque is the manufacturer's recognition
+  plaque: "THIS PRACTICE IS RECOGNIZED AS", the tier "EVOLUX DIAMOND",
+  "2026", and a line with the practice's name and Amy's. In the served
+  file at its own 720px the large word is recognisable backwards and
+  the smaller lines are not. The poster frame does not show it.
+- **Not readable at any size:** the console's screen, the client's
+  watch.
+- **Light pulses.** Eight single-frame flashes (1.57, 3.30, 5.47, 7.37,
+  10.93, 13.63, 15.47 and 17.37 s; three of them weak), the closest
+  pair 1.73 s apart, then the cut at 17.53 s to a brighter shot. Never
+  three in one second (WCAG 2.3.1).
+- **The words.** A machine transcript (ffmpeg's `whisper` filter with
+  `ggml-large-v3-turbo-q5_0.bin`, nothing uploaded), read whole and in
+  halves. The passes disagreed at 11 to 13.5 s: one short line, or two
+  short answers by two voices; the camera is off Amy there. The
+  operator played the film against the draft and confirmed it, and
+  that confirmation is the record. The words are in
+  `public/media/ipl-visit.vtt` and are not repeated here. By class: an
+  invitation to schedule, tied to a season; what the treatment is for,
+  unhedged, one of the concerns being one the page's IPL copy does not
+  name; the practice's name; first-person plural; and, over the close
+  shots, a results statement that names one treatment and what follows
+  it. None of the 52 banned patterns matches them, so no gate would
+  have caught any of it.
+
+**Flags raised, and the operator's decisions** (three AskUserQuestion
+rounds; flag once, then execute cleanly):
+1. **The second woman works for Amy.** She is not one of the
+   location's other providers. It is recorded as constraint 2's ninth
+   scoped exception all the same: a second person doing the hands-on
+   treatment is on camera with her face in frame.
+2. **Permissions: all on file.** The client's website release, her
+   HIPAA marketing authorization, and the staff member's consent. The
+   operator's answer is the record.
+3. **The film: whole, with its sound.** Recommended and declined: the
+   first 17 seconds with sound, which ends before the close shots and
+   the results statement. Also offered: the whole film with no sound,
+   and the first 17 seconds with no sound (no claims exception at all).
+4. **The start: by itself, muted, sound one tap away** (recommended).
+   The house rule for a film with speech is a press, so this is the
+   speech-free rule's fourth scoped exception, after the ICON film, the
+   van film and the Biote film (PR #242, merged the same day; this was
+   the third when the operator chose it).
+5. **Captions: showing from the start** (recommended; the player's
+   standing behaviour). "Off until asked for", the van film's choice,
+   would have needed a switch on the player. So every visitor reads the
+   words; they are not only heard.
+6. **The words:** confirmed by ear, as above.
+7. **The page's two who-performs lines change, with no supervision
+   clause.** "working under her direction" was drafted and withdrawn:
+   the 2026-09-19 addendum took "under clinician supervision" off the
+   site because it can read as a supervising physician.
+8. **The /services lead and one /about sentence say Amy plans every
+   service.** Both said she performs every one, the laser line
+   included. Both dated from those pages' builds (2026-07-19 and
+   2026-08-03); neither was the client's wording.
+9. **A framing sentence beside the film: added.** Consent, every plan
+   individual, and the consultation route: the framing the weight-loss
+   pairs carry (2026-08-21, round 2).
+
+**Flagged once more in the plan and approved with it:**
+- **A concern the page does not give IPL.** The film names one that the
+  page gives to the other two applicators. Whether Amy offers IPL for
+  it is hers to confirm at sign-off; BUILD_SPEC §8.5 is the rule it
+  would touch.
+- **A seasonal opening line** that plays all year.
+- **The staff wording states how the medspa works.** That a member of
+  Amy's staff performs treatments is the operator's and Amy's fact. Who
+  may operate the device in North Carolina is a licensing matter this
+  log cannot check. It is the first time the site's own words mention
+  staff.
+- **Lines left as they are:** the home page's "One clinician, every
+  appointment"; /about's "every plan, every appointment — Amy herself"
+  and its description; eight other treatment pages' "Every appointment
+  is with Amy herself"; seven treatment pages' own lines that Amy does
+  the treatment herself. In the film Amy is in the room.
+- **The plaque:** recognition-tier text in pixels, mirrored
+  (superiority class, BUILD_SPEC §8.4). The film is not changed for it,
+  and its wording is never restated in site text.
+- **Sound and motion.** Sound, once on, repeats with the loop every 25
+  seconds and is remembered for the next in-view start. The film plays
+  under reduced motion, light pulses included (the 2026-09-03 policy).
+
+**Decision (the film).** Built by `C:\Amy\laser-film\build.sh`:
+```
+ffmpeg -nostdin -y -i Laser.mp4 -c:v libx264 -crf 20 -preset medium
+  -pix_fmt yuv420p -af "volume=12.7dB" -c:a aac -b:a 128k
+  -movflags +faststart ipl-visit.mp4
+ffmpeg -nostdin -y -ss 14.0 -i ipl-visit.mp4 -frames:v 1 -q:v 2
+  ipl-visit-poster.jpg
+```
+- **The rendition:** H.264 High, 720×1280 upright with no rotation tag,
+  756 frames, nothing cut or cropped; 9,506,179 B at 3.0 Mbit/s; the
+  index at the front; sha256
+  `b83b9da35228bec4fb232136051ca45a7f9586cdd5ad00f3ee628f58be88417d`.
+  A second encode from the master gave a byte-identical file.
+- **Sound: one plain volume change of 12.7 dB,** no compression and no
+  limiting: −18.0 LUFS, peak −1.4 dBFS (the carousel's level rule). The
+  treatment-film rule is `-c:a copy`; this film departs from it because
+  its speech, at −30.7 LUFS, is too quiet to follow.
+- **Poster:** the frame at 14.0 s (Amy smiling, the treatment behind
+  her), 720×1280, 102,959 B, `ipl-visit-poster.jpg`.
+- **Name:** `ipl-visit.mp4`, content-named in the radiesse-visit and
+  prp-visit family; a new name, so no purge. Uploaded after this entry
+  was committed (the written rule).
+- **Sharpness:** 720 wide against a widest slot of 288, so 2.5×.
+
+**Decision (the page).**
+- "Photo-rejuvenation" and its paragraph move, unchanged, into a
+  `media-row` with the film on the left: `TreatmentVideo` with
+  `frame="bare"` and `autoplay="inview"`, the Biostimulators pattern.
+  No layout code changes. On phones the film sits above the heading, as
+  the page's photos do.
+- The framing sentence follows the paragraph: "The film is shown with
+  the client's consent. Every plan is individual, and whether this
+  treatment suits your skin is decided with Amy at a consultation."
+- The film's label, in the van film's form: "Amy films a client's IPL
+  session at her Harrisburg medspa and speaks to the camera. It starts
+  muted; turn on the sound to hear her." It names nobody but Amy and
+  does not say who does the hands-on work.
+- "Who performs the treatment?" now answers: "Amy Palacios, FNP, a
+  licensed family nurse practitioner, plans every treatment. The
+  treatment itself is performed by Amy or by a member of her own
+  staff."
+- "Individualized, with Amy" now reads: "Amy Palacios, FNP, plans every
+  treatment herself at her Harrisburg medspa in the greater Charlotte
+  area. The treatment is performed by Amy or by a member of her own
+  staff. It starts with hitting book."
+- /services: "Every service below is planned by Amy Palacios, FNP."
+  /about: "…and Amy plans every one of them."
+- `clinicianApproved` stays `false` (false on this page since
+  2026-08-21).
+
+**Decision (the captions).** `public/media/ipl-visit.vtt`: eight cues,
+0.9 to 24.8 s, split at the measured pauses; the spoken words and
+nothing else; no speaker named. Its notes carry what the film shows,
+this entry's date, the permissions, and the operator's confirmation.
+
+**Measured in the scratch copy** (the same change, before any repo
+edit):
+- `npm run verify` exit 0: 25 pages built, the type check, the claims,
+  voice and practice-link gates, pa11y on 25 pages with 0 errors,
+  Lighthouse on 8 pages.
+- Against the unchanged build, six files differ: the laser, /services
+  and /about pages, the poster's two files, the caption file. The three
+  stylesheet files are byte-identical.
+- With no user gesture at all: the film starts muted in view with its
+  captions showing, wraps at its end, and pauses off screen. The
+  captions load when the file is sent as `application/octet-stream`
+  with `nosniff`, as the host sends `.vtt` files today.
+- The film is 275×488 beside the copy at 768 and wider, 224×397 at
+  640, and 288×510 above the heading under 640. No sideways scroll at
+  nine widths from 360 to 1510.
+
+**Records in the same pull request.** CLAUDE.md: constraint 2's ninth
+exception; under constraint 3 the film's clause in the claims bullet, a
+pointer in the dosing bullet, a second exception under the
+"is this right for me" bullet and a second under the voice convention;
+and the laser page in the script list. BUILD_SPEC §1, §7 (the opening
+note and the laser brief), §8.3, §8.7, §8.9, §9 and §13 (whose list had
+also been missing /services/regenerative). RUNBOOK, compliance/README,
+REDESIGN, RELAUNCH, CLINICIAN-SIGN-OFF, CHANGELOG, and the player's
+header.
+
+**Alternatives rejected.** The first 17 seconds (recommended); a
+rendition with no sound; a press to start (the house rule); captions
+off until asked for; "working under her direction"; leaving the
+/services and /about lines; no framing sentence; a printed caption
+under the film (the Biostimulators review found one read as noise);
+hanging the film in the page's left margin outside the text column
+(the operator's arrow pointed there: the margin is 128px at a 1024
+screen, so it would need a second layout for most screens, and the
+page's row pattern already puts a film left of its text).
+
+**Consequences.**
+- The site's seventh page that loads the film script and its ninth
+  self-starting player, counting the Biote film on
+  /services/hormone-optimization (PR #242), which merged the same day,
+  first. (The IV lounge film, PR #241, also the same day, waits for a
+  press and is not on that list.)
+- Amy's sign-off on this page now covers the film, its words and the
+  staff wording; the flag gates production as before.
+- The departures from the statement of work grow: the embedded-video
+  wording (divergence #4); the claim overrides (a results statement
+  and after-treatment shots); the Amy-only line (a staff member on
+  camera and in copy); and the collective voice in a caption file.
+- Egress: 9.5 MB per full play.
+- Open: the operator's check on a real iPhone, and Amy's look at the
+  preview. If Amy declines the film, the object is deleted from the
+  media storage and purged at the edge; it is public at its address
+  from the upload until then.
+
+**The pull request and its preview (added before the merge).**
+- PR #243 into `phase-c`. `phase-c` moved twice while this was in
+  work: PR #241 (the IV lounge film) and PR #242 (the Biote film). Both
+  are merged in, their entries first in the records. The Biote film
+  took the speech-free rule's third exception and the voice rule's
+  second caption exception, so this film is the fourth and the third;
+  nine players now start by themselves, on seven pages.
+- `npm run verify` exit 0 on the final tree. Against unchanged
+  `phase-c` at `daae0f2`, six built files differ (the three pages,
+  the poster's two files, the caption file) and the three stylesheet
+  files are byte-identical.
+- The upload followed this entry's first commit (`c3d658d`). A range
+  request answers 206 `video/mp4` with `Content-Range: bytes
+  0-1023/9506179`, a plain request shows `Accept-Ranges: bytes`, and
+  the downloaded file is byte-identical to the built one. The media
+  storage holds thirty-two objects, seventeen of them referenced.
+- On the preview of the branch before the second merge (`fc68f90`):
+  the probe converged, the edge then answered 404 for about two
+  minutes, and it converged again (the known split state of a fresh
+  environment). With no user gesture, at 1280 and 390 wide, the film
+  starts muted in view with its eight cues showing, wraps at its end
+  and pauses off screen; the media host answers its requests 206; the
+  caption file is served as `application/octet-stream` and loads. The
+  preview is probed and played again after the second merge, before
+  the operator and Amy look.

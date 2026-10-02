@@ -320,11 +320,23 @@ silently following it. Known superseded points from earlier briefs:
      names three products, two of which are also printed on those
      cartons; the caption cues carry them as the song's sung words —
      the claims bullet's clause for this film's sound, DECISIONS same
-     date — and that is not a reading of the packaging.)* *(A pointer,
-     not a further entry: the spoken words of the IPL-session film on
-     /services/laser-treatments name a count of treatments, which
-     BUILD_SPEC §7.12 treats as protocol-class; that override is the
-     claims bullet's clause for the film — DECISIONS 2026-10-02.)*
+     date — and that is not a reading of the packaging.)* *Twelfth
+     pixel-level override, the ninth under this bullet (operator
+     override after the compliance flag — DECISIONS 2026-10-02): the
+     /services/iv-therapy lounge film (`iv-lounge`), a handheld clip
+     carried as-is: a Mobile Aesthetics sign with its phone number and
+     two women's photos, the doorway shelf's Radiesse posters (sales
+     lines partly readable) and brochures, and a skincare display — the
+     posters the 2026-09-30 IV-card crop left out. Fixed terms: this
+     film and its poster, on this page; no text from the sign, the
+     posters, the brochures or the products is ever restated in site
+     text — copy, the label, the captions file, comments, meta, OG,
+     JSON-LD; changing any of it requires the human operator.*
+     *(A pointer, not a further entry: the spoken words of the
+     IPL-session film on /services/laser-treatments name a count of
+     treatments, which BUILD_SPEC §7.12 treats as protocol-class; that
+     override is the claims bullet's clause for the film — DECISIONS
+     2026-10-02.)*
      Nothing else; changing that list
      requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
@@ -405,7 +417,11 @@ silently following it. Known superseded points from earlier briefs:
      position (DECISIONS 2026-09-03 and 2026-09-25: a commercial song
      needs a licence for a business website; none is on record), for
      these three carousel renditions only; another film or placement
-     with unlicensed music requires the human operator.
+     with unlicensed music requires the human operator. One more since
+     2026-10-02, by that route (DECISIONS same date): the song on the
+     /services/iv-therapy lounge film (`iv-lounge`), which plays only
+     when the viewer starts it; its sung words live in its caption
+     cues and nowhere else.
      And six photos (operator overrides after the compliance flags —
      DECISIONS 2026-08-18, 2026-08-21, 2026-08-25, and 2026-09-25): the /services hormone-optimization menu
      card's photo (`biote-banner-scale.jpg`), in which the Biote

@@ -14508,7 +14508,9 @@ page's row pattern already puts a film left of its text).
 
 **Consequences.**
 - The site's sixth page that loads the film script and its eighth
-  self-starting player; the first treatment-page film with speech.
+  self-starting player; the first treatment-page film whose captions
+  are spoken words. (The IV lounge film, merged the same day as PR
+  #241, waits for a press and is not on that list.)
 - Amy's sign-off on this page now covers the film, its words and the
   staff wording; the flag gates production as before.
 - The departures from the statement of work grow: the embedded-video

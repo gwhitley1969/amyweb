@@ -328,7 +328,10 @@ and the /about Girl Team unit).
 screen → DECISIONS → upload order, with four differences (first
 site-authored pair: /services/biostimulators, 2026-08-21): the
 rendition KEEPS its audio (`-c:a copy`; `-crf 20` for an HEVC source,
-a lossless `-c copy` remux when the source is already H.264/AAC), the
+a lossless `-c copy` remux when the source is already H.264/AAC; one
+departure, the laser page's IPL film, whose speech was too quiet to
+follow: one plain volume lift to the carousel's level rule,
+`-af "volume=12.7dB" -c:a aac -b:a 128k`, DECISIONS 2026-10-02), the
 captions are faithful to the audio (a transcript when there is
 speech; bounded `[Music]` cues when there is none — a film-long cue
 paints "[Music]" over the whole play; a rendition with NO audio track
@@ -350,9 +353,12 @@ of it is on screen, via the static `public/js/treatment-video.js`
 2026-09-03 the films play under reduced motion too and a refused
 play() retries inside the first gesture — the carousel's phone policy,
 DECISIONS same date) — opt in ONLY for Amy's own speech-free films,
-never a manufacturer film or one with narration (one scoped operator
-override: the ICON film on /about — DECISIONS 2026-08-25; the /about
-team film needs no override, being site-authored and speech-free).
+never a manufacturer film or one with narration (two scoped operator
+overrides: the ICON film on /about — DECISIONS 2026-08-25 — and Amy's
+IPL-session film on /services/laser-treatments, a film with speech
+whose captions show while it plays muted — DECISIONS 2026-10-02; the
+/about team film needs no override, being site-authored and
+speech-free).
 
 Scripts on this site are STATIC FILES (public/js/) — never component
 `<script>` blocks; see the troubleshooting entry below for why.
@@ -379,12 +385,17 @@ entry).
 
 2. Verify before linking: `curl -sI -r 0-1023
    https://media.needlegirlie.com/commercial-<name>.mp4` → expect
-   `206`, `Content-Type: video/mp4`, `Accept-Ranges: bytes` (seeking
-   depends on Range support).
+   `206`, `Content-Type: video/mp4` and a `Content-Range` whose total
+   is the file's size (seeking depends on Range support). The media
+   host sends `Accept-Ranges: bytes` on a plain `curl -sI`, not on a
+   range request (measured 2026-10-02), so do not look for it there.
+   Then download the file and compare its hash with the local one.
 3. **Replacing a file in place requires a purge** (edge caches it for
    a day): `az afd endpoint purge -g rg-needlegirlie-web
    --profile-name afd-needlegirlie --endpoint-name needlegirlie
-   --content-paths '/commercial-<name>.mp4'` — prefer a NEW filename
+   --content-paths '/commercial-<name>.mp4'` (the media host ignores
+   query strings, measured 2026-10-02, so a version tag on the address
+   does not refresh a film) — prefer a NEW filename
    (and a normal PR for the reference) over in-place replacement;
    old files are deleted with `az storage blob delete` once
    zero-referenced.

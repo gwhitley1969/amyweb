@@ -65,7 +65,7 @@ faq:
   - q: "Can I book a laser treatment directly?"
     a: "Yes! All services can be booked with the expectation of a procedure."
   - q: "Who performs the treatment?"
-    a: "Amy Palacios, FNP, a licensed family nurse practitioner. Every appointment is with Amy herself."
+    a: "Amy Palacios, FNP, a licensed family nurse practitioner, plans every treatment. The treatment itself is performed by Amy or by a member of her own staff."
 seo:
   title: "Laser Treatments & Laser Hair Removal in Harrisburg, NC | Needle Girlie"
   description: "Venus Versa Pro treatments and Venus Epileve laser hair removal with Amy Palacios, FNP, in Harrisburg, NC: intense pulsed light, radiofrequency energy, and laser hair removal, priced by treatment area."
@@ -75,9 +75,11 @@ import { Image } from 'astro:assets';
 import BookLink from '../../components/BookLink.astro';
 import CTAButton from '../../components/CTAButton.astro';
 import PriceSheet from '../../components/PriceSheet.astro';
+import TreatmentVideo from '../../components/TreatmentVideo.astro';
 import amyVersaProConsole from '../../assets/photos/amy-versa-pro-console.jpg';
 import versaProApplicatorsChair from '../../assets/photos/versa-pro-applicators-chair.jpg';
 import amyEpileveWindow from '../../assets/photos/amy-epileve-window.jpg';
+import iplVisitPoster from '../../assets/photos/ipl-visit-poster.jpg';
 
 <section class="media-row">
   <figure class="media-figure">
@@ -116,6 +118,32 @@ uneven texture, or scarring, including acne scarring, and the applicator is
 designed for all skin types and tones. Whether it's the right tool for *your*
 skin is a consultation conversation.
 
+<section class="media-row">
+  {/* Amy's own film of a client's IPL session (operator, 2026-10-02),
+    * carried whole and with its sound under the operator's overrides
+    * recorded in DECISIONS same date and in CLAUDE.md: what is said in
+    * it, its closing shots of the client, and the member of Amy's own
+    * staff on camera (constraints 2 and 3), and muted autoplay for a
+    * film with speech (the player's header and CLAUDE.md's script
+    * list). The client's release and HIPAA marketing authorization and
+    * the staff member's consent are on file. Nothing said in the film
+    * is restated in site text: the words live in its sound and in its
+    * caption file only. The label names nobody but Amy and does not say
+    * who does the hands-on work. The sentence closing the copy beside
+    * it carries consent, every-plan-is-individual and the consultation
+    * route (the weight-loss pairs' framing; operator, same date).
+    * Portrait film, sized by the row column; bare frame beside the
+    * page's bare arches. */}
+  <TreatmentVideo
+    frame="bare"
+    autoplay="inview"
+    src="/media/ipl-visit.mp4"
+    poster={iplVisitPoster}
+    captionsSrc="/media/ipl-visit.vtt"
+    label="Amy films a client's IPL session at her Harrisburg medspa and speaks to the camera. It starts muted; turn on the sound to hear her."
+  />
+  <div class="media-copy">
+
 ## Photo-rejuvenation
 
 Different job, different physics. The intense pulsed light applicators,
@@ -124,6 +152,12 @@ visible vessels near the surface: the appearance of sun damage, brown spots,
 small capillaries, redness and discoloration. The skin is cooled in real time
 while the light is delivered; comfort is designed into the applicator, not
 added afterward.
+
+The film is shown with the client's consent. Every plan is individual, and
+whether this treatment suits your skin is decided with Amy at a consultation.
+
+  </div>
+</section>
 
 <section class="media-row media-row--flip">
   <div class="media-copy">
@@ -246,5 +280,6 @@ removal is the simpler case: choose the area and <BookLink>book</BookLink>.
 
 ## Individualized, with Amy
 
-Amy Palacios, FNP, plans and performs every treatment herself at her
-Harrisburg medspa in the greater Charlotte area. It starts with hitting <BookLink>book</BookLink>.
+Amy Palacios, FNP, plans every treatment herself at her Harrisburg medspa in
+the greater Charlotte area. The treatment is performed by Amy or by a member
+of her own staff. It starts with hitting <BookLink>book</BookLink>.

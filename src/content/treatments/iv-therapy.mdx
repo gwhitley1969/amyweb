@@ -55,7 +55,8 @@ seo:
 import { Image } from 'astro:assets';
 import BookLink from '../../components/BookLink.astro';
 import ivInfusionLaptop from '../../assets/photos/iv-infusion-laptop.jpg';
-import ivMaleClient from '../../assets/photos/iv-male-client.jpg';
+import TreatmentVideo from '../../components/TreatmentVideo.astro';
+import ivLoungePoster from '../../assets/photos/iv-lounge-poster.jpg';
 
 ## What it is
 
@@ -114,26 +115,18 @@ A consultation is still there if you want one, and it's still free. Some people
 would rather ask a few questions before booking anything, and that's a perfectly
 ordinary way to start.
 
-<section class="media-row">
-  <figure class="media-figure">
-    {/* The client's pick (IV02), photo round 2026-08-25 — the section's
-      * first photo. Amy is operator-identified; the pictured client's
-      * website-use release is confirmed on file. Screening record:
-      * DECISIONS 2026-08-25. */}
-    <Image
-      src={ivMaleClient}
-      alt="Amy Palacios, FNP, tends a male client's arm as he reclines in a treatment chair for an IV infusion at her Harrisburg medspa."
-      widths={[340, 540, 680]}
-      sizes="(max-width: 40rem) 90vw, 17rem"
-    />
-  </figure>
-  <div class="media-copy">
-
-## Individualized, with Amy
-
-Amy Palacios, FNP, administers every infusion and every shot herself at her
-Harrisburg medspa, in the greater Charlotte area. <BookLink>Book</BookLink> directly, or ask for a
-free consultation first, whichever you prefer.
-
-  </div>
-</section>
+{/* The IV lounge film (operator direction 2026-10-02; DECISIONS same
+  * date) replaces the "Individualized, with Amy" section and its photo.
+  * Amy at the drips is operator-identified; the others are staff; the
+  * clients' website-use releases are confirmed on file. Its signage is
+  * carried as-is (CLAUDE.md constraint 3, twelfth pixel-level override)
+  * and its song plays under the operator's music override. Sound, so
+  * no autoplay: it plays when the viewer starts it. */}
+<div class="mx-auto max-w-sm">
+  <TreatmentVideo
+    src="/media/iv-lounge.mp4"
+    poster={ivLoungePoster}
+    captionsSrc="/media/iv-lounge.vtt"
+    label="Amy Palacios, FNP, adjusts an IV drip as clients relax in the lounge at her Harrisburg medspa"
+  />
+</div>

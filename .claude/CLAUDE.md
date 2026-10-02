@@ -173,7 +173,33 @@ silently following it. Known superseded points from earlier briefs:
    text — copy, the slide's label, comments, meta, OG, JSON-LD. (The
    song's promise and its collective voice are recorded under
    constraint 3.)*
-   *Outside these eight exceptions the other providers are still never
+   *Ninth scoped exception (operator decision after the compliance
+   flag — DECISIONS 2026-10-02): Amy's own film of a client's IPL
+   session (`ipl-visit`) on /services/laser-treatments, beside
+   "Photo-rejuvenation". A member of Amy's own staff — not one of the
+   location's other providers; the operator's answer is the record —
+   is on camera doing the hands-on treatment for about seventeen
+   seconds, her face in frame behind laser glasses. She is never
+   named, no name can be read in the film, and one short answer in its
+   sound may be hers; her consent for needlegirlie.com use is
+   confirmed on file. The film's spoken words speak as a collective
+   beside the practice's name, which this rule's own reasoning reads
+   as a team (the words themselves are recorded under constraint 3
+   and the voice convention). Fixed terms: this film and its poster,
+   on that page; its label, captions and comments name nobody but Amy
+   and never say who does the hands-on work. The same day that page's
+   two who-performs lines were reworded, at the operator's direction,
+   to say that Amy plans every treatment and that "Amy or … a member
+   of her own staff" performs it — team wording against the voice
+   rule's written rationale, though it trips no linter token; a green
+   lint:voice never authorizes it. That wording is exact and lives in
+   those two lines only: it is never restated on another page, a
+   /services card, or in meta descriptions, OG tags or JSON-LD (the
+   /services lead and one /about sentence say, since the same date,
+   that Amy plans every service, and say nothing of staff). Another
+   placement, naming her, or staff wording anywhere else requires the
+   human operator.*
+   *Outside these nine exceptions the other providers are still never
    named or implied in any needlegirlie.com text, and adding any
    further film or mention, or any link outside the seventh
    exception's terms, requires the human operator.*
@@ -294,7 +320,12 @@ silently following it. Known superseded points from earlier briefs:
      names three products, two of which are also printed on those
      cartons; the caption cues carry them as the song's sung words —
      the claims bullet's clause for this film's sound, DECISIONS same
-     date — and that is not a reading of the packaging.)* Nothing else; changing that list
+     date — and that is not a reading of the packaging.)* *(A pointer,
+     not a further entry: the spoken words of the IPL-session film on
+     /services/laser-treatments name a count of treatments, which
+     BUILD_SPEC §7.12 treats as protocol-class; that override is the
+     claims bullet's clause for the film — DECISIONS 2026-10-02.)*
+     Nothing else; changing that list
      requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
@@ -505,6 +536,36 @@ silently following it. Known superseded points from earlier briefs:
      figure and the BA's field come from Amy directly (operator,
      2026-09-19). Changing the wording or the page scope requires the
      human operator.
+     And Amy's own film of a client's IPL session on
+     /services/laser-treatments (`ipl-visit`; operator override after the
+     compliance flag — DECISIONS 2026-10-02), carried whole and with its
+     sound, beside "Photo-rejuvenation". Its spoken words name what the
+     treatment is for without the page's appearance hedging, one of the
+     concerns named being one the page's own IPL copy does not give that
+     applicator; they promise a result, naming a count of treatments and
+     what follows it; and they say when to schedule. Its closing shots
+     show a client's skin after the treatment — after-treatment content
+     (BUILD_SPEC §1, §8.3, §8.9), the class the weight-loss pairs, the
+     Evolysse film's segment and the Radiesse-visit film's cut already
+     carry. A manufacturer's recognition plaque hangs in the room,
+     mirrored: its large word is recognisable in the served file, its
+     smaller lines are not (superiority-class pixels, BUILD_SPEC §8.4).
+     The client's website release and HIPAA marketing authorization are
+     confirmed on file (operator, same date). The words live in the
+     film's sound and in its caption file's cues (the operator's ear is
+     the record) and nowhere else in site text — never restated in copy,
+     the film's label, comments, meta descriptions, OG tags, or JSON-LD;
+     nor is the plaque's wording. The caption track shows by default
+     (operator decision, same date), so the words are read as well as
+     heard; caption files are outside lint:claims' scope, and a green
+     linter never authorizes them. A sentence beside the film carries
+     the client's consent, every-plan-is-individual, and the
+     consultation route (the weight-loss pairs' framing); trimming it
+     requires the human operator. Fixed terms: this film, this page,
+     that placement; changing any of it requires the human operator.
+     (Its on-camera staff member is constraint 2's ninth exception; its
+     invitation to schedule, the next bullet's second exception; its
+     collective voice, the voice convention's second.)
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing
@@ -538,6 +599,16 @@ silently following it. Known superseded points from earlier briefs:
      the layout-injected disclaimer they are what keeps this rule
      satisfied on the page, and trimming them requires the human
      operator.*
+     *Second scoped exception (operator override after the compliance
+     flag — DECISIONS 2026-10-02): the spoken invitation to schedule in
+     Amy's IPL-session film on that same page (`ipl-visit`), heard in
+     its sound and read in its caption cues, which show by default. It
+     tells visitors to schedule the treatment for concerns it names,
+     ahead of Amy's assessment. The words are never restated in site
+     text. Coupling: the sentence beside the film routes suitability to
+     a consultation, with the same section, FAQ answer and
+     layout-injected disclaimer the first exception names; trimming any
+     of them requires the human operator.*
    - Retatrutide (if published) **must** carry the investigational /
      not-FDA-approved disclosure. Biote symptom language **must** carry the
      FDA disclaimer.
@@ -568,7 +639,11 @@ silently following it. Known superseded points from earlier briefs:
      *One scoped exception (operator decision after the flag —
      DECISIONS 2026-09-30): the caption cues of the carousel's promo
      (`public/media/commercial-van-promo.vtt`) carry its song's own
-     first-person plural, because they are the sung words. The gate
+     first-person plural, because they are the sung words. A second
+     (operator decision after the flag — DECISIONS 2026-10-02): the
+     caption cues of Amy's IPL-session film
+     (`public/media/ipl-visit.vtt`) carry its spoken words' own
+     first-person plural, because they are the words spoken. The gate
      does not read caption files; the rule still governs every other
      caption file and all other site text.*
    - Place-name convention (Amy's direction, relayed by the operator,
@@ -658,7 +733,12 @@ silently following it. Known superseded points from earlier briefs:
   — in-class, no exception needed; DECISIONS same date), and
   /services/regenerative (2026-08-25, Amy's own speech-free PRP-visit
   reel — in-class; its on-camera provider is the constraint-2 sixth
-  exception; DECISIONS same date). /mobile was on this list from
+  exception; DECISIONS same date), and /services/laser-treatments
+  (2026-10-02, Amy's own film of a client's IPL session, a film WITH
+  speech — the speech-free rule's third scoped exception after the
+  ICON film and the van band's film, operator override after the flag;
+  muted on approach with its captions showing, sound one tap away;
+  DECISIONS same date). /mobile was on this list from
   2026-09-02 (Amy's own van clip in a MUTED rendition — no audio track,
   so in-contract, no exception; DECISIONS same date, the film entry)
   until 2026-09-26, when the page and its film retired, replaced by

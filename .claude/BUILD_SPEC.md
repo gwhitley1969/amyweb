@@ -32,7 +32,9 @@ The site must:
 Explicitly **not** in v1: any backend/server code, the AI assistant (Phase 3,
 mobile app), user accounts, e-commerce/payments, before/after galleries (one
 scoped exception, 2026-08-21: the weight-loss page's three client photo
-pairs under operator override — §8.3/§8.9), testimonials, contact
+pairs under operator override — §8.3/§8.9; and, 2026-10-02, the laser
+page's IPL-session film, whose closing shots show a client's skin after
+a treatment — operator override, same sections), testimonials, contact
 forms, any other provider's services.
 
 ## 2. Architecture
@@ -530,6 +532,15 @@ beat is carried by "Amy … plans and performs every treatment herself".
 The weight-loss line's "medically supervised program" wording (§7.1) is
 unchanged. DECISIONS 2026-09-19, the addendum.)*
 
+*(Amended 2026-10-02, operator decision after the flag: on
+/services/laser-treatments the beat reads "Amy … plans every treatment
+herself", and the page says the treatment is performed by Amy or by a
+member of her own staff — with no supervision clause, the 2026-09-19
+reading kept. The /services lead and one /about sentence say Amy plans
+every service. The staff wording is team wording under CLAUDE.md
+constraint 2's ninth exception: those two laser-page lines only.
+DECISIONS 2026-10-02.)*
+
 1. **Weight Loss & GLP-1 Therapy** — prescription medications offered in
    a medically supervised weight-management program: **Semaglutide**,
    **Tirzepatide**, **Phentermine**, and **Retatrutide** (menu confirmed
@@ -786,6 +797,19 @@ unchanged. DECISIONS 2026-09-19, the addendum.)*
     `ctaType` stays `consult`, and "Three tools, one conversation" plus
     the skin-types FAQ still route suitability to a consultation.
     DECISIONS 2026-09-19.)*
+    *(Media, 2026-10-02 — operator overrides after the compliance
+    flags, DECISIONS same date: Amy's own film of a client's IPL
+    session (`ipl-visit`) plays beside "Photo-rejuvenation" via
+    `TreatmentVideo` (`frame="bare"`, `autoplay="inview"`, captions
+    showing), carried whole with its sound. Its spoken words override
+    four of this brief's exclusions for the film only — an unhedged
+    list of concerns, one of them not in the IPL copy above; a count of
+    treatments; a results timeline; and when to schedule — and its
+    closing shots are after-treatment content. None of it is restated
+    in copy. A sentence beside the film carries consent, individuality
+    and the consultation route. The page's who-performs lines say Amy
+    plans every treatment and that Amy or a member of her own staff
+    performs it. §8.3, §8.7, §8.9; CLAUDE.md constraints 2 and 3.)*
     **Venus Epileve laser hair removal** *(added 2026-08-21 — the
     line's fourth service and its one true laser; operator-confirmed as
     offered)*: a laser hair-removal device, described by that fact alone
@@ -901,6 +925,16 @@ unchanged. DECISIONS 2026-09-19, the addendum.)*
    the site's own copy never names; and the manufacturer's boxes; both
    people on camera besides Amy released; no text from the billboard,
    the poster, or the boxes is ever restated in site text.
+   And Amy's own film of a client's IPL session on
+   /services/laser-treatments (`ipl-visit`; operator override after the
+   compliance flag, DECISIONS 2026-10-02), carried whole with its
+   sound: its spoken words name what the treatment is for, promise a
+   result with a count of treatments, and say when to schedule; its
+   closing shots show a client's skin after the treatment; a mirrored
+   recognition plaque is in the room; the client's release and HIPAA
+   authorization are on file; the words live in the film's sound and
+   in its caption cues, which show by default, and are restated nowhere
+   else in site text.
    And — operator override after the compliance flag,
    DECISIONS 2026-08-21 — the client photo-pairs section ("They showed
    up for themselves") on /services/weight-loss-glp-1: three
@@ -975,13 +1009,22 @@ unchanged. DECISIONS 2026-09-19, the addendum.)*
    DECISIONS 2026-09-19): the exact laser-treatments FAQ answer "Yes! All
    services can be booked with the expectation of a procedure." — that
    answer, that page. Recorded here and in CLAUDE.md constraint 3, NOT
-   in `allowedStrings` (no pattern sees it). Nothing else.*
+   in `allowedStrings` (no pattern sees it).*
+   *Second scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-10-02): the spoken invitation to schedule in
+   the IPL-session film on that same page, in its sound and its caption
+   cues; never restated in site text; the sentence beside the film
+   keeps the consultation route. Nothing else.*
 8. Credential inflation: Amy is an **FNP** (nurse practitioner). Never imply
    physician status; state credentials exactly.
 9. Testimonials, reviews, or before/after content (deferred by SOW).
-   *One operator-overridden exception (2026-08-21): the weight-loss
-   page's client photo-pairs section — see §8.3. The SOW deferral
-   itself is the operator's document to amend.*
+   *Operator-overridden exceptions — see §8.3: the weight-loss page's
+   client photo-pairs section (2026-08-21), and the laser page's
+   IPL-session film, whose closing shots show a client's skin after a
+   treatment (2026-10-02). Two films carried as-is also hold content of
+   this class: the Evolysse film's segment and the Radiesse-visit
+   film's cut (§8.3). The SOW deferral itself is the operator's
+   document to amend.*
 
 **Always:** factual "what it is / who it's generally for" framing;
 DisclaimerBlock on every treatment page; consultation routing as the clinical
@@ -1099,6 +1142,12 @@ action.
   (operator override after the flag — DECISIONS 2026-08-25): the
   Evolus ICON film on /about autoplays muted at the client's
   direction; its "sound on" caption stays as the tap-for-sound nudge.
+  A further one (operator override after the flag — DECISIONS
+  2026-10-02): Amy's own film of a client's IPL session on
+  /services/laser-treatments, a film with speech, autoplays muted with
+  its captions showing, sound one tap away (the rule's third exception,
+  counting the home band's van film, which plays through its own
+  player).
   The rule stands for every other film. In-contract consumers added
   2026-08-25: the team film's sounded rendition on /about
   (`girl-team-film-wide.mp4` since the 2026-08-26 widescreen re-render
@@ -1207,11 +1256,14 @@ action.
   budget and the no-hydration rule
   are unchanged; DECISIONS same date. Third consumer, 2026-08-21: the
   treatment-film autoplay-in-view script, public/js/treatment-video.js,
-  ~2KB, rendered only on pages whose films opt in — today
+  3,648 B raw, rendered only on pages whose films opt in — today
   /services/biostimulators, /services/body-contouring, /about
   (the ICON film, 2026-08-25 — the §5 film-class override above — and,
-  same date, the Girl Team unit's team film, in-contract), and
-  /injector-training (the training reel, 2026-08-25, in-class); the
+  same date, the Girl Team unit's team film, in-contract),
+  /injector-training (the training reel, 2026-08-25, in-class),
+  /services/regenerative (the PRP-visit reel, 2026-08-25, in-class), and
+  /services/laser-treatments (the IPL-session film, 2026-10-02 — a film
+  with speech, the §9 exception); the
   second consumer is the dark Plausible tracker, §11. Fourth consumer,
   2026-09-04 — the operator-adopted home concept (DECISIONS 2026-09-03,
   the home entry): the home page's motion layer, self-hosted GSAP 3.15

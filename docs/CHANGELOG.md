@@ -9,9 +9,25 @@ change lives in `docs/DECISIONS.md`; design specs live in
 ### 2026-10-02 — /services/iv-therapy: the IV lounge film autoplays, smaller
 
 - It now plays muted when scrolled into view, like the other films, and the
-  speaker button turns the song on. No text under it. It is two-thirds of its former width (16rem, was 24rem).
+  speaker button turns the song on. No text under it. It is two-thirds
+  of its former width (16rem, was 24rem).
   DECISIONS 2026-10-02, the addendum.
 
+### 2026-10-02 — /services/laser-treatments: Amy's IPL film beside "Photo-rejuvenation"
+
+- A 25-second film of a client's IPL session, filmed and spoken by Amy,
+  plays to the left of "Photo-rejuvenation" (above it on phones). It
+  starts by itself, muted, when scrolled into view, with its captions
+  showing; sound is one tap away.
+- A sentence beside it states the client's consent, that every plan is
+  individual, and that suitability is decided at a consultation.
+- "Who performs the treatment?" and "Individualized, with Amy" now say
+  that Amy plans every treatment and that Amy or a member of her own
+  staff performs it. /services and /about say Amy plans every service.
+- The film is carried whole and with its sound under recorded operator
+  overrides (CLAUDE.md constraints 2 and 3). Transcoded from the HEVC
+  master to H.264 at 720×1280, with one plain volume lift. DECISIONS
+  2026-10-02; PR #243.
 ### 2026-10-02 — /services/hormone-optimization: Amy's Biote film above "What Amy offers"
 
 - Amy, beside the Biote banner at her medspa, on why she chose Biote.

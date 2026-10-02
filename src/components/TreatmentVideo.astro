@@ -54,7 +54,10 @@ import { siteConfig } from '../lib/siteConfig';
  * ICON); Amy's own published reels are site-authored — each ships
  * under its own per-film DECISIONS entry (screening record, operator
  * decisions, releases), and their labels/captions describe only what
- * the pixels self-identify.
+ * the pixels self-identify. Two of them carry speech in their
+ * captions, the Biote film on /services/hormone-optimization and the
+ * IPL-session film on /services/laser-treatments: their cues are the
+ * spoken words, each under its own entry (DECISIONS 2026-10-02).
  */
 interface Props {
   /** Public path to the MP4, e.g. "/media/evolus-icon.mp4" — rewritten
@@ -97,11 +100,14 @@ interface Props {
    * /services/hormone-optimization, Amy speaking to camera throughout,
    * autoplays muted through this prop with her words in the default-on
    * captions and a "sound on" caption, like ICON. A fourth (operator
-   * direction — DECISIONS 2026-10-02, the IV lounge film addendum): the
-   * IV lounge film on /services/iv-therapy, its song with sung words,
-   * autoplays muted through this prop, with no printed caption. The
-   * rule stands for every other film; a further exception requires the
-   * human operator.*
+   * override after the flag — DECISIONS same date): Amy's own film of a
+   * client's IPL session on /services/laser-treatments, a film with
+   * speech, autoplays muted with its captions showing, sound one tap
+   * away. A fifth (operator direction — DECISIONS 2026-10-02, the IV
+   * lounge film addendum): the IV lounge film on /services/iv-therapy,
+   * its song with sung words, autoplays muted through this prop, with
+   * no printed caption. The rule stands for every other film; a further
+   * exception requires the human operator.*
    * The home carousel is a different player with its own contract
    * (VideoCarousel.astro): since 2026-09-30, at the operator's
    * direction, its five films carry their own sound and every one

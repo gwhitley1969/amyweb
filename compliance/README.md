@@ -128,7 +128,13 @@ prep-workflow class, under its own constraint-3 pixel override) and
 Amy's PRP-visit reel `prp-visit` (another provider injecting on
 camera, face mostly out of frame — the constraint-2 sixth exception;
 near-silent audio kept on the operator's no-speech confirmation, its
-caption file a single bounded quiet-room cue). Since 2026-08-17 the film FILES live outside the
+caption file a single bounded quiet-room cue). And from 2026-10-02
+Amy's Biote film `biote-why` on /services/hormone-optimization (the
+Biote banner's outcome lines and the wall's symptom poster legible as
+pixels, and her own spoken lines promising a plan that works for you —
+one constraint-3 override fixed to the film and its poster on that
+page; her words live only in its caption cues, which also keep her
+"we" under the voice rule's second caption-file exception). Since 2026-08-17 the film FILES live outside the
 repo entirely (Blob, served as media.needlegirlie.com — RUNBOOK
 "Publishing a film"): the frame-level screen and DECISIONS entry
 happen BEFORE the upload, and the caption .vtt stays in-repo precisely

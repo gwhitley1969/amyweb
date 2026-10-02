@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-10-02 — Two stale code comments corrected (product cards)
+
+- The product-card component's header comment said a card's price lines
+  could hold nothing but the strings on the compliance allowlist.
+  Plain-dollar prices have shipped without an allowlist entry since
+  2026-07-21; the comment now gives the rule the schema's comment
+  already gave.
+- Both comments described a card's text as a single claim-free
+  sentence. Many cards have several, and the peptide and regenerative
+  cards carry the client's own definitions under the recorded
+  2026-08-01 overrides; both comments now say so.
+- Comments only: the built site is byte-identical, and no treatment
+  page, gate or approval flag is involved.
+
 ### 2026-10-02 — /services/hormone-optimization: the Biote film loses its caption line and white frame
 
 - No text under the film (the "Why Amy chose Biote — sound on." line is

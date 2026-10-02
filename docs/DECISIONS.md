@@ -14686,6 +14686,10 @@ page's row pattern already puts a film left of its text).
      new slot, so still sharp on 3× phones.
   3. The caption file's NOTE now says it autoplays; `captionsSrc` takes
      `?v=2` per the RUNBOOK's bump rule.
+  4. No white frame: `frame="bare"` (no paper mat — only the bare
+     variant's magenta hairline and 12px corners), at the operator's
+     direction the same day. A departure from the FRAME note's
+     "mat for standalone films", for this film only.
 - **Rejected:** a custom sound button (the native control is the
   site-wide sound toggle on every treatment film); a new smaller
   rendition (the bytes saved do not justify a second upload for a 9s

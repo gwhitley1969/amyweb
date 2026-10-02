@@ -10,7 +10,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 - It now plays muted when scrolled into view, like the other films, and the
   speaker button turns the song on. No text under it. It is two-thirds
-  of its former width (16rem, was 24rem).
+  of its former width (16rem, was 24rem), and the white frame around
+  it is gone.
   DECISIONS 2026-10-02, the addendum.
 
 ### 2026-10-02 — /services/laser-treatments: Amy's IPL film beside "Photo-rejuvenation"

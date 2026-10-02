@@ -14636,3 +14636,29 @@ page's row pattern already puts a film left of its text).
   preview. If Amy declines the film, the object is deleted from the
   media storage and purged at the edge; it is public at its address
   from the upload until then.
+
+**The pull request and its preview (added before the merge).**
+- PR #243 into `phase-c`. `phase-c` moved twice while this was in
+  work: PR #241 (the IV lounge film) and PR #242 (the Biote film). Both
+  are merged in, their entries first in the records. The Biote film
+  took the speech-free rule's third exception and the voice rule's
+  second caption exception, so this film is the fourth and the third;
+  nine players now start by themselves, on seven pages.
+- `npm run verify` exit 0 on the final tree. Against unchanged
+  `phase-c` at `daae0f2`, six built files differ (the three pages,
+  the poster's two files, the caption file) and the three stylesheet
+  files are byte-identical.
+- The upload followed this entry's first commit (`c3d658d`). A range
+  request answers 206 `video/mp4` with `Content-Range: bytes
+  0-1023/9506179`, a plain request shows `Accept-Ranges: bytes`, and
+  the downloaded file is byte-identical to the built one. The media
+  storage holds thirty-two objects, seventeen of them referenced.
+- On the preview of the branch before the second merge (`fc68f90`):
+  the probe converged, the edge then answered 404 for about two
+  minutes, and it converged again (the known split state of a fresh
+  environment). With no user gesture, at 1280 and 390 wide, the film
+  starts muted in view with its eight cues showing, wraps at its end
+  and pauses off screen; the media host answers its requests 206; the
+  caption file is served as `application/octet-stream` and loads. The
+  preview is probed and played again after the second merge, before
+  the operator and Amy look.

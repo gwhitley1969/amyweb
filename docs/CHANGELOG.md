@@ -20,7 +20,7 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - The film is carried whole and with its sound under recorded operator
   overrides (CLAUDE.md constraints 2 and 3). Transcoded from the HEVC
   master to H.264 at 720×1280, with one plain volume lift. DECISIONS
-  2026-10-02.
+  2026-10-02; PR #243.
 ### 2026-10-02 — /services/hormone-optimization: Amy's Biote film above "What Amy offers"
 
 - Amy, beside the Biote banner at her medspa, on why she chose Biote.

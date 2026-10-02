@@ -97,6 +97,9 @@ const treatments = defineCollection({
         captionsSrc: z.string(),
         label: z.string(),
         caption: z.string().optional(),
+        // 'bare' drops the white paper mat (operator direction 2026-10-02,
+        // the Biote film); absent = the player's default mat.
+        frame: z.enum(['mat', 'bare']).optional(),
         autoplay: z.literal('inview').optional(),
       })
       .optional(),

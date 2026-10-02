@@ -698,8 +698,8 @@ silently following it. Known superseded points from earlier briefs:
   film and the van-trip film; DECISIONS same date), and
   /services/iv-therapy (2026-10-02, the IV lounge film, its song with
   sung words — the fourth scoped override of that rule, at the
-  operator's direction, a "sound on" caption like ICON's and
-  Biote's; DECISIONS same date). /mobile was on this list from
+  operator's direction, with no printed caption under it; DECISIONS
+  same date). /mobile was on this list from
   2026-09-02 (Amy's own van clip in a MUTED rendition — no audio track,
   so in-contract, no exception; DECISIONS same date, the film entry)
   until 2026-09-26, when the page and its film retired, replaced by

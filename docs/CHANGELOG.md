@@ -8,9 +8,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ### 2026-10-02 — /services/iv-therapy: the IV lounge film autoplays, smaller
 
-- It now plays muted when scrolled into view, like the other films, with
-  "Sound on." under it; the speaker button turns the
-  song on. It is two-thirds of its former width (16rem, was 24rem).
+- It now plays muted when scrolled into view, like the other films, and the
+  speaker button turns the song on. No text under it. It is two-thirds of its former width (16rem, was 24rem).
   DECISIONS 2026-10-02, the addendum.
 
 ### 2026-10-02 — /services/hormone-optimization: Amy's Biote film above "What Amy offers"

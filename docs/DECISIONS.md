@@ -14425,11 +14425,10 @@ the iPhone loop check are still to come.
      (`public/js/treatment-video.js`, unchanged). The film carries a
      song with sung words, so this is the speech-free autoplay rule's
      **fourth scoped exception** (after ICON, the van-trip film and the
-     Biote film), recorded in the component header and CLAUDE.md. Like
-     ICON and Biote, it gets a printed caption — "Sound on." (kept
-     short so it holds one line in the 16rem frame) — as the
-     tap-for-sound nudge; its sung words stay in the
-     default-on captions.
+     Biote film), recorded in the component header and CLAUDE.md. No printed caption
+     under the frame: one was tried ("The IV lounge — sound on.", then
+     "Sound on.") and removed at the operator's direction the same day;
+     its sung words stay in the default-on captions.
   2. The column drops from `max-w-sm` (24rem; 384×683 with the mat at
      desktop) to `max-w-64` (16rem; about 256×455). The 810×1440
      rendition is kept (no re-encode, no re-upload): above 2× for the

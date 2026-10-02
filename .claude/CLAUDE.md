@@ -387,8 +387,8 @@ silently following it. Known superseded points from earlier briefs:
      these three carousel renditions only; another film or placement
      with unlicensed music requires the human operator. One more since
      2026-10-02, by that route (DECISIONS same date): the song on the
-     /services/iv-therapy lounge film (`iv-lounge`), which plays only
-     when the viewer starts it; its sung words live in its caption
+     /services/iv-therapy lounge film (`iv-lounge`), which autoplays
+     muted in view, sound one tap away; its sung words live in its caption
      cues and nowhere else.
      And six photos (operator overrides after the compliance flags —
      DECISIONS 2026-08-18, 2026-08-21, 2026-08-25, and 2026-09-25): the /services hormone-optimization menu
@@ -695,7 +695,11 @@ silently following it. Known superseded points from earlier briefs:
   exception; DECISIONS same date), and /services/hormone-optimization
   (2026-10-02, Amy's Biote film, speaking to camera throughout — the
   third scoped override of the speech-free autoplay rule after the ICON
-  film and the van-trip film; DECISIONS same date). /mobile was on this list from
+  film and the van-trip film; DECISIONS same date), and
+  /services/iv-therapy (2026-10-02, the IV lounge film, its song with
+  sung words — the fourth scoped override of that rule, at the
+  operator's direction, a "sound on" caption like ICON's and
+  Biote's; DECISIONS same date). /mobile was on this list from
   2026-09-02 (Amy's own van clip in a MUTED rendition — no audio track,
   so in-contract, no exception; DECISIONS same date, the film entry)
   until 2026-09-26, when the page and its film retired, replaced by

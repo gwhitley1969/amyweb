@@ -14411,3 +14411,31 @@ the iPhone loop check are still to come.
     meta, OG, JSON-LD. Her words are written in the caption cues and
     nowhere else. Moving the film, adding another, or changing any of it
     requires the human operator.
+
+### 2026-10-02 addendum — the IV lounge film autoplays, and is smaller (operator direction)
+
+- **Context:** on the merged page (PR #241) the operator found the film
+  too big ("It's huge") and asked that it autoplay like every other
+  film on the site: start muted, with a way to turn the sound on while
+  it plays.
+- **Decisions:**
+  1. `autoplay="inview"` — muted when about a third of it is on screen,
+     looping in view, paused off screen; the native controls' speaker
+     is the sound toggle, and an unmute is remembered
+     (`public/js/treatment-video.js`, unchanged). The film carries a
+     song with sung words, so this is the speech-free autoplay rule's
+     **fourth scoped exception** (after ICON, the van-trip film and the
+     Biote film), recorded in the component header and CLAUDE.md. Like
+     ICON and Biote, it gets a printed caption — "The IV lounge — sound
+     on." — as the tap-for-sound nudge; its sung words stay in the
+     default-on captions.
+  2. The column drops from `max-w-sm` (24rem; 384×683 with the mat at
+     desktop) to `max-w-64` (16rem; about 256×455). The 810×1440
+     rendition is kept (no re-encode, no re-upload): above 2× for the
+     new slot, so still sharp on 3× phones.
+  3. The caption file's NOTE now says it autoplays; `captionsSrc` takes
+     `?v=2` per the RUNBOOK's bump rule.
+- **Rejected:** a custom sound button (the native control is the
+  site-wide sound toggle on every treatment film); a new smaller
+  rendition (the bytes saved do not justify a second upload for a 9s
+  film).

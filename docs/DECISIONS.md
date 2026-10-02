@@ -14299,3 +14299,115 @@ the iPhone loop check are still to come.
   deleted (git history keeps it). iv-therapy's flag stays
   `clinicianApproved: false`; CLINICIAN-SIGN-OFF carries the change for
   Amy, in its row and in the presentation record.
+
+## 2026-10-02 — Biote film above "What Amy offers" on /services/hormone-optimization (operator direction)
+
+- **Context:** the operator asked for `C:\Amy\Videos\Biote.mp4` to go on
+  /services/hormone-optimization, directly above "What Amy offers", and
+  later in the same session for the off-camera "go ahead" at its start to
+  be cut and the picture brightened.
+- **Source, probed first-hand:** an iPhone file recorded 2026-09-28
+  (sha256 `300620a1…bb170`): H.264 High 1280×720 with a −90° display
+  rotation (720×1280 portrait as shown), SDR bt709, 30fps, 50.67s, AAC
+  stereo 44.1kHz, 15,649,068 bytes. Its metadata carries 14 Apple
+  QuickTime keys, the recording location among them, and the device name.
+- **Screening (contact sheet every 2s, first and last frames, full-size
+  crops):**
+  - *People:* Amy alone, in scrubs, speaking to camera. The two faces on
+    the wall poster and the one on the banner are printed stock models.
+    No release is needed; no constraint-2 exception.
+  - *Pixels:* the Biote roll-up banner beside her, legible from the
+    first frame to the last: the logo, "Age healthier & live happier",
+    "It can start with a simple test", an energy/sleep/weight/libido
+    improvement line, and four "Patients tell us they experience" outcome
+    lines. On the wall, Biote's "Do you experience any of these symptoms?"
+    poster, its list legible at full resolution. No dosing, no product
+    quantity, no other provider.
+  - *Sound:* Amy's speech throughout, no music; −29.4 LUFS, true peak
+    −12.0dBFS. A local machine transcript (Whisper through ffmpeg's own
+    filter; nothing uploaded), with the opening transcribed in separate
+    pieces, put the off-camera prompt at 1.03–1.2s and Amy's first word
+    at ~1.97s. She says why she chose Biote: 18 years of ER/ICU trauma
+    work writing research-based protocols, then "There's a full panel, a
+    very detailed hormone check… then we put it into the computer, and it
+    gives you the results that you need, based on your symptoms, based on
+    your history… it is what works for you." Two words await the
+    operator's ear: "chose" (heard as "choose") and "Code Cool".
+- **Decisions (operator, after the flags):**
+  1. The banner, the wall poster and Amy's spoken lines are carried
+     as-is: CLAUDE.md constraint 3's claims bullet gains this film (its
+     outcome-promise pixels and spoken lines), fixed to this film and its
+     poster on this page. A blur of the banner's claim lines was offered
+     as the compliant path and declined (the 2026-08-18 card photo's
+     ship-as-is precedent, same banner).
+  2. The caption file keeps Amy's "we" word for word: the voice rule's
+     second caption-file exception (the van promo's is the first).
+  3. Muted autoplay in view with sound one tap away: the third scoped
+     exception to the speech-film autoplay rule (after the ICON film and
+     the van-trip film). Click-to-play was offered as the in-contract
+     choice and declined.
+  4. `{{BIOTE_PERMISSION}}` is RESOLVED: the operator states Amy has
+     Biote's OK to show its banner and logo. BUILD_SPEC §7.8's text-only
+     rule ends; this also covers the 2026-08-18 card photo, which had
+     shipped the banner without the token being addressed.
+  5. The sound is raised to the house level (RUNBOOK's level rule) rather
+     than copied as the treatment-film recipe says: +11dB, one plain
+     offset, no compression.
+  6. The off-camera prompt is cut: the film starts at 1.85s.
+  7. Brightened at gamma 1.60, saturation 1.05: draft D of five on a
+     side-by-side sheet (A–D at gamma 1.15/1.30/1.45/1.60). Average luma
+     138 → 170, the brightest tenth 206 → 223 of 235; no clipping, and
+     the banner's whites hold. The hormone card's 2026-09-30 brightening
+     is the precedent.
+- **Mechanics:**
+  - Rendition (recipe in `C:\Amy\biote-film\build.sh`): trim and grade by
+    filter (`trim`/`atrim` at 1.85s, `eq=gamma=1.60:saturation=1.05`,
+    `volume=11dB`), libx264 CRF 20, yuv420p tagged bt709, AAC 128k,
+    `-map_metadata -1`, faststart → 720×1280, 48.8s, 13,744,951 bytes,
+    ~2.1Mbps, −18.5 LUFS, peak −1.0dBFS, md5
+    `efb5787105ca23839a3f0f6b2ced97f6`. A byte scan finds no Apple
+    metadata, device name or location. Its opening transcribes as "So
+    people always ask…". Uploaded as `biote-why.mp4`, a new name, so
+    no purge.
+  - A copy-mode cut (`-ss` with `-c:v copy`) was tried first and
+    rejected: it can only cut at a keyframe (0.967s), which falls before
+    the prompt.
+  - Poster: the rendition's frame at 15.15s (hands clasped), `-q:v 2`,
+    720×1280, 129,369 bytes, committed as
+    `src/assets/photos/biote-why-poster.jpg`; served as a 62KB WebP.
+  - Captions: `public/media/biote-why.vtt`, Amy's words as 12 cues timed
+    from the rendition's own transcript, with the house NOTE blocks.
+  - Placement: a new optional `film` frontmatter field (TreatmentVideo's
+    props; the collection schema takes the function form for `image()`).
+    The services route passes it, and TreatmentLayout renders it after
+    the intro slot, before the products block. The MDX body renders
+    below "What Amy offers", so the in-body pattern of the other films
+    could not reach that spot. Operator-approved schema change.
+- **Gates (real build, `npm run verify` exit 0):** pa11y 25/25; Lighthouse
+  every assertion on 8 URLs × 3. On the hormone page, median of three
+  against a phase-c build: performance 1.00 (unchanged); LCP 1886ms (was
+  1506; the poster is fetched at parse, the /mobile 2026-09-02 lesson);
+  image 99KB of 240; total 159KB of 350; script 2KB; media 0 and
+  third-party 0 (the film does not load inside the Lighthouse trace).
+- **Browsers:**
+  - *Chrome 1280×800:* the film's top sits at 688px, so it autoplays
+    muted at load. It is 362×644, captions show, and an unmute holds
+    and is remembered.
+  - *Chrome 390px:* it starts muted when scrolled to; 320×569.
+  - *Firefox 157:* plays muted in view and loads all 12 cues (a missing
+    track as the negative control reports an error).
+- **Consequences:**
+  - The layout's import inlines TreatmentVideo's scoped style on every
+    treatment page and the three styleguide pages; they render the same,
+    and the shared stylesheets are byte-identical.
+  - Desktop visitors start the film at load, so each can stream up to
+    13.7MB from Front Door: metered egress on Amy's bill, as with the
+    other autoplay films.
+  - hormone-optimization stays `clinicianApproved: false`; the
+    CLINICIAN-SIGN-OFF row carries the change for Amy.
+  - Fixed terms: this film and its poster, on this page. No text from
+    the banner or the wall poster, and none of Amy's spoken claims or her
+    "we", is ever restated in site text: copy, the label, comments,
+    meta, OG, JSON-LD. Her words are written in the caption cues and
+    nowhere else. Moving the film, adding another, or changing any of it
+    requires the human operator.

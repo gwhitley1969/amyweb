@@ -45,7 +45,13 @@ the takedown"). Inspect with
 Rules: never add `verify-and-deploy` as required (its docs
 paths-ignore would deadlock docs-only PRs on a check that never
 reports), and the protection contexts retire WITH the guard workflow
-in the relaunch PR (DECISIONS 2026-08-17).
+in a follow-up PR right after the relaunch, never in the relaunch PR
+itself (DECISIONS 2026-08-17, corrected 2026-08-24; this line still
+said "in the relaunch PR" until 2026-10-05). The order: remove the two
+required checks first (`gh api -X DELETE
+repos/gwhitley1969/amyweb/branches/<branch>/protection/required_status_checks`,
+which leaves the force-push and deletion protection in place), then
+merge the PR that deletes the workflow.
 
 ## Media origin (added 2026-08-17)
 

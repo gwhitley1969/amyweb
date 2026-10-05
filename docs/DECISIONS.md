@@ -15182,3 +15182,312 @@ embed, no script. The page is outside the treatments collection, so no
 `clinicianApproved` flag is involved; the sign-off sheet's
 /injector-training section gains the item for Amy. The chip's consumer
 lists in `CTAButton.astro` and `tokens.css` name the new wearer.
+
+## 2026-10-05 — Home: no sideways scroll on phones (the hero and the Instagram print's section clip x; PR #210's fix, carried into the relaunch)
+
+**Context.** Two motion-layer moves put a box past the screen's right
+edge, and below 900px nothing clipped either, so the home page itself
+grew wider and could be dragged sideways on phones. The fix was written
+and verified on 2026-09-26 (PR #210) and never merged; the branch went
+stale under later merges. Found again while preparing the relaunch and
+measured on the standing demo (`phase-c` `a02dde4`, the repo's
+puppeteer in phone emulation, stepping the whole page 100px at a time):
+the page was 15 / 19 / 21 / 37 px too wide at 320 / 390 / 430 / 768.
+- **The hero's exit swell** (home-motion.js step 3, scrubbed) scales
+  the hero's media box to 1.12 from 60% 40%, 4.8% of the width past the
+  edge; from 900px the hero already clipped it.
+- **The Instagram print's reveal** (step 6). The print's photo waits at
+  1.18, unseen, until the reveal plays, and inside the tilted print that
+  box reached past the edge at about 420–640px wide.
+
+Reduced motion runs neither move.
+
+**Decision.** PR #210's three hunks, unchanged apart from the date in
+their two comments: `overflow-x: clip` in the hero's base rule, outside
+the media query, and on the print's section, which takes a new class.
+From 900px the hero's existing `overflow: hidden` still wins, so desktop
+is unchanged. Operator, 2026-10-05, asked whether to fix it before the
+relaunch or after: "Fix it first".
+
+**The relaunch rule this touches.** RELAUNCH precondition 3 wants Amy's
+presentation approval to be newer than the last merged visual change,
+and this fix merges after her review of the same day. The operator's
+decision, asked directly: he checks the fix on the PR preview himself
+("No, I'll check it myself"), and it is recorded as his override of that
+rule for a fix that changes nothing a visitor sees. The measurements
+above and below are the evidence.
+
+**Alternatives rejected.** An x clip on html or body: it can break
+`position: sticky`, and the statement band's panel is sticky from
+900px. `hidden`: a scroll container, for no gain. Clipping both axes:
+on a fast scroll back to the top the lagging swell rises past the hero's
+top edge for a moment, and a y clip would cut it. Smaller or re-anchored
+moves: a different look. Launching with the bug and fixing it on the
+live site: offered and declined.
+
+**Consequences.** A few bytes in the stylesheet the home page shares
+with the styleguide pages, and the home page gains the section's class;
+nothing else in the build changes. Safari before 16 ignores `clip` and
+keeps the old pan (no regression). Not treatment content; no
+`clinicianApproved` flag. PR #210 is closed as superseded once this
+merges; its fuller 2026-09-26 verification (16 widths, Firefox, frame
+comparisons) stays on that PR.
+
+**Verification.** With the hunks on today's tree, served from a local
+build: 0 px over at 320, 390, 430 and 768, with the motion layer
+running. `npm run verify` exit 0 on the tree that carries this fix and
+the same day's search-text edits. The PR preview's result is in the
+shipped record.
+
+## 2026-10-05 — Search text: twelve titles and descriptions say Charlotte and fit a results page; the business data gains an image (operator direction, before the relaunch)
+
+**Context.** The operator asked, on the day of the relaunch, whether the
+site was search-optimized. An audit of the production build of all 22
+pages found the pages sound: one H1 each, unique titles and
+descriptions, correct canonicals, every share tag, no image without an
+alt attribute, valid JSON-LD, no page that nothing links to, no
+`noindex`, a 21-URL sitemap. It also found three things in the text
+search engines read:
+- eleven descriptions ran past 160 characters (up to 201), so results
+  pages cut them off;
+- the home page's title and description never said Charlotte, and nor
+  did eleven of the twelve treatment descriptions, though the treatment
+  titles do;
+- the sitewide business entry had no `image`.
+
+Offered the choice of doing the edits after the relaunch (recommended,
+so that nothing new could hold the launch) or before it, the operator
+chose "Do them now, before launch", with Amy's OK on the new lines
+before his approval flip.
+
+**Decision.** Thirteen exact replacements in twelve files, none of them
+text a visitor sees on a page:
+- **Home** (`ConceptHome.astro`): the title tag reads "Needle Girlie |
+  Medical Aesthetics in Harrisburg & Charlotte, NC" (it read "…in
+  Harrisburg, NC"; the share title of 2026-09-27 is unchanged), and the
+  description reads "Needle Girlie — medical aesthetics in Harrisburg,
+  NC, near Charlotte. Injectables, skin, body, and wellness, every
+  appointment with Amy Palacios, FNP."
+- **/services, /about, /injector-training**: descriptions shortened to
+  154, 145 and 157 characters. /services and /injector-training now say
+  "near Charlotte, NC".
+- **Seven treatment files** (dermal-fillers, hormone-optimization,
+  iv-therapy, laser-treatments, skincare, weight-loss-glp-1,
+  wrinkle-relaxers), in their own commit: `seo.description` shortened to
+  144–156 characters, each saying "in Harrisburg, NC, near Charlotte"
+  (skincare: "at her Harrisburg, NC medspa near Charlotte"). The old and
+  new lines are in the sign-off sheet.
+- **`schema.ts`**: the business entry gains `image`, the link-share
+  card's address.
+
+The rule applied to every line: 160 characters or fewer, say Charlotte,
+add no claim. Each line was read against CLAUDE.md's scoped exceptions
+whose terms forbid restating them in meta descriptions; none restates
+one. Weight loss keeps "medically supervised", wording left for the
+operator's separate call since 2026-09-19.
+
+**Alternatives rejected.**
+- *FAQ structured data.* Several FAQ answers are operator exceptions
+  that may never be restated in JSON-LD (the laser booking answer among
+  them), and search engines show FAQ results for few sites now.
+- *Map coordinates, a price range, opening hours* in the business entry:
+  the first two are facts not on record, and hours are left off by
+  Amy's decision of 2026-08-04. Nothing was invented.
+- *Visible copy.* The home page's text says Harrisburg seven times and
+  Charlotte never; changing what visitors read was not part of this.
+- *The other five treatment descriptions and every other title*: already
+  within length, left as they are. The laser title keeps "Laser Hair
+  Removal" whole and so has no room for Charlotte.
+- *A `logo` property*: still Phase D (BRAND-ASSETS).
+
+**Consequences.** All twelve treatment flags were already `false`, so no
+flag resets; Amy reads the seven new lines on a before-and-after sheet
+and the operator's flip follows her OK. The home description is also the
+text some apps show under a shared link. The `image` address must follow
+the share card's filename when the card is re-made (RUNBOOK, "Changing
+the link-share card"). RELAUNCH's launch-day checklist quotes the new
+home title. The round-close record counts this and the phone fix as the
+last two items before the freeze.
+
+**What the pages cannot do.** Search engines have to be told the site
+is back: Search Console verification and a sitemap submission need the
+operator's Google account, and whether a Google Business Profile links
+here is the operator's to settle (BUILD_SPEC §10, `{{GBP_STATUS}}`).
+With analytics off (the next entry), Search Console is also the only
+source of search numbers.
+
+**Verification.** The edit script writes nothing unless each old string
+is found exactly once: 13 of 13. On the edited tree the production
+build, `astro check`, `lint:claims`, `lint:voice` and
+`lint:practice-link` pass; no description runs past 160 characters;
+Lighthouse scores SEO, accessibility and best practices at 1.0 on /,
+/services, /about and /services/wrinkle-relaxers of that build. The
+two-step relaunch merge, rehearsed with these edits in, conflicts in the
+same three files as before.
+
+## 2026-10-05 — Analytics stays off at the relaunch (operator decision; supersedes the 2026-08-17 "Plausible at relaunch")
+
+**Context.** On 2026-08-17 the operator decided that Plausible would be
+switched on at relaunch, and the wiring was built to ship dark until
+then. RELAUNCH listed the flip as precondition 4. Asked on the day
+whether the Plausible account was ready, the operator asked what the
+feature was, and with that explained chose "No, launch without it".
+
+**Decision.** The relaunch goes out with `siteConfig.analytics` at
+`enabled: false`, `provider: 'none'`. Precondition 4 does not apply to
+this relaunch. The wiring stays in the repo, dormant: the self-hosted
+tracker file, the privacy page's conditional wording, the CSP sniff in
+`generate-swa-config.mjs`. Turning it on later is the same two-value
+edit, on the operator's word, by the RUNBOOK procedure.
+
+**Alternatives rejected.** Switching it on at launch as planned: needs
+an account only the operator can create, and he declined. Removing the
+dormant wiring: it costs nothing while dark and the decision may be
+revisited.
+
+**Consequences.** No visitor numbers from day one; Front Door's request
+reports and, once set up, Search Console are what there is. The privacy
+page keeps its launch wording, which is true ("It currently runs no
+analytics"). BUILD_SPEC §16's analytics line stays satisfied the way it
+was on 2026-08-04, by the recorded no-provider decision. Azure run-rate
+is unchanged and no Plausible charge starts. Five places said the flip
+would happen at relaunch and are corrected with this entry: CLAUDE.md's
+list of sanctioned scripts (one phrase, on the operator's approval of
+the launch plan), BUILD_SPEC §11 and its §17 registry row, RUNBOOK
+"Turning on analytics", RELAUNCH precondition 4 with its checklist
+line, and the comment above the values in `siteConfig.ts`.
+
+**One thing to do when it is switched on.** The privacy page promises
+that a changed policy is "posted on this page with an updated effective
+date", and the date is one line in `LegalLayout.astro`, shared by the
+three legal pages. The flip needs the privacy page's date changed in
+the same PR (rehearsed 2026-10-05: an optional `effective` prop on the
+layout, set by the privacy page when analytics is on). The preview
+environments would also report into the production site's numbers
+unless the account's hostname list admits needlegirlie.com only.
+
+## 2026-10-05 — The relaunch: Amy's sign-off logged, the round closed, and the two-step merge that takes the site live
+
+**Context.** Production has served the Under Construction page since the
+2026-08-05 takedown. On 2026-10-05 the operator said the sign-offs were
+in and asked for the site to go live "without any hiccups". RELAUNCH
+names four preconditions. This entry records how each was met, the
+operator's answers word for word, and how the relaunch was prepared.
+
+**The operator's answers (asked one question at a time, quoted).**
+- *What should the record say Amy approved, and when?* "Everything,
+  today (Oct 5)": she reviewed the standing demo that day, after the
+  morning's update, and approved all twelve treatment pages, how the
+  whole site looks, /injector-training, and /tox-together with its party
+  terms. The demo had been rebuilt 11:44–11:51 EDT from `phase-c`
+  `a02dde4` (PR preview run 37335248220).
+- *Does she know the home film's opening hair shot is generated from her
+  photos and the van film is AI-sharpened, and has she OK'd both?* "Yes,
+  she knows and OK'd both". This is the informed OK of her generated
+  likeness that REDESIGN and the 2026-09-17 and 2026-09-30 entries name
+  as gating production.
+- *The items the sign-off sheet marks as hers to confirm by name* (the
+  laser booking answer and its film's spoken words, "$265 for six
+  weeks", the "$618 value" sentence, the Tox Together host credit and
+  whether it fits her professional guidance, "top of class" on /about,
+  the promo's sung words, and the rest): "She already confirmed them".
+- *The round close* (REDESIGN's three slots, which only the operator
+  fills): "Frozen today, all seven pass".
+- *Analytics*: "No, launch without it" (its own entry, this date).
+- *The phone fix and the rule that her approval be newer than the last
+  visible change*: "No, I'll check it myself" (the phone-fix entry, this
+  date).
+- *The search-text edits*: "Do them now, before launch" (their own
+  entry). Amy's OK on the twelve lines, read from a before-and-after
+  sheet, was relayed by the operator before the flip, at 17:22 UTC:
+  "Amy OK'd the twelve lines".
+- *The phone check, when PR #253's preview would not serve reliably*
+  (it answered 404 in bursts for its first minutes and again after two
+  clean passes, the fresh-preview fault of RUNBOOK's troubleshooting
+  list): "Merge now, I check later". PR #253 merged on that word with
+  the assistant's measurement as the evidence (0 px too wide at 320,
+  390, 430 and 768 on that preview), and the operator's own phone check
+  moves to the relaunch PR's preview, the build that goes live, before
+  the go-live question is asked.
+
+These are the operator's statements and they are the record; nothing
+here was observed by the assistant.
+
+**How each precondition was met.**
+1. *Round close*: REDESIGN's slots filled from the answer above. The
+   change list is frozen as of 2026-10-05, after that day's two
+   operator-directed items, the phone fix and the search text. Anything
+   raised later is change-order or retainer scope.
+2. *Copy approval*: the operator ran the flip himself, in his own
+   terminal, on a fresh branch cut from `phase-c` after PR #253 merged
+   (commit `0363603`, alone on `content/clinician-approval-relaunch`),
+   the form of the 2026-08-05 sign-off (`ad8fbde`, PR #93).
+   `check:approvals` passes on twelve files. The assistant supplied the
+   command and checked the result: twelve files, twelve lines, the flag
+   and no other byte, the operator as author. The command is PowerShell
+   and reads and writes each file whole; the loop printed in the
+   sign-off sheet rewrites every line ending, and a `sed` command, the
+   first plan, does not exist in the operator's terminal.
+3. *Presentation approval*: the sign-off sheet's row is dated 2026-10-05
+   with the answers above. One change to the built pages is newer than
+   her review, the phone fix, and it is the operator's recorded override.
+4. *Analytics flip*: does not apply to this relaunch.
+
+**Decision: how the relaunch is carried out.** RELAUNCH's two-step,
+unchanged, with what a rehearsal in a throwaway clone showed:
+- On a branch from `main`: revert `e57a4448`. It conflicts in exactly
+  `src/layouts/BaseLayout.astro` and `src/pages/index.astro`; the
+  launch-tree side is taken and each file is checked equal to its blob
+  in `e57a4448^`.
+- Merge `phase-c`. It conflicts in exactly `src/components/SeoHead.astro`,
+  one line; the `phase-c` side is taken and checked equal.
+- Delete `src/assets/photos/studio-counter-portrait.jpg`.
+- **The test before anything is pushed: the branch's tree hash must
+  equal `phase-c`'s.** This is stronger than the guard's comparison,
+  which looks for missing files and not for changed ones. Rehearsed
+  twice (the second time with the day's fix and search text in): equal
+  both times.
+- The guard workflow stays in the relaunch PR and retires in a follow-up
+  the same day (RELAUNCH step 4).
+- The merge into `main` is a merge commit on the operator's yes; never a
+  squash or a rebase, which would break the ancestry the two-step
+  repairs.
+
+The git work for the relaunch branch is done in its own worktree, so the
+main checkout, where the operator's terminal sits, never holds the
+placeholder tree. Because the tree is byte-identical to `phase-c`'s, the
+production build and `npm run verify` are run on the `phase-c` tip in
+the main checkout and their results are results for the release branch;
+the PR's pipeline then runs the whole suite again on the merge.
+
+**Alternatives rejected.** A plain `phase-c` into `main` merge: it drops
+the launched files silently, which is what the guard exists to refuse.
+Pointing `main` at `phase-c`'s tree in one hand-made commit: the same
+result as the two-step, but RELAUNCH says to use its script and not
+re-derive. Putting the flip on the launch-prep branch with the other
+commits: the first plan, corrected in review, because the documented
+procedure and the August precedent keep the flip alone on a fresh
+branch.
+
+**Corrections to the records, made with this entry.** RELAUNCH's
+launch-day checklist called the IV lounge film click-to-play and counted
+nine autoplay players on seven pages; it has been autoplay since the
+2026-10-02 addendum, and the build has ten players on eight pages.
+RUNBOOK, BUILD_SPEC §14 and OPERATOR-SETUP still said the guard retires
+in the relaunch PR, which RELAUNCH step 4 and the workflow's own header
+corrected on 2026-08-24/25. RUNBOOK's "never close PR #95" passages and
+RELAUNCH's bookkeeping now say what happens to that PR when its commits
+land in `main`. The sign-off sheet's closing checklist said "Merge PR
+#5".
+
+**Consequences.** Every merge to `main` ships from here on, and an
+unapproved treatment edit blocks every deploy until the operator flips
+it in the same PR. Carried open, as before, and not gates: counsel
+review of the legal pages, attorney wording for Retatrutide, the manual
+keyboard and screen-reader pass, and the commercial songs with no
+licence on record. Emergency return to the placeholder, on the
+operator's word only: re-run the deploy job of the 2026-09-27
+placeholder release (`gh run rerun 36325267925 --job 108636946730`,
+valid until 2026-10-27); the durable route is RUNBOOK's revert. The
+shipped record, with run numbers and probe results, follows the
+relaunch.

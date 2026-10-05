@@ -171,6 +171,9 @@ mergeable again.
 
 Do not wait on a `…-95…` environment, and do **not** close PR #95 to "fix"
 it — closing it would not create a preview, and the relaunch depends on it.
+(At the relaunch itself the question answers itself: once the relaunch
+PR merges, #95's commits are all in `main` and GitHub is expected to
+mark it merged. See RELAUNCH, "Standing PR bookkeeping".)
 
 **Where to look at `phase-c` meanwhile:** the demo environment below,
 refreshed by merging `phase-c` into `chore/monday-demo-preview`. PR #97
@@ -561,8 +564,15 @@ above.
 
 Everything is wired and gated behind `siteConfig.analytics`
 (src/lib/siteConfig.ts); while it ships dark the site is byte-identical
-to the no-analytics build. The flip is the operator's act, intended
-for relaunch day so the baseline starts at day one:
+to the no-analytics build. The flip is the operator's act. It was
+intended for relaunch day; the 2026-10-05 relaunch went out with
+analytics off at the operator's decision (DECISIONS same date), so the
+baseline starts on whatever day the flip is made. When it is made, the
+privacy page's effective date has to change in the same PR (that page
+promises an updated date; the date is one line in `LegalLayout.astro`,
+shared by the three legal pages), and the Plausible account's hostname
+list should admit needlegirlie.com only, or the preview environments
+report into the site's numbers. The steps:
 
 1. Create the Plausible account (plausible.io, ~$9/mo — client
    pass-through) and add the site `needlegirlie.com`.
@@ -666,7 +676,9 @@ the default `og:image` and `twitter:image` that
    output is named by its render date. Then run `node predict-bar.cjs`
    on the output: it must pass (see the bar, below).
 2. Commit it under that NEW filename and point `SeoHead`'s default at
-   it. Apps cache previews by image URL, so a file replaced in place
+   it, and point the business entry's `image` in `src/lib/schema.ts` at
+   the same file (since 2026-10-05 the structured data names the card;
+   DECISIONS same date). Apps cache previews by image URL, so a file replaced in place
    leaves old previews stale. Keep the previous card's file until
    relaunch: nothing references it, but an app that stored its address
    still asks for it. While `main` is still the placeholder, ship the
@@ -771,7 +783,8 @@ the launch-day checklist — lives in **docs/RELAUNCH.md** (prepared
 
 During the takedown: never merge `main` into `phase-c`, never press
 "Update branch" on PR #95, never close PR #95 (the standing-PR pattern
-survives for relaunch). Interim previews come from sub-PRs into
+survives for relaunch; these three rules end when the relaunch PR
+merges, at which point #95 is expected to show as merged by itself). Interim previews come from sub-PRs into
 `phase-c` — PR #97 is the standing full-site demo (comment-only diff,
 never merges; close it without merging when no longer needed).
 
@@ -787,8 +800,14 @@ treatment MDX pages, both treatment films, every photo) with no
 conflict on any of them, and the build still passes. A conflicted PR
 runs no workflows, but it also cannot merge; the guard fires exactly
 when someone hand-resolves PR #95's conflicts and the merge ref
-becomes computable. **The relaunch PR retires this workflow** (with
-a DECISIONS entry): after the two-step re-sync the revert is a
+becomes computable. **A follow-up PR right after the relaunch retires
+this workflow — NOT the relaunch PR itself** (corrected 2026-10-05 to
+match RELAUNCH step 4 and the workflow's own header, which were fixed
+on 2026-08-24/25; this paragraph still said "the relaunch PR retires
+this workflow"). The relaunch PR needs the guard intact, because the
+guard is what proves its tree complete. The follow-up removes the two
+required checks from branch protection first, then deletes the file,
+with a DECISIONS entry: after the two-step re-sync the revert is a
 harmless ancestor everywhere and the first job would fail every PR
 forever.
 

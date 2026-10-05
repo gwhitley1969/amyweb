@@ -1330,7 +1330,9 @@ secrets in the repo, ever. `{{FRONT_DOOR_ID}}` (the FDID GUID) is a repo
 variable injected into the production SWA config at build.
 
 **Relaunch guard (takedown-era, 2026-08-17 — external-audit Finding
-1; RETIRES in the relaunch PR):** `relaunch-guard.yml` runs two jobs
+1; RETIRES in a follow-up PR right after the relaunch, never in the
+relaunch PR itself — docs/RELAUNCH.md step 4; corrected here
+2026-10-05):** `relaunch-guard.yml` runs two jobs
 with NO paths filter, both **required status checks** (the repo's
 first branch protection): `takedown-revert-guard` (PRs into `phase-c`
 + pushes to it — fails if the takedown revert is reachable) and

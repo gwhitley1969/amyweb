@@ -121,7 +121,8 @@ check will refuse it. On a branch off `main`:
   2026-08-25 portrait object) + the /injector-training reel
   `training-reel.mp4` (2026-08-25) + the regenerative PRP-visit reel
   `prp-visit.mp4` (2026-08-25) + the iv-therapy lounge film
-  `iv-lounge.mp4` (2026-10-02, click-to-play) + the
+  `iv-lounge.mp4` (2026-10-02; autoplay in view since that day's
+  addendum, not click-to-play as this line said until 2026-10-05) + the
   hormone-optimization Biote film `biote-why.mp4` (2026-10-02) + the
   laser page's IPL-session film `ipl-visit.mp4` (2026-10-02) — the viewfinder film
   `van-viewfinder-treatment-trim.mp4` (2026-09-03) retired with /mobile
@@ -133,10 +134,12 @@ check will refuse it. On a branch off `main`:
   same day, so that name is not a probe target; the film returned
   2026-09-25 as the carousel's first film under the new name above). On /services/biostimulators,
   /services/body-contouring, /about, /injector-training,
-  /services/regenerative, /services/hormone-optimization, and
-  /services/laser-treatments also probe
+  /services/regenerative, /services/hormone-optimization,
+  /services/laser-treatments, and /services/iv-therapy also probe
   `/js/treatment-video.js` (200, `text/javascript`) and confirm the
-  nine players carry `data-autoplay="inview"` (two on biostimulators,
+  ten players on those eight pages carry `data-autoplay="inview"`
+  (counted on the build 2026-10-05; this line said nine on seven pages
+  until then, missing the IV lounge film: two on biostimulators,
   one on body-contouring, two on /about: the ICON film — its scoped
   override, DECISIONS 2026-08-25 — and the team film; one on
   /injector-training, the training reel; one on
@@ -144,7 +147,9 @@ check will refuse it. On a branch off `main`:
   /services/hormone-optimization, the Biote film — its scoped override,
   DECISIONS 2026-10-02; one on /services/laser-treatments, the
   IPL-session film — a film with speech, its scoped override, DECISIONS
-  same date; /mobile's viewfinder film, an earlier eighth, retired with
+  same date; one on /services/iv-therapy, the lounge film — its scoped
+  override, DECISIONS 2026-10-02, the addendum; /mobile's viewfinder
+  film, an earlier eighth, retired with
   that page 2026-09-26 — DECISIONS same date) — the films
   autoplay muted on approach. On the home page also
   probe the
@@ -204,7 +209,12 @@ check will refuse it. On a branch off `main`:
 
 - PR #95 (standing phase-c → main): superseded by the relaunch PR —
   close WITHOUT merging only after relaunch is live, or retarget per
-  the operator's preference for the next round.
+  the operator's preference for the next round. *Noted 2026-10-05:*
+  the relaunch PR merges `phase-c`'s tip into `main`, so #95's commits
+  are all in `main` from that moment and GitHub is expected to mark
+  #95 as merged by itself. That is bookkeeping, not a second merge, and
+  nothing is deployed by it. If it stays open, close it on the
+  operator's word.
 - PR #97 (standing demo): close without merging when the operator no
   longer needs the demo environment.
 

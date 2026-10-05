@@ -6,6 +6,26 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-10-05 — Amy's sign-off is logged and the round is closed; the relaunch follows
+
+- Amy approved all twelve treatment pages, how the site looks,
+  /injector-training and /tox-together, on the operator's statement of
+  that day, and OK'd the day's twelve search lines from a
+  before-and-after sheet. The operator flipped the twelve approval
+  flags himself (commit `0363603`), so the production pipeline's
+  approval gate passes again for the first time since the revision
+  round began.
+- The redesign round is closed: the change list is frozen as of
+  2026-10-05 and the operator's verdict on the seven yardsticks is
+  that all pass. Anything raised from here is change-order or retainer
+  scope.
+- The relaunch records were corrected where they had gone stale: the
+  launch-day checklist's film count (ten autoplay players on eight
+  pages, the IV lounge film among them), three places that still said
+  the relaunch guard retires in the relaunch PR, and what happens to
+  the standing PR #95.
+- No page changed. DECISIONS 2026-10-05, the relaunch entry.
+
 ### 2026-10-05 — Search text says Charlotte and fits a results page
 
 - What search engines show for the site was tidied before the relaunch,

@@ -15365,3 +15365,129 @@ the same PR (rehearsed 2026-10-05: an optional `effective` prop on the
 layout, set by the privacy page when analytics is on). The preview
 environments would also report into the production site's numbers
 unless the account's hostname list admits needlegirlie.com only.
+
+## 2026-10-05 — The relaunch: Amy's sign-off logged, the round closed, and the two-step merge that takes the site live
+
+**Context.** Production has served the Under Construction page since the
+2026-08-05 takedown. On 2026-10-05 the operator said the sign-offs were
+in and asked for the site to go live "without any hiccups". RELAUNCH
+names four preconditions. This entry records how each was met, the
+operator's answers word for word, and how the relaunch was prepared.
+
+**The operator's answers (asked one question at a time, quoted).**
+- *What should the record say Amy approved, and when?* "Everything,
+  today (Oct 5)": she reviewed the standing demo that day, after the
+  morning's update, and approved all twelve treatment pages, how the
+  whole site looks, /injector-training, and /tox-together with its party
+  terms. The demo had been rebuilt 11:44–11:51 EDT from `phase-c`
+  `a02dde4` (PR preview run 37335248220).
+- *Does she know the home film's opening hair shot is generated from her
+  photos and the van film is AI-sharpened, and has she OK'd both?* "Yes,
+  she knows and OK'd both". This is the informed OK of her generated
+  likeness that REDESIGN and the 2026-09-17 and 2026-09-30 entries name
+  as gating production.
+- *The items the sign-off sheet marks as hers to confirm by name* (the
+  laser booking answer and its film's spoken words, "$265 for six
+  weeks", the "$618 value" sentence, the Tox Together host credit and
+  whether it fits her professional guidance, "top of class" on /about,
+  the promo's sung words, and the rest): "She already confirmed them".
+- *The round close* (REDESIGN's three slots, which only the operator
+  fills): "Frozen today, all seven pass".
+- *Analytics*: "No, launch without it" (its own entry, this date).
+- *The phone fix and the rule that her approval be newer than the last
+  visible change*: "No, I'll check it myself" (the phone-fix entry, this
+  date).
+- *The search-text edits*: "Do them now, before launch" (their own
+  entry). Amy's OK on the twelve lines, read from a before-and-after
+  sheet, was relayed by the operator before the flip, at 17:22 UTC:
+  "Amy OK'd the twelve lines".
+- *The phone check, when PR #253's preview would not serve reliably*
+  (it answered 404 in bursts for its first minutes and again after two
+  clean passes, the fresh-preview fault of RUNBOOK's troubleshooting
+  list): "Merge now, I check later". PR #253 merged on that word with
+  the assistant's measurement as the evidence (0 px too wide at 320,
+  390, 430 and 768 on that preview), and the operator's own phone check
+  moves to the relaunch PR's preview, the build that goes live, before
+  the go-live question is asked.
+
+These are the operator's statements and they are the record; nothing
+here was observed by the assistant.
+
+**How each precondition was met.**
+1. *Round close*: REDESIGN's slots filled from the answer above. The
+   change list is frozen as of 2026-10-05, after that day's two
+   operator-directed items, the phone fix and the search text. Anything
+   raised later is change-order or retainer scope.
+2. *Copy approval*: the operator ran the flip himself, in his own
+   terminal, on a fresh branch cut from `phase-c` after PR #253 merged
+   (commit `0363603`, alone on `content/clinician-approval-relaunch`),
+   the form of the 2026-08-05 sign-off (`ad8fbde`, PR #93).
+   `check:approvals` passes on twelve files. The assistant supplied the
+   command and checked the result: twelve files, twelve lines, the flag
+   and no other byte, the operator as author. The command is PowerShell
+   and reads and writes each file whole; the loop printed in the
+   sign-off sheet rewrites every line ending, and a `sed` command, the
+   first plan, does not exist in the operator's terminal.
+3. *Presentation approval*: the sign-off sheet's row is dated 2026-10-05
+   with the answers above. One change to the built pages is newer than
+   her review, the phone fix, and it is the operator's recorded override.
+4. *Analytics flip*: does not apply to this relaunch.
+
+**Decision: how the relaunch is carried out.** RELAUNCH's two-step,
+unchanged, with what a rehearsal in a throwaway clone showed:
+- On a branch from `main`: revert `e57a4448`. It conflicts in exactly
+  `src/layouts/BaseLayout.astro` and `src/pages/index.astro`; the
+  launch-tree side is taken and each file is checked equal to its blob
+  in `e57a4448^`.
+- Merge `phase-c`. It conflicts in exactly `src/components/SeoHead.astro`,
+  one line; the `phase-c` side is taken and checked equal.
+- Delete `src/assets/photos/studio-counter-portrait.jpg`.
+- **The test before anything is pushed: the branch's tree hash must
+  equal `phase-c`'s.** This is stronger than the guard's comparison,
+  which looks for missing files and not for changed ones. Rehearsed
+  twice (the second time with the day's fix and search text in): equal
+  both times.
+- The guard workflow stays in the relaunch PR and retires in a follow-up
+  the same day (RELAUNCH step 4).
+- The merge into `main` is a merge commit on the operator's yes; never a
+  squash or a rebase, which would break the ancestry the two-step
+  repairs.
+
+The git work for the relaunch branch is done in its own worktree, so the
+main checkout, where the operator's terminal sits, never holds the
+placeholder tree. Because the tree is byte-identical to `phase-c`'s, the
+production build and `npm run verify` are run on the `phase-c` tip in
+the main checkout and their results are results for the release branch;
+the PR's pipeline then runs the whole suite again on the merge.
+
+**Alternatives rejected.** A plain `phase-c` into `main` merge: it drops
+the launched files silently, which is what the guard exists to refuse.
+Pointing `main` at `phase-c`'s tree in one hand-made commit: the same
+result as the two-step, but RELAUNCH says to use its script and not
+re-derive. Putting the flip on the launch-prep branch with the other
+commits: the first plan, corrected in review, because the documented
+procedure and the August precedent keep the flip alone on a fresh
+branch.
+
+**Corrections to the records, made with this entry.** RELAUNCH's
+launch-day checklist called the IV lounge film click-to-play and counted
+nine autoplay players on seven pages; it has been autoplay since the
+2026-10-02 addendum, and the build has ten players on eight pages.
+RUNBOOK, BUILD_SPEC §14 and OPERATOR-SETUP still said the guard retires
+in the relaunch PR, which RELAUNCH step 4 and the workflow's own header
+corrected on 2026-08-24/25. RUNBOOK's "never close PR #95" passages and
+RELAUNCH's bookkeeping now say what happens to that PR when its commits
+land in `main`. The sign-off sheet's closing checklist said "Merge PR
+#5".
+
+**Consequences.** Every merge to `main` ships from here on, and an
+unapproved treatment edit blocks every deploy until the operator flips
+it in the same PR. Carried open, as before, and not gates: counsel
+review of the legal pages, attorney wording for Retatrutide, the manual
+keyboard and screen-reader pass, and the commercial songs with no
+licence on record. Emergency return to the placeholder, on the
+operator's word only: re-run the deploy job of the 2026-09-27
+placeholder release (`gh run rerun 36325267925 --job 108636946730`,
+valid until 2026-10-27); the durable route is RUNBOOK's revert. The
+shipped record, with run numbers and probe results, follows the
+relaunch.

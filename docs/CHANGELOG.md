@@ -29,6 +29,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-10-05 — The wrinkle-relaxers booking answer no longer names Vagaro
+
+- "How do I book?" on /services/wrinkle-relaxers now answers: Online
+  with the "Book with Amy" button, or by phone at 704-579-7108. The
+  words "through Vagaro" came off; nothing else in the answer moved.
+- It was the last place the site named Vagaro to a visitor.
+- The edit reset the page's approval flag. Amy OK'd the sentence the
+  same evening and the operator flipped the flag in the same PR.
+  DECISIONS 2026-10-05, the booking entry's addendum.
+
 ### 2026-10-05 — Booking moves to Aesthetic Record
 
 - Amy left Vagaro. Every Book button and every linked "book" now opens

@@ -1,5 +1,36 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **2026-08-14: the post-launch redesign round is underway — tracked in
+> docs/REDESIGN.md, not here.** This file is the historical Phase C
+> record (complete; launched 2026-08-05, production taken down the same
+> evening pending the redesign — docs/RUNBOOK.md has the relaunch
+> procedure).
+
+> **STATUS UPDATE 2026-08-05 (evening) — PRODUCTION TAKEN OFFLINE.**
+> The launch merge was reverted at operator direction hours after
+> launch (revert `e57a4448`; DECISIONS 2026-08-05 takedown entry);
+> production serves the Under Construction placeholder pending a
+> client review round (since the same evening with Amy's studio photo
+> in the window — the caricature is retired at her word, PR #99).
+> `phase-c` remains the complete delivered site
+> and the relaunch base; relaunch is two-step (RUNBOOK, "Relaunching
+> after the takedown"). The launch record below stands as history.
+
+> **STATUS UPDATE 2026-08-05 — LAUNCHED.** **needlegirlie.com is
+> live.** Amy approved all twelve treatment pages plus
+> /injector-training on the stable preview; the operator flipped the
+> flags with their own commands in-session (sign-off commit ad8fbde,
+> PR #93 — the §16 written log). PR #5 (`phase-c` → `main`) merged as
+> the launch merge; the Production pipeline ran green end to end
+> (verify → check:approvals → Front Door-locked build → SWA deploy →
+> cache purge). §16 live checks all pass — apex serves the site,
+> redirects and lockdown hold (platform answers 404, not 403, on
+> direct SWA hits — security property intact), draft banners gone,
+> live Lighthouse 1.00/1.00/1.00/1.00. Phase C is COMPLETE and
+> DELIVERED. `phase-c` remains the integration branch for post-launch
+> work (counsel review, manual a11y pass, laser pricing, photo
+> upgrades, Plausible opt-in). DECISIONS 2026-08-05.
+
 > **STATUS UPDATE 2026-08-04 (training):** **/injector-training
 > shipped — the site's one professional-audience page.** Private
 > Injector Training: four one-on-one courses for licensed medical
@@ -54,6 +85,13 @@
 > upgrade path. Laser pricing stays consult-routed
 > (`{{VENUS_VERSA_MENU}}` open); `clinicianApproved` still `false` on
 > all twelve. DECISIONS 2026-08-04 (two entries).
+>
+> **STATUS UPDATE 2026-08-21:** laser-treatments is priced —
+> `{{VENUS_VERSA_MENU}}` resolved from Amy's two pricing flyers
+> (view-only sources), a fourth service added (Venus Epileve laser hair
+> removal, bookable directly), and the console snapshot replaced by three
+> pro-shoot frames (21a/21b/21d; the Epileve frame under a pixel-level
+> readout override). Flag reset. DECISIONS 2026-08-21.
 
 > **STATUS UPDATE 2026-08-03→04:** **/about rebuilt as a magazine
 > profile, approved by Amy** (PRs #83/#84). Five beats — expanded hero
@@ -250,7 +288,8 @@
 > men's section read as an appendix). **"Menopause" is excluded exactly
 > as "Low T" is**: neither trips a pattern, but naming a condition the
 > pellets are *for* contradicts the disclaimer above it. No imagery
-> (§7.8 text-only pending `{{BIOTE_PERMISSION}}`).
+> (§7.8 text-only pending `{{BIOTE_PERMISSION}}` — **RESOLVED 2026-10-02**,
+> operator: Amy has Biote's OK; the page now carries Amy's Biote film).
 > `clinicianApproved: false` — DECISIONS 2026-07-22.
 
 > **STATUS UPDATE 2026-07-22:** **IV Therapy & Vitamin Support built.**
@@ -443,7 +482,7 @@ these. From the §17 registry:
 | `{{NEUROMOD_LIST}}` (confirm: Jeuveau, Daxxify — sources disagree) | wrinkle-relaxers page | Operator + Amy |
 | `{{PRICING_DISPLAY_MODE}}` (default 'consult') | all treatment pages | Operator |
 | ~~`{{BIOTE_FDA_DISCLAIMER}}` (Biote's exact required wording)~~ | ~~hormone-optimization page~~ | **RESOLVED 2026-07-22** — Biote's own brochure wording; exact sentence in `allowedStrings` (fourth authorization) |
-| `{{BIOTE_PERMISSION}}` (logo/co-marketing) | text-only until resolved | Operator |
+| ~~`{{BIOTE_PERMISSION}}` (logo/co-marketing)~~ | ~~text-only until resolved~~ | **RESOLVED 2026-10-02** — operator: Amy has Biote's OK to show its banner and logo (DECISIONS same date, the Biote film entry) |
 | `{{RETATRUTIDE_COUNSEL}}` (attorney wording) | publishing Retatrutide at all | Operator + counsel |
 | `{{EVOLUS_CLAIM}}` (substantiation) | /about Evolus mention; "#1" stays banned until resolved | Operator |
 | `{{VAGARO_SERVICE_LINKS}}` (optional deep links) | nicer per-page CTAs | Operator |
@@ -501,7 +540,10 @@ currently through the clinician gate):
       upgraded 2026-08-01 to the client's wording near-verbatim under
       a recorded override of the no-benefit-claims rule; gate-blocked
       vocabulary (anti-aging, healing, libido) excluded — DECISIONS
-      2026-08-01. ctaType: book (since 2026-07-21).
+      2026-08-01. ctaType: book (since 2026-07-21). A tenth card,
+      KLOW, added 2026-10-02 at the operator's direction, saying only
+      what it is; GLOW and KLOW read "$265 for six weeks" under a
+      scoped exception — DECISIONS 2026-10-02.
 - [x] `wrinkle-relaxers` — `{{NEUROMOD_LIST}}`; treatment areas factually
       (forehead, frown lines, crow's feet). ctaType: book/consult.
 - [x] `dermal-fillers` — approved 2026-07-21 (the first page ever
@@ -514,6 +556,10 @@ currently through the clinician gate):
       guide, weight-loss cross-link. ctaType: book.
 - [x] `biostimulators` — PDO Threads, Radiesse; category described
       factually, no lifting-results promises. ctaType: consult.
+      2026-08-21 (redesign round, PR #131): the studio portrait gave
+      way to two of Amy's own reels inside the media rows — autoplay
+      muted on approach, bare film frame; overrides and the flag reset
+      in DECISIONS same date.
 - [x] `regenerative` — PRP and PRP with microneedling (trimmed to the
       live Vagaro menu 2026-07-19; PRF/PDRN/Illuma/VAMP/Rejuran return
       only if Amy confirms them). Definition cards added 2026-08-01 —
@@ -552,7 +598,8 @@ currently through the clinician gate):
       menu: five cards tagged **IV infusion** / **Shot**; identity-only
       copy (what each substance *is*, never what it does); prices only
       where verified (Myers' $125, Immunity IV $125, NAD IV $200,
-      Glutathione $25 per shot — **only B12 left blank**, still open).
+      Glutathione $25 per shot — **only B12 left blank**; B12 priced
+      2026-09-30, $25 per shot, the operator's price).
       Immunity IV's ingredients are named as composition only; the
       product-name rule above is unaffected. `pricingDisplay: none`,
       since the `consult` line contradicts a book-direct page with fixed
@@ -560,7 +607,8 @@ currently through the clinician gate):
       `peptide-therapy.mdx` and must move together**.
 - [x] `hormone-optimization` — Biote BHRT; symptom-awareness framing ONLY
       with `bioteDisclaimer: true` (layout injects `{{BIOTE_FDA_DISCLAIMER}}`);
-      text-only re: Biote branding until `{{BIOTE_PERMISSION}}`.
+      text-only re: Biote branding until `{{BIOTE_PERMISSION}}` (RESOLVED
+      2026-10-02 — Amy's Biote film now sits above "What Amy offers").
       ctaType: consult. Built 2026-07-22 from the Vagaro menu
       (Hormones/Biote = lab draw, Pellets) plus the operator-supplied
       Biote source. **The disclaimer had been rendering as a visible

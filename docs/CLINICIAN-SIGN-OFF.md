@@ -1,5 +1,319 @@
 # Clinician sign-off — the last gate before production
 
+> **EXECUTED 2026-08-05 — the site launched.** Amy approved all twelve
+> treatment pages and /injector-training on the stable preview; the
+> operator ran the flip and authored the sign-off commit (`ad8fbde`,
+> PR #93) with their own commands — that commit is the §16 written log
+> and supersedes the per-page checkboxes below. PR #5 then merged as
+> the launch, which also retired the `…-5…` preview environment these
+> links point at (the stable preview now follows the standing PR — see
+> docs/RUNBOOK.md, "Where `phase-c` is visible"). This document remains
+> as the procedure record and the TEMPLATE for future approvals: any
+> post-launch edit to an approved page resets its flag (constraint 4),
+> and re-approval follows this same flow against the current stable
+> preview.
+
+> **EXECUTED AGAIN 2026-10-05 — the relaunch.** Every flag had been
+> reset by the revision round (none of the twelve was `true` from
+> 2026-09-19). On 2026-10-05 the operator stated that Amy had reviewed
+> the standing demo that day and approved all twelve treatment pages,
+> how the site looks, /injector-training, and /tox-together with its
+> terms; that she knows the home film's opening hair shot is generated
+> from her photos and the van film is AI-sharpened, and OK'd both; and
+> that she had already confirmed the items this sheet marks as hers to
+> confirm by name. She then OK'd that day's twelve search lines from a
+> before-and-after sheet (relayed 17:22 UTC). The operator ran the flip
+> and authored the sign-off commit with his own commands — commit
+> `0363603`, alone on the fresh branch
+> `content/clinician-approval-relaunch`, the form of `ad8fbde` — and
+> that commit is the written log. As in August it supersedes the
+> per-page checkboxes below, which stay as they are. The statements are
+> the operator's; the presentation row below carries them, and
+> DECISIONS 2026-10-05 (the relaunch entry) has his answers word for
+> word.
+
+## Two kinds of approval (split recorded 2026-08-17 — external-audit Finding 3)
+
+The flag gate attests to **copy**: `clinicianApproved` lives in each
+treatment file, resets on any MDX edit, and blocks production via
+`check:approvals`. That is its correct scope and it is unchanged.
+
+What Amy actually reviews is **rendered pages** — and presentation
+can change with ZERO flag resets, **by design**: CSS-level changes
+(the Playfair body face, the sitewide arch motif with its 4:5 display
+crops and 9/8 bands, spacing, frames) deliberately avoid MDX so a
+visual pass doesn't reset twelve flags (the arch rollout's
+selector-mirror is the recorded example, DECISIONS 2026-08-17). The
+cost of that design is that the flags can all read `true` against an
+approval given on visibly different pages. So presentation gets its
+own record:
+
+| Approval | Attests to | Mechanism | Granularity |
+|---|---|---|---|
+| **Copy** | words, prices, claims in each treatment file | `clinicianApproved` flag + `check:approvals` build gate | per file, resets on edit |
+| **Presentation** | how the rendered pages look | Amy reviews the stable preview on her phone; the operator logs a dated entry below | per round, dated |
+
+**Relaunch hard gate:** production does not relaunch unless the
+newest presentation-approval date below is NEWER than the last merged
+visual change (see docs/RELAUNCH.md, precondition 3).
+
+**No visible marker (2026-08-21):** unapproved pages no longer show
+the "Draft — pending clinician review" strip on previews — the
+operator retired it because Amy read it as part of the finished site
+(DECISIONS 2026-08-21). Pending status is therefore invisible in the
+rendered page; this document and the flags are the only record. To
+list what is pending: `grep -l "clinicianApproved: false"
+src/content/treatments/*.mdx`.
+
+### Presentation-approval record
+
+| Date | Reviewed on | Scope | Logged by |
+|---|---|---|---|
+| 2026-08-05 | stable preview (`…-5`) | launch state — the same pass as the copy sign-off (`ad8fbde`) | operator |
+| 2026-10-05 | standing demo (PR #97), rebuilt that morning (11:44–11:51 EDT) from `phase-c` `a02dde4` | **APPROVED 2026-10-05, on the operator's statement** (asked what the record should say: "Everything, today (Oct 5)"): Amy reviewed the standing demo and approved all twelve treatment pages, how the whole site looks, /injector-training, and /tox-together with its party terms. Asked whether she knows the home film's opening hair shot is generated from her photos and the van film is AI-sharpened, and has OK'd both: "Yes, she knows and OK'd both". Asked about the items below marked as hers to confirm or read by name: "She already confirmed them". Where the description below says she had not seen or heard an item, that was true when written and is superseded by this approval. Two things are newer than her review: the twelve search lines of 2026-10-05, which are not on any page and which she OK'd from a before-and-after sheet (relayed 17:22 UTC), and the phone sideways-scroll fix of the same day, which changes nothing a visitor sees and which the operator checks himself on the relaunch PR's preview before go-live, his recorded override of the newer-than-the-last-visual-change rule (DECISIONS 2026-10-05, the phone-fix and relaunch entries). What the approval covers, as it was listed while pending — the redesign round: Playfair body, arch motif + display crops, new photography (doors, /services strip, /services photo-card menu), header badge + hybrid nav, carousel (four films; five since 2026-09-25; films two and three replaced 2026-09-27), footer/location card lines, the two biostimulators reels in bare in-row film frames (2026-08-21), laser-treatments' priced menu + Epileve section + three photos (2026-08-21), and the /about round (2026-08-25): the Girl Team section, the Evolus Laurel plaque, the ICON film's autoplay, and the team film below the Girl Team button (sounded, autoplay muted in view), and the /injector-training media round (2026-08-25): the dedicated training portrait + Amy's training reel on autoplay, and the iv-therapy photo round (2026-08-25): both photos now her picks, and the regenerative PRP media round (2026-08-25): two photos + her PRP-visit reel on autoplay, and the /about milestones' numerals swapped for the MA chevron plates (2026-08-26, operator direction — design only, no copy changes), and the /about desktop round (2026-08-26, operator direction): the Girl Team film re-rendered widescreen — a 16:9 center crop of the same screened master, frame-pairs checkpoint-approved — filling the unit column, and the Evolus Laurel plaque centered on the band — then, second pass the same day, the whole Evolus unit: heading + paragraph text-centered (the operator's pick), the ICON film centered below, every word unchanged, and the /about brand-ink round (2026-08-26, operator direction): both "Book with Amy" buttons, the "Visit Mobile Aesthetics" button, and the "Girl Team!" placard now black with lettering in the logo's own pink — every word, event, and placement unchanged, and one /about copy change (2026-08-27, operator direction): the first milestone heading now reads "The early years" (was "The bedside years" — part of the 2026-08-04 confirmed wording), and a second /about copy change (2026-08-27, operator direction, facts confirmed by Amy the same day): the 2018 milestone's credential line now carries her full education — "The credentials read FNP, built on a BA, a BSN, and a Master of Nursing." (was "The credential reads FNP, BSN."), and the home scale-and-rhythm round (2026-09-03, operator direction after the design critique; on its PR preview first): the hero photo bleeding toward a larger headline over a NEW one-sentence lead ("One clinician, every appointment. Amy Palacios, FNP, in medical aesthetics since 2017."), display-size section openers over one-sentence decks (the intro deck is new wording; the credentials kept as a compact line), a new noir band — "Amy comes to you." beside the van interior, /mobile's first door on the home page (since 2026-09-26 the band is the Tox To Go door — see the NEW 2026-09-26 item) — four transform-only moves, and (the concept layer, adopted 2026-09-04) her studio reel over the hero portrait: the portrait alone for five seconds, the reel's three studio scenes dissolving into one another, back to her portrait for five seconds each cycle; the headline rising word by word and the wordmark switching on. The film band itself is unchanged from before (the Jeuveau commercial first, the heading centered over the stage — the operator withdrew a composed version 2026-09-04). Hers to say: the three hero-headline candidates (keep "Medical Aesthetics, made personal." / "One clinician. Every appointment." / "Every appointment is with Amy."), the reel's pace, and how long the portrait holds — the last two are one-number knobs, and the new logo (2026-09-15, her delivery — the "b" metallic rendering in the colour of "made personal.", per the client's choice among five files that day): the mark in the header and footer of every page and on the styleguide sign, wider on desktop than the Mobile Aesthetics badge beside it (the header is taller for it), and on her phone spanning the width on its own row above the badge and the Book button (the header is about twice as tall there and scrolls away), the first logo-derived favicon (the lips on a black tile — the browser tab and the iPhone home-screen icon), and the same mark on the live Under Construction page **NEW 2026-09-17: the home hero film is AI-assisted** — two of its shots are generated performances made from Amy's own published portraits (she turns to the camera and smiles; she pushes off the wall and runs a hand through her hair), so the front of her face in the first is the model's rendering, not a photograph: her informed OK on her own generated likeness is the control (DECISIONS 2026-09-17). Since 2026-09-18 the same shots run in a new order at the founders' request — the hair shot opens the film, the turn finishes it (DECISIONS 2026-09-18); the footage she is asked to OK is unchanged. **NEW 2026-09-23: the Mobile Aesthetics badge is bigger, at her request** — 72px on her phone (the header is about 24px taller there for it) and, from tablets up, exactly as tall as the Needle Girlie logo and her name line beside it (the header's height unchanged there; DECISIONS 2026-09-23). **NEW 2026-09-24: the Mobile Aesthetics badge's lettering is white** (was silver-gray; the letters a touch heavier so they read white on her phone — DECISIONS 2026-09-24). **NEW 2026-09-25: the Evolysse film is back — as the FIRST film of the home carousel** (the same Evolus film she had removed from the dermal-fillers page on 2026-08-21, now at the operator's direction; it starts muted like the others, and until 2026-09-30 its spoken safety information was only in its captions file, which is off by default — since then the carousel's Sound button plays it, see the NEW 2026-09-30 sound item; DECISIONS 2026-09-25). **NEW 2026-09-25: the Mobile Aesthetics badge is bigger again on her phone, at her request** — 127px on most phones and 121 on an iPhone (was 72), as tall as the Needle Girlie logo and her name line together; the phone header is about 55px taller for it, and tablets and desktop are unchanged (DECISIONS 2026-09-25). **NEW 2026-09-25: the home page's "Amy comes to you." band (the Tox To Go door since 2026-09-26) now plays her van-trip clip instead of the van photo** — the whole 2:50 video, muted and looping, in a phone-shaped panel, with her own voice one tap away (her words to camera at the destination, 2:01–2:17; the clip's songs were removed until 2026-10-04 — see that date's item). It is AI-upscaled from the small copy that was supplied (her likeness is the thing to check), and it keeps everything in the clip at the operator's direction, including the prep shot with her tray and a vial (2:17–2:25) and a guest at the end, whose release is on file (DECISIONS 2026-09-25). **NEW 2026-09-25: two /services menu cards carry new photos of her** — card 01 (Neurotoxins - Wrinkle Relaxers): holding up a Jeuveau vial beside a stack of Evolysse cartons; card 02 (Dermal Fillers): holding two Evolysse Form cartons in front of a Jeuveau banner. Both are used exactly as supplied, at the operator's direction; the vial's and the cartons' labels and the banner's headline can be read in the card images (DECISIONS 2026-09-25). **NEW 2026-09-25: the link-share card** — when someone shares a needlegirlie.com link, the preview shows her studio-counter photo in the pink-glowing arch beside the Needle Girlie logo, with "Amy Palacios, FNP" and "Mobile Aesthetics · Harrisburg, NC" (her request; the Under Construction page gets it too, by a hotfix; DECISIONS 2026-09-25). Re-made 2026-09-26 on the website's pink canvas (the look she picked), her logo on a black plate, with her name, "Mobile Aesthetics" and "Harrisburg, NC" in type about twice the size, the practice and the town on two lines; and the line under the picture of a shared home link now reads "Mobile Aesthetics · Harrisburg, NC" (DECISIONS 2026-09-26, the link-share card entry). Re-made again 2026-09-27, at the operator's direction, so that the bar Messages draws under the picture comes out black: a black panel on the left with her logo, her name in the logo's light pink and "Mobile Aesthetics" and "Harrisburg, NC" in white, and her photo at the same size on the pink canvas on the right; the line under the picture now reads "Mobile Aesthetics" and "Harrisburg, NC" on two lines, without the dot (DECISIONS 2026-09-27). She has not seen this look. **NEW 2026-09-25: the home hero film ends on a warm smile, at her request** — when she turns to the camera she now smiles, her eyes open, instead of laughing. The smile is a new generated performance (Higgsfield, started from the moment she faces the camera), so the footage she is asked to OK has changed (DECISIONS 2026-09-25). Re-made 2026-09-26 so the smile looks like her own: a take generated into a still of her smile, guided by her published photos (DECISIONS 2026-09-26 addendum). Made warmer the same day (the client: v7's smile read as "meh"): her smile now curves up at the corners and her eyes smile with it, a little narrower than before at the operator's choice (DECISIONS 2026-09-26, second addendum). **NEW 2026-09-26: Tox To Go is its own page, /tox-to-go, replacing the /mobile page; the home page's band beside the van film is its door** — the page carries the operator's party offer as written, with a $600 hostess credit and its requirements, and "Book your Tox To Go party" calling her phone; it has no photo or film (the /mobile page's van photo and her viewfinder film are off the site with it), and the menu item now reads "Tox To Go". The band beside her van-trip film says "Tox To Go Party", the tagline, one sentence, the same call button and "See the hostess perk ›". Its terms need her confirmation: see "/tox-together — Tox Together" below (DECISIONS 2026-09-26, the Tox To Go page entry). **NEW 2026-09-27: Tox To Go is renamed Tox Together, and its page moves to /tox-together** (the operator) — the two headings read "Tox Together Party", the three buttons "Book your Tox Together party", the menu item "Tox Together", and the page's title and the text a shared link shows carry the new name; the offer, its terms and the phone number are unchanged (DECISIONS 2026-09-27). **NEW 2026-09-27: two of her own films replace the carousel's second and third** (the operator) — her Mobile Aesthetics promo (her studio, then six women in uniform stepping out of the black van, the practice's web address on screen throughout) takes the first Jeuveau commercial's place, and her reel of the day her Evolysse billboard went up and a delivery arrived takes the studio reel's. Both start muted like the others (their sound is one tap away since 2026-09-30, see that item) and are carried exactly as supplied, at the operator's direction after the flags: the promo's studio segment shows her tray of syringes with its labelled slots and the product cartons; the reel shows the billboard's headline, a wall poster naming another brand, the delivery driver and a woman in glasses beside her, whose releases are on file. The reel is a small copy (576 px wide), so it looks softer on laptops and tablets; her original file would fix that (DECISIONS 2026-09-27). **NEW 2026-09-27: the About page leads with a new picture of her** — Amy in a pink dress, seated on her studio counter beside a stack of Evolysse cartons and a jar of vials, shown whole in the arch to the right of "Amy Palacios, FNP"; on her phone it comes right after the opening line. Her family picture, which led the page at her own request, is now about two-thirds of its size and sits under the last paragraph, above "Book with Amy". Both are the operator's direction, and the new picture is used exactly as supplied (DECISIONS 2026-09-27, the /about lead portrait entry). She has not seen this. **NEW 2026-09-30: "studio" is now "medspa" across the site** — her own direction, relayed by the operator: the word changed in 25 places in page text (the Visit page's label, four sentences on /about, one on /injector-training, and the twelve treatment pages), in 17 photo descriptions, in 8 film labels, in the share card's description and in the Skincare page's search description. One description keeps "studio" at the operator's choice: the Girl Team photo's, because that room is a photo studio. The live Under Construction page was not changed (DECISIONS 2026-09-30). She has not seen the new wording on the pages. **NEW 2026-09-30: the home carousel's films have sound, at her request** — the five films still start muted; a Sound button beside the pause button turns their sound on, and it stays on from film to film until it is turned off. A CC button beside it shows captions. What each film plays: the two Evolus commercials their own sound (the Evolysse film's voiceover, with its spoken safety information, can now be heard); her promo its own song, which introduces the team by first name and makes a promise about results, with the sung words in its captions; her billboard-day reel and the team film the songs they were posted with. Those three songs are commercial songs with no licence on record, and the promo's words are carried as they are, at the operator's direction after the flags. The films are set to one level, and the promo's quiet opening is brought up to it. Hers to confirm: the promo's words as its captions give them (the operator confirmed the product line and the six names by ear on 2026-09-30; she has not read them), and that each film should play its sound (DECISIONS 2026-09-30, the carousel sound entry). She has not heard it on the site. **NEW 2026-09-30: the home hero film no longer turns and smiles; the portrait is a still photo, and her pink-scrubs picture joins the film** — her own request, relayed by the operator: the closing shot in which she turned to the camera and smiled is gone, so her sign-off no longer has that footage to cover. The film now rests on her counter portrait as a still photo under a slow camera drift. Her pink-scrubs portrait (the Peptide Therapy page's picture) joins the run of her portraits as a still photo, and the stool shot moves from fifth to third. A version with her hair moving was made the same day and withdrawn before she saw it, on the operator's word. The hair shot that opens the film is unchanged; it is the one generated performance left in the film, and the one her OK on her generated likeness now covers (DECISIONS 2026-09-30, the hero film entry and its addendum). She has not seen it. **NEW 2026-10-02: the IV Therapy page ends on a film instead of a photo** — the operator's direction: a short clip of her at the IV poles and clients in the lounge, with its song; it plays when pressed, and its signage and song are kept as they are after the flags (DECISIONS 2026-10-02). She has not seen it. **NEW 2026-10-02: the laser page plays her IPL film beside "Photo-rejuvenation"** — the operator's direction: her own 25-second film of a client's session, starting by itself, muted, with captions showing; the section's heading and text move to its right (below it on phones). Its words and the page's new who-performs lines are for her to read in the laser page's row below (DECISIONS 2026-10-02). She has not seen it. **NEW 2026-10-02 (later the same day): the IV Therapy film starts on its own, muted, and is smaller, without its white frame** (the operator; DECISIONS 2026-10-02, the addendum). She has not seen it. **NEW 2026-10-04: the van film on the home page plays its two songs again** — the operator's direction: the clip's own soundtrack is back on the film beside "Tox Together Party": two songs from the start to 2:01, then her words to camera as before, then silence. It still starts muted, and a visitor turns the sound on. Neither song has a licence on record for a business website; they play under the operator's override after the flag, the route the carousel's songs and the IV lounge film's song took. The captions mark each song with a short "[Music]" cue and never write out its words (DECISIONS 2026-10-04). It is on the standing demo since 2026-10-05, and the operator reports that the music plays correctly. She has not heard it. | operator (statements relayed in session 2026-10-05; written up by the assistant) |
+
+Visual drift since 2026-08-05, for Amy's pending pass: body face and
+size (DM Sans → Playfair 17px/1.65), every photo arched with 4:5/9:8
+display crops, homepage door + /services strip photography replaced,
+the /services menu rebuilt as her photo-card "buttons" (2026-08-18 —
+her mockup; all twelve were her picks, and cards 01 and 02 took new
+photos of her on 2026-09-25), the MA header
+badge and the hybrid nav (the menu at every width, with Book always
+visible beside it), the carousel (four films; five since 2026-09-25; the second and third replaced by two of her own films 2026-09-27) and its heading,
+the "Mobile Aesthetics" line in the location card and footer, the
+Evolus recognition plate + ICON film relocated from wrinkle-relaxers
+to /about (2026-08-18, her direction), the three new wrinkle-relaxers
+photos (2026-08-18, her picks), the treatment-page photo mats
+retired sitewide — every treatment photo now sits as a bare arch on
+the pink canvas (2026-08-18, her direction), the Evolus Laurel
+ranking plaque on wrinkle-relaxers (2026-08-19, her direction —
+"The Top Evolus Injector in Charlotte." + the Top-50 line, noir
+plaque between the deck and the product cards), and the "Your visit,
+step by step" numerals replaced by Mobile Aesthetics chevron plates
+on every treatment page (2026-08-19, her mockup), and dermal-fillers'
+Evolysse film removed with its two photos replaced and a third added
+beside "Lips, styled", and its "#1 provider" plate swapped for the
+Evolus Laurel ranking plaque in the same spot (2026-08-21, her
+direction + picks), and skin-rejuvenation's two PiXel8-RF photos —
+Amy beside the cart, the handpiece in hand (2026-08-21, her picks), and the two
+biostimulators reels replacing that page's studio portrait — her own
+films, playing inside the media rows in a bare frame (hairline + 12px
+corners, no white mat), autoplaying muted as she scrolls to them with
+no printed caption underneath (2026-08-21, her direction + the
+operator's review round), and body-contouring's session photo
+replaced by Amy's own Evolve reel, autoplaying muted in the same row
+(2026-08-21, her direction), and weight-loss's weigh-in photo replaced
+by the same client seen from behind plus a new "They showed up for
+themselves" section of three client photo pairs (2026-08-21, her direction;
+operator overrides recorded), and laser-treatments rebuilt around its
+menu — prices on all four cards from her flyers, the Venus Epileve
+laser hair-removal section with direct booking, and three new photos
+replacing the console snapshot (2026-08-21, her direction + picks), and
+skincare's two photos replaced — the "What it is" frame now keeps
+Amy's chin visible, and the second photo is the Skinbetter line-up
+above Amy's business cards (2026-08-25, operator direction; the two
+capped syringes in frame accepted as-is — DECISIONS same date).
+And the /about round (2026-08-25, all her direction via the
+operator): the milestones section is now a photo-left grid carrying
+the Girl Team still — Amy with four of the location's other
+providers, releases on file — with "Girl Team!" on an opaque keystone
+plate (the site's first text-over-photo) and a "Visit Mobile
+Aesthetics" button beneath (the second sanctioned outbound link to
+her practice site; constraint-2 fourth scoped exception); the black
+recognition plate above the ICON film gave way to the Evolus Laurel
+ranking plaque — the same swap dermal-fillers made, so the
+"Charlotte's #1 Evolus provider" sentence now renders nowhere and its
+allowlist entry is withdrawn; and the ICON film autoplays muted as
+she scrolls to it, tap for sound (a scoped override of the
+narrated-manufacturer-film rule — flagged, her call; DECISIONS
+2026-08-25 ×3). And later the same day the Girl Team unit gained the
+team film itself — the film the home carousel plays, now in a sounded
+rendition directly below the "Visit Mobile Aesthetics" button: it
+autoplays muted as she scrolls to it, loops on screen, and the music
+is one tap away on the controls (no speech or narration — the
+operator's confirmation is the record; DECISIONS 2026-08-25).
+And the /injector-training media round (2026-08-25, her direction):
+the hero portrait is now her dedicated training photo — Amy with
+Evolysse cartons before the Jeuveau banner (its own pixel override;
+the reused grey-seamless frame stays on weight-loss and
+hormone-optimization) — and her training reel plays directly under
+"Four courses, taught one-on-one.", before the cards: muted autoplay
+as she scrolls to it, looping, tap for sound, in the white mat frame
+at reel width (all on-camera releases confirmed on her record;
+DECISIONS 2026-08-25).
+And the iv-therapy photo round (2026-08-25, her direction via the
+operator): the wide studio frame beside "What a visit looks like"
+replaced by a client on her laptop mid-infusion with Amy at the IV
+pole, and a new photo to the left of "Individualized, with Amy" — Amy
+tending a male client's arm for an IV infusion, re-graded brighter at
+the operator's direction (both releases confirmed on file; DECISIONS
+2026-08-25).
+And the regenerative PRP media round (2026-08-25, her direction via
+the operator): two new photos in the rows — the blood draw that
+starts a PRP visit (her own arm) and the prepared PRP syringes
+(packaging labels in frame, her override) — and her own reel directly
+above "Your visit, step by step": Amy receiving her PRP hairline
+treatment, autoplaying muted as she scrolls to it, near-silent sound
+one tap away; another of the location's providers injects on camera,
+face mostly out of frame, never named (her override, consent on
+file; DECISIONS 2026-08-25).
+And the /about milestones timeline (2026-08-26, operator direction):
+the 01–04 numerals beside "Two decades in the making." replaced by
+the Mobile Aesthetics chevron plates — the same badge the treatment
+pages' "Your visit, step by step" list has worn since 2026-08-19;
+every heading and sentence in the section is unchanged (DECISIONS
+2026-08-26).
+And the /about desktop round (2026-08-26, operator direction): the
+Girl Team film — natively a vertical edit — re-rendered as a true
+widescreen 16:9 center crop of the same 2026-08-17-screened master
+(every head stays in frame in every beat; the neon and the burned-in
+"GiRL TEAM" overlay survive; the full-height beats lose lower legs;
+frame-pairs approved at the operator checkpoint pre-upload), now
+filling the Girl Team unit's column at the same width as the still,
+with a new poster from the new rendition; and the Evolus Laurel
+plaque centered on the page band on desktops — then, second pass the
+same day on seeing it rendered, the WHOLE Evolus unit: "Inside
+Evolus" and its paragraph text-centered (the operator's pick; the
+"Ready when you are" band is the page's own precedent) with the ICON
+film centered below, every word unchanged (DECISIONS 2026-08-26 ×3).
+And the /about brand-ink round (2026-08-26, operator direction):
+both "Book with Amy" buttons, the "Visit Mobile Aesthetics" button,
+and her "Girl Team!" placard now wear the logo's own ink — black
+with lettering in the wordmark's exact pink, the header Book
+button's shipped look; hover inverts to a pink fill. Every word,
+event, and the placard's keystone seat unchanged (DECISIONS
+2026-08-26).
+And one /about copy change (2026-08-27, operator direction): the
+first milestone heading now reads "The early years" — it was "The
+bedside years", part of the wording she confirmed on the PR #83
+preview 2026-08-04; nothing else on the page reworded (DECISIONS
+2026-08-27).
+And a second /about copy change, later the same day (operator
+direction; facts Amy confirmed to the operator 2026-08-27): the
+2018 milestone's credential line now carries her full education —
+"The credentials read FNP, built on a BA, a BSN, and a Master of
+Nursing." — it was "The credential reads FNP, BSN.", also part of
+the 2026-08-04 confirmed wording. "Master of Nursing" is spelled
+out pending her exact post-nominal letters (DECISIONS 2026-08-27).
+**NEW 2026-09-19 — a third /about copy change (operator direction;
+the two new facts from Amy directly, the operator confirms):** the
+opening section gains a second paragraph — "Amy holds a BA in
+Psychology, a BSN, and a Master of Nursing, and is a licensed Family
+Nurse Practitioner. This is all before personally investing in excess
+of $100,000 in Medical Aesthetics training to bring "top of class"
+abilities to her clientele. Amy never stops training and advancing her
+knowledge of the business." — and loses "She brought that training
+into medical aesthetics in 2017 and became a nurse practitioner the
+following year." (the timeline keeps both years). Hers to read by
+name: the quoted phrase, which shipped under the operator's override
+after the compliance flag (a ranking-style claim about her skills, in
+one sentence only), the $100,000 figure, and "BA in Psychology". This
+supersedes that slice of the wording she confirmed 2026-08-04
+(DECISIONS 2026-09-19, the /about addendum).
+**NEW 2026-09-27 — the /about page's opening pictures (operator
+direction):** the page now leads with a new picture of her, in a pink
+dress, seated on her studio counter beside a stack of Evolysse cartons
+and a jar of vials. It sits to the right of "Amy Palacios, FNP", shown
+whole in the arch, and on her phone it follows the opening line. Her
+family picture is about two-thirds of its old size and sits under the
+last paragraph, above the "Book with Amy" button; on her phone it used
+to come last, after the button. No wording changed. Hers to say: the
+family picture led this page at her own request (2026-07-23), so its
+new place and size are hers to accept or send back; and the new
+picture is used exactly as supplied, with the cartons' names readable
+in it (DECISIONS 2026-09-27, the /about lead portrait entry).
+~~Known defect queued for the same pass: `studio-wide.jpg` alt
+text ("two clients") vs its one-client 4:5 window~~ — RESOLVED
+2026-08-25: the asset was replaced and deleted in the iv-therapy
+photo round, so the mismatched alt no longer exists (DECISIONS
+2026-08-25; originally recorded 2026-08-17).
+
+**Copy change on every treatment page, 2026-08-24 — read this even for
+pages already approved.** The second step of "Your visit, step by step"
+now closes **"Together with Amy, you decide what comes next."** It
+replaces "Together you decide what, if anything, comes next." The
+sentence lives in a shared component, so the same words changed on all
+twelve treatment pages — including the four already flipped
+(hormone-optimization, iv-therapy, regenerative, skincare). Those flags
+were deliberately left `true` at the operator's direction, and
+`check:approvals` cannot see a component edit, so nothing blocks
+production and nothing prompts a re-review: **this note is the only
+thing that puts the new words in front of Amy.** What changed in
+substance is that the step no longer says the answer might be no
+treatment — the wording is the client's own, flagged once and shipped
+as directed (DECISIONS 2026-08-24). Steps 1 and 4 are untouched.
+
+**Same day, four more changes across every treatment page.** Step 3 of
+the same list now opens "**Confidently** book your appointment when you
+are ready." And below the FAQ, the consult router card was reworded and
+its pricing line removed: the heading is now "The right fit is just a
+conversation away.", the subline "Every plan is personalized, decided
+between you and Amy.", and the sentence "Pricing is individual and
+discussed during your consultation." is gone from all twelve pages —
+ten of which list product prices. **What did NOT change, and is the
+thing to confirm on the preview:** the medical disclaimer directly
+beneath that card still says whether a treatment fits your needs is
+decided with Amy during a consultation. It is layout-injected on every
+page and was verified present on all twelve. Two further edits are
+wrinkle-relaxers only: "Do men get neurotoxin treatments?" now answers
+"are not gender based" (the body copy above it deliberately keeps its
+own wording), and "Do I need a consultation before booking?" now
+answers "No. A consultation is never required; however, one is free
+upon request." All client wording, all shipped as directed
+(DECISIONS 2026-08-24).
+
+**Copy change on every treatment page, 2026-08-26.** Step 4 of the same
+list — "Aftercare guidance" — now closes "…and a direct way to reach
+out **to Amy** if questions come up." (it said "reach out" with no
+name). Two words inserted, her wording; the sentence lives in the
+shared component, so it changed on all twelve treatment pages —
+including hormone-optimization, the one page still flipped `true`. That
+flag stays at the operator's standing direction, and `check:approvals`
+cannot see a component edit, so **this note is what puts the new words
+in front of Amy.** This supersedes the 2026-08-24 note's "steps 1 and 4
+are untouched" for step 4; step 1 remains untouched (DECISIONS
+2026-08-26).
+
+**Approval flags, 2026-09-19: none of the twelve is `true`.**
+hormone-optimization — the last approved page — was reset when its
+lab-draw card gained the panel list (constraint 4: approved content
+edited). The notes above that call it "the one page still flipped
+`true`" are history now; every treatment page is in the consolidated
+pre-relaunch re-approval, and the 2026-09-19 copy round's changes are
+marked **NEW 2026-09-19** in the rows below. Two of them are hers to
+read by name: the laser-treatments booking answer (shipped under the
+operator's override) and the hormone-optimization lab-draw card's
+"$618 value at other labs" sentence (DECISIONS 2026-09-19).
+
+**Copy changes on every treatment page, 2026-09-19 (second batch) — read
+these even though no page file shows them.** (1) Step 3 of "Your visit,
+step by step" now opens "**Confidently book your appointment.**" — "when
+you are ready" came off (shared component, all twelve pages). (2) **Every
+"book" in running text and FAQ answers is now a link to her Vagaro
+page** — in steps 1 and 3 on every treatment page, on the home page and
+/about, and in sentences on six treatment pages; the FAQ questions, the
+headings, and /mobile stay plain. No wording changed — links only. (3)
+**"Under clinician supervision" is gone from every treatment page** (and
+from the Peptide Therapy card on /services, which now reads "Peptide
+therapy options, individualized.") — the operator's direction, because
+there is no doctor on staff and the clause can read as one. Weight
+loss's "medically supervised program" wording was deliberately left for
+her and the operator to decide (DECISIONS 2026-09-19, the addendum).
+
+**Links added sitewide, 2026-09-27 — read this even though no wording
+changed.** Wherever a page's visible text says "Mobile Aesthetics", the
+name is now a link to her practice site, opening in a new tab. It is
+the operator's request and an operator override: the practice site
+lists the location's other providers (DECISIONS 2026-09-27, the
+practice's-name entry). The places: the address block in every page's
+footer and in the location card; three sentences on /about ("Amy owns
+Mobile Aesthetics in Harrisburg…", "Owner of Mobile Aesthetics…", "The
+neon script over the medspa reads Mobile Aesthetics…"); on
+/services/skincare, the sentence "It runs under Mobile Aesthetics…" and
+the answer to "Why does the storefront say Mobile Aesthetics?" (the
+question itself stays plain text); and the home page's film heading,
+"Mobile Aesthetics. On screen." She has not seen these links.
+
 **Who:** Amy Palacios, FNP, reviews; the operator logs and flips.
 **Where:** the stable preview — always the current `phase-c` build:
 <https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net>
@@ -29,20 +343,54 @@ is also not flag-gated and has its own review section below the table.
 
 ## The twelve pages
 
+**NEW 2026-10-05 — the search descriptions of seven pages (the
+operator's direction, before the relaunch).** This is the sentence a
+search engine shows under a page's title. It is not on the page itself,
+so the preview does not show it: this list and the before-and-after
+sheet the operator sends are what put the words in front of her. Each
+was too long for a results page and is now shorter, and each now says
+"near Charlotte". No flag moved: all twelve were already unapproved
+(DECISIONS 2026-10-05, the search-text entry).
+
+| Page | It read | It now reads |
+|---|---|---|
+| Wrinkle relaxers | Jeuveau, Xeomin, and Daxxify with Amy Palacios, FNP, in Harrisburg, NC: prescription wrinkle relaxers, planned one face at a time. Book online, or start with a free consultation. | Jeuveau, Xeomin, and Daxxify wrinkle relaxers with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte. Book online, or start with a free consultation. |
+| Dermal fillers | Dermal fillers with Amy Palacios, FNP, in Harrisburg, NC: Evolysse Smooth and Form, and Revanesse Versa+ and Lips+. Book online, or start with a free consultation. | Evolysse and Revanesse dermal fillers with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte. Book online, or start with a free consultation. |
+| Hormone optimization | Bioidentical hormone replacement therapy with Amy Palacios, FNP, a Biote-certified provider in Harrisburg, NC. Pellets for women and men, and it starts with a lab draw. | Bioidentical hormone replacement therapy with Amy Palacios, FNP, a Biote-certified provider in Harrisburg, NC, near Charlotte. It starts with a lab draw. |
+| IV therapy | IV infusions and vitamin shots with Amy Palacios, FNP, in Harrisburg, NC: Myers' Cocktail, Immunity IV, NAD IV, Glutathione, and B12. Book an appointment directly. | IV infusions and vitamin shots with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte: Myers' Cocktail, Immunity IV, NAD IV, Glutathione, and B12. |
+| Laser treatments | Venus Versa Pro treatments and Venus Epileve laser hair removal with Amy Palacios, FNP, in Harrisburg, NC: intense pulsed light, radiofrequency energy, and laser hair removal, priced by treatment area. | Venus Epileve laser hair removal and Venus Versa Pro light and radiofrequency treatments with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte. |
+| Skincare | Medical-grade skincare from the complete Skinbetter Science line, through Amy Palacios, FNP, in the Harrisburg, NC medspa or her practice storefront, serving the Charlotte area. | Medical-grade skincare from the complete Skinbetter Science line, through Amy Palacios, FNP, at her Harrisburg, NC medspa near Charlotte or her storefront. |
+| Weight loss | A medically supervised weight-management program anchored by GLP-1 therapy. Amy Palacios, FNP, in Harrisburg, NC. Book online, or start with a free consultation. | Medically supervised weight management anchored by GLP-1 therapy, with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte. Start with a free consultation. |
+
+The same day, on pages with no approval flag: the home page's search
+title now ends "…in Harrisburg & Charlotte, NC" and its description
+says "near Charlotte", and the /services, /about and /injector-training
+descriptions were shortened. Those five lines are on the same sheet.
+
+**NEW 2026-09-30 — one word on all twelve pages (her own direction,
+relayed by the operator):** every page's "studio" now reads "medspa".
+Each page has the sentence "…at her Harrisburg medspa…" near its end.
+IV Therapy, Skin Rejuvenation and Skincare have more: "in a medspa
+that doesn't feel clinical", "Amy's medspa has proper treatment
+chairs", "applied and monitored by Amy in the medspa", "The medspa
+shelf", "At the medspa" and two Skincare answers. The quotes in the
+rows below carry the new word. No flag moved: all twelve were already
+unapproved (DECISIONS 2026-09-30).
+
 | ✓ | Page (stable-preview link) | What to look at hardest |
 |---|---|---|
-| ☐ | [/services/wrinkle-relaxers](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/wrinkle-relaxers) | Jeuveau / Xeomin / Daxxify cards with per-unit prices ($10, $10, $12); the Evolus ICON film; the "Charlotte's #1 Evolus provider" sentence; three treatment photos |
-| ☐ | [/services/dermal-fillers](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/dermal-fillers) | Evolysse / Revanesse cards ($650 or $325 half-syringe); the Evolysse film; the lip style guide; the #1-provider sentence. (Amy approved this page once on 2026-07-21; the caption sweep reset the flag — this is her re-confirmation.) |
-| ☐ | [/services/biostimulators](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/biostimulators) | Radiesse $900/syringe; PDO threads $350 for 10; studio portrait |
-| ☐ | [/services/regenerative](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/regenerative) | PRP $600; PRP with microneedling $900; PRP photo |
-| ☐ | [/services/skin-rejuvenation](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/skin-rejuvenation) | PiXel8-RF $1,500; peels "Starting at $180"; **NEW: the docked PiXel8-RF handpiece photo** |
-| ☐ | [/services/body-contouring](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/body-contouring) | Evolve $1,500 course of six / $275 single session; **NEW: the Evolve session photo from her Reel (caption cropped)** |
-| ☐ | [/services/laser-treatments](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/laser-treatments) | **NEW: "Venus Versa Pro" naming throughout** (based on her console photo) + the console photo; pricing is deliberately consult-only (no dollar figures) — confirm that stays, or supply prices |
-| ☐ | [/services/weight-loss-glp-1](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/weight-loss-glp-1) | The mg-keyed vial price tiers; the single Retatrutide investigational line; two photos |
-| ☐ | [/services/peptide-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/peptide-therapy) | Nine product cards with prices (her wording, near-verbatim); portrait photo |
-| ☐ | [/services/iv-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/iv-therapy) | Menu cards ($125 / $125 / $200 / $25 shots); studio photo |
-| ☐ | [/services/hormone-optimization](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/hormone-optimization) | Pellets $450 women / $750 men; lab draw $125; the Biote FDA disclaimer; **NEW: her grey-seamless portrait** (also on weight-loss) |
-| ☐ | [/services/skincare](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/skincare) | Skinbetter storefront routing (shop button, Mobile Aesthetics naming); two product photos |
+| ☐ | [/services/wrinkle-relaxers](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/wrinkle-relaxers) | Jeuveau / Xeomin / Daxxify cards with per-unit prices ($10, $10, $12); **NEW: all three photos are her 2026-08-18 picks** (blazer brow appointment under the neon; the hand-mirror male-client frame; the Jeuveau-banner studio scene as a wide segmental arch — the full frame, everyone visible, per her feedback; banner legibility shipped under her override). **NEW 2026-08-19: the Evolus Laurel ranking plaque** between the deck and the product cards — "The Top Evolus Injector in Charlotte." + "And among the Top 50 in the United States." (her direction; operator-verified with Evolus; wording pinned, DECISIONS 2026-08-19). **Also 2026-08-19: the page title is now "Neurotoxins - Wrinkle Relaxers"** (her wording, matching the /services menu line; H1 + breadcrumbs + JSON-LD; seo.title keeps the search phrasing), **and the page now says "neurotoxin" throughout** — card leads, both FAQ strings, body intro (her wording, 2026-08-19; zero "neuromodulator" remains on this page). **NEW 2026-08-23: the two blocks that open the page.** The lead under the H1 now ends "…the ones that come from repeated expression" (it said "creases"). **The deck card below it was changed twice — review only what is on the preview now (2026-08-24):** "A light, deliberate hand for those lines repeated expressions leave behind. Wave good-bye to your crow's feet, "11's" between your eyes and forehead frown lines!" That is her own wording, restored verbatim after a compliant rewrite shipped on 2026-08-23 and was reversed the next day at her direction. Two things to look at together: the closing half promises the reader a result, and the Jeuveau banner in the photo further down the page says "KISS YOUR 11s GOODBYE" — the deck now echoes it (DECISIONS 2026-08-23 and 2026-08-24). **Also 2026-08-23, round 2 — three body strings.** "Not just for women" now reads "Expression lines aren't gender defined…" (and the FAQ answer matches — the word "gendered" is gone from the page) and its second sentence ends "lines they'd rather not see" (was "rather soften" — flagged as leaning toward absence, shipped as her wording). "Individualized, with Amy" is her new paragraph, closing "Your trust is well placed when you walk through the doors!"; it keeps "under clinician supervision" at the operator's direction after her draft omitted it. (The Evolus ICON film moved to /about at her direction, 2026-08-18 — review it there, in the structural-page pass. The "Charlotte's #1 Evolus provider" sentence that moved with it was retired 2026-08-25 when the /about plate gave way to the Evolus Laurel plaque; the sentence now renders nowhere on the site.) **NEW 2026-09-19 (second batch):** "Individualized, with Amy" **no longer says "under clinician supervision"** — the operator's direction, reversing the 2026-08-23 call to keep it here; the reason on the record is "there is no doctor on staff" (the clause can read as a supervising physician). The paragraph now reads "Amy Palacios, FNP, assesses your goals and plans every treatment individually at her Harrisburg medspa, just minutes from Charlotte. Your trust is well placed when you walk through the doors!" Also: "Men book the same appointments…" and the button name in the "How do I book?" answer now link to her Vagaro page (DECISIONS 2026-09-19, the addendum). **NEW 2026-10-05:** "Who they're generally for" now ends "…is a clinical decision made with Amy in a consultation, with the procedure following." (it ended at "consultation.") — the operator's wording, kept after a flag that the new clause has no condition; hers to confirm that the procedure follows the consultation as the sentence says (DECISIONS 2026-10-05) |
+| ☐ | [/services/dermal-fillers](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/dermal-fillers) | Evolysse / Revanesse cards — **NEW 2026-08-26: every card now reads "$650 (full-syringe) or $325 (half-syringe)"**; the lip style guide; the Evolus Laurel ranking plaque (replacing the #1-provider plate in the same spot, 2026-08-21); three photos — the hand-mirror client frame, the Revanesse Lips+ mirror frame, and the lip-injection detail beside "Lips, styled" (her picks 14/15 + 8K0A9591, 2026-08-21). The Evolysse film no longer renders. **NEW 2026-08-26 — her copy round, two batches on one preview.** The lead drops "gel" and lists the areas her way: "Injectable fillers for volume and contour. Common areas include the lips, under-eye area, cheeks, jawline and chin." (the body's matching sentence syncs; the /services menu card drops "gel" too). The deck now opens "Facial Balancing — volume and contour in proportion — never more than the face asks for." "Placed in proportion" sets its aside in em dashes ("Amy maps each face — where volume sits, where it has thinned, how the features balance — and places only what the plan calls for."). "Individualized, with Amy" is retitled **"Personalized, with Amy"** over her new paragraph — "Every plan is individually mapped out. Amy Palacios, FNP, plans and performs each treatment herself at her Harrisburg medspa in the greater Charlotte area." — which **drops "under clinician supervision" at her direction** (the opposite of her wrinkle-relaxers call, where the clause was kept; both on the record, DECISIONS 2026-08-26). "Lips, styled" now closes "begins with a conversation.", and "After weight loss" ends its second sentence at "more visible." (Amy approved this page on 2026-07-21 and again at launch 2026-08-05; the 2026-08-21 film removal + photo round reset the flag — this is her re-confirmation, now covering the 2026-08-26 copy round too.) **NEW 2026-09-19 (second batch):** "Which filler products does Amy offer?" now closes "Which product is used in your plan is decided between you and Amy." (", if any," and "in consultation" came off); **"Does filler hurt?" gains a sentence for her to confirm as fact: "Also, Amy applies additional topical lidocaine to minimize any discomfort."**; and "…ask when you book or call." links "book" to Vagaro (DECISIONS 2026-09-19, the addendum) |
+| ☐ | [/services/biostimulators](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/biostimulators) | Radiesse $900/syringe; PDO threads $350 for 10. **NEW 2026-08-21: her two reels replace the studio portrait** — the Radiesse-visit film beside "A longer view of structure" (shipped as-is under her/the operator's overrides: the before/after cut, the unit-labeled carton, another provider on frame for ~2s; client release + consent on file) and her Instagram reel beside "Individualized, with Amy" (480p, shipped as final). Both autoplay MUTED as she scrolls to them and loop while on screen — tap the speaker for sound, tap to pause (2026-08-21 review round: no printed caption under either film); captions are `[Music]` cues. The page now has no photographs. **Re-approval required — the MDX edit reset the flag** (DECISIONS 2026-08-21). **NEW 2026-09-19 (second batch):** the pink statement card now closes "your own collagen, naturally created over time." (was "planned across time"); "What is a biostimulator?" says "collagen production" and closes "Which one fits is decided together in a consultation." (", if either," came off); "How long does it last?" closes "before the procedure."; **"Can I book a biostimulator appointment directly?" now answers "Yes. Although this line starts with a consultation, so the right approach can be chosen, the procedure can be performed immediately at your appointment."** — hers to confirm that same-visit treatment is how she works; and "Individualized, with Amy" no longer says "under clinician supervision" (DECISIONS 2026-09-19, the addendum) |
+| ☐ | [/services/regenerative](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/regenerative) | PRP $600; PRP with microneedling $900. **NEW (2026-08-25): the PRP media round** — the blood-draw photo left of "Who they're generally for" (her own arm), the prepared-syringes photo right of "Individualized, with Amy" (packaging labels in frame ship as-is at the operator's override), and her own reel directly above "Your visit, step by step": Amy receiving her PRP hairline treatment, autoplaying muted as she scrolls to it, looping, near-silent sound one tap away. One of the location's other providers injects on camera, face mostly out of frame, never named (her override; consent on file — DECISIONS 2026-08-25). The existing band photo stays. **Re-approval required (flag reset)** **NEW 2026-09-19 (second batch) — READ THE FIRST LINE BY NAME:** the paragraph under the page title is now "PRP (Platelet-Rich Plasma) treatments prepared from your blood can be used by themselves or combined with microneedling **to stimulate hair re-growth and reduce the signs of skin aging.**" It was flagged before it shipped and went in under the operator's override: it states what the treatments do, beyond the two card sentences she approved under the 2026-08-01 override. By the operator's choice it shows as visible text only — the description search engines read from the page keeps the previous factual sentence. Also: **"Can I book a regenerative treatment directly?" now answers "Yes. This line starts with a consultation so that Amy can explain each option plainly. The procedure can be performed immediately."**; and "Individualized, with Amy" no longer says "under clinician supervision" (DECISIONS 2026-09-19, the addendum) |
+| ☐ | [/services/skin-rejuvenation](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/skin-rejuvenation) | PiXel8-RF $1,500; peels "Starting at $180"; **NEW (2026-08-21): two PiXel8-RF photos — Amy beside the cart (console readout legible; operator override) and the handpiece in hand**. **NEW 2026-09-19 (second batch) — seven wording changes:** the peels card now says "Each peel is customized to suit your skin's specific needs."; "Chemical peels" opens "the traditional idea, refined" (was "older"); "A longer view" closes "one approach, a customized plan." (was 'a sequence, or an honest "not yet."'); "Does it hurt?" closes "how the skin typically feels after."; "How many treatments will I need?" says "It's planned individually with Amy, and adjusted along the way."; **"Which chemical peel is right for me?" no longer opens "That's exactly what a consultation is for."**; **and "Can I book a skin-rejuvenation treatment directly?" now answers "Yes, absolutely! Book anytime for your convenience."** ("Book" links to Vagaro). The last two were noted to the operator: they are the page's plainest "is this right for me" and consultation-first answers, and the page's other consultation passages now carry that routing. "Individualized, with Amy" no longer says "under clinician supervision" (DECISIONS 2026-09-19, the addendum) |
+| ☐ | [/services/body-contouring](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/body-contouring) | Evolve $1,500 course of six / $275 single session; **NEW (2026-08-21): Amy's own Evolve reel in the session row — autoplays muted on approach, sound on the controls; the Reel-screenshot photo retired**. **NEW 2026-09-19 — the operator's copy round (their colleagues' wording):** the first FAQ answer now closes "Amy sets the level of intensity with you before it starts." (the body's "What a session is like" still says "sets the level with you" — left as written); "Can I book Evolve directly?" now answers "Yes! This line starts with a consultation, free as always, so the area and the plan can be settled before anything starts. Feel free to book now!" — the word "book" links to her Vagaro page (the site's first linked word inside an FAQ answer); "Where it's used" now closes "is settled in a conversation with Amy before anything begins."; and "Individualized, with Amy" now reads "Amy Palacios, FNP, plans and performs every treatment herself at her Harrisburg medspa in the greater Charlotte area. It starts with a conversation and the process begins!" — **"under clinician supervision" and "a consultation, free as always" come off** (the dermal-fillers call, not the wrinkle-relaxers one; DECISIONS 2026-09-19) |
+| ☐ | [/services/laser-treatments](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/laser-treatments) | "Venus Versa Pro" naming throughout (approved 2026-08-04). **NEW (2026-08-21): prices on all four cards from her two flyers — she confirms every figure and every item name (flyer-verbatim); the Venus Epileve laser hair-removal section (the three-column price sheet — single, full series of six, full series at ~15% off — areas, packages, direct booking); the rewritten "Is this actually a laser?" answer; three photos — beside the Versa Pro console, seated with two applicators, and at the window with the Epileve (its console readout legible; operator override). The 2026-08-04 console snapshot is retired. Re-approval required (flag reset)** **NEW 2026-09-19 — the operator's copy round. READ THIS ONE BY NAME: the FAQ "Can I book a laser treatment directly?" now answers "Yes! All services can be booked with the expectation of a procedure."** It replaced "Laser hair removal, yes — choose your area and book with Amy. The three Venus Versa Pro applications start with a consultation, free as always…". It was flagged before it shipped and went in under the operator's override: it tells every visitor to expect a procedure ahead of her assessment, and it reverses the 2026-08-21 consult-first decision for the three Versa Pro applications — she is the clinician that sentence speaks for, so her OK on it is the control (DECISIONS 2026-09-19). The page's "Three tools, one conversation" section ("one of them, a sequence, or none … a consultation decision") and the skin-types answer ("decided with Amy at a consultation") are unchanged and now sit beside it. Also that round: "Laser hair removal" ends at "It's priced by area, a single treatment or a series of six."; "Individualized, with Amy" now reads "…plans and performs every treatment herself at her Harrisburg medspa in the greater Charlotte area. It starts with hitting book." (**"under clinician supervision" comes off**); "What does a treatment feel like?" closes "before anything begins."; and "How many treatments will I need?" now says "It's planned individually with Amy and adjusted along the way, if necessary." **NEW 2026-10-02 — her IPL film, and who performs the treatment. READ THESE BY NAME.** (1) A 25-second film of a client's IPL session, which she filmed and speaks in, now plays beside "Photo-rejuvenation": it starts by itself, muted, with its captions showing, and sound is one tap away. It is carried whole and with its sound under the operator's overrides after the flags. Its words are in the caption file (`public/media/ipl-visit.vtt`), which the checks do not read and this list does not repeat: she reads them there or on the page. They say what IPL is for, including one concern this page gives to the other two applicators; they make a results statement over close shots of the client's skin after the treatment; they invite scheduling; they open on a season; and they say "us" and "we". She is the clinician those words speak for, so her OK on them is the control. A member of her staff does the hands-on treatment on camera (consent on file), and the client's release and HIPAA marketing authorization are on file (operator, 2026-10-02). (2) "Who performs the treatment?" now answers "Amy Palacios, FNP, a licensed family nurse practitioner, plans every treatment. The treatment itself is performed by Amy or by a member of her own staff.", and "Individualized, with Amy" says the same: the first time the site's words mention staff. /services now opens "Every service below is planned by Amy Palacios, FNP." and /about says "…and Amy plans every one of them." (3) A new sentence beside the film: "The film is shown with the client's consent. Every plan is individual, and whether this treatment suits your skin is decided with Amy at a consultation." (DECISIONS 2026-10-02.) She has not seen any of it. |
+| ☐ | [/services/weight-loss-glp-1](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/weight-loss-glp-1) | The mg-keyed vial price tiers; the single Retatrutide investigational line; **NEW (2026-08-21): the InBody weigh-in frame from behind (wall sign legible; operator override) and the "They showed up for themselves" section — three client photo pairs under operator override, releases + HIPAA authorizations on file**. **NEW 2026-09-19:** the FAQ on the three medications now closes "Which one belongs in your plan is decided in consultation." — ", if any," came off (DECISIONS 2026-09-19) |
+| ☐ | [/services/peptide-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/peptide-therapy) | Ten product cards with prices (nine in her wording, near-verbatim); portrait photo. **NEW 2026-10-02 — a tenth card, KLOW, and two price lines. READ THESE BY NAME.** (1) **KLOW (KPV / GHK-Cu / BPC-157 / TB-500)** sits right after GLOW. It says only what it is: "A blend of four peptides: KPV, GHK-Cu, BPC-157, and TB-500. KPV is a tripeptide (lysine, proline, and valine)." Those two sentences are the site's, not hers: she confirms the name, its four ingredients and both sentences. (2) **GLOW and KLOW both read "$265 for six weeks"** (GLOW read "$265"). The six weeks is the operator's figure. It was flagged before it shipped and went in under the operator's exception, because the site's rule is not to state how long a treatment runs. She confirms the price and that six weeks is what $265 buys for each blend. (3) "What it is" now says "Copper peptides: GHK-Cu, and two blends that include it, GLOW and KLOW." (4) Two standing lines now cover KLOW as well, and are hers to confirm for it: "The ones Amy offers are prescription treatments" and "Amy Palacios, FNP, plans and gives every peptide treatment herself" (the answer to "Who gives the treatment?" says "every visit is with Amy"). (DECISIONS 2026-10-02.) She has not seen any of it. |
+| ☐ | [/services/iv-therapy](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/iv-therapy) | Menu cards ($125 / $125 / $200 / $25 shots). **NEW (2026-08-25): BOTH photos are her picks** — "What a visit looks like" now shows a client on her laptop mid-infusion while Amy prepares supplies at the IV pole (replaces the wide studio frame), and "Individualized, with Amy" gains its first photo, to the left of the copy: Amy tending a male client's arm for an IV infusion (re-graded brighter at the operator's direction). Both pictured clients' releases confirmed on file; Amy is the clinician in both frames (DECISIONS 2026-08-25). **Re-approval required (flag reset)** **NEW 2026-09-19 — the operator's copy round:** the paragraph under the page title gains "All available, based on your body's needs."; "Can I choose what goes into my drip?" closes "not something settled from a price menu." (was "price list"); and "How do I book?" now reads: Online with the "Book with Amy" button. — the phone clause came off that answer (the Call button and the footer still carry the number; DECISIONS 2026-09-19) **NEW 2026-09-30 — the Vitamin B12 card has a price:** "$25 per shot" (the operator's price; it was the one card without one). She confirms it (DECISIONS 2026-09-30) **NEW 2026-10-02 — her last section is now a film:** the "Individualized, with Amy" heading, its paragraph and the photo of her tending a male client's arm are gone. In their place, a short clip of her at the IV poles adjusting a drip while clients relax in the lounge's yellow chairs. It plays when someone presses play, with its own song (a commercial song with no licence on record, kept at the operator's direction) and captions of the sung words. The Mobile Aesthetics sign, the doorway shelf's Radiesse posters and a skincare display can be seen in it, kept as they are at the operator's direction; the clients' releases are on file (DECISIONS 2026-10-02). **Re-approval required (flag reset)** **NEW 2026-10-02 (later the same day) — the film now starts on its own, muted, and is smaller:** it plays when someone scrolls to it, with the speaker button for its song; it is two-thirds of its former width, and the white frame around it is gone (DECISIONS 2026-10-02, the addendum). |
+| ☐ | [/services/hormone-optimization](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/hormone-optimization) | Pellets $450 women / $750 men; lab draw $125; ~~the Biote FDA disclaimer~~ (OFF the page since 2026-09-19 — see below); **NEW: her grey-seamless portrait** (also on weight-loss). **NEW 2026-09-19 — two changes, both hers to read by name.** (1) **The boxed FDA sentence is gone from this page at her direction** ("These statements have not been evaluated by the Food and Drug Administration…" — relayed by the operator: the medical-disclaimer link at the bottom of every page will suffice). The symptom wording in "For women" / "For men" stays. It was flagged before the change: the site's rule has been that symptom language appears only beside that sentence, and the footer's /medical-disclaimer page does not contain it; the operator decided from four offered paths, and the claims checker now exempts this one page (the operator's own edit). The layout's medical disclaimer block is still on the page. The box comes back with one word if she, counsel, or Biote ever wants it (DECISIONS 2026-09-19). (2) **The "Hormone lab draw" card** now adds: "Amy's labs include, at a minimum, a Complete Blood Count (CBC), Comprehensive Metabolic Panel (CMP), Thyroid-Stimulating Hormone (TSH), Triiodothyronine (T3), Thyroxine (T4), Testosterone, Estradiol, Follicle-Stimulating Hormone (FSH), Vitamin D, and Vitamin B12. This is a $618 value at other labs for the same panel." — she confirms the panel list and the $618 figure (a comparison with other labs' prices; its basis is being recorded). **Re-approval required — this edit reset the page's flag, the last one that was `true`** **NEW 2026-10-02 — her Biote film, directly above "What Amy offers":** Amy beside the Biote banner, saying why she chose Biote (her ER/ICU years, the full lab panel, a plan built from her results). It starts silently with her words as captions when a visitor scrolls to it; sound is one tap away. Its first two seconds (someone off camera saying "go ahead") are cut, the picture is brightened, and her voice is raised to the site's level. Kept as they are at the operator's direction: the banner's printed promises and the wall's symptom poster, her spoken lines ("it gives you the results that you need… it is what works for you"), and her "we" in the captions. Two words for her to confirm by ear: "chose" and "Code Cool". The operator confirms she has Biote's OK to show its banner and logo (DECISIONS 2026-10-02). Later the same day, at the operator's direction, the line of text under the film came off and its white frame became a thin pink hairline. **Re-approval required (flag reset)** |
+| ☐ | [/services/skincare](https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net/services/skincare) | Skinbetter storefront routing (shop button, Mobile Aesthetics naming); two product photos. **NEW (2026-08-25): BOTH photos** — the first ("What it is") is now the held-out line-up with Amy's chin visible (the outgoing frame cut her head at the neck; a 4:5 crop keeping sunbetter whole and AlphaRet at the edge), and the second ("Individualized, with Amy") is the Skinbetter line-up above a spread of Amy's business cards (a 4:5 crop, so the outer two products are out of frame; the two capped syringes among the cards ship as-is at the operator's word). **Also NEW (2026-08-25): the storefront plate carries a QR code** — scan-to-register-and-shop, the counter-card handoff regenerated crisp (operator-supplied URL, decode-verified + operator scan-tested). **Re-approval required (flag reset)** **NEW 2026-09-19:** "Where do skincare purchases happen?" now opens "In the medspa at any time" (was "at any appointment") — hers to confirm that walk-in purchases are how it works, since the site lists no hours by her own decision; "How buying works" still says "pick products up at any appointment" (DECISIONS 2026-09-19). **NEW 2026-09-27:** "Mobile Aesthetics" is now a link to her practice site in the sentence "It runs under Mobile Aesthetics…" and in the answer to "Why does the storefront say Mobile Aesthetics?" — no wording changed, and the question itself stays plain text (operator override; DECISIONS 2026-09-27, the practice's-name entry) |
 
 ## Also for Amy's review (not flag-gated): /injector-training
 
@@ -58,10 +406,88 @@ verify before launch:
 - Course names and topic lists (carried from her flyer verbatim).
 - The certificate sentence (completion documentation; licensure and
   scope stay the trainee's own).
-- The reused grey-seamless portrait, and "in medical aesthetics since
-  2017" (the site's standard phrasing of her flyer's experience line).
+- "In medical aesthetics since 2017" (the site's standard phrasing of
+  her flyer's experience line; her reel's on-screen wording differs —
+  pixels self-identify).
+- Since 2026-08-25: the dedicated training portrait (replacing the
+  reused grey-seamless frame) and her training reel under the courses
+  heading — autoplaying muted, looping, tap for sound — both shipped
+  at her direction with the releases and overrides on the operator's
+  record (DECISIONS 2026-08-25).
+- Since 2026-10-05 (the operator's direction): a "Message Amy on
+  Instagram" button beside the Call button at the top of the page. It
+  opens her Instagram page, the same address the footer's icon uses.
+  The word "Instagram" in the sentence above the buttons is now
+  underlined; it was already a link, but it looked like plain text
+  (DECISIONS 2026-10-05). She has not seen it.
+
+**Round reviewed 2026-08-25** (relayed by the operator, same day the
+round merged): Amy reviewed the shipped portrait + reel on the
+standing demo and approved them as-is. This is the per-round okay
+only — the full presentation pass in the table above stays
+_pending_, and she re-sees this page inside that pass like every
+other.
 
 Anything she wants changed ships as its own PR before launch.
+
+**Reviewed 2026-10-05** (the operator's statement, the relaunch
+sign-off): Amy approved this page as it stood on the standing demo that
+day, the Instagram button of that morning included. Its search
+description changed afterwards and is among the twelve lines she OK'd
+from the sheet.
+
+## Also for Amy's review (not flag-gated): /tox-together — Tox Together
+
+New 2026-09-26, on its PR preview first (PR #209) and on the standing demo
+once merged. **Renamed 2026-09-27 (the operator):** it was "Tox To Go" at
+/tox-to-go for a day; it is "Tox Together" at /tox-together now, and only
+the name changed (PR #217, merged into phase-c the same day on the
+operator's word). Tox Together is its own page, and it replaces the /mobile
+page, which is deleted. The page carries the operator's words as written;
+the home page's band beside her van-trip film names it, carries the same
+call button and links to it ("See the hostess perk ›"). It is not
+treatment content, so no flag blocks the pipeline, but it states an offer
+in her name. It merged into phase-c on the operator's word (2026-09-26),
+so she sees it on the standing demo; production stays gated by her
+sign-off. She confirms:
+
+- **The terms, exactly as they read.** The hostess gets a $600 credit
+  toward services when the party has a minimum of 7 guests, an average
+  service purchase of $300 per guest, and the services are provided
+  during the scheduled party ("a minimum of $2,100 in services among your
+  guests").
+- **That a host reward tied to guests' purchases fits her own
+  professional guidance.** Some state boards scrutinise rewards for
+  bringing in paying patients. The operator saw this flag and chose to
+  publish.
+- **The word "Tox" on the site** (operator decision) — in the page's
+  words, its title, the text a shared link shows, and the menu item,
+  which now reads "Tox Together" (it read "Mobile"). The brand name it is
+  often paired with still never appears.
+- **Booking.** "Book your Tox Together party" calls her number,
+  704-579-7108, which is printed under the button, on the page and on
+  the home page's band. If parties should be booked another way, she
+  should say so.
+- **The name "Tox Together".** Two web searches (2026-09-27) found no
+  business using it. If she wants to own the name, a trademark search
+  is the step.
+
+**Confirmed 2026-10-05** (the operator's statement, the relaunch
+sign-off): Amy approved this page with its party terms on the standing
+demo, and the operator states that she had already confirmed the items
+listed above by name, the host reward and her own professional guidance
+among them.
+
+Retired with the /mobile page (2026-09-26, the operator: "We don't need
+it now"): its "How a party works" steps, its "Bring the people you'd
+bring anyway." copy, the questions it left for her (which services
+travel, how far she travels, a minimum group, solo mobile appointments,
+the van's name), the list of photos and clips it was missing, and its two
+pieces of media — the van interior photo and her viewfinder film of a
+guest in the van's chair (the guest's website-use release stays on file;
+the film is off the site, its file kept in storage). The Tox Together page
+states its own terms; if the operator wants any of those asked again,
+they come back as their own item.
 
 ## Operator: flipping the flags (your own hands only)
 
@@ -91,6 +517,12 @@ and handle everything after the flip — the flip itself is yours.
 
 ## After the flips (assistant's checklist, for the record)
 
+*This is the 2026-08-05 launch's list, kept as history. Since the
+takedown, step 2 is never a plain merge: the 2026-10-05 relaunch
+followed docs/RELAUNCH.md's two-step PR (revert the takedown revert,
+then merge `phase-c`), and from the relaunch on every merge to `main`
+ships.*
+
 1. Merge the approval PR; stable preview redeploys.
 2. Merge PR #5 (`phase-c` → `main`) — the launch merge.
 3. The production pipeline runs: verify → **check:approvals (now
@@ -101,5 +533,6 @@ and handle everything after the flip — the flip itself is yours.
    indexable (previews stay noindexed); OG cards; 404 at the edge;
    Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.
 5. Post-launch standing items (recorded, not blocking): counsel review
-   of the legal pages; laser pricing if Amy supplies it; higher-res
+   of the legal pages; ~~laser pricing if Amy supplies it~~ (landed
+   2026-08-21 from her flyers); higher-res
    photo upgrades; Plausible analytics as a deliberate opt-in.

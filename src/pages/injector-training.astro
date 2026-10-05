@@ -4,9 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
+import TreatmentVideo from '../components/TreatmentVideo.astro';
 import { siteConfig } from '../lib/siteConfig';
 import { service } from '../lib/schema';
-import amyPortrait from '../assets/photos/amy-palacios-fnp.jpg';
+import amyEvolysseCart from '../assets/photos/amy-evolysse-cart.jpg';
+import trainingReelPoster from '../assets/photos/training-reel-poster.jpg';
 
 /**
  * /injector-training — Private Injector Training (added 2026-08-04 at the
@@ -33,15 +35,40 @@ import amyPortrait from '../assets/photos/amy-palacios-fnp.jpg';
  * - Contact is phone/Instagram. Not "Book with Amy" (reserved for
  *   Vagaro buttons), not "appointment" (client booking), not
  *   "consultation" (clinical routing) — training is none of those.
- * - The portrait reuses the committed grey-seamless frame (operator
- *   decision 2026-08-04); a dedicated Amy-solo training photo is the
- *   recorded upgrade path.
+ *   Since 2026-10-05 (operator; DECISIONS same date) the intro shows
+ *   both: Call, and "Message Amy on Instagram" beside it. The word
+ *   "Instagram" in the paragraph above them wears the house
+ *   inline-link idiom (underline + the link token — BookLink's);
+ *   the anchor had carried no link styling of its own since the
+ *   page was made, so it read as plain text.
+ * - The portrait is the dedicated training photo the 2026-08-04 entry
+ *   recorded as the upgrade path, taken 2026-08-25 (DECISIONS same
+ *   date): amy-evolysse-cart.jpg ships under its own pixel-level
+ *   claims override — a Jeuveau banner's marketing text and partial
+ *   safety fine print are legible in the served file. No phrase or
+ *   value from that banner is ever restated in this file's text:
+ *   copy, alt, comments, meta, JSON-LD. Frame and page scope are
+ *   fixed; changing either requires the human operator.
+ * - The training reel (training-reel, Amy's own film, 2026-08-25 —
+ *   DECISIONS same date) is carried as-is under operator override:
+ *   its burned-in course cards restate this page's card copy as
+ *   pixels (including the allowlisted topic vocabulary, which is why
+ *   the label and captions below describe only what the pixels
+ *   self-identify and never quote it), and its closing card displays
+ *   Amy's practice-site URL on screen (constraint-2 fifth exception,
+ *   display-only — never render it as a link or print it in copy).
+ *   All on-camera releases are confirmed on the operator's record.
+ *   Autoplay is in-class (Amy's own speech-free film): muted
+ *   loop-in-view, native controls as pause and tap-for-sound,
+ *   plays under reduced motion too since 2026-09-03 (the phone
+ *   policy, DECISIONS same date). The caption file carries
+ *   [Music] cues only — deliberately no on-screen-text cues.
  */
 
 const pageTitle =
   'Private Injector Training in Harrisburg & Charlotte, NC | Needle Girlie';
 const pageDescription =
-  'Hands-on injector training for licensed medical professionals with Amy Palacios, FNP, in Harrisburg, NC. Neurotoxin, dermal filler, PDO thread, and Radiesse courses, taught one-on-one.';
+  'Private injector training for licensed medical professionals with Amy Palacios, FNP, near Charlotte, NC: neurotoxin, dermal filler, PDO thread, and Radiesse.';
 
 const jsonLd = [
   service(
@@ -71,7 +98,7 @@ const jsonLd = [
             Amy has practiced in medical aesthetics since 2017, and she
             teaches the way she works: one clinician, one trainee, real
             products, real technique. Each course runs three hours in
-            her Harrisburg studio, just northeast of Charlotte.
+            her Harrisburg medspa, just northeast of Charlotte.
           </p>
           <p>
             The courses are built for licensed medical professionals who
@@ -83,20 +110,37 @@ const jsonLd = [
             Training dates are set directly with Amy: call or text, or
             send her a message on <a
               href={siteConfig.social.instagram}
+              class="underline underline-offset-4"
+              style="color: var(--ng-link)"
               target="_blank"
               rel="noopener"
               >Instagram<span class="sr-only"> (opens in new tab)</span></a
             >.
           </p>
         </div>
-        <div class="mt-8">
-          <CTAButton variant="call" />
+        {/* The Instagram button (operator, 2026-10-05 — DECISIONS same
+          * date): the page's second way to reach Amy, beside Call. The
+          * home page's "Follow Amy on Instagram" anchor is the pattern
+          * (hand-written, the brand chip, no data-event); the mark is
+          * the footer's own glyph, hand-copied from Footer.astro. */}
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <CTAButton variant="call" emphasis="chip" />
+          <a href={siteConfig.social.instagram} target="_blank" rel="noopener" class="cta cta--chip">
+            <svg class="shrink-0" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.8" />
+              <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
+              <circle cx="17.3" cy="6.7" r="1.3" fill="currentColor" />
+            </svg>
+            Message Amy on Instagram
+            <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
+            <span class="sr-only">(opens in new tab)</span>
+          </a>
         </div>
       </div>
-      <figure class="training-portrait">
+      <figure class="training-portrait ng-arch">
         <Image
-          src={amyPortrait}
-          alt="Amy Palacios, FNP, in her embroidered scrubs."
+          src={amyEvolysseCart}
+          alt="Amy Palacios, FNP, holding Evolysse cartons at her medspa cart."
           widths={[480, 760, 1067]}
           sizes="(min-width: 768px) 40vw, 90vw"
           loading="eager"
@@ -114,6 +158,23 @@ const jsonLd = [
     <h2 class="heading-2 mt-6" id="courses-title">
       Four courses, taught one-on-one.
     </h2>
+    {/* Amy's training reel — carried as-is under the 2026-08-25
+      * operator override recorded in the header comment and
+      * DECISIONS. autoplay="inview" is in-class (her own speech-free
+      * film): muted loop while on screen, native controls as pause
+      * and tap-for-sound, playing under reduced motion too since
+      * 2026-09-03 (the phone policy, DECISIONS same date). The 24rem
+      * cap keeps the 9:16 frame at reel scale; the 810px rendition
+      * covers 2x retina at that width. */}
+    <div class="mx-auto max-w-sm">
+      <TreatmentVideo
+        src="/media/training-reel.mp4"
+        poster={trainingReelPoster}
+        captionsSrc="/media/training-reel.vtt"
+        label="Private Injector Training at the Harrisburg medspa, from Amy's own reel"
+        autoplay="inview"
+      />
+    </div>
     <ul role="list" class="mt-8 grid gap-4 sm:grid-cols-2">
       <li class="course-card">
         <h3 class="course-name">Neurotoxin Training</h3>
@@ -211,14 +272,14 @@ const jsonLd = [
 </BaseLayout>
 
 <style>
-  /* Editorial frame + light-wash grade — the .about-portrait recipe,
-   * hand-copied (page-local frames stay page-local; the shared media-*
-   * classes are scoped to .treatment-body and unreachable here). */
+  /* Light-wash grade — the .about-portrait recipe, hand-copied
+   * (page-local frames stay page-local; the shared media-* classes are
+   * scoped to .treatment-body and unreachable here). Frame shape +
+   * border come from .ng-arch (global.css) — the sitewide arch motif,
+   * 2026-08-17. */
   .training-portrait {
     position: relative;
     margin: 0;
-    border: 1px solid var(--ng-hairline);
-    overflow: hidden;
   }
   .training-portrait img {
     display: block;

@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
 
-const require = createRequire(import.meta.url);
+const nodeRequire = createRequire(import.meta.url);
 
 /**
  * Resolve a Chrome/Edge executable for the headless gates. Preference order:
@@ -34,7 +34,7 @@ export function findChrome() {
   }
 
   try {
-    const puppeteer = require('puppeteer');
+    const puppeteer = nodeRequire('puppeteer');
     return puppeteer.executablePath();
   } catch {
     return undefined;

@@ -12,6 +12,15 @@ import LocationCard from '../components/LocationCard.astro';
  * the {{HOURS}} token; DECISIONS same date) — so no copy here may
  * promise or imply hours. The parking note still waits on operator
  * wording (a new registry item, not yet in §17).
+ *
+ * The lead is the operator's sentence as typed (2026-09-30, from Amy;
+ * DECISIONS same date), with a period and a comma before "but": the
+ * Harrisburg medspa is her main one, and she also sees people in four
+ * other places and at mobile parties in both Carolinas. "mobile
+ * parties" links to /tox-together, the party page, in the house
+ * inline-link idiom (PracticeLink's: underline + var(--ng-link)). The
+ * card below still carries the one address; the other places have
+ * none on the site.
  */
 ---
 
@@ -22,12 +31,14 @@ import LocationCard from '../components/LocationCard.astro';
   <Header slot="header" />
 
   <section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
-    <p class="eyebrow">The studio</p>
+    <p class="eyebrow">The medspa</p>
     <hr class="rule-accent mt-4" aria-hidden="true" />
     <h1 class="display-2 mt-6">Visit Amy</h1>
     <p class="lead mt-6">
-      Amy sees clients in Harrisburg, North Carolina, just northeast of
-      Charlotte. Directions and contact are below.
+      Amy's main medspa is in Harrisburg, NC, but she also sees people in
+      Waxhaw, Ballantyne, Concord, and Charlotte locations along with
+      <a href="/tox-together" class="underline underline-offset-4" style="color: var(--ng-link)">mobile parties</a>
+      in North and South Carolina.
     </p>
     <div class="mt-10">
       <LocationCard heading={'Location'} headingLevel="h2" />

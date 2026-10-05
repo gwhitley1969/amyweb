@@ -4,6 +4,26 @@ Everything needed to run, change, and fix the site. Written for the operator;
 assumes `az` and `gh` CLIs authenticated against the client tenant
 (`needlegirlie.onmicrosoft.com`) and the GitHub repo (`gwhitley1969/amyweb`).
 
+> **STATUS 2026-08-05: production is OFFLINE — serving the Under
+> Construction placeholder** (since the same evening with Amy's studio
+> photo in the window — the caricature is retired at her word, PR #99).
+> The launch merge was reverted at operator
+> direction (revert commit `e57a4448`; DECISIONS 2026-08-05 takedown
+> entry) pending a client review round. Relaunch is TWO-STEP — see
+> "Relaunching after the takedown" under Rollback. While the revert is
+> reachable from `main` (it is no longer the tip — PR #99 moved past
+> it — but ancestry is what matters): never merge `main` into
+> `phase-c` (including PR #95's "Update branch" button) and never
+> close PR #95. Since 2026-08-17 the **relaunch guard** enforces this
+> mechanically (`.github/workflows/relaunch-guard.yml` — see the
+> relaunch section). Until 2026-08-24 the workflow lived only on
+> `phase-c` while `main` required its check, so the check could never
+> report and **every** PR into `main` was permanently blocked; the file
+> now ships on both branches and the two copies must stay identical
+> (DECISIONS 2026-08-24). The `-95` preview
+> cannot deploy during the takedown (merge ref conflicted by design);
+> the full-site demo preview is **PR #97**'s environment.
+
 ## The system at a glance
 
 | Piece | Value |
@@ -11,7 +31,7 @@ assumes `az` and `gh` CLIs authenticated against the client tenant
 | Production | https://needlegirlie.com (canonical apex) |
 | Redirecting hosts | www.needlegirlie.com, needlegirl.com, www.needlegirl.com → 301 to apex |
 | Front Door | profile `afd-needlegirlie`, endpoint `needlegirlie` (`needlegirlie-b9bbeadqaucyd7af.z03.azurefd.net`), ID `ee68a15a-55e1-4220-8016-3052e33d4988` |
-| Static Web App | `stapp-needlegirlie` (`polite-flower-0a41b770f.7.azurestaticapps.net`) — returns **403 direct; by design** (locked to Front Door) |
+| Static Web App | `stapp-needlegirlie` (`polite-flower-0a41b770f.7.azurestaticapps.net`) — direct hits are **refused by design** (locked to Front Door; the config is the documented 403 form, but the platform was observed answering 404 with zero site content at launch, 2026-08-05 — either way, blocked) |
 | Resource group | `rg-needlegirlie-web` (eastus2); DNS zones live in `rg-corp` |
 | Subscription | `ng-website` (`62cd1c71-3239-4b8b-8a10-4dc4da52e29e`) |
 | Budget | $60/mo, alerts at 50%/80% actual + 100% forecast |
@@ -22,11 +42,31 @@ design: `allowedForwardedHosts` only admits the real hostnames.
 ## Everyday changes (content/code)
 
 1. Branch → edit → `npm run verify` (must be green; never weaken a gate).
-2. Open a PR. CI verifies again and deploys a **preview environment**
-   (URL in the workflow summary). Previews are **public and noindexed** —
-   no password (DECISIONS 2026-07-21) — so the URL can go straight to Amy,
-   but only **after the deploy run completes**: sent earlier it 404s and
-   reads as a broken link. Closing the PR tears the preview down.
+   *Before changing copy on a page that carries a pixel override, read that
+   override's stated premise in CLAUDE.md, not just its verdict.* Several are
+   conditioned on what the page's own text does or does not say, and nothing
+   enforces that — `lint:claims` cannot see pixels. Precedent: the
+   wrinkle-relaxers band photo was cleared 2026-08-18 because the site's copy
+   never repeated its banner headline; a 2026-08-24 deck change made the copy
+   paraphrase it, retiring the premise (DECISIONS 2026-08-24;
+   compliance/README "What the linter cannot see: media text"). And note that
+   a green `lint:claims` is a floor, not an authorization — copy can be
+   non-compliant while tripping no pattern, in which case the override lives
+   in DECISIONS and NOT in `allowedStrings` (compliance/README
+   "Authorizations the registry does not hold").
+2. Open a PR. CI runs the fast gates (build, `check`, `lint:claims`,
+   `lint:voice`, and since 2026-09-27 `lint:practice-link` — about 20
+   seconds together), deploys a **preview
+   environment**, and only then runs the slow gates (pa11y, Lighthouse).
+   Previews are **public and noindexed** — no password (DECISIONS
+   2026-07-21) — so the URL can go straight to Amy, but only **once the
+   `Deploy preview to Azure Static Web Apps` step has finished**: sent
+   earlier it 404s and reads as a broken link. Since 2026-08-25 that step
+   finishes at roughly **1m45s**, not at the end of the job — you no longer
+   wait out Lighthouse to send a link (DECISIONS same date). The job stays
+   amber while the slow gates run; that is expected, and a red one means a
+   preview is up that failed a11y or perf, so read the run before acting on
+   the link. Closing the PR tears the preview down.
    *Documentation-only PRs run nothing and get no preview* — `paths-ignore`
    covers `docs/**`, `**/*.md`, `.gitignore` (DECISIONS 2026-07-26). Touch
    one source file and the full suite runs as usual.
@@ -34,23 +74,671 @@ design: `allowedForwardedHosts` only admits the real hostnames.
    **clinician-approval gate**, deploys, and purges the Front Door cache.
    Live in ~5–10 minutes end to end.
 
+**After every merge into `phase-c`, refresh the standing previews.** Pushes to
+`phase-c` deploy nowhere (see "Where `phase-c` is visible"), and GitHub does not
+re-run a PR's workflows when its base branch moves — so a preview PR keeps
+serving whatever it last built, indefinitely. Refresh each open preview PR by
+merging `phase-c` into its branch and pushing: the standing client demo (**#97**)
+and whatever review-scaffolding PR is open at the time. Skipping this is how
+both previews came to be six commits stale on 2026-08-25, showing the client a
+`/services` intro that had already been rewritten at her own direction.
+
+**Hotfixing production during the takedown era.** What `needlegirlie.com`
+serves today is the construction placeholder on `main`, not the site — a fix
+to it is a PR into `main`, branched from `main`, never from `phase-c`. It runs
+`pr-preview.yml` and the `gutted-merge-guard` check, which skips for any PR
+carrying no post-takedown `phase-c` commits. Merging deploys production and
+purges the Front Door cache like any other `main` merge. Precedent and the
+reason this path exists at all: the Xtend-AI footer credit was lost from the
+placeholder by the takedown revert and went unnoticed for nineteen days
+(DECISIONS 2026-08-24). Second precedent: the 2026-09-15 logo swap — the
+placeholder took the new mark and favicons by a hotfix PR carrying the same
+asset files, byte-identical at the same paths as the `phase-c` PR, so the
+relaunch two-step merges them clean; the record for both PRs lives in the
+`phase-c` DECISIONS entry, never on `main` (the append-only docs would
+collide at relaunch).
+
+## Naming the practice in copy
+
+Since 2026-09-27 the practice's name, "Mobile Aesthetics", is a link to
+the practice site wherever a page's visible text says it (the
+operator's override of CLAUDE.md constraint 2, the seventh scoped
+exception; DECISIONS same date). New copy follows the same rule.
+
+- **In an `.astro` page or an MDX body,** wrap the name in the
+  PracticeLink component (`src/components/PracticeLink.astro`), the way
+  BookLink wraps "book". Keep the component's anchor on one line, and
+  put no space between it and a comma or a full stop that follows.
+- **In a plain string** (an FAQ answer in a treatment page's
+  frontmatter, a visit step), write the marker:
+  `[Mobile Aesthetics](site:practice)`. The label has to be the
+  practice's name; anything else fails the build.
+- **In an FAQ question,** leave the name as plain text. The question
+  is the control that opens its answer, and a link there would take
+  the click. Put the link in the answer.
+- **Inside any other control** (a button, another link), reword so
+  the name is not there, or ask the operator.
+- **Text that is not page text** needs nothing: photo descriptions,
+  screen-reader labels, page descriptions, share titles, JSON-LD and
+  caption files cannot hold a link.
+
+The gate `npm run lint:practice-link` runs last in the fast gates and
+fails a build that breaks any of this. It prints the page, the rule
+and the words round the mention. It also holds every link to the
+practice site to its terms: the one screened address, a new tab with
+`noopener`, the `ma_site_click` event and the hidden new-tab note.
+
+**What the exception does not cover.** Any other link text, any other
+address on the practice site, and any mention of the location's other
+providers. Those go to the operator first, however green the gates
+are. The gate reads this repo's pages and never the practice site
+itself, so screen the destination again when its content is known to
+have changed.
+
+**The place is "the medspa".** Since 2026-09-30, at Amy's direction,
+copy calls the place where she works the medspa: one word, never
+"studio" (DECISIONS same date). That covers page text, photo
+descriptions, film labels, page descriptions and the notes in caption
+files. One description keeps the old word, the Girl Team photo's on
+/about, because that room is a photo studio. No gate checks this, so
+read new copy for it. File names and code comments are left alone.
+
 ## Where `phase-c` is visible
 
-`pr-preview.yml` triggers on `pull_request` only — never on `push`. Pushes
-to `phase-c` deploy because **PR #5 (`phase-c` → `main`) is open**: each push
-is a `synchronize` event on it, so PR #5's preview environment is effectively
-the stable `phase-c` preview, at
-`https://polite-flower-0a41b770f-5.eastus2.7.azurestaticapps.net`.
+`pr-preview.yml` triggers on `pull_request` only — never on `push`. The
+original design was that a **standing PR from `phase-c` → `main`** would
+make each push a `synchronize` event, so that PR's environment served as
+the stable `phase-c` preview. Launch PR #5 played that role until it merged
+as the launch merge (2026-08-05), which tore its `…-5…` environment down.
+The standing PR has been **#95** (draft "Next release") since.
 
-The environment number is the PR number — PR #61's preview was `…-61…`.
-**Consequence worth knowing:** if PR #5 is ever closed, pushes to `phase-c`
-stop deploying anywhere, with no failing run to point at. Reopen it, or open
-a replacement PR from `phase-c`, rather than debugging the workflow.
+**That mechanism has not worked since the takedown, and `…-95…` does not
+resolve** — verified 2026-08-23: `/`, `/services`, and `/about` all 404.
+This is not a regression to investigate; it was decided and recorded on
+the day of the takedown. DECISIONS 2026-08-05, consequence (3): *"PR #95's
+merge ref is conflicted by design, so the standing preview cannot deploy
+during the takedown — interim previews come from sub-PRs into phase-c."*
+See also "Relaunch guard" below: *a conflicted PR runs no workflows.*
+
+Concretely: PR #95 is permanently **CONFLICTING** (the takedown topology
+working as designed), GitHub will not run `pull_request` workflows for a PR
+whose merge commit it cannot compute, so no `synchronize` run has ever
+fired for #95 — its only checks come from the `push`-triggered Relaunch
+guard, which is exactly why that workflow listens on
+`push: branches: [phase-c]`. **Pushes to `phase-c` deploy nowhere.** This
+resolves at relaunch, when the two-step re-sync makes #95's successor
+mergeable again.
+
+Do not wait on a `…-95…` environment, and do **not** close PR #95 to "fix"
+it — closing it would not create a preview, and the relaunch depends on it.
+(At the relaunch itself the question answers itself: once the relaunch
+PR merges, #95's commits are all in `main` and GitHub is expected to
+mark it merged. See RELAUNCH, "Standing PR bookkeeping".)
+
+**Where to look at `phase-c` meanwhile:** the demo environment below,
+refreshed by merging `phase-c` into `chore/monday-demo-preview`. PR #97
+works precisely because its base is `phase-c`, not `main`, so it never
+conflicts and its `synchronize` events do fire. Any interim preview must be
+built the same way — a branch off `phase-c`, PR **into** `phase-c`.
+
+The environment number is the PR number — PR #61's preview was `…-61…`,
+PR #97's is `…-97…`.
+
+**The standing demo (the link the client keeps):** PR #97 — branch
+`chore/monday-demo-preview`, a draft titled DO NOT MERGE — exists only
+to hold the stable client-facing preview at
+`https://polite-flower-0a41b770f-97.eastus2.7.azurestaticapps.net`.
+Refresh after merges, on the operator's request: switch to the branch,
+`git merge phase-c`, push, switch back; watch the PR-preview run to
+completion, then verify with converged probes (below) before sharing.
+When another session's worktree holds the branch (`git checkout`
+refuses with "already used by worktree"), refresh WITHOUT a checkout
+(2026-08-26 precedent, both standing previews): `git merge-tree
+--write-tree origin/<branch> phase-c` → on success,
+`git commit-tree <tree> -p $(git rev-parse origin/<branch>)
+-p $(git rev-parse phase-c) -m "Merge phase-c … into <branch>"` →
+`git push origin <commit>:refs/heads/<branch>`. merge-tree fails on
+conflicts — then coordinate with the session holding the worktree
+instead. Note the holding session's local branch is left behind
+origin; it must `git pull` before its own next refresh.
+Never merge #97 (its base would take the demo branch's merge commits);
+if it is ever closed, open a fresh DO-NOT-MERGE draft from a fresh
+branch off `phase-c` and note the new environment number here.
 
 Treatment-content rules (CLAUDE.md hard constraint 4): only a human sets
 `clinicianApproved: true`; any edit to approved content resets it to `false`
 in the same commit; production deploys fail while unapproved non-draft
 treatment content exists.
+
+## Adding or replacing a homepage commercial
+
+The home carousel (src/components/VideoCarousel.astro; behavior in
+public/js/video-carousel.js) plays films from the media origin
+(`https://media.needlegirlie.com` — Blob behind the same Front Door,
+built 2026-08-17; see "Publishing a film" below). Since 2026-09-30
+(DECISIONS same date) the films carry their own sound: they start
+muted, a Sound button turns sound on for the film playing and every
+film after it, and a CC button shows the captions. Captions stay in
+public/media/ — in-repo, same-origin, ON PURPOSE (compliance-screened
+text keeps its git audit trail, and same-origin tracks need no CORS).
+To add or swap a film:
+
+1. **Compliance screen FIRST** (frame-level, house method): contact
+   sheet via `ffmpeg -i in.mp4 -vf "fps=1/2,scale=480:-1,tile=5x4"
+   -frames:v 1 sheet.png`, vet every legible word/brand; on-camera
+   clients need releases confirmed on the record; manufacturer films
+   carry as-is or not at all (never trim safety screens); each film
+   gets its DECISIONS entry before it ships. **Screen the sound too**
+   (since 2026-09-30 the carousel plays it): what is said or sung is
+   held to the same rules as what is shown, and a commercial song
+   needs a licence for a business website or the operator's recorded
+   override. A machine transcript can be made on the build machine,
+   with nothing uploaded — ffmpeg's `whisper` filter and a ggml model
+   file:
+   `ffmpeg -i in.wav -af "whisper=model=<model.bin>:language=en:queue=30:destination=out.srt:format=srt" -f null -`
+   — but it is a draft (singing reads badly, and it invents a word or
+   two over music); the operator's ear is the record. Measure the level
+   with `ffmpeg -i in.mp4 -vn -af ebur128=peak=true -f null -`.
+2. **Encode the web rendition** (~2–4 Mbps, with its sound):
+   `ffmpeg -i master.mp4 -c:v libx264 -crf 23 -preset medium
+   -pix_fmt yuv420p -af "volume=<N>dB" -c:a aac -b:a 128k
+   -movflags +faststart commercial-<name>.mp4` (a working file — the
+   rendition is uploaded to the media origin, never committed), then
+   **publish it** per "Publishing a film" below. **The level rule:**
+   one plain volume offset per film, no compression and no limiting,
+   to bring it to −18 LUFS, the other films' level — but never so far
+   that its peak passes −1 dBFS (the Evolysse film stops at −20.6 LUFS
+   for that reason). The five films in the carousel today were made
+   another way, because their silent files were already published:
+   each `commercial-<name>-sound.mp4` is the silent file's picture
+   copied bit for bit (`-c:v copy`) with the master's sound beside it;
+   the promo has three offsets, one per section of its own mix
+   (figures and commands in DECISIONS 2026-09-30).
+3. **Poster frame:** `ffmpeg -ss <t> -i rendition.mp4 -frames:v 1
+   -q:v 2 src/assets/photos/commercial-<name>-poster.jpg` (pick a
+   visually simple frame — posters count toward the / image budget).
+4. **Captions:** `public/media/commercial-<name>.vtt` (the a11y gate
+   requires a track on every built video; VTT files are outside
+   lint:claims scope — the per-film override entry is the control).
+   Since 2026-09-30 the films have sound, so each file is faithful to
+   the sound, the rule the treatment-page films follow below: a
+   transcript where there is speech (the Evolysse file; the promo's
+   sung words, by the operator's decision), bounded `[Music]` cues
+   where there is music and no speech (a film-long cue sits over the
+   whole play; a song's words are not written out). A MANUFACTURER
+   film's file also carries its on-screen text, safety information
+   included. Provenance, burned-in text, and a description go in NOTE
+   blocks (never type the cue arrow inside a NOTE). A film with NO
+   audio track still ships a file with no cues (DECISIONS 2026-09-20):
+   a cue paints a box over the film on every phone with captions
+   switched on, and the carousel's CC button now shows the track to
+   anyone who asks for it.
+   Caption files serve with a one-day max-age: bump the `?v=` on
+   `data-vtt` when one changes.
+5. Add the slide to the `slides` array in VideoCarousel.astro: `file`
+   is the film's name and its caption file's, `video` the object the
+   player loads (the
+   films render `object-fit: contain`, uncropped — for the Evolus
+   spots that is a compliance requirement). Optional `rate` field =
+   per-slide playback tempo (no film sets one now; the studio reel ran
+   at 0.5× until it retired 2026-09-27 — tuning ladder in DECISIONS
+   2026-08-15). Amy's own films ONLY — manufacturer
+   films always play at 1×, their presentation is carried as-is.
+   0.5 is the floor (engines clamp below); slower means re-editing.
+   Bars-row width: at five films (since 2026-09-25) the progress bars
+   run 40px at 600px wide and under (64px above), 232px in all. Since
+   2026-09-30 the three controls are their own group and wrap under
+   the bars on every phone, so the bars have the row to themselves
+   there: a sixth film's bars (280px) would still fit the 344px fold
+   cover's 296px content box (the math lives in the component's bars
+   comment). The stage is
+   full-width (`width: 100%`, 2026-09-25): a widescreen film presents
+   large on desktop while portrait films keep their size.
+6. `npm run verify` green → PR → preview → Amy's word → merge.
+
+**The carousel's sound files and tests** live outside the repo, in
+`C:\Amy\carousel-sound\` (its README has the steps): the five
+`commercial-<name>-sound.mp4` files as published, `build.sh`, which
+rebuilds them from the masters, and the browser tests of the Sound and
+CC buttons. Two things those tests rely on. Test code must carry no
+user gesture, or a browser's refusal to start sound cannot be seen
+(Puppeteer's `page.evaluate` grants one; the Chrome runs use a CDP
+`Runtime.evaluate` with `userGesture: false`). And no iPhone can be
+driven from the build machine: WebKit lets a player start with sound
+only if that one player was made or unmuted inside a tap, which is why
+the Sound tap makes and unmutes all five players, and why the
+operator's phone on the preview is the test (confirmed 2026-09-30).
+
+**One soundtrack at a time on the home page.** The carousel and the
+van band's film can both play sound. Turning the carousel's Sound on
+mutes the band's film, and unmuting the band's film turns the
+carousel's sound off. `video-carousel.js` does both; `band-film.js` is
+unchanged, and its own record of a person's unmute follows.
+
+**One master, two renditions (2026-08-25):** the team film's master
+(`team.MOV`, operator archive) serves as BOTH the carousel rendition
+(`commercial-team-sound.mp4` since 2026-09-30; the silent
+`commercial-team.mp4` before, whose object stays until no open PR
+loads it) AND the sounded /about rendition —
+since 2026-08-26 the widescreen `girl-team-film-wide.mp4`, a 16:9
+center crop (DECISIONS same date; it replaced the portrait
+`girl-team-film.mp4`, whose Blob object is deleted once no open PR
+references it). Replacing or retiring that film means both Blob
+objects, both caption files, and both consumers (the carousel slide
+and the /about Girl Team unit).
+
+**Treatment-page films (sounded — `TreatmentVideo`)** follow the same
+screen → DECISIONS → upload order, with four differences (first
+site-authored pair: /services/biostimulators, 2026-08-21): the
+rendition KEEPS its audio (`-c:a copy`; `-crf 20` for an HEVC source,
+a lossless `-c copy` remux when the source is already H.264/AAC; the
+laser page's IPL film departs from the copy rule, as the Biote film
+does below: its speech was too quiet to follow, so it takes one plain
+volume lift to the carousel's level rule,
+`-af "volume=12.7dB" -c:a aac -b:a 128k`, DECISIONS 2026-10-02), the
+captions are faithful to the audio (a transcript when there is
+speech; bounded `[Music]` cues when there is none — a film-long cue
+paints "[Music]" over the whole play; a rendition with NO audio track
+ships a caption file with no cues and carries its description in
+`label` — this player's track is on by default, so any cue paints over
+the film for every visitor, DECISIONS 2026-09-20; bump the `?v=` on
+`captionsSrc` when a served caption file changes), the poster is committed to
+`src/assets/photos/<name>-poster.jpg` and is never requested above
+its source width (the component clamps), and a film placed INSIDE a
+media row takes `frame="bare"` so it sits with the bare arches (the
+standalone player keeps its mat). Portrait films are sized by the
+row column; nothing crops or masks a film (one scoped exception,
+operator-directed after the flag: the /about team film's widescreen
+rendition is a 16:9 center crop of its portrait master — DECISIONS
+2026-08-26). `autoplay="inview"` (same
+day, operator direction) plays a film MUTED and looping while ~a third
+of it is on screen, via the static `public/js/treatment-video.js`
+(~3KB; the controls are the pause and the tap-for-sound; since
+2026-09-03 the films play under reduced motion too and a refused
+play() retries inside the first gesture — the carousel's phone policy,
+DECISIONS same date) — opt in ONLY for Amy's own speech-free films,
+never a manufacturer film or one with narration (three scoped operator
+overrides: the ICON film on /about — DECISIONS 2026-08-25 — Amy's
+Biote film on /services/hormone-optimization, which speaks throughout,
+and her IPL-session film on /services/laser-treatments, a film with
+speech whose captions show while it plays muted — both DECISIONS
+2026-10-02; the /about team film needs no override, being
+site-authored and speech-free). A film can sit directly above "What
+Amy offers" through the treatment frontmatter's optional `film` field
+(TreatmentVideo's props; the layout renders it), since 2026-10-02; a
+film further down a page stays in the MDX body. The field takes the
+player's `frame` too: the Biote film sets `bare` (no white mat) and no
+printed caption, at the operator's direction. That film's rendition
+was graded and trimmed, so it was re-encoded, with its sound raised to
+the level rule's −18 LUFS rather than copied (recipe in
+`C:\Amy\biote-film\`).
+
+Scripts on this site are STATIC FILES (public/js/) — never component
+`<script>` blocks; see the troubleshooting entry below for why.
+
+## Publishing a film (media origin)
+
+Since 2026-08-17 (DECISIONS same date, external-audit Finding 5) the
+.mp4 renditions live in Blob storage served as
+`https://media.needlegirlie.com/<file>.mp4` — Front Door route
+`media` → container `media` on the storage account (name via
+`az storage account list -g rg-needlegirlie-web -o table`; Bicep in
+`infra/storage.bicep`). Films are NOT in git; captions (.vtt) ARE
+(public/media/, shipped by normal PR alongside the film's DECISIONS
+entry).
+
+1. Upload (after the compliance screen and DECISIONS entry):
+
+   ```
+   az storage blob upload --account-name <account> -c media \
+     -f commercial-<name>.mp4 -n commercial-<name>.mp4 \
+     --content-type video/mp4 \
+     --content-cache-control "public, max-age=86400" --auth-mode key
+   ```
+
+2. Verify before linking: `curl -sI -r 0-1023
+   https://media.needlegirlie.com/commercial-<name>.mp4` → expect
+   `206`, `Content-Type: video/mp4` and a `Content-Range` whose total
+   is the file's size (seeking depends on Range support). The media
+   host sends `Accept-Ranges: bytes` on a plain `curl -sI`, not on a
+   range request (measured 2026-10-02), so do not look for it there.
+   Then download the file and compare its hash with the local one.
+3. **Replacing a file in place requires a purge** (edge caches it for
+   a day): `az afd endpoint purge -g rg-needlegirlie-web
+   --profile-name afd-needlegirlie --endpoint-name needlegirlie
+   --content-paths '/commercial-<name>.mp4'` (the media host ignores
+   query strings, measured 2026-10-02, so a version tag on the address
+   does not refresh a film) — prefer a NEW filename
+   (and a normal PR for the reference) over in-place replacement;
+   old files are deleted with `az storage blob delete` once
+   zero-referenced.
+4. The caption file and any slide/label change ship as a normal PR;
+   previews play the same media host as production, so a film is
+   reviewable on the PR preview the moment the upload lands.
+
+Master files stay in the operator's archive (C:\Amy\Videos,
+C:\Amy\New Pics) — renditions are re-derivable; the Blob copy is
+serving infrastructure, not the archive.
+
+## The home page's motion layer and the hero film
+
+Adopted 2026-09-04 (DECISIONS 2026-09-03, the home entry and its
+tweaks; `docs/HOME-CONCEPT.md` is the working record). The home page —
+and only the home page — runs a scripted layer: self-hosted GSAP 3.15
+(core, ScrollTrigger, SplitText — free under the GSAP standard license
+since 3.13) and Lenis 1.3 (MIT) in `public/js/vendor/`, plus
+`public/js/motion-flag.js` (sets `html.motion` before paint,
+self-cancels in 4s) and `public/js/home-motion.js` (the choreography
+and the hero film). The vendor files are copied from `node_modules`
+(`gsap`, `lenis` are devDependencies); updating one means copying the
+new build in and re-running `npm run verify` — script-src stays
+`'self'`, nothing loads from a CDN. If any script fails, the flag is
+removed and the page is the CSS-only home; under
+`prefers-reduced-motion` the choreography stands down and the hero
+reel still plays (the films policy). The Lighthouse matrix's home row
+carries an 80KB script budget for the layer (measured ~69KB gzipped);
+every other page keeps 30KB.
+
+**The hero film** is a film facade: the portrait `<Image>` ships and
+paints; the script attaches `hero-living-portrait-v10.mp4` (the media
+origin) over it and fades it in (1.6s, after a 0.2s wait). Since
+2026-09-17 (DECISIONS same date) it is one purpose-made 11.1s file played
+at 1× with the native loop, so there is nothing to trim or join. Since
+2026-09-18 (the founders' order) it opens on the hair shot; the loop
+point sits inside a white flash. Since 2026-09-30 (Amy's request) it
+rests on the portrait as a still under a slow camera drift, with no
+turn and no smile, and her pink-scrubs portrait joins the stills. The
+hair shot is its one generated performance. The settings are data attributes on the `.nc-hero__media`
+element in `src/components/ConceptHome.astro`:
+
+| Knob | Today | Meaning |
+|---|---|---|
+| `data-first` | `5` | seconds the portrait holds the hero alone after load before the film fades in (also what keeps the film out of the Lighthouse trace) |
+| `data-rate` | `1` | playback rate |
+| `data-ranges` and its companions `data-xfade`, `data-still`, `data-plays` | absent | the 2026-09-04 trim machinery — windows of a longer film joined by freeze-frame dissolves, with a rest on the portrait. Still in `home-motion.js`, unused; setting `data-ranges` brings it back |
+
+**Remaking the hero film.** Working files and the render scripts are in
+`C:\Amy\hero-film\` (outside the repo): `render-move.cjs` turns a
+still into a moving clip (flat, or two-layer with a cutout matte),
+`assemble.cjs` cuts the clips together (xfade `fade` is the
+crossfade — `dissolve` is a speckle effect), ffmpeg is a winget
+install. House rules, all from DECISIONS 2026-09-17: the canvas is
+1080×1502, the portrait's own aspect; the loop point sits on FLAT
+frames — a player can hitch at the native loop, so the file's last and
+first frames are either the still portrait at 1.00 (v1–v4) or flat
+white inside a flash (v5 on, DECISIONS 2026-09-18; `seam.cjs` prints
+them), never two moving shots; wherever the still portrait turns into
+a living take, it is the photograph at 1.00 so the handoff registers;
+generative inputs are only published, Amy-only stills; nothing
+generated shows a treatment, a client, a product, or text; every
+generated take is screened at hero size (contact sheet
+`ffmpeg -i in.mp4 -vf "fps=4,scale=270:-1,tile=12x4" -frames:v 1
+sheet.png` plus zooms of every face and every region with lettering)
+and cut where the face drifts, skin is smoothed or aged, an instrument
+warps, or lettering changes; the DECISIONS entry is written BEFORE the
+site change; publish under a NEW filename ("Publishing a film").
+Prompting people (the 2026-09-17 head-turn addendum): never ask a
+video model for "slow", "smooth", or "still" human motion — it returns
+a constant-speed, head-only, animatronic move. Ask for real-time speed
+and a reason to move (someone says her name), eyes first, a blink, the
+body following; lock the CAMERA, not the person. Do not write "her
+eyes move first" either — the model stretched that into a one-second
+side-eye before the head moved; ask for eyes and head together with a
+blink on the turn, and if a take you like still has it, `eye-patch.cjs`
+carries the earlier gaze forward and lets go inside the blink. Then measure the take
+(`motion-profile.cjs`: a head turn is ~0.35–0.7s with a peaked speed
+profile) and fix timing in post if needed (`retime.cjs` — skipped
+frames are averaged, which is real shutter blur). Keep the dissolve from
+photograph to take short (~0.2s) and just before she moves: the model
+re-renders the face, so a slow dissolve is a face morph.
+To change what a performance does after a still moment (DECISIONS
+2026-09-25, the smile): generate a new take FROM a frame inside that
+stillness, keep every earlier frame, and splice there (`splice.cjs`).
+Seedance re-frames its input by a percent or two, so align the new
+frames to the old take (a background-only fit, `register.cjs` then
+`refine-fit.cjs`) and tone-match them before a short dissolve inside
+the stillness. Edits of a whole take (Seedance `video_edit`, Kling Omni
+Edit) kept the old motion there. To change how a performance LOOKS
+(DECISIONS 2026-09-26, v7), make the target still first — an image
+edit of the take's own frame, guided by published photos, pasted back so
+only the face changes — then generate from the frame INTO it as the end
+frame; edits of the old take kept its look. A smile reads warm only when
+the corners lift and the cheeks and eyes join in (DECISIONS 2026-09-26,
+v8): measure the corner lift, paste the whole face, and pin the eyes in
+the prompt ("as open as in the final frame") — asked for smiling eyes,
+Seedance closes them past the end frame.
+To make a photograph live without changing her face (DECISIONS
+2026-09-30; built as v9 and withdrawn before merge on the operator's
+word, so the method is here and the footage is not in the film): give
+the photograph as the first AND the last frame.
+The model then keeps her in place and brings her hair back to rest;
+with the photograph as the first frame only, she swayed. A draft costs
+a quarter of a take and a finished draft repeats its movement; the CLI
+refuses `--draft_job_id`, so finish a draft through the Higgsfield
+connector. The model still redraws her face and greys her colour
+mid-take, so the edit lays the photograph back (`ps-*.cjs` in the
+working folder): fit each frame on the background's edges, match its
+colour where nothing moves, keep the take only inside ONE mask that
+covers everywhere the moving hair goes, and keep her face (her skin
+only), her hands and any lettering the photograph's. `ps-check.cjs`
+proves those areas equal the photograph.
+Verify on the running page: count `requestVideoFrameCallback`
+presentations for a loop and sample `paused` every 50ms — expect the
+film's frame rate, 0 paused samples, no frame gap over ~100ms at the
+loop point, and one fetch of the file. A desktop browser loops cleanly
+where a phone may not: look at the loop point on a real iPhone too.
+
+**The van band's film** (since 2026-09-25, DECISIONS same date) is
+`van-trip-music.mp4` on the media origin (since 2026-10-04, DECISIONS
+same date; `van-trip-sound.mp4` before), played by `public/js/band-film.js`
+in the home statement band ("Amy comes to you." until 2026-09-26, the
+party page's door since — the offer itself is on /tox-together). The player is
+built on approach,
+only after a real user input, which is what keeps the 37MB film out
+of the page load and the Lighthouse trace. The settings are data
+attributes on the band's `[data-band-film]` figure in
+`ConceptHome.astro`: `data-file`, `data-vtt` and `data-label`. To
+rebuild the film, use `C:\Amy\van-film\` (outside the repo; its
+README has the steps). The master is an AI upscale of the supplied
+copy. `patches.json` lists every spot where the source's own pixels
+replace lettering the upscaler drew, plus the prep shot whole, and
+`render.sh` builds the silent web file, `van-trip.mp4`. `music.sh` adds
+the clip's own sound to make `van-trip-music.mp4`: its two songs to
+2:01, by one plain volume offset to −18 LUFS, then Amy's own voice
+(2:01–2:17), then silence. The songs play under the operator's
+override of the music position, with no licence on record (DECISIONS
+2026-10-04). Her part keeps its 2026-09-25 chain, a compressor and a
+limiter, so this film departs from the one-plain-offset level rule
+above, which that chain predates. `sound.sh` still builds the
+voice-only `van-trip-sound.mp4`. That file stays on the media origin
+on purpose, as the off-ramp: a revert of the 2026-10-04 change puts it
+back without an upload. The folder's `tests\` holds the edit scripts
+and the browser tests of this player.
+Publish any new cut under a NEW
+filename ("Publishing a film"), and take the poster from the new
+file's frame 0. Since 2026-09-30 this film shares the page with the
+carousel's sound: see "One soundtrack at a time on the home page"
+above.
+
+## Turning on analytics (Plausible — prepped 2026-08-17, ships dark)
+
+Everything is wired and gated behind `siteConfig.analytics`
+(src/lib/siteConfig.ts); while it ships dark the site is byte-identical
+to the no-analytics build. The flip is the operator's act. It was
+intended for relaunch day; the 2026-10-05 relaunch went out with
+analytics off at the operator's decision (DECISIONS same date), so the
+baseline starts on whatever day the flip is made. When it is made, the
+privacy page's effective date has to change in the same PR (that page
+promises an updated date; the date is one line in `LegalLayout.astro`,
+shared by the three legal pages), and the Plausible account's hostname
+list should admit needlegirlie.com only, or the preview environments
+report into the site's numbers. The steps:
+
+1. Create the Plausible account (plausible.io, ~$9/mo — client
+   pass-through) and add the site `needlegirlie.com`.
+2. In `src/lib/siteConfig.ts` set `enabled: true` and
+   `provider: 'plausible'`. That one edit does everything in the same
+   build: BaseLayout emits the self-hosted tracker
+   (public/js/plausible.js, `data-api` pointing at plausible.io), the
+   privacy page swaps its analytics bullet (its launch wording
+   promises "this page will be updated first" — the conditional keeps
+   that promise atomically), and the generated CSP admits
+   plausible.io in `connect-src` because the built page now carries
+   the script (`generate-swa-config.mjs` sniffs dist/ — the header
+   cannot drift from the code).
+3. `npm run verify` → PR → preview: confirm the script tag renders,
+   the privacy page shows the Plausible wording, and — on the
+   preview — the Network tab shows the `/api/event` POST returning
+   202. Watch the / perf gate: the tracker adds ~3.6KB of JS (budget
+   headroom is ample, but read the numbers).
+4. Merge on the operator's word. Verify events arrive in the
+   Plausible dashboard once production traffic exists.
+
+To turn it OFF, revert the two values — script, CSP widening, and
+privacy wording all retract in the same build. The self-hosted
+tracker file stays in the repo either way (dead weight ~3.6KB,
+referenced by nothing while dark). Custom events: `track()` in
+src/lib/analytics.ts is wired but has no callers — the site ships no
+client-side component code; wiring the first event is a normal PR
+when a consumer exists.
+
+## Replacing site photography
+
+The per-pic workflow (established over the 2026-08-17 photo round —
+homepage doors, /services strip; the release/screening record for
+each shipped page lives in DECISIONS):
+
+1. **Screen the frame FIRST** at full resolution — full resolution is
+   what ships: astro:assets serves the source-resolution derivative as
+   the `<img src>` beside the srcset tiers, and the repo is public, so
+   anything legible in the master is legible to a visitor (learned
+   2026-08-21 on the skin-rejuvenation cart frame): vet every legible
+   word (labels, banners, signage, embroidery, device screens) against
+   the §8 claim rules; no other provider may appear (hard constraint 2); anything
+   identifiable-but-illegible gets noted in the DECISIONS entry.
+2. **Releases:** every identifiable client needs the operator's
+   on-record confirmation that a website-use release is on file —
+   the confirmation IS the record; quote it in DECISIONS.
+3. **Dedup + resolution:** hash the pick against src/assets/photos
+   (no duplicate commits) and confirm the source width ≥ the slot's
+   largest served width (retina rule — nothing ships below delivery
+   resolution).
+4. **Content-named asset** (what it shows, never the slot name) into
+   src/assets/photos/; slot names couple assets to placements.
+5. Swap the import + rewrite the alt to what the new frame factually
+   shows — never invent a treatment the pixels don't self-identify.
+   Comment truth in the same file (release record, screening note).
+   The /services menu cards are the exception on alts: their photos
+   are decorative (`alt=""`) to the card's labeled link, and a swap
+   is one line in ServiceLineGrid's `linePhotos` map (photo import +
+   sharp gravity anchor — no page edits). Tone/grade fixes are
+   asset-level: re-derive from the master in C:\Amy\New Pics (single
+   generation — never re-process the committed JPEG), commit under
+   the same content name, and record the exact sharp recipe in
+   DECISIONS. When a frame's aspect can't cover-crop into the slot
+   without losing the story (face AND device both required), the
+   asset becomes a pre-composed blur-fill contain: the full frame at
+   native resolution on a slot-aspect canvas, side bars a blurred
+   blowup of the same frame (menu card 06 precedent, 2026-08-18 —
+   recipe in DECISIONS). One escalation past that, for a TREATMENT
+   BAND whose full landscape content must all be visible (client
+   rejected both a person-losing crop and the blur-fill's bars on the
+   wrinkle-relaxers band, 2026-08-18): the `media-band--segmental`
+   layout variant — the arch family's wide sibling, its 3:2 window
+   matching the frame exactly, so the full photo ships uncropped and
+   unfilled (DECISIONS same date; BUILD_SPEC §5).
+6. **Orphan check:** grep the outgoing asset repo-wide; zero
+   remaining references → delete it (git history preserves the
+   frame); any remaining consumer → it stays.
+7. **Eyeball the built crops** — every slot crops server- or
+   CSS-side (doors 640×800 attention; strip/portraits 4:5 at a fixed
+   object-position; the twelve /services menu cards 640×800 at their
+   per-photo gravity anchors from the ServiceLineGrid map; arch
+   frames clip corners) — screenshot each changed slot at 390 and
+   desktop before calling it done. One portrait is not cropped: the
+   /about lead shows its master whole at 2:3 since 2026-09-27, and
+   the family portrait under that section's text keeps the 4:5
+   window (DECISIONS same date).
+8. `npm run verify` green → PR → preview probes converge → Amy's
+   word → merge.
+
+## Changing the link-share card
+
+What a shared needlegirlie.com link shows (DECISIONS 2026-09-25; re-made
+2026-09-26 and 2026-09-27) is
+`public/og/needle-girlie-share-2026-09-27.jpg`: 1200×630,
+the default `og:image` and `twitter:image` that
+`src/components/SeoHead.astro` gives every page (a page can pass its own
+`ogImage`). It is built outside the repo in `C:\Amy\share-card\`
+(`card.html` + `render.cjs`; its README has the steps). To change it:
+1. Edit `card.html` (its words are site text: the claim rules apply),
+   run `node render.cjs`, and screen the result like any photo. The
+   output is named by its render date. Then run `node predict-bar.cjs`
+   on the output: it must pass (see the bar, below).
+2. Commit it under that NEW filename and point `SeoHead`'s default at
+   it, and point the business entry's `image` in `src/lib/schema.ts` at
+   the same file (since 2026-10-05 the structured data names the card;
+   DECISIONS same date). Apps cache previews by image URL, so a file replaced in place
+   leaves old previews stale. Keep the previous card's file until
+   relaunch: nothing references it, but an app that stored its address
+   still asks for it. While `main` is still the placeholder, ship the
+   same file and the same `SeoHead.astro` to `main` too, byte-identical
+   (a hotfix PR — "Hotfixing production during the takedown era").
+   Since 2026-09-30 the two copies of `SeoHead.astro` differ by one
+   word: the card's description says "medspa" on `phase-c` only, the
+   live page having been left as it is (DECISIONS same date). A card
+   hotfix that copies the file whole carries that word to the live
+   page, so say so when asking for the merge.
+3. After production deploys, refresh the two big caches: Facebook's
+   Sharing Debugger (developers.facebook.com/tools/debug, "Scrape
+   Again") and LinkedIn's Post Inspector (linkedin.com/post-inspector).
+   Both need a login; other apps re-read on their own schedule. In
+   Messages, a link with a fresh query string shows the new preview at
+   once.
+
+**The line under the picture is the share title, not the card.**
+`SeoHead` takes an optional share title and falls back to the page's
+title; the layout passes it through. The home page sets "Mobile
+Aesthetics Harrisburg, NC" (DECISIONS 2026-09-27; it was "Mobile
+Aesthetics · Harrisburg, NC" for a day). The two spaces inside the
+halves, after "Mobile" and after "Harrisburg,", are no-break spaces,
+written in the source as ` `: the line can only break between the
+practice and the town. Keep them when the wording changes. The title tag
+is separate: it is what search shows, and it keeps the brand.
+
+**The bar under the picture in Messages is Apple's, and the picture sets
+its colour** (DECISIONS 2026-09-27 has the steps, read from Apple's
+code). No tag controls it. Messages reads the middle of the card from
+the top-left, takes the heaviest colour, and gives every dark colour the
+hue of the first dark patch it met. For the black bar the card has now:
+- pure black has to be the heaviest colour in the middle of the card;
+- the first dark patch from the top-left has to be pure black, so the
+  black panel is on the left, bare at the top, and the logo has no glow.
+
+The earlier cards show what happens otherwise: the 2026-09-25 black card
+gave a dark plum (its glow tinted the first dark patch), the 2026-09-26
+pink card a grey (the photo's wall outweighed the pinks). The darkest
+bar Messages draws is RGB 26/26/26. **Check every new card with the
+predictor before it ships** (`predict-bar.cjs` in the share-card folder;
+its README has the rest). A PR preview cannot show a candidate card,
+because a preview's share tags name production; to test on a phone
+first, serve raw pages that carry their own share tags from a draft PR
+that never merges, and text them from an iPhone (DECISIONS 2026-09-26).
+
+## Changing the storefront QR (or adding another QR)
+
+The QR on /services/skincare (`src/assets/brand/skinbetter-registration-qr.svg`,
+rendered by StorefrontCallout) encodes the operator-supplied Skinbetter
+registration URL. To change the URL — or add any QR anywhere — never
+hand-edit the SVG: **regenerate and reverify**. (1) Screen the new
+destination like any outbound link (compliance/README, "media text").
+(2) Regenerate scratchpad-locally (`qrcode` npm package, ECC M, margin 4,
+black on white — never a repo dependency, never a third-party QR image
+API: that would put an external request on the page). (3) Round-trip
+prove it: decode the committed SVG AND a screenshot of the built page
+(scratchpad zxing-wasm) and match the exact URL. (4) DECISIONS entry
+with the URL, the probe, and both decode results. A QR that scans to
+the wrong place fails silently — the decode proof is the gate.
 
 ## Rollback
 
@@ -62,6 +750,66 @@ git push origin main
 ```
 
 The production workflow redeploys the previous state and purges the cache.
+(To revert a MERGE commit, add `-m 1` — parent 1 is the main side.)
+
+### Relaunching after the takedown (2026-08-05)
+
+The takedown reverted the launch merge (revert commit
+`e57a4448f77e8ff64c623cd1d734fddfb0f00801`). Because main's history
+still CONTAINS the phase-c commits, merging phase-c alone will NOT
+restore the site — only post-takedown commits would apply, producing a
+broken hybrid. Relaunch is two-step, in order:
+
+1. **Revert the revert** on `main` (restores the full launch tree
+   exactly): `git revert e57a4448…`, verify, push per this runbook —
+   or carry both steps in one relaunch PR. Note: `main` has moved past
+   the takedown revert (PR #99 put Amy's photo on the placeholder), so
+   this revert can conflict on `src/pages/index.astro` and
+   `src/assets/photos/studio-counter-portrait.jpg` — **take the
+   launch-tree side**; the placeholder retires at relaunch anyway.
+2. **Merge the updated `phase-c`** (brings the post-takedown
+   revisions). Content edits made during revision reset the affected
+   pages' `clinicianApproved` flags (constraint 4), so
+   `check:approvals` correctly blocks production until Amy re-approves
+   on a preview and the operator flips the flags — the same sign-off
+   flow as launch.
+
+The full execution record — preconditions (including the
+**presentation-approval hard gate**: a dated entry in
+docs/CLINICIAN-SIGN-OFF.md newer than the last merged visual change),
+the ready-to-run PR steps, guard retirement, the analytics flip, and
+the launch-day checklist — lives in **docs/RELAUNCH.md** (prepared
+2026-08-17). Use it as the relaunch PR's script; do not re-derive.
+
+During the takedown: never merge `main` into `phase-c`, never press
+"Update branch" on PR #95, never close PR #95 (the standing-PR pattern
+survives for relaunch; these three rules end when the relaunch PR
+merges, at which point #95 is expected to show as merged by itself). Interim previews come from sub-PRs into
+`phase-c` — PR #97 is the standing full-site demo (comment-only diff,
+never merges; close it without merging when no longer needed).
+
+**The relaunch guard (2026-08-17, external-audit Finding 1):**
+`.github/workflows/relaunch-guard.yml` enforces both halves of the
+hazard as required status checks — `takedown-revert-guard` (PRs into
+`phase-c` + pushes to it) fails if the takedown revert is reachable,
+i.e. if `main` leaked in; `gutted-merge-guard` (PRs into `main`)
+fails if a phase-c-derived merge would drop any phase-c file, i.e.
+the naive one-step merge. Why the second matters: simulated
+2026-08-17 — the naive merge silently deletes ~48 files (all twelve
+treatment MDX pages, both treatment films, every photo) with no
+conflict on any of them, and the build still passes. A conflicted PR
+runs no workflows, but it also cannot merge; the guard fires exactly
+when someone hand-resolves PR #95's conflicts and the merge ref
+becomes computable. **A follow-up PR right after the relaunch retires
+this workflow — NOT the relaunch PR itself** (corrected 2026-10-05 to
+match RELAUNCH step 4 and the workflow's own header, which were fixed
+on 2026-08-24/25; this paragraph still said "the relaunch PR retires
+this workflow"). The relaunch PR needs the guard intact, because the
+guard is what proves its tree complete. The follow-up removes the two
+required checks from branch protection first, then deletes the file,
+with a DECISIONS entry: after the two-step re-sync the revert is a
+harmless ancestor everywhere and the first job would fail every PR
+forever.
 
 ## Manual cache purge
 
@@ -74,6 +822,16 @@ az afd endpoint purge -g rg-needlegirlie-web --profile-name afd-needlegirlie \
 
 HTML is edge-cached ~5 minutes (`max-age=300`); hashed `/_astro/*` assets are
 immutable and never need purging.
+
+Assets served from `public/` at stable paths — the favicons
+(`/favicon.ico`, `/icons/apple-touch-icon.png`), captions, the scripts — are
+edge-cached like any static file AND, for the favicons, cached by browsers
+far longer than the edge. Replace them under a NEW filename with a normal
+PR, never in place (the film rule above); if an in-place replacement is
+ever unavoidable, purge its path with `--content-paths '/favicon.ico'` and
+expect visitors' tabs to show the old icon until their browser cache turns
+over. The 2026-09-15 favicon set shipped on new paths (the placeholder
+`favicon.svg` retired), so no purge was needed.
 
 ## Preview access
 
@@ -89,8 +847,14 @@ All Azure state is captured in `infra/`. To apply changes:
 
 ```
 az deployment sub create --location eastus2 --template-file infra/main.bicep \
-  --parameters budgetStartDate=<yyyy-MM-01>
+  --parameters budgetStartDate=2026-07-01
 ```
+
+`budgetStartDate` is pinned: a budget's start date is IMMUTABLE (the
+API rejects updates — learned 2026-08-17 when a re-deploy passed the
+then-current month and only the budget module failed). Always pass the
+live budget's own anchor, 2026-07-01. Run
+`az deployment sub what-if` first and read it before applying.
 
 Idempotent — safe to re-run. `budgetStartDate` is the only parameter without
 a default, so it must be supplied each run; `location`,
@@ -115,6 +879,56 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
 
 ## Troubleshooting
 
+- **A push to an open PR creates no workflow runs at all** (no queued
+  run, not even the Relaunch guard — while other branches' pushes run
+  fine): check `gh pr view <n> --json mergeable,mergeStateStatus`
+  BEFORE suspecting a GitHub outage. If the base branch moved under
+  the PR and the branches now conflict, GitHub cannot compute the
+  merge ref and creates **no** `pull_request` runs — the PR #95
+  mechanism ("a conflicted PR runs no workflows"), which can hit an
+  ordinary feature PR whenever two sessions merge into `phase-c` in
+  parallel (2026-08-26, PR #165: three /about merges landed under an
+  open copy-round PR; every subsequent event was silently swallowed).
+  Close/reopen and empty-commit nudges do nothing — those events need
+  the same uncomputable merge ref. Fix: `git merge origin/phase-c`
+  into the PR branch, resolve (the append-only docs collide by design
+  — keep both records), verify, push; runs fire immediately.
+- **A preview environment 404s or serves stale/mixed content after
+  "Deployment Complete":** SWA staging propagation, three observed
+  presentations (PRs #79, #109, #110): route-level 200↔404 bursts;
+  a fresh env serving unevenly for minutes; and — worst — the whole
+  hostname serving SWA's *platform* 404 for 11+ minutes while
+  `az staticwebapp environment list` reports the env **Ready** (ARM
+  "Ready" ≠ serving). The artifact is never the suspect if CI passed.
+  Remedy ladder: converged probes first (3 consecutive passes where
+  EVERY route serves the exact expected marker counts, plain AND
+  cache-busted — single clean passes lie), then re-run the workflow,
+  then **close and re-open the PR** (tears the env down and recreates
+  it — the only fix for a bad serving replica; even the recreated env
+  can need several minutes to converge). Probe with `curl -sL`
+  (trailing-slash 301s fake failures) and never share a link before
+  probes converge.
+  Three passes are a floor, not proof. On 2026-10-04 (PR #250) a new
+  environment served three clean rounds, then answered the platform
+  404 on most requests for about 25 minutes, in runs of one or two
+  clean rounds. A browser test run in that window failed on a missing
+  element: it had been served the 404 page, which looks like a fault
+  in the change. The standing demo answered 6 of 6 in the same
+  minutes. Re-running the preview workflow cleared it about 19 minutes
+  later. So for a new environment ask for six clean rounds, and check
+  what the host answers again just before a browser test or a link.
+  When a preview test fails on a missing element, check the host
+  before reading the code. `C:\Amy\van-film\tests\probe.sh` and
+  `edge-check.sh` (outside the repo) do both.
+- **pa11y contrast failure that appears/disappears with unrelated copy
+  changes:** before 2026-08-17 the audit ran with animations live, so
+  scroll-driven entrance blocks (`ng-rise`) froze at whatever partial
+  opacity the page height put them at — one added line of text could
+  flip a page's contrast verdict. Fixed by auditing the settled state:
+  pa11y Chrome runs `--force-prefers-reduced-motion` (.pa11yci.json;
+  the site's reduced-motion CSS disables the entrance animations —
+  DECISIONS 2026-08-17). If a contrast error still appears, it is
+  real: the element's final colors fail.
 - **"Not secure" in a browser on the operator workstation:** the Canopy
   content filter (Netspark engine, local proxy on 127.0.0.1:3128) intercepts
   browser TLS and can present wrong certificates or stale content. Verify
@@ -131,7 +945,10 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
   rerun once; if the identical code passes, the pre-agreed escalation rule
   applies — flag the operator with the evidence before touching any
   assertion. Expected verify wall time is ~6 minutes (3 Lighthouse runs
-  per URL).
+  per URL). On `main`, while it is the placeholder, the config still
+  measures each URL ONCE, so a slow runner shows through more easily
+  there: a hotfix's run failed that way on 2026-09-27 (PR #215) and
+  passed unchanged on its one re-run. The same rule applies.
 - **Production build fails with "FRONT_DOOR_ID is missing":** intentional —
   a production artifact must never ship without the origin lockdown GUID.
 - **Stale page after a deploy:** hard refresh (Ctrl+F5); remember the 5-min
@@ -149,6 +966,20 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
   apart across several routes before sharing the URL — single green probes
   lie; the bursts have appeared ~100s in. Advise Ctrl+F5 locally afterward.
   (2026-08-01 incident, PR #79 — DECISIONS.)
+
+- **A scripted feature works on a local server but is dead on the
+  preview/production host:** the CSP (`script-src 'self'`, no
+  unsafe-inline — both SWA config variants) silently refuses scripts
+  inlined into the HTML, and Astro inlines component scripts smaller
+  than 4KB. Local test servers that don't send the SWA headers cannot
+  catch this — the home carousel shipped inert exactly this way
+  (2026-08-14). Fix pattern: the script lives in `public/js/` as a
+  plain static file referenced by a literal
+  `<script type="module" src=... is:inline>` tag. Do NOT "fix" it with
+  `vite.build.assetsInlineLimit: 0` — that also un-inlines every
+  page's CSS and regressed wrinkle-relaxers past its LCP budget
+  (CI-caught). When testing built pages locally, serve dist/ WITH the
+  headers from the generated staticwebapp.config.json.
 
 ## Reference docs
 

@@ -10,7 +10,9 @@
  *   - investigational: true  -> the investigational disclosure must be present
  *   - retatrutide mentioned  -> investigational: true is required
  *   - symptom-awareness language -> bioteDisclaimer: true is required (the
- *     treatment layout injects the FDA disclaimer from that flag)
+ *     treatment layout injects the FDA disclaimer from that flag) — on every
+ *     treatment file EXCEPT the one page the operator exempted by hand on
+ *     2026-09-19 (SYMPTOM_EXEMPT_PAGE below; docs/DECISIONS.md same date)
  *
  * `--self-test` proves the gate works before trusting it: every category must
  * flag a known-bad sample and pass a known-clean sample, and every inverse
@@ -53,6 +55,14 @@ const BIOTE_FLAG = /^\s*bioteDisclaimer:\s*true\s*$/m;
 const INVESTIGATIONAL_DISCLOSURE = /investigational/i;
 const NOT_FDA_APPROVED = /not\s+fda[- ]approved/i;
 
+// OPERATOR-MADE EXEMPTION (2026-09-19 — the clinician's direction, taken after
+// the compliance flag; docs/DECISIONS.md same date). This ONE page may carry
+// symptom-awareness language without bioteDisclaimer: true, i.e. without the
+// FDA disclaimer box. Every other treatment file keeps the rule. The match is
+// an exact path; widening or removing it requires the human operator, and the
+// self-test below proves it neither fails its own page nor leaks to another.
+const SYMPTOM_EXEMPT_PAGE = 'src/content/treatments/hormone-optimization.mdx';
+
 function listFiles(dir) {
   const out = [];
   for (const entry of readdirSync(dir)) {
@@ -87,7 +97,7 @@ function scanText(text) {
 }
 
 /** Inverse checks for treatment content files; returns violation strings. */
-function inverseChecks(text) {
+function inverseChecks(text, rel = '') {
   const problems = [];
   if (INVESTIGATIONAL_FLAG.test(text)) {
     if (!INVESTIGATIONAL_DISCLOSURE.test(text.replace(INVESTIGATIONAL_FLAG, '')) || !NOT_FDA_APPROVED.test(text)) {
@@ -99,7 +109,7 @@ function inverseChecks(text) {
   if (/retatrutide/i.test(text) && !INVESTIGATIONAL_FLAG.test(text)) {
     problems.push('mentions Retatrutide but is not flagged investigational: true');
   }
-  if (SYMPTOM_LANGUAGE.test(text) && !BIOTE_FLAG.test(text)) {
+  if (SYMPTOM_LANGUAGE.test(text) && !BIOTE_FLAG.test(text) && rel !== SYMPTOM_EXEMPT_PAGE) {
     problems.push(
       'contains symptom-awareness language but bioteDisclaimer is not true — the FDA disclaimer would not be injected',
     );
@@ -125,7 +135,7 @@ function runScan() {
         console.error(`  ${rel}:${v.line}  [${v.category}]  "${v.match}"`);
       }
       if (rel.startsWith('src/content/treatments/')) {
-        for (const p of inverseChecks(text)) {
+        for (const p of inverseChecks(text, rel)) {
           failed = true;
           console.error(`  ${rel}  [inverse-check]  ${p}`);
         }
@@ -199,6 +209,16 @@ function runSelfTest() {
   }
   if (inverseChecks(compliantBiote).length !== 0) {
     console.error('self-test: biote check false positive on compliant file');
+    failed = true;
+  }
+  // The 2026-09-19 exemption must be exact: its own page passes without the
+  // flag, and any other treatment file still fails.
+  if (inverseChecks(symptomsWithoutBiote, SYMPTOM_EXEMPT_PAGE).length !== 0) {
+    console.error('self-test: the symptom exemption did not apply to its own page');
+    failed = true;
+  }
+  if (inverseChecks(symptomsWithoutBiote, 'src/content/treatments/peptide-therapy.mdx').length === 0) {
+    console.error('self-test: the symptom exemption leaked to another treatment file');
     failed = true;
   }
 

@@ -38,9 +38,22 @@ reasoning inline.
 - Matching is exact, with digit-boundary guards — `"120mg vial: $675"` is not
   stripped by the entry `"20mg vial: $675"`. A near-miss variant still fails,
   and the self-test proves this.
-- Three of the current entries are marketing copy the client wanted published
-  (GLP-1 vial tiers, per-unit neuromodulator prices, the Evolus ranking
-  sentence). The fourth is different in kind: **Biote's FDA disclaimer**,
+- Most entries are marketing copy the client wanted published: the GLP-1
+  vial tiers, the per-unit neuromodulator prices, the Evolus ranking
+  sentence (authorizations 1–3 — the ranking sentence WITHDRAWN
+  2026-08-25, when its last consumer, the /about recognition plate, was
+  swapped for the EvolusLaurel plaque: like the seventh below, an
+  authorization nothing uses is a loophole, so the entry came off and
+  the ranking vocabulary is banned everywhere again), and the four Private Injector Training
+  curriculum topics in exact `<li>`-wrapped source form (fifth
+  authorization, 2026-08-04 — the wrap binds each to one attribute-less
+  source line and preserves the self-test's word boundary); and the
+  seventh (2026-08-21): the weight-loss page's original pairs-section
+  heading in h2 source form — authorized and withdrawn the same day
+  when the client changed the heading, so the list holds no entry for
+  it and the phrase is banned everywhere, alt text and comments
+  included. One is
+  different in kind: **Biote's FDA disclaimer** (fourth authorization),
   which a regulator effectively requires. It names all four verbs the
   `disease-claims` category bans — that is what a disclaimer *is* — so the
   gate blocked the compliance text until the sentence was allowlisted.
@@ -53,6 +66,205 @@ carries the rule in its header comment. For the same reason, never restate an
 allowlisted string's banned vocabulary elsewhere in the same file — only the
 exact string is stripped.
 
+## What the linter cannot see: media text
+
+Text baked into pixels — photo signage, burned-in video captions and
+safety screens — and the WebVTT caption files in `public/media/` are
+outside `SCAN_DIRS` entirely. §8 still governs them; the control is
+per-item human screening plus a recorded DECISIONS entry (frame-level
+vets for photos and video contact sheets; operator overrides for
+manufacturer films carried as-is and for Amy's own published content,
+and — since 2026-08-18 — for photo frames whose pixels carry text the
+site's own copy could not say: three /services and wrinkle-relaxers
+frames with legible banner/sign text (see the caveat below — the
+wrinkle-relaxers frame no longer satisfies that premise), and from 2026-08-21 the
+skin-rejuvenation cart frame and the laser-treatments Epileve frame,
+each with its device-console readout, and the weight-loss weigh-in
+frame with its aftercare sign, all
+enumerated in CLAUDE.md constraint 3 with their DECISIONS entries).
+The home-carousel films and their caption files (three cleared
+2026-08-14, of which two — the first Jeuveau spot and Amy's studio
+reel — retired 2026-09-27; the team film 2026-08-17, constraint-2
+override; the Evolus-produced Evolysse film, played first, 2026-09-25
+— constraint-3 override after the flag, its voiceover
+transcribed in a caption file that is off by default; and, since
+2026-09-27, Amy's promo — constraint-2 and constraint-3 overrides for
+the other providers on camera, the printed practice-site address, and
+the studio segment's tray and cartons — and her billboard-day reel —
+a constraint-3 override for the billboard's headline, a
+competitor-brand wall poster, and the manufacturer's boxes; neither
+caption file carries that text) ship under
+exactly this regime. Since 2026-09-30 the five carousel films carry
+their own SOUND, one tap away on the carousel's Sound button
+(DECISIONS same date), so the regime covers what is heard as well:
+the two Evolus films' sound is the manufacturer's, carried as-is; the
+promo's re-worded song names the other providers and makes a promise
+(operator overrides of constraints 2 and 3 after the flags), and its
+caption file carries the sung words, the one place they are written;
+the promo's, the billboard-day reel's and the team film's songs play
+under the operator's override of the music-licence position; the
+reel's and the team film's caption files carry bounded `[Music]`
+cues, never a song's words. Since 2026-10-04 the home band's van-trip
+film plays its two songs under the same override (DECISIONS same
+date), and its caption file marks them with bounded `[Music]` cues
+beside Amy's own words. So do the site-authored, sounded films: the
+two on /services/biostimulators (2026-08-21 — Amy's own reels:
+constraint-3 and constraint-2 overrides for the Radiesse-visit film,
+a retina-rule override for the 480p reel), the body-contouring Evolve
+reel (2026-08-21, no override needed), and the /about team film's
+sounded rendition (2026-08-25 — the carousel team film under its
+widened constraint-2 exception); each of those caption files carries
+bounded `[Music]` cues on the operator's no-speech confirmation. From
+2026-08-25 the /injector-training round adds both kinds at once: the
+hero portrait `amy-evolysse-cart.jpg` (a second Jeuveau-banner frame
+— headline, indication line, and partial safety fine print legible —
+under its own override, the 2026-08-18 frame's not carrying over) and
+Amy's training reel `training-reel` (burned-in course cards restating
+the page's allowlisted curriculum vocabulary as pixels, a legible
+per-vial quantity, the practice-site URL displayed on screen — the
+constraint-2 fifth exception — all on-camera releases confirmed; its
+caption file deliberately carries no "On screen:" cues, so what the
+override covers only as pixels is never restated as rendered text).
+And from the same date the regenerative PRP round: `prp-syringes.jpg`
+(two diluent vials' labels legible beside the prepared syringes — the
+prep-workflow class, under its own constraint-3 pixel override) and
+Amy's PRP-visit reel `prp-visit` (another provider injecting on
+camera, face mostly out of frame — the constraint-2 sixth exception;
+near-silent audio kept on the operator's no-speech confirmation, its
+caption file a single bounded quiet-room cue). And from 2026-10-02
+Amy's Biote film `biote-why` on /services/hormone-optimization (the
+Biote banner's outcome lines and the wall's symptom poster legible as
+pixels, and her own spoken lines promising a plan that works for you —
+one constraint-3 override fixed to the film and its poster on that
+page; her words live only in its caption cues, which also keep her
+"we" under the voice rule's second caption-file exception). And, the
+same date, the laser page's IPL-session film `ipl-visit`, Amy's own
+film, carried whole with its sound: a member of Amy's own staff doing
+the hands-on treatment on camera (the constraint-2 ninth exception);
+spoken words that name what the treatment is for, promise a result and
+invite scheduling, over closing shots of a client's skin after the
+treatment (the constraint-3 clause; the client's release and HIPAA
+marketing authorization on file); a recognition plaque in the room,
+mirrored. Its caption file carries the spoken words, confirmed by the
+operator's ear (the voice rule's third caption-file exception), and the
+track shows by default. Since 2026-08-17 the film FILES live outside the
+repo entirely (Blob, served as media.needlegirlie.com — RUNBOOK
+"Publishing a film"): the frame-level screen and DECISIONS entry
+happen BEFORE the upload, and the caption .vtt stays in-repo precisely
+so this screening regime keeps a git audit trail. A green
+`lint:claims` says nothing about media content. Photo replacements follow docs/RUNBOOK.md "Replacing site
+photography" — frame-level screen first, releases confirmed on the
+operator's record, DECISIONS entry per page.
+
+**Caveat, 2026-08-24 — a pixel override's premise can expire.** The
+wrinkle-relaxers band frame (`jeuveau-banner-studio.jpg`) was cleared
+2026-08-18 on the stated ground that the banner's marketing headline is
+legible *but the site's own copy never says it*. On 2026-08-24 the page's
+`deck` was changed, under a separate operator override, to a sentence that
+paraphrases that headline. The premise no longer holds, and the override was
+not re-opened — the operator was shown the coupling and directed the copy
+change anyway (DECISIONS 2026-08-24). Two working rules come out of it. Before
+editing copy on a page carrying a pixel override, read the override's stated
+premise, not just its verdict; a premise about what the copy says is a
+constraint on the copy, and nothing enforces it. And note that of the three
+pixel overrides for legible on-frame text, this is the only one whose CLAUDE.md
+entry lacks a never-restate-in-text clause — `amy-pixel8-cart` and
+`amy-epileve-window` both carry one, which is what would have made this
+contradiction visible in writing rather than only in premise. Adding it is the
+operator's call and remains open.
+
+The same blindness applies to **outbound link destinations**: the
+linter reads this repo, never the far side of an `href`. Any new
+external link gets its destination screened by a human before it
+ships, with findings and the decision recorded in DECISIONS. Precedent:
+the header badge link to yourmobileaesthetics.com (2026-08-15) — the
+destination names the location's other providers, which tripped hard
+constraint 2; it ships as a scoped operator override recorded in
+DECISIONS and in CLAUDE.md's constraint-2 exception text. The second
+link to that same destination (the /about Girl Team button,
+2026-08-25) shipped the same way — its own flag, its own override:
+an already-screened destination does not carry authorization forward
+to a new consumer.
+
+The third use of that destination (2026-09-27) is a CLASS, not a
+placement: the operator had the practice's name linked wherever
+visible text says it, sitewide. It was flagged, the destination was
+screened again that day, and it ships as constraint 2's seventh scoped
+exception (DECISIONS same date). It is the one case where the
+authorization does reach new copy: a new visible mention of the name
+takes the same link on the same terms. `npm run lint:practice-link`
+(`scripts/lint-practice-link.mjs`, part of `verify:fast`) reads the
+built pages and fails when the name stands in visible text outside
+that link, and when a link to the practice site departs from the
+terms: another address on that site, a missing new-tab attribute, or a
+place inside an FAQ question or a button. Two limits to keep in mind.
+The gate reads this repo's pages and never the far side of the link,
+so a change on the practice site is only ever seen by a person. And a
+green gate authorizes nothing outside the exception: any other link
+text, any other destination, and any mention of the other providers
+still go to the operator.
+
+**QR codes are both blindness classes at once** (first instance: the
+storefront QR on /services/skincare, 2026-08-25): the encoded URL is
+pixels no linter reads, AND it is an outbound destination in
+machine-readable form. The control is threefold, all recorded in the
+DECISIONS entry: the destination screened like any outbound link; the
+committed SVG round-trip decode-verified against the intended URL
+(scratchpad zxing — the committed artifact is proven, not assumed);
+and the rendered page's own screenshot decoded again as the end-to-end
+check. Changing an encoded URL is a regenerate-plus-reverify, never a
+hand-edit of the SVG — an edited QR that still scans is worse than one
+that doesn't, because it fails silently to the wrong place.
+
+## Authorizations the registry does not hold
+
+`allowedStrings` is **not** the complete list of copy that ships under an
+operator override. It holds only the overrides for text a category would
+otherwise catch. Text that is non-compliant on the merits but happens to
+contain no token any pattern matches never reaches the allowlist at all — the
+linter is already green on it — so its authorization is recorded in
+`docs/DECISIONS.md`, and mirrored in CLAUDE.md and BUILD_SPEC §8, instead.
+
+Current members of that class:
+
+- The two EvolusLaurel ranking sentences — "The Top Evolus Injector in
+  Charlotte." and "And among the Top 50 in the United States." — on
+  /services/wrinkle-relaxers, /services/dermal-fillers, and (since
+  2026-08-25) /about (operator
+  authorization, DECISIONS 2026-08-19 + the two page-scope widenings,
+  DECISIONS 2026-08-21 and 2026-08-25; BUILD_SPEC §8.4). The superiority
+  patterns see no token in either. Deliberately **not** allowlisted: a bare
+  `top` pattern would false-positive ordinary copy, and the list only ever
+  grows, so it was never added.
+- The /services/wrinkle-relaxers `deck` sentence beginning "Wave good-bye…"
+  (operator override, DECISIONS 2026-08-23 and 2026-08-24; BUILD_SPEC §8.3,
+  CLAUDE.md constraint 3). A second-person outcome promise that trips nothing.
+- The /about plate text "Girl Team!" (operator override, DECISIONS
+  2026-08-25; CLAUDE.md constraint 2, fourth scoped exception). Team
+  language the voice rule's written rationale forbids — a team implies
+  the location's other providers — but its patterns cannot see: the
+  gate bans only first-person plural tokens. A green `lint:voice`
+  never authorizes it.
+- The /services/laser-treatments who-performs wording, "a member of
+  her own staff", in one FAQ answer and one body sentence (operator
+  decision, DECISIONS 2026-10-02; CLAUDE.md constraint 2, ninth scoped
+  exception). Team language of the same class: no pattern sees it, and
+  a green `lint:voice` never authorizes it. Exact wording, those two
+  lines only.
+- The caption cues of that page's IPL-session film,
+  `public/media/ipl-visit.vtt` (operator overrides, DECISIONS
+  2026-10-02; CLAUDE.md constraint 3 and the voice convention). Spoken
+  words that match no pattern, in a file no gate reads: caption files
+  are outside every linter's scope.
+
+The practical consequence, and the reason this section exists: **a green
+`lint:claims` is not evidence that a string is authorized, and an empty
+`allowedStrings` search is not evidence that it is unauthorized.** A session
+auditing what ships under override must read DECISIONS, CLAUDE.md constraint 3,
+and BUILD_SPEC §8 — the registry alone will under-report. The same asymmetry
+applies to the inverse checks below, where "menopause" and "Low T" are
+excluded by editorial judgment no pattern encodes.
+
 ## Inverse checks (treatment files only)
 
 - `investigational: true` requires the investigational / not-FDA-approved
@@ -64,6 +276,17 @@ exact string is stripped.
   component rendered the unresolved `{{BIOTE_FDA_DISCLAIMER}}` token, so the
   check passed while no disclaimer was actually shown — the flag was
   enforced, its payload was not.)*
+  **One file is exempt since 2026-09-19:**
+  `src/content/treatments/hormone-optimization.mdx`, matched by exact path
+  (`SYMPTOM_EXEMPT_PAGE` in the linter). Amy directed the FDA disclaimer
+  box off that page while its symptom wording stays; the operator decided
+  it after the compliance flag and made the gate edit by their own hand
+  (DECISIONS 2026-09-19). Every other treatment file keeps the rule, and
+  two self-test cases prove the exemption neither fails its own page nor
+  leaks to another. So on that one page a green `lint:claims` no longer
+  means the disclaimer is rendered — the page's `bioteDisclaimer` flag is
+  the thing to read, and flipping it back to `true` restores the box (the
+  component and its `allowedStrings` sentence stay in the repo, dormant).
 
 **What the flag does and does not unlock.** `bioteDisclaimer: true` permits
 the *symptom-awareness vocabulary* listed above. It does **not** permit

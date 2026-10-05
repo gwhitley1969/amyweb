@@ -7,11 +7,13 @@ import CTAButton from '../components/CTAButton.astro';
 import DisclaimerBlock from '../components/DisclaimerBlock.astro';
 import InvestigationalNotice from '../components/InvestigationalNotice.astro';
 import BioteDisclaimer from '../components/BioteDisclaimer.astro';
-import DraftBanner from '../components/DraftBanner.astro';
 import ProductDetailCards from '../components/ProductDetailCards.astro';
+import EvolusLaurel from '../components/EvolusLaurel.astro';
 import VisitSteps from '../components/VisitSteps.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import TrustChips from '../components/TrustChips.astro';
+import TreatmentVideo from '../components/TreatmentVideo.astro';
+import type { ImageMetadata } from 'astro';
 
 /**
  * Treatment page template (approved design plan + Mobbin-review addendum).
@@ -19,10 +21,37 @@ import TrustChips from '../components/TrustChips.astro';
  * (CLAUDE.md hard constraint 3):
  *   breadcrumbs -> H1 + underline run -> lead -> deck statement card
  *   (optional; replaced AtAGlance 2026-07-20, operator direction) ->
- *   intro -> products -> flag-driven notices ADJACENT to products -> body ->
- *   visit steps -> FAQ (only when items provided) -> pricing ->
+ *   Evolus laurel plaque (optional, frontmatter-gated — 2026-08-19,
+ *   operator-approved; copy + authorization live in the component) ->
+ *   intro -> film (optional, frontmatter `film` — 2026-10-02, operator-
+ *   approved; DECISIONS same date) -> products -> flag-driven notices
+ *   ADJACENT to products -> body ->
+ *   visit steps -> FAQ (only when items provided) ->
  *   consult router -> DisclaimerBlock (light surface, NEVER collapsed) ->
  *   seam -> noir CTA band + trust chips.
+ * Two notes on the consult router, 2026-08-24 (client direction, DECISIONS
+ * same date). (1) The pricing line that rendered above it for
+ * pricingDisplay: "consult" was DELETED at the client's direction. The
+ * frontmatter field, its schema enum, the Props entry and the [slug].astro
+ * pass-through are all left in place — the wiring survives so restoring the
+ * line is a one-line change — but the value is now
+ * INERT — no value renders anything here, so "none", "consult" and
+ * "startingAt" are indistinguishable on the page. Removing the field is a
+ * schema change across twelve content files and was deliberately left to
+ * the operator. (2) The router card's prose no longer contains the word
+ * "consultation" (heading and subline both reworded at the client's
+ * direction), and its CTAButton variant="consult" has read "Book with
+ * Amy" since 2026-07-21. That is compliant, and here is why, so nobody has
+ * to re-derive it: BUILD_SPEC §8.7 routing is carried by DisclaimerBlock
+ * immediately below, which states that whether a treatment fits your needs
+ * is decided with Amy during a consultation, is layout-injected, and
+ * cannot be opted out of. **DisclaimerBlock is the routing, not this
+ * card.** Do not weaken that component to match this one.
+ * No draft marker renders here: the visible DraftBanner strip retired
+ * 2026-08-21 at the operator's direction (the client read it as final-site
+ * content — DECISIONS same date). The clinicianApproved flag is still
+ * enforced by scripts/check-approvals.mjs in the production deploy and
+ * recorded in docs/CLINICIAN-SIGN-OFF.md; it simply never reaches markup.
  */
 interface Props {
   title: string;
@@ -30,12 +59,14 @@ interface Props {
   /** Editorial standfirst — one short, claims-clean display line shown
    * as the blush statement card under the lead. */
   deck?: string;
+  /** Renders the EvolusLaurel ranking plaque between the deck and the
+   * product cards (operator-authorized copy — see the component). */
+  evolusLaurel?: boolean;
   products: string[];
   ctaType: 'book' | 'consult' | 'shop';
   investigational: boolean;
   bioteDisclaimer: boolean;
   pricingDisplay: 'none' | 'consult' | 'startingAt';
-  clinicianApproved: boolean;
   investigationalProduct?: string;
   /** Page-supplied disclosure wording rendered inside InvestigationalNotice
    * — a single calm line from the content file; the component's bolded
@@ -55,24 +86,37 @@ interface Props {
   /** Page JSON-LD (service + breadcrumbs) built by the route via
    * src/lib/schema.ts — forwarded to BaseLayout untouched. */
   jsonLd?: object[];
+  /** Optional film directly above "What Amy offers" — TreatmentVideo's
+   * props, from the content file's `film` field. The player's own figure
+   * carries the top margin; the wrapper only sets the width (the
+   * standalone 24rem column the in-body films use). */
+  film?: {
+    src: string;
+    poster: ImageMetadata;
+    captionsSrc: string;
+    label: string;
+    caption?: string;
+    frame?: 'mat' | 'bare';
+    autoplay?: 'inview';
+  };
 }
 
 const {
   title,
   summary,
   deck,
+  evolusLaurel = false,
   products,
   ctaType,
   investigational,
   bioteDisclaimer,
-  pricingDisplay,
-  clinicianApproved,
   investigationalProduct,
   investigationalNote,
   productDetails = [],
   faq = [],
   seo,
   jsonLd = [],
+  film,
 } = Astro.props;
 
 const crumbs = [
@@ -84,7 +128,6 @@ const crumbs = [
 
 <BaseLayout title={seo.title} description={seo.description} jsonLd={jsonLd}>
   <Fragment slot="header">
-    {!clinicianApproved && <DraftBanner />}
     <Header />
   </Fragment>
 
@@ -96,7 +139,17 @@ const crumbs = [
 
     {deck && <p class="deck mt-8">{deck}</p>}
 
+    {evolusLaurel && <EvolusLaurel />}
+
     <slot name="intro" />
+
+    {
+      film && (
+        <div class="mx-auto max-w-sm">
+          <TreatmentVideo {...film} />
+        </div>
+      )
+    }
 
     {
       productDetails.length > 0 ? (
@@ -138,17 +191,15 @@ const crumbs = [
       )
     }
 
-    {
-      pricingDisplay === 'consult' && (
-        <p class="mt-8">Pricing is individual and discussed during your consultation.</p>
-      )
-    }
-
     <div class="router-card mt-10">
-      <h2 class="heading-4">The right fit is a conversation.</h2>
-      <p class="mt-2">Every plan is personal, decided with Amy in consultation.</p>
+      <h2 class="heading-4">The right fit is just a conversation away.</h2>
+      <p class="mt-2">Every plan is personalized, decided between you and Amy.</p>
+      {/* Brand chip (operator direction 2026-08-27, second pass — the
+        * round that narrowed the same day's /services freeze to exactly
+        * this button ×12 plus the laser mid-page book; the closing band
+        * below stays outline/solid). */}
       <div class="mt-4">
-        <CTAButton variant="consult" />
+        <CTAButton variant="consult" emphasis="chip" />
       </div>
     </div>
 
@@ -219,9 +270,13 @@ const crumbs = [
     margin-top: 0.75rem;
     max-width: 65ch;
   }
-  /* Editorial media row for MDX bodies: framed-print figure beside copy —
-   * echoes the concept page's framed-post motif. Static, zero JS; the
-   * astro:assets pipeline sets width/height (no CLS) and lazy-loads. */
+  /* Editorial media row for MDX bodies: a bare arched photo beside
+   * copy, sitting straight on the ombre canvas — the /services look.
+   * (Until 2026-08-18 these rendered as tilted white-matted prints;
+   * the client asked for the mat gone and pink behind the arches —
+   * the follow-up the arch rollout predicted. DECISIONS same date.)
+   * Static, zero JS; the astro:assets pipeline sets width/height
+   * (no CLS) and lazy-loads. */
   .treatment-body .media-row {
     display: grid;
     gap: 2rem;
@@ -236,51 +291,132 @@ const crumbs = [
       grid-template-columns: 3fr 2fr;
     }
   }
-  /* Mirrored variant: copy first in DOM, figure on the right, opposite
-   * lean — successive prints on a page tilt toward each other. */
-  .treatment-body .media-row--flip .media-figure {
-    transform: rotate(1.5deg);
+  /* THE ARCH (sitewide motif, 2026-08-17) — a
+   * documented mirror of .ng-arch (global.css): MDX bodies are plain
+   * markup and can't take the class without content edits (which would
+   * reset clinicianApproved), so the recipe lands by selector. Astro
+   * derivative filenames keep the source basename, so the src-guard
+   * excluding the lip style-guide (a labeled diagram — an arch or crop
+   * would cut its six labels) is stable. The 4:5 display crop makes
+   * every arch read as architecture: on a landscape box the 999px
+   * radii resolve to a squat half-ellipse, not an arch. Same
+   * derivatives are served — the crop is display-only, zero bytes.
+   * ORDER CONTRACT: the .media-band rules below carry equal
+   * specificity and must stay below this rule so their wider
+   * aspect/position win on bands while the arch shape persists. */
+  .treatment-body .media-figure img:not([src*='lip-style-guide']) {
+    border-radius: 999px 999px 12px 12px;
+    border: 1px solid var(--ng-magenta-600);
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  /* Per-image crop override (the arch rollout's recorded knob — equal
+   * specificity, must stay below the base rule): the wrinkle-relaxers
+   * blazer frame anchors top so the 4:5 window keeps the neon letters
+   * whole and both faces; the default 30% anchor sliced the script
+   * mid-stroke. Sheds only legs at the bottom. */
+  .treatment-body .media-figure img[src*='blazer-brow-injection'] {
+    object-position: 50% 0%;
+  }
+  /* Same knob for the dermal-fillers Revanesse-mirror frame (photo
+   * round 2026-08-21): the neon script sits in the top 80px the default
+   * anchor trims, so it anchors top too. Sheds only feet. */
+  .treatment-body .media-figure img[src*='revanesse-mirror-client'] {
+    object-position: 50% 0%;
+  }
+  /* Same knob for the skin-rejuvenation cart frame (photo round
+   * 2026-08-21): the neon script occupies the top 160px of the master,
+   * which the default anchor slices mid-letter; anchored top it keeps
+   * the neon, Amy's head, and the console whole and sheds shins and the
+   * chiller's casters. */
+  .treatment-body .media-figure img[src*='amy-pixel8-cart'] {
+    object-position: 50% 0%;
+  }
+  /* First ASPECT use of the per-image knob (weight-loss, 2026-08-21):
+   * the InBody weigh-in frame is a 3:4 master with the head at the
+   * very top and the feet on the scale at the very bottom — a 4:5
+   * window must shed one or the other, and the scale IS the story.
+   * The arch runs 6% taller here and shows the full frame uncropped;
+   * the dome and hairline are unchanged. */
+  .treatment-body .media-figure img[src*='inbody-weigh-in-rear'] {
+    aspect-ratio: 3 / 4;
+  }
+  /* Same top-anchor knob for the iv-therapy infusion frame (photo
+   * round 2026-08-25): the hanging IV bag is already clipped by the
+   * master's own top edge, so the default 30% anchor trims another
+   * 32px off it; anchored top the window keeps the maximum of the
+   * bag and sheds only floor at the bottom. A/B'd on the built page
+   * at 390 and 1280. */
+  .treatment-body .media-figure img[src*='iv-infusion-laptop'] {
+    object-position: 50% 0%;
   }
   /* Full-width band — a page's third media moment breaks the
    * alternating row rhythm with scale instead of a third zigzag
-   * (taste-audit follow-up, 2026-07-25): one wide framed print across
-   * the column, straight — the tilt is the small-print gesture. The
-   * wide crop via aspect-ratio keeps a portrait source from towering;
-   * astro:assets still sets intrinsic dimensions, so no CLS. */
+   * (taste-audit follow-up, 2026-07-25): one wide arch across the
+   * column. The wide crop via aspect-ratio keeps a portrait source
+   * from towering; astro:assets still sets intrinsic dimensions, so
+   * no CLS. */
   .treatment-body .media-band {
     margin-top: 2.5rem;
   }
   .treatment-body .media-band .media-figure {
     width: 100%;
     margin-top: 2rem;
-    transform: none;
   }
+  /* Bands render as WIDE Roman arches: 9:8 is the widest frame whose
+   * arch still reads as architecture (semicircle + visible straight
+   * feet). Was 16:9 until the arch motif (2026-08-17) — a 16:9 box
+   * turns the 999px radii into a half-ellipse lens. The one asset
+   * that shipped a baked 16:9 derivative through this 9:8 window
+   * (fine-gauge-detail, a recorded double-crop defect) retired
+   * 2026-08-18 with the wrinkle-relaxers photo round — its
+   * replacement is a baked 9:8 re-cut that matches the window
+   * exactly, so today object-fit is the degrade path everywhere. */
   .treatment-body .media-band .media-figure img {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 9 / 8;
     object-fit: cover;
     object-position: 50% 42%;
   }
-  /* Tall variant of the band, for sources composed vertically — two
-   * figures stacked in a portrait frame (regenerative, 2026-07-26). The
-   * 16:9 default is a landscape contract: applied to a standing
-   * clinician over a reclined client it crops the clinician's head off
-   * and drops the room. 9:8 is the widest frame that keeps the whole
-   * composition, and it matches the server-side crop exactly, so
-   * object-fit is inert here and stays only as the degrade path if a
-   * future source arrives off-ratio. Equal specificity to the rule
-   * above — it must stay below it to win. */
+  /* Tall band variant (regenerative, 2026-07-26): since the 2026-08-17
+   * base-band change both bands share 9:8. The variant survives as the
+   * centered-composition contract (50% 50%). Equal specificity to the
+   * rules above — it must stay below them to win. */
   .treatment-body .media-band--tall .media-figure img {
     aspect-ratio: 9 / 8;
     object-position: 50% 50%;
   }
+  /* The regenerative band since 2026-09-27 (swapped with the /services
+   * card): the device-session frame is a 744x1612 portrait, so the 9:8
+   * window holds ~41% of it. Anchored low it keeps the device, both
+   * gloved hands, and the client's face; the practitioner's hair frames
+   * the top. Higher specificity than the tall variant, so it wins. */
+  .treatment-body .media-band .media-figure img[src*='device-facial-session'] {
+    object-position: 50% 84%;
+  }
+  /* Segmental band variant (wrinkle-relaxers, 2026-08-18 — client
+   * feedback: "we need to see everyone in the picture"): the frame's
+   * people span wider than any 9:8 window (geometry in DECISIONS,
+   * same date), a 9:8 crop loses a person and the blur-fill read
+   * as not fitting — so the ARCH changes shape instead: a designed
+   * segmental arch (architecture's wide sibling of the Roman arch) at
+   * the photo's own 3:2, curve pinned to the top ~third with straight
+   * feet below. NOT the recorded 16:9 "lens" failure — that was the
+   * accidental full-height ellipse with NO feet; the pinned vertical
+   * radius keeps feet, hairline, and 12px foot corners. The full
+   * frame fills the window: everyone visible, no crop, no fill.
+   * Equal specificity to the band rules above — order wins. */
+  .treatment-body .media-band--segmental .media-figure img {
+    aspect-ratio: 3 / 2;
+    border-radius: 50% 50% 12px 12px / 34% 34% 12px 12px;
+  }
+  /* The bare figure: no mat, no tilt — the white paper mat + ±1.5deg
+   * print lean retired 2026-08-18 (client direction: pink behind the
+   * arches, like /services). The arch hairline on the img is the only
+   * frame. */
   .treatment-body .media-figure {
     justify-self: center;
     width: min(18rem, 100%);
-    background: var(--ng-paper);
-    border: 1px solid var(--ng-hairline);
-    padding: 0.625rem;
-    box-shadow: 0 14px 28px -16px color-mix(in srgb, var(--ng-ink-900) 40%, transparent);
-    transform: rotate(-1.5deg);
   }
   .treatment-body .media-figure img {
     display: block;
@@ -293,5 +429,44 @@ const crumbs = [
   }
   .treatment-body .media-copy h2 {
     margin-top: 0;
+  }
+  /* Films inside media rows (biostimulators, 2026-08-21 — DECISIONS
+   * same date): the TreatmentVideo figure is the row's grid child, so
+   * the 2fr column (~17.2rem) is what constrains a portrait 9:16 film
+   * (the player itself is aspect-agnostic). The 18rem cap + centering
+   * mirror .media-figure so films and arches share one rhythm on
+   * phones; the component's standalone top margin is neutralized
+   * inside the centered row. (0,3,0) beats the component's scoped
+   * .video-figure rule (0,2,0). Every arch/crop rule above is
+   * img-selectored and never reaches a <video> — film stages stay
+   * arch-exempt; the bare film frame is the component's own. */
+  .treatment-body .media-row .video-figure {
+    margin-top: 0;
+    justify-self: center;
+    width: min(18rem, 100%);
+  }
+  /* Side-by-side client photo pairs (weight-loss, 2026-08-21 — operator
+   * override, DECISIONS same date): full frames, never cropped or
+   * arched — a dome would clip the faces in the top corners and a
+   * cropped pair is an altered pair. They are NOT .media-figure, so
+   * the arch rule never reaches them; the frame is the bare film
+   * frame's recipe (hairline + 12px corners). The 30rem cap keeps every
+   * source at or above 2x the display width (retina rule). */
+  .treatment-body .pair-gallery {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: center;
+    margin-top: 1.5rem;
+  }
+  .treatment-body .pair-gallery figure {
+    margin: 0;
+    width: min(30rem, 100%);
+  }
+  .treatment-body .pair-gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--ng-magenta-600);
+    border-radius: 12px;
   }
 </style>

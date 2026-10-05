@@ -2,6 +2,11 @@
  * Needle Girlie design tokens — Phase B (BUILD_SPEC §5).
  * Palette extracted from the canonical logo sources
  * (src/assets/brand/source/). Do not add colors without a contrast entry.
+ * 2026-09-15: the logo master is now the client's raster
+ * (needle-girlie-logo-metallic-master.png); the sampled HTML sources are
+ * dormant. The token values are deliberately UNCHANGED — the metallic
+ * lettering is a ramp with no single hex, pink-500 stays the site's pink;
+ * re-pinning is a separate operator decision (DECISIONS same date).
  *
  * VERIFIED CONTRAST PAIRS (WCAG 2.x relative luminance, computed 2026-07-08
  * via scripts — see docs/DECISIONS.md "Phase B tokens"):
@@ -20,6 +25,18 @@
  *         only (header credential line, 2026-07-19). Same computed value
  *         as the row above, asserted against the body-text bar. The
  *         light-surface body-size ban is UNCHANGED (3.53 fails 4.5).
+ *         Consumers joined 2026-08-26 (operator direction, the header
+ *         Book button's grammar): /about's brand-ink CTAs and the
+ *         Girl Team plate — 17px pink-500 lettering on noir fills,
+ *         hover inverting to the same symmetric pair. The CTA half
+ *         was hoisted to the shared .cta--chip 2026-08-27 (CTAButton;
+ *         consumers now also the home Instagram anchor, the
+ *         /injector-training intro Call (and, since 2026-10-05, the
+ *         Instagram button beside it), and — the same day's freeze
+ *         narrowed by the operator's second pass — the treatment
+ *         router-card consult ×12 and the laser mid-page book; the
+ *         treatment closing bands and the /services menu page stay
+ *         out); the plate stays page-local (about.astro).
  *   PASS  3.53:1 (min 3.0) pink-500 on white         — LARGE text only
  *   PASS  3.23:1 (min 3.2 w/ headroom) pink-500 on blush-50 — margin is
  *         0.03: too thin, which is why the LIGHT display accent moved to
@@ -98,7 +115,9 @@
  *   PASS  4.88:1 (min 3.0) ink-900 focus ring on ombre-end
  *   PASS  4.88:1 (min 4.5) ink-900 links on ombre-end — links are
  *         distinguished by underline (prose/breadcrumbs) or border
- *         (outline CTA), never by color alone
+ *         (outline CTA — no light-canvas consumer left since
+ *         2026-08-27, see COMPANION RE-INK below), never by color
+ *         alone
  *   PASS 11.80:1 ink-900 links/tags INSIDE boxes on card #f4cae2 —
  *         the site-wide link re-ink lifts the 2026-07-22 in-box 4.60
  *         exception on ombre pages; the house 4.7 bar is met with
@@ -107,9 +126,22 @@
  *   (--ng-kicker), accent rules (--ng-rule-accent), the focus ring,
  *   and links/outline CTAs (--ng-link) all switch to ink-900 on ombre
  *   pages — ink-pink falls to 2.33 and magenta-600 to ~1.9 mid-ramp,
- *   so neither may render on the ombre canvas. The display accent
- *   (--ng-display-accent) re-inks too: its one light-canvas consumer
- *   is the VisitSteps numerals, which sit mid-ramp. Noir bands keep
+ *   so neither may render on the ombre canvas. Since 2026-08-27 the
+ *   outline CTA has NO light-canvas consumer left — the two chip
+ *   rounds (DECISIONS same date ×2) took the last of them (the
+ *   treatment router cards; before that /about, home, and training);
+ *   outlines now render only in noir bands, and the --ng-link re-ink
+ *   stays for prose links and as defense-in-depth for any future
+ *   light-canvas outline (the display-accent precedent just below).
+ *   The display accent
+ *   (--ng-display-accent) re-inks too — though as of 2026-08-26 it
+ *   has NO light-canvas consumer left: the /about milestones
+ *   numerals (its last, mid-ramp) went to MA chevron plates, the
+ *   same swap the VisitSteps numerals made 2026-08-19. The re-ink
+ *   stays as defense-in-depth — magenta-600 at ~1.9 mid-ramp may
+ *   never render on the ombre canvas, so any future light-canvas
+ *   display-accent consumer lands ink-900 by default (the /styleguide
+ *   specimen, preview-only, still exercises it). Noir bands keep
  *   their own scoped values (pink-300 family throughout).
  *   Cards on the ramp: plates cross canvas-equal luminance at 19.6% of
  *   the document (24.5% along the ramp) — CORRECTED 2026-07-27 from an
@@ -123,6 +155,14 @@
  *   crossing). Below the band the plate reads as a light plate on deep
  *   pink, reaching 2.42:1 at the held end stop. This band is why the
  *   whole-card links carry ELEVATION (below) — decorative, no bar.
+ *   ::selection joined the re-ink 2026-08-26 (same script, which again
+ *   reproduced 17.22/15.77/11.80/9.77/4.88 first): the old fixed
+ *   pink-300 highlight crossed canvas-equal luminance at 33.8% of the
+ *   document (42% along the ramp, 1.004:1), dead band 22.0%–45.8% —
+ *   and its ink-900 letter color matched body text, so selection was
+ *   invisible there. Now an ink-900 plate with blush-50 letters on
+ *   light surfaces (4.88 worst case, 15.77 letters-on-plate); noir
+ *   keeps pink-300 via a scoped rule in global.css.
  *
  * BRAND-PINK FILLS (client round, computed 2026-07-18, same script):
  *   PASS  4.88:1 (min 4.7) ink-900 on pink-500       — solid CTA fill text
@@ -190,8 +230,9 @@
   --ng-paper: #ffffff;
 
   /* chevron cycle (source order: neon -> mid -> pale; pale-alt appears
-   * occasionally). RETIRED from the UI 2026-07-18 (client) — the motif
-   * lives on only inside the logo artwork; tokens kept as palette record. */
+   * occasionally). RETIRED from the UI 2026-07-18 (client); retired
+   * everywhere 2026-09-15 — the new logo artwork carries no chevron run.
+   * Tokens kept as palette record. */
   --ng-chev-neon: #fe019a;
   --ng-chev-mid: #f45fab;
   --ng-chev-pale: #f9a8d4;

@@ -24,15 +24,32 @@ export const SERVICE_LINES = [
 // changes — do not modify without operator approval.
 const treatments = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/treatments' }),
-  schema: z.object({
+  // The function form supplies `image()` for `film.poster` (2026-10-02).
+  schema: ({ image }) => z.object({
     title: z.string(),
     line: z.enum(SERVICE_LINES),
     summary: z.string(),
+    // Optional override for the Service JSON-LD description ONLY
+    // (2026-09-19 — operator-approved schema change, DECISIONS same
+    // date). `summary` renders as the lead under the H1 AND, by default,
+    // feeds structured data. When a page's visible lead ships under an
+    // operator override of the claim rules, this field keeps the
+    // structured-data description factual: overrides never reach meta
+    // descriptions, OG tags, or JSON-LD. Absent = `summary` is used, so
+    // every other page is unchanged. §8 applies to it like any string.
+    schemaDescription: z.string().optional(),
     // Optional editorial standfirst (2026-07-20 — replaced the AtAGlance
     // fact card at operator direction): one short, claims-clean display
     // line rendered as the blush statement card under the lead. §8
     // applies to it like any other string.
     deck: z.string().optional(),
+    // Renders the EvolusLaurel ranking plaque between the deck and the
+    // product cards (2026-08-19 — operator-approved schema change).
+    // The plaque's copy lives in the component under an exact-wording
+    // operator authorization (CLAUDE.md constraint 3, DECISIONS same
+    // date); this flag only places it. wrinkle-relaxers only today —
+    // widening the page scope requires the human operator.
+    evolusLaurel: z.boolean().default(false),
     products: z.array(z.string()).default([]),
     // Optional per-product cards (2026-07-20 GLP-1 alignment — operator-
     // approved schema change): upgrades the products bullet list in the
@@ -66,6 +83,26 @@ const treatments = defineCollection({
     // file's own text, so the wording lives here in the audit trail.
     investigationalNote: z.string().optional(),
     bioteDisclaimer: z.boolean().default(false),
+    // Optional film rendered by the layout directly above "What Amy
+    // offers" (2026-10-02 — operator-approved schema change, DECISIONS
+    // same date; first use: /services/hormone-optimization). The fields
+    // are TreatmentVideo's props; the poster resolves relative to the
+    // content file. A film placed further down a page stays in the MDX
+    // body, as before. Every film ships under its own DECISIONS entry;
+    // label and caption are site text and §8 applies to them.
+    film: z
+      .object({
+        src: z.string(),
+        poster: image(),
+        captionsSrc: z.string(),
+        label: z.string(),
+        caption: z.string().optional(),
+        // 'bare' drops the white paper mat (operator direction 2026-10-02,
+        // the Biote film); absent = the player's default mat.
+        frame: z.enum(['mat', 'bare']).optional(),
+        autoplay: z.literal('inview').optional(),
+      })
+      .optional(),
     pricingDisplay: z.enum(['none', 'consult', 'startingAt']).default('consult'),
     // Editorial Q&A only (§7): process, logistics, credentials. Suitability
     // questions always answer "that's decided in a consultation". Compliance

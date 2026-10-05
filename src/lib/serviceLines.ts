@@ -31,7 +31,8 @@ export const CATEGORIES: ReadonlyArray<{ key: LineCategory; label: string }> = [
 export const serviceLines: ServiceLine[] = [
   {
     slug: 'wrinkle-relaxers',
-    title: 'Wrinkle Relaxers',
+    // Client wording 2026-08-18 (via operator), verbatim incl. the hyphen.
+    title: 'Neurotoxins - Wrinkle Relaxers',
     summary: 'Prescription injectable treatments that soften dynamic lines.',
     href: '/services/wrinkle-relaxers',
     category: 'injectables',
@@ -39,7 +40,7 @@ export const serviceLines: ServiceLine[] = [
   {
     slug: 'dermal-fillers',
     title: 'Dermal Fillers',
-    summary: 'Injectable gel fillers for volume and contour.',
+    summary: 'Injectable fillers for volume and contour.',
     href: '/services/dermal-fillers',
     category: 'injectables',
   },
@@ -74,7 +75,7 @@ export const serviceLines: ServiceLine[] = [
   {
     slug: 'laser-treatments',
     title: 'Laser Treatments',
-    summary: 'Venus Versa treatments using intense pulsed light and radiofrequency energy.',
+    summary: 'Venus Versa Pro treatments using intense pulsed light and radiofrequency energy, plus Venus Epileve laser hair removal.',
     href: '/services/laser-treatments',
     category: 'skin-body',
   },
@@ -95,7 +96,7 @@ export const serviceLines: ServiceLine[] = [
   {
     slug: 'peptide-therapy',
     title: 'Peptide Therapy',
-    summary: 'Peptide therapy options, individualized under clinician supervision.',
+    summary: 'Peptide therapy options, individualized.',
     href: '/services/peptide-therapy',
     category: 'wellness',
   },

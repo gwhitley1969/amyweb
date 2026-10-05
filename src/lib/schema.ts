@@ -33,6 +33,9 @@ export function localBusiness() {
       name: siteConfig.name,
       url: siteConfig.url,
       telephone: '+17045797108',
+      // The link-share card (SeoHead's default og:image). Keep the two in
+      // step when the card is re-made under a new filename.
+      image: `${siteConfig.url}/og/needle-girlie-share-2026-09-27.jpg`,
       // {{ADDRESS_DISPLAY}} resolved 2026-07-18 (matches siteConfig.address)
       address: {
         '@type': 'PostalAddress',

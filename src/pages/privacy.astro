@@ -7,7 +7,15 @@ import { siteConfig } from '../lib/siteConfig';
  * privacy-by-architecture reality (CLAUDE.md hard constraint 5): no
  * cookies, no forms, no tracking, no health information. Counsel
  * reviews post-launch (operator acceptance, DECISIONS 2026-08-04).
+ *
+ * The analytics bullet is a build-time conditional (2026-08-17,
+ * DECISIONS same date): while siteConfig.analytics ships dark the page
+ * renders its launch wording unchanged; the operator's flip swaps in
+ * the Plausible disclosure in the SAME build that ships the script —
+ * which is exactly the "this page will be updated first" promise the
+ * launch wording makes, kept atomically.
  */
+const analyticsOn = siteConfig.analytics.enabled && siteConfig.analytics.provider === 'plausible';
 ---
 
 <LegalLayout
@@ -24,12 +32,29 @@ import { siteConfig } from '../lib/siteConfig';
   <ul>
     <li>This website sets no cookies.</li>
     <li>It contains no forms and collects no personal information.</li>
-    <li>It uses no advertising or retargeting pixels and no third-party trackers.</li>
-    <li>
-      It currently runs no analytics. If privacy-preserving, cookieless
-      analytics are added later, they will measure aggregate page visits
-      only, and this page will be updated first.
-    </li>
+    {
+      analyticsOn ? (
+        <li>It uses no advertising or retargeting pixels and no trackers that follow anyone across sites.</li>
+      ) : (
+        <li>It uses no advertising or retargeting pixels and no third-party trackers.</li>
+      )
+    }
+    {
+      analyticsOn ? (
+        <li>
+          It measures aggregate page visits with Plausible, a
+          privacy-preserving, cookieless analytics service: no cookies,
+          no personal identifiers, no cross-site profiles. Visit counts
+          cannot be traced back to any individual visitor.
+        </li>
+      ) : (
+        <li>
+          It currently runs no analytics. If privacy-preserving, cookieless
+          analytics are added later, they will measure aggregate page visits
+          only, and this page will be updated first.
+        </li>
+      )
+    }
   </ul>
 
   <h2>Hosting and technical logs</h2>

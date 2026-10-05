@@ -15,6 +15,15 @@
  * `allowedStrings` — the fourth authorization, and the first for text a
  * regulator requires rather than copy the client wants.
  *
+ * DORMANT SINCE 2026-09-19 (docs/DECISIONS.md same date): no treatment
+ * page sets the flag. Amy directed the box off
+ * /services/hormone-optimization, its only consumer; the operator
+ * decided it after the compliance flag and exempted that one file from
+ * the linter's symptom check by their own hand. The component stays —
+ * the styleguide still renders it — so restoring the box is one word
+ * (`bioteDisclaimer: true` on the page), and the allowlisted sentence
+ * below keeps its registry entry because this file still carries it.
+ *
  * Two editing rules for whoever touches this next:
  *   1. The sentence must stay on ONE source line. lint-claims.mjs strips
  *      allowed strings and applies patterns per line, so a wrapped

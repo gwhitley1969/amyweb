@@ -13,15 +13,17 @@
     "check": "astro check",
     "lint:claims": "node scripts/lint-claims.mjs --self-test && node scripts/lint-claims.mjs",
     "lint:voice": "node scripts/lint-voice.mjs --self-test && node scripts/lint-voice.mjs",
+    "lint:practice-link": "node scripts/lint-practice-link.mjs --self-test && node scripts/lint-practice-link.mjs",
     "check:approvals": "node scripts/check-approvals.mjs --self-test && node scripts/check-approvals.mjs",
     "test:a11y": "node scripts/test-a11y.mjs",
     "test:perf": "node scripts/test-perf.mjs",
-    "verify": "npm run build && npm run check && npm run lint:claims && npm run lint:voice && npm run test:a11y && npm run test:perf"
+    "verify:fast": "npm run build && npm run check && npm run lint:claims && npm run lint:voice && npm run lint:practice-link",
+    "verify:slow": "npm run test:a11y && npm run test:perf",
+    "verify": "npm run verify:fast && npm run verify:slow"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",
     "@astrojs/sitemap": "^3.2.0",
-    "@fontsource-variable/dm-sans": "^5.2.8",
     "@fontsource-variable/playfair-display": "^5.2.8",
     "astro": "^5.0.0"
   },
@@ -30,6 +32,8 @@
     "@lhci/cli": "^0.15.0",
     "@tailwindcss/vite": "^4.0.0",
     "fontaine": "^0.8.0",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
     "pa11y-ci": "^4.0.0",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.6.0"

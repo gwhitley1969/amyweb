@@ -1,8 +1,8 @@
 ---
 title: Dermal Fillers
 line: dermal-fillers
-summary: "Injectable gel fillers for volume and contour. Common areas include the lips, cheeks, jawline, chin, and under-eye area."
-deck: "Volume and contour in proportion — never more than the face asks for."
+summary: "Injectable fillers for volume and contour. Common areas include the lips, under-eye area, cheeks, jawline and chin."
+deck: "Facial Balancing — volume and contour in proportion — never more than the face asks for."
 products:
   - "Evolysse Smooth"
   - "Evolysse Form"
@@ -11,43 +11,42 @@ products:
 productDetails:
   - name: "Evolysse Smooth"
     detail: "A prescription hyaluronic-acid gel from Evolus, made with cold-temperature processing designed to preserve the HA molecule, used to soften and smooth smile lines and folds in adults 22 and older."
-    priceLines: ["$650 or $325 (half-syringe)"]
+    priceLines: ["$650 (full-syringe) or $325 (half-syringe)"]
   - name: "Evolysse Form"
     detail: "A prescription hyaluronic-acid gel from Evolus, the firmer partner to Smooth, designed to lift and support deeper lines and folds."
-    priceLines: ["$650 or $325 (half-syringe)"]
+    priceLines: ["$650 (full-syringe) or $325 (half-syringe)"]
   - name: "Revanesse (Versa+ & Lips+)"
     detail: "A prescription hyaluronic-acid filler family from Prollenium, formulated with lidocaine for comfort: Versa+ for facial lines and folds, Lips+ for lip augmentation."
-    priceLines: ["$650 or $325 (half-syringe)"]
+    priceLines: ["$650 (full-syringe) or $325 (half-syringe)"]
 ctaType: book
 pricingDisplay: consult
 clinicianApproved: true
 draft: false
 faq:
   - q: "Which filler products does Amy offer?"
-    a: "Evolysse Smooth and Evolysse Form from Evolus, and the Revanesse family (Versa+ and Lips+) from Prollenium. Which product, if any, belongs in a given plan is decided in consultation."
+    a: "Evolysse Smooth and Evolysse Form from Evolus, and the Revanesse family (Versa+ and Lips+) from Prollenium. Which product is used in your plan is decided between you and Amy."
   - q: "What's the difference between Evolysse and Revanesse?"
     a: "Formulation and fit, mostly. Evolysse is a hyaluronic-acid gel made with cold-temperature processing designed to preserve the HA molecule: Smooth softens lines, Form is designed to lift and support. Revanesse is a hyaluronic-acid family formulated with lidocaine: Versa+ for facial lines and folds, Lips+ for lip augmentation. Amy matches product to anatomy in consultation."
   - q: "How long do fillers last?"
     a: "It varies by product, placement, and person. Evolysse is labeled for results lasting up to a year. How long it holds varies person to person. Amy talks through realistic timelines in consultation."
   - q: "Does filler hurt?"
-    a: "Both product families Amy carries are formulated with lidocaine, an anesthetic built into the gel for comfort. What treatment feels like still varies person to person. Amy walks through what to expect at your appointment."
+    a: "Both product families Amy carries are formulated with lidocaine, an anesthetic built into the gel for comfort. Also, Amy applies additional topical lidocaine to minimize any discomfort. What treatment feels like still varies person to person. Amy walks through what to expect at your appointment."
   - q: "What are the lip styles?"
     a: "The style guide on this page names six: Cupid, Hollywood, Classic, Pearlique, Supermodel, and Goddess (different balances of upper and lower lip). A style is a starting point, not a promise: which shape suits your face is decided with Amy in consultation."
   - q: "Do I need a consultation before booking?"
-    a: "No. A consultation is never required, and one is free on request. If you are weighing options, ask when you book or call."
+    a: "No. A consultation is never required, and one is free on request. If you are weighing options, ask when you [book](cta:book) or call."
   - q: "Who performs the treatment?"
     a: "Amy Palacios, FNP, a licensed family nurse practitioner. Every appointment is with Amy herself."
 seo:
   title: "Dermal Fillers in Harrisburg & Charlotte, NC | Needle Girlie"
-  description: "Dermal fillers with Amy Palacios, FNP, in Harrisburg, NC: Evolysse Smooth and Form, and Revanesse Versa+ and Lips+. Book online, or start with a free consultation."
+  description: "Evolysse and Revanesse dermal fillers with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte. Book online, or start with a free consultation."
 ---
 
 import { Image } from 'astro:assets';
-import TreatmentVideo from '../../components/TreatmentVideo.astro';
-import EvolusCallout from '../../components/EvolusCallout.astro';
-import filmPoster from '../../assets/photos/evolysse-film-poster.jpg';
-import evolysseDuo from '../../assets/photos/evolysse-duo.jpg';
-import evolysseBoxes from '../../assets/photos/evolysse-boxes.jpg';
+import EvolusLaurel from '../../components/EvolusLaurel.astro';
+import mirrorMoment from '../../assets/photos/mirror-moment.jpg';
+import revanesseMirrorClient from '../../assets/photos/revanesse-mirror-client.jpg';
+import lipInjectionDetail from '../../assets/photos/lip-injection-detail.jpg';
 import lipStyleGuide from '../../assets/photos/lip-style-guide.png';
 
 ## What they are
@@ -56,19 +55,18 @@ Dermal fillers are injectable hyaluronic-acid gels placed beneath the
 skin to add volume or refine contour in a specific area. Hyaluronic
 acid occurs naturally in skin, where it helps hold hydration. As a
 filler, it lends structure and subtle volume. Common treatment areas
-include the lips, cheeks, jawline, chin, and the under-eye area.
+include the lips, under-eye area, cheeks, jawline and chin.
 
-<EvolusCallout />
+{/* The Evolus Laurel plaque replaces the EvolusCallout plate here at the
+  * client's direction (2026-08-21) — rendered IN-BODY, in the plate's exact
+  * spot, rather than through the layout slot wrinkle-relaxers uses
+  * (operator's placement choice). Ranking copy + page-scope record:
+  * the component header, CLAUDE.md constraint 3, DECISIONS 2026-08-21. */}
+<EvolusLaurel />
 
-## The Evolysse film
-
-<TreatmentVideo
-  src="/media/evolysse-film.mp4"
-  poster={filmPoster}
-  captionsSrc="/media/evolysse-film.vtt"
-  label="The Evolysse film — a short product film about Evolysse hyaluronic-acid gels"
-  caption="An Evolus production, presented by Amy — sound on."
-/>
+{/* The Evolysse film and its heading retired 2026-08-21 at the client's
+  * direction (DECISIONS same date — its as-is override is retired with
+  * it; the film no longer renders anywhere on the site). */}
 
 <section class="media-row media-row--flip">
   <div class="media-copy">
@@ -76,15 +74,19 @@ include the lips, cheeks, jawline, chin, and the under-eye area.
 ## Placed in proportion
 
 Good filler work reads as proportion, not product. Amy maps each face
-(where volume sits, where it has thinned, how the features balance)
+— where volume sits, where it has thinned, how the features balance —
 and places only what the plan calls for. The aim is a face that still
 looks like you.
 
   </div>
   <figure class="media-figure">
+    {/* Amy's pick (14), photo round 2026-08-21 — the same bytes as the
+      * repo's mirror-moment.jpg, reused rather than duplicated; client
+      * release confirmed on file (screening + release record in
+      * DECISIONS same date). */}
     <Image
-      src={evolysseDuo}
-      alt="Amy Palacios, FNP, in hot-pink scrubs holds two crossed Evolysse boxes, Smooth and Form, with a playful kiss expression."
+      src={mirrorMoment}
+      alt="Amy Palacios, FNP, holds up a Mobile Aesthetics hand mirror for a laughing client seated in the treatment chair by the window."
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
@@ -93,33 +95,55 @@ looks like you.
 
 <section class="media-row">
   <figure class="media-figure">
+    {/* Amy's pick (15), photo round 2026-08-21 (screening + release
+      * record in DECISIONS same date). The layout's top-anchor crop
+      * override keeps the neon letters whole — see TreatmentLayout. */}
     <Image
-      src={evolysseBoxes}
-      alt="Amy smiles while holding Evolysse Smooth and Form packaging upright at the marble counter of her Harrisburg studio."
+      src={revanesseMirrorClient}
+      alt="A seated client studies her face in a Revanesse Lips+ hand mirror as Amy Palacios, FNP, looks on beneath the medspa's neon sign."
       widths={[340, 540, 680]}
       sizes="(max-width: 40rem) 90vw, 17rem"
     />
   </figure>
   <div class="media-copy">
 
-## Individualized, with Amy
+## Personalized, with Amy
 
-Every plan is individual. Amy Palacios, FNP, plans and performs each
-treatment herself, under clinician supervision, at her Harrisburg
-studio in the greater Charlotte area.
+Every plan is individually mapped out. Amy Palacios, FNP, plans and
+performs each treatment herself at her Harrisburg medspa in the
+greater Charlotte area.
 
   </div>
 </section>
+
+<section class="media-row media-row--flip">
+  <div class="media-copy">
 
 ## Lips, styled
 
 Lip filler is not one look. The style guide below names a few of the
 shapes clients ask for, from the soft central emphasis of a Cupid to
 the full, even balance of a Classic. Which shape suits your face, and
-whether lips are the right place to start, is a consultation
+whether lips are the right place to start, begins with a
 conversation.
 
-<figure class="media-figure" style="width:100%;transform:none">
+  </div>
+  <figure class="media-figure">
+    {/* Operator's pick (8K0A9591), photo round 2026-08-21 — the frame
+      * that served wrinkle-relaxers as fine-gauge-detail until
+      * 2026-08-18; client release on record (DECISIONS 2026-07-21). */}
+    <Image
+      src={lipInjectionDetail}
+      alt="Amy Palacios, FNP, pink-gloved, guides a fine syringe at a reclined client's upper lip."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+</section>
+
+{/* 2.5rem above the diagram — the row's photo is taller than its copy, so
+  * without it the chart sat flush against the arch (client, 2026-08-21). */}
+<figure class="media-figure" style="width:100%;transform:none;margin-top:2.5rem">
   <Image
     src={lipStyleGuide}
     alt="Lip style guide: six illustrated lip shapes, labeled Cupid, Pearlique, Hollywood, Supermodel, Classic, and Goddess."
@@ -131,7 +155,7 @@ conversation.
 ## After weight loss
 
 Weight loss changes faces, too. Losing volume, including on a GLP-1
-journey, can leave lines and folds more visible than they were. If
+journey, can leave lines and folds more visible. If
 that's part of your story, bring it to a consultation: filler is one of
 the tools Amy weighs when deciding what, if anything, to place. Amy
 also offers medically supervised

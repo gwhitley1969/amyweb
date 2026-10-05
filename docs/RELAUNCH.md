@@ -1,0 +1,234 @@
+# Relaunch dossier — the ready-to-execute record
+
+Prepared 2026-08-17 (external-audit Findings 2+3 close-out) so the
+relaunch needs only two operator inputs — the date and the approvals —
+not a planning round. Everything else below is written, tested, or
+already merged.
+
+## Preconditions (hard gates — none may be skipped)
+
+1. **Round close recorded** in docs/REDESIGN.md: the frozen change
+   list, the relaunch date, and the seven-gap acceptance checks — all
+   three slots filled by the operator. Anything raised after the
+   freeze is change-order/retainer scope, recorded as such.
+2. **Copy approval** — `check:approvals` green: every non-draft
+   treatment file `clinicianApproved: true`. Any file edited since its
+   flip carries `false` and blocks production (constraint 4 — the gate
+   is the record).
+3. **Presentation approval** — docs/CLINICIAN-SIGN-OFF.md carries a
+   presentation-approval date NEWER than the last merged visual
+   change. Amy reviews the standing demo (PR #97's environment) on her
+   phone: the pages look different from what she approved 2026-08-05
+   (Playfair body, arches + 4:5 crops, new photography, header badge,
+   footer) even where no copy changed. The operator logs the date.
+   ~~Known defect to fix during this pass: `studio-wide.jpg` alt~~
+   RESOLVED 2026-08-25: the asset was replaced and deleted in the
+   iv-therapy photo round, so the mismatched alt no longer exists
+   (DECISIONS 2026-08-25; originally recorded 2026-08-17).
+4. **Analytics flip** (operator decision 2026-08-17: Plausible at
+   relaunch): account created, then the two-value siteConfig edit per
+   RUNBOOK "Turning on analytics" — ships in the relaunch PR or just
+   before it, so the baseline starts day one.
+   **NOT AT THIS RELAUNCH (operator, 2026-10-05):** asked on the day,
+   the operator chose to launch without analytics. The switch stays
+   off and this precondition does not apply; the flip is a later
+   change on the operator's word (DECISIONS 2026-10-05, the analytics
+   entry).
+
+## The relaunch PR itself (two-step — NEVER a plain merge)
+
+The takedown revert `e57a4448` is why: a naive merge silently deletes
+~48 files (all twelve treatment pages included) with a passing build —
+simulated and verified 2026-08-17; the `gutted-merge-guard` required
+check will refuse it. On a branch off `main`:
+
+1. `git revert e57a4448f77e8ff64c623cd1d734fddfb0f00801` — restores
+   the launch tree. Expect a conflict on `src/pages/index.astro`
+   (PR #99 edited the placeholder): **take the launch-tree side**.
+   Since 2026-09-15 also expect one on `src/layouts/BaseLayout.astro`
+   (the logo hotfix PR replaced its favicon link on `main`): take the
+   launch-tree side there too — step 2 brings the identical new links
+   from `phase-c`. The brand files that hotfix added
+   (`src/assets/brand/source/needle-girlie-logo-metallic-*.png`,
+   `src/assets/brand/needle-girlie-wordmark-metallic-alpha.png`,
+   `public/favicon.ico`, `public/icons/apple-touch-icon.png`) are
+   byte-identical on both sides and merge clean; `public/favicon.svg`
+   is deleted on both. Since 2026-09-26 the share-title hotfix edited
+   the placeholder's page and the layout on `main` again (each gained
+   the share title): the same rule, take the launch-tree side. The
+   2026-09-27 hotfix edited the placeholder's page once more (the share
+   title's wording): the same rule again.
+   The three share cards
+   (`public/og/needle-girlie-share.jpg`,
+   `public/og/needle-girlie-share-2026-09-26.jpg`,
+   `public/og/needle-girlie-share-2026-09-27.jpg`) are byte-identical on
+   both sides and merge clean. `src/components/SeoHead.astro` was
+   identical too until 2026-09-30. Since the medspa wording change it
+   differs by one word, in the share card's description: `phase-c`
+   says "medspa", and the placeholder on `main` was left as it is at
+   the operator's decision (DECISIONS 2026-09-30). Expect a one-line
+   conflict in that file in step 2: **take the `phase-c` side**. A
+   trial merge on 2026-09-30 showed that line and nothing else in the
+   file.
+2. `git merge phase-c` — brings every post-takedown revision.
+3. In the same PR: delete `src/assets/photos/studio-counter-portrait.jpg`
+   (the placeholder's photo — zero-reference once the placeholder
+   retires; PR #101 orphan precedent).
+4. **Do NOT retire the guard in this PR** (corrected 2026-08-24 — the
+   previous instruction could not work). Deleting
+   `.github/workflows/relaunch-guard.yml` here breaks step 6 twice over:
+   the workflow is then absent from the merge commit so the check cannot
+   run at all, and even if it ran it would FAIL, because that file is
+   itself tracked on `phase-c` — the guard's own comparison reports it as
+   a missing phase-c file (verified: it is the first entry in the missing
+   list). The relaunch PR would fail its own required check on its own
+   retirement. Retire the guard in a FOLLOW-UP PR after this one merges:
+   delete the workflow from both branches and remove the required
+   contexts from both (`gh api`), with a DECISIONS entry. Post-relaunch
+   the revert is a harmless ancestor everywhere and `takedown-revert-guard`
+   would fail every PR forever, so the follow-up is not optional.
+5. Verify the tree before pushing: file count vs `phase-c` = zero
+   missing. Note (2026-08-24) that `studio-counter-portrait.jpg` from
+   step 3 will NOT appear in that comparison — it is a placeholder asset
+   that exists only on `main`, never on `phase-c`. With step 4 deferred,
+   the expected result is a clean zero, no intentional exceptions.
+6. PR into `main` → CI green (including `gutted-merge-guard`, which
+   proves the tree complete before it retires) → operator merges.
+
+## Launch-day checklist (§16 mechanics, verified live)
+
+- Production pipeline: verify → check:approvals → production build
+  (Front Door lockdown) → SWA deploy → Front Door cache purge.
+- needlegirlie.com serves the site; SWA default hostname blocked;
+  www → apex; HTTP → HTTPS; production indexable (previews stay
+  noindexed); OG cards render; 404 at the edge.
+- Films play from media.needlegirlie.com on production (206 Range
+  probes; the five carousel films in their sound renditions since
+  2026-09-30 — `commercial-evolysse-sound.mp4`,
+  `commercial-van-promo-sound.mp4`, `commercial-billboard-sound.mp4`,
+  `commercial-j2-sound.mp4`, `commercial-team-sound.mp4`, each with one
+  video and one audio stream; none of the silent files they replaced
+  is a probe target: the promo's and the billboard reel's were deleted
+  2026-09-30, and the Evolysse, Jeuveau and team silent files, with
+  `commercial-j1.mp4` and `commercial-studio.mp4` (replaced
+  2026-09-27), stay only while open PRs #201 and #210 still build an
+  older carousel)
+  + the ICON film on /about + the two
+  biostimulators reels `radiesse-visit.mp4` / `amy-reel.mp4` + the
+  body-contouring reel `evolve-reel.mp4` + the /about team film
+  `girl-team-film-wide.mp4` (2026-08-26 — the widescreen sounded
+  rendition of the carousel team film's master, replacing the
+  2026-08-25 portrait object) + the /injector-training reel
+  `training-reel.mp4` (2026-08-25) + the regenerative PRP-visit reel
+  `prp-visit.mp4` (2026-08-25) + the iv-therapy lounge film
+  `iv-lounge.mp4` (2026-10-02; autoplay in view since that day's
+  addendum, not click-to-play as this line said until 2026-10-05) + the
+  hormone-optimization Biote film `biote-why.mp4` (2026-10-02) + the
+  laser page's IPL-session film `ipl-visit.mp4` (2026-10-02) — the viewfinder film
+  `van-viewfinder-treatment-trim.mp4` (2026-09-03) retired with /mobile
+  on 2026-09-26 and its Blob object stays, unreferenced, so it is not a
+  probe target, nor is `van-chair-treatment.mp4`, which it had replaced
+  and whose object is deleted once no open preview references it — the
+  Evolysse film retired
+  2026-08-21 and its Blob object `evolysse-film.mp4` was deleted the
+  same day, so that name is not a probe target; the film returned
+  2026-09-25 as the carousel's first film under the new name above). On /services/biostimulators,
+  /services/body-contouring, /about, /injector-training,
+  /services/regenerative, /services/hormone-optimization,
+  /services/laser-treatments, and /services/iv-therapy also probe
+  `/js/treatment-video.js` (200, `text/javascript`) and confirm the
+  ten players on those eight pages carry `data-autoplay="inview"`
+  (counted on the build 2026-10-05; this line said nine on seven pages
+  until then, missing the IV lounge film: two on biostimulators,
+  one on body-contouring, two on /about: the ICON film — its scoped
+  override, DECISIONS 2026-08-25 — and the team film; one on
+  /injector-training, the training reel; one on
+  /services/regenerative, the PRP-visit reel; one on
+  /services/hormone-optimization, the Biote film — its scoped override,
+  DECISIONS 2026-10-02; one on /services/laser-treatments, the
+  IPL-session film — a film with speech, its scoped override, DECISIONS
+  same date; one on /services/iv-therapy, the lounge film — its scoped
+  override, DECISIONS 2026-10-02, the addendum; /mobile's viewfinder
+  film, an earlier eighth, retired with
+  that page 2026-09-26 — DECISIONS same date) — the films
+  autoplay muted on approach. On the home page also
+  probe the
+  motion layer (adopted 2026-09-04, DECISIONS 2026-09-03):
+  `/js/motion-flag.js`, `/js/home-motion.js`, and the four vendor files
+  `/js/vendor/gsap.min.js`, `ScrollTrigger.min.js`, `SplitText.min.js`,
+  `lenis.min.js` (all 200, `text/javascript`); the hero's
+  `data-hero-film` element carries `data-first="5"` and `data-rate="1"`
+  and no `data-ranges`; the film object is `hero-living-portrait-v10.mp4`
+  on the media origin (206 on a range request, `video/mp4`) — the film
+  since 2026-09-17, this cut since 2026-09-30 (DECISIONS 2026-09-17
+  and 2026-09-30 with its addendum).
+  Also the van band's film (2026-09-25, DECISIONS same date):
+  `/js/band-film.js` (200, `text/javascript`), and the band's
+  `data-band-film` element points at `van-trip-music.mp4` on the media
+  origin (206 on a range request, `video/mp4`): the rendition with the
+  clip's two songs, since 2026-10-04 (DECISIONS same date).
+  Also the carousel's sound (2026-09-30, DECISIONS same date):
+  `/js/video-carousel.js` (200, `text/javascript`); the five slides'
+  `data-file` values end in `-sound.mp4` and their `data-vtt` values in
+  `?v=4` or later; on a phone and a desktop, the Sound button turns the
+  playing film's sound on and it carries to the next film, and the CC
+  button shows captions. The band's "See the
+  hostess perk ›" and the header's "Tox Together" item resolve to
+  `/tox-together` (200). `/mobile` is not a probe target: it retired
+  2026-09-26 with no redirect, so a 404 there is correct (DECISIONS
+  2026-09-26, the Tox To Go page entry). Nor is `/tox-to-go`: the
+  page moved to `/tox-together` 2026-09-27 before production ever
+  served it, so a 404 there is correct too (DECISIONS 2026-09-27).
+- ~~Plausible: `/api/event` returns 202 from the production page;
+  dashboard shows the first pageviews.~~ Not at the 2026-10-05
+  relaunch (the analytics switch stays off, precondition 4). The check
+  instead: no page carries the `/js/plausible.js` tag, and the CSP has
+  no `connect-src`.
+- The favicon set serves: `/favicon.ico` (200, `image/x-icon` or
+  `image/vnd.microsoft.icon`) and `/icons/apple-touch-icon.png` (200,
+  `image/png`) — the 2026-09-15 logo-derived set.
+- The link-share card serves: `/og/needle-girlie-share-2026-09-27.jpg`
+  (200, `image/jpeg`, 1200×630), and every page's head names it as
+  `og:image` and `twitter:image` with a `summary_large_image` card. The
+  home page's `og:title` and `twitter:title` read "Mobile Aesthetics
+  Harrisburg, NC", with a no-break space after "Mobile" and after
+  "Harrisburg,", while its title tag reads "Needle Girlie | Medical
+  Aesthetics in Harrisburg & Charlotte, NC" since 2026-10-05 (it kept
+  "…in Harrisburg, NC" until then; DECISIONS 2026-09-25, 2026-09-26,
+  2026-09-27 and 2026-10-05, the search-text entry). The live
+  placeholder carries the same file and share tags since
+  2026-09-27, so a relaunch that dropped them would show as a changed
+  preview. The two earlier cards, `/og/needle-girlie-share.jpg` and
+  `/og/needle-girlie-share-2026-09-26.jpg`, still serve (200) for
+  previews that apps had cached.
+- Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.
+- Converged multi-pass probes (3 consecutive clean passes, plain +
+  cache-busted) before telling Amy it's live.
+
+## Standing PR bookkeeping at relaunch
+
+- PR #95 (standing phase-c → main): superseded by the relaunch PR —
+  close WITHOUT merging only after relaunch is live, or retarget per
+  the operator's preference for the next round. *Noted 2026-10-05:*
+  the relaunch PR merges `phase-c`'s tip into `main`, so #95's commits
+  are all in `main` from that moment and GitHub is expected to mark
+  #95 as merged by itself. That is bookkeeping, not a second merge, and
+  nothing is deployed by it. If it stays open, close it on the
+  operator's word.
+- PR #97 (standing demo): close without merging when the operator no
+  longer needs the demo environment.
+
+## After relaunch
+
+- Post-relaunch continuing work happens against a LIVE site: every
+  merge to main ships. The round's remaining items proceed as normal
+  PRs with Amy's word per increment.
+- Update docs/REDESIGN.md, PHASE-C.md, CHANGELOG, and memory records
+  to the relaunched state; the takedown-era warnings in RUNBOOK get
+  their close-out edits (the two-step section becomes historical).
+- Delete the two earlier share cards, `public/og/needle-girlie-share.jpg`
+  (2026-09-25) and `public/og/needle-girlie-share-2026-09-26.jpg`, in an
+  ordinary PR. They were kept for previews that apps had cached
+  (DECISIONS 2026-09-26 and 2026-09-27). They cannot go in the relaunch
+  PR itself: the files are on `phase-c`, so `gutted-merge-guard` would
+  report them missing.

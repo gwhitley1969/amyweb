@@ -4,7 +4,12 @@
     "standard": "WCAG2AA",
     "timeout": 60000,
     "chromeLaunchConfig": {
-      "args": ["--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu"]
+      "args": [
+        "--no-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-gpu",
+        "--force-prefers-reduced-motion"
+      ]
     }
   },
   "urls": [
@@ -87,6 +92,10 @@
     },
     {
       "url": "http://localhost:4325/injector-training",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/tox-together",
       "levelCapWhenNeedsReview": "warning"
     },
     {

@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-10-04 — Home: the van video plays its music again
+
+- In the "Tox Together Party" section, Amy's van video now carries the
+  clip's own soundtrack: two songs from the start to 2:01, then her
+  words at the destination as before, then silence. It still starts
+  muted, and the speaker button turns the sound on.
+- Neither song has a licence on record. They play under the operator's
+  override of the music position ("Play now, accept the risk"), which
+  reverses the 2026-09-25 choice to remove them. The voice-only file
+  stays on the media host as the way back.
+- Captions stay off by default and gain two short `[Music]` markers.
+  The songs' words are not written out. The picture is unchanged.
+  DECISIONS 2026-10-04; PR #250.
+
 ### 2026-10-02 — /services/peptide-therapy: a tenth card, KLOW; both blends read "$265 for six weeks"
 
 - A new card right after GLOW: KLOW (KPV / GHK-Cu / BPC-157 / TB-500).

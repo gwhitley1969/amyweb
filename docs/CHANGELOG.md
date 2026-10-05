@@ -38,6 +38,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - The edit reset the page's approval flag. Amy OK'd the sentence the
   same evening and the operator flipped the flag in the same PR.
   DECISIONS 2026-10-05, the booking entry's addendum.
+- Live at 22:48 UTC (PR #263, straight into `main` as an urgent fix).
+  Checked on the live site: the word "Vagaro" appears on no page.
+  DECISIONS 2026-10-05, the shipped record.
 
 ### 2026-10-05 — Booking moves to Aesthetic Record
 
@@ -54,6 +57,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   "How do I book?". It is on an approved page, so it follows in its own
   change once Amy has read it.
   DECISIONS 2026-10-05, the booking entry.
+- Live at 22:10 UTC (PR #261, release #262). Checked on the live site:
+  all 96 booking links open the new page, and none opens Vagaro.
 
 ### 2026-10-05 — The home page's search title says "Mobile Aesthetics"
 
@@ -66,6 +71,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - A search engine shows the new title after it next reads the site;
   until then it may still show the old Under Construction page.
   DECISIONS 2026-10-05, the home-title entry.
+- Released to the live site the same day, at about 20:54 UTC: release
+  PR #259 and Production run 37370127874. It was the first release made
+  the two-stage way. A fault at GitHub delayed it by about half an hour
+  and never touched the live site. DECISIONS 2026-10-05, the shipped
+  record of that release.
 
 ### 2026-10-05 — How work reaches the live site from here
 

@@ -121,13 +121,21 @@ Ordinary work never goes straight into `main`.
 5. **If something has to go straight into `main`** (an urgent fix):
    branch from `main`, PR into `main`, and afterwards fast-forward
    `phase-c` to `main` (`git push origin origin/main:refs/heads/phase-c`)
-   so the branches stay one history.
+   so the branches stay one history. It saves one pipeline, about eight
+   minutes, against a release through `phase-c`. First used 2026-10-05
+   (PR #263, one FAQ sentence, at the operator's "asap"): the branch
+   may be cut from any commit `main` already holds; the PR's own
+   pipeline must be green before the merge; a treatment edit still
+   needs Amy's OK and the operator's flip **in that PR**, or the
+   Production run's approval gate refuses the deploy; and the standing
+   previews are refreshed after the fast-forward as after any merge.
 
 Since 2026-10-05 GitHub deletes a merged PR's branch by itself
 ("Automatically delete head branches"; the merged PR keeps a "Restore
 branch" button). `main` and `phase-c` are protected against deletion,
-so a release does not delete `phase-c`. Branches and worktrees on the
-operator's machine are not touched by this and are kept.
+so a release does not delete `phase-c` (confirmed on the first release,
+PR #259, 2026-10-05). Branches and worktrees on the operator's machine
+are not touched by this and are kept.
 
 **After every merge into `phase-c`, refresh the standing previews.** Pushes to
 `phase-c` deploy nowhere (see "Where `phase-c` is visible"), and GitHub does not
@@ -948,6 +956,22 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
 
 ## Troubleshooting
 
+- **A run fails after about 15 minutes with "The job was not acquired
+  by Runner of type hosted even after multiple attempts":** GitHub had
+  no machine for the job. No step ran, so nothing was built, deployed
+  or removed. It is GitHub's fault, not the change's: check
+  githubstatus.com, then re-run the run (`gh run rerun <id>`). A
+  Production run that fails this way leaves the live site exactly as
+  it was; re-run it and wait for green before calling the release
+  live. A release PR's pipeline that fails this way is re-run and must
+  be green before the merge. The **preview clean-up job** can fail the
+  same way when a PR merges, and then the PR's preview stays up: after
+  a merge made during a GitHub fault, read the run list
+  (`gh run list --limit 10`) for a failed "PR preview" run on the
+  merged branch, re-run it, and read
+  `az staticwebapp environment list` to see the preview is gone. All
+  three happened on 2026-10-05, the first release after the relaunch
+  (DECISIONS same date, the shipped record of that release).
 - **A push to an open PR creates no workflow runs at all** (no queued
   run, not even the Relaunch guard — while other branches' pushes run
   fine): check `gh pr view <n> --json mergeable,mergeStateStatus`
@@ -989,6 +1013,18 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
   When a preview test fails on a missing element, check the host
   before reading the code. `C:\Amy\van-film\tests\probe.sh` and
   `edge-check.sh` (outside the repo) do both.
+  When the preview will not settle and the change cannot wait: on
+  2026-10-05 (PR #261, the booking links) a re-run finished green and
+  the new environment still answered the platform 404 on most requests
+  ten minutes later. The click test was run on a local copy of the
+  same commit instead (`npx astro preview --root <the PR's worktree>
+  --port <a free port>`, after a build there), the operator was told
+  plainly that the preview could not be shown, and the merge question
+  was asked on that evidence. Production and the refreshed standing
+  previews served the change on their first passes. For a change to
+  the booking links, `C:\Amy\launch\booking-check-dist.sh` checks a
+  build and `booking-sweep.sh` checks a deployed site (outside the
+  repo).
 - **pa11y contrast failure that appears/disappears with unrelated copy
   changes:** before 2026-08-17 the audit ran with animations live, so
   scroll-driven entrance blocks (`ng-rise`) froze at whatever partial

@@ -54,6 +54,11 @@ silently following it. Known superseded points from earlier briefs:
 - The neuromodulator product list is **resolved** (2026-07-19, from the
   live Vagaro menu, operator-confirmed): **Jeuveau, Xeomin, Daxxify** —
   the older Jeuveau/Daxxify-only brief is superseded.
+- Booking is on **Aesthetic Record**, not Vagaro (operator, 2026-10-05,
+  when Amy left Vagaro): every booking link opens
+  `siteConfig.booking.url` under constraint 2's tenth scoped exception,
+  and the site's visible text names no booking vendor outside /privacy
+  and /terms. The older briefs' Vagaro handoff is superseded.
 
 ## Hard constraints — never violate, never work around
 

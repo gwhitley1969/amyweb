@@ -15055,3 +15055,39 @@ After 137.4 s the new file is digital silence.
   finished.
 - **The scripts** are kept outside the repo, in
   `C:\Amy\van-film\tests\`.
+
+**Merged (2026-10-05), on the operator's word ("Yes, merge when checks
+pass").** PR #250 merged at 13:59 UTC as `7172a08`, at the head
+`9c9a5b9`. Both of that head's check runs had finished green, and
+nothing was still deploying. `phase-c` had not moved since the plan
+(`d72022d`).
+
+**After the merge (2026-10-05).**
+- **The pull request's environment** was removed when it closed, and
+  its host answers 404. The list holds default, 97, 149, 201, 210 and
+  249, so nothing is stray.
+- **The standing demo (#97) and the review preview (#149)** were
+  refreshed on the operator's word ("Refresh both and update"): #97 to
+  `a268f6c` and #149 to `bf89405`, by clean merges that carry exactly
+  this change (14 files). Both runs passed. Both previews served the
+  change on six clean rounds in a row and again on a later check of
+  six. On the demo the player's test passed in Chrome and in Firefox.
+- **The main checkout** was fast-forwarded to `7172a08` on the same
+  word.
+- **The operator, after the refresh:** "the music plays correctly on the
+  'Tox Together Party' section."
+- **The voice-only file** is no longer loaded by `phase-c` or by either
+  standing preview. The open previews of #210 and #249 still load it.
+  It stays on the media origin as the off-ramp.
+- **Still not checked:** an iPhone, a phone with captions switched on,
+  and Amy's own listen.
+- **One incident on the build machine, at the plan stage.** A helper in
+  a scratch command had been given the name of a shell command and ran
+  by mistake, with the supplied copy's path where ffmpeg takes its
+  output. ffmpeg stopped while reading its options and wrote nothing.
+  The copy's sha256 was read again and is unchanged
+  (`23a76a9c…602655`). `music.sh` runs ffmpeg so that it cannot
+  overwrite a file.
+- **The preview lesson** (three clean rounds are not proof) is in
+  RUNBOOK's troubleshooting entry on preview environments.
+- **The merge of these closing lines** is in `git log`, not here.

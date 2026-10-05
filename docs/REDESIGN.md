@@ -251,7 +251,30 @@ pink."** Seven gaps, each a test every design decision must move:
   DONE 2026-08-21 (operator direction): blob deleted, edge path purged,
   404 verified at the media origin; neighbours unaffected (DECISIONS
   same date).
-- Carried from launch: counsel review of legal pages, manual
+- **"Free consultation" and the booking page's deposit** (2026-10-05)
+  — the site's source says a consultation is free in about 23 places.
+  Amy's new booking page (Aesthetic Record) takes a $75.00 deposit to
+  book "Consultation (In Person)", and its "Peptide Consult" reads
+  "Free Consult, your Deposit goes towards your service." Raised with
+  the operator when booking moved; hers to settle, on her booking page
+  or in the site's wording (DECISIONS 2026-10-05, the booking entry).
+- **The booking menu and the site differ** (2026-10-05) — the site's
+  menu was aligned to Vagaro's on 2026-07-19, and the Aesthetic Record
+  menu is not the same. Its tox service lists Jeuveau and Daxxify and
+  not Xeomin (CLAUDE.md's product list, three products, changes only on
+  the operator's word). Its filler service lists a brand the site does
+  not carry. Its weight-loss services carry a price tier the site does
+  not, and none names retatrutide. It has no PRP or chemical-peel
+  service. An alignment pass is the operator's to ask for; treatment
+  copy is Amy's to approve. The booking page is screened again whenever
+  it changes (RUNBOOK, "Naming the practice in copy").
+- **Places outside the site that may still point at Vagaro**
+  (2026-10-05) — the Google Business Profile, the Instagram and
+  Facebook Book buttons, Yelp, and the practice site. Amy's to change;
+  nothing in this repository reaches them.
+- Carried from launch: counsel review of legal pages (/privacy and
+  /terms changed again on 2026-10-05: the booking vendor's name and a
+  per-page effective date, still without counsel), manual
   keyboard/screen-reader a11y pass (laser pricing landed 2026-08-21).
   (Plausible: decided and PREPPED 2026-08-17 — ships dark; the flip
   is a relaunch-day config edit, RUNBOOK "Turning on analytics".)

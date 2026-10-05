@@ -540,8 +540,26 @@ branch (RUNBOOK, the banner: "the operator flips its flag in the same
 PR"). An unapproved flag then never reaches `phase-c`, where it would
 hold every release. The fresh-branch form above stays the form for a
 round of many pages. First use: the wrinkle-relaxers booking answer,
-2026-10-05. On this machine the flip is run in PowerShell 7 with a
-byte-exact replace, so the file's other bytes do not move.*
+2026-10-05 (the operator's commit `81f0d41`, PR #263).*
+
+The one-page form, as run that day. It is PowerShell 7, it changes the
+one line and no other byte of the file, and it commits only that file,
+so anything else open in the folder stays out of the commit:
+
+```powershell
+$w = '<the worktree of the PR that edited the page>'; $f = "$w\src\content\treatments\<page>.mdx"; [IO.File]::WriteAllText($f, [IO.File]::ReadAllText($f).Replace('clinicianApproved: false', 'clinicianApproved: true')); git -C $w commit -m "content: clinician approval — <what Amy approved>" -m "Amy Palacios, FNP, <read or reviewed what, where, on what date> and approved <it>. Flag flipped by the operator per CLAUDE.md hard constraint 4." -- src/content/treatments/<page>.mdx
+```
+
+It should answer "1 file changed, 1 insertion(+), 1 deletion(-)". No
+push is needed; the assistant pushes the branch.
+
+**How the assistant hands this over** (learned 2026-10-05): as ONE
+line, filled in and tested on a copy first, alone at the top of its own
+message, with nothing else in that message but what the line does and
+what it should answer. That day it was first sent as three commands
+inside a long status message; the operator did not see them, and the
+last sentence that named Vagaro stayed live about an hour longer than
+it needed to (DECISIONS 2026-10-05, the shipped record).
 
 ## After the flips (assistant's checklist, for the record)
 

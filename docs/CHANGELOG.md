@@ -18,7 +18,7 @@ change lives in `docs/DECISIONS.md`; design specs live in
   stays on the media host as the way back.
 - Captions stay off by default and gain two short `[Music]` markers.
   The songs' words are not written out. The picture is unchanged.
-  DECISIONS 2026-10-04.
+  DECISIONS 2026-10-04; PR #250.
 
 ### 2026-10-02 — /services/peptide-therapy: a tenth card, KLOW; both blends read "$265 for six weeks"
 

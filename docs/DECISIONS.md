@@ -15018,3 +15018,40 @@ After 137.4 s the new file is digital silence.
 | Image | 218,625 B | 245,760 B |
 | Media | 0; no request for the film | |
 | Largest paint, median of 3 | 2,171 ms | 2,500 ms |
+
+**On the preview (PR #250).**
+- **The served film** (uploaded 2026-10-05 00:14 UTC, the evening of
+  2026-10-04 here): a range request answers 206 as `video/mp4` with a
+  total of 36,978,295, and the downloaded file's sha256 is the built
+  file's. The container was recounted: thirty-three objects.
+  `van-trip-sound.mp4` still serves.
+- **The preview environment was unsteady for about 45 minutes.** It
+  served the change on three clean rounds of probes at 6 to 8 minutes,
+  then answered the host's own 404 on most requests, in runs of one or
+  two clean rounds. A browser test in that window was served the 404
+  page. The standing demo (#97) answered 6 of 6 in the same minutes, so
+  the fault was this new environment's. The preview run was run again,
+  and about 19 minutes later the environment held: six clean rounds
+  (each fetching the home page plain and cache-busted), then 12 of 12
+  and 6 of 6 on later checks. The probe now asks for six rounds.
+- **The browser runs passed again against the preview itself,** in
+  Chrome (no user gesture) and Firefox 157: every step listed above,
+  with the film from the media origin. The carousel's own test passed
+  there too, in both browsers: unmuting this film turns the carousel's
+  sound off, and the carousel's Sound button mutes this film. No
+  console or CSP errors. The same runs passed on the branch's build
+  served locally with the film from the media origin.
+- **The operator's check** (AskUserQuestion, 2026-10-05), on a desktop:
+  - the two songs, the hand-over to Amy's voice and the levels:
+    "Sounds right";
+  - by ear, whether anything sung names a provider, a product or a
+    treatment result, or speaks as "we" for the practice: "Nothing like
+    that". That answer is the record for the songs' words.
+- **Not checked:** an iPhone ("No iPhone check", the operator's choice;
+  the player's code did not change), a phone with captions switched
+  on, and Amy's own listen.
+- **The merge word:** "Yes, merge when checks pass", for this pull
+  request once these lines are in the records and their run has
+  finished.
+- **The scripts** are kept outside the repo, in
+  `C:\Amy\van-film\tests\`.

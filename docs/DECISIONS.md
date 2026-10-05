@@ -15906,3 +15906,81 @@ through `phase-c`: slower, with nothing gained for a one-sentence fix.
 **Consequences.** The site no longer names Vagaro to a visitor
 anywhere. Source comments and these records still use the name where
 they tell the history.
+
+## 2026-10-05 — Shipped: booking is on Aesthetic Record, and the live site no longer names Vagaro (the record of the two changes)
+
+**What ran.**
+
+- PR #261 (`678921c`, into `phase-c`): the booking links, the two legal
+  pages and their records (`1045f4e`, `4577fd3`). `verify` exit 0
+  before the push; pipeline green (run 37375577983).
+  Its fresh preview had the fresh-environment fault in RUNBOOK's
+  troubleshooting list: three clean probe passes, then the platform's
+  404 on most requests, while the standing demo answered 6 of 6. A
+  re-run of the preview workflow finished green and ten minutes later
+  the environment was still flapping (40 probe passes, never more than
+  three clean in a row). The click test was therefore run on a local
+  copy of the same commit (`astro preview` on the worktree's build):
+  the header's Book, a "Book with Amy" button and a linked "book"
+  inside a sentence each opened the Aesthetic Record page. The operator
+  was told plainly that the preview could not be shown and was asked
+  how to ship; the answer was "Merge and release now". Merged with a
+  merge commit at 21:49:12 UTC. The merged tree's hash equalled the PR
+  head's.
+- Release PR #262 (`93190a5`, `phase-c` into `main`): only #261 rode
+  it. `check:approvals` passed on that tree, 12 files; pipeline green
+  (run 37378465569). Merged with a merge commit at 21:57:40 UTC, on the
+  same word.
+- Production run 37379337736, 21:57:43 to 22:10:47 UTC, every step
+  green.
+- The second change. The operator relayed Amy's OK of the sentence at
+  about 21:25 UTC. The flip is the operator's own commit `81f0d41`
+  (22:24 UTC, one line). PR #263 (`70b255e`, straight into `main`, the
+  urgent-fix route): the sentence and the flag reset (`e5cf6a4`), the
+  flip, and the records (`5cd3ef1`). `verify` exit 0, on a build
+  byte-identical to the one that passed pa11y and Lighthouse; pipeline
+  green (run 37382521632). Asked whether to merge as soon as the checks
+  were green, the operator answered "Yes, merge when green". Merged
+  with a merge commit pinned to the checked head at 22:33:37 UTC.
+- Production run 37383248006, 22:33:40 to 22:48:09 UTC, every step
+  green.
+
+**Checked on the live site.**
+
+- After the first release: six clean passes over the 21 routes and the
+  404 page, plain and cache-busted: 96 links to the new address, no
+  `vagaro.com`, the word "Vagaro" once (the FAQ answer). In a browser,
+  the three kinds of booking link each opened the Aesthetic Record
+  page. /privacy and /terms read as written and show "Effective October
+  5, 2026"; the medical disclaimer shows August 4, 2026.
+- After the second: six clean passes, 96 links, the word "Vagaro" zero
+  times in any spelling. The wrinkle-relaxers answer reads: Online with
+  the "Book with Amy" button, or by phone at 704-579-7108.
+- Not checked: a phone, and the booking flow past its provider step
+  (nothing was ever entered on the booking page).
+
+**Housekeeping.** After each merge into `main`, `phase-c` was
+fast-forwarded to it (`93190a5`, then `70b255e`). The standing demo
+(#97) was refreshed twice and merged clean both times. The page-numbers
+preview (#149) needed one hand merge the first time, in
+`LegalLayout.astro`, where its review tag and the new per-page date
+touched the same lines; both were kept. The environment list afterwards
+held default, 97, 149, 201, 210 and 249: no 261, 262 or 263.
+
+**What went wrong.** The flip commands were first given as three
+commands in the middle of a long status message, and the operator did
+not see them. The request for them came about 45 minutes later, after
+the first release was live: "I cannot have ANY part of this website in
+production saying Vagaro". One pasteable line, alone at the top of its
+own message, was run within minutes. Handed over that way the first
+time, the sentence might have gone out with the first release. The
+sign-off sheet's flip section now carries the one-line form and says
+how to hand it over.
+
+**Left open** (REDESIGN, "Open items", the three 2026-10-05 entries):
+the site's "free consultation" against the booking page's $75 deposit;
+the booking menu's differences from the site; the places outside the
+site that may still point at Vagaro. Search engines keep their stored
+copy of a page until they next read it. Another session's records PR
+(#260) conflicts with the record files these changes edited and needs
+a hand merge by its owner.

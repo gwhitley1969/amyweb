@@ -121,7 +121,14 @@ Ordinary work never goes straight into `main`.
 5. **If something has to go straight into `main`** (an urgent fix):
    branch from `main`, PR into `main`, and afterwards fast-forward
    `phase-c` to `main` (`git push origin origin/main:refs/heads/phase-c`)
-   so the branches stay one history.
+   so the branches stay one history. It saves one pipeline, about eight
+   minutes, against a release through `phase-c`. First used 2026-10-05
+   (PR #263, one FAQ sentence, at the operator's "asap"): the branch
+   may be cut from any commit `main` already holds; the PR's own
+   pipeline must be green before the merge; a treatment edit still
+   needs Amy's OK and the operator's flip **in that PR**, or the
+   Production run's approval gate refuses the deploy; and the standing
+   previews are refreshed after the fast-forward as after any merge.
 
 Since 2026-10-05 GitHub deletes a merged PR's branch by itself
 ("Automatically delete head branches"; the merged PR keeps a "Restore
@@ -989,6 +996,18 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
   When a preview test fails on a missing element, check the host
   before reading the code. `C:\Amy\van-film\tests\probe.sh` and
   `edge-check.sh` (outside the repo) do both.
+  When the preview will not settle and the change cannot wait: on
+  2026-10-05 (PR #261, the booking links) a re-run finished green and
+  the new environment still answered the platform 404 on most requests
+  ten minutes later. The click test was run on a local copy of the
+  same commit instead (`npx astro preview --root <the PR's worktree>
+  --port <a free port>`, after a build there), the operator was told
+  plainly that the preview could not be shown, and the merge question
+  was asked on that evidence. Production and the refreshed standing
+  previews served the change on their first passes. For a change to
+  the booking links, `C:\Amy\launch\booking-check-dist.sh` checks a
+  build and `booking-sweep.sh` checks a deployed site (outside the
+  repo).
 - **pa11y contrast failure that appears/disappears with unrelated copy
   changes:** before 2026-08-17 the audit ran with animations live, so
   scroll-driven entrance blocks (`ng-rise`) froze at whatever partial

@@ -1429,7 +1429,9 @@ operator may provision manually; if asked to write Bicep, produce:
       it is Amy's live booking page.)* *(Decided 2026-10-05: Amy left
       Vagaro; the booking handoff is the Aesthetic Record page of her
       practice, screened that day and checked in a browser — it too
-      403s non-browser clients. DECISIONS same date.)*
+      403s non-browser clients. DECISIONS same date. Live that day at
+      22:10 UTC; the last visible mention of Vagaro left the site at
+      22:48 UTC — the shipped record.)*
 - [x] Analytics events verified firing in the provider dashboard.
       *(AMENDED 2026-08-04 — resolved as none-at-launch; the line is
       satisfied by the recorded no-provider decision, DECISIONS same

@@ -1241,7 +1241,9 @@ action.
   is enabled, the privacy page swaps its analytics bullet in the same
   build, and `generate-swa-config.mjs` admits `plausible.io` in
   `connect-src` only when the built page actually shipped the script.
-  The flip is the operator's act at relaunch — procedure in
+  The flip is the operator's act. It was planned for relaunch and was
+  NOT made then: the 2026-10-05 relaunch went out with analytics off
+  (operator decision, DECISIONS same date) — procedure in
   docs/RUNBOOK.md "Turning on analytics". Abstraction stands:
   `src/lib/analytics.ts` (`track(event, props?)`) so the vendor can
   change without touching components; nothing calls `track()` yet
@@ -1437,7 +1439,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{BIOTE_PERMISSION}}` | Biote logo/co-marketing permission | RESOLVED 2026-10-02 (operator: Amy has Biote's OK to show its banner and logo; DECISIONS same date, the Biote film entry — also covers the 2026-08-18 /services card photo) |
 | `{{RETATRUTIDE_COUNSEL}}` | Attorney-approved investigational wording | Open decision |
 | `{{MEDIA_SCOPE}}` | How much photo/video goes on-site | RESOLVED 2026-08-04 — closed as the practice already in force: every photo/film ships on a per-item operator approval, recorded in DECISIONS (no blanket scope; C8 prerequisite (c) satisfied) |
-| `{{ANALYTICS_PROVIDER}}` | Plausible (default) or alternative | RESOLVED in two steps: NONE at launch (2026-08-04, operator-delegated); **Plausible chosen 2026-08-17** (operator, external-audit Finding 6) and fully prepped SHIPS-DARK — the relaunch-day flip is a two-value `siteConfig.analytics` edit (~$9/mo starts then; procedure RUNBOOK "Turning on analytics"; §11 has the design) |
+| `{{ANALYTICS_PROVIDER}}` | Plausible (default) or alternative | RESOLVED in two steps: NONE at launch (2026-08-04, operator-delegated); **Plausible chosen 2026-08-17** (operator, external-audit Finding 6) and fully prepped SHIPS-DARK — the flip is a two-value `siteConfig.analytics` edit (~$9/mo starts then; procedure RUNBOOK "Turning on analytics"; §11 has the design). **Not flipped at the 2026-10-05 relaunch**: the operator chose to launch without it (DECISIONS same date) |
 | `{{FRONT_DOOR_ID}}` | X-Azure-FDID GUID after FD provisioning | After infra |
 | `{{AZURE_REGION}}` | Deployment region | Operator to supply |
 | `{{WAF_DECISION}}` | Front Door WAF at launch: yes/no | Open decision |

@@ -300,6 +300,14 @@ there is no doctor on staff and the clause can read as one. Weight
 loss's "medically supervised program" wording was deliberately left for
 her and the operator to decide (DECISIONS 2026-09-19, the addendum).
 
+**Where "book" goes, decided 2026-10-05 — no wording on any treatment
+page changed.** Amy left Vagaro. Every Book button and every linked
+"book" now opens her practice's Aesthetic Record booking page. The
+links, their labels and their places are the same; only the address
+behind them moved (DECISIONS same date). One sentence that names Vagaro
+remains, in the wrinkle-relaxers answer to "How do I book?"; it is hers
+to read and follows in its own change.
+
 **Links added sitewide, 2026-09-27 — read this even though no wording
 changed.** Wherever a page's visible text says "Mobile Aesthetics", the
 name is now a link to her practice site, opening in a new tab. It is

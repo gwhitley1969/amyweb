@@ -190,6 +190,15 @@ are. The gate reads this repo's pages and never the practice site
 itself, so screen the destination again when its content is known to
 have changed.
 
+**The booking page is the same kind of destination.** Since the
+2026-10-05 decision every booking link opens the Aesthetic Record page
+in `siteConfig.booking.url`, under constraint 2's tenth scoped
+exception: its provider step offers three other people by name on six
+laser and device services. No gate reads that page. Screen it again
+when its content is known to have changed (new staff, new services),
+and take anything beyond that one address to the operator first. It
+answers 403 to `curl`, so look at it in a browser.
+
 **The place is "the medspa".** Since 2026-09-30, at Amy's direction,
 copy calls the place where she works the medspa: one word, never
 "studio" (DECISIONS same date). That covers page text, photo
@@ -624,8 +633,9 @@ intended for relaunch day; the 2026-10-05 relaunch went out with
 analytics off at the operator's decision (DECISIONS same date), so the
 baseline starts on whatever day the flip is made. When it is made, the
 privacy page's effective date has to change in the same PR (that page
-promises an updated date; the date is one line in `LegalLayout.astro`,
-shared by the three legal pages), and the Plausible account's hostname
+promises an updated date; since the 2026-10-05 booking change each
+legal page passes its own date to `LegalLayout.astro`, so it is one
+value in `privacy.astro`), and the Plausible account's hostname
 list should admit needlegirlie.com only, or the preview environments
 report into the site's numbers. The steps:
 

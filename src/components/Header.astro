@@ -20,9 +20,10 @@ import maMark from '../assets/brand/mobile-aesthetics-mark.svg';
  * The header/page edge is a hard cut: chrome, not a content boundary —
  * it never takes a chevron seam.
  */
-/* "Book" goes straight to Vagaro (conversion pattern; client 2026-07-18).
- * The /book routing page was retired 2026-07-21 (operator) — every
- * booking path is Vagaro-direct. */
+/* "Book" goes straight to the booking page (conversion pattern; client
+ * 2026-07-18 — Vagaro then, Aesthetic Record since the 2026-10-05
+ * decision). The /book routing page was retired 2026-07-21 (operator)
+ * — every booking path is direct. */
 const nav: { label: string; href: string }[] = [
   { label: 'Services', href: '/services' },
   /* "About Amy" (operator direction 2026-09-19; was "About"). */
@@ -44,7 +45,7 @@ const nav: { label: string; href: string }[] = [
  * page links at EVERY width — no inline desktop nav — and Book leaves
  * the menu to become the persistent CTA beside it. The primary
  * conversion action never hides behind a click. */
-const bookUrl = siteConfig.booking.vagaroUrl;
+const bookUrl = siteConfig.booking.url;
 
 /* Current-page marker (taste audit 2026-07-25): exact match -> "page";
  * a /services subpage marks Services as the current section ("true").

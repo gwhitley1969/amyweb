@@ -12,7 +12,7 @@ client** under a signed engagement. This is a **static Astro site** deployed
 to **Azure Static Web Apps (Standard)** behind **Azure Front Door (Standard)**
 in the client's Azure subscription (needlegirlie.onmicrosoft.com tenant).
 Goals: premium + glamorous brand presence, conversion to consultations and
-bookings (Vagaro handoff), local SEO, WCAG 2.2 AA, fast.
+bookings (online-booking handoff), local SEO, WCAG 2.2 AA, fast.
 
 ## How to operate
 
@@ -199,10 +199,26 @@ silently following it. Known superseded points from earlier briefs:
    that Amy plans every service, and say nothing of staff). Another
    placement, naming her, or staff wording anywhere else requires the
    human operator.*
-   *Outside these nine exceptions the other providers are still never
+   *Tenth scoped exception (operator decision after the compliance
+   flag — DECISIONS 2026-10-05): the booking destination. Since Amy
+   left Vagaro, the site's booking links (the header's Book, every
+   "Book with Amy" button, and the "book" links inside sentences) open
+   `siteConfig.booking.url`, the Aesthetic Record booking page of
+   Amy's own practice. Screened that day: 22 services, Amy offered on
+   every one; on the six laser and device services the provider step
+   also offers three other people by name, two of whom the 2026-08-15
+   screening recorded among the location's other providers. Fixed
+   terms: that one address, never a link to a single service or to the
+   provider step; the labels the booking links already carry; the
+   site's text never names the three and never says they can be
+   booked — copy, alt text, comments, meta, OG, JSON-LD. The page is
+   screened again when its content is known to have changed, and a
+   link that offers only Amy, if one is supplied, replaces this one.
+   Any other use requires the human operator.*
+   *Outside these ten exceptions the other providers are still never
    named or implied in any needlegirlie.com text, and adding any
-   further film or mention, or any link outside the seventh
-   exception's terms, requires the human operator.*
+   further film or mention, or any link outside the seventh and tenth
+   exceptions' terms, requires the human operator.*
 
 3. **Medical-marketing claim discipline.** A licensed clinician is advertising
    medical treatments. The full rulebook is BUILD_SPEC §8. Core rules:

@@ -27,6 +27,28 @@ change lives in `docs/DECISIONS.md`; design specs live in
   same day, and `phase-c` was levelled with `main`. From here every
   merge to `main` ships. DECISIONS 2026-10-05.
 
+## After the relaunch (`phase-c`, then released into `main`)
+
+### 2026-10-05 — The home page's search title says "Mobile Aesthetics"
+
+- In a search result the home page is now named "Needle Girlie | Mobile
+  Aesthetics in Harrisburg & Charlotte, NC". It said "Medical
+  Aesthetics" where it now carries the practice's own name, the
+  operator's direction on Amy's behalf.
+- Nothing on the page changed. "Medical aesthetics" is still in the
+  page's description and its main heading.
+- A search engine shows the new title after it next reads the site;
+  until then it may still show the old Under Construction page.
+  DECISIONS 2026-10-05, the home-title entry.
+
+### 2026-10-05 — How work reaches the live site from here
+
+- Changes go into `phase-c` first, with a preview to look over, and a
+  separate release carries `phase-c` into `main`, which is the live
+  site: the operator's decision after the relaunch. On GitHub a merged
+  branch now deletes itself, and rebase merging is switched off.
+  DECISIONS 2026-10-05, the branch-model entry.
+
 ## Post-launch revision round (`phase-c`)
 
 ### 2026-10-05 — Amy's sign-off is logged and the round is closed; the relaunch follows

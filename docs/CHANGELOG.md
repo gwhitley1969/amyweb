@@ -40,6 +40,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - A search engine shows the new title after it next reads the site;
   until then it may still show the old Under Construction page.
   DECISIONS 2026-10-05, the home-title entry.
+- Released to the live site the same day, at about 20:54 UTC: release
+  PR #259 and Production run 37370127874. It was the first release made
+  the two-stage way. A fault at GitHub delayed it by about half an hour
+  and never touched the live site. DECISIONS 2026-10-05, the shipped
+  record of that release.
 
 ### 2026-10-05 — How work reaches the live site from here
 

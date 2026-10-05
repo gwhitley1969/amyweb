@@ -126,8 +126,9 @@ Ordinary work never goes straight into `main`.
 Since 2026-10-05 GitHub deletes a merged PR's branch by itself
 ("Automatically delete head branches"; the merged PR keeps a "Restore
 branch" button). `main` and `phase-c` are protected against deletion,
-so a release does not delete `phase-c`. Branches and worktrees on the
-operator's machine are not touched by this and are kept.
+so a release does not delete `phase-c` (confirmed on the first release,
+PR #259, 2026-10-05). Branches and worktrees on the operator's machine
+are not touched by this and are kept.
 
 **After every merge into `phase-c`, refresh the standing previews.** Pushes to
 `phase-c` deploy nowhere (see "Where `phase-c` is visible"), and GitHub does not
@@ -938,6 +939,22 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
 
 ## Troubleshooting
 
+- **A run fails after about 15 minutes with "The job was not acquired
+  by Runner of type hosted even after multiple attempts":** GitHub had
+  no machine for the job. No step ran, so nothing was built, deployed
+  or removed. It is GitHub's fault, not the change's: check
+  githubstatus.com, then re-run the run (`gh run rerun <id>`). A
+  Production run that fails this way leaves the live site exactly as
+  it was; re-run it and wait for green before calling the release
+  live. A release PR's pipeline that fails this way is re-run and must
+  be green before the merge. The **preview clean-up job** can fail the
+  same way when a PR merges, and then the PR's preview stays up: after
+  a merge made during a GitHub fault, read the run list
+  (`gh run list --limit 10`) for a failed "PR preview" run on the
+  merged branch, re-run it, and read
+  `az staticwebapp environment list` to see the preview is gone. All
+  three happened on 2026-10-05, the first release after the relaunch
+  (DECISIONS same date, the shipped record of that release).
 - **A push to an open PR creates no workflow runs at all** (no queued
   run, not even the Relaunch guard — while other branches' pushes run
   fine): check `gh pr view <n> --json mergeable,mergeStateStatus`

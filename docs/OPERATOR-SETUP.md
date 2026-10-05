@@ -36,6 +36,16 @@ One-time configuration the pipeline expects. Names must match exactly.
 
 ## GitHub branch protection (added 2026-08-17 — takedown-era guard)
 
+**Since 2026-10-05 neither branch has a required status check.** The
+relaunch merged that day and the guard retired right after it: the
+operator removed the required checks from both branches himself
+(`gh api -X DELETE …/protection/required_status_checks`), then the
+workflow was deleted and `phase-c` was fast-forwarded to `main`
+(DECISIONS 2026-10-05). The rest of each protection is unchanged: no
+force pushes and no deletions on `main` or `phase-c`. The rule about
+`verify-and-deploy` below still holds if a required check is ever
+added again. The paragraph that follows is the takedown-era record.
+
 Both branches carry required status checks (the repo's first branch
 protection), created via `gh api` after PR #114: `phase-c` requires
 `takedown-revert-guard`; `main` requires `gutted-merge-guard`. They

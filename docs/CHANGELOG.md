@@ -4,6 +4,29 @@ Human-readable record of what shipped, newest first. The *why* behind each
 change lives in `docs/DECISIONS.md`; design specs live in
 `docs/superpowers/specs/`. Commit hashes are the audit trail.
 
+## Relaunch (`main`)
+
+### 2026-10-05 — needlegirlie.com is live again
+
+- The site that took the place of the Under Construction page is the
+  redesign round's: the new home page with its films, the twelve
+  treatment pages Amy approved that day, /about, /services, /visit,
+  /injector-training, /tox-together and the legal pages.
+- It went live at 18:36 UTC through the two-step relaunch PR #255,
+  merged on the operator's word, and Production run 37356241933. The
+  tree that shipped is byte-identical to the one Amy's approval and the
+  gates covered.
+- Checked on the live site before it was called live: six clean probe
+  passes over all 21 pages; all 17 film files; the home film, the
+  carousel and the ten treatment-page players playing muted, the laser
+  film with its captions; no console errors; the home page no longer
+  drags sideways on phones; the redirects and the origin lock; and
+  Lighthouse at 1.00 in all four categories on the home page.
+- The site launched without visitor counting, the operator's decision.
+- The relaunch guard, whose job ended with this release, retired the
+  same day, and `phase-c` was levelled with `main`. From here every
+  merge to `main` ships. DECISIONS 2026-10-05.
+
 ## Post-launch revision round (`phase-c`)
 
 ### 2026-10-05 — Amy's sign-off is logged and the round is closed; the relaunch follows

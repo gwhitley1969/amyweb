@@ -15491,3 +15491,128 @@ placeholder release (`gh run rerun 36325267925 --job 108636946730`,
 valid until 2026-10-27); the durable route is RUNBOOK's revert. The
 shipped record, with run numbers and probe results, follows the
 relaunch.
+
+## 2026-10-05 — Shipped: needlegirlie.com is live again (the relaunch record)
+
+**What ran.**
+- PR #253 (`dc0496c`, into `phase-c`): the phone sideways-scroll fix, the
+  search text, the analytics comment and their records. Pipeline green.
+  Its fresh preview answered 404 in bursts (two clean probe passes, then
+  20 of 20 requests refused), the fault in RUNBOOK's troubleshooting
+  list; the operator chose to merge on the assistant's measurement and
+  to do his own phone check on the relaunch PR's preview.
+- PR #254 (`4e2527d`, into `phase-c`): the operator's approval flip
+  `0363603`, alone as the first commit of a fresh branch, and the
+  sign-off and go-live records. Pipeline green.
+- PR #255 (`fdf19db`, into `main`): the two-step, built by
+  `C:\Amy\launch\relaunch-branch.sh` in its own worktree. The revert of
+  `e57a4448` conflicted in `BaseLayout.astro` and `index.astro` and
+  nowhere else; the merge of `phase-c` conflicted in `SeoHead.astro`
+  and nowhere else; each resolved file was checked equal to the
+  expected blob. After the placeholder's photo was deleted the branch's
+  tree hash was `f3149e0c817aaf07d26e0c93fd44bd80ac11af02`, identical
+  to `phase-c`'s, and checked a second time from the main repo before
+  the push. `gutted-merge-guard`: green, "Tree complete: every phase-c
+  file survives this merge" (run 37350639328). The PR pipeline: green.
+  Its preview had the same fresh-environment fault for 27 minutes (9
+  clean passes in 34, never more than two in a row; every failure was
+  the platform's own 404 page, never wrong content). A re-run of the
+  preview workflow cleared it: six clean passes in a row, and 0 px of
+  sideways overflow at four widths. The standing demo (#97) was
+  refreshed with the day's `phase-c` at the same time, as the fallback,
+  and also converged.
+- Asked "merge PR #255 and take needlegirlie.com live?", the option
+  reading "You checked the preview on your phone and the page no longer
+  drags sideways", the operator answered: "Yes, merge and go live".
+  Merged with a merge commit at 18:28:25 UTC. `main`'s tree was then
+  `f3149e0`, and `phase-c` an ancestor of `main`.
+- Production run 37356241933, 18:28:44 to 18:43:40 UTC, every step
+  green: the gates 5 min 48 s, `check:approvals` on twelve files, the
+  production build, the Static Web Apps deploy 40 s (the site changed
+  at 18:36:30 UTC), the Front Door purge 6 min 43 s.
+
+**What was checked on production before it was called live.**
+- `launch-probe.sh https://needlegirlie.com production off 6`: six
+  clean passes in a row, no failure line in the whole run. Each pass
+  fetched the 21 routes plain and cache-busted and checked status, the
+  canonical, no "under construction", no `noindex`, the home search
+  title and share title, no analytics tag, ten autoplay players on
+  eight pages, the hero's file and settings, the band film and its
+  link, five carousel sound films with captions at `?v=4`, the share
+  card, the branded 404 on `/mobile`, `/tox-to-go`, `/styleguide` and a
+  random path, nine scripts, the favicons, three share cards, robots,
+  the 21-URL sitemap, and the CSP and HSTS headers. Once per run: 17
+  film objects `206 video/mp4`, one video and one audio stream in each
+  carousel film, www and needlegirl.com to the apex (301), http to
+  https (307), and the Static Web App's own hostname refused (403).
+- The carousel probe (three passes) and the van-film browser test: no
+  errors.
+- In headless Chrome on the live site: the home film attached and
+  playing; the carousel's first film playing muted, the Sound and CC
+  buttons present; all ten treatment-page players playing muted when
+  scrolled into view, each with its caption track, the laser film's
+  showing by default; no console error and no failed or refused
+  request on nine pages.
+- Sideways overflow of the home page: 0 px at 320, 390, 430 and 768.
+- Lighthouse, live, mobile: home 1.00 / 1.00 / 1.00 / 1.00 (LCP
+  1732 ms, CLS 0); /services/wrinkle-relaxers 0.99 / 1.00 / 1.00 / 1.00
+  (LCP 1224 ms); both crawlable.
+
+**Standing PR #95.** GitHub marked it merged at 18:28:27 UTC, two
+seconds after the relaunch merge, because its commits were then in
+`main`. Nothing was deployed by it.
+
+**The operator's own checks.** After the deploy: "I tested
+needlegirlie.com and it is working correctly". Still his, and listed
+for him: an iPhone on cellular data (the carousel's sound carrying from
+film to film, its captions, the laser film's captions), the two
+share-cache refreshes that need his logins, and telling Amy.
+
+**Left over.** The preview environment of PR #210 was not torn down
+when that PR was closed as superseded: a conflicted PR runs no
+workflows, its teardown included. It is reported to the operator, who
+deletes it or not. Search Console and the Business Profile question
+(the search-text entry) are the operator's next steps.
+
+## 2026-10-05 — The relaunch guard retires (follow-up to the relaunch; RELAUNCH step 4)
+
+**Context.** `.github/workflows/relaunch-guard.yml` (2026-08-17) guarded
+the takedown-era topology with two required status checks:
+`takedown-revert-guard` on `phase-c` and `gutted-merge-guard` on `main`.
+RELAUNCH step 4 kept it in the relaunch PR, where `gutted-merge-guard`
+proved the release tree complete, and required its retirement in a
+follow-up: once the two-step has merged, the takedown revert is a
+harmless ancestor of `main`, and the first job would fail every PR into
+`phase-c` from the moment `phase-c` is brought level with `main`.
+
+**Decision.** In this order:
+1. The operator removes the required status checks from both branches'
+   protection himself (`gh api -X DELETE
+   …/branches/<branch>/protection/required_status_checks`), because
+   branch protection is a security setting. The PR that carries this
+   entry cannot merge until he has: it deletes the workflow, so the
+   check `main` requires could never report on it. The rest of each
+   protection stays: no force pushes, no deletions.
+2. That PR deletes the workflow from `main`.
+3. `phase-c` is fast-forwarded to `main`, so the two branches are
+   identical and neither carries the workflow.
+
+**Alternatives rejected.** Deleting it in the relaunch PR: that PR would
+have failed its own required check twice over (RELAUNCH step 4).
+Leaving it in place: it would block every PR into `phase-c` after the
+branches are levelled. Deleting the whole branch protection: it would
+have put GitHub's "Delete branch" button on `phase-c`, which other open
+PRs are based on. Merging past the required check with an
+administrator's override: possible, and not how this repo changes a
+gate.
+
+**Consequences.** No required status check remains on either branch.
+Nothing now stops a plain merge between the branches, and nothing needs
+to: they share one history again. RUNBOOK's first screen says the site
+is live, and its takedown-era sections are marked as history; RELAUNCH
+is marked executed; BUILD_SPEC §14 and §16, OPERATOR-SETUP, PHASE-C and
+REDESIGN say the same. If a takedown is ever needed again, RUNBOOK's
+"Rollback" section and this guard's history are the reference. Whether
+work continues through `phase-c` or goes straight into `main` is the
+operator's decision and is not made here: every merge to `main` now
+ships either way.

@@ -4,7 +4,28 @@ Everything needed to run, change, and fix the site. Written for the operator;
 assumes `az` and `gh` CLIs authenticated against the client tenant
 (`needlegirlie.onmicrosoft.com`) and the GitHub repo (`gwhitley1969/amyweb`).
 
-> **STATUS 2026-08-05: production is OFFLINE — serving the Under
+> **STATUS 2026-10-05: production is LIVE.** needlegirlie.com serves
+> the site again, relaunched that day by the two-step PR #255 (merge
+> commit `fdf19db`, Production run 37356241933; DECISIONS 2026-10-05,
+> the relaunch entry and its shipped record). **Every merge to `main`
+> ships**, and an unapproved treatment edit blocks every deploy until
+> the operator flips its flag in the same PR. The takedown era
+> (2026-08-05 to 2026-10-05) is over. Its rules (never merge `main`
+> into `phase-c`, never close PR #95, the two-step relaunch, the
+> relaunch guard) are history: the guard workflow and its two required
+> checks retired the same day, and `phase-c` was fast-forwarded to
+> `main`, so the two branches share one history again. The sections
+> below that describe the takedown ("Hotfixing production during the
+> takedown era", "Where `phase-c` is visible", "Relaunching after the
+> takedown") are kept as the record of how the repo got here; where
+> they give instructions, read them as past tense. Emergency return to
+> the placeholder, on the operator's word only and valid until
+> 2026-10-27: `gh run rerun 36325267925 --job 108636946730` (the deploy
+> job of the last placeholder release); the durable route is
+> "Rollback" below.
+
+> **HISTORY — the status from 2026-08-05 to 2026-10-05: production was
+> OFFLINE — serving the Under
 > Construction placeholder** (since the same evening with Amy's studio
 > photo in the window — the caricature is retired at her word, PR #99).
 > The launch merge was reverted at operator

@@ -1330,9 +1330,9 @@ secrets in the repo, ever. `{{FRONT_DOOR_ID}}` (the FDID GUID) is a repo
 variable injected into the production SWA config at build.
 
 **Relaunch guard (takedown-era, 2026-08-17 — external-audit Finding
-1; RETIRES in a follow-up PR right after the relaunch, never in the
-relaunch PR itself — docs/RELAUNCH.md step 4; corrected here
-2026-10-05):** `relaunch-guard.yml` runs two jobs
+1; RETIRED 2026-10-05 in the follow-up PR right after the relaunch,
+with its two required checks — DECISIONS same date; what follows
+describes it as it was):** `relaunch-guard.yml` ran two jobs
 with NO paths filter, both **required status checks** (the repo's
 first branch protection): `takedown-revert-guard` (PRs into `phase-c`
 + pushes to it — fails if the takedown revert is reachable) and
@@ -1368,6 +1368,16 @@ operator may provision manually; if asked to write Bicep, produce:
   Phase 3 (Container Apps, Postgres, OpenAI) — not now.
 
 ## 16. Definition of done (launch checklist)
+
+> **RELAUNCHED 2026-10-05** — operator sign-off commit `0363603` (PR
+> #254) → the two-step relaunch PR #255 (`fdf19db`) → Production run
+> 37356241933 green (gates + approvals + locked build + deploy +
+> purge). Verified live the same hour: six clean probe passes over all
+> 21 pages, the films, the redirects and the origin lock, a live
+> Lighthouse spot-run (home 1.00 in all four categories, LCP 1732 ms).
+> The analytics line below stands as it did on 2026-08-04: the operator
+> launched with analytics off. The one open box is unchanged. DECISIONS
+> 2026-10-05.
 
 > **LAUNCHED 2026-08-05** — operator sign-off commit ad8fbde (PR #93)
 > → launch merge PR #5 (`aae51ba`) → Production run 30981190812 green

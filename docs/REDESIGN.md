@@ -8,6 +8,12 @@
 > docs/DECISIONS.md (2026-08-14 entries onward). Production remains on
 > the Under Construction placeholder throughout (takedown 2026-08-05;
 > relaunch is two-step — docs/RUNBOOK.md).
+>
+> **The round closed and the site relaunched on 2026-10-05** (the
+> "Round close" section below; DECISIONS same date, the relaunch entry
+> and its shipped record). Production no longer serves the
+> placeholder. What this file lists as open is carried into the next
+> round as change-order or retainer scope.
 
 ## The yardstick (operator-confirmed diagnosis, 2026-08-14)
 

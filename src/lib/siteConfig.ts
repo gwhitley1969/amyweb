@@ -75,9 +75,12 @@ export const siteConfig = {
     // swaps its analytics section, and the generated CSP admits
     // plausible.io — all in the same build, nothing else to edit.
     // Procedure (account creation first, ~$9/mo): docs/RUNBOOK.md
-    // "Turning on analytics". The flip is the OPERATOR'S act, at
-    // relaunch. (The wide types keep the dark-state literals from
-    // making the flip a type error.)
+    // "Turning on analytics". The flip is the OPERATOR'S act. It was
+    // planned for relaunch and did NOT happen then: the 2026-10-05
+    // relaunch went out with analytics off (operator decision,
+    // DECISIONS same date). It stays this two-value edit, on the
+    // operator's word. (The wide types keep the dark-state literals
+    // from making the flip a type error.)
     enabled: false as boolean,
     provider: 'none' as 'none' | 'plausible',
   },

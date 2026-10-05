@@ -34,7 +34,31 @@ One-time configuration the pipeline expects. Names must match exactly.
   was removed.
 - The deployment token above is the only coupling between GitHub and SWA.
 
+## GitHub repository settings (pull requests; read back 2026-10-05)
+
+Set by the operator in the repository's Settings page on the day of the
+relaunch, and read back with
+`gh api repos/gwhitley1969/amyweb --jq '{delete_branch_on_merge,allow_merge_commit,allow_squash_merge,allow_rebase_merge,allow_auto_merge}'`:
+
+| Setting | Value | Why |
+|---|---|---|
+| Automatically delete head branches | on | A merged PR's branch leaves GitHub by itself; the PR keeps a "Restore branch" button. Protected branches (`main`, `phase-c`) are not deleted |
+| Allow merge commits | on | The only method this repo uses |
+| Allow rebase merging | off | A rebased release would leave `phase-c` out of `main`'s history |
+| Allow squash merging | on | Left on by the operator; never used for a release, for the same reason |
+| Allow auto-merge | off | `gh pr merge --auto` merges at once here; never use it |
+
 ## GitHub branch protection (added 2026-08-17 — takedown-era guard)
+
+**Since 2026-10-05 neither branch has a required status check.** The
+relaunch merged that day and the guard retired right after it: the
+operator removed the required checks from both branches himself
+(`gh api -X DELETE …/protection/required_status_checks`), then the
+workflow was deleted and `phase-c` was fast-forwarded to `main`
+(DECISIONS 2026-10-05). The rest of each protection is unchanged: no
+force pushes and no deletions on `main` or `phase-c`. The rule about
+`verify-and-deploy` below still holds if a required check is ever
+added again. The paragraph that follows is the takedown-era record.
 
 Both branches carry required status checks (the repo's first branch
 protection), created via `gh api` after PR #114: `phase-c` requires

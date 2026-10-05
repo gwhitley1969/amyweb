@@ -15491,3 +15491,366 @@ placeholder release (`gh run rerun 36325267925 --job 108636946730`,
 valid until 2026-10-27); the durable route is RUNBOOK's revert. The
 shipped record, with run numbers and probe results, follows the
 relaunch.
+
+## 2026-10-05 — Shipped: needlegirlie.com is live again (the relaunch record)
+
+**What ran.**
+- PR #253 (`dc0496c`, into `phase-c`): the phone sideways-scroll fix, the
+  search text, the analytics comment and their records. Pipeline green.
+  Its fresh preview answered 404 in bursts (two clean probe passes, then
+  20 of 20 requests refused), the fault in RUNBOOK's troubleshooting
+  list; the operator chose to merge on the assistant's measurement and
+  to do his own phone check on the relaunch PR's preview.
+- PR #254 (`4e2527d`, into `phase-c`): the operator's approval flip
+  `0363603`, alone as the first commit of a fresh branch, and the
+  sign-off and go-live records. Pipeline green.
+- PR #255 (`fdf19db`, into `main`): the two-step, built by
+  `C:\Amy\launch\relaunch-branch.sh` in its own worktree. The revert of
+  `e57a4448` conflicted in `BaseLayout.astro` and `index.astro` and
+  nowhere else; the merge of `phase-c` conflicted in `SeoHead.astro`
+  and nowhere else; each resolved file was checked equal to the
+  expected blob. After the placeholder's photo was deleted the branch's
+  tree hash was `f3149e0c817aaf07d26e0c93fd44bd80ac11af02`, identical
+  to `phase-c`'s, and checked a second time from the main repo before
+  the push. `gutted-merge-guard`: green, "Tree complete: every phase-c
+  file survives this merge" (run 37350639328). The PR pipeline: green.
+  Its preview had the same fresh-environment fault for 27 minutes (9
+  clean passes in 34, never more than two in a row; every failure was
+  the platform's own 404 page, never wrong content). A re-run of the
+  preview workflow cleared it: six clean passes in a row, and 0 px of
+  sideways overflow at four widths. The standing demo (#97) was
+  refreshed with the day's `phase-c` at the same time, as the fallback,
+  and also converged.
+- Asked "merge PR #255 and take needlegirlie.com live?", the option
+  reading "You checked the preview on your phone and the page no longer
+  drags sideways", the operator answered: "Yes, merge and go live".
+  Merged with a merge commit at 18:28:25 UTC. `main`'s tree was then
+  `f3149e0`, and `phase-c` an ancestor of `main`.
+- Production run 37356241933, 18:28:44 to 18:43:40 UTC, every step
+  green: the gates 5 min 48 s, `check:approvals` on twelve files, the
+  production build, the Static Web Apps deploy 40 s (the site changed
+  at 18:36:30 UTC), the Front Door purge 6 min 43 s.
+
+**What was checked on production before it was called live.**
+- `launch-probe.sh https://needlegirlie.com production off 6`: six
+  clean passes in a row, no failure line in the whole run. Each pass
+  fetched the 21 routes plain and cache-busted and checked status, the
+  canonical, no "under construction", no `noindex`, the home search
+  title and share title, no analytics tag, ten autoplay players on
+  eight pages, the hero's file and settings, the band film and its
+  link, five carousel sound films with captions at `?v=4`, the share
+  card, the branded 404 on `/mobile`, `/tox-to-go`, `/styleguide` and a
+  random path, nine scripts, the favicons, three share cards, robots,
+  the 21-URL sitemap, and the CSP and HSTS headers. Once per run: 17
+  film objects `206 video/mp4`, one video and one audio stream in each
+  carousel film, www and needlegirl.com to the apex (301), http to
+  https (307), and the Static Web App's own hostname refused (403).
+- The carousel probe (three passes) and the van-film browser test: no
+  errors.
+- In headless Chrome on the live site: the home film attached and
+  playing; the carousel's first film playing muted, the Sound and CC
+  buttons present; all ten treatment-page players playing muted when
+  scrolled into view, each with its caption track, the laser film's
+  showing by default; no console error and no failed or refused
+  request on nine pages.
+- Sideways overflow of the home page: 0 px at 320, 390, 430 and 768.
+- Lighthouse, live, mobile: home 1.00 / 1.00 / 1.00 / 1.00 (LCP
+  1732 ms, CLS 0); /services/wrinkle-relaxers 0.99 / 1.00 / 1.00 / 1.00
+  (LCP 1224 ms); both crawlable.
+
+**Standing PR #95.** GitHub marked it merged at 18:28:27 UTC, two
+seconds after the relaunch merge, because its commits were then in
+`main`. Nothing was deployed by it.
+
+**The operator's own checks.** After the deploy: "I tested
+needlegirlie.com and it is working correctly". Still his, and listed
+for him: an iPhone on cellular data (the carousel's sound carrying from
+film to film, its captions, the laser film's captions), the two
+share-cache refreshes that need his logins, and telling Amy.
+
+**Left over.** The preview environment of PR #210 was not torn down
+when that PR was closed as superseded: a conflicted PR runs no
+workflows, its teardown included. It is reported to the operator, who
+deletes it or not. Search Console and the Business Profile question
+(the search-text entry) are the operator's next steps.
+
+## 2026-10-05 — The relaunch guard retires (follow-up to the relaunch; RELAUNCH step 4)
+
+**Context.** `.github/workflows/relaunch-guard.yml` (2026-08-17) guarded
+the takedown-era topology with two required status checks:
+`takedown-revert-guard` on `phase-c` and `gutted-merge-guard` on `main`.
+RELAUNCH step 4 kept it in the relaunch PR, where `gutted-merge-guard`
+proved the release tree complete, and required its retirement in a
+follow-up: once the two-step has merged, the takedown revert is a
+harmless ancestor of `main`, and the first job would fail every PR into
+`phase-c` from the moment `phase-c` is brought level with `main`.
+
+**Decision.** In this order:
+1. The operator removes the required status checks from both branches'
+   protection himself (`gh api -X DELETE
+   …/branches/<branch>/protection/required_status_checks`), because
+   branch protection is a security setting. The PR that carries this
+   entry cannot merge until he has: it deletes the workflow, so the
+   check `main` requires could never report on it. The rest of each
+   protection stays: no force pushes, no deletions.
+2. That PR deletes the workflow from `main`.
+3. `phase-c` is fast-forwarded to `main`, so the two branches are
+   identical and neither carries the workflow.
+
+**Alternatives rejected.** Deleting it in the relaunch PR: that PR would
+have failed its own required check twice over (RELAUNCH step 4).
+Leaving it in place: it would block every PR into `phase-c` after the
+branches are levelled. Deleting the whole branch protection: it would
+have put GitHub's "Delete branch" button on `phase-c`, which other open
+PRs are based on. Merging past the required check with an
+administrator's override: possible, and not how this repo changes a
+gate.
+
+**Consequences.** No required status check remains on either branch.
+Nothing now stops a plain merge between the branches, and nothing needs
+to: they share one history again. RUNBOOK's first screen says the site
+is live, and its takedown-era sections are marked as history; RELAUNCH
+is marked executed; BUILD_SPEC §14 and §16, OPERATOR-SETUP, PHASE-C and
+REDESIGN say the same. If a takedown is ever needed again, RUNBOOK's
+"Rollback" section and this guard's history are the reference. Whether
+work continues through `phase-c` or goes straight into `main` is the
+operator's decision and is not made here: every merge to `main` now
+ships either way.
+
+## 2026-10-05 — After the relaunch: work keeps going through `phase-c`, and releases go from `phase-c` into `main` (operator decision); merged branches delete themselves on GitHub; rebase merging is off
+
+**Context.** With the relaunch merged and the guard retired, `main` and
+`phase-c` were levelled the same day (both at `aa20944`), so either way
+of working was open: keep the two stages the repo has used since July,
+or send each change straight into `main`, where every merge now ships.
+The guard's retirement entry left the choice to the operator. Asked,
+with both options laid out, he answered: "I really like the fact that we
+have phase-c and can create previews to look over, vs. going direct to
+main. I think it's a better systems approach."
+
+**Decision.**
+1. **Two stages.** Ordinary work branches from `phase-c` and merges into
+   `phase-c` through a PR, which builds a preview. A release is a
+   separate PR from `phase-c` into `main`, merged with a merge commit on
+   the operator's word. An urgent fix may go straight into `main`;
+   `phase-c` is then fast-forwarded to `main`. RUNBOOK "Everyday
+   changes" has the steps.
+2. **Merged branches leave GitHub by themselves.** The operator switched
+   on "Automatically delete head branches" in the repository settings.
+   A merged PR keeps a "Restore branch" button. GitHub's documentation
+   says branch protection can prevent automatic deletion, and both
+   `main` and `phase-c` have deletion blocked, so a release does not
+   delete `phase-c`; to be confirmed on the first release. Branches and
+   worktrees on the operator's machine are untouched and stay, as he
+   asked on 2026-09-25.
+3. **Rebase merging is off** (the operator, the same sitting). Squash
+   merging is left on and is never used for a release.
+
+**Alternatives rejected.** Straight into `main`: one step fewer, but
+each change would need Amy's review on its own preview and the
+operator's approval flip inside that same PR before it could merge, and
+changes could not be gathered for her to see together. Deleting merged
+branches by hand, or not at all: clutter with no gain; the setting does
+it and loses nothing. Switching squash off as well: offered, left to the
+operator.
+
+**Consequences.** `main` is always the tree that is live and is only
+ever changed by a release or an urgent fix. Treatment-page edits can
+sit unapproved on `phase-c` while Amy reviews them; the approval gate
+bites at the release, so the operator's flip has to be on `phase-c`
+before the release PR merges. The standing demo (PR #97) stays the
+stable place to look at `phase-c`. A successor to the old standing PR
+#95 is not kept open: a release PR is opened when there is something to
+release. This entry itself is the first change made this way: it merged
+into `phase-c` and reaches `main` with the next release.
+
+**Settings read back** (`gh api repos/gwhitley1969/amyweb`):
+`delete_branch_on_merge: true`, `allow_merge_commit: true`,
+`allow_squash_merge: true`, `allow_rebase_merge: false`,
+`allow_auto_merge: false`. Branch protection on `main` and `phase-c`:
+no required status checks, force pushes blocked, deletions blocked.
+
+## 2026-10-05 — Home: the search title names the practice ("Needle Girlie | Mobile Aesthetics in Harrisburg & Charlotte, NC"; operator direction after the relaunch)
+
+**Context.** An hour after the relaunch the operator searched for the
+site and sent the result: Google's stored copy of the Under Construction
+page, titled "Needle Girlie | Medical Aesthetics in Harrisburg, NC". He
+asked whether the title could say "Mobile Aesthetics", which Amy would
+want, or whether it would change by itself as the new site is read.
+
+It would not. Google shows a page's title tag, and the home page's said
+"Medical Aesthetics" on purpose. On 2026-09-26, offered both, the
+operator chose "only the share title" over changing the page title too,
+"so search keeps its wording": the share title has read "Mobile
+Aesthetics Harrisburg, NC" since then, and the title tag kept the brand
+and the service phrase (it gained "& Charlotte" in this morning's
+search-text edits). What changes by itself on Google's next visit is the
+stored page: today's title and description replace the placeholder's.
+
+**Decision.** The operator, given three wordings and the trade-off:
+"Let's go with option A". The home page's title tag reads **"Needle
+Girlie | Mobile Aesthetics in Harrisburg & Charlotte, NC"** (63
+characters). One line in `ConceptHome.astro`; the share title, the
+description and the H1 are unchanged. This reverses the 2026-09-26
+choice for the title tag.
+
+**The trade-off, as put to him.** For: it is the name Amy's clients know
+the practice by, and it matches her Google Maps listing, which the same
+search showed as "Mobile Aesthetics"; matching names help local search.
+Against: the home title no longer holds "medical aesthetics", the
+strongest single place on the page for that phrase. The cost is judged
+small: the phrase stays in the home description and in the H1
+("Medical Aesthetics, made personal."), and the treatment pages' titles
+carry the terms people search for.
+
+**Alternatives rejected.** "Mobile Aesthetics | Needle Girlie |
+Harrisburg & Charlotte, NC" (the practice first): offered, not chosen.
+Keeping this morning's title: offered. Both phrases in one title: it
+runs past what a results page displays.
+
+**Rules.** A page's title tag is one of the two places the practice may
+be named as plain text; `lint:practice-link` says so in its header and
+passes. Constraint 2's seventh exception concerns visible text and its
+link; a title can hold no link, and names nobody but the practice. The
+home page has no approval flag. The wording is Amy's to confirm: the
+operator relays her preference, and the sign-off sheet lists it.
+
+**Scope.** Raised after the round was frozen (REDESIGN "Round close",
+this date), so by that record it is change-order or retainer scope; the
+classification is the operator's. It is the second change made the
+two-stage way: into `phase-c` with a preview, then a release into
+`main`.
+
+**Consequences.** RELAUNCH's launch-day checklist, BUILD_SPEC §10 and
+RUNBOOK's share-card section quoted or described the old title and are
+corrected. The launch probe outside the repo expects the new title.
+Google's result changes when it next reads the page; Search Console's
+"Request indexing" shortens the wait and is the operator's to do.
+
+## 2026-10-05 — Booking moves from Vagaro to Aesthetic Record: every Book link opens the practice's new booking page (operator decision after the compliance flag; constraint 2's tenth scoped exception)
+
+**Context.** The operator, after the relaunch: "Amy is leaving Vagaro,
+so we need to change the URL that all of the Book or Book with Amy
+links point to", with the new address,
+`https://mobileaesthetics.myaestheticrecord.com/online-booking`. One
+value held the old address (the Vagaro handle supplied 2026-07-18) and
+four files read it: the header's Book, both "Book with Amy" button
+variants, the link inside a sentence, and the /services intro's bold
+"BOOK". A build holds 108 such links on 25 pages; the live site, which
+has no styleguide, holds 96 on 22. Three places named Vagaro in words a
+visitor reads: /privacy, /terms, and the wrinkle-relaxers answer to
+"How do I book?".
+
+**The destination, screened 2026-10-05** (compliance/README: a new
+outbound destination is screened before it ships). In a browser, the
+page is live and headed "Mobile Aesthetics PLLC, Book an Appointment";
+the vendor is Aesthetic Record. Its own service and provider lists were
+read. Nothing was entered, and the walk stopped before the details
+step.
+
+- 22 bookable services in 10 categories. Amy is offered on all 22.
+- On the six laser and device services the provider step also offers
+  three other people by name, two titled Licensed Esthetician and one
+  Licensed Aesthetician. Two of the three are among the people the
+  2026-08-15 screening of the practice site recorded as the location's
+  other providers. On the other 16 services Amy is the only provider
+  offered.
+- The flow has a details step and a payment step, and takes a deposit
+  at booking ($75 to $150 on the services opened).
+- The page's own text prints amounts and per-dose prices for its
+  weight-loss services. That text is the booking page's, outside this
+  site's rules and its linter. The site restates none of it.
+- Like Vagaro, it answers 403 to a non-browser client.
+
+**The flag, and the decision.** Constraint 2 bans linking to a page
+that names the location's other providers. The 2026-07-23 ownership
+fact settled whose booking page it is, not who is on it ("sole owner ≠
+sole provider"), and an already-screened destination carries no
+authorization to a new one. The operator was given two paths: link the
+page as it is, or keep the Book links on Vagaro until Aesthetic Record
+supplies a link that offers only Amy (or the three come off those
+services). **The operator chose "Link it as it is."** It is recorded as
+constraint 2's tenth scoped exception: that one address, never a link
+to a single service or to the provider step; the labels the booking
+links already carry; the site's text never names the three and never
+says they can be booked. The page is screened again when its content is
+known to have changed. A link that offers only Amy, if one is supplied,
+replaces this one, and that is a one-line change.
+
+**What changed.**
+
+- The config key is vendor-neutral now, `siteConfig.booking.url`, so
+  the next move is one line. The four consumers read it. Labels, styles,
+  the `book_click` event and the new-tab attributes are untouched.
+- /privacy reads "Booking happens on Aesthetic Record, a third-party
+  scheduling service." /terms makes the same swap, twice, under
+  "Booking happens elsewhere".
+- The legal pages' effective date is per page. /privacy and /terms
+  carry the day this version went live, because the privacy page
+  promises an updated date when it changes. The medical disclaimer's
+  text did not change and it keeps August 4, 2026. Before this the date
+  was one line shared by all three.
+- Comments that say what a button does today say "the booking page".
+  Dated history ("the 2026-07-19 Vagaro alignment") stays as written,
+  and so do the `{{VAGARO_URL}}` tokens, marked superseded in
+  BUILD_SPEC §17.
+
+**Two releases, the operator's choice.** The wrinkle-relaxers FAQ
+sentence is on a page Amy approved this day, so editing it resets that
+page's flag and holds every release until she has OK'd it and the
+operator has flipped the flag. Offered one release after her OK, or the
+links first, **the operator chose "Links first, sentence after."** This
+change touches no treatment file and resets no flag. Until the second
+change ships, that one answer says "through Vagaro" above a button that
+opens the new page. The new sentence drops those two words, as the IV
+page's same answer did on 2026-09-19.
+
+**Alternatives rejected.** Holding for an Amy-only link: offered, not
+chosen; it stays the off-ramp. Keeping the key's old name: it would
+name one company and point at another. Moving all three legal pages'
+dates together, as RUNBOOK's earlier note assumed: the medical
+disclaimer would show a new date over unchanged text. Naming the vendor
+in the FAQ answer: it would need editing again at the next move.
+
+**Verification.** `verify` exit 0. In the built pages: no `vagaro.com`;
+108 links to the new address on 25 pages, each with the event and both
+new-tab attributes; "Vagaro" once, in the FAQ answer that follows; the
+two legal pages dated, the third unchanged. The link count is the check
+that would catch a wrong key, since the site's own address sits one
+token away and the type check would accept it. The stylesheets are
+byte-identical to the previous build's.
+
+**Raised with the operator, not part of this change.**
+
+- *"Free consultation".* The site's source says a consultation is free
+  in about 23 places. The booking page's "Consultation (In Person)"
+  takes a $75.00 deposit at booking, and its "Peptide Consult" reads
+  "Free Consult, your Deposit goes towards your service." It is Amy's
+  to settle, on her booking page or in the site's wording.
+- *The booking menu and the site differ.* Its tox service lists Jeuveau
+  and Daxxify, not Xeomin. Its filler service lists a brand the site
+  does not carry. Its weight-loss services carry a price tier the site
+  does not, and none names retatrutide. It has no PRP or chemical-peel
+  service. The site was aligned to Vagaro's menu on 2026-07-19. An
+  alignment pass is the operator's to ask for; treatment copy is Amy's
+  to approve.
+- *Counsel.* The legal pages are still provider-drafted, with counsel
+  review a standing post-launch item. "A third-party scheduling
+  service" now describes a page that also takes payment and has a
+  patient-portal login.
+- *Other places.* The Google Business Profile, the Instagram and
+  Facebook Book buttons, Yelp and the practice site are outside this
+  repository and may still point at Vagaro. They are Amy's to change.
+- *Scope.* The SOW (§4) names Vagaro for the Book buttons; this is a
+  client-directed change. It was raised after the round was frozen
+  (REDESIGN "Round close", this date), so by that record it is
+  change-order or retainer scope; the classification is the operator's.
+
+**Consequences.** CLAUDE.md constraint 2 gains the tenth exception and
+counts ten, and its goals line says "online-booking handoff".
+BUILD_SPEC §1, §5, §6, §9, §16 and §17, RUNBOOK (the re-screening rule
+and the effective-date note), RELAUNCH's launch-day checklist, the
+sign-off sheet and compliance/README are corrected. No cost change, no
+new dependency, no script, no security-header change. The `book_click`
+event keeps its name, so a later visitor-counting baseline is not
+broken by the move.

@@ -300,6 +300,14 @@ there is no doctor on staff and the clause can read as one. Weight
 loss's "medically supervised program" wording was deliberately left for
 her and the operator to decide (DECISIONS 2026-09-19, the addendum).
 
+**Where "book" goes, decided 2026-10-05 — no wording on any treatment
+page changed.** Amy left Vagaro. Every Book button and every linked
+"book" now opens her practice's Aesthetic Record booking page. The
+links, their labels and their places are the same; only the address
+behind them moved (DECISIONS same date). One sentence that names Vagaro
+remains, in the wrinkle-relaxers answer to "How do I book?"; it is hers
+to read and follows in its own change.
+
 **Links added sitewide, 2026-09-27 — read this even though no wording
 changed.** Wherever a page's visible text says "Mobile Aesthetics", the
 name is now a link to her practice site, opening in a new tab. It is
@@ -366,6 +374,16 @@ The same day, on pages with no approval flag: the home page's search
 title now ends "…in Harrisburg & Charlotte, NC" and its description
 says "near Charlotte", and the /services, /about and /injector-training
 descriptions were shortened. Those five lines are on the same sheet.
+
+**NEW 2026-10-05, after the relaunch — the home page's search title
+says "Mobile Aesthetics".** The line a search engine shows as the home
+page's name now reads "Needle Girlie | Mobile Aesthetics in Harrisburg
+& Charlotte, NC". On the sheet she OK'd that morning it read "Needle
+Girlie | Medical Aesthetics in Harrisburg & Charlotte, NC". The
+operator's direction, relaying what she will want: the practice's own
+name. It is hers to confirm. Nothing on the page itself changed, and a
+search result shows it only after the search engine next reads the site
+(DECISIONS 2026-10-05, the home-title entry).
 
 **NEW 2026-09-30 — one word on all twelve pages (her own direction,
 relayed by the operator):** every page's "studio" now reads "medspa".

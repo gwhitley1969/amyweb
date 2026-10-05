@@ -204,6 +204,17 @@ green gate authorizes nothing outside the exception: any other link
 text, any other destination, and any mention of the other providers
 still go to the operator.
 
+The booking destination is a further screened case (2026-10-05). When
+Amy left Vagaro the booking links moved to her practice's Aesthetic
+Record page. It was screened that day: Amy is offered on all 22
+services, and the provider step of the six laser and device services
+also offers three other people by name. It was flagged, and it ships
+as constraint 2's tenth scoped exception on the operator's decision
+(DECISIONS same date): that one address, the labels the links already
+carry, nobody named in the site's text. No gate reads the booking
+page, so a change there is only ever seen by a person; it is screened
+again when its content is known to have changed.
+
 **QR codes are both blindness classes at once** (first instance: the
 storefront QR on /services/skincare, 2026-08-25): the encoded URL is
 pixels no linter reads, AND it is an outbound destination in

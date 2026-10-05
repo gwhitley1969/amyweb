@@ -1,5 +1,17 @@
 # Relaunch dossier — the ready-to-execute record
 
+> **EXECUTED 2026-10-05.** The relaunch ran from this dossier: PR #255
+> into `main` (merge commit `fdf19db`), Production run 37356241933, the
+> launch-day checklist below verified live, and the guard retired in a
+> follow-up PR the same day (DECISIONS 2026-10-05: the relaunch entry,
+> its shipped record, and the guard's retirement). Precondition 4 did
+> not apply: the operator launched with analytics off. The steps were
+> run by a script that stops on any conflict but the three named below
+> and on a tree that is not byte-identical to `phase-c`'s
+> (`C:\Amy\launch\relaunch-branch.sh`, outside the repo). This file is
+> now the record of how it was done; "After relaunch" at the end lists
+> what was still to do on that date.
+
 Prepared 2026-08-17 (external-audit Findings 2+3 close-out) so the
 relaunch needs only two operator inputs — the date and the approvals —
 not a planning round. Everything else below is written, tested, or
@@ -195,13 +207,21 @@ check will refuse it. On a branch off `main`:
   "Harrisburg,", while its title tag reads "Needle Girlie | Medical
   Aesthetics in Harrisburg & Charlotte, NC" since 2026-10-05 (it kept
   "…in Harrisburg, NC" until then; DECISIONS 2026-09-25, 2026-09-26,
-  2026-09-27 and 2026-10-05, the search-text entry). The live
+  2026-09-27 and 2026-10-05, the search-text entry). *That is the title
+  the site launched with. Later the same day, after the relaunch, it
+  became "Needle Girlie | Mobile Aesthetics in Harrisburg & Charlotte,
+  NC" (DECISIONS 2026-10-05, the home-title entry); a probe of the live
+  site expects that one from its release on.* The live
   placeholder carries the same file and share tags since
   2026-09-27, so a relaunch that dropped them would show as a changed
   preview. The two earlier cards, `/og/needle-girlie-share.jpg` and
   `/og/needle-girlie-share-2026-09-26.jpg`, still serve (200) for
   previews that apps had cached.
 - Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.
+  *(Decided the same day, after the relaunch: Amy left Vagaro, and the
+  booking link-out is the Aesthetic Record page in
+  `siteConfig.booking.url` from that change's release on. DECISIONS
+  2026-10-05.)*
 - Converged multi-pass probes (3 consecutive clean passes, plain +
   cache-busted) before telling Amy it's live.
 

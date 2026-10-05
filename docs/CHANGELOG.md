@@ -29,6 +29,37 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-10-05 — The wrinkle-relaxers booking answer no longer names Vagaro
+
+- "How do I book?" on /services/wrinkle-relaxers now answers: Online
+  with the "Book with Amy" button, or by phone at 704-579-7108. The
+  words "through Vagaro" came off; nothing else in the answer moved.
+- It was the last place the site named Vagaro to a visitor.
+- The edit reset the page's approval flag. Amy OK'd the sentence the
+  same evening and the operator flipped the flag in the same PR.
+  DECISIONS 2026-10-05, the booking entry's addendum.
+- Live at 22:48 UTC (PR #263, straight into `main` as an urgent fix).
+  Checked on the live site: the word "Vagaro" appears on no page.
+  DECISIONS 2026-10-05, the shipped record.
+
+### 2026-10-05 — Booking moves to Aesthetic Record
+
+- Amy left Vagaro. Every Book button and every linked "book" now opens
+  her practice's booking page on Aesthetic Record. The buttons look and
+  read as they did.
+- /privacy and /terms name Aesthetic Record where they named Vagaro,
+  and each shows the day this version took effect. The medical
+  disclaimer is unchanged.
+- The new booking page offers three other people on its laser and
+  device services. Linking to it is the operator's decision after that
+  was flagged, recorded as constraint 2's tenth scoped exception.
+- One sentence still names Vagaro, in the wrinkle-relaxers answer to
+  "How do I book?". It is on an approved page, so it follows in its own
+  change once Amy has read it.
+  DECISIONS 2026-10-05, the booking entry.
+- Live at 22:10 UTC (PR #261, release #262). Checked on the live site:
+  all 96 booking links open the new page, and none opens Vagaro.
+
 ### 2026-10-05 — The home page's search title says "Mobile Aesthetics"
 
 - In a search result the home page is now named "Needle Girlie | Mobile

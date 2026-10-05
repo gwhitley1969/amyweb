@@ -21,8 +21,8 @@ The site must:
    presence carried by a licensed clinician's credibility. Never
    clinical-sterile, never cheap-cute. (Amended 2026-07-18 per client
    direction — see docs/DECISIONS.md.)
-2. **Convert** — every page routes cleanly to booking an appointment (Vagaro
-   handoff) or requesting a consultation.
+2. **Convert** — every page routes cleanly to booking an appointment (the
+   online-booking handoff, §9) or requesting a consultation.
 3. **Be found** — local SEO for treatment searches near Charlotte / Harrisburg, NC.
 4. **Be fast** — Core Web Vitals "good" on mobile; this audience is mobile-first.
 5. **Be accessible** — WCAG 2.2 AA as a legal-risk control, not a nice-to-have.
@@ -394,7 +394,7 @@ BioteDisclaimer, LocationCard (address, hours, directions link-out),
 GetTheApp (feature-flagged, §9), DraftBanner (§7), SEO head component,
 JSON-LD component (§10), Breadcrumbs (treatment pages), FAQ block (optional,
 only with approved content), BookLink and PracticeLink (the two links a
-sentence may hold: "book" to Amy's Vagaro page since 2026-09-19, and —
+sentence may hold: "book" to Amy's booking page since 2026-09-19, and —
 since 2026-09-27, under CLAUDE.md constraint 2's seventh scoped exception
 — the practice's name to the practice site, wherever visible text says
 it: the Footer's and the LocationCard's address blocks, three /about
@@ -429,11 +429,11 @@ constraint 6, DECISIONS 2026-09-03), no layout shift from fonts or images.
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
 | `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); the opening section's two pictures since 2026-09-27 (operator direction; DECISIONS same date) — the lead portrait of Amy on her studio counter to the right of the text, shown whole, and her family portrait (client-requested 2026-07-23) at two-thirds of its old size under the section's last paragraph, above the Book button; on phones the lead portrait follows the opening line; factual note that she practices within a multi-provider location; the EvolusLaurel ranking plaque + the ICON film (the film and the old recognition plate moved from wrinkle-relaxers at the client's direction 2026-08-18, superseding the 2026-07-21 ranking-free placement; the plate gave way to the Laurel 2026-08-25 — the same swap dermal-fillers made 2026-08-21 — retiring the resolved `{{EVOLUS_CLAIM}}` sentence sitewide, its `allowedStrings` entry withdrawn; §8.4); the Girl Team still + "Girl Team!" keystone plate (the site's first text-over-photo) + the "Visit Mobile Aesthetics" button — the second sanctioned yourmobileaesthetics.com link (constraint-2 fourth scoped exception, direct from Amy 2026-08-25; DECISIONS same date); below the button, the Mobile Aesthetics team film in a sounded rendition (`girl-team-film-wide.mp4` since 2026-08-26 — a 16:9 center crop of the master at operator direction, replacing the portrait `girl-team-film.mp4`; the carousel team film's constraint-2 second exception widened to this placement 2026-08-25; site-authored and speech-free, so its `autoplay="inview"` is in-contract, unlike the ICON film's override; DECISIONS both dates) | Request a consultation |
 | `/injector-training` | Private Injector Training | Professional-audience page (added 2026-08-04, operator-directed; DECISIONS same date): four hands-on, one-on-one courses for licensed medical professionals, prices flyer-verbatim (three at $5,000, Radiesse $7,500; three hours each, product included); curriculum topics under the fifth `allowedStrings` authorization (§8.1); outside the treatments collection and the clinician flag gate — Amy reviews via the sign-off doc's non-gated section; "Training" nav item. Since 2026-08-25 (DECISIONS same date): the dedicated hero portrait `amy-evolysse-cart.jpg` — a second Jeuveau-banner frame, headline/indication/partial ISI legible, its own pixel override — and Amy's training reel (`training-reel`, 19.8s, music bed) under the "Four courses" heading, carried as-is under operator override (burned-in curriculum cards + a legible per-vial quantity + the on-screen practice-site URL, constraint-2 fifth exception; all on-camera releases confirmed), autoplay in-class | Call (phone/Instagram routed — neither booking nor consultation language) |
-| `/tox-together` | Tox Together | The private-party page (added 2026-09-26, operator-directed, replacing /mobile, as `/tox-to-go`, "Tox To Go"; renamed and moved 2026-09-27, the operator again — DECISIONS both dates): the operator's party document as written, under the new name — host a private Tox Party at your place and Amy brings the Tox experience to you; a $600 hostess service credit when the party meets three requirements (a minimum of 7 guests, an average service purchase of $300 per guest, the services provided during the scheduled party — "a minimum of $2,100 in services among your guests"); "Book your Tox Together party" calls Amy's phone, her number printed under it. No photo and no film (the /mobile media were offered and declined): the page is type on its surfaces — the opening on the canvas, the offer on a noir band with the credit in the accent and the requirements as numbered plates, "Gather your people" as a two-column split, the noir close. "Tox" is allowed on this page and in the home band (operator decision 2026-09-26 — the scoped exception to the 2026-07-19 shorthand rule); the name "Tox Together" reaches the page title, the meta description (and so the OG tags), the JSON-LD Service name and the nav item, and nothing else on the site says it; the competitor brand name the shorthand stands in for never appears. "Party" stays allowed (2026-09-02). Outside the treatments collection and the clinician flag gate — Amy confirms the terms via the sign-off doc's non-gated section; "Tox Together" nav item after Visit Amy | Call — "Book your Tox Together party" dials Amy (the one Book-worded button that calls; party booking is by phone, not Vagaro) |
+| `/tox-together` | Tox Together | The private-party page (added 2026-09-26, operator-directed, replacing /mobile, as `/tox-to-go`, "Tox To Go"; renamed and moved 2026-09-27, the operator again — DECISIONS both dates): the operator's party document as written, under the new name — host a private Tox Party at your place and Amy brings the Tox experience to you; a $600 hostess service credit when the party meets three requirements (a minimum of 7 guests, an average service purchase of $300 per guest, the services provided during the scheduled party — "a minimum of $2,100 in services among your guests"); "Book your Tox Together party" calls Amy's phone, her number printed under it. No photo and no film (the /mobile media were offered and declined): the page is type on its surfaces — the opening on the canvas, the offer on a noir band with the credit in the accent and the requirements as numbered plates, "Gather your people" as a two-column split, the noir close. "Tox" is allowed on this page and in the home band (operator decision 2026-09-26 — the scoped exception to the 2026-07-19 shorthand rule); the name "Tox Together" reaches the page title, the meta description (and so the OG tags), the JSON-LD Service name and the nav item, and nothing else on the site says it; the competitor brand name the shorthand stands in for never appears. "Party" stays allowed (2026-09-02). Outside the treatments collection and the clinician flag gate — Amy confirms the terms via the sign-off doc's non-gated section; "Tox Together" nav item after Visit Amy | Call — "Book your Tox Together party" dials Amy (the one Book-worded button that calls; party booking is by phone, not the booking page) |
 | `/mobile` | RETIRED (2026-09-26, operator) | Was the party-and-van page (2026-09-02 → 2026-09-26; DECISIONS 2026-09-02 ×2, 2026-09-03 and 2026-09-26): "Amy comes to you." over the van interior, "How a party works" in three steps, "Bring the people you'd bring anyway." beside the viewfinder film, and a noir close — copy that stated only what her public posts established and left the terms unwritten. Replaced by the party page (`/tox-to-go` that day, `/tox-together` since 2026-09-27), which states the terms; its van-interior photo and its viewfinder film retired with it (the film's Blob object stays on the media origin, unreferenced; the seated guest's release stays on file), as did the three steps, the friends copy, the open questions for Amy and the "Mobile" nav label. Deleted before ever serving in production; its URL swapped for `/tox-to-go` in the pa11y and Lighthouse gate lists (25 and 8, unchanged; `/tox-together` there since 2026-09-27); no redirect (the /book precedent) | — |
 | `/book` | RETIRED (2026-07-21, operator) | Was the Vagaro-handoff explainer; every "Book with Amy" now opens Vagaro directly, so the page was deleted before ever serving in production | — |
 | `/visit` | Visit Amy (the SOW's "Visit Us" — the site never says "us", CLAUDE.md's voice rule) | Address (hours are NOT listed — Amy's decision 2026-08-04, `{{HOURS}}` CLOSED; no page copy may promise or imply hours), parking note, "Get directions" link-out (no map iframe) | Directions / Book |
-| `/privacy`, `/terms`, `/medical-disclaimer` | Legal | Provider-drafted, launch form effective 2026-08-04 (draft markers removed at operator acceptance — DECISIONS same date; counsel review post-launch) | — |
+| `/privacy`, `/terms`, `/medical-disclaimer` | Legal | Provider-drafted, launch form effective 2026-08-04 (draft markers removed at operator acceptance — DECISIONS same date; counsel review post-launch). Decided 2026-10-05 (DECISIONS same date): /privacy and /terms name Aesthetic Record where they named Vagaro, and each carries its own effective date, the day that version went live; the medical disclaimer is unchanged and keeps 2026-08-04 | — |
 | `/404` | Not found | Branded, routes home/book | — |
 
 Language conventions (site-wide, hard rule): **"consultation"** is used only
@@ -469,6 +469,11 @@ declined) — deleted before ever serving in production, its URL removed
 from the pa11y/Lighthouse gate lists. Suitability language in prose
 still routes to consultation, and Retatrutide remains
 consultation-introduced in copy (§7 brief 1).
+
+Destination note (operator, decided 2026-10-05 — DECISIONS same date):
+Amy left Vagaro. The booking page every such button opens is now the
+Aesthetic Record page of her practice (§9); the routing above is
+otherwise unchanged.
 
 Home hero: open with the most characteristic thing in this brand's world — the
 Needle Girlie identity itself (wordmark energy, the chevron/syringe motif, a
@@ -1073,9 +1078,19 @@ action.
 
 ## 9. Integrations (all outbound; no data exchange)
 
-- **Booking → Vagaro:** `{{VAGARO_URL}}` — must be **Amy's own** booking link,
-  not the shared location handle. New tab, `rel="noopener"`, tracked
-  (`book_click`). Service-level deep links if available (`{{VAGARO_SERVICE_LINKS}}`).
+- **Booking → Aesthetic Record** (operator, decided 2026-10-05, when Amy
+  left Vagaro — DECISIONS same date; Vagaro and `{{VAGARO_URL}}` before):
+  `siteConfig.booking.url`, the one address every booking link opens —
+  must be **Amy's own** booking link, not the shared location handle
+  (ownership settled 2026-07-23: the practice is hers). New tab,
+  `rel="noopener"`, tracked (`book_click`). The page was screened
+  2026-10-05: Amy is offered on every service, and the provider step of
+  six laser and device services also offers three other people by name,
+  so the link ships under CLAUDE.md constraint 2's tenth scoped
+  exception — that one address, never a link to a single service or to
+  the provider step, and screened again when its content is known to
+  have changed. No service-level deep links (`{{VAGARO_SERVICE_LINKS}}`
+  retired with Vagaro).
 - **Products → Skinbetter storefront:** connect.skinbetter.com/MobileAesthetics
   (resolved `{{SKINBETTER_URL}}` — the practice storefront carrying her
   businessPartner id, verified in-browser 2026-07-23). New tab, tracked
@@ -1411,7 +1426,12 @@ operator may provision manually; if asked to write Bicep, produce:
       practice (sole owner; DECISIONS 2026-07-23); link reachability is
       still verified at launch. *(2026-08-05: Skinbetter 200; Vagaro
       serves browsers but 403s non-browser clients (bot protection) —
-      it is Amy's live booking page.)*
+      it is Amy's live booking page.)* *(Decided 2026-10-05: Amy left
+      Vagaro; the booking handoff is the Aesthetic Record page of her
+      practice, screened that day and checked in a browser — it too
+      403s non-browser clients. DECISIONS same date. Live that day at
+      22:10 UTC; the last visible mention of Vagaro left the site at
+      22:48 UTC — the shipped record.)*
 - [x] Analytics events verified firing in the provider dashboard.
       *(AMENDED 2026-08-04 — resolved as none-at-launch; the line is
       satisfied by the recorded no-provider decision, DECISIONS same
@@ -1439,8 +1459,8 @@ Use these tokens verbatim in code/content. Never invent values for them.
 
 | Token | What it is | Status |
 |---|---|---|
-| `{{VAGARO_URL}}` | Amy's own Vagaro booking URL (NOT the shared location handle) | RESOLVED 2026-07-18 (siteConfig) — supplied handle is the shared location's; §9 flag stands, revisit at §16 |
-| `{{VAGARO_SERVICE_LINKS}}` | Optional per-service deep links | Operator to supply |
+| `{{VAGARO_URL}}` | Amy's own Vagaro booking URL (NOT the shared location handle) | RESOLVED 2026-07-18 (siteConfig) — supplied handle is the shared location's; §9 flag stands, revisit at §16. SUPERSEDED, decided 2026-10-05: Amy left Vagaro; the booking address is the Aesthetic Record page in `siteConfig.booking.url` (§9; DECISIONS same date) |
+| `{{VAGARO_SERVICE_LINKS}}` | Optional per-service deep links | RETIRED, decided 2026-10-05, with Vagaro: none was ever supplied, and the new booking link is one address by the terms of constraint 2's tenth exception |
 | `{{SKINBETTER_URL}}` | Amy's partner storefront URL | Resolved 2026-07-23: connect.skinbetter.com/MobileAesthetics (QR decode, verified; DECISIONS 2026-07-23) |
 | `{{PHONE}}` / `{{HOURS}}` / `{{ADDRESS_DISPLAY}}` | NAP details as displayed | PHONE resolved 2026-07-07; ADDRESS resolved 2026-07-18; **HOURS CLOSED 2026-08-04 — Amy's decision: hours are not listed on the website, anywhere. Not a pending value: the siteConfig field, the LocationCard line, and the JSON-LD openingHours property were all removed (DECISIONS 2026-08-04). Listing hours later is a deliberate re-add, not a token resolve.** |
 | `{{SOCIAL_LINKS}}` | Verified handles (IG, FB, YouTube, Yelp, TikTok) | RESOLVED 2026-07-18 (FB/IG/Yelp only; Yelp is the location's — flagged) |

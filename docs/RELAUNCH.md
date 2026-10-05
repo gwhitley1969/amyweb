@@ -218,6 +218,10 @@ check will refuse it. On a branch off `main`:
   `/og/needle-girlie-share-2026-09-26.jpg`, still serve (200) for
   previews that apps had cached.
 - Vagaro + Skinbetter link-outs reachable; Lighthouse spot-run.
+  *(Decided the same day, after the relaunch: Amy left Vagaro, and the
+  booking link-out is the Aesthetic Record page in
+  `siteConfig.booking.url` from that change's release on. DECISIONS
+  2026-10-05.)*
 - Converged multi-pass probes (3 consecutive clean passes, plain +
   cache-busted) before telling Amy it's live.
 

@@ -1,0 +1,174 @@
+---
+import { Image } from 'astro:assets';
+import { siteConfig } from '../../lib/siteConfig';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ServiceLineGrid from '../../components/ServiceLineGrid.astro';
+import CTAButton from '../../components/CTAButton.astro';
+import TrustChips from '../../components/TrustChips.astro';
+import treatmentWindowLight from '../../assets/photos/treatment-window-light.jpg';
+import lowerFaceAppointment from '../../assets/photos/lower-face-appointment.jpg';
+import maleClientProducts from '../../assets/photos/male-client-products.jpg';
+
+/**
+ * /services index (§6, Phase C5; line count updated in the 2026-07-19
+ * Vagaro alignment and again 2026-07-22 for laser-treatments) — built
+ * after C3/C4 so the grid has zero dead links. Since 2026-07-23 the grid
+ * renders as the categorized editorial menu (Injectables · Skin & Body ·
+ * Wellness — client direction); since 2026-08-18 each card carries the
+ * client's own per-line photo in the house arch (her mockup — the door
+ * anatomy merged into the menu card; screening + release record in
+ * DECISIONS 2026-08-18, photo map in ServiceLineGrid). All twelve lines
+ * render equal; the featured variant waits on Amy's pick (a §0 business
+ * decision, not a build task). "One expert clinician." is the
+ * operator's wording (2026-07-22, chosen after the flag).
+ *
+ * Studio strip (client direction 2026-07-23; frames replaced 2026-08-17
+ * with Amy's picks from the professional shoot — photo round page 2):
+ * three vetted frames of Amy at work between the lead and the menu.
+ * All three pictured clients' releases for website use are CONFIRMED
+ * ON FILE (operator, 2026-08-17 — the confirmation is the record;
+ * DECISIONS same date). Screened frame-level: no legible product or
+ * claims text anywhere (the boxes in frame three and the background
+ * banner fragment are illegible at source resolution). Frames wear
+ * the house light-wash grade (§5) inside the arch; no text overlays,
+ * so no plate rules apply. All three load lazy and render 3-across at
+ * every breakpoint — thumbnail-weight images that never contend with
+ * the H1 for LCP (see the comment on the strip div).
+ */
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+];
+---
+
+<BaseLayout
+  title="Medical Aesthetic Services in Harrisburg & Charlotte, NC | Needle Girlie"
+  description="Injectables, laser treatments, skin rejuvenation, body contouring, IV therapy, hormones, and weight management with Amy Palacios, FNP, near Charlotte, NC."
+>
+  <Header slot="header" />
+
+  <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <Breadcrumbs items={crumbs} />
+    <p class="eyebrow mt-8">Services</p>
+    <hr class="rule-accent mt-4" aria-hidden="true" />
+    <h1 class="display-2 mt-6">Twelve lines. One expert clinician.</h1>
+    {/* Sentences 2–3 are the client's wording (2026-08-18, via the
+      * operator — supersedes the curiosity/plain-page pair), verbatim
+      * but for sentence 2's third service category, changed to
+      * "Wellness" at her direction (DECISIONS 2026-08-23); sentence 3
+      * and the allowlisted fragment are unchanged. The
+      * superiority-class word in sentence 2 is operator-allowlisted
+      * (sixth authorization, DECISIONS 2026-08-18); the enumerated
+      * fragment must stay on ONE source line — stripping is per-line and
+      * case-sensitive. "BOOK" is bold and links to Vagaro (client
+      * request 2026-08-18, second round) — CTAButton's exact link
+      * mechanics mirrored: same siteConfig URL, same declarative
+      * data-event, same new-tab attrs + sr-only note; the underline +
+      * var(--ng-link) pair is the house inline-link idiom
+      * (Breadcrumbs/styleguide precedent). */}
+    <p class="lead mt-6 max-w-prose">
+      Every service below is planned by Amy Palacios, FNP.
+      From Facial Balancing to Weight Loss & Body Contouring to Wellness,
+      Amy has your best self in mind. Start by browsing her service menus
+      below, select where you want to begin, hit "<a
+        href={siteConfig.booking.vagaroUrl}
+        class="font-bold underline underline-offset-4"
+        style="color: var(--ng-link)"
+        data-event="book_click"
+        target="_blank"
+        rel="noopener"
+      >BOOK<span class="sr-only"> (opens in new tab)</span></a>"
+      and start your journey now with Amy's expertise as your guide!
+    </p>
+    {/* 3-across at EVERY breakpoint (a filmstrip on phones): stacked
+      * full-width mobile images pulled 960w variants (image budget blown)
+      * and put a lazy image in the initial viewport as LCP (2558ms >
+      * 2500). Small thumbs keep the H1 as LCP and the strip ~40KB on
+      * mobile. */}
+    <div class="mt-12 grid grid-cols-3 gap-3 sm:gap-5">
+      <figure class="strip-frame ng-arch ng-rise">
+        <Image
+          src={treatmentWindowLight}
+          alt="Amy Palacios, FNP, at work at a client's brow in bright window light"
+          widths={[280, 400, 640, 760]}
+          sizes="(min-width: 1200px) 355px, 31vw"
+          loading="lazy"
+        />
+      </figure>
+      <figure class="strip-frame ng-arch ng-rise">
+        <Image
+          src={lowerFaceAppointment}
+          alt="Amy Palacios, FNP, guiding a fine syringe at a reclined client's lower face"
+          widths={[280, 400, 640, 760]}
+          sizes="(min-width: 1200px) 355px, 31vw"
+          loading="lazy"
+        />
+      </figure>
+      <figure class="strip-frame ng-arch ng-rise">
+        <Image
+          src={maleClientProducts}
+          alt="Amy Palacios, FNP, showing treatment products to a male client in the medspa"
+          widths={[280, 400, 640, 760]}
+          sizes="(min-width: 1200px) 355px, 31vw"
+          loading="lazy"
+        />
+      </figure>
+    </div>
+    <div class="mt-12">
+      <ServiceLineGrid />
+    </div>
+  </section>
+
+  <section class="surface" data-surface="noir">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+      <p class="eyebrow">Not sure where to start?</p>
+      <h2 class="display-2 mt-4">
+        Ready <span class="display-accent ng-shimmer">when you are</span>.
+      </h2>
+      {/* book + call, matching the About/Visit closing bands. This band
+        * paired book + consult until 2026-07-21: once every "Book with
+        * Amy" opened Vagaro (PR #28), the pair rendered as two identical
+        * buttons — operator caught it on the preview. */}
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <CTAButton variant="book" />
+        <CTAButton variant="call" />
+      </div>
+      <div class="mt-8">
+        <TrustChips />
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  /* Same light-wash grade as the About portrait (§5: cinema on noir
+   * bands, light wash on light bands). Frame shape + border come from
+   * .ng-arch (global.css) — the sitewide arch motif, 2026-08-17. */
+  .strip-frame {
+    position: relative;
+    margin: 0;
+  }
+  .strip-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 20%;
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
+  }
+  .strip-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+</style>

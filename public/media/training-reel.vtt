@@ -1,0 +1,24 @@
+WEBVTT
+
+NOTE
+Amy's own Private Injector Training reel (client direction 2026-08-25)
+— docs/DECISIONS.md same date. Site-authored; carried as-is under the
+operator override recorded there (the burned-in course cards mirror
+the /injector-training page's own authorized card copy; the closing
+card is Amy's contact block). Releases for every on-camera person are
+confirmed on file (operator, 2026-08-25); none is another provider at
+the location. The web rendition keeps its audio: a music bed with no
+speech (the operator's confirmation, 2026-08-25, is the record —
+volumedetect mean -25.0dB, peak -6.9dB). These cues describe the
+audio only — deliberately no "On screen:" cues: mirroring the
+burned-in cards into a rendered text track would restate vocabulary
+the override covers only as pixels.
+
+00:00.000 --> 00:05.000
+[Music]
+
+00:07.000 --> 00:12.000
+[Music]
+
+00:14.000 --> 00:19.000
+[Music]

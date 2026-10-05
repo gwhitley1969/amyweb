@@ -1,0 +1,726 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTAButton from '../components/CTAButton.astro';
+import BookLink from '../components/BookLink.astro';
+import PracticeLink from '../components/PracticeLink.astro';
+import TrustChips from '../components/TrustChips.astro';
+import EvolusLaurel from '../components/EvolusLaurel.astro';
+import TreatmentVideo from '../components/TreatmentVideo.astro';
+import { siteConfig } from '../lib/siteConfig';
+import amyPinkDressCounter from '../assets/photos/amy-pink-dress-counter.jpg';
+import familyPortrait from '../assets/photos/family-portrait.jpg';
+import iconPoster from '../assets/photos/evolus-icon-poster.jpg';
+import studioNeonPortrait from '../assets/photos/studio-neon-portrait.jpg';
+import girlTeamStudio from '../assets/photos/girl-team-studio.jpg';
+import girlTeamFilmWidePoster from '../assets/photos/girl-team-film-wide-poster.jpg';
+
+/**
+ * /about — the magazine profile (full rebuild 2026-08-03; DECISIONS same
+ * date). Five beats: hero, milestones timeline, the studio/name section,
+ * booking prose, closing band. Every sentence traces to the record —
+ * career facts from the operator-supplied provider-directory listing
+ * (2026-07-19: two decades of nursing, much critical care; aesthetics
+ * 2017; nurse practitioner 2018; FNP, BSN; Biote-certified) — wording
+ * CONFIRMED by Amy on the PR #83 preview, 2026-08-04: the standing
+ * 2026-07-19 confirmation flag is resolved (DECISIONS 2026-08-04).
+ * Full credentials — BA, BSN, Master of Nursing, FNP — confirmed by
+ * Amy via the operator 2026-08-27; the milestone credential line
+ * carries all four from that date ("Master of Nursing" spelled out:
+ * her exact post-nominals are unverified; DECISIONS 2026-08-27).
+ * The hero's credentials paragraph (operator-dictated 2026-09-19,
+ * replacing the "2017 … the following year" sentence — the milestones
+ * still carry both years): the BA's field and the training-investment
+ * figure come from Amy directly, via the operator, same date. Its
+ * second sentence closes on a quoted ranking phrase that ships under
+ * OPERATOR OVERRIDE after the compliance flag (BUILD_SPEC §8.4; no
+ * lint:claims pattern sees it, so a green linter never authorizes
+ * it). The wording is exact and the scope is that one sentence; the
+ * phrase is never restated anywhere else — meta description, OG,
+ * JSON-LD, alt text, or comments, this one included (DECISIONS
+ * 2026-09-19, the /about addendum).
+ * Sole ownership of Mobile Aesthetics:
+ * DECISIONS 2026-07-23. "AKA Needle Girlie": the client-dictated byline,
+ * DECISIONS 2026-07-30. The "Inside Evolus" film lives here since
+ * 2026-08-18 (client direction, moved from /services/wrinkle-relaxers
+ * with the recognition plate — supersedes the 2026-07-21 "About is
+ * ranking-free" placement decision; DECISIONS 2026-08-18); the plate
+ * gave way to the EvolusLaurel ranking plaque 2026-08-25 (client
+ * direction, the dermal-fillers-precedent swap; the plate's allowlist
+ * entry withdrawn, its ranking vocabulary banned everywhere again —
+ * DECISIONS same date). The
+ * multi-provider location gets its one factual line in prose; since
+ * 2026-08-25 the milestones section also carries the Girl Team still
+ * and the second yourmobileaesthetics.com link, both under the fourth
+ * constraint-2 scoped operator override, direct from Amy (DECISIONS
+ * same date — see the figure comment below), and — later the same
+ * day — the team film below the button in a sounded rendition, the
+ * constraint-2 SECOND exception (the carousel team film) widened to
+ * this placement (DECISIONS 2026-08-25; see the film comment below).
+ * Since 2026-09-27 the practice's NAME is a link to the practice site
+ * wherever this page's visible text says it — three sentences here,
+ * through PracticeLink — under constraint 2's seventh scoped operator
+ * override (every visible mention, sitewide; DECISIONS same date). No
+ * word of any sentence changed. With the header badge, the button and
+ * the footer, this page carries six links to that site.
+ * Lead portrait since 2026-09-27 (operator direction; DECISIONS same
+ * date): amy-pink-dress-counter.jpg, frame 8K0A3317 of the 2026-03-29
+ * shoot, committed exactly as supplied and shown WHOLE at its own 2:3.
+ * The arch's house window is 4:5, which would cut her at the ankles;
+ * the weigh-in frame and the Girl Team still keep their own shape for
+ * the same reason. Amy alone, so no release. The frame is in the
+ * product-box and vial classes the 2026-07-23 photo survey set aside,
+ * so it ships on the operator's approval for THIS frame in THIS slot.
+ * Screened at full resolution, which is what ships: the cartons' brand
+ * and product names are readable (names the site's own copy already
+ * carries), and so is the tail of a wall print at the top left, which
+ * the arch covers on the page; the cartons' small print, every vial
+ * label, the jar's contents and a label under the counter are not.
+ * Nothing printed on the packaging is restated here or in the alt
+ * text, which leaves the products out, as the studio print's does.
+ * The family portrait (client-requested 2026-07-23; on-record consent
+ * covers everyone pictured incl. the minors) led this page until that
+ * date. It now sits in the text column, smaller, under the last
+ * paragraph and above the button: the operator's direction, which is
+ * the confirmation the 2026-07-23 entry asks of any new placement.
+ * Its crop, wash and alt text are unchanged; the alt names no one but
+ * Amy. The studio photo (8K0A9862)
+ * publishes uncropped with the legible "MobileAesthetics" neon — her own
+ * signage, the prp-treatment precedent; a brand call, ACCEPTED with
+ * Amy's 2026-08-04 approval and still reversible on her word
+ * (DECISIONS 2026-08-03 and 2026-08-04). The hero lead's em dash is on the
+ * 2026-07-29 keep-list: byte-identical, and never echo its construction
+ * in new copy on this page.
+ */
+
+/* MA chevron plate data — hand-copied VERBATIM 2026-08-26 from
+ * VisitSteps.astro (which copied it from
+ * src/assets/brand/mobile-aesthetics-mark-header.svg 2026-08-19;
+ * brand fidelity — MA is Amy's own PLLC, constraint 2 not engaged,
+ * DECISIONS 2026-07-23). Operator direction (mockup chevrons02.png):
+ * the milestones' Playfair numerals retire for the same plates the
+ * treatment pages' VisitSteps wears — superseding the 2026-08-19
+ * "the /about milestones keep their numerals" scoping (DECISIONS
+ * 2026-08-26). Gradient ids are about-foil-0…3 — their own
+ * namespace, indexed so no page carries duplicate ids (axe). The
+ * badges are decorative (aria-hidden), and NO sr-only ordinal joins
+ * the headings — a deliberate asymmetry with VisitSteps' "Step N.":
+ * step numbers carry meaning in a process list but would misdescribe
+ * a biography timeline whose headings carry the years; the <ol>
+ * semantics announce order and count as before (DECISIONS
+ * 2026-08-26). */
+const FOIL_STOPS = [
+  ['0.00', '#fdaedb'],
+  ['0.13', '#fda6d8'],
+  ['0.38', '#fd78d4'],
+  ['0.63', '#e967b6'],
+  ['0.88', '#fc9ad6'],
+  ['1.00', '#fdaad9'],
+];
+const CHEVRONS = [
+  'M24.19 108.00 L42.19 108.00 L89.49 158.98 L42.16 210.00 L24.16 210.00 L71.49 158.98 Z',
+  'M84.99 108.00 L102.99 108.00 L150.28 158.98 L102.95 210.00 L84.95 210.00 L132.28 158.98 Z',
+  'M146.07 108.00 L164.07 108.00 L211.36 158.98 L164.04 210.00 L146.04 210.00 L193.36 158.98 Z',
+  'M207.02 108.00 L225.02 108.00 L272.32 158.98 L224.99 210.00 L206.99 210.00 L254.32 158.98 Z',
+];
+---
+
+<BaseLayout
+  title="About Amy Palacios, FNP | Needle Girlie"
+  description="Amy Palacios, FNP: two decades of nursing, owner of Mobile Aesthetics, Biote-certified. Behind every Needle Girlie appointment in Harrisburg, NC."
+>
+  <Header slot="header" />
+
+  <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    {/* Three parts in reading order: the opening, the lead portrait,
+      * the body. A phone and a screen reader both meet the portrait
+      * after the opening line (the operator's pick, 2026-09-27). From
+      * 768px the portrait takes the right column beside both text
+      * parts, and the text column's geometry is what it always was.
+      * The layout rules are in the style block below. */}
+    <div class="about-hero">
+      <div class="about-hero__intro">
+        <p class="eyebrow">About</p>
+        <hr class="rule-accent mt-4" aria-hidden="true" />
+        <h1 class="display-2 mt-6">Amy Palacios, FNP</h1>
+        <p class="lead mt-6">
+          Needle Girlie is the work of one clinician. Every consultation,
+          every plan, every appointment — Amy herself.
+        </p>
+      </div>
+      {/* widths stop at the master's own 1067px, so sharp never
+        * upscales; the size hints are the portrait's true width at
+        * every viewport (the old 40vw hint ran 23px short just under
+        * 1152px). */}
+      <figure class="about-portrait ng-arch">
+        <Image
+          src={amyPinkDressCounter}
+          alt="Amy Palacios, FNP, in a pink dress, seated on her medspa counter."
+          widths={[480, 640, 760, 1067]}
+          sizes="(min-width: 1152px) 484px, (min-width: 768px) calc(45.45vw - 40px), (min-width: 528px) 480px, calc(100vw - 48px)"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+      <div class="about-hero__body">
+        <div class="max-w-prose space-y-4">
+          <p>
+            Before the medspa, there was the hospital floor. Amy spent two
+            decades in nursing, much of it in critical care, where getting
+            every detail right isn't a flourish. It's the job.
+          </p>
+          <p>
+            Amy holds a BA in Psychology, a BSN, and a Master of Nursing,
+            and is a licensed Family Nurse Practitioner. This is all before
+            personally investing in excess of $100,000 in Medical Aesthetics
+            training to bring "top of class" abilities to her clientele. Amy
+            never stops training and advancing her knowledge of the business.
+          </p>
+          <p>
+            Today the medspa is hers: Amy owns <PracticeLink>Mobile Aesthetics</PracticeLink> in
+            Harrisburg, North Carolina, just northeast of Charlotte. She
+            practices there alongside other independent providers, and
+            Needle Girlie is the dedicated home of her own work.
+          </p>
+        </div>
+        {/* The family portrait at two-thirds of its old size (the
+          * operator's pick from three, 2026-09-27): 20rem, or 72% of
+          * the column where that is less. Lazy: it sits below the
+          * first screen. */}
+        <figure class="about-family ng-arch">
+          <Image
+            src={familyPortrait}
+            alt="Amy Palacios, FNP, with her family."
+            widths={[360, 520, 640, 760]}
+            sizes="(min-width: 904px) 320px, (min-width: 768px) calc(39.27vw - 35px), (min-width: 493px) 320px, calc(72vw - 35px)"
+            loading="lazy"
+          />
+        </figure>
+        <div class="mt-8">
+          <CTAButton variant="consult" emphasis="chip" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20"
+    aria-labelledby="about-milestones-title"
+  >
+    <hr class="rule-accent ng-trace" aria-hidden="true" />
+    <div class="mt-6 grid items-start gap-10 md:grid-cols-[5fr_6fr]">
+      <div>
+        <h2 class="heading-2" id="about-milestones-title">
+          Two decades in the making.
+        </h2>
+        <ol class="about-milestones mt-8 max-w-3xl" role="list">
+          <li class="about-milestones__step ng-rise">
+            <div class="about-milestones__badge" aria-hidden="true">
+              <svg viewBox="24.16 108 248.16 102" fill="none">
+                <defs>
+                  <linearGradient id="about-foil-0" gradientUnits="userSpaceOnUse" x1="24" y1="0" x2="271" y2="0">
+                    {FOIL_STOPS.map(([off, color]) => (
+                      <stop offset={off} stop-color={color} />
+                    ))}
+                  </linearGradient>
+                </defs>
+                {CHEVRONS.map((d) => (
+                  <path d={d} fill="url(#about-foil-0)" />
+                ))}
+              </svg>
+            </div>
+            <div>
+              <h3 class="heading-4">The early years</h3>
+              <p class="mt-2">Two decades of nursing, much of it in critical care.</p>
+            </div>
+          </li>
+          <li class="about-milestones__step ng-rise">
+            <div class="about-milestones__badge" aria-hidden="true">
+              <svg viewBox="24.16 108 248.16 102" fill="none">
+                <defs>
+                  <linearGradient id="about-foil-1" gradientUnits="userSpaceOnUse" x1="24" y1="0" x2="271" y2="0">
+                    {FOIL_STOPS.map(([off, color]) => (
+                      <stop offset={off} stop-color={color} />
+                    ))}
+                  </linearGradient>
+                </defs>
+                {CHEVRONS.map((d) => (
+                  <path d={d} fill="url(#about-foil-1)" />
+                ))}
+              </svg>
+            </div>
+            <div>
+              <h3 class="heading-4">2017 &middot; Aesthetics</h3>
+              <p class="mt-2">Amy moves from the hospital into medical aesthetics.</p>
+            </div>
+          </li>
+          <li class="about-milestones__step ng-rise">
+            <div class="about-milestones__badge" aria-hidden="true">
+              <svg viewBox="24.16 108 248.16 102" fill="none">
+                <defs>
+                  <linearGradient id="about-foil-2" gradientUnits="userSpaceOnUse" x1="24" y1="0" x2="271" y2="0">
+                    {FOIL_STOPS.map(([off, color]) => (
+                      <stop offset={off} stop-color={color} />
+                    ))}
+                  </linearGradient>
+                </defs>
+                {CHEVRONS.map((d) => (
+                  <path d={d} fill="url(#about-foil-2)" />
+                ))}
+              </svg>
+            </div>
+            <div>
+              <h3 class="heading-4">2018 &middot; Nurse practitioner</h3>
+              <p class="mt-2">
+                The credentials read FNP, built on a BA, a BSN, and a Master
+                of Nursing.
+              </p>
+            </div>
+          </li>
+          <li class="about-milestones__step ng-rise">
+            <div class="about-milestones__badge" aria-hidden="true">
+              <svg viewBox="24.16 108 248.16 102" fill="none">
+                <defs>
+                  <linearGradient id="about-foil-3" gradientUnits="userSpaceOnUse" x1="24" y1="0" x2="271" y2="0">
+                    {FOIL_STOPS.map(([off, color]) => (
+                      <stop offset={off} stop-color={color} />
+                    ))}
+                  </linearGradient>
+                </defs>
+                {CHEVRONS.map((d) => (
+                  <path d={d} fill="url(#about-foil-3)" />
+                ))}
+              </svg>
+            </div>
+            <div>
+              <h3 class="heading-4">Today &middot; Needle Girlie</h3>
+              <p class="mt-2">
+                Owner of <PracticeLink>Mobile Aesthetics</PracticeLink>, a Biote-certified provider, and the
+                one clinician behind every Needle Girlie appointment.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+      {/* Girl Team still (29b, 2026-08-25): Amy center with FOUR of the
+        * location's five other providers — a hard-constraint-2 operator
+        * override direct from Amy, the fourth scoped exception (DECISIONS
+        * 2026-08-25; CLAUDE.md constraint 2). All four pictured providers'
+        * releases for needlegirlie.com use confirmed on file (operator,
+        * same date). No signage or claims text in frame; nobody is named
+        * in copy or alt. The plate is the site's FIRST text-over-photo —
+        * opaque per the Phase C a11y rule (no scrims), Amy's casing kept
+        * (no uppercase transform). The arch is the segmental recipe
+        * hand-copied from TreatmentLayout (see the style block). The
+        * button below is the SECOND sanctioned yourmobileaesthetics.com
+        * link (the header badge, 2026-08-15, was the first) — same
+        * destination, same ma_site_click event. */}
+      <div class="md:order-first">
+        <figure class="about-team ng-rise">
+          <figcaption class="about-team__plate">Girl Team!</figcaption>
+          <Image
+            src={girlTeamStudio}
+            alt="Amy with the Mobile Aesthetics team, standing together in a white studio."
+            widths={[480, 760, 1080]}
+            sizes="(min-width: 768px) 42vw, 90vw"
+            loading="lazy"
+          />
+        </figure>
+        <div class="mt-6">
+          <a
+            href={siteConfig.mobileAestheticsUrl}
+            class="cta cta--chip"
+            target="_blank"
+            rel="noopener"
+            data-event="ma_site_click"
+          >
+            Visit Mobile Aesthetics
+            <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
+            <span class="sr-only">(opens in new tab)</span>
+          </a>
+        </div>
+        {/* The team film (2026-08-25): the same Mobile Aesthetics team
+          * film the home carousel plays — the location's other five
+          * providers on camera — here in a sounded WIDESCREEN rendition
+          * (girl-team-film-wide.mp4: a 16:9 center crop of the master,
+          * operator-directed 2026-08-26 after the native-portrait flag;
+          * a scoped override of RUNBOOK's no-crop rule — DECISIONS
+          * same date; it replaced the portrait rendition
+          * girl-team-film.mp4 and its 18rem cap). The constraint-2
+          * SECOND scoped exception (the carousel team film,
+          * 2026-08-17) is widened to this placement at the client's
+          * direction; the five providers' releases confirmed on file
+          * 2026-08-17 cover the film (DECISIONS 2026-08-25).
+          * Site-authored and speech-free (music bed only — the
+          * operator's 2026-08-25 confirmation is the record), so
+          * autoplay="inview" is IN-CONTRACT here, unlike the ICON
+          * film's scoped override below: muted on approach, loops on
+          * screen, the music one tap away on the native controls;
+          * plays under reduced motion too since 2026-09-03 (the phone
+          * policy, DECISIONS same date). The label shares the unit's
+          * factual team naming (fourth-exception terms) and stays
+          * accurate post-crop — the neon and the burned-in overlay
+          * both sit inside the wide window at the opener's zoomed-out
+          * stage. No printed caption (the 2026-08-21 rule). Sizing:
+          * the player is aspect-agnostic — the 1080×608 poster sets
+          * the landscape box, and the film fills the unit column like
+          * the ICON film fills its own. */}
+        <TreatmentVideo
+          src="/media/girl-team-film-wide.mp4"
+          poster={girlTeamFilmWidePoster}
+          captionsSrc="/media/girl-team-film-wide.vtt"
+          label="The Mobile Aesthetics team film — the team under the medspa neon and a black-and-white photo-shoot montage"
+          frame="bare"
+          autoplay="inview"
+        />
+      </div>
+    </div>
+  </section>
+
+  {/* Evolus ranking + the ICON film. The film moved here from
+    * /services/wrinkle-relaxers at the client's direction (2026-08-18,
+    * DECISIONS same date); the recognition plate came with it, and on
+    * 2026-08-25 gave way to the EvolusLaurel ranking plaque (client
+    * direction — the dermal-fillers-precedent plate-for-plaque swap,
+    * DECISIONS same date). The plaque's two sentences are
+    * operator-authorized superiority copy scoped to exactly three
+    * pages, /about now among them (CLAUDE.md constraint 3; the
+    * component header carries the rules). The retired plate's
+    * allowlist entry is WITHDRAWN — its ranking vocabulary is banned
+    * everywhere again, comments included. The film intro paragraph,
+    * label, and caption are byte-identical to the treatment page's.
+    * The whole unit — plaque, rule, heading, prose, film — sits in
+    * one CENTERED max-w-3xl column since 2026-08-26 (operator
+    * direction, two passes the same day: first the plaque alone —
+    * the full-bleed noir slab read as off-page hugging the band's
+    * left edge at desktop widths — then, on seeing that render, the
+    * rest of the unit; both supersede the 2026-08-18
+    * left-aligned-column intent, DECISIONS 2026-08-26 ×2). The
+    * heading and paragraph are TEXT-centered too — the operator's
+    * explicit pick; the "Ready when you are" band below is the
+    * page's own precedent — while the film's figcaption keeps its
+    * left seat at the film's edge (surgical per-element classes, no
+    * wrapper text-center, so nothing re-aligns unreviewed). The
+    * column adopts the treatment pages' centered idiom (their
+    * article is mx-auto max-w-3xl; the px-6 sits one level up here).
+    * The film player stays exempt from the arch motif (players never
+    * mask manufacturer footage — DECISIONS 2026-08-17). */}
+  <section
+    class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20"
+    aria-labelledby="about-evolus-title"
+  >
+    <div class="mx-auto max-w-3xl">
+      <EvolusLaurel />
+      <hr class="rule-accent ng-trace mx-auto mt-12 sm:mt-16" aria-hidden="true" />
+      <h2 class="heading-2 mt-6 text-center" id="about-evolus-title">Inside Evolus</h2>
+      <p class="mx-auto mt-6 max-w-prose text-center">
+        Evolus brought providers from across the country to its Newport
+        Beach headquarters for its first ICON experience. Amy was in the
+        room. This is Evolus's own recap of the event.
+      </p>
+      {/* autoplay="inview" here is a scoped operator override
+        * (2026-08-25, DECISIONS same date) of the 2026-08-21 rule that
+        * narrated manufacturer films never autoplay — flagged, and the
+        * client chose autoplay. Muted on approach, loop while on
+        * screen, tap for sound (the caption's "sound on" is that
+        * nudge); plays under reduced motion too since 2026-09-03 (the
+        * phone policy, DECISIONS same date). */}
+      <TreatmentVideo
+        src="/media/evolus-icon.mp4"
+        poster={iconPoster}
+        captionsSrc="/media/evolus-icon.vtt"
+        label="ICON — an Evolus HQ experience: Evolus's recap of its provider event"
+        caption="ICON — an Evolus HQ experience. An Evolus production — sound on."
+        autoplay="inview"
+      />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20">
+    <div class="grid items-center gap-10 md:grid-cols-[3fr_2fr]">
+      <div>
+        <hr class="rule-accent ng-trace" aria-hidden="true" />
+        <h2 class="heading-2 mt-6">The name on the wall.</h2>
+        <div class="mt-6 max-w-prose space-y-4">
+          <p>
+            The neon script over the medspa reads <PracticeLink>Mobile Aesthetics</PracticeLink> — Amy's
+            own practice. Needle Girlie is the name she goes by, and this
+            site exists so there is zero confusion about who you are booking
+            with: one clinician, under her own sign.
+          </p>
+          <p>
+            Twelve lines of service run through the medspa, from injectables
+            to skin, body, and wellness, and Amy plans every one of them.
+            <a href="/services">Explore all twelve <span class="chev-nudge" aria-hidden="true">&rsaquo;</span></a>
+          </p>
+        </div>
+        <h3 class="heading-4 mt-10">Booked your way.</h3>
+        <p class="mt-2 max-w-prose">
+          <BookLink>Book</BookLink> an appointment whenever you are ready, or start with a free
+          consultation, available upon request. Either way, the plan is
+          personal, and it is made with Amy.
+        </p>
+      </div>
+      <figure class="about-print ng-rise">
+        {/* the img itself wears the arch — a matted arch print: the
+          * white matte, tilt, and shadow stay on the figure */}
+        <Image
+          src={studioNeonPortrait}
+          alt="Amy Palacios, FNP, in her medspa beneath the Mobile Aesthetics neon sign."
+          widths={[360, 520, 760]}
+          sizes="18rem"
+          loading="lazy"
+          class="ng-arch"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="surface" data-surface="noir">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+      <p class="eyebrow">Appointments</p>
+      <h2 class="display-2 mt-4">
+        Ready <span class="display-accent ng-shimmer">when you are</span>.
+      </h2>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <CTAButton variant="book" emphasis="chip" />
+        <CTAButton variant="call" />
+      </div>
+      <div class="mt-8">
+        <TrustChips />
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style is:global>
+  /* The hero's three parts (2026-09-27; DECISIONS same date). One
+   * column on phones, in reading order. From 768px the section's own
+   * 6fr/5fr columns and 2.5rem gap, with the portrait beside both text
+   * parts. The second row is the flexible one, so the opening keeps
+   * its own height and the body follows it at the 2rem that has always
+   * separated the lead from the paragraphs. */
+  .about-hero {
+    display: grid;
+    row-gap: 2rem;
+  }
+  @media (min-width: 768px) {
+    .about-hero {
+      grid-template-columns: 6fr 5fr;
+      grid-template-rows: auto 1fr;
+      column-gap: 2.5rem;
+      align-items: start;
+    }
+    .about-hero__intro {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .about-hero__body {
+      grid-column: 1;
+      grid-row: 2;
+    }
+  }
+  /* Same light-wash grade as the /services strip. Frame shape + border
+   * come from .ng-arch (global.css) — the sitewide arch motif,
+   * 2026-08-17. The lead portrait shows its master whole, at the
+   * master's own 2:3 (the header comment has the reason). In the
+   * single column it stops at 30rem, so the 1067px master always holds
+   * twice the slot (retina rule). */
+  .about-portrait {
+    position: relative;
+    margin: 0;
+    max-width: 30rem;
+  }
+  @media (min-width: 768px) {
+    .about-portrait {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      max-width: none;
+    }
+  }
+  .about-portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
+  }
+  .about-portrait::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  /* The family portrait in the text column: the frame, crop, anchor
+   * and wash it wore as the page's lead until 2026-09-27, at
+   * two-thirds of the size. */
+  .about-family {
+    position: relative;
+    margin: 2rem 0 0;
+    width: min(20rem, 72%);
+  }
+  .about-family img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    /* group portrait: faces sit mid-frame, not top-of-frame like a
+     * single-subject shot — anchor the crop to the group */
+    object-position: 50% 38%;
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
+  }
+  .about-family::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  /* Milestones — the MA chevron plates (operator direction 2026-08-26,
+   * mockup chevrons02.png), replacing the Playfair-counter recipe
+   * hand-copied 2026-08-15 from VisitSteps: the same
+   * numerals-for-plates retirement VisitSteps made 2026-08-19, which
+   * closes the counter recipe's last live use AND the display
+   * accent's last light-canvas consumer (tokens.css OMBRE CANVAS
+   * record updated; the re-ink stays). Plate rules hand-copied from
+   * VisitSteps.astro — the same hand-copy precedent as the counter
+   * before it (DECISIONS 2026-08-26). */
+  .about-milestones {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 2rem;
+  }
+  .about-milestones__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1.25rem;
+  }
+  /* Hairline rules separate the steps (editorial table rhythm). */
+  .about-milestones__step + .about-milestones__step {
+    border-top: 1px solid var(--ng-hairline);
+    padding-top: 2rem;
+  }
+  /* The MA chevron plate — noir by design (the mark's own plate
+   * anatomy); decorative, so no contrast pair is engaged. Width
+   * matches VisitSteps for cross-page consistency. */
+  .about-milestones__badge {
+    background: var(--ng-noir);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    width: 7rem;
+    align-self: start;
+  }
+  .about-milestones__badge svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  @media (max-width: 400px) {
+    .about-milestones__step {
+      grid-template-columns: 1fr;
+      row-gap: 0.5rem;
+    }
+  }
+  /* Girl Team figure — the segmental arch, hand-copied from
+   * TreatmentLayout .media-band--segmental (scoped to .treatment-body
+   * there, unreachable here — the same hand-copy precedent as
+   * .about-print below): the wide sibling of the Roman arch at the
+   * photo's own 3:2, curve pinned to the top third, straight feet,
+   * 12px foot corners. Landscape frames that must show full content
+   * wear this shape (2026-08-18); every photo wears an arch (Amy's
+   * sitewide direction, 2026-08-17). Same light wash as
+   * .about-portrait; the ::after mirrors the arch radius because no
+   * overflow clip runs on the figure here. */
+  .about-team {
+    position: relative;
+    margin: 0;
+  }
+  .about-team img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: 50% 50% 12px 12px / 34% 34% 12px 12px;
+    border: 1px solid var(--ng-magenta-600);
+    filter: grayscale(15%) contrast(1.03) brightness(1.05);
+  }
+  .about-team::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50% 50% 12px 12px / 34% 34% 12px 12px;
+    background: color-mix(in srgb, var(--ng-magenta-600) 10%, transparent);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  /* The plate — the site's first text-over-photo, an OPAQUE plate
+   * per the Phase C a11y rule (never a scrim) — noir with logo-pink
+   * lettering since 2026-08-26 (operator direction; pink-500 IS the
+   * wordmark's own #ec4899 — canonical master + pixel census,
+   * DECISIONS same date; the paper/ink original shipped 2026-08-25).
+   * Contrast rides the recorded body-size pink-500-on-noir pair
+   * (5.95:1, tokens.css); the border went hairline → pink-500 (the
+   * light-scoped hairline reads as a stray gray line around a noir
+   * plate; pink matches the page's brand-ink CTAs). z-index still
+   * lifts it above the ::after wash so the text audits at its real
+   * contrast. True keystone: the plate straddles the arch crown
+   * (negative top, half above the edge), so it clears every face at
+   * EVERY viewport — a %-offset plate grew into Amy's hair at 390px,
+   * since Amy stands center under a centered plate. Amy's own casing
+   * — no uppercase transform. */
+  .about-team__plate {
+    position: absolute;
+    top: -0.875rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    background: var(--ng-noir);
+    border: 1px solid var(--ng-pink-500);
+    border-radius: 2px;
+    padding: 0.375rem 0.875rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ng-pink-500);
+    white-space: nowrap;
+  }
+  /* (The brand-ink CTA rules born here 2026-08-26 (.about-cta-brand)
+   * were hoisted to the shared .cta--chip in CTAButton.astro
+   * 2026-08-27, when the operator extended the look beyond this page
+   * — this page's three brand CTAs now opt in via emphasis="chip" /
+   * the cta--chip class, rendering unchanged. DECISIONS both dates.) */
+  /* (The .about-team-film 18rem portrait cap retired 2026-08-26 with
+   * the widescreen rendition — the landscape film needs no wrapper;
+   * see the player comment in the markup. DECISIONS same date.) */
+  /* Framed print — the house white-matte small print, hand-copied from
+   * TreatmentLayout .media-figure (scoped to .treatment-body there,
+   * unreachable here). Right-hand figure beside copy takes the flip
+   * tilt (+1.5deg): prints lean toward the copy. ng-rise composes —
+   * it animates translate; the tilt is transform. */
+  .about-print {
+    justify-self: center;
+    width: min(18rem, 100%);
+    margin: 0;
+    background: var(--ng-paper);
+    border: 1px solid var(--ng-hairline);
+    padding: 0.625rem;
+    box-shadow: 0 14px 28px -16px color-mix(in srgb, var(--ng-ink-900) 40%, transparent);
+    transform: rotate(1.5deg);
+  }
+  .about-print img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

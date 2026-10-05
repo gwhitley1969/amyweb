@@ -1,0 +1,159 @@
+---
+# Client wording 2026-08-19 (via operator), verbatim incl. the hyphen —
+# extends the 2026-08-18 menu-line direction (serviceLines.ts) to the
+# page itself. Fans out to the H1, breadcrumbs, and JSON-LD names.
+# seo.title keeps the search phrasing deliberately.
+title: Neurotoxins - Wrinkle Relaxers
+line: wrinkle-relaxers
+summary: "Prescription injectable treatments that soften dynamic lines: the ones that come from repeated expression."
+# Client direction 2026-08-23, SUPERSEDED 2026-08-24 (via operator): her
+# original wording, restored verbatim and extended to name where the areas
+# sit. The second half addresses the reader with a promise verb — an
+# outcome claim (constraint 3 / §8.3). It was flagged in round 1 and the
+# operator chose a compliant rewrite; on 2026-08-24, after the flag and
+# after seeing the rendered page, the operator overrode. It ships as an
+# operator override scoped to this one field on this one page (DECISIONS
+# 2026-08-24). There is no allowlist entry because the string trips no
+# banned pattern — lint:claims cannot see this, so the authorization lives
+# in the decision record, not the registry (the EvolusLaurel precedent).
+# Editing rules: inner quotes are backslash-escaped (double-quoted YAML
+# scalar), and the value stays on ONE source line — folding would alter
+# the text.
+deck: "A light, deliberate hand for those lines repeated expressions leave behind. Wave good-bye to your crow's feet, \"11's\" between your eyes and forehead frown lines!"
+products:
+  - "Jeuveau"
+  - "Xeomin"
+  - "Daxxify"
+# priceLines: operator-authorized allowlist strings ONLY (2026-07-21
+# per-unit override — see compliance/banned-patterns.json and
+# docs/DECISIONS.md).
+productDetails:
+  - name: "Jeuveau"
+    # Card leads say "neurotoxin" at the client's direction 2026-08-19
+    # (supersedes the §7 normalize rule for these three strings —
+    # DECISIONS same date; body/FAQ copy unchanged pending direction).
+    detail: "A prescription neurotoxin from Evolus, developed specifically for aesthetics, used to smooth moderate to severe frown lines."
+    priceLines: ["$10 per unit"]
+  - name: "Xeomin"
+    detail: "A prescription neurotoxin from Merz, purified down to the bare active protein, used to smooth moderate to severe facial wrinkles."
+    priceLines: ["$10 per unit"]
+  - name: "Daxxify"
+    detail: "A prescription neurotoxin from Revance with a peptide-stabilized formulation. Labeled for results lasting up to six months. How long it holds varies person to person."
+    priceLines: ["$12 per unit"]
+ctaType: book
+pricingDisplay: consult
+# Renders the EvolusLaurel ranking plaque between the deck and the
+# product cards (client direction 2026-08-19; wording + authorization
+# live in the component and DECISIONS same date).
+evolusLaurel: true
+clinicianApproved: true
+draft: false
+faq:
+  - q: "What's the difference between Jeuveau, Xeomin, and Daxxify?"
+    a: "Formulation, mostly. All three are prescription neurotoxins that soften expression lines. Jeuveau was developed specifically for aesthetics, Xeomin is purified down to the bare active protein, and Daxxify is stabilized with a peptide and labeled for results lasting up to six months. Which one, if any, belongs in your plan is decided with Amy in consultation."
+  - q: "Do men get neurotoxin treatments?"
+    a: "Yes. Expression lines are not gender based, and neither is the appointment: same products, same individual planning, with Amy."
+  - q: "Do I need a consultation before booking?"
+    a: "No. A consultation is never required; however, one is free upon request."
+  - q: "Who performs the treatment?"
+    a: "Amy Palacios, FNP, a licensed family nurse practitioner. Every appointment is with Amy herself."
+  - q: "How do I book?"
+    a: 'Online through Vagaro with the "[Book with Amy](cta:book)" button, or by phone at 704-579-7108.'
+seo:
+  title: "Wrinkle Relaxers in Harrisburg & Charlotte, NC | Needle Girlie"
+  description: "Jeuveau, Xeomin, and Daxxify wrinkle relaxers with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte. Book online, or start with a free consultation."
+---
+
+import { Image } from 'astro:assets';
+import BookLink from '../../components/BookLink.astro';
+import blazerBrowInjection from '../../assets/photos/blazer-brow-injection.jpg';
+import handMirrorMaleClient from '../../assets/photos/hand-mirror-male-client.jpg';
+import jeuveauBannerStudio from '../../assets/photos/jeuveau-banner-studio.jpg';
+
+## What they are
+
+Wrinkle relaxers are prescription neurotoxins: injectable treatments
+used to soften dynamic lines, the creases that form with repeated
+muscle movement. Common treatment areas include the forehead,
+frown lines, and crow's feet.
+
+{/* The Evolus recognition plate and the "Inside Evolus" film moved to
+  * /about at the client's direction (2026-08-18, DECISIONS same date —
+  * supersedes the 2026-07-21 placements recorded there). */}
+
+<section class="media-row media-row--flip">
+  <div class="media-copy">
+
+## Who they're generally for
+
+Adults who want expression lines softened while keeping natural movement
+often consider this category. Whether it fits you, and which product
+suits your anatomy and goals, is a clinical decision made with Amy in
+a consultation, with the procedure following.
+
+  </div>
+  <figure class="media-figure">
+    {/* Amy's pick, photo round 2026-08-18 (screening + release record in
+      * DECISIONS same date). The layout's top-anchor crop override keeps
+      * the neon letters whole — see TreatmentLayout. */}
+    <Image
+      src={blazerBrowInjection}
+      alt="Amy Palacios, FNP, in a pink blazer guides a fine syringe at a reclined client's brow beneath the Mobile Aesthetics neon."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+</section>
+
+<section class="media-row">
+  <figure class="media-figure">
+    {/* Amy's pick, photo round 2026-08-18 (screening + release record in
+      * DECISIONS same date; tray vial labels illegible at served size). */}
+    <Image
+      src={handMirrorMaleClient}
+      alt="A male client looks into a Mobile Aesthetics hand mirror beside Amy Palacios, FNP, in the treatment room."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+  <div class="media-copy">
+
+## Not just for women
+
+Expression lines aren't gender defined, and neither is this chair. Men
+<BookLink>book</BookLink> the same appointments for the same reason anyone does: lines
+they'd rather not see. The visit is identical — same products, same
+unhurried planning, with Amy.
+
+  </div>
+</section>
+
+{/* Third media moment: full-width band, not a third zigzag row —
+  * scale variation closes the sequence (taste-audit follow-up). */}
+<section class="media-band media-band--segmental">
+  <div class="media-copy">
+
+## Individualized, with Amy
+
+Amy Palacios, FNP, assesses your goals and plans every treatment
+individually at her Harrisburg medspa, just minutes from Charlotte. Your
+trust is well placed when you walk through the doors!
+
+  </div>
+  <figure class="media-figure">
+    {/* Amy's pick, photo round 2026-08-18 (screening, the banner
+      * override, and the release record all in DECISIONS same date).
+      * The asset is the FULL 3:2 frame — the client's requirement is
+      * that everyone in the picture is visible, and the people span
+      * wider than any 9:8 window holds, so the band wears the
+      * segmental-arch variant (--segmental, TreatmentLayout) whose
+      * window matches the frame exactly: no crop, no fill. 1600
+      * native px meets the 45rem slot's DPR2 demand with margin. */}
+    <Image
+      src={jeuveauBannerStudio}
+      alt="Amy Palacios, FNP, shows products to two clients across the medspa cart, beside a Jeuveau banner."
+      widths={[720, 1080, 1440]}
+      sizes="(max-width: 48rem) 92vw, 45rem"
+    />
+  </figure>
+</section>

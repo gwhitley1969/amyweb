@@ -1,65 +1,143 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import { siteConfig } from '../lib/siteConfig';
-import wordmark from '../assets/brand/needle-girlie-wordmark-alpha.png';
+/* The wordmark is a crop of the client's 2026-09-15 raster master (see
+ * docs/BRAND-ASSETS.md; DECISIONS same date) — 2124x578, aspect 3.675.
+ * The nav popover's offsets and the Mobile Aesthetics badge's height, at
+ * every width (DECISIONS 2026-09-23 and 2026-09-25), are derived from that
+ * aspect (WORDMARK_ASPECT in the styles) — a future asset swap changes one
+ * number, and resizes the badge with it. */
+import wordmark from '../assets/brand/needle-girlie-wordmark-metallic-alpha.png';
+import maMark from '../assets/brand/mobile-aesthetics-mark.svg';
 
 /**
  * Noir sitewide header (approved design plan). Mobile nav uses the native
  * Popover API — zero JS: the browser handles toggling, Esc-close, and
  * light-dismiss. Browsers without support (pre-Safari 17) ignore the
- * attribute, so the nav simply renders expanded — graceful degradation.
+ * attribute, so the nav renders expanded on its own row under the brand
+ * and the menu button hides — graceful degradation (the feature query at
+ * the end of the styles; DECISIONS 2026-09-24).
  * The header/page edge is a hard cut: chrome, not a content boundary —
  * it never takes a chevron seam.
  */
-/* "Book" goes straight to Vagaro (conversion pattern; client 2026-07-18)
- * — the Phase C /book page remains the consultation-routing target but
- * the nav does not depend on it. */
-const nav: { label: string; href: string; external?: boolean }[] = [
+/* "Book" goes straight to Vagaro (conversion pattern; client 2026-07-18).
+ * The /book routing page was retired 2026-07-21 (operator) — every
+ * booking path is Vagaro-direct. */
+const nav: { label: string; href: string }[] = [
   { label: 'Services', href: '/services' },
-  { label: 'About', href: '/about' },
-  { label: 'Visit', href: '/visit' },
-  { label: 'Book', href: siteConfig.booking.vagaroUrl, external: true },
+  /* "About Amy" (operator direction 2026-09-19; was "About"). */
+  { label: 'About Amy', href: '/about' },
+  /* "Visit Amy" (operator direction 2026-09-23; was "Visit") — now the
+   * same words as the /visit page's own title and H1. */
+  { label: 'Visit Amy', href: '/visit' },
+  /* The private-party page — /tox-together "Tox Together" since
+   * 2026-09-27 (operator; it was /tox-to-go "Tox To Go" for a day),
+   * replacing /mobile "Mobile" (operator direction 2026-09-02; DECISIONS
+   * all three dates) — after Visit Amy, since both answer "where do I
+   * see Amy". */
+  { label: 'Tox Together', href: '/tox-together' },
+  /* Professional-audience page (operator placement decision 2026-08-04). */
+  { label: 'Training', href: '/injector-training' },
 ];
+
+/* Hybrid nav (operator decision 2026-08-15): the menu button carries the
+ * page links at EVERY width — no inline desktop nav — and Book leaves
+ * the menu to become the persistent CTA beside it. The primary
+ * conversion action never hides behind a click. */
+const bookUrl = siteConfig.booking.vagaroUrl;
+
+/* Current-page marker (taste audit 2026-07-25): exact match -> "page";
+ * a /services subpage marks Services as the current section ("true").
+ * Build-time only — Astro.url.pathname is the page being rendered. */
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => {
+  if (path === item.href) return 'page';
+  if (item.href === '/services' && path.startsWith('/services/')) return 'true';
+  return undefined;
+};
 ---
 
 <div class="surface site-header" data-surface="noir">
-  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4 sm:py-6">
-    <a href="/" class="shrink-0">
-      {/* Big by design — operator/client direction: the brand leads.
-          Scaled up twice per client review 2026-07-18. Chevron motif
-          retired from the UI same day (client) — it lives on only inside
-          the logo artwork itself. */}
-      <Image
-        src={wordmark}
-        alt="Needle Girlie — home"
-        width={440}
-        densities={[1, 2, 3]}
-        class="h-auto w-[300px] sm:w-[440px]"
-      />
-    </a>
-    <nav aria-label="Primary">
-      {/* desktop */}
-      <ul class="hidden items-center gap-8 sm:flex">
-        {
-          nav.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                class="site-nav-link"
-                {...(item.external
-                  ? { target: '_blank', rel: 'noopener', 'data-event': 'book_click' }
-                  : {})}
-              >
-                {item.label}
-                {item.external && <span class="sr-only">(opens in new tab)</span>}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      {/* mobile: popover toggle */}
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:py-6">
+    <div class="site-brand-group">
+      {/* Mobile Aesthetics badge, far left (redesign requirement #6).
+          Vector rebuild from the practice's own F-437304 300px render —
+          MA is Amy's sole-owner PLLC (DECISIONS 2026-07-23). FULL BADGE
+          variant (operator pick 2026-08-15): the complete tile — plate,
+          frame, name and phone — so the mark never reads truncated.
+          The badge LINKS OUT to Amy's practice site (operator override
+          2026-08-15 after the constraint-2 flag — the destination names
+          the location's other providers; DECISIONS same date). The home
+          link stays the wordmark's alone. */}
+      <a
+        href={siteConfig.mobileAestheticsUrl}
+        class="site-brand-mark-link shrink-0"
+        target="_blank"
+        rel="noopener"
+        data-event="ma_site_click"
+      >
+        <img
+          src={maMark.src}
+          alt="Mobile Aesthetics PLLC"
+          width="300"
+          height="300"
+          class="site-brand-mark"
+        />
+        <span class="sr-only">(opens in new tab)</span>
+      </a>
+      <a href="/" class="site-brand shrink-0">
+        {/* Big by design — operator/client direction: the brand leads.
+            Scaled up twice per client review 2026-07-18. Chevron motif
+            retired from the UI same day (client); since the 2026-09-15
+            logo the artwork carries no chevron run either. On phones the
+            mark spans the container on its own row (the stacked shell,
+            2026-09-15). `widths` + `sizes` (not `densities`) so a phone fetches
+            the tier its slot needs, not the 2x-of-600 file — the metallic
+            mark's derivatives are heavier than the old flat one (image
+            budget, DECISIONS 2026-09-15). The sizes mirror the two clamps
+            with plain breakpoints. The rendered width is --wordmark-w
+            (styles below) so the popover offset and the badge's height
+            can share it. */}
+        {/* <Picture>, AVIF first with a WebP fallback, quality 50 (2026-09-15,
+            the stacked phone shell): the phone tier went 440 → 720px and the
+            extra ~24KB of WebP tipped /mobile past its LCP budget; AVIF at
+            q50 puts the 660/720 tiers back at the old ~27KB. `quality`
+            applies to the WebP fallback too (pre-2022 phones), accepted for
+            a glow-heavy image. The 90vw phone hint (not 92) lands
+            Lighthouse's synthetic phone on the 660 tier. `class` goes to the
+            inner <img>, so home-motion's `.site-brand img` still matches. */}
+        <Picture
+          src={wordmark}
+          alt="Needle Girlie — home"
+          formats={['avif']}
+          fallbackFormat="webp"
+          quality={50}
+          width={600}
+          widths={[440, 600, 660, 720, 900, 1080, 1200]}
+          sizes="(max-width: 413px) 90vw, (max-width: 639px) 380px, (min-width: 1024px) 600px, (min-width: 773px) 340px, 44vw"
+          class="site-brand-wordmark h-auto"
+        />
+        {/* Credential line under the wordmark (operator 2026-07-19).
+            pink-500 small text is legal on noir ONLY — see the (min 4.5)
+            pair in tokens.css. */}
+        <span class="site-brand-credit">Amy Palacios, FNP</span>
+      </a>
+    </div>
+    <nav aria-label="Primary" class="site-nav">
+      {/* The persistent conversion action — visible at every width,
+          never inside the menu (hybrid nav, operator 2026-08-15). */}
+      <a
+        href={bookUrl}
+        class="site-book-cta"
+        target="_blank"
+        rel="noopener"
+        data-event="book_click"
+      >
+        Book<span class="sr-only"> (opens in new tab)</span>
+      </a>
+      {/* menu button — all widths */}
       <button popovertarget="mobile-nav" class="site-nav-toggle" type="button">
-        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+        <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true" fill="none">
           <path
             d="M4 7h16M4 12h16M4 17h16"
             stroke="currentColor"
@@ -75,12 +153,9 @@ const nav: { label: string; href: string; external?: boolean }[] = [
               <a
                 href={item.href}
                 class="site-nav-link block px-6 py-3"
-                {...(item.external
-                  ? { target: '_blank', rel: 'noopener', 'data-event': 'book_click' }
-                  : {})}
+                aria-current={currentFor(item)}
               >
                 {item.label}
-                {item.external && <span class="sr-only">(opens in new tab)</span>}
               </a>
             </li>
           ))
@@ -93,6 +168,159 @@ const nav: { label: string; href: string; external?: boolean }[] = [
 <style is:global>
   .site-header {
     border-bottom: 1px solid var(--ng-hairline);
+    /* The wordmark's rendered width — one expression, read by the image,
+     * by the nav popover's offset, and (through --ma-h) by the badge's
+     * height. PHONES (<640px, the stacked shell
+     * below): the mark spans the container's inner width — 100vw minus
+     * the 1rem side paddings — capped at 380px for large phones and
+     * foldables; 358×97 at 390 (was 172×47 in the single row, whose width
+     * the badge, Book, and menu fixed — client direction 2026-09-15:
+     * "more pronounced on phones", DECISIONS the seventh addendum). */
+    --wordmark-w: min(100vw - 2rem, 380px);
+    /* The Mobile Aesthetics badge's rendered height — the same pattern:
+     * one expression, read by the badge and by the popover's offsets, and
+     * one rule at EVERY width: the wordmark's height at the 3.675 aspect +
+     * 1.5rem (the credit line and its gap from 640px). Declared once here,
+     * it re-resolves against each breakpoint's --wordmark-w below, since
+     * both live on .site-header. PHONES (since 2026-09-25, when Amy asked
+     * again for a bigger badge; DECISIONS same date — 48px until
+     * 2026-09-23, then 72): 102px at 320, 121 at 390, 127 from 412 to 639,
+     * on the utility row — about 2px taller than the lockup above it,
+     * whose credit line is smaller there. The row, and so the phone
+     * header, grows with it (~274px at 390, ~286 from 412). */
+    --ma-h: calc(var(--wordmark-w) / 3.675 + 1.5rem);
+  }
+  /* 640–1023px: the single row, 44vw between 281 and 340px. From here up
+   * the badge (--ma-h above) is exactly as tall as the brand block beside
+   * it — the wordmark's height at the 3.675 aspect + the credit line and
+   * its gap (1.5rem) — so it grows into the row's existing height and the
+   * header keeps its height (2026-09-23: 101–117px on tablets, 152–187px
+   * on desktop). */
+  @media (min-width: 640px) {
+    .site-header {
+      --wordmark-w: clamp(281px, 44vw, 340px);
+    }
+  }
+  /* ≥1024px: 600px cap (was 440 until 2026-09-15 — client direction after
+   * the recoloured mark: "bigger, it should stand out more than the Mobile
+   * Aesthetics badge"). At 600 the mark is ~163px tall — then beside the
+   * 160px badge — and the header grows to ~236px (accepted). Since
+   * 2026-09-23 the badge is level with the mark + credit line (~187px at
+   * 600); the mark still leads at ~3x its width. Row fit (measured): the
+   * 1152px container leaves ~731px for the mark beside the 187px badge
+   * and the Book + menu group. The tablet cap went 300 → 340 in the same
+   * round. */
+  @media (min-width: 1024px) {
+    .site-header {
+      --wordmark-w: clamp(420px, 46vw, 600px);
+    }
+  }
+  .site-brand-wordmark {
+    width: var(--wordmark-w);
+  }
+  /* Left group: the Mobile Aesthetics mark sits beside the brand link.
+   * The mark's height (not width) is the control — the full badge's square
+   * 300x300 box keeps the aspect, so it renders as wide as it is tall. */
+  .site-brand-group {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-width: 0;
+    /* phones: the group absorbs the row's slack and the brand link
+     * auto-margins to its center, so "Needle Girlie" sits centered
+     * between the badge and the menu button (operator 2026-08-15).
+     * On the tightest 360px rows there is no slack — nothing moves. */
+    flex: 1;
+  }
+  .site-brand {
+    margin-inline: auto;
+  }
+  /* Hybrid nav (2026-08-15): the centered-brand shell — badge left,
+   * wordmark centered in the slack, Book + menu right — is the layout
+   * from 640px up. Only the brand scale changes with the viewport. */
+  @media (min-width: 1024px) {
+    .site-brand-group {
+      gap: 1.25rem;
+    }
+  }
+  /* PHONES (<640px) STACK (client direction 2026-09-15 — "the mark needs
+   * to be more pronounced; most people see the site on their phones";
+   * operator pick among three previews: brand on top; DECISIONS the
+   * seventh addendum). The row becomes a two-row grid: the brand link
+   * alone on top, centered and as wide as the container; the badge,
+   * Book, and menu on a utility row beneath. The brand-group wrapper
+   * dissolves (display: contents) so the badge and the brand link are
+   * grid items directly; the DOM — and so the tab order: badge, brand,
+   * Book, menu — is unchanged, which puts the badge's focus stop before
+   * the brand's although it now sits below it (recorded; reordering the
+   * DOM would move the same mismatch to desktop). The container's
+   * utilities carry over: gap-4 is the column gap, justify-between is
+   * inert beside a 1fr track. The popover is position: fixed and
+   * unaffected. */
+  @media (max-width: 639px) {
+    .site-header > div {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas:
+        'brand brand brand'
+        'badge . nav';
+      row-gap: 0.5rem;
+      align-items: center;
+      padding-block: 0.75rem;
+    }
+    .site-brand-group {
+      display: contents;
+    }
+    .site-brand {
+      grid-area: brand;
+      justify-self: center;
+      margin-inline: 0;
+    }
+    .site-brand-mark-link {
+      grid-area: badge;
+    }
+    .site-nav {
+      grid-area: nav;
+    }
+  }
+  /* inline-flex so the focus ring hugs the badge, not a text line box */
+  .site-brand-mark-link {
+    display: inline-flex;
+  }
+  .site-brand-mark {
+    width: auto;
+    /* --ma-h (set on .site-header above): the wordmark's height + 1.5rem
+     * at every width — 102–127px on phones (Amy's request 2026-09-25; it
+     * was 72px from 2026-09-23 and 48px until then); from 640px exactly
+     * the brand block's height, so the tablet and desktop headers keep
+     * their height (Amy's request 2026-09-23 — it was 48–72px on tablets
+     * and 128–160px on desktop, the 2026-08-15 co-brand scale after 112px
+     * read "awkwardly small"; DECISIONS all three dates). The square SVG's
+     * width/height attributes keep the aspect. */
+    height: var(--ma-h);
+  }
+  /* Brand lockup: wordmark with the credential line beneath. Same
+   * uppercase tracked grammar as the nav; brand pink-500 to echo the
+   * logo lettering (5.95:1 on noir — verified small-text pair). */
+  .site-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+    text-decoration: none;
+  }
+  .site-brand-credit {
+    color: var(--ng-pink-500);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  @media (min-width: 640px) {
+    .site-brand-credit {
+      font-size: 0.9375rem;
+    }
   }
   /* Editorial nav: uppercase tracked labels (eyebrow grammar at nav size).
    * Sized up per client review 2026-07-18. */
@@ -109,30 +337,85 @@ const nav: { label: string; href: string; external?: boolean }[] = [
     text-decoration: underline;
     text-underline-offset: 4px;
   }
+  /* The current page keeps a persistent underline in the brand pink —
+   * quiet orientation; aria-current carries it for assistive tech
+   * (taste audit 2026-07-25). Text color is untouched (contrast pairs
+   * unchanged); the decoration is supplementary, aria-current is the
+   * accessible signal. */
+  .site-nav-link[aria-current] {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--ng-pink-500);
+  }
+  /* Right group: the persistent Book CTA + the menu button, all widths. */
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  @media (min-width: 1024px) {
+    .site-nav {
+      gap: 0.75rem;
+    }
+  }
+  /* Book: the one styled button in the header — outlined pink on noir
+   * (5.95:1, verified pair); hover inverts to a pink fill with noir
+   * text (5.9:1). Same tracked-caps grammar as the nav. */
+  .site-book-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--ng-pink-500);
+    border-radius: 2px;
+    color: var(--ng-pink-500);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .site-book-cta:hover {
+    background: var(--ng-pink-500);
+    color: var(--ng-noir);
+  }
+  @media (min-width: 1024px) {
+    .site-book-cta {
+      padding: 0.7rem 1.25rem;
+      font-size: 0.9375rem;
+    }
+  }
   .site-nav-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 3rem;
-    min-height: 3rem;
+    min-width: 2.75rem; /* 44px — the vc-toggle tap-target precedent */
+    min-height: 2.75rem;
     color: var(--ng-text);
     background: none;
     border: none;
     cursor: pointer;
   }
-  /* desktop: the inline list is visible, so the toggle goes away — kept in
-   * component CSS because the base display rule above would out-cascade a
-   * Tailwind sm:hidden utility */
-  @media (min-width: 640px) {
-    .site-nav-toggle {
-      display: none;
+  /* icon sized up per operator review 2026-08-15 */
+  @media (min-width: 1024px) {
+    .site-nav-toggle svg {
+      width: 34px;
+      height: 34px;
     }
   }
   .site-nav-popover {
     /* popover-open state */
     position: fixed;
     inset: auto 1rem auto auto;
-    top: 7rem; /* clears the enlarged brand block */
+    /* Clears the header at every width, derived from the wordmark's
+     * rendered width over the asset's aspect (3.675 — WORDMARK_ASPECT)
+     * and the badge's --ma-h rather than tuned per breakpoint (the
+     * 2026-08-15 rem values were retuned twice and still overlapped at
+     * 639px). PHONES, the stacked shell: paddings (1.5rem) + the mark's
+     * height + its gap and the credit line (1.375rem) + the row gap
+     * (0.5rem) + the utility row (--ma-h: the badge is the tallest item
+     * on it) + air (0.25rem). */
+    top: calc(1.5rem + var(--wordmark-w) / 3.675 + 1.375rem + 0.5rem + var(--ma-h) + 0.25rem);
     min-width: 12rem;
     margin: 0;
     padding: 0.5rem 0;
@@ -140,14 +423,92 @@ const nav: { label: string; href: string; external?: boolean }[] = [
     border-radius: 0.25rem;
     list-style: none;
   }
-  /* Browsers without Popover support ignore the attribute; the list then
-   * flows inline — give it sane inline styling instead of the overlay's. */
+  /* 640–1023px, the single row: the header's vertical padding (2rem) +
+   * the taller of the badge and the brand block (the mark's height + the
+   * credit line and its gap, 1.5rem) + air (0.25rem). The two are equal by
+   * construction since 2026-09-23 (--ma-h); max() keeps the menu clear if
+   * either one changes. */
+  @media (min-width: 640px) {
+    .site-nav-popover {
+      top: calc(2rem + max(var(--ma-h), var(--wordmark-w) / 3.675 + 1.5rem) + 0.25rem);
+    }
+  }
+  /* ≥1024px: the header is py-6 (3rem) + the taller of the badge (--ma-h)
+   * and the brand block (wordmark height + credit line); the menu anchors
+   * just below it (hybrid nav). Was a fixed 13.5rem, right only at the
+   * 160px end of the old badge clamp (39px adrift at 1024). */
+  @media (min-width: 1024px) {
+    .site-nav-popover {
+      top: calc(3rem + max(var(--ma-h), var(--wordmark-w) / 3.675 + 1.5rem) + 0.25rem);
+    }
+  }
+  /* NO POPOVER API (Safari before 17 — the iPhone 8, 8 Plus, and X stop
+   * at iOS 16): the attribute is ignored, so the list renders in the page
+   * and the menu button opens nothing. The nav renders EXPANDED instead
+   * (DECISIONS 2026-07-08), on its own row under the brand — the header
+   * row has no room for the five links at any width, since the hybrid nav
+   * (2026-08-15) put every link in the menu and the stacked phone shell
+   * (2026-09-15) filled the phone row. Poured into that row inline (the
+   * 2026-07-08 fallback), the list made phones ~802px wide and covered the
+   * badge and the wordmark from 640px up (DECISIONS 2026-09-24).
+   * Everything here sits inside the feature query, so Popover browsers
+   * never apply any of it. */
   @supports not selector(:popover-open) {
+    /* nothing to open — hidden, and so out of the accessibility tree */
+    .site-nav-toggle {
+      display: none;
+    }
+    .site-nav {
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 0.25rem;
+    }
+    /* A centered, wrapping row of links: the overlay's box (min-width,
+     * padding, border) and the dropdown's roomy link padding stand down. */
     .site-nav-popover {
       position: static;
-      border: none;
       display: flex;
-      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0 0.25rem;
+      min-width: 0;
+      padding: 0;
+      border: none;
+    }
+    .site-nav-popover .site-nav-link {
+      padding: 0.5rem 0.625rem;
+    }
+    /* PHONES: the nav takes a third grid row under the utility row, and
+     * Book stays on the utility row opposite the badge, where the popover
+     * layout has it — centered on that row by the popover offset's own
+     * derivation: the top padding (0.75rem) + the mark's height + its gap
+     * and the credit line (1.35rem: 0.375rem + 0.8125rem × 1.2) + the row
+     * gap (0.5rem) + half the badge row (--ma-h). The DOM is unchanged, so
+     * the tab order is too, less the hidden button. */
+    @media (max-width: 639px) {
+      .site-header > div {
+        position: relative;
+        grid-template-areas:
+          'brand brand brand'
+          'badge . .'
+          'nav nav nav';
+      }
+      .site-book-cta {
+        position: absolute;
+        right: 1rem;
+        top: calc(0.75rem + var(--wordmark-w) / 3.675 + 1.35rem + 0.5rem + var(--ma-h) / 2);
+        transform: translateY(-50%);
+      }
+    }
+    /* 640px up: the nav — Book first, then the links — wraps onto its own
+     * full-width line; the badge + wordmark row above keeps its layout. */
+    @media (min-width: 640px) {
+      .site-header > div {
+        flex-wrap: wrap;
+      }
+      .site-nav {
+        flex-basis: 100%;
+      }
     }
   }
 </style>

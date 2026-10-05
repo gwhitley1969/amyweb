@@ -1,6 +1,9 @@
 // Orchestrates the needlegirlie.com website infrastructure (BUILD_SPEC §15).
 // Deploy:  az deployment sub create --location <region> --template-file infra/main.bicep \
-//            --parameters previewPassword=<secret> budgetStartDate=yyyy-MM-01
+//            --parameters budgetStartDate=2026-07-01
+// budgetStartDate is PINNED: a budget's start date is immutable after
+// creation (the API rejects updates — 2026-08-17); always pass the live
+// budget's own anchor. See budget.bicep + RUNBOOK "Infrastructure changes".
 // Region note: {{AZURE_REGION}} was unset at first deploy; eastus2 chosen as
 // the closest SWA region to the Charlotte market (see docs/DECISIONS.md).
 targetScope = 'subscription'
@@ -8,11 +11,9 @@ targetScope = 'subscription'
 param location string = 'eastus2'
 param dnsZoneResourceGroup string = 'rg-corp'
 
-@secure()
-param previewPassword string
-
 param budgetContactEmails array = ['genewhitley2017@gmail.com']
 param budgetStartDate string
+param apiOriginHostname string = 'func-needlegirlie-api.azurewebsites.net'
 
 resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   name: 'rg-needlegirlie-web'
@@ -24,7 +25,14 @@ module swa 'swa.bicep' = {
   name: 'swa'
   params: {
     location: location
-    previewPassword: previewPassword
+  }
+}
+
+module storage 'storage.bicep' = {
+  scope: rg
+  name: 'storage'
+  params: {
+    location: location
   }
 }
 
@@ -33,6 +41,8 @@ module frontdoor 'frontdoor.bicep' = {
   name: 'frontdoor'
   params: {
     swaDefaultHostname: swa.outputs.defaultHostname
+    mediaOriginHostname: storage.outputs.blobHostname
+    apiOriginHostname: apiOriginHostname
   }
 }
 
@@ -44,6 +54,9 @@ module dns 'dns.bicep' = {
     endpointHostname: frontdoor.outputs.endpointHostname
     apexValidationToken: frontdoor.outputs.apexValidationToken
     wwwValidationToken: frontdoor.outputs.wwwValidationToken
+    mediaValidationToken: frontdoor.outputs.mediaValidationToken
+    apiValidationToken: frontdoor.outputs.apiValidationToken
+    loginValidationToken: frontdoor.outputs.loginValidationToken
   }
 }
 
@@ -72,3 +85,4 @@ output frontDoorId string = frontdoor.outputs.frontDoorId
 output frontDoorProfile string = frontdoor.outputs.profileName
 output frontDoorEndpoint string = frontdoor.outputs.endpointName
 output endpointHostname string = frontdoor.outputs.endpointHostname
+output mediaStorageAccount string = storage.outputs.accountName

@@ -51,8 +51,9 @@ silently following it. Known superseded points from earlier briefs:
 - The domain is **already registered** (needlegirlie.com; DNS in Azure).
 - There is **no APIM** anywhere in this project — the website has no API at all.
 - Analytics is **cookieless** — no GA4, no ad/retargeting pixels.
-- The neuromodulator product list is **unresolved** (`{{NEUROMOD_LIST}}` —
-  older sources disagree: Jeuveau/Xeomin/Daxxify vs. Jeuveau/Daxxify).
+- The neuromodulator product list is **resolved** (2026-07-19, from the
+  live Vagaro menu, operator-confirmed): **Jeuveau, Xeomin, Daxxify** —
+  the older Jeuveau/Daxxify-only brief is superseded.
 
 ## Hard constraints — never violate, never work around
 
@@ -64,18 +65,617 @@ silently following it. Known superseded points from earlier briefs:
 2. **Amy's services only.** Never mention, link to, or imply any other
    provider at the Mobile Aesthetics location. The site may factually note
    that Amy practices within a multi-provider location — nothing more.
+   *Scoped exception (operator override after the compliance flag —
+   DECISIONS 2026-08-15): the header badge links out to Amy's own
+   practice site, `siteConfig.mobileAestheticsUrl`
+   (yourmobileaesthetics.com), whose pages name the location's other
+   providers. The first sanctioned outbound reference to that site
+   (the second is the fourth exception below, 2026-08-25; since
+   2026-09-27 the practice's name links there too — the seventh
+   exception below).*
+   *Second scoped exception (operator override after the
+   compliance flag — DECISIONS 2026-08-17; placement widened
+   2026-08-25): the Mobile Aesthetics team film, which shows the
+   location's other five providers on camera — the home-carousel
+   rendition (`commercial-team`; it starts muted and, since
+   2026-09-30, carries the film's song one tap away — DECISIONS same
+   date) and, since 2026-08-25
+   at the client's direction, the sounded rendition inside the
+   /about Girl Team unit (autoplay muted in view, music one tap
+   away) — since 2026-08-26 the widescreen `girl-team-film-wide`, a
+   16:9 center crop of the same screened master, replacing the
+   portrait `girl-team-film` (operator direction; DECISIONS same
+   date); their releases for needlegirlie.com use are confirmed on
+   file, none of them is legibly named in the film, and a third
+   placement requires the human operator.*
+   *Third scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-08-21): the Radiesse-visit film
+   (`radiesse-visit`) on /services/biostimulators, Amy's own reel, in
+   which one of the location's other providers is on camera for about
+   two seconds (face out of frame, never named); their consent for
+   needlegirlie.com use is confirmed on file. The film's labels and
+   captions never attribute the hands-on treatment to anyone.*
+   *Fourth scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-08-25, direct from Amy): the /about Girl
+   Team unit, all three parts fixed together — the still photo
+   `girl-team-studio.jpg` (Amy with four of the location's five
+   other providers; all four releases for needlegirlie.com use
+   confirmed on file), the rendered text "Girl Team!" on its
+   keystone plate (team language against the voice rule's written
+   rationale, though it trips no linter token — a green lint:voice
+   never authorizes it), and the "Visit Mobile Aesthetics" button
+   below it, the second sanctioned outbound link to
+   yourmobileaesthetics.com. The unit's own alt text names the team
+   factually; nobody is ever individually named in copy, alt text,
+   or comments, and the team vocabulary is never restated outside
+   the unit — meta descriptions, OG tags, and JSON-LD included.*
+   *Fifth scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-08-25): the /injector-training reel
+   (`training-reel`), Amy's own film, whose closing contact card
+   displays yourmobileaesthetics.com on screen — a DISPLAY-ONLY
+   pixel reference, not a link; this film adds no outbound link (the
+   sanctioned ones are the header badge, the /about button and, since
+   2026-09-27, the practice's name under the seventh exception
+   below), and the site's text never prints the URL.
+   (The film's on-camera people are all released and none is another
+   provider — its content override lives under constraint 3.)*
+   *Sixth scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-08-25): the PRP-visit reel (`prp-visit`) on
+   /services/regenerative, Amy's own film of her receiving her own
+   PRP hairline treatment, in which one of the location's other
+   providers is on camera doing the injection (face mostly out of
+   frame, never named); their consent for needlegirlie.com use is
+   confirmed on file. The film's label and captions never attribute
+   the hands-on treatment to anyone.*
+   *Seventh scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-09-27): the practice's NAME as a link.
+   Wherever VISIBLE site text names Mobile Aesthetics, the name links
+   to `siteConfig.mobileAestheticsUrl` through `PracticeLink` (in a
+   plain string, the `[Mobile Aesthetics](site:practice)` marker). The
+   operator chose every visible mention: the address block of every
+   page's footer and of the location card, three sentences on /about,
+   one sentence and one FAQ answer on /services/skincare, the
+   home carousel's heading, and (2026-09-30) the line above the home
+   hero's "Harrisburg, NC · By appointment". The destination was screened again that
+   day and still lists the location's other providers. Fixed terms:
+   the link text is the practice's name and nothing else; the
+   destination is that one address; a new tab, `noopener`, the
+   `ma_site_click` event and the hidden new-tab note; an FAQ QUESTION
+   keeps the name as plain text (a link inside the control that opens
+   the answer is not allowed). New copy that names the practice in
+   visible text takes the link under this same exception, and
+   `npm run lint:practice-link` fails a build where it does not. A
+   green gate authorizes nothing beyond these terms: any other link
+   text, any other address on that site, and any mention of the other
+   providers still require the human operator.*
+   *Eighth scoped exception (operator override after the compliance
+   flag — DECISIONS 2026-09-27): the home carousel's second film
+   (`commercial-van-promo`), Amy's own Mobile Aesthetics promo. Six
+   women in matching uniforms step out of the black van and stand
+   together beside it — Amy and the location's other providers,
+   everyone on camera with a website release confirmed on file
+   (operator, same date); none is legibly named at the film's 720px.
+   The practice's web address is printed on every frame and on the
+   film's poster — a DISPLAY-ONLY pixel reference, not a link (the
+   fifth exception's class); the site's text never prints it. Fixed
+   terms: this film and its poster, in the carousel; its label and
+   comments name nobody; another placement requires
+   the human operator. (Its product cartons and tray are constraint
+   3's eleventh pixel-level override.) Since 2026-09-30 (operator
+   override after the compliance flag — DECISIONS same date) the
+   film's own SOUND plays when a visitor turns the carousel's Sound
+   button on: a re-worded song that names the location's other
+   providers aloud, by first name. Its caption file carries the sung
+   words, the names with them (operator decision: the accessible
+   choice, the words confirmed by ear — the operator's or Amy's
+   confirmation is the record). That file's cues are the one place
+   the names are written; they are never restated in any other site
+   text — copy, the slide's label, comments, meta, OG, JSON-LD. (The
+   song's promise and its collective voice are recorded under
+   constraint 3.)*
+   *Ninth scoped exception (operator decision after the compliance
+   flag — DECISIONS 2026-10-02): Amy's own film of a client's IPL
+   session (`ipl-visit`) on /services/laser-treatments, beside
+   "Photo-rejuvenation". A member of Amy's own staff — not one of the
+   location's other providers; the operator's answer is the record —
+   is on camera doing the hands-on treatment for about seventeen
+   seconds, her face in frame behind laser glasses. She is never
+   named, no name can be read in the film, and one short answer in its
+   sound may be hers; her consent for needlegirlie.com use is
+   confirmed on file. The film's spoken words speak as a collective
+   beside the practice's name, which this rule's own reasoning reads
+   as a team (the words themselves are recorded under constraint 3
+   and the voice convention). Fixed terms: this film and its poster,
+   on that page; its label, captions and comments name nobody but Amy
+   and never say who does the hands-on work. The same day that page's
+   two who-performs lines were reworded, at the operator's direction,
+   to say that Amy plans every treatment and that "Amy or … a member
+   of her own staff" performs it — team wording against the voice
+   rule's written rationale, though it trips no linter token; a green
+   lint:voice never authorizes it. That wording is exact and lives in
+   those two lines only: it is never restated on another page, a
+   /services card, or in meta descriptions, OG tags or JSON-LD (the
+   /services lead and one /about sentence say, since the same date,
+   that Amy plans every service, and say nothing of staff). Another
+   placement, naming her, or staff wording anywhere else requires the
+   human operator.*
+   *Outside these nine exceptions the other providers are still never
+   named or implied in any needlegirlie.com text, and adding any
+   further film or mention, or any link outside the seventh
+   exception's terms, requires the human operator.*
 
 3. **Medical-marketing claim discipline.** A licensed clinician is advertising
    medical treatments. The full rulebook is BUILD_SPEC §8. Core rules:
    - **Never** include dosing, doses, units, mg/mcg amounts, reconstitution,
      injection frequency, protocols, or titration — anywhere, in any file.
+     *Scoped exceptions (operator overrides after the compliance flags —
+     DECISIONS 2026-07-20 and 2026-07-21):* the exact price strings
+     enumerated in `compliance/banned-patterns.json` `allowedStrings` —
+     the mg-keyed GLP-1 vial tiers and the per-unit neuromodulator
+     prices — may appear as product pricing. *Fifth scoped exception
+     (operator override after the compliance flag — DECISIONS
+     2026-08-04): the four Private Injector Training curriculum topics
+     enumerated in `allowedStrings` in exact `<li>`-wrapped source form
+     — "Dosing and dilution", "Safety protocols", "Advanced injection
+     protocols", "Training manual & protocols" — on /injector-training
+     only. They are course-topic titles, not quantities; the operator
+     chose flyer-verbatim wording over the recommended paraphrase.
+     Editing rules: each lives on ONE attribute-less `<li>` source line
+     matching the registry exactly (stripping is per-line AND
+     case-sensitive), and this vocabulary is never restated elsewhere,
+     comments included.* *Fourth pixel-level override, and the first
+     under this bullet (operator override after the compliance flag —
+     DECISIONS 2026-08-21): the /services/skin-rejuvenation row photo
+     `amy-pixel8-cart.jpg`, in which the PiXel8-RF console's settings
+     readout — power/time/delay values and a suggested needle-depth
+     range — is legible in the served source file (astro:assets serves
+     the source-resolution derivative as the `src`). The 2026-08-04
+     rejection of a frame for this readout class is superseded for this
+     frame only; the recommended defocus bake was declined. Pixel
+     content is invisible to lint:claims, which is why the exception is
+     recorded here. The frame, its page scope, and the rule that no
+     value from the readout is ever restated in text — copy, alt,
+     comments, meta, JSON-LD — are fixed; changing any of them requires
+     the human operator.* *Fifth pixel-level override, the second under
+     this bullet (operator override after the compliance flag — DECISIONS
+     2026-08-21): the /services/laser-treatments row photo
+     `amy-epileve-window.jpg`, in which the Venus Epileve console's
+     settings readout — fluence, pulse-duration, and speed values with
+     their units — is legible in the served source file. The recommended
+     crop bake (which would also have removed the console) was declined.
+     Same fixed terms: this frame, this page; no value from the readout
+     is ever restated in text — copy, alt, comments, meta, JSON-LD;
+     changing any of it requires the human operator.* *Sixth
+     pixel-level override, the third under this bullet (operator
+     override after the compliance flag — DECISIONS 2026-08-25): the
+     /injector-training reel (`training-reel`), Amy's own film,
+     carried as-is: its burned-in course cards restate that page's
+     operator-authorized card copy in pixels — including the
+     curriculum vocabulary of the fifth scoped exception above and
+     dilution-class topic wording — and its jar shot shows Jeuveau
+     vials with the per-vial "100 U" quantity legible (the
+     radiesse-visit carton class). Releases for every on-camera
+     person confirmed on file (operator, same date). Fixed terms:
+     this film, this page; the film's label, captions, and comments
+     describe only what the pixels self-identify and never restate
+     the vocabulary or the quantity; changing any of it requires the
+     human operator. (Its on-screen practice-site URL is the
+     constraint-2 fifth exception.)* *Seventh pixel-level override,
+     the fourth under this bullet (operator override after the
+     compliance flag — DECISIONS 2026-08-25): the
+     /services/regenerative row photo `prp-syringes.jpg`, in which two
+     diluent vials' labels — the product name with its concentration,
+     a 30 mL multiple-dose line, an NDC number, and diluent-use fine
+     print — are legible in the served source file beside the prepared
+     PRP syringes (the prep-workflow imagery class the 2026-07-23
+     photo rubric excluded). The recommended crop-out bake and the
+     defocus bake were both declined. Fixed terms: this frame, this
+     page; no text from the packaging is ever restated in site text —
+     copy, alt, comments, meta, OG, JSON-LD; changing any of it
+     requires the human operator.* *Eighth pixel-level override, the
+     fifth under this bullet (operator override after the compliance
+     flag — DECISIONS 2026-09-25): the home band's van-trip film
+     (`van-trip`), Amy's whole 2:50 clip, carried with its prep shot
+     (2:17.3–2:25.8): a rolling tray of syringes in printed, labelled
+     slots — one injection-area label legible — with a vial and syringe
+     in Amy's hands and a sharps container behind (the prep-workflow
+     class the 2026-07-23 rubric excluded). That shot carries the
+     supplied copy's own pixels; the rest of the film is an AI upscale
+     (Topaz, via Higgsfield) under the operator's override of the
+     2026-09-17 generative rules for this film only, disclosed, with the
+     source's pixels put back wherever the upscale drew lettering of its
+     own. Fixed terms: this film, the home band; no label or packaging
+     text from it is ever restated in site text — copy, the player's
+     label, the captions file, comments, meta, OG, JSON-LD; changing any
+     of it requires the human operator.* *Ninth and tenth pixel-level
+     overrides, the sixth and seventh under this bullet (operator
+     override after the compliance flag — DECISIONS 2026-09-25): the
+     /services menu photos of card 01 (`amy-jeuveau-vial-evolysse.jpg`)
+     and card 02 (`amy-evolysse-form-banner.jpg`), committed exactly as
+     supplied. In 01 a Jeuveau vial's per-vial unit count and the
+     Evolysse cartons' fill-volume and product-description line are
+     legible in the served card derivatives; in 02 part of an Evolysse
+     carton's fill-volume line is (02's Jeuveau banner is recorded under
+     the next bullet). Both are the vial-central and product-box classes
+     the 2026-07-23 photo rubric excluded; the recommended defocus bake
+     was declined. Fixed terms: these frames, those two cards of the
+     ServiceLineGrid menu (/services, and /styleguide, which renders
+     it); no text from the vials, the cartons, or the banner is ever
+     restated in site text — copy, alt, comments, meta, OG, JSON-LD;
+     changing any of it requires the human operator.* *Eleventh
+     pixel-level override, the eighth under this bullet (operator
+     override after the compliance flag — DECISIONS 2026-09-27): the
+     home carousel's second film (`commercial-van-promo`), Amy's own
+     promo, carried as-is with its studio segment: a tray printed
+     "Mobile Aesthetics" holding syringes in labelled slots, several
+     injection-area labels legible, syringes in Amy's hands, and
+     product cartons (Radiesse+, a pink "LIPS+" carton, Jeuveau — no
+     quantity legible) — the prep-workflow and product-box classes the
+     2026-07-23 photo rubric excluded. Fixed terms: this film and its
+     poster, in the carousel; no label or packaging text from it is
+     ever restated in site text — copy, the slide's label, the captions
+     file, comments, meta, OG, JSON-LD; changing any of it requires the
+     human operator. (Its other providers and printed address are
+     constraint 2's eighth exception. Since 2026-09-30 the film's song
+     names three products, two of which are also printed on those
+     cartons; the caption cues carry them as the song's sung words —
+     the claims bullet's clause for this film's sound, DECISIONS same
+     date — and that is not a reading of the packaging.)* *Twelfth
+     pixel-level override, the ninth under this bullet (operator
+     override after the compliance flag — DECISIONS 2026-10-02): the
+     /services/iv-therapy lounge film (`iv-lounge`), a handheld clip
+     carried as-is: a Mobile Aesthetics sign with its phone number and
+     two women's photos, the doorway shelf's Radiesse posters (sales
+     lines partly readable) and brochures, and a skincare display — the
+     posters the 2026-09-30 IV-card crop left out. Fixed terms: this
+     film and its poster, on this page; no text from the sign, the
+     posters, the brochures or the products is ever restated in site
+     text — copy, the label, the captions file, comments, meta, OG,
+     JSON-LD; changing any of it requires the human operator.*
+     *(A pointer, not a further entry: the spoken words of the
+     IPL-session film on /services/laser-treatments name a count of
+     treatments, which BUILD_SPEC §7.12 treats as protocol-class; that
+     override is the claims bullet's clause for the film — DECISIONS
+     2026-10-02.)*
+     *A further scoped exception, which is not an allowlist entry
+     (operator decision after the compliance flag — DECISIONS
+     2026-10-02): the exact price line "$265 for six weeks" on the GLOW
+     card and the KLOW card of /services/peptide-therapy. A time span
+     beside a price is duration-class (BUILD_SPEC §8, rule 1). It
+     states no amount, no frequency and no cycle, and it trips no
+     pattern, so the authorization lives here and in DECISIONS, never
+     in `allowedStrings` — a green linter never authorizes it. The
+     wording is exact and the scope is those two price lines: no other
+     time span on that page or any other, and it is never restated in
+     body copy, FAQ answers, alt text, comments, meta descriptions, OG
+     tags, or JSON-LD. Changing the wording or the scope requires the
+     human operator.*
+     Nothing else; changing that list
+     requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
      outcome promises, before/after implications, or unsubstantiated
-     superiority claims ("#1", "best").
+     superiority claims ("#1", "best"). *Scoped exceptions (operator
+     overrides after the compliance flags — DECISIONS 2026-07-21): the
+     Evolus-produced Evolysse film (piece US-EVY-2600017) — on
+     /services/dermal-fillers 2026-07-21 → 2026-08-21, when it was
+     removed at the client's direction (DECISIONS same date); RE-ADDED
+     2026-09-25 by the human operator, after the compliance flag, as
+     the FIRST film of the home carousel (`commercial-evolysse`;
+     DECISIONS same date) and nowhere else. Carried as-is: its
+     before/after segment ("Actual patient, results may vary."), the
+     location's co-branding with its phone number, QR code, and
+     microsite address, the spelling error on Amy's title card, and its
+     cartons' small print (a fill volume at the edge of legibility at
+     the rendition's native 1920px — the committed poster is 960px so
+     the still never carries it legibly).
+     It starts muted like every carousel film. Since 2026-09-30
+     (operator direction — DECISIONS same date) the carousel's Sound
+     button plays its own sound, so its voiceover — which carries
+     the film's spoken risk statement, beyond the four safety lines on
+     screen — is one tap away; its transcript lives in the caption
+     file, off by default (operator decision after the flag; captions
+     on by default was recommended and declined) and one tap away on
+     the CC button. Moving the film, starting it with sound, turning
+     its captions on by default, or any other
+     placement requires the human operator; the Evolus ICON
+     event film on /about (moved from /services/wrinkle-relaxers at the
+     client's direction 2026-08-18, exception terms unchanged; carried
+     as-is — manufacturer comparative-efficacy remarks, named
+     third-party providers, and no safety information, all
+     operator-accepted); and the exact sentence "Charlotte's #1 Evolus
+     provider" — RETIRED 2026-08-25: the /about recognition plate, by
+     then its only consumer, was swapped for the Laurel plaque at the
+     client's direction (the same swap dermal-fillers made 2026-08-21,
+     after the sentence moved off wrinkle-relaxers 2026-08-18), so the
+     `allowedStrings` entry was withdrawn with the operator's
+     authorization and the ranking vocabulary is banned everywhere
+     again; re-adding the sentence requires the human operator;
+     and the home-carousel Jeuveau commercial (operator clearance,
+     DECISIONS 2026-08-14) — the Evolus co-op spot `commercial-j2`,
+     carried as-is with its complete FDA safety information (never
+     trimmed or cropped). Its twin `commercial-j1` and Amy's own studio
+     reel (both client releases confirmed on file), cleared the same
+     day, RETIRED 2026-09-27 when two of Amy's own films replaced them
+     (DECISIONS same date); re-adding either requires the human
+     operator. (The carousel's team film — added 2026-08-17 — contains
+     no claims and needs no exception here; its override lives under
+     constraint 2.) And Amy's billboard-day reel, the carousel's third
+     film since 2026-09-27 (`commercial-billboard`; operator override
+     after the compliance flag — DECISIONS same date), carried as-is:
+     its opening photo of her Evolysse billboard, whose outcome-promise
+     headline and brand lockup are legible; a wall poster titling a
+     competitor neuromodulator brand the site's own copy never names;
+     and the manufacturer's boxes and shipping cartons (the product-box
+     class; no quantity legible). Both people on camera besides Amy are
+     released (operator, same date). Fixed terms: this film and its
+     poster, in the carousel; no text from the billboard, the poster or
+     the boxes is ever restated in site text — copy, the slide's label,
+     the captions file, comments, meta, OG, JSON-LD; changing any of it
+     requires the human operator.
+     And the SOUND of Amy's promo, the carousel's second film
+     (`commercial-van-promo`; operator override after the compliance
+     flag — DECISIONS 2026-09-30), carried as-is and heard only when a
+     visitor turns the carousel's Sound button on: a re-worded song
+     whose words make an outcome promise with a time frame, name three
+     products the site already names, and speak
+     as a collective. The words live in the film's sound and in its
+     caption file's cues (operator decision: the sung words, confirmed
+     by ear) and nowhere else — never restated in copy, the slide's
+     label, comments, meta, OG, JSON-LD. (The names it sings are
+     constraint 2's eighth exception.) Fixed terms: this film, in the
+     carousel; changing any of it requires the human operator.
+     And the three commercial songs the carousel's films carry since
+     the same date — the promo's, the billboard-day reel's and the
+     team film's — play under the operator's override of the music
+     position (DECISIONS 2026-09-03 and 2026-09-25: a commercial song
+     needs a licence for a business website; none is on record), for
+     these three carousel renditions only; another film or placement
+     with unlicensed music requires the human operator. One more since
+     2026-10-02, by that route (DECISIONS same date): the song on the
+     /services/iv-therapy lounge film (`iv-lounge`), which autoplays
+     muted in view, sound one tap away; its sung words live in its caption
+     cues and nowhere else. Two more since 2026-10-04, by that route
+     (DECISIONS same date): the two songs of the home band's van-trip
+     film (`van-trip-music`), removed 2026-09-25 for want of a licence
+     and restored at the operator's direction; the film still starts
+     muted, sound one tap away; its caption file marks the songs with
+     bounded `[Music]` cues and never writes out their words.
+     And six photos (operator overrides after the compliance flags —
+     DECISIONS 2026-08-18, 2026-08-21, 2026-08-25, and 2026-09-25): the /services hormone-optimization menu
+     card's photo (`biote-banner-scale.jpg`), in which the Biote
+     banner's outcome-promise lines and symptom poster are legible,
+     on a page carrying no Biote disclaimer; the /services
+     weight-loss menu card's photo (`inbody-weigh-in.jpg`), whose
+     aftercare wall sign titles a competitor neuromodulator brand the
+     site's own copy never names; and the /services/wrinkle-relaxers
+     band photo (`jeuveau-banner-studio.jpg`), in which a Jeuveau
+     banner's marketing headline and indication line are legible —
+     including vocabulary the site's own copy dropped 2026-07-30; and
+     the /services/weight-loss-glp-1 row photo (`inbody-weigh-in-rear.jpg`,
+     DECISIONS 2026-08-21) — the same aftercare wall sign, its
+     competitor-brand title AND its results-timing line legible in the
+     served file; and the /injector-training hero portrait
+     (`amy-evolysse-cart.jpg`, DECISIONS 2026-08-25) — a second
+     Jeuveau banner frame, its marketing headline, indication line,
+     and part of its safety-information fine print legible in the
+     served file (the jeuveau-banner-studio override is fixed to its
+     own frame and page, so this frame carries its own; no banner
+     content is ever restated in site text); and the /services
+     dermal-fillers menu card's photo (`amy-evolysse-form-banner.jpg`,
+     DECISIONS 2026-09-25) — a third Jeuveau banner frame, its headline
+     fragment legible in the served card derivatives and its indication
+     line, below every served crop, blurred but partly readable in the
+     committed file (its carton quantity is the dosing bullet's tenth
+     override; same terms) —
+     pixel content is invisible to lint:claims, which is why these
+     exceptions are recorded here.
+     And the client photo-pairs section — "They showed up for
+     themselves" — on /services/weight-loss-glp-1
+     (operator override after the compliance flag — DECISIONS
+     2026-08-21; BUILD_SPEC §1 lists before/after galleries as not in
+     v1 and §8.9 defers them by SOW — both carved out by this one
+     exception): three client-supplied side-by-side photo pairs, the
+     site's first before/after content. The allowlist entry briefly
+     authorized for its original heading was withdrawn the same day —
+     the phrase is banned everywhere, alts and comments included; the
+     intro carries the clients' consent and every-plan-is-individual
+     in copy and routes to a consultation; and the
+     website-use releases + HIPAA marketing authorizations of all five
+     pictured people confirmed on file (operator, 2026-08-21). Scope is
+     exactly that section on that page; adding pairs, captions,
+     numbers, dates, names, or another page requires the human
+     operator.
+     And the exact fragment "Amy has your best self in mind"
+     enumerated in `allowedStrings` (operator override after the
+     compliance flag — DECISIONS 2026-08-18; two compliant rephrases
+     declined), in the /services intro lead only, on one source line.
+     And two ranking sentences rendered by `EvolusLaurel` on
+     /services/wrinkle-relaxers (layout slot); since 2026-08-21 at
+     the operator's direction, /services/dermal-fillers (in-body, in
+     the retired "#1" plate's spot — DECISIONS same date); and since
+     2026-08-25 at the operator's direction, /about (the same
+     plate-for-plaque swap, retiring the "#1" sentence sitewide —
+     DECISIONS same date) — nowhere
+     else (operator authorization — DECISIONS 2026-08-19; substantiation = the operator's
+     verification with Evolus, which also covers the national
+     standing): "The Top Evolus Injector in Charlotte." and "And
+     among the Top 50 in the United States." Neither contains a
+     token lint:claims' superiority patterns can see — which is why
+     the authorization is recorded here rather than in
+     `allowedStrings` (the photo-override precedent; the banned list
+     does not gain a bare "top" pattern, which would false-positive
+     ordinary copy). The wording is exact; changing a word, widening
+     the page scope, or restating the ranking anywhere else —
+     including meta descriptions, OG tags, alt text, and JSON-LD —
+     requires the human operator.
+     And two of Amy's own published reels on /services/biostimulators
+     (operator overrides after the compliance flags — DECISIONS
+     2026-08-21): the Radiesse-visit film (`radiesse-visit`), whose
+     cut reads as a before/after sequence and whose carton shot shows
+     a neuromodulator box with a per-vial unit quantity legible —
+     carried as-is, the on-camera client's release confirmed on file
+     (its second on-frame person is the constraint-2 exception
+     above); and Amy's Instagram reel (`amy-reel`), which carries no
+     claims content (its 480p source ships under a separate
+     retina-rule override recorded in DECISIONS and REDESIGN, not
+     here). Both keep their audio on the operator's no-speech
+     confirmation; their caption files carry `[Music]` cues. Labels,
+     captions, and comments for either film describe only what the
+     pixels self-identify.
+     And the exact deck sentence on /services/wrinkle-relaxers —
+     `Wave good-bye to your crow's feet, "11's" between your eyes
+     and forehead frown lines!` (operator override after the
+     compliance flag — DECISIONS 2026-08-23 and 2026-08-24; flagged
+     on the 23rd, when the operator chose a compliant rewrite, and
+     that choice reversed on the 24th after seeing the page
+     rendered). It is a second-person outcome promise containing no
+     token lint:claims can see, which is why the authorization lives
+     here and in DECISIONS rather than in `allowedStrings` — a green
+     linter never authorizes it. The wording is exact and the scope
+     is the `deck` frontmatter field of that one page; the
+     vocabulary is never restated anywhere else — body copy, FAQ
+     answers, alt text, comments, meta descriptions, OG tags, or
+     JSON-LD. One coupling to know before editing either half: that
+     page's band photo `jeuveau-banner-studio.jpg` (the 2026-08-18
+     pixel override above) carries the banner headline this sentence
+     paraphrases, legible in the served file. Changing the wording,
+     the page scope, or that photo requires the human operator.
+     And the exact `summary` sentence on /services/regenerative — `PRP
+     (Platelet-Rich Plasma) treatments prepared from your blood can be used
+     by themselves or combined with microneedling to stimulate hair
+     re-growth and reduce the signs of skin aging.` (operator override
+     after the compliance flag — DECISIONS 2026-09-19, the addendum; a
+     house-hedged version was offered and declined). It states outcomes
+     beyond the two 2026-08-01 card sentences and contains no token
+     lint:claims can see, so the authorization lives here and in DECISIONS,
+     never in `allowedStrings` — a green linter never authorizes it. It
+     renders as the VISIBLE LEAD ONLY: the page's `schemaDescription` keeps
+     the Service JSON-LD description factual, and the wording is never
+     restated in the SEO description, OG tags, alt text, comments, or
+     JSON-LD. Changing the wording, the page, or removing
+     `schemaDescription` requires the human operator.
+     And the exact sentence in the /about hero — `This is all before
+     personally investing in excess of $100,000 in Medical Aesthetics
+     training to bring "top of class" abilities to her clientele.`
+     (operator override after the compliance flag — DECISIONS 2026-09-19,
+     the /about addendum; a descriptive swap and a fact-only ending were
+     offered and declined). Its quoted phrase is superiority-class
+     (BUILD_SPEC §8.4) and contains no token lint:claims' superiority
+     patterns can see — the banned list does not gain a bare "top"
+     pattern, the EvolusLaurel precedent — so the authorization lives here
+     and in DECISIONS, never in `allowedStrings`; a green linter never
+     authorizes it. The wording is exact and the scope is that one
+     sentence on /about; the phrase is never restated anywhere else —
+     meta descriptions, OG tags, alt text, comments, or JSON-LD. The
+     figure and the BA's field come from Amy directly (operator,
+     2026-09-19). Changing the wording or the page scope requires the
+     human operator.
+     And Amy's Biote film (`biote-why`) on
+     /services/hormone-optimization, directly above "What Amy offers"
+     (operator override after the compliance flag — DECISIONS
+     2026-10-02; a blur of the banner's claim lines was offered and
+     declined), carried as-is: the Biote roll-up banner beside her, its
+     outcome-promise headline and "patients tell us they experience"
+     lines legible on every frame and on the poster, and the wall's
+     Biote symptom poster; and her own spoken lines, which promise a
+     plan that "gives you the results that you need" and "is what works
+     for you". Pixel and sound content are invisible to lint:claims,
+     which is why the authorization lives here. Her words are written in
+     the film's caption cues and nowhere else. Fixed terms: this film
+     and its poster, on this page; no text from the banner or the
+     poster, and none of her spoken claims, is ever restated in site
+     text — copy, the label, comments, meta, OG, JSON-LD; changing any
+     of it requires the human operator.
+     And Amy's own film of a client's IPL session on
+     /services/laser-treatments (`ipl-visit`; operator override after the
+     compliance flag — DECISIONS 2026-10-02), carried whole and with its
+     sound, beside "Photo-rejuvenation". Its spoken words name what the
+     treatment is for without the page's appearance hedging, one of the
+     concerns named being one the page's own IPL copy does not give that
+     applicator; they promise a result, naming a count of treatments and
+     what follows it; and they say when to schedule. Its closing shots
+     show a client's skin after the treatment — after-treatment content
+     (BUILD_SPEC §1, §8.3, §8.9), the class the weight-loss pairs, the
+     Evolysse film's segment and the Radiesse-visit film's cut already
+     carry. A manufacturer's recognition plaque hangs in the room,
+     mirrored: its large word is recognisable in the served file, its
+     smaller lines are not (superiority-class pixels, BUILD_SPEC §8.4).
+     The client's website release and HIPAA marketing authorization are
+     confirmed on file (operator, same date). The words live in the
+     film's sound and in its caption file's cues (the operator's ear is
+     the record) and nowhere else in site text — never restated in copy,
+     the film's label, comments, meta descriptions, OG tags, or JSON-LD;
+     nor is the plaque's wording. The caption track shows by default
+     (operator decision, same date), so the words are read as well as
+     heard; caption files are outside lint:claims' scope, and a green
+     linter never authorizes them. A sentence beside the film carries
+     the client's consent, every-plan-is-individual, and the
+     consultation route (the weight-loss pairs' framing); trimming it
+     requires the human operator. Fixed terms: this film, this page,
+     that placement; changing any of it requires the human operator.
+     (Its on-camera staff member is constraint 2's ninth exception; its
+     invitation to schedule, the next bullet's second exception; its
+     collective voice, the voice convention's third.)
+     Nothing else; extending any of these requires the human
+     operator.*
+     *Fourth scoped exception, and the only one that is not marketing
+     copy (operator authorization, DECISIONS 2026-07-22): Biote's FDA
+     disclaimer sentence — "These statements have not been evaluated
+     by…" — enumerated in `allowedStrings` and rendered by
+     `BioteDisclaimer` wherever content sets `bioteDisclaimer: true`.
+     It necessarily contains all four banned disease verbs, because
+     naming them is what the disclaimer does; that is why the
+     `disease-claims` category flagged it and why the exception exists
+     at all. **The four verbs stay banned everywhere outside this one
+     exact sentence.** Two editing rules: the sentence must live on a
+     single source line (the linter strips allowed strings per line, so
+     a wrapped copy matches nothing and trips every verb), and those
+     verbs must never be restated elsewhere in the same file.*
    - **Never** answer "is this right for me" in copy — route to a consultation.
+     *Scoped exception (operator override after the compliance flag —
+     DECISIONS 2026-09-19): the exact FAQ answer on
+     /services/laser-treatments to "Can I book a laser treatment
+     directly?" — `Yes! All services can be booked with the expectation of
+     a procedure.` It tells visitors to expect a procedure ahead of Amy's
+     assessment and supersedes, in copy, the 2026-08-21 consult-first
+     decision for the three Versa Pro applications. It contains no token
+     lint:claims can see, so the authorization lives here and in DECISIONS,
+     never in `allowedStrings` — a green linter never authorizes it. The
+     wording is exact and the scope is that one answer on that one page;
+     it is never restated anywhere else — body copy, other FAQ answers,
+     alt text, comments, meta descriptions, OG tags, or JSON-LD. Coupling:
+     that page's "Three tools, one conversation" section and its
+     skin-types FAQ answer still route suitability to a consultation; with
+     the layout-injected disclaimer they are what keeps this rule
+     satisfied on the page, and trimming them requires the human
+     operator.*
+     *Second scoped exception (operator override after the compliance
+     flag — DECISIONS 2026-10-02): the spoken invitation to schedule in
+     Amy's IPL-session film on that same page (`ipl-visit`), heard in
+     its sound and read in its caption cues, which show by default. It
+     tells visitors to schedule the treatment for concerns it names,
+     ahead of Amy's assessment. The words are never restated in site
+     text. Coupling: the sentence beside the film routes suitability to
+     a consultation, with the same section, FAQ answer and
+     layout-injected disclaimer the first exception names; trimming any
+     of them requires the human operator.*
    - Retatrutide (if published) **must** carry the investigational /
      not-FDA-approved disclosure. Biote symptom language **must** carry the
-     FDA disclaimer. Every treatment page carries the medical disclaimer
+     FDA disclaimer.
+     *Scoped exception (the clinician's direction, operator decision after
+     the compliance flag — DECISIONS 2026-09-19):
+     /services/hormone-optimization carries its symptom-awareness language
+     WITHOUT the FDA disclaimer box (`bioteDisclaimer: false`). The
+     linter's symptom check exempts that one file by exact path — an edit
+     made by the operator's own hand, self-tested so it neither fails its
+     own page nor leaks to another. Everything else stands: symptom
+     vocabulary is authorized on that page and nowhere else, any other
+     page using it still requires the disclaimer, and disease and
+     condition names stay banned there as everywhere. `BioteDisclaimer`
+     and its `allowedStrings` sentence stay in the repo, dormant —
+     restoring the box is a one-word flag flip. Widening the exemption
+     requires the human operator.*
+     Every treatment page carries the medical disclaimer
      (layout-injected — pages cannot opt out).
    - These rules apply to **all text**: page copy, headings, meta
      descriptions, alt text, structured data, OG tags, and microcopy.
@@ -86,6 +686,28 @@ silently following it. Known superseded points from earlier briefs:
      "us", "let's" — never appears in rendered site text (a "we" implies
      a team, which implies the other providers at the location — see
      constraint 2). Enforced by `npm run lint:voice` over the built HTML.
+     *One scoped exception (operator decision after the flag —
+     DECISIONS 2026-09-30): the caption cues of the carousel's promo
+     (`public/media/commercial-van-promo.vtt`) carry its song's own
+     first-person plural, because they are the sung words. A second
+     (operator decision after the flag — DECISIONS 2026-10-02): the
+     caption cues of Amy's Biote film (`public/media/biote-why.vtt`)
+     keep her spoken "we" word for word. A third (operator decision
+     after the flag — DECISIONS same date): the caption cues of Amy's
+     IPL-session film (`public/media/ipl-visit.vtt`) carry its spoken
+     words' own first-person plural, because they are the words spoken.
+     The gate does not read caption files; the rule still governs every
+     other caption file and all other site text.*
+   - Place-name convention (Amy's direction, relayed by the operator,
+     2026-09-30; DECISIONS same date): the place where Amy works is
+     **"the medspa"**, one word, never "studio", in all rendered site
+     text: page copy, alt text, film labels, meta descriptions and OG
+     tags. One exception, the operator's choice: the /about Girl Team
+     photo's alt text keeps "studio", because that room is a photo
+     studio. No gate enforces this (a build check was offered and
+     declined), so new copy has to be read for it. File names, code
+     comments and records written before that date keep the old word,
+     and so does the Under Construction page on `main` until relaunch.
 
 4. **Clinician approval gates production.** Treatment content ships with
    `clinicianApproved: false` until Amy signs off. The production pipeline
@@ -102,6 +724,14 @@ silently following it. Known superseded points from earlier briefs:
    contrast ≥ 4.5:1 — the brand hot pinks fail on white at body sizes; use
    the accessible ink tokens per BUILD_SPEC §5. Keyboard operable, visible
    focus, semantic landmarks, reduced-motion respected.
+   *Scoped exception (operator decisions 2026-09-03, DECISIONS same date
+   — the home carousel, then the treatment films): the site's FILMS
+   autoplay muted under `prefers-reduced-motion` too. They are content
+   with a pause control — the carousel's toggle and the native controls
+   are WCAG 2.2.2's mechanism — not decoration; every decorative move
+   (the reveals, the sign's breath, the crossfade) still stands down.
+   Widening this to anything that is not a film requires the human
+   operator.*
 
 7. **Placeholders, never inventions.** Unknown facts use `{{TOKEN}}`
    placeholders from BUILD_SPEC §17.
@@ -118,12 +748,114 @@ silently following it. Known superseded points from earlier briefs:
 - **Tailwind CSS v4** with brand design tokens as CSS custom properties.
 - **Zero client-side JS by default.** Islands only where genuinely required
   (target: mobile nav at most, CSS-first preferred). Budget: ≤ 30 KB total JS.
+  First sanctioned consumer (2026-08-14, operator-directed): the home video
+  carousel's static script (~3KB at first; 10,460 B raw, 3,781 B
+  compressed, since 2026-09-30) — served from `public/js/` because the CSP
+  refuses inline scripts (DECISIONS 2026-08-14); since 2026-09-03 its films
+  autoplay under prefers-reduced-motion too (operator decision — the films
+  are content with a pause control; only the crossfade stands down) and a
+  refused play() retries inside the person's first gesture on phones
+  (DECISIONS 2026-09-03); since 2026-09-30 (Amy's request — DECISIONS
+  same date) the five films carry their own sound and still start
+  muted, with a Sound button and a captions (CC) button beside pause:
+  sound stays on from film to film until the visitor turns it off, is
+  never on at load and is never stored, and a film the browser refuses
+  to start with sound plays muted. Second sanctioned
+  consumer (2026-08-17, operator-directed, SHIPS DARK): the self-hosted
+  Plausible tracker (~3.6KB, `public/js/plausible.js`) — renders only
+  after the operator's flip (BUILD_SPEC §11). Third
+  sanctioned consumer (2026-08-21, operator-directed): the treatment-film
+  autoplay-in-view script (~3KB, `public/js/treatment-video.js`) —
+  rendered only on pages whose `TreatmentVideo` players opt in with
+  `autoplay="inview"` (muted, loop-in-view; DECISIONS 2026-08-21) —
+  since 2026-09-03 its films autoplay under prefers-reduced-motion too
+  (operator decision — the carousel's policy extended to these players:
+  the films are content with a pause control) and a refused play()
+  retries inside the person's first gesture on phones (DECISIONS
+  2026-09-03). Opted-in pages today:
+  /services/biostimulators and /services/body-contouring (both
+  2026-08-21, Amy's own speech-free reels — the film class the opt-in
+  was written for), /about (2026-08-25, the ICON film — a scoped
+  operator override of the never-autoplay-a-narrated-manufacturer-film
+  rule, DECISIONS same date; the component header carries both the
+  rule and the exception — and, same date, the Girl Team unit's team
+  film in its sounded rendition, in-contract: site-authored, music
+  only, no speech — the operator's confirmation is the record), and
+  /injector-training (2026-08-25, Amy's own speech-free training reel
+  — in-class, no exception needed; DECISIONS same date), and
+  /services/regenerative (2026-08-25, Amy's own speech-free PRP-visit
+  reel — in-class; its on-camera provider is the constraint-2 sixth
+  exception; DECISIONS same date), and /services/hormone-optimization
+  (2026-10-02, Amy's Biote film, speaking to camera throughout — the
+  third scoped override of the speech-free autoplay rule after the ICON
+  film and the van-trip film; DECISIONS same date), and
+  /services/laser-treatments (2026-10-02, Amy's own film of a client's
+  IPL session, a film WITH speech — the rule's fourth scoped override,
+  after the flag; muted on approach with its captions showing, sound
+  one tap away; DECISIONS same date), and
+  /services/iv-therapy (2026-10-02, the IV lounge film, its song with
+  sung words — the fifth scoped override of that rule, at the
+  operator's direction, with no printed caption under it; DECISIONS
+  same date). /mobile was on this list from
+  2026-09-02 (Amy's own van clip in a MUTED rendition — no audio track,
+  so in-contract, no exception; DECISIONS same date, the film entry)
+  until 2026-09-26, when the page and its film retired, replaced by
+  the party page — /tox-together since 2026-09-27, /tox-to-go for the
+  day before — which carries no film (DECISIONS 2026-09-26, the Tox To
+  Go page entry; the clause removed on the operator's word).
+  Fourth sanctioned consumer (2026-09-04, operator-adopted after the
+  2026-09-03 concept test — DECISIONS 2026-09-03, the home entry's
+  adoption paragraph): the home page's motion layer — self-hosted GSAP
+  3.15 (core, ScrollTrigger, SplitText) + Lenis 1.3 in
+  `public/js/vendor/`, `public/js/motion-flag.js`, and
+  `public/js/home-motion.js`, ~69KB gzipped together — on the HOME URL
+  ONLY. The Lighthouse matrix's home row carries an 80KB script budget
+  for it (a standing carve-out, the /services + /styleguide precedent);
+  every other page keeps 30KB. If any of it fails, the flag self-cancels
+  and the page is the CSS-only home. It carries the one authorized
+  exception to the motion header's "never on the hero, page H1s, or the
+  lockup" rule (the home headline's word rise and the wordmark's
+  switch-on; the LCP portrait paints unchanged), and the hero film —
+  since 2026-09-17 the purpose-made living-portrait film (AI-assisted,
+  disclosed — DECISIONS same date; it replaced the studio reel's three
+  screened passages and their portrait beat; re-ordered 2026-09-18 at
+  the founders' request — it opens on the hair shot, its loop point
+  inside a white flash; since 2026-09-30, at Amy's request, the closing
+  portrait is a still under a slow camera drift, the turn and the smile
+  gone, and her pink-scrubs portrait joins the stills — DECISIONS
+  same date and its addendum), autoplaying
+  under reduced motion by the films policy.
+  Widening any of this to another page requires the human operator.
+  Fifth sanctioned consumer (2026-09-25, operator-directed — DECISIONS
+  same date): the home band's film player, `public/js/band-film.js`
+  (~5KB raw, ~2KB gzipped, inside the home row's 80KB), rendered only by
+  ConceptHome's band (the home page and its /styleguide/concept
+  mirror). It builds the van-trip film's `<video>` on
+  approach and only after a real user input, so the page's load (and
+  Lighthouse's full-page pass) never fetches the film; muted, looping in
+  view, native controls as the pause mechanism, autoplaying under
+  reduced motion by the films policy. Since the same day's sound
+  addendum the rendition carries Amy's own voice at 2:01–2:17, so it
+  is the speech-free autoplay rule's second scoped exception after the
+  ICON film (operator override after the flag; the rule lives in
+  TreatmentVideo.astro's header): sound one tap away, a person's unmute
+  remembered, captions off by default. Until 2026-10-04 the rest of
+  that rendition (`van-trip-sound.mp4`) was silent, the clip's two
+  songs removed for want of a licence. Since that date (operator
+  override of the music position after the flag — DECISIONS same date)
+  the rendition is `van-trip-music.mp4`: the two songs play to 2:01, as
+  the clip was made, then her voice, then silence; the exception now
+  covers songs with sung words as well, at the operator's direction,
+  and the captions mark the songs with bounded `[Music]` cues.
+  Widening it to another page requires the human operator.
+  The 30KB budget stands for every page but the home URL.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.
 - **Images** through `astro:assets` (responsive, AVIF/WebP, lazy below fold).
-- **Deploy:** GitHub Actions → SWA (per-PR preview environments,
-  password-protected) → production behind Front Door with cache purge on
-  release.
+- **Deploy:** GitHub Actions → SWA (per-PR preview environments — public
+  and noindexed; password protection removed at operator direction,
+  DECISIONS 2026-07-21) → production behind Front Door with cache purge
+  on release.
 - `staticwebapp.config.json` is **generated at build time** from
   `config/swa/` templates: Front Door lockdown in production builds only, so
   PR previews stay reachable (BUILD_SPEC §14).
@@ -150,7 +882,8 @@ silently following it. Known superseded points from earlier briefs:
 - `npm run dev` — local dev server
 - `npm run build` — production build
 - `npm run check` — astro check + type/content-schema validation
-- `npm run lint:claims` — compliance linter over `src/content/**`
+- `npm run lint:claims` — compliance linter over all of `src/` (content,
+  pages, components, layouts, lib, styles — comments included)
 - `npm run test:a11y` — accessibility checks against the built site
 - `npm run verify` — everything above, in order (CI parity)
 
@@ -163,7 +896,7 @@ silently following it. Known superseded points from earlier briefs:
 ├── docs/
 │   └── DECISIONS.md  ADR-lite decision log (append-only)
 ├── src/
-│   ├── content/      Content collections (treatments, pages) + schemas
+│   ├── content/      Content collection (treatments) + schema (content.config.ts)
 │   ├── components/   Astro components
 │   ├── layouts/      Base + treatment layouts (disclaimer injection lives here)
 │   ├── pages/        Routes
@@ -172,6 +905,6 @@ silently following it. Known superseded points from earlier briefs:
 ├── config/swa/       staticwebapp.config templates (production / preview)
 ├── compliance/       banned-patterns.json + linter docs
 ├── scripts/          lint-claims.mjs, check-approvals.mjs, generate-swa-config.mjs
-├── infra/            Bicep (Front Door, SWA, DNS) — optional, see BUILD_SPEC §15
+├── infra/            Bicep (Front Door, SWA, DNS, media storage) — see BUILD_SPEC §15
 └── .github/workflows CI/CD
 ```

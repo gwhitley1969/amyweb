@@ -4,29 +4,43 @@
  * constraint 3; BUILD_SPEC §7.1). Injected by TreatmentLayout when the
  * content flags `investigational: true`, rendered immediately adjacent to
  * the products list — never screens away from the product name.
+ * `note` carries page-supplied wording from the content file (2026-07-21,
+ * operator-approved consolidation to a single calm line) — the sentence
+ * must still state the compound is investigational and not FDA-approved,
+ * which lint:claims enforces on the content file itself. Without `note`,
+ * the bolded default renders.
  * Final public wording is subject to attorney review ({{RETATRUTIDE_COUNSEL}}).
  */
 interface Props {
   productName?: string;
+  note?: string;
 }
 
-const { productName = 'This product' } = Astro.props;
+const { productName = 'This product', note } = Astro.props;
 ---
 
 <aside class="notice" role="note" aria-label="Investigational product disclosure">
-  <p>
-    <strong>{productName} is investigational and not FDA-approved.</strong>
-    It is discussed and offered only during a consultation with a licensed clinician.
-  </p>
+  {
+    note ? (
+      <p>{note}</p>
+    ) : (
+      <p>
+        <strong>{productName} is investigational and not FDA-approved.</strong>
+        It is discussed and offered only during a consultation with a licensed clinician.
+      </p>
+    )
+  }
 </aside>
 
 <style is:global>
   .notice {
     margin: 1.5rem 0;
-    border: 1px solid var(--ng-magenta-600);
+    /* ink-pink frame — magenta-600 is 3.11:1 on the card pink,
+     * margin-thin (tokens.css SITE-WIDE BOXES) */
+    border: 1px solid var(--ng-ink-pink);
     border-left-width: 4px;
     border-radius: 0.25rem;
-    /* white card on the blush ambient — disclosures stay conspicuous */
+    /* card pink on the paper ambient — disclosures stay conspicuous */
     background: var(--ng-card);
     padding: 1rem 1.25rem;
     color: var(--ng-ink-900);

@@ -290,6 +290,27 @@ as historical artifacts.
   surfaces) for Phase C; the halo is static so nothing competes with the
   sign (adjacency lesson); 0 KB JS holds; ships via PR preview first.
 
+## 2026-07-18 — Phase C runs on a long-lived `phase-c` integration branch (C0)
+
+- **Context:** the pivot (PR #4) is merged and production-deployed; Phase C
+  now accumulates nine `clinicianApproved: false` treatment drafts, which
+  by design make `main` undeployable (check:approvals runs on every main
+  push) — but the construction placeholder must stay hotfixable in
+  production throughout the phase.
+- **Decision:** all Phase C work lands on `phase-c` via sub-PRs; ONE
+  persistent DRAFT PR (`phase-c` → `main`) provides a single stable
+  password-protected preview URL for operator/Amy review, redeploying on
+  every merge into the branch. Verified: pr-preview.yml has no
+  base-branch filter (sub-PRs get their own ephemeral previews);
+  check:approvals runs only on main pushes.
+- **Rules:** the persistent PR stays DRAFT and merges only in Phase E,
+  after the operator flips approvals following Amy's written sign-off;
+  merge `main` → `phase-c` promptly after any main change; keep few
+  sub-PRs open (SWA caps staging environments at 10).
+- **Alternatives rejected:** treatment files as `draft: true` on main
+  (excluded from builds — previews could never show them); accepting a
+  red main (blocks placeholder hotfixes).
+
 ## 2026-07-18 — Design pivot: serious glamour ("dim the neon, dress the studio") (client)
 
 - **Context:** the operator reviewed four competitors (Moksha Aesthetics,
@@ -459,3 +480,15014 @@ as historical artifacts.
   A separate single-run TBT blip (205 ms vs 200 on the zero-JS
   placeholder) did not reproduce — noted as Lighthouse single-run
   variance to watch; the budget is unchanged.
+
+## 2026-07-19 — C2: treatment-page infrastructure; the schema gains `faq`
+
+- **Context:** Phase C needs the collection route and integration wiring in
+  place before the nine §7 content drafts land (C3/C4).
+- **Decision:** `src/pages/services/[slug].astro` renders the treatments
+  collection through TreatmentLayout (fixed compliance order untouched —
+  it lives in the layout, not the route). BaseLayout gains a `jsonLd`
+  prop; the route builds `service()` + `breadcrumbList()` (§10 builders,
+  previously unused) and passes them down. CTAButton gains the `shop`
+  variant (`skinbetter_click`; `{{SKINBETTER_URL}}` renders as a visible
+  dead link on draft-gated pages until the operator resolves it). The
+  treatments schema gains `faq` — editorial Q&A only (process, logistics,
+  credentials; suitability questions answer "decided in a consultation");
+  compliance text never rides an accordion; the field is gated by the same
+  clinician approval as the page. Schema changes are operator-gated:
+  flagged in the C2 PR body; the operator's merge is the approval.
+- **Alternatives rejected:** building JSON-LD inside TreatmentLayout (the
+  route owns the canonical URL; the layout stays presentational);
+  FAQPage JSON-LD now (Phase D per §10).
+- **Consequences:** `draft: true` entries are excluded from the build
+  entirely; unapproved entries build with a visible DraftBanner and
+  `check:approvals` keeps them out of production (unchanged).
+
+## 2026-07-19 — C6: /about built; `{{AMY_BIO}}` resolved from an operator-supplied source
+
+- **Context:** the About page was blocked on bio facts. Mid-build, the
+  operator supplied a screenshot of Amy's public provider-directory
+  listing (Amy About.jpg) and directed its use.
+- **Decision:** career facts extracted and used: two decades of nursing
+  (much of it critical care), medical aesthetics since 2017, nurse
+  practitioner since 2018, credentials NP/BSN (site standard remains
+  "Amy Palacios, FNP"). The Evolus context of the source page is NOT
+  used ({{EVOLUS_CLAIM}} still open); the listing's informal service
+  shorthand ("Tox", laser, microneedling) is not carried onto the site
+  — §6 governs the service list. The multi-provider location gets its
+  one factual line, nothing more (constraint 2). Portrait: the
+  mirror-moment frame, riding the same open client-release flag as the
+  concept (preview-only).
+- **Consequences:** Amy's confirmation of the career-facts wording is
+  flagged for review on the preview; {{AMY_BIO}} is no longer rendered
+  as a token.
+
+## 2026-07-19 — Perf gate rearchitected: deterministic budgets + median-of-3 (operator-approved)
+
+- **Context:** three CI failures were phantom TBT readings (205/1027/709 ms)
+  on zero-JS pages — one URL failing while six siblings in the same job
+  passed, identical code passing on rerun. Local measurement: TBT = 0 ms on
+  every page. Defect: asserting an inherently variable lab metric as a
+  single-sample binary gate on shared runners. Larger runners are an
+  org-plan feature (repo is personal); self-hosted fails cost/simplicity.
+- **Decision — three layers (plan-mode approved by operator):**
+  1. *Deterministic invariants* (new, byte-exact, cannot flake) in
+     lighthouserc: third-party requests = 0 (CI-enforces hard constraint 5),
+     script ≤ 30 KiB (unchanged), total ≤ 350 KiB, image ≤ 240 KiB,
+     font ≤ 120 KiB / ≤ 4 requests, stylesheet ≤ 16 KiB, document ≤ 16 KiB.
+     Measured 2026-07-19 transfer-size maxima across the 7 gated URLs:
+     total 211,993 (/about) · image 124,997 (3 req) · font 75,946 (2 req,
+     the two-family discipline visible in data) · css 8,117 · doc 7,941 ·
+     script 0 · third-party 0. Headroom ~40–100%, sized so C8's photo-led
+     home fits without touching budgets. Budgets only tighten without
+     operator approval; loosening is operator-gated.
+  2. *Statistical metrics treated statistically:* numberOfRuns 3 with
+     aggregationMethod "median" set EXPLICITLY on every assertion — the
+     LHCI default is "optimistic" (best-of-N), which would silently weaken
+     the gate. All thresholds unchanged (4× categories ≥ 0.95, LCP ≤ 2500,
+     CLS ≤ 0.1, TBT ≤ 200).
+  3. *Escalation rule (pre-agreed, not executed):* if a metric assertion
+     fails while all Layer-1 budgets pass and an identical-code rerun
+     passes, that is a proven phantom → retire the TBT stand-in (script
+     budget already guards JS deterministically), executed only after
+     flagging the operator with the evidence. §13's INP < 200 ms remains a
+     field commitment (CrUX / Phase D analytics — the only place INP is
+     measurable). Note: §13 delegates lab budgets to this config; TBT's
+     number was never spec text.
+- **Alternatives rejected:** naive numberOfRuns:3 (silent optimistic
+  default = weakening); dropping TBT today (do it on evidence via the
+  rule, not preemptively); paid larger runners (unavailable +
+  cost); self-hosted runner (ops burden, workstation fragility);
+  skipAudits on TBT (score-computation hack — actual patchwork).
+- **Consequences:** verify wall time +~2 min (measured 347 s / 349 s
+  locally, both green; probe test confirmed budgets bite). A deliberate
+  regression now fails on exact bytes before it ever reaches a
+  statistical metric.
+
+## 2026-07-19 — Same-day decisions from C1/C5/C7 not previously logged
+
+- **C1, /404 surface:** body-level noir kept (BaseLayout `surface` prop)
+  — the per-section-noir rule protects light sections from dark link
+  tokens, and the 404 has none. The plan's Services link on the 404 was
+  deferred to C5 so it never shipped dead; it should be added now that
+  /services exists (small follow-up, C8 window).
+- **C1→ /book portrait (operator picks, three rounds):** concept-hero
+  frame → gloves detail (8K0A1120) → **final: 8K0A1011** (Amy + client
+  beneath the neon, top-anchored crop keeping the sign whole). Carries
+  BOTH open photo flags (client release + neon signage) — preview-only,
+  same standing as the concept. Alt text names no location branding.
+- **C5, open naming flag:** the services-grid card reads "Neuromodulators"
+  (§6 title in serviceLines.ts); the page it opens reads "Wrinkle
+  Relaxers" (§7 consumer name). Operator picks which name wins; one-line
+  change either way.
+- **C7, legal drafts in the safe lexicon:** the genre's standard
+  boilerplate ("not intended to diagnose/treat/cure/prevent",
+  "guarantee") is banned by our own claims linter by design. Drafts use:
+  as-is/without-warranties, no-provider-relationship, 911 lines, and the
+  DisclaimerBlock's vetted framing expanded. DraftBanner gained a
+  `label` prop ("Draft — pending counsel review"); the clinician default
+  is untouched. A North Carolina governing-law clause awaits counsel.
+- **Docs sync (this entry's commit):** §17 registry statuses updated
+  (VAGARO_URL/PHONE/ADDRESS/SOCIAL_LINKS/AMY_BIO marked resolved with
+  dates and standing flags); PHASE-C.md checklist ticked through C7 with
+  a 2026-07-19 status block; RUNBOOK gained the phantom-metric
+  troubleshooting entry and the new ~6-minute verify expectation.
+
+## 2026-07-19 — Header credential line under the wordmark
+
+Operator directed: "Amy Palacios, FNP" beneath the Needle Girlie wordmark,
+in the brand pinks, header grows to fit. **Decision:** a `.site-brand`
+lockup — wordmark plus an uppercase tracked credential line in DM Sans
+(the header's existing nav grammar; Playfair stays display-only per the
+global.css contract) colored **pink-500**. New verified contrast entry in
+tokens.css: pink-500 on noir 5.95:1 also clears the 4.5:1 body-text bar —
+small pink-500 text is now legal on NOIR only (the light-surface ban is
+untouched). Mobile popover clearance moved 7rem → 8.5rem for the taller
+block. Rejected: pink-300 (passes easily at 11.58:1 but reads pastel —
+the operator asked for the logo's pinks, and the wordmark letters are the
+pink-500/magenta family); Playfair for the line (violates the
+display-only rule); enlarging the wordmark itself (already sized up twice
+by client direction — the ask was an addition, not another scale-up).
+Consequence: every page's header carries the clinician's name and
+credential — supports the "Amy, the clinician" positioning sitewide.
+
+## 2026-07-19 — Vagaro service alignment (menu-driven content update)
+
+Operator supplied scans of the live Vagaro booking menu (C:\Amy\scans\
+Vagaro) and directed the site's services toward consistency with it.
+**Decisions (operator-selected):** (1) `{{NEUROMOD_LIST}}` resolved to
+**Jeuveau, Xeomin, Daxxify** — each has its own Vagaro category; settles
+the old two-vs-three source conflict. (2) Weight loss broadens to
+**Semaglutide, Tirzepatide, Phentermine, Retatrutide**; Retatrutide
+ships behind `investigational: true` with the notice now naming it via
+the new optional `investigationalProduct` schema field (route
+pass-through added — the notice previously could not name a compound).
+Phentermine is named, never described by mechanism (appetite-language
+ban). (3) Two new consult-routed lines: **Skin Rejuvenation** (Pixel8
+RF microneedling + medical-grade chemical peels) and **Body Contouring**
+(Evolve, described by intended design only — tightening/toning, no
+outcome or body-fat language). SERVICE_LINES enum → 11; §6/§7 briefs
+added; /services headline and pa11y URL set updated. (4) **Regenerative
+trimmed** to the Vagaro menu: PRP and PRP-with-microneedling; PRF,
+PDRN, Illuma, VAMP, Rejuran come off until Amy confirms them.
+**Deliberately excluded from the site:** Vagaro's per-medication mg
+tiers (dosing — hard constraint 3), per-med pricing notes, and
+half-syringe pricing granularity. **Rejected:** one page per Vagaro
+category (twelve flat pages — index sprawl); folding peels into
+Skincare (that line is a shop link-out, not a procedure page).
+**Consequences:** all touched pages remain `clinicianApproved: false`
+awaiting Amy's sign-off round; the peptide list (`{{PEPTIDES_PUBLIC_
+LIST}}`) stays open — Vagaro shows no peptide category; the C5
+Neuromodulators-vs-Wrinkle-Relaxers naming flag is unchanged.
+
+## 2026-07-20 — GLP-1 product cards + mg-tier pricing (operator override)
+
+Operator supplied the client's product sheet (GLP-1 tab) and directed its
+use on the weight-loss page. The sheet is a hard-constraint-8-class
+internal document — read view-only, never committed; its Reconstitution
+and Dosing columns are prohibited content, its Duration wording ("well
+tolerated for …") is a safety claim, and its Uses wording contains
+lint-banned angles — so the publishable facts reduce to receptor classes
+and prices. **Build decision:** a reusable `productDetails` schema field
++ `ProductDetailCards` component upgrades the "What Amy offers" list in
+the same slot of the fixed compliance order; the later Peptides work
+reuses it. **Override decision:** the client directed publication of the
+five mg-keyed price tiers. Flagged in full before execution: mg amounts
+are hard constraint 3, and FDA's 2026 enforcement wave (≈80 warning
+letters through June 2026, incl. letters to clinics advertising
+retatrutide by quantity and price) cites exactly this pattern. The
+operator confirmed the override ("Full mg tiers") and separately chose
+equal card billing for Retatrutide. **Mechanism:** an `allowedStrings`
+registry entry stripped before category scans — exact strings only,
+boundary-guarded (a longer quantity containing a tier string still
+fails), covered by the linter self-test, changeable only by the
+operator. **Rejected:** loosening the mg regex (a context exception
+would admit unenumerated quantities); "from $X" prices with a Vagaro
+menu link-out (operator declined after the flag). **Consequences:**
+documented, client-accepted regulatory exposure rides with the page;
+any new tier requires an operator-visible registry edit;
+`{{RETATRUTIDE_COUNSEL}}` now also covers the priced Retatrutide card;
+`clinicianApproved` stays false pending Amy's sign-off.
+
+## 2026-07-20 — Retatrutide card badge removed (operator-directed)
+
+The "Investigational" tag badge on the Retatrutide product card comes
+off at the operator's direction (relayed same-day, after PR #18). The
+badge was a redundant visual reinforcement, not the disclosure itself:
+the mandatory architecture is unchanged — the adjacent
+InvestigationalNotice naming Retatrutide, the card's own
+"Investigational and not FDA-approved" detail sentence, and the FAQ
+wording all remain, and the lint inverse checks still enforce them.
+Flagged at execution: anything beyond the badge (the notice or the
+disclosure wording) is hard constraint 3 and not removable.
+Same day: the operator asked for Phentermine described as appetite
+suppression for short-term weight loss; flagged against brief 1's
+no-mechanism rule and the appetite-language ban, and the operator chose
+the compliant variant — "for short-term use in a supervised
+weight-management plan" — over an override. The rule stands.
+
+## 2026-07-20 — Client weigh-in photo on the weight-loss page
+
+Operator supplied a client photo (weigh-in on the studio's InBody
+body-composition scale) and directed its use on the weight-loss page.
+**Publication basis:** operator confirmed a signed release covering
+website marketing use is on file — recorded here; publication was
+blocked on that confirmation. **Compliance handling:** the
+procedure-aftercare sign in frame ("results take 10-14 days" —
+claim-adjacent text baked into an image) is cropped out; the neon
+reflection in the mirror was inspected at full resolution and is
+illegible (no shared-location naming — hard constraint 2 clear); the
+shipped filename (supervised-weigh-in.jpg) and alt text avoid the
+client's name. **Build:** inline `figure` in the MDX body via
+astro:assets (responsive widths, lazy, dimensions set — no CLS); no
+layout hero capability added. The weight-loss page is outside the
+Lighthouse URL set, so image budgets are unaffected; pa11y covers the
+page.
+
+## 2026-07-20 — AtAGlance retired from treatment pages; editorial deck replaces it
+
+Operator: no one likes the fact card (Provider / Location /
+Appointments / New clients) on the service pages — remove it and put
+something better there. Decision: the card comes off TreatmentLayout
+only; /book keeps its copy (provider/phone facts are contextually right
+on a booking page), so AtAGlance.astro survives. In its place an
+optional `deck` frontmatter field renders a blush statement card — one
+short, claims-clean Playfair display line per treatment, in the same
+card anatomy family (blush, hairline, magenta edge; ink-900 on blush
+15.77:1). Upright face only — no italic font file is added, so the
+Layer-1 font byte budget is untouched. All eleven pages populated in
+one pass; §8 applies to deck strings and the lines rode lint:claims,
+lint:voice, and the full verify (Lighthouse CLS median held on both
+tracked treatment pages). Rejected: an on-page table of contents
+(bureaucratic for short pages); third-party embeds (privacy
+architecture); deleting the component (/book uses it). Consequence:
+eleven new copy lines await Amy's sign-off like all treatment content
+(clinicianApproved unchanged, false).
+
+## 2026-07-20 — Second weight-loss photo: Amy's portrait, not the requested frame
+
+Operator asked for 8K0A9740.jpg on the GLP-1 page. Viewed first-hand,
+that frame is a neuromodulator prep tray — site-labeled pre-drawn
+syringes, unit-marked toxin boxes, Evolus campaign brochures, location
+branding on the tray. Flagged as unusable there: it implies the wrong
+treatment on a weight-loss page, photographs a dosing workflow (the
+image form of banned content), and republishes third-party marketing.
+Operator accepted the flag and chose a survey of the full pro-shoot
+set instead (subagent pre-screen, every candidate re-verified
+first-hand). No weight-loss-specific frame exists in the set; the
+operator selected 8K0A0206 — the first Amy-solo portrait we have
+(embroidered scrubs, seamless backdrop; no client release needed, no
+products, no signage; the embroidery "Amy Palacios NP / Mobile
+Aesthetics" was verified at full resolution and is factual identity,
+clear of hard constraint 2). **Build:** new `.media-row--flip` layout
+variant (copy-first DOM, figure right, opposite tilt) so successive
+prints lean toward each other; the portrait wraps "Who it's generally
+for," captioned "Your clinician." Rejected: 8K0A9862 (vial in hand —
+injectable ambiguity on a weight-loss page, label unverified);
+mirror-moment frames (client release unconfirmed, facial-treatment
+read). Noted for later: 8K0A9881/9922 are Skincare-page-ready product
+frames.
+
+## 2026-07-20 — One conversion label: "Book with Amy" replaces "Request a consultation"
+
+Operator directive: every button that said "Request a consultation"
+now says "Book with Amy." Implemented as a label-only change to
+CTAButton's consult variant — the button still points at `/book`, the
+outline style still distinguishes it from the solid Vagaro button, and
+the §6 language convention still governs prose (router cards, FAQs,
+and pricing lines keep saying "consultation," so clinical routing
+survives in copy). Known trade-off, flagged and accepted: on
+direct-booking treatment pages the router card and the closing band
+now both read "Book with Amy" with different destinations (/book vs
+Vagaro); both funnel to booking, and the external one announces its
+new tab. BUILD_SPEC §6 amended to record that the route table's
+"Request a consultation" cells describe routing intent, not the label.
+
+## 2026-07-20 — Price-tier strings reformatted: "@" → "vial:"
+
+Client direction via the operator: the five authorized GLP-1 price
+tiers now read "20mg vial: $675" (etc.) instead of "20mg @ $675." A
+like-for-like swap of the enumerated allowlist strings — same five
+tiers, same prices, no expansion — executed as one operation across
+`compliance/banned-patterns.json` `allowedStrings` and the page's
+`priceLines` (the registry and the rendered text must always change
+together; the operator's directive is the required registry
+authorization, noted in the registry's own comment). The linter
+self-test derives its cases from the registry, so the gate stays
+self-proving: each new string passes, every longer-quantity variant
+("120mg vial: $675") still fails dosing. "vial" matches no banned
+pattern outside the stripped strings.
+
+## 2026-07-21 — Retatrutide disclosure consolidated to one calm line (client direction, scoped)
+
+Amy directed (via the operator) that ALL "investigational / not
+FDA-approved" references come off the weight-loss page — she covers
+this in consultation and finds it too alarming on the page. Flagged
+before execution: the page advertises Retatrutide by name **with
+prices**, and advertising an unapproved compound with no disclosure is
+the exact pattern in FDA's 2026 warning-letter wave — removal while
+the product stays advertised is misleading advertising, and the
+linter's inverse checks (non-removable gates) fail it by design. Two
+compliant paths offered: remove Retatrutide from the page entirely
+(recommended — matches "she covers it in consultation"), or keep it
+and collapse the four repetitions (bolded notice, card sentence, FAQ
+clause, body sentence) to a single matter-of-fact line. **Operator
+chose consolidation.** Mechanism: new optional `investigationalNote`
+schema field — the page supplies the calm sentence, rendered inside
+the adjacent InvestigationalNotice; the wording lives in the content
+file so lint:claims keeps enforcing the statement on the page that
+advertises the compound and the clinician audit trail carries the
+exact sentence. The component's bolded default remains the fallback
+for any future investigational page. **Rejected:** full removal with
+the product still advertised (declined as unbuildable — deceptive and
+gate-breaking); hiding the statement in non-rendered text (hollow
+gate pass). **Consequences:** the disclosure now appears exactly once
+(verified in built HTML, phrase unsplit); {{RETATRUTIDE_COUNSEL}}
+still governs final wording; clinicianApproved stays false.
+
+## 2026-07-21 — Weight-loss page books directly (operator)
+
+The operator saw "Book with Amy" on the weight-loss preview routing to
+/book and directed it link Amy's Vagaro page. Not a bug — the line was
+consult-routed by §6/§7 design — so this is a routing change, executed
+with the copy aligned in the same content commit: ctaType → book (the
+closing band now opens Vagaro in a new tab, matching wrinkle-relaxers
+and dermal-fillers), the FAQ answer flips from "starts with a
+consultation" to "book anytime — free consultation available first,"
+the body drops "consultation-routed by design," and the meta
+description follows. Kept: suitability language still routes to
+consultation (§8.7), and Retatrutide stays consultation-introduced via
+the disclosure line. BUILD_SPEC §6 route table + §7 brief 1 amended on
+the operator's directive. Rejected: overriding the consult button's
+href only on this page (forks the variant's meaning sitewide).
+clinicianApproved stays false; Amy reviews the new copy with the rest.
+
+**Update (same session) — the /book double-hop retired sitewide:**
+shown the first cut, the operator rejected the surviving pattern
+("Book with Amy" on the router card → /book → click "Book with Amy"
+again to reach Vagaro) outright. Decision: one label, one destination
+— the consult variant's default href is now the Vagaro URL (outline
+emphasis kept, book_click event added, new-tab affordances automatic).
+This supersedes the two-destination trade-off accepted with the
+2026-07-20 label unification; the operator's reaction proved the flag
+right. Consequence: the /book page has no inbound links (header Book
+went Vagaro-direct 2026-07-18) — kept built as the how-booking-works /
+phone explainer and stays in the pa11y/Lighthouse URL sets; retiring
+it is the operator's call, flagged for the Phase E launch checklist.
+Prose consultation routing (§8.7) is untouched.
+
+## 2026-07-21 — /book retired (operator)
+
+The flag above resolved same-day: asked whether any use remained, the
+recommendation was deletion — the only surviving purpose (cushioning
+the brand handoff to the Vagaro page, which carries the location's
+name, not Needle Girlie's) is a one-line microcopy job, not a page,
+and the operator declined even that. Deleted now rather than at Phase
+E because the page never served in production and nothing links to it
+— no bookmarks, no search entries, no redirect debt; that stays true
+only while it stays unshipped. Removed: src/pages/book.astro and its
+photo under-the-neon.jpg (used nowhere else — conveniently the one
+frame carrying BOTH open photo flags, client release + neon signage,
+now off the site entirely); the /book URLs came out of the pa11y and
+Lighthouse lists (syncing the enumerated sets to the sitemap, not
+weakening — a kept entry would fail on 404). Kept: AtAGlance.astro
+(styleguide demo still renders it). BUILD_SPEC §6 route table row
+marked retired. Consequences: pa11y audits 22 URLs, Lighthouse 6; the
+free-consultation and phone messaging live on in trust chips, FAQs,
+and call CTAs.
+
+## 2026-07-21 — Peptide Therapy page built; `{{PEPTIDES_PUBLIC_LIST}}` resolved (operator)
+
+Operator directed the Peptides page be built from the client product
+sheet (Peptides tab), using the weight-loss-glp-1 page as the template.
+`{{PEPTIDES_PUBLIC_LIST}}` **resolved** to Amy's nine-item injectable-peptide
+menu: BPC-157/TB-500, GHK-Cu, GLOW (a GHK-Cu/BPC-157/TB-500 blend),
+Glutathione, Ipamorelin, MOTS-c, NAD+, Sermorelin, Tesamorelin.
+
+**Core decision — compliance reduction.** The sheet's Uses column is almost
+entirely non-publishable: anti-aging, anti-inflammatory, healing, recovery,
+blood-sugar, "prevents muscle loss," and Glutathione's chemotherapy/
+Alzheimer's/Parkinson's/neuroprotective claims all hit the claims linter or
+the §7 peptide brief ("no recovery/healing/anti-aging/performance claims"),
+and Tesamorelin's "only FDA-approved drug for visceral fat" hits both the
+fda-approved and superiority patterns. Reconstitution and Dosing are excluded
+by the operator; Duration is a cycling protocol (hard constraint 3) and is
+also excluded despite being nominally offered. So — exactly as the GLP-1 page
+did with its own sheet (DECISIONS 2026-07-20) — publishable facts reduce to
+**product name + factual biochemical class + price + route-to-consultation**
+(e.g. GHK-Cu = "a copper-binding peptide"; Ipamorelin = a growth-hormone-
+releasing peptide; Sermorelin/Tesamorelin = growth-hormone-releasing hormone
+analog). Class descriptors are factual identity only, mirroring GLP-1's
+accepted receptor-class framing; verified clean against every linter category.
+Rendered through the existing `productDetails` / `ProductDetailCards`
+machinery — no schema or component change.
+
+**Operator decisions (full GLP-1 parity).** (1) Show the flat per-product
+prices — and unlike the GLP-1 mg tiers these are not mg-keyed, so they trip no
+dosing pattern and need **no `banned-patterns.json` allowlist entry**. (2)
+`ctaType: book` — the closing band opens Vagaro directly. (3) **No page-level
+non-FDA-approved disclosure.** Flagged before execution — most listed peptides
+are compounded and not FDA-approved, and advertising them by name with prices
+is the same FDA warning-letter pattern flagged for priced Retatrutide — and
+the operator declined a disclosure. Verified this breaks no gate: no linter
+inverse check requires a disclosure absent an `investigational` flag or biote
+symptom language, and neither is present. Recorded as operator-accepted
+regulatory exposure. NAD+ price omitted (the sheet's only NAD+ price is the IV
+price, which belongs to /iv-therapy); Glutathione and NAD+ appear on both
+pages (different delivery), kept on both.
+
+**Rejected:** publishing the Uses benefits (non-compliant, unbuildable — the
+inverse checks and category scans would fail it); a disclosure (operator
+declined); editing `banned-patterns.json` (flat prices need no carve-out).
+**Consequences:** `{{PEPTIDES_PUBLIC_LIST}}` resolved (BUILD_SPEC §17 status
+flip is operator-gated — flagged, not edited here); `clinicianApproved` stays
+false pending Amy's sign-off. Page photo is the reused solo portrait (8K0A0206)
+as a safe placeholder — the one peptide-specific solo frame (8K0A9862, gloved
+clinician presenting a vial) needs a crop to remove legible "Mobile Aesthetics"
+neon, flagged for the operator's pick on the preview.
+
+**Update (2026-07-21) — photo chosen; NAD+ priced.** Operator ruled out the
+reused 0206 portrait (already on the weight-loss page). Photo is now a cropped
+**8K0A9734** — a pink-scrubs solo clinician portrait, cropped above the counter
+to drop the product boxes / syringe tray / marketing brochures; no client, no
+signage, no dosing workflow (sharp crop, top 56%). Rejected en route: 8K0A0069
+(Amy holding a "Mobile Aesthetics" location sign beside Evolysse filler boxes —
+constraint 2 + third-party marketing + wrong treatment). NAD+ now shows
+**$200** (operator-provided — the sheet listed only an "IV NAD" price, so it was
+initially omitted); MOTS-c stays unpriced pending a price.
+
+**Update (2026-07-21) — enriched within compliance (operator, Option A).** After
+the operator flagged the page as too thin (the compliance reduction had left it
+sparse), enriched it with **zero added exposure**: a fuller factual "what a
+peptide is" passage, a families framing (copper peptides / growth-hormone-
+releasing peptides / a synthetic blend / compounds the body makes on its own),
+richer per-card identity lines, a "Delivered, and always supervised" section
+(route of administration + prescription + supervision — no dosing/frequency),
+and an expanded logistics FAQ (how peptides are given, how Amy decides). Cards
+reordered to match the families. Still **no benefit or efficacy claims** — the
+sheet's Uses column stays off, and suitability still routes to consultation. The
+operator declined the Option-B benefit-language override for now; it remains
+available (same posture as the GLP-1 pricing override) if directed later.
+
+## 2026-07-21 — Treatment closing bands gain the Call button (operator)
+
+The operator noted, reviewing peptide-therapy, that its closing band lacked
+the "Call 704-579-7108" button that /services carries. That band lives in
+**TreatmentLayout** (shared), so the fix adds `<CTAButton variant="call" />`
+beside the primary book/consult/shop button there — bringing **all ten
+treatment pages** in line with the /services, /about, and /visit closing bands
+(book + call), rather than scoping one page. The call variant already existed
+(tel: link, outline style, `call_click` event) — no new component, no schema
+change. **Rejected:** a per-page frontmatter flag (an operator-gated schema
+change for a worse, inconsistent result — one treatment page with a call
+button, nine without). **Consequence:** every treatment page's noir band now
+offers its primary CTA plus Call; only the mdx changed per page is untouched
+(the change is layout-level).
+
+## 2026-07-21 — Neuromodulator product cards + per-unit pricing override
+
+Context: the operator directed a rebuild of /services/wrinkle-relaxers
+from the client's product sheet (Neuromodulators tab: Jeuveau, Xeomin,
+Daxxify) plus released studio photography. Per-unit pricing touches
+hard constraint 3 ("units" is enumerated in the dosing ban), so the
+flag was raised; the operator chose verbatim sheet pricing ("$400 or
+$10 / unit", "$500 or $12 / unit") over the compliant alternatives
+(starting-at prices; consult-only). Mechanism mirrors the mg-tier
+override: two exact strings in `allowedStrings`, and the dosing
+category GREW two per-unit patterns ("/ unit", "per unit") in the same
+change — the carve-out opens only after the ban widens, and the linter
+self-test proves both. Also decided: Daxxify duration ships only as
+the hedged label fact (not a promise); "Wrinkle Relaxers" naming wins
+(C5 flag closed — grid card updated to match the page); releases
+confirmed for all three photo subjects (8K0A9550/9591 female client,
+9637 male client, 9397 alternate — unused for now). Rejected:
+publishing "FDA-approved" (lint-banned; renders as "prescription");
+frame 9542 (legible Jeuveau campaign banner); frames 9734/9742
+(product-box and prep-tray scenes). Consequences: documented,
+client-accepted exposure on quantity-keyed pricing, consistent with
+the GLP-1 decision; any new tier requires an operator-visible registry
+edit; the operator's merge of this PR is the written override
+approval.
+
+## 2026-07-21 — Biostimulators page: factual category, prices shown, consult-first
+
+Context: built /services/biostimulators from `C:\Amy\scans\Radiesse\Radiesse.md`
+(Merz brochure, $900/syringe) and `C:\Amy\scans\VSoft\VSoft.md` (VSoft Lift PDO
+threads), plus the operator's PDO price ($350 for 10 threads). Both brochures are
+saturated with §8 violations — Radiesse's FIRMS/TIGHTENS/REVERSES, "23x more
+collagen," 78%/98% stats, "reverses signs of aging," "lasts 2 years"; VSoft's
+"strongest"/"best," "Amazing Results" before/afters, "FDA-cleared" as a selling
+point. **Decision:** publish only factual category identity + mechanism per
+BUILD_SPEC §7.5 ("collagen-stimulating treatments … no 'lifting results'
+promises") — each product a name + one factual class line (Radiesse = injectable
+calcium hydroxylapatite; PDO Threads = dissolvable polydioxanone, VSoft Lift line)
++ the collagen-stimulation mechanism the category is named for, then route to
+consult. **Prices shown** (operator-confirmed): "$900 per syringe", "$350 for 10
+threads" — flat, non-mg, non-unit strings that pass the dosing regex untouched, so
+no `banned-patterns.json` allowlist entry is needed (unlike the GLP-1 mg-tiers and
+the neuromodulator per-unit prices). First consultation-first page to show
+per-product prices (siblings Regenerative / Skin Rejuvenation keep pricing to the
+consult); operator provided the figures and confirmed display. **CTA:** `consult`,
+not `book` — mandated by BUILD_SPEC §6 (line 210, "Request a consultation") and
+appropriate for injectable/thread procedures. **Rejected:** any FIRMS/TIGHTENS/
+REVERSES, stat, or before/after language (§8); "FDA-cleared" reassurance
+(regulatory status as a selling point); the word "permanent" even negated (the
+outcome-promises regex has no negative lookbehind, so "not permanent" fails —
+longevity routes to the consult instead); a separate "thread lift" product (VSoft
+Lift read as the PDO-thread brand Amy uses — one line, $350/10). **Consequences:**
+`clinicianApproved: false` until Amy signs off; Radiesse sits on Biostimulators
+per §7.5, not Dermal Fillers (the concurrent session's page — Revanesse Versa /
+Evolysse per §7.4), though Radiesse is FDA-*indicated* as a filler — flagged so it
+is not double-listed.
+
+## 2026-07-21 — Dermal Fillers rebuild: Evolus film override + supplied lip style guide
+
+Context: the operator directed a rebuild of /services/dermal-fillers
+from the supplied filler briefs (Evolysse Smooth/Form; Revanesse
+Versa+/Lips+ — constraint-8-class, view-only) and two client-supplied
+assets: the Evolus-produced co-branded film ("Mobile EVOLYSSE OPTION
+3_2_1", on-screen piece code US-EVY-2600017)
+and the lip style-guide graphic. The film contains a before/after
+segment (hard-constraint-3 territory), Mobile Aesthetics co-branding
+with the location's phone number (704-368-3759 — not Amy's line) and a
+QR code to a location-branded Evolus microsite, plus a "Nurse
+Practicioner" typo on Amy's title card; the graphic bakes in "We add
+volume…" (voice rule) and "will suit everyone" (suitability). All
+flags were shown. Operator chose: publish the film as-is and ship the
+graphic as-is. Rejected: skipping the video; trimming the segment
+(editing a manufacturer's regulated piece); rebuilding the graphic as
+native HTML cards. Also decided: Revanesse renders as one family card
+(Versa+ & Lips+ — matches the "Versa lips or face" Vagaro booking);
+Evolysse duration ships only as the hedged label fact (Daxxify
+pattern). The filler price string ("$650 or $325 (half-syringe)")
+trips no banned pattern — the first quantity-keyed price published
+with NO registry change. Captions: the film has narration, so the
+WebVTT transcript was machine-drafted (scratchpad-local Whisper, no
+repo dependency) with two flagged corrections ("evalese"→"Evolysse",
+"Soft and"→"Soften"); the operator verifies the transcript against
+the video pre-merge. Captions render manufacturer speech (including
+"doctor" phrasing) that the src/ gates do not scan — accepted under
+the same override. Consequences: the page carries manufacturer video
+content the text gates cannot scan (documented, client-accepted); the
+poster frame inherits the approved co-branding; the location's number
+appears inside the film while every site CTA still routes to Amy's own
+booking and phone; the operator's merge of this PR is the written
+override approval.
+
+## 2026-07-21 — Self-hosted video: static MP4 under /media/
+
+Context: the Evolysse film needed a home; constraint 5 permits
+youtube-nocookie embeds, but a third-party player means iframes and
+external requests for a 30-second asset on a zero-tracker site.
+Decision: self-host — lossless remux of the client's H.264/AAC .mov to
+a faststart MP4 (8.6 MB) in public/media/, rendered by the new
+TreatmentVideo component: click-to-play `<video controls
+preload="none">`, astro:assets poster, required WebVTT captions track
+(axe video-caption), zero client-side JS, no autoplay. `/media/*`
+gains a 24-hour cache route in BOTH SWA templates (the global default
+is 5 minutes). Rejected: YouTube nocookie (third-party surface,
+off-brand chrome); hashing the video through the asset pipeline
+(public/ passthrough is simpler; Front Door purge covers releases).
+Consequences: the repo gains its largest binary (8.6 MB, well under
+all limits); zero run-rate impact; the page stays out of the LHCI URL
+set (deliberate — adding it offered to the operator as a pure
+tightening).
+
+## 2026-07-21 — Biostimulators: solo clinician photo + Radiesse biostimulator identity
+
+Follow-up to the biostimulators build (PR #34, merged). Two operator-driven
+changes. **(1) Photo swap:** the media-row reused `amy-palacios-fnp.jpg`
+(8K0A0206), already on the GLP-1 page; the operator asked for a distinct frame.
+The shoot has no clean solo portrait — every solo frame carries the
+"MobileAesthetics" neon sign, a held product box, or a prep tray (all ~74 pics
+re-screened first-hand) — so a new asset `amy-studio-portrait.jpg` was cropped
+from 8K0A9750 (Amy alone, chin on hands, pink scrubs), keeping only the region
+above the table and removing the Evolysse/Jeuveau boxes, vials, and pen tray.
+Same manufacture-a-clean-frame technique used for the peptides photo (8K0A9734).
+**(2) Radiesse = biostimulator, made explicit:** the operator confirmed via
+radiesse.com that Radiesse is "the first and only injectable biostimulator" and
+"RADIESSE … are biostimulators", settling the filler-vs-biostimulator question
+and confirming the §7.5 placement here (not on Dermal Fillers, which shipped
+Evolysse + Revanesse, no Radiesse). The product card now reads "An injectable
+biostimulator …". **Rejected from the source banner:** "first and only"
+(superiority, §8.4) and "FDA approved" (banned regex) — only the factual
+"injectable biostimulator" identity was taken. Consequence: `clinicianApproved:
+false` stays; nothing else on the page changed.
+
+## 2026-07-21 — Preview passwords removed; previews are public + noindexed
+
+Context: the SWA Standard basicAuth cookie looped constantly in Chrome
+for Windows (stale-cookie re-prompt with the correct password), and each
+per-PR hostname needed its own login; the operator lost review time to
+it repeatedly and directed removal ("get rid of the passwords"). Flag
+shown: preview URLs are guessable and carry unapproved draft
+medical-marketing content. Decision (operator, after the flag): disable
+password protection entirely — applied immediately via ARM
+(basicAuth/default → SpecifiedEnvironments, no environments; both live
+previews verified serving 200 with no gate), with the repo synced in
+the same day: the basicAuth resource and previewPassword parameter
+removed from infra Bicep (redeploying infra must NOT silently re-enable
+it), and preview.json gains `X-Robots-Tag: noindex, nofollow` so drafts
+never enter search indexes (also closes the §16 "previews noindexed"
+checklist item). Rejected: Entra-based staging auth (more login friction
+than the password, for a solo reviewer); leaving Bicep as-was (silent
+re-enable drift). Consequences: anyone with a preview link can view
+drafts (client-accepted); the clinician-approval gate remains the
+production safeguard; re-enabling is one ARM PUT if ever wanted.
+
+## 2026-07-21 — BUILD_SPEC §7.5 amended: Radiesse classified as a biostimulator
+
+Context: the filler-vs-biostimulator question recurred (Radiesse is FDA-indicated
+as a dermal filler but is a collagen biostimulator by mechanism); the resolution
+lived only in the biostimulators-page entry above. Decision (operator-approved):
+amend §7.5 to state Radiesse is a biostimulator, not a filler, for this catalog —
+it belongs on /services/biostimulators, not /services/dermal-fillers — citing
+radiesse.com's own "injectable biostimulator" positioning. Consequence: the spec
+now settles placement so the confusion can't resurface; the marketing superlatives
+("first and only", "FDA-approved") stay off-site per §8. Docs-only change.
+
+## 2026-07-21 — {{EVOLUS_CLAIM}} resolved: "Charlotte's #1 Evolus provider" (third allowlist authorization)
+
+Context: the operator reported Amy is the #1 Evolus injector in the
+Charlotte market; verification found the exact sentence "she is
+Charlotte's #1 Evolus provider" live and unattributed on the practice's
+own site (yourmobileaesthetics.com homepage). This is the claim the
+placeholder registry had been holding open. The flag was given in full:
+an unattributed "#1" is the most scrutinized claim class in medical
+advertising; the recommended path was a two-line substantiation email
+from the Evolus rep plus attributed wording ("Recognized by Evolus
+as…"). Operator chose: proceed now on the operator's confirmation that
+the designation comes from Evolus, wording matching the company site
+verbatim (attributed version declined), placement on wrinkle-relaxers +
+dermal-fillers (About offered and declined). Mechanism: the exact
+sentence became the EIGHTH allowedStrings entry — the first non-price,
+superiority-class string — and the linter self-test's exactness proof
+generalized from dosing-only to any-category (a superiority string's
+near-miss variant trips superiority, not dosing); deliberate-failure
+probes confirmed naked "#1", the digit-prefixed variant, and an
+extended "best injector" sentence all still fail while the exact
+sentence passes. Notably, the registry line itself was added by the
+operator's own hand (assistant tooling declined the allowlist edit; the
+operator made the change directly — the registry's operator-only rule,
+made literal). Consequences: documented, client-accepted exposure on an
+unattributed superiority claim, consistent with the company site's
+existing public claim; the Evolus rep email remains the recommended
+substantiation upgrade and would also unlock attributed wording; both
+touched pages remain clinicianApproved: false; the operator's merge of
+this PR is the written override approval.
+
+## 2026-07-21 — Lip style guide swapped for the text-free version
+
+Context: the operator supplied Lip_Styles_no_text.png — the same
+six-style graphic with every baked-in description removed; only the
+style names remain (large, legible at mobile sizes). Decision
+(operator-directed): replace the original as-is graphic on
+/services/dermal-fillers. Consequence: the exposure recorded in the
+earlier style-guide decision — the baked "We add volume…" voice-rule
+conflict and the "will suit everyone" suitability claim — is RETIRED;
+the image now carries no sentence-level text at all, and the FAQ item
+listing the six styles remains the descriptive text alternative. The
+as-is override for the Evolus film is unaffected.
+
+## 2026-07-21 — First clinician approval: Dermal Fillers
+
+Context: Amy reviewed /services/dermal-fillers on the stable preview
+(post-PR #38 state: film, cards, syringe pricing, Evolus ranking
+sentence, text-free style guide) and approved the content; the operator
+relayed the approval and confirmed its scope via AskUserQuestion
+(dermal-fillers only — not the home-page concept, not other pages).
+Decision: clinicianApproved flips true for this one page — the flag
+edit made by the operator's own hand per hard constraint 4. The first
+page to clear the clinician gate; its draft banner comes down and the
+production approvals check will pass it. Consequence: any future edit
+to the page's content resets the flag in the same commit (constraint
+4); the remaining ten treatment pages stay clinicianApproved: false.
+
+## 2026-07-21 — Evolus ICON event film on Wrinkle Relaxers (as-is override)
+
+Context: the operator directed adding evolus02.mov — Evolus's "ICON, an
+Evolus HQ Experience" event recap (87s, Instagram-watermarked, Amy
+among the attendees) — to /services/wrinkle-relaxers. The flag was
+stronger than the Evolysse film's: the piece contains the CMO's spoken
+comparative-efficacy segment ("Compared to Botox… we saw a statistical
+difference of superiority", with Nuceiva-vs-Vistabel charts), three
+named third-party providers with practices (a cosmetic surgeon, an RN,
+an APRN), Evolus corporate speakers, and NO safety information — an
+event recap, not a DTC ad. Recommended path (rep-cleared cut) and skip
+were both offered; the operator chose publish as-is — the fourth
+override, recorded here; the operator's merge of this PR is the written
+approval. Mechanics: HEVC source required a real H.264 transcode (CRF
+20, faststart, audio copied) — the first non-lossless video conversion;
+captions were built from the film's own burned-in caption text (Whisper
+degraded badly on the music-and-crowd mix; the burned-in captions are
+the authoritative transcript and mirror the manufacturer's own wording,
+including the comparative remarks) with speaker labels for
+accessibility. CLAUDE.md constraint 3 and BUILD_SPEC §8.3/§8.4/§7.3
+carry the extended exception. Consequences: documented, client-accepted
+exposure on comparative-efficacy and third-party-provider content the
+text gates cannot scan; the reusable TreatmentVideo component carried
+the whole feature with zero component changes; wrinkle-relaxers remains
+clinicianApproved: false (Amy's gate still ahead of production).
+
+## 2026-07-22 — Body Contouring built on Evolve, scoped to tighten-and-tone
+
+Context: the operator commissioned the Body Contouring page and supplied
+Evolve pricing ($1,500 / six sessions, $275 / one) plus competitor copy
+from a third-party med-spa site — "destroy fat, treat cellulite,
+increase muscle strength & tone… real surgery-like results after only a
+few treatments" — and open permission to research the device on the web.
+Amy's live Vagaro menu (`scans/Vagaro/Chemical peel - Evolve.png`)
+settled the scope: the category **Evolve** carries exactly one service,
+**"Tighten and tone."** InMode's platform splits into Tite (bipolar RF →
+skin), Tone (EMS → muscle) and Trim (RF + vacuum → adipose); Amy sells
+Tite + Tone. Decision: the page describes only what she sells. The
+competitor copy was rejected on **accuracy first** — it advertises Trim,
+a service she does not offer — and on BUILD_SPEC §7.11 second ("describe
+by intended design … never as outcomes. No body-fat or measurement
+language of any kind"). No override was sought, and none should be: the
+four prior as-is overrides all covered *manufacturer-produced* assets,
+whereas this is an unsubstantiated third party's marketing prose.
+Publishable substrate is InMode's own mechanism wording (uniform heating
+to the skin and the layer beneath it; EMS prompting involuntary muscle
+contractions), which carries no outcome claim and passes every category.
+Alternatives rejected: a Trim-inclusive page (misrepresents the
+practice); an operator override to carry the competitor claims (would
+advertise a service Amy cannot deliver — a worse exposure than the
+compliance one). Pricing: shown, per operator direction. Both strings
+are **count-keyed, not mg- or unit-keyed**, so no pattern in the
+registry matches and **no `allowedStrings` entry was added** — the same
+shape as the shipped "$350 for 10 threads"; `compliance/banned-patterns.json`
+is untouched. A "course of six" is treated as a **unit of sale**, not a
+prescribed regimen: it carries no frequency and no interval, unlike the
+biostimulator Duration column (2 months on / 1 month off) excluded
+earlier as a cycling protocol. Two further operator calls: placement
+areas (abdomen, flanks, thighs, arms, buttocks) and session length
+(~30–60 minutes) are named — the **first session length stated anywhere
+on the site**, admitted as a scheduling fact rather than a duration
+protocol; and the page **ships without imagery**, because a photo screen
+of `C:\Amy\pics` found nothing depicting Evolve or the treatment room
+(the shoot is entirely facial/injectable/skincare; the one wide frame is
+the multi-provider group shot, constraint 2), and body imagery on a
+body-contouring page reads as a before/after implication. Deliberately
+**not** written: "no downtime" — unbanned by regex and arguably
+procedural, but still a promise about the patient's experience; the page
+says "nothing is injected and nothing is cut" instead. Consequences: the
+page is the first treatment page with no media row, so the deck card,
+two product cards, a two-energy list and a six-item FAQ carry the visual
+weight; `ctaType` stays `consult` per the §6 route table;
+clinicianApproved stays false. A §7.11 spec note recording the
+Tite+Tone scope is proposed separately (operator-gated), on the model of
+the §7.5 Radiesse clarification, to stop a future session
+re-introducing fat framing.
+
+## 2026-07-22 — Skin Rejuvenation rebuild: PiXel8-RF + chemical-peels placeholder
+
+Context: the operator supplied a Rohrer Aesthetics PiXel8-RF brief
+(C:\Amy\scans\Pixel8 — constraint-8-class, view-only) and two prices
+(PiXel8-RF $1,500; chemical peels starting at $180), with peel details
+incomplete. Decision: rebuild /services/skin-rejuvenation to the
+biostimulators standard now — product cards, mechanism-design copy
+("designed to prompt the skin's own collagen and elastin"),
+appearance-hedged indication areas, FDA-cleared stated as the accurate
+device term — with the peel section written as a compliant placeholder
+tracked by the new {{CHEMICAL_PEELS_MENU}} registry token. Operator
+decisions via AskUserQuestion: price shows as bare $1,500 (basis
+explained at consultation); no photo for now (no PiXel8 assets exist;
+amy-at-work/pink-gloves-detail remain available). Alternatives
+rejected: waiting for the complete peel menu (blocks a finished line
+indefinitely); showing a price basis the operator hadn't confirmed.
+Excluded per §8: needle depths/pin counts, session schedules, results
+timelines, downtime promises, PIH claims, "first and only 4 MHz"
+superiority, brochure before/after cases and their named med-spas.
+Both price strings pass lint:claims untouched — no allowlist change.
+Consequences: page ships clinicianApproved: false behind the
+DraftBanner; peels deepen when the token resolves; brochure scans
+never enter the repo.
+
+## 2026-07-22 — IV Therapy built on the live menu; source cards rejected
+
+Context: the placeholder needed a real page. The operator supplied
+pricing (Myers' $125, NAD IV $200) and pointed at two source folders —
+`scans/Vagaro` and `scans/peptides` — quoting the Glutathione "Uses"
+line as intended copy. Decision: scope taken from Amy's Vagaro booking
+menu (IV category = NAD, Immunity boost, Myers cocktail) plus the two
+shots named in §7.7; five cards grouped by the `tag` field into IV
+infusions and shots. Card copy states what each substance **is**, never
+what it does. The `scans/peptides` cards are constraint-8 internal
+product cards (reconstitution, dosing, duration) whose Glutathione
+"Uses" sentence continues into chemotherapy / Alzheimer's / Parkinson's
+language — the exact content §7.7 bans by name — and whose NAD+ card
+reads "Chronic fatigue reduction". Handled like the Rohrer brief behind
+§7.10: read to identify, never committed; the single nugget taken was
+corroboration, Amy's handwritten "IV NAD $200". Alternatives rejected:
+carrying the quoted half of the "Uses" line (it passes lint:claims
+cleanly — "liver support", "detoxification", "antioxidant", "oxidative
+stress" trip nothing — so this is a judgment exclusion, not a gate
+catch, and §7.7 is written as an absolute for Glutathione); the company
+site's copy ("Immune and recovery boost", "Cellular repair and mental
+clarity", "Detox and skin brightening"), all outcome claims and the
+first an explicit §7.7 violation; inventing a price for Vitamin B12 (it
+carries no price line instead); a sixth "vitamin shots" card
+duplicating the two cards that already are shots. Operator decisions
+via AskUserQuestion: $125 is the Myers' Cocktail with those five as its
+ingredients (not six separate items — corroborated by Vagaro listing
+only three IVs); identity-plus-ingredients card depth; silence on
+unverified prices; Glutathione and NAD+ carried on **both** this page
+and peptide-therapy with identical price strings. Also: `pricingDisplay`
+consult → none, because the `consult` value injects "Pricing is
+individual and discussed during your consultation" — contradictory on a
+book-direct page showing four fixed prices; `none` is already in the
+schema enum and shipped on skincare.mdx, so this is an accuracy fix,
+not a gate change. `ctaType` stays `book` per the §6 route table.
+Naming: the page uses the §7.7 name **"Immunity IV"**, not Vagaro's
+booking label "Immunity boost" — the latter reads as a benefit though
+it trips no pattern (wrong word order; "immunity" ≠ "immune").
+Imagery: `studio-wide.jpg`, already in-repo and not previously used on
+any treatment page — Amy is the only provider in frame and no location
+signage is legible, and an infusion page is the one place the room
+itself is the story. *(Correction 2026-07-22: this entry and the
+matching CHANGELOG line originally called the file "previously unused
+in-repo", which overstated it — `ConceptHome.astro` imports it for the
+`/styleguide/concept` demo. The reasoning is unaffected; no new asset
+was added either way.)* Consequences: page
+ships clinicianApproved: false behind the DraftBanner; Glutathione and
+NAD prices now live in two files and must move together; the Vitamin B12
+price remains the one open blank (registry token proposed, not added —
+BUILD_SPEC edits are operator-gated). Correction the same day, before
+merge: the operator supplied Immunity IV's price ($125) and contents
+(vitamin C, vitamin B12, B-complex, zinc sulfate, glutathione), so that
+card moved from blank to priced. Ingredients are named as composition
+only and carry no immune framing — §7.7's product-name rule is
+unaffected. Note glutathione now appears twice on the page: as an
+ingredient of the Immunity IV, and as a standalone shot.
+
+## 2026-07-22 — The FDA disclaimer the compliance gate was blocking
+
+Context: /services/hormone-optimization shipped `bioteDisclaimer: true`
+while `BioteDisclaimer.astro` rendered the literal string
+`{{BIOTE_FDA_DISCLAIMER}}` — braces visible — immediately above
+symptom-awareness copy. The one disclosure §7.8 makes mandatory had
+never actually been shown. The operator supplied Biote's printed
+patient materials, which carry the exact wording. Decision: resolve the
+token with Biote's own sentence, and enumerate that sentence verbatim in
+`compliance/banned-patterns.json` `allowedStrings`. The problem is that
+the disclaimer's force comes from naming the four verbs the
+`disease-claims` category exists to ban, so hardcoding it failed
+lint:claims three times over — the gate was blocking the compliance
+text. Alternatives rejected: loosening or adding a lookbehind to the
+`disease-claims` patterns (CLAUDE.md forbids weakening a gate, and the
+patterns are correct — it is the exception that is unusual); moving the
+component outside SCAN_DIRS (hiding text from the linter to make it
+pass is the same sin wearing a different hat); leaving the token in
+place and dropping symptom language instead (would have silently
+narrowed a permission §7.8 grants, and left a broken placeholder on a
+live page). This is the **fourth** allowlist authorization and the first
+different in kind: entries one through three permit copy the client
+wants to publish; this one permits text a regulator effectively
+requires. No pattern was modified — the list only grew. Exactness proved
+before trusting it: the exact sentence passes, "illness" for "disease"
+fails, a shortened variant fails, the verbs reused as real marketing
+copy fail, and a line-wrapped disclaimer fails. That last case is a real
+hazard rather than a hypothetical — `lint-claims.mjs` strips allowed
+strings and applies patterns per line, so a 150-character sentence
+wrapped by an editor or a formatter matches nothing and trips every verb
+in it. Both editing rules (one line; never restate the verbs elsewhere
+in the file) are recorded in the component header, because the next
+person to touch it will not have this context. Consequences: the
+symptom-awareness permission is usable for the first time; §17 records
+the token RESOLVED; the stripping is global across scanned lines, which
+is harmless only because nothing else contains that exact sentence.
+
+## 2026-07-22 — Hormone Optimization built on the Biote pellet line
+
+Context: the page was a placeholder — 2 FAQ items, no cards, no prices.
+Decision: scope from Amy's Vagaro menu (`Hormones/Biote` = Hormone lab
+draw, Pellets; the category's IV item belongs to the IV page), drafted
+from the operator-supplied Biote transcription — manufacturer patient
+marketing, treated view-only and never committed, the same handling as
+the Rohrer brief behind §7.10. Operator decisions via AskUserQuestion:
+resolve the disclaimer and take the full symptom framing; **two separate
+pellet cards** (Women $450, Men $750) rather than one card with two
+price lines, accepting the orphan card in the two-column grid; and a
+**dedicated men's section**. On that last point I had warned the men's
+section would be thin, and corrected upward before building: the
+linter's symptom vocabulary — low energy, poor sleep, libido — is
+exactly what `bioteDisclaimer: true` unlocks, so the section stands on
+permitted language rather than scraps. **Revised the same day, before
+merge, at the operator's direction:** a matching *For women* section was
+added, and this was a restructure rather than an append. "Who it's
+generally for" had carried hot flashes and night sweats — the
+specifically female symptoms — so it *was* the women's section in all
+but name, which is precisely why "For men" read as an appendix to a
+female default. That section is now a genuinely universal frame holding
+the "a pattern is a reason for a conversation, not a conclusion"
+caveat, with the gendered vocabulary moved down into two parallel
+sections. Women first, matching card order. **"Menopause" and
+"perimenopause" are deliberately absent** — neither is a banned pattern
+and neither is a disease, so the linter would allow both, but naming a
+condition the pellets are *for* contradicts the disclaimer rendering two
+paragraphs above it. The deciding argument was evenness: "Low T" was
+already excluded from the men's section on the same reasoning, and the
+page cannot police male condition-naming while waving through the
+female equivalent. "Weight gain" was also left out despite sitting on
+the permitted symptom list — in a hormone section it implies a
+weight-loss outcome by association, and that line has its own page.
+Women's pellets are deliberately
+**not** described as estrogen: the source says pellets contain
+testosterone or estrogen and are patient-specific, and women's plans may
+include testosterone, so naming one would be an invention (constraint 7).
+Alternatives rejected: the entire post-procedure timeline — insertion
+intervals, procedures per year, lab cadence — which is frequency and
+protocol material banned by constraint 3 and is aftercare for existing
+patients rather than marketing; "precision dosing" and the proprietary
+platform wording (the concept survives as "measured from your labs", the
+word does not); every disease name in the source (heart disease,
+diabetes, osteoporosis, anxiety, depression, PTSD, bone density,
+cognition, prostate) — **the disclaimer unlocks symptom framing, never
+disease claims**, and that is the sharpest line on the page; quantified
+efficacy (8.3% bone mass per year, 2–3% testosterone yearly, 10%
+decline); superiority ("world's #1 trusted hormone optimization
+company", 85 years, 4 million insertions); all three testimonials; the
+marketed outcome lists; the DIM SGS+ supplement, a structure/function
+claim for a product not on Amy's menu; and "takes less than a minute and
+is unnoticeable" as a comfort promise — available if the operator wants
+it, omitted by default on the same reasoning as "no downtime" on Body
+Contouring. `pricingDisplay` stays `consult`, unlike IV Therapy: here
+the layout's "pricing is individual" line is true, since the prices are
+per-insertion and the plan follows from labs. No imagery — §7.8 keeps
+Biote branding text-only pending `{{BIOTE_PERMISSION}}`, and no in-repo
+photo depicts pellet care (`pink-gloves-detail.jpg` carries legible
+"Mobile Aesthetics" tray branding, the constraint-2 reason
+`amy-at-work.jpg` was rejected for IV Therapy). Consequences: page ships
+clinicianApproved: false behind the DraftBanner; the men's price makes
+the line explicitly non-gendered for the first time on the site.
+
+## 2026-07-22 — /services cards recolored to client-picked pinks; edge rule moves to ink-pink
+
+Context: Amy reviewed /services and directed new card-state colors,
+relayed by the operator as exact hexes (third iteration of the picks;
+lighten-on-highlight confirmed via question after the pair inverted the
+original darken direction): #efb1d5 at rest, #f4cae2 highlighted, and a
+darker color on all four sides when highlighted. Decision: new semantic
+tokens --ng-card-rest/--ng-card-hover carry the two hexes, scoped to
+.treatment-card only; the highlight state adds a 2px ink-pink ring
+(1px border-color flip + 1px inset shadow — no layout shift); the
+signature left edge rule and the ring move magenta-600 → ink-pink
+because magenta-600 fails the 3.0:1 non-text bar on the rest pink
+(2.57:1; 3.11:1 on the highlight pink is margin-thin). All new pairs
+computed with the house WCAG script (sanity pair 17.22 reproduced) and
+recorded in the tokens.css header. Alternatives rejected: repointing the
+shared --ng-card token (nine other consumers — would restyle
+disclaimers, product cards, the location card sitewide); keeping the
+magenta-600 edge (fails the non-text bar on the new rest background).
+Consequences: /services cards are now a deeper brand pink than the
+blush-50 blocks elsewhere (extendable on request); the 2026-07-18
+card-hover #fde9f4 derived pairs are retired with the value; no gate,
+linter, or content changes — clinicianApproved flags untouched.
+
+## 2026-07-22 — Services-card colors settled: reversed shades, ink-pink highlight accent
+
+Context: the recolor iterated four rounds on the PR #47 preview in one
+day. Round 1 (deeper #efb1d5 at rest, lighter #f4cae2 highlight,
+ink-pink ring) was reversed at client direction — rest is now the
+lighter #f4cae2, highlight deepens to #efb1d5. For the highlight ring +
+title letters the client trialed hot pink #ff4f8b (2.13:1 — fails the
+3:1 WCAG bars, flagged), plum #a83b71 (4.08:1 — passes, declined on
+looks), and the logo-lips neon #fe019a = --ng-neon-500 (2.10:1 — fails,
+plus the token's never-as-text rule, flagged), then chose to return to
+ink-pink (#b01366, 3.81:1 on the highlight bg — passes AA). Decision:
+ship the reversed shades with the ink-pink ring + title letters — fully
+compliant, no override needed. Alternatives rejected: the three trial
+colors (two fail WCAG, one declined); magenta-600 (2.57:1 non-text on
+#efb1d5). Consequences: every shipped pair is recorded in the tokens.css
+header table; the trial history lives there too so the failing colors
+are not re-tried; no gate or content changes.
+
+## 2026-07-22 — Compliance documentation reconciled with the linter
+
+Context: after resolving {{BIOTE_FDA_DISCLAIMER}} the operator asked for a
+documentation check. Auditing rather than answering from memory turned up
+three gaps, one of which predates this session's work. Decision: fix all
+three in a docs-only change. (1) `compliance/README.md` stated the linter
+scans `src/content/**` and `src/pages/**`; `SCAN_DIRS` is six directories
+including `src/components` and `src/layouts`. That error is directly
+implicated in the disclaimer problem — a reader would conclude a disclosure
+component is exempt from the banned patterns, which is the opposite of the
+truth and the whole reason hardcoding the FDA sentence failed the gate. (2)
+The same file documented no allowlist whatsoever, though `allowedStrings`
+now holds nine entries and is the only sanctioned route for publishing text
+a category would otherwise catch; the per-line stripping hazard was recorded
+nowhere a maintainer would look. (3) `.claude/CLAUDE.md` enumerates the
+scoped exceptions to hard constraint 3 and listed only three, so the
+governing document contradicted what had shipped — a future session could
+reasonably have read the disclaimer entry as unauthorized and removed it.
+Alternatives rejected: leaving CLAUDE.md alone on the grounds that it is
+operator-governed (the operator authorized the exception; the file is the
+record of such authorizations, and leaving it stale is the riskier act);
+documenting the allowlist only in DECISIONS (nobody reads a 1400-line log
+before editing a component). Also corrected a claim of my own: the IV
+Therapy entries described `studio-wide.jpg` as "previously unused in-repo"
+when `ConceptHome.astro` imports it for the styleguide demo — it was unused
+by any *treatment page*. The reasoning it supported is unaffected.
+Consequences: the README now states plainly that a green `lint:claims` is a
+floor and not a verdict, since the judgment exclusions accumulating in this
+phase — the Glutathione "Uses" text, "menopause", "Low T", "no downtime" —
+are all things the regex permits and the rulebook does not.
+
+## 2026-07-22 — Laser Treatments: twelfth line from the Venus Versa brochures
+
+Context: the operator supplied three Venus Versa patient brochures
+(C:\Amy\scans\Venus Versa — constraint-8-class, view-only) and asked for a
+twelfth service line plus a /services heading change. AskUserQuestion
+settled scope: all three applications (NanoFractional RF resurfacing, IPL
+photo-rejuvenation, Multi-Polar RF + PEMF), no pricing — consult-routed,
+the open menu tracked as the new {{VENUS_VERSA_MENU}} token. Decision:
+build /services/laser-treatments to the device-line standard — three
+product cards, mechanism as design intent, appearance-hedged areas,
+FDA-cleared stated only where the brochures state it (the IPL applicators
+and the fine-line applicator; the resurfacing section stays
+clearance-silent). Two operator overrides, each flagged once then executed
+cleanly: (1) the /services H1 becomes "Twelve lines. One expert
+clinician." — "expert" is new wording, a step toward self-description the
+heading had avoided; (2) the line is titled "Laser Treatments" although
+the platform's applicators are IPL and radiofrequency, not laser — the
+flag offered "Laser & Light"; the mitigation is that the summary, the
+opening section, and the first FAQ state the physics factually.
+Alternatives rejected: waiting for pricing (blocks the line on an open
+menu); folding the applications into Skin Rejuvenation (§7.10 is scoped to
+PiXel8-RF + peels, and the operator asked for a twelfth box). Excluded per
+§8: the manufacturer's marketing name for the third application (a banned
+angle, kept out of the repo entirely — recorded only here), session counts
+and scheduling intervals, downtime and results-timeline promises,
+"lesions"/Fitzpatrick indication detail, device-spec figures, and the
+brochure before/after cases with their named med-spas. Consequences: the
+SERVICE_LINES enum, the grid, §6/§7.12/§17, and the pa11y URL set grow to
+twelve; the page ships clinicianApproved: false behind the DraftBanner;
+the cross-link section routes the PiXel8-RF overlap to consultation;
+brochure scans never enter the repo.
+
+## 2026-07-22 — Every box wears the /services card pink
+
+Context: after approving the /services card recolor, the client directed
+that all boxes on every page match the /services boxes. Decision: repoint
+the shared `--ng-card` token at `--ng-card-rest` (#f4cae2) — one token
+change recolors all eight light-surface consumers (product cards, deck,
+router card, disclaimer block, investigational notice, location card,
+about facts, styleguide demos) — and move every box edge rule from
+magenta-600 to ink-pink, matching the /services cards exactly: computed
+first-hand (sanity pairs reproduced 15.77/4.15), magenta-600 is 3.11:1 on
+the card pink (margin-thin vs the 3.0 non-text bar) and the disclaimer's
+pink-300 top rule drops to 1.24:1 (near-invisible), so both retire from
+box roles. In-box ink-pink links/tags (product tags, location-card phone/
+directions links, outline CTA labels) hold 4.60:1 — passes the WCAG AA
+4.5 hard bar but sits under the house 4.7 link-headroom bar; flagged with
+a computed alternative (#a91162, 4.89:1) and the operator chose to keep
+ink-pink everywhere — a documented in-box-links-only exception; the 4.7
+bar is unchanged elsewhere. Alternatives rejected: recoloring per
+component (eight edits that can drift; the token exists precisely for
+this); the darker in-box pink (operator preferred uniformity).
+Deliberately unchanged: the ConceptHome blush band (an ambient section,
+not a box — blush-50 stays for bands), noir boxes (transparent-outlined
+by design), the H1 accent rule and photo washes (magenta on white/photo,
+not on boxes). Consequences: ink-900 box text holds 11.80:1 everywhere;
+body text and non-text bars pass with margin; tokens.css header gains the
+SITE-WIDE BOXES block; axe/Pa11y re-verified over the built site.
+
+## 2026-07-23 — /services becomes a categorized editorial menu
+
+Context: the client compared /services to a competitor page
+(themodernaesthetic.co/services) and asked for a redesign of the "plain
+pink boxes." Analysis showed the competitor's perceived elegance comes
+from order — grouped categories, a repeated per-item anchor, tracked
+caps — not from richer boxes. Decision (client-picked from three
+previewed directions): the **Editorial Menu** — the twelve cards render
+in three labelled groups (Injectables · Skin & Body · Wellness, 4/4/4),
+two-across, each card carrying an oversized Playfair index numeral
+(01–12), a Playfair title, the sans summary, and a "More information ›"
+microline pinned to the card foot; hover adds a 2px ink-pink rule that
+draws across the card top (the ng-trace signature at card scale) on top
+of the existing plate-deepen + ring. Group openers reuse the
+section-opener signature (eyebrow + traced accent rule). Alternatives
+rejected: an arch-vitrine card (the brand arch as a jewel case — more
+ornamental, monotony risk at ×12) and a noir-band grid (departs the
+"noir shell, light interiors" rule and hides the client-picked card
+pinks) — both offered with previews; a flat unnumbered restyle (loses
+the taxonomy that carries the elegance). Consequences: `serviceLines`
+array order is now the display + numbering order and injectables lead
+the page (Weight Loss led before — client accepted the reorder); the
+microline is ink-900 because 13px ink-pink fails the 4.5 body bar on
+the hover plate (3.81:1); every contrast pair was already recorded in
+the tokens.css card tables — no new pairs; built CSS grew 197 bytes,
+JS stayed zero; ConceptHome and the styleguide inherit the grouped menu
+via the shared grid.
+
+## 2026-07-23 — Card fill reconfirmed: the pink plates stay
+
+Context: with the editorial menu on the PR #52 preview, the client
+still found the competitor's page more elegant. Diagnosis flagged: the
+competitor's elegance is air — color as jewelry, not atmosphere (the
+§5 principle) — and the filled pink plates are the remaining gap. Two
+lighter fills were prototyped against the real build and shown beside
+the current plates as screenshots (a blush #fdf2f8 wash deepening to
+the plate pink on hover, and white "air" cards with hairline frames —
+the recommended option). Decision: the client chose to keep the pink
+plates as built; executed without re-arguing (flag-once rule).
+Consequences: PR #52 ships visually unchanged; the site-wide box pink
+stays fully consistent; the durable next elegance lever is per-line
+photography — a client asset conversation, its own step.
+
+## 2026-07-23 — Skincare page: storefront URL decoded from Amy's own QR card
+
+Context: the twelfth line's conversion path needed `{{SKINBETTER_URL}}`
+("operator to supply"). It arrived indirectly: the QR on Amy's Skinbetter
+counter card (C:\Amy\pics\20260623_175534.jpg) decodes — scratchpad jsqr,
+never committed — to skinbetter.pro//MobileAesthetics?k=signup, which
+301s to connect.skinbetter.com/MobileAesthetics. Both variants verified
+in-browser: the bare URL lands on the skinbetter.com shop, ?k=signup on a
+create-account form; both carry the practice's businessPartner_id (§9's
+"businessPartner id" confirmed live). Decision: wire the canonical bare
+URL — a Shop button lands on the shop, attribution is identical, and the
+card's signup-first flow suits in-studio acquisition rather than a
+website CTA. The operator also established that Amy is the sole owner of
+Mobile Aesthetics, which settles the §16 checklist item ("hers, not the
+shared location's") by fact and retires the 2026-07-18 Vagaro/Yelp
+shared-location flags (comments corrected; URLs unchanged; constraint 2
+and the voice rule unaffected — sole owner ≠ sole provider).
+Alternatives rejected: the ?k=signup URL (form-first landing punishes
+cold traffic); reproducing the QR image on the page (redundant with the
+button). Consequences: siteConfig.skinbetterUrl is live and the
+skinbetter_click event is armed; §9/§16/§17 updated; the page ships
+clinicianApproved: false behind the DraftBanner like every treatment
+line.
+
+## 2026-07-23 — Skincare page: routine-step cards replace the product catalog
+
+Context: the page shipped as a nine-product showcase, verified against
+Amy's studio photos. The operator then corrected the premise: Amy is an
+authorized Skinbetter Science provider who can sell any product in the
+line (many categories, many products, inventory that churns), so
+enumerating specific products misstates the offer and rots — a static
+page should never mirror a live catalog. Decision: six routine-step
+cards (Cleanse · Correct · Renew · Moisturize · Eye · Protect — the
+step vocabulary already present as the old cards' tags), body copy
+stating the complete line is available through the storefront, and
+exactly two franchise names permitted as illustrative examples
+(AlphaRet, sunbetter) in body copy only, never on cards. No other
+product names, no enumeration, no hardcoded category count, on any
+rendered surface (copy, FAQ, SEO meta, JSON-LD, alt text). The
+`products:` frontmatter list was removed outright. Alternatives
+rejected: ~15 brand-category cards (taxonomy churns with the brand,
+overcrowds the grid, recreates the enumeration one level up); pure
+editorial with no cards (loses the "What Amy offers" card slot and
+visual parity with every other treatment page). Consequences: zero
+code/schema changes; the layout's products bullet-list fallback is now
+unreachable on this page; the storefront is the only catalog; the page
+still ships clinicianApproved: false behind the DraftBanner.
+
+## 2026-07-23 — Skincare: branded storefront callout (competitor comparison)
+
+Context: the operator reviewed a competitor also partnered with
+Skinbetter (glowwithharmonia.com/skincare/#sk-lines). Their block links
+skinbetter.pro//HarmoniaWellnessandAesthetics, which 301s to
+connect.skinbetter.com/HarmoniaWellnessandAesthetics — the same
+provider-storefront system Amy's page already links canonically, so
+functional parity already existed (Amy's link skips their redirect
+hop). The gap was presentational: their block gives the partnership a
+branded visual moment. Decision: add StorefrontCallout.astro to
+/services/skincare — a noir-surfaced plate after "How buying works"
+(eyebrow "Skinbetter Science · Authorized provider", statement "Amy's
+custom Skinbetter storefront — the complete line, shipped to your
+door.", CTAButton shop variant). "Custom … storefront" is Skinbetter's
+own counter-card phrasing. Text-only branding; the Skinbetter logo
+waits on partner brand assets from Amy (open follow-up). Alternatives
+rejected: no change (the partnership had no visual moment on the page);
+importing the competitor's copy ("clinically proven", "award-winning" —
+fails §8 claim rules); switching to the skinbetter.pro vanity URL
+(redirect hop; canonical already wired, DECISIONS same date, above).
+Consequences: two shop CTAs on the page (mid-page handoff + closing
+band), both firing skinbetter_click; zero new JS; noir stays
+per-section per the a11y rulebook.
+## 2026-07-23 — Studio strip: three photos join /services
+
+Context: the client asked for photos from C:\Amy\pics on /services —
+frames of Amy performing services, none already used elsewhere. All
+~55 unvetted frames were surveyed (two parallel reviewers, per-frame
+rubric: subjects, scene, every legible word/brand, crop-ability), the
+finalists re-verified first-hand. Decision (client-approved): a
+three-frame "studio strip" between the lead and the Injectables group
+— 8K0A9415 → forehead-treatment.jpg (forehead injectable moment;
+the client picked this frame over the initially proposed 8K0A9539
+brow assessment), 8K0A9595 → lip-filler-detail.jpg (lip filler
+close-up, no legible text in frame), 8K0A9695 →
+male-client-treatment.jpg (male client wrinkle-relaxer moment). All
+three pictured clients are release-cleared subjects: two are already
+live on wrinkle-relaxers, and the third is the subject of the
+explicitly release-cleared 8K0A9397 (same session, verified
+first-hand by outfit match); the operator confirmed the on-file
+releases cover additional same-shoot frames, and the 9415 swap was
+the client's own direction.
+Frames wear the About-portrait treatment: hairline border, 4/5 crop,
+light-wash grade + magenta multiply (§5). Excluded with reasons: the
+five-woman team portraits (picturing five providers implies a team —
+constraint 2, same principle as the "we" ban); every Jeuveau-banner /
+product-box / vial-central frame (pharma marketing or packaging in
+frame — 9575, 9483/93/9503, 9596/97, 9602, 9613, 9663, 1072, 1120,
+9381, 9749, 9881, 9922); all frames of the two unreleased clients
+(0xxx/1xxx sessions); 8K0A9862 (Amy under her neon — offered as a
+swap, client kept the working trio; its held vial was zoom-vetted at
+full res: fine print illegible, so it remains available for later
+use). Consequences: /services gains ~90–180 KB of lazy-loaded
+responsive images (LH image budget re-verified); alt text is factual
+and claims-clean; no text overlays, so the opaque-plate rules are
+untouched; three more C:\Amy\pics frames are now committed under
+neutral filenames.
+
+## 2026-07-23 — Ombre page canvas: the white body becomes a blush-to-brand-pink ramp (/services trial)
+
+Context: the client finds the white page background bland and asked for
+an "ombre" — a vertical pink gradient, light at the top, darker toward
+the bottom — trialed on /services, then site-wide once the look is
+agreed. This reverses the 2026-07-18 "serious glamour" surface line
+("ambient light surface back to paper … white space carries the
+luxury"), which itself reversed the 2026-07-08 "warm the studio" blush
+inversion. Flagged per the flag-once rule; the operator approved the
+plan with the flag visible — that approval is the recorded override,
+and the paper-ambient line of the 2026-07-18 decision is SUPERSEDED for
+ombre-flagged pages (the rest of that decision — noir shell, bounded
+pink boxes, motion vocabulary — stands).
+Decision (client-picked from screenshots of four built ramps): the
+ramp matches the client's supplied reference image (pink_ombre.jpg,
+repo root of the operator's tree — reference only, never committed):
+blush-50 #fdf2f8 at the top sweeping to brand pink-500 #ec4899, full
+depth reached at 80% of the document so the whole sweep is visible
+above the noir CTA band. Mechanism: BaseLayout `ombre` prop ->
+html[data-ombre] -> longhand background override on the body (solid
+start color + gradient, no-repeat); the base body rule, --ng-surface,
+and every noir band are untouched.
+Three pastel ramps (white->blush; blush->55% card-rest #f9e2ef;
+blush->75% #f7d7e9) were built, shot, and offered first; the client's
+reference showed the intent was far bolder, and the client confirmed
+the pink-500 build ("Ship D").
+Contrast system (tokens.css OMBRE CANVAS block): the end stop is
+pink-500 EXACTLY — the deepest surface with a recorded ink-900 body
+pair (4.88, the BRAND-PINK FILLS pair); neon-500 fails it and never
+renders as a light surface. Companion re-inks on ombre bodies, via new
+--ng-kicker / --ng-rule-accent tokens (defaults preserve the old look
+everywhere else): eyebrows, accent rules, and the focus ring switch to
+ink-900 (ink-pink falls to 2.33 and magenta-600 to ~1.9 mid-ramp).
+Canvas-level ink-pink links are legal only in the top ~15% of an ombre
+page (breadcrumbs on blush, 6.14 + underline). Noir scopes gained
+explicit --ng-kicker/--ng-rule-accent (pink-300) so the CTA band and
+footer are pixel-identical.
+The a11y gate: axe cannot compute a contrast ratio against a gradient
+backdrop and files such text as needs-review, which this gate counts
+as a hard failure — the first build confirmed it first-hand, failing
+even the 15.77:1 H1. A satin-sheen-style re-engineering (solid color
+on <html>, ramp on a body::before layer) was tried and failed WORSE:
+axe flags a background-bearing pseudo on an ancestor for every text
+element on the page, including the solid-noir header and footer. No
+smooth full-page ombre is fully axe-auditable — the only compliant
+alternatives were plates under all canvas text (not the reference
+look) or dropping the ombre. Decision (operator, 2026-07-23, by
+explicit in-session instruction after the flag and options): the
+/services entry in .pa11yci.json becomes a per-URL object with
+levelCapWhenNeedsReview: "warning" — axe's cannot-determine class is
+non-fatal on that one URL; true violations still fail at zero
+tolerance on all 23 URLs including /services, and the other 22 URLs
+are untouched. The recorded OMBRE CANVAS pairs in tokens.css (worst
+case ink-900 on pink-500, 4.88, passing) are the human review those
+needs-review items require. Every future ombre page (phase 2) needs
+its own visible per-URL entry — an auditable list, not a blanket
+change.
+Alternatives rejected: gradient inside --ng-surface (leaks into every
+noir .surface element); page-scoped section background (ramp would
+stop at the noir band; phase 2 would touch every page);
+background-attachment: fixed (viewport-relative — the brief is
+darker-as-you-scroll); neon-500 end stop (text + brand rules above).
+Consequences: /services reorders nothing — only the canvas changes;
+cards read as light plates on deep pink below ~40% of the ramp and
+lean on hairline + content at the canvas-equal crossing (~30%);
+site-wide rollout (phase 2, after client approval on the trial) is a
+selector flip plus a client decision on the white mattes
+(TreatmentVideo, .media-figure, ConceptHome .nc-post/.nc-blush).
+ProductDetailCards in-card eyebrow tags will flip to ink-900 on ombre
+pages when phase 2 lands — surface with the client then.
+
+## 2026-07-23 — Ombre canvas goes site-wide; functional accents invert to ink
+
+Context: Amy approved the /services ombre trial on the stable preview
+the day it merged (PR #55) and directed the ombre onto the rest of the
+site. Phase 2 executes the rollout recorded in the trial decision.
+Decision: the ramp is now styled off the surface itself —
+body:not([data-surface='noir']) in global.css — so every light page
+wears it and noir bodies (construction home, /404) stay flat black.
+The trial `ombre` prop and html[data-ombre] hook are deleted (no
+per-page opt-out; the surface IS the design). Site-wide addition to
+the companion re-inks: --ng-link -> ink-900 on ombre bodies, because
+canvas-level ink-pink fails mid-ramp (2.33) and light pages carry
+canvas-level links and outline CTAs below the safe zone (breadcrumbs
+everywhere, the about-page consult CTA, legal-body links, FAQ
+markers). Links stay distinguishable by underline (prose, breadcrumbs)
+or border (outline CTAs) — never color alone. Consequence inside
+boxes: plated links/tags flip ink-pink 4.60 -> ink-900 11.80, lifting
+the 2026-07-22 in-box exception on ombre pages; the house 4.7 bar is
+met with headroom again. Noir scopes keep pink-300. The display accent
+re-inks as well — its only light-canvas consumer is the VisitSteps
+numerals, which sit mid-ramp where magenta washes to ~2:1 (caught on
+the rollout screenshots, fixed before the PR).
+Deliberately unchanged, for review on the preview: the white mattes
+(TreatmentVideo paper mat, TreatmentLayout .media-figure, ConceptHome
+.nc-post) now read as framed prints on the pink canvas — kept as the
+strongest default; ConceptHome .nc-blush ambient bands (concept page
+only) will read lighter than the mid-ramp canvas around them — noted,
+concept is not a public page. Solid CTA fills (pink-500 + ink text)
+appear only in noir bands on real pages, so fill-vs-canvas blending at
+depth does not arise outside styleguide demos.
+A11y (same mechanism as the trial, operator-gated): every ombre page's
+pa11y entry gains levelCapWhenNeedsReview: "warning" — 21 of 23 URLs,
+each visibly listed; the noir-bodied two keep full needs-review
+enforcement. Real violations fail at zero tolerance everywhere.
+BUILD_SPEC §5 brand direction amended: "pink is jewelry" becomes "pink
+is the atmosphere; the jewelry inverts to ink" — white space retired
+as the luxury signal on light surfaces, superseding the 2026-07-18
+language for good.
+
+## 2026-07-23 — /about portrait becomes Amy's family (consent-gated swap)
+
+Context: Amy asked (via the operator) to replace the /about portrait —
+previously the release-cleared "Amy with a client" mirror-moment frame
+— with 8K0A0893.jpg, her formal family portrait. That frame was
+categorically excluded during the 2026-07-23 photo survey because it
+pictures her family INCLUDING AT LEAST TWO MINORS, and publishing
+children on a public marketing site is permanent (public previews,
+indexed production, caches/archives beyond retraction).
+Decision: flagged per the flag-once rule with those specifics; the
+operator confirmed on the record that Amy consents for everyone
+pictured, including the minors. Published as
+src/assets/photos/family-portrait.jpg (neutral filename). Alt text
+deliberately names no one but Amy ("Amy Palacios, FNP, with her
+family."). The crop anchor moved 12% -> 38% (group faces sit
+mid-frame, unlike the single-subject shot). mirror-moment.jpg remains
+in the repo (ConceptHome still uses it). The survey exclusion for
+8K0A0893 is lifted for THIS use only — any other placement of the
+family, or any frame of the children alone, needs its own operator
+confirmation. Consequences: /about's message shifts from
+practice-forward to person-forward (client's deliberate choice; the
+practice photo remains available if she reverses); /about is
+LH-gated, so the eager/high-priority portrait swap is re-verified
+through the full suite.
+
+## 2026-07-25 — Taste audit: five polish adoptions, eight skill rules rejected
+
+Context: the operator installed the third-party taste-skill pack
+(Leonxlnx/taste-skill) and asked for a read-only audit of the live
+site against it before changing anything. Three pages audited
+first-hand (/services, /services/wrinkle-relaxers, /about, desktop +
+mobile screenshots of the live deploy) plus the full component/style
+source. Verdict delivered as a report artifact: the fundamentals the
+skill polices already pass — the locked constraints (zero JS, real
+photography, verified contrast pairs) eliminated the slop class
+wholesale — so findings concentrated in rhythm and finish.
+Decision (operator: "let's adopt the five items"): (1) trust-chip
+middots now TRAIL each chip (::after on non-last) so a wrapped
+credential line never starts with a stray dot — the audit's one real
+bug, visible on every conversion band; (2) odd-count
+ProductDetailCards sets: the last card spans the full row at ≥640px,
+closing the orphan-beside-empty-cell hole; (3) nav current-page
+marker — aria-current ("page" on exact match, "true" on /services
+subpages) plus a persistent pink-500 underline, text color untouched
+so contrast pairs are unaffected; (4) orphan control — text-wrap:
+balance joins display-1/2 and heading-2/3/4 (display-0 had it),
+pretty on lead and prose paragraphs (progressive hints); (5) CTA
+pressed state — a 1px :active translate. Motion-vocabulary note: the
+pressed state is recorded as a STATE style (hover's sibling), not an
+addition to the sanctioned motion moves; it carries no transition, so
+reduced-motion behavior is unchanged.
+Eight skill rules rejected on the record, each colliding with a
+locked decision, the compliance rulebook, or the brand: serif swap
+(Playfair is the brand face and the skill's own luxury exception),
+dark mode (single-theme by design), JS motion choreography (zero-JS
+lock), icon libraries (no-new-deps), gradient noise/grain (would
+break the ombre's auditable contrast math), accent desaturation (the
+brand IS hot pink), invented "organic" data (compliance-prohibited),
+and noir-band removal (the brand's bookends). Six discuss-list items
+(featured-card pick, MORE INFORMATION microline repetition, page-name
+eyebrows, zigzag variation, polaroid captions, em-dash thinning) are
+parked for client/Amy votes — none actioned.
+Consequences: five files touched (TrustChips, ProductDetailCards,
+Header, CTAButton, global.css) — CSS plus one aria attribute; zero
+content edits, zero gate-config edits, approval flags untouched.
+
+## 2026-07-25 — Featured-card activation: operator passes
+
+Context: the taste audit's highest-value discuss item — activate the
+dormant featuredSlugs prop so one or two /services menu cards render
+double-wide (the pick has been an open business decision since the
+editorial menu shipped, PR #52).
+Decision (operator, 2026-07-25: "we're going to pass"): the menu stays
+all-equal. The prop remains in ServiceLineGrid, dormant — no code
+change, no removal; a future client pick can still activate it.
+Consequences: the twelve-equal-cards composition is now a recorded
+client preference, not an open question; do not re-pitch it unless the
+client raises it.
+
+## 2026-07-25 — Treatment media recomposition: captions retired, the zigzag capped
+
+Context: two taste-audit discuss items, operator-agreed in discussion
+and client-approved from the before/after artifact ("Amy loves it"):
+decorative polaroid captions labeled what the eye already sees (the
+"decoration pretending to be documentation" tell), and
+wrinkle-relaxers ran three identical alternating media rows
+back-to-back — the only 3-run on the site (verified per page during
+the sweep; every other page has one or two rows).
+Decision, two moves: (1) wrinkle-relaxers' third media moment became a
+full-width band — new .media-band variant in TreatmentLayout (matte
+inherited from .media-figure, no tilt — the tilt is the small-print
+gesture; 16:9 crop via aspect-ratio, astro:assets intrinsic sizes keep
+CLS at zero) — scale variation closes the sequence instead of a third
+zigzag. (2) ALL thirteen decorative photo figcaptions retired across
+the seven treatment files that had them (wrinkle-relaxers 3,
+dermal-fillers 3 incl. the lip-guide label, skincare 2, weight-loss 2,
+biostimulators 1, iv-therapy 1, peptide-therapy 1). KEPT: the
+TreatmentVideo captions (functional — manufacturer attribution +
+sound-on cue on films carried under operator overrides), and the
+lip-guide figure's full-width layout (informational graphic — the
+16:9 band crop must NEVER apply to it; cropping cuts content). Alt
+text untouched everywhere; copy untouched everywhere; the figcaption
+CSS rule stays in TreatmentLayout (harmless, and a future functional
+caption may need it).
+Compliance mechanics: dermal-fillers was the one clinicianApproved
+page — its caption edits reset the flag to false in the same commit
+(constraint 4), on the operator's informed instruction (the reset was
+flagged in the audit report and the sweep discussion before the "sweep
+the rest" direction). Amy re-reviews a captions-only diff to re-flip.
+Each page's edit is its own content commit (audit trail).
+Consequences: pages 2–12 lose 13 uppercase tracked micro-labels
+(the audit's heaviest-density tell thins measurably); the
+wrinkle-relaxers page — the LH-gated treatment representative —
+re-verified green through the full suite with the band's larger
+image derivatives inside budget.
+
+## 2026-07-25 — Concept home rebuilt: bright hero, ombre canvas, category doors
+
+Context: the concept home (/styleguide/concept) is the approved
+direction for the production home (C8), but it predated the ombre
+canvas, the editorial menu, the studio photography, and the taste
+audit. The client raised three faults, all reproduced first-hand:
+the hero photo was over-filtered (grayscale 30% + brightness 0.96 +
+a 160° noir→magenta multiply); the SERVICES section rendered the
+whole 12-card ServiceLineGrid — /services duplicated verbatim; and
+every section painted an opaque background (3× noir, 2× paper, 2×
+blush), so the site-wide ombre never showed and the page "looked
+like it doesn't belong to the site."
+Decision (client direction + operator picks via AskUserQuestion):
+rebuild in the CONCEPT SLOT ONLY — the C8 flip to / is a separate
+later PR after Amy approves — as six beats: noir hero, canvas
+intro/Meet-Amy, category doors, visit + location, the framed IG
+post, noir closing.
+1. HERO GRADE: the cinema grade is retired from this page. The photo
+   now wears the site's light wash (grayscale 10% / contrast 1.03 /
+   brightness 1.08) plus a 12% magenta unifier — the same strength
+   family as the /services studio strip — and the neon bloom drops
+   38% → 24%. The full-bleed duotone multiply is gone.
+2. HERO NEON — flagged, then OPERATOR-CLEARED: the brighter grade
+   made the studio's neon script legible again (the dark grade had
+   been hiding it; the original code comment flagged it for operator
+   review). An asset-level crop was built and measured first —
+   candidates at 10/12/14/16% off the top, 16% being the minimum that
+   erased every letterform — but at the desktop window's aspect that
+   crop also cut the top of Amy's head. Shown to the operator, who
+   directed (2026-07-25): keep the sign, fix the head. Rationale
+   holds independently — Amy is the SOLE OWNER of Mobile Aesthetics
+   (2026-07-23), so it is her own signage; constraint 2 governs OTHER
+   providers and is not engaged. The hero therefore ships FULL FRAME,
+   uncropped, at object-position 50% 22% (both hero windows are wider
+   than the 2:3 source, so cover trims vertically; 22% keeps sign,
+   head, and treatment moment in frame at both breakpoints). Do not
+   reintroduce a top crop — the component comment says so too.
+3. SERVICES → DOORS: three arch-framed photo plates (Injectables,
+   Skin & Body, Wellness — the exact /services menu groups), each
+   naming its four lines factually and linking to /services, with an
+   "Explore all twelve lines ›" close. The home now ROUTES instead of
+   duplicating; the arch geometry (the caricature-window motif)
+   survives the mirror-figure removal by becoming the door frame.
+4. OMBRE: every middle section is transparent — the ramp IS the
+   surface. The .nc-blush and .surface paint is deleted; only the
+   hero and closing bands re-scope noir. Canvas text rides the
+   existing ink re-inks, so no new contrast pairs were needed.
+5. PHOTO DISQUALIFICATION (compliance, found in the re-vet):
+   pink-gloves-detail.jpg — the concept's full-bleed detail band —
+   is OFF the page and unused site-wide. At full frame it shows a
+   partially legible branded vial over a tray of prepared syringes
+   labeled "Mobile Aesthetics": the prep-tray/vial-central class the
+   2026-07-23 rubric excludes (the reason 8K0A9740 was rejected).
+   It predates that rubric; the rubric is applied retroactively.
+   mirror-moment.jpg also leaves the page — its release status has
+   contradictory log entries (2026-07-20 "release unconfirmed" vs
+   2026-07-23 "release-cleared") and this page is a production
+   candidate.
+6. ITALIC FACE RETIRED: the wght-italic import is deleted and the
+   accent phrase is upright display-accent. Measured rationale: the
+   two fetched latin faces are ≈75.3KB of the 120KB font budget;
+   the italic latin file adds ≈38.8KB (≈114KB, near-zero headroom)
+   and revives the italic-swap CLS risk — unacceptable for a page
+   heading to the / gates.
+7. Closing band drops its background photo for the standard sitewide
+   noir anatomy, which frees studio-wide.jpg for the Wellness door.
+§6 deviation recorded: the "Get-the-App slot" is satisfied by the
+sitewide footer's GetTheApp block rather than a home section.
+Measured, not gated (this route is not LH-gated): the worst-case
+image total — every lazy image fetched, LH-mobile srcset picks — is
+199,236 bytes against the 245,760 budget (46KB headroom), and fonts
+return to two fetched faces. The C8 flip will prove them for real.
+Alternatives rejected: keeping the 12-card grid (the duplication the
+client flagged); an editorial two-column index of all twelve names
+(no visual punch on the site's first page); shrinking the IG post
+(the 34rem size is a recorded client pick — the baked caption must
+read comfortably).
+Consequences / open C8 prerequisites: (a) the hero client's release
+is not confirmed for THIS frame anywhere in the log — confirm on the
+record or swap the frame; (b) Amy's sign-off on the IG post caption
+(its baked-in text is invisible to lint:claims and lint:voice, which
+cannot read pixels — the slot is post-agnostic if she prefers
+another); (c) {{MEDIA_SCOPE}} closure.
+
+## 2026-07-25 — Unresolved hours are hidden, not printed
+
+Context: LocationCard printed "Hours: {{HOURS}}" wherever it rendered
+(/visit, the styleguide demo, and now the home candidate). On a page
+that is about to become the site's front door, a visible placeholder
+reads as a broken site rather than as a tracked open input. Operator
+direction after seeing it on the rebuilt concept: remove it.
+Decision: the hours line renders ONLY when {{HOURS}} resolves — the
+same isResolved idiom already used for Footer social links and for
+JSON-LD in schema.ts, rather than deleting the feature. The token
+stays in siteConfig and BUILD_SPEC §17, so it remains a tracked open
+input, and the line reappears by itself the moment real hours land.
+/visit's copy stopped promising hours in the same change (lead:
+"Directions and contact are below"; card heading "Location & hours"
+-> "Location"), with a comment telling the next editor to restore
+both when the hours arrive.
+Verified: {{HOURS}} now appears in ZERO built HTML files (full dist
+sweep). Structured data was never affected — schema.ts's pruned()
+already dropped openingHours while unresolved, checked first-hand
+rather than assumed.
+Consequence: the visible-placeholder convention is now explicitly
+scoped — tokens stay visible in DRAFT treatment copy (where they
+prompt the clinician), but chrome-level facts (hours, social) hide
+until resolved. Nothing about the "never invent facts" rule changes:
+no hours are stated anywhere.
+
+## 2026-07-25 — Local agent tooling and root reference images are ignored
+
+Context: `.agents/` (an eleven-skill mirror of the Leonxlnx/taste-skill
+marketplace) and `skills-lock.json` sat untracked in the repo root, and
+the root image guard covered only `/*.png` — leaving `pink_ombre.jpg`,
+the client's colour-study reference, one `git add .` away from being
+committed into the client's repository.
+Decision: both tooling artifacts join the existing "local tooling"
+ignore block beside `.claude/skills/`, and the root debug-image rule
+extends from `/*.png` to `/*.jpg` and `/*.jpeg`.
+Alternatives rejected: committing the skill mirror (Xtend-AI's agent
+scaffolding is not the client's project code, and the lockfile pins
+content hashes that mean nothing to her); leaving the jpg gap and
+relying on care alone.
+Verified: `git ls-files --cached -i --exclude-standard` returns empty
+— no already-tracked file became ignored, and `src/assets` is
+untouched because every pattern is root-anchored.
+Consequence: **the `/*.jpg` rule is not overbroad — it is the guard on
+`pink_ombre.jpg`. Do not "tidy" it away.** Note also that gitignore
+only governs untracked files: had the reference image ever been
+committed, this rule would do nothing and removal would need
+`git rm --cached` plus history surgery.
+
+## 2026-07-26 — Documentation-only PRs skip the preview pipeline
+
+Context: every commit ran the full gate suite — build, astro check,
+claims lint, voice lint, pa11y over 23 URLs, Lighthouse 3x over 6 URLs
+— at a fixed ~5.5 minutes regardless of the diff. A one-line
+`.gitignore` edit cost exactly what a 460-line component rewrite cost.
+Four consecutive documentation changes (#59, #63, #64, plus the
+gitignore chore) spent roughly 25 minutes proving that markdown does
+not affect Lighthouse. Operator raised it directly ("why is this
+taking so long?") and authorized the fix in their own words.
+Decision: `pr-preview.yml` gains `paths-ignore: ['docs/**', '**/*.md',
+'.gitignore']` on its `pull_request` trigger.
+Explicitly NOT a weakened gate — the distinction that made this
+acceptable: `paths-ignore` skips only when EVERY changed file matches
+the list. A PR touching any source file still runs the complete suite,
+and bundling a code change with a README does not sneak it past. No
+gate, threshold, budget, or banned-pattern list was altered; the set
+of files each gate scans is unchanged. `production.yml` is
+deliberately untouched — it carries the clinician-approval gate and
+the Front Door cache purge, and its `push: [main]` trigger is rare
+enough that the saving would not pay for the risk.
+Alternatives rejected: keeping the run but conditionally skipping the
+slow gates (more config surface, more places for a condition to be
+subtly wrong, and a run that reports green having checked nothing —
+precisely the confusion the skipped-job teardown run caused an hour
+earlier); doing nothing (the cost recurs on every docs PR, and this
+repo produces documentation PRs by design).
+Consequence: documentation-only PRs get no preview environment, which
+is acceptable because their build output is byte-identical — verified
+repeatedly this week, most recently on #63. One behaviour to watch:
+PR #5 (`phase-c` -> `main`) is the standing integration PR and its
+diff contains hundreds of source files, so pushes to `phase-c` are
+expected to keep deploying the stable preview. If GitHub instead
+evaluates only the pushed commits, a docs-only push to `phase-c` would
+skip that deploy — harmless either way, since the output cannot
+change. Confirm on the first docs-only push after this lands.
+
+## 2026-07-26 — The regenerative line gets one plate, not a zigzag print
+
+Context: the operator supplied `prp01.png` (895x1017, a vertical phone
+frame) of Amy injecting PRP at a client's brow, under the studio's
+neon script. `/services/regenerative` was by some distance the
+thinnest treatment page in the set — 108 body words against 225 for
+the next thinnest, three short sections, a two-item product list, and
+no image. Four other pages also ship without photos
+(body-contouring, laser-treatments, skin-rejuvenation,
+hormone-optimization), but all carry three times the copy; this one
+had nothing holding the page down.
+Decision: the photo lands as a single full-column framed plate placed
+immediately after "What they are", and the treatment layout gains a
+`media-band--tall` variant to hold it.
+Placement: definition first, then the treatment itself. The reader is
+told what PRP is in five lines, then shown it. The alternative — the
+`media-band` closer beside "Individualized, with Amy", matching
+wrinkle-relaxers — was rejected because it leaves the top two thirds
+of a thin page with nothing to look at, and this page has exactly one
+image to spend.
+Scale: the house `media-row` print (18rem, tilted) was rejected as the
+wrong instrument. It is a snapshot gesture for pages carrying two or
+three images; on a page carrying one, it reads as decoration rather
+than as the page's anchor. Straight, not tilted — the layout already
+records that the tilt belongs to the small print.
+Crop: 9:8, server-side, 895x796 from the top of the frame, committed
+as `src/assets/photos/prp-treatment.jpg`. Five ratios were rendered
+and compared. The band's default 16:9 contract crops Amy's head off
+and deletes the neon entirely; 5:4 cuts the client mid-collar; 1:1
+keeps a dead band of shirt at the bottom. 9:8 is the widest frame that
+holds the whole composition. The CSS `aspect-ratio` matches the
+server-side crop exactly, so `object-fit` is inert and remains only as
+the degrade path — same division of labour as the `fine-gauge` band
+(2026-07-25), for the same image-budget reason.
+Source re-encoded PNG -> JPEG at q92 (948 kB -> 123 kB) because Astro
+re-encodes every variant; a thrifty source would compound artifacts
+through a second lossy pass. Shipped variants are 16/27/38 kB webp,
+against a 245,760-byte page image budget.
+The neon script reads "MobileAesthetics" — the location, not another
+provider, and the same name already embroidered on Amy's scrubs in
+three published photos. Kept deliberately: a sign-free crop was
+rendered and is materially worse, since the neon is the photo's entire
+colour story and without it the upper third is a grey wall. Flagged to
+the operator as a brand call they may reverse; the swap is a crop
+offset, not a re-shoot.
+Consequence: one new layout variant, available to any future page with
+a vertically-composed source. The supplied frame is 895 px wide, so
+the plate renders at ~1.24x on a 2x desktop display — visually fine at
+1x and on phones, mildly soft on a retina desktop. A higher-resolution
+original would sharpen it with no code change.
+
+## 2026-07-27 — Whole-card links are raised; the flat-plate rule is reversed
+
+Context: the client reported the twelve /services cards read as flat —
+the same visual level as the page — and asked for raised, almost 3-D,
+button-like plates. Investigating rather than styling to taste found a
+measurable cause. The ombre canvas ramps blush-50 to pink-500 across
+80% of the document and the card fill #f4cae2 sits BETWEEN those two
+values, so plate and canvas cross equal luminance and the figure/ground
+relationship inverts. Computed with the house method (validated by
+reproducing 17.22 / 15.77 / 11.80 / 9.77 / 4.88 exactly before any new
+figure was trusted): the crossing is at **19.6% of the document**, the
+dead zone is a **band** running roughly 8%–32% where plate-vs-canvas
+stays under 1.2:1, and it bottoms at **1.001:1** — the plate is
+arithmetically invisible there. The hairline does not rescue it: 14%
+ink over the card fill is 1.31:1 against its own plate and **1.12:1
+against the canvas** at the crossing, so the border dies with it. The
+card sequence begins near the top of that band, which is why the
+flattest cards are the Injectables group — the first four seen, and the
+group the client chose to lead the page.
+
+Decision: elevation, scoped to **whole-card links only** — the twelve
+`.treatment-card`s and the three concept-home `.nc-door`s (a hand-copy
+of the same anatomy, and the C8 home). Character: a lit-edge key cap —
+two-layer shadow, a 1px paper facet on the top edge, a further rise on
+hover/focus, and a settle on `:active`. This **reverses** the recorded
+2026-07-23 rule carried in both component headers ("flat brand-pink
+plate … NO drop shadow", "No scale/shadow transforms"); those comments
+are rewritten rather than left contradicting the code. Operator picked
+scope and character from options after the diagnosis.
+
+Static boxes stay flat, and this is the load-bearing half of the
+decision: elevation now MEANS "this is clickable". The router card was
+checked specifically and correctly keeps none (it wraps a CTAButton
+rather than being a link). Compliance blocks especially must never look
+pressable — a raised medical disclaimer implies a press target that
+does not exist. This narrows the 2026-07-22 "every box matches the
+/services boxes" direction, on affordance grounds, with the operator's
+agreement.
+
+Mechanism: one shared `.ng-lift` in global.css beside `.chev-nudge`,
+not per-component CSS — the duplication had already happened once
+(`.nc-door` is a hand-copy), and a third copy was the likely next step.
+Three shadow tokens in tokens.css carried like `--ng-aura-glow`: shadow
+colours, never text, no contrast bar. The lift is derived from the
+existing house framed-print shadow (TreatmentLayout `.media-figure` /
+TreatmentVideo) so the menu joins the site's material language instead
+of importing a foreign elevation scale — **the print's shadow, never
+its tilt**, the tilt being the small-print gesture (2026-07-25).
+
+Alternatives rejected: a 3-tier sm/md/lg elevation scale (every
+framework ships one; this site has exactly one shadow idiom and should
+end with exactly two — print and lift); **an ink-pink-tinted shadow,
+rejected on measurement rather than taste** — 1.79:1 at the top of the
+ramp but 1.24:1 at depth, washing out exactly as ink-pink text does on
+this canvas, which is why --ng-link re-inked to ink-900 in the first
+place; raising every box sitewide (would make compliance blocks read as
+buttons); raising /services only (the doors were built to mirror the
+card language, so C8 would ship a flat home beside a raised menu).
+
+Two divergences from the 2026-07-25 CTA pressed state, both forced
+rather than chosen, recorded so they are not read as drift. (1) The lift
+uses `transform`, not the independent `translate` the CTA uses:
+`ng-rise` animates `translate` with `both` fill and is applied to every
+card AND every door, so its forwards fill would permanently override a
+hover `translate:` — it works in dev and silently dies once the element
+scrolls past. (2) It transitions, where the CTA press deliberately does
+not, because the card already transitioned its hover properties at
+150ms. `.ng-lift` also took ownership of the plate's whole state
+transition including background and border: `transition` is a single
+property, so leaving it declared in both the component and the utility
+would have raced the cascade on source order.
+
+Verified, not assumed: full `npm run verify` green — a11y 23/23,
+Lighthouse assertions passing across 6 URLs / 18 runs. Because
+`levelCapWhenNeedsReview` hides needs-review items behind a "0 errors"
+line, pa11y was additionally run direct with warnings surfaced on
+/services and /styleguide/concept: **zero items touch the raised
+plates** on either URL, and no card or door text appears at all, so axe
+still resolves their contrast against the solid plate fill. The 8 and
+10 items each URL does report are the pre-existing canvas-level
+gradient class the per-URL cap exists for (breadcrumbs, H1, leads,
+group eyebrows). Stylesheet measured 6,220 bytes gzipped against the
+16,384 budget. Along the way this also corrected the tokens.css note
+that put the crossing at "~30% down"; the same script reproduces every
+recorded pair in that file exactly, so the note was the thing that was
+off. Descriptive comment, not a gate.
+
+Consequences: `.ng-lift` is available to any future whole-card link,
+and is documented light-surfaces-only — nothing wears it on noir today,
+so no noir scope is defined, and adding one is the prerequisite for a
+raised noir card. Left open for the preview: the three `.strip-frame`
+studio photos above the menu keep a hairline and no shadow and may now
+read as recessed; and the facet strength (65% paper, 1.28:1 against the
+card fill, depth-independent) is a tuning knob. No content files
+touched, no approval flags, no gate config.
+
+**Spec amendment APPLIED same day (operator authorization).** The §5
+"Editorial menu cards" paragraph enumerated the card anatomy and, after
+PR #69, omitted the plate's most visible property — not wrong, since it
+never claimed the cards were flat, but incomplete. It was proposed
+rather than edited in the first pass, per the operator-gating
+convention on BUILD_SPEC and CLAUDE.md; the operator then authorized it
+directly ("you have permission from me to update it"), and a new
+**Raised plates** paragraph was added to §5 carrying the measured
+reason, the whole-card-links scope, the square-corner rule, and the
+ink-pink ban. The convention is unchanged and worked as intended: the
+governing document moved on a recorded authorization rather than on
+assistant judgment.
+
+**Shape resolved same day (operator).** Raised plates keep radius 0;
+`.cta`'s 2px stays the controls' alone. Offered as a one-line change
+either way and declined: at card scale 2px is imperceptible, and a
+plate is a printed object (the source of its shadow) while a button is
+a control. Recorded in the `.ng-lift` header precisely because the two
+now resemble each other enough to invite unifying them — the rule
+exists to stop a future session doing that as tidying. The client
+approved the raised cards on the first preview ("we really like the
+change"), so the elevation itself needs no further round.
+
+## 2026-07-29 — Em-dash thinning: rhetorical dashes go on a budget
+
+Context: reviewing the site for "AI slop" tells, the one place the
+scent genuinely lingered was prose rhythm — above all the em dash, the
+most recognizable AI-writing fingerprint in circulation. A census over
+the BUILT output (same rendered-text extraction as lint:voice, so code
+comments never count) measured **313 visible em dashes in 12,373
+rendered words — 25.3 per 1,000**, against an editorial norm of
+roughly 2–4. Every treatment page ran 20–34 per 1,000; the twelve
+decks leaned on the same "X — Y" construction; "— free, as always —"
+recurred on five pages. The full census and worked example were
+delivered as a review artifact and the client approved the pass.
+
+Decision — the rule, now standing for all future copy: **structural
+dashes stay; rhetorical dashes go on a budget.** Labels, bylines, card
+names, and film titles keep their dashes (that use is typographic
+convention). In running copy: at most one em dash per paragraph, never
+two in one sentence, kept only where the pause genuinely earns its
+drama. Every rewrite is one of five moves, strongest first: split into
+two sentences; comma pair (for the "— x —" double-dash asides, the
+most machine-flavored pattern); colon (definitions and lists);
+parentheses (pure glosses like BHRT, PRP); or keep the one that earns
+it. **Punctuation-level only — no words, facts, prices, or claims
+changed** (the only word-level effects are dropped connectives a split
+makes redundant and commas inside "free, as always").
+
+Verified before editing, not after: no `allowedStrings` entry contains
+an em dash, so the pass could not collide with the compliance
+registry; where copy ran a dash INTO the protected Evolus sentence,
+only the connector changed and "Charlotte's #1 Evolus provider" is
+byte-identical on one line. The Biote FDA disclaimer is untouched. The
+hedged duration facts (Daxxify, Evolysse) keep every word — their dash
+became a period. The Glutathione identity line moved to parentheses in
+both files that carry it verbatim (peptide-therapy, iv-therapy — the
+pair that must move together).
+
+Three items ship deliberately UNCHANGED as Amy's call, offered in the
+proposal and not yet answered: the Retatrutide `investigationalNote`
+(her own directed wording, 2026-07-21 — changes only on her word), the
+"Book — or ask first" step heading, and the video captions'
+"— sound on." Roughly ten earned dashes were kept on merits (the
+/about thesis line "every appointment — Amy herself", dermal-fillers'
+deck, laser's "or whether the honest answer is neither", weight-loss's
+"never on its own", peptide's "never something you sort out on your
+own", skincare's "and this one won't try", iv-therapy's deck,
+hormone's "persistently off", wrinkle-relaxers' "Not just for women"
+restructure, and the concept hero byline, which matches the kept
+construction-home byline).
+
+Result, measured by rerunning the census on the rebuilt output:
+**313 → 71 visible (5.9 per 1,000)**; meta descriptions 36 → 6 (the
+six that remain are the two byline-class meta strings ×3 renderings);
+alt text 24 → 20 (the header logo's "Needle Girlie — home" label).
+The residue is dominated by labels — footer and LocationCard lockups
+on every page, fifteen draft banners that come down at approval — plus
+the twelve unchanged "Book — or ask first" headings awaiting Amy.
+
+Alternatives rejected: zero-dash zealotry (the budget exists because
+some dashes are typography, not tells); rewriting sentences freely for
+rhythm (would put new claims in front of the compliance gates and
+reset nothing-yet-approved copy Amy has already seen in one form); a
+lint gate enforcing the budget now (flagged as an optional follow-up —
+the rule should survive one review cycle before it becomes CI).
+
+Consequences: future copy is written to the budget rather than
+re-thinned later; the census script (session scratchpad, never
+committed) is the measuring stick and reruns in one command; one
+content commit per treatment file preserves the clinician audit
+trail; `clinicianApproved` untouched — all twelve pages were already
+`false`, so no resets were triggered and Amy reviews the punctuation
+with everything else on the stable preview.
+
+## 2026-07-30 — "Temporary/temporarily" removed from neuromodulator copy (client direction, flagged)
+
+Context: Amy directed (via the operator) that "temporary" and
+"temporarily" come off the website — she has duration conversations
+directly with clients and does not want the hedge in the copy. A
+sitewide census found the words in exactly six places, all
+neuromodulator copy: five in wrinkle-relaxers.mdx (summary, Jeuveau
+and Xeomin details, the formulation FAQ, the "What they are" body) and
+the wrinkle-relaxers card summary in serviceLines.ts. Nothing else on
+the site used them.
+
+Flagged once before execution: the adverb was doing compliance work.
+"Used to temporarily smooth moderate to severe frown lines" is the
+indication-style phrasing authorized from the product sheet (DECISIONS
+2026-07-21) precisely because it mirrors the products' label wording,
+and §7.3's brief defined the line as "temporary softening." Removing
+the word converts label-mirroring statements into unhedged efficacy
+statements — no lint pattern fires and the copy stays factual, but the
+risk profile ticks up (duration overpromise by omission) and the copy
+now deviates from the authorized phrasing. The client proceeded with
+the flag visible; this entry is the recorded override, and the
+operator's merge of the PR is the written approval.
+
+Decision: drop the adverb in all six places with minimal grammar
+repair ("that soften dynamic lines", "used to smooth moderate to
+severe…"). §7.3 amended with a dated note so brief and copy agree.
+Deliberately UNCHANGED, scoped in the flag and awaiting explicit word
+if wanted: Phentermine's "short-term use" (the compliance-chosen
+alternative to the appetite-language override, 2026-07-20) and the
+Daxxify/Evolysse "labeled for results lasting up to…" hedged label
+facts (different words, same honesty job, tied to the priced cards —
+the Daxxify FAQ sentence keeps its "labeled for" frame).
+
+Consequences: the neuromodulator page now states what the treatments
+do without a duration qualifier; expectation-setting moves wholly into
+Amy's consultation, which is her stated practice. clinicianApproved
+untouched (the page was already false); Amy reviews on the preview
+like everything else.
+
+## 2026-07-30 — Neuromodulator prices narrow to per-unit only (registry + page in one commit)
+
+Context: the client directed the flat-dollar halves off the three
+neuromodulator price cards — Jeuveau and Xeomin now show "$10 per
+unit", Daxxify "$12 per unit" (was "$400 or $10 / unit" / "$500 or
+$12 / unit"). Those exact strings are enumerated allowedStrings
+entries (2026-07-21 per-unit override), and per-unit language is
+banned everywhere outside them, so the registry and the page's
+priceLines changed together in one commit — the same operation as the
+2026-07-20 "@ → vial:" reformat, with the client's directive as the
+recorded registry authorization (noted in the registry's own
+comment). This is a NARROWING: same per-unit figures, prices removed,
+nothing added; the linter self-test derives its cases from the
+registry, so the exactness proof carries over automatically ("$11 per
+unit" or any other unit-keyed string still fails dosing). The
+documented per-unit exposure recorded 2026-07-21 is unchanged in kind
+and reduced in surface. clinicianApproved untouched; ships on the
+open PR #73 preview for Amy's review with the temporary-wording
+change.
+
+## 2026-07-30 — The Evolus ranking sentence becomes a noir display plate
+
+Context: client direction — drop "Jeuveau comes from Evolus," and
+render "Amy is Charlotte's #1 Evolus provider!" as a bold black box
+with pink letters under "What they are" on wrinkle-relaxers. Decision:
+a new EvolusCallout.astro — a STATIC noir plate (deliberately not a
+scrolling marquee; that experiment was rejected on sight 2026-07-08
+and motion stays within the sanctioned vocabulary), Playfair display
+at ~39px in pink-500 on noir (the recorded 5.95:1 pair), centered, no
+shimmer (the moving glow stays capped at the sign and the hero accent
+phrase). The exact allowedStrings entry "Charlotte's #1 Evolus
+provider" is byte-intact on one source line with a straight apostrophe
+— the component header carries both editing rules. Same page, same
+single use; the 2026-07-21 authorization's terms are unchanged, but
+the claim's PROMINENCE rises from body prose to display scale —
+noted to the operator at execution as Amy's call on her own authorized
+claim. Dermal-fillers keeps its prose version ("Evolysse comes from
+Evolus, and Amy is…") — unchanged unless directed. clinicianApproved
+untouched; ships on the PR #73 preview.
+
+## 2026-07-30 — Concept hero byline reworded to the client's exact sentence
+
+Context: reviewing the PR #72 preview, the client dictated a
+replacement for the concept hero byline, shipped verbatim: "The
+dedicated practice of Amy Palacios, FNP (AKA Needle Girlie) and owner
+of Mobile Aesthetics, clinician-led aesthetics since 2017." Decision:
+executed as dictated on the same PR. "Owner of Mobile Aesthetics" is
+the recorded sole-ownership fact (2026-07-23) already rendered on the
+skincare page, so constraint 2 is not engaged; no banned patterns; the
+voice rule holds. One grammar note was offered once ("and owner of"
+attaches to "the practice of" rather than to Amy) and the client's
+wording stood. Recorded here belatedly in the 2026-07-30 docs sweep —
+the change had shipped with only a commit message and PR comment as
+its record, which is what this entry corrects.
+
+## 2026-07-30 — The Evolus plate lands on dermal-fillers too (client direction)
+
+Context: the plate decision earlier today left dermal-fillers with its
+prose version "unchanged unless directed"; Amy directed it. Decision:
+same treatment exactly — "Evolysse comes from Evolus," comes off and
+EvolusCallout renders above "The Evolysse film", so both authorized
+pages now carry the sentence the same way: once, as the standalone
+noir display plate, byte-intact on one source line in the shared
+component. The 2026-07-21 authorization's page scope (these two pages
+only) and single-use rule are unchanged; the component's header
+already covered this placement. clinicianApproved untouched.
+
+## 2026-08-01 — Regenerative definitions: verbatim client wording (operator override); hair indication recorded
+
+Context: the operator judged the regenerative page's PRP explanation
+poor and PRP-with-microneedling unexplained, and supplied exact
+definition sentences for both — PRP: "a medical treatment that uses a
+high concentration of your own blood platelets for stimulating hair
+growth." (with the operator-supplied fact "that's how Amy uses PRP" —
+hair, a new indication for a page previously framed skin-only); PRP
+with microneedling: "combines tiny skin punctures with your own
+blood's platelet-rich plasma to boost collagen, smooth scars, and
+improve skin tone." The page was the last of the twelve still on the
+legacy `products` bullet list rather than productDetails cards.
+
+Decision: the two-string list becomes two productDetails cards (the
+house pattern, eleven-page precedent), tags "Hair" / "Skin", no
+priceLines (regenerative keeps pricing to the consult — 2026-07-21;
+`pricingDisplay: consult` unchanged), and the definition sentences
+ship **verbatim as the client wrote them**. Flagged once before
+execution: both sentences pass lint:claims (verified against every
+registry pattern — no regex covers "hair growth", "boost", "smooth
+scars", or "improve") and lint:voice, but §7.6 says "no healing/repair
+outcome claims" and every shipped definition card states outcomes as
+design intent ("designed to stimulate the skin's own collagen",
+"designed to improve the appearance of … scarring") — these are the
+site's first bare-indicative outcome sentences. Hedged house-style
+variants were drafted and offered (AskUserQuestion, with previews);
+the operator chose verbatim with the flag visible. This entry is the
+recorded override; the operator's merge of the PR is the written
+approval. "Who they're generally for" gains the hair mention in the
+same commit so the body matches the cards' scope.
+
+Alternatives rejected: the hedged variants (offered, declined); a mix
+(PRP verbatim, microneedling hedged — offered, declined); prices on
+the cards (none supplied, and the 2026-07-21 decision stands); adding
+any allowlist entry (nothing to allowlist — the sentences trip no
+pattern, which is exactly why this is a judgment-level override, not
+a gate mechanism).
+
+Consequences: documented, client-accepted exposure on unhedged
+outcome phrasing, scoped to these two exact card sentences — any
+further outcome copy on this page reverts to the §7.6 rule. §7.6
+amended with the dated note (operator authorization = the approved
+plan for this change, per the §7.3/§5 amendment precedent). The hair
+indication is now on the record as operator-confirmed fact.
+clinicianApproved stays false; Amy reviews the new cards on the
+preview like everything else.
+
+**Update (same day, evening) — the cards gain prices.** The operator
+supplied PRP $600.00 and PRP-with-Microneedling $900.00; carried bare
+and whole-dollar ("$600" / "$900") per the PiXel8 bare-price and
+sitewide formatting precedents, with no per-session basis invented.
+This resolves the no-prices stance the operator-supplies-figures way,
+exactly as biostimulators and skin-rejuvenation did (2026-07-21 /
+2026-07-22). `pricingDisplay: consult` stays — the pattern on both
+price-bearing consult-routed siblings. Flat prices, no registry
+change; own content commit.
+
+## 2026-08-01 — Weight-loss "What it is" reworded to the client's sentence (verbatim)
+
+Context: Amy directed (via the operator) a replacement for the
+weight-loss page's "What it is" paragraph, dictated wording. Decision:
+shipped verbatim. Three deltas from the prior copy, all assessed
+before executing: (1) Retatrutide moves inside the GLP-1 parenthetical
+rather than trailing as "on the menu as well" — factually defensible
+(a GLP-1-family triple agonist) and consistent with the FAQ's
+receptor-family framing; the linter inverse checks are unaffected
+(`investigational: true` and the 2026-07-21 disclosure line both
+stay). (2) The opening "This is a medically supervised
+weight-management program…" sentence comes off; no gate requires it,
+and the supervised framing survives in her own second sentence, the
+summary, the deck, and the SEO description. (3) The kept earned em
+dash before "never on its own" (2026-07-29 keep-list) becomes her
+comma — a further reduction in the direction the client already
+approved. One grammar note offered once, per the concept-byline
+precedent: "GLP-1 therapy … anchor" takes a singular verb; the
+operator directed the correction before the PR, so the page ships
+"anchors" — the one word changed from the dictated sentence.
+"Every one of these is a prescription medication" is carried
+copy, not new (it was already on the page with Retatrutide in scope).
+clinicianApproved untouched (already false); Amy reviews on the
+preview.
+
+## 2026-08-01 — Peptide card definitions: the benefit-language override, executed near-verbatim
+
+Context: the operator supplied a screenshot of client-written peptide
+definitions (peptide02.png, repo root — covered by the root /*.png
+ignore rule, treated view-only like every client source document) and
+directed they replace the identity-only card lines on
+/services/peptide-therapy. This is the moment the 2026-07-21 peptide
+entry anticipated: "The operator declined the Option-B
+benefit-language override for now; it remains available (same posture
+as the GLP-1 pricing override) if directed later." It was directed.
+
+Flagged once, in full, before execution. Two tiers. (1) Four phrases
+cannot build at all: "anti-aging" (GHK-Cu, Ipamorelin) and "tissue
+healing" (Ipamorelin) hit banned regexes, and "libido" (Sermorelin)
+trips the symptom-vocabulary inverse check, which reads raw file text
+(no allowlist stripping) and would demand bioteDisclaimer: true —
+injecting the Biote FDA disclaimer onto a peptides page. No pattern,
+allowlist, or inverse check was touched; the gate stands. (2) The
+rest is benefit language the §7.2 brief bans (lean muscle mass and
+fat loss, exercise recovery, joint repair, insulin sensitivity,
+"reduce excess deep belly fat", "protects cells / clears toxins /
+supports immune system", "mimics the effects of exercise") — all
+regex-clean, all judgment-level. Named specifically in the flag:
+Tesamorelin's belly-fat sentence is off-label-promotion-shaped
+(§8.5), and Glutathione's line is the same content excluded on the
+IV page under §7.7's recorded absolute. The page also already carries
+the recorded no-disclosure exposure for compounded peptides; benefit
+claims stack on it.
+
+Decision (operator, from three options with previews): NEAR-VERBATIM —
+every supplied sentence ships word-for-word except the four blocked
+phrases, which were dropped with minimal grammar repair. Also: "known
+as secretagogues" normalized to "known as a secretagogue" and NAD+'s
+"an essential" capitalized (card-initial); BPC-157/TB-500 kept its
+existing line (not among the supplied definitions); all prices
+untouched. Coherence trims in the body, deletions only: "Where the
+internet reaches for sweeping claims, her approach is deliberately
+plain" and "Amy's starting point is the opposite of the hype: names
+and facts, no promises" came out — a page cannot promise "no
+promises" above benefit cards. Glutathione now reads differently here
+than on iv-therapy (which keeps identity-only wording per §7.7's
+absolute): recorded divergence, deliberate; the two pages' PRICE
+pairing rule is unaffected.
+
+Alternatives rejected: compliant redraft of all eight (offered with
+previews; declined); verbatim-plus-operator-edits-the-registry
+(offered accurately, including that libido remains unshippable that
+way; declined); touching any gate mechanism (never on the table).
+
+Consequences: documented, client-accepted exposure on benefit claims
+for compounded peptides, scoped to the nine card sentences as shipped
+— §7.2 carries the dated amendment; anything further reverts to the
+rule. The operator's merge of this PR is the written override
+approval. clinicianApproved stays false; Amy reviews on the preview.
+
+**Update (same day) — MOTS-c priced.** The operator supplied the
+MOTS-c price ($125.00), carried as "$125" per the sitewide
+whole-dollar price format — the same normalization precedent as every
+flat peptide price. No registry change (flat price); its own content
+commit. The page's last unpriced card closes.
+
+**Update (same day) — the PR #79 preview environment failed and was
+recreated.** The freshly created `-79` staging environment served the
+Succeeded deployment unevenly for 30+ minutes: routes oscillated
+200↔404 in bursts (SWA's platform 404, not the branded /404),
+including on cache-busted URLs — which exonerated the workstation's
+Canopy cache — and the operator saw an unstyled page (HTML from a
+healthy replica, hashed CSS 404ing). The artifact was never suspect
+(CI pa11y 23/23 requires CSS; Lighthouse passed; deploy reported
+Succeeded). A full workflow re-run did NOT fix it: redeploys refresh
+content, not the serving pool. Closing and reopening PR #79 (teardown
++ recreation under the same hostname) replaced the pool and the
+environment held green across four spaced verification passes (all
+routes, plain + busted, content markers, CSS). RUNBOOK gains the
+troubleshooting entry. No code, content, gate, or config change was
+made for this — infrastructure transient, resolved operationally.
+
+## 2026-08-01 — Hormone lab draw priced (operator-supplied)
+
+The operator supplied the Hormone lab draw price ($125.00), carried as
+"$125" per the sitewide whole-dollar format. The 2026-07-22 build had
+deliberately left the card unpriced rather than invent a figure; the
+open blank closes the operator-supplies-figures way. Flat price, no
+registry change; `pricingDisplay: consult` unchanged (true on this
+page — the pellet plan follows from labs). Own content commit;
+clinicianApproved stays false.
+
+*(Ordering note, 2026-08-01: this entry was first appended at the
+wrong anchor — mid-file, before the weight-loss and peptide entries —
+and was moved here the same day to restore the log's chronological
+order. Content unchanged.)*
+
+## 2026-08-03 — /about rebuilt as a magazine profile; 8K0A9862 published
+
+Context: the operator asked for a creative upgrade of the thinnest
+structural page (~120 body words, a facts card, the family portrait, the
+closing band) and settled three decisions via question round: on-record
+facts only (an interview round with Amy was offered as the biggest
+lever and declined; a hidden pull-quote slot likewise), imagery =
+family portrait (stays, Amy's request) plus 8K0A9862, and full
+magazine-profile scope (picked over moderate and polish-only).
+
+Decision — five beats. (1) Hero kept structurally: eyebrow, H1, lead,
+portrait figure, and consult CTA byte-identical — the lead is the
+2026-07-29 em-dash keep-list line and the measured LCP element — with
+the two bio paragraphs expanded to three (the bedside years; the
+2017/2018 arc; the ownership paragraph carrying the page's single
+shared-location line, constraint 2). (2) The `.about-facts` dl is
+RETIRED and its four facts re-homed — career and dates into hero prose
+and the timeline, BSN into step 03, Biote into step 04; nothing
+dropped. The milestones section is an `ol` wearing the VisitSteps
+Playfair-counter recipe hand-copied as `.about-milestones` (importing
+the component would import its hard-coded visit copy; the recipe is
+the reusable part), with `aria-labelledby` preserving the named region
+the dl's aria-label provided. (3) "The name on the wall": a two-column
+copy-first section carrying the sole-ownership fact, the AKA fact, the
+BUILD_SPEC §1 zero-confusion purpose, and the twelve-line breadth with
+an Explore-all-twelve link; the new print sits beside it. (4) "Booked
+your way." h3 prose on the recorded free-consultation-upon-request
+fact. (5) The closing band gains TrustChips, matching the /services
+and concept-home bands (/visit's band also lacks it — flagged as an
+optional follow-up, not taken here).
+
+Photo: 8K0A9862 → `src/assets/photos/studio-neon-portrait.jpg`,
+byte-identical (408,756 B, 1211×1600), as a white-matte tilted print
+(+1.5deg flip tilt, the `.media-figure` recipe hand-copied as
+`.about-print`), lazy, widths 360/520/760 with flat `sizes="18rem"`
+(the print caps at min(18rem, 100%) at every viewport — a viewport
+term would over-fetch), no figcaption (captions retired 2026-07-25),
+alt text omitting the held vial. The frame's record is a three-entry
+chain and this entry is the reconciliation: rejected for weight-loss
+2026-07-20 (injectable ambiguity on THAT page — page-specific, not a
+site ban); "needs a crop to remove legible Mobile Aesthetics neon"
+2026-07-21 (peptides) — SUPERSEDED by the sole-ownership fact
+(2026-07-23) and by the prp-treatment precedent that deliberately
+published legible "MobileAesthetics" neon as a brand call the operator
+may reverse; zoom-vetted 2026-07-23 ("fine print illegible … available
+for later use"). The operator's in-session imagery pick is the use
+authorization; Amy-solo frame, no client release needed.
+
+Fact trace for every new sentence: two decades of nursing / critical
+care, 2017, 2018, FNP/BSN, Biote-certified (C6 listing, 2026-07-19);
+sole owner of Mobile Aesthetics (2026-07-23); AKA Needle Girlie
+(client-dictated byline, 2026-07-30); free consultation upon request
+(2026-07-18); the zero-confusion purpose (BUILD_SPEC §1); twelve lines
+(§6). No naming-origin story was invented (constraint 7); About stays
+Evolus-ranking-free (2026-07-21 placement decision).
+
+Alternatives rejected: interviewing Amy for new material (declined by
+the operator); the caricature in its arch window (offered, not
+picked); reusing an existing solo portrait (cross-page repeats were
+ruled out once before, peptides 2026-07-21); a Person JSON-LD node
+(§10 does not enumerate the type — Phase D); keeping the facts card
+beside the timeline (the same facts twice).
+
+Consequences: measured envelope before → after — images 81,954 B →
+~102 KB of 245,760 (the lazy print may or may not fetch per LH run,
+±~20 KB across the median-of-3; harmless at ~41% utilization); doc
+4,454 B → ~6 KB of 16,384 transfer (TrustChips CSS inlines into the
+page document); LCP element stays the hero lead; em dashes on the
+built page 3 → 4 (the one new dash: "reads Mobile Aesthetics — Amy's
+own practice"). The standing 2026-07-19 flag on Amy's career-facts
+WORDING is restated in the PR — this rebuild rewrites that wording,
+and her preview review is the resolution path. /about is a structural
+page: no clinicianApproved mechanics apply.
+
+## 2026-08-04 — Amy approved /about on the preview; the 2026-07-19 wording flag resolves
+
+Context: the operator relayed Amy's approval of the rebuilt /about on
+the PR #83 preview and directed the merge (a2ec2e1). Decision: merged
+as approved, and recorded here because the approval settles two open
+items. (1) The standing 2026-07-19 C6 flag — Amy's confirmation of
+the career-facts wording, pending on the preview — is RESOLVED: the
+wording she approved is the magazine-profile prose that superseded
+the C6 paragraphs, reviewed on the very surface the flag named. The
+about.astro header comment is updated in this change so the source no
+longer reads "still pending." (2) The neon brand call recorded
+2026-08-03 (legible "MobileAesthetics" script, published uncropped)
+is ACCEPTED with the same approval; it remains reversible on her
+word, one file. /about is a structural page — no clinicianApproved
+mechanics; the twelve treatment pages' flags are untouched.
+Consequences: docs plus one source comment; rendered output is
+byte-identical.
+
+## 2026-08-04 — Photos land on the four bare treatment pages; Venus Versa becomes Versa Pro
+
+Context: a completeness audit (operator-requested) found every treatment
+page explains its service and 10 of 12 show prices, but four pages had
+zero photos: laser-treatments (also the only page with no dollar figure —
+consult-routed, intentional pending an Amy conversation), body-contouring,
+hormone-optimization, skin-rejuvenation. A full triage of C:\Amy\pics
+(~86 stills, all four HEICs, both unnamed Reels probed at 1080p with
+ffmpeg) found NO honest device imagery — the professional shoot is
+entirely injectables work. The operator supplied four new frames instead
+and confirmed the contouring device is Evolve.
+
+Decision: one photo per page, each riding its page's own content commit.
+venus-versa-pro.jpg (operator photo of Amy's console — the photographic
+basis for renaming "Venus Versa" → "Venus Versa Pro" across the page);
+evolve-session.jpg (screenshot of Amy's own public Reel, burned-in
+efficacy caption "Imagine burning calories while you sleep…" CROPPED OUT
+— §8 covers text inside images; pod labels verified illegible at 4×);
+the existing amy-palacios-fnp.jpg (SHA-256-verified identical to source
+frame 8K0A0206 — Astro's content hashing surfaced the match; the asset
+already serves the weight-loss page and is now REUSED, not duplicated,
+so the portrait appears on two wellness pages — house reuse precedent:
+studio-wide, forehead-treatment) on hormone-optimization's closing beat;
+pixel8-rf.jpg (docked handpiece, device wordmarks only).
+
+Alternatives rejected: pixel8-rf02.png — the settings touchscreen shows
+power/timing and "Suggested Depth 1.5mm–1.8mm", treatment parameters that
+never publish (constraint 3). The Biote brochure flat-lay — its legible
+symptom list would publish Biote marketing language outside the
+controlled BioteDisclaimer rendering. The injectables-shoot frames —
+blocked on client releases, and several flat-lays show "JEUVEAU …
+100 UNITS VIAL" (a unit amount): permanently off the site. IMG_8422
+(peptide vials on a legible dosing/reconstitution sheet) is a
+prohibited input (constraint 8) and must never be committed.
+
+Consequences: all twelve treatment pages now carry at least one photo.
+The supplied PNGs are ~450 px wide — soft on high-DPI phones; native-max
+widths only (no upscaling), higher-res originals are the upgrade path.
+All four pages remain clinicianApproved: false; the Versa Pro rename is
+flagged for Amy's preview review. Laser pricing stays consult-only until
+Amy says otherwise.
+
+## 2026-08-04 — Amy approved the treatment photos and the Versa Pro naming
+
+Context: the operator relayed Amy's approval of the PR #85 preview and
+directed the merge (4104feb). Decision: merged as approved, recorded
+because the approval settles the open flag from the same-day entry —
+the "Venus Versa" → "Venus Versa Pro" rename, made on photographic
+evidence, is now Amy-confirmed on the surface it renders on. Still
+open, unchanged by this approval: the laser-pricing question (publish
+strings vs consult-only intentional — awaiting Amy's word through the
+operator), the higher-res upgrade path for the three ~450 px frames,
+and the twelve clinicianApproved flags, which are the operator's
+formal sign-off mechanism and remain false. Consequences: docs only;
+rendered output untouched.
+
+## 2026-08-04 — Hours are not listed on the website ({{HOURS}} closed)
+
+Context: {{HOURS}} was the last open NAP token; since 2026-07-25 the
+LocationCard hid the hours line until the token resolved, awaiting the
+operator's value. The operator relayed Amy's decision: hours will not
+be listed on the website. Decision: close the token as WILL-NOT-LIST
+rather than leave it pending — the siteConfig `hours` field, the
+LocationCard conditional line, and the JSON-LD `openingHours` property
+are removed outright, so listing hours later is a deliberate re-add,
+never an accidental resolve. /visit copy already promised nothing.
+Alternatives rejected: keeping the dormant hide-until-resolved
+machinery (misrepresents a settled decision as a pending input).
+Consequences: rendered output unchanged (the line never rendered);
+BUILD_SPEC §6/§17 and the PHASE-C tables record the closure; the
+parking note stays open as the only /visit input still pending.
+
+## 2026-08-04 — C8: the home page ships (construction placeholder retired)
+
+Context: the operator directed launch readiness and picked the concept
+page as the home; the three recorded C8 prerequisites (2026-07-25) were
+put to the operator as a question round. Decision: all three closed on
+the operator's answers, 2026-08-04 — (a) the hero client's release is
+CONFIRMED on the record (the blonde tattooed-shoulder client in
+amy-at-work.jpg; this entry is that record); (b) Amy SIGNED OFF the IG
+post caption (baked pixels are invisible to both linters — her sign-off
+is the control); (c) {{MEDIA_SCOPE}} closed as per-item operator
+approval, the practice in force all along. index.astro now renders
+ConceptHome; the component's concept-mock title/description became the
+production SEO strings (so /styleguide/concept mirrors them); the
+legacy ng-ignite/ng-hum keyframe fence was deleted (no consumers
+remain); the construction page's brand assets stay in src/assets/brand.
+Gate change, operator-authorized in their own words ("I authorize the
+pa11y cap for /"): the home URL joins the 21 ombre URLs carrying the
+per-URL levelCapWhenNeedsReview cap. Alternatives rejected: launching
+with the construction home (a public site whose front door hides the
+twelve service pages defeats the launch); swapping the hero to a
+solo-Amy frame (unnecessary once the release was confirmed).
+Consequences: / is measured by the existing LHCI entry for real now
+(the 2026-07-25 worst-case measurement had 46KB image headroom); the
+caricature/logo assets are dormant, not deleted; Phase C's page
+checklist is complete.
+
+## 2026-08-04 — Legal pages take launch form; counsel review moves post-launch
+
+Context: launch readiness. The legal trio shipped as visibly marked
+drafts ("Draft — pending counsel review" banner + undated draft line),
+with counsel review gating the final form (§16). The operator directed
+a "passable" upgrade and, after the flag that provider-drafted pages
+are not a counsel substitute, ACCEPTED launching without counsel
+review ("Remove banners — I accept", 2026-08-04). Decision: all three
+pages upgraded against current medical-website norms (research
+recorded in the PR): privacy gains hosting-log honesty, a
+no-health-information section, children's and changes sections; terms
+gain acceptable use, a claims-safe limitation of liability,
+manufacturer-trademark attribution, severability, changes, and
+contact; the disclaimer gains reading-is-not-a-substitute,
+manufacturer-materials, and contact sections. DraftBanner comes off
+LegalLayout; "Effective August 4, 2026." replaces the draft line. The
+claims-safe lexicon holds throughout (no disease verbs, no outcome
+language — machine-checked by lint:claims/lint:voice). Alternatives
+rejected: keeping visible draft banners at launch (operator declined);
+importing standard boilerplate verbatim (its vocabulary is lint-banned
+by design). Consequences: §16's counsel line is amended on the record;
+counsel review is a standing post-launch item — if counsel requires
+changes, the banner mechanism is one import away.
+
+## 2026-08-04 — No client-side analytics at launch ({{ANALYTICS_PROVIDER}} resolved)
+
+Context: §16 requires analytics events verified in a provider
+dashboard; the token was open and the operator delegated the decision
+("I'm at your mercy"). Decision: NONE at launch. Rationale: constraint
+5 rules out cookie-based tools; Front Door's built-in edge reports
+already give traffic visibility at zero script, zero cookies, zero
+added cost, zero perf-budget impact; the site's event hooks
+(analytics.ts + data-event attributes) are already vendor-neutral, so
+adding a provider later is an afternoon. Plausible (~$9/mo, a
+~20% run-rate increase — cost flagged) remains the recorded future
+default for conversion dashboards (outbound Vagaro clicks are
+invisible to edge metrics). The privacy page's "currently runs no
+analytics" line stays true, and it updates first if that changes.
+Alternatives rejected: Plausible at launch (recurring cost before any
+traffic exists to justify it); Application Insights JS (cookies +
+script weight — constraint 5); self-hosting (server ops burden against
+the static-simplicity principle). Consequences: siteConfig records
+provider "none"; §16's analytics line is satisfied by the recorded
+no-provider decision; launch-day traffic is visible in the Azure
+portal's Front Door reports.
+
+## 2026-08-04 — /injector-training: the professional-audience page (fifth allowlist authorization)
+
+Context: Amy offers Private Injector Training — four hands-on,
+one-on-one courses for licensed medical professionals (Neurotoxin,
+Dermal Filler, and PDO Thread Lift at $5,000; Radiesse at $7,500;
+three hours each, product included) — advertised on her Instagram but
+absent from the site. The operator supplied six flyer screenshots as
+source (reference only, never committed: the trainee/model frames
+carry no releases, and the flyer text burns banned vocabulary into
+pixels). Decision: a standalone src/pages page at /injector-training,
+outside the treatments collection — it is not client treatment
+content, so the clinicianApproved gate does not apply; Amy reviews it
+via a non-gated section added to docs/CLINICIAN-SIGN-OFF.md.
+lint:claims covers src/pages, so the page stays fully
+compliance-linted. A fifth "Training" nav item (operator placement
+decision); phone/Instagram contact routing (training is neither an
+"appointment" nor a "consultation", and "Book with Amy" stays
+Vagaro-only). Curriculum topics publish flyer-verbatim under the FIFTH
+allowedStrings authorization — the operator's decision after the
+compliance flag; the recommended paraphrase was declined. The four
+strings are enumerated in exact <li>-wrapped source form because the
+first string opens with its banned word and the self-test's
+digit-prefix near-miss proof needs the word boundary the closing
+angle bracket provides; the wrap also binds each exception to one
+exact attribute-less source line. The pa11y needs-review cap for the
+URL was operator-authorized in the operator's own words the same day.
+Experience wording uses the site's Amy-confirmed "in medical
+aesthetics since 2017", not the flyer's narrower line — one set of
+facts sitewide. Alternatives rejected: a treatments-collection entry
+(wrong frame: patient-facing disclaimer, consult routing, and the
+"Twelve lines" identity); paraphrased topic titles (recommended,
+declined); bare-text allowlist strings (fails the self-test's
+exactness proof). Consequences: allowedStrings grows by four
+marketing-copy entries scoped to this page; CLAUDE.md constraint 3 and
+§8.1 record the exception; pa11y runs 24 URLs and LHCI 7; Radiesse
+joins the terms trademark list; a dedicated Amy-solo training photo is
+the recorded upgrade path for the reused portrait.
+
+## 2026-08-05 — LAUNCH: needlegirlie.com live
+
+Context: Amy approved everything on the stable preview — the twelve
+flag-gated treatment pages and the non-gated /injector-training — and
+the operator directed the launch. Decision and mechanics: per hard
+constraint 4 the flip stayed the operator's own act — the assistant
+declined to flip on instruction, prepared the branch, and the operator
+ran the sed flip and authored the sign-off commit (ad8fbde) with their
+own in-session commands; that commit is the §16 written log. Sequence:
+PR #93 (approval, CI green) → phase-c; PR #5 marked ready from draft
+and merged (aae51ba) → main; Production run 30981190812 green end to
+end — verify, check:approvals (first-ever pass, by design), Front
+Door-locked build, SWA deploy, cache purge. §16 live checks all pass;
+two findings recorded: (1) Azure answers direct default-hostname hits
+with 404 + zero site content rather than the documented 403 — the
+forwardingGateway config is the documented form, the origin-lockdown
+security property holds, no action; (2) Vagaro 403s non-browser
+clients (bot protection) — reachability verified as her live booking
+page, browsers unaffected. Live Lighthouse on the apex: 1.00 across
+all four categories, LCP 1749 ms, CLS 0.0062. Consequences: Phase C is
+delivered; phase-c continues as the integration branch; standing
+post-launch items — counsel review of the legal pages, the manual
+keyboard/screen-reader a11y pass (§16's one open box), laser pricing
+if Amy supplies it, higher-res photo upgrades, Plausible analytics as
+a deliberate opt-in with its ~$9/mo cost flagged.
+
+## 2026-08-05 — Production taken offline: launch merge reverted (operator direction)
+
+Context: hours after launch, the operator directed that production be
+taken offline pending a client review round, ahead of a scheduled
+client meeting — production should serve the pre-launch Under
+Construction placeholder, with every launched byte preserved for
+revision and fast relaunch. Decision: the RUNBOOK rollback path —
+`git revert -m 1 aae51ba` (revert commit `e57a4448`, authored in an
+isolated worktree; local `npm run verify` green before the push; tree
+verified hash-identical to pre-launch `906992b2` before pushing). The
+Production pipeline re-verified, redeployed, and purged the edge.
+`phase-c`, all PRs, the sign-off commit (ad8fbde), and every
+`clinicianApproved` flag are untouched — the approvals remain valid;
+nothing content-wise changed. Alternatives rejected: unsetting
+FRONT_DOOR_ID (stops future deploys but leaves the launched site
+serving); disabling Front Door/SWA (serves platform errors, not the
+branded placeholder and branded 404); force-pushing main (prohibited;
+destroys the audit trail). Consequences: (1) **relaunch is two-step —
+revert commit `e57a4448` must itself be reverted on main BEFORE
+merging phase-c**; a plain phase-c merge alone yields a broken hybrid,
+because main's history already contains the phase-c commits (RUNBOOK,
+"Relaunching after the takedown"). (2) The "merge main → phase-c
+promptly" rule is SUSPENDED while the revert is main's tip — merging
+main into phase-c (including PR #95's "Update branch" button) would
+delete the site from the integration branch. (3) PR #95's merge ref is
+conflicted by design, so the standing preview cannot deploy during the
+takedown — interim previews come from sub-PRs into phase-c; **PR #97**
+(comment-only, never merges) is the standing full-site demo. (4) The
+twelve treatment URLs serve the branded 404 and age out of indexes
+naturally; `/` stays indexable exactly as it was all July — no SEO
+action.
+
+## 2026-08-05 — Construction photo: Amy's studio portrait replaces the caricature (client direction)
+
+Context: Amy dislikes the commissioned caricature on the live Under
+Construction page; the operator promised her its removal and supplied
+the replacement frame (needlegirlie.png — Amy seated on the studio
+counter beneath her own neon, fine-gauge syringes in hand). Decision:
+the placeholder's arched taped window now renders the photograph,
+committed as `src/assets/photos/studio-counter-portrait.jpg` (PNG
+re-encoded JPEG q92 per the prp-treatment precedent, 564 KB → 76 KB;
+full frame, no crop — its 0.72 portrait ratio matches the caricature's
+window contract, so CaricatureWindow needed no change). Compliance vet
+at 4× zoom before use: the syringes carry no legible labels or unit
+text; the mirror engraving, neon script, and scrub embroidery are Amy's
+own branding (sole-owner precedent); no clients pictured. Preview-first
+honored on its own page's precedent (the 2026-07-08 marquee lesson):
+PR #99's preview probed three passes, the operator approved on sight
+("ship it"), merge `4655609a` → Production run 31053064808 green →
+live-verified (photo serving, zero caricature references).
+Alternatives rejected: committing the 564 KB PNG as-is (Astro
+re-encodes every variant — the double-lossy concern); cropping out the
+under-counter equipment (changes the window ratio; the labels are
+illegible at ship size anyway). Consequences: (1) **the caricature is
+retired at Amy's word — never render it again without her explicit
+direction** (the asset stays in `src/assets/brand/` as history;
+CaricatureWindow remains a generic arched-frame component). (2) The
+relaunch revert-of-the-revert can now CONFLICT on
+`src/pages/index.astro` and the new asset, since main has moved past
+the takedown revert — resolve by taking the launch-tree side; the
+placeholder retires again at relaunch anyway (RUNBOOK amended). (3) The
+642 px source renders ~1.24× at the 520 px display cap on 2× screens —
+a higher-resolution original is the upgrade path, no code change.
+
+## 2026-08-14 — Home hero: Amy's studio-counter portrait (interim AI-assisted asset)
+
+Context: opening the post-launch revision round, Amy directed the home
+hero photo change — amy-at-work.jpg (Amy treating a client) comes off;
+needlegirlie.png, the studio-counter portrait she picked for the
+construction window (DECISIONS 2026-08-05), takes the hero. Full-frame
+vet reconfirmed the 2026-08-05 findings for the new use: Amy alone (the
+2026-08-04 hero client-release dependency retires), scrubs embroidery
+and neon are her own branding, syringes capped with no legible unit
+text. Problem: the only source is 642×893 (social-save size) against
+the hero's 1400px delivery — the exact soft-photo class the operator's
+"$15k" gap analysis names as the fastest cheap tell. No original found
+(C:\Amy\pics swept; the four HEICs are unrelated screen photos); the
+operator asked what could be done. Decision: an interim AI-assisted
+asset — Real-ESRGAN ncnn-vulkan v0.2.5.0 (realesrgan-x4plus) ×4,
+blended 55/45 with a lanczos upscale at 1400w, encoded q92 JPEG
+(1400×1947, 213 KB) as needlegirlie-hero.jpg. Raw ESRGAN output was
+REJECTED on inspection: waxy, repainted facial rendering —
+unacceptable on the clinician's own face. The blend passed crop
+inspection at face, embroidery, neon, and hands (no invented
+letterforms, no anatomy faults). Disclosure is part of the decision:
+the asset synthesizes some detail on Amy's likeness, she is told so,
+and her preview sign-off is the informed control. Mechanics: crop
+anchor 22% → 20% and the neon bloom 68% 12% → 86% 30% (the sign sits
+right of Amy in this frame); both frame-specific comment blocks
+rewritten; amy-at-work.jpg deleted (sole consumer; git history keeps
+it). Alternatives rejected: shipping the 642 stretch (visibly soft at
+hero scale); raw ESRGAN (above); reusing main's 76 KB
+studio-counter-portrait.jpg (encoded for the placeholder's 520px
+window, not this slot). Scope: the HERO only — the Injectables door
+tile (a treatment moment) stays until directed. Standing upgrade path:
+Amy's full-resolution original (camera roll / photographer / IG
+source) re-encodes over the same filename with zero code changes.
+Verified: full gate suite green — pa11y 24/24, Lighthouse 21 runs
+across 7 URLs, both ConceptHome routes (/ and /styleguide/concept)
+covered; home is structural, no clinicianApproved mechanics.
+
+## 2026-08-14 — The homepage video carousel ships (cinematic noir stage)
+
+Context: the operator opened the session directing a homepage carousel
+of three commercials and, after the reference round anchored the bar at
+Audi's video treatment ("very cool and smooth. It's luxurious"),
+directed that presentation grammar explicitly. Decision — a new
+VideoCarousel.astro renders directly below the hero as a full-bleed
+noir stage: slides CROSSFADE (no scroll strip, no player chrome), thin
+progress bars fill as each film plays and double as jump buttons, and
+one understated toggle is the WCAG 2.2.2 pause/stop control.
+prefers-reduced-motion autoplays nothing and strips the fades. Films
+render object-fit:contain, never cropped.
+
+Lineup and clearances (operator, same day): slide 1
+F-437304_Mobile Aesthetics_J1.mp4 and slide 3 _J2.mp4 — Evolus co-op
+Jeuveau DTC commercials (piece code US-JUV-2600126) carried AS-IS with
+their complete burned-in FDA Important Safety Information; the
+manufacturer-film override class (Evolysse/ICON precedent), and the ISI
+screens are never trimmed or cropped. Slide 2
+Commercial 2/c3a99b1d…MOV — Amy's own published reel, shipped as-is
+under operator override with the flags shown (background "BOTOX
+JOURNEY"/"LIP FILLER JOURNEY" posters, prepared-syringe trays,
+100-UNITS Jeuveau boxes, "GET $40 OFF" promo cards, the "POV: Age
+gracefully together" caption); BOTH on-camera client releases confirmed
+on file by the operator (2026-08-14 — that confirmation is the release
+record). Captions mirror each film's on-screen text verbatim (VTT files
+in public/media/, outside lint:claims scope like the ICON captions —
+manufacturer/owner language carried under the same overrides; tracks
+attach with each built video for the axe video-caption rule, not
+`default` since the text is burned into the pixels).
+
+Mechanics: web renditions transcoded H.264 CRF 23 faststart, AUDIO
+STRIPPED (~7.5–7.9MB each, ~23MB total) — the carousel is muted
+autoplay; restoring sound (tap-for-sound + audio-faithful captions) is
+a recorded follow-up if directed. Files live in-repo under
+public/media/ per the existing precedent; the Blob media origin remains
+the recommended home when the video program grows (2026-08-14 entry in
+the planning record). Posters are compressed stills served through
+astro:assets.
+
+Performance: the first cut rendered three parser-instantiated <video>
+elements and FAILED verify — TBT 335ms median / performance 0.89 on `/`
+(style/layout 1.4–2.3s under throttle; script evaluation was 39–65ms,
+exonerating the JS). Fixed with the facade pattern BUILD_SPEC §9
+already prescribes: the server renders posters only and the script
+builds each <video> on demand (active + one warmed), gated behind an
+IntersectionObserver so no video element or byte exists in the load
+trace. Consequence worth recording: the anticipated operator-gated
+Lighthouse budget revision for a video homepage proved UNNECESSARY —
+no gate, budget, or config changed.
+
+This is also the first client-side JavaScript on the site (~3KB bundled
+against the 30KiB budget; third-party stays 0). The CLAUDE.md "zero
+client JS by default" lock now needs its amendment — PROPOSED, not
+edited: governing-doc changes stay operator-gated; this entry is the
+traceability bridge until the operator authorizes the wording.
+clinicianApproved untouched (home is structural); Amy reviews the
+carousel on the PR #101 preview.
+
+## 2026-08-14 — Carousel shipped inert on the preview: the CSP inline-script gap
+
+Context: the operator reported none of the carousel videos played on
+the PR #101 preview. Root cause, confirmed in the built output: Astro
+inlines component scripts smaller than Vite's 4KB assetsInlineLimit
+directly into the HTML, and the site's own CSP (script-src 'self', no
+unsafe-inline — BUILD_SPEC §4, both SWA variants) silently refuses
+inline scripts. The facade's ~3KB script was therefore dead on the real
+host: posters rendered, no video was ever built. Every local check had
+passed because the local test servers (screenshot harness, pa11y,
+Lighthouse) serve dist without the SWA headers — the CSP was never in
+the test path. Decision: (1) astro.config.mjs sets
+vite.build.assetsInlineLimit: 0 with a comment carrying this story —
+every component script now emits as a hashed same-origin file the CSP
+permits; (2) the screenshot harness now applies the generated SWA
+globalHeaders (CSP included) to every response, so a policy-blocked
+script fails the check the way it fails the host. Alternatives
+rejected: adding unsafe-inline or a script hash to the CSP (weakens or
+complicates the policy for no benefit; the external file is the
+CSP-native answer). Also in the same round, client copy direction: the
+home H1 reads "Medical Aesthetics," (capital A) per Amy. Verified
+first-hand: zero inline script content in built HTML; carousel builds
+and plays under the real headers at both breakpoints.
+
+## 2026-08-14 — CSP fix scoped: static script file, global externalization reverted
+
+Context: the first CSP fix (vite assetsInlineLimit: 0) made the
+carousel work but FAILED CI on a page untouched all day —
+wrinkle-relaxers LCP 2563/2570/2572ms vs the 2500 cap, three runs
+within ±5ms (a real regression, not variance). Cause: Astro's
+inlineStylesheets 'auto' shares that same threshold, so zeroing it
+un-inlined every page's small CSS and added a render-blocking request
+sitewide; the heaviest page tipped over. Decision: revert the config;
+the carousel logic moves to public/js/video-carousel.js (plain JS,
+same-origin, CSP-clean by construction) referenced via a literal
+script tag — externalization scoped to exactly the one script, CSS
+inlining restored everywhere. Verified first-hand: no inline script
+bodies in built HTML, the static reference present, inline styles back
+in the built treatment pages, carousel plays under the generated SWA
+headers at both breakpoints. The memory/harness lessons from the
+previous entry stand; the prescribed fix pattern is updated.
+
+## 2026-08-14 — Documentation sweep: the redesign round gets its working doc; governing docs reconciled
+
+Context: the operator directed a documentation update in their own
+words ("Let's update all pertinent documentation... if we even need to
+create NEW documentation let's do that") — which is also the operator
+authorization the governing-doc amendments require. Executed:
+(1) NEW docs/REDESIGN.md — the working record of the "$15,000" round
+(the seven-gap yardstick, settled decisions with shipped/planned
+status, the carousel clearance record, open items, working agreement);
+PHASE-C.md gains a pointer and is marked historical. (2) RUNBOOK gains
+the add-a-commercial procedure (compliance screen first, encode recipe,
+posters, captions, slides) and the CSP inline-script troubleshooting
+entry. (3) CHANGELOG gains the carousel-revival/capital-A entry.
+(4) BUILD_SPEC amendments: §4 CSP consequence (static scripts in
+public/js/, test under generated headers, never assetsInlineLimit:0);
+§5 the cinematic video stage joins the noir shell (stage-surface
+question noted open); §6 home row adds the carousel and the new hero;
+§9 the home-carousel bullet; §13 the first-JS-consumer note (budget
+unchanged). (5) CLAUDE.md: the constraint-3 film exception list gains
+the three home-carousel films (the clearances recorded earlier today),
+and the zero-JS locked decision records its first sanctioned consumer.
+(6) compliance/README: the allowlist count corrected (five
+authorizations — the injector-training entries were missing, the same
+class of lag the 2026-07-22 reconciliation fixed), and a new "media
+text" section states plainly that pixel text and public/media VTT files
+are outside SCAN_DIRS with per-item screening + DECISIONS entries as
+the control. Docs-only; no gate, config, or content changes; the
+paths-ignore rule means this PR push runs no CI, by design.
+
+## 2026-08-15 — Mobile Aesthetics mark joins the header (vector rebuild)
+
+Context: redesign requirement #6 — the operator directs the Mobile
+Aesthetics logo into the far-left header beside the NG wordmark and
+asks for a format recommendation on the 300px PNG (the only true logo
+render in the F-437304 set; the 776x700 file is a photo cutout, parked
+as a content asset). Decision: rebuild as SVG — the mark is pure
+geometry. Recipe (all measured from the reference): plate #131313,
+white frame; chrome type in a #f4f2f3→#9b989b vertical fade;
+letterforms Julius Sans One (OFL) outlined to paths — no font shipped,
+the two-family budget untouched — chosen by overlay comparison
+(Montserrat/Raleway/Josefin rejected as too narrow); four chevrons
+(slab 18, slope 0.928, pitch 61) under one foil gradient sweeping
+ACROSS the band (#fda6d8→#fd78d4→#e967b6→#fc9ad6 — per-chevron
+sampling showed the highlight travels horizontally, not vertically).
+Generator + font record committed at
+src/assets/brand/source/mobile-aesthetics/. Two variants: the full
+badge (plate + frame + name/phone — print/social use and Amy's
+comparison) and the header lockup that ships (type + chevrons only:
+the noir header IS the plate; the name/phone line dropped — under
+10px it is illegible smudge). Header integration: a left group wraps
+mark + brand link; mark 42px/88px tall (mobile/desktop); the mobile
+NG wordmark becomes clamp(180px,53vw,220px) so mark + wordmark +
+menu toggle fit 360px screens (visible wordmark shrink on phones —
+flagged); popover top re-tuned 8.5rem→6.75rem (measured 9px
+clearance). The mark is a plain img, alt "Mobile Aesthetics PLLC",
+NOT inside the home link — link semantics stay the wordmark's.
+Constraint 2 not engaged: MA is Amy's sole-owner PLLC (DECISIONS
+2026-07-23). Alternatives rejected: shipping the 300px PNG (soft on
+high-DPI, dead end for reuse); the HTML-master→PNG pipeline (kept as
+fallback, unneeded — the SVG matched on first overlay). Open item:
+Amy's side-by-side pick (A badge vs B lockup); B is live on the
+preview as the recommendation.
+
+## 2026-08-15 — Operator picks the full badge for the header
+
+Context: on the preview, the operator read the header lockup as the
+logo's bottom being "cut off" — measurement showed nothing clipped
+(chevrons complete and symmetric; the header hairline touches
+nothing), but the lockup by design omits the badge's name/phone block
+and frame, and to eyes that know the full logo the omission reads as
+truncation. Decision (operator, given the three options with the
+legibility cost stated): the header carries the FULL BADGE — plate,
+frame, type, chevrons, name and phone — at 56px (phones) / 112px
+(desktop); the square tile is narrower than the lockup was, so the
+mobile wordmark clamp relaxes to clamp(170px,52vw,215px). The
+name/phone line is ~5px at header scale — carried as silhouette
+completeness, not readable text; the badge itself is the legible
+record wherever it renders larger. Alternatives rejected: extending
+the lockup with the bottom lines (recommended — same tiny-text cost
+without the frame's finish, operator preferred the literal complete
+logo); keeping the lockup (the truncated read would persist). The
+lockup SVG stays in the repo as the brand-kit variant.
+
+## 2026-08-15 — Hybrid nav: hamburger at every width, Book as the persistent CTA
+
+Context: after the foldable fix, the operator asked whether desktop
+should drop the five inline nav items for the hamburger. Recommendation
+delivered: not hamburger-only (hidden navigation measurably suppresses
+engagement, and this site's one commercial job is the Book conversion)
+— but a hybrid captures the luxury minimalism without burying the money
+button. Operator directed the hybrid. Decision: the menu button carries
+Services/About/Visit/Training at EVERY width — the inline desktop nav
+retires — and Book leaves the menu to become the one styled button in
+the header, visible beside the menu at all widths (outlined pink-500 on
+noir, 5.95:1; hover inverts to pink fill with noir text, 5.9:1; the
+established booking-language convention). Consequences: mobile gains a
+visible Book for the first time (it previously lived only inside the
+popover); the centered-brand shell becomes the layout at every width;
+the tightest phones cede ~7% wordmark width and the badge starts at
+48px to make room. The popover gains a ≥1024px anchor (the menu now
+exists at desktop). Alternatives rejected: hamburger-only (buries the
+primary conversion); keep-as-is (operator wanted the minimal look).
+
+## 2026-08-15 — The header badge links out to yourmobileaesthetics.com (constraint-2 override)
+
+Context: the operator directed making the MA badge a tap/click link to
+https://yourmobileaesthetics.com. The destination was screened first
+(fetched 2026-08-15): it is Amy's own practice site, but it prominently
+names five other providers at the location (Dareen Elkurd, Nadia Cecil,
+Kaitlyn Jones, Martu Tamba, Kelly Formato — microblading, spray
+tanning, teeth whitening, massage) — squarely inside hard constraint
+2's "never link to any other provider." The flag was presented with a
+secondary funnel note (a persistent header exit ramp; partially
+mitigated — MA bookings also route to Vagaro). Decision: OPERATOR
+OVERRIDE — link it. Implementation: the badge img wraps in an anchor
+to `siteConfig.mobileAestheticsUrl` (new config entry), target=_blank
+rel=noopener, sr-only new-tab notice (the Book-link convention),
+`data-event="ma_site_click"` (added to the AnalyticsEvent union;
+track() remains a provider-neutral no-op). CLAUDE.md constraint 2
+gains the scoped exception in the same commit — the one sanctioned
+outbound reference; the other providers remain unnamed in all site
+text. Alternatives rejected: not linking (operator wants the tap
+path); linking to a hypothetical Amy-only page on the MA site (none
+exists). The home link stays the wordmark's alone.
+
+## 2026-08-15 — Docs reconciled with the header increment (operator-directed sweep)
+
+Context: operator directed a documentation pass covering the day's
+header work (PR #102: SVG badge rebuild → brightened chrome →
+enlargement → full-badge pick → phone centering → foldable fix →
+hybrid nav → menu-icon size → desktop badge scale → outbound badge
+link). The per-decision records already existed (four DECISIONS
+entries, CHANGELOG, CLAUDE.md constraint-2 exception); this sweep
+reconciles the derived docs: (1) BUILD_SPEC component inventory now
+describes the as-built dual-brand hybrid-nav header (the old
+"CSS-first mobile menu if achievable" line was three designs stale);
+(2) REDESIGN.md settled-decisions table — the MA-badge row moves to
+Built with the link-out recorded, and the hybrid nav gets its own row;
+(3) compliance/README's "what the linter cannot see" section gains
+outbound-link destination screening, with the badge link as the
+recorded precedent. Docs-only commit; no gates or content affected.
+
+## 2026-08-15 — One family: Playfair Display takes the body (Amy)
+
+Context: Amy directed that the body text use the same font as the
+Needle Girlie logo. The logo's face was verified from the committed
+master (src/assets/brand/source/needle-girlie-logo-black-bg.html):
+Playfair Display, weight 600, upright — already the site's display
+face. Scope question put to the operator (small tracked-caps UI —
+nav, Book CTA, eyebrows, captions): answer was Playfair EVERYWHERE;
+DM Sans retires entirely. Decision: repoint --font-body to the
+Playfair stack (both role tokens kept, one family serving both);
+remove the @fontsource-variable/dm-sans dependency; bump body to
+17px/1.65 (the mobile-readability adjustment accepted with the
+2026-08-14 Playfair-everywhere decision). BUILD_SPEC §5/§13 amended
+in the same commit (this supersedes the serif+sans split and the
+2026-07-08 DM Sans entry). Consequences: font payload drops ~55KB per
+page (Playfair latin+latin-ext 59,544 B vs the 122,880 B budget); the
+swap-CLS posture improves — body text now uses the woff2 that was
+already preloaded for headings, which DM Sans never was; fontaine's
+Georgia metric-fallback pair is unchanged. Alternatives rejected:
+keeping a sans for tiny UI microcopy (a second voice Amy didn't ask
+for); collapsing to one token (loses the role knob). Legibility
+escape hatch recorded: if small caps shimmer on low-DPI screens,
+thicken weight via the variable axis (400–900) — never a second
+family.
+
+## 2026-08-15 — The studio reel slows at the player (0.8 → 0.65 → 0.5), not a re-encode
+
+Context: operator + Amy — carousel slide 2 (Amy's own studio reel)
+"plays incredibly fast"; slow it a little. Decision: per-slide
+playbackRate at the player (data-rate="0.8" on the slide,
+defaultPlaybackRate+playbackRate set when the facade builds the
+video, re-asserted at loadedmetadata/play because some engines
+reset the rate when playback starts), NOT an ffmpeg re-encode.
+First pass shipped 0.8; operator review same day: still too fast —
+retuned to 0.65, then to 0.5 (third review:
+still too fast — the knob working as designed; 0.5 is also the
+practical floor, engines clamp below it). Why: the master rendition stays
+untouched; the number is a preview-tunable knob; VTT captions and the
+progress fill key off media time so they stay in sync at any rate;
+browsers that ignore the property play at 1× (exactly the old
+behavior); the 60fps master still renders ~48fps of motion at 0.8× —
+smooth without interpolation and its artifact risk. Compliance
+scoping: the rate applies ONLY to Amy's own site-authored reel — the
+two Evolus films' presentation is carried as-is (their never-alter
+rule is untouched; they stay at 1× and the slide type marks rate as
+Amy's-films-only). Alternatives rejected: re-encode with setpts
+(bakes the tempo, slower iteration, second copy to version);
+minterpolate slow-mo (artifact risk, not asked for).
+
+## 2026-08-15 — Review surface: one combined preview when increments stack
+
+Context: three increments were open at once as separate PRs
+(#103 fonts, #104 carousel heading, #105 reel tempo), each with its
+own isolated preview. On the reel preview the operator reported the
+old carousel heading had "come back" — it hadn't; that preview simply
+never contained the other PR's change. Per-PR isolation reads as
+regressions to reviewers. Decision: while multiple increments are
+open, maintain a DO-NOT-MERGE combined-preview PR (branch merging all
+open feature branches) as THE review link; the individual PRs remain
+the merge gates and the audit trail. PR #106 was the first (closed
+after the merges). Consequences: docs files (CHANGELOG anchor,
+DECISIONS end-of-file) collide across parallel PRs — resolutions keep
+both records; whichever PR merges last absorbs the conflict pass.
+Alternatives rejected: explaining the isolation each round (it failed
+in practice); merging increments without Amy's per-change word
+(violates the approval workflow).
+
+## 2026-08-17 — The Mobile Aesthetics team film joins the carousel (constraint-2 override)
+
+Context: operator assignment — add team.MOV as the carousel's fourth
+film. Frame-level screen (contact sheet + full-res frames + embroidery
+zoom): the Mobile Aesthetics "Girl team" film — six women (Amy center)
+in MA uniform polos under the MA neon, stylized black-and-white studio
+segments, a CapCut film-strip montage effect carried as-is (its
+CAPCUT/PX border micro-text is decorative edge chrome). No products,
+no clients, no clinical or claims content. Amy's embroidered
+"Amy Palacios NP" is plausibly legible; the other five names do not
+resolve at the source's own 1080px — nobody else is legibly named,
+but the film unmistakably features the location's other five
+providers. Flag raised: hard constraint 2 (site never implies other
+providers; compliant path = yourmobileaesthetics.com). Decision:
+OPERATOR OVERRIDE 2026-08-17 — add as film 4; releases/consent for
+the five team members confirmed on file (operator, same date — the
+studio-reel release pattern). CLAUDE.md gains the second constraint-2
+scoped exception in the same commit; the film needs NO constraint-3
+exception (zero claims content), and the constraint-3 enumeration was
+re-worded to stay visibly scoped to the original three films.
+Mechanics: rendition per RUNBOOK (muted H.264, 6.3MB @ 3.8Mbps),
+poster from the rendition's opening neon shot, VTT mirrors the
+burned-in "Girl team" overlay (0–2s), label "Girl team — Mobile
+Aesthetics", plays at 1× (produced edit; the rate knob stays
+Amy's-films-only). Four 64px progress bars + the toggle overflow a
+390px phone by 2px (and the 344px fold cover by 48px), so bars drop
+to 48px under 600px — the 48×32 button clears the 24px WCAG target.
+Alternatives rejected: hosting the film only on
+yourmobileaesthetics.com (the recommended compliant path — operator
+chose the override after the flag); trimming the CapCut chrome
+(re-editing Amy's produced piece for no compliance need).
+
+## 2026-08-17 — Homepage door photos: Amy's picks, screened (photo round, page 1)
+
+Context: the sitewide photo-replacement pass opened today (operator +
+Amy select per-slot; picks arrive in C:\Amy\New Pics). First page:
+the home category doors. Amy's picks — Injectables: her pick "2"
+(Amy treating a reclined client under the Mobile Aesthetics neon;
+lilac embroidered scrubs, gold-tone instrument, no legible product
+text); Skin & Body: pick "3" (three skinbetter products held to
+camera — sunbetter SPF, Mystro serum, AlphaRet cream; manufacturer
+label text photographed as-is, the shipped skinbetter-lineup class;
+no identifiable person); Wellness: pick "4" (Amy solo, lavender
+suit). Screens: no dosing/claims content anywhere; the one flag was
+the identifiable client in pick 2 — RELEASE CONFIRMED ON FILE
+(operator, 2026-08-17 — weigh-in-photo pattern, the confirmation is
+the record). Decision: ship all three via the door slots' existing
+640×800 smart-crop pipeline (crops verified by eye: faces + neon,
+products, and figure all land well; no anchor overrides). Sources are
+1067×1600+ from the professional shoot — above the slot's delivery
+resolution (retina rule holds). The outgoing assets
+(forehead-treatment, skinbetter-lineup, studio-wide) STAY in the
+repo — /services and two treatment MDX pages render them; deleting
+or re-picking those pages happens when the round reaches them (and
+treatment MDX edits reset clinicianApproved, so they are deliberately
+untouched today). Alternatives rejected: reusing one asset name per
+slot (slot-named files couple assets to placements; content-named
+files stay reusable).
+
+## 2026-08-17 — The a11y gate audits the settled state (reduced-motion Chrome)
+
+Context: adding one text line to the location card failed /visit's
+pa11y run — the noir band's Book CTA at a 2.6:1-effective contrast.
+Root cause measured first-hand: `ng-rise` entrance blocks animate on
+`animation-timeline: view()`, so in a static headless audit each
+block freezes at whatever entry progress the page height dictates
+(the CTA's wrapper measured opacity 0.931 at pa11y's 1280×1024
+viewport; the baseline page, one line shorter, measured ≈1 and
+passed). Any copy change above any animated block re-rolled every
+page's contrast verdict. Decision (operator-approved gate-config
+edit, chosen over the flag): pa11y's Chrome now launches with
+`--force-prefers-reduced-motion`; the site's reduced-motion CSS sets
+`animation: none` on the entrance classes, so every element audits
+at its final colors, deterministically — a real, shipped user mode
+(the one WCAG's motion guidance mandates). Alternatives rejected:
+removing ng-rise from the affected band (leaves the sitewide
+dice-roll through the photo round); scrolling before audit (view()
+timelines map scroll position — there is no settled mid-page state
+to reach). Consequences: contrast verdicts no longer depend on page
+height; animated mid-states go unaudited — acceptable, they are
+transient by construction and the compliance rule already bans
+entrance animation on compliance text. A failure now means the
+element's FINAL colors fail.
+
+## 2026-08-17 — The arch motif goes sitewide (every photo, named exemptions)
+
+Context: Amy directs (via operator) that all pictures throughout the
+site wear the light-pink arches from the homepage category doors —
+except the pic at the bottom of the homepage. Scope pinned by operator
+answers (2026-08-17): the HERO stays exempt (a full-bleed backdrop,
+not a framed picture); ALL FILM STAGES stay exempt — the carousel
+posters/stage and both treatment-page film players (an arch mask
+visually clips film corners, and the Evolus commercials' burned-in
+safety information ships complete and uncropped — flagged, exemption
+chosen); the bottom pic is the framed Instagram post (.nc-post keeps
+its square matte). Also exempt: lip-style-guide.png (a labeled
+diagram — an arch or crop would cut its labels) and brand marks.
+
+Decision: one shared `.ng-arch` utility in global.css — the door
+recipe verbatim (999px 999px 12px 12px radius, 1px magenta-600
+hairline, overflow hidden). The doors, /services strip, /about
+portrait, and /injector-training portrait consume it by class;
+treatment bodies get a documented selector mirror in TreatmentLayout
+(`.media-figure img:not([src*="lip-style-guide"])`) because adding
+classes in MDX would reset clinicianApproved — the rollout touches
+ZERO treatment content. Matted prints keep matte/tilt/shadow; the img
+arches inside them (a matted arch print). Geometry: all 35 in-use
+assets measured first; the arch reads as architecture only on
+portrait boxes (CSS scales overflowing radii uniformly — landscape
+boxes render a squat half-ellipse), so treatment figures take a 4:5
+display crop (CSS-only — identical derivatives served, zero byte
+change) and the full-width bands move 16:9 → 9:8, the widest arch
+that keeps straight feet. fine-gauge-detail's baked 16:9 derivative
+now displays through the 9:8 window (center slice, verified by eye);
+recorded upgrade path: a server-side re-crop at the consolidated
+re-approval round.
+
+Alternatives rejected: arch at source ratio (landscape sources read
+as a bug, not a motif); per-image MDX recrops (twelve
+clinicianApproved resets for a visual change); propagating the doors'
+pink plate along with the arch (the plate is door-card anatomy, not
+the frame).
+
+Consequences: every photo frame now derives from one declaration plus
+one documented mirror; the three hand-copied square-frame recipes
+lost their border/overflow lines but keep their washes and crops.
+studio-wide's alt still describes the full frame ("two clients")
+while the 4:5 window fully shows one — a presentational crop; the alt
+stays (alt edits are MDX edits). CaricatureWindow (the orphaned
+16px-foot arch variant) is untouched.
+
+## 2026-08-17 — /services strip: photo round page 2 (screening + release record)
+
+Context: operator + Amy assign the strip's three frames by number from
+the professional shoot in C:\Amy\New Pics: left = 6, middle = 7,
+right = 8 (all 1067x1600, above the slot's 760w delivery — retina
+rule holds; dedup-hashed against the repo, no duplicates). Screened
+frame-level: 6 — Amy at a seated client's brow in window light, no
+legible text or products; 7 — Amy guiding a fine syringe at a
+reclined client's lower face, decorative "DREAM LAUGH DANCE" wall
+print in background (benign), no legible product text; 8 — Amy
+(embroidery = her own name, factual-identity precedent) showing two
+product boxes to a male client — box labels and the background
+banner fragment are ILLEGIBLE at source resolution, so no claim is
+conveyed; the arch's 4:5 window crops most of the banner anyway
+(verified by eye). All three pictured clients are identifiable —
+RELEASES CONFIRMED ON FILE for website use (operator, 2026-08-17 —
+the confirmation is the record, weigh-in-photo pattern). Decision:
+ship as content-named assets (treatment-window-light,
+lower-face-appointment, male-client-products — never slot-named);
+alts rewritten factual-generic (the frames do not self-identify a
+treatment line, and alts never invent one). The outgoing assets
+(forehead-treatment, lip-filler-detail, male-client-treatment)
+became zero-reference after the swap — deleted (PR #101 orphan
+precedent; git history preserves the frames). Crops verified in the
+arch at 390/1280 (50% 20% anchor holds every face).
+
+## 2026-08-17 — Relaunch guard: required checks against the takedown topology (external-audit Finding 1)
+
+Context: an external principal-architect review (fresh clone, no
+session context — docs/AUDIT-2026-08-17-external-review.md) triaged
+seven findings; Finding 1 is the only High item needing no operator
+decision. The takedown revert `e57a4448` changed main's tree, not
+its history, so git believes main already contains the launched
+site. Both failure modes were reproduced first-hand in a throwaway
+clone before building anything (the audit's own §0 rule): merging
+main into phase-c applies the takedown deletions to phase-c; the
+naive phase-c → main merge silently drops ~48 files — all twelve
+treatment MDX pages, both treatment films, every photo — with zero
+conflicts on them and a passing Astro build. The RUNBOOK's two-step
+procedure verified correct: 166 files, zero missing vs phase-c, one
+extra (`studio-counter-portrait.jpg`, the placeholder orphan slated
+for deletion in the relaunch PR).
+
+Decision: `.github/workflows/relaunch-guard.yml` with two jobs, both
+becoming required status checks (branch protection created for the
+first time on both branches — neither had any): `takedown-revert-
+guard` on PRs into phase-c and pushes to phase-c (fails if the
+revert is reachable — the push trigger makes an "Update branch"
+slip on PR #95 loudly red immediately); `gutted-merge-guard` on PRs
+into main, beyond the audit's ask (fails if a phase-c-derived merge
+ref is missing any file from origin/phase-c's current tree — this
+one guards the actual catastrophe, and stays quiet for legitimate
+deletions because those are already gone from phase-c's tree at run
+time). No paths filter on purpose: a path-filtered required check
+never reports and deadlocks merges — only the guard jobs are marked
+required, never `verify-and-deploy`, whose paths-ignore would do
+exactly that to docs-only PRs. The relaunch PR retires the workflow
+(post-relaunch the revert is a harmless ancestor everywhere).
+
+Alternatives rejected: prose-only RUNBOOK warnings (they existed and
+the hazard remained one button-press away); detecting a future
+revert-of-revert instead of retiring the guard (its SHA is unknowable
+now); requiring `verify-and-deploy` too (docs-only PR deadlock).
+
+Consequences: the landmine stays defused for the whole extended dark
+period (operator decision same day: stay dark until the redesign
+round completes). GitHub settings now carry branch protection — a
+new place where repo behavior is configured outside the tree.
+
+## 2026-08-17 — Media origin built: films move to Blob behind Front Door (external-audit Finding 5)
+
+Context: audit Finding 5 named four problems with self-hosted video —
+the client-facing SOW says video hosting costs $0 and is embedded
+(now false), egress scales with marketing success unmodeled, every
+re-encode grows git history forever (no LFS rule), and media is
+coupled to code (swapping a film = commit + build + deploy + purge).
+Operator decision same day (AskUserQuestion): build the Blob origin
+NOW, before relaunch. The audit's companion suggestion — a Git LFS
+rule for *.mp4 — was REJECTED with the flag raised: GitHub's free LFS
+bandwidth (1GB/mo) dies in days against ~53MB × this repo's CI
+cadence, and default actions/checkout (lfs:false) would silently
+deploy pointer files as videos. Blob migration makes LFS moot: no
+future .mp4 enters the repo at all.
+
+Decision: storage account (`stngmedia…`, Standard_LRS, anonymous
+blob-read on container `media` only) + `media.needlegirlie.com`
+custom domain on the EXISTING afd-needlegirlie profile, route
+`media` (originPath /media, IgnoreQueryString, no compression) bound
+only to that hostname — all in Bicep (infra/storage.bicep +
+frontdoor.bicep + dns.bicep additions), applied via the documented
+sub-level deployment after a what-if drift check (result: template
+still matches live — every Modify was reference-resolution noise,
+omitted service defaults, or the budget startDate the RUNBOOK's own
+command sets). Design refinement over the plan: **only the .mp4
+files move; the .vtt captions STAY in public/media/** — captions are
+compliance-screened text whose git audit trail matters, and keeping
+them same-origin eliminates the whole CORS surface (same-origin
+tracks need no CORS; cross-origin video plays fine without it), so
+zero JS changes and no crossorigin attributes. The stable hostname
+is deliberate: previews play exactly what production plays
+(REDESIGN's recorded rationale). Code paths: siteConfig.mediaBase;
+VideoCarousel data-file goes absolute; TreatmentVideo REWRITES its
+"/media/…" prop internally because that prop lives in treatment MDX
+and any MDX edit resets clinicianApproved (constraint 4 — the arch
+motif's component-layer-mirror precedent; zero flags reset). CSP
+media-src gains the host in both templates; the SWA /media/* cache
+route stays (it now serves only captions).
+
+Alternatives rejected: Git LFS (above); moving .vtt to Blob with
+ACAO * (loses the captions' git trail for zero gain); keeping mp4 in
+repo with LFS-less growth (the audit's status quo); a separate AFD
+profile for media (double the fixed cost for nothing).
+
+Consequences: repo tree −53MB going forward (history unchanged — the
+no-rewrite stance stands); film publishing is an upload + PR for the
+caption (RUNBOOK "Publishing a film"); replacing a film in place
+needs an edge purge (max-age=86400) — the procedure prefers new
+filenames; local dev and previews need internet to play films; Azure
+run-rate +~$1–2/mo at today's traffic (production is dark, so the
+metered lines start near zero: LRS storage of 53MB is fractions of a
+cent; egress is the line that scales — a viewer who watches the whole
+carousel pulls ~30MB, so cost tracks marketing success and is now a
+NAMED budget line instead of an invisible one; re-verify unit rates
+against the operator's Cost Management view before quoting the client
+a figure — the audit's caution). The SOW video-hosting narrative
+update is the operator's document — flagged, with drafting offered.
+
+## 2026-08-17 — Plausible prepped and gated dark (external-audit Finding 6)
+
+Context: audit Finding 6 — no analytics means no way to answer "did
+the redesign work" at relaunch or retainer-renewal; the audit's own
+correction stands: a true before/after is unobtainable (the site was
+live for hours), so the prize is a forward baseline from relaunch
+day. Operator decision (AskUserQuestion 2026-08-17): Plausible at
+relaunch (~$9/mo, client pass-through), prepped now so the flip is a
+config edit on launch day, not a build. Cookieless satisfies hard
+constraint 5; GA4 remains prohibited (BUILD_SPEC §11).
+
+Decision: the whole integration ships DARK behind
+siteConfig.analytics (enabled:false / provider:'none'; the fields
+carry widened types so the flip isn't a type error). Three pieces
+flip together in one build, so no state can lie: (1) BaseLayout
+emits the tracker only when enabled; (2) the privacy page's
+analytics bullet is a build-time conditional — its launch wording
+promises "this page will be updated first," and the conditional
+keeps that promise atomically; (3) generate-swa-config.mjs sniffs
+the BUILT dist/index.html for the script tag and widens the CSP only
+when the page actually shipped it — the header cannot drift from the
+code, and the dark-state artifact is byte-identical to before. The
+tracker is SELF-HOSTED (public/js/plausible.js, vendor file with
+provenance header, fetched 2026-08-17, 2,841 bytes upstream): the
+site's own rule says scripts are static files in public/js/, and
+self-hosting keeps script-src at 'self' — only the /api/event POST
+leaves the origin (connect-src). track() in analytics.ts is wired to
+window.plausible (the script exposes it, queue included) but has no
+callers — zero client-side component code exists; pageviews are the
+v1 signal and the first custom event is a normal PR later.
+
+Alternatives rejected: the hosted script tag from plausible.io
+(would widen script-src to a third-party CDN and drew the SRI
+concern — SRI is incompatible with their versionless endpoint;
+self-hosting removes the whole surface at the cost of a documented
+manual re-fetch on vendor updates); a JSON side-channel for the CSP
+flag (the dist sniff cannot drift; a second flag can); flipping now
+(operator: relaunch waits for the round — a dark-period baseline of
+zero visitors is worthless and the fee starts with the flip).
+
+Consequences: launch-day analytics = account + two-value siteConfig
+edit + normal verify/PR (RUNBOOK "Turning on analytics"); the / perf
+gate re-measures with ~3.6KB more JS at flip (ample headroom, read
+the numbers); privacy wording, CSP, and script can never disagree.
+
+## 2026-08-17 — External-audit close: verification record, the four operator answers, and the relaunch dossier (Findings 2, 3, 4, 7)
+
+Context: an external principal-architect review of a fresh clone
+(docs/AUDIT-2026-08-17-external-review.md, committed with this entry)
+delivered seven triaged findings. Per its §0 rule every claim was
+re-verified first-hand before any action: all git topology numbers
+reproduced exactly against origin/main; the naive-merge hazard
+reproduced in a throwaway clone (~48 silent deletions incl. all
+twelve treatment MDX pages — WORSE than the audit's framing, which
+counted files; ours counted what they were); the RUNBOOK two-step
+verified correct. Two facts the auditor could not see: local main
+was stale, and NEITHER branch had protection — "required status
+check" therefore included a first-ever branch-protection change.
+
+The four operator decisions (AskUserQuestion, 2026-08-17):
+1. **Relaunch (Finding 2): stay dark until the round completes.** No
+   date yet. REDESIGN.md gains the "Round close" scaffold — three
+   operator-filled slots (frozen list, date, the seven gaps as
+   pass/fail checks) — and docs/RELAUNCH.md now holds the complete
+   ready-to-execute relaunch dossier so the date is the only missing
+   input. Post-freeze asks are change-order/retainer scope.
+2. **Assistant (Finding 4): NOT in relaunch scope — BUILD_SPEC §3
+   stands.** The fork (a scope decision recorded outside this repo
+   had floated a text-only assistant into website launch) is closed:
+   no server code enters this architecture in this round; the
+   assistant remains a later, separately-planned increment. This
+   entry is the in-repo record the audit asked for. Zero build.
+3. **Analytics (Finding 6): Plausible at relaunch** — built same day
+   (own entry above).
+4. **Media origin (Finding 5): build now** — built same day (own
+   entry above); LFS declined.
+
+Finding 3 (approval gate attests to copy, not presentation):
+CLINICIAN-SIGN-OFF.md now splits **copy approval** (flag-gated,
+unchanged — the gate's logic was correct all along) from
+**presentation approval** (per-round, dated, manual record with the
+2026-08-05 launch pass logged and the redesign round pending);
+BUILD_SPEC §7 records that CSS-level presentation changes skip the
+flags BY DESIGN; the presentation date is a relaunch hard gate; the
+studio-wide alt mismatch is queued into the flag-resetting
+re-approval pass. Finding 7 housekeeping: the orphan placeholder
+photo deletes in the relaunch PR (it lives on main only); the four
+astro-check hints are a separate small source PR; the stale
+Claude-Project snapshots are an operator action outside this repo.
+
+Consequences: every audit finding now has a recorded disposition —
+built (1, 5, 6), operator-decided and recorded (2, 4), record-split
+(3), scheduled (7). "Relaunch" now HAS a definition of done — the
+audit's named blocking ambiguity — in REDESIGN "Round close" +
+RELAUNCH.md preconditions.
+
+## 2026-08-18 — /services becomes a photo-card menu: Amy's own mockup, her per-line picks, and a scoped perf-budget carve-out
+
+Context: client direction via the operator (mockup `button01.png`):
+every service line on /services becomes a linked "button" — her photo
+in the house arch, numeral + title + summary + "More information ›"
+below, the whole card one link. Chosen build: merge the two existing
+patterns rather than invent a third — the homepage door's arch/plate/
+lift/link-overlay anatomy joins TreatmentCard as an optional `photo`
+prop (backward compatible; photo-less cards render as before). The
+photos are the client's own per-line picks (B1…B12 in her picks
+folder, slot = menu number). Operator decisions: keep the three
+category groups (2026-07-23 direction stands); keep the 3-photo
+strip; photos are her picks, not the repo's existing frames.
+
+Screening record (frame-level, per the RUNBOOK photo procedure; the
+operator's confirmations are the record):
+- Releases for every identifiable client CONFIRMED on file — slots
+  01 (brow/temple injection), 04 (device treatment, reclined
+  client), 07 (laser, eye shields), 11 (IV drip under the neon).
+- Slot 06 is Amy herself (Evolve-belt chair selfie) — confirmed, no
+  release needed. 9:16 selfie vs 4:5 arch: the crop anchors on the
+  belt (the treatment story); face-included crops cut at the chin.
+- Slot 11 had two candidate files; the operator picked the portrait
+  neon frame. The unused landscape frame (second provider in frame)
+  was never committed.
+- **Slot 12 — operator override after the compliance flag.** The
+  frame shows Amy beside the Biote banner whose outcome-promise
+  lines and symptom poster are legible at source and partially
+  legible at card size, on a page that carries no Biote disclaimer.
+  Flag raised in full; operator chose SHIP AS-IS. CLAUDE.md
+  constraint-3 gains the scoped exception (this photo, this page);
+  extending it requires the human operator.
+- Package labels elsewhere (Evolysse/Jeuveau boxes slot 02,
+  RADIESSE+ box incl. its pack-size marking slot 03, skinbetter
+  bottles slot 08, saline bag slot 11) are trade dress as sold,
+  illegible at served size — the strip frame-8 precedent; the
+  pack-size marking is package contents, not dosing.
+- Partial banner fragment in slot 01 illegible at served size.
+- Slots 05 and 09 await the client's remaining picks and carry the
+  line's own page photo in the interim (PiXel8-RF product shot;
+  supervised weigh-in). Swapping a pick in is a one-line map edit in
+  ServiceLineGrid (RUNBOOK "Replacing site photography").
+
+Assets committed content-named (never slot-named): temple-injection,
+amy-holding-neon, radiesse-syringes, device-facial-session,
+evolve-belt-selfie, laser-eye-shields (PNG master converted to JPEG
+q92, prp precedent), skinbetter-trio-forward, lavender-suit-stool,
+iv-drip-neon, biote-banner-scale. Hash-checked against existing
+assets (skinbetter-in-hand and amy-lavender-suit are DIFFERENT
+frames from the same sets — no dupes). Masters stay outside the
+repo. Crop anchors are sharp gravity/strategy tokens (the door
+pipeline's knob; percentages are CSS, sharp rejects them) —
+'attention' for most, 'bottom' for the two whose story sits at the
+frame's foot (04, 06) and the interim 09, 'top' for 12, 'centre'
+for 08/11; every crop eyeballed on element screenshots.
+
+Perf budget (operator-approved after the flag, measured numbers):
+LH's mobile emulation fetches every lazy card on its full-page
+scroll, so the 12-card menu measures 568KB of images on /services
+(588KB on /styleguide, which demos the grid) against the 240KB
+budget — unreachable at any credible fidelity (even 640px-capped
+derivatives measure ~390KB). Operator chose FULL RETINA (1000px
+derivatives where the source has the pixels; srcset capped at each
+photo's 4:5-crop width so sharp never upscales — the retina rule's
+silent failure mode). lighthouserc.json's assertions became an
+assertMatrix: /services + /styleguide alone get image 640KB / total
+940KB; every other URL keeps the original budgets, which remain the
+default for new pages. Real visitors still fetch cards only as they
+scroll; the initial-viewport payload is unchanged (H1 stays LCP).
+
+Alternatives rejected: new bespoke card component (two patterns
+already encode the anatomy); slot-named assets (house rule); CSS
+percentage crops served at full frame (bytes + no server crop);
+2-across mobile grid (cramped Playfair titles read down-market;
+mockup scale is 1-across); weakening the global budgets (the
+carve-out is scoped to exactly the two menu URLs).
+
+Consequences: /services is the photo menu the client mocked; the
+grid comment carries the screening pointer; the presentation-drift
+list in CLINICIAN-SIGN-OFF gains this change (pending presentation
+approval covers it); two interim slots swap on her word; zero
+treatment MDX touched — no clinicianApproved resets.
+
+## 2026-08-18 — Photo-menu rev 2: compact tiles (operator preview review) and the carve-out tightens
+
+Context: the operator reviewed PR #121's preview — right idea, but
+the mockup-literal scale made huge buttons, not mobile-friendly;
+directive: shrink by over 50%. Measured: phone cards were 1-across,
+~343px wide × ~720px tall (~247k px²; menu ≈ 8,600px of scroll).
+
+Decision: density, not a nudge — the grid goes 2-across on phones
+(gap-3) and 4-across from lg (one row per category group); type
+compacts under the `--photo` variant only (numeral/title clamps
+down, summary 0.875rem, microline 0.6875rem → 0.625rem on phones
+with tracking cut from the editorial 0.18em); on phones the summary
+is HIDDEN (operator decision) — tile = arch + numeral + title +
+"More information ›"; it returns from 640px where 2-across cards run
+350–480px wide. Measured result: phone page 10,481px → 4,356px
+(58% shorter; per-card area −77%), desktop 7,691px → 3,728px.
+Microline honesty note: single-line proven from ~375px; at the 344px
+Z Fold cover Playfair's wide caps stack it onto two composed lines —
+accepted rather than shrinking below 10px.
+
+Image recipe re-derived per delivery band: widths [400, 640, 880] —
+880 exists because the 640–1023 two-across band needs up to ~878px
+on DPR2 tablets (with 640 alone they'd get 0.73×, a real retina-rule
+break caught in plan review); `sizes` now describes the IMAGE width
+(35vw phones), not the card — the shipped 44vw over-fetched. B4/B6/
+pixel8-rf stay source-bound below their band ideal (crop-cap logic).
+
+Consequence for the same-day carve-out: LH-CI now picks 400w cards,
+so /services measures 298KB and /styleguide 317KB of images — the
+assertMatrix carve-out TIGHTENED from 640/940KB to 384/512KB
+(budgets only move down without a flag; the tighter numbers are the
+new ceiling for both URLs). Photos, anchors, screening, releases,
+the slot-12 override, groups, numbering, and the strip all stand
+unchanged from the entry above.
+
+## 2026-08-18 — Slots 05 and 09 get their real picks; the menu's interim slots close
+
+Context: the operator flagged slot 05 serving the interim photo —
+the client's B5 pick was in the picks folder (missed in the first
+sweep). Screened: Amy solo holding the PiXel8-RF handpiece,
+device/maker name legible (the device is named in the line's own
+copy — product-labeling precedent), blurred device screen and neon
+behind, no client, no release needed. Committed content-named
+(`pixel8-in-hand.jpg`). Slot 09 went through two frames the same
+morning: her first B9 (HEIC) was screened and staged (client on the
+InBody scale, sign fragment illegible — frame-8 class; the client's
+website-use release CONFIRMED on file, operator word = the record),
+then the operator directed a replacement frame (B9.jpeg — same
+client, different session, EXIF-rotated master normalized upright
+and committed at the shoot-file class, 1200×1600 JPEG q92,
+`inbody-weigh-in.jpg`). **The replacement frame ships under operator
+override after the compliance flag:** its aftercare wall sign titles
+a competitor neuromodulator brand in large type, legible at served
+card sizes — a brand the site's own copy never names (the menu is
+Jeuveau/Xeomin/Daxxify) and whose pixels previously shipped only
+under the studio-reel override. Flag raised with a crop-out
+alternative; operator chose SHIP AS-IS → CLAUDE.md's constraint-3
+scoped-exception list grows to two menu-card photos. The sign's
+small caption lines (incl. its results-timing line) stay illegible
+at every served size. All twelve menu slots now carry the client's
+own picks; the interim photos (`pixel8-rf.jpg`,
+`supervised-weigh-in.jpg`) remain in the repo for their
+treatment-page uses.
+
+## 2026-08-18 — Menu-card photo fixes, round 3: 06 shows the face, 10 lightens
+
+Context: operator preview feedback on the merged menu (PR #121):
+card 06 Body Contouring cut off Amy's head (the shipped 'bottom'
+anchor deliberately framed the Evolve belt — the map comment said
+the client judges on the preview, and she did), and card 10 Peptide
+Therapy (`lavender-suit-stool.jpg`) read quite dark (the source
+carries a muted, underexposed matte grade).
+
+Decision, card 06: anchor 'bottom' → 'top' — the maximum-face
+window. Geometry measured first: the 720×1280 selfie's face spans
+the top ~29% of the frame and the belt the bottom ~30%; the 4:5
+cover window is 720×900 (slidable y∈[0,380]), so NO window holds
+both. 'top' shows head, torso, and the treatment chair; the belt
+hardware leaves the frame — accepted consequence, stated in the
+approved plan. Showing both takes a different frame (a map-line
+swap when Amy supplies one). Eyeballed on the element shot: both
+eyes clear the arch dome; only right-side hair clips (normal
+arch-portrait reading). Alternatives rejected: mid-window
+compromise crops (the dome clips an eye and the forehead goes);
+a narrower face-centered extract (drops the belt anyway AND the
+srcset below the retina bar).
+
+Decision, card 10: server-side re-grade, baked into the asset —
+re-derived from the master B10.jpg (1067×1600, single generation),
+sharp `.modulate({ brightness: 1.18, saturation: 1.05 })
+.linear(1.05, 0)`, JPEG q92, committed under the same content name
+(zero code change). Chosen from four candidates by side-by-side
+eyeball, then checked against row neighbors 09/11 on element shots:
+no longer the dark outlier, not washed. CSS-filter alternative
+rejected — the menu cards have no filter hook and a one-card
+mechanism is special-casing; the house pattern bakes grades
+server-side. Screening unchanged for both frames (no new legible
+content; the 06 crop moves the belt labels out of frame entirely).
+Measured after: /services 290KB, /styleguide 309KB of LH-mobile
+images — inside the 384KB carve-out, no budget movement.
+
+Same day, on the operator's preview review of this PR: cards 11
+(`iv-drip-neon.jpg`) and 12 (`biote-banner-scale.jpg`) called too
+dark as well — both re-graded from their masters (B11.jpg /
+B12.jpg, single generation), sharp
+`.modulate({ brightness: 1.28, saturation: 1.05 })` (the dim
+ambient scenes took a stronger straight lift than card 10's mix),
+JPEG q92, same content names. Eyeballed on element shots: the 11
+neon still reads, the 12 banner whites keep texture; the Wellness
+row is tonally coherent. Screening posture unchanged: the 11 bag
+labels stay illegible at served sizes; the 12 banner was already
+legible and ships under its recorded constraint-3 override — the
+lift changes exposure, not what the frame discloses. Re-measured:
+/services 294KB, /styleguide 313KB — inside the carve-out.
+
+Card 06, round 4 (operator: face AND belt must both show; "you may
+need to shrink the pic"): cropping is geometrically dead (see
+above), so the committed asset became a pre-composed 4:5 blur-fill
+contain — the full 9:16 frame at NATIVE 720×1280 inside a 1024×1280
+canvas (zero foreground resampling; 1024 restores the 880 srcset
+tier), side bars a blurred blowup of the same frame (sharp: cover
+1024×1280 → blur 60 → brightness 1.1 / saturation 1.1; composite
+gravity centre; q92). The bars read as soft brand-pink and blend
+into the card plate; centring also moved the face clear of the arch
+dome. Anchor token → 'centre' (identity crop — source aspect now
+equals the arch's). Screening: the belt labels render smaller than
+any prior crop (illegible), the mirrored FIGS tag returns to frame
+(carried as-is per the original screening), blurred bars are
+unrecognizable content. Measured: /services 296KB, /styleguide
+315KB — inside the carve-out.
+
+## 2026-08-18 — /services intro copy verbatim; sixth allowlist authorization ("best")
+
+**Context:** Client-directed copy change (via the operator): the /services
+lead keeps its first sentence and replaces the next two with her wording —
+"From Facial Balancing to Weight Loss & Body Contouring to all things
+Peptides oriented, Amy has your best self in mind. Start by browsing her
+service menus below, select where you want to begin, hit "BOOK" and start
+your journey now with Amy's expertise as your guide!" The word "best" is a
+hard-banned superiority pattern (`\bbest\b`), so the copy cannot pass
+lint:claims as written.
+
+**Decision (operator override after the compliance flag, 2026-08-18):**
+ship verbatim. The exact fragment "Amy has your best self in mind" joins
+`allowedStrings` — the sixth authorization, second superiority-class entry
+(Evolus ranking sentence precedent). Bare-fragment form: the banned word
+sits mid-fragment with space boundaries, so the self-test's digit-prefix
+near-miss proof holds without source-wrapping (the li-wrap trick is only
+needed for string-initial banned words). Editing rules as ever: the
+fragment lives on ONE source line (per-line, case-sensitive stripping) and
+"best" stays banned everywhere outside it. Scope: the /services intro lead
+only (policy scope, recorded in CLAUDE.md constraint 3).
+
+**Alternatives rejected:** two compliant rephrases offered and declined —
+"your most confident self in mind" (recommended) and "your goals in mind".
+
+**Consequences:** the registry, page copy, CLAUDE.md exception record, and
+this entry change together in one commit (price-tier precedent). One
+verbatim-fidelity note, flagged once and kept: the site's booking buttons
+read "Book with Amy", not "BOOK" — the client's quoted label is a
+near-match; a one-word alignment is available if she wants it. "Facial
+Balancing" is not a menu-line title (it names the filler/balancing work) —
+illustrative client phrasing, carried as-is.
+
+## 2026-08-18 — Evolus recognition plate + ICON film move to /about
+
+**Context:** Client direction (via the operator, 2026-08-18): on
+/services/wrinkle-relaxers, the black EvolusCallout plate, the "Inside
+Evolus" section, and the ICON film all move to /about — prep for that
+page's photo round. Two standing records were in the way: the 2026-07-21
+operator placement decision "About stays ranking-free," and the
+page-scoped exception records (CLAUDE.md constraint 3, BUILD_SPEC §6/§7/§8,
+the component's own header) that authorized the ranking sentence on
+wrinkle-relaxers + dermal-fillers and the ICON film on wrinkle-relaxers.
+
+**Decision:** Move all three as a unit, byte-identical copy (intro
+paragraph, film label, caption). The client's direction supersedes the
+2026-07-21 placement decision; every page-scope record is amended in the
+same PR — ranking sentence now dermal-fillers + about, ICON film now
+/about, exception TERMS unchanged (as-is carriage, comparative-efficacy
+remarks and named third-party providers operator-accepted, captions
+faithful). `compliance/banned-patterns.json` is untouched: the allowlist
+strips globally and its third-authorization comment records no page scope.
+On /about the pair sits between the milestones timeline and "The name on
+the wall," in a left-aligned max-w-3xl column — the same 48rem width both
+components shipped in inside the treatment body.
+
+**Alternatives rejected:** copying (rather than moving) the callout so
+wrinkle-relaxers keeps it — the direction was "moved"; consolidating the
+dermal-fillers instance too — not asked; the request names only
+wrinkle-relaxers, so dermal-fillers keeps its own plate.
+
+**Consequences:** first approved-content MDX edit of the redesign round —
+wrinkle-relaxers `clinicianApproved` reset true → false in the removal
+commit (constraint 4; `check:approvals` gates only the production
+pipeline, which stays dark; the consolidated pre-relaunch re-approval
+restores it). The sign-off doc's wrinkle-relaxers row loses the two items
+and the presentation-drift list gains the move. /about (LHCI default
+budgets) now carries the ICON poster; wrinkle-relaxers gets lighter —
+both measured in verify.
+
+## 2026-08-18 — wrinkle-relaxers photo round; bare arches sitewide; Jeuveau-banner override
+
+**Context:** Client direction (via the operator, 2026-08-18): replace the
+three wrinkle-relaxers photos with her picks — 10.jpg ("Who they're
+generally for"), 11.jpg ("Not just for women"), 12.jpg (the band) from
+C:\Amy\New Pics — and make the white space around the arches pink like
+/services. The white was the treatment layout's paper mat (background +
+padding + hairline + shadow + ±1.5deg tilt); the arch rollout
+(2026-08-17) had predicted exactly this follow-up.
+
+**Screening record (frame-level):** 10 = Amy in a pink blazer injecting
+at a reclined client's brow under the MA neon (her own signage; no
+product text). 11 = male client with an MA-branded hand mirror, Amy in
+her embroidered scrubs; tray vials/labels illegible at served size.
+12 = Amy (operator-confirmed it is her — hot-pink scrubs, face in
+profile) with two clients and a large, LEGIBLE Jeuveau banner: "KISS
+YOUR 11s GOODBYE", the indication line (including "TEMPORARY", copy
+vocabulary dropped 2026-07-30), "Jeuveau YouSeeMe!". Flag raised in
+full → **operator override: ship as-is** — the third photo
+pixel-override (biote-banner-scale precedent); CLAUDE.md constraint 3
+amended in this PR. **Releases for all four pictured clients confirmed
+on file** (operator, 2026-08-18 — the confirmation is the record). All
+three assets hash-unique vs the repo.
+
+**Decisions:** (1) Assets content-named: blazer-brow-injection.jpg,
+hand-mirror-male-client.jpg, jeuveau-banner-studio.jpg; masters stay
+outside the repo; outgoing frames (brow-appointment,
+male-client-appointment, fine-gauge-detail) deleted — no other
+consumers; git history keeps them. (2) The band asset is a
+pre-composed 9:8 blur-fill contain composite (card-06 house pattern,
+RUNBOOK): the three people span x≈150–1560 of the 1600-wide 3:2
+master and the widest 9:8 cover window is 1200 — no crop holds every
+face. Recipe: 1600×1422 canvas = the frame resized fill + blur(28) +
+brightness 0.96 as self-fill, full frame composited centered, jpeg
+q92 (sharp). It matches the layout's 9:8 band window exactly, retiring
+the recorded fine-gauge 16:9-into-9:8 double-crop defect early, and
+its 1440 tier meets the desktop slot's DPR2 demand exactly. (3) Mat
+removal scope = ALL treatment pages (operator choice): one shared-CSS
+change, zero MDX edits elsewhere, zero flag resets; /about's matted
+print and the film players' mats stay. Tilts retired with the mat —
+bare arches sit straight, like /services. (4) One per-image crop
+override (the arch rollout's recorded knob): the blazer frame anchors
+top (50% 0%) so the 4:5 window keeps the neon script whole; the
+default 30% anchor sliced it mid-stroke.
+
+**Alternatives rejected:** any 9:8 cover crop of 12 (guillotines a
+face — geometry above); keeping the mats only off wrinkle-relaxers
+(visibly inconsistent between treatment pages; needs a page-scoped
+hack).
+
+**Consequences:** wrinkle-relaxers clinicianApproved stays false (reset
+in the Evolus-move commit; this stacks on that branch). The band's
+LH-mobile pick stays the 1080 tier but 9:8 carries ~1.6× the pixels of
+the old 16:9 — offset by the ICON poster the page just lost; measured
+in verify. Presentation drift (bare arches, 12 pages) added to the
+sign-off doc for Amy's pending pass.
+
+## 2026-08-18 — band re-cut + compact arch (client feedback on the composite)
+
+**Context:** Client feedback on the PR #126 preview: the blur-fill band
+read as not-fitting — "put it in a smaller arch so that it fits
+correctly; if we need to shrink it, let's do it." Geometry recap: the
+master's four people span ~1410px of 1600 and the widest 9:8 window is
+1200px, so any arch the photo FILLS must omit someone.
+
+**Decision:** jeuveau-banner-studio.jpg re-derived from the master as
+an exact 9:8 window — extract x=490, y=45, 1110×987, jpeg q92 (sharp)
+— omitting the left-hand client cleanly (no sliver of her or her
+chair; eyeballed against x=510/530 candidates; releases unchanged, hers
+now unused for this frame). The banner, Amy, and the male client fill
+the arch sharp, edge-to-edge; the blur-fill composite is superseded.
+The Jeuveau banner renders LARGER than in the composite — same frame,
+same page, same operator override (legibility was the enumerated flag;
+the fine print stays illegible at served sizes, eyeball-checked on the
+1080 derivative). Presentation: new `media-band--compact` layout
+variant (34rem centered) used by this page — the "smaller arch," and
+retina math besides: 1110 native px ≈ 1.02× DPR2 in the 34rem slot,
+where the full 45rem slot would be 0.77×, below the retina rule.
+Tiers [720, 1080]; alt updated ("two clients" → "a client").
+
+**Alternatives rejected:** a 4:5 row-scale arch of Amy + the client
+(loses the banner the frame is visibly for); keeping the composite at
+reduced width (blur bars are the complaint, size doesn't cure them).
+
+## 2026-08-18 — the segmental arch: band round 3 ("we need to see everyone")
+
+**Context:** Second client feedback on the band: the 9:8 re-cut hid the
+left-hand client — "we can't see the other person; we need to see
+everyone in the picture." With the earlier feedback that the blur-fill
+contain "doesn't fit," every Roman-arch treatment of this 3:2 frame is
+now exhausted: the people span wider than the widest 9:8 window
+(proven), a cover crop loses a person, a contain leaves fill.
+
+**Decision:** The arch changes shape, not the photo: a designed
+SEGMENTAL arch — architecture's wide sibling of the Roman arch — at
+the frame's own 3:2. `media-band--segmental`
+(border-radius 50%/34% elliptical dome over straight feet, same
+magenta hairline and 12px foot corners) with the FULL master frame
+recommitted as the asset (1600×1067, as shot). Everyone visible, the
+window filled exactly, no fabricated pixels. This is distinct from the
+2026-08-17 rejected "16:9 lens": that failure was the accidental
+full-height ellipse with no straight feet; the pinned vertical radius
+keeps the feet, which is what makes it read as architecture. The band
+returns to full column width — 1600 native px covers the 45rem slot's
+DPR2 demand with margin (the retina motive for the 34rem compact
+variant dies with it; `--compact` retired unmerged, superseded within
+the same PR). BUILD_SPEC §5 amended: the arch family gains the
+segmental sibling for landscape frames that must show full content.
+Banner legibility: between the composite's and the re-cut's — the
+standing override covers it. Alt returns to "two clients."
+
+**Alternatives rejected:** outpainting the master upward to 9:8
+(fabricating the studio's architecture; no quality-reliable local
+tool); a straight rectangular exemption (abandons the client's own
+arch motif when a shape in the family satisfies everything).
+
+## 2026-08-19 — the Evolus Laurel: ranking plaque on wrinkle-relaxers
+
+**Context:** Client direction (via operator): an attention-grabbing
+banner on /services/wrinkle-relaxers saying Amy is "The Top Evolus
+Injector in Charlotte"; the operator has verified the designation
+with Evolus, and the same verification covers her Top-50 standing in
+the US. This is a NEW object with NEW wording — it does not reopen
+the 2026-08-18 move of the "#1 provider" plate to /about, which
+stands ("Injector" vs "provider" reflects Evolus's designation per
+the operator). Ranking presence is now three pages, each recorded.
+
+**Decision:** A noir laurel plaque (`EvolusLaurel.astro`) rendered by
+TreatmentLayout between the deck card and the product cards — the
+credential lands before the pitch, and the blush→noir surface snap is
+the attention mechanism. Composition: a build-time-generated
+fine-stroke laurel (Bezier-sampled leaf pairs, decorative SVG, no SVG
+text per the axe rule), the statement at a 39px-floor display clamp
+with the key phrase carrying the sanctioned ng-shimmer (the "noir
+display-accent phrases >=39px" rule — no motion-vocabulary change
+needed), an ng-trace rule-accent, and the Top-50 line as a tracked
+eyebrow. Whole plaque rises in with ng-rise; reduced motion serves
+the static plaque. Placement required a frontmatter-gated layout
+slot: verified first-hand that the MDX body renders BELOW the product
+cards, so an in-body banner could not sit high. Schema gains
+`evolusLaurel: z.boolean().default(false)` (operator-approved schema
+change, plan approval 2026-08-19 — productDetails precedent); the
+fixed compliance order in TreatmentLayout gains the optional plaque
+between deck and intro.
+
+**Compliance record:** Operator wording decision (AskUserQuestion):
+bare claim + the Top-50 line, NO "Recognized by Evolus" kicker —
+consistent with 2026-07-21, where attributed wording was also
+declined. Exact sentences: "The Top Evolus Injector in Charlotte."
+and "And among the Top 50 in the United States." Verified first-hand
+against compliance/banned-patterns.json: neither sentence trips any
+category (bare "top" is not "top-rated"; "Top 50" carries no unit),
+so there is NO allowedStrings entry and NO banned-pattern change —
+a bare "top" pattern would false-positive ordinary copy, against the
+registry's own precision principle. Like the photo pixel-overrides,
+the claim is invisible to the linter, which is exactly why the
+authorization is recorded in CLAUDE.md constraint 3 and BUILD_SPEC
+§8.4 instead. The ranking appears ONLY in the plaque — never in meta
+descriptions, OG tags, alt text, or JSON-LD. clinicianApproved on
+wrinkle-relaxers is already false (2026-08-18 reset) and stays false;
+the plaque copy rides the consolidated pre-relaunch re-approval.
+
+**Alternatives rejected:** reusing the EvolusCallout noir-plate style
+(the client moved that exact object off this page the day before —
+regressive); a scrolling marquee (rejected on sight 2026-07-08); a
+foil background-clip sheen (trialed sitewide earlier and failed the
+axe gate — transparent fills are unauditable; ng-shimmer is the
+surviving engineered effect); full-bleed band (requires splitting the
+fixed-order article DOM); in-MDX placement (sits below the product
+cards — not an attention position).
+
+## 2026-08-19 — Laurel round 2: the Top-50 lockup
+
+**Context:** Client review of the PR #127 preview (screenshot with
+two arrows): the plaque reads well but the last line — and the "50"
+specifically — doesn't stand out. Measured cause: the stat line was
+13px tracked eyebrow caps, and Playfair's oldstyle figures drop the
+numeral below the caps line, making the one number that matters the
+weakest glyph on the plaque.
+
+**Decision:** The sentence becomes a stacked award lockup — "AND
+AMONG THE" (13px caps) / "Top 50" (display Playfair at the
+statement's own 39→49px clamp, display-accent + ng-shimmer) / "IN
+THE UNITED STATES." (13px caps). SAME WORDS, SAME ORDER — one
+paragraph, three block spans; typography only, the pinned wording is
+untouched (and with no allowlist entry there is no one-source-line
+requirement — the no-allowlist path's benefit). The plaque now has
+two breathing accent phrases — the two "Top" rank phrases — sharing
+one keyframe cycle so they glow in sync; if that reads busy on
+preview, dropping either to static is a one-line change (the
+recorded knob). Display scale also retires the oldstyle-figure droop.
+
+**Alternatives rejected:** merely enlarging the whole caps line (the
+complaint is hierarchy, not legibility — a louder caption is still a
+caption); putting "50" inside the laurel bowl as a crest numeral
+(duplicates the fact and leaves the sentence quiet — arrow 1 pointed
+at the line itself); lining figures via font-feature-settings (fixes
+the droop, ignores the standout ask).
+
+## 2026-08-19 — page title: "Neurotoxins - Wrinkle Relaxers"
+
+**Context:** Client direction (via operator): the wrinkle-relaxers
+page heading changes from "Wrinkle Relaxers" to "Neurotoxins -
+Wrinkle Relaxers" — extending the 2026-08-18 menu-line wording
+(serviceLines.ts, PR #123, verbatim incl. the hyphen) to the page
+itself. Menu card and page H1 now match exactly.
+
+**Decision:** The MDX `title` changes; it fans out automatically to
+the H1, the page breadcrumb, and the JSON-LD service + breadcrumb
+names ([slug].astro — verified consumers). `seo.title` keeps
+"Wrinkle Relaxers in Harrisburg & Charlotte, NC" deliberately: the
+search phrasing outperforms the clinical term, and the client's
+direction named the on-page heading. The §7 editorial normalize rule
+("neurotoxin" → "neuromodulator") is superseded for TITLE strings by
+the client's verbatim wording (the 2026-08-18 menu precedent); body
+copy still says "neuromodulator". "Neurotoxin" trips no banned
+pattern (verified — the rule was editorial, never a linter category).
+clinicianApproved already false; stays false; rides PR #127.
+
+## 2026-08-19 — card leads: "A prescription neurotoxin…"
+
+**Context:** Client direction (via operator), same review pass as the
+title change: the three wrinkle-relaxers product-card descriptions
+open with "A prescription neurotoxin…" instead of "…neuromodulator…".
+
+**Decision:** The three `productDetails.detail` strings change —
+nothing else. This further supersedes the §7 editorial normalize rule
+("neurotoxin" → "neuromodulator", 2026-07-21) for this page's card
+leads; BUILD_SPEC §7 amended in place. "Neurotoxin" trips no banned
+pattern (the rule was editorial, never a linter category). SCOPE
+NOTE, surfaced to the operator: the page body ("prescription
+neuromodulators…") and two FAQ answers still say "neuromodulator" —
+left as-is pending direction, so the page currently mixes terms.
+clinicianApproved already false; stays false; rides PR #127.
+
+## 2026-08-19 — FAQ question joins the neurotoxin wording
+
+**Context:** Client direction (via operator), same review pass: the
+FAQ question "Do men get neuromodulator treatments?" becomes "Do men
+get neurotoxin treatments?".
+
+**Decision:** The one FAQ `q` string changes. The mixed-terms note
+narrows: "neuromodulator" now remains only in the page body ("What
+they are") and the first FAQ answer ("All three are prescription
+neuromodulators…") — still surfaced for direction. Rides PR #127;
+clinicianApproved unchanged (false).
+
+## 2026-08-19 — wrinkle-relaxers goes neurotoxin page-wide
+
+**Context:** Client direction (via operator) closing the same review
+pass: the two remaining "neuromodulator" strings — the body intro and
+the first FAQ answer — flip too, "so everything matches."
+
+**Decision:** The page now says "neurotoxin" throughout (verified:
+zero "neuromodulator" left in the file). The §7 normalize rule is
+superseded PAGE-WIDE for wrinkle-relaxers (BUILD_SPEC §7 note
+updated); it stands for every other page. The mixed-terms caveat in
+the sign-off row retires. Rides PR #127; clinicianApproved unchanged
+(false).
+
+## 2026-08-19 — VisitSteps: MA chevron plates replace the numerals
+
+**Context:** Client direction (via operator, mockup steps.png in the
+repo root): the "Your visit, step by step" numerals (01–04) become
+the Mobile Aesthetics chevron block on small noir plates — the same
+four-chevron badge on every step, per the mockup.
+
+**Decision:** One-file component change. The chevron paths and the
+foil gradient are copied VERBATIM from the committed header mark
+(src/assets/brand/mobile-aesthetics-mark-header.svg — brand fidelity;
+MA is Amy's own PLLC, constraint 2 not engaged, DECISIONS
+2026-07-23). Badges are decorative inline SVG (aria-hidden, no SVG
+text; gradient ids indexed ma-foil-0…3 so no page carries duplicate
+ids). Non-visual parity: the retired CSS counter was announced by
+screen readers, so each step heading opens with an sr-only "Step N."
+Fan-out: all 12 treatment pages + the styleguide (pa11y re-audits
+all of them in verify). The /about milestones keep their numerals
+(career timeline — different object; tokens.css comment updated to
+name them as the display accent's remaining light-canvas consumer).
+
+**Alternatives rejected:** a progressive 1–4 chevron count per step
+(the mockup is explicit — the block is the brand mark, not a
+counter); reusing the whole header-mark SVG asset as an <img> (pulls
+the chrome wordmark and the plate frame along; the badge needs the
+chevrons alone at exact gradient fidelity).
+
+## 2026-08-21 — the DraftBanner retires; the approval gate stays
+
+**Context:** Operator direction: remove the "Draft — pending
+clinician review" strip above the header on /services/wrinkle-relaxers
+— the client read it as something that would be on the finished site.
+The strip was truthful: that page has been `clinicianApproved: false`
+since the 2026-08-18 Evolus-plate move (constraint 4), and it was the
+only unapproved page at the time. The banner was always a preview-only
+marker — the production deploy fails via scripts/check-approvals.mjs
+before an unapproved page could publish.
+
+**Decision:** Retire the visible marker sitewide, not per page. The
+DraftBanner component is deleted (git history keeps it); TreatmentLayout
+and the styleguide stop rendering it; the `clinicianApproved` prop
+leaves the layout and the treatment route, so the flag never reaches
+markup. NOTHING about the gate changes: the schema flag, the
+reset-on-edit rule, and `check:approvals` in production.yml are
+untouched, and docs/CLINICIAN-SIGN-OFF.md remains the human record
+(it now carries the grep that lists pending pages, since the rendered
+page no longer tells you). Precedent: the legal pages' counsel-review
+banner came off the same way at the operator's acceptance
+(2026-08-04). BUILD_SPEC §7 and §4 record the retirement.
+
+**Alternatives rejected:** hiding the strip only on wrinkle-relaxers
+(a per-page exception to a sitewide mechanism — the next reset would
+reproduce the confusion); setting `clinicianApproved: true` to make
+the banner go away (constraint 4 — never mine to set, and it would
+falsify the record); keeping an sr-only or HTML-comment marker (still
+announced or still misread, and it protects nothing the gate doesn't).
+
+**Consequence, stated plainly:** previews no longer show which pages
+await Amy's sign-off. The consolidated pre-relaunch re-approval round
+must therefore work from docs/CLINICIAN-SIGN-OFF.md and the flags, not
+from what the preview displays.
+
+## 2026-08-21 — dermal-fillers: the Evolysse film retires; photo round page 5
+
+**Context:** Client direction (via the operator, 2026-08-21) for
+/services/dermal-fillers: remove the Evolysse film and its heading;
+replace the two Evolysse-box photos with her picks 14 and 15 (C:\Amy\New
+Pics); add 8K0A9591 (C:\Amy\pics) to the right of "Lips, styled". Built
+in an isolated worktree off phase-c (three sessions share the main tree
+today).
+
+**The film — first retirement of a scoped compliance exception.** The
+Evolus-produced Evolysse film shipped 2026-07-21 under an as-is operator
+override (before/after segment, location co-branding and phone,
+manufacturer narration) recorded in CLAUDE.md constraint 3 and BUILD_SPEC
+§7.4/§8.3. It now renders nowhere on the site, so the exception is marked
+RETIRED in those documents in this PR (governing-doc edits authorized by
+the operator's approval of the plan — the 2026-08-18 Evolus-move
+precedent). TreatmentVideo stays (the ICON film on /about uses it).
+Orphans removed with zero references remaining: evolysse-film-poster.jpg,
+public/media/evolysse-film.vtt, and the two box photos below. The .mp4
+rendition lives in Blob (media.needlegirlie.com/evolysse-film.mp4) and is
+now unreferenced; deleting it is the operator's `az storage blob delete`
+(RUNBOOK), recommended left in place until relaunch in case the film
+returns (storage cost is nil).
+
+**Screening + release record (frame-level, RUNBOOK procedure):**
+- 14.jpg is the SAME BYTES as the repo's `mirror-moment.jpg` (sha256
+  145f1092…; committed 2026-07-18, zero consumers since the 2026-07-25
+  concept rebuild) — reused, not duplicated (dedup rule). Amy holds a
+  black hand mirror reading "MOBILEAESTHETICS" (her own branding,
+  sole-owner precedent) for a laughing client in a floral dress; no
+  products, no claims text. Its release log was contradictory
+  (2026-07-20 "unconfirmed" → 2026-07-23 "cleared" → 2026-07-25 flagged):
+  RESOLVED — **release CONFIRMED on file by the operator, 2026-08-21**
+  (the confirmation is the record). Replaces evolysse-duo.jpg in "Placed
+  in proportion".
+- 15.jpg → `revanesse-mirror-client.jpg` (1067×1600, byte copy). A seated
+  client studies her face in a "REVANESSE LIPS+" hand mirror under the MA
+  neon; Amy in black scrubs, embroidery = her own name; no claims text —
+  the mirror names a product the page's own copy names. **Release
+  CONFIRMED on file by the operator, 2026-08-21.** Replaces
+  evolysse-boxes.jpg in "Individualized, with Amy". Crop: the 4:5 arch
+  trims 266px of a 2:3 source and the default 30% anchor takes 80px off
+  the top — the neon spans y≈55–215 and would be sliced mid-stroke, so
+  TreatmentLayout gains the per-image top anchor (the 2026-08-18 blazer
+  knob); it sheds only feet.
+- 8K0A9591.jpg → `lip-injection-detail.jpg` (1067×1600, byte copy) — the
+  same bytes as the retired `fine-gauge-detail.jpg` (wrinkle-relaxers
+  until 2026-08-18; deleted as an orphan, git history keeps it), now
+  content-named for what it shows: pink-gloved hands guiding a fine
+  syringe at a reclined client's upper lip; no text, no products. Release
+  on record: DECISIONS 2026-07-21 ("8K0A9550/9591 female client"). New
+  third media row — "Lips, styled" copy left, photo right
+  (`media-row--flip`); the lip style-guide diagram stays full-width
+  below.
+
+**Decision:** ship all three as directed — one content commit (MDX +
+assets + orphan removals), the layout knob and the docs sweep as their
+own commits. `clinicianApproved` true → false in the content commit
+(constraint 4 — Amy's 2026-08-05 approval covered the film and the box
+photos); since PR #128 no banner renders either way, and check:approvals
+still gates the (dark) production pipeline. The consolidated pre-relaunch
+re-approval restores the flag.
+
+**Noted, not blocking:** two hand-mirror "reaction" frames now sit in
+consecutive rows — a compositional echo, and a mirror moment reads as a
+results beat; no text, no pairing, no before/after, and the class already
+ran on /about in July. They are Amy's picks. And the page now runs three
+alternating rows (flip / normal / flip) before the diagram — the
+2026-07-25 rule capped wrinkle-relaxers' identical 3-run with a band;
+here the full-width style guide directly below is the scale break, and
+"to the right of that" was explicit direction.
+
+**Alternatives rejected:** committing 14.jpg under a new name (a byte
+duplicate of mirror-moment.jpg — the dedup rule); baking 15's top-anchor
+crop into the asset (works, but the house knob for figures is the CSS
+anchor and it keeps the full frame reusable); deleting the Blob object
+in this PR (an infra action, the operator's, and reversible only by
+re-upload).
+
+**Consequences:** dermal-fillers is photo round page 5; the page carries
+no video; the sign-off doc's dermal-fillers row and presentation-drift
+list are updated; REDESIGN's photo row gains the page; the Evolysse-film
+exception text in CLAUDE.md / BUILD_SPEC reads as retired, so a future
+session does not re-add the film on the strength of a stale
+authorization.
+
+## 2026-08-21 — dermal-fillers round 2: air above the lip diagram; the Laurel plaque replaces the "#1" plate
+
+**Context:** Operator review of the PR #130 preview, two items. (1) The
+new "Lips, styled" photo sat almost on top of the lip style-guide
+diagram. (2) Direction: copy wrinkle-relaxers' Evolus Laurel banner onto
+dermal-fillers in place of the black "Amy is Charlotte's #1 Evolus
+provider!" plate. Placement put to the operator (AskUserQuestion): the
+plaque lands EXACTLY where the plate was — in-body under "What they
+are", after the product cards — not in the layout slot wrinkle-relaxers
+uses (parity was recommended; position continuity chosen).
+
+**Decision (1):** the diagram figure takes `margin-top: 2.5rem` via its
+existing inline style — the page's row/heading rhythm. Cause: a media
+row is as tall as its taller cell (the photo), so the figure that
+follows started flush against the arch.
+
+**Decision (2):** `<EvolusLaurel />` is imported into the MDX body and
+replaces `<EvolusCallout />`; frontmatter `evolusLaurel` stays false.
+Scope record: the Laurel's §8.4 second exception — "wrinkle-relaxers
+only" — WIDENS to dermal-fillers at the operator's explicit direction
+(CLAUDE.md constraint 3 names widening the page scope as the human
+operator's call; this is that call). Substantiation is unchanged and
+page-independent (the operator's verification with Evolus). Same exact
+sentences, once per page, still absent from meta/OG/alt/JSON-LD. The
+allowlisted "#1" sentence now renders on /about ONLY (EvolusCallout's
+remaining consumer); the allowlist entry itself is untouched (it strips
+globally and records no page scope). Sitewide ranking placements stay at
+three (the "#1" plate came off this page as the Laurel went on).
+
+In-body rendering exposed one real defect, fixed in the component before
+it shipped: `.treatment-body p { max-width: 65ch }` would box the 17px
+stat paragraph to ~530px and shove the centered Top-50 lockup left of
+the plaque's axis (the statement line escapes only because 65ch at 39px
+exceeds the column). Both plaque paragraphs now set `max-width: none`
+(scoped, wins on specificity; no effect in the layout slot). Code
+comments in src/ name the plate as "EvolusCallout", never by the ranking
+token — lint:claims scans comments (the 2026-07-30 lesson).
+
+**Alternatives rejected:** the layout slot (recommended for parity with
+wrinkle-relaxers; the operator chose position continuity); a
+TreatmentLayout `:not()` carve-out for the body paragraph rule (the
+component owning its own resets travels with it); keeping both plates
+(the direction was replace).
+
+**Consequences:** CLAUDE.md constraint 3, BUILD_SPEC §6/§7.4/§8.4, and
+both component headers carry the new scopes; the sign-off row and
+REDESIGN row follow; clinicianApproved is already false on this branch.
+
+## 2026-08-21 — evolysse-film.mp4 deleted from the media origin (operator direction)
+
+**Context:** After PR #130 retired the Evolysse film from
+/services/dermal-fillers, the rendition in Blob
+(media.needlegirlie.com/evolysse-film.mp4, 8,984,202 bytes, uploaded
+2026-08-17) was unreferenced — recorded as an operator cleanup item.
+The operator directed its removal the same morning.
+
+**Checks before deleting:** `git grep` on origin/phase-c outside docs —
+zero references; the only remaining TreatmentVideo consumer is the ICON
+film on /about; the container inventory was read first (eight blobs,
+including the biostimulators round's two fresh uploads, which were left
+alone).
+
+**Decision:** `az storage blob delete` on container `media` of
+`stngmediag2g4stj5m2gts` (auth-mode key, RUNBOOK procedure), then
+`az afd endpoint purge --content-paths '/evolysse-film.mp4'` on
+endpoint `needlegirlie` so the day-long edge cache (max-age=86400)
+does not keep serving a deleted object; the edge verified 404 on
+repeated probes while neighbouring films still answered 206. No
+Bicep change — blob contents are data, not infrastructure.
+
+**Workstation note:** the first purge attempt from Git Bash failed with
+"Invalid ContentPath C:/Program Files/Git/evolysse-film.mp4" — MSYS
+rewrites a leading-slash argument into a Windows path. Issue AFD purges
+(and any `/path` argument to az) from PowerShell, or set
+`MSYS_NO_PATHCONV=1`.
+
+**Consequences:** the film exists only in the operator's archive
+(C:\Amy\Videos master) and git history (the .vtt); re-adding it is an
+upload + PR + a fresh DECISIONS entry, never a revert. REDESIGN's open
+item closes; the media-origin row no longer counts it.
+
+## 2026-08-21 — Biostimulators: Amy's two reels replace the studio portrait (17a + 17b)
+
+**Context.** Client direction (via operator, 2026-08-21): on
+/services/biostimulators the photo beside "A longer view of structure"
+(`amy-studio-portrait.jpg`, the 2026-07-21 770×680 crop — the page's
+only photo, below the retina rule at every slot) is replaced by the
+film `17a.mp4`, and a second film, `17b.mp4`, is added to the right of
+"Individualized, with Amy" (text-only until now). This executes the
+REDESIGN row parked 2026-08-14 ("17a + 17b → biostimulators; not there
+yet"); `20.mp4` → body-contouring stays parked.
+
+**Sources, probed first-hand.** `C:\Amy\New Pics\17a.mp4` ≡
+`C:\Amy\Videos\17a\v12044gd…mp4` (SHA-256): a TikTok/CapCut edit,
+1080×1920 HEVC Main yuv420p, 30fps, 29.4s, 5.1MB, stereo AAC.
+`17b.mp4` ≡ `C:\Amy\Videos\17b\v12044gd…mp4`: a TikTok download,
+480×854 H.264, 30fps, 9.0s, 471KB, AAC. Both portrait 9:16 — the first
+portrait films given to `TreatmentVideo` (its two posters to date were
+landscape).
+
+**Frame-level screen** (contact sheets at 0.5s cadence + full-res
+grabs; no burned-in text in either film beyond 17b's Instagram
+sticker):
+- **17a** — 0–3s Amy and a client posed in the studio hallway; 3–12s
+  close-ups of the client's neck (lax skin, pre-treatment); 12–15s a
+  product carton: six RADIESSE+ (lidocaine) boxes, two "Accessory Kit"
+  boxes, and a Xeomin box whose "100 units/vial" line is legible (a
+  neuromodulator carton on a biostimulator film); 15–26s the client
+  reclined in the chair after treatment; at 24–26s a SECOND PERSON
+  (dark hair, black top, face out of frame) stands behind the chair
+  while an arm with a bracelet reaches toward the client's face — Amy
+  wears pink scrubs in this film, so the figure is not her; 26–29s the
+  posed shot again. Audio: silent open, then a quiet track (ffmpeg
+  volumedetect mean −30.0 dB, peak −14.6 dB).
+- **17b** — Amy's own selfie reel (lips-forward, no client); the
+  Instagram icon + `@MOBILEAESTHETICSNP704` micro-text top-right
+  throughout, then a dark "follow" end-card (logo + handle) from ~4.5s
+  to the end — half the film. MA is Amy's own PLLC (constraint 2 not
+  engaged by the handle). No claims content. TikTok `aigc_info` label
+  type 0 — not AI-labeled, so the AI-imagery disclosure rule is not
+  engaged. Audio: a steady track (mean −15.3 dB, peak −1.1 dB).
+
+**Flags raised (all shown to the operator before any decision):**
+1. 17a's cut is a visual before/after sequence (constraint 3 —
+   BUILD_SPEC §8.3, and §8.9 defers before/after content by SOW; this
+   page's own 2026-07-21 build entry rejected before/after LANGUAGE
+   once already) and its carton shot carries an on-screen unit
+   quantity (§8.1). Pixels are invisible to lint:claims. The film is
+   site-authored (Amy's own published reel) — no manufacturer
+   "carried as-is" shield, but also editable: trimming 3–15s was
+   offered as the compliant path.
+2. 17a's on-camera client is identifiable — a website-use release is
+   required.
+3. 17a's second on-frame person (24–26s) — constraint 2 (never imply
+   another provider at the location) is separate from constraint 3.
+4. 17b is 480px wide — below the redesign's retina hard rule for
+   every slot (the row slot is ≈275px desktop / 288px phone: DPR2
+   wants ~550–576px, a 3× phone ~864px).
+5. Audio: both carry AAC tracks; I cannot transcribe on this
+   workstation (Whisper is not installed — the 2026-07-21 run was a
+   throwaway scratchpad install).
+
+**Operator decisions (AskUserQuestion, 2026-08-21 — flag-once
+satisfied; executed cleanly):**
+1. **17a ships AS-IS — operator override after the flag. The
+   on-camera client's release for needlegirlie.com use is CONFIRMED
+   ON FILE (operator, 2026-08-21 — the confirmation is the record,
+   studio-reel pattern).** Trim and hold were declined.
+2. **The second on-frame person IS one of the location's other
+   providers — OPERATOR OVERRIDE, the third constraint-2 scoped
+   exception** (team-film precedent 2026-08-17): face out of frame,
+   nobody named or legibly identifiable; **their consent for
+   needlegirlie.com use is CONFIRMED ON FILE (operator, 2026-08-21 —
+   the confirmation is the record).** Consequence for wording: the
+   film never shows who performs the treatment (no injection shot;
+   the reaching arm may be this provider's), so every label, caption,
+   and comment describes only what the pixels self-identify — Amy, a
+   client, the studio, the Radiesse cartons — and never attributes
+   the hands-on treatment to anyone. The page's "performs every
+   treatment herself" line stays as copy, unillustrated.
+3. **17b ships at 480p as FINAL — retina-rule override** (no upgrade
+   asset expected). Recorded here and in REDESIGN, not CLAUDE.md — a
+   design rule, not a claim rule.
+4. **Audio kept (music only).** "Music bed, no speech" is the
+   operator's confirmation (2026-08-21) and that confirmation is the
+   record; a scratchpad Whisper install was offered and declined. The
+   captions therefore take the sounded-film form — faithful to the
+   audio, bounded `[Music]` cues (the ICON precedent; a film-long cue
+   would paint "[Music]" over the whole play) plus 17b's on-screen
+   handle — not the carousel's muted-mirror form. §8 and the voice
+   rule still govern that text; no gate reads .vtt, so the cues were
+   hand-checked.
+5. **Branch off phase-c now** (`content/biostimulators-films`), in a
+   worktree beside the concurrent dermal-fillers session's; conflicts
+   with PR #130 (which retires the Evolysse film and touches the same
+   append-only records) are mechanical and resolved by whichever
+   merges second.
+
+**Design decisions.**
+- **Films sit IN the media rows.** The `TreatmentVideo` figure is the
+  row's grid child, so the 2fr column (~17.2rem) is what constrains a
+  9:16 film — the player is aspect-agnostic (the poster's intrinsic
+  size sets the box). A new layout rule (`.media-row .video-figure`:
+  margin-top 0, centered, `min(18rem, 100%)`) mirrors `.media-figure`
+  so films and arches share one rhythm on phones (~288×510). Row 1:
+  film left, "A longer view of structure" right (as the photo was).
+  Row 2: "Individualized, with Amy" wrapped in a flipped row — copy
+  left, film right. Page rhythm: film · text · film.
+- **The bare film frame narrows 2026-08-18 (3).** That entry kept
+  "the film players' mats" when the treatment photos went bare — it
+  was written when the players were standalone blocks. A film INSIDE
+  a bare-arch row is a context it never saw, and a white mat there
+  would re-import the print look the client asked to retire. So
+  `TreatmentVideo` gains `frame="bare"` (no mat; the arch family's
+  magenta hairline + 12px foot corners on the video, never the arch),
+  used only inside rows; the standalone player (/about's ICON film)
+  keeps its recorded mat by default. The film-stage arch exemption is
+  qualified accordingly in BUILD_SPEC §5, global.css, and the
+  component: manufacturer film stages stay unmasked; site-authored
+  films may wear the foot corners.
+- **Posters never upscale.** The component requested every poster at
+  width 1280 and Astro's sharp service upscales on request — /about's
+  ICON poster (960 source) was shipping as a 1280×725 derivative.
+  Clamped to `min(1280, source width)`; /about's poster becomes a
+  true 960w (a pure tightening on an LHCI-gated page), 17a's a 1080w,
+  17b's a 480w.
+- **Recipes.** 17a: `ffmpeg -c:v libx264 -crf 20 -preset medium
+  -pix_fmt yuv420p -c:a copy -movflags +faststart` (the ICON recipe;
+  7.54MB, 2.05 Mbps). 17b: lossless remux `-map 0:v -map 0:a -c copy
+  -movflags +faststart` (471KB; video stream first). Posters from the
+  renditions at 0.5s (`-q:v 2`): `radiesse-visit-poster.jpg` 1080×1920
+  (Amy + the client posed — never a neck close-up as the resting
+  frame), `amy-reel-poster.jpg` 480×854. Blob names:
+  `radiesse-visit.mp4`, `amy-reel.mp4` (content-named; new names, no
+  purge). Captions `public/media/radiesse-visit.vtt`, `amy-reel.vtt`.
+- **Constraint 4:** `biostimulators.mdx` was `clinicianApproved: true`
+  — the MDX edit resets it to `false` in the same commit (this page's
+  first reset of the round; it joins the consolidated pre-relaunch
+  re-approval). `amy-studio-portrait.jpg` had no other consumer and is
+  deleted (git history keeps it).
+
+**Alternatives rejected:** trimming 17a (the recommended compliant
+path for both the sequence and the second provider — operator chose
+the overrides after the flags); waiting for a 1080p original of 17b
+(the operator closed it as final at 480p); removing the film mat
+component-wide (would reverse 2026-08-18 (3) for /about without
+direction); a VideoObject / JSON-LD entry for the films (never — §8
+scope discipline); a video-play analytics event (it would be the
+first client-side component code on a treatment page).
+
+**Consequences:** the page has no photographs left — two click-to-play
+films carry its visual weight; posters are fetched at page load (the
+`poster` attribute is not lazy) on a page outside the LHCI set; films
+stream from Blob only on play (egress pennies). 17b ends on its dark
+Instagram follow card (no `loop`) — trimming it to ~4.5s is a one-flag
+follow-up if Amy dislikes it. Observation, no change: the film's
+handle (@mobileaestheticsnp704) differs from the footer's `sameAs`
+Instagram link (amypalaciosnp.mobileaesthetics).
+
+**Addendum (same day, operator preview review):** the printed captions under both films ("From Amy's own reel — sound on." / "From Amy's Instagram — sound on.") came off — the provenance line read as noise to the client. The `caption` prop is simply omitted; the `aria-label` still names each film for assistive tech and the captions TRACK (the .vtt) is untouched. The page-scoped rule stands: no printed caption under a site-authored film unless directed.
+
+**Addendum 2 (same day, operator direction): autoplay on approach.** Both films now autoplay MUTED and loop while ~a third of the player is on screen, pausing off-screen; the native controls are the tap-for-sound and the pause (WCAG 2.2.2); prefers-reduced-motion keeps click-to-play with sound. Mechanism: `TreatmentVideo` opt-in prop `autoplay="inview"` → `data-autoplay` + `loop` on the element and one static script, `public/js/treatment-video.js` (~2KB, IntersectionObserver threshold 0.35 with a 200px root margin; a user pause is never resumed over; a user unmute is remembered, falling back to muted if the browser refuses). Served as a static file because the CSP is `script-src 'self'` (the carousel's recorded lesson); a module URL evaluates once per document, so two players share one run. This is the THIRD sanctioned client-side script and the first on a treatment page — operator-directed, like the carousel; budget impact ~2KB (2,153 B with its comment header) of the 30KB cap; /services/biostimulators is not LHCI-gated, and every other page is byte-identical (the script renders only where the prop is set). Scope rule recorded in the component: opt in only for Amy's own speech-free films — never a manufacturer film or one with narration (the /about ICON film stays click-to-play). Browsers allow autoplay only muted, which is why "tap for sound" is the design, not a choice. Rejected: hiding the controls while autoplaying (no unmute/pause without custom chrome and a self-built 2.2.2 control); play-once (17b would rest on its dark follow card; the operator chose loop-in-view).
+
+## 2026-08-21 — skin-rejuvenation: photo round page 6; the console-readout override
+
+**Context:** Client direction via the operator (2026-08-21): on
+/services/skin-rejuvenation, the docked-handpiece photo beside "How
+PiXel8-RF works" gives way to her pick 19a, and "A longer view" gains
+her pick 19b to the right of its copy. Nothing else on the page
+changes. One of three concurrent sessions that day; the work was
+isolated in the dermal-fillers worktree on its own branch.
+
+**Screening (RUNBOOK "Replacing site photography"):**
+- 19a (1007×1600, new to the repo → `amy-pixel8-cart.jpg`): Amy alone,
+  white vest, beside the Rohrer PiXel8-RF cart under the Mobile
+  Aesthetics neon; a "Cryo" chiller below. Legible words: the neon
+  (her branding), "PiXel8-RF" / "ROHRER AESTHETICS" (named in the
+  page's own copy), "Cryo" (a device name) — and the console's settings
+  readout: power level, time, and delay values and "Suggested Depth
+  1.0mm–1.2mm". No release needed (Amy alone).
+- 19b (1067×1600): SHA-256-identical to `pixel8-in-hand.jpg`, the
+  /services menu-card frame screened 2026-08-18 — REUSED, not
+  duplicated (house dedup rule). Re-screened for the treatment-page
+  context: the screen behind the handpiece is out of focus (no readable
+  values); the cartridge collar carries small engraved dial graduations
+  — bare numerals without units, ≈10px at full resolution, an engraved
+  scale rather than a setting. No release needed.
+
+**The flag, and the override.** The 19a readout is the class this log
+rejected outright on 2026-08-04 (`pixel8-rf02.png` — "treatment
+parameters that never publish, constraint 3"), and BUILD_SPEC §7.10
+lists needle depths as dosing-class on this line. It matters more than
+at menu-card size because astro:assets serves the source-resolution
+file as the `<img src>` (verified in dist/ on dermal-fillers: a 1067px
+derivative beside the 340/540/680 srcset) and the repository is public
+— whatever is legible in the master is served. Flag raised with three
+paths: (1) RECOMMENDED — defocus the screen face server-side, a single
+sharp generation from the master with the recipe recorded here (the 06
+composite precedent); (2) ship as-is under operator override; (3) a
+different frame. **The operator chose (2): ship as-is.** Per the house
+rule the flag is raised once and the override executed cleanly; this
+entry is the record. Scope: this frame, this page; the 2026-08-04
+rejection is superseded for this frame only; no value from the readout
+is ever restated in text (copy, alt, comments, meta, JSON-LD) — the
+dosing rule itself is unchanged. Recorded in CLAUDE.md constraint 3
+(dosing sub-bullet — the fourth pixel-level override and the first
+under that bullet; the three 2026-08-18 overrides sit under the claims
+bullet) and BUILD_SPEC §7.10 / §8.1.
+
+**Decision (the rest):**
+- Row 1 keeps its structure (figure left); `src` swaps, alt rewritten
+  to what the pixels show; `widths` move from the page's old
+  `[340, 452]` to the sitewide `[340, 540, 680]` — the 18rem arch is
+  576px at DPR 2, so 452 under-delivered (retina rule).
+- "A longer view" becomes `media-row media-row--flip` (copy first,
+  figure second = photo right — the dermal-fillers "Lips, styled"
+  pattern) with the same widths contract.
+- Crop: 19a's 4:5 window is 1259 of 1600px (341 trimmed). Measured
+  from the master: neon rows 67–160, head top ≈199, feet ≈1350–1377.
+  The default 30% anchor trims 102px off the top and slices the neon
+  mid-letter; the layout's per-image top anchor (blazer / Revanesse
+  precedent) keeps neon, head, and console whole and crops at mid-shin
+  (shins + the chiller's casters shed). The arch dome clips the neon's
+  right tail — inherent, as on the Revanesse frame. 19b sits at the
+  default anchor; its soft-focus partial face at the right edge is
+  clipped a little by the dome (background, acceptable). Both
+  eyeballed at 390 and 1280 on the built page.
+- `pixel8-rf.jpg` (the 2026-08-04 interim frame) had no other
+  consumer → removed; git history keeps it.
+- `clinicianApproved` true → false — approved content edited
+  (constraint 4); Amy re-reviews on the PR preview; the flag returns in
+  the consolidated pre-relaunch round.
+
+**Alternatives rejected:** the defocus bake (recommended; operator
+declined — the client's frame ships untouched); cropping the console
+out (it is the device's face — the frame is visibly for it); keeping
+`[340, 452]` (below delivery resolution).
+
+**Consequences:** the dosing bullet carries a pixel-scoped exception
+for the first time; the CLAUDE.md wording fixes frame and page, so any
+future frame showing a console readout is a fresh flag, not a
+precedent. PR #131 (biostimulators) touches the same layout, CSS, and
+governing docs — whichever lands second resolves keep-both.
+
+## 2026-08-21 — body-contouring: Amy's Evolve reel replaces the session photo (20)
+
+**Context:** Client direction via the operator (2026-08-21): on
+/services/body-contouring the photo beside "What a session is like"
+(`evolve-session.jpg` — the 2026-08-04 screenshot of a Reel, 449×565,
+the page's only photo and below the retina rule at the slot) is
+replaced by `C:\Amy\New Pics\20.mp4`, parked for this page since
+2026-08-14 (REDESIGN films row). Operator direction on playback:
+autoplay — muted on approach, with the sound available on the native
+controls (the biostimulators pattern). Nothing else on the page changes.
+
+**Source, probed first-hand.** A TikTok download: 576×1024 HEVC Main
+yuv420p, 30fps, 17.37s, 719KB; stereo HE-AAC 44.1kHz; `aigc_label_type
+0` (not AI-labeled, so the AI-imagery disclosure rule is not engaged).
+A CapCut-style collage edit.
+
+**Frame-level screen** (contact sheet at 0.5s cadence + full-res grabs
+at 0/3/6/9/12/15/17s): Amy alone throughout — in the treatment chair
+holding two Evolve applicators at her waist under her Mobile Aesthetics
+neon; the open applicator case (six pods in foam); close-ups of her
+hands on the applicator tray (one pod lit); tiled/rotated panels of
+the same scene; a mirrored beat at ~15s. No client and no second
+person — no release, constraint 2 not engaged. Legible text: the neon
+only (her branding); a device part label with a QR code passes at ~12s
+(a model-label fragment, not a claim). No burned-in caption — the
+retired photo's source Reel carried an efficacy caption, this film
+does not. No body-fat, measurement, or outcome content (§7.11's line
+rule): equipment and setup only. **No override of any kind is
+required** — the first film of the round to ship without one.
+
+**Audio.** A steady music-class track (ffmpeg volumedetect mean
+−26.6dB, peak −8.0dB; no silent windows); not transcribable on this
+workstation (no Whisper). The plan stated the assumption — a music bed
+with no speech, the same edit class as the 2026-08-21 Instagram reel —
+and the operator approved the plan with the autoplay direction; that
+approval is the record. Captions therefore take the sounded-film form:
+bounded `[Music]` cues (0–4s, 7–11s, 13–17s) under a NOTE block; no
+burned-in text to mirror. If speech is ever identified on the track,
+the captions need a faithful transcript and the autoplay opt-in is
+withdrawn (TreatmentVideo's prop contract).
+
+**Retina rule:** the row slot is ~275px desktop / 288px phone; the
+576px source is 2.0–2.1× — meets the rule (the 2026-08-21 480p reel
+needed an override; this one does not).
+
+**Decision.**
+- Rendition `evolve-reel.mp4` (content-named): the ICON/17a recipe —
+  `ffmpeg -c:v libx264 -crf 20 -preset medium -pix_fmt yuv420p -c:a copy
+  -movflags +faststart` → H.264 High, 576×1024, 3.54MB (1.63Mbps;
+  the collage edit is motion-heavy), moov before mdat. Poster
+  `evolve-reel-poster.jpg` from the rendition at 0.5s (`-q:v 2`,
+  576×1024 — the clean opening frame: Amy, the applicators, the neon).
+  Captions `public/media/evolve-reel.vtt`.
+- The existing `media-row` keeps its shape — film left, "What a
+  session is like" right. `TreatmentVideo frame="bare"
+  autoplay="inview"`; no printed caption (the 2026-08-21 review rule);
+  label describes only what the pixels self-identify.
+- Uploaded to the media origin AFTER this entry was committed (the
+  written rule); new filename, so no purge. Verified 206 / video/mp4 /
+  Accept-Ranges before the PR opened.
+- `evolve-session.jpg` had no other consumer → removed (the /services
+  card uses `evolve-belt-selfie.jpg`, untouched).
+- `clinicianApproved` true → false — approved content edited
+  (constraint 4); Amy re-reviews on the PR preview; the flag returns in
+  the consolidated pre-relaunch round.
+
+**Alternatives rejected:** keeping the 449px photo (below delivery
+resolution, and the client asked for the film); click-to-play (the
+operator asked for autoplay); stripping the audio (loses the
+tap-for-sound the operator wants); a VideoObject / JSON-LD entry
+(never — §8 scope discipline).
+
+**Consequences:** three treatment pages now carry Amy's own films with
+one shared ~2KB static script; the page has no photographs left. The
+poster is fetched at page load (the `poster` attribute is not lazy) on
+a page outside the LHCI set; the film streams from Blob only on play
+(egress pennies). RELAUNCH's launch-day probes gain the film and the
+autoplay check on this page. No CLAUDE.md change — nothing here is an
+exception.
+
+## 2026-08-21 — weight-loss: the 23a weigh-in frame and the "Before and After" section (two operator overrides)
+
+**Context:** Client direction via the operator (2026-08-21) on
+/services/weight-loss-glp-1: (1) replace the photo left of
+"Individualized, with Amy" (`supervised-weigh-in.jpg`, the page's only
+consumer) with `C:\Amy\New Pics\23a.jpeg`; (2) add a new section
+"Before and After" after that row, holding `glp1.png`, `glp2.png`,
+`glp3.png`. The page was `clinicianApproved: true` (2026-08-05) → reset
+in the content commit (constraint 4). Work isolated in the dermal-fillers
+worktree on its own branch.
+
+**What was verified first-hand.** 23a: 5712×4284 iPhone JPEG, EXIF
+orientation 6 → upright 4284×5712 (3:4); new to the repo. The same
+grey-haired client as the outgoing frame, from behind on the InBody
+scale, no face. The aftercare wall sign beside her is fully legible:
+the competitor neuromodulator brand title in large type (the very sign
+behind the 2026-08-18 menu-card override) and its aftercare lines,
+including "RESULTS TAKE 10-14 DAYS" — a results-timeline line. Because
+astro:assets serves the source-resolution derivative as the `<img src>`,
+the committed 1200px file keeps all of it legible. glp1 1290×1167,
+glp2 990×766, glp3 964×905 — phone-screenshot PNGs, each a side-by-side
+pair of personal photos of identifiable private people: a couple; two
+women; one woman. No text or numbers in any of them.
+
+**Flag 1 — the section (raised once, four points):** BUILD_SPEC §1
+lists before/after galleries as explicitly NOT in v1 and §8.9 defers
+before/after content by the SOW (a scope/contract matter as much as a
+compliance one); §8.3 and CLAUDE.md constraint 3 ban before/after
+implications outright, §7.1 bans weight-loss numbers on this line, and
+this log's 2026-07-22 body-contouring entry refused even body imagery
+for reading as before/after; `lint:claims` bans the literal phrase, so
+the heading itself fails the gate and the only sanctioned route is an
+operator-authorized `allowedStrings` entry (a gate-config change);
+the pictured people are identifiable (faces, tattoos; companions in two
+pairs), so each needs a written website-use release AND a HIPAA
+marketing authorization; a weight-loss before/after gallery on a page
+selling compounded GLP-1 vials beside an investigational product is the
+content class FDA/FTC warning letters have targeted; and the images are
+964–1290px, below the retina rule for a full-width slot. Recommended
+path: ship the photo swap now and hold the section for counsel review
+and the releases. **Operator decision: build it now under override.**
+Two further confirmations were then obtained and are the record:
+**(a) all five pictured people's website-use releases and HIPAA
+marketing authorizations are on file (operator, 2026-08-21); (b) the
+operator explicitly authorized the allowlist entry.** The SOW deferral
+is the operator's document to amend; flagged, not drafted here.
+
+**Flag 2 — the 23a sign:** the competitor-brand title (the 2026-08-18
+precedent) now joined by a legible results-timing line; a crop that
+removes the sign loses her head or her feet. Recommended a server-side
+defocus of the sign region; **operator decision: ship as-is** — the
+fourth photo-level override under the claims bullet. Release: the
+InBody client's, confirmed on file 2026-08-18 (same person; the
+operator did not correct the stated assumption).
+
+**Decision — the gate.** `allowedStrings` gains the exact h2 source
+line `## Before and After` (seventh authorization). Heading-wrapped for
+the same mechanical reason as the fifth: the banned word is
+string-initial, and the self-test's digit-prefix near-miss proof
+(`1## Before and After` must still trip) needs the non-word `#`
+boundary; the wrap also binds the exception to one attribute-less h2
+source line. The `outcome-promises` pattern is untouched; the phrase
+stays banned everywhere else in `src/` — alts, comments, identifiers,
+and layout comments all say "pair" / "side by side" (verified by grep:
+the heading line is the phrase's only occurrence). The self-test passed
+with the entry in place.
+
+**Decision — the page.**
+- 23a re-derived from the master (the B9 precedent): sharp `.rotate()`
+  (EXIF-normalize) → 1200×1600 (3:4 exact, no crop) → JPEG q92 →
+  `inbody-weigh-in-rear.jpg`. Alt describes the scene only — no readout,
+  no numbers. The 4:5 arch window would shed head or feet (head at
+  ~1.5%, feet on the scale at ~98%) and the scale is the story, so the
+  layout's per-image knob gets its first ASPECT use: `aspect-ratio:
+  3 / 4` for this frame — the arch runs 6% taller and shows the full
+  frame; dome and hairline unchanged.
+- The section: `## Before and After`, one disclosure line ("Photos
+  shared with the permission of Amy's clients. Individual results
+  vary." — the minimum responsible framing for the override; passes the
+  gate), then a `.pair-gallery` of three figures. Full frames, never
+  cropped or arched (a dome would clip the faces in the top corners; a
+  cropped pair is an altered pair): NOT `.media-figure`, so the arch
+  rule never reaches them; the bare film frame's recipe (magenta
+  hairline + 12px corners); stacked and centred at `min(30rem, 100%)`,
+  which keeps every source at or above 2× (964px = 2.0×) — no retina
+  override; tiers `[480, 960]` never upscale. Assets content-named
+  `client-pair-couple.png`, `client-pair-friends.png`,
+  `client-pair-portrait.png` (byte copies). Alts name people, setting,
+  and clothing on the left and right — no numbers, dates, names, or
+  the banned phrase.
+- `supervised-weigh-in.jpg` removed (no other consumer; git history
+  keeps it). `amy-palacios-fnp.jpg` (row 1) and the /services card
+  untouched.
+
+**Alternatives rejected:** holding the section for counsel and the
+releases (recommended; operator chose to ship); a heading without the
+banned adjacency (the client's wording was kept under the allowlist
+route); a 3-up grid (each pair would render ~14rem — faces unreadable
+and far below the retina rule); a full-width gallery (below the retina
+rule at every source); defocusing the 23a sign (declined); cropping it
+out (loses head or feet).
+
+**Consequences:** the site carries before/after content for the first
+time, on one page, in one section, under a recorded operator override
+— any extension is a fresh flag. Constraint-3's claims bullet now
+lists four photo overrides and this section; BUILD_SPEC §1, §7.1, §8.3,
+§8.9 and compliance/README are amended in the same PR. The disclosure
+line is copy the operator may reword; the alts and the "no numbers,
+dates, names" rule are not negotiable without a new flag.
+
+## 2026-08-21 — weight-loss round 2: the pairs section gets its real heading and intro; the seventh allowlist entry withdrawn
+
+**Context:** Operator feedback on the PR #136 preview: "Before and
+After" and the line "Photos shared with the permission of Amy's
+clients. Individual results vary." were flat; the section needed copy
+that is original, positive, and attention-grabbing. "Results" was
+floated.
+
+**Candidates offered (all gate-checked against the full registry and
+the voice rule):** (1) "They showed up for themselves" — credits the
+clients, not the clinic; (2) "Two photos, one story" — leads with the
+format; (3) "Results" — the operator's suggestion, advised against: it
+passes the gate as a bare word but is the regulator's trigger word for
+an efficacy claim and the generic label every competitor uses. Each
+came with an intro that does the old line's two jobs — consent ("chose
+to share") and individuality ("no two of these look alike") — inside
+the prose, and closes on the consultation route (the clinical-routing
+word).
+
+**Decision (operator):** heading **"They showed up for themselves"**;
+intro: "Two photos, one story — and each of these is a client who chose
+to share theirs. Different starting points, different plans, the same
+decision to begin. Every plan Amy writes is for one person, so no two
+of these look alike. Where yours would start is a consultation." No
+banned word (no results/proven/guarantee/testimonial/permanent/best; no
+before/after adjacency); no first-person plural; third-person Amy, the
+site's established mode.
+
+**The gate:** with the original heading gone, the seventh allowlist
+authorization (`## Before and After`, entered earlier the same day)
+had no consumer. An authorization nothing uses is a loophole, so the
+entry was removed — a tightening, authorized by the operator's approval
+of the round-2 plan (the registry rule: changing the list requires the
+human operator). `$allowlistComment` keeps the paragraph and records
+the withdrawal in place; the phrase is banned everywhere again, and
+`git grep` finds zero occurrences in `src/`. The self-test passed
+with the entry gone. The section's CONTENT override — the three client
+pairs, the releases + HIPAA record — is unchanged.
+
+**Consequences:** CLAUDE.md constraint 3, BUILD_SPEC §7.1/§8.3/§8.9,
+compliance/README, CHANGELOG, CLINICIAN-SIGN-OFF, and REDESIGN name the
+section by its heading and record the withdrawal. The intro is copy
+the operator may reword; any future wording keeps consent,
+individuality, and the consultation route, and never adds numbers,
+dates, names, or outcome words.
+## 2026-08-21 — laser-treatments: the priced menu, Venus Epileve laser hair removal, and photo round page 8
+
+**Context:** Client direction via the operator, two messages the same
+morning. First, three photo placements on /services/laser-treatments:
+her pick 21a replaces the 2026-08-04 `venus-versa-pro.jpg` console
+snapshot beside "What they are" (420×604 — the weakest asset left on the
+site, 0.73–0.77× at DPR 2 in every slot); 21b joins "Fine lines" to the
+right of its copy; 21d joins the page. Second, two Mobile Aesthetics
+pricing flyers in `C:\Amy\New Pics` — `Laser_Hair.jpg` (Venus Epileve
+"LASER Hair Removal" pricing guide) and `Venus_Versa_Pro.jpg` (Venus
+Versa Pro pricing) — whose services and prices go on the page; the JPGs
+do not. That resolves `{{VENUS_VERSA_MENU}}` (open since 2026-07-22) and
+adds a FOURTH service to the line: Venus Epileve laser hair removal — a
+true laser on a page whose copy has been careful that the Versa Pro is
+IPL + RF, "close relatives of the laser."
+
+**The flyers are view-only sources** (constraint-8 class — the
+2026-07-22 brochure precedent): never committed, never linked; only
+service names, areas, and prices transfer. The Versa flyer's marketing
+copy — "minimal downtime and maximum results", "Safe and effective",
+"clinically proven", the "Improves / Reduces / Tightens / Lifts" bullet
+lists, "rosacea", "more youthful skin", the "BEST FOR:" blocks — is
+prohibited §8 content and enters no file; the build is grepped for that
+vocabulary (zero hits sitewide, case-insensitive). The flyer's
+manufacturer marketing name for the fine-line applicator stays out of the
+repo entirely (standing 2026-07-22 rule); the page's own name —
+Multi-Polar RF + PEMF — titles that card.
+
+**Screening (RUNBOOK "Replacing site photography", full resolution —
+astro:assets serves the master as the `<img src>`):** all three picks
+1067×1600 pro-shoot frames, SHA-256-unique against `src/assets/photos/`,
+Amy alone in every frame — no release needed.
+- 21a → `amy-versa-pro-console.jpg`: Amy standing beside the Venus Versa
+  Pro console ("VENUS / VERSA PRO" legible on the chassis — the same
+  logo the retired snapshot showed, so the 2026-08-04 naming basis
+  carries forward), the Mobile Aesthetics neon (her own branding; the
+  source frame truncates its right end), the treatment chair, the foot
+  pedal. The console screen is IDLE — zero-percent and zero-time fields,
+  an applicator icon, no treatment parameters. Three Venus applicator-tip
+  cartons lie on the chair; "VENUS" and a pack-count word are soft-
+  legible: consumable pack contents as sold, not a drug or energy
+  quantity (the 2026-08-18 B3 Radiesse pack-marking precedent —
+  screening note, no override; never restated in text).
+- 21b → `versa-pro-applicators-chair.jpg`: Amy seated in the chair
+  holding two Versa Pro applicators, the console left (same idle
+  screen), the neon above, a second cart blurred in the background
+  (unreadable). Clean.
+- 21d → `amy-epileve-window.jpg`: Amy at the studio window, a handpiece
+  in hand beside the chair's headrest — and the device is the Venus
+  Epileve, a hair-removal laser, not the Versa Pro: "VENUS EPILEVE" is
+  legible on the bezel, and the console's settings readout is legible at
+  served resolution — fluence, pulse-duration, and speed values with
+  their units. That is the dosing-class readout this log rejected
+  outright on 2026-08-04 and carved out once, pixel-scoped, for
+  `amy-pixel8-cart.jpg` earlier today.
+
+**Flags raised, and the operator's decisions (two AskUserQuestion
+rounds; the house rule: flag once, then execute cleanly):**
+1. **21d ships AS-IS — operator override after the compliance flag.**
+   The recommended compliant path — a crop bake from the master
+   (≈688×860 4:5 window from the top of the frame: Amy, the handpiece,
+   the headrest, the window light; the console, its readout, and the
+   device name all below the crop; no override needed) — was declined,
+   as was holding the slot for another frame. This is the **fifth
+   pixel-level override and the second under the dosing bullet**
+   (CLAUDE.md constraint 3; BUILD_SPEC §8.1; compliance/README). Fixed
+   by the record: frame + page scope; no value from the readout is ever
+   restated in text — copy, alt, comments, meta, JSON-LD. Because the
+   page now describes the Epileve, the alt and filename may name the
+   device (they do); the values never appear.
+2. **Venus Epileve laser hair removal is a service Amy offers** (operator
+   confirmation) — and the flyer supplies its first brief: areas,
+   single and series prices. Recorded in BUILD_SPEC §7.12.
+3. **Series prices ship WITH their counts** ("$574 for a series of six";
+   NanoFractional "for a series of three") — the body-contouring
+   unit-of-sale form (this log, 2026-07-20: a course "carries no
+   frequency and no interval"). Count-keyed strings match no registry
+   pattern, so **`compliance/banned-patterns.json` is untouched** — the
+   "$350 for 10 threads" shape. The Epileve flyer's undiscounted
+   "6 × single" column ($702 and so on) is arithmetic and is not shown;
+   only the real series price ships. §7.12's "no session counts"
+   exclusion gains the unit-of-sale carve-out. "How many treatments will
+   I need?" stays consult-routed, with a sentence saying a series is a
+   way to buy, not a prescription.
+4. **Item names flyer-VERBATIM — operator override** of the §7.12
+   exclusions for these menu item names only: "Isolated Lesion (up to
+   3)" (the brief excludes "lesions"), "Under Eye & Brow Lift", "Eye
+   Laxity", and the minute durations on the fine-line items ("Full
+   Face, 30 Minutes Treatment" and so on — booking lengths as price
+   keys; the body-contouring "~30–60 minutes" scheduling-fact
+   precedent). The recommended paraphrases — "Isolated spots (up to
+   three)", "Under-eye and brow", "Around the eyes", durations dropped
+   — were declined. lint:claims has no pattern on any of these words
+   (verified: only `safe and effective` among the flyer vocabulary is
+   registered, and it never appears). Prices, areas, and package names
+   verbatim too; the two package group headings are house-styled
+   ("Women's packages" / "Men's packages").
+5. **21d sits beside the NEW "Laser hair removal" section** (photo left
+   of its copy — the recommended placement once the section existed);
+   "Individualized, with Amy" returns to text-only.
+6. **Laser hair removal is bookable directly on Vagaro.** Page-level
+   `ctaType: consult` stays (the three Versa applications remain
+   consult-first); the hair-removal section carries its own
+   `<CTAButton variant="book" />` — solid "Book with Amy" → the standing
+   Vagaro page, `book_click` — and the booking FAQ splits the two
+   routes. No service-specific Vagaro link was supplied.
+
+**Decision (the page):**
+- `productDetails` carry the menu as `priceLines` on all four cards —
+  the pattern on every priced line; `pricingDisplay: consult` stays as on
+  every other priced page. NanoFractional: face / neck / face & neck,
+  single and series of three. IPL: six areas. Multi-Polar RF + PEMF:
+  four minute-keyed items. NEW card "Venus Epileve Laser Hair Removal"
+  (tag "Laser"): the four area tiers, single and series of six. Four
+  cards make an even 2×2 grid.
+- Body, in order: row 1 (21a left) "What they are" + one sentence
+  naming the Epileve as the page's one true laser → Skin resurfacing →
+  Photo-rejuvenation (prose unchanged) → "Fine lines" as
+  `media-row media-row--flip` (21b right) → NEW "Laser hair removal" as a
+  `media-row` (21d left) — heading + one paragraph; BELOW the row,
+  full-width, the area menu as a bold-lead-in list (the body-contouring
+  list form — Tailwind preflight renders body lists bullet-less), the
+  women's and men's packages, then the Book button → "Three tools, one
+  conversation" + one sentence ("Laser hair removal is the simpler case:
+  choose the area and book.") → "Individualized, with Amy".
+- `summary`, `deck`, `products`, and the SEO title/description gain the
+  Epileve ("Laser Treatments & Laser Hair Removal in Harrisburg, NC");
+  the first FAQ ("Is this actually a laser?") now answers "Partly" and
+  names the exception. The /services menu-card summary
+  (`src/lib/serviceLines.ts`) gains "plus Venus Epileve laser hair
+  removal" and the Pro name.
+- Crop (default 30% anchor; measured from the masters, then eyeballed at
+  390 and 1280 on the built page): 21a — head ≈230, neon 190–330, logo
+  ≈1130, cartons ≈880, all inside the 80→1413 window; the arch dome
+  clips the neon's right tail (inherent — Revanesse/19a precedent).
+  21b — head ≈300, neon 150–250, shoes 1100–1330, logo ≈1130; the dome
+  grazes the neon's last letters. 21d — head ≈200, handpiece 480–720,
+  readout 905–1230, bezel name ≈1190; all inside. **No per-image anchor
+  override needed; TreatmentLayout is untouched.** `widths`
+  `[340, 540, 680]` on all three rows (the page's old `[340, 420]` was
+  source-bound below delivery resolution).
+- `venus-versa-pro.jpg` had no other consumer → removed; git history
+  keeps it (and 21a shows the same Pro logo it documented).
+- `clinicianApproved` true → false — approved content edited
+  (constraint 4: pricing, a new section, a rewritten FAQ answer, three
+  photos). Amy re-reviews on the PR preview — prices AND photos; the
+  flag returns in the consolidated pre-relaunch round.
+
+**Alternatives rejected:** the crop bake for 21d (recommended; declined
+— the client's frame ships untouched); a defocus bake (would still leave
+the device name and the hair-removal implication, which the new section
+now resolves anyway); paraphrased item names (declined — flyer-verbatim);
+single-only pricing (loses the packages Amy printed); a separate
+hair-removal page (the operator said "edit the page"); a `PriceList`
+component or a markdown table (the cards already carry prices sitewide;
+tables are unstyled under preflight).
+
+**Consequences:** the dosing bullet now carries two pixel-scoped
+exceptions, each fixed to its frame and page — any future readout frame
+is a fresh flag, not a precedent. `{{VENUS_VERSA_MENU}}` resolves. The
+"Laser Treatments" line carries an actual laser for the first time, so
+the 2026-07-22 naming flag is half-moot; the page's physics sentences
+stay exact. The flyers stay where they are, uncommitted.
+
+**Addendum, same day — round 2: the price sheet.** The operator's
+preview review of PR #135: the hair-removal prices were "VERY difficult
+to read" as a bold-lead-in prose list, and the page had dropped two
+things Amy's guide states — the undiscounted FULL SERIES (6 treatments)
+column and the ~15% discount framing of the third column. Direction:
+every price as her guide lists it, three columns if that is what it
+takes. Decision: a new zero-JS `PriceSheet` component
+(`src/components/PriceSheet.astro`) renders the guide as a ledger —
+title, an aria-hidden header row of tracked caps ("Single" / "Full
+series · 6 treatments" / "Full series · ~15% off"), three groups
+(Treatment areas · Women's packages · Men's packages), ten rows, thirty
+prices, every name and area verbatim. Desktop (≥ 40rem): name + area
+note left, three fixed-width right-aligned tabular columns; the
+discounted column carries weight 600 and the in-box ink-pink accent
+(4.60:1 on the card plate — the operator-accepted pair; everything else
+ink-900 at 11.80:1). Phones: the same DOM stacks — name, note, then a
+three-up strip with each price under its own small label, prices pinned
+to a shared baseline. Each price is a real `<dt>`/`<dd>` pair (labels
+visible on phones, sr-only on desktop), so assistive tech hears
+"label, price" per item at every width — no pseudo-element text, no
+`display: contents`, no table-role gymnastics; real text on an opaque
+plate, so axe audits it. A footnote states the unit of sale ("A full
+series is six treatments; the discounted series is about 15% off six
+singles") and keeps the routing ("decided with Amy"). This REVERSES the
+earlier call above that the undiscounted column was "arithmetic, not
+shown": it is shown, as printed. The Epileve product card de-duplicates
+to two lines (single prices by tier; "Full series of six: about 15% off
+— full price sheet below") — it had repeated the same four long lines
+at the top of the page. Sheet data lives in the MDX as a JSX literal
+(audit trail; no schema change). Alternatives rejected: a `<table>`
+(stacking it on phones needs `display: block` on table parts, which
+strips table semantics unless every cell carries redundant ARIA roles);
+a markdown table (unstyled under preflight, no responsive story);
+pseudo-element `data-label` captions (unauditable text). Follow-up
+option, not done: the same sheet for the NanoFractional single /
+series-of-three prices. Verified at 344, 390, and 1280 — no horizontal
+overflow; all thirty figures present in the built page.
+
+**Addendum 2, same day — round 3: hierarchy.** On the round-2 preview
+the operator saw that the group headings ("Women's packages", "Men's
+packages", "Treatment areas") and the item names beneath them shared
+one size and weight (1.0625rem / 600) and read as peers. The sheet now
+carries a three-level ladder, CSS only: title 1.375rem/600 → group
+heading 1.125rem/600 in ink-pink over an ink-pink rule (4.60:1 on the
+card plate — the operator-accepted in-box pair) → item name 1rem/500,
+indented under its heading (1rem on desktop, 0.75rem on phones) → area
+note 0.875rem. Prices keep 1.0625rem so the figures still lead the row.
+
+**Addendum 3, same day — the "name Amy uses on her menu" clause.** The
+operator struck it from both places it appeared ("What they are" and the
+first FAQ answer): it read as if Amy had coined the category name, when
+"laser treatments" is simply what this family of light- and energy-based
+work is called. The physics sentences — the 2026-07-22 mitigation for
+the line title — stay exactly as they were; only the attribution clause
+goes. Two other pages describe Amy's menu in a different sense
+(body-contouring: "Amy lists it on her menu exactly as…"; iv-therapy:
+"Amy's menu is short and named plainly") — reported to the operator,
+not changed here (approved content; edits reset flags).
+
+## 2026-08-22 — peptide-therapy: the "Delivered, and always supervised" section is removed
+
+**Context:** Amy flagged the section on `/services/peptide-therapy`, naming
+"always supervised" as the likely problem. Reading the page turned up three
+faults, of which the headline was only the most visible. First, the page said
+"supervised" **seven** times — the lead paragraph (frontmatter `summary`, which
+`TreatmentLayout` renders under the H1), the SEO description, "What it is", this
+heading, this paragraph, an FAQ question, and the closing line. Second, the
+section's last clause — "never something you sort out on your own" — was aimed
+at gray-market peptide buyers but landed on whoever was reading; it was the one
+sentence on the page that did not sound like Amy. Third, "supervised" implies
+someone else does the work while Amy watches, which is both inaccurate (the
+page's own FAQ said "Every visit is with Amy herself") and, faintly, a
+delegation model — the wrong signal under constraint 2. Structurally it was also
+the only `h2` on the site whose subject was governance rather than the treatment
+or the visit, against siblings like "It starts with labs" and "What a visit
+looks like". Its content was almost entirely duplicated: route-of-administration
+appears in the FAQ nearly verbatim, supervision in five other places. Its only
+unique contribution was the word *prescription*.
+
+**Decision (operator, after the options were laid out):** delete the section
+outright and relocate the prescription fact into "What it is", where
+`wrinkle-relaxers` and `weight-loss-glp-1` both state it — scoped to "the ones
+Amy offers", which is narrower than the deleted blanket "Peptides are
+prescription treatments" and therefore a reduction in exposure, not an addition.
+The detailed subcutaneous/IV split stays in the FAQ, which already owns it, and
+was deliberately not folded back into the body. The word is swept out of the
+body copy, the FAQ question ("Who supervises peptide treatments?" → "Who gives
+the treatment?"), and the lead paragraph; the SEO description keeps
+"clinician-supervised" and the deck is untouched. The closing line joins the
+house sentence six other treatment pages already carry — "plans and gives every
+peptide treatment herself", cf. `iv-therapy`'s "administers every infusion and
+every shot herself". Peptide-therapy and weight-loss-glp-1 were the only two
+pages saying "supervises"; on the GLP-1 page that framing is appropriate and
+stays. The stock "under clinician supervision" phrase was **not** added — it was
+not on this page before, and `iv-therapy`, the closest sibling, does not carry
+it either. Net: `supervis-` goes from seven occurrences to one.
+
+**Alternatives rejected:** replacing the section with the process section this
+page actually lacks ("What a plan looks like" — it says "decided with Amy" four
+times but never says what happens); a minimal retitle-and-trim to "How peptides
+are given", which fixes the headline but leaves the section duplicating the FAQ
+answer word for word; a whole-page sweep including the deck and the SEO
+description (the description earns its keep in search, and the deck's "always
+within a plan" carries no supervision connotation). Also rejected: inventing a
+labs step to give the page back its fourth section — no such business fact is on
+file.
+
+**Consequences:** this partly reverses the enrichment recorded above on
+2026-07-21, which added the section after the operator flagged the page as too
+thin; the operator accepted that trade-off with the section count in front of
+them. The page drops from four body sections to three, still within house norms
+(`regenerative` has three), and keeps its nine priced product cards and five
+FAQs. `clinicianApproved` reset to `false` (constraint 4 — approved content
+edited), so the production gate blocks this page until Amy re-approves on the
+preview; treatment flags now read 4 true / 8 false. The 2026-07-21 entry still
+describes the section — that log is append-only, and this entry supersedes it.
+Verified: build, `astro check` (0/0/0), `lint:claims`, `lint:voice`, pa11y
+24/24, Lighthouse budgets.
+
+## 2026-08-23 — /services intro: the third service category becomes "Wellness"
+
+**Context:** Client direction (via the operator, 2026-08-23): in the `/services`
+lead, sentence 2 listed three service categories, and she wants the third one —
+a trailing "all things … oriented" modifier naming peptides — replaced with the
+single word "Wellness". Sentence 2 is client-verbatim copy recorded on
+2026-08-18, so the change is a deliberate departure from her own earlier
+wording, at her request.
+
+**Decision:** sentence 2 now reads "From Facial Balancing to Weight Loss & Body
+Contouring to Wellness, Amy has your best self in mind." Three parallel
+capitalized categories replace two plus a trailing modifier. "Wellness" is
+already house vocabulary (`/about` uses it for the same grouping) and is clean
+against all six banned categories, so the registry is untouched.
+
+Allowlist entry #6 — the exact fragment "Amy has your best self in mind" — is
+**unchanged and still in use**, so the 2026-08-21 withdrawal precedent (an
+authorization nothing uses is a loophole) does not apply. Its editing rule is
+what shaped the edit: stripping is per-line and case-sensitive, so lines 74–76
+were rewrapped to keep the fragment whole on one source line. The in-page
+comment's "verbatim" claim was amended in the same commit to stay an accurate
+audit trail; `compliance/banned-patterns.json` and CLAUDE.md needed no edit —
+the exception's scope ("the /services intro lead only, on one source line")
+remains exactly true.
+
+**Alternatives rejected:** keeping the client's idiom as "to all things
+Wellness" (smallest delta, but preserves the phrasing she asked to lose); ending
+the sentence at "Wellness." and dropping the "best self" tail — a larger change
+that would also have required withdrawing allowlist entry #6, and she did not
+ask for it.
+
+**Consequences:** the 2026-08-18 entry above still quotes the original sentence
+— that log is append-only, and this entry supersedes its "verbatim" framing for
+that one list item only. No treatment content is touched, so no
+`clinicianApproved` flag moves (flags still read 4 true / 8 false) and the
+production approval gate is unaffected. `/services` remains the only page
+rendering the allowlisted `best` fragment. The demo and review preview branches
+will not show this until `phase-c` is merged into each. Verified: build, `astro
+check`, `lint:claims`, `lint:voice`, pa11y 24/24, Lighthouse budgets.
+
+## 2026-08-23 — wrinkle-relaxers: the lead and deck copy round (a flag that did NOT become an override)
+
+**Context:** Client direction (via the operator, 2026-08-23) for the two copy
+blocks that open `/services/wrinkle-relaxers` — the `summary` lead and the
+`deck` statement card, which `TreatmentLayout` renders in that order directly
+under the H1. (1) The lead should stop saying "creases". (2) The deck's single
+line is replaced wholesale with her new wording, which names three treatment
+areas and closes with a promise verb addressed to the reader.
+
+**The flag.** The closing half of her deck sentence was an outcome promise —
+CLAUDE.md constraint 3, BUILD_SPEC §8.3 — and three things made it sharper
+than the usual copy flag. It promises a named result on named areas in the
+SECOND PERSON, where every prior override of this rule (regenerative and
+peptide cards, both 2026-08-01) covered a product *description*. It implies
+the lines go and stay gone, on the one page carrying no duration hedge since
+"temporary/temporarily" came off all six occurrences (2026-07-30 — an entry
+that already recorded the risk profile ticking up), and where "permanent" is
+itself a banned pattern and longevity is deliberately routed to the consult
+(biostimulators, 2026-07-21). And its "11's" is the vocabulary of the Jeuveau
+banner in this page's own band photo, which ships under a pixel-level override
+(2026-08-18) resting precisely on the fact that the site's own copy never says
+it — so the sentence would have converted photographed third-party marketing
+into a first-party claim, beside the photo it came from.
+
+Verified first-hand against all six categories in
+`compliance/banned-patterns.json`: **the sentence trips no pattern.**
+`lint:claims` would have passed it. This was judgment-level, exactly like the
+2026-08-01 overrides — not a gate catch.
+
+**Decision (operator, from three options with previews):** the COMPLIANT
+REWRITE, not an override. The deck now reads "A light, deliberate hand for
+those lines repeated expressions leave behind — crow's feet, "11's", and
+frown lines." Her opening clause and all three named areas survive verbatim;
+only the promise verb is gone. **This is the round's first compliance flag to
+resolve without an override**, and the consequence worth recording is a
+negative one: there is NO `allowedStrings` entry, NO CLAUDE.md exception, and
+NO BUILD_SPEC amendment to lean on here — the registry is untouched and a
+future session must not read this entry as authorizing the drafted wording.
+The lead became "…soften dynamic lines: the ones that come from repeated
+expression" (operator's pick over the literal creases→lines swap, which would
+have said "lines" twice in one sentence).
+
+**Alternatives rejected:** shipping her wording verbatim under an override —
+the drafted second sentence, recorded here for the audit trail because this
+log is the only place it survives: "Wave good-bye to your crow's feet, "11's",
+and frown lines!" (offered explicitly, declined); a two-sentence compliant
+variant keeping her
+exclamation ("softened, with movement kept" — offered, declined); the literal
+one-word swap in the lead (offered, declined); changing the second "creases"
+in the body's "What they are" (offered as an out-of-scope tidy, declined — the
+word survives once on the page, and nowhere else on the site).
+
+**Consequences:** `summary` feeds the Service JSON-LD description via
+`[slug].astro`, so the lead edit reaches structured data — confirmed
+claims-clean in the built output. `deck` is layout-only and reaches no meta,
+OG, or JSON-LD — verified by grep on the built page, the same discipline the
+Laurel ranking claim is held to. The em dash is this paragraph's only one and
+introduces a gloss (2026-07-29 budget: earned, within budget).
+`clinicianApproved` was already `false` (2026-08-18 Evolus-plate move), so
+nothing reset; flags still read 4 true / 8 false and the page rides the
+consolidated pre-relaunch re-approval. `src/lib/serviceLines.ts` carries a
+shorter menu summary without "creases" — unaffected. Verified: build, `astro
+check`, `lint:claims`, `lint:voice`, pa11y 24/24, Lighthouse 7 URLs x 3 runs.
+
+**The generalizable lesson, and a gap PROPOSED for the operator (not
+edited).** The hazard this round was neither the photo nor the copy alone: it
+was the two IN COMBINATION, and no gate can see either half. `lint:claims`
+cannot read the banner in `jeuveau-banner-studio.jpg`, and it could not have
+caught the drafted sentence either (verified — no pattern matches). The
+standing rule this produces, recorded for whoever edits this page next: **on
+/services/wrinkle-relaxers, any copy naming treatment areas must be read
+against that photo before it ships.** The pixel override and the page's text
+are one surface, not two.
+
+Which exposes a real asymmetry in the exception records, surfaced by the
+concurrent session reviewing this page's overrides: the two dosing-bullet
+pixel overrides (`amy-pixel8-cart`, 2026-08-21; `amy-epileve-window`,
+2026-08-21) each carry an explicit never-restate-in-text clause naming copy,
+alt, comments, meta, and JSON-LD — but the `jeuveau-banner-studio` entry
+(2026-08-18, claims bullet) records only that the banner vocabulary is
+legible. It has no such clause, and this round is precisely the case such a
+clause exists to prevent. **Recommendation to the operator: add the same
+never-restate clause to the jeuveau entry in CLAUDE.md constraint 3.** Not
+done here — governing-doc edits are operator-gated, and a peer session's
+agreement is not that authorization; this paragraph is the traceability
+bridge until the operator rules (the 2026-08-14 carousel-JS precedent). If he
+declines the amendment, this entry remains the only written form of the rule.
+
+**Addendum, same day — round 2: the body copy.** Client direction for three
+more strings on the same page, carried on the same PR so Amy reviews one
+preview rather than two (the 2026-08-15 split-preview lesson). (1) Under "Not
+just for women", "gendered" becomes "gender defined" — shipped unhyphenated
+exactly as dictated, per the house verbatim precedent (this page's own title
+carries a client hyphen the same way). The FAQ answer carried a near-verbatim
+echo of that sentence, and the operator chose to change BOTH: they are a
+matched pair — the FAQ answers the point the section makes — unlike the two
+"creases" of round 1, which he deliberately left divergent. Page now reads
+"gendered" nowhere. (2) In the same paragraph, "lines they'd rather soften"
+becomes "lines they'd rather not see". **Flagged once and shipped as
+directed:** "soften" is this page's label-mirroring verb (what the products
+are labeled to do), and "not see" leans toward absence on the one page
+carrying no duration hedge since 2026-07-30 — but it describes the client's
+WISH rather than the treatment's result, which is why it stands rather than
+becoming an override. It trips no pattern; nothing was added to the registry.
+(3) "Individualized, with Amy" takes her replacement paragraph, which drops
+"There is no standard plan here." and adds "Your trust is well placed when you
+walk through the doors!" — provider puffery, clean against every category, in
+the register of the client-verbatim /services intro.
+
+**The supervision clause: flagged, and KEPT at the operator's direction.** Her
+drafted paragraph omitted "under clinician supervision", so the research is
+recorded here because the question will recur. No gate requires the phrase:
+`lint-claims.mjs` carries exactly three inverse checks — investigational
+disclosure, Retatrutide, and Biote symptom vocabulary — and none touches
+supervision. BUILD_SPEC §7 does name it ("individualized under clinician
+supervision") but as a BEAT in the copy pattern, not a mandated string: only
+four of twelve pages carry the literal words, three carry no supervision
+language at all (hormone-optimization, iv-therapy, skincare), and the
+2026-08-22 peptide-therapy entry reasoned exactly this way when it cut
+`supervis-` from seven occurrences to one. Dropping it would therefore have
+been defensible and gate-clean; the operator chose to keep it, so the page
+holds at one occurrence. Recorded so a future session does not read the
+peptide precedent as licence to sweep the phrase off this page too.
+
+Round-2 consequences: no JSON-LD fan-out this time — only `title` and
+`summary` reach structured data via `[slug].astro`, and FAQPage JSON-LD is
+still deferred to Phase D, so body and FAQ prose render to HTML only. No
+registry change, no allowlist entry, no CLAUDE.md or BUILD_SPEC edit. The em
+dash in "Not just for women" is the paragraph's original one and the new
+paragraph adds none (2026-07-29 budget). `clinicianApproved` was already
+`false`, so nothing reset; flags stay 4 true / 8 false. Noted in passing, not
+a regression: MDX smart-quotes body prose (`aren’t`, U+2019) while frontmatter
+strings keep straight apostrophes, so this page renders both forms — true of
+every treatment page since C3, and unchanged by this round. Verified: build,
+`astro check`, `lint:claims`, `lint:voice`, pa11y 24/24, Lighthouse 7 URLs x 3
+runs.
+
+## 2026-08-24 — wrinkle-relaxers deck: the flag becomes an operator override (SUPERSEDES the 2026-08-23 "did NOT become an override" entry)
+
+**Read this entry alongside 2026-08-23 above.** That entry's heading is now
+stale by one day: the flag it records as resolved *without* an override was
+overridden here. Its analysis stands in full and is not repeated; only its
+outcome changed. DECISIONS is append-only, so the correction lives here.
+
+**Context:** Round 3 of the same client copy round on
+`/services/wrinkle-relaxers`, and the narrowest one — a single frontmatter
+field, `deck`, the blush statement card `TreatmentLayout` renders under the
+lead. The operator returned to the wording flagged on 2026-08-23, restored it,
+and extended it to say where the areas sit. The deck now reads:
+
+> A light, deliberate hand for those lines repeated expressions leave behind.
+> Wave good-bye to your crow's feet, "11's" between your eyes and forehead
+> frown lines!
+
+**The flag was raised once, on 2026-08-23, and is not re-argued** (CLAUDE.md:
+flag once, then execute cleanly). Everything in that entry applies unchanged:
+a named result promised on named areas in the second person, where every prior
+outcome-promise override covered a product *description*; on the one treatment
+page carrying no duration hedge since 2026-07-30.
+
+**What is new, and was reported before building.** The combination hazard
+recorded on 2026-08-23 as a risk is now realised. The band photo on this page,
+`jeuveau-banner-studio.jpg`, ships under a pixel-level override (2026-08-18)
+whose stated premise is that the banner's marketing headline is legible *but
+the site's own copy never says it*. The banner reads "KISS YOUR 11s GOODBYE".
+The deck now reads "Wave good-bye to your ... '11's'" roughly a screen above
+it. That is a near-paraphrase of photographed third-party marketing, adopted
+as first-party copy, on the same page — which removes the one premise the
+2026-08-18 override rested on. Round 2's rewrite kept the area name and
+dropped the claim, so the echo was vocabulary only; this restores the claim.
+The operator was shown this, in these terms, and directed the change anyway.
+
+**Decision (operator override, 2026-08-24):** ship the client's wording
+verbatim. Scope is exact and does not travel: **this string, in the `deck`
+field, on `/services/wrinkle-relaxers`, and nowhere else.** The vocabulary is
+never restated in body copy, FAQ answers, alt text, meta descriptions, OG
+tags, JSON-LD, or source comments. Widening any of that requires the human
+operator. Verified in the built output: one occurrence, on one page, absent
+from `<meta>` and from every JSON-LD block (only `title` and `summary` fan out
+to structured data via `[slug].astro`).
+
+**Registry consequence — the same negative result as 2026-08-23, now pointing
+the other way.** Re-verified first-hand against all six categories in
+`compliance/banned-patterns.json`: **the sentence trips no pattern**, and
+`npm run lint:claims` passes (self-test: 6 categories). So there is **no
+`allowedStrings` entry** — nothing to allow, because nothing is caught. The
+authorization for this text lives in this decision record and nowhere else,
+the same shape as the EvolusLaurel ranking sentences (2026-08-19), which are
+authorized here rather than in the registry for exactly this reason. A future
+session must not infer from a green linter that this wording is
+self-authorizing, and must not read the 2026-08-23 entry's "no override"
+finding as current.
+
+**CLAUDE.md consequence — APPLIED same day, operator-authorized.** Constraint 3's
+outcome-promise exception list enumerates every scoped override of this rule;
+this one belongs on it and is not there, because governing-doc edits are the
+operator's alone. Recommended sentence, for the operator to place or decline:
+
+> *And the exact `deck` sentence "Wave good-bye to your crow's feet, "11's"
+> between your eyes and forehead frown lines!" on /services/wrinkle-relaxers
+> only (operator override after the compliance flag — DECISIONS 2026-08-23 and
+> 2026-08-24; the compliant rewrite was shipped 2026-08-23 and reversed
+> 2026-08-24). It contains no token lint:claims can see, which is why the
+> authorization is recorded in DECISIONS rather than `allowedStrings`. The
+> wording is exact and the page scope fixed; the vocabulary is never restated
+> in copy, alt, comments, meta, OG, or JSON-LD.*
+
+Still open from 2026-08-23 and now more pointed: the same photo's 2026-08-18
+override lacks the never-restate-in-text clause that `amy-pixel8-cart` and
+`amy-epileve-window` both carry. Had it carried one, this change would have
+contradicted it in writing rather than only in premise.
+
+**Verbatim handling.** "good-bye" keeps the client's hyphenation and the area
+list keeps her punctuation, un-comma'd, under the house verbatim precedent
+(the page `title` carries a client hyphen the same way). The value stays on
+ONE source line with the inner quotes backslash-escaped — folding a
+double-quoted YAML scalar would alter the text. The double space she typed
+after the first sentence collapses in HTML and is written as one.
+
+**Approval.** `clinicianApproved` was already `false` (since 2026-08-18);
+nothing to reset. Amy reviews this text with the rest of the round; the
+sign-off row is extended.
+
+**Addendum, same day — the CLAUDE.md exception was applied.** The operator
+authorized the constraint-3 edit and it is in this PR: the outcome-promise
+exception list gains the deck sentence, placed last, immediately before its
+"Nothing else; extending any of these requires the human operator" close.
+Three deliberate departures from the sentence drafted above, all recorded so
+the difference is not read as drift:
+
+1. **The string is enclosed in backticks, not quotes.** Every other entry on
+   that list quotes its exact string with double quotes; this one contains
+   double quotes, so nesting them would have made the boundaries of the
+   authorized text ambiguous — which is the one thing an exactness clause
+   cannot afford. Code formatting fixes that without changing a character.
+2. **The never-restate clause was corrected.** The draft said the vocabulary
+   is "never restated in copy" — self-contradictory, because the deck *is*
+   copy. Shipped wording: never restated anywhere else — body copy, FAQ
+   answers, alt text, comments, meta descriptions, OG tags, or JSON-LD.
+3. **A coupling note was added** pointing whoever edits either half at the
+   band photo's 2026-08-18 pixel override, since the banner headline this
+   sentence paraphrases is legible in the served file. It is a pointer, not a
+   new authorization: it changes nothing about what either override permits.
+
+Note what this edit does **not** do. It does not add the never-restate-in-text
+clause to the `jeuveau-banner-studio.jpg` pixel override itself — that override
+is still the only one of the three lacking the clause `amy-pixel8-cart` and
+`amy-epileve-window` both carry. The operator authorized the outcome-promise
+sentence, and that is what was written. The gap stays open and stays theirs.
+
+`compliance/banned-patterns.json` is untouched, and `lint:claims` is green
+after the edit — expected, since the linter scans `src/` and CLAUDE.md is not
+in it. Nothing about the gate changed.
+
+**Addendum, same day — the documentation sweep before merge.** The operator
+authorized updating whatever documentation the round required. What was found
+stale, and what was done:
+
+- **BUILD_SPEC §8.3** — the outcome-promise rule carries an exception list
+  parallel to CLAUDE.md constraint 3, and it did not have this override. Added,
+  with the note that no prior entry on that list covers it: the two film
+  exceptions carry the manufacturer's or Amy's own published content, and the
+  photo-pairs exception is imagery. This is the list's first exception for
+  first-party marketing prose.
+- **`compliance/README.md` — a factual correction.** Its media-blindness
+  section described the three 2026-08-18 pixel overrides as covering "text the
+  site's own copy could not say." That is now false for the wrinkle-relaxers
+  frame and the sentence was corrected in place, with a caveat paragraph
+  stating the general lesson: **a pixel override's premise can expire**, and a
+  premise about what the copy says is a constraint on the copy that nothing
+  enforces. Whoever edits copy on such a page must read the premise, not the
+  verdict.
+- **`compliance/README.md` — a new section, "Authorizations the registry does
+  not hold."** The sharper gap this round exposed. A reader who audits
+  `allowedStrings` to learn what ships under override will under-report,
+  because text that is non-compliant on the merits but matches no pattern never
+  reaches the allowlist — the linter is already green on it. That class now has
+  two members (the EvolusLaurel ranking sentences, and this deck sentence) and
+  had no home in the tooling docs. Stated plainly there: a green `lint:claims`
+  is not evidence a string is authorized, and an empty `allowedStrings` search
+  is not evidence it is unauthorized.
+- **`docs/RUNBOOK.md`** — both lessons condensed into step 1 of "Everyday
+  changes", which is the procedure people actually follow, with pointers rather
+  than a restatement.
+- **`docs/REDESIGN.md`** — a tracker row for the copy round, all three passes,
+  carrying the override, the empty-registry consequence, and the retired
+  premise.
+
+**Deliberately not touched.** `docs/PHASE-C.md`, which declares itself the
+closed historical Phase C record and routes post-launch work to REDESIGN —
+adding to it would contradict its own header. `docs/RELAUNCH.md`, whose copy
+precondition is `check:approvals`, unaffected. `compliance/banned-patterns.json`,
+untouched all round: nothing was allowlisted, nothing loosened, and the list
+still only ever grows.
+
+**What is still not done, and is still the operator's:** the
+`jeuveau-banner-studio.jpg` pixel override in CLAUDE.md gains no
+never-restate-in-text clause here. The documentation now says in four places
+that the clause is missing and why it matters, which is the most a session can
+do without authorization to write it.
+
+## 2026-08-24 — VisitSteps step 2: a one-sentence change that was not where it appeared to be
+
+**Context:** Client copy direction (via the operator) for the closing sentence
+of "Personalized plan", the second step of "Your visit, step by step". From
+"Together you decide what, if anything, comes next." to **"Together with Amy,
+you decide what comes next."**
+
+**The finding that changed the task.** The sentence was pointed at on
+`/services/wrinkle-relaxers`, where it does render — but it is not in that
+page's MDX. It lives in `src/components/VisitSteps.astro`, which
+`TreatmentLayout` renders on **all twelve treatment pages** plus the
+styleguide. A single grep confirmed one copy in the repo, no spec, no test, no
+snapshot. What read as a thirteenth edit to one page was a sitewide copy
+change, and it was surfaced as such before any edit. Recording it because the
+failure mode generalises: **on this site, a sentence a page displays is not
+necessarily a sentence that page owns.** Four of the twelve pages it now
+changes are clinician-approved.
+
+**Three operator answers, all taken before building:**
+
+1. **Sitewide.** The alternative — a page-scoped override — needs a prop on
+   `VisitSteps`, a pass-through in `TreatmentLayout`, and a `content.config.ts`
+   field: more machinery than the sentence, and this file already rejected a
+   comparable page-scoped variant (2026-08-21) as visibly inconsistent between
+   treatment pages a visitor may compare.
+2. **The wording ships exactly as dictated**, hedge dropped.
+3. **The four approved flags stay `true`.**
+
+**The flag, and why it did NOT become an override.** Dropping "if anything"
+removes the only note in the four-step sequence that allows for *no* treatment
+— steps 3 and 4 are "Treatment visit" and "Aftercare guidance", so the list
+otherwise reads end-to-end as a treatment path. That hedge was doing real work.
+But this is drift, not a rule break: BUILD_SPEC §8.7 requires suitability to
+route to a consultation, and the new sentence names Amy as co-decider, so the
+routing survives intact. The component's header comment — "routes decisions to
+the consultation" — remains accurate and was left alone. Verified against all
+six categories: **the sentence trips no pattern**, and `lint:voice` is clean
+(no first-person plural; no standalone "us"). So, like 2026-08-23 and unlike
+the deck the same week: **no override, no `allowedStrings` entry, no CLAUDE.md
+or BUILD_SPEC amendment.** `compliance/banned-patterns.json` is untouched. A
+future session must not read this entry as authorizing anything.
+
+Two consequences worth recording. Naming Amy is a small *gain* — the outgoing
+sentence's bare "Together" never said with whom. And the idiom is not retired
+sitewide: `dermal-fillers.mdx` still carries "what, if anything, to place",
+verified still rendering after this change; only this instance moved.
+
+**Approval handling.** `check:approvals` reads only
+`src/content/treatments/*.mdx` frontmatter, so a component edit resets nothing
+mechanically — the gate cannot see this change at all. The operator chose to
+leave the flags, consistent with 2026-08-21 ("one shared change, zero MDX edits
+elsewhere, zero flag resets"). Flags stay **4 true / 8 false** and relaunch
+precondition 2 is unaffected. The gap this leaves is real and is closed by
+documentation rather than by the gate: CLINICIAN-SIGN-OFF now carries the new
+step text as a cross-cutting item, so Amy reviews words that changed on four
+pages she has already signed off.
+
+**Verification.** `npm run verify` green. The new sentence renders exactly once
+on each of the twelve treatment pages and the styleguide (13/13); the outgoing
+string returns zero across all of them.
+
+**Addendum, same day — the rest of the batch (steps 3, two FAQ answers, and
+the layout).** Four further client copy directions, batched at the operator's
+choice so Amy reviews one preview rather than five, each committed separately
+to keep the audit trail one-change-per-commit.
+
+1. **VisitSteps step 3** — "Confidently book your appointment when you are
+   ready." (adverb added; second sentence unchanged). Sitewide, like step 2.
+2. **wrinkle-relaxers FAQ, "Do men get neurotoxin treatments?"** — "Yes.
+   Expression lines are not gender based…" The body copy under "Not just for
+   women" was **deliberately left** at "aren't gender defined": the operator
+   was shown the resulting mismatch and chose the FAQ alone, reversing the
+   matched-pair call made for this same wording on 2026-08-23. The page now
+   states the idea two ways on purpose. A future session must not sync them.
+   "gendered" remains absent, which was the point of the earlier change.
+3. **wrinkle-relaxers FAQ, "Do I need a consultation before booking?"** — "No.
+   A consultation is never required; however, one is free upon request." Drops
+   "Book directly, or ask to talk it through first." Small consistency gain:
+   "free upon request" now matches TrustChips' operator-confirmed "Free
+   consultation upon request" (2026-07-29) exactly.
+4. **`TreatmentLayout`** — the pricing line deleted, the consult router
+   reworded. See below; this is the one with consequences.
+
+**The layout change, and why it is compliant.** After it, the consult router
+card carries no form of the word "consultation": the heading is "The right fit
+is just a conversation away.", the subline is "Every plan is personal, decided
+between you and Amy.", and `CTAButton variant="consult"` has read "Book with
+Amy" since 2026-07-21. The deleted pricing line was the card's other
+consultation mention. That reads alarming and is not: **BUILD_SPEC §8.7 routing
+is carried by `DisclaimerBlock`**, which renders immediately below the router
+card, states that whether a treatment fits your needs is decided with Amy
+during a consultation, is layout-injected, and cannot be opted out of
+(CLAUDE.md constraint 3). Verified in the built output on all twelve pages.
+The router card is marketing microcopy sitting above the gate, not the gate.
+This is recorded because the analysis is non-obvious and someone will re-derive
+it: a comment in the layout now states it, and warns against "aligning"
+`DisclaimerBlock` to the card's new tone. **Weakening that component is the one
+thing this change must never license.**
+
+**`pricingDisplay` is now inert.** No enum value renders anything, so `none`,
+`consult` and `startingAt` are indistinguishable on the page; ten of the twelve
+content files set `consult`. The field, its schema enum, the `Props` entry and
+the `[slug].astro` pass-through were all **left in place** so restoring the
+line is a one-line change — removing them is a schema change across twelve
+content files and is the operator's call, not a cleanup to do unasked. The
+now-unused destructure was dropped because it introduced a `ts(6133)` warning
+that had not been there; `astro check` is back to 0/0/0. The layout's
+documented compliance order no longer lists a pricing step, because it no
+longer renders one. Consumer note, not a rule: ten pages show product prices
+and the caveat that pricing is individual is now gone from all of them.
+
+**The cumulative observation, closed.** Flagged once at step 3 and not
+re-argued since: across today's edits the treatment pages moved consistently in
+one direction — step 2 lost the hedge allowing for no treatment, step 3 gained
+"Confidently", the consultation FAQ lost its talk-first invitation, and the
+router card lost the word "consultation" entirely. **Every one of these is
+individually compliant and none trips a pattern**, and the §8.7 gate is intact
+in `DisclaimerBlock` on all twelve pages. The direction is the client's to set
+and the operator confirmed each step. It is recorded here as a trend line
+rather than a defect, so that the *next* trim to consultation or optionality
+language is evaluated against where the pages now stand and not against where
+they stood this morning.
+
+**Registry and governing docs: untouched, all four changes.** No
+`allowedStrings` entry, no CLAUDE.md or BUILD_SPEC amendment, no pattern added
+or loosened. `npm run verify` green.
+
+**Addendum, same day — one-word correction to the router subline.** The
+subline shipped in this batch as "Every plan is personal, decided between you
+and Amy." and was corrected at the client's direction to "Every plan is
+**personalized**, decided between you and Amy." before merge, so nothing but
+the preview ever carried the first wording. Same scope — the layout, all twelve
+pages. It trips no pattern and needs no allowlist entry. Small side effect
+worth noting: the subline now echoes the "Personalized plan" step title above
+it, which reads as deliberate rather than repetitive. The paragraphs above are
+left as written, per this file being append-only; `docs/CHANGELOG.md` and
+`docs/CLINICIAN-SIGN-OFF.md` were corrected in place instead, the latter
+because Amy reviews from it and must see the current text.
+## 2026-08-24 — the relaunch guard could never report, so every PR into `main` was blocked
+
+**Context:** Restoring the Xtend-AI credit to the production placeholder
+(PR #144) hit a wall: the PR is `mergeable: MERGEABLE` but
+`mergeStateStatus: BLOCKED`, permanently. Investigation found a required status
+check that no workflow on `main` can produce. This is not specific to that PR —
+**no PR into `main` could pass through the normal flow**, which means production
+had no hotfix path at all.
+
+**Two independent defects.** They must be read together; fixing either alone
+changes nothing useful.
+
+**A — the blocker.** `.github/workflows/relaunch-guard.yml` exists only on
+`phase-c`. A PR into `main` is cut from `main`, so neither its head nor its base
+carries the workflow, the job never runs, and the required context
+`gutted-merge-guard` never reports. Evidence: `main`'s tree holds only
+`pr-preview.yml` and `production.yml`; the job's conclusion was `skipped` in all
+40 runs sampled — **it had never once executed its logic**; PR #144 reported
+only `verify-and-deploy` and `close-preview`. This is the failure mode the
+workflow's own header warns about for a different cause: *"a path-filtered
+required check never reports, which blocks the merge forever."* The RUNBOOK
+described the guard as "required on both branches" — true of the **check**,
+false of the **workflow**, and that gap is the bug.
+
+**B — latent.** The skip test `! git merge-base --is-ancestor
+"$LAUNCH_MERGE_BASE" HEAD` could never be true. The takedown revert changed
+`main`'s TREE, not its HISTORY — the same file's header says so — therefore
+`LAUNCH_MERGE_BASE` is an ancestor of `main` and of every branch cut from it.
+The comment claiming "placeholder-era PRs pass trivially" described an
+unreachable state. Had A been fixed alone, the job would have run and failed,
+reporting 98 missing files against a PR that deletes nothing (verified: 0
+deletions relative to `main`).
+
+**Decision.** Replace the skip test with one that actually separates a release
+merge from a placeholder fix — *does this PR carry post-takedown `phase-c`
+commits?* — and put the identical workflow on `main` so the check can report.
+
+**The file comparison is deliberately untouched.** Only the skip condition
+changed, so a release PR runs exactly the check it always would have. This
+cannot weaken what the guard exists for. Proven locally before shipping, which
+mattered because the job had never run and a silently-always-passing guard would
+be worse than the broken one:
+
+| Case | Shared commits | Behaviour |
+|---|---|---|
+| Placeholder fix off `main` (#144) | 0 | skips — correct, it deletes nothing |
+| `phase-c`-derived head | 186 | runs the file check — correct, that is the hazard |
+| Gutted tree fed to the file check | — | reports 98 missing, exit 1 — the guard still bites |
+
+`LAUNCH_MERGE_BASE` was removed as dead config, with the reason left in a
+comment; dead config is what produced this class of bug. `TAKEDOWN_REVERT`
+stays — job 1 uses it. Job 1 was not touched. Neither job gained a `name:`
+field: the check-run names equal the job ids, which is what the required
+contexts match on, so renaming would silently re-break the gate.
+
+**Bootstrap.** The PR that fixes a never-reporting required check is itself
+blocked by it. Resolved by adding the workflow in the PR — GitHub runs
+`pull_request` workflows from the merge commit, so the check runs on itself —
+with a one-time admin merge as the fallback (`enforce_admins` is `false` on
+`main`). No branch-protection context was removed at any point.
+
+**Consequences for the relaunch, recorded because they are not obvious.**
+`docs/RELAUNCH.md` step 6 promises the relaunch PR will go green *"including
+`gutted-merge-guard`, which proves the tree complete before it retires"*, while
+step 4 deletes the workflow in that same PR. That cannot work, for two
+independent reasons: the workflow is then absent from the merge commit and
+cannot run at all; and **even if it ran it would fail**, because
+`relaunch-guard.yml` is itself a tracked file on `phase-c`, so deleting it makes
+the guard's own comparison report it as a missing phase-c file. Verified: it is
+the first entry in the missing list. The relaunch PR would fail its own required
+check on its own retirement. Corrected sequencing: keep the workflow in the
+relaunch PR so the check runs and proves the tree, merge, then retire the
+workflow and both branches' required contexts in a follow-up. Separately, step 5
+lists `studio-counter-portrait.jpg` among the deletions the tree check will
+surface — that asset is not on `phase-c` (verified), so it never appears.
+
+**Two things deliberately NOT changed.** The fixed guard no longer incidentally
+fails a placeholder PR that deletes files for unrelated reasons; it never aimed
+to, and adding a base-relative deletion check would introduce a new failure mode
+into a gate the relaunch depends on. And `verify-and-deploy` is a required check
+on **neither** branch — only the two guards are — so CI green is advisory and a
+PR with failing tests is mergeable once its guard passes. That is the operator's
+call, flagged rather than altered.
+
+## 2026-08-25 — PR board cleanup: merging into `main` during the takedown era is safe, and why
+
+**Context:** six PRs open, four unable to move, and the board read as disarray.
+Two of the four — #146 (the guard onto `main`) and #144 (the Xtend-AI credit on
+the placeholder) — had been parked under the standing instruction that we are
+not ready for a production deployment. Separately, both standing preview PRs had
+drifted six commits behind `phase-c` (last refreshed 2026-08-22), so the client
+and the review pair were reading a `/services` intro that had already been
+rewritten at the client's own direction, and the `relaunch-guard.yml` header
+still carried the retirement instruction that 2026-08-24 corrected.
+
+**Decision:** land #146 then #144 into `main`, refresh both previews, correct
+the guard header, and add a preview-refresh rule to the RUNBOOK. Nothing about
+the takedown topology changes: PR #95 is untouched, `main` is never merged into
+`phase-c`, and no gate, budget, or banned-pattern list is altered.
+
+**The load-bearing fact, recorded because it will look alarming later.**
+"Merge to `main`" normally means "publish the client's website." It does not
+mean that during the takedown era, and reading it that way is what froze two
+PRs. `main`'s tree carries **three page files** — `404.astro`, the Under
+Construction `index.astro`, and the styleguide catch-all — and
+`src/content/treatments/` holds nothing but a `.gitkeep`. A merge into `main`
+rebuilds and redeploys **the construction placeholder**; it cannot publish the
+site, because the site is not in that tree. The site's only route to production
+is a `phase-c` → `main` release merge (PR #95's successor), which is
+permanently CONFLICTING by design and requires the two-step relaunch. Verified
+alongside: no PR has merged into `main` since #99 on 2026-08-05, so #144 was the
+first attempt since the takedown and it hit the never-reporting required check
+head-on — which is also why production has been un-hotfixable rather than merely
+untouched.
+
+**Scope of the credit loss.** Placeholder-only. `phase-c`'s `Footer.astro`
+carries `Created by: Xtend-AI` sitewide and always has; the takedown revert
+removed it from the placeholder alone. The restored copy on `main` becomes
+redundant at relaunch and goes out with the rest of the placeholder.
+
+**Guard header corrected.** The file said *"RETIRE THIS WORKFLOW IN THE RELAUNCH
+PR ITSELF"*; `docs/RELAUNCH.md` step 4 was corrected on 2026-08-24 to explain
+that this cannot work (the workflow is tracked on `phase-c`, so deleting it in
+the relaunch PR makes the guard report itself missing and fail its own required
+check on its own retirement). The most consequential instruction in the repo
+existed in two contradicting versions, and the wrong one was the one an operator
+reads inside the file. The header now points at RELAUNCH.md step 4 as the
+authority. The two copies of `relaunch-guard.yml` stay byte-identical: the
+`main` copy is taken with `git checkout origin/phase-c -- <path>`, never
+retyped, and the identity diff is a merge gate rather than a formality.
+
+**RUNBOOK gains a refresh rule.** Pushes to `phase-c` deploy nowhere and GitHub
+does not re-run a PR's workflows when its base branch moves, so a preview PR
+serves whatever it last built until someone merges `phase-c` into it. Nothing in
+"Everyday changes" said to do that, which is the whole explanation for the
+six-commit drift. Now it does.
+
+**Alternatives rejected.** Combining #146 and #144 into one PR to halve the
+placeholder redeploys — rejected, the split is what keeps the first-ever real
+execution of `gutted-merge-guard` on a `main` merge content-free, and a
+placeholder redeploy costs nothing. Enabling `delete_branch_on_merge` to stop
+branch litter — verified safe (`allow_deletions` is `false` on both `main` and
+`phase-c`, so GitHub cannot delete either even though `phase-c` is the release
+PR's head branch), but the litter rate is one stale branch per 136 merges and
+the setting would not touch local branches or worktrees, which is where the
+actual clutter lives; left to the operator. Closing #97 or #138 as stale —
+rejected, #97 is the standing client link and #138's review tags are still in
+use; both were refreshed instead. Requiring `verify-and-deploy` as a status
+check — rejected for now and flagged again: `pr-preview.yml` carries
+`paths-ignore`, so a docs-only PR would never run it, the required check would
+never report, and docs-only PRs would block forever. That is the identical bug
+2026-08-24 fixed, and a proper version needs an always-runs summary job.
+
+**Consequences.** Two production deploys of the placeholder, each re-verified
+and each purging the Front Door cache; the visible difference is the restored
+credit line. `main` gains `relaunch-guard.yml`, which makes the RUNBOOK's
+existing claim that the file "ships on both branches" true rather than
+aspirational, and makes production hotfixable again. The guard's skip path was
+confirmed to execute for real on #146 — its run log ends `No post-takedown
+phase-c commits in this PR; not a release merge. Nothing to check.` — so the
+open question of whether `origin/phase-c` resolves in the runner's checkout is
+closed. PR #143 stays open awaiting Amy; #95, #97 and #138 stay open by design.
+
+## 2026-08-25 — PR previews deploy before the slow gates, not after
+
+**Context:** the operator asked whether raising `numberOfRuns` on `main`'s
+Lighthouse config would make previews slower to appear. Measuring to answer it
+surfaced a bigger problem. `pr-preview.yml`'s `verify-and-deploy` is a single
+sequential job that ran the whole of `npm run verify` — including Lighthouse —
+*before* the SWA upload step. Measured on PR #147 (2026-08-25): the job took
+6m40s, of which **Lighthouse alone was 4m11s** (14:46:39 → 14:50:50), and the
+`Deploy preview` step did not begin until 14:50:51. A link that was ready in
+under two minutes could not be sent for six and a half. Every preview the
+client and the review pair have ever waited on paid that cost.
+
+**Decision:** split `verify` into halves and put the deploy between them.
+`package.json` gains `verify:fast` (build, `check`, `lint:claims`,
+`lint:voice`) and `verify:slow` (`test:a11y`, `test:perf`); `verify` becomes
+`npm run verify:fast && npm run verify:slow`. This is **step order only** — the
+same six commands run in the same order with the same `&&` short-circuit, so
+a11y failing still stops perf exactly as before, and `production.yml`, which
+runs `npm run verify` unchanged, is not touched. Measured locally: `verify:fast`
+completes in **22 seconds** and leaves a fully deployable `dist/` (`index.html`
+and `staticwebapp.config.json` both present).
+
+**Not a weakened gate.** Every gate that ran before still runs and still
+reports. The gates that decide whether a client should be shown the page at all
+are the cheap ones and they still run *before* the upload: build 11s, `check`
+7s, `lint:claims` and `lint:voice` under a second each. A page carrying a banned
+claim, or first-person plural, still cannot reach a preview URL.
+
+**Trade accepted:** if a11y or perf fails, the preview stays up while the PR
+goes red. That is the right default for a preview environment rather than
+production, and `verify-and-deploy` is a required status check on neither
+branch today, so nothing that gated a merge stopped gating one. The RUNBOOK now
+says a red run means a preview is up that failed a slow gate — read the run
+before acting on the link.
+
+**Two syntax traps, recorded because both fail silently-ish.** The trailing step
+is guarded `if: ${{ !cancelled() && steps.fast_gates.outcome == 'success' }}`.
+The `${{ }}` wrapper is required, not stylistic: a bare `!` opens a YAML tag, so
+`if: !cancelled() && …` will not parse. And the step id is `fast_gates`, not
+`fast-gates`, because a hyphen in dot-notation inside an expression is read as
+subtraction. The guard itself is load-bearing twice over: `!cancelled()` stops a
+failed deploy step from SKIPPING the remaining gates (the job would go red
+having never reported an a11y or perf result), and the `fast_gates` clause stops
+them running against a `dist/` that was never built.
+
+**Alternatives rejected.** Raising `main`'s `numberOfRuns` from 1 to 3, the
+change originally proposed — wrong lever (it would have added ~48s to a rare PR
+type while saving nothing on the previews anyone actually opens), and wrong on
+its own terms: LHCI's `aggregationMethod` defaults to `optimistic`
+(`@lhci/utils/src/assertions.js:139`), which takes `Math.min` for `max*`
+assertions and `Math.max` for `min*` ones, so bumping the run count without also
+setting `"aggregationMethod": "median"` silently converts every assertion to
+best-of-N. `phase-c`'s own config already defends against exactly this and says
+so in its `$comment`; `main`'s does not, and gets away with it only because
+best-of-1 is the sole value. Splitting into two jobs with artifact passing —
+rejected, it costs a second `npm ci` plus upload/download for no benefit over
+reordering steps in one job.
+
+**Scope: `phase-c` only.** `main`'s copy of `pr-preview.yml` already diverges
+(it predates the 2026-07-26 `paths-ignore` block, frozen by the takedown
+revert), so this introduces no new class of divergence, and the two-step
+relaunch brings `phase-c`'s copy across. Placeholder PRs into `main` keep the
+old ordering; they spend ~24s in Lighthouse, so there is little to reclaim.
+
+## 2026-08-25 — skincare: photo round page 9 — 28.jpg replaces the shelf photo (baked 4:5 crop)
+
+**Context:** Operator direction (2026-08-25): on /services/skincare, the
+photo to the right of "Individualized, with Amy" (`skinbetter-shelf.jpg`,
+from 8K0A9922, committed 2026-07-23) is replaced by
+`C:\Amy\New Pics\28.jpg`. Photo round page 9 — the round's first page
+since laser-treatments (2026-08-21).
+
+**Screening (RUNBOOK "Replacing site photography", full resolution —
+astro:assets serves the source-resolution derivative as the `<img src>`):**
+1600×1067 landscape, 405KB, SHA-256 `7ABBEDAB…7490` — hash-unique against
+`src/assets/photos/`. Seven Skinbetter Science products on a white table
+(sunbetter SPF, Trio, Refining Foam Cleanser, InterFuse EYE, Mystro, Alto
+Advanced, AlphaRet) above a spread of Amy's own business cards (her
+headshot; "Palacios" / "Nurse" / phone fragment "…7108" legible — her own
+marketing, sole-owner precedent). Product labels and fl oz/mL sizes are
+manufacturer trade dress as sold (the skinbetter-lineup precedent on this
+same page; pack sizes are package contents, not dosing). No clients, no
+other providers — no release needed. **Flag raised once: two small capped
+syringes lie among the cards** — soft focus, unlabeled, no vials, no prep
+tray; the injectable-ambiguity class on a topical/shop page (the
+2026-07-20 weight-loss rejection class), and they sit inside every
+possible crop. **Operator decision: SHIP AS-IS** — recorded as a
+screening-note acceptance, NOT a constraint-3 override (no dosing or
+claims content in frame).
+
+**Decision — the crop is baked, and why.** The media-row arch is a 4:5
+display window; from a landscape source the house CSS anchor knob would
+serve full-frame derivatives whose window region under-delivers — the
+680w tier puts ~363 device px across the 576px DPR2 window (0.63×, below
+the redesign retina hard rule). The "prefer the CSS knob" precedent
+(dermal-fillers, 2026-08-21) covered portrait sources, where the knob has
+no retina cost. So the asset is a server-side extract from the master:
+sharp `.extract({ left: 480, top: 0, width: 854, height: 1067 })`, JPEG
+q92, single generation → `skinbetter-over-cards.jpg` (content-named). The
+x=480 offset was chosen from three rendered candidates (440/480/520): 440
+truncates AlphaRet's label mid-word, 520 leaves half-words on Trio's; 480
+keeps five complete labels with both edge bottles cut cleanly. The baked
+window matches the layout's `aspect-ratio: 4/5` exactly, so `object-fit`
+is inert (the prp-treatment pattern); tiers `[340, 540, 680]` unchanged
+(854 ≥ 680 — no upscale). Geometry accepted with the pick: the products
+span ~1090px and the window holds 854, so no 4:5 crop keeps all seven —
+the outer two (sunbetter, AlphaRet) crop out; the full-frame segmental
+alternative was offered and declined (operator, 2026-08-25).
+
+**Alternatives rejected:** the CSS anchor knob on the full frame (the
+retina math above); the full frame in a row-scale segmental arch
+(offered, declined — a short, wide arch beside the copy, unlike every
+other row); a blur-fill 4:5 contain composite (a 3:2 frame in a portrait
+canvas is ~47% bars).
+
+**Consequences:** `skinbetter-shelf.jpg` had no other consumer and is
+deleted (git history keeps it; its remaining mentions are historical
+docs). `clinicianApproved` true → false in the content commit
+(constraint 4) — flags now read **3 true / 9 false**; Amy re-reviews on
+the PR preview and the flag returns in the consolidated pre-relaunch
+round. Alt text rewritten factually (products above the card spread; no
+product count, since the crop trims two). The master stays in
+C:\Amy\New Pics, never committed.
+
+**Addendum, same day — the first photo too: Amy's chin returns to
+frame.** Operator direction after PR #150 merged (the second slot) but
+before the standing previews were refreshed: the page's FIRST photo,
+beside "What it is" (`skinbetter-lineup.jpg`, committed 2026-07-23),
+cuts Amy's head off at the neck — replace it with
+`C:\Amy\New Pics\27.jpg`, the same held-out-line-up scene from the same
+shoot with **her chin visible at the top of the frame**. Screened:
+1600×1385 landscape, 513KB, hash-unique; Amy alone (the operator's
+direction identifies her — chin, blonde hair, the pink blazer of the
+2026-08-18 blazer frame), so no release; six product labels are
+manufacturer trade dress as sold (sunbetter's SPF/water-resistance
+lines included — label text, the standing precedent); the soft pink
+blur at her shoulder is illegible and benign. Same mechanics as the
+morning's swap: baked 4:5 crop (sharp
+`.extract({ left: 246, top: 0, width: 1108, height: 1385 })`, JPEG q92,
+single generation) → `amy-holding-skinbetter.jpg`; tiers
+`[340, 540, 680]` unchanged (1108 ≥ 680). x=246 chosen from three
+rendered candidates (180/246/320) on a criterion the page itself
+supplies: the copy names sunbetter and AlphaRet as the line's example
+franchises, and 246 is the window that keeps the chin centered,
+sunbetter whole, and AlphaRet readable at the edge (180 loses AlphaRet
+entirely; 320 cuts sunbetter's label and strands a floating Mystro cap
+fragment). Alt names Amy for the first time on this page — the
+operator's identification is the record. `skinbetter-lineup.jpg` had no
+other consumer (the 2026-08-17 door round left it only here) and is
+deleted. `clinicianApproved` was already false (this morning's reset) —
+unchanged; Amy reviews both new photos on one preview (the 2026-08-15
+combined-review lesson).
+
+## 2026-08-25 — the storefront QR: Amy's registration handoff joins the Skinbetter callout
+
+**Context:** Operator direction, same day: place the QR code Amy uses on
+the website. The source shown (`IMG_0001.jpg`, repo root — untracked,
+covered by the root image guard) is a scan of her Skinbetter counter
+card; its QR decoded (scratchpad zxing-wasm — jsQR could not read the
+photocopy) to `skinbetter.pro//MobileAesthetics?k=signup`, byte-identical
+to the 2026-07-23 decode that resolved `{{SKINBETTER_URL}}`. The operator
+then supplied the URL the site QR should encode: the skinbetter.com
+Account-Registration deep link carrying
+`businessPartner_id=0000267316&location_id=a306e000001ksylAAA`.
+
+**Screening:** the destination is skinbetter.com's own registration page
+with Amy's partner id — probed live (403 to bare curl, the Vagaro
+bot-protection class; 200 with a browser UA, no redirect, the partner id
+present in the served page). No other provider named; constraint 2 not
+engaged. The registration-first-vs-bare-URL trade-off was flagged when
+the QR was first discussed (the 2026-07-23 decision chose the bare URL
+for the site's *buttons* because form-first landing punishes cold
+traffic); the operator chose this URL for the QR with that in hand — the
+QR serves the desktop→phone handoff, where the card's register-to-shop
+flow is the intended path. The buttons keep the canonical bare URL;
+nothing about the 2026-07-23 decision changes.
+
+**Decision:** a fresh SVG, not the scan (the photocopy is yellowed,
+halftoned, and skewed — below the flawless-assets bar, and it carries
+Skinbetter's card design). Generated scratchpad-locally (`qrcode` npm
+package, never a repo dependency — the jsqr decode precedent) at ECC M,
+margin 4, black on white → `src/assets/brand/skinbetter-registration-qr.svg`
+(4,584 bytes, version-9 code). **Round-trip proof, recorded as the
+control for a pixel asset no linter can read:** the committed SVG
+rasterized and decoded back to the exact URL; the built page's rendered
+plate screenshot at 1280 ALSO decoded to the exact URL; and the operator
+scan-tested the code themselves the same day ("It works") — the human
+verification on top of the mechanical ones. Placement: a
+white tile (12px corners, the SVG's baked quiet zone continuous with the
+tile) inside the noir StorefrontCallout plate, statement left / tile
+right on desktop, stacked on phones; caption "Scan to register and shop
+from your phone." in raw ink-900 (deliberately not `--ng-text`, which
+re-scopes light under the noir surface). The QR is never the only
+route — the shop button beside it remains the click path (a11y and
+phone users, for whom an on-screen QR is unscannable). Zero JS; the
+page is pa11y-covered, not LHCI-gated.
+
+**Alternatives rejected:** committing the scan (quality + trade dress);
+a QR API image URL (a third-party request — the CI-enforced zero);
+encoding the site's canonical bare storefront URL (recommended for
+consistency; the operator chose their supplied registration URL);
+making the QR itself a link (the button is the click path; a clickable
+QR duplicates it for no gain).
+
+**Consequences:** the site carries its first QR code, on one page, in
+one component whose sole consumer is skincare.mdx. Changing the encoded
+URL is a regenerate-plus-decode-verify, never an edit to the SVG. Rides
+PR #151 with the day's two photo swaps so Amy reviews one preview; the
+page's flag is already false and resets nothing further.
+
+## 2026-08-25 — Girl Team on /about: the still, the plate, and the second Mobile Aesthetics link
+
+**Context:** Client direction relayed by the operator, same day: a third
+photo on /about — 29b.jpg, to the left of "Two decades in the making." —
+with "Girl Team!" in letters on the photo (top), and below it a button
+to https://yourmobileaesthetics.com. Screening: 1600×1067 (≈3:2)
+landscape JPEG, SHA-256 `51E04D45…B433BB`, hash-unique against the 52
+committed photos. Frame: five women in a white studio — Amy center with
+FOUR of the location's five other providers (the 2026-08-17 team film
+has all five; one is not in this still). No signage, products, or
+legible text anywhere in frame; nobody is named anywhere. "Girl team"
+is already the record's own name for this group (the carousel record's
+name for `commercial-team`).
+
+**The flag and the override:** three items sit outside the recorded
+constraint-2 exceptions and were flagged together: a STILL of the other
+providers (the film exception covers the film only); "Girl Team!" as
+rendered team language (trips no lint:voice token — the gate bans only
+we/our/us/let's — but is against the rule's written rationale: the
+green-linter-is-not-authorization class); and a SECOND outbound link to
+yourmobileaesthetics.com (the header badge had been "the only
+sanctioned outbound reference"). Operator override, direct from Amy —
+recorded as CLAUDE.md constraint 2's fourth scoped exception. Releases:
+the four pictured providers' releases for needlegirlie.com use
+confirmed on file (operator, same day — the 2026-08-17 confirmations
+covered the film, not stills).
+
+**Decision:** full frame, no crop — committed byte-identical to the
+master as `girl-team-studio.jpg`. The figure wears the segmental arch —
+the shape built 2026-08-18 for landscape frames that must show full
+content, at this photo's native 3:2 — hand-copied into the page style
+block because the recipe is scoped to `.treatment-body` (the
+`.about-print` hand-copy precedent), with the page's house wash.
+"Girl Team!" is LIVE TEXT (operator choice over baking it into pixels):
+the site's first text-over-photo, an opaque paper keystone plate
+straddling the arch crown. The Phase C rule requires opaque plates (no
+scrims), and the keystone seat clears every face at every viewport — a
+%-offset plate grew into Amy's hair at 390px, since Amy stands center
+under a centered plate. Raw ink-900 on paper (the QR-tile in-tile
+idiom); Amy's own casing, no uppercase transform. The milestones
+section became a photo-left grid (`md:grid-cols-[5fr_6fr]`, figure
+`md:order-first`, DOM still heading-first). The button: a hand-rolled
+`.cta cta--outline` anchor (the ConceptHome Instagram precedent), label
+"Visit Mobile Aesthetics" (operator choice), `data-event="ma_site_click"`
+(already in the analytics union), new tab + noopener + sr-only note.
+Deliberately NOT a CTAButton: the book/consult variants accept
+href/label overrides but hard-bind `book_click` — the wrong event for
+an MA link.
+
+**Alternatives rejected:** baking the text into the JPEG (soft on
+retina, invisible to every gate, a regenerate to reword); a 4:5 Roman
+arch (crops the team to ~2 people — defeats the point); a plain
+rectangle (violates the sitewide every-photo-wears-an-arch direction,
+2026-08-17); CTAButton with overrides (wrong analytics event).
+
+**Verification:** verify:fast green; the built section eyeballed at
+390 and 1280 — all five in frame, plate clear of every face and
+untinted by the wash (z-indexed above it). Budget measured, not
+assumed: LHCI's full-page scroll fetches lazy images, and /about's
+mobile fetched set was ≈149KB of the 240KB image budget before this
+photo — the new 760-tier derivative fits with margin; the full verify
+run gates the PR.
+
+**Consequences:** the sanctioned outbound references to
+yourmobileaesthetics.com are now TWO (header badge 2026-08-15; this
+button) — siteConfig's "only sanctioned" comment corrected in the same
+commit, and CLAUDE.md constraint 2, compliance/README, BUILD_SPEC §6,
+REDESIGN, and the CHANGELOG ride the docs commit. The already-screened
+destination did not carry authorization forward: the second consumer
+got its own flag and its own override. /about carries no
+`clinicianApproved` flag — Amy's review happens on the PR preview.
+
+## 2026-08-25 — the Evolus Laurel replaces the recognition plate on /about; the "#1" sentence retires sitewide
+
+**Context:** Client direction relayed by the operator, same day (riding
+the Girl Team PR #153 at the operator's choice — the 2026-08-15
+combined-review lesson, one preview for Amy): the ranking banner from
+/services/wrinkle-relaxers — the EvolusLaurel plaque — joins /about
+near the ICON film, replacing the smaller EvolusCallout recognition
+plate. This is the dermal-fillers move (2026-08-21) repeated: the
+Laurel into the Callout's exact spot, above "Inside Evolus".
+
+**Two authorizations, both flagged and operator-confirmed:**
+
+1. **The ranking sentences' page scope widens to /about.** The two
+   Laurel sentences were authorized on wrinkle-relaxers and
+   dermal-fillers, "nowhere else"; widening requires the human
+   operator, who directed exactly this. /about is the third and only
+   other authorized page. Recorded in CLAUDE.md constraint 3,
+   BUILD_SPEC §8.4, and the component header. (Historical note: this
+   supersedes what remained of the 2026-07-21 "About is ranking-free"
+   placement in spirit — that decision was already superseded
+   2026-08-18 when the "#1" plate moved there.)
+
+2. **The "#1" allowlist entry is withdrawn** (operator choice after
+   the flag; the recommended withdrawal accepted). The /about plate
+   was the sentence's LAST consumer, so after the swap "Charlotte's #1
+   Evolus provider" renders nowhere — and an authorization nothing
+   uses is a loophole (the 2026-08-21 seventh-authorization precedent,
+   quoted in the registry's own comment). The entry came out of
+   `allowedStrings` in the same commit that removed its consumer
+   (atomic: the entry never outlives the consumer, the sentence never
+   outlives the authorization). The ranking vocabulary is banned
+   everywhere again, comments included; re-adding the sentence
+   requires the human operator. Verified safe before the edit: the
+   lint-claims self-test has no coupling to the entry (its samples
+   build from fragments), and the full self-test + scan pass after
+   removal.
+
+**Also:** `EvolusCallout.astro` deleted — orphaned by the swap (sole
+consumer was about.astro; grep-proven), the DraftBanner deletion
+precedent; git history keeps it. The EvolusLaurel header, about.astro's
+page and section comments, siteConfig untouched. The Laurel is
+self-contained (component-scoped styles, its own noir surface) and
+needed no adaptation for /about; its shimmer stays within the motion
+vocabulary (39px floor holds).
+
+**Verification:** verify:fast green — the self-test proving the
+registry edit is clean; built dist grep: "Top Evolus Injector" on
+exactly /about + wrinkle-relaxers + dermal-fillers, the retired phrase
+zero hits sitewide; the section eyeballed at 390 and 1280 (plaque on
+noir, wreath + stacked Top-50 lockup, ICON film unchanged below).
+
+**Consequences:** the registry shrinks for only the second time, both
+times by withdrawal of a consumer-less authorization — the "list only
+ever grows" rule governs patterns, and allowedStrings changes remain
+operator-gated in both directions. Three pages now render the Laurel,
+once each. CLAUDE.md constraint 3, BUILD_SPEC §8.4 + §6 + §7.4 + the
+§17 registry row, and compliance/README updated in the docs commit.
+
+## 2026-08-25 — the ICON film autoplays on /about (a scoped override of the narrated-manufacturer-film rule)
+
+**Context:** Client direction relayed by the operator, same day (riding
+PR #153 with the day's other /about changes): the ICON film autoplays.
+The mechanism already exists — `TreatmentVideo autoplay="inview"` and
+the third sanctioned script (`public/js/treatment-video.js`, ~2KB) —
+but its recorded contract (operator direction, 2026-08-21) restricts
+the opt-in to Amy's own speech-free films: "never for a manufacturer
+film or one with narration, which muted autoplay would gut." All three
+existing consumers are Amy's `[Music]`-cue reels.
+
+**The flag:** the ICON film is the opposite case on every axis — an
+Evolus manufacturer production, narrated, whose printed caption says
+"sound on." Browser autoplay must start muted and the inview mechanism
+hard-wires `loop`, so autoplay means silent event footage looping
+until a visitor taps for sound. Claims calculus unchanged (the film
+ships as-is, nothing trimmed — the 2026-08-18 exception terms hold);
+the flag was the film-class rule and the experience.
+
+**Decision (operator override after the flag):** autoplay anyway.
+`autoplay="inview"` added to the /about player — muted on approach,
+loop while on screen, native controls as pause and tap-for-sound,
+reduced motion = click-to-play. The caption keeps "sound on" as the
+tap-for-sound nudge. Recorded as the film-class rule's ONE scoped
+exception in the component header, CLAUDE.md (script-consumer list),
+and BUILD_SPEC §5/§9-perf; the rule stands for every other film and a
+further exception requires the human operator.
+
+**Verification:** functional check on the built page (Playwright):
+paused before approach; playing + muted + looping with playback
+advancing in view; paused again scrolled away. /about gains its first
+script (~2KB, far under the 30KB budget and the per-page LHCI
+script-size gate); the full verify run gates the PR.
+
+**Consequences:** the autoplay script now renders on three pages
+(biostimulators, body-contouring, /about). CLAUDE.md's stale "today
+/services/biostimulators alone" consumer note was corrected to the
+full list in the same commit (body-contouring had shipped later the
+same 2026-08-21 day).
+
+## 2026-08-25 — /injector-training: the dedicated training portrait (31.jpg), a new pixel-level claims override
+
+**Context:** Operator direction, from Amy: replace the page's hero
+portrait — the deliberately reused grey-seamless frame — with
+`31.jpg`. The 2026-08-04 entry recorded exactly this as the upgrade
+path ("a dedicated Amy-solo training photo"). New asset
+`src/assets/photos/amy-evolysse-cart.jpg` (byte-identical copy,
+SHA-256 16F9DA9F…A56DFB, 1067×1600): Amy holding Evolysse cartons at
+her studio cart. The shared `amy-palacios-fnp.jpg` stays in place for
+its two treatment-page consumers — only this page's import changes.
+
+**The flag:** legible in the served source file (astro:assets serves
+the source-resolution derivative — the pixel8-cart precedent): a
+Jeuveau banner's marketing headline ("KISS YOUR 11s GOODBYE"), its
+indication line, and part of its Important-Safety-Information fine
+print — the jeuveau-banner-studio class, whose override is fixed to
+that frame on that page and does not carry here. Also on frame:
+Evolysse cartons and tray vials (no quantities legible at source
+resolution; the frame-level vet is the record). A defocus bake of the
+banner text was offered.
+
+**Decision (operator override after the flag):** carry the photo
+as-is. The override is fixed to this frame on /injector-training; no
+value or phrase from the banner — headline vocabulary, indication
+language, ISI text — is ever restated in site text: copy, alt,
+comments, meta descriptions, OG tags, JSON-LD. The alt names Amy and
+the cartons factually. Changing the frame, the page scope, or
+restating any banner content requires the human operator. Recorded in
+CLAUDE.md constraint 3 (the photo-override list) and BUILD_SPEC §8.
+
+**Verification:** frame vet at source resolution (this entry); crop
+check at 390/768/1280 after the swap (the page's 4:5 window +
+`object-position` tuned to the new frame); lint:claims green proves
+nothing about pixels — the screening above is the control.
+
+**Consequences:** the 2026-08-04 "recorded upgrade path" is taken;
+the page header comment's portrait bullet is rewritten in the same
+commit. The pixel-override list grows by one photo.
+
+## 2026-08-25 — /injector-training: the training reel ships (Amy's own film, carried as-is; autoplay in-class)
+
+**Context:** Operator direction, from Amy: add `training.mov` — Amy's
+own produced Private Injector Training reel, the course-flyer set
+animated — directly under the "Four courses, taught one-on-one."
+heading, before the course cards, on autoplay. Source 1080×1920 (9:16)
+HEVC+AAC, 19.8s. Screening: 1fps contact set (20 frames), full-res
+grabs, a jar-shot zoom, `volumedetect`.
+
+**The screening record:** burned-in course cards restate this page's
+own operator-authorized card copy in pixels — including the
+dosing/dilution-class curriculum vocabulary of the 2026-08-04 fifth
+allowlist authorization ("Dosing and dilution", "Hyperdilute
+Radiesse", "Advanced injection protocols", "Safety protocols",
+"Training manual & protocols" among the topics) plus course prices.
+The Dermal Filler segment's jar shot shows Jeuveau vials with the
+per-vial "100 U" quantity legible (the radiesse-visit carton class).
+B-roll shows Amy actively treating on-camera models, needle on frame.
+The closing card displays Amy's contact block: phone, the
+"Learn with confidence. Inject with purpose." tagline (already this
+page's closing copy), "Injecting Since 2017" (the flyer's narrower
+wording of the site's "in medical aesthetics since 2017" fact — pixels
+self-identify; page copy still uses the one set of facts), and
+`yourmobileaesthetics.com` on screen — a DISPLAY-ONLY reference to
+Amy's practice site (not a link; the sanctioned outbound links remain
+exactly two, per constraint 2).
+
+**Releases (operator, 2026-08-25, two confirmations):** the on-camera
+people besides Amy — the black-tank woman, the yellow-dress woman
+(injected on camera), the dark-floral woman, and per the follow-up
+after the completed sweep, the man in the olive shirt (PDO segment)
+and the reclined woman in black (intro segment, possibly the
+yellow-dress woman in different clothes) — ALL have releases for
+needlegirlie.com use confirmed on file; NONE is another provider at
+the location. This supersedes, for these frames only, the 2026-08-04
+"trainee/model frames carry no releases" posture.
+
+**Audio (operator confirmation, the record):** music bed, no speech
+(volumedetect mean −25.0dB, peak −6.9dB; not transcribable on this
+workstation). Captions therefore take the sounded-film form: bounded
+`[Music]` cues. Deliberately NO "On screen:" cues — mirroring the
+burned-in cards would restate vocabulary the override covers only as
+pixels into a rendered text track; the cues describe the audio only
+(recorded in the .vtt NOTE).
+
+**Decision (operator override after the flag):** carry the film
+as-is, whole — nothing trimmed (the closing-card trim was offered and
+declined). Fixed terms: this film on /injector-training only; labels,
+captions, and comments describe only what the pixels self-identify
+and never restate the curriculum vocabulary, the vial quantity, or
+the banner-class content; the on-screen MA URL stays display-only.
+Changing the film, the page scope, or any fixed term requires the
+human operator. Recorded in CLAUDE.md constraints 2 + 3 and
+BUILD_SPEC §8.
+
+**Autoplay (in-class, no exception):** Amy's own speech-free film —
+exactly the class the 2026-08-21 opt-in was written for.
+`autoplay="inview"` (muted, loop in view, native controls as pause
+and tap-for-sound, reduced motion = click-to-play);
+/injector-training becomes the autoplay script's fourth page, and the
+CLAUDE.md consumer list is updated in the same round.
+
+**Rendition:** the ICON recipe with one addition — a 810×1440
+downscale (`scale=810:1440`, then `-c:v libx264 -crf 20 -preset
+medium -pix_fmt yuv420p -c:a copy -movflags +faststart`): the player
+sits in a 24rem (384px CSS) standalone slot, so 810px ≈ 2× the retina
+need (the evolve-reel sizing discipline), and the downscale cuts the
+autoplay fetch from 11.45MB (native-res encode) to 7.59MB
+(3.06Mbps). Poster from the rendition at 12.4s — Amy alone at the
+tray, no card text, no model on frame — 810×1440, 79KB. Uploaded to
+the media origin AFTER this entry was committed (the written rule);
+new filename `training-reel.mp4`, so no purge.
+
+**Consequences:** the site's first film on an LHCI-budgeted page —
+the perf-gate consequence is measured and recorded separately below
+once known. /injector-training's header comment gains the film's
+rules; CLINICIAN-SIGN-OFF carries the round for Amy's pass.
+
+## 2026-08-25 — /injector-training under the LHCI gate with a film: measured, no carve-out
+
+**Context:** /injector-training is LHCI-collected under the strict
+house assertMatrix row (`third-party:count 0`, total ≤ 350KB, image ≤
+240KB) and the training reel makes it the site's first film-bearing
+page under a Lighthouse budget. The flagged risk (approved plan, same
+date): LH's full-page pass fetches lazy content on this site — the
+recorded reason /services has a carve-out row — so the in-view
+autoplay could start the cross-origin media fetch mid-run, tripping
+`third-party:count` and making `total:size` nondeterministic. The
+plan authorized a page-scoped carve-out row IF measurement confirmed.
+
+**Measurement (local LHCI against the built page, 1 + 3 runs, all
+identical):** media 0 requests / 0 bytes; third-party 0; total
+198,898 B; image 144,414 B (new portrait + poster together, well
+under 240KB); LCP ~2,335 ms; CLS 0; performance 0.98. The autoplay
+fetch does not occur inside the LH trace window.
+
+**Decision:** `lighthouserc.json` is untouched — the strict house
+budgets hold and the authorized carve-out is NOT enacted. If a
+future LHCI or Chrome behavior change starts counting the media
+fetch, the carve-out this entry describes (page-scoped row:
+third-party 1, no total:size, every component budget kept) is the
+recorded, already-flagged remedy — enacting it then still gets its
+own DECISIONS entry.
+
+**Consequences:** the perf gate stays at full strength on the page;
+CI's own 3×-median run on the PR is the confirming record.
+## 2026-08-25 — the team film joins /about's Girl Team unit (sounded rendition; the second constraint-2 exception widens)
+
+**Context:** Operator direction, riding the day's /about round: the Mobile
+Aesthetics team film — `C:\Amy\New Pics\team.MOV` — joins /about directly
+below the "Visit Mobile Aesthetics" button, on autoplay. Verified
+first-hand before planning: the file (22,013,675 bytes, SHA-256
+7956A8DE6C607C85022426CC22EA4544665610EB24424DB0ED9B8D3F814BEB73, last
+modified 2026-08-17 05:45, the only team MOV under C:\Amy) is the same
+master screened frame-level for the home carousel that day — a fresh
+contact sheet matched the 2026-08-17 record shot for shot (the burned-in
+"GIRL TEAM" opener under the MA neon, the B&W photo-shoot montage; no
+products, no clients, no claims text; the only legible words are the
+overlay and Amy's own neon) — and **the operator confirmed the identity
+on the record ("It was 08/17")**. Probed: 1080×1920 portrait — 9:16, a
+fact the carousel record never needed to state — H.264 High at
+12.6 Mbps, 13.87s, stereo AAC-LC ~126kbps.
+
+**Flags raised, and the operator's decisions:**
+
+1. **Constraint 2 — placement widening.** The film shows the location's
+   other five providers, and its exception (the second scoped
+   exception, 2026-08-17) is recorded as the home-carousel film;
+   CLAUDE.md requires the human operator for any further film
+   placement. **Operator override, direct from the client: the film
+   joins /about**, inside the Girl Team unit. The five providers'
+   releases for needlegirlie.com use, confirmed 2026-08-17, cover the
+   film (as the Girl Team entry above noted — the film, not stills)
+   and carry to this second placement. CLAUDE.md's second exception is
+   widened in this PR; a third placement requires the human operator.
+2. **Sound.** The muted carousel rendition was offered as the
+   recommended path (zero new objects; browser autoplay is muted
+   regardless); **the operator directed a SOUNDED rendition** — "if
+   there is music, we'll have it setup where a user can unmute." The
+   master's audio probed as a steady music-class track (volumedetect
+   mean −20.2 dB, peak −6.0 dB; zero silent windows at −40dB/1s).
+   **"No speech or narration anywhere" is the operator's confirmation
+   (2026-08-25), and that confirmation is the record** (the
+   biostimulators pattern — no transcription tooling on this
+   workstation). Consequence: `autoplay="inview"` is **IN-CONTRACT** —
+   site-authored and speech-free, the film class the opt-in was
+   written for. No autoplay override exists or is needed; the ICON
+   film's scoped override remains that rule's only exception.
+
+**Decisions:**
+
+- **Rendition** `girl-team-film.mp4` (content-named, the unit's
+  vocabulary; a new filename, so no purge): H.264 CRF 23, preset
+  medium, yuv420p, `-c:a copy` (the AAC track untouched), faststart —
+  6.86MB / ~4.0 Mbps. Two recorded deviations, reasoned: the
+  lossless-remux rule for H.264/AAC sources would ship the master's
+  12.6 Mbps (22MB) into an autoplaying slot; and the sounded-film
+  CRF 20 recipe (written for HEVC sources) measured 9.54MB here,
+  while THIS master already has a client-reviewed visual precedent at
+  CRF 23 — its own carousel rendition. Both encodes were made and
+  measured; CRF 23 ships.
+- **Captions** `public/media/girl-team-film.vtt`, audio-faithful:
+  bounded `[Music]` cues plus the 0–2s cue mirroring the burned-in
+  "Girl team" overlay. The carousel's `commercial-team.vtt` is
+  deliberately NOT reused: `TreatmentVideo` renders captions
+  default-on, and that file's film-long descriptive cue — written for
+  the carousel, where captions are viewer-opt-in over a muted film —
+  would paint text across the whole play. The carousel file is
+  untouched.
+- **Poster:** `commercial-team-poster.jpg` REUSED (dedup rule) —
+  1080×1920, the same master's opening neon frame; the component
+  clamps the request to the 1080 source width.
+- **Placement + presentation:** inside the Girl Team unit's column,
+  directly below the button — the unit now runs still → plate →
+  button → film. Portrait 9:16 at full column width would render
+  ~800px tall, so a page-scoped wrapper caps it at the treatment
+  pages' in-row film width (18rem — the page's standing hand-copy
+  precedent; the sizing rule is scoped to `.treatment-body` and
+  unreachable here). `frame="bare"` beside the unit's bare segmental
+  arch; the mat stays the ICON player's standalone look. No printed
+  caption (the 2026-08-21 rule); the label names the team factually,
+  within the fourth exception's unit terms. The EvolusLaurel section
+  simply sits lower; the film's own 2.5rem top margin is the gap
+  under the button, and the plaque gap is eyeballed at 390/1280 on
+  the built page before the PR.
+
+**Alternatives rejected:** reusing the muted carousel rendition
+(recommended, declined — the client wants the music unmutable);
+lossless remux (22MB); CRF 20 (9.54MB, no visual gain over the
+master's own carousel precedent); full-column width (an ~800px
+portrait tower); the mat frame (re-imports the print look beside the
+unit's bare arch); a fresh constraint-2 exception entry instead of
+widening the second (one film, one exception — the record stays
+navigable).
+
+**Consequences:** two renditions of one master now serve from the
+media origin — `commercial-team.mp4` (muted, home carousel) and
+`girl-team-film.mp4` (sounded, /about) — so replacing the team film
+someday touches BOTH. /about runs two autoplaying players sharing the
+one ~2KB static script (zero new JS). The poster is fetched at page
+load on an LHCI-gated page — measured in verify, not assumed. Egress
+~7MB per full play. /about is structural — no clinicianApproved
+mechanics; Amy reviews on the PR preview, and the pending
+presentation-approval row gains the film. One passage left for the
+operator: the fourth exception's cross-reference sentence in CLAUDE.md
+(noting the unit gained the film) was blocked by the tooling
+classifier mid-edit — the OPERATIVE authorization, the second
+exception's widening, is applied; the cross-reference is flagged as
+the operator's passage (the DraftBanner BUILD_SPEC §4/§7 precedent).
+
+## 2026-08-25 — iv-therapy: the IV photos land (IV01 + IV02); studio-wide.jpg retires with its alt defect
+
+**Context:** Client direction via the operator (2026-08-25): on
+/services/iv-therapy, the page's one photo — `studio-wide.jpg` beside
+"What a visit looks like" (committed 2026-07-22, predating the photo
+round; also the carrier of the recorded alt defect, "two clients" vs
+its one-client 4:5 window — AUDIT 2026-08-17 / RELAUNCH precondition 3)
+— "isn't any good" and is replaced by `C:\Amy\New Pics\IV01.png`; a
+second photo, `C:\Amy\New Pics\IV02.jpg`, joins to the LEFT of
+"Individualized, with Amy" (text-only until now). One of three
+concurrent sessions this day; built in an isolated worktree on
+`content/iv-therapy-photos` off origin/phase-c (the 2026-08-21
+three-session precedent).
+
+**Sources, probed first-hand.** IV01: 1290×1720 PNG (exactly 3:4),
+2.27MB, casual phone-shot class (mild motion blur on Amy's arm — the
+client's pick, hers to make). IV02: 1290×2078 JPEG (~0.62), 342KB, EXIF
+orientation 1 (no rotation needed), **no GPS EXIF** (checked — the repo
+is public). Both SHA-256-unique against all 55 committed photos;
+neither duplicates `iv-drip-neon.jpg` (the /services menu card 11
+frame, untouched).
+
+**Screening record (frame-level + magnified scratchpad crops of every
+flagged region — the RUNBOOK full-resolution rule; astro:assets serves
+the source-resolution derivative as the `<img src>`):**
+- IV01 — a client seated in the treatment chair, IV line taped at her
+  elbow, working on a MacBook (back of screen to camera; her phone on
+  the chair is dark), lip-pillow on lap; Amy at the IV pole preparing
+  supplies over a gold tray; a yellow IV bag hanging. Zoomed and
+  cleared: a cursive wall-decal fragment top-right resolves to "by"
+  plus one partial letterform cut by the master's own frame edge — no
+  word or name resolves at source resolution, so no reference is
+  conveyed (the 2026-08-18 slot-01 illegible-fragment class); the tray
+  holds gloves, prep packets, orange-cap flush syringes, and
+  blue-capped items whose labels do not resolve (distinct from the
+  rejected prep-tray class, where branded vials and unit-marked boxes
+  were legible and central — nothing brands or quantifies here, and IV
+  supplies are this page's own subject); the bag shows only blurred
+  volume graduations — no name, no numerals resolve.
+- IV02 — Amy (pink gloves) tends the reclined male client's forearm;
+  yellow IV bag behind; supply cart left; fridge in background. Zoomed
+  and cleared: "AMERICAN EAGLE" on the client's t-shirt (third-party
+  apparel trade dress as worn — screening note); the decorative
+  LIVE/DREAM/LAUGH/DANCE/LOVE word-art print (the exact benign class
+  recorded 2026-08-17, frame 7); an illegible smudge of a tool-brand
+  cap logo; racked small vials/bottles and pink folders on the cart's
+  shelves with no label resolving at source resolution
+  (identifiable-but-illegible, noted per the RUNBOOK); the counter
+  phone lies edge-on, screen dark. No claims or dosing content in
+  either frame. **No override of any kind is required** — the
+  evolve-reel class: releases and screening notes only; CLAUDE.md, the
+  compliance registry, and BUILD_SPEC are untouched.
+
+**Identity + releases (operator, 2026-08-25, AskUserQuestion — the
+confirmations are the record):** the standing clinician in IV01
+(burgundy scrubs, back to camera) **is Amy**; the clinician in IV02
+(royal-blue scrubs, face mostly hidden) **is Amy** — constraint 2 not
+engaged in either frame. The seated IV01 woman is **a client, website-use
+release confirmed on file**; the IV02 male client's **website-use release
+confirmed on file**.
+
+**Decisions:**
+- Assets content-named: `iv-infusion-laptop.jpg` — the PNG master
+  re-encoded JPEG q92, single generation via sharp
+  (`sharp(master).jpeg({ quality: 92 })`, 2.27MB → 233KB; the
+  prp-treatment/studio-counter-portrait precedent — Astro re-encodes
+  every variant, so a committed PNG compounds); `iv-male-client.jpg` —
+  a byte-identical copy of the JPEG master (revanesse-mirror-client
+  pattern; hash-verified). Masters stay in C:\Amy\New Pics. No baked
+  crops: both sources are portrait, so the 4:5 arch display window is
+  width-limited and the full 1290px width serves — the sitewide
+  [340, 540, 680] widths contract is met with no retina override (the
+  skincare bake was for a landscape source).
+- Row 1 keeps its `media-row--flip` shape (photo right); src, alt, and
+  a provenance comment swap in. Row 2 wraps "Individualized, with Amy"
+  in a plain `media-row` — figure first, photo LEFT — mirroring
+  weight-loss-glp-1's row for the same section. Page rhythm: flip
+  (right) → text → plain (left); two rows, no band needed.
+- Per-image knob, one: `iv-infusion-laptop` anchors top (50% 0%) — the
+  hanging IV bag is already clipped by the master's own top edge and
+  the default 30% anchor trimmed another 32px off it; anchored top the
+  window keeps the maximum of the bag and sheds only floor. A/B'd on
+  the built page at 390 and 1280 (both anchors screenshotted). IV02
+  sits at the default anchor — the 4:5 window (~466px trim) keeps the
+  word-art print, the bag, both people, and the client's shoes; the
+  arch dome grazes the print's top edge, cosmetic only. Layout knob in
+  its own commit (layout ≠ content).
+- `studio-wide.jpg` had no other consumer (git grep, zero hits outside
+  docs) → deleted in the content commit; git history keeps the frame.
+  Its recorded alt defect retires with it — CLINICIAN-SIGN-OFF and
+  RELAUNCH precondition 3 updated in the docs commit.
+- `clinicianApproved` true → false in the content commit (constraint 4
+  — the page was approved 2026-08-05). Flags now read
+  **2 true / 10 false** (hormone-optimization and regenerative remain
+  true); Amy re-reviews on the PR preview and the flag returns in the
+  consolidated pre-relaunch round.
+
+**Alternatives rejected:** reusing `iv-drip-neon.jpg` in-body (would
+duplicate the menu-card frame on the page it opens); committing the
+IV01 PNG as-is (double-lossy through the pipeline); a baked 4:5 crop
+of either source (portrait sources — the CSS knob has no retina cost
+here, the dermal-fillers precedent); the 3:4 aspect knob for IV01
+(offered by the geometry, unneeded — the 4:5 window loses only floor
+and already-clipped edge content).
+
+**Consequences:** photo round page 10; the page's two photos are now
+both the client's own picks; /services/iv-therapy is pa11y-gated and
+outside the LHCI set, so the swap carries no budget math. The two new
+frames are casual phone shots rather than pro-shoot frames — the
+client's pick, noted once. Docs updated in this PR: DECISIONS,
+CHANGELOG, CLINICIAN-SIGN-OFF (row + drift list + defect note),
+RELAUNCH (precondition 3's defect note), REDESIGN (photo row).
+
+**Addendum, same day — IV02 re-graded brighter (operator review).**
+The frame read very dark on the operator's first look. Re-derived from
+the master in a single generation — superseding the byte-copy above,
+its own commit — with the house dim-ambient recipe (the 2026-08-18
+cards 11/12 precedent): sharp
+`.modulate({ brightness: 1.28, saturation: 1.05 })`, JPEG q92, same
+content name, zero code change. Chosen against four side-by-side
+candidates (1.15 / 1.25 / 1.35 / 1.25+linear) with highlight clipping
+measured rather than guessed: 3.0% of pixels at ≥250, concentrated in
+the ceiling light panels (light sources — harmless), vs 1.5% at 1.25
+and 3.8% at 1.35; the word-art print, cabinets, and cart hold texture
+on the built page and the client's black shirt stays rich. The lift
+changes exposure, not what the frame discloses — a brightness multiply
+adds no resolution, so every illegible item in the screening record
+stays illegible and the screening posture is unchanged. sharp strips
+the master's (GPS-free) EXIF in the derivation — a wash. IV01 was not
+re-graded: its white-room frame already sits bright beside it.
+## 2026-08-25 — regenerative: the PRP media round (PRP01 + PRP02 + Amy's reel; two new scoped overrides)
+
+**Context:** Client direction via the operator (2026-08-25), three
+additions to /services/regenerative — until now the thinnest media page
+(the one prp-treatment band) and one of the last approved pages: PRP01
+to the left of "Who they're generally for" (plain media row), PRP02 to
+the right of "Individualized, with Amy" (flip row), and PRP.MOV
+standalone at the end of the body — which renders immediately before
+"Your visit, step by step" (verified: nothing sits between the MDX slot
+and VisitSteps in TreatmentLayout) — on autoplay. One of several
+concurrent sessions this day; built in an isolated worktree on
+`content/regenerative-media` off origin/phase-c. The existing band
+stays; its "single media moment" comment is rewritten. ffmpeg/ffprobe
+were absent from this workstation — a static build was downloaded to
+the session scratchpad (session tooling, never a repo dependency).
+
+**Sources, probed first-hand.** PRP01/PRP02: 4032×3024 iPhone JPEGs,
+EXIF orientation 6 (upright 3024×4032, exactly 3:4), no GPS EXIF;
+SHA-256-unique against all 55 committed photos. PRP.MOV: 8.73s, H.264
+High 1920×1080 with rotation −90 (upright 1080×1920 portrait 9:16),
+30fps, 15.1Mbps, 16.8MB; AAC-LC stereo ~164kbps; audio near-silent
+(volumedetect mean −49.8dB, max −24.4dB); a raw camera file (Apple
+metadata streams — not the TikTok aigc-label class).
+
+**Screening record (contact sheet at 1fps + full-res grabs for the
+film; magnified crops of the committed derivatives for the photos —
+what ships is what was screened):**
+- PRP01 (`prp-blood-draw.jpg`) — an arm with gauze at the elbow, post
+  blood-draw, on a draped table; a rack of three filled collection
+  tubes; a crimp-cap vial; supplies. **PHI check: PASS** — the tube
+  labels are the manufacturer's own (BD Vacutainer REF/barcode class,
+  mostly turned away, near-illegible at committed resolution); no
+  patient label, name, or date anywhere. The vial's label faces away —
+  only lot/exp field fragments and a barcode edge; no product name
+  resolves. The pad's tag is a supply part number + maker's address
+  (the identifiable-but-illegible class); the packet under the arm is
+  unbranded. No claims or dosing content. **The arm is AMY'S OWN
+  (operator, 2026-08-25 — the confirmation is the record); no release
+  needed.** No override needed for this frame — screening notes only.
+- PRP02 (`prp-syringes.jpg`) — four prepared PRP syringes with needles
+  on a towel, gauze, a torn supply packet — and two vials whose labels
+  ARE legible in the served file: "Bacteriostatic 0.9% Sodium
+  Chloride / Injection, USP", "30 mL Multiple-dose", "NDC
+  0409-3977-01", red "For drug diluent use only" text, "Rx only", a
+  lot code, and partial manufacturer fine print. A diluent vial beside
+  prepared syringes is prep-workflow imagery of the class the
+  2026-07-23 rubric excluded, and pixels are invisible to lint:claims.
+  **Flag raised in full → OPERATOR OVERRIDE: SHIP AS-IS** (the
+  crop-out bake — which would have kept the syringes, the frame's
+  subject — and the defocus bake were both offered and declined).
+  Fixed terms: this frame, this page; no text from the packaging is
+  ever restated in site text — copy, alt, comments, meta, OG, JSON-LD.
+  Recorded in CLAUDE.md constraint 3 (the dosing/reconstitution
+  bullet's pixel-override list) and BUILD_SPEC. The syringes' scale
+  graduations are the engraved-scale screening-note class (the 19b
+  collar precedent).
+- PRP.MOV (`prp-visit.mp4`) — a single continuous selfie-style scene,
+  no cut, no before/after structure, no burned-in text; the only
+  legible content is the syringe's graduation numerals (engraved-scale
+  class). **The film shows TWO people, which contradicted the first
+  stated cast ("Amy/hands only") — stopped and re-flagged with the
+  frames described.** Operator resolution (2026-08-25, the
+  confirmations are the record): the RECIPIENT (pink top, face to
+  camera throughout) **is Amy herself**, receiving her own PRP
+  hairline treatment; the INJECTOR (black top, gloved hands, chain
+  bracelet, face mostly out of frame, briefly part-visible) **is one
+  of the location's other providers — OPERATOR OVERRIDE, a new
+  constraint-2 scoped exception** (the radiesse-visit configuration:
+  face mostly out of frame, never named), **her consent for
+  needlegirlie.com use confirmed on file.** Consequence for wording:
+  the film's label and captions never attribute the hands-on treatment
+  to anyone; the page's "Every appointment is with Amy herself" FAQ is
+  unaffected (Amy is the patient here, not a client appointment).
+- **Audio: KEPT, tap-for-sound** (operator choice over the recommended
+  strip — the treatment-film pattern), and **"no speech or narration"
+  is the operator's on-record confirmation (2026-08-25, after
+  listening; no transcription tooling on this workstation)** — with
+  which `autoplay="inview"` is fully in-contract: Amy's own,
+  speech-free (the constraint-2 override is a separate matter; the
+  radiesse-visit film set the precedent that the two coexist).
+  Captions are bounded quiet-room cues (one 2s cue), faithful to the
+  near-silent track — never film-long.
+
+**Decisions:**
+- Photos: the 23a EXIF-normalize recipe, single generation each —
+  sharp `.rotate()` → `.resize(1200, 1600)` (3:4 exact, no crop) →
+  JPEG q92; content-named `prp-blood-draw.jpg` / `prp-syringes.jpg`
+  (the PRP01/PRP02 pick labels live only in this entry). 1200px ≥ the
+  680 max row tier through the 4:5 window — no retina override, no
+  baked crop (portrait sources). Both rows take the sitewide
+  [340, 540, 680] / 17rem contract. Default crop anchors read well at
+  390 and 1280 — zero TreatmentLayout knobs this round.
+- Film rendition: `-vf "scale=810:1440" -c:v libx264 -crf 20 -preset
+  medium -pix_fmt yuv420p -c:a copy -movflags +faststart` → 810×1440,
+  4.0MB @ 3.7Mbps (the training-reel sizing discipline: 810 ≈ 2× the
+  24rem standalone cap; ffmpeg applies the −90 rotation in the filter
+  graph). A lossless remux was rejected on the girl-team precedent —
+  it would ship the master's 15.1Mbps / 16.8MB into an autoplaying
+  slot. Poster from the rendition at 0.5s (`-q:v 2`, 810×1440, 84KB)
+  → `prp-visit-poster.jpg`. Blob name `prp-visit.mp4` (content-named,
+  the radiesse-visit naming family; new filename, no purge), uploaded
+  AFTER this entry was committed (the written rule).
+- Placement: standalone `TreatmentVideo` in the default mat frame
+  inside a `mx-auto max-w-sm` wrapper (the injector-training
+  standalone pattern, first use inside an MDX body), at the very end
+  of the body — the film renders directly above "Your visit, step by
+  step" as directed. Autoplay verified functionally on the built page
+  before the upload: playing muted + looping in view, paused
+  off-screen (the ICON verification pattern).
+- `clinicianApproved` true → false (constraint 4 — the page was
+  approved 2026-08-05). Flags on this branch read 2 true / 10 false;
+  iv-therapy's reset rides the open PR #160, so once both merge the
+  count is 1 true / 11 false and hormone-optimization is the last
+  approved page. Amy re-reviews on the PR preview; the flag returns in
+  the consolidated pre-relaunch round.
+
+**Alternatives rejected:** the PRP02 crop-out bake (recommended —
+declined; the client's frame ships whole) and defocus bake (declined);
+stripping the film's audio (recommended for simplicity — operator
+chose keep, tap-for-sound); a lossless remux (weight, above); wrapping
+the film in a media row (the direction was a standalone placement
+before the visit steps, and the mat frame is the recorded standalone
+look); reusing the muted-carousel captions form (the audio is kept, so
+cues must be faithful to it).
+
+**Consequences:** the site's fifth autoplay page and the page's first
+film; the page now runs the full media rhythm (band → row → flip row →
+film) — the band's "single media moment" comment rewritten in the same
+commit. Two new scoped overrides enter the books: the PRP02 packaging
+frame (constraint 3, dosing-bullet pixel list) and the prp-visit film's
+on-camera provider (constraint 2, the radiesse-visit class) — each
+fixed to its asset and page; extending either requires the human
+operator. /services/regenerative is pa11y-gated (the .vtt is the
+video-caption gate's requirement) and outside the LHCI set; the poster
+fetch and the 4.0MB in-view stream are the page-weight notes. Egress
+~4MB per full play.
+
+## 2026-08-26 — `::selection` joins the ombre companion re-ink (the invisible-highlight report on dermal-fillers)
+
+**Context:** the text-review round surfaced it — on
+/services/dermal-fillers, "Placed in proportion" "doesn't let us"
+highlight or copy, on every system tried. Diagnosis, verified live on
+the -149 review preview: selection itself works (a programmatic range
+returns all 244 characters — copy always worked), but the sitewide
+`::selection` rule painted a fixed pink-300 highlight with ink-900
+letters. Pink-300's luminance sits between the ombre ramp's endpoints,
+so the canvas crosses it: canvas-equal at 33.8% of the document (42%
+along the ramp, 1.004:1), sub-1.2:1 from 22.0% to 45.8% — the card
+plates' dead-band arithmetic exactly (their published 19.6% / 24.5% /
+1.001:1 / 8–32% figures were reproduced with the same model before the
+new numbers were trusted). And ink-900 selection letters match the
+body text, so the letters never changed either. The section's copy
+measures 34.1% of the document — the bottom of the band — with the
+noir Laurel plaque directly above it highlighting in vivid pink (its
+own scoped values), which made the page read as "selection dies right
+here" rather than "the highlight is invisible." Site-wide in cause,
+positional in effect: canvas-level prose between ~22% and ~46% of any
+light page carried the same latent defect.
+
+**Decision:** `::selection` becomes surface-scoped in global.css — an
+ink-900 plate with blush-50 letters on light surfaces (4.88:1 at the
+held ramp end, 15.77:1 at the top; no dead band is possible, the plate
+being darker than every light surface on the site), plus a
+`[data-surface='noir']` scoped rule keeping noir's pink-300/ink-900
+look pixel-for-pixel. Scoped by SELECTOR, not by re-scoped semantic
+tokens: custom-property resolution inside highlight pseudo-elements is
+browser-divergent, so the `--ng-focus-ring` per-surface pattern (a
+pseudo-class consumer) does not transfer — the new rules consume only
+root-constant palette tokens, identical under every resolution model.
+Verified functionally on the built page: dark plate + light letters at
+the dead spot, Laurel and footer selections unchanged, FAQ cards
+ink-plated, `getSelection()` returning the text throughout.
+
+**Alternatives rejected:** any other fixed light pink (still crosses
+the ramp somewhere — a point fix moves the dead band, never removes
+it); surface-scoped semantic tokens consumed inside `::selection`
+(bets the fix on inconsistent var-in-highlight-pseudo behavior);
+leaving it (a text-review round is exactly when people copy text).
+
+**Consequences:** selection now shows at every point of every page;
+noir is untouched. Colors only — no rendered text changes, no MDX, no
+`clinicianApproved` resets, no lint surface. The tokens.css OMBRE
+CANVAS record carries the crossing figures alongside the card-plate
+precedent.
+
+## 2026-08-26 — dermal-fillers copy round (client wording, two batches); VisitSteps step 4 names Amy sitewide
+
+**Context:** Client-directed copy changes on /services/dermal-fillers,
+dictated by the operator across two same-day batches on one PR (#165
+into `phase-c` — one preview for Amy, the 2026-08-15 combined-review
+lesson). Batch 1: the lead drops "gel" ("Injectable fillers for volume
+and contour.") and takes her new areas sentence and order ("Common
+areas include the lips, under-eye area, cheeks, jawline and chin." —
+"lipos" confirmed as a typo for "lips"); the body's near-identical
+"What they are" areas sentence synced to the same order (operator's
+choice, unlike the 2026-08-23 deliberately-divergent "creases" call);
+the deck gains its opening — "Facial Balancing — volume and contour in
+proportion — never more than the face asks for." (em dashes, the
+operator's pick over the dictated hyphens); all three product cards now
+read "$650 (full-syringe) or $325 (half-syringe)"; and the /services
+menu-card echo drops "gel" too (serviceLines.ts — the 2026-07-30
+"temporary" card-summary precedent). Batch 2: the "Placed in
+proportion" parenthetical becomes a spaced em-dash pair ("Amy maps each
+face — where volume sits, where it has thinned, how the features
+balance — and places only what the plan calls for."); "Individualized,
+with Amy" is retitled "Personalized, with Amy" (this page only) over
+her new paragraph; "Lips, styled" closes "begins with a conversation."
+(was "is a consultation conversation."); and "After weight loss" ends
+its second sentence at "more visible." (the "than they were"
+comparison dropped). Dictated typos corrected with the operator's
+confirmation or on the record here: "lipos" → "lips", "grreater" →
+"greater", "questios" → "questions".
+
+**The one flag of the round, and how it resolved.** Her new
+"Personalized, with Amy" paragraph drops "under clinician supervision"
+— the clause the operator chose to KEEP on wrinkle-relaxers
+(2026-08-23) when Amy's draft omitted it there. Flagged once with that
+counterpart decision named; the operator directed the drop for this
+page. Gate-clean and defensible, per the 2026-08-23 research: no
+inverse check touches supervision, BUILD_SPEC §7 names it as a beat in
+the copy pattern rather than a mandated string, and several pages
+carry no supervision language at all. The supervised-care fact
+survives on the page in "plans and performs each treatment herself".
+No override, no allowlist entry — nothing trips a pattern; recorded so
+the two pages' opposite calls are both visible and neither is read as
+an oversight.
+
+**Also recorded, not re-argued:** (1) the paren→em-dash change
+reverses one of the 2026-07-29 em-dash-budget moves (parentheses were
+that pass's approved fix for "— x —" pairs) — client wording governs,
+as it did for the two-dash deck; (2) "begins with a conversation." is
+another consultation-language trim, logged against the 2026-08-24
+trend line as that record instructs — individually compliant, §8.7
+routing intact via the layout-injected DisclaimerBlock on all twelve
+pages plus this page's five FAQ consultation routings.
+
+**VisitSteps step 4 (sitewide).** The dictated "Aftercare guidance"
+sentence differed from the shipped text by two words: "reach out"
+becomes "reach out to Amy". The sentence lives in the shared
+`VisitSteps.astro`, so the change lands on all twelve treatment pages
+and the styleguide — surfaced before editing (the 2026-08-24 lesson: a
+sentence a page displays is not necessarily a sentence that page
+owns), and the operator chose sitewide over page-scoped machinery,
+exactly as for steps 2 and 3 on 2026-08-24. Naming Amy is the same
+gain step 2 got. `check:approvals` cannot see a component edit;
+hormone-optimization — the one page still `clinicianApproved: true` —
+keeps its flag at the operator's standing direction, and
+CLINICIAN-SIGN-OFF carries the new words as a cross-cutting item so
+Amy sees them.
+
+**Alternatives rejected:** page-scoped step-4 wording (a VisitSteps
+prop + layout pass-through + schema field — rejected 2026-08-24 as
+more machinery than the sentence, and again here); keeping the
+dictated hyphens in the deck and the mapping aside (operator chose em
+dashes); leaving the /services menu-card echo on "gel" (operator chose
+the sweep).
+
+**Consequences:** `compliance/banned-patterns.json` untouched all
+round — no new string trips any pattern and nothing needed an
+allowlist entry. dermal-fillers' `clinicianApproved` was already
+`false` (2026-08-21), so no reset fired; flags stand at 1 true / 11
+false (hormone-optimization only). The lead edit reaches the Service
+JSON-LD description via `[slug].astro` (verified claims-clean in the
+built output); the deck reaches no meta, OG, or JSON-LD (verified).
+"Individualized, with Amy" remains the heading on the other treatment
+pages — the retitle is this page's alone, and syncing any sibling is a
+fresh direction, not a tidy. Amy reviews the full round on the PR #165
+preview; the sign-off row and the step-4 cross-cutting note are the
+review record.
+
+## 2026-08-26 — /about milestones: MA chevron plates replace the numerals
+
+**Context:** Operator direction (reference screenshot chevrons02.png,
+repo root): the "Two decades in the making." timeline's 01–04
+numerals become the MA chevron plates the treatment pages' VisitSteps
+wears. This supersedes the scoping in the 2026-08-19 VisitSteps entry
+— "The /about milestones keep their numerals (career timeline —
+different object)" — by the operator's own call. The two patterns are
+siblings: the timeline runs the Playfair-counter recipe hand-copied
+2026-08-15 FROM VisitSteps, which retired it 2026-08-19 for the
+plates; this change closes the recipe's last live use.
+
+**Decision:** Hand-copy, one page. about.astro gains the FOIL_STOPS +
+CHEVRONS consts (verbatim from VisitSteps.astro, itself verbatim from
+src/assets/brand/mobile-aesthetics-mark-header.svg; MA is Amy's own
+PLLC — constraint 2 not engaged, DECISIONS 2026-07-23) and four badge
+divs with gradient ids about-foil-0…3 — an id namespace of its own,
+indexed so no page carries duplicate ids (axe). The counter CSS
+retires; the plate rules are hand-copied (noir plate, 7rem,
+decorative, aria-hidden). NO sr-only ordinal joins the headings — a
+deliberate asymmetry with VisitSteps' "Step N.": step numbers carry
+meaning in a process walkthrough but would misdescribe a biography
+timeline whose headings carry the years; the ol[role="list"]
+announces order and count as before, and sighted users lose the
+identical numerals, so no cross-modality gap opens (SC 1.3.1/1.1.1
+hold). Knock-on: --ng-display-accent now has no light-canvas
+consumer; the ombre re-ink STAYS (defense-in-depth — magenta-600 at
+~1.9 mid-ramp may never render on the ramp) and the tokens.css OMBRE
+CANVAS record says so.
+
+**Alternatives rejected:** extracting a shared badge component
+(touches VisitSteps → re-verifying 12 treatment pages + styleguide
+for a /about-only ask, and collides with the parallel session working
+treatment pages today; consolidation stays available as a later
+round); converting the four hand-written li's to an array+map (moves
+Amy-confirmed copy — PR #83 — into frontmatter strings and changes
+built bytes, the &middot; entities; the insertion-only diff wins); an
+sr-only "Milestone N." (new AT-only copy adding nothing the years
+don't already carry).
+
+**Consequences:** the chevron data now lives in three places (brand
+SVG → VisitSteps → about), each copy under a dated provenance comment
+— drift is discoverable, and consolidation is a one-round job if a
+fourth consumer ever appears. The 49px-Playfair-outside-headings
+sanction and the display accent's light-canvas consumer both retire
+with the counter. Design-only: no rendered-text changes, no MDX, no
+clinicianApproved implications.
+
+## 2026-08-26 — the team film goes widescreen (a scoped crop override, checkpoint-approved)
+
+**Context:** Operator direction: the /about Girl Team film's vertical
+screen becomes "a screen laying horizontal." Probed at frame level,
+the film is NATIVELY portrait — every frame is 1080 wide with no side
+matte, ~17% of frames are full-bleed 1080×1920 (the B&W montage), the
+opener band is 4:5, and the widest recurring content band is
+1080×720; there is no letterboxed 16:9 picture to reveal. Flagged to
+the operator with the two honest builds (a true 16:9 crop that trims
+the tallest shots, or a horizontal stage around the intact vertical
+film); the operator chose the crop. RUNBOOK's sounded-film rule says
+"nothing crops or masks a film" — this is a scoped operator override
+of that sentence, after the flag; the RUNBOOK gains the parenthetical.
+
+**Decision:** `girl-team-film-wide.mp4` — a static 16:9 center crop
+of the master (`crop=1080:608:0:656`; every stable shot's content
+band centers at y=960, verified by per-frame cropdetect), H.264 CRF
+23 + `-c:a copy` + faststart: 4.19MB / 2.4Mbps, audio byte-identical
+so the caption cues carry over. CRF 23 is this master's own recorded
+precedent. Checkpoint before upload (the ship gate): seven pre/post
+frame pairs, poster candidates, and page mocks presented on a review
+page; the crop verified kinder than the static arithmetic suggested —
+the film's per-shot zooms mean the wide window catches a complete
+composition in nearly every beat: all heads stay in frame throughout,
+the neon sign and the burned-in "GiRL TEAM" overlay both survive
+(so the player label and the opening caption cue stay accurate), and
+the losses are lower legs in the two full-height beats plus the
+opener's counter. Operator approved the crop and poster A (the
+opener frame). New filename per the RUNBOOK's own preference (no
+purge); poster forked from the new rendition —
+`girl-team-film-wide-poster.jpg`, 1080×608, which is also what flips
+the aspect-agnostic player's box to landscape (the carousel keeps the
+portrait rendition and poster untouched); new VTT with the NOTE
+rewritten and cues unchanged; the `.about-team-film` 18rem cap
+retired — the film fills the unit column, and the unit reads still →
+plate → button → film at one width. CLAUDE.md's constraint-2 second
+exception is updated in-PR to the new rendition name (the 2026-08-25
+widening precedent); its operative terms — placement, sound behavior,
+releases, third-placement-requires-operator — are unchanged. The
+fourth exception's classifier-blocked cross-reference sentence
+remains the operator's open passage, untouched.
+
+**Alternatives rejected:** the horizontal noir stage around the
+intact portrait film (offered; the operator chose the crop); reusing
+the carousel rendition (portrait AND audio-less); per-shot dynamic
+cropping (only single-frame transitions sit off-center — complexity
+with no visible gain); replacing the object in place (edge caches it
+for a day; a new name needs no purge).
+
+**Consequences:** the sounded /about rendition and the muted carousel
+rendition now differ in shape as well as sound — the "one master, two
+renditions" RUNBOOK note carries both names. Egress per full play
+drops ~7MB → ~4.2MB. The retired portrait object `girl-team-film.mp4`
+is deleted from Blob only when NO open PR's branch references it —
+at merge time the parallel session's dermal-fillers PR (#165) still
+does, so the deletion waits for that PR and is verified by re-running
+the branch grep until clean. Its VTT is deleted in this PR (served
+per-branch, same-origin — old branches keep their own copy).
+
+## 2026-08-26 — the Evolus Laurel centers on /about's band
+
+**Context:** Operator report: the plaque "looks like it's off" on
+desktops. Measured live at 1440: the 768px noir slab sat with 160px
+of canvas to its left and 512px to its right. Cause: the whole
+Evolus unit lives in a deliberately left-aligned max-w-3xl column
+(the 2026-08-18 "milestones idiom" intent, recorded when the
+recognition plate moved from wrinkle-relaxers) inside the centered
+max-w-6xl section — and the plaque, the unit's only full-bleed noir
+box, is what makes the left bias read as a defect. Treatment pages
+center it for free (their article is mx-auto).
+
+**Decision:** The plaque hoists into its own `mx-auto max-w-3xl`
+wrapper at the top of the same section; the "Inside Evolus" heading,
+prose, and ICON film keep the left-aligned column and its recorded
+idiom. Supersedes the 2026-08-18 left-aligned-column intent FOR THE
+PLAQUE ONLY (operator direction). No change below 816px viewport
+(the column already fills the band). Verified: gaps 328/344 at 1440
+(the 16px delta is the scrollbar), heading rail unchanged, the
+component has no width/margin rules that fight the wrapper.
+
+**Alternatives rejected:** centering the whole unit (indents the
+heading off the page's left rail shared by every other section);
+margin-inline on the component (a no-op inside a full-width parent,
+and it would repaint nothing on the treatment pages either — the
+wrapper is the actual knob).
+
+**Consequences:** /about's Evolus section now has two column blocks
+(centered plaque, left-aligned unit). Design-only: no rendered-text
+changes, no MDX, no clinicianApproved implications.
+
+## 2026-08-26 — the Evolus unit centers whole, text included (second pass, same day)
+
+**Context:** Operator direction on seeing the first pass rendered:
+"Inside Evolus", its paragraph, and the ICON film still sat too far
+left on desktops — center them too. This chooses exactly what this
+morning's plaque entry listed under alternatives rejected ("centering
+the whole unit indents the heading off the page's left rail"): the
+operator saw the centered plaque above the left rail and picked the
+whole unit. A planning flag shaped the form: block-centering the
+column alone would not read centered for the TEXT (the heading is
+~200px, the paragraph ~533px, in a 768px column — the film alone
+fills it), so the operator was offered block-centered vs
+text-centered and picked TEXT-CENTERED, /about's own "Ready when you
+are" band being the page's precedent.
+
+**Decision:** The section's two column divs merge back into one
+`mx-auto max-w-3xl` (vertical rhythm identical — the rule's mt-12/16
+collapsed through the old second div's top edge). Per-element
+centering, not a wrapper `text-center`: the accent rule gains
+`mx-auto`, the h2 `text-center`, the paragraph `mx-auto text-center`
+(the 65ch block centers, its lines center); the ICON film centers by
+filling the column, and its printed figcaption deliberately keeps
+its left seat at the film's edge — nothing re-aligns unreviewed.
+Verified on the built page: heading, paragraph, and film centers all
+at 0px offset from the band's center at 1440 (the trace-animation
+transform makes mid-animation rule measurements read ~28px left —
+measure after it settles). Classes only; every word byte-identical.
+
+**Alternatives rejected:** block-centered with left text (offered —
+the operator picked text-centered); `text-center` on the wrapper
+(silently re-aligns the film's figcaption and touches the plaque's
+already-centered internals).
+
+**Consequences:** "Inside Evolus" leaves the left heading rail the
+other sections share — the request, with the centered plaque and
+film keeping the unit coherent as the page's showcase band. The
+2026-08-18 left-aligned-column intent is now fully superseded (the
+morning entry took the plaque; this one takes the rest). Design-only:
+no MDX, no clinicianApproved implications, no lint surface.
+
+## 2026-08-26 — a moved base silences a PR's CI (the conflicted-PR class hits a feature PR); the standing previews get a no-checkout refresh
+
+**Context:** With two sessions merging into `phase-c` in parallel, the
+open dermal-fillers PR (#165) went silent: after its batch-2 push,
+GitHub created NO workflow runs — not the PR preview, not the Relaunch
+guard — and a close/reopen cycle plus an empty-commit nudge were
+swallowed too, five qualifying events over ~90 minutes. It was
+misdiagnosed as a GitHub Actions outage (workflows verified active,
+Actions enabled, triggers correct, no posted incident) until the
+operator supplied the deciding fact: the /about session's pushes were
+running fine. The real mechanism was already in the RUNBOOK, filed
+under PR #95: **GitHub creates no `pull_request` runs for a PR whose
+merge ref it cannot compute.** The /about session's merges (#164,
+#166) had moved `phase-c` under the open PR at 19:53Z, the branches
+conflicted on the append-only docs (DECISIONS tail, CHANGELOG head),
+and everything after that instant was silently dropped. The timeline
+matched exactly: the PR's own opening ran at 19:48Z; nothing ran
+after 19:53Z.
+
+**Decision:** merge `origin/phase-c` into the PR branch and resolve
+keep-both (the 2026-08-15 rule — their three /about entries and the
+copy round's entry all survive; no source files collided). Full
+verify green; on push, both workflows fired within seconds and ran
+green; the PR converged and merged (`85b51ba`). The RUNBOOK gains a
+troubleshooting entry putting `gh pr view --json mergeable` FIRST in
+this diagnosis — the check that was skipped for an hour — and naming
+close/reopen and nudge commits as useless here (their events need
+the same merge ref).
+
+**The second procedure this surfaced:** refreshing the standing
+previews after the merge, both preview branches
+(`chore/monday-demo-preview`, `review/page-numbers`) were checked out
+in the other sessions' worktrees (`website-iv`, `website-tags`), so
+`git checkout` refuses them in this tree. Refreshed WITHOUT a
+checkout: `git merge-tree --write-tree origin/<branch> phase-c` →
+`git commit-tree` with both parents → push the commit to the branch
+ref. Both merged clean, both environments probed to convergence.
+The recipe is now in the RUNBOOK beside the refresh rule, with the
+caveat that the holding session's local branch is left behind origin
+and must pull before its own next refresh.
+
+**Alternatives rejected:** force-pushing `phase-c` over a preview
+branch (destroys its merge history for nothing); `git worktree add
+--force` to double-check-out a locked branch (fights the other
+session for the same ref); waiting out the "outage" (there was none
+to wait out).
+
+**Consequences:** two harmless artifacts remain on the merged branch
+from the misdiagnosis — an empty "chore: nudge CI" commit and a
+close/reopen cycle on PR #165 (no side effects; no workflow ran on
+either event). The generalizable rule, recorded so the next silence
+is diagnosed in one command: **when a push creates no runs at all,
+check the PR's mergeability before anything else** — in a
+two-session week, a moved base is the likely cause, and the fix is a
+sync merge, not a CI remedy. REDESIGN gains the copy round's tracker
+row in the same commit (it was missing against the wrinkle-relaxers
+precedent). Docs-only; no gate, config, or content changes.
+
+## 2026-08-26 — /about brand-ink round: black CTAs + black plate, logo-pink lettering
+
+**Context:** Operator direction: on /about, the "Book with Amy" and
+"Visit Mobile Aesthetics" buttons go black with their lettering in
+the Needle Girlie logo's pink, and the Girl Team placard likewise.
+"The logo's pink" was pinned twice before styling: a pixel census of
+needle-girlie-logo-on-black.png (dominant letter color) and the
+canonical master (src/assets/brand/source/
+needle-girlie-logo-black-bg.html — the wordmark container and the
+whole word "Girlie" are literally #EC4899, and its "NG" thumbnail is
+#EC4899 on #000000). That is --ng-pink-500 — no new color enters the
+system. The site already ships the exact treatment: the header Book
+button (.site-book-cta) — pink-500 text + 1px pink-500 border on
+noir, hover inverting — with the recorded 5.95:1 pair, cleared at
+body size on noir since 2026-07-19.
+
+**Decision:** Page-scoped adoption of the header button's grammar via
+one class, `.about-cta-brand`, in about.astro's is:global style block
+(the selectors REQUIRE is:global: CTAButton-rendered anchors carry
+the component's scope attribute, not the page's — recorded in the CSS
+comment so a future "tidy" to a scoped block can't silently kill the
+rules). Both /about buttons titled "Book with Amy" are in scope — the
+hero consult variant and the closing band's solid (the page's loudest
+element goes quiet black-and-pink; flagged in the plan, operator
+approved) — plus the hand-rolled Visit Mobile Aesthetics anchor,
+whose 2026-08-25 terms (hand-rolled, ma_site_click, new-tab + sr-only)
+are untouched. The band's Call button stays. Noir fill, pink-500 text
+and 1px border; hover inverts to pink-500 fill + noir text (the same
+symmetric 5.95 pair); min-height 3rem is border-box, so the new
+border keeps the band buttons height-aligned. The sitewide .cta
+classes stand untouched (they fan out to every page incl. 12
+treatment pages). The Girl Team plate recolors in place: paper→noir,
+ink-900→pink-500 lettering, hairline→pink-500 border (the
+light-scoped hairline reads as a stray gray line around a noir
+plate). Everything else holds: opaque (the Phase C no-scrim rule —
+noir is as opaque as paper), z-index above the magenta wash so the
+audited contrast stays real, keystone seat, "Girl Team!" wording and
+Amy's casing (constraint-2 fourth-exception text — fixed). tokens.css
+gains a consumer note on the body-size pink-500-on-noir pair.
+
+**Alternatives rejected:** restyling .cta--solid/.cta--outline
+sitewide (12-page fan-out for a one-page ask; on the treatment
+pages' noir bands a black fill would also change every band);
+magenta-600 or neon-500 as "the logo pink" (the master shows the
+ramp letter "N" and the syringe glyph respectively — the wordmark
+base is pink-500; neon-500 is never-text by rule); a class prop on
+CTAButton (shared-component churn while wrappers suffice).
+
+**Consequences:** /about now carries a consistent black-plate,
+pink-ink motif — the chevron milestones plates, the Girl Team
+placard, and its three brand CTAs. The "solid CTA fill text" 4.88
+pair no longer describes /about's Book buttons (they ride the 5.95
+noir pair; every other page's solid CTAs unchanged). Design-only: no
+wording, no MDX, no clinicianApproved implications. Rider executed in
+this round's ship sequence: PR #165 has merged, so once this PR
+lands and the standing previews refresh onto the new tip, the
+open-PR reference grep for the retired portrait team-film object is
+re-run and `girl-team-film.mp4` deleted from Blob on zero hits —
+per the 2026-08-26 widescreen entry's recorded precondition.
+
+## 2026-08-27 — the brand chip goes shared: `.cta--chip` (hoisted from /about); home + training placements; /services frozen
+
+**Context:** Operator direction, from two screenshots: the
+/injector-training intro Call button (the plain outline on the light
+canvas) should look like /about's black "Book with Amy" — the
+brand-ink chip the 2026-08-26 round shipped page-scoped
+(`.about-cta-brand`). A sitewide sweep found exactly two plain
+light-canvas CTAs outside /services: that Call button and the home
+"Follow Amy on Instagram" anchor. Scope Q&A with the operator: the
+/services menu page and all 12 treatment pages are FROZEN — no
+button changes there; the home category doors are card plates, never
+CTAs; the pink solid primaries stay pink.
+
+**Decision:** Hoist the /about page-local rules into the shared
+system: a new `.cta--chip` class in CTAButton's is:global block —
+identical declarations and provenance (the header Book button's
+grammar; pink-500 on noir 5.95:1, the body-size-on-noir pair; hover
+inverting to the same symmetric pair) — plus an opt-in
+`emphasis="chip"` prop that overrides the variant's default style.
+Placements: /about's three brand CTAs (re-seated on the shared
+class, rendering unchanged), the home Instagram anchor, and the
+/injector-training intro Call. The 2026-08-26 rejection of "a class
+prop on CTAButton" is superseded on its own terms: wrappers sufficed
+for a one-page ask, and at three pages the shared class beats three
+page-local copies. Noir-band outline CTAs stay outline — they
+already read black-with-pink there, and the operator asked for the
+plain look only.
+
+**Alternatives rejected:** restyling `.cta--outline` in place (the
+/services freeze forbids the fan-out); chipping the pink solids
+(collapses the primary/secondary pairing — the 2026-07-21 "two
+identical buttons" failure); keeping /about page-local and adding a
+duplicate shared class (two authorities for one look).
+
+**Consequences:** One chip, one provenance trail; `.cta--outline`
+and `.cta--solid` byte-identical; /about renders exactly as before;
+zero `cta--chip` in any built /services page (verified). Design-only
+— no wording, no clinicianApproved implications. A future chip
+placement is one attribute, but the /services freeze is the
+operator's to lift.
+
+## 2026-08-27 — /about milestone heading: "The early years"
+
+**Context:** Operator direction: the first milestone heading in the
+"Two decades in the making." timeline changes from "The bedside
+years" to "The early years". The heading is part of the /about
+wording Amy confirmed on the PR #83 preview (2026-08-04), so the
+change is surfaced in her pending presentation pass.
+
+**Decision:** One heading, one line (about.astro), no other text —
+the milestone's body line reads naturally under the new title, no
+factual claim is introduced, and neither linter is engaged. Verified:
+zero "bedside" remains in the built site. /about is outside the
+clinicianApproved gate (not a treatment page); the sign-off pending
+row and drift narrative carry the change.
+
+**Consequences:** none beyond the wording; the 2026-08-03 rebuild
+entry's mention of the old heading stays as history.
+
+## 2026-08-27 — /about credential line: the full education
+
+**Context:** Amy confirmed her credentials to the operator today: a
+BA, a BSN, and a Master of Nursing, plus the FNP. The operator had
+flagged the milestone line "The credential reads FNP, BSN." (traced
+to the 2026-07-19 provider-directory listing) as unverified on the
+BSN; the confirmation resolves that, and the operator directed that
+the full education be recognized on /about.
+
+**Decision:** The "2018 · Nurse practitioner" milestone body now
+reads "The credentials read FNP, built on a BA, a BSN, and a Master
+of Nursing." — one line, /about only (everywhere else the site stays
+"Amy Palacios, FNP"; JSON-LD carries no credential fields). "Master
+of Nursing" is spelled out: her exact post-nominal letters (MSN vs.
+MN) are unverified, and unverified specifics are never printed
+(constraint 7). No em dash in the new copy (the page's hero-lead
+keep-list rule). Substantiation: Amy's own confirmation, relayed by
+the operator 2026-08-27 — added to the page's header trace alongside
+the 2026-07-19 listing.
+
+**Alternatives rejected:** a post-nominal list ("FNP, MSN, BSN, BA")
+— prints an unverified designation; a hero credentials line — the
+operator approved the milestone placement.
+
+**Consequences:** the line supersedes part of the 2026-08-04
+Amy-confirmed wording, so the change rides her pending presentation
+pass (sign-off row + drift narrative). If she later supplies exact
+post-nominals, swapping in the letters is a one-line round.
+
+## 2026-08-27 — chip second pass: the /services freeze narrows (router card ×12 + the laser mid-page book)
+
+**Context:** After seeing the shipped chip round on the previews, the
+operator directed two /services additions, scoped by block title and
+page: the treatment pages' router card ("The right fit is just a
+conversation away.") "Book with Amy" goes chip, and
+/services/laser-treatments' mid-page pink-fill "Book with Amy"
+reverses to the chip (black, logo-pink lettering).
+
+**Decision:** `TreatmentLayout`'s router-card consult →
+`emphasis="chip"` (unconditional — all 12 treatment pages), and
+`laser-treatments.mdx`'s mid-page book → `emphasis="chip"` in its
+own commit (treatment-file edits are the clinician audit trail; the
+message states style-only, no copy). The file's `clinicianApproved`
+was already `false` (pending since the 2026-08-21 round), so nothing
+resets. The morning entry's freeze stands otherwise: the treatment
+closing bands and the /services menu page remain unchipped, and the
+freeze-scope comments (CTAButton, tokens.css) are narrowed to say
+so.
+
+**Alternatives rejected:** chipping the closing bands too (not
+asked; their solid book + outline call pairing stays distinct); a
+`content:` prefix for the mdx commit (no copy changed — `feat:` with
+an explicit style-only note keeps Amy's audit trail truthful).
+
+**Consequences:** The laser mid-page CTA was the site's only solid
+CTA on the light canvas; with it chipped, solid fills render in noir
+bands only again — the state the 2026-07-23 ombre entry described.
+The emphasis hierarchy (pink solid primary, chip secondary) now
+reads on every treatment page: the router card's chip above each
+closing band's solid/outline pair.
+
+## 2026-08-28 — the home hero "arrival" (linear.app-style load entrance): built under operator override, REJECTED on the preview — withdrawn
+
+**Context:** The operator directed a linear.app-style opening for the
+home screen. Investigated first-hand (live site, storage-cleared first
+visit, stylesheet + animation forensics): linear.app's headline itself
+carries NO entrance animation — the perceived opening is instant type
+on black plus a stage that comes alive around it. The operator chose an
+authored staggered fade-up ("the arrival") for the existing hero and
+overrode the motion rulebook's no-hero-entrance rule in their own words
+("There is no ban on entrance animation… I'm overriding it"). Built on
+PR #175 (`feat/hero-arrival`): pure CSS, zero JS, hero only — copy
+column staggered 100–580ms, photo warming from dark by filter only,
+bloom last. Fully verified before review: `npm run verify` green end to
+end; LCP 1887→1884ms median (the photo, the LCP element, never left
+opacity 1), CLS 0, TBT 0, perf 1.00; choreography proven frame-by-frame
+at 390/1440; reduced-motion instant-settle confirmed.
+
+**Decision (operator, on the PR #175 preview): REJECTED on sight and
+WITHDRAWN** — "It looks terrible. Let's go back to the way it was…
+Let's ditch this idea." PR #175 closed unmerged, branch deleted;
+`phase-c` never carried any of it, so there is nothing to revert — the
+home page is byte-identical to before the round. The override is
+withdrawn with the feature: the motion rulebook's no-hero-entrance rule
+stands exactly as written (the rulebook/BUILD_SPEC amendments lived
+only on the unmerged branch and died with it). The marquee precedent
+(2026-07-08): shipped to a preview, seen, rejected, recorded.
+
+**One observation preserved for the record:** the operator reported the
+rejected page showing "a white background." The arrival itself never
+paints white — every verified frame is the noir stage — so the likely
+mechanism is the home page's external stylesheet racing the HTML on the
+preview host's cold cache (a flash of unstyled content), which
+pre-exists the arrival and is independent of it. If a white-flash
+report ever resurfaces on a preview or production, investigate it as a
+FOUC/propagation matter, not a motion one.
+
+**Consequences:** entrance animation on the home hero is a REJECTED
+direction — do not re-pitch it unless the operator raises it (the
+featured-card do-not-re-pitch precedent, 2026-07-25). No CHANGELOG
+entry: nothing shipped. The full build/verification record lives in
+closed PR #175 and this entry.
+
+## 2026-09-02 — /mobile: the party-and-van page, built from Amy's own public photos (operator direction)
+
+**Context:** Mobile Aesthetics is mobile in fact: Amy hosts injectable
+parties at clients' homes, offices, salons, and venues, and she has a
+van fitted out as a treatment room. None of that is on needlegirlie.com,
+and the practice site never explains it either — its only public
+statement is a YouTube channel description. The operator wants the idea
+on a preview to show Amy, because getting time with her is difficult;
+the page is the ask. Two research passes fed it: the practice site's
+gallery (yourmobileaesthetics.com, a GoDaddy builder page — the van
+interior 2560×1920, a two-person van portrait 1920×2560, a 511px
+exterior, and a studio group frame 1600×1067) and, with the operator's
+own Instagram session in Chrome, a caption scan of the business
+account (@amypalaciosnp.mobileaesthetics) back to April 2026 plus the
+personal account's cross-posts. Party and van posts found, by date,
+all reels: Aug 20 (studio), Aug 11 (Amy and a colleague outside the
+van — "Mobile Parties"), Jul 24 (a client with a hand mirror in a
+living room), Jul 20 (Amy injecting a client on a sofa in a home),
+Jul 12 (a forehead close-up with a unit count in the caption), Jun 26
+(a drop-in announcement), Jun 17 (Amy treating a client in the van's
+chair — the van's first appearance in the feed; the burned-in text
+carries the competitor brand name), Jun 8 (Holden Beach), Jun 5 and
+Jun 4 (a Concord salon), Jun 3 (a Concord pop-up), May 25 (an office
+party with a waiting guest), May 16 (a home visit by a window), May 12
+and May 8 (studio promos), Apr 23 and Apr 22 (a venue in Albemarle).
+Nothing was pulled from Instagram: the media is login-gated and its
+terms forbid it, the browser tool refuses to return media URLs by
+design, the reels are phone-resolution with burned-in captions and
+music, two carry the competitor brand name in the picture, and every
+party frame shows a client in a private setting with no release on
+this record. The list above is what Amy is asked for originals of. The
+Facebook link resolves to her personal profile and its search surfaced
+friends' posts — stopped there. Yelp raised a device-verification
+wall — not bypassed.
+
+**Decisions (operator, AskUserQuestion 2026-09-02):** (1) DOWNLOAD the
+four practice-site photos — authorized in the operator's words. (2) A
+NEW PAGE, /mobile, over a /visit section — the operator's pick;
+BUILD_SPEC §6 gains the row on that authorization. (3) The studio
+group frame ships on the preview with the release flag OPEN. (4)
+"Party" — Amy's own word — is ALLOWED on the site (flagged once:
+injectable gatherings draw board scrutiny in several states, and this
+record kept the "Tox" shorthand off the site 2026-07-19). The
+competitor brand name Amy's captions pair with it never appears — she
+does not carry that product — and neither does the shorthand. (5) The
+pa11y needs-review cap for /mobile, authorized in the operator's own
+words ("I authorize the pa11y cap for /mobile") — the per-URL entry
+every ombre page needs.
+
+**Build:** the /injector-training pattern (a standalone src/pages route
+outside the treatments collection; no clinicianApproved gate; Amy
+reviews via the sign-off doc's non-gated section). Hero: eyebrow,
+"Amy comes to you.", three paragraphs, the Call chip, the van interior
+in the house arch. "How a party works": three items (you choose the
+place; Amy brings the studio; same clinician, same standards). "Bring
+the people you'd bring anyway.": the studio group frame in the
+segmental arch beside two sentences. Noir close: "Your place. Amy's
+care." + Call. Every fact traces to her public posts and site: homes,
+offices, gatherings; the van carries a chair and supplies; for a
+smaller space she sets up inside; booking by phone or text. NOT
+stated, because nothing on the record says it: which services travel,
+how far, group minimums, host rewards, pricing, whether solo mobile
+visits exist. Contact is phone + Instagram (the training pattern) —
+not "Book with Amy". The nav gains "Mobile" after Visit (both answer
+"where do I see Amy"). JSON-LD: one Service node. /mobile joins pa11y
+(with the cap) and the LHCI set (a tightening; the page carries an
+eager hero image, so it is measured, not assumed).
+
+**Assets (RUNBOOK "Replacing site photography"; the practice-site web
+copies are the source, Amy's originals the recorded upgrade path):**
+- `van-treatment-interior.jpg` — a 4:5 extract of the 2560×1920 web
+  copy (sharp, left 1000 / top 0 / 1536×1920, JPEG q92 — a second
+  generation from a web JPEG, accepted; no people, no release).
+  Screened at full resolution: the frame's LEFT THIRD holds a sharps
+  container with a biohazard label, a syringe organizer whose slots
+  are labeled with injection sites, four loose vials, and a license
+  plate through the rear window — the prep-workflow class the
+  2026-07-23 rubric excludes (the 2026-07-20 tray rejection). The
+  crop excludes all of it. Inside the window: two quilted treatment
+  chairs, the pink supply cart (sanitizer, wipe packets, gloves, cold
+  packs — nothing legible), the wall screen, the rug, and at the right
+  edge a second cart whose product cartons do not resolve at source
+  resolution (screening note, the strip frame-8 class). 1536px covers
+  the 1152 tier — retina met.
+- `studio-friends-session.jpg` — the practice-site frame byte-for-byte
+  (1600×1067, hash-unique against the repo). Amy in her studio between
+  two clients in the treatment chairs, one laughing; the cart's lower
+  shelf holds supply boxes whose labels do not resolve; Amy's
+  embroidered name and an Evolus logo on her scrubs (her own identity
+  and a product she carries). The two clients are identifiable and
+  their website-use releases are NOT on this record — the frame ships
+  PREVIEW-ONLY under the open flag (the 2026-07-19 precedent) and comes
+  off if Amy cannot confirm them. Nobody is named in alt text.
+- HELD, not committed: the two-person van portrait (the second woman's
+  name and credentials are embroidered on her scrubs — a staff member,
+  constraint 2 — and her consent is not on record; a crop to Amy alone
+  was considered and not taken) and the 511px exterior (below the
+  retina rule for every slot; two unidentified people). Both are on the
+  ask list; the exterior is the photo the page most wants.
+
+**Alternatives rejected:** a section on /visit (offered as the smaller
+change; the operator chose the page); pulling Instagram media (above);
+inventing the missing facts as copy (constraint 7 — they are questions
+for Amy instead); "Book with Amy" as the CTA (mobile booking is by
+phone per her own captions, and Vagaro is the studio's book).
+
+**Consequences:** the site describes the mobile side of the practice
+for the first time; the page is a first draft whose purpose is Amy's
+reaction, and every unknown above is a question to send with the
+preview link. The studio group frame's flag is the round's one open
+exposure, on a public-but-noindexed preview; it resolves either way on
+Amy's word. pa11y runs 25 URLs, LHCI 8. CHANGELOG, BUILD_SPEC §6,
+CLINICIAN-SIGN-OFF (non-gated section), and REDESIGN carry the page.
+
+## 2026-09-02 — /mobile: the van film replaces the studio group frame (the sanctioned-source search; TikTok's creator download)
+
+**Context:** the operator's verdict on the PR #177 preview: the studio
+group frame in the "Bring the people you'd bring anyway." slot "just
+doesn't belong" on a page about parties and the van. A search plan
+(approved 2026-09-02 after a "fine-toothed comb" correction pass) fixed
+the rubric — scene, people, legible text, prep tray, resolution, format
+— and the acquisition routes in order of legitimacy. Operator decisions
+before the search (AskUserQuestion): do NOT contact Amy yet; a STANDING
+AUTHORIZATION to save any of Amy's own posts from TikTok, Facebook,
+Vagaro, or Google Business Profile into the scratchpad for screening
+(Instagram stays identification-only; anything else is asked per file);
+a FILM preferred, a still as the fallback; NO retina override — stills
+capped at 540px, portrait films at the row's 24rem.
+
+**Search log (every source, what it held):**
+- Operator archive: `Videos\Advertising 1` (= `Advertising 2`,
+  byte-identical; 720×1280 HEVC, 33s) is Amy's Mobile Aesthetics promo
+  — Amy alone at the van's open door at t≈24s with an Instagram-handle
+  sticker beside her head and a footer carrying the practice-site URL
+  in pixels (a display-only URL is the constraint-2 fifth-exception
+  class — a new exception, not taken), team members on camera elsewhere
+  in the cut (constraint 2), loud audio with likely speech. The best
+  fallback; not used. `Advertising 3` (576×1024, 31s) is the
+  billboard/delivery reel — no van.
+- Instagram (identification only): the Tagged tab holds nothing of
+  parties or the van; the highlights were not stepped (the renderer
+  freezes on captures during playback); the business grid below April
+  2026 was scanned in the first entry.
+- Facebook: "Amy's Photos" and "Photos of Amy" are personal; the Reels
+  tab mirrors Instagram (no download); the Oct 2023 host-created event
+  page was not opened — host photos would need a per-file ask and could
+  not outrank an in-van film.
+- Vagaro (`/mobileaestheticshealthandbeautyassociates`): three gallery
+  photos (an event portrait with a man in a white coat, two two-person
+  outdoor portraits) + placeholder service-category tiles. No van.
+- Google Business Profile (the 283-review listing, "By owner"): about
+  two dozen photos — team portraits, studio frames, the exterior sign,
+  a syringe tray, lip close-ups, before/after pairs. No van, no party.
+  (A second "Mobile Aesthetics" medical-spa listing carries only the
+  logo.)
+- YouTube `@amypalacios704MobileAesthetics`: two videos (a 4:15
+  talking-head "Mobile Aesthetics", a DC clip) + shorts; the one short
+  tagged as a party is a tray of drawn syringes and vials — out on
+  sight. No download route for non-owners in any case.
+- TikTok — the account is `@mobile.aesthetics1` (the operator is logged
+  in; the handles the plan guessed do not exist). The profile grid
+  stops at 19 videos behind a terms-update banner (not clicked —
+  "Agree" is the operator's consent to give, not mine); video search
+  and the van hashtag page surfaced the rest. Amy's van posts, by date:
+  2025-09-29 (a multi-panel collage — the van's exterior, Amy's selfie
+  with an Instagram-handle sticker, two women in the van; 480×854 on
+  download; a reused sound); 2025-12-09 ×2 (a four-minute talking-head
+  selfie inside the van, and a 20s clip whose every frame carries a
+  burned-in unit count — a DQ by rule); 2026-06-17 (Amy treating a
+  seated guest in the van — the scene the page wants). The Aug 11
+  exterior clip is not among the 19 reachable grid items and no search
+  surfaced it. Four other high-view clips opened for identification
+  were studio or personal. TikTok's context menu offers the
+  creator-enabled "Download video" on her posts — the one sanctioned
+  Instagram-equivalent download; four files were saved to the
+  scratchpad for screening (post IDs 7555690211313716535,
+  7581649749087096077, 7581650367126031671, 7652468684375526670;
+  SHA-256 prefixes a66aa6d1, d055bd8f, e54cde57, e5b4d3f6). Three are
+  rejected above; none of the four is committed to the repo.
+
+**The winner — `van-chair-treatment.mp4`, Amy's TikTok post of
+2026-06-17 (post 7652468684375526670):** 9.1s, native 576×768 (the
+platform's download rendition; its player streams 720×960 and the
+Instagram original is presumably 1080×1350 — neither is a sanctioned
+route), H.264 + AAC, the platform's moving watermark (its logo + Amy's
+own handle). Screened at full resolution (fps=4 hunt sheet + zooms):
+the whole clip is inside the van — the quilted captain's chair, the
+window, Amy in black scrubs (her embroidered name and credential line
+resolve on her shirt — her own identity, the studio-frame class), pink
+gloves at the guest's brow and cheek; a sparkle overlay; NO burned-in
+caption on this cut (the Instagram version's cover carries the
+competitor brand name in cursive — evidently a platform text sticker,
+not baked into her master, which strengthens the originals ask). A
+supply box sits in the lower-left corner for roughly seven of the nine
+seconds (out of frame ≈2.0–4.0s): at full resolution it resolves to a
+nitrile-glove box and alcohol-pad packaging — no vials, no drawn
+syringes, no product names, no unit marks (the prep-tray class the
+rubric DQs is absent; recorded as "supplies visible, nothing clinical
+legible"). The seated guest is identifiable (profile, eyes closed).
+Audio: present (volumedetect mean −26.5dB, peak −10.2dB), content
+UNSCREENED — no transcription tooling here and no operator listen yet.
+
+**Rubric:** scene 5 (in-van treatment) · people HOLD (the guest's
+website-use release is not on the record) · text/watermark 1 (the
+own-handle platform mark — the class accepted on Amy's own Instagram
+reel, `amy-reel`) · prep tray 1 (supplies in frame, nothing clinical
+legible) · resolution 1 (below every plan threshold; served at exactly
+its 2× width instead — decision 3) · format +1 (film, muted). Nine with
+the HOLD open — it ships PREVIEW-ONLY under the open release flag, the
+same class as the frame it replaces.
+
+**Decisions:**
+1. The film replaces the studio group frame; `studio-friends-session.jpg`
+   is deleted (its only consumer). Outcome B of the plan: a
+   `TreatmentVideo` in a `.mobile-friends-film` wrapper, `frame="bare"`
+   (hairline + 12px foot corners on the video, never the arch — the
+   film-stage rule), the poster from the master at t=2.9s (the clean
+   window: Amy's hand at the guest's brow, no supply box, the handle
+   mark at mid-left), captions in `public/media/van-chair-treatment.vtt`.
+2. A MUTED rendition (`-an`, libx264 crf 20, faststart, native 576×768 —
+   no scale, no crop, no trim; 1.07MB): the source audio is unscreened,
+   so no sounded cut ships until the operator listens and confirms on
+   the record (a spoken competitor name would keep it muted for good).
+   With no audio track the `autoplay="inview"` opt-in is in-contract —
+   the speech-free rule exists so muted autoplay never guts narration,
+   and a muted rendition has nothing to gut; the carousel's
+   `commercial-team` rendition is the precedent. /mobile joins the
+   script's consumers (~2KB static file; the budget stands). CLAUDE.md's
+   opted-in-pages list is operator-maintained — the PR body asks for
+   the line.
+3. THE CAP, not an override: the 576px source covers 2× only to 288px,
+   so the wrapper is `width: min(18rem, 100%)`, centered in its column
+   (the row would otherwise hand it ~580px at desktop; the operator's
+   no-override decision is honored by the cap, exactly as the 540px
+   still cap would have been). Amy's original at 1080×1350 lifts the
+   cap to the row's 24rem — the first line of the originals ask.
+4. The captions file carries one bounded 2.4s cue describing the scene
+   ("Inside the van: Amy treats a guest seated in the treatment chair.")
+   plus the NOTE — a muted film's track exists for the a11y gate and the
+   description, and a film-long cue would paint the loop. The watermark
+   is not mirrored. The guest is never named — label, cue, alt,
+   comments, this entry.
+5. The TikTok download itself: a creator-enabled control on Amy's own
+   post, saved with the operator's standing authorization; the file's
+   source URL, date, ID, and hash are above. Instagram was not touched
+   for media.
+
+**Alternatives rejected:** a still from the clean window (576×720 after
+a 4:5 crop — below the 1080 floor; the operator prefers a film anyway);
+`Advertising 1` (van exterior only, a new display-URL exception, a trim
+around the team, unscreened speech); scaling the rendition up to 810px
+(adds no detail — the retina rule is about source pixels); serving the
+576px film at 24rem (a 1.5× override the operator declined in
+principle); shipping the source audio on the strength of a level meter
+(the rule is a listen, not a number); pulling the 720×960 stream or the
+Instagram original (not a sanctioned route).
+
+**Consequences:** the slot now shows the scene the page is about, as a
+muted nine-second loop, small (288px) by design until Amy's original
+arrives. Two open flags ride the preview, both hers to close: the
+guest's release and, if she wants sound, the operator's listen. The
+originals ask to Amy now leads with this clip. The Blob object
+`van-chair-treatment.mp4` is uploaded after this entry commits (RUNBOOK
+"Publishing a film"); RELAUNCH's probe list gains it and /mobile joins
+the autoplay-page list (eight players). pa11y 25, LHCI 8 — unchanged
+counts.
+
+**Addendum, same day — the LCP budget after the film landed:** the
+first full verify with the film on the page failed one Lighthouse
+assertion: /mobile's Largest Contentful Paint at 2555ms (median of
+three, spread 5ms) against the 2500ms budget, with pa11y 25/25 and every
+byte budget green (image 149KB of 240). The LCP element is the hero's
+lead paragraph, and Lighthouse's simulated LCP charges every resource
+that finished before the paint against it — so the poster (21KB,
+Medium priority, fetched at parse time; `preload="none"` does not
+cover a poster), the script (2KB), and the caption track (1KB) landed
+on a page that was already ~50ms inside the line. Fix in the content,
+not the gate: the hero's tiers went from 480/760/1152 to 480/660/1152
+at `quality={70}` (the house precedent for a quality prop is the cards
+at 62 and the carousel posters at 55; the hero's wash hides q70 with
+room to spare). Lighthouse's phone profile needs ~649px for the hero
+and now picks the 660 tier at 77KB instead of the 760 tier at 125KB
+— still above the pixels it needs, so the retina rule is untouched.
+Re-measured on /mobile alone: LCP 2257ms ×3 (was 2555), image 143KB,
+total 196KB; then the full verify again for the record. The
+/injector-training hero, same recipe, sits at 2330ms with no film on
+its page — the next film placed on a page of that shape should expect
+the same tuning.
+
+**Operator review (2026-09-02):** PR #177 approved on its preview in the
+operator's own words ("I've reviewed #177. I'm good with it") and, by
+their direction the same day, merged into `phase-c` ahead of Amy's
+reaction — she sees the page on the standing demo, per the sign-off
+doc's non-gated section; production stays dark. The operator also
+authorized the CLAUDE.md line: /mobile joins the "Opted-in pages
+today" list for the treatment-film autoplay script (the muted van
+film — no audio track, so in-contract, no exception). The two open
+flags carry forward unchanged: the seated guest's release and, only
+if Amy wants sound, the operator's listen-and-confirm on the source
+audio.
+
+## 2026-09-03 — Home carousel: autoplay on phones (reduced motion no longer gates the films; a refused play() retries on the first gesture)
+
+**Context.** The operator was told the home carousel does not
+autoplay on phones — an Android phone. Investigated in detail on the
+#179 preview: emulating a 390px phone on a throttled 6 Mbps link, the
+band starts within half a second of scrolling into view even with the
+concept branch's hero reel downloading beside it, so bandwidth and the
+site's own timing are not the cause (the four renditions are
+6.3–7.9MB each — heavy, but progressive). The emulator's autoplay
+policy is permissive; real phones refuse script-started playback in
+known conditions, and `video-carousel.js` handled a refusal by
+swallowing the rejected promise and leaving the Play button — one
+attempt, never retried. The conditions: (1) `prefers-reduced-motion`
+— Android's "Remove animations" accessibility setting and iOS Reduce
+Motion both report it, and the carousel's contract since 2026-08-14
+was "nothing autoplays" under it; (2) iOS Low Power Mode and
+comparable battery/data modes, which refuse `play()` until the person
+has touched the page; (3) the iOS quirk that a script-built `<video>`
+wants the `muted` ATTRIBUTE, not only the property.
+
+**Decision (operator, 2026-09-03).** (a) The films autoplay under
+`prefers-reduced-motion` too: they are content with a pause control
+(WCAG 2.2.2 is the toggle button), not decoration; only the crossfade
+stands down (the CSS `transition: none` stays, so the slide switch is
+a cut). The decorative moves — reveals, the sign's breath, the concept
+branch's choreography — keep respecting the preference; constraint 6's
+"reduced-motion respected" is unchanged in spirit and this entry is
+its scoped exception. (b) A refused `play()` arms a one-shot retry
+inside the person's first `touchend` / `pointerup` / `keydown`
+(capture, passive), which is the user activation those policies wait
+for — a touch-scroll's `touchend` counts, so on a phone the first
+scroll unlocks the band. (c) The built `<video>` carries `muted` and
+`webkit-playsinline` attributes beside the properties. Shipped on its
+own branch into `phase-c` (the script is shared; the standing demo has
+the same behaviour) and merged into the concept branch so #179
+carries it.
+
+**Alternatives rejected.** Lower-bitrate phone renditions (the sizes
+are heavy, but the measured start times show they are not the
+blocker; a real option later — and never for J1/J2, whose burned-in
+safety text must stay legible). Keeping the reduced-motion gate and
+documenting it (the operator's direction is that the films play). An
+`autoplay` attribute (the IntersectionObserver already decides when;
+an attribute would start films out of view).
+
+**Consequences.** Script grows by ~0.6KB (budget untouched). Under
+reduced motion the band now moves; the treatment-page in-view script
+(`treatment-video.js`, "reduced motion = click-to-play") is NOT
+changed by this entry — widening the policy to those films is a
+separate operator call. Verified locally with a `play()` stub that
+refuses until a touch: the band shows Play after scrolling into view
+and starts on the first tap; and with reduced motion emulated, the
+band autoplays. A real iPhone or Android cannot be driven from here —
+the reporter's phone is the confirmation.
+
+**Operator review (2026-09-03):** merged into `phase-c` on the operator's
+word ("Go ahead and merge #180"), after the treatment-film policy
+(PR #182) had already landed — this branch took a merge of `phase-c`
+first (the append-only records were the only conflicts; CLAUDE.md's
+consumer list merged on its own with both 2026-09-03 sentences). With
+both merged, every film on the site plays under prefers-reduced-motion
+by the same rule; the principle-level lines (CLAUDE.md constraint 6,
+BUILD_SPEC's quality floor, §9's carousel sentence, and the
+accessibility checklist) catch up in a docs PR of their own, next.
+
+## 2026-09-03 — Home: scale, rhythm, and four new moves (the design critique's Tier 1 + 2)
+
+**Context.** The operator found the site boring ("I don't see anything
+spectacular about this website") and asked for an honest opinion and
+what to change, with other sites for reference if needed. The
+assistant reviewed every page type on the standing demo (PR #97) at
+1280 and 390 — with the scroll reveals disabled so full-page captures
+show content — next to audiusa.com (the REDESIGN yardstick), Formula
+Fig, Peachy, Skin Laundry, Ever/Body, and Alchemy 43. (Mobbin was
+offered; the Chrome extension refused the domain, and it catalogs
+product UI rather than brand sites, so the direct comparisons stood
+in.) The verdict, delivered in chat: the site is clean, fast,
+accessible, and on-brand, and holds up at 390; at desktop it reads as
+small content islands on a very large pink field, and nothing on any
+page is a moment. The gap to the seven-gap yardstick is scale, rhythm,
+and asset quality — not animation: none of the six reference sites use
+motion graphics; their premium read is full-bleed imagery and film,
+huge type, and air. Specifically: (1) the cinematic stage is a
+phone-shaped box — a 4:5 stage capped at 720px with `contain`, so at
+1280 the film is ~570px wide in a full-width black band, opening on
+the Evolus spot, so the site's one cinema moment belonged to a
+manufacturer; (2) nothing is big — section openers at 39/31px over
+17px paragraphs, every section at the same padding and plate weight;
+(3) the ombre runs unbroken from ~1000 to ~4300px of the home with two
+text-only beats; (4) uneven photography on /services (phone snapshots
+beside shoot frames — gap 5's own "$2k tell"); (5) a category-generic
+headline; (6) the tilted Instagram print as the weakest home beat
+(Amy's named exception — it stays). The /about hero was first read as
+a contradiction (a group beside "the work of one clinician") and
+corrected on the record: the arch holds Amy's family portrait at her
+own request (2026-07-23) — her call, not a fix.
+
+The operator chose "mockups first". The assistant restyled the live
+demo in the browser only (Playwright `page.evaluate`; same photos,
+fonts, and tokens; no repo change) and delivered a side-by-side of the
+home's first three screens at 1280
+(`C:\Amy\.playwright-mcp\mock-side-by-side-1280.jpg`). The operator
+approved the direction, chose Tier 1 + Tier 2, and directed the build
+on a branch for a preview ("create what you are proposing").
+
+**Decision (Tier 1 — composition and type scale; home only).**
+
+1. *Hero.* At ≥900px the hero is a block with the photo absolutely
+   placed from 44% of the width to the right edge, masked in over its
+   first 30%, plus a bottom scrim in the media's own overlay; the copy
+   column is capped at 43vw (40rem at most) with a 4vw left pad so
+   every glyph sits on SOLID noir, left of the photo's edge — measured
+   at 900/1024/1280/1440/1920 (the first cut, 38% + a 36rem column,
+   overlapped the fade at tablet widths and was corrected before the
+   PR) — so the Phase C text-over-photo rule (opaque plate or nothing)
+   is kept, not excepted. The statement's cap grows to 7.25rem (was
+   6.5rem; the 7.2vw term stays so the headline clears the photo). The
+   lead is one factual sentence: "One clinician, every appointment. Amy
+   Palacios, FNP, in medical aesthetics since 2017." ("in Harrisburg
+   since 2017" was rejected — the studio's date is not on record; the
+   former lead, "The dedicated practice of Amy Palacios, FNP (AKA
+   Needle Girlie) and owner of Mobile Aesthetics, clinician-led
+   aesthetics since 2017.", is recorded here.) The headline itself is
+   unchanged; three candidates go to Amy on the PR — keep "Medical
+   Aesthetics, made personal." / "One clinician. Every appointment." /
+   "Every appointment is with Amy." Phones are unchanged (58vh photo
+   over the copy).
+2. *Carousel band.* At ≥900px the heading and the controls sit in a
+   left column beside the film (CSS grid areas; DOM order heading →
+   stage → controls unchanged, so phones keep today's stack and the
+   reading order is the same). The heading keeps its recorded wording
+   "Mobile Aesthetics. On screen." (2026-08-17), set as two display-1
+   lines at desktop and one line on phones; no deck (the 2026-08-15
+   fewest-words decision stands). Slide order becomes Amy's own films
+   first — studio → team → J1 → J2 — superseding the 2026-08-14
+   J1 → studio → J2 (→ team) order; `video-carousel.js` reads DOM
+   order, so no script change, and the studio reel's 0.5× travels with
+   its slide.
+3. *Openers.* "Your plan, your pace." at `heading-2 md:display-0`,
+   "What Amy offers" at `md:display-1`, "Unhurried, explained…" at
+   `md:display-2`; display-0's "home-hero only" note widened to the
+   home's openers. The intro deck is one sentence ("Book when you are
+   ready, or talk it through with Amy first. Every decision is made
+   with her, at your pace."); BUILD_SPEC §6's "Meet Amy" credentials
+   block STAYS as a compact line under it (the mock had dropped it).
+4. *The statement band.* A new noir section between the doors and the
+   visit beat: the van interior (`van-treatment-interior.jpg`, the
+   /mobile hero's screened 4:5 crop of 2026-09-02 — no people, no
+   packaging; reused, no new asset) bleeds from the left edge across
+   the photo column; the statement "Amy comes to you." + "Homes,
+   offices, and gatherings around Charlotte, in a van fitted out as a
+   treatment room." + "How a party works ›" sits on noir to its right —
+   never over the photo — and gives /mobile its first door on the home
+   page (until now it had only the nav item). The photo is a full-bleed
+   backdrop, so it is EXEMPT from the arch motif under the
+   hero-backdrop rationale ("not a framed picture", operator
+   2026-08-17) — the fifth exemption. Retina: the photo column is
+   `min(60%, 48rem)` — 768px CSS at 1280 and capped there above it —
+   against the 1536px source, 2× exactly; a 3:2 window at desktop
+   (`object-position: 50% 62%` keeps the chairs and carts, drops the
+   ceiling screen), 4:5 on phones. `quality={62}` (the door
+   precedent), lazy. THE FIRST PICK WAS REJECTED ON THE RECORD:
+   `amy-holding-neon.jpg` (Amy with her own sign, the /services
+   dermal-fillers card) rendered at band size shows the Evolysse carton
+   on the table legibly — a pixel-override class — and Amy retired
+   Evolysse content from the site 2026-08-21; at card size the carton
+   is illegible, which is why the /services use stands. The doors keep
+   their "Explore all twelve lines ›" link.
+
+**Decision (Tier 2 — four transform-only moves, zero JS).** The
+motion vocabulary's closed list (global.css header, DECISIONS
+2026-07-18) is extended, and the header rewritten to name them:
+*settle* — the hero still eases once from scale 1.04 to 1 over 14s
+(`.ng-settle`; the "never on the hero" rule targets opacity-0 reveals,
+which this is not; LCP paint and CLS untouched); *drift* — a
+full-bleed band photo travels ±24px against the scroll (`.ng-drift`,
+scroll-timeline like rise/trace; the host supplies the overflow);
+*stagger* — `.ng-rise-2/-3` push the second and third doors' rise
+ranges later; *hover-scale* — the arched photo inside a whole-card
+link grows to 1.03 on hover/focus (250ms, the card's rule-draw tempo),
+which also reaches the twelve /services cards through the same
+`.ng-lift` + `.ng-arch` contract; and the carousel's slide settle
+(.97 → 1 on the crossfade, never above 1, so the J1/J2 safety screens
+are never cropped). Reduced motion: the settle and the drift join
+rise/trace in the explicit `animation: none` list (a 0.01ms run would
+snap), the hover-scale rests at 1, the carousel keeps `transition:
+none` and rests at 1. BUILD_SPEC §5's "nothing pulses except the
+sign's slow breath" still holds — none of these pulse.
+
+**Alternatives rejected.** A motion-graphics layer (Lottie / GSAP /
+WebGL / Rive): breaks the 30KB zero-JS rule and the reduced-motion
+contract, cuts against "serious glamour; playfulness retired", and
+none of the references use one. Bare "On screen." as the carousel
+heading (the mock's line): a wording change to the recorded heading —
+offered, not taken without the operator's word. Dropping the
+credentials paragraph (the mock): BUILD_SPEC §6. Copy over the hero
+photo's fade tail (the mock's ~10% overlap): the plate rule instead. A
+separate repo for the proposal (the operator's alternative): the
+branch keeps the media origin, CI, and the preview environments. A
+treatment-page pilot (first media row as a full-container segmental
+band; the wrinkle-relaxers plaque below the prose): DEFERRED — PR #143
+is open on that file. Display-size openers on the other pages:
+deferred to their own round after Amy reacts. Changing the /about
+hero: not ours to change.
+
+**Consequences.** Home only + global.css; no new asset, no new script,
+no budget loosened; phones unchanged below 900px. The 2026-08-14 slide
+order is superseded; the arch exemption list is five; the motion
+vocabulary is nine moves plus the carousel's. Amy reviews on her phone
+first (the PR preview), then the standing demo once merged; the
+presentation-approval record in CLINICIAN-SIGN-OFF carries the round;
+the seven-gap boxes in REDESIGN stay unchecked until her verdicts.
+Tier 3 — the assets — is hers: a landscape hero film or her full-res
+hero original, 16:9 J1/J2 renditions from Evolus, a re-grade or
+re-shoot of the four /services snapshot cards.
+
+**Addendum, same day — the operator lifts the zero-JS rule for this
+branch ("the neon comes on").** On seeing the CSS-only round on the
+#179 preview the operator said the page still read boring and, for
+this branch as a concept test, lifted the zero-JS default: "I really
+do want to see the homepage have some sort of movement, animation,
+video, or motion graphic(s)." Three choices taken on the record: the
+hero moves with Amy's own studio reel (over the widescreen team film,
+which would widen the other providers' exception, and over a Ken Burns
+still); the engine is GSAP, self-hosted (over a hand-written Web
+Animations layer that would have kept the gate green); and Lenis
+supplies weighted scrolling.
+
+*What ships on the branch.* `public/js/vendor/` carries GSAP 3.15.0
+core + ScrollTrigger + SplitText (free for all uses under the GSAP
+standard license since 3.13) and Lenis 1.3.26 (MIT), copied from the
+npm packages (added as devDependencies so the copies are
+reproducible); `public/js/motion-flag.js` (sync, in the head via a new
+BaseLayout `head` slot) sets `html.motion` before first paint and
+self-cancels in 4s if the choreography never reports in;
+`public/js/home-motion.js` is the choreography — the wordmark's neon
+flicker-on, the headline rising word by word (blur → sharp), "made
+personal." switching on like a tube (the CSS shimmer held off by
+`.nc-neon-off` during the flicker, then released), the lead/CTAs/chips
+following, a four-chevron scroll cue (the MA mark, pointing down,
+pulsing in sequence — CSS), the hero film facade (the studio reel's
+muted rendition at the recorded 0.5×, attached 2.5s after `load` over
+Amy's portrait, captions track, paused off-screen — TRIMMED to the
+reel's three treatment passages, 10.40–11.72s, 2.50–3.25s, and
+6.15–6.78s of the master, played in order and looped with a dip at
+each join: the first full-reel build showed, at hero size and under
+the cover crop, the reel's car selfie, the packaging-in-hand shots,
+and the table with promo flyers — passages the carousel's bounded
+4:5 stage carried small; a trim is an editorial choice, recorded, not
+an override; the burned-in "POV: Age gracefully together" caption is
+Amy's own published wording and stays in frame), the copy lifting away
+and the film swelling as the hero is left (scrubbed), every section
+opener rising word by word, decks settling, the three doors dealt in
+sequence, photos rising into their arches, the van band's photo moving
+against the scroll (the GSAP version of drift; the CSS moves stand
+down under `html.motion` so nothing animates twice), and a faint neon
+light following the cursor over noir surfaces (pointer devices only).
+script-src stays 'self': every file is a static same-origin asset.
+Reduced motion: motion-flag never sets the class, home-motion returns
+early — the page is the CSS-only home from this branch, poster in the
+hero. Split words carry SplitText's `aria: "auto"` (the heading keeps
+its text for assistive tech; the pieces are aria-hidden). Lenis keeps
+anchors (the skip link) and does nothing on touch.
+
+*Rules touched, by the operator's decision, branch-scoped.* The
+zero-JS default and the 30KB script budget (CLAUDE.md, BUILD_SPEC
+§9/§13): the home page now carries ~155KB raw / 66,188 B gzipped of
+script. The first cut left the gate config alone and let the `/`
+strict row read red locally — but the PR preview workflow runs the
+slow gates BEFORE it deploys, so the red row blocked the preview
+itself (run 33775377003 failed on exactly that assertion, every other
+assertion and pa11y green). The lift therefore reaches the gate in the
+narrowest form: `lighthouserc.json` gains a third assertMatrix row
+matching the home URL alone, identical to the house row except
+`resource-summary:script:size` at 81,920 B (80KB); the house row's
+pattern excludes the home; every other page and every other budget
+are unchanged. This is the flagged, operator-gated loosening the
+config's own comment describes — authorized by the operator's lift
+for this branch, recorded here and in the config's `$comment`, and
+REVERTED when the concept closes (or replaced by a standing decision
+if it is adopted). Total, image, LCP, CLS, TBT, third-party on `/`
+all still pass the house numbers (306KB / 187KB / ~2.07s / 0 / ≤15ms /
+0 on the committed build). The "never on the
+hero H1" rule for reveals: the headline's word rise is exactly that —
+authorized here as the concept's opening; the LCP element is the hero
+photo, which paints unchanged. The autoplay contract: the studio reel
+is Amy's own, speech-free by construction (no audio track), already
+autoplaying muted on the carousel — in-contract at the hero. Playfair,
+the ombre, the arches, and the card pinks are untouched. If the
+concept is adopted, these become standing decisions with their own
+CLAUDE.md lines; if not, the branch closes and nothing on `phase-c`
+changes.
+
+*Operator reaction and the first tweak (same day).* On the redeployed
+preview: "I don't know if anyone else will like it but I love where
+you took this. We can make some tweaks" — feedback from others is
+being gathered before more. First tweak: the hero film "changes
+pictures too fast." Cause: the three screened passages are 1.3s,
+0.75s, and 0.63s of the master — one to three seconds each at 0.5×
+before the dissolve. Slowing the rate further is not reliable (0.5×
+is the engines' floor), and widening the windows would re-admit the
+frames the trim excludes, so the film now RESTS on each passage's
+last frame for `data-hold` seconds (3.5s) before dissolving into the
+next (0.6s out, 1.1s in): three held scenes on a ~20s cycle instead
+of cuts every couple of seconds. The pause/resume-on-scroll logic
+respects the hold (leaving and returning mid-hold never restarts a
+window early).
+
+*Second tweak (same day).* "Let the hero film run two times, then
+after the second time it runs, stop or rest on the original hero pic
+where Amy is sitting on the counter." `data-plays="2"`: a pass
+completes when the third scene's hold ends; after the second pass the
+film dissolves out (1.8s) over the portrait it faded in from — the
+LCP still, never replaced — while the portrait settles (scale 1.04 →
+1 over 3s), and the video element is removed so nothing keeps
+decoding. It ends where it began. Off-screen time does not count
+(the film pauses when the hero leaves the viewport); once ended it
+stays ended until the page reloads. Timeline as measured: portrait →
+film in at ~3s → two passes of ~17.5s → back to the portrait at ~40s.
+`data-plays="1"` is the one-number change if two proves long.
+
+*Third tweak (same day) — the carousel order goes back.* "On the
+carousel, I want the Jeuveau commercial to play first." The Tier 1
+decision 2 above (Amy's films open: studio → team → J1 → J2) is
+REVERSED by the operator the same day: the recorded 2026-08-14 order
+— J1 → studio → J2 → team — stands, and the supersession recorded
+above is withdrawn. The band's composition (heading and controls
+beside the film) is unchanged; only the slides array moved.
+
+*The hero reel takes the carousel's phone policy (same day, after the
+#180 fix merged into this branch).* The carousel entry below records
+the operator's decision that films are content and autoplay under
+`prefers-reduced-motion`; the hero reel is the same class, so
+`home-motion.js` now splits: under reduced motion the choreography
+stands down exactly as before (html.motion is never set; every
+decorative move is guarded), but the hero film facade still runs —
+muted, its own dissolves and holds, the portrait underneath, the
+two-pass ending intact. The built `<video>` carries the muted +
+playsinline attributes, a refused `play()` arms the same first-gesture
+retry, and the fade-in now rides the first `playing` event so a film
+that was refused and later unlocked still fades in. Verified locally:
+reduced motion emulated → the reel plays over the portrait with no
+choreography; play() refused until a gesture → the portrait stays
+until the first tap, then the reel fades in.
+
+*Fourth tweak (2026-09-04) — the film runs continuously.* On the #179
+preview: "the hero film … always stalls on the pic where Amy has two
+fingers on a female's throat area. it looks like it stops completely,
+then it begins again. I'd like for that to be smoother and not just
+stall or stop … I've changed my mind. It can continuously play the
+film." Diagnosis (contact sheets and 10fps edge strips of the reel): the
+named frame is the last frame of the FIRST passage (10.4–11.72s — Amy's
+gloved fingers at the seated client's jaw), where the first tweak's
+`data-hold` paused the player for 3.5s before the dip-and-seek to the
+next passage. The hold WAS the stall. Operator choices (asked): joins
+= "Seamless crossfade"; speed = "Keep 0.5×". Decisions: (a) the hold is
+retired and the two-pass ending withdrawn — `data-plays="0"`, loop
+forever; (b) the joins are freeze-frame dissolves: at a passage's last
+in-window frame the frame is painted onto a canvas above the player
+(`drawImage` — a cross-origin source only taints the canvas, and it is
+never read back), the player pauses, seeks to the next passage and
+plays beneath, and the canvas dissolves away over `data-xfade` (0.8s,
+`power1.inOut`) — no frame past a window can show, the seek hides
+under the freeze, and the next passage is already moving beneath it.
+A two-player alternation (the first cut) did the same job but the
+browser fetched the reel once per player and again on each backward
+seek: 33MB measured for one visit against 8.3MB with the single player
+— rejected on bandwidth. (c) The second window's end moves 3.25 → 3.15:
+the 10fps strip shows the reel's car selfie beginning at ≈3.2s, so the
+recorded window carried its first frame — and the hold had been
+resting on it. (d) Under reduced motion the joins are cuts (the
+carousel's "only the crossfade stands down"); the film plays as before.
+(e) The reel's other studio scenes were checked for the loop and ruled
+out: the arrivals at the door (≈1.9–2.4s, 4.9–5.7s, 9.5–10.3s) have a
+wall print behind them reading "LIP FILLER JOURNEY" over the competitor
+neuromodulator's name — legible at hero size, and that word never
+appears on this site; the counter shots carry retired Evolysse
+packaging; the car selfie is not the studio. The loop stays on the
+three screened passages.
+
+*Fifth tweak (same day) — the portrait beat.* "We hardly see the pic
+of Amy sitting on the table top with the needles in each hand. It goes
+by it so fast that we don't completely see it. She wants people to see
+that pic, clearly during the film." With the film continuous, the
+portrait (the LCP still beneath the reel) showed only in the first
+~3s. Decision: `data-still` — at the end of every pass the reel
+freezes its last frame, the frame dissolves away (1.2s) to the portrait
+beneath, the portrait rests `data-still` seconds (5), and the reel
+dissolves back in (1.6s) at the first passage; the still is part of the
+loop, not its end. (`data-plays`, if set, now ends the film on the
+portrait and stays — the second tweak's ending, available as a knob.)
+And the portrait opens the page: `data-first` (5) is the delay after
+`load` before the reel is attached and fades in — 2.5s before, so the
+first thing a visitor sees holds for the same beat the loop gives it.
+The first cut of the beat faded the PLAYING video out and let it run
+past the third window — 43 samples of the car selfie at falling opacity
+in a 40s watch; the freeze-first rule fixed it (0 after). Measured on
+the built page (Playwright, 50ms samples): an 11.2s cycle — passages
+2.2 / 1.2 / 1.6s by dominance with three 0.8s dissolves, the portrait
+5.3s — 0 frames outside a window, 0 visibly paused samples, one 8.3MB
+fetch; a scroll away during the still and back resumes and progresses;
+reduced motion: the same cycle with cuts, portrait 5s. Script 15.5KB →
+18.8KB raw (the home row's 80KB budget stands). Records: HOME-CONCEPT
+(reel paragraph, commit table, knobs), CHANGELOG, this entry, the PR
+body. Gate: `npm run verify` green — pa11y 25/25, Lighthouse CI every
+assertion (the branch-only home row included); home: perf 0.99, LCP
+2080ms (median of 2228 / 2077 / 2080), CLS 0, TBT ≤43ms, total 316KB,
+image 192KB, script 69,035 B of the row's 81,920, media 0, third-party
+0.
+
+*Sixth tweak (2026-09-04) — the film band goes back.* "In PR #149,
+you'll notice that we have the carousel in the middle of the page with
+the header or title 'Mobile Aesthetics. On screen.'. I want that part
+to look like what we have in PR #149." Tier 1 decision 2's composition
+(the heading as two display-1 lines and the controls in a left column
+beside the film at ≥900px) is WITHDRAWN, and the Tier 2 carousel settle
+(inactive slides at .97 easing to 1) goes with it — both lived in
+`VideoCarousel.astro`, which is `phase-c`'s file again (`git checkout
+origin/phase-c -- src/components/VideoCarousel.astro`; the script was
+already identical, #180 having landed on both sides). Verified on the
+built page against the #149 preview at 1280: the same section box
+(1265×973), the heading centered in `heading-2`, the stage at 547px,
+no `.vc-inner`. The slide order is unaffected (J1 first, the recorded
+sequence, on both). The concept's other Tier 1 moves — the hero, the
+openers, the van band — stand. Records: the page header comment, the
+motion-vocabulary header in `global.css`, HOME-CONCEPT §2 and §6,
+CHANGELOG, the REDESIGN row, the PR body.
+
+*Adoption (2026-09-04).* On the #179 preview with tweaks 4–6 live, the
+operator: "go ahead and merge #179 and refresh the previews." The
+branch-scoped lifts recorded above become STANDING decisions, each
+with its own line: (1) the home page's motion layer — self-hosted GSAP
+3.15 (core, ScrollTrigger, SplitText) + Lenis 1.3 in
+`public/js/vendor/`, `public/js/motion-flag.js`, and
+`public/js/home-motion.js`, ~69KB gzipped together — is the fourth
+sanctioned script consumer, on the home URL ONLY (CLAUDE.md's locked
+decision gains the line); if any of it fails, the flag self-cancels and
+the page is the CSS-only home. (2) `lighthouserc.json`'s third
+assertMatrix row — the home URL alone, script 81,920 B, every other
+budget the house's — is a standing carve-out on the /services +
+/styleguide precedent (its `$comment` says so); every other page keeps
+30KB. (3) The home headline's word rise and the wordmark's switch-on
+are the one authorized exception to the motion header's "never on the
+hero, page H1s, or the lockup" — home only, in `home-motion.js`, with
+the LCP element (the portrait) painting unchanged. (4) The CSS motion
+vocabulary stays the closed cap for CSS; the home's GSAP choreography
+under `html.motion` is the standing scripted exception, and the CSS
+moves stand down under the flag so nothing animates twice. (5) The
+hero reel — the carousel's muted studio rendition trimmed to its
+screened passages, looping with the portrait beat — joins the
+autoplay-film list under the films policy (#180/#182/#183). The
+2026-09-03 plan said HOME-CONCEPT.md would be folded into REDESIGN.md
+at adoption; it is kept instead, as the home page's working record
+(the knobs, the timeline, the verification), with its header updated —
+a map is more useful than a longer settled row. After the merge the
+standing previews (#97, #149) are refreshed by the recorded no-checkout
+method; production stays dark. Amy's reaction on the demo is the next
+input; the headline pick (three candidates on the PR) is still hers.
+
+## 2026-09-03 — /mobile: the viewfinder film replaces the van film (Amy's own 1080 clip; the sound held for a license)
+
+**Context:** the operator supplied `snoop.mp4` (their archive,
+`C:\Amy\New Pics`) for the /mobile friends section in place of
+`van-chair-treatment.mp4`, the 576×768 TikTok download of 2026-09-02
+that shipped preview-only under an open release flag at an 18rem cap
+("Amy's original … lifts the cap to the row's 24rem" — that entry's
+decision 3 and the first line of its originals ask). Asked where the
+file came from, the operator chose "Amy sent it": her own clip, sent
+directly — site-authored under her authorization, no platform
+download, no standing-authorization route involved.
+
+**The file:** 1080×1920 (9:16), 12.47s, 30fps, HEVC Main + AAC-LC
+stereo, 7,864,856 bytes, `mp42`, creation time 2026-09-03T18:58:26Z,
+"Core Media" handlers (an iPhone export), md5
+`329cbf577fd6a72922cce3d5188ae279`. A camcorder-viewfinder template is
+burned in (REC ●, RAW 9:16[F], HD, a battery glyph, "30 fps", a menu
+glyph). Two shots joined by a zoom-blur (≈7.6s), a camera swing to a
+wide shot (≈4.8–6.3s), a second blur before the closing shot (≈11s),
+and a stepped reveal intro: per-frame mean luma rises 28→90
+monotonically over the first two seconds (a wipe, not a flash) with
+one single-frame spike at ≈8.1s — nowhere near WCAG 2.3.1's three
+flashes per second.
+
+**Screening record (full-resolution contact sheets at 1, 4, and 6fps
+plus zooms — the house method):** inside the van throughout. Amy in
+black scrubs and lavender gloves at a seated guest's forehead and
+brow, a syringe in her hand during the treatment itself (the treatment
+class, as in `radiesse-visit`; not the drawn-syringe-tray class the
+rubric DQs); her embroidered practice logo and name line resolve on
+her scrubs (her own identity — the studio-frame class). The seated
+guest is identifiable (profile, eyes closed; face visible in the wide
+shot), in a white sweatshirt, holding a pink card with gold lettering
+that does not resolve. The wide shot (≈1.5s): a phone/light stand, the
+van's screen (off), a metal tray at the right holding wrapped packets
+only — "supplies visible, nothing clinical legible", the van film's
+glove-box class — a pink tumbler and dark cases on the floor. The only
+legible text is the template's UI chrome: generic, no brand, no claim,
+no quantity, no watermark, no burned-in caption, no competitor name —
+so no pixel override is needed and none is recorded. Audio present
+(volumedetect mean −17.5dB, peak −8.1dB).
+
+**Rubric:** scene 5 (in-van treatment, the page's own subject) · people
+CLEAR — the seated guest's website-use release confirmed on file in
+the operator's words ("Release confirmed on file", 2026-09-03; the
+confirmation IS the record) · text/watermark 0 (template chrome only)
+· prep tray 1 (supplies in frame, nothing clinical legible) ·
+resolution 1 (a 1080 source; the first film on this page that meets
+the retina need of the row's cap) · format +1 (film, muted). No hold.
+
+**Decisions:**
+1. The viewfinder film replaces the van film, content-named
+   `van-viewfinder-treatment` (the van, the viewfinder template, the
+   treatment — a new filename, so no in-place swap and no edge purge;
+   RUNBOOK "Publishing a film"). Three artifacts: the Blob object,
+   `src/assets/photos/van-viewfinder-treatment-poster.jpg`,
+   `public/media/van-viewfinder-treatment.vtt`. The retired film's
+   poster and caption file are deleted in the same commit (their only
+   consumer goes — the girl-team-film precedent); its Blob object
+   `van-chair-treatment.mp4` stays until nothing open references it
+   (the standing previews #97/#149 and PR #179's preview serve it until
+   they are refreshed after the merge), then `az storage blob delete`.
+   Its open release flag (the guest of the 2026-06-17 clip) closes with
+   the film.
+2. A MUTED rendition, and why: asked about the sound, the operator
+   first chose "Listened: music only, keep it" — the listen is the
+   record: no speech, no competitor name — and then, on the licensing
+   flag, "A commercial song (Snoop Dogg or similar)". A social
+   platform's music library covers posts on that platform, not a
+   business website, and a commercial recording needs a sync license
+   there; the compliant path is `-an`. A sounded cut is one step away
+   — a license on file — not another screen. Muted, `autoplay="inview"`
+   is in-contract (the van-film reasoning: nothing to gut).
+3. The 24rem-slot recipe: `-vf scale=810:1440 -an -c:v libx264 -crf 20
+   -preset medium -pix_fmt yuv420p -movflags +faststart` → 810×1440
+   H.264 High, 5,392,161 bytes at 3.46Mbps, moov first, md5
+   `a7615123c492d172843226e4466e753e` — the training-reel / PRP-visit
+   sizing discipline ("810 ≈ 2× the retina need" of a 24rem slot), which
+   also trims the autoplay fetch. No crop, no trim: her edit carries
+   as-is, reveal intro included.
+4. The poster from the rendition at 9.5s (Amy's hand settled at the
+   guest's brow, both in profile, the REC chip lit), `-q:v 2`, 810×1440;
+   its intrinsic size sets the `<video>` box. The component requests it
+   at min(1280, source) — 810 — so the WebP derivative lands near the
+   training reel's 31–34KB against the van poster's 21KB.
+5. THE CAP IS THE ROW'S: `.mobile-friends-film` goes from
+   `min(18rem, 100%)` to `min(24rem, 100%)` — the lift the 2026-09-02
+   entry's decision 3 pre-authorized, now on a source that covers 2× at
+   24rem with room. The film block becomes 384×683 at desktop (the
+   /injector-training reel's shape); the grid's `items-center` handles
+   the taller column. The component and `treatment-video.js` are
+   untouched; `frame="bare"` stands.
+6. Captions: the muted-film pattern — a NOTE block (provenance, the
+   license hold, the listen, the release, the unmirrored template
+   chrome, nobody named) plus ONE bounded cue (2.4–5.2s, inside the
+   reveal's clear window) describing the scene. The two shots do not
+   change the scene, so one cue; a film-long cue would paint the loop.
+7. Records: this entry (committed BEFORE the upload — the written
+   rule), CHANGELOG, REDESIGN (a settled row; the originals ask loses
+   its first line), CLINICIAN-SIGN-OFF (the release ask closes; the
+   sound line becomes the license line; the "Jun 17 clip at full
+   resolution" item is satisfied), RELAUNCH's probe list, BUILD_SPEC's
+   /mobile row, the page's comments. CLAUDE.md's opted-in-pages line
+   stays TRUE as written (Amy's own van clip in a MUTED rendition — no
+   audio track, in-contract) and is operator-maintained: the PR body
+   asks whether to re-date its pointer; it is not edited unasked.
+8. Out of scope by the operator's choice ("Separate PR after this
+   swap"): the treatment-film script still bails under
+   prefers-reduced-motion and has no first-gesture retry — the home
+   carousel's phone policy (PR #180, open) reaches these eight players
+   in their own PR.
+
+**Alternatives rejected:** keeping the audio (no license; the
+platform's library is not a website license); a native 1080×1920
+rendition (5.96MB at CRF 23, 8.3MB at CRF 20 — the van film's "no
+scale" was about not upscaling a small source; for a 1080 source into
+a 24rem slot the house rule is the 810 downscale); trimming the reveal
+intro (not a flash; her edit); mirroring the template chrome into the
+captions (decoration, the watermark posture); a poster committed at
+1080 (≈73KB WebP measured, against ≈48KB at 768 and the 810 precedent's
+31–34KB — the LCP addendum of 2026-09-02 says every pre-paint byte on
+this page counts); editing CLAUDE.md's line without the operator's
+word.
+
+**Consequences:** the slot shows Amy's own 1080 clip at the row's full
+film width, muted, with no open flag — the first /mobile film that is
+neither preview-only nor capped by its source. Two things wait: a music
+license (then the sounded cut is a re-encode with `-c:a copy` and a
+`[Music]`-cue caption file) and the phone-policy PR for the treatment
+films. The Blob object uploads after this entry commits; the old object
+is deleted once zero-referenced. pa11y 25, LHCI 8 — unchanged counts;
+the /mobile gate numbers are recorded below once measured.
+
+**Gate (2026-09-03, PR #181):** `npm run verify` green on 896d9c7 —
+pa11y 25/25, Lighthouse CI every assertion on 8 URLs × 3. /mobile on
+the house row: perf 0.98, LCP 2407ms (median of three: 2407 / 2408 /
+2330 — was 2257 with the 21KB van poster; the 810-wide poster's WebP
+derivative is 51KB, not the 31–34KB the training-reel precedent
+suggested — a brighter, busier frame — and costs ~150ms, leaving 93ms
+inside the 2500 budget; no content tuning needed, none done), CLS 0,
+TBT 0, total 230KB, image 176KB of 240, script 1.4KB, media 0,
+third-party 0. Playwright on the built page: the film block 384px
+wide at 1280 (the row's cap) and the full 327px column at 390, the
+bare frame's magenta hairline and 12px corners intact, `width="810"
+height="1440"`, in-view autoplay muted and running from the media
+origin, click-to-play under prefers-reduced-motion (by design until
+the phone-policy PR), zero references to the retired file. The media
+origin answers 206 with `Content-Range 0-1023/5392161`.
+
+**Addendum, same day — the reveal trimmed (operator direction on the
+PR #181 preview):** the template's tiled reveal — the first 2.2 s of
+the clip, followed by a one-frame blur at ≈2.2–2.3 s — replayed at the
+top of every 12-second loop, and the assistant flagged it with the
+preview. The operator's word: "Trim the first two seconds off the
+intro." Decision 3's "no trim: her edit carries as-is, reveal intro
+included" is superseded for the intro only. Cut point 2.333 s (frame
+70 at 30 fps — the first settled frame after the blur, verified on a
+10 fps sheet of 1.8–2.8 s), input-seeked on the master so the cut is
+frame-accurate: the same recipe otherwise (`-ss 2.333 -i snoop.mp4 -vf
+scale=810:1440 -an -c:v libx264 -crf 20 -preset medium -pix_fmt
+yuv420p -movflags +faststart`) → 810×1440, 10.13 s, 304 frames,
+5,109,705 bytes at 4.03 Mbps, moov first, md5
+`bf21fd08379268272494ecd42363c75f`. A NEW stem rather than an
+in-place replacement (RUNBOOK's preference; and an edge purge would
+not clear the operator's phone, which holds the untrimmed file for a
+day under the media route's `max-age=86400`): `van-viewfinder-
+treatment-trim` for all three artifacts — the poster re-cut from the
+new rendition at 7.167 s (the same frame as before, 9.5 s on the
+untrimmed timeline), the caption file's cue moved to 0.4–3.2 s (the
+clear window now opens at 0), the NOTE recording the trim. The
+untrimmed object `van-viewfinder-treatment.mp4` (uploaded 20:53Z, an
+hour earlier) is referenced only by this PR's preview and is deleted
+once the preview redeploys off it — a same-day correction, not a
+retirement. The page's header comment and the records (CHANGELOG,
+REDESIGN, RELAUNCH) carry the new stem; the gate numbers are recorded
+below once re-measured.
+
+**Gate (2026-09-03, the trimmed rendition):** `npm run verify` green —
+pa11y 25/25, Lighthouse CI every assertion on 8 URLs × 3. /mobile on
+the house row: perf 0.98, LCP 2406ms (median of three: 2405 / 2406 /
+2407 — unchanged from the untrimmed build, as expected: the poster is
+the same frame, its WebP derivative 52KB), CLS 0, TBT 0, total 232KB,
+image 178KB of 240, script 1.4KB, media 0, third-party 0.
+
+**Operator review (2026-09-03):** on the PR #181 preview with the
+trimmed rendition, the operator's words: "we are good on the music
+and the merge." Read as two decisions, recorded as such: the muted
+rendition STANDS — no music license is being sought, so the sounded
+cut is not pending (the entry's terms for it are unchanged should a
+license ever be on file; a sounded cut would then be its own PR with
+the license quoted here first) — and PR #181 is approved for merge
+into `phase-c` ahead of Amy's reaction (she sees /mobile on the
+standing demo, per the sign-off doc's non-gated section; production
+stays dark). The CLAUDE.md pointer re-date was not asked for and the
+line stays as written. Next: merge, refresh the standing previews (#97,
+#149) by the recorded no-checkout method, converged probes; the retired
+`van-chair-treatment.mp4` object stays until PR #179's preview (the
+home concept, which still carries the pre-swap /mobile) no longer
+references it.
+
+## 2026-09-03 — Treatment films take the carousel's phone policy (reduced motion no longer gates the eight opted-in players; a refused play() retries on the first gesture)
+
+**Context.** The home carousel's phone-autoplay round (2026-09-03,
+PR #180 — open into `phase-c` as this is written) found the three
+reasons a phone leaves a film on its poster: `prefers-reduced-motion`
+(Android's "Remove animations", iOS Reduce Motion) gating the script;
+battery/data modes refusing a script-started `play()` until the person
+has touched the page; and WebKit reading the `muted` ATTRIBUTE rather
+than the property. That entry scoped the treatment-page script out
+("widening the policy to those films is a separate operator call").
+During the /mobile film swap the same day the operator was asked and
+chose "Separate PR after this swap"; after the swap merged: "Go ahead
+with the phone-autoplay PR for the treatment films."
+
+**Decision (operator, 2026-09-03).** `public/js/treatment-video.js`
+takes the carousel's policy for every `autoplay="inview"` player —
+eight today: two on /services/biostimulators, one on
+/services/body-contouring, two on /about (the team film, and the ICON
+film under its own narration override), one each on
+/injector-training, /services/regenerative, and /mobile:
+1. The reduced-motion gate goes. The films are content with a pause
+   control (the native controls — WCAG 2.2.2's mechanism), not
+   decoration; constraint 6's "reduced-motion respected" keeps its
+   spirit for every decorative move, and this entry, like the
+   carousel's, is its scoped exception. Before: reduced motion =
+   click-to-play (2026-08-21).
+2. A refused `play()` arms a one-shot retry inside the person's first
+   `touchend` / `pointerup` / `keydown` (capture, passive) — the user
+   activation those policies wait for; a touch-scroll's `touchend`
+   counts, so the first scroll unlocks the film. The retry starts every
+   opted-in player that is in view and not user-paused; a further
+   refusal re-arms.
+3. `muted` (when starting muted), `playsinline`, and
+   `webkit-playsinline` are set as attributes before the first attempt
+   (the component already renders `playsinline`; the script re-asserts
+   it and adds the legacy form).
+4. Everything else stands: the muted-fallback retry, the user-pause
+   respect (the observer never resumes over it), the remembered
+   unmute, the 0.35 threshold and 200px pre-warm, `loop` while in view.
+5. Records: the component header and prop doc, CLAUDE.md's third
+   sanctioned-consumer sentence (the #180 wording, applied to this
+   script), BUILD_SPEC §9's film paragraph, RUNBOOK's treatment-film
+   paragraph, the six consumers' comments — the four page comments in
+   the policy commit, the two treatment MDX comments (biostimulators,
+   body-contouring — both `clinicianApproved: false` already, so no
+   flag moves) in their own content commit, the audit-trail rule.
+
+**Alternatives rejected.** Leaving the treatment films click-to-play
+under reduced motion while the carousel plays (two policies for one
+kind of content on one site); an `autoplay` attribute (the observer
+decides when); per-page opt-outs (the ICON film's override is about
+narration, not motion — its autoplay was the client's own direction).
+
+**Consequences.** The script grows from 2.2KB to ~3.4KB (the 30KB
+budget untouched; each opted-in page carries it alone). Under reduced
+motion the eight films now move on approach; the pause is one tap
+away. **Gate (2026-09-03):** `npm run verify` green — pa11y 25/25,
+Lighthouse CI every assertion on 8 URLs × 3; the opted-in pages carry
+the script at 2,001 bytes over the wire (3,648 raw) and every page
+holds its numbers (/mobile LCP 2408ms, /about 2262ms,
+/injector-training 2339ms; perf ≥ 0.98 everywhere; home script 2,175
+bytes — the carousel, unchanged here).
+
+**Operator review (2026-09-03):** on the PR #182 preview, the
+operator's word: "go ahead and merge." Merged into `phase-c` the same
+evening; the standing previews (#97, #149) refreshed by the recorded
+no-checkout method; the real-phone confirmation (Reduce Motion on, Low
+Power Mode on) stays the operator's. PR #180 (the carousel's own copy
+of this policy) is still open and edits the neighbouring sentence of
+CLAUDE.md's consumer list — it takes a merge of `phase-c` before it
+lands.
+
+## 2026-09-03 — The reduced-motion principle lines catch up with the film decisions (docs only)
+
+**Context.** Two decisions that day changed what plays under
+`prefers-reduced-motion`: the home carousel (PR #180) and the eight
+treatment-film players (PR #182) now autoplay muted under the
+preference, each recorded as a scoped exception to constraint 6's
+"reduced-motion respected". Asked before the merges whether every
+pertinent document had been updated, the assistant found the
+contract-level lines all changed (the scripts, the component, the
+consumer sentences in CLAUDE.md, BUILD_SPEC §9's treatment paragraph,
+RUNBOOK, the consumer comments) but four principle-level lines still
+read as if nothing plays under the preference — and constraint 6 did
+not carry its exception inline the way constraints 2 and 3 carry
+theirs. The operator's direction: merge #180, then open this PR.
+
+**Decision.** Docs only, no rendered byte changes:
+1. CLAUDE.md constraint 6 gains its inline scoped exception, in the
+   form the other constraints use: the FILMS autoplay muted under the
+   preference — content with a pause control (the toggle, the native
+   controls — WCAG 2.2.2's mechanism), not decoration; every decorative
+   move still stands down; widening it beyond films requires the human
+   operator.
+2. BUILD_SPEC's quality-floor line (§5) and accessibility checklist
+   (§13) name the exception beside the principle.
+3. BUILD_SPEC §9's carousel sentence — "reduced-motion serves posters +
+   play-on-request" — becomes the 2026-09-03 policy, with the old
+   behaviour dated (PR #180 had left that sentence as it was).
+
+**Alternatives rejected.** Leaving the principle lines alone on the
+grounds that DECISIONS records the exceptions (the constraints are
+what a reader checks first; an exception only in the log is the
+loophole the 2026-08-25 Laurel round closed elsewhere). Rewriting
+constraint 6 itself (the principle stands; the films are the
+exception).
+
+**Consequences.** Every statement of the reduced-motion rule now agrees:
+decorative motion stands down, films play with a pause control. Nothing
+else changes; the docs-only path skips the preview pipeline by design
+(`paths-ignore`), so the Relaunch guard is this PR's only check.
+
+## 2026-09-04 — The home documents catch up with the adopted concept (docs only)
+
+**Context.** Asked after the #179 merge whether every pertinent document
+had been updated, the assistant audited `phase-c`: the rule-level
+records had moved with the adoption (CLAUDE.md, the Lighthouse row's
+comment, the global.css motion header, BUILD_SPEC §13, DECISIONS,
+CHANGELOG, REDESIGN's row, HOME-CONCEPT's header), but six places still
+described the home page as it was before the concept or did not mention
+it. The operator: "Go ahead and open the docs PR and merge it."
+
+**Decision.** Docs only, no rendered byte changes: (1) BUILD_SPEC §6's
+home row describes the adopted page — the film facade over the portrait
+with `data-first` and `data-still`, the neon choreography, the
+one-sentence lead, the display openers, the van band, the CSS-only
+fallback; §5's motion sentence names the scripted layer as the one
+exception to the closed CSS vocabulary and records the carousel settle's
+withdrawal. (2) RUNBOOK gains "The home page's motion layer and the hero
+reel": the vendor files and licenses, the flag and the fallback, the
+budget row, the knobs table, and how to swap or re-trim the reel (screen
+at hero size; the arrivals are out for the wall print's competitor
+name; 10fps edge strips for window ends; the continuity check). (3)
+RELAUNCH's production probes gain the six home scripts and the hero
+element's attributes. (4) CLINICIAN-SIGN-OFF's pending-demo row carries
+the concept layer for Amy — the reel and its portrait beat, the
+choreography — and drops the withdrawn composed band; her picks are
+named. (5) REDESIGN's open items carry the concept's deferred rounds
+(the treatment-page big picture after #143, openers on the other pages,
+the Tier 3 asset asks) and the headline candidates. (6) HOME-CONCEPT's
+commit table gets the last five hashes.
+
+**Consequences.** Every document that describes the home page now
+describes the adopted one. Nothing else changes; the docs-only path
+skips the preview pipeline (`paths-ignore`), so the Relaunch guard is
+this PR's only check; the standing previews are refreshed for branch
+parity, not for bytes.
+
+## 2026-09-07 — api.needlegirlie.com and login.needlegirlie.com join the Front Door
+
+**Context.** The Needle Girlie app (a separate repo and subscription,
+`ng-app`) needs two public hostnames that the client's DNS zone and
+this website's Front Door profile already own: the API
+(`func-needlegirlie-api.azurewebsites.net`, Phase A) and the sign-in
+endpoint for the External ID custom URL domain
+(`needlegirlieapp.ciamlogin.com`, the app's DECISIONS 17). Both are
+added here, the same way `media.needlegirlie.com` was: a dedicated
+origin group, custom domain, and route on the existing `afd-needlegirlie`
+profile, plus the matching zone records.
+
+**Decision.** `infra/frontdoor.bicep` gains an `og-api` origin group
+pointed at the Function App's own hostname, WITH a health probe against
+`/healthz` (this origin can scale past one instance, unlike the
+single-origin `og-swa`/`og-media` groups); the `api` custom domain and
+route, bound only to `api.needlegirlie.com`, no caching (every response
+is per-user), HTTPS-only with the redirect disabled (an API caller gets
+a clean failure, not a 301), and not linked to the default
+`*.azurefd.net` domain. It also gains an `og-login` origin group
+pointed at `needlegirlieapp.ciamlogin.com` (no probe, single origin,
+like `og-swa`), and the `login` custom domain and route, bound only to
+`login.needlegirlie.com`, no caching (every response is a per-user auth
+page or a token), HTTPS with the HTTP -> HTTPS redirect on (a typed URL
+must still land on the sign-in page). `infra/dns.bicep` gains the
+`api`/`_dnsauth.api` and `login`/`_dnsauth.login` CNAME + TXT record
+pairs, both pointed at the shared Front Door endpoint hostname.
+`infra/main.bicep` wires `apiOriginHostname` (defaulted to the Function
+App's hostname) through to the `frontdoor` module and passes the two new
+validation-token outputs to the `dns` module; `loginOriginHostname`
+keeps its own default in `frontdoor.bicep`.
+
+**Alternatives rejected.** A `/api/*` path added to the apex route
+instead of a dedicated hostname — it would couple the API to the static
+site's CSP and the apex's lockdown/redirect rules (BUILD_SPEC §2 of the
+app repo). A second Front Door profile dedicated to sign-in, which is
+what Microsoft's own custom-URL-domain walkthrough sets up — the
+existing Standard profile already carries the apex, www, and media
+hosts, and adding a second profile would be a second fixed cost for no
+functional gain; this profile carries the sign-in host for egress only.
+
+**Consequences.** This website's Bicep now carries a dependency, by
+hostname only, on a resource (`func-needlegirlie-api`) that lives in
+`rg-needlegirlie-app` under a different subscription (`ng-app`) — a
+one-way reference with no cross-subscription resource ID, no shared
+state beyond the DNS/Front Door layer. Deploying `main.bicep` now
+requires the Function App to exist first (or the default hostname
+param to be overridden) for the origin health probe to have something
+to probe; the DNS `login` CNAME cannot deploy until the external
+tenant's temporary ownership TXT at the same name is verified and
+deleted (the app's Task 6, sequenced ahead of this repo's deploy step).
+
+
+## 2026-09-15 — The new Needle Girlie logo replaces the mark sitewide (client delivery)
+
+**Context.** Amy delivered a new logo: the same "Needle Girlie"
+composition as the 2026-07 mark — the serif wordmark, the syringe
+standing in for the second "l", the lips at the top right — re-rendered
+as glossy metallic pink with a soft glow. Two files arrived: an opaque
+rendering on solid black and, on request, a transparent-background
+version (2172×724, RGBA — letterforms alpha 253, glow alpha 1–63,
+background 0). The old mark was a Claude Design HTML master exported to
+PNG (DECISIONS 2026-07-07) and rendered in three places on `phase-c`,
+all pure-black surfaces — the header (`needle-girlie-wordmark-alpha.png`,
+1604×342), the footer (same file), and the styleguide sign (the chevron
+lockup) — plus the Under Construction placeholder on `main`. Real alpha
+is load-bearing: the home page's neon switch-on
+(`public/js/home-motion.js`) and the styleguide sign's aura apply
+`drop-shadow()` to the image's silhouette, which on an opaque rectangle
+would glow as a box. The operator's calls at plan time: the
+transparent file is the master; the live placeholder takes the new
+mark now; a favicon set from the logo is in scope (OG image and JSON-LD
+logo stay Phase D); the old logo files stay dormant, not deleted.
+
+**Decision.** (1) The transparent delivery is archived byte-identical as
+`src/assets/brand/source/needle-girlie-logo-metallic-master.png`
+(SHA-256 `b07abf18…9b41ff`), the on-black rendering beside it as
+`…-metallic-on-black.png` (`c2c5f99d…89efb50a`) for reference only.
+(2) Every rendered variant is a CROP of the master by the new
+`scripts/derive-logo.mjs` (sharp via `createRequire`, the
+`export-logo.mjs` pattern — sharp is an optional transitive of astro,
+not a declared dependency; a one-off authoring tool, never a build
+step): the wordmark `needle-girlie-wordmark-metallic-alpha.png` is the
+master's alpha≥16 bounds (2100×554 at 44,104) plus a 12px pad →
+2124×578 at (32,92), aspect 3.675 — a cut at ≤6% alpha over noir is
+below perception, so no box edge; proven crop-only (the derivative's
+RGBA equals `master.extract(rect)` with a maximum channel difference
+of 0); the script asserts ≥2080px so the styleguide sign's 2× tier is
+never upscaled. (3) Consumers: the header at `width={440}
+widths={[440,600,880]}` with a `sizes` of plain breakpoints (a phone
+fetches the 440 or 600 tier, 27/41KB, instead of the 72KB 2× file
+`densities` would have given it); the footer unchanged at
+`width={160} densities={[1,2]}`; the styleguide sign at `width={1040}
+widths={[480,800,1200,2080]}` — an explicit `width` on every consumer,
+because `widths` alone makes Astro's `<img src>` fallback the
+original-width encode (verified in `service.js`; `densities` are never
+clamped to the source either, so every tier must fit inside 2124px).
+(4) The favicon set, the site's first logo-derived one: the lips
+(master rect 342×214 at 1830,136 — the "i" dot ends at x≈1815, the
+final "e" starts at y≈352; the script asserts the crop's left and
+bottom edges carry no opaque pixel) scaled to 84% of a black tile as
+`public/favicon.ico` (16/32/48 PNG entries in an ICO container the
+script writes itself) and `public/icons/apple-touch-icon.png` (180);
+two `<link>`s in BaseLayout; the generic "NG" placeholder
+`favicon.svg` retired. The syringe was the first thought and lost on
+measurement: its column is flanked by the "d"/"e" glow and the baseline
+streak and is a 155×510 sliver, ~5px wide at 16px. (5) The header
+absorbs the taller aspect (3.675 vs 4.69: ~120px tall at 440, was 94)
+with the widths unchanged from 390px up; two fixes the bolder mark
+exposed ride along — on the tightest phones the wordmark box had
+overlapped the Book button since 2026-08-15 (measured: 14px at 360,
+2px at 375 — invisible with the old mark's thin lips), so the rendered
+width is now one custom property `--wordmark-w` =
+`clamp(130px, min(44vw, 100vw - 218px), 300px)` (the cap bites only
+below 390px) and the credit line steps down to 11px caps under 390px
+(the 165px line, not the wordmark, set the link's width there; the
+pink-500-on-noir pair holds 5.95:1); and the nav popover's three
+hand-tuned offsets (6.75 / 8.25 / 13.5rem — one of them 1px inside the
+header at 1023 and 39px adrift at 1024) become formulas: below 1024
+`calc(2rem + var(--wordmark-w) / 3.675 + 1.75rem)`, above it
+`calc(3rem + clamp(128px, 12.5vw, 160px) + 0.25rem)` (the badge is the
+tallest element there). Measured on the built page: the mark clears
+the button by 6px at 360/375/390 and the popover clears the header by
+3–8px at 360/375/390/639/1023/1024/1280. (6) The Under Construction
+placeholder on `main` takes the same mark and favicons by a hotfix PR
+branched from `main` (RUNBOOK "Hotfixing production during the
+takedown era"): the identical files at the same paths, the import swap
+plus an explicit `width={780}`, the two favicon links, `favicon.svg`
+deleted — no docs on `main`; this entry is the record for both PRs.
+(7) Palette tokens unchanged (the metallic lettering is a ramp with no
+single hex; `#ec4899` stays the site's pink; the 2026-08-26
+"the word Girlie is literally that hex" pin is historical). (8) The
+old HTML masters, six PNG derivatives, and `export-logo.mjs` stay in
+the repo, dormant, listed in BRAND-ASSETS "Retired".
+
+**Alternatives rejected.** An SVG trace or rebuild of the new mark —
+forbidden by "never redraw, restyle, trace, or AI-upscale" (BUILD_SPEC
+§3), and unlike the 2026-08-15 Mobile Aesthetics badge, which was pure
+geometry, this art is illustrative (metallic ramps, a glow), so that
+rebuild precedent does not transfer. Keying the on-black file's
+background to alpha in-repo — lossless on #000 but moot once the
+transparent delivery existed. The syringe as the favicon glyph (above).
+Deleting the retired assets under the orphan rule — the operator chose
+dormant (the caricature precedent). `densities` for the header — the
+phone would fetch the 72KB 2× file for a 172px slot. Raising the home
+row's image budget — not needed: the home page measures 189,882 B of
+images against the 245,760 B budget (was ~187KB; Lighthouse's phone
+profile picks the 440 tier), /services 224,376 B against 393,216 B,
+every gate green on the PR build (performance 98–100 on all eight
+URLs). A web manifest, theme-color, OG image, and JSON-LD `logo` — not
+asked; Phase D.
+
+**Consequences.** The site's mark is a raster with no vector source;
+future variants are crops of the master by `derive-logo.mjs`, and a
+different master with a different aspect changes one number (3.675) in
+`Header.astro`. The Playfair Display decision (2026-07-08, 2026-08-15)
+was made because the wordmark's face was verifiable from the HTML
+master; it now stands on visual continuity — the new render is evidently
+built on the old Playfair composition. The chevron motif, retired from
+the UI 2026-07-18, has left the logo artwork too. `favicon.svg` is gone
+and the new icon paths are new, so no purge is needed; browsers cache
+favicons far longer than the edge (RUNBOOK "Manual cache purge"). At
+relaunch the revert-of-the-revert will also conflict on
+`src/layouts/BaseLayout.astro` — take the launch-tree side (RELAUNCH
+step 1). Amy's presentation approval covers the new logo (the sign-off
+doc's pending row). BUILD_SPEC §3/§5, BRAND-ASSETS (rewritten),
+REDESIGN, RUNBOOK, RELAUNCH, CHANGELOG, and `tokens.css`'s header
+comment carry the change.
+
+## 2026-09-15 — The logo master is the colour-corrected delivery (same day, before merge)
+
+**Context.** With PR #186 (phase-c) and the placeholder hotfix PR #187
+(main) open on their previews, Amy sent a corrected file: "the colors
+are off on the first one" — the same composition and canvas
+(2172×724, RGBA), a lighter, cooler metallic pink with a wider glow.
+Neither PR had merged.
+
+**Decision.** The corrected file replaces the master in place
+(`needle-girlie-logo-metallic-master.png`, SHA-256
+`c7315bfd15dfe674acfe3358e767bb9fc91a5a46bf22ec61133623008d1f44f1`;
+the first transparent file, `b07abf18…9b41ff`, and its opaque on-black
+companion leave the PR — a wrong-colour rendering that never merged
+has no record value beyond this entry). `derive-logo.mjs` re-run
+unchanged in method: the wordmark crop is now the alpha≥16 bounds
+2118×593 at (35,94) plus the 12px pad → **2142×617 at (23,82), aspect
+3.472** (the wider glow — was 2124×578, 3.675); crop-only proven again
+(max channel difference 0). The header's one aspect number moves
+3.675 → 3.472 (the wordmark is ~127px tall at 440, was 120 on the first
+cut and 94 on the old mark). The lips crop moves to 352×218 at
+(1820,130): on this master the "i" dot's opaque pixels end at x=1819
+and the lips' begin at 1820, the lips end at y=347 and the final "e"
+begins at 348, so the script's edge assertions became zone-aware (the
+lower half of the left edge, the left 40% of the bottom edge — where
+those two letters can be). The hotfix PR carries the identical files.
+Everything else in the previous entry stands.
+
+**Alternatives rejected.** Keeping the first master dormant beside the
+new one — dormancy is for the retired 2026-07 mark that once shipped;
+an unmerged wrong-colour file is noise in a public repo. Re-measuring
+by hand instead of re-running the script — the script IS the record.
+
+**Consequences.** Both PRs redeploy their previews; the gates and the
+header measurements were re-run on the corrected master (numbers in
+the PR). BRAND-ASSETS, CHANGELOG, REDESIGN, and `Header.astro` carry
+the new figures.
+
+## 2026-09-15 — Third delivery: the master arrives on solid black and is keyed to alpha (same day, before merge)
+
+**Context.** The colour-corrected second file still read wrong to Amy
+("the color from the last logo is still off"); a third file arrived —
+the same composition rendered in a hot pink close to the site's own
+`#ec4899`, but as a 1983×793 24-bit PNG on solid black with no alpha
+channel, at a different scale from the two 2172×724 RGBA files before
+it. Every surface the mark sits on is pure #000 (header, footer, hero
+band, 404, the styleguide sign, the placeholder).
+
+**Decision.** (1) The third file is the master in place (SHA-256
+`fb703588db00d33c17dab7527fe5aaba772515a41145c73149dccd596ab8f0f0`;
+the second, `c7315bfd…1f44f1`, leaves the PR like the first). (2)
+`derive-logo.mjs` keys a no-alpha master before cropping: a luminance
+key with a solid core — alpha = min(1, 2·max(R,G,B)/255), colour
+un-premultiplied (RGB·255/alpha). Composited over #000 it reproduces
+the delivered pixels (proven on the committed derivative: max channel
+difference 1, from rounding, no channel off by more), so on the site
+the keyed mark IS the delivered mark; the gain of 2 keeps the
+letterforms fully opaque (their dark shading would otherwise be
+translucent) while the glow keeps its falloff, which also keeps the
+neon switch-on's drop-shadow tracing solid letterforms. A master
+delivered WITH alpha bypasses the step. (3) Wordmark crop: the keyed
+master's alpha≥16 bounds 1963×596 at (20,82) plus the 12px pad →
+**1975×620 at (8,70), aspect 3.185**; the header's aspect number
+follows (the wordmark is ~138px tall at 440 — the badge no longer sets
+the desktop header alone, which the popover formula's `max()` already
+handles; the desktop header is 211px, was 209). (4) The styleguide
+sign's cap drops 1040 → 960px with a 1920 top tier: the master is
+1983px wide, so 2× retina holds only to 960 (the old lockup was 1879px
+and allowed 1040); the script's width floor is 1920. Header (880) and
+placeholder (1560) are unaffected. (5) Lips crop 313×237 at (1670,95):
+the "i" dot ends at x=1652 and the lips' tip begins at 1680, but the
+lower lip's lowest point (y=336, at x≈1810) sits level with the top of
+the final "e" (y=332, x 1685–1820) — no horizontal cut separates them,
+so the cut at y=332 keeps the "e" out and costs the lip its bottom
+five rows (~2% of the tile; invisible at 16–180px). The edge
+assertions now test for solid letter pixels (alpha ≥250, i.e. source
+luma ≥125) rather than the keyed glow halo. (6) The hotfix PR carries
+the identical files.
+
+**Alternatives rejected.** Asking for a transparent export first — the
+key is exact on the only surfaces in use, and the day had already cost
+two round trips. A gain of 1 (the textbook key) — exact on black too,
+but the letterforms' dark shading would be translucent and the
+drop-shadow silhouette weaker there. Keeping the second master dormant
+— same reasoning as the first addendum. Keeping the 1040px sign cap —
+would ship the sign 5% below 2× at that width (the retina hard rule).
+
+**Consequences.** BRAND-ASSETS, BUILD_SPEC §3, CHANGELOG, REDESIGN,
+`Header.astro`, `Hero.astro`, and the script's header carry the
+change; both PRs redeploy; every gate and header measurement was
+re-run (numbers in the PR). If a future master arrives with alpha,
+nothing changes but the file.
+
+## 2026-09-15 — Fourth file: the creator's transparent export is the master; the keyed on-black route is withdrawn (same day, before merge)
+
+**Context.** The third delivery's keyed derivatives failed `npm run
+verify` on both branches: the Lighthouse LCP budget (2500ms) by ~57ms
+on /styleguide (the sign is its LCP element), /about and /mobile (a
+text paragraph delayed by the heavier header image under simulated
+throttling), and on the placeholder (the logo is its LCP) — because a
+keyed glow encodes 2–3× heavier than a delivered alpha channel (the
+header's 2× tier went 72KB → 187KB; the alpha plane and the
+un-premultiplied colour noise in the near-black halo both compress
+badly; smoothing the halo colour recovered only a quarter and cost
+round-trip exactness). The operator asked the creator for what the
+assistant specified — a transparent-background PNG, ≥2200px wide, the
+same artwork — and it arrived within the hour.
+
+**Decision.** (1) The creator's export is the master in place
+(2172×724 RGBA, SHA-256
+`891ffe09eee83485afbe57fcf8af151533fc92acbc517cb9349342cd5ddd5170`);
+the on-black third file leaves the PR. (2) The wordmark is a pure crop
+again: alpha≥16 bounds 2120×638 at (42,58) plus the 12px pad →
+**2142×662 at (30,46), aspect 3.236** (crop-only proven: max channel
+difference 0); the header's aspect number follows (~136px tall at 440).
+Header tiers 29/46/80KB (440/600/880) — the second master's class,
+which passed. (3) The styleguide sign returns to its 1040px cap with the
+2080 tier; the script's width floor is 2080 again. (4) Lips crop
+333×265 at (1839,66): the "i" dot's solid pixels end at x=1836 and the
+lips' tip begins at 1841 (a four-pixel gap); under the lips the lower
+lip's edge runs 15–24px above the top of the final "e" except at the far
+right, where the lip reaches y=338 while the "e" begins at 331 — the cut
+at y=331 keeps the "e" out at the cost of ≤8px off the lower lip's
+right-bottom edge (~3% of the tile, invisible at 16–180px); the rect
+starts at y=66 to keep the sparkle. (5) The keying step stays in
+`derive-logo.mjs` as a documented capability that a delivered alpha
+channel bypasses; BRAND-ASSETS and BUILD_SPEC §3 now say to ask for
+transparent exports, never files on solid black. (6) The hotfix PR
+carries the identical files.
+
+**Alternatives rejected.** Shipping the keyed master with a trimmed
+invisible tail and a lower WebP quality — untested against the budget
+and, even if it passed, a permanently heavier header on every page for
+no visual gain once a proper export existed. Raising the LCP budget —
+never; the gates only tighten. Serving the keyed master at gain 1 —
+the alpha plane, not the gain, was the cost.
+
+**Consequences.** Both branches were pushed on the failing third-file
+state before the failure was read — the assistant's verify chain did
+not gate on the exit code; the CI runs for those pushes are red and are
+superseded by this commit. Rule going forward, recorded in the working
+memory: never commit or push until the verify log's exit line has been
+read. Docs, `Header.astro`, `Hero.astro`, and the script carry the
+figures; every gate and header measurement was re-run on this master
+(numbers in the PR).
+
+## 2026-09-15 — Fifth file: the creator's export in the brand hue is the master (same day, before merge)
+
+**Context.** The fourth file's colour still read wrong to Amy. Measured,
+its lettering sat at hue ~340° (mid-tone `#f44580`), red of the site's
+pinks (pink-500 `#ec4899` at 330°, neon `#fe019a` at 324°); the operator
+took those numbers to the creator, who returned the same artwork shifted
+toward magenta.
+
+**Decision.** The fifth file is the master in place (2172×724 RGBA,
+SHA-256 `0275862069b34b14259dc7793113cb9f3a11bc5d6ab3c1e4369559e11f466cbe`;
+lettering mid-tone `#f32d8b`, hue 332°). Same pipeline, nothing new:
+the wordmark is the alpha≥16 bounds 2145×664 at (27,46) plus the 12px
+pad → **2157×688 at (15,34), aspect 3.135** (crop-only proven, max
+channel difference 0; this render's halo is a little broader, hence the
+taller crop); the header's aspect number follows (~140px tall at 440);
+header tiers 30/47/82KB; the lips rectangle from the fourth file
+(333×265 at 1839,66) holds — the layout is identical and the edge
+assertions pass. The hotfix PR carries the identical files.
+
+**Alternatives rejected.** None new; this is the fourth-file decision
+with a colour-corrected input.
+
+**Consequences.** BRAND-ASSETS, CHANGELOG, REDESIGN, and `Header.astro`
+carry the figures; both PRs redeploy; every gate and header measurement
+re-run with the exit lines read. The brief that produced this file —
+a transparent-background PNG, ≥2200px wide, the lettering's mid-tone
+set numerically to the site's pink-500 — is the template for any future
+logo request (BRAND-ASSETS).
+
+## 2026-09-15 — The "b" rendering in the "made personal." colour: a recorded recolour (operator override of the never-restyle rule)
+
+**Context.** With the brand-hue export (the fifth file) live on the
+placeholder and on both previews, the client's verdict was that
+everyone preferred the SECOND file's rendering ("b" — the lighter,
+chromier metallic) but wanted it in the colour of the home hero's
+"made personal." accent. That accent is not one colour: on the noir
+hero it is pale pink-300 `#f9a8d4` text (the noir `--ng-display-accent`)
+over a neon-500 `#fe019a` text-shadow (`ng-shimmer`). Measured in
+OKLCH, "b"'s lettering is a coral pink (mid-tone `#f7809b`, hue 7°,
+L 0.742, C 0.147) and its glow a muted rose — about 21° red of the
+accent, darker and more saturated than its text, and far less
+saturated than its glow. Three renders of "b" re-mapped in OKLCH (A:
+matched to the accent in hue, chroma, and lightness; B: hue only; C:
+matched to the brand pink) were put in front of the operator on a
+contact sheet with the accent's swatches; the operator chose A. The
+rule flagged: BUILD_SPEC §3 and BRAND-ASSETS say never restyle the
+logo; a colour re-map is a restyle by the letter. The alternative
+offered — send the exact values to the creator — was declined
+("do it in-repo"), and production was to stay on the fifth-file logo
+until this ships.
+
+**Decision.** (1) "b" is the master in place (SHA-256
+`b07abf1855883f08681808096cb44cfb12fedc73815ce90bfd5490aeb49b41ff`,
+byte-identical to the delivery, recovered from the first commit of
+the day where it had already been archived). (2) `derive-logo.mjs`
+gains a `RECOLOR` step, applied before the crop so the favicons
+inherit it: a per-pixel OKLCH transform, shapes and alpha untouched.
+Opaque pixels (alpha ≥250): hue offset −21.3° (the lettering's
+circular-mean mid-tone hue 7.3° → 346°), chroma ×0.745 (0.147 →
+0.110), lightness L^0.653 (0.742 → 0.823; 0 and 1 fixed). Soft
+pixels (the glow): hue set to the neon's 354°, chroma ×2.20 capped at
+0.32, lightness kept. Out-of-gamut results pull chroma in until they
+fit sRGB. Proven on the committed derivative: the alpha channel equals
+the master's crop exactly (max difference 0), and the recoloured
+lettering's median-L band measures `#f9a8d4` at L 0.823 / C 0.110 /
+h 346 — the target to three decimals. (3) The crop is "b"'s: 2124×578
+at (32,92), aspect 3.675; the header's aspect number returns to
+3.675; the styleguide sign keeps its 1040px cap (2080 tier covered).
+Lips rectangle 342×214 at (1830,136) — on this master the dot ends at
+x=1814, the lips begin at 1841, and row 348 is clean between the lower
+lip (≤347) and the "e" (≥352), so the tile loses nothing. (4) The
+override is scoped: these two target colours, this transform, this
+master; `RECOLOR = null` ships the delivered colour; changing the
+targets or dropping the re-map requires the human operator (BUILD_SPEC
+§3 carries the scoped-override sentence). (5) A new hotfix PR from
+`main` carries the identical files to the placeholder.
+
+**Alternatives rejected.** Sending the spec to the creator — declined
+by the operator after five files in a day; the mapping is a recorded,
+deterministic function of the delivered pixels, not a hand edit. Hue
+rotation alone (variant B) — keeps "b"'s depth but does not match the
+accent's lightness; the client asked for the accent's colour. The
+brand pink `#ec4899` (variant C) — the site's pink, but not what "made
+personal." is set in. A gradient map (luminance → a pink ramp) — would
+discard the render's own hue variation between highlight and shadow;
+the OKLCH offset keeps it.
+
+**Consequences.** The site's mark is a client rendering with a
+recorded colour transform on top; anyone reading the master file sees
+coral pink and must read this entry or BRAND-ASSETS to know why the
+site is pale pink. The brand kit for the mobile team (the `--kit`
+export) must be regenerated from this state so the app carries the
+same recoloured mark — done in the same session. Verify re-run on both
+trees with the exit lines read. The fifth-file logo stays live on the
+placeholder until the new hotfix PR merges on the operator's word.
+
+## 2026-09-15 — The header wordmark grows to 600px on desktop (client direction)
+
+**Context.** With the recoloured "b" mark on the previews ("the color
+is perfect, the font is great, the design is great"), the client asked
+for it bigger — "it should stand out more than the Mobile Aesthetics
+logo to the left" — accepting a taller header. At the 440px desktop
+cap the mark was ~120px tall beside the 160px badge (the badge sat
+taller since its 2026-08-15 enlargement).
+
+**Decision.** `--wordmark-w` on desktop goes `clamp(340px, 36vw, 440px)`
+→ `clamp(420px, 46vw, 600px)`; below 1024px the tablet cap goes 300 →
+340px and the phone expression is unchanged (`clamp(130px, min(44vw,
+100vw - 218px), 340px)` — on phones the badge, the Book button, and the
+menu fix the row, so the mark cannot grow there without a different
+header layout). The image gains a 1200px tier (`widths` 440/600/900/
+1200, `width={600}`, `sizes` "(min-width: 1024px) 600px, (min-width:
+773px) 340px, 44vw"). The popover offsets follow automatically — both
+are formulas of `--wordmark-w`. The badge is untouched: the client asked
+for a bigger mark, not a smaller badge, and the badge's size is its own
+2026-08-15 client decision. Measured on the built page: 471×128 at 1024
+(header 201px), 589×160 at 1280 (233px), 600×163 from 1305px (236px,
+was 209); the mark clears the Book button by 95–112px on desktop and
+6px on phones as before; the popover clears the header by 3–8px at
+every width. Lighthouse's phone profile fetches the same 440 tier as
+before, so the image budgets are unchanged; verify green.
+
+**Alternatives rejected.** Shrinking the badge to make the mark lead —
+reverses a client-picked size without being asked. A stacked phone
+header (mark on its own row) so phones grow too — a layout change to
+the hybrid-nav shell, offered to the operator as a follow-up, not
+absorbed. Growing past 600 — at 46vw the mark already spans the
+container's middle third; the header is the tallest chrome on the site
+at 236px.
+
+**Consequences.** Every page's header is ~27px taller on desktop; the
+LCP portrait on the home page and every page's content start that much
+lower. CLINICIAN-SIGN-OFF's pending row names the larger mark. The
+brand kit is unaffected (the asset did not change).
+
+## 2026-09-15 — The phone header stacks: the mark on its own row (client direction)
+
+**Context.** With the recoloured mark approved and grown to 600px on
+desktop, the client's next word was the phone: "it looks too small on a
+phone… it needs to be more pronounced… most people are going to see
+this site on their phones." In the single-row shell the mark's phone
+width is fixed by everything else on the row — the 48px badge and its
+gap, the 72px Book button, the 44px menu button, and the gaps — at
+172×47 on a 390px phone. Shrinking Book, the gaps, the padding, and the
+menu icon to their minimums buys about 40px (~214px, +24%) and crowds
+the row. Three previews went to the operator (brand on top; utility row
+on top; shrink-everything); the pick was brand on top.
+
+**Decision.** Below 640px the header is a two-row grid: the brand link
+alone on top, centred, its width `min(100vw - 2rem, 380px)` (the
+container's inner width, capped for large phones and foldables); the
+badge, Book, and menu on a utility row beneath. CSS only — the
+`.site-brand-group` wrapper dissolves with `display: contents` so the
+badge and the brand link are grid items; the DOM is unchanged. Nothing
+shrinks: Book stays visible at 72×31 (hybrid nav, 2026-08-15), the badge
+stays 48px (client-picked, the sanctioned outbound link), the menu keeps
+its 44px target. Phone vertical padding drops 1rem → 0.75rem; the credit
+line's under-390px step-down (this morning) is deleted — it existed to
+fit the single row. The image becomes a `<Picture>` — an AVIF source
+with a WebP fallback, quality 50 — with 660/720/1080 tiers added and a
+`sizes` of "(max-width: 413px) 90vw, (max-width: 639px) 380px, …": the
+first build (WebP, 92vw) fetched a 48KB 720 tier on phones, +24KB on
+every page, and /mobile failed the LCP budget at 2557ms (the named
+risk); AVIF at q50 puts the 660 tier the synthetic phone fetches at
+26.7KB — the old weight — and a real DPR-3 phone fetches the 1080 tier
+at 49KB. WebP quality alone barely helped (the alpha plane dominates:
+50 → 44KB at q55). The 90vw hint, not 92, is what lands the 412 × 1.75
+profile on 660 rather than 720; a 500–639px device fetches for the
+380px cap, not 92vw of its width. The popover offset on
+phones is a formula of the stack (paddings + the mark's height at the
+3.675 aspect + gap-and-credit + row gap + the 3rem utility row + air);
+640–1023 keeps the single-row formula, ≥1024 unchanged. Measured on the
+built page: mark 288×79 at 320 (header 181px), 328×89 at 360 (192),
+358×98 at 390 (200, was 101), 380×104 from 412 to 639 (206); the popover
+clears the header by 3px at every width from 320 to 1280; no horizontal
+overflow; tab order badge → brand → Book → menu; the home hero image
+starts at y=200 at 390 (in the first screen). The stacked shell's one
+recorded compromise: the badge's focus stop comes before the brand's
+although it now sits below it (DOM order; reordering the DOM would move
+the same mismatch to desktop; axe has no rule for it).
+
+**Alternatives rejected.** Shrink-everything (above). Utility row on top
+— the brand should lead the page. Hiding the badge or Book on phones —
+each is a client/operator decision and the badge is the sanctioned link.
+A sticky header — would make ~200px a permanent tax on every scroll; the
+header is in-flow and scrolls away. Reordering the DOM for phone focus
+order — moves the mismatch to desktop.
+
+**Consequences.** Phone headers are ~200px tall (was 101); every page's
+content starts ~100px lower on the first screen. The header image is
+AVIF on every page now (WebP fallback), which also shrinks the desktop
+tiers (1200px: 103KB → 57KB); the Lighthouse figures on the PR are the
+record — the first build proved the /mobile LCP risk and the AVIF
+route, not the budget, resolved it. BUILD_SPEC §5's header
+description, REDESIGN's hybrid-nav row, BRAND-ASSETS' consumer row, and
+CLINICIAN-SIGN-OFF's pending row carry the stacked shell.
+
+## 2026-09-16 — App icons for the Needle Girlie app: cleaned, recoloured to the site's mark, syringe slimmed (operator request; outside this repo)
+
+**Context.** The mobile team received the brand kit (the `--kit` export)
+and, separately, two icon files from the logo creator — `Android Icon
+2.png` and `iOS icon 2.png` (1254×1254 RGBA: the "girlie" script and
+syringe, the iOS one inside a neon rounded-square frame) — whose render
+carried a blotchy magenta haze and the creator's original coral pink.
+The operator asked for them in the website logo's colour with the haze
+cleaned up (2026-09-15), then for the syringe "slimmed down a little"
+(2026-09-16). The app has its own repo and record; the website repo
+holds the brand's colour mapping, which is why the work ran here.
+
+**Decision.** A separate script, `clean-icon.mjs`, kept OUTSIDE this
+repo with its outputs (`C:\Amy\icons-clean\`, zipped as
+`C:\Amy\needle-girlie-app-icons-2026-09-15.zip`, README inside): (1)
+the haze is separated from the artwork by STRUCTURE, not colour —
+Sobel edges on OKLCH lightness mark the chrome (tube, letters,
+syringe); grown 6px, closed 12px, with enclosed holes filled only where
+the delivered pixels are themselves solid (the barrel's liquid, not a
+letter counter) — and everything outside the art is replaced by a
+synthetic neon glow (44px falloff); (2) the same OKLCH recolour as the
+site's wordmark (lettering mid-tone → pink-300 `#f9a8d4`, glow →
+neon-500 `#fe019a`), anchors measured per file; (3) the syringe is 15%
+slimmer by a smooth horizontal warp — the barrel's span compresses
+(Android 190 → 163px, iOS 161 → 133px) and the lettering either side
+slides inward by the balance, so the "r" and "l" that cross IN FRONT of
+the barrel stay continuous (a stroke crossing it steepens slightly);
+plain column removal was rejected for exactly that reason. On iOS the
+slide is taken on the right only (the "g" sits ~50px from the left
+frame bar) and fades out in the right gap, so the frame is
+pixel-identical to the unslimmed version (max channel difference 2,
+from glow rounding). The operator chose 15% from a 10/15/20% contact
+sheet. Deliverables: opaque 1024 App Store icon (no alpha channel),
+Android adaptive foreground (art inset to the 66% safe zone) +
+background layers, Play listing icon, and the transparent sources.
+
+**Alternatives rejected.** Hue/lightness thresholds for the haze — the
+haze near the tube is as bright and as pink as the tube. Hole-filling
+by size — filled the "g" counter with haze. Squeezing the syringe by
+column removal — cuts the strokes that cross the barrel. Asking the
+creator for slimmer icon files — the operator asked for it here, and
+the warp is a recorded, re-runnable transform of the delivered pixels.
+
+**Consequences.** The app team's icons carry the website mark's exact
+colours; the brand kit's README now points at the icon package instead
+of asking the creator for a store-icon crop. The icon script and its
+parameters (barrel edges, rows, gaps — measured on these two files)
+live in the package's README, not in this repo; the app repo should
+carry its own DECISIONS entry when the icons land there. Nothing on
+the website changed.
+
+## 2026-09-16 — The app icon joins the footer's coming-soon box (co-founder request)
+
+**Context.** A co-founder asked for the Needle Girlie app's icon "just
+above" the box that reads "The Needle Girlie app is coming / Look for it
+on the App Store and Google Play", seen at the bottom of the home page.
+The box is `GetTheApp.astro`, the footer's third column — not a home
+section (the home redesign entry's §6 deviation) — and every page
+renders the footer itself through `<Footer slot="footer" />`
+(`ConceptHome` for the home URL, the treatment and legal layouts, the
+standalone pages); the styleguide's component gallery renders a second,
+standalone instance. The operator's picks: the icon wherever the box
+renders; 128px; the box may move down.
+
+**Decision.** The iOS artwork from the app-icon package (the entry
+above) — the framed "girlie" mark, cleaned, recoloured, syringe slimmed
+— is committed byte-identical as
+`src/assets/brand/needle-girlie-app-icon-ios.png` (the package's
+`ios-1024-transparent.png`, 1024×1024 RGBA, SHA-256
+`bb1d8797f71e11e1b31f93b8bac5bd85236a8c76a4a27ad714b0c3955f07b346`), and
+`GetTheApp.astro` renders it above the box inside one wrapper element:
+`<Picture formats={['avif']} fallbackFormat="webp" quality={50}
+width={128} densities={[1, 2]}>` (the header's AVIF-first pattern; built
+tiers 5,990 B at 128px and 13,110 B at 256px AVIF, 9,600 / 24,672 B
+WebP; lazy by default; width and height declared, so no layout shift),
+alt "Needle Girlie app icon", 8rem wide with 1rem below it, then the
+untouched box. Left-aligned, as every footer column is. The wrapper is
+load-bearing: the styleguide renders the component as a grid child, and
+a fragment root would split the icon and the box into two cells.
+Measured on the built page: 128×128 at x=24 on phones (the box 144px
+lower), at x=851 in the desktop footer's third column; the treatment
+pages and the styleguide instance identical; the unit adds no
+horizontal overflow (the home URL's 19px scroll width at 390 after a
+scroll is pre-existing — the hero's `nc-hero__img` under the motion
+layer, present with the unit hidden; noted, not this change's).
+BUILD_SPEC §9's rule stands: official store badges stay off until real
+links exist; the icon is the client's own artwork, not a badge.
+Verify green (exit 0): the icon is NOT among Lighthouse's fetched
+requests on any of the eight gated URLs — the lazy footer image sits
+beyond the phone profile's lazy-load reach (the plan's assumption that
+the full-page scroll would fetch it, as it does the menu cards higher
+up, was wrong on the measurement) — so the page image totals are the
+pre-change figures: home 189,216 B, /about 184,669 B, /mobile
+183,359 B, /services 223,710 B, /styleguide 95,396 B against their
+budgets; LCP medians 2,181 / 2,336 / 2,482 ms (mobile, the tightest);
+performance 98–100 on every URL. A real visitor who scrolls to the
+footer fetches the tier for their DPR (13KB at 2×).
+
+**Alternatives rejected.** Home only — a prop on the `<Footer>` that
+`ConceptHome` renders; the slot is sitewide by prior decision and one
+component edit is simpler. The opaque `ios-1024-on-black.png` — hard
+tile corners on any non-black surface (the styleguide demo). The Android
+artwork — the same mark unframed; the framed iOS file is what reads as
+an app icon. Official store badges — prohibited until live (§9). A link
+on the icon — nothing to link to yet.
+
+**Consequences.** The footer's third column starts 144px lower on
+desktop, and the footer is that much taller where the column was not
+already the tallest; the gated image totals do not move (above), and a
+visitor who reaches the footer pays the 6–13KB tier once per page. The
+icon's source now lives in this repo, so the site and the
+package share it byte for byte; a new icon from the creator goes
+through the package's script first, then replaces this file. The
+styleguide gallery instance sits on the light surface (a demo;
+recorded, not fixed).
+
+## 2026-09-16 — Addendum: the iOS icon's frame rebuilt from its ridges (team request)
+
+**Context.** With the footer icon on the #189 preview, the team asked for
+the iOS icon files to be "crisp and clear" like `android-1024-on-black.png`
+— the iOS ones "still have a haze or some kind of halo" — keeping the
+frame. Measured on the morning's output against the delivery: the
+delivered frame is a neon tube — a bright ridge and a dark ridge inside a
+broad, FLAT, near-opaque pink band (alpha 230–253, no lightness
+structure) that blends outward into the halo. The art mask (edges grown
+6px, closed 12px — sized for the lettering, whose bodies are bounded by
+highlights on both sides) kept that band as solid, so the tube came out
+43–47px wide where its ridges span ~30px, with flat pale shoulders, and
+the 44px glow wrapped the widened band. The Android icon has no such
+element, which is why it read clean with the same parameters.
+
+**Decision.** `clean-icon.mjs` gains a frame step, off by default: the
+solid component with the largest bounding box (the frame encloses
+everything else) is re-masked from its ridges alone — edges grown 3px,
+closed 12px, never beyond the opaque pixels — and given its own glow, 20px
+at 45% (the art keeps 44px at 55%), with the kept edge feathered over 3px
+into the glow so the ridge mask's pixel steps do not print. The recolour
+anchors are measured before the frame step, so the mapping — hue −8.0°,
+chroma ×0.423, γ 0.451 on this file — is the one the approved lettering
+already carries; the lettering, the syringe, the slim warp, and every
+Android file are byte-identical to the morning's. Chosen from a 2/3/4px
+× 20/28px contact sheet and a hard-vs-feathered edge sheet at 3×; the
+ring is one continuous component at every setting. Deliverables
+regenerated in place (`ios-*`, `ios-PREVIEW.png`, plus
+`ios-FRAME-BEFORE-AFTER.png` beside the Android reference; README step 4
+and the command line updated; zip rebuilt). The website's committed icon
+is the re-cleaned file — `needle-girlie-app-icon-ios.png` is now 966,386
+bytes, SHA-256
+`4480404684a520e747f5ff5ca92e71f36872c298e605c4890f9aa4b07ab5f88f`,
+superseding the morning's `bb1d8797…` on PR #189.
+
+**Alternatives rejected.** Shrinking the art mask's grow/close globally —
+the lettering bodies (flat between two highlights, up to ~49px wide)
+would fragment. Eroding the loose frame mask by a fixed amount — the
+shoulders are asymmetric (4px outside, ~12px inside on the bars), so a
+fixed erosion cuts a ridge on one side and leaves haze on the other.
+Redrawing the frame as a synthetic rounded tube — a restyle of the
+creator's artwork; the ridges themselves are clean and worth keeping.
+Dropping the frame — the team wants it.
+
+**Consequences.** The iOS files carry the same crisp read as the Android
+ones; the frame's glow is shorter than the lettering's by design (a long
+straight edge shows a wide glow as a band where a letter cluster shows it
+as a rim). The package README records the frame options and the rule that
+they apply only to a framed icon. The footer PR's Lighthouse figures are
+unaffected (the footer image is never fetched by the gate).
+
+## 2026-09-16 — Second addendum: the iOS icon's art is the Android delivery's, downscaled into the cleaned frame (team request)
+
+**Context.** With the frame rebuilt (the addendum above), the team's word
+was "still off": the syringe and the word "girlie" on iOS had to be as
+crisp as `android-1024-on-black.png`. Measured: at 3× the iOS lettering
+carries a pale rim of retained near-opaque haze around every stroke (the
+frame's shoulder problem again — the haze hugs the art more opaquely in
+the iOS delivery than in the Android one) and, underneath that, the iOS
+delivery itself is a softer render: cropped at the same physical
+magnification, the Android "g" has crisp ridges and a thin dark outline
+where the iOS "g" has a wide bloom and no outline (`RAW-COMPARE` in the
+session's scratch). No mask setting fixes a soft source. The two
+deliveries carry the same drawing; the iOS one adds the frame.
+
+**Decision.** The iOS icon is composed from two cleaned parts:
+`clean-icon.mjs --frameOnly` emits the iOS frame alone (the addendum's
+ridge mask and 20px glow, the art dropped), and a new `compose-ios.mjs`
+places the cleaned, recoloured, slimmed ANDROID art inside it — scaled
+by 0.8244 (the fit of the delivered iOS art's solid bounding box, 980×934,
+to the Android art's, 1163×1133; a DOWNscale, lanczos, premultiplied),
+centred on the delivered art's centre, alpha-composited over the frame.
+The script refuses an upscale and refuses any solid-art-over-solid-frame
+overlap (measured 0 px). The pale rim goes with the native art; the
+lettering and syringe are the pixels the team already called clean.
+Deliverables replaced in place (`ios-clean-transparent.png`,
+`ios-1024-transparent.png`, `ios-1024-on-black.png`; the frame-only
+source `ios-frame-only-transparent.png` added; `ios-PREVIEW.png` now a
+four-panel row: delivery / first clean / final / Android; README step 5
+and the command lines; zip rebuilt). The website's committed icon is the
+composite — `needle-girlie-app-icon-ios.png` is 955,229 bytes, SHA-256
+`645bc276de0fa1f68550138571f1312c61535c5d33e86ccc5c34788ad1cbef55`,
+superseding the addendum's `4480…` on PR #189.
+
+**Alternatives rejected.** A tighter art mask on the native iOS art
+(grow 3) — removes the rim, not the bloom; the source is soft. Unsharp
+masking or deconvolution of the iOS art — invents edges the render does
+not have and halos of its own; a restyle in the wrong direction. Asking
+the creator for a sharper iOS render — the right long-term source, but
+the team asked for it now and the Android delivery already is that
+render; the ask is noted for the next delivery. Keeping the native art
+and accepting the difference — the team said no.
+
+**Consequences.** The iOS and Android icons share one set of art pixels;
+only the frame is iOS-specific. The composed art sits at 0.824 of the
+Android scale inside the frame, slightly smaller than the delivered iOS
+layout's height-fit (the delivered art was proportionally wider, so a
+single uniform scale that clears the frame is the height fit). The
+package README's regeneration steps are now three commands; the
+frame-only export and the composite are recorded, re-runnable
+transforms. Nothing about the website's layout changes; the footer PR
+carries the new file.
+
+## 2026-09-16 — Addendum: the footer's app icon is centred over the box (operator direction)
+
+**Context.** The footer entry above placed the icon left-aligned, as
+every footer column's content is. After the composite icon landed on the
+#189 preview the operator asked for it centred over "The Needle Girlie
+app is coming" box.
+
+**Decision.** `.get-the-app-icon` takes `margin: 0 auto 1rem` — the one
+change. Measured on the built page: the icon's centre and the box's
+centre coincide at 390 (both 195px) and at 1280 (icon 1021, box
+1021.5); the styleguide gallery instance centres the same way. Nothing
+else moves; verify green (exit 0).
+
+**Alternatives rejected.** Centring the box's text too — not asked; the
+box keeps its left-aligned copy. A flex/grid wrapper — a margin does it.
+
+**Consequences.** The icon is the one centred element in the footer, by
+the operator's choice; BRAND-ASSETS' consumer row and REDESIGN's row say
+"centred".
+
+## 2026-09-17 — The home hero film is remade: one living-portrait film replaces the three reel passages (AI-assisted, disclosed; operator decision after the compliance flag)
+
+**Context.** The operator on the home hero's moving media: "too choppy
+… a little too amateuristic", asking for a cinematic treatment and
+making Higgsfield (the operator's own account) available. Measured, not
+opinion: (1) the three screened passages are 1.32 / 0.65 / 0.63s of
+source — 2.6s of footage in all, and the 2026-09-04 screen rules out
+the rest of the reel, so no re-trim can lengthen it; (2) the rendition
+is 30fps and plays at 0.5×, so the hero showed 15 frames a second (the
+2026-08-15 entry calls the master 60fps; its sample table is ~30fps —
+corrected here); (3) every join paused the player behind a frozen
+canvas while it seeked, and with 10 keyframes in the file the three
+seeks decode ~0.9 / 0.7 / 2.1s of video; (4) the portrait (0.719,
+`object-position 50% 20%`, the `.nc-photo` filter) and the film
+(0.5625, `50% 30%`, no filter) never registered, so each dissolve
+shifted framing and tone.
+
+**Decision.** `hero-living-portrait.mp4` (media origin; 3,555,553 B;
+SHA-256 40867d3ede754e207faa64d4043d3d7bb97f0cc46908c1bc8444091545c5f2cd;
+1080×1502 — the portrait's own aspect; 24fps; 11.25s; no audio)
+replaces the passages. Played at 1× with the native `loop`:
+`data-ranges`, `data-plays`, `data-xfade`, `data-still` are removed
+from the hero element, `data-rate` is 1, `data-first` stays 5 (it keeps
+the film out of the Lighthouse trace). `home-motion.js` is unchanged in
+behaviour — with no ranges it already takes the native-loop path and
+skips the canvas, the joins, and the three clocks; the ranges machinery
+stays, unused. `.nc-hero__film` takes the portrait's `object-position`
+and the `.nc-photo` filter. The film opens and ends on the hero
+portrait itself (frame 0 is the photograph), so the fade from still to
+film registers.
+The cut: the portrait → Amy turns to the camera and smiles (generated)
+→ the black-scrubs portrait, fast push → the neon-sign portrait, a
+two-layer slide → a short abstract pink light insert (generated) → the
+lavender-suit portrait, she pushes off the wall and runs a hand through
+her hair (generated) → the stool portrait → a crossfade back to the
+hero portrait. Every source still is already published on this site
+and shows Amy alone.
+*How it got here (same day).* The first plan kept Amy pixel-locked (her
+pixels the photograph's, the AI moving only light and background). The
+one take bought for it put no motion in the wall at all, so the proof
+was built with light animated in code and a two-layer camera push:
+30fps, 0 paused samples, frame 0 identical to the still. The
+operator's verdict: "Honestly, it's boring." Offered three directions
+with the likeness risk restated, the operator chose the fast cut with
+AI "living moments", lifting the pixel-lock for those shots only, and
+on seeing it: "That looks great!!!"
+
+**Generative rules (standing policy for any AI video on this site).**
+Inputs are only stills already published here, Amy alone — no clients,
+no other providers, no archive-only photos leave for a third-party
+service (uploaded this round: the hero portrait, the lavender-suit
+portrait, and the neon-sign portrait for its cutout matte). Never
+generated: a treatment, an injection, a client, a product, packaging,
+text, a result. Every generated take is screened frame by frame at hero
+size; a take is cut or rejected where the face drifts, skin is smoothed
+or aged, an instrument warps, or lettering changes. Disclosure follows
+the 2026-08-14 portrait precedent: recorded here, in the component
+comment, and in the VTT note; Amy is told, and her preview sign-off on
+her own likeness is the informed control.
+
+**Screen (this film).** Used ranges only: the hero take 0–3.2s, the
+lavender take 1.2–4.4s. The lavender take's last seconds push into a
+close-up where the model drew heavy lines round the eyes — cut before
+it, and never to be used. In the hero take the neon lettering, the
+embroidery, and the syringes hold; an earring appears that the photo
+does not show (accepted, noted). The front of Amy's face in that take
+is the model's — the photograph shows her in three-quarter profile —
+which is exactly what her sign-off is for. Two stills are 1067px wide
+against the 1080 canvas (1.2% under the no-upscale line, inside a
+moving camera that scales every frame anyway) — recorded, accepted.
+The xfade filter's `dissolve` is a speckle transition, not a crossfade;
+the shipped file uses `fade`.
+
+**Alternatives rejected.** Polish the three passages (they stay 1–2s at
+15fps). A hybrid keeping the longest real clip (it would read rougher
+than everything round it). AI-extending the real treatment clips (it
+would fabricate a treatment on a real client). The pixel-locked
+cinemagraph (built, shown, declined as boring). Every shot as an AI
+performance (more likeness risk than the cut needs).
+
+**Consequences.** The hero fetch falls 8.3MB → 3.6MB; one fetch, no
+seeks. Measured on the running page at 1280 and 390: 24 presented
+frames a second, 0 paused samples, largest frame gap 50ms across the
+loop point. `commercial-studio.mp4` stays for the carousel. The reel's
+"portrait beat" is now inside the film (it opens and closes on the
+portrait). Amy's reaction is pending on the preview; her sign-off gates
+production like every other likeness decision. Working files and the
+render scripts live in `C:\Amy\hero-film\` (outside the repo).
+Higgsfield credits used: 227 of the operator's 3,010. The operator is
+to confirm the plan's commercial-use terms.
+
+## 2026-09-17 — Addendum: the review preview carries the hero film ahead of the merge (operator direction)
+
+**Context.** PR #190 is open, waiting on Amy's look and the operator's
+merge word. The operator: "go ahead and refresh it for PR #149 as
+well."
+
+**Decision.** `origin/feat/hero-living-portrait` merged into
+`review/page-numbers` (merge `dc27c59`, clean), so the #149 review
+preview plays the new film now. Verified: CI green, three cache-busted
+probes show `hero-living-portrait.mp4` on the hero element, the VTT
+serves 200.
+
+**Alternatives rejected.** Merging #190 into phase-c first and
+refreshing from there (the usual route) — the merge word has not been
+given, and a preview branch is the right place for work still in
+review. Leaving #149 on the old reel until the merge — not what was
+asked.
+
+**Consequences.** #149 is ahead of phase-c by this one feature until
+#190 merges; the later phase-c refresh will be a no-op for these files.
+The standing demo (#97) is refreshed from phase-c after the merge, as
+always. The production film record, the render scripts, and the takes
+are documented in `C:\Amy\hero-film\README.md` (outside the repo).
+
+## 2026-09-17 — Addendum: the hero film's opening is rebuilt so the still becomes movement without a hop (founder request)
+
+**Context.** A founder on the film's first seconds — Amy on the
+counter, the still turning into movement: it "jitters too much", smoother
+if possible. Measured on the shipped file: the opening was the
+photograph zoomed 1.00→1.043 in 0.75s, then a 0.3s crossfade into the
+generated shot, whose first frame was assumed to be the photograph's top
+3:4 crop scaled to cover. A background-only fit (the subject masked
+out) puts that frame at scale 1.027, x −30, y −5 — about 15–20px from
+the assumption. A block tracker on the door edge shows the hop: shifts
+of (−4,9), (−6,0), (−3,0), (−6,6), (0,−3) across frames 11–18, exactly
+the crossfade. The generated shot also carried its own push-in, so the
+error could not be fitted once and held.
+
+**Decision.** The shot is regenerated (Higgsfield, Seedance 2.5, same
+published portrait) with three changes: the start image is the film
+canvas itself, mirror-padded 24px a side to the model's 3:4 so nothing
+is cropped or stretched; the prompt locks the camera for the whole shot
+and holds Amy still for the first second; and the take is fitted to the
+photograph once (scale 1.018, x −11, y −25 — the same at the first,
+middle, and last frame, so the camera really is locked) and resampled
+onto the photograph's coordinates, its thin uncovered border filled from
+the photograph under a 14px feather. The opening is then a single
+continuous move: the photograph holds 0.5s, the take crossfades in over
+0.7s already registered, and one smootherstep push (1.00→1.05, from
+rest) runs across the whole 4.3s. The tracker on the new opening shows
+no shift larger than the hair's own movement. The film is
+`hero-living-portrait-v2.mp4` (media origin; 3,521,454 B; SHA-256
+495ccdc5b952c896567db2a45c3c6bde16bf15d39689addfdcc44b0b888680f3;
+1080×1502, 24fps, 11.90s, no audio); frame 0 is still the photograph.
+The rest of the cut is unchanged. Of the two takes bought, the first
+opened with Amy's head turned the other way from the photograph —
+rejected.
+
+**Screen.** The used range (0–3.8s of the take): neon lettering,
+embroidery, and syringes hold; the front of her face is again the
+model's (her sign-off, as before); the faint earring reappears in the
+last frames despite the prompt — accepted, noted.
+
+**Alternatives rejected.** Slowing the pre-zoom and lengthening the
+crossfade on the old take (its own push-in keeps the fit moving, so a
+double image remains). Frame interpolation to a higher frame rate (the
+hop was a registration error, not a frame-rate one). Shrinking the
+take without a border fill (black edges).
+
+**Consequences.** A new filename, per the publishing rule;
+`hero-living-portrait.mp4` stays on the origin, unreferenced. The
+opening is 0.65s longer (the film 11.25 → 11.90s). Credits: 108 more
+(335 of 3,010 used). `register.cjs`, `render-open.cjs`, and
+`track2.cjs` join the working folder; its README carries the recipe.
+
+## 2026-09-17 — Addendum: the hero film's head turn is remade at human speed (founder request)
+
+**Context.** A founder on the opening shot, where Amy turns her head to
+the camera: make it natural, "not necessarily in slow-speed" — it
+unsettled them. Measured on the v2 take (`motion-profile.cjs`, head-box
+frame-to-frame energy): (1) the turn ran 2.42s as a flat plateau (peak ÷
+mean 1.58) where a real head turn is about half a second with a peaked
+speed; (2) the torso moved 19% as much as the head — a head rotating on
+a still body; (3) at the handoff the photograph's face and the take's
+first frame differ by 8–11 levels in the face box and the film
+crossfaded between them for 0.7s while nothing else moved — a slow face
+morph; (4) the take's codec (B-B-B-P) refreshes detail every 4th frame,
+so the face's texture pulsed 6 times a second (ratio 1.53; the static
+wall does not pulse). Causes 1 and 2 were my own prompt: "slowly and
+smoothly turns her head", "holds still", "hands steady".
+
+**Decision.** Four new takes (Higgsfield, Seedance 2.5, the same
+mirror-padded canvas start image, the camera locked as before), two
+prompts. P1, shipped: real-time speed, someone off-camera says her name,
+her eyes move first, the head turns in about half a second with a blink,
+shoulders follow, she laughs, her hands shift naturally with the
+syringes rigid. P2, the alternate: she keeps the photograph's
+three-quarter angle, laughs, glances, never faces the camera head-on.
+The chosen take (P1, first) turns in 0.46s with peak ÷ mean 4.6 as
+generated; its camera fit is identical at the first, middle, and last
+frame (scale 0.986, x +23, y −7). In post (`retime.cjs`): 1.6s of the
+take's motionless lead-in is dropped, and the 1.5s neutral look between
+the turn and the laugh is compressed to 0.5s with the skipped frames
+averaged (shutter blur) — so she turns and laughs, rather than turns
+and stares. The handoff (`render-open2.cjs`): a per-channel tone match
+to the photograph, and the dissolve cut from 0.7s to 0.2s and placed
+just before she moves. The tone match barely moved the face difference
+(8.05 → 7.62): the difference is the model's re-rendering of her face,
+not tone, so the short dissolve is what carries it. The shot is 3.4s
+(was 4.3s). Shipped film: `hero-living-portrait-v3.mp4` (media origin;
+3,354,390 B; SHA-256
+ce734dfca6701e69ca772cecd9913d86d7600a9c459cdd48539a13dcf92b8783;
+1080×1502, 24fps, 11.00s, no audio); frame 0 is still the photograph
+(mean diff 1.58 — grain and codec). Measured on the shipped encode: the
+turn 0.42s, peak ÷ mean 3.43, torso ÷ head in the turn 0.30, face pulse
+1.24 (from 1.53; my 1.15 target was not met — a temporal denoise did
+not move it, the re-encode and grain took it this far). A direct fit
+across the dissolve shows no background hop (scale 1.003, x −2, y −1 —
+the push itself).
+
+**Screen.** Used range: neon lettering, the syringes, and the jumpsuit
+embroidery hold; no earring this time; the laugh's lines are natural,
+no smoothing or ageing. The head-on face is still the model's — Amy's
+sign-off, as before. Rejected: P1's second take (a theatrical
+head-toss). Kept ready in `C:\Amy\hero-film\candidates\`: the P2
+stays-in-profile opening and the v2 take retimed (a zero-credit
+fallback that fixes the speed only).
+
+**Alternatives rejected.** Retiming the v2 take alone (fixes cause 1,
+leaves the still body and the morph). Frame interpolation (the problem
+was tempo and performance, not frame rate). Motion transfer from a
+driving video — the most natural result available, but it needs a
+real, cleared clip of the move; if a generated turn still bothers
+anyone, the clean answer is a three-second phone clip of Amy doing it.
+
+**Consequences.** A new filename again; v1 and v2 stay on the origin,
+unreferenced. The film is 11.00s (was 11.90s). Credits: 216 this round
+(551 of 3,010 used, 2,459 left). The prompting lesson is in RUNBOOK
+("Remaking the hero film") and the working folder's README.
+
+## 2026-09-17 — Addendum: in the hero film's opening, Amy's eyes and head now move together (operator and founder request)
+
+**Context.** The operator and a founder like the v3 opening; one change:
+"her eyes move to the right before her head does … can we get them to
+move at the same time, so it doesn't look so weird?" In the take (24fps):
+frames 1–28 her eyes look off to the side, the photograph's gaze; 29–32
+she blinks and reopens her eyes ON the camera; 33–58 is a full second of
+side-eye, head still turned away; the head starts at 57–59; a second
+blink runs 60–62; from 63 she faces the camera. The film uses the take
+from frame 39, so every take frame it showed before the turn was a
+side-eye frame: the photograph (eyes away) dissolved at 0.62–0.82s into
+eyes already on the camera, and the head started at 0.79s. The cause was
+my prompt — "her eyes move first".
+
+**Decision.** The approved take stays; only the eyes are patched
+(`eye-patch.cjs`, the working folder). For take frames 39–60 the eye
+region comes from the same take 30 frames earlier (gaze away, with its
+natural micro-movement): two feathered ellipses, the near eye and lids
+(centre 603,270, radii 25×15, 6px feather) and the visible sliver of the
+far eye (650,289, 13×11, 4px), placed per frame by a block match of the
+face with the eyes masked out (offsets 0 to −1px through frame 58,
+−2,−1 at 59, −4,−2 at 60; residual 0.8–2.5 levels). The lag lines the
+take's first blink (29–30) up with its second (59–60), so the patch is
+held at full strength through 59, half at 60, and gone at 61 — it lets
+go inside closed lids. On screen: eyes away, the head starts and she
+blinks, the eyes open on the camera. The rest of the pipeline is
+unchanged (same trim, retime, fit, dissolve, push). Film:
+`hero-living-portrait-v4.mp4` (media origin; 3,355,746 B; SHA-256
+34562b50a2975d1345ab275ee93d6bc7d8b38af0ec2025066d095b7aabb7ce25;
+1080×1502, 24fps, 11.00s, no audio).
+
+**Checked.** A 2× eye strip of film frames 14–30, v3 against v4: v3's
+iris slides to the camera across frames 16–20; v4's holds the away gaze
+to the blink, and from the blink on the two rows match. Outside the
+masks the patched frames are the take's own pixels. v3 against v4, whole
+frame: mean difference 1.0–1.3 at frames 10, 20, 40, 60 — encode noise,
+nothing else moved. Frame 0 against the photograph 1.58, as before. The
+fit across the dissolve is still only the push (scale 1.003, −2, −1).
+
+**Alternatives rejected.** A new generation with the prompt corrected
+(it would replace a performance the founders approved to fix twenty
+frames of eyes — kept as the fallback, not needed). Cutting the
+side-eye frames out (the head drifts a few pixels across them, so the
+cut pops). Holding the photograph until the head starts and dissolving
+during the turn (a double image of a moving head). A single frozen eye
+frame as the patch (no micro-movement).
+
+**Consequences.** This is a composite of frames the model already made —
+nothing newly generated, no credits. A new filename again; v1–v3 stay on
+the origin, unreferenced. The prompting note in RUNBOOK gains the
+"eyes first" lesson.
+
+## 2026-09-17 — Addendum: Higgsfield commercial use confirmed (operator)
+
+**Context.** The hero-film entry left one item for the operator: whether
+the Higgsfield plan allows commercial use of what it generates.
+
+**Decision.** Confirmed by the operator, 2026-09-17: "Higgsfield Ultra
+plan covers commercial work." The operator's confirmation is the record,
+as with the releases; the film ships under it.
+
+**Alternatives rejected.** None — a fact, not a choice.
+
+**Consequences.** The open item closes. What still gates production for
+the hero film is Amy's sign-off on her generated likeness
+(CLINICIAN-SIGN-OFF, the pending-demo row). If the plan is ever
+downgraded or the account changes hands, re-check the terms before
+generating anything new for the site.
+
+## 2026-09-18 — Addendum: the hero film re-ordered — the hair shot opens, the turn and the laugh finish (founders)
+
+**Context.** The founders love the film and asked for two scenes to
+trade places: the shot where Amy runs her right hand through her hair
+and smiles at the camera should open the film, and the shot where she
+sits on the table, turns her head and laughs should be the finish.
+"Everything else can stay the same." The v4 cycle was: the portrait
+comes alive (turn, laugh) → black scrubs → neon sign → pink light → the
+hair shot → the stool pull-back → the still portrait (the loop point).
+
+**Decision.** The same seven clips, the same frames, re-ordered: the
+hair shot → black scrubs → neon sign → pink light → the stool pull-back
+→ (its slow dissolve, as before) the still portrait → the portrait comes
+alive, she turns and laughs → loop. The stool shot still dissolves into
+the portrait, the portrait still holds ~1.2s before it moves, and the
+still-to-living join is the one the loop made in v4, now a straight cut
+inside the file (both frames are the photograph at 1.00; measured
+frame-to-frame change across it 0.11, the same as its neighbours).
+Every shot matched against v4 frame for frame (difference 1.1–2.4
+levels: grain and encode). Nothing newly generated; no credits.
+
+The loop point moves, so it needed a new home. In v4 a player's hitch
+at the native loop fell on the still portrait and could not be seen;
+after the re-order it would fall between two moving shots and read as a
+freeze. So the loop point sits inside a white flash — the cut's own
+grammar (it already flashes twice): the film's last three frames go to
+white and its first four come back from it, and the file's last and
+first frames are flat white (measured: luma 232–238 across the whole
+frame). A hitch can only lengthen the flash. This supersedes the
+2026-09-17 house rule "the film's first and last frames are the hero
+portrait at 1.00" with: **the loop point sits on flat frames.**
+
+One script change rides with it: the facade's 1.6s fade-in now waits
+0.2s after the first `playing` event (`public/js/home-motion.js`), so
+the four from-white frames pass while the film is still invisible.
+Without it the cubic fade would already be ~8–28% opaque over those
+frames — a faint brightening pulse over the portrait on the first
+visit. Harmless for any future film; no size change.
+
+The shipped file: `hero-living-portrait-v5.mp4` (media origin;
+3,572,728 B; SHA-256
+fc370766ab16ea0f5d41746ab46e25318aabe84317312eb0f6b56f0aaba920f1;
+1080×1502, 24fps, 268 frames / 11.17s, no audio). The caption file keeps
+its one bounded cue, reworded to the new order.
+
+**Alternatives rejected.** A literal two-slot swap (the stool shot and
+the still portrait would follow the laugh — the film would not finish
+on it, and the portrait would appear twice a cycle). The loop point on
+moving footage (a visible freeze on phones). Rotating a pre-rendered
+strip around the flash (it depended on frame arithmetic the clips do
+not honour — three of them are a fraction shorter than their nominal
+lengths). ffmpeg's `fade` with a white colour (it forces an RGB round
+trip on two whole shots; an xfade against a white source stays in YUV
+like the other flashes). A new generation (it would replace
+performances the founders approved).
+
+**Consequences.** On a first visit the still portrait no longer comes
+alive in place: it dissolves into the hair shot, and the
+portrait-comes-alive moment arrives late in each cycle (~8.5s). That is
+inherent in the order asked for; flagged to the operator in the plan,
+approved. `data-first` 5, the hero still (the LCP element) and the
+film's CSS are unchanged. A desktop headless browser cannot show an
+iPhone's loop behaviour — the operator checks the loop point on a
+phone. Amy's sign-off on her generated likeness still gates production;
+the footage is the same. v1–v4 stay on the origin, unreferenced.
+
+## 2026-09-19 — the operator's copy round across six treatment pages: a booking-link marker for FAQ answers, the laser booking answer (operator override), and the hormone page's FDA box
+
+**Context:** The operator spent the day on the tagged review preview
+(PR #149) with a colleague and relayed copy changes page by page —
+their colleagues' wording, and in one case Amy's direct instruction —
+mostly dictated, twice typed into a page by hand in VS Code. Six
+treatment pages moved: body-contouring (06), laser-treatments (07),
+skincare (08), weight-loss-glp-1 (09), iv-therapy (11), and
+hormone-optimization (12). All of it sits on one branch,
+`content/copy-round-2026-09-19` (PR #192 into `phase-c`), one commit per
+change (the 2026-08-24 one-change-per-commit form), pushed once, and
+merged into `review/page-numbers` ahead of the `phase-c` merge so the
+review pair sees it with tags (the 2026-09-17 hero-film precedent). One
+correction came first and is recorded because it will recur: PR #149's
+branch never merges, so a change made only there never reaches the
+site — work lands on a branch off `phase-c` and is fed to #149 from
+there.
+
+**Decision 1 — FAQ answers can carry the booking link.** The operator
+asked for the word "book" in a body-contouring FAQ answer to link to
+Amy's Vagaro page. FAQ answers are plain frontmatter strings rendered
+as escaped text, so `FaqAccordion` now understands one marker —
+`[text](cta:book)` — and renders it with CTAButton's book mechanics in
+the house inline-link idiom (the /services intro's "BOOK", 2026-08-18):
+`siteConfig.booking.vagaroUrl`, `data-event="book_click"`, new-tab attrs
++ the sr-only note, underline + `var(--ng-link)`. `cta:book` is the ONLY
+target; arbitrary URLs are deliberately unsupported, because every
+outbound destination on this site is screened first (compliance/README)
+and a content string must not be able to add one. An unknown target or
+a malformed marker fails the build — both negative-tested on a
+throwaway page (exit 1, a clear message). No schema change (`a` stays
+`z.string()`). Proven inert: with the component change alone, all 25
+built pages were byte-identical to the build before it; with the
+content edit, exactly one built file differed. Anything that later
+reads answers as plain text (FAQPage JSON-LD is Phase D) must reduce
+the marker to its text first — the component header says so.
+
+**Decision 2 — the copy, page by page (all operator-directed; every
+page's flag was already `false` except hormone-optimization's):**
+- **body-contouring.** FAQ "What does an Evolve session feel like?" now
+  closes "Amy sets the level of intensity with you before it starts."
+  FAQ "Can I book Evolve directly?" now answers "Yes! This line starts
+  with a consultation, free as always, so the area and the plan can be
+  settled before anything starts. Feel free to book now!" with "book"
+  the first `cta:book` link (it replaced "...before anything is
+  scheduled. Request one online or by phone."). The operator's own two
+  body edits: "Where it's used" closes "is settled in a conversation
+  with Amy before anything begins."; "Individualized, with Amy" reads
+  "...plans and performs every treatment herself at her Harrisburg
+  studio in the greater Charlotte area. It starts with a conversation
+  and the process begins!"
+- **laser-treatments.** "Laser hair removal" ends at "It's priced by
+  area, a single treatment or a series of six." (the direct-booking
+  clause comes off; the fact is still on the Epileve card, in "Three
+  tools, one conversation", and under the price sheet's Book button).
+  "Individualized, with Amy" closes "It starts with hitting book." FAQ
+  "What does a treatment feel like?" closes "before anything begins."
+  FAQ "How many treatments will I need?" drops "at a consultation," and
+  gains ", if necessary". FAQ "Can I book a laser treatment directly?"
+  — the override below.
+- **skincare.** FAQ "Where do skincare purchases happen?" opens "In the
+  studio at any time" (was "at any appointment").
+- **weight-loss-glp-1.** FAQ on the three medications closes "Which one
+  belongs in your plan is decided in consultation." — ", if any," comes
+  off (the 2026-08-24 VisitSteps step-2 class: drift, not a rule break;
+  the choice still routes to a consultation).
+- **iv-therapy.** The `summary` gains "All available, based on your
+  body's needs." — it also feeds the Service JSON-LD description
+  (verified claims-clean in the built page; the /services menu card and
+  the SEO description are separate strings, untouched). FAQ "Can I
+  choose what goes into my drip?" closes "a price menu" (was "price
+  list"). FAQ "How do I book?" reads: Online with the "Book with Amy"
+  button. — "through Vagaro" and the phone clause come off; the
+  dictated text omitted the article and the existing "the" was kept,
+  reported to the operator as a one-word revert if wanted.
+- **hormone-optimization.** The "Hormone lab draw" card gains "Amy's
+  labs include, at a minimum, a Complete Blood Count (CBC),
+  Comprehensive Metabolic Panel (CMP), Thyroid-Stimulating Hormone
+  (TSH), Triiodothyronine (T3), Thyroxine (T4), Testosterone,
+  Estradiol, Follicle-Stimulating Hormone (FSH), Vitamin D, and Vitamin
+  B12. This is a $618 value at other labs for the same panel." — test
+  names only (no values, ranges, cadence, or condition names; §7.8
+  holds); "$618.00" carried as "$618", the sitewide whole-dollar format
+  (the 2026-08-01 precedent). This was the last approved page: the edit
+  reset `clinicianApproved` in the same commit (constraint 4) — flags
+  now read **0 true / 12 false**.
+
+**The flags of the round, each raised once:**
+1. *"Under clinician supervision" comes off two more pages* —
+   body-contouring (the operator's own edit) and laser-treatments
+   (dictated). The record now reads: kept on wrinkle-relaxers
+   (2026-08-23), dropped on dermal-fillers (2026-08-26),
+   body-contouring, and laser-treatments. No gate requires the phrase
+   (the 2026-08-23 research stands) and "plans and performs every
+   treatment herself" carries the fact on both pages.
+2. *Consultation-language trims, logged against the 2026-08-24 trend
+   note as that entry instructs:* body-contouring's body copy now says
+   "consultation" nowhere (two FAQ answers, the SEO description, and the
+   layout-injected DisclaimerBlock carry BUILD_SPEC §8.7); laser's
+   closing line and its how-many answer lose the word; weight-loss loses
+   ", if any,". Each is individually compliant and trips no pattern.
+3. **The laser booking answer — OPERATOR OVERRIDE, flagged BEFORE the
+   edit.** Dictated: "Yes! All services can be booked with the
+   expectation of a procedure." It tells every visitor that a booked
+   visit is a treatment, ahead of Amy's assessment — the site's first
+   copy that affirms the outcome of the "is this right for me" question
+   CLAUDE.md constraint 3 and BUILD_SPEC §8.7 route to a consultation —
+   and it reverses, in copy, the operator's own 2026-08-21 decision that
+   the three Versa Pro applications stay consult-first. Two compliant
+   wordings that kept the yes were offered (a treatment-visit sentence
+   with "Amy confirming the right plan with you before anything
+   begins"; and the bare "Yes! All services can be booked directly.");
+   the operator chose the dictated sentence (AskUserQuestion,
+   2026-09-19). It trips no `lint:claims` pattern, so there is NO
+   `allowedStrings` entry — the authorization lives here and in commit
+   `d0fe932`, the EvolusLaurel / wrinkle-relaxers-deck shape: a green
+   linter never authorizes it. Scope: that one FAQ answer on that one
+   page; never restated elsewhere. **Coupling, left untouched on
+   purpose:** the same page's "Three tools, one conversation" still
+   says the applicator choice is "one of them, a sequence, or none ... a
+   consultation decision" and "whether the honest answer is neither",
+   and its skin-types FAQ still says suitability "is decided with Amy at
+   a consultation". Those passages and the DisclaimerBlock are what keep
+   §8.7 routing on the page; trimming them to match this answer is a
+   fresh flag, not a tidy.
+4. *The "$618 value at other labs" sentence* is a comparative price
+   claim about other labs. It trips no pattern. The operator was asked
+   for its basis (which labs' prices, as of when); the answer is the
+   substantiation record, the way the Evolus designation's basis was
+   recorded 2026-08-19. **PENDING at the time of this entry** — it is
+   added here as a dated addendum when supplied.
+5. *Skincare's "at any time"* can read as walk-in availability on a site
+   that lists no hours by Amy's decision (2026-08-04 — no copy may
+   promise or imply them). Noted once; shipped as dictated.
+6. **The hormone page's FDA box — Amy's direction, OPERATOR DECISION
+   after the flag.** Relayed: delete the box carrying Biote's FDA
+   sentence, "the medical disclaimer link at the bottom of every page
+   will suffice". Flagged BEFORE any edit: the page uses seven of the
+   linter's symptom words (fatigue, low energy, night sweats, hot
+   flashes, brain fog, libido, mood swings); CLAUDE.md constraint 3 and
+   BUILD_SPEC §7.8 permit that language only beside the disclaimer; the
+   linter's self-tested inverse check fails the build without
+   `bioteDisclaimer: true`; /medical-disclaimer does not contain the
+   sentence at all (verified — that page was written in the claims-safe
+   lexicon), and a disclosure sits adjacent to the copy it qualifies,
+   never behind a link (2026-07-08 standing rule). The shape is the
+   2026-07-21 Retatrutide request. Four paths were offered
+   (AskUserQuestion): keep the exact sentence as one plain line with no
+   box (recommended — no rule change, no MDX edit); remove the box AND
+   the symptom wording; remove the box only, with a rule change; park
+   it and take the reasons back to Amy. **The operator chose: remove the
+   box only.** Mechanism, kept as narrow as the choice allows: the
+   symptom inverse check is NOT switched off — it gains one exact-path
+   exemption, `src/content/treatments/hormone-optimization.mdx`, so
+   every other treatment file still needs the disclaimer to use symptom
+   vocabulary ("libido" still cannot reach the peptide page), plus two
+   new self-test cases proving the exemption neither fails its own page
+   nor leaks to another (mutation-tested both ways on a scratch copy:
+   the self-test fails with the right message). **The gate edit is the
+   operator's own act** — a prepared patch applied with their own
+   command (the 2026-07-21 own-hand allowlist edit and the 2026-08-05
+   own-command flag flip are the precedents; CLAUDE.md: never weaken a
+   gate — loosening requires the human operator). The page then takes
+   `bioteDisclaimer: false`. `BioteDisclaimer.astro` stays in the repo,
+   dormant (the styleguide still renders it), so restoring the box is a
+   one-word flag flip; its `allowedStrings` entry stays because the
+   component's source line and the styleguide still carry the sentence
+   (the "an authorization nothing uses" rule is not engaged).
+   **Executed the same day:** the operator applied the patch in their own
+   terminal (commit `d96fb4b` — verified byte-for-byte against the prepared
+   patch, and inert on its own: self-test and scan passed with the page
+   still flagged), then the page took `bioteDisclaimer: false` (commit
+   `c238b89`). Verified: the pre-exemption checker run against the final
+   tree FAILS with the symptom inverse check, so the exemption and
+   nothing else is what lets the page build; on the built page the FDA
+   sentence and its notice element are gone, the layout-injected medical
+   DisclaimerBlock and the symptom copy remain, and the styleguide still
+   renders the dormant component.
+
+**Echoes left deliberately mismatched (the operator was shown each; a
+future session must not sync them unasked — the 2026-08-24 precedent):**
+body-contouring's "What a session is like" still says "sets the level
+with you" beside the FAQ's "level of intensity"; body-contouring's
+"price list" beside iv-therapy's "price menu"; skincare's body copy
+still says "pick products up at any appointment" beside the FAQ's "at
+any time".
+
+**Alternatives rejected:** raw HTML in FAQ strings via `set:html`
+(arbitrary URLs from content, hand-written link attributes, the Vagaro
+URL duplicated outside siteConfig); a schema field naming the word to
+link (ambiguous when the word repeats; an operator-gated schema change
+for less); a shared inline-link component now (cross-component
+whitespace prints inside a sentence; the /services intro is the first
+hand-mirror and this the second — a third consumer earns the
+extraction, the 2026-08-27 chip precedent); editing in the #149
+worktree (the branch never merges); pushing after each change (every
+push redeploys a preview, and #149 is the one the review pair is
+reading — the 2026-09-03 flapping lesson); switching the symptom check
+off outright (would un-police symptom vocabulary sitewide for a
+one-page decision).
+
+**Consequences:** `compliance/banned-patterns.json` is untouched all
+round — nothing was allowlisted. No page is clinician-approved (0/12);
+the consolidated pre-relaunch re-approval now covers every treatment
+page, and CLINICIAN-SIGN-OFF names the laser booking sentence and the
+hormone page's changes for Amy by name. **Operator passages, drafted
+and delivered with the PR, theirs to place:** CLAUDE.md constraint 3
+(a scoped-exception sentence for the laser answer under "Never answer
+'is this right for me'", and the hormone-page exception beside "Biote
+symptom language must carry the FDA disclaimer"); BUILD_SPEC §6 (the
+laser row's "Request a consultation" cell), §7.12 ("The three Versa Pro
+applications stay consult-routed"), §7.8, and §8's Enforcement
+paragraph. Verification: `verify:fast` green with the exit line read
+after every change; full `npm run verify` green before the push
+(numbers in the PR).
+
+## 2026-09-19 — Addendum: the copy round's second batch — the supervision sweep, booking links sitewide, and the regenerative lead (operator override, visible text only)
+
+**Context:** After the first batch reached the tagged preview (PR #192,
+the entry above), the operator and their colleague kept going the same
+afternoon: thirty-two more commits on the same branch, one per change,
+pushed once. Five more treatment pages moved (wrinkle-relaxers,
+dermal-fillers, biostimulators, regenerative, skin-rejuvenation), plus
+three sitewide changes.
+
+**Decision 1 — "under clinician supervision" is swept off the treatment
+pages, with the operator's reason on the record: "there is no doctor on
+staff."** It began on wrinkle-relaxers — REVERSING the operator's own
+2026-08-23 call to keep the clause there — and, shown where else the
+clause lived, the operator said "sweep the clause": biostimulators,
+regenerative, skin-rejuvenation, and the /services Peptide Therapy card
+("Peptide therapy options, individualized."). With dermal-fillers
+(2026-08-26), body-contouring, and laser-treatments (this morning), no
+treatment page carries the clause now. The reason is a sound one: the
+phrase can read as a supervising physician, and BUILD_SPEC §8.8 says to
+state Amy's credentials exactly. No gate requires it (the 2026-08-23
+research stands). **Left for the operator's separate call, listed for
+them:** weight-loss's "medically supervised program" wording (lead,
+deck, Phentermine card, the "Who supervises the program?" FAQ, SEO
+description, /services card — the standard term for a prescription
+program, and BUILD_SPEC §7.1's own words), peptide-therapy's SEO
+description ("Clinician-supervised…"), and /medical-disclaimer's
+"offered only under clinician supervision". BUILD_SPEC §7's copy pattern
+still says "individualized under clinician supervision" — an operator
+passage.
+
+**Decision 2 — VisitSteps step 3 reads "Confidently book your
+appointment." sitewide.** Pointed at on wrinkle-relaxers; the sentence
+lives in the shared component, so it was surfaced before editing (the
+2026-08-24 lesson) and the operator chose all twelve pages over a
+page-scoped override, as on 2026-08-24 and 2026-08-26. "When you are
+ready" was the step's pacing hedge; step 1 still says "whenever you are
+ready".
+
+**Decision 3 — every standalone "book" in running text and FAQ answers
+links to Amy's Vagaro page.** The operator asked for it "anywhere you
+see that". A scan of the built site found 120 occurrences: most already
+links (the header button, every "Book with Amy", the /services "BOOK",
+the morning's FAQ link), and 32 unlinked contexts in four classes. Two
+classes were excluded in every option, with reasons the operator
+accepted: the ten FAQ QUESTIONS (a link inside `<summary>` hijacks the
+click that opens the answer and fails axe's nested-interactive rule) and
+/mobile's "Friends book together" (mobile parties book by phone, not
+Vagaro — DECISIONS 2026-09-02). From three offered scopes the operator
+chose **all sentences + FAQ answers, headings plain** ("Book — or ask
+first" sits directly on top of step 1's "Book an appointment…", and two
+stacked identical links were declined). Result: 45 new links on 14
+pages — steps 1 and 3 on all twelve treatment pages, the home intro,
+/about, and page-specific sentences on iv-therapy, wrinkle-relaxers,
+laser-treatments, weight-loss, peptide-therapy, and dermal-fillers. In
+the two "How do I book?" answers the whole button name is the link
+("Book with Amy"), reported to the operator. Mechanism: `BookLink.astro`
+— the shared in-sentence link the morning's entry deferred to "a third
+consumer", which this is — for .astro pages and MDX bodies, and the
+`[text](cta:book)` marker moved from FaqAccordion into
+`src/lib/inlineLinks.ts` so VisitSteps uses it too (same rules: cta:book
+only, no arbitrary URLs, a bad marker fails the build). Verified on the
+built site: **no visible letter changed on any page** (before/after text
+comparison), no link inside any FAQ question, clean spacing round all
+46 inline links, pa11y 25/25 with the links in place. Meta descriptions
+cannot hold links and are untouched.
+
+**Decision 4 — the copy, page by page:**
+- **dermal-fillers.** FAQ "Which filler products does Amy offer?" closes
+  "Which product is used in your plan is decided between you and Amy."
+  (", if any," and "in consultation" come off). FAQ "Does filler hurt?"
+  gains "Also, Amy applies additional topical lidocaine to minimize any
+  discomfort." — a process fact with its purpose, no strength or amount,
+  and the person-to-person hedge still follows it.
+- **biostimulators.** The deck closes "naturally created over time"
+  (noted once: a touch more result-shaped than "planned across time",
+  but it names the mechanism the category is defined by; layout-only, so
+  it reaches no meta or JSON-LD). FAQ "What is a biostimulator?" gains
+  "production" and loses ", if either," (the dictated "work" kept as
+  "works" — a typo). "How long does it last?" closes "before the
+  procedure." "Can I book a biostimulator appointment directly?" now
+  answers "Yes. Although this line starts with a consultation, so the
+  right approach can be chosen, the procedure can be performed
+  immediately at your appointment."
+- **regenerative.** The lead — Decision 5. FAQ "Can I book a
+  regenerative treatment directly?" now answers "Yes. This line starts
+  with a consultation so that Amy can explain each option plainly. The
+  procedure can be performed immediately."
+- **skin-rejuvenation.** The peels card: "Each peel is customized to
+  suit your skin's specific needs." "Chemical peels" opens "the
+  traditional idea, refined" (was "older"). "A longer view" closes "one
+  approach, a customized plan." (was 'a sequence, or an honest "not
+  yet."'). FAQ: "how the skin typically feels after."; "It's planned
+  individually with Amy, and adjusted along the way."; "Which chemical
+  peel is right for me?" loses "That's exactly what a consultation is
+  for."; "Can I book a skin-rejuvenation treatment directly?" now
+  answers "Yes, absolutely! Book anytime for your convenience." ("Book"
+  linked, per Decision 3).
+
+**Decision 5 — the regenerative lead: OPERATOR OVERRIDE, flagged BEFORE
+the edit, and kept OUT of structured data.** Dictated: "PRP
+(Platelet-Rich Plasma) treatments prepared from your blood can be used
+by themselves or combined with microneedling to stimulate hair re-growth
+and reduce the signs of skin aging." The flag: it states outcomes on a
+line where BUILD_SPEC §7.6 bars them and where the 2026-08-01 override
+was scoped to two card sentences ("anything further reverts to the
+rule"); "reduce the signs of skin aging" is the anti-aging angle the
+registry bans by name and passes only because the pattern looks for the
+literal compound; and `summary` also fed the Service JSON-LD
+description, which would have made it the site's first outcome claim in
+structured data. Three paths were offered (AskUserQuestion): a
+house-hedged version of the same sentence (recommended), the dictated
+sentence as visible text only, or the dictated sentence everywhere. **The
+operator chose visible text only.** Mechanism: a new optional
+`schemaDescription` field (operator-approved schema change) overrides
+the JSON-LD description alone; absent, `summary` is used as before —
+three sampled pages' Service JSON-LD is hash-identical. Verified on the
+built page: the outcome wording appears exactly once (the lead); the
+JSON-LD and meta descriptions are unchanged. No pattern trips, so NO
+`allowedStrings` entry — the authorization is this entry and commit
+`bad0ccd`; a green linter never authorizes it. Scope: that sentence, the
+`summary` field of that page; never restated in the SEO description,
+alt text, comments, OG, or JSON-LD.
+
+**The trend note (2026-08-24), brought current.** This batch took
+hedges or consultation wording off: step 3 ("when you are ready");
+dermal-fillers (", if any,", "in consultation"); biostimulators (",
+if either,"; "free as always" in the booking answer); regenerative's
+booking answer (its decide-with-you clause); skin-rejuvenation (the
+peels card's "chosen in consultation", the "not yet" ending, "at a
+consultation", the right-for-me answer's opening sentence, and the
+booking answer's whole consultation clause). Each is individually
+compliant and none trips a pattern. **Two were noted to the operator by
+name** because they sit closest to CLAUDE.md constraint 3's "never
+answer 'is this right for me' — route to a consultation": the literal
+right-for-me peel question (its answer still hands the choice to Amy
+and keeps "a different approach entirely") and skin-rejuvenation's
+booking answer (no consultation clause at all, on a line BUILD_SPEC §6
+lists consult-routed). The three same-visit booking answers
+(biostimulators, regenerative; and laser's, under the morning's
+override) differ in kind: the first two keep the consultation clause
+and say the procedure "can be performed"; only laser's promises one.
+**What now carries §8.7 on these pages, and must not be trimmed without
+a fresh flag:** the layout-injected DisclaimerBlock everywhere;
+regenerative's "whether it makes sense for you, is decided with Amy in
+a consultation"; skin-rejuvenation's "consultation conversation"
+passages and its closing "It starts with a consultation, free as
+always"; biostimulators' "exactly what a consultation is for".
+
+**Alternatives rejected:** linking the FAQ questions or /mobile (above);
+linking headings (offered, declined); a page-scoped step 3 (offered,
+declined — three files of plumbing for one sentence); the hedged
+regenerative lead (offered, declined) and the everywhere variant
+(declined); switching every page's JSON-LD to `seo.description` instead
+of adding a field (would change eleven pages' structured data for one
+page's override).
+
+**Consequences:** `compliance/banned-patterns.json` untouched — nothing
+allowlisted all day. All twelve flags stay `false`. CLINICIAN-SIGN-OFF
+carries the batch page by page plus two cross-cutting notes (step 3;
+the booking links). **Operator passages added to the drafted file:**
+BUILD_SPEC §7's copy-pattern sentence (the supervision clause), §7.6
+and CLAUDE.md constraint 3 (the regenerative lead), and §7's schema
+block (`schemaDescription`). Verification: `verify:fast` green with the
+exit line read after every change; full `npm run verify` green on the
+final tree before the push.
+
+## 2026-09-19 — Addendum: the copy round's third batch — /about gains a credentials paragraph, its quoted ranking phrase under operator override
+
+**Context:** The same evening, the same branch (PR #192), one more
+change from the operator and their colleague on the tagged preview: the
+/about hero (commit `3a865d2`), then the menu label that points to it;
+pushed once with this entry.
+
+**Decision 1 — the new paragraph.** After "It's the job." the hero now
+reads: "Amy holds a BA in Psychology, a BSN, and a Master of Nursing,
+and is a licensed Family Nurse Practitioner. This is all before
+personally investing in excess of $100,000 in Medical Aesthetics
+training to bring "top of class" abilities to her clientele. Amy never
+stops training and advancing her knowledge of the business." The
+dictated first sentence did not parse ("Amy brings with a BA … and a
+licensed Family Nurse Practitioner"; "a BSN in Nursing"); three forms
+were offered (AskUserQuestion) and the operator chose "Amy holds…" —
+the smallest fix that keeps "a licensed Family Nurse Practitioner" word
+for word, the site's existing credential phrasing (BUILD_SPEC §8.8:
+state credentials exactly). Sentences two and three are verbatim.
+
+**Decision 2 — removed:** "She brought that training into medical
+aesthetics in 2017 and became a nurse practitioner the following year."
+Both years still stand in the milestones timeline directly below, so
+no fact leaves the page.
+
+**Decision 3 — "top of class": OPERATOR OVERRIDE, flagged BEFORE the
+edit.** The flag: the phrase is superiority-class (BUILD_SPEC §8.4,
+CLAUDE.md constraint 3 — the "#1" / "best" / "top-rated" family), it
+can also be read literally as an unsubstantiated class rank, and no
+lint:claims pattern sees it (the registry deliberately has no bare
+"top" pattern — the EvolusLaurel precedent), so a green linter would
+not mean it was authorized. Offered: a descriptive swap ("advanced
+skills", recommended), the dictated wording, or ending the sentence at
+the fact. **The operator chose the dictated wording.** Authorization =
+this entry and commit `3a865d2`; NO `allowedStrings` entry. Scope: that
+one sentence in the /about hero, wording exact, quotation marks
+included; the phrase is never restated anywhere else — meta
+description, OG, JSON-LD, alt text, or comments (the page header
+comment records the override without repeating it). Verified on the
+built page: the phrase renders once, in the body; nothing new reaches
+`<head>`.
+
+**Decision 4 — two facts new to the record, source logged.** The BA's
+field (Psychology) and the "in excess of $100,000" personal training
+investment. Asked for the source, the operator answered: **from Amy,
+directly, 2026-09-19.** This extends the 2026-08-27 credentials
+confirmation (BA, BSN, Master of Nursing, FNP). The figure is Amy's own
+statement about her own spend; it is not a price, a comparison with
+another provider, or a clinical claim. Her exact post-nominals remain
+unverified, as on 2026-08-27 — "Master of Nursing" stays spelled out.
+
+**Decision 5 — the menu label "About" becomes "About Amy".** The last
+change of the batch, operator direction: the header menu's link to
+/about (`Header.astro`'s `nav` array; the label renders uppercase).
+Label only — the href, the page's own "About" eyebrow, its title and
+H1 are untouched. The header is on every page, so the full check was
+re-run after this change. BUILD_SPEC §5's hybrid-nav note lists the
+menu as "Services/About/Visit/Training" (already without Mobile) — a
+descriptive list, left for the operator with the other passages.
+
+**Noted, not changed:** "her knowledge of the business" can read as
+commercial rather than clinical knowledge ("the field" would not);
+raised to the operator, left as dictated.
+
+**Alternatives rejected:** the descriptive swap and the fact-only ending
+(offered, declined); "Amy brings with her … her license as a Family
+Nurse Practitioner" (offered, declined); an `allowedStrings` entry (no
+pattern trips, and an entry nothing needs is a loophole); adding a
+"top" pattern to the registry (would false-positive ordinary copy —
+the 2026-08-19 reasoning stands).
+
+**Consequences:** /about is not flag-gated, so no `clinicianApproved`
+flag moves; CLINICIAN-SIGN-OFF's /about notes carry the paragraph so it
+reaches Amy in the consolidated review, superseding that slice of her
+2026-08-04 wording confirmation. `compliance/banned-patterns.json`
+untouched. **Operator passage drafted** (the passages file, §4):
+CLAUDE.md constraint 3's exception list and BUILD_SPEC §8 rule 4.
+Verification: `verify:fast` green with the exit line read; full
+`npm run verify` green on the final tree before the push.
+
+## 2026-09-19 — Addendum: the round's operator passages applied to CLAUDE.md and BUILD_SPEC.md, on the operator's word
+
+**Context:** The three entries above each ended with passages drafted
+for the two operator-gated files and held outside the repo
+(`C:\Amy\operator-passages-2026-09-19.md`, sections 1–4), because those
+files change only on the operator's explicit word. Asked whether to
+merge PR #192, the operator chose **"Merge + apply passages"**.
+
+**Decision:** The passages went in as drafted, in one commit on the
+same branch, before the merge — so the rulebook and the site move
+together and the day's overrides never read as violations to the next
+person who opens the repo. **CLAUDE.md constraint 3:** the
+laser-treatments booking answer (under "never answer 'is this right for
+me'"), the hormone page's FDA-box exemption (under "Biote symptom
+language must carry the FDA disclaimer"), and — closing the
+outcome/superiority exception list — the regenerative lead and the
+/about hero sentence. **BUILD_SPEC.md:** §6 (the laser row's cell and a
+dated pointer under the CTA-label note), §7 (the `schemaDescription`
+schema line; the copy-pattern amendment for the supervision clause;
+briefs 6, 8, and 12), §8 (rule 4's third scoped exception, rule 7's
+scoped exception, the Enforcement paragraph's exempt-file note — and its
+stale "scans `src/content/**` and `src/pages/**`" clause corrected to
+the six directories the linter has scanned since 2026-07-08).
+
+**Alternatives rejected:** merging first and leaving the rulebook out
+of step (offered as the second option, declined); the operator pasting
+by hand (offered since the morning; they delegated it).
+
+**Consequences:** Text-only changes to two files no gate reads;
+`compliance/banned-patterns.json` and every script untouched. Each
+passage restates an override's exact wording by design — CLAUDE.md and
+BUILD_SPEC.md are the authorization record, not site text, and
+lint:claims does not scan them.
+
+## 2026-09-19 — Addendum: the basis for "a $618 value at other labs" (hormone-optimization lab-draw card)
+
+**Context:** The first 2026-09-19 entry (flag 4) shipped the lab-draw
+card's sentence "This is a $618 value at other labs for the same panel."
+with its substantiation marked PENDING. Asked for the basis, the
+operator answered the same evening.
+
+**The basis, in the operator's words:** "The $618 is what LabCorp
+charges for the same labs." — i.e. LabCorp's price for the panel the
+card lists (CBC, CMP, TSH, T3, T4, Testosterone, Estradiol, FSH,
+Vitamin D, Vitamin B12), as known to the operator and Amy on
+2026-09-19. This is the substantiation record for the sentence, the
+way the Evolus designation's basis was recorded 2026-08-19.
+
+**Noted once, not changed:** the sentence says "other labs" (plural,
+unnamed) while the basis is one named lab. "At a national lab" would
+match the basis more exactly without naming a third party on the site;
+raised to the operator with this entry, shipped wording unchanged
+unless they say otherwise. LabCorp is not named anywhere in site text.
+
+**Consequences:** Flag 4 of the first 2026-09-19 entry is resolved —
+no longer pending. The figure is a third party's price and will drift:
+re-confirm it whenever the lab-draw price or the panel changes, and at
+the pre-relaunch re-approval. No site text, gate, or registry changes.
+
+## 2026-09-20 — Silent films ship a captions track with no cues (Amy's phone painted a description over the hero)
+
+**Context:** Amy sent a phone screenshot (`captions01.png`, a preview
+URL): a grey box over the home hero reading "Amy in her Harrisburg
+studio: she runs a hand through her hair and smiles…". That is the one
+cue of `public/media/hero-living-portrait.vtt`. Every film gets a
+captions track; on a silent film the house pattern (2026-09-03, the
+/mobile viewfinder-film entry, item 6; reused for the hero 2026-09-17)
+put ONE descriptive cue in it. The hero's track is not `default`, so it
+draws only when the device asks for captions — her iPhone almost
+certainly has Closed Captions + SDH on (Settings → Accessibility →
+Subtitles & Captioning; the setting sticks once on). Working as built,
+built wrong: a film with no audio has nothing to caption, and a
+description is a text alternative, not a caption. Looking further:
+`TreatmentVideo` renders its track `default`, so the /mobile van film's
+cue painted over the film for EVERY visitor (checked in a browser on
+preview #149: mode `showing`, the cue active at 1–3s) — the class the
+2026-08-25 team-film entry had already warned about. ffprobe of all 13
+captioned films: six carry no audio — the hero, the /mobile film, and
+the four carousel renditions.
+
+**Decision (operator: "fix every silent film"):** the four
+SITE-AUTHORED silent films — `hero-living-portrait`,
+`van-viewfinder-treatment-trim`, `commercial-studio`,
+`commercial-team` — keep their `<track kind="captions">` element and
+ship a caption file with NO cues. The removed wording moves into each
+file's NOTE (the in-repo record stands; a NOTE never contains the cue
+arrow). The description is the player's label: the hero's `data-label`
+becomes the old cue's sentence (a record more than a fix — the hero's
+media wrapper is `aria-hidden` by design, so assistive technology never
+reaches that video); /mobile's `label` already was the description; the
+two carousel labels are unchanged (each is also its progress button's
+name, and constraint 2 allows no new team wording). Caption URLs gain
+`?v=2`: `/media/*` serves with a one-day max-age, so a phone that had
+the old file would have kept its cue for a day.
+
+**The two Evolus commercials are untouched (operator, asked
+directly):** their caption files are a transcript of the films'
+on-screen text, the safety information included — manufacturer creative
+carried as-is, and the only text form of that safety information a
+screen reader can reach. Known remainder: a captions-on phone still
+shows those boxes, on those two films only.
+
+**Rejected:** removing the track element, or `kind="descriptions"` /
+`metadata` — axe `video-caption` fails on the static `TreatmentVideo`
+players, and three players would follow two rules; leaving the cues
+(it covers the most important picture on the site); lengthening the
+studio slide's label (it would lengthen a button name); emptying the
+Evolus transcripts (operator declined).
+
+**Consequences:** supersedes the one-bounded-descriptive-cue pattern
+for silent films going forward — a film with no audio track ships a
+cue-less caption file and carries its description in the label;
+sounded films are unchanged (`[Music]` cues, transcripts). A cue-less
+file is valid WebVTT (tested in Chrome: track `readyState` 2, zero
+cues, no error; Safari cannot be tested from the build machine — Amy's
+phone is that test). Bump the `?v=` whenever a served caption file
+changes. No film re-encoded or re-uploaded; no treatment content
+touched. RUNBOOK carries the rule.
+
+## 2026-09-23 — The menu label "Visit" becomes "Visit Amy" (operator direction)
+
+**Context:** Operator direction: the header menu's "VISIT" line should
+read "VISIT AMY". The label is one entry in `Header.astro`'s `nav` array
+— the menu at every width (hybrid nav, 2026-08-15), shown uppercase by
+`.site-nav-link`'s `text-transform` — and the header is on every page.
+It is the 2026-09-19 "About" → "About Amy" change (the /about addendum's
+Decision 5, commit `c74960c`) repeated for the next item.
+
+**Decision:** `{ label: 'Visit Amy', href: '/visit' }` — the label only.
+The href and the /visit page are untouched; that page has titled itself
+"Visit Amy" (its `<title>` and H1) since C1, so the menu item now reads
+the same words as the page it opens. The Mobile item's comment follows
+("after Visit Amy"). Checked against the final website SOW (Phase 2,
+2026-07-06 — the operator directed on 2026-09-23 that the build abide by
+it): §3 calls this a "Visit Us" page, wording the voice rule bars (no
+first-person plural; `lint:voice`), and a label edit is §7's routine
+update — no scope, exclusion, §5 promise, or running cost is touched.
+Neither linter flags the new wording.
+
+**Alternatives rejected:** none — the wording was dictated and the
+precedent is exact.
+
+**Consequences:** the menu reads SERVICES · ABOUT AMY · VISIT AMY ·
+MOBILE · TRAINING on all 25 built pages (on /visit itself with
+`aria-current="page"`, the current-page marker). No `clinicianApproved`
+flag is involved — the header is not treatment content. BUILD_SPEC §5's
+hybrid-nav sentence ("Services/About/Visit/Training") now lags three
+ways (no Mobile, and neither "Amy" label) — the operator's file, left
+for their word as on 2026-09-19. A records fix rides the same PR:
+REDESIGN's 2026-09-19 copy-round row is marked merged (it still read
+"On a preview"; #192 merged 2026-09-19, `0d0ad61`). Verification: full
+`npm run verify` green on this tree, exit line read — pa11y 25/25,
+Lighthouse CI every assertion on 8 URLs × 3 runs.
+
+**Addendum, same day — BUILD_SPEC brought current (operator
+authorization).** Before the merge the operator authorized the spec edit
+("you can change BUILD_SPEC.md also"), so the file moves with the site
+in the same PR. Three passages now match what is built: §5's hybrid-nav
+sentence lists the menu as Services / About Amy / Visit Amy / Mobile /
+Training; §6's /mobile row places its nav item "after Visit Amy"; and
+§6's /visit row names the page "Visit Amy" — the title it has carried
+since C1 — with a pointer to the SOW's "Visit Us" and the voice rule
+that bars "us". Text-only; no gate reads the file.
+
+## 2026-09-23 — The Mobile Aesthetics badge grows: 72px on phones, level with the Needle Girlie lockup from 640px (client request)
+
+**Context:** Amy asked, through the operator, for the Mobile Aesthetics
+logo in the header to be bigger — "without completely disrupting the
+entire header" (the operator's condition). Earlier the same day a header
+that stacked the badge over the wordmark at equal size (menu left, Book
+right) was built locally and rejected on sight for how it looked on
+desktop; it was never pushed and nothing of it ships. This entry changes
+the badge's SIZE only. Measured on the live demo (PR #97) first: the
+badge was 48px on every phone (on the utility row under the wordmark —
+the stacked shell of 2026-09-15), 48–72px on tablets (`clamp(48px, 7vw,
+80px)`; the 80 cap is never reached below 1024), and 128–160px on
+desktop (the 2026-08-15 co-brand scale). From 640px up the row's height
+is set by the brand block — the wordmark plus the credential line — not
+by the badge, so the badge had room to grow there without moving
+anything; on phones its row is only as tall as the badge.
+
+**Decision (operator, choosing among sized options with the header cost
+stated — a throwaway CSS mock on the live demo first, then before/after
+renders of the built page):** one custom property, `--ma-h` on
+`.site-header`, is the badge's height — the `--wordmark-w` pattern: one
+expression, read by the badge and by the menu popover's offsets. Phones:
+`72px` (was 48); the utility row, and so the phone header, is 24px
+taller. From 640px: `calc(var(--wordmark-w) / 3.675 + 1.5rem)` — exactly
+the brand block's height (the wordmark at its 3.675 aspect + the 0.375rem
+gap + the 1.125rem credential line), declared once and re-resolving
+against the ≥1024px `--wordmark-w`; the header's height does not change
+there. The popover's phone offset reads `--ma-h` in place of the fixed
+3rem utility row; from 640px it reads the taller of `--ma-h` and the
+brand block (the ≥1024 form extended to tablets — equal today, and the
+menu stays clear if either one changes). Measured on the built page:
+
+| Width | Header before → after | Badge before → after |
+|---|---|---|
+| 320 | 181 → 205 | 48 → 72 |
+| 390 | 200 → 224 | 48 → 72 |
+| 412–639 | 206 → 230 | 48 → 72 |
+| 640 | 134 → 134 | 48 → 101 |
+| 768 | 149 → 149 | 54 → 116 |
+| 1024 | 201 → 201 | 128 → 152 |
+| 1280 | 233 → 233 | 160 → 184 |
+| 1440 | 236 → 236 | 160 → 187 |
+
+The menu clears the header by 2.8–3.6px at every width from 320 to
+1440; no horizontal overflow; the header's markup is byte-identical to
+the live demo's (a CSS-only change); the tab order is unchanged. From
+640px the badge's top is level with the wordmark's, and the wordmark
+re-centres in the slack beside the larger badge (12–31px to the right).
+
+**Flags, raised once, answered by the operator's choices:** (1) the
+2026-09-15 direction wanted the mark to "stand out more than the Mobile
+Aesthetics logo". From 640px the badge is now level with the mark +
+credential line — on desktop ~24px taller than the wordmark image
+itself. The mark still leads: 2.8–3.2× the badge's width and 2.1–2.8×
+its area (6.7× on phones, on its own row). Amy's own request supersedes.
+(2) The badge is the sanctioned outbound link (constraint 2's first
+exception names the header badge and fixes no size), so a bigger badge
+is a bigger exit to yourmobileaesthetics.com; no link, mention, or text
+is added. Checked against the final website SOW: a §7 routine update —
+no scope, exclusion, §5 promise, or running cost is touched; REDESIGN's
+round close is not frozen, so it is not change-order scope.
+
+**Supersedes:** the 2026-09-15 phone-stack entry's "the badge stays 48px
+(client-picked, the sanctioned outbound link)"; the 2026-08-15 desktop
+scale `clamp(128px, 12.5vw, 160px)`; and the 2026-08-15 hybrid-nav
+entry's "the badge starts at 48px to make room" (a single-row phone
+constraint the stacked shell removed).
+
+**Alternatives rejected:** re-laying out the header (the stacked
+version, rejected the same day); growing the desktop header past the
+lockup (it is already the tallest chrome on the site at 236px); cropping
+the SVG's viewBox to its white frame (the #131313 plate barely shows on
+the black header, so the badge would read larger in the same box — but
+it alters the full badge the operator picked on 2026-08-15); 64px or
+80px on phones (offered; 80 would stand taller than the wordmark on
+320px phones).
+
+**Consequences:** every page's content starts 24px lower on phones (the
+header ~224px at 390, 205 at 320, 230 from 412 to 639); tablet and
+desktop headers are unchanged. The wordmark's 3.675 aspect now also
+sizes the badge from 640px — a wordmark with a different aspect resizes
+it (BRAND-ASSETS notes it). No DOM, link, alt, or asset change; not
+treatment content, so no `clinicianApproved` flag. CLINICIAN-SIGN-OFF's
+pending presentation row carries the larger badge; REDESIGN's badge and
+hybrid-nav rows and BUILD_SPEC §5 (on the operator's authorization, same
+day) carry the new sizes. Known and unchanged: without the Popover API
+(Safari 16 and earlier) the fallback inline menu already overflows
+phones and overlaps the tablet row — measured identical before and
+after; a separate fix. Verification: full `npm run verify` green on this
+tree, exit line read — build, `astro check` 0/0/0, lint:claims,
+lint:voice, pa11y 25/25, Lighthouse CI every assertion on 8 URLs × 3
+runs, CLS 0 on every URL. The thin LCP budgets did not move: /mobile
+2,482ms (its recorded median before the change; still a text paragraph)
+and /about 2,335ms (2,336 before), against 2,500.
+
+## 2026-09-23 — Three stale descriptions corrected (header comment, sign-off sheet, CI comment)
+
+**Context:** Three texts had drifted from what ships (verified on
+`origin/phase-c` @ `4f7ab6a`). (1) `Header.astro`'s comment above
+`.site-brand-group` gave the badge a 247:172 box — the ratio of the
+retired header lockup (`mobile-aesthetics-mark-header.svg`, viewBox
+`24 40 247 172`), which left the header when the operator picked the
+full badge (2026-08-15, "Operator picks the full badge for the
+header"); the header imports `mobile-aesthetics-mark.svg`, a square
+300x300. (2) The sign-off sheet's "Visual drift since 2026-08-05"
+paragraph — the list Amy reviews against — called the nav
+"hamburger-only"; it is the hybrid nav (2026-08-15): the menu carries
+the page links at every width and Book stays visible beside it.
+(3) `pr-preview.yml`'s paths-ignore comment read "pa11y over 23 URLs,
+Lighthouse 3x over 6"; `.pa11yci.json` now lists 25 URLs and
+`lighthouserc.json` 8, three runs each.
+
+**Decision:** correct all three to match: the comment names the full
+badge's square 300x300 box; the sheet reads "the hybrid nav (the menu
+at every width, with Book always visible beside it)"; the CI comment
+reads "pa11y over 25 URLs, Lighthouse 3x over 8". The `Header.astro`
+change is a comment only.
+
+**Alternatives rejected:** none of substance — each is a correction to
+a record. The CI comment's "~5.5 minutes" was measured and left: two
+of the day's runs spent 6.2 and 5.7 minutes in the gates — PR #195's
+(run 35868437372, fast 23s + slow 348s) and the #97 refresh (run
+35882030745, fast 23s + slow 317s) — close to the stated figure.
+
+**Consequences:** no rendered byte, gate, or config value changes; no
+treatment content; no `clinicianApproved` flag is involved. Swept for
+other stale copies: none current — the older counts elsewhere
+(PHASE-C's 2026-08-04 status note, the 2026-08-17 audit, the
+2026-07-23 skincare spec) are dated records, right for their dates, and
+"hamburger-only" survives only in the 2026-08-15 hybrid-nav entry, as
+the rejected alternative. Verification: full `npm run verify` green on
+this tree, exit line read — pa11y 25/25, Lighthouse CI every assertion
+on 8 URLs × 3 runs.
+
+## 2026-09-24 — The no-Popover header fallback: the links get their own row (Safari 16 and earlier)
+
+**Context:** The header menu is the native Popover API, support floor
+Safari 17 — "unsupported browsers ignore the attribute and show the nav
+expanded" (2026-07-08, Phase B). The fallback that shows it expanded was
+written that day for the header of the time — an inline desktop link row
+from the small breakpoint up, the popover on phones only — and set the
+list `position: static; display: flex` where it stood, inside the nav. The header changed
+around it: the hybrid nav (2026-08-15) moved the page links into the
+popover at every width (five since 2026-09-02), and the stacked phone
+shell and the 600px wordmark (2026-09-15) filled the row. The no-Popover
+path was not re-tested; the 2026-09-23 badge entry recorded it as broken,
+outside that change. Reproduced by emulation in Chromium — the `popover`
+attribute stripped from the served HTML (Safari 16 ignores it, so no UA
+popover styles apply) and the served `@supports not
+selector(:popover-open)` block switched on in place — on the live demo
+(PR #97, whose header is byte-identical to phase-c's): phones 320–639px
+rendered 802px wide (the inline list's min-content widened the grid's
+`auto` track; the wordmark sat off-centre and the badge collapsed to 0px
+wide); 640 and 768 rendered 794px wide; from 640px up, Book and the menu
+button covered the badge and the links covered the wordmark, desktop
+included; and the menu button showed at every width, opening nothing.
+The audience: Safari before 17 — chiefly the iPhone 8, 8 Plus, and X,
+which stop at iOS 16.
+
+**Decision (operator, from before/after renders at 375, 768, and
+1280px):** CSS only, all of it inside the `@supports not
+selector(:popover-open)` block, so a browser with the Popover API
+applies none of it. The inert menu button is hidden (leaving the
+accessibility tree with it); the links become a centered, wrapping row
+(`0.5rem 0.625rem` link padding; the overlay's min-width, padding, and
+border off). Phones give the nav a third grid row, and Book stays on the
+utility row opposite the badge — absolutely positioned, centered on that
+row by the popover offset's own derivation (the top padding + the mark's
+height + 1.35rem for its gap and the credit line + the row gap + half of
+`--ma-h`). From 640px the nav — Book first, then the links — wraps onto
+its own full-width line under the badge + wordmark row, which keeps its
+layout. No DOM change: the tab order is the skip link, badge, wordmark,
+Book, then the five links (the dead "Menu" stop is gone). Measured in the
+emulation on the built page — `/visit`, `/`, and `/services/iv-therapy`,
+11 widths each, identical across the three:
+
+| Width | Before (no Popover) | After: header height |
+|---|---|---|
+| 320–639 | page 802px wide; badge 0px; wordmark off-centre | 279–335px |
+| 640 | 794px wide; Book + menu over the badge, links over the wordmark | 227px (Book above the links) |
+| 768–1023 | links over the wordmark (794px wide at 768) | 206px |
+| 1024–1440 | links, Book, and menu over the wordmark | 258–293px |
+
+After, at every width: no horizontal overflow, no header box overlapping
+another, every link inside the header.
+
+**Alternatives rejected:** a Popover polyfill (JavaScript plus a new
+dependency, against the zero-JS header); a second, `<details>` menu for
+old browsers (duplicate nav markup on every page); `display: contents`
+on the nav, so Book and the links could take separate rows without
+positioning (WebKit — the engine this path serves — has a history of
+dropping an element's semantics under `display: contents`, here the
+Primary landmark); tighter link padding to fit Book and the links on one
+line at 640px (about 4px to spare — any rendering difference wraps it
+anyway); leaving the fallback as it was.
+
+**Consequences:** browsers with the Popover API are unaffected, byte for
+byte — built against phase-c, the only changed file is the one
+stylesheet, identical outside this block (108 → 680 characters), and
+all 25 pages' HTML is identical apart from that stylesheet's hashed
+name; the modern header measured identical to the live demo's at all 11
+widths. On no-Popover browsers the header is taller than the modern one,
+the links showing rather than behind a button: ~310px on a 375px iPhone
+8 against ~220 on a current phone, 206 on tablets, 258–293 on desktop;
+from 640 to ~675px Book takes its own line above the links. Book's phone
+position shares the popover offset's derivation, so a change to the
+phone brand block (the wordmark's aspect, the credit line, the row gap)
+moves both — the comment names the shared terms. The gates cannot see
+this path (pa11y and Lighthouse run in Chromium, which has the Popover
+API): the evidence is the emulation, a throwaway script — no dependency
+or gate added — and there is no Safari 16 here to test on. Resolves the
+2026-09-23 badge entry's "Known and unchanged" note. Not treatment
+content; no `clinicianApproved` flag. Found on the way: Tailwind's
+automatic source detection reads `docs/` too — a draft of this entry
+quoted the 2026-07-08 header's breakpoint utility by name and put one
+unused rule (23 bytes) into the production stylesheet; the wording was
+changed, and scoping the scan is a separate question. Verification:
+full `npm run verify` green, exit line read — build, `astro check`
+0/0/0, lint:claims, lint:voice, pa11y 25/25, Lighthouse CI every
+assertion on 8 URLs × 3 runs, CLS 0 on every URL; the thin LCP budgets
+did not move (/mobile 2,481ms, /about 2,336ms, against 2,500). The
+final comment wording re-passed `verify:fast` (exit 0) and builds the
+byte-identical stylesheet the full run tested.
+
+## 2026-09-24 — The Mobile Aesthetics badge's lettering goes white, a touch heavier (operator direction)
+
+**Context:** The operator: every letter in the header's Mobile
+Aesthetics badge reads gray; the letters should be white. The badge
+(`src/assets/brand/mobile-aesthetics-mark.svg`, an `<img>` in
+`Header.astro`, so page CSS cannot reach inside it) is written by
+`src/assets/brand/source/mobile-aesthetics/build-ma-mark.py`
+(2026-08-15). Its type had two paints. MOBILE, AESTHETICS, AMY PALACIOS
+NP, and the phone number took a vertical `chrome` gradient, `#fbfafb`
+at y=43 to `#c6c3c6` at y=82 of the 300-unit tile (the operator's
+2026-08-15 brightening of the reference's measured `#f4f2f3→#9b989b`);
+the name and phone lines sit below y=82, where a gradient holds its end
+colour, so they were solid `#c6c3c6`. PLLC was a flat `#a9a6a8`. Each
+glyph also carries an outline in its own paint, 0.4 units. The
+letterforms (Julius Sans One) are hairlines at header size — the I of
+MOBILE is 0.9 units wide, 1.3 with the outline: 0.8 CSS px on the
+187px desktop badge, 0.3 on the 72px phone badge — so they anti-alias
+toward the `#131313` plate, and colour alone does not reach white on a
+standard-density screen.
+
+**Decision (operator, from renders of the live #97 header at 1x, 2x,
+and 3x density — now / white / white with a 0.7 outline / white with a
+1.0 outline):** every line of type in the frame's own white (`#fdfdfd`),
+the glyph outline 0.4 → 0.7 units; the chrome gradient leaves the file.
+The generator carries the change (constants `TYPE = FRAME` and
+`TYPE_STROKE = '0.7'`; `defs()` no longer writes the gradient), and
+both of its outputs — the badge and the retired header lockup (brand
+kit only; nothing imports it) — are edited in lockstep. Letter
+brightness measured in Chromium (the 90th-percentile grey level of the
+rendered letters; 255 is white, the plate 19), before → after:
+
+| Screen (badge size) | AESTHETICS | PLLC | Phone number |
+|---|---|---|---|
+| iPhone, 3x (72px) | 174 → 224 | 107 → 188 | 138 → 207 |
+| Retina, 2x, 1440px+ wide (187px) | 198 → 248 | 141 → 242 | 172 → 243 |
+| Standard 1x, 1440px+ wide (187px) | 157 → 210 | 116 → 187 | 130 → 194 |
+| Standard 1x, 1024px wide (152px) | 141 → 190 | 102 → 185 | 120 → 179 |
+
+The heavier outline restores the logo's weight rather than departing
+from it: measured on single letter stems against the practice's
+reference render (F-437304, 300px; ±~0.3 units, since it is a raster),
+the reference's strokes are ~1.4–1.9 units wide, the rebuild's were
+1.25–1.4, and at 0.7 they are 1.5–1.6.
+
+**Alternatives rejected:** colour only (offered; the hairlines stay
+light gray on standard 1x screens); a 1.0 outline (offered, not
+chosen); a CSS filter on the `<img>` (it brightens the plate and the
+chevrons too); inlining the SVG to recolour it from CSS (35 KB of
+markup on every page); editing the SVGs without the generator (its
+next run would put the gray back).
+
+**Consequences:** the badge steps further from the practice's
+reference render than the 2026-08-15 brightening did — the reference's
+lettering is a light silver fade, the header's is now white (flagged
+once; MA is Amy's own PLLC, and the call is the operator's). The
+chevrons, the plate, the frame, and every path's geometry are
+unchanged; the file shrinks 611 bytes (35,010 → 34,399). The generator
+was not re-run: Pillow and fontTools are not installed here, and the
+Julius Sans One font file was never committed. The outputs were edited
+to what it now emits and proven two ways — an element-by-element
+comparison of old and new (only the type paints differ; every path's
+`d` is byte-identical) and a standard-library check that the edited
+generator's `defs()` and path template reproduce the committed files
+byte for byte. The lockup's chevrons, the verbatim source of the
+VisitSteps and /about plates, are unchanged. Amy's sign-off row gains
+the change. Not treatment content; no `clinicianApproved` flag.
+Verification: built against phase-c, the only changed file is the badge
+(new hashed name, content = the committed SVG) and all 25 pages' HTML
+is identical apart from that name — every stylesheet and script byte
+for byte; the built badge is pixel-identical to the render the operator
+picked at 390 (3x), 640 and 768 (2x), 1024 and 1280 (1x), and 1440
+(2x), its heights unchanged (72 / 100.6 / 115.9 / 152.2 / 184.2 /
+187.3px), no horizontal overflow. Full `npm run verify` green, exit
+line read — build, `astro check` 0/0/0, lint:claims, lint:voice, pa11y
+25/25, Lighthouse CI every assertion on 8 URLs × 3 runs, CLS 0 on
+every URL; the thin LCP budgets did not move (/mobile 2,481ms, /about
+2,335ms, against 2,500).
+
+## 2026-09-25 — The Evolysse film returns as the home carousel's first film (operator override after the compliance flag)
+
+**Context:** The operator asked (2026-09-24) to add
+`C:\Amy\Videos\Mobile EVOLYSSE OPTION 3_2_1.mp4` to the home carousel
+and play it first — five films instead of four. It is not a new film.
+It is byte-identical to the copy in `C:\Amy\Videos\Commerical 1\`
+(sha256 `b5eb0574…`), and it carries the same name and Evolus piece code
+(US-EVY-2600017) as the film that ran on /services/dermal-fillers from
+2026-07-21 until the client had it removed on 2026-08-21, when its Blob
+object `evolysse-film.mp4` was deleted and the CLAUDE.md exception was
+marked retired ("re-adding it requires the human operator"). This is
+that operator call. The master is 1920×1080, 30fps, 30.5s, H.264 with
+AAC stereo narration.
+
+**Screen (house method):** contact sheets at one frame per second, the
+lower strip every half second, and full-resolution crops.
+- 0–2s: Amy's title card — her photo, the MA chevrons, "Amy Palacios /
+  Nurse Practicioner" (a spelling error).
+- 3–5s: the Evolysse Smooth carton in ice. Its small print includes the
+  fill volume, at the edge of legibility at the native 1920px.
+- 6–9s: a model, labeled "Actual patient, results may vary."
+- About 10–13s: a side-by-side of the same patient, labeled BEFORE and
+  AFTER 2 WEEKS.
+- 14–21s: a second model and "EVOLYSSE" graffiti.
+- 22–30s: the Form carton and syringes, the location's phone number
+  (704-368-3759, not Amy's line), and "Talk to your doctor about
+  Evolysse™".
+- Throughout: a QR code and the address of a location-branded Evolus
+  microsite.
+
+The footer's on-screen safety text is four lines, one at a time: the
+indication (10–13s); certain medications and the risk of infection,
+bleeding, or bruising (13–18.5s); not for people with severe allergies,
+including to lidocaine (18.5–23.5s); and the risk of infection with all
+injection procedures (23.5–30.5s). The serious-risk statement is in the
+voiceover only: the risk of unintentional injection into a blood vessel
+(vision abnormalities, blindness, stroke), the common side effects, and
+the tell-your-provider list. The July transcript (operator-verified,
+commit c966e6f) still fits this file: its 12.88s break sits on a
+measured 12.83–13.03s pause, and the speech ends by 29.98s.
+
+**Flags shown (once):**
+- The before/after segment now sits in the home carousel's first slot,
+  on a page with no medical disclaimer.
+- The location's co-branding, phone number, QR code, and microsite.
+- The title-card spelling error.
+- Muting — every carousel film is muted — drops the spoken risk
+  statement. The Jeuveau films can be muted because their full safety
+  screens are burned in; this film's cannot.
+- On a phone its on-screen safety lines are about 3px tall.
+
+The recommendation was captions on by default for this film alone. A
+Chromium test in the real stage geometry showed them sitting in the
+black band under the film on phones, and covering the film's own safety
+line on desktop unless a strip were reserved under it. Holding for
+Amy's confirmation was also offered.
+
+**Decision (operator, 2026-09-25):** add the film first, muted,
+captions off by default — the Jeuveau pattern. This is an override
+after the flag. The film is carried as-is: never trimmed or cropped,
+played at 1×.
+
+**Mechanics:**
+- **Rendition:** the RUNBOOK recipe (H.264 CRF 23, preset medium, no
+  audio, faststart), 1920×1080, 2.58 Mbps, 9,840,398 bytes. Uploaded as
+  `commercial-evolysse.mp4` — a new name, so no purge, and the name
+  deleted in August is not reused.
+- **Poster:** `commercial-evolysse-poster.jpg`, the carton frame at 4.0s.
+  It is visually simple, and shows no patient and no spelling error. It
+  is committed at 960×540 rather than the rendition's full frame: the
+  carousel never serves a poster wider than 720, and at 960 the
+  carton's fill volume is unreadable even in the served fallback `src`
+  file, so the still needs no pixel exception of its own. Built
+  derivatives: 480w 10,102 B, 720w 18,792 B, 960 `src` 27,584 B.
+- **Captions:** `public/media/commercial-evolysse.vtt`. It holds the
+  voiceover (the July text on its July timings, safety information
+  included) and the on-screen text, marked "On screen". The title card
+  is given correctly spelled. The location's phone number, QR code, and
+  microsite address stay display-only pixels, not transcribed — the
+  training-reel precedent: the site's text never prints them.
+- **The slide:** first in `slides`, labeled "Evolysse commercial —
+  Mobile Aesthetics with Evolus" (the Jeuveau pattern). The other four
+  keep their order, so two Evolus films now play back to back.
+  `video-carousel.js` is unchanged.
+
+**The stage, fixed in the same change.** Measured on #97, `.vc-stage`
+(4:5 aspect ratio, a 76vh/720px height cap, auto width) did not stay
+full-width once the cap bound: the cap transferred through the ratio
+and the box shrank to 4:5 — 486×608 at 1280×800 — which would have
+played the 16:9 film at 486×274. A definite `width: 100%` fixes it.
+Measured in-page, before → after, the stage and each film class:
+
+| Viewport | Stage | 16:9 film | 4:5 films | 9:16 films |
+|---|---|---|---|---|
+| 390×844 | 342×428 (same) | 342×192 (same) | same | same |
+| 768×1024 | 576 → 705 wide, 720 tall | 576×324 → 705×397 | 576×720 | 405×720 |
+| 1024×768 | 467 → 961 wide, 584 tall | 467×263 → 961×541 | 467×584 | 328×584 |
+| 1280×800 | 486 → 1152 wide, 608 tall | 486×274 → 1081×608 | 486×608 | 342×608 |
+| 844×390 | 237 → 781 wide, 296 tall | 237×133 → 527×296 | 237×296 | 167×296 |
+
+Every portrait film keeps exactly its size, and the stage's height does
+not change, so nothing below it moves. On a phone held upright a 16:9
+film is inherently small (342×192 at 390).
+
+**Five bars:** five bars at 40px, four 8px gaps, the 20px gap, and the
+44px toggle make 296px — the 344px fold cover's content box exactly
+(46px spare at 390). The 40×32 buttons stay above the 24px target. A
+sixth film needs a wrapping row.
+
+**Alternatives rejected:**
+- Captions on by default — recommended, declined by the operator.
+- Holding for Amy — offered, declined.
+- A sound button — the voiceover would still go unheard by default.
+- Trimming or cropping — never, for a manufacturer piece.
+- Reusing the name `evolysse-film.mp4`.
+- A full-frame 1920 poster — its fallback `src` would carry the fill
+  volume legibly.
+- A 1280w poster tier for desktop sharpness — the phone profile
+  (412px at 1.75x needs 721 device px) would fetch it on every phone.
+- A stage that changes shape per slide — layout shift on every rotation.
+
+**Consequences:**
+- CLAUDE.md constraint 3 re-grants the retired exception for exactly
+  this slide. It records what is carried, the muting, and captions off
+  by default; moving the film, unmuting it, turning its captions on, or
+  any other placement requires the human operator. BUILD_SPEC's
+  carousel, home-row, dermal-fillers, and §8 passages follow; the plan's
+  approval authorized the governing-doc edits (the 2026-08-18
+  precedent).
+- Amy's sign-off row carries it as NEW: this is the film she had
+  removed.
+- RELAUNCH's probe list gains `commercial-evolysse.mp4`.
+- REDESIGN's media-origin row is recounted: eighteen Blob objects,
+  fourteen referenced. The four earlier hero-film cuts are unreferenced,
+  and deleting them is an operator cleanup item, not part of this
+  change.
+- The carousel's CSS lives in the stylesheet shared with /styleguide,
+  so that file's name changes; its content differs only by the two
+  rules above.
+- Not treatment content; no `clinicianApproved` flag.
+
+Verification: built against phase-c, the change is exactly the new
+slide's markup and fifth bar on the two pages that render the carousel
+(/ and /styleguide/concept), the three poster derivatives, the caption
+file, and the shared stylesheet — renamed, its content differing only
+by the two rules above (/styleguide and /styleguide/treatment-demo
+change only that stylesheet's name); `video-carousel.js` and every
+other page are byte-identical. Checked in headless Chrome at nine
+widths (344–1440) against #97: no horizontal overflow (the bars row
+fills the 344px fold cover's 296px exactly), every portrait film's
+size and the stage's height identical; slide 1 plays the new file
+muted with no decoded audio and its captions track disabled, and its
+end hands over to J1. The served film answers a Range request with 206,
+`video/mp4`, 9,840,398 bytes, one video stream and no audio, index at
+the front. Full `npm run verify` green, exit line read — build, `astro
+check` 0/0/0, lint:claims, lint:voice, pa11y 25/25, Lighthouse CI every
+assertion on 8 URLs × 3 runs. The home row measures image 208,279 B of
+245,760 (the new poster's 720w file adds 19,097 B), total 333,461 B of
+358,400, script 69,266 B of 81,920, media 0 — no film byte in the
+load; LCP 2,186 ms, CLS 0, performance 0.99.
+
+## 2026-09-25 — The Mobile Aesthetics badge grows on phones: as tall as the Needle Girlie lockup at every width (client request)
+
+**Context:** Two days after the badge went from 48 to 72px on phones
+(2026-09-23), the operator sent a phone screenshot of /mobile on the
+live demo (PR #97) with the badge marked: it is "very tiny", and Amy
+wants it more pronounced — on phones mostly; it looks fine on desktop.
+The screenshot measures to a 412px-wide phone, where the badge renders
+at 72px and the header at 230px. On phones the badge shares the utility
+row under the wordmark with Book and the menu (the stacked shell of
+2026-09-15), and that row is exactly as tall as the badge, so every
+pixel of badge is a pixel of header. At 412px the row had 185px of empty
+space between the badge and Book, so the badge could grow without
+touching anything. Nothing else on the site reads the header's height
+(the home motion script touches only the wordmark image).
+
+**Decision (operator, from a throwaway comparison on the live demo —
+today's header and two options stacked at 412px, the header cost stated
+for each):** the badge's height is ONE expression at every width — the
+one tablets and desktop have used since 2026-09-23: the wordmark's
+height at its 3.675 aspect plus 1.5rem (the credit line and its gap from
+640px). In `Header.astro` the phone declaration `--ma-h: 72px` becomes
+`calc(var(--wordmark-w) / 3.675 + 1.5rem)` on `.site-header`, and the
+640px rule's own copy of it goes: declared once, it re-resolves against
+each breakpoint's `--wordmark-w`, the mechanism the ≥1024px rule already
+relied on. CSS only. The popover's phone offset and the no-Popover
+fallback's Book position read `--ma-h`, so both follow. On phones the
+badge is about 2px taller than the lockup above it, whose credit line is
+smaller there (0.8125rem, not 0.9375) — invisible on stacked rows.
+Measured on the built page (/mobile, /, and /visit, identical across the
+three):
+
+| Width | Badge (was 72px) | Phone header |
+|---|---|---|
+| 320 | 102px | 205 → 235px |
+| 344 (Fold cover) | 109px | 212 → 249px |
+| 360 | 113px | 216 → 257px |
+| 375 | 117px | 220 → 265px |
+| 390 | 121px | 224 → 274px |
+| 412–639 | 127px | 230 → 286px |
+| 640 and up | unchanged (101–187px) | unchanged |
+
+**Flags, raised once, accepted with the pick:** (1) the 2026-09-15
+direction wanted the wordmark to "stand out more than the Mobile
+Aesthetics logo"; on phones the badge now stands taller than the
+wordmark image (127 against 103px at 412). The wordmark still leads — on
+top, centred, about 3× the badge's width. Amy's request supersedes. (2)
+The badge is the sanctioned outbound link to yourmobileaesthetics.com
+(constraint 2's first exception names the header badge and fixes no
+size), so this is a bigger exit again; no link, mention, or text is
+added. (3) Every page's content starts 30–55px lower on phones; the
+header is not sticky, so the cost is the first screen only — on the
+home page the portrait still fits Lighthouse's 412×823 phone screen (its
+bottom moves from 708 to 763px). (4) /mobile's LCP budget had 19ms of
+headroom (2,481ms of 2,500); no byte is added, and the figure is read in
+verify (below). (5) The badge's small print — Amy's name and
+704·579·7108 — becomes nearly legible on phones; the number is the
+site's own (`siteConfig.phone`).
+
+**Supersedes:** the 2026-09-23 entry's phone value (72px, chosen from
+64/72/80). The tablet and desktop sizes are unchanged.
+
+**Alternatives rejected:** 103px on a 412px phone — the badge as tall as
+the wordmark image, never taller (offered; only 78px on 320px phones,
+6px more than today); a fixed phone size (the one expression scales with
+the phone and leaves one rule instead of two); cropping the SVG's
+viewBox to its white frame (the badge would read larger in the same box,
+but it alters the full badge picked 2026-08-15); re-laying out the phone
+header (a header stacking the badge over the wordmark was rejected on
+sight 2026-09-23); a bigger badge on tablets and desktop (the operator:
+it looks fine on desktop).
+
+**Consequences:** phone headers are 30–55px taller (~274px on a 390px
+iPhone, ~286 from 412). The wordmark's 3.675 aspect now sizes the badge
+at every width (BRAND-ASSETS notes it). No DOM, link, alt, asset, or
+script change; not treatment content, so no `clinicianApproved` flag.
+Checked against the final website SOW: a §7 routine update — no scope,
+exclusion, §5 promise, or running cost is touched. CLINICIAN-SIGN-OFF's
+pending presentation row, REDESIGN's badge and hybrid-nav rows,
+BRAND-ASSETS, and BUILD_SPEC §5 (on the operator's plan approval, same
+day) carry the new sizes.
+
+Verification: built against phase-c, the only changed file is the
+stylesheet holding the header's rules — renamed, its content differing
+only in the two `--ma-h` declarations (the phone value replaced, the
+640px copy removed) — and all 25 pages' HTML is identical apart from
+that stylesheet's name. Measured in headless Chrome on /mobile, /, and
+/visit at 15 widths from 320 to 1440, with the Popover API and in the
+no-Popover emulation (the 2026-09-24 method): the badge and header
+heights above; from 640px every header box identical to phase-c's, in
+both modes; no horizontal overflow; no header box overlapping another;
+Book and the menu centred on the badge row (Book too in the no-Popover
+fallback); the menu clears the header by ~3.2px on phones. Full `npm
+run verify` green, exit line read — build, `astro check` 0/0/0,
+lint:claims, lint:voice, pa11y 25/25, Lighthouse CI every assertion on
+8 URLs × 3 runs, CLS 0 on every URL; the thin LCP budgets did not move
+(/mobile 2,482ms, /about 2,334ms, against 2,500), and the home row's
+image bytes are unchanged (208,279 B) and its total 9 B lower (333,452
+B — the stylesheet is 13 bytes smaller uncompressed).
+
+## 2026-09-25 — Home: the van band plays Amy's van-trip film (the whole clip, AI-upscaled, silent and looping; operator overrides after the compliance flags)
+
+**Context.** The operator asked for the van-interior photo in the home
+page's "Amy comes to you." band to be replaced with a video,
+`C:\Amy\Videos\VID_20260923_081757.mp4`. Measured with `ffprobe
+-count_frames`: 320×568, H.264 Main plus AAC stereo, 170.02s, 5,100
+frames at 30 fps, 17,549,042 B, sha256 `23a76a9c…602655`. It matches no
+other file in the archive and nothing in this log, so it is not a
+retired film. Its linear resolution is about 0.21× the still's
+(1536×1920).
+
+Screened at 1 fps over the whole clip, and at 2–4 fps with burned-in
+timestamps wherever there are faces or text:
+
+| Time | What's on screen |
+|---|---|
+| 0:00–0:13 | Walking up to the black van; its front plate reads MOBILE AESTHETICS |
+| 0:13–0:16.5 | The side door, with Amy and two roadside signs reflected in it |
+| 0:16.5–0:25 | The door opens and the camera sweeps the cabin |
+| 0:26–0:32 | The van's driver, faint through the partition |
+| 0:32–0:36 | Amy talking in her seat |
+| 0:37–1:30 | The drive over a bridge to a beach town |
+| 1:32–1:42 | A roundabout, the venue's number "1107" and its signs |
+| 1:44–1:58 | The van's "Mobile Aesthetics" lettering |
+| 1:59–2:17 | Amy talking to camera by the van |
+| **2:17.3–2:25.8** | **The prep shot:** Amy, her name embroidered on her scrubs, beside a rolling tray of syringes in printed, labelled slots (one injection-area label legible), handling a vial and syringe, with a sharps container behind |
+| 2:25.8–2:38 | A holiday party |
+| 2:38–2:50 | Letterboxed; Amy with a guest at 2:47–2:50 |
+
+**Decisions.** Each was the operator's (AskUserQuestion), made after the
+flag on it:
+1. **The whole clip plays**, silent and looping. The rendition carries
+   no audio track, so the talking shots play without sound. It autoplays
+   muted in view, and the native controls are the pause mechanism.
+2. **Keep everything:**
+   - the prep shot, which is the prep-workflow class the 2026-07-23 photo
+     rubric excluded, with a legible label. It becomes CLAUDE.md
+     constraint 3's eighth pixel-level override;
+   - the guest at 2:47–2:50. Her website-use release is on file and she
+     is not one of the location's providers; the operator's confirmation
+     is the record;
+   - the driver.
+
+   Cutting or blurring those spots was recommended and declined.
+3. **Layout:** the whole portrait frame, uncropped, in a 9:16 panel at
+   the /mobile film's 24rem width and bare film frame. The band's old
+   cropped window was not used.
+4. **AI upscale.** Amy's original file was recommended; the operator
+   chose an AI upscale of the 320px copy. The flag: an upscale overrides
+   this log's 2026-09-17 generative rules, under which only published,
+   Amy-only stills leave for a third-party service and AI never renders
+   a treatment, a product, packaging or text. The override covers this
+   film only. The operator uploaded both the test clip and the full clip
+   to Higgsfield through its upload widget.
+5. **After the frame screen:** the source's own pixels go back wherever
+   the upscale drew lettering of its own. Patching only the plate and
+   tray, or dropping AI altogether, were the alternatives offered.
+6. **Poster:** the film's first frame, with a store's sign behind the
+   van. The recommended van-lettering frame at 1:52 was declined.
+
+**Upscale.**
+- **Test:** a 19s clip of the two hardest passages (the van's lettering
+  with Amy's face, and the prep shot), run on both providers:
+
+  | Provider | Settings | Credits | Result |
+  |---|---|---|---|
+  | Topaz | 1080p | 8 | Kept her likeness; left the tray labels as unreadable as the source |
+  | ByteDance | ugc preset, 1080p, 30 fps | 0.38 | Invented skin texture around her eyes; letter-like marks on the tray labels |
+
+- **Full run:** Topaz, 47 credits (1,615.12 → 1,568.12), 1080×1920 HEVC,
+  5,100 frames, saved as
+  `C:\Amy\Videos\VID_20260923_081757_upscaled_1080p.mp4` (sha256
+  `291051dd…41762e`).
+  - Scored frame by frame against the source (luma SSIM, frames paired
+    by index): median 0.975, minimum 0.902.
+  - A ByteDance full-clip run, started for comparison, failed and is not
+    used.
+- **Colour:** Topaz read the source as BT.601 and wrote untagged BT.709
+  values. `colormatrix=bt709:bt601` restores the source's colours (luma
+  PSNR against the source rose from 35.1 to 37.5 dB).
+
+**Frame screen and patches.** The upscale kept the faces (Amy, the
+guest, the driver), the van's own lettering, every sign readable in the
+source, and the hat patches. Where the source's text cannot be read,
+though, it drew crisp letters of its own:
+- the front plate ("MOBILE AESTHETICO" at 0:07);
+- the grille badge while small;
+- a store sign's LED panel;
+- the signs reflected in the door;
+- a water tower;
+- four signs seen through a side window at 1:28–1:30;
+- a highway sign at the roundabout;
+- a chalkboard at the venue door;
+- a road sign through a cabin window;
+- a small wall sign;
+- the prep shot's tray labels.
+
+Those spots carry the source's own pixels, lanczos-scaled and composited
+through a feathered, keyframed mask:
+- **Keyframed boxes:** ten, covering 1.2–10% of the frame each, except
+  the side-window view, up to 49% for three seconds. The reflected signs'
+  box stops at Amy's hairline, so her face keeps the upscale.
+- **The prep shot:** the source for the whole shot, cut to cut (frames
+  4119–4373), so no label in it is AI-rendered.
+- **Checked:** every box, frame by frame, in a tinted debug render.
+
+The build files are in `C:\Amy\van-film`: `patches.json`,
+`make-mask.cjs`, `render.sh` and a README.
+
+**Rendition.**
+- **Format:** 810×1440 (2.1× the 384px panel, on upscaled pixels,
+  disclosed), H.264 High, no audio track, faststart, tagged BT.709.
+- **CRF:** the ladder against the plan's 25–35 MB target: CRF 24 49.9 MB,
+  26 39.0, 27 **34.6 MB (shipped)**, 28 30.8. CRF 27 is visually matched
+  to the lossless composite at 2×.
+- **File:** 34,609,537 B, sha256 `10c190bc…440f34`, published as
+  `van-trip.mp4` on the media origin. Its container keeps Topaz's own
+  "AI-enhanced" description tag.
+- **Poster:** its frame 0, `src/assets/photos/van-trip-poster.jpg`
+  (810×1440; served as WebP at 400w 17,464 B and 810w 42,396 B).
+- **Captions:** `public/media/van-trip.vtt`, with no cues (the 2026-09-20
+  rule). The description is the player's label; the provenance and the
+  disclosure are in its NOTE.
+
+**Page.**
+- **ConceptHome:**
+  - The figure is no longer `aria-hidden`: native controls inside an
+    aria-hidden subtree fail axe `aria-hidden-focus`, and the film is
+    labelled content.
+  - The poster is a lazy `<Image>`.
+- **`/js/band-film.js`** (new; 4,986 B raw, 2,025 B gzipped; CLAUDE.md's
+  fifth sanctioned consumer):
+  - It builds the `<video>` once, when the band is within 1.5 viewports
+    **and** the page has had a real input (wheel, touch, key, pointer).
+    Neither a page load nor Lighthouse's full-page pass ever fetches the
+    film.
+  - At a third in view it plays muted and loops; it pauses when out of
+    view.
+  - A user's pause is never overridden.
+  - A refused `play()` is retried inside the next gesture.
+  - It plays under reduced motion (the films policy, constraint 6).
+- **Motion retired:** the band's drift (CSS `ng-drift` and the GSAP
+  parallax, `home-motion.js` §7) is gone. `ng-drift` has no consumer
+  now; the primitive stays.
+- **/mobile** keeps the van-interior still.
+
+**Flags accepted.**
+- A silent loop of Amy speaking.
+- About 35 MB per full view. Blob and Front Door egress grow with plays,
+  outside the SOW's $45–55 (SOW divergence #10). The off-ramp is to
+  revert the band to the still in one commit and delete the blob.
+- The SOW's embedded-video wording (divergence #4).
+- Holiday footage year-round.
+- A beach-town trip under copy that says "around Charlotte".
+- Third-party signs and a street number legible.
+
+**Alternatives rejected:**
+- Amy's full-size original (recommended; declined);
+- the 320px copy as-is, which would need a retina override;
+- cutting or blurring the three spots;
+- a sounded, tap-to-play player with captions;
+- the cropped band window;
+- ByteDance;
+- leaving the upscaler's lettering in place.
+
+**Consequences.**
+- **CLAUDE.md:** constraint 3 gains the eighth pixel-level override, and
+  the JS paragraph its fifth sanctioned consumer. BUILD_SPEC's motion
+  lines and home row follow. Both are covered by the operator's plan
+  approval (the badge entry's precedent).
+- **Other records:** REDESIGN, HOME-CONCEPT §4, CLINICIAN-SIGN-OFF's
+  pending row and RELAUNCH's probe list.
+- **Not treatment content,** so no `clinicianApproved` flag. Amy's
+  preview sign-off covers her upscaled likeness and the prep shot.
+
+**Verification.** Built against phase-c `d28c482`, apart from the new
+files (`band-film.js`, the caption file, the poster's two WebPs) and the
+still's three retired band sizes:
+- one stylesheet changes: the band's rules;
+- only the home page and its /styleguide/concept mirror change markup:
+  the band's figure, poster and script tag.
+
+**Headless Chrome** at 320/390/412/768/1024/1280/1440:
+- The panel is `min(24rem, 100% - 3rem)` at 9:16: centred on phones,
+  beside the statement from 900px, with no horizontal overflow.
+- No player and no film request on load, at a full-page viewport, or
+  after scrolling without input.
+- After a wheel or key input the player builds with controls, loop,
+  muted, playsinline, the poster, and a non-default track with no cues.
+- It plays in view and pauses out of view; a user's pause holds; it
+  plays under reduced motion and with GSAP blocked.
+- axe on the built band: no violations (`video-caption` and
+  `aria-hidden-focus` pass).
+
+**Firefox 156** (Puppeteer BiDi) **and Chrome:** the player builds and
+plays the 170.02s film, which loops back to the start.
+
+**The gate:** `npm run verify` green, exit line read: build, `astro check`
+0/0/0, lint:claims, lint:voice, pa11y 25/25, and Lighthouse CI passing
+every assertion on 8 URLs × 3 runs.
+
+The home row against phase-c (medians):
+
+| | phase-c | This change |
+|---|---|---|
+| Total | 333,452 B | 335,883 B |
+| Script | 69,266 B | 71,641 B (`band-film.js`, 2,406 B over the wire) |
+| Image | 208,279 B | 208,279 B (unchanged) |
+| Media | 0 | 0; no request for the film |
+| LCP | 2,174ms | 2,173ms |
+
+/mobile (2,480ms) and /about (2,338ms) stay under 2,500. The
+preview's checks (the real CSP, the media origin, Range 206) are on the
+PR.
+
+## 2026-09-25 — Addendum: the van film's sound — Amy's voice only (the songs removed; the speech-free autoplay rule's second exception; operator decisions after the flags)
+
+**Context.** The operator asked how hard it would be to let viewers turn
+on the sound "so they can choose to hear what Amy is saying". The clip's
+audio, measured:
+- **0:00–2:01.2:** loud and steady (−14.7 LUFS), with a regular beat.
+  The operator identified two songs: "Check Out (What I Got)" by Danger
+  Twins (2023; listed for sync licensing through peermusic's catalog) and
+  "I'll Never Let You Go" (feat. 9ver) by BCD Studio (2022; marketed as
+  "no-copyright sounds" for TikTok, with no written licence for a
+  website).
+- **2:01.2–2:17.3:** Amy's words to camera outside the van at the
+  destination, at −34.5 LUFS. The operator: she "says where they are
+  and who they are there to see".
+- **2:17.3–2:38:** quiet room sound under the prep shot and the party.
+- **2:38–2:50:** digital silence.
+
+**Flags.**
+1. Neither song is licensed for a business website. Platform music
+   licences do not travel, as with the /mobile film's held sound on
+   2026-09-03.
+2. The person she names: naming someone at a treatment party on a
+   medical practice's site discloses a client relationship, so it needs
+   a website release and a HIPAA marketing authorization (the
+   before/after precedent, 2026-08-21).
+3. Captions become required (WCAG 2.2 AA 1.2.2), and they are site text
+   under the claim rules.
+4. The house rule autoplays only speech-free films ("never … one with
+   narration, which muted autoplay would gut"). Its one exception was
+   the ICON film (2026-08-25).
+5. Her words start about two minutes into the loop.
+
+**Decisions** (operator, AskUserQuestion):
+1. **Amy's voice only.** Both songs out; her part plays, brought up to a
+   speaking level; the rest is silent.
+2. **The named person:** a website release and a HIPAA marketing
+   authorization are both on file (the operator's confirmation is the
+   record), so the name stays in the audio and the captions. It is never
+   restated in site text outside the captions file.
+3. **Keep autoplay:** muted in view, with sound one tap away. This is
+   the speech-free rule's second scoped exception, recorded in the rule's
+   own home (TreatmentVideo.astro's header) and in CLAUDE.md's script
+   list.
+4. **Captions off by default.** Captions on by default was recommended,
+   because most visitors see the film muted.
+5. **Transcript:** Higgsfield's video analysis first. It ran on the
+   already-uploaded clip (job `7e652c3e…`, about six minutes).
+   - **What it heard:** her part as "…in Holden Beach with [the host]
+     to do a mobile aesthetic party at her place at Winn-Lynn and
+     Company, Punky's Place. So excited to be here!" The host's full
+     name is kept out of this public record; it is in her voice and
+     the caption file, which the operator's confirmation covers.
+   - **Confirmed by the operator,** listening to the sound rendition:
+     the words and the name's spelling, and that the mid-sentence start
+     sounds fine (her first words fall under the end of the song).
+   - **Its limits:** the same analysis confirmed both songs by their
+     lyrics, but its claim that music continues after 2:17 is wrong
+     (measured near-silence, then digital silence). It is a draft, not
+     a record.
+
+**Captions.** Four cues, 2:01.2–2:17.28, split at her measured pauses
+(25ms loudness map); the player requests `van-trip.vtt?v=2`. The caption
+file, like every site file, is also in the public repository.
+- **Screened:** against `banned-patterns.json` (no hits) and the voice
+  rule (no first-person plural). The linters do not read caption files,
+  but the claim rules apply to all site text.
+- **Accepted:** her "Holden Beach" makes the earlier minor flag
+  explicit, a beach-town visit under the band's "around Charlotte"
+  copy.
+
+**The sound rendition** (`C:\Amy\van-film\sound.sh`):
+- **Before 2:01.2:** silenced; the songs end there, per the spectrogram
+  and a 0.1s loudness map.
+- **Her part:** fades in over 80ms at 2:01.2. Highpass 80Hz, a gentle
+  compressor (−34dB threshold, 3:1), +20.5dB, and a −1dBFS limiter.
+  Result: −18.0 LUFS, peaks −3.0dBFS.
+- **After the cut into the prep shot (2:17.30):** faded out and silent
+  (a −65dBFS residue), so nothing but her words plays. The prep shot's
+  and the party's room sound was never screened by ear.
+- **Muxing:** AAC 96k, muxed with `van-trip.mp4`'s video stream copied
+  untouched. The web video's frames sit within 10ms of the source's
+  (6ms in her part), so lip sync holds.
+- **The file:** `van-trip-sound.mp4`, 34,970,330 B (+361KB), published
+  under a new name on the media origin. The silent `van-trip.mp4` blob is
+  deleted once no open preview references it.
+
+**Player.** `band-film.js` remembers a person's unmute: the film restarts
+with sound when it scrolls back into view, and falls back to muted if
+the browser refuses (the treatment-video.js pattern). The label mentions
+that Amy speaks and that the film starts muted. The caption file gains
+her cues and its NOTE the provenance; `?v=2`.
+
+**Consequences.**
+- CLAUDE.md's fifth-consumer paragraph and TreatmentVideo's header record
+  the second exception.
+- CHANGELOG, CLINICIAN-SIGN-OFF, RELAUNCH (the probe target is now
+  `van-trip-sound.mp4`), RUNBOOK, HOME-CONCEPT, REDESIGN and BUILD_SPEC
+  say the film has her voice.
+- SOW divergence #4 is unchanged in kind; egress rises by 361KB per full
+  view.
+
+**Verification.**
+- **Local headless Chrome**, emulating a touch phone, with the sound
+  rendition served with Range support:
+  - the film autoplays MUTED, and the file carries an audio track;
+  - captions are off by default, and the four cues load, all inside
+    2:01.2–2:17.28;
+  - an unmute is recorded and survives scrolling away and back: the
+    film restarts with sound.
+- **Firefox 156:** plays muted with the audio track present.
+- **The audio:** silence before 2:01.2 (peak −inf); her part at
+  −18.0 LUFS (peak −3.0dBFS); after 2:17.3, a −65dBFS residue.
+- **The gate:** full `npm run verify` green, exit line read: `astro
+  check` 0/0/0, lint:claims, lint:voice, pa11y 25/25, and Lighthouse
+  CI passing every assertion on 8 URLs × 3 runs.
+- **The home row:** total 336,160 B; script 71,875 B (`band-film.js`,
+  2,640 B over the wire); image 208,279 B; media 0, with no request for
+  the film; LCP 2,171ms. /mobile (2,484ms) and /about (2,337ms) stay
+  under 2,500.
+
+## 2026-09-25 — /services: menu cards 01 and 02 carry new photos of Amy, exactly as supplied (operator overrides after the compliance flag)
+
+**Context.** Operator direction (2026-09-25): replace the photo on menu
+card 01, Neurotoxins - Wrinkle Relaxers, with `C:\Amy\pics\button01.jpg`,
+and on card 02, Dermal Fillers, with `C:\Amy\pics\button02.jpg`.
+- **The files:** both are 1067×1600 sRGB JPEGs. Their metadata holds a
+  Lightroom profile name and a tone curve, and no GPS.
+  - button01: sha256 `da6aab4a…d843af`, 287,932 B.
+  - button02: sha256 `e616287c…cf63c8`, 236,432 B.
+- **New frames:** neither matches any photo in `C:\Amy\pics`,
+  `C:\Amy\New Pics` or `src/assets`. That was checked by byte hash and
+  by a 24×36 grey signature that would catch re-exports; the nearest
+  mean difference was 29.4 of 255.
+
+**Screen.** Two things ship:
+- the card's 4:5 derivatives, 400, 640 and 880 wide;
+- the full frame, because astro copies the source JPEG into `_astro/`
+  and the repository is public.
+
+**01:**
+- **The scene:** Amy in a pink blouse at a marble table, holding up a
+  Jeuveau vial. Beside her are a stack of Evolysse Form and Smooth
+  cartons and a glass jar of vials, with three more vials in front.
+- **Legible in the 880 derivative:**
+  - the held vial's brand and its per-vial unit count;
+  - the cartons' brand names;
+  - their end-panel line, which gives the fill volume and describes the
+    product as an injectable hyaluronic acid with lidocaine;
+  - the lid edges, which name the gel's processing technology and its
+    maker.
+- **Illegible:** the jar's labels and barcodes.
+- **The front vials:** their unit count is legible in the full frame,
+  but the card's crop cuts most of them.
+
+**02:**
+- **The scene:** Amy in a pink dress holding two Evolysse Form cartons,
+  crossed, in front of a Jeuveau banner: a model's face and red "11"
+  numerals.
+- **Legible in the 880 derivative:**
+  - the banner's headline fragment ("…OUR 11s") and the numerals;
+  - the cartons' brand and "FORM";
+  - part of one carton's fill-volume line (her fingers cover the rest).
+- **The banner's indication line:** it sits below the card's crop in
+  every derivative. In the full frame it is blurred but partly readable.
+
+**People:** only Amy is pictured (the banner's model is part of a
+printed ad), so no release is needed.
+
+**Flag (once).**
+- Both frames are in the classes the 2026-07-23 rubric excluded:
+  vial-central, product-box and Jeuveau-banner frames.
+- A legible vial or carton quantity is constraint 3's dosing class. The
+  training reel's "100 U" jar shot shipped only under an override.
+- A legible banner headline is the class of the jeuveau-banner-studio
+  and amy-evolysse-cart overrides. Each is fixed to its own frame and
+  page, so neither covers these.
+- Offered:
+  - a defocus bake of the quantities, the carton panels and the
+    headline, with card 02 committed at its 4:5 crop (recommended: a
+    narrower, brand-only override);
+  - the photos exactly as supplied;
+  - holding for other frames.
+
+**Decision (operator, 2026-09-25): exactly as supplied.** These are the
+ninth and tenth pixel-level overrides, recorded in two places:
+- **CLAUDE.md constraint 3:** under the dosing bullet, and 02's banner
+  also joins the banner photos under the claims bullet.
+- **BUILD_SPEC §8.1.**
+
+**Fixed terms:**
+- **Scope:** these two frames, in cards 01 and 02 of the
+  ServiceLineGrid menu (/services, and /styleguide, which renders it).
+- **Never restated:** no text from the vials, the cartons or the banner
+  (quantities, product descriptions, headline, indication language) is
+  ever restated in site text: copy, alt, comments, meta, OG, JSON-LD.
+- **Changes:** changing the frames or the slots, or restating any of it,
+  requires the human operator.
+
+**Mechanics.**
+- **Assets:** byte-identical copies under content names,
+  `amy-jeuveau-vial-evolysse.jpg` (01) and
+  `amy-evolysse-form-banner.jpg` (02).
+- **Anchors:** both are `'top'` in `linePhotos`.
+  - **01:** sharp's saliency pick (`'attention'`, the map's default)
+    started its window 267px down the frame and cut Amy's face at the
+    eyes. `'top'` keeps her face and the held vial.
+  - **02:** `'attention'` already chose the top window. `'top'` pins it,
+    so the banner's indication line stays out of every derivative by
+    construction.
+- **Bytes** (webp at quality 62, for the 400/640/880 widths):
+
+  | Card | New photo | Photo it replaced |
+  |---|---|---|
+  | 01 | 13,434 / 25,374 / 39,020 | 12,910 / 24,892 / 39,532 (`temple-injection.jpg`) |
+  | 02 | 9,998 / 17,476 / 26,004 | 7,534 / 14,736 / 24,222 (`amy-holding-neon.jpg`) |
+
+- **Outgoing assets:** `temple-injection.jpg` and `amy-holding-neon.jpg`
+  had no other consumers, so they are deleted (RUNBOOK "Replacing site
+  photography", step 6).
+- **The comments:** ServiceLineGrid's header records the provenance and
+  the override without restating any text in the pixels.
+- **Alt text:** the cards keep `alt=""`, decorative to the labelled link.
+
+**Verification.**
+- **Dist against the phase-c build:** only the two cards' image sets
+  and the /services and /styleguide HTML differ. The stylesheet is
+  unchanged.
+- **Element renders** at 390, 768, 1280 and 1440, before and after: each
+  card shows its new photo with `alt=""`, and nothing overflows
+  horizontally.
+- **`npm run verify` exit 0:**
+  - `astro check` 0 errors; lint:claims and lint:voice green; pa11y 25/25.
+  - Lighthouse on /services: images 226,664 B and total 280,443 B (budgets
+    393,216 and 524,288), LCP 1,805ms, performance 1.00.
+- **lint:claims** is green, but it cannot see pixels, so the screen
+  above is the control.
+
+**Consequences.**
+- The pixel-override list grows by two. The 2026-07-23 rubric's
+  exclusions stand for every other slot.
+- Amy's pending look sign-off (CLINICIAN-SIGN-OFF) gains the two cards.
+  No `clinicianApproved` flag is involved, because the /services index
+  is not treatment content.
+- The SOW's claim-override divergence grows by two.
+
+**BUILD_SPEC §8.1 catch-up** (operator authorization, 2026-09-25: "yes
+add the line"). The van-band entry above recorded the film's prep-shot
+override as CLAUDE.md's eighth pixel-level override, but §8.1's closed
+list never gained it, so the two lists disagreed. Its line is added in
+this PR, ahead of the two card photos'. The override itself is
+unchanged.
+
+## 2026-09-25 — The link-share card: Amy's studio-counter portrait becomes every page's share image (the live placeholder now, the site at relaunch; client request)
+
+**Context.** Amy wants a specific picture shown when people share a
+needlegirlie.com link: `C:\Amy\pics\needlegirlie.png`, the
+studio-counter portrait on the live Under Construction page (Amy seated
+on the counter, a syringe in each hand).
+- **Until now no page had a share image.** `SeoHead` emitted `og:image`
+  only when a page passed `ogImage`, and none did. Shared links showed
+  no picture, and the Twitter card was the small `summary`.
+- **BUILD_SPEC already asked for one:** the SEO section's "branded OG
+  image (generate from the logo assets)"; the component's own comment
+  deferred it to "Phase D".
+
+**The photo.** A 642×893 PNG whose alpha channel is fully opaque, sha256
+`04a33e1c…0686d1`. Its screens from the placeholder (2026-08-05) and the
+hero (2026-08-14) hold for this use:
+- Amy is the only person pictured.
+- The syringes carry no legible labels or unit text.
+- The neon script, the scrub embroidery and the hand-mirror engraving
+  are her own branding.
+- Under the counter, a wipes canister's name is partly legible at 4×
+  zoom and unreadable at card size.
+
+The card uses this original, not the AI-assisted `needlegirlie-hero.jpg`:
+at 528px tall in the card it is scaled down, never up.
+
+**Design (the operator picked mockup A of two, 2026-09-25).** A 1200×630
+card in the live page's look:
+- a noir ground;
+- the photo in the placeholder's arch (a hairline pink-300 border and a
+  static neon-500 glow);
+- the metallic wordmark;
+- "Amy Palacios, FNP" in pink-300 and "Mobile Aesthetics · Harrisburg,
+  NC" beneath, both in the site's Playfair Display. The mockup read
+  "Medical Aesthetics"; the operator changed it to the practice name.
+
+The rejected mockup B was the photo alone on a blurred fill. The card's
+words are site text under the claim rules: they name her, her
+credential, the practice and the town.
+
+**The file:** `public/og/needle-girlie-share.jpg`.
+- **Size and format:** 1200×630, 79,502 B, JPEG at quality 88 with 4:4:4
+  chroma, no metadata, sha256 `9bd4b3e0…0578c4`.
+- **How it is built:** in `C:\Amy\share-card\`, outside the repo
+  (`card.html`, `render.cjs` and a README). Chrome renders the template
+  at 2×, and sharp scales it down with lanczos.
+
+**Mechanics.**
+- **`SeoHead.astro`:** every page shares the default card unless it
+  passes its own `ogImage`. The head now carries:
+  - `og:image` as an absolute URL,
+    `https://needlegirlie.com/og/needle-girlie-share.jpg`;
+  - `og:image:width` and `og:image:height`, so a first share renders
+    without waiting for the app to fetch the image;
+  - `og:image:alt` and `twitter:image:alt`;
+  - the `summary_large_image` Twitter card, on every page.
+- **Two PRs, byte-identical** (RUNBOOK "Hotfixing production during the
+  takedown era"):
+  - the image and `SeoHead.astro` go to `main` in hotfix PR #206, so
+    the live placeholder shows the card now;
+  - they go to `phase-c` in this PR (#205), at the same paths with
+    the same bytes, so the relaunch merges them clean;
+  - the record for both lives here, never on `main`.
+- **A stable path, never replaced in place:** apps cache previews by
+  image URL, so a new card ships under a new filename (RUNBOOK "Changing
+  the link-share card").
+
+**Verification.**
+- **phase-c output:** all 25 pages differ from the phase-c build only in
+  their share tags, and all 25 carry the card. The only new file is the
+  image; no stylesheet or script changed.
+- **main output:** the placeholder carries the same tags and the same
+  file.
+- **`npm run verify` exit 0 on phase-c:** `astro check` 0 errors;
+  lint:claims and lint:voice green; pa11y 25/25. Every Lighthouse budget
+  held: the tags add about 100 B to a page (the home page's total went
+  from 336,160 to 336,256 B), and no page fetches the image.
+
+**Consequences.**
+- **Old shares:** links shared before the change keep their cached,
+  picture-less preview until each app re-reads the page. Facebook's
+  Sharing Debugger and LinkedIn's Post Inspector force a re-read; they
+  need a login, so that step is the operator's.
+- **The relaunch keeps the card,** because phase-c carries the same file
+  and tags.
+- **Amy's pending look sign-off** gains the card (CLINICIAN-SIGN-OFF).
+
+## 2026-09-25 — The home hero film ends on a warm smile, not a laugh (a new generated take from the moment she faces the camera; Amy's request)
+
+**Context.** Amy asked (relayed by the operator, 2026-09-25) for a change
+to the finish of the home hero film. She sits on the studio counter with
+syringes in both hands and turns from her left shoulder to the camera;
+in v5 she then bursts out laughing. She wants her simply to smile when
+she faces forward.
+- **Where the laugh comes from.** The closing shot is Higgsfield take
+  P1-t1 (Seedance 2.5, 2026-09-17), whose prompt asked for "a genuine
+  relaxed laugh". In v5 the laugh runs from about 9.5s into the white
+  flash. Just before it the take holds a soft closed-lip smile, its
+  stillest stretch after the turn (f0083–f0090), which v5 compressed
+  with the rest of the neutral look.
+- **It replaces a performance the founders approved** (2026-09-17, kept
+  in the 2026-09-18 re-order, which rejected "a new generation" for
+  exactly that reason). This change is Amy's own request.
+
+**Decisions** (operator, AskUserQuestion, 2026-09-25):
+1. **A warm smile with teeth**, the only style made. Mid-build the
+   operator added: no squinting at all.
+2. **The input rule (2026-09-17).** The new take starts from a frame of
+   P1-t1 where she has just turned and settled (f0086), sent back to
+   Higgsfield. The operator ruled this within the rule:
+   - it shows Amy alone;
+   - it is Higgsfield's own output, made from the hero portrait's
+     mirror-padded canvas;
+   - the hero portrait is the same photo as the live placeholder's
+     image.
+   v5 shows that frame only inside a four-frame blend (f0083–f0086,
+   mean difference 0.25 of 255). A face crop of the neon-sign portrait,
+   already uploaded 2026-09-17, went up as an identity reference for two
+   of the takes.
+3. **Review:** the best take by the screen goes straight to a PR
+   preview for Amy's phone check.
+4. **Budget:** up to 700 Higgsfield credits.
+
+**Round 1: six takes, 277 credits.** The account is still on the ultra
+plan that the 2026-09-17 commercial-use addendum rests on.
+- **Four new takes from the settled frame** (Seedance 2.5, 4s, 1080p,
+  camera locked): someone off-camera says something kind, and within
+  half a second her smile widens into a warm, bright smile with her
+  teeth showing; she does not laugh. Two of them also carried the face
+  reference.
+- **Two edits of the whole take,** asked to turn the laugh into a
+  smile: Seedance 2.5 `video_edit` and Kling 3.0 Omni Edit.
+- **Result.**
+  - Both edits kept the laugh's motion and its squint. The Kling edit
+    also gave her an open, talking mouth in the untouched lead-in.
+  - The reference takes smiled with narrowed eyes and gained no visible
+    likeness.
+  - **Shipped: take SM1-t1.** It holds her soft smile, then her lips
+    part (its frame 32) into a warm, open-eyed smile with natural
+    teeth.
+
+**The screen** (the 2026-09-17 rules, frame by frame at hero size).
+- **What holds:** her face, her teeth, both hands and the syringes, the
+  neon script, the scrub embroidery, the mirror engraving and the
+  labelled items under the counter. No smoothing, ageing or heavy lines.
+- **The camera is locked:** its fit to f0086 is the same at the take's
+  first, middle and last frame.
+- **The eyes stay open.** The visible eye area stays at 1.13–1.23 of the
+  stare's through take frame 61, then drops to 0.75 by frame 65 as a
+  crinkle starts. So the film uses the take only through frame 60.
+
+**The splice** (the working folder's README, v6).
+- **Unchanged:** every shot before the closing one, and the closing shot
+  through the turn, use v5's source frames.
+- **The settle:** the turn's own deceleration plays at real speed
+  (f0070–f0078).
+- **The join:** a six-frame dissolve (0.25s) inside the still stretch
+  hands over to the new take. The smile begins about 0.67s after the
+  turn.
+- **Alignment:** Seedance re-frames its input (this take by scale 1.007,
+  −8/−12px). So the new frames are aligned to the old take (a
+  background-only fit, refined to sub-pixel) and tone-matched before the
+  dissolve.
+
+**The file built:** `hero-living-portrait-v6.mp4` (media origin;
+3,513,005 B; SHA-256
+4711c4f079756e767fbf0130cd325a28ff87a6bb208d8ecc96c0891d2d1d1ec7;
+1080×1502, 24fps, 265 frames / 11.04s, no audio). It is encoded exactly
+as v5 was: CRF 22, the same grain, the same white flash. It went up on
+PR #207's preview and was superseded before merge by v7: the operator
+found its smile did not look like her (the addendum below).
+
+**Alternatives rejected.**
+- Her own soft closed-lip smile from the existing take (zero credits):
+  the operator chose a warm smile with teeth.
+- The two edit routes, which kept the laugh.
+- The reference takes, and SM1-t2, the runner-up: their smiles arrive
+  with narrowed eyes.
+- Trimming the laugh without a new take: the film would end on a stare.
+
+**Consequences.**
+- **Amy's sign-off:** her pending sign-off on her generated likeness now
+  covers new footage (CLINICIAN-SIGN-OFF).
+- **Disclosure:** the component comment and the VTT note (now `?v=3`)
+  name the second take. The label now reads "she turns to the camera
+  with a warm smile".
+- **Old files:** v5 stays on the origin, unreferenced, as v1–v4 do.
+  Deleting them is an operator cleanup item.
+- **Credits:** 277 of the 700 approved (1,568.12 → 1,291.12).
+
+**Verification.**
+- **The loop seam:** the file's first and last frames are flat white
+  (luma 233–238).
+- **Against v5:**
+  - frames 0–144 are bit-identical (the grain is deterministic);
+  - every frame through the end of the turn (frame 219) is within 1.25
+    of 255, which is x264's choices only.
+- **The join:** the frame-to-frame change across it (0.89–1.40) sits at
+  the film's own grain level (0.64–1.14 around it). v5's laugh changed
+  1.7–3.0 at the same place.
+- **Detail:** after the join the face carries 0.89 of the old take's
+  fine detail, which is not visible at hero size.
+- **The site:** only the hero element's three attributes change, on `/`
+  and `/styleguide/concept`, plus the caption file. No stylesheet
+  changed.
+- **The gate:** `npm run verify` exit 0 — `astro check` 0/0/0,
+  lint:claims and lint:voice green, pa11y 25/25, and every Lighthouse
+  assertion held on 8 URLs × 3 runs. The home row: total 336,267 B
+  (+11 B), script 71,875 B, image 208,279 B, and media 0, with no
+  request for the film; LCP 2,060–2,237ms.
+
+## 2026-09-26 — Addendum: the hero film's smile is re-made to look like Amy's own (v7, before merge)
+
+**Context.** On PR #207's preview the operator: "The smile in the film
+doesn't look good at all", sharing four photos of Amy smiling as
+examples of her natural smile (not for the film).
+- **What was wrong, measured** by hand on grid crops (working folder,
+  `stage0/landmarks.md`). Against her front-on photos, v6's smile is:
+  - wider: the mouth 1.13 × the distance between her pupils, against her
+    0.97–1.08;
+  - thinner-lipped: the lower lip 0.10 of the mouth's width, against her
+    0.15–0.21;
+  - narrower-eyed: the lid gap 0.34 of the eye's width, against her
+    0.38–0.41.
+- **Why it showed.** The closing shot opens on the hero portrait itself,
+  her real smile in the same lipstick and light, about a second before
+  the generated smile. A generic smile there reads as someone else.
+
+**Decisions** (operator, AskUserQuestion, 2026-09-26):
+1. The photos are examples only.
+2. Review goes straight to the PR preview; the take is picked by the
+   screen.
+3. Budget: up to 700 more credits.
+4. Only the smile changes. The turn the founders approved stays.
+
+**The input rule (2026-09-17).** Two of the four photos are published
+here: the lavender-suit portrait (byte-identical to
+`amy-lavender-suit.jpg`) and the master of `lavender-suit-stool.jpg`.
+Two are not: a pink-scrubs shot with Evolysse cartons, and a neon-sign
+shot. Only published material went to Higgsfield:
+- face crops, with no lettering or packaging, of the hero portrait, the
+  lavender-suit portrait and the stool portrait;
+- the neon-sign portrait's face crop, already uploaded 2026-09-25;
+- a head crop of the take's settled frame, which was ruled within the
+  rule 2026-09-25.
+
+The two unpublished photos never left the PC; they were only the
+screening guide.
+
+**Method: the target still first, then video into it.**
+- **The still** (17 image edits, 32.25 credits): the settled frame's head
+  crop, edited with the four face crops as the guide. The prompts keep
+  the composition and her pose and use the photos only for her smile.
+  Nano Banana Pro, GPT Image 2.5, Seedream 5.0 Pro and Seedream 4.5 were
+  tried.
+  - Each edit's lower face was pasted back into the settled frame: fitted
+    on the hair and background, tone- and detail-matched. Her eyes stay
+    the frame's own.
+  - **Picked: a Nano Banana Pro edit.** Her mouth is 1.02–1.04 × her
+    pupil distance, with her upper teeth over a fuller lower lip.
+  - **Rejected:** GPT Image 2.5, where the teeth barely show (its filter
+    also flagged one plain face edit, uncharged); Seedream 4.5, which
+    re-composed the frame; and a first Nano Banana Pro run whose prompt
+    called the frame "a close-up", so it zoomed in and turned her head.
+- **The moving smile** (9 jobs, 182 credits). These routes were tried:
+  - Seedance 2.5 from the settled frame INTO the still, as its end frame
+    (two takes);
+  - Wan 3.0 and MiniMax H3 the same way;
+  - Kling 3.0 Omni Edit and Seedance `video_edit` of v6's take, toward the
+    still.
+
+  **Shipped: Seedance 2.5 take SE-sd1**, with no image references. It
+  holds her settled look, then her lips part into the still's soft smile.
+  - Her eyes are open in every frame used (round 1's dark-eye metric,
+    1.07–1.35 of the hold).
+  - The camera is locked: the same fit, 0.986/−8.1/−6.9, at its first,
+    middle and last frames.
+  - The neon script, the embroidery, the mirror engraving, the boxes'
+    labels, both hands and the syringes hold.
+  - Face detail is 1.00–1.07 of its opening.
+
+  **Rejected:**
+  - the second Seedance take (the one with face references) and both Wan
+    takes: a talking mouth and closed eyes, and Wan (30fps) moves at
+    once;
+  - MiniMax: failed at Higgsfield, refunded;
+  - the three edits: they kept v6's grin.
+- **The splice** is v6's recipe. The turn and settle are unchanged, a
+  six-frame dissolve sits inside the still stretch, and the smile starts
+  on v6's beat. It keeps the same 29 smile frames and ends three frames
+  before a blink.
+
+**The shipped file:** `hero-living-portrait-v7.mp4` (media origin;
+3,521,569 B; SHA-256
+c0d943a6d2e2913f13b4e6806f2bb5215d7765c5814167528d6a9be25523a8f7;
+1080×1502, 24fps, 265 frames / 11.04s, no audio). It is encoded as v5
+and v6 were and ships in PR #207. v6 stays on the origin, unreferenced;
+it never merged.
+
+**Alternatives rejected.**
+- Sending the two unpublished photos as references: the rule, and the
+  published ones sufficed.
+- Training a Soul ID: its identity model feeds only Higgsfield's Soul
+  image models.
+- Editing v6's take: the edits kept its grin.
+- Her closed-lip smile from the existing take: the operator wants teeth.
+
+**Consequences.**
+- **Credits:** 214.25 of the 700 (1,291.12 → 1,076.87).
+- **Disclosure:** the component comment and the VTT note (now `?v=4`)
+  name the still's edit: Nano Banana Pro, guided by her published photos.
+- **Amy's sign-off:** her pending sign-off on her generated likeness
+  covers the new footage (CLINICIAN-SIGN-OFF).
+- **The method is recorded in RUNBOOK:** to change how a performance
+  looks, make the target still first, then generate into it.
+
+**Verification.**
+- **The loop seam:** flat white (luma 233–238).
+- **Against v6:**
+  - frames 0–156 are bit-identical;
+  - every frame through the settle is within 1.24 of 255, x264's choices
+    only. OPEN6's shared input frames are byte-identical to OPEN5's.
+- **The join:** 1.00–1.47 per frame, against 0.9–1.3 around it.
+- **Detail:** after the join the face carries 0.90–1.04 of the old
+  take's detail (v6: 0.90–0.94).
+- **The site:** only the hero element's `data-file` and `data-vtt`
+  change, on `/` and `/styleguide/concept`, plus the caption file. No
+  stylesheet changed.
+- **The gate:** `npm run verify` exit 0 — `astro check` 0/0/0,
+  lint:claims and lint:voice green, pa11y 25/25, and every Lighthouse
+  assertion held on 8 URLs × 3 runs. The home row: total 336,265 B
+  (−2 B against v6), script 71,875 B, image 208,279 B, and media 0, with
+  no request for the film; LCP 2,165–2,176ms.
+
+## 2026-09-26 — Second addendum: the hero film's smile is made warmer (v8; the client: "meh")
+
+**Context.** After v7 merged (PR #207), the client said the closing
+smile isn't warm enough: Amy looks like she's saying "meh", like she
+doesn't care (relayed by the operator). They want it warmer without
+going over the top.
+- **What was wrong, measured** (working folder,
+  `stage2/base/corner-lift.md`). The corner lift is the height of the
+  mouth's centre above the mean of its corners, divided by the mouth's
+  width. It is measured square to the pupil line and averaged over three
+  differently gridded placements.
+  - v7's smile: 0.025 (the still) and 0.029 (the take). Its corners sit
+    level with the middle of the mouth.
+  - Her three front-on photos: 0.109, 0.120 and 0.132. The first still
+    reads 0.116 when softened to the film's sharpness, so the film's
+    softness doesn't bias the measure.
+- **Her eyes and cheeks never joined in.** v7's still pasted back only
+  the lower face; the eyes stayed the settled frame's, under 2026-09-25's
+  "no squinting at all". A smile only in the mouth reads as polite.
+- **The arc goes down.** Her real smile at 8.5s, then a closed-lip look
+  for about 0.7s, then a small smile for about 1.1s before the flash.
+
+**Decisions** (operator, AskUserQuestion, 2026-09-26):
+1. **Smiling eyes are allowed.** Her lower lids lift with her cheeks and
+   her upper lids stay up; never narrower than in her own photos (about
+   0.88 of the settled look's opening). This narrows 2026-09-25's "no
+   squinting at all".
+2. **Stills first.** The operator picks the warmth level on stills; the
+   take then goes straight to the preview.
+3. **Budget:** up to 500 credits.
+4. **Length:** the smile may hold up to 0.5s longer if the take keeps her
+   eyes open with no blink.
+5. **The still** (from four, AskUserQuestion): the warmer edit with its
+   two mouth corners lifted 3px in code. It was flagged as a code
+   touch-up; the plan had rejected a code warp as a whole method, and
+   here it only refines a real edit.
+6. **The take** (AskUserQuestion, between the two usable takes): SE8-sd2
+   over SE8-sd4. It was
+   flagged that sd2's eyes close past the still's once her lips part:
+   0.69–0.86 of the settled look's opening against the still's 0.90–0.91,
+   past the line in decision 1. **Operator override after the flag.**
+
+**The input rule (2026-09-17)** is unchanged. Only published, Amy-only
+material went to Higgsfield:
+- v7's head crop of the settled frame;
+- v7's four face crops of her published photos;
+- the picked still: Higgsfield's own output, the settled frame (ruled
+  within the rule 2026-09-25) with Higgsfield's own edit of its face.
+
+The two unpublished photos stayed on the PC; they appear only in hand
+measurements.
+
+**Method**, v7's (the target still first, then video into it), aimed at
+warmth:
+- **The still** (18 image edits, 39 credits; Nano Banana Pro and
+  Seedream 5.0 Pro). The prompts ask for her warm smile: the corners turn
+  up, the cheeks rise and the lower lids lift, while the upper lids,
+  irises and brows stay. Each edit's whole face, brows to chin, is pasted
+  back into the settled frame; v7 pasted only the lower face.
+  - **Rejected:** 8 edits re-framed the crop, 3 lowered the upper lids (a
+    squint), and Seedream's went wide like v6's grin (about 1.14 × the
+    pupil distance).
+  - **Picked (operator):** a Nano Banana Pro edit with its two mouth
+    corners lifted 3px in code, a smooth local lift with no widening.
+    - Corner lift 0.098 (v7: 0.025).
+    - The mouth is 1.10 × the pupil distance.
+    - The eyes are 0.91 / 0.90 of the settled look's opening, with the
+      upper lids unchanged.
+- **The moving smile** (six Seedance 2.5 takes from the settled frame
+  INTO the still, 288 credits). The second round's prompt pins her eyes
+  to the final frame's opening.
+  - **Shipped: take SE8-sd2** (the operator's choice). It holds her
+    settled look, then the corners lift, her lips part, and she holds a
+    warm smile to the end, the head steady, with no blink.
+    - The camera is locked: 0.986/−8.0/−6.75 at its first, middle and
+      last frames.
+    - The neon script, the embroidery, the mirror engraving, the boxes'
+      labels, both hands and the syringes hold.
+  - **Rejected:**
+    - one take squints and tilts after about 0.6s of smile;
+    - in two, once the room is aligned, her face sits 7–8px low, so the
+      dissolve would jump;
+    - one has a talking mouth;
+    - the runner-up, SE8-sd4, keeps the still's eyes, but its teeth come
+      late and its face drifts 4–5px across the dissolve.
+  - **The eye measure changed.** Round 1's dark-eye count reads a softer
+    rendering as a narrower eye. The lid edges down each iris column, at
+    a per-image half-level threshold, replaced it.
+- **The splice** is v7's. The turn and settle are unchanged, and a
+  six-frame dissolve sits inside the still stretch. Then come 41 smile
+  frames (v7: 29), so the smile holds 0.5s longer.
+
+**The shipped file:** `hero-living-portrait-v8.mp4` (media origin;
+3,586,116 B; SHA-256
+6ffa50b7311d2a652501c14c4610680524dbff7e86cd36f916af05eb658ec594;
+1080×1502, 24fps, 277 frames / 11.54s, no audio). It is encoded as
+v5–v7 were and ships in PR #208. v7 stays on the origin, unreferenced.
+
+**Alternatives rejected.**
+- Edits of v7's take: edits keep a take's look.
+- A code warp as the whole method: it can't raise the cheeks or make the
+  eyes smile. It is used only as the 3px refinement of a real edit.
+- Re-making the turn: the founders approved it, and it wasn't asked for.
+- The runner-up take (above), and a third take round (144 more credits).
+
+**Consequences.**
+- **Credits:** 327 of the 500 (1,076.87 → 749.87).
+- **Disclosure:** the component comment and the VTT note (now `?v=5`)
+  name the still's edit: its whole face by Nano Banana Pro, guided by
+  her published photos, with its corners lifted 3px in code.
+- **The eye rule:** 2026-09-25's "no squinting at all" is narrowed by
+  decision 1, and this take goes past that too, by the operator's
+  override after the flag (decision 6).
+- **Amy's sign-off:** her pending sign-off on her generated likeness
+  covers the new footage (CLINICIAN-SIGN-OFF).
+- **RUNBOOK** adds: a smile reads warm only when the corners lift and
+  the cheeks and eyes join in. Measure the corner lift, paste the whole
+  face, and pin the eyes in the prompt.
+
+**Verification.**
+- **The loop seam:** flat white (luma 233–238).
+- **Against v7:** 156 of frames 0–228 are bit-identical. The rest,
+  through the settle, are within 1.27 of 255 (x264's choices).
+- **The join:** 0.99–1.42 per frame across the whole frame and 0.67–0.90
+  in the face box, against v7's 1.00–1.47 / 0.76–1.76.
+- **Detail:** after the join the face carries 0.93–1.02 of its
+  pre-join detail.
+- **Per frame:** every frame used was screened at hero size.
+- **The site:** only the hero element's `data-file` and `data-vtt`
+  change, on `/` and `/styleguide/concept`, plus the caption file. No
+  stylesheet changed.
+- **The gate:** `npm run verify` exit 0 on both commits — `astro check`
+  0/0/0, lint:claims and lint:voice green, pa11y 25/25, and every
+  Lighthouse assertion held on 8 URLs × 3 runs. The home row: total
+  336,267 B (+2 B against v7), script 71,875 B, image 208,279 B, and
+  media 0, with no request for the film; LCP 2,164–2,240ms.
+- **The blob:** a range request returns 206 and `video/mp4`; the served
+  bytes match the file's SHA-256.
+
+## 2026-09-26 — Home: the "Amy comes to you." band becomes Tox To Go (the operator's copy; "Tox" allowed in it)
+
+**Context.** The operator supplied the band's new words as a document
+(`C:\Amy\Tox To Go.docx`, written 2026-09-26, outside the repo): a
+host-your-own party offer called Tox To Go. It replaces the statement
+band's heading, sentence and link text beside Amy's van-trip film.
+- **The copy, about 190 words:**
+  - the name and a tagline, "Your place. Your people. Your glow.";
+  - an introduction;
+  - a hostess credit of $600 toward services, with three qualifying
+    requirements: a minimum of 7 guests, an average service purchase of
+    $300 per guest, and the services provided during the scheduled
+    party;
+  - a closing line and a booking line.
+- **It is clean against the linters.** As written, it trips no
+  lint:claims pattern and no lint:voice word.
+- **Three records bear on it:**
+  - 2026-07-19 kept Amy's informal service shorthand ("Tox") off the
+    site. 2026-09-02 reaffirmed that when it allowed "party", and the
+    /mobile header comment carried the rule.
+  - 2026-09-02 left group minimums, host rewards and pricing out of
+    /mobile, because nothing on the record stated them (constraint 7).
+    The document now states them, from the operator.
+  - 2026-09-02 made party booking phone or text, with Vagaro as the
+    studio's book.
+
+**Decisions** (operator, 2026-09-26; AskUserQuestion plus two
+messages):
+1. **"Tox" is allowed in this band, as written.** The operator overruled
+   the shorthand rule after the flag: "I'll overrule the /mobile page
+   header on enforcing a ban on 'tox'."
+   - Scope: the band's rendered copy and its source comment.
+   - It never reaches meta, OG, alt text or JSON-LD.
+   - The competitor brand name that the shorthand stands in for still
+     never appears anywhere.
+2. **The van-trip film stays** beside the new words. Its label, captions
+   and overrides are unchanged.
+3. **"Book your Tox To Go party" calls Amy.**
+   - The operator first picked a Book button to Vagaro. The same hour
+     they changed it: "don't send them to Vagaro, send them to call
+     Amy", then "make sure the 'Book Your Tox To Go Party' points to
+     Amy's phone number".
+   - The button's own text is the document's line. It dials her number,
+     with the call event.
+   - Her number is printed under it, for screens that can't place a
+     call.
+   - "Book with Amy" stays Vagaro-only. This is the one Book-worded
+     button that calls; SOW §4 describes the Book buttons as Vagaro's.
+4. **The copy runs as written.**
+   - A consultation sentence was offered after the flag and declined:
+     "Every guest has their own consultation first, and whether a
+     treatment fits is decided with Amy", /mobile's own wording.
+   - The copy answers no "is this right for me" question, so no
+     CLAUDE.md exception is needed.
+   - The home page's next section still says nothing is decided without
+     you.
+5. **"How a party works ›" stays,** under the button: the home page's
+   in-page door to /mobile.
+
+**House style** (stated to the operator, not objected to): headings in
+sentence case. The body keeps the document's words and capitals ("Tox
+Party", "Hostess Service Credit", "Service Credit").
+
+**Flags recorded (once each), not blocking:**
+- **The hostess credit is tied to what the guests buy.**
+  - Some state boards scrutinise rewards for bringing in paying
+    patients; 2026-09-02 already notes the scrutiny of injectable
+    gatherings.
+  - SOW §8 makes pricing Amy's to confirm.
+  - The terms are on her preview checklist (CLINICIAN-SIGN-OFF), and the
+    merge waits for her OK.
+- **The name.** Two web searches (2026-09-26) found no business called
+  "Tox To Go".
+  - A Charlotte med spa trades as "The Tox", and "Tox party" is common
+    trade slang.
+  - This is not a trademark clearance. If Amy wants to own the name, a
+    USPTO search is the next step.
+
+**The band** (`ConceptHome.astro`), top to bottom:
+- the heading "Tox To Go": the section's h2, with its id and its word
+  rise kept;
+- the tagline as the lead;
+- two paragraphs of introduction;
+- three subheads, at the 25px heading size (the pink accent needs 39px):
+  - "Hostess perk: $600 Service Credit";
+  - "Party requirements", with the three requirements as a list and the
+    $2,100 sum;
+  - "Gather your people. Amy will come to you.";
+- the tagline again, at display size, with "Your glow." in the accent
+  and its shimmer (the treatment of /mobile's closing line);
+- "Ready to host?", then the button, the number and the /mobile link.
+
+At 900px and up the film panel holds in view beside the longer copy.
+Phones keep the film above the words.
+
+**Alternatives declined:**
+- a Book button to Vagaro (chosen first, then reversed by the operator);
+- the consultation sentence;
+- removing the film (a text-only band);
+- a Call button reading the number, with the document's line above it
+  (offered first; the operator wanted the document's words on the
+  button).
+
+**Consequences.**
+- **What the home page now says.** It names the neuromodulator
+  shorthand for the first time, and it states a party offer: a minimum,
+  an average spend per guest and a host reward.
+  - /mobile's copy still states none of them, and its header comment
+    now points here.
+  - Party booking from the home page is by phone, as it is on /mobile.
+- **Amy confirms the terms and the wording on the preview** (the new
+  non-gated section in CLINICIAN-SIGN-OFF). Nothing merges before that.
+- **Nothing else changes.** No new script, dependency or cost; the
+  band's film, its player and its overrides are untouched.
+
+**Verification** (PR #209; the site commit `163afbb`):
+- **The gate:** `npm run verify` exit 0 on both commits.
+  - `astro check` 0 errors; lint:claims and lint:voice green; pa11y
+    25/25.
+  - Every Lighthouse assertion held on 8 URLs × 3 runs.
+  - The home row: total 336,991 B (+724 B against the v8 hero), script
+    71,875 B, image 208,279 B, and media 0 (no request for either
+    film). LCP 2,164–2,166ms, CLS 0.
+- **The build against phase-c:**
+  - Only `/` and `/styleguide/concept` change, and only inside the band:
+    the HTML before and after it is byte-identical apart from the
+    stylesheet link.
+  - The home page's own stylesheet changes, and the site-wide one
+    doesn't. The docs commit changed no stylesheet.
+- **The button** is `tel:+17045797108` with the call event, and its text
+  is the document's line.
+- **The closing tagline** breaks only between its phrases. Astro's HTML
+  compression drops a whitespace-only gap between two tags, so the
+  phrases are held together with no-break spaces, not wrapped spans.
+
+## 2026-09-26 — Tox To Go becomes its own page and replaces /mobile (the home band is its door)
+
+**Context.** The entry above put the operator's Tox To Go document in
+the home page's statement band beside Amy's van-trip film, with "How a
+party works ›" still leading to /mobile (PR #209, `163afbb`). The same
+day, on the same PR, before anything merged, the operator changed the
+shape of it:
+- "Get rid of /mobile and get rid of 'How a party works' on the
+  homepage. We don't need it now."
+- "take the 'Tox To Go' section on the home page and move it and make
+  it its own page. Think of it as replacing /mobile."
+- **What /mobile was** (2026-09-02, the page entry; 2026-09-03, the
+  viewfinder film): "Amy comes to you." over the van interior, "How a
+  party works" in three steps, "Bring the people you'd bring anyway."
+  beside the viewfinder film, and a noir close. Its copy stated only
+  what her public posts established and left the terms (which services
+  travel, how far, a minimum, a host reward) as questions for Amy.
+  Production never served it; the standing demo (#97) and the review
+  preview (#149) have carried it since 2026-09-02.
+- **The document states what /mobile left unwritten:** a minimum of 7
+  guests, an average service purchase of $300 per guest, services
+  provided during the scheduled party, and a $600 hostess credit. Two
+  pages saying different amounts of the same thing was the reason to
+  fold them.
+
+**Decisions** (operator, 2026-09-26: four AskUserQuestion answers, then
+the plan approved; the approval carries the authorizations named in
+decisions 5 and 6):
+1. **One page, `/tox-to-go`, replaces `/mobile`.** `src/pages/mobile.astro`
+   is deleted. The new page is built on the same pattern: a standalone
+   route outside the treatments collection, no clinicianApproved gate,
+   Amy's review via the sign-off doc's non-gated section. No redirect:
+   production never served /mobile, and the /book retirement
+   (2026-07-21) was the same plain deletion plus the gate lists.
+2. **The name reaches the page's chrome.** "Tox To Go" is the page's
+   title and meta description (and so its OG and Twitter tags, which
+   the head derives from them), its JSON-LD Service name, and the nav
+   label — "Tox To Go" where it read "Mobile". This widens the entry
+   above, whose decision 1 scoped "Tox" to the band's copy and comment
+   and said it never reaches meta, OG, alt text or JSON-LD: on this one
+   page the name does. The body copy keeps the shorthand as the document
+   has it ("Tox Party", "the Tox experience"). No other page's copy says
+   it (the nav label, by its nature, is on every page); the competitor
+   brand name the shorthand stands in for still never appears anywhere. The 2026-07-19 shorthand rule stands for every
+   other page.
+3. **The band becomes a door, with the call button.** The van-trip film
+   stays: its terms are fixed to "this film, the home band" (CLAUDE.md
+   constraint 3, the eighth pixel override; the fifth script consumer),
+   so moving it was never on the table. Beside it: the heading "Tox To
+   Go" (since the preview, "Tox To Go Party" — the addendum), the
+   tagline, one sentence from the document, "Book your Tox To
+   Go party" calling Amy with her number under it, and "See the hostess
+   perk ›" to /tox-to-go ("Hostess Perk" is the document's own phrase).
+   The subheads, the requirements, the sum and the closing tagline leave
+   the band for the page. The copy is short again, so the panel no
+   longer holds in view while words scroll past. The entry above's
+   decision 5 ("How a party works ›" stays) is superseded.
+4. **"How a party works" is gone** — from the home page, and with the
+   page it pointed at. No link on the site reads it.
+5. **/mobile's media retire with it.** Offered the van interior photo
+   and the viewfinder film for the new page, the operator chose
+   neither: the page is words and its closing band. The two image files
+   and the film's caption file leave the repo (the approval of the plan
+   is the word for the deletions); the film's Blob object stays on the
+   media origin, unreferenced; the seated guest's website-use release
+   stays on file. CLAUDE.md's list of pages opted into the
+   treatment-film autoplay script loses /mobile, on the operator's word
+   (the approval of the plan): the list is operator-maintained and not
+   edited unasked (the 2026-09-03 entry). Retired with the page besides:
+   the three steps, the friends copy, the close's wording, the open
+   questions for Amy (which services travel, how far, a minimum group,
+   solo visits, the van's name) and the asks for more originals (the
+   van exterior, the reels by date, the colleague's consent for the
+   held van portrait). The operator: "We don't need it now." The Tox To
+   Go copy states its own terms; if any of those questions is wanted
+   again, it comes back as its own item.
+6. **The gates.** `/tox-to-go` takes `/mobile`'s place in `.pa11yci.json`
+   with the needs-review cap, the per-URL entry every ombre page needs,
+   authorized by the operator's approval of the plan that named it (the
+   2026-09-02 precedent asked for the operator's own words; the plan
+   carried the line and the operator approved it), and in
+   `lighthouserc.json` on the house row. pa11y 25, LHCI 8 — the counts
+   are unchanged.
+7. **Booking stays a call.** "Book your Tox To Go party" dials Amy on the
+   page as it did in the band; "Book with Amy" stays Vagaro-only;
+   nothing on the page links to Vagaro (the BookLink rule moves from
+   /mobile to /tox-to-go).
+
+**Flags** (recorded once, in the entry above; nothing new to flag): the
+hostess credit tied to what the guests buy, with Amy's confirmation
+gating the merge; the name's ownership, not a trademark clearance;
+"Tox" on the site, now reaching a page title and the nav.
+
+**The page** (`src/pages/tox-to-go.astro`; the file's header comment is
+the code's own record). Every sentence is the document's; the two
+eyebrows ("Private parties", "Tox To Go") are the only added words. With
+no photo and no film, the page carries itself on type and its surfaces:
+- the opening, on the canvas, in one column: the eyebrow, "Tox To Go
+  Party" as the h1 at the larger display size (the addendum), the
+  tagline as the lead, the
+  introduction, the Call button wearing the document's line with the
+  number under it;
+- the offer, on a noir band (the operator's pick over the plain canvas):
+  "Hostess perk: $600 Service Credit" with the credit in the accent and
+  its shimmer, the perk paragraph, "Party requirements", the three
+  requirements as numbered plates in a row (their numerals decorative
+  and hidden from assistive technology; static boxes, no elevation), and
+  the $2,100 sum at lead size;
+- "Gather your people. Amy will come to you." as a two-column split on
+  the canvas, the heading left and the paragraph right at lead size;
+- the close, on noir: the tagline at display size with "Your glow." in
+  the accent and its shimmer, "Ready to host?", the Call button and the
+  number.
+
+**Alternatives declined:**
+- keeping /mobile beside the new page (two pages, different amounts of
+  the same offer; "We don't need it now");
+- a redirect from /mobile (never served in production; the /book
+  precedent);
+- keeping the full copy on the home page as well (one place for the
+  terms; the door is enough);
+- moving the van-trip film to the page (its overrides are fixed to the
+  band);
+- carrying the van interior photo and the viewfinder film over to the
+  page (offered as both and as the film alone; declined);
+- the offer on the plain canvas (offered; the noir band chosen);
+- a page name and nav label without "Tox" (the operator's name for the
+  offer is the page's name);
+- "Host a party ›" as the door's link (the call button already invites
+  hosting; the link names what the page shows).
+
+**Consequences.**
+- **The site's shape.** Twenty-five pa11y URLs and eight Lighthouse
+  URLs, as before — one URL swapped. The sitemap gains /tox-to-go and
+  loses /mobile (the integration writes it; nothing by hand). The
+  "Mobile" nav label is gone. Two image files and one caption file leave
+  the repo; the media origin's inventory is unchanged, with one more
+  object unreferenced.
+- **The new page's speed.** With no eager image, its largest paint is
+  text, so the budget /mobile met by a few milliseconds is no longer
+  close.
+- **What the site says.** The party offer, its terms and its host reward
+  live on one page, in the operator's words; the home page names the
+  offer, invites the call and points at the page. "Tox" renders in the
+  nav label on every page, in copy on /tox-to-go, / and the
+  /styleguide/concept mirror, and in a document head only on
+  /tox-to-go.
+- **Amy's confirmations move to the page** (the sign-off doc's non-gated
+  section, one section replacing two): the terms; the host reward
+  against her professional guidance; the word "Tox"; booking by phone;
+  the name. Nothing merges before her OK.
+- **Records.** CLAUDE.md's opted-in list (the /mobile clause removed);
+  BUILD_SPEC §5 (the nav) and §6 (a /tox-to-go row; the /mobile row
+  retired in the /book style; the home row's band clause); REDESIGN (a
+  new settled row; status notes on the /mobile and viewfinder-film rows;
+  the media inventory; the originals open item closed; the
+  deferred-rounds list; the review-tag line after #149's refresh);
+  RELAUNCH's probe lists (seven players); HOME-CONCEPT §4 and its commit
+  table; CLINICIAN-SIGN-OFF (the pending row's fragments; the new
+  section); CHANGELOG (the day's entry rewritten to the state that
+  ships — nothing had merged, the smile entry's precedent); RUNBOOK's
+  band paragraph; BRAND-ASSETS' LCP note annotated. The 2026-09-02,
+  2026-09-03 and 2026-09-25 entries, the earlier CHANGELOG entries and
+  the dated code comments stay as written.
+- **SOW scope.** The extra page is /tox-to-go, not /mobile (the
+  divergences memo, item 9, after the merge).
+- **The review preview (#149).** Its tag "H" is keyed to /mobile;
+  refreshing it after the merge means resolving the delete of
+  `mobile.astro` against the branch's tag and re-homing H to
+  /tox-to-go.
+- **Nothing else changes.** No new script, dependency or cost; the
+  van-trip film, its player and its overrides are untouched.
+
+**Verification** (PR #209; the site change is two commits — `b105ecf`,
+the four deletions, and `cfdc865`, the page, the band, the nav, the
+comment notes and the gate lists; a staging slip split them, and the
+tree was verified whole):
+- **The gate:** `npm run verify` exit 0 on the records commit and on
+  the site change — `astro check` 0 errors; lint:claims and lint:voice
+  green; pa11y 25/25 with /tox-to-go in the list (0 errors); every
+  Lighthouse assertion held on 8 URLs × 3 runs.
+  - /tox-to-go: total 118,561 B, script 0, image 67,072 B, media 0;
+    LCP 1,578–1,581ms — its largest paint is a paragraph, not an
+    image; CLS 0; performance and accessibility 1.00.
+  - The home row: total 336,360 B (+93 B against the v8 hero), script
+    71,888 B, image 208,279 B, media 0; LCP 2,166–2,179ms; CLS 0.
+- **The build against phase-c:** `dist/mobile/` absent,
+  `dist/tox-to-go/index.html` present; the sitemap lists /tox-to-go and
+  not /mobile; no built page links to /mobile; / and
+  /styleguide/concept change only inside the band; every other page
+  changes only in the header's nav item.
+- **The records commit changed no stylesheet name;** the site change
+  changed the home page's and the site-wide stylesheets (the band's
+  rules gone, the new page's added).
+- **The name's reach:** "Tox" is in the nav label on every page, in
+  copy on /tox-to-go, / and /styleguide/concept, and in a document
+  head only on /tox-to-go (the title, the description, the OG tags, the
+  JSON-LD Service).
+- **The buttons:** both call buttons on the page and the band's are
+  `tel:+17045797108` with the call event; the page loads no script.
+- **The plates** render in view at 1280 and 390, with and without
+  reduced motion (opacity 1 once entered; visible from the start under
+  reduced motion).
+
+**Addendum (the operator, on the preview, 2026-09-26).** "It really
+looks pretty good. Can you change on the home page the title of the
+section to 'Tox To Go Party'. Do the same thing to the /tox-to-go page
+as well. Make the heading 'Tox To Go Party'. Also, make the phone number
+on the /tox-to-go page a little larger. It's hard to read."
+- The band's h2 and the page's h1 read "Tox To Go Party". The offer's
+  name stays "Tox To Go" everywhere else: the page title, the
+  description, the JSON-LD name, the nav label and the closing band's
+  eyebrow.
+- The number under the page's two call buttons is a step larger (18px,
+  from 15px). The band's number, the same recipe, is unchanged and can
+  follow on the operator's word. **Then, on the preview again, with
+  screenshots of all three places:** "I need the phone number to be
+  larger." The number is 24px and semibold under all three buttons —
+  the page's two and the band's — a line in its own right.
+- The rule that the words are the document's stands: "Party" in the
+  heading is the operator's own addition, and the page's header comment
+  says so.
+
+## 2026-09-26 — The link-share card re-made on the site's canvas with larger type, and a share title of its own (Messages colours the bar under a preview from the picture)
+
+**Context.** The client shared needlegirlie.com in Messages and sent the
+operator a screenshot. The operator (2026-09-26): "we have a problem
+with the OG Image. It should NOT say "Medical Aesthetics in", that line
+should read "Mobile Aesthetics" and that's it, it will read "Harrisburg,
+NC" on the line below. Also the color on the lower part of the image
+should be same pink we use for the website and logo, not what looks like
+burgundy currently."
+
+The screenshot shows three things, and only one is a file of ours:
+- **The picture** is the 2026-09-25 card (the entry of that date).
+- **The bold line under it** is the page's title. The head sent "Needle
+  Girlie | Medical Aesthetics in Harrisburg, NC" as the title and as the
+  share title (`og:title`, `twitter:title`); it had no way to send a
+  different one. Messages dropped "Needle Girlie | " because it repeats
+  `og:site_name`.
+- **The dark bar is the Messages app's own.** Since iOS 18 it colours
+  the title-and-domain area from the preview picture instead of grey.
+  The site sends no colour of any kind (neither branch has a theme
+  colour tag), and Apple's technote on link previews (TN3156) documents
+  none.
+  - Measured on the screenshot, which is light mode: RGB 34/5/17, hue
+    335°, lightness 8%.
+  - Measured on the card: 71% of it is near-black, and its chromatic
+    pixels (the pink glow and type) average hue 335°.
+  - So the bar took the picture's pink hue at the picture's darkness.
+    The card's own bottom rows are pure black, so the bar is not a
+    sample of the picture's edge.
+
+The only lever on the bar is therefore the picture itself, and the line
+under it needed a mechanism the head did not have.
+
+**Decisions** (operator, 2026-09-26: three AskUserQuestion answers, the
+plan approved, then the client's pick and two choices on the renders):
+1. **A share title of its own, on the home page only.** `og:title` and
+   `twitter:title` read "Mobile Aesthetics · Harrisburg, NC": the card's
+   own line, with its middle dot. The title tag stays "Needle Girlie |
+   Medical Aesthetics in Harrisburg, NC". Offered both, the operator
+   chose "only the share title" over changing the page title too, so
+   search keeps its wording. The head takes an optional share title and
+   falls back to the title; the layout passes it through; the home page
+   sets it (the home component on phase-c, the placeholder's page on
+   main). Apple's guidance is the same: no site name in `og:title`.
+2. **The card is re-made on the site's pink,** because only a mostly
+   pink picture can turn the bar pink. The operator chose "re-make the
+   card in the site's pink, test on your iPhone" over keeping the noir
+   card.
+3. **The canvas card,** the client's pick of three candidates (the
+   operator relaying: "they like the card").
+4. **Larger type, the location on two lines.** The operator: "definitely
+   need "Mobile Aesthetics - Harrisburg, NC" larger"; then, shown one
+   line at 39px beside two lines at 52px, "Go with the two-line
+   version."
+5. **A new file, named by its render date:**
+   `public/og/needle-girlie-share-2026-09-26.jpg`. The 2026-09-25 file
+   stays in the repo until relaunch: no page references it and nothing
+   fetches it, but an app that stored its address still asks for it. It
+   is a deliberate exception to the orphan rule (the PR #101 precedent),
+   and RELAUNCH's after-relaunch list carries its deletion.
+6. **Two PRs, as on 2026-09-25** (RUNBOOK "Hotfixing production during
+   the takedown era"): the head component and the image go to phase-c
+   and to main byte-identical, the layout and the home page are edited
+   by hand on each branch, and the record for both lives here.
+
+**The card** (1200×630, the same words: her name, her credential, the
+practice, the town):
+- **The ground** is the website's own canvas: blush at the top, sweeping
+  to the site's pink four fifths of the way down, and held there.
+- **The photo** is the same, at the same size and crop, in the site's
+  light-canvas arch: a magenta hairline and the framed-print shadow. It
+  has no glow, because glows are for dark surfaces.
+- **The wordmark sits on a noir plate,** its aura kept inside the plate.
+  Measured, the metallic lettering does not read on the pinks: on the
+  site's pink, on blush and on the ramp's middle only 16–25% of its
+  letter pixels reach 3:1 against the ground, against 86% on noir. The
+  brand-assets note that it composites "acceptably on white" is
+  generous. The plate is the site's own grammar: the mark only ever
+  sits on noir.
+- **The type** is ink-900, the canvas's text colour (4.88:1 on the
+  site's pink, more above it): "Amy Palacios, FNP" at 60px semibold,
+  then "Mobile Aesthetics" and "Harrisburg, NC" each on a line of its
+  own at 52px medium. They were 38px and 25px. Messages shows the card
+  at about a quarter of its size on a phone, so 25px was about six
+  points. The line break stands in for the middle dot.
+- **The photo's screens hold** (the 2026-09-25 entry): it is shown no
+  larger than before.
+
+**The file.** 106,187 B, JPEG at quality 88 with 4:4:4 chroma, no
+metadata, sha256 `77533969…3700040c`. It is built in
+`C:\Amy\share-card\` like the first card; the renderer now takes a
+template and an output name and names its output by date, and the folder
+gained two measuring tools (a card's colour statistics; the bar's colour
+read from a phone screenshot).
+
+**Alternatives declined:**
+- changing the page's title too (offered; search keeps "Medical
+  Aesthetics");
+- "Mobile Aesthetics, Harrisburg, NC" with a comma (offered);
+- a line break forced into the share title (a test page only: how other
+  apps treat a line break in a title is unverified, so it never ships);
+- keeping the noir card (the bar stays plum);
+- the flat card, a solid field of the site's pink, and the band card,
+  the noir card with a pink base (the two other candidates);
+- the location on one line at 39px, the largest that fits one line
+  (offered beside the two-line version);
+- the wordmark directly on the pink (it fails the measurement above);
+- a theme colour tag (Messages does not read one for a preview; with the
+  web manifest it stays Phase D, the 2026-09-15 entry);
+- share titles for the other pages (theirs keep "… | Needle Girlie";
+  Apple's guidance would drop the site's name there too, a separate
+  decision).
+
+**Consequences.**
+- **Every app's headline for a shared home link** becomes "Mobile
+  Aesthetics · Harrisburg, NC": Messages, Facebook, LinkedIn, WhatsApp,
+  Slack. The site's name shows separately where an app shows it, and
+  the wordmark is in the picture.
+- **Every page's card changes,** since all of them share the default.
+- **Caches.** A preview an app has cached keeps the old card until the
+  app re-reads the page. Facebook's Sharing Debugger and LinkedIn's Post
+  Inspector force a re-read (the operator's step; both need a login). In
+  Messages, a link with a fresh query string shows the new preview at
+  once.
+- **A PR preview cannot show a candidate card:** a preview's share tags
+  name production. Candidates were tested from raw pages with their own
+  share tags, on a draft PR that never merges (Verification).
+- **Amy's pending look sign-off:** the card's item is amended, not
+  duplicated (CLINICIAN-SIGN-OFF).
+- **The relaunch:** the placeholder's page and the layout on main are
+  edited again, so step 1's two expected conflicts stand; the head
+  component and the image are identical on both sides.
+- **Nothing else changes.** No stylesheet, script, dependency or cost;
+  no page fetches the card.
+
+**Verification.**
+- **The test pages:** PR #211 (draft, never merged) serves raw pages
+  under `public/share-test/`, each with its own share tags and an image
+  address on that preview's host: the old card with the old title (the
+  control), the old card with the new title, the forced line break, and
+  the candidates. Every page and image answered three consecutive clean
+  probe rounds, plain and cache-busted.
+- **The bar's colour on a phone is not read yet.** The phone test is the
+  operator's (the preview is built on the sending phone, iOS 18 or
+  later). The card's colour statistics predict a pink: mean lightness
+  59% against the noir card's 18%, chromatic hue 331°, and the dominant
+  colour the site's pink. The reading goes in an addendum here, and the
+  test PR closes after it.
+- **The render is reproducible:** the live template rendered again gives
+  the same bytes as the file on the test page.
+- **The gate:** `npm run verify` exit 0 on the change — `astro check` 0
+  errors; lint:claims and lint:voice green (lint:voice reads the new
+  share title); pa11y 25/25; every Lighthouse assertion held on 8 URLs
+  × 3 runs.
+- **The build against phase-c:** the records alone changed no built
+  byte (every file identical, the stylesheet names included). The
+  change adds one file, the new card, and edits only share tags: the
+  image address on all 25 pages (`og:image`, `twitter:image`), and the
+  share title on two (`og:title`, `twitter:title` on the home page and
+  on its /styleguide/concept mirror, which preview builds emit). The
+  home page's title tag is unchanged, and no page fetches the card.
+- **Byte identity:** the head component and the new card have the same
+  sha256 on both branches.
+- **The PRs:** #212 into phase-c, #213 into main (the hotfix).
+
+**Merged (2026-09-26), on the operator's word:** "go ahead and merge,
+then refresh PR #97 and #149 and also make sure the OG image that you
+just modified applies the the construction page in production now. I
+want the new card working asap." The hotfix (PR #213) merged first, so
+production deployed at once; PR #212 followed when its last preview run
+had finished, and both standing previews (#97, #149) were refreshed
+after it. The operator merged before the phone test, so the bar's
+colour on a phone is still unread: its reading follows in an addendum
+when a screenshot arrives.
+
+## 2026-09-27 — The link-share card gains a black panel so that Messages draws a black bar, and the share title holds two lines (how Messages picks the bar's colour, read from Apple's code)
+
+**Context.** This entry carries the reading the 2026-09-26 entry
+promised, and the change that followed from it.
+- **The reading.** On the operator's iPhone 16 Pro Max the bar under
+  the pink card is a neutral grey, RGB 146/144/144, with white
+  lettering. The 2026-09-26 entry predicted a pink. That prediction was
+  wrong, and so was the model behind it (the picture's pink hue at the
+  picture's darkness): it had been fitted to one reading.
+- **The title broke badly** on that phone: "Mobile Aesthetics ·
+  Harrisburg," on the first line and "NC" alone on the second.
+- **The operator (2026-09-27):** "I want that area black, with the
+  white lettering."
+
+**How Messages picks the bar's colour.** Apple documents none of it, so
+it was read from Apple's code: public listings of the LinkPresentation
+framework for iOS 18.2 and for iOS 26.1, which carry the same steps and
+the same constants.
+1. Messages takes the **middle 80%** of the picture (it drops a tenth
+   on every side), draws it into a 22×22 bitmap and reads the inner
+   20×20 cells.
+2. It groups cells of like colour: a cell joins a group when its hue,
+   its saturation and its brightness are each within 0.08 of the
+   group's first cell. Cells on the left edge and in the top corners
+   count up to three times.
+3. **Every very dark group merges into one family, and the family
+   keeps the colour of the first dark cell in reading order** (from the
+   top-left, row by row). Greys of low contrast merge the same way.
+4. The heaviest colour wins.
+5. The bar is that colour with its brightness moved by a tenth: up when
+   the colour is dark, down when it is light.
+6. **No tag sets it.** The code stores the page's theme colour, but the
+   routine that builds a preview's look never reads it.
+
+**The reading of the code is confirmed by both phones.** A simulation of
+those steps, run on the two cards that had been read on a phone:
+
+| Card | Heaviest colour (simulated) | Predicted bar | Bar on the phone |
+|---|---|---|---|
+| 2026-09-25, the black card | black, tinted by the pink glow round the arch | 34/0/17 | 34/5/17 |
+| 2026-09-26, the pink card | the grey wall in the photo, 15% | 141/142/143 | 146/144/144 |
+
+- **The pink card gave a grey** because its pinks are a gradient: the
+  grouping splits them into many small groups, and the photo's grey
+  wall, on the weighted left edge, outweighed each of them.
+- **The black card gave a plum** because the first dark cell Messages
+  met was black with a trace of the arch's glow, and the whole dark
+  family took that cell's hue.
+
+**Two rules for a black bar** follow from the steps:
+- pure black has to be the heaviest colour in the middle of the card;
+- the first dark cell in reading order has to be pure black, so black
+  sits at the top-left of the middle area with no glow near it.
+
+**One limit.** Messages lifts every dark colour's brightness by a tenth,
+so the darkest bar it draws is RGB 26/26/26, a near-black, and only when
+the winning colour is a pure, neutral black. White lettering on a dark
+bar is Messages' own choice.
+
+**Decisions** (operator, 2026-09-27: four AskUserQuestion answers and
+the plan approved):
+1. **The look is a black panel beside the photo.** Offered with it: a
+   black band across the top with the logo in it (the photo a quarter
+   smaller), and an all-black card.
+2. **The layout is mirrored: the black panel on the left, the photo on
+   the right.** The operator first picked the photo on the left. The
+   simulation, run over 900 variations of the unknowns, gave a tinted
+   dark bar in about a quarter of them for that layout: reading from the
+   left, the first dark cell is the seam between the pink canvas and
+   the black panel. Shown that, the operator chose "Mirror it" over the
+   photo on the left under a black band (the photo 16% smaller) and
+   over the first pick with its risk.
+3. **The share title reads in two lines, without the dot:** "Mobile
+   Aesthetics" and "Harrisburg, NC". It is one line of text whose two
+   halves are each held together by no-break spaces, so the only place
+   it can break is between the practice and the town. It is what the
+   operator first asked for on 2026-09-26 ("that line should read
+   "Mobile Aesthetics" and that's it, it will read "Harrisburg, NC" on
+   the line below"). Offered with it: keeping the dot, a comma, and
+   leaving the title alone.
+4. **No phone test on a preview.** Offered the test first, the operator
+   chose to ship straight to production. Production is therefore the
+   first real test (Consequences).
+5. **A new file, named by its render date:**
+   `public/og/needle-girlie-share-2026-09-27.jpg`. Both earlier files
+   stay until relaunch, for the same reason as before: an app that
+   stored a card's address still asks for it.
+6. **Two PRs, as on 2026-09-25 and 2026-09-26:** the head component and
+   the image go to phase-c and to main byte-identical, the home page is
+   edited by hand on each branch, and the record for both lives here.
+
+**The card** (1200×630, the same words: her name, her credential, the
+practice, the town):
+- **The left 700px is pure black,** from the card's left edge. On it:
+  the metallic wordmark at 560px, its top edge 150px down with nothing
+  above it and no added glow; "Amy Palacios, FNP" in the logo's light
+  pink at 60px semibold; "Mobile Aesthetics" and "Harrisburg, NC" in
+  white at 52px medium, a line each. The type sizes are the 2026-09-26
+  card's.
+- **The right 500px is the website's canvas,** blush sweeping to the
+  site's pink, with the photo centred on it in the site's light-canvas
+  arch: the magenta hairline and the framed-print shadow.
+- **The photo is the same file at the same size and crop,** so its
+  2026-09-25 screens hold.
+- **The wordmark is on noir again,** its native ground; the 2026-09-26
+  plate is gone with the pink behind it.
+
+**The file.** 93,632 B, JPEG at quality 88 with 4:4:4 chroma, no
+metadata, sha256 `a6c04b07…45535484`. It is built in
+`C:\Amy\share-card\` like the two before it. That folder gained the
+predictor: a re-implementation of the steps above that reads a card and
+prints the bar Messages will draw, over the 900 variations.
+
+**Alternatives declined:**
+- the black band across the top, and the all-black card (offered);
+- the photo on the left, as first picked, and the photo on the left
+  under a black band (offered after the stress test);
+- a theme colour tag (step 6: the preview never reads it; with the web
+  manifest it stays Phase D);
+- a phone test on a preview before shipping (offered);
+- the dot or a comma in the share title, and leaving it alone (offered);
+- a line break forced into the share title (still untested in any app
+  but Messages; it stays the fallback if Messages ignores the no-break
+  spaces);
+- an added glow on the wordmark (a glow's tail is what tinted the first
+  card's bar).
+
+**Consequences.**
+- **Production is the first real test.** The simulation matches two
+  readings, but it is a reading of Apple's code, and how Apple's bitmap
+  draw resamples is not known. If the bar is not black on the
+  operator's phone, the predictor is corrected against the three
+  readings and a second card ships under a new name. The test pages on
+  PR #211 stay up until the reading is in.
+- **Messages may ignore the no-break spaces.** Then the line reads as
+  before without the dot, and can still break before "NC".
+- **The bar is a near-black, not the panel's black.** A faint step
+  between the card's black panel and the bar may show.
+- **Every app's headline for a shared home link** becomes "Mobile
+  Aesthetics Harrisburg, NC". Where an app shows it on one line, it
+  reads without a separator.
+- **Every page's card changes,** since all of them share the default.
+- **Older phones:** before iOS 18, Messages draws its own light grey
+  bar with dark lettering whatever the picture is.
+- **Caches,** as on 2026-09-26: Facebook's Sharing Debugger and
+  LinkedIn's Post Inspector force a re-read; in Messages a link with a
+  fresh query string shows the new preview at once.
+- **Amy's pending look sign-off:** the card's item is amended, not
+  duplicated (CLINICIAN-SIGN-OFF). She has not seen this look.
+- **The relaunch:** the placeholder's page on main is edited again, so
+  step 1's expected conflicts stand; the head component and the three
+  cards are identical on both sides. RELAUNCH's after-relaunch list
+  carries the deletion of both earlier cards.
+- **Nothing else changes.** No stylesheet, script, dependency or cost;
+  no page fetches the card.
+
+**Verification.**
+- **The predictor on the new card:** a black bar, 26/26/26, in 900 of
+  900 variations; black outweighs the runner-up (the photo's grey wall)
+  by 2.15 times at worst.
+- **The predictor on the two earlier cards** gives the plum and the
+  grey of the table above, which is the control.
+- **The gate:** `npm run verify` exit 0 on the change — `astro check` 0
+  errors; lint:claims and lint:voice green (lint:voice reads the new
+  share title); pa11y 25/25; every Lighthouse assertion held on 8 URLs
+  × 3 runs. On the hotfix, main's own chain: exit 0, pa11y 5/5, both
+  Lighthouse URLs.
+- **The build against phase-c:** the records alone changed no built
+  byte (all 306 files identical, the stylesheet names included). The
+  change adds one file, the new card, and edits only share tags: the
+  image address on all 25 pages (`og:image`, `twitter:image`), and the
+  share title on two (`og:title`, `twitter:title` on the home page and
+  on its /styleguide/concept mirror). The home page's title tag is
+  unchanged, and no page fetches the card. The hotfix's build against
+  main differs the same way: one new file, the image address on its 5
+  pages, the share title on its home page.
+- **The share title's bytes,** read from the built pages on both
+  branches: a no-break space after "Mobile" and after "Harrisburg,",
+  an ordinary space between the halves.
+- **Byte identity:** the head component and the new card have the same
+  sha256 on both branches.
+- **The PRs:** #214 into phase-c, #215 into main (the hotfix).
+- **The bar's colour on a phone is read after production deploys.** The
+  reading goes in an addendum here.
+
+**Merged (2026-09-27), on the operator's word.**
+- **A test before the merge.** With both PRs open and nothing merged,
+  the operator texted a production link and reported: "I tested it and
+  it failed. It used the old card". Production was unchanged at that
+  moment, so the old card was the right answer. Asked, the operator
+  chose "Merge now". The link used for that test keeps the preview the
+  phone built for it, so the next test needed a new query string.
+- **The merges.** The hotfix (PR #215) merged first, at 14:15 UTC, so
+  production changed at once; PR #214 followed within the minute, its
+  last preview run having finished. Both standing previews (#97, #149)
+  were refreshed after it.
+- **Production,** three consecutive clean passes, plain and
+  cache-busted: the home page and the not-found page name the new card
+  and carry the new share title, no-break spaces in place; the title
+  tag is unchanged; the card served is the file that was built (the
+  same sha256); both earlier cards still answer 200. The production
+  run finished green, its cache purge included.
+- **The standing previews** converged on their first three passes, and
+  their runs finished green.
+- **No orphan environment:** the list reads default, 97, 149, 201, 210.
+  The test pages' PR #211 is closed unmerged, its branch kept.
+- **One check failed and then passed on identical code** (the
+  escalation rule of 2026-07-19: the operator is flagged with the
+  evidence, and no assertion is touched). The hotfix's first preview
+  run failed two Lighthouse metrics on both of its URLs: performance
+  0.92 and 0.90 against 0.95, and total blocking time 317 ms and 380 ms
+  against 200 ms. The change edits share tags and adds a file that no
+  page fetches, so it cannot move either metric. Re-run once, the
+  identical commit passed. `main` still measures each URL once, where
+  phase-c asserts the median of three, so a slow runner shows through
+  there.
+
+**Addendum (2026-09-27) — the phone.** The operator, after the merge:
+"I checked the production and it worked correctly." That is the
+confirmation of the card, of the black bar and of the title on the
+operator's phone. No screenshot came with it, so the bar's colour is
+confirmed by eye and is not measured; the predicted value stays
+26/26/26 until a screenshot is read.
+
+## 2026-09-27 — Tox To Go is renamed Tox Together, and its page moves to /tox-together (the operator's rename)
+
+**Context.** The party page and its door on the home page were a day
+old (the two 2026-09-26 entries above; PR #209) when the operator
+renamed the offer.
+- **The operator (2026-09-27):** "On the homepage, there is a section
+  called 'Tox To Go Party', we want to rename that section to 'Tox
+  Together Party'." Four screenshots marked seven places on the home
+  page's band and on the page, with: "If I missed one, then please
+  correct it."
+- **What the screenshots marked:** the band's heading, the page's
+  heading, the call button twice, the hostess-perk sentence and the
+  small label above the closing headline.
+- **What the sweep added:** the band's sentence and its button, the
+  page's opening sentence, the third requirement, and the menu item;
+  and, where no screenshot can show them, the page's title, its
+  description, its JSON-LD name and its address.
+- **The 2026-09-26 addendum had split the name:** "Tox To Go Party" in
+  the two headings, "Tox To Go" everywhere else. The rename had to say
+  whether that split carries over.
+
+**Decisions** (operator, 2026-09-27: two AskUserQuestion answers, then
+the plan approved):
+1. **The name is renamed everywhere.** "Tox Together Party" in the two
+   headings; "Tox Together" wherever the short name stood — the menu
+   item, the small label, the sentences, the buttons ("Book your Tox
+   Together party"), the page's title and description (and so its OG
+   and Twitter tags), and its JSON-LD Service name. The 2026-09-26
+   split carries over under the new name.
+2. **The page moves to `/tox-together`.** `src/pages/tox-to-go.astro` is
+   renamed, the band's link, the menu item and the JSON-LD address
+   follow, and the pa11y and Lighthouse lists swap the address (25 and
+   8, unchanged). No redirect: production never served /tox-to-go, the
+   reasoning of the /mobile and /book deletions.
+3. **The general words stay.** "Tox Party", "Tox Parties" and "the Tox
+   experience" are the document's trade shorthand, not the offer's
+   name.
+4. **Nothing else in the copy changes.** The opening paragraph now says
+   "Tox Together" and, a sentence later, "enjoy time together". The
+   words are the operator's document, so the echo is left as it is and
+   reported to the operator.
+
+**Compliance.** No new flag.
+- The 2026-09-26 permission for "Tox" covers this page's copy, title,
+  description, JSON-LD name, address and menu item, and the home
+  band's copy. The rename stays inside it: the shorthand is on no
+  other page, and the competitor brand name still never appears.
+- "Together" describes the guests. The voice rule's tokens are
+  unaffected, and lint:voice reads the built pages.
+- The page is outside the treatments collection, so no clinician flag
+  resets. Amy's non-gated item in CLINICIAN-SIGN-OFF carries the new
+  name.
+
+**The name.** Two web searches (2026-09-27) found no business called
+"Tox Together", in the trade at large or around Charlotte. As on
+2026-09-26, this is not a trademark clearance; a USPTO search is the
+step if Amy wants to own the name.
+
+**Alternatives declined:**
+- renaming only what a visitor reads, leaving the title, the
+  description and the JSON-LD name (offered): search results and link
+  previews would have shown the old name;
+- renaming only the seven marked places (offered);
+- keeping the address /tox-to-go (offered): it would carry the old
+  name for good, or need a redirect if moved after launch.
+
+**The records.** The two 2026-09-26 entries are history and stand as
+written, as do the 2026-09-26 changelog entry and the commit rows that
+name PR #209. Descriptions of the site as it is now carry the new name
+and address: BUILD_SPEC §5 and §6, CLAUDE.md's script-consumer list,
+CLINICIAN-SIGN-OFF, HOME-CONCEPT, REDESIGN, RELAUNCH and RUNBOOK. The
+operator's source document keeps its filename.
+
+**Consequences.**
+- **Preview links to /tox-to-go stop working** on every preview built
+  from this change on. The standing demo (#97) and the review preview
+  (#149) show the new name and address from their next refresh.
+- **RELAUNCH's probes** expect /tox-together (200) and treat a 404 at
+  /tox-to-go, as at /mobile, as correct.
+- **The headings are longer by three letters.** They were checked for
+  wrapping and for sideways scroll at phone, tablet and desktop widths
+  (Verification).
+- **Nothing else changes.** No stylesheet rule, script, dependency or
+  cost.
+
+**Verification.**
+- **The gate:** `npm run verify` exit 0 on the change — `astro check` 0
+  errors and 0 warnings; lint:claims and lint:voice green; pa11y 25/25
+  with /tox-together in the list; every Lighthouse assertion held on
+  8 URLs × 3 runs.
+- **The built site:** no file contains the old name or the old address
+  in any spelling; `/tox-together/` is built and `/tox-to-go/` is not
+  (404 on a local serve); the sitemap lists the new address.
+- **The headings,** read at 344, 390, 768, 1280 and 1440px:
+  - the page's title is one line from 768px and two lines on phones
+    ("Tox Together" over "Party", at 49px);
+  - the home band's heading is one line at 390px and wider, two at
+    344px;
+  - the menu item is one line at every width;
+  - the call button is one line from 390px and wraps to two lines at
+    344px, where the old wording fit on one.
+- **Sideways scroll:** the page has none at any width. The home page's
+  (17px at 344, 19px at 390, 37px at 768) comes from the hero's media
+  alone, which is open PR #210's subject; nothing in the band reaches
+  past the viewport.
+- **The records alone changed no built byte** (the stylesheet names
+  and hashes are the same before and after they were written).
+- **The PR:** #217 into phase-c.
+
+**Merged (2026-09-27), on the operator's word.** With the branch
+verified and not yet pushed, the operator asked for the preview link
+and then wrote: "merge it and refresh PRs #97 and #149". The PR merges
+once its checks are green, and the standing demo (#97) and the review
+preview (#149) are refreshed from phase-c after it, so both show the
+new name at /tox-together. The merge record rides the PR's first push:
+nothing is pushed to the branch after its checks start.
+
+## 2026-09-27 — /tox-together: the hostess perk addresses the host as "you" (the operator's wording)
+
+**Context.** The offer section of /tox-together spoke of the host in
+the third person. The operator (2026-09-27), with the page under
+review: "it says in the second sentence 'the hostess receives a $600
+credit...', change that to 'you receive a $600 credit...' and at the
+bottom of the section change the last part to 'That's a minimum of
+$2100 in services among your guests - and a $600 Service Credit for
+you.'"
+
+**Decisions** (operator, 2026-09-27: the request, then three
+AskUserQuestion answers on the PR's preview):
+1. **Two phrases change in the offer section:**
+   - "the hostess receives a $600 credit toward services" becomes "you
+     receive a $600 credit toward services";
+   - "and a $600 Service Credit for the hostess." becomes "and a $600
+     Service Credit for you."
+2. **The figure and the dash stay as the page had them:** "$2,100",
+   with its comma, and the long dash. The request's "$2100" and hyphen
+   were typing (the operator: "Keep as is").
+3. **The meta description follows** (and so the OG and Twitter
+   descriptions): "When your Tox Together party qualifies, you receive
+   a $600 service credit." It read "When a Tox Together party
+   qualifies, the hostess receives a $600 service credit." Offered with
+   it: leaving the description alone.
+4. **Merge and refresh** once the checks are green.
+
+**Not changed.** The heading "Hostess perk", "the Hostess Service
+Credit", the three requirements and every figure.
+
+**Compliance.** No new flag. The sentence states a term of the offer,
+not a treatment outcome, and answers no suitability question. The
+terms stay on Amy's non-gated item in CLINICIAN-SIGN-OFF.
+
+**Verification.** `npm run build`, `npm run check`, lint:claims and
+lint:voice on the change; the PR's own run carries pa11y and
+Lighthouse. Both sentences and the description were read from the
+built page, and the first two on the PR's preview.
+
+**Merged (2026-09-27), on the operator's word** ("Merge and refresh"):
+PR #218 into phase-c once its checks are green, with the standing demo
+(#97) and the review preview (#149) refreshed after it.
+
+## 2026-09-27 — The practice's name becomes a link to the practice site wherever visible text says it (operator override of constraint 2; a build gate holds it)
+
+**Context.** The operator asked: "Everywhere it says 'Mobile
+Aesthetics', I need that to be changed to a hyperlink pointing to
+https://yourmobileaesthetics.com". A scan of the built site (phase-c,
+all 25 pages) found the name in these places:
+
+| Where | Pages | Before | After |
+|---|---|---|---|
+| Footer, the address block's second line | all 25 | plain text | link |
+| Location card, the address block's second line | home, /visit, the two styleguide pages | plain text | link |
+| /about, three sentences | 1 | plain text | link |
+| /services/skincare, one body sentence and one FAQ answer | 1 | plain text | link |
+| The home carousel's heading, "Mobile Aesthetics. On screen." | home and its styleguide mirror | plain text | link on the two words |
+| /services/skincare, one FAQ question | 1 | plain text | plain text |
+| Header badge | all 25 | link | unchanged |
+| /about, the "Visit Mobile Aesthetics" button | 1 | link | unchanged |
+
+The live Under Construction page has no visible mention (read on
+`main` and on needlegirlie.com the same day), so production does not
+change. The links go live at relaunch.
+
+**The flag, raised once before any work.**
+- **The destination** was fetched again on 2026-09-27. It answers, and
+  it is still Amy's own practice site. It still lists the location's
+  other providers under a heading of their own, each with a booking
+  button, and one of them offers injectables. It also carries wording
+  this site bans: a ranking sentence this site retired on 2026-08-25,
+  and outcome language. A link restates none of it.
+- **The rule.** Constraint 2 allowed two links to that site: the header
+  badge (2026-08-15) and the /about button (2026-08-25).
+  compliance/README holds that a destination screened once does not
+  carry its authorization to a new consumer. This request is a new
+  consumer many times over.
+- **The contract.** The SOW promises a site that is "exclusively
+  yours". The two links already departed from it; this widens that.
+- **The funnel.** Every page gains a second exit to the practice site,
+  in the footer. /about carries six.
+
+**Decision (operator, 2026-09-27, after the flag).**
+1. **Scope: every visible mention.** Offered with it: all but the home
+   heading (the booking sweep of 2026-09-19 kept headings plain), and
+   sentences only.
+2. **Future copy: a build gate.** Offered with it: a runbook note
+   alone.
+
+The plan was approved the same day. It is recorded as constraint 2's
+**seventh scoped exception**.
+
+**What was built.**
+- **One component,** `PracticeLink.astro`, BookLink's sibling: the one
+  destination (`siteConfig.mobileAestheticsUrl`), a new tab with
+  `noopener`, the `ma_site_click` event, the hidden new-tab note, and
+  the house look for a link in text. It reuses BookLink's styling, so
+  the stylesheet is byte-identical.
+- **One marker for plain strings,** beside the booking marker in
+  `src/lib/inlineLinks.ts`: `[Mobile Aesthetics](site:practice)`. Its
+  label must be the practice's name; any other label fails the build,
+  as an unknown target and an arbitrary URL already did. FaqAccordion
+  and VisitSteps render it.
+- **The edits:** Footer, LocationCard, three sentences in
+  `about.astro`, the carousel heading in `VideoCarousel.astro`, and
+  the body sentence and one FAQ answer in `skincare.mdx` (its own
+  commit; `clinicianApproved` was false and stays false). No visible
+  letter changed.
+- **The heading is the site's first link inside a heading,** and it met
+  the home page's motion layer. That layer splits every section
+  heading into words to raise them one by one. A split would have cost
+  the link twice: the word boxes do not carry the anchor's line under
+  the text, and the split hides its pieces from screen readers, which
+  leaves the link without a name. So `home-motion.js` now raises a
+  heading that holds a link whole. The other six section headings
+  split as before.
+- **The carousel section is named by its own label** with the
+  heading's words. It was named by the heading itself, and the link's
+  hidden note would have landed in the region's name.
+- **The gate,** `scripts/lint-practice-link.mjs`, run as
+  `npm run lint:practice-link` at the end of `verify:fast`. It reads
+  the built pages and fails on four things:
+  1. the practice's name in visible text outside a link to the
+     practice site;
+  2. a link to the practice site without the new tab, `noopener`, the
+     event or the hidden note;
+  3. a link to the practice site at any address but the screened one;
+  4. a link to the practice site inside an FAQ question or a button.
+
+  It reads the address from `siteConfig.ts`, carries a self-test, and
+  its failure message says how to fix the page.
+
+**What stays plain, and why.**
+- **The FAQ question** ("Why does the storefront say Mobile
+  Aesthetics?"). It renders inside the control that opens the answer. A
+  link there would take the click, and it fails the accessibility
+  check. The booking sweep left FAQ questions plain for the same
+  reason. The answer under it carries the link. The gate allows this
+  one place, and a page's title tag.
+- **Text that is not page text:** photo descriptions, the films'
+  screen-reader labels, /about's page description, the home page's
+  share title and the caption files. None of these can hold a link.
+
+**Alternatives declined.**
+- **An automatic rewrite of the built pages,** wrapping every mention
+  in a link as a build step. New copy would be linked without anyone
+  deciding it, and the link would be missing from the source a
+  reviewer reads.
+- **Keeping the word split on the linked heading** with its screen
+  reader handling switched off. The link would still lose its line
+  under the text for the length of the rise.
+- **A runbook note without a gate** (offered, not chosen).
+- **Editing the preview workflow's step label** to name the new gate.
+  The chain lives in `package.json`, both workflows call it, and no
+  workflow file changed.
+
+**Consequences.**
+- **36 new links; 62 in all.** 25 header badges, 25 footers, 4 location
+  cards, 4 sentences, 1 FAQ answer, 2 headings, 1 button.
+- **New copy that names the practice takes the link** under the same
+  exception. A branch that adds a plain mention fails its fast gates
+  once it carries this change, and the message tells the writer what
+  to do.
+- **What the exception does not cover:** any other link text, any
+  other address on the practice site, and any mention of the other
+  providers. Each still needs the human operator.
+- **The records:** CLAUDE.md constraint 2 (the seventh exception, and
+  the two places that counted the sanctioned links), siteConfig's
+  comment, compliance/README, BUILD_SPEC's component inventory,
+  REDESIGN, RUNBOOK ("Naming the practice in copy"), HOME-CONCEPT
+  (the choreography line) and CLINICIAN-SIGN-OFF. Amy has not seen
+  these links.
+- **The preview workflow's step label** still lists the older gates by
+  name. What it runs is `verify:fast`, which includes this one.
+- **No stylesheet rule, no dependency, no cost.** `home-motion.js`
+  grows by 644 bytes before compression (19,217 to 19,861), inside
+  the home page's script budget.
+
+**Verification.**
+- **The gate, proven both ways.** On the build before the change it
+  fails with 36 findings, every one of them rule 1. On the build after,
+  it passes: 25 pages, 62 links. Its self-test passes.
+- **Visible text is identical on all 25 pages,** before and after. The
+  only text added is the hidden new-tab note, 36 times.
+- **Every link to the practice site** carries the four attributes. None
+  sits inside an FAQ question or a button. The spacing round each
+  inline link was read from the built pages.
+- **The stylesheets are byte-identical,** before and after the code,
+  and again after these records were written.
+- **Rendered at 390 and 1280 pixels wide:** the footer, the location
+  card, the three /about sentences, the skincare sentence and FAQ
+  answer, and the home heading with the motion layer on and under
+  reduced motion.
+- **`npm run verify` exit 0:** `astro check` 0 errors, 0 warnings and
+  0 hints over 59 files; lint:claims,
+  lint:voice and lint:practice-link green; pa11y 25/25; every
+  Lighthouse assertion on 8 URLs × 3 runs.
+- **The PR:** #219 into phase-c.
+
+**Merged (2026-09-27), on the operator's word** ("Merge now"). The
+PR's checks passed on two runs; the second was a re-run made to force a
+fresh upload. Its own preview environment deployed both times and then
+answered Azure's 404 on every request for more than twenty minutes,
+the known fault with new preview environments, while both standing
+previews served normally. So the operator was not shown a live
+preview. They were shown the rendered links as two screenshot sheets
+from the same build, were told why the preview could not be shown, and
+chose to merge. The standing demo (#97) and the review preview (#149)
+are refreshed from phase-c after the merge, and the links are read
+there.
+
+## 2026-09-27 — Regenerative: the /services card and the page's first photo swap places (operator direction)
+
+Context: the operator asked to swap the /services "04 Regenerative
+Treatments" card photo with the first photo on /services/regenerative
+(the PRP visit, a man in the chair).
+Decision: the card now carries `prp-treatment.jpg`, cropped from the
+left of the frame (the saliency crop centred on Amy and cut the client
+to his chin). The page's opening band now carries
+`device-facial-session.jpg`. That frame is a tall portrait inside the
+band's fixed 9:8 arch, so a per-image anchor holds the window low, on
+the device, both gloved hands and the client's face. Its source is
+744px wide, so the band's top srcset width drops from 895 to 744 (no
+upscaling). The new alt describes the scene and names nobody; the
+practitioner's face is hidden by her hair and the 2026-08-18 screening
+record does not say who it is. Both frames were already screened and
+cleared (2026-07-26 and 2026-08-18); nothing new is published.
+Alternatives rejected: changing the band's arch shape for a portrait
+(a layout change the operator did not ask for); the saliency crop on
+the card (loses the client).
+Consequences: no copy changes; the page stays `clinicianApproved:
+false`. Checked by `npm run verify` exit 0 and element screenshots at
+390 and 1280 wide.
+
+**Merged (2026-09-27), on the operator's word** ("it's fine to merge").
+The operator reviewed PR #220's own preview first; both pages served
+the swapped photos on five of five loads each. The standing demo (#97)
+and the review preview (#149) are refreshed from phase-c after the
+merge.
+
+## 2026-09-27 — Home carousel: Amy's promo and her billboard-day reel replace films two and three (operator overrides after the compliance flags)
+
+**Context.** The operator asked for the carousel's second film to be
+replaced with `C:\Amy\Videos\Advertising 2\AD2.MP4` and its third with
+`C:\Amy\Videos\Advertising 3\AD3.MP4` ("We're not done after that":
+more carousel changes follow). The second film was the Evolus co-op
+Jeuveau commercial `commercial-j1`; the third was Amy's studio reel
+`commercial-studio`, played at 0.5×. The questions below named both,
+and the operator answered without correcting either.
+
+Neither file is new to the archive:
+- **AD2** is byte-identical to `Advertising 1\087c2532….MP4` (sha256
+  `d90f762c…f5f420f`), the promo the 2026-09-02 /mobile search logged
+  and did not use. That screen recorded the van, the team, the address
+  footer and the handle. It did not record the studio segment's
+  product cartons or its syringe tray; this screen adds them. HEVC Main
+  720×1280, 30 fps, 993 frames, 33.1 s, AAC stereo.
+- **AD3** (sha256 `e9a8ccae…abc96d`) is the reel that search called
+  "the billboard/delivery reel". Its container tags
+  (`comment=vid:v12025gd0000d4hhmh7og65mcfgpqfug`, `vid_md5`, a Lavf
+  encoder) are the pattern of a TikTok download. That is an inference
+  from the tags; no platform watermark appears. HEVC Main 576×1024,
+  30 fps, 941 frames, 31.37 s, HE-AACv2 stereo.
+
+Nothing in this log names either as a retired film.
+
+**Screen.** 1 fps sheets, then 4 fps sheets with burned-in timestamps,
+a 10 fps strip across AD3's first cut, and full-resolution zooms of
+every label, shirt and face.
+
+AD2:
+
+| Time | On screen |
+|---|---|
+| 0–2.75 s | Amy in the studio under the neon, shaking hands with someone out of frame (an arm and a hand only) |
+| 0–14.75 s | On the counter: Radiesse+ cartons, a pink "LIPS+" carton, five Jeuveau cartons on an Evolus box (no quantity legible in any zoom), and a tray printed "Mobile Aesthetics" holding syringes in labelled slots — "Frontalis", "Glabella" and "Crow's…" legible. Amy holds syringes at about 5–9 s and a clipboard at about 10.75–14.75 s. Two dissolves, at about 4.25–4.75 s and 10.25–10.75 s |
+| 15.0–25.0 s | Six women in matching black uniforms step out of the black van one at a time, the same six twice over (15.0–20.0 s, then 20.0–25.0 s). The 2026-09-02 screen took the last of them (about 23.5–25 s) for Amy. The names embroidered on the shirts are not legible at 720 px |
+| 25.0–26.75 s | The van's open door and empty interior; a hand at the door's edge |
+| 27.0–28.75 s | The same six in a parking lot |
+| 29.0–33.1 s | The group, darkened, under a large Instagram logo and Amy's handle |
+
+Overlays: "Mobile Aesthetics / Yourmobileaesthetics.com" on every frame
+(dimmed from 29 s), and "@amypalaciosnp.mobileaesthetics" from 0.25 s.
+That handle is Amy's own account, the one `siteConfig.ts` links.
+
+AD3:
+
+| Time | On screen |
+|---|---|
+| 0–2.9 s | A photo of Amy's Evolysse billboard over a caption card: "Billboard is up / I85 / From concord mills to poplar tent". The billboard reads "LOST THE WEIGHT? NOW SMOOTH FACIAL WRINKLES", with the Evolysse lockup and the Evolus mark, a line of safety print barely legible at 576 px, "AVAILABLE NOW AT MOBILE AESTHETICS", 704.579.7108 (Amy's number, the site's own), and "AMY PALACIOS NP". It pictures Amy and a second woman |
+| 3.0–5.5 s | Amy's selfie video; a blonde woman in glasses beside her until about 4.5 s |
+| 5.75–6.0 s | A pan across the room; a vertical banner on the wall, nothing legible |
+| 6.25–9.25 s | A parcel-delivery driver bringing in white "evolve with us" shipping cartons, his face clear |
+| 9.5–12.0 s | Amy again; the woman in glasses beside her from about 10.75 s |
+| 11.25–19.25 s | A wall poster titled "LIP FILLER JOURNEY" and "BOTOX JOURNEY", legible (the poster class the studio reel carried). From 12.25 s, Amy behind stacked black Evolus boxes (small labels, nothing legible); framed photos on the wall too small to identify anyone |
+| 19.5–24.75 s | The white shipping cartons ("OPEN IMMEDIATELY UPON RECEIPT", "REFRIGERATE 36–46°F", "DO NOT FREEZE"; no quantity). The woman in glasses stands by them, her face clear at about 21.5–23 s |
+| 25.0–29.25 s | The driver loading a hand truck, his face in profile at about 28.25–29.25 s |
+| 29.5–31.37 s | Black Evolus boxes; the picture sits right of a black band (the source's own) |
+
+Both films have Amy speaking on their audio. Like every carousel
+rendition, the web files carry no audio track, so her words are not
+heard.
+
+**Flags shown and the operator's decisions** (AskUserQuestion,
+2026-09-27):
+1. **AD2.** Flagged: the location's other providers on camera
+   (constraint 2); the practice-site address printed on every frame
+   (the fifth constraint-2 exception's display-only class); and the tray
+   and cartons (constraint 3 — the prep-workflow and product-box
+   classes the 2026-07-23 rubric excluded). Offered: use it as-is with
+   releases on file; use only Amy's first 15 seconds (the address and
+   the tray would remain); or skip AD2. Chosen: **"Use as-is — releases
+   on file."** The option stated that choosing it confirms everyone on
+   camera has a website release on file, so the operator's answer is
+   that record.
+2. **AD3's people.** Flagged: the driver and the woman in glasses, with
+   no release for either on this record. Offered: both released, use
+   as-is (with a note if she is one of the location's providers); blur
+   the driver's face; or hold AD3. Chosen: **"Both released — use
+   as-is"**, with no note, so she is not recorded as one of the
+   providers.
+3. **AD3's content.** Flagged: the billboard's outcome-promise headline
+   and the competitor-brand poster. Offered: carry both as-is, never
+   restated in site text; or skip AD3. Chosen: **"Carry as-is
+   (override)."**
+4. **AD3's resolution:** 576×1024, against the studio reel's
+   1080×1920. The operator asked whether a Higgsfield upscale was worth
+   it. I advised against it:
+   - the gain at 1.9× is small;
+   - the film is full of small lettering that upscalers redraw — the
+     billboard's safety print, the box labels, the poster. The van
+     film's Topaz run invented letters in about a dozen places (the
+     2026-09-25 van-band entry);
+   - it would need a new exception to the 2026-09-17 generative rules,
+     for three people's faces and for packaging.
+
+   Offered: ship as-is and ask Amy for her original (recommended); a
+   test upscale of about 10 seconds; a full upscale. Chosen: **"Ship
+   as-is; ask Amy."**
+
+**Sharpness.** The rule (BUILD_SPEC §5) is that every source is at or
+above 2× its displayed size. The stage (measured 2026-09-25) shows a
+9:16 film:
+- 240 px wide on a 390 px phone;
+- 342 px wide at 1280×800;
+- 405 px wide at its 720 px height cap (portrait tablets and large
+  desktops).
+
+AD2 is 3.0×, 2.1× and 1.78× of those; AD3 is 2.4×, 1.68× and 1.42×.
+(The remaining Jeuveau film is 1.875× at the cap.) Both films and their
+posters ship under a sharpness-rule exception, recorded here and in
+REDESIGN (the precedent is the 2026-08-21 480p reel). Amy's original of
+AD3 would lift it for that film.
+
+**Mechanics.**
+- **Renditions:** the RUNBOOK carousel recipe with colour tags, at
+  CRF 23 like the studio reel (whose master was also HEVC):
+  `ffmpeg -i <master> -map 0:v:0 -an -c:v libx264 -crf 23 -preset medium -pix_fmt yuv420p -colorspace bt709 -color_primaries bt709 -color_trc bt709 -movflags +faststart`.
+  - `commercial-van-promo.mp4`: 7,223,679 B, sha256
+    `5da3dcd5…3947df`, H.264 High 720×1280, 993 frames, 1.75 Mbps.
+  - `commercial-billboard.mp4`: 5,925,008 B, sha256 `e362da58…8a92bc`,
+    H.264 High 576×1024, 941 frames, 1.51 Mbps. That is about three
+    times its HEVC source, and in line with the other films.
+
+  Both are BT.709 limited range, with the index first and no audio
+  stream: native size, uncropped, untrimmed, played at 1×. They go up
+  under new names, so nothing is purged.
+- **Posters,** taken from the renditions:
+  - `commercial-van-promo-poster.jpg`, at 25.6 s: the open van, with
+    no face and no product (the overlays are the film's own).
+    720×1280, 103,557 B.
+  - `commercial-billboard-poster.jpg`, at 4.9 s: Amy alone, her name on
+    her scrubs. 576×1024, 64,647 B; Astro serves it at 480w and 576w.
+
+  The size Lighthouse loads weighs 36,446 B + 19,448 B, against the
+  retiring posters' 13,534 B + 32,014 B (+10,346 B). The new figures
+  were computed with Astro's own encoder settings, which reproduce the
+  existing posters byte for byte.
+- **Captions:** `commercial-van-promo.vtt` and
+  `commercial-billboard.vtt`, NOTE blocks only (the 2026-09-20 rule for
+  site-authored silent films). They hold the provenance, AD3's caption
+  card and a description that names nobody. They never carry the
+  practice-site address, any tray, carton, billboard or poster text, or
+  the competitor brand name.
+- **Slides:**
+  - 2: `commercial-van-promo`, labelled "Mobile Aesthetics promo — Amy's
+    studio and the van";
+  - 3: `commercial-billboard`, labelled "Billboard day and a delivery at
+    Amy's studio";
+  - the remaining Jeuveau film's label drops ", film two".
+
+  No film sets `rate` now.
+- **Retired from the repo:** the posters and caption files of J1 and
+  the studio reel. Their Blob objects stay, because open PRs #201 and
+  #210 still build the old carousel; deleting them later is an
+  operator cleanup item.
+
+**Alternatives rejected:**
+- trimming AD2 to Amy's part, or skipping it;
+- blurring the driver, or holding or skipping AD3;
+- a test or a full AI upscale;
+- waiting for Amy's original;
+- a poster of Amy at the van door: 44,468 B at 720w. Every full-colour
+  AD2 frame measured 37–44 KB, and the van interior is the lightest
+  frame without a face.
+
+**Consequences.**
+- **CLAUDE.md:**
+  - constraint 2 gains its eighth scoped exception (AD2's other
+    providers and printed address);
+  - constraint 3's dosing bullet gains its eleventh pixel-level
+    override (AD2's tray and cartons);
+  - its claims bullet retires J1 and the studio reel and adds AD3's
+    billboard, poster and boxes.
+
+  BUILD_SPEC §6, §8 and §9, compliance/README, REDESIGN, HOME-CONCEPT's
+  settings table, RUNBOOK, RELAUNCH and CLINICIAN-SIGN-OFF follow. The
+  plan's approval authorized the governing-doc edits (the 2026-08-18
+  precedent).
+- **The website SOW's gaps** on other providers, claims and self-hosted
+  video each gain an instance. The two slots' films weigh 13.1 MB
+  together instead of 16.2 MB, so a full view of the carousel moves a
+  little less media.
+- **The home page's total-bytes budget** keeps 11,398 B (measured
+  below).
+- **No approval flag.** This is not treatment content, so no
+  `clinicianApproved` flag applies. Amy sees both films on the standing
+  demo, and her sign-off row carries them as new.
+- **Amy's original.** The operator asks Amy for her original of AD3.
+
+**Verification.** Built against phase-c `ddae8dd`:
+- **The built diff:** only `/` and `/styleguide/concept` change markup —
+  slides 2 to 4, the bars' labels and the posters' srcsets. The new
+  posters' files and caption files are added and the retired ones
+  removed. Every stylesheet and every other page is byte-identical,
+  checked again after these records were written.
+- **The posters as served:** 720w 36,446 B and 480w 23,458 B (the
+  promo); 576w 19,448 B and 480w 15,526 B (the reel) — the predicted
+  bytes exactly.
+- **Headless Chrome under the generated SWA headers,** at 390 and 1280
+  wide:
+  - bars 2 and 3 each build a player whose source is the new
+    media-origin file, at its native size, muted (the property and the
+    attribute), playing, with no decoded audio;
+  - each player's captions track is disabled, and both caption files
+    hold zero cues;
+  - the end of film 2 hands over to film 3, and the end of film 3 to
+    film 4;
+  - no console errors and no content-policy refusals. The only failed
+    requests are the aborted downloads left behind when the test seeks
+    near the end or closes the page.
+- **Sideways overflow** is identical to the phase-c build at
+  344/390/768/1280 wide (none at load in either).
+- **The published files:** Range requests answer 206 with `video/mp4`,
+  a one-day cache, and the byte counts above. ffprobe of the served
+  files reads one H.264 stream each (993 and 941 frames) and no audio.
+- **The gate:** `npm run verify` exit 0, exit line read. That covers the
+  build, `astro check` 0/0/0, lint:claims, lint:voice,
+  lint:practice-link (25 pages, 62 links), pa11y 25/25, and every
+  Lighthouse assertion on 8 URLs × 3 runs.
+
+The home row (medians):
+
+| | Before | After | Budget |
+|---|---|---|---|
+| Total | 336,401 B | 347,002 B | 358,400 B |
+| Image | 208,279 B | 218,625 B | 245,760 B |
+| Script | 71,890 B | 72,085 B | 81,920 B |
+| LCP | 2,169 ms | 2,189 ms | 2,500 ms |
+
+"Before" is the 2026-09-27 10:32 run, taken before PR #219. That PR
+added the practice-name links and 644 B of motion script, so the total
+and script columns include it; its image bytes are unchanged. The image
+rise is exactly the posters' +10,346 B.
+
+**Merged (2026-09-27), on the operator's word** ("Merge and refresh").
+PR #222's checks passed. Its own preview served the new lineup on six
+of six loads, with both caption files answering 200 and the retired J1
+caption file 404. The preview link had been sent before the operator's
+answer. The standing demo (#97) and the review preview (#149) are
+refreshed from phase-c after the merge.
+
+## 2026-09-27 — /about: a new lead portrait of Amy, shown whole; the family portrait moves into the text column, smaller (operator direction; the picture approved for this slot after the flag)
+
+**Context.** Operator direction (2026-09-27): "I need the attached
+picture to be the lead on the /about page. This picture will be the
+first pic on the page and to the right of the section 'Amy Palacios,
+FNP'. The current picture that is in that spot will be made smaller
+than it currently is and will be below the last paragraph of the 'Amy
+Palacios, FNP' section BUT above the 'Book with Amy' button."
+- **The file:** `C:\Amy\New Pics\about.jpg`, a 1067×1600 sRGB JPEG,
+  276,746 B, sha256 `8a404b01…f0eb45`. Its metadata names frame
+  8K0A3317 of the 2026-03-29 shoot, taken between the frames of
+  /services cards 02 and 01. It holds no GPS block and no location
+  field. It carries the photographer's credit and rights notice, as the
+  shoot frames already committed do.
+- **A new frame:** compared by a 24×36 grey signature, which catches a
+  copy or a re-export, with the 76 images under `src/assets` and
+  `public` and the 153 others in `C:\Amy\pics` and `C:\Amy\New Pics`.
+  The nearest is card 01's photo, at a mean difference of 30.7 of 255.
+- **What it replaces as the lead:** the family portrait, which Amy
+  asked for on 2026-07-23 and kept on 2026-08-03. The 2026-09-03 entry
+  calls that "her call, not a fix".
+
+**Screen** (RUNBOOK "Replacing site photography", step 1). The file was
+read at three and four times its size, because the full 1067px frame
+is the largest file the page serves.
+- **The scene:** Amy in a pink dress, seated on her studio counter.
+  Beside her are a stack of four filler cartons, six small vials and a
+  tall glass jar of vials. Only Amy is pictured, so no release is
+  needed.
+- **Readable:**
+  - on the cartons, the brand, its two product names and the maker's
+    name. The dermal-fillers page says all four in its own copy;
+  - at the top left, the tail of a wall print ("…like nobody is
+    watching"). On the page the arch covers it; the file still shows
+    it.
+- **Not readable:** the cartons' small print, every vial label, the
+  jar's contents, and a small label on the appliance under the counter.
+
+**Flag (once).**
+- **The class.** The frame is in the product-box and vial classes the
+  2026-07-23 rubric excluded, and the 2026-09-25 entry says those
+  exclusions stand for every other slot. So it needs the operator's
+  approval for this slot.
+- **No exception.** compliance/README keeps operator overrides for
+  frames "whose pixels carry text the site's own copy could not say".
+  No quantity and no claim is readable here, and the readable names
+  are ones the site's copy says. Constraint 3 is not engaged. The
+  precedent is the Revanesse hand mirror of 2026-08-21.
+- **Two earlier calls went the other way,** and both were put to the
+  operator. On 2026-08-21 Amy had the Evolysse film and two carton
+  photos taken off dermal-fillers. On 2026-09-03 a pick for the home
+  band was dropped because a carton's name could be read in it. Since
+  2026-09-25 the film and two card photos are back at the operator's
+  direction. Listing this frame in CLAUDE.md as an override was
+  offered.
+- **The family portrait** leads the page at Amy's own request, and its
+  2026-07-23 entry asks for the operator's confirmation of "any other
+  placement of the family".
+- **Recommended:** the picture exactly as supplied.
+
+**Decision (operator, 2026-09-27: the plan approved as written).**
+- The picture ships exactly as supplied, approved for this frame in
+  this slot. CLAUDE.md, BUILD_SPEC and compliance/ do not change.
+- The family portrait's new placement is confirmed by the operator's
+  own request.
+- From mock sheets (renders of the built page, re-arranged in a
+  headless browser and photographed; nothing in the repo changed), the
+  operator picked:
+  - the family portrait at **two-thirds** of its size, over
+    four-fifths and one-half;
+  - on phones, the new picture **after the opening line**, over the
+    very top of the page.
+
+**What was built.**
+- **Asset:** a byte-identical copy,
+  `src/assets/photos/amy-pink-dress-counter.jpg` (content-named).
+- **Alt text:** "Amy Palacios, FNP, in a pink dress, seated on her
+  studio counter." It leaves the products out, as the studio print's
+  alt does. /injector-training's portrait names its cartons; the About
+  page's own precedent was followed.
+- **The section** is three parts in source order: the opening (label,
+  rule, heading, lead), the lead portrait, and the body (the three
+  paragraphs, the family portrait, the button). A phone and a screen
+  reader both meet the portrait after the opening line. From 768px the
+  portrait takes the right column beside both text parts. The columns,
+  the gap and the text's positions are unchanged.
+- **The lead portrait is shown whole,** at the master's own 2:3, in the
+  arch with the light wash. The arch's house window is 4:5, which
+  would shed the bottom sixth of this frame: her ankles and shoes. The
+  weigh-in frame (2026-08-21) and the Girl Team still (2026-08-25)
+  keep their own shape for the same reason. In the single column the
+  portrait stops at 480px wide, so the master always holds twice the
+  slot.
+- **The family portrait** keeps its 4:5 crop, its anchor, its wash and
+  its alt text. It is 320px wide, or 72% of the column where that is
+  less, and it loads lazily.
+- **Widths:** 480/640/760/1067 for the lead, 360/520/640/760 for the
+  family portrait. The size hints are exact at every viewport; the old
+  40vw hint ran 23px short just under 1152px.
+
+| Picture | Before | After |
+|---|---|---|
+| New portrait, 1280 wide | not on the page | 484×724, right column |
+| Family portrait, 1280 wide | 484×604, right column | 320×400, under the last paragraph |
+| New portrait, 390 wide | not on the page | 342×512, after the opening line |
+| Family portrait, 390 wide | 342×427, after the button | 246×307, above the button |
+
+**Verification.**
+- **Dist against the phase-c build (`ddae8dd`):** only
+  `about/index.html` and the two photos' image sets differ. The lead
+  adds four files; the family portrait adds three and retires one.
+  Every stylesheet and the other 24 pages are byte-identical. The same
+  holds against `85762be`, after phase-c was brought into the branch.
+- **The About page's visible text, its 29 links, its headings and its
+  head tags** are identical, at 390 and at 1280.
+- **Renders at 17 widths, 320 to 1920:** nothing overflows
+  horizontally. Every screen takes a file at its own density or above,
+  except 430-wide 3× phones, which take 2.8×, above the retina rule's
+  2×.
+- **`npm run verify` exit 0:** `astro check` 0 errors, 0 warnings and
+  0 hints over 59 files; lint:claims, lint:voice and
+  lint:practice-link green (25 pages, 62 links); pa11y 25/25; every
+  Lighthouse assertion on 8 URLs × 3 runs.
+- **Lighthouse on /about,** median of 3, beside the phase-c build run
+  the same way:
+
+  | Check | Before | After | Limit |
+  |---|---|---|---|
+  | Largest paint | 2,337 ms | 2,336 ms | 2,500 ms |
+  | Performance | 0.98 | 0.98 | 0.95 |
+  | Images | 184,635 B | 202,322 B | 245,760 B |
+  | Total | 243,781 B | 261,837 B | 358,400 B |
+  | Document | 8,019 B | 8,388 B | 16,384 B |
+  | Layout shift | 0 | 0 | 0.1 |
+
+- **Before the repo changed,** the same numbers were taken from a
+  hand-made copy of the built site with the section re-arranged. The
+  real build matched it at all 17 widths, and to the byte on the image
+  files.
+- **lint:claims cannot see pixels,** so the screen above is the
+  control.
+
+**Consequences.**
+- On a desktop the text column now runs 400px below the portrait, so
+  the lower right of the section is open canvas. It follows from the
+  order asked for.
+- The element Lighthouse times for the largest paint on its phone test
+  changes from the header wordmark to the new portrait. The time is
+  unchanged.
+- Amy's pending look sign-off gains the change, in the approval row and
+  in the list of visual changes (CLINICIAN-SIGN-OFF). /about is not
+  flag-gated, so no `clinicianApproved` flag moves.
+- The page-number preview (#149) adds its tag line where this
+  section's markup changed, so its refresh takes a hand merge: its
+  line is kept and the new markup is taken.
+- **The PR:** #221 into phase-c.
+
+**Merged (2026-09-27), on the operator's word** ("Merge now"). The
+PR's checks passed, and its own preview served the page: the probe
+converged on its first three passes, twice, and every picture file
+answered with its built size. The operator was shown before-and-after
+sheets from the real build at desktop, tablet and phone widths, and
+the preview link. phase-c then moved under the PR (PR #222, the home
+carousel's films), and the first merge was refused for conflicts in
+three record files. phase-c was brought into the branch with both
+sides of each record kept, and the full check chain passed again on
+the result before the merge. The standing demo (#97) and the review
+preview (#149) are refreshed from phase-c after the merge; #149's
+refresh is the hand merge named above.
+
+**After the merge (2026-09-27).**
+- **The merge:** PR #221 merged at 19:35 UTC as `98a3e69`, at the head
+  `4bb53e4` whose checks had passed.
+- **The standing demo (#97)** was refreshed to `293212b` by a clean
+  merge; that branch does not touch the page.
+- **The review preview (#149)** was refreshed to `5c31bbc` by the hand
+  merge: its page tag line kept, the new markup taken. The fast gates
+  passed on the result before it was pushed.
+- **Both refreshes passed their checks,** and both probes converged on
+  their first three passes, each pass making ten requests across four
+  pages, plain and cache-busted. On the demo the nine picture files
+  the page names answered with their built sizes.
+- **Environments:** the PR's own was removed when it closed. The list
+  holds default, 97, 149, 201 and 210, so nothing is stray.
+- **The main checkout** was fast-forwarded to `98a3e69`.
+- **Standing documents brought up to date** in PR #224, a records-only
+  change: RUNBOOK's crop list, BUILD_SPEC §5 and its /about row, and
+  REDESIGN's arch row now say that the lead portrait is shown whole.
+  Those are descriptions of the design and the page. The rulebook
+  (BUILD_SPEC §8), CLAUDE.md and compliance/ are unchanged, as decided
+  above.
+
+## 2026-09-30 — "studio" becomes "medspa" in the site's text (Amy's direction, relayed by the operator; the live placeholder, one photo description and the file names keep the old word)
+
+**Context.** The operator, 2026-09-30, after a conversation with Amy:
+"on the website (the entire website), everywhere it says 'studio', she
+wants it replaced with 'medspa', and yes she wants medspa as one word."
+
+**What was counted.** On a build of `phase-c` at `9009fe1` the word
+appeared 123 times in the 25 built pages, always in small letters and
+never at the start of a sentence.
+
+| Where a reader meets it | In the built pages | Source lines |
+|---|---|---|
+| Text on the page | 25 | 25 |
+| Photo descriptions (alt text) | 18 | 18 |
+| Film labels for screen readers | 15 | 8 |
+| The share card's description, two tags on every page | 50 | 1 |
+| The Skincare page's search and share description | 3 | 1 |
+| Picture file addresses | 12 | 3 file names |
+
+**Decision (the operator's four answers, 2026-09-30).**
+- **The live Under Construction page is not changed** ("No, new site
+  only"). It says "Amy's inside, getting the studio ready." until
+  relaunch. A hotfix into `main` was recommended and declined.
+- **The Girl Team photo's description keeps the word** ("Keep 'studio'
+  here"). That room is a photo studio, so the plain swap would say
+  something untrue. "A white room" was recommended and declined.
+- **No build check** ("No check"). An addition to the voice gate was
+  recommended and declined. The rule is written down instead.
+- **The three picture file names keep the word** ("Leave the names").
+  Two of them are cited in CLAUDE.md's override records.
+
+**What was built.**
+- **Page sources:** 52 lines in 19 files, one word each. The twelve
+  treatment pages hold 36 of them. The others are /about (7),
+  /injector-training (3), /visit, /services, the home hero film's
+  label, two carousel labels and the share card's description in the
+  head component.
+- **In the built pages** 110 occurrences now read "medspa". 13 keep the
+  old word: the 12 file addresses and the Girl Team description.
+- **Caption files:** six of them describe their film in a note, seven
+  mentions in all. The notes now match the labels. No cue changed, so
+  no file's version number moved.
+- **The rule:** one bullet in CLAUDE.md beside the consultation and
+  voice conventions, the same rule in BUILD_SPEC §6, and a paragraph in
+  RUNBOOK's copy-writing section. It names the one exception and says
+  no gate enforces it.
+- **Not changed:** code comments (27 lines in the page sources and one
+  in a script), the names the code gives the three pictures, every
+  record written before today, and everything on `main`.
+
+**Overrides.** Six photos and six films that carry recorded operator
+overrides had one word of their description or label changed: the
+PiXel8 cart, the Epileve window, the PRP syringes, the Jeuveau banner
+band, the weigh-in rear view and the Evolysse cart; the Radiesse visit,
+the training reel, the PRP visit, the promo, the billboard reel and the
+team film. No override term is touched. Nothing printed on a banner, a
+carton or a label is restated, and nobody is named.
+
+**The flags.** All twelve treatment pages were already unapproved, so
+no approval flag moved. The sign-off page lists the change for Amy and
+its six quoted sentences carry the new word.
+
+**Alternatives rejected.** Renaming the three pictures: it would mean
+editing the override records that cite them, for a word no visitor
+reads. Changing code comments: the same reasoning. Rewriting earlier
+log entries: the logs are history.
+
+**Verification.**
+- **The count on the real build:** 13 of the old word (12 file
+  addresses, 1 description) and 110 of the new one, by the same script
+  that counted 123.
+- **Against the baseline build:** 31 of 311 files differ, the 25 pages
+  and the 6 caption files. Putting the old word back makes every one of
+  them byte-identical to the baseline. No file was added or removed,
+  and every stylesheet, script and image is byte-identical.
+- **Every page at 390 and 1280 wide,** 50 reads: visible text identical
+  but for the word, links and headings identical and in the same order,
+  no page wider. One page is taller, /services/skincare on a phone, by
+  28 px: one line wraps differently.
+- **The claims list:** the new word and a sample of the new sentences
+  were tried against all 52 banned patterns before the change. None
+  matched.
+- **The full chain** ended with exit 0 before anything was committed:
+  build, type check, claims, voice, practice links (25 pages, 62
+  links), pa11y 25 of 25, Lighthouse on 8 pages.
+
+| Lighthouse, median of 3 | Largest paint | Performance |
+|---|---|---|
+| / | 2,160 ms | 0.99 |
+| /about | 2,337 ms | 0.98 |
+| /services | 1,806 ms | 1.00 |
+| /services/wrinkle-relaxers | 1,657 ms | 1.00 |
+| /services/hormone-optimization | 1,505 ms | 1.00 |
+| /injector-training | 2,332 ms | 0.98 |
+| /tox-together | 1,582 ms | 1.00 |
+| /styleguide | 1,958 ms | 0.99 |
+
+**Consequences.**
+- **Relaunch.** The head component was byte-identical on `main` and
+  `phase-c`. It now differs by one word, in the share card's
+  description. A trial merge showed a one-line conflict there and
+  nothing else in the file. RELAUNCH says to take the `phase-c` side.
+- **Share-card hotfixes.** RUNBOOK's rule is to ship the same head
+  component to `main`. A later card hotfix that copies the file whole
+  carries the new word to the live page, so the merge question has to
+  say so.
+- **The review preview (#149)** adds its page tag on the line directly
+  above the Visit page's label, so its refresh after the merge needs a
+  hand merge in that one file: its tag line kept, the new label taken.
+  The standing demo (#97) touches none of the changed files.
+- **New copy** has to be read for the word. Nothing fails a build that
+  brings it back.
+- **Amy has not seen the new wording on the pages.** Production is
+  unchanged.
+
+**Merged (2026-09-30), on the operator's word ("Merge now").** PR
+#225. Its own preview served the new wording on three clean passes
+in a row, each reading five pages and one caption file, plain and
+cache-busted, before the merge question was asked. The standing demo
+(#97) and the review preview (#149) are refreshed from phase-c after
+the merge; #149's refresh is the hand merge named above.
+
+**After the merge (2026-09-30).**
+- **The merge:** PR #225 merged at 13:51 UTC as `441126a`, at the head
+  `d94d5f9`. Both of its check runs had finished green, the first
+  push's and the merge record's.
+- **The standing demo (#97)** was refreshed to `ec32f7f` by a clean
+  merge.
+- **The review preview (#149)** was refreshed to `7dd8470` by the hand
+  merge in the Visit page: its tag line kept, the new label taken.
+  The fast gates passed on the result before it was pushed, and its
+  built pages gave the same counts, 13 and 110.
+- **Both refreshes passed their checks,** and both previews served
+  the new wording on three clean passes in a row, each pass reading
+  five pages and one caption file, plain and cache-busted.
+- **Environments:** the PR's own was removed when it closed, and its
+  host answers 404. The list holds default, 97, 149, 201 and 210, so
+  nothing is stray.
+- **The main checkout** was fast-forwarded to `441126a`.
+- **These facts** went in as PR #226, a records-only change. No
+  page changed.
+
+## 2026-09-30 — Home carousel: a Sound button and a captions button; the five films carry their own sound (Amy's request; operator overrides after the flags)
+
+**Context.** The operator, 2026-09-30: Amy wants visitors to be able to
+turn sound on in the home carousel, for all five films. It could not be
+done: the five files on the media origin had no audio track (stripped
+when each was published), and the player had no sound control and no
+captions control. Sound was a recorded follow-up from the carousel's
+first day (the 2026-08-14 entry: "restoring sound (tap-for-sound +
+audio-faithful captions) is a recorded follow-up if directed").
+
+**What each film's sound is.** Measured on the masters with ffprobe,
+EBU R128 loudness and spectrograms, and read by a machine transcript
+(Whisper large-v3-turbo through ffmpeg's own filter, on the build
+machine; nothing was uploaded). A machine transcript of singing is a
+draft, not a record.
+
+| Film | Master | Its sound | Loudness |
+|---|---|---|---|
+| 1 Evolysse | `Mobile EVOLYSSE OPTION 3_2_1.mp4` | The Evolus voiceover over their music; the transcript matches the caption file's, line for line | −22.0 LUFS |
+| 2 Amy's promo | `Advertising 2\AD2.MP4` | A re-worded pop song: a quiet opening to 14.8 s (−35.9 LUFS), a loud roll-call of first names from 15.1 to 26.7 s (−13.9), silence, then a loud hit at 29.4–30.8 s (−7.9, peaking over full scale) | −13.0 LUFS |
+| 3 Billboard-day reel | `Advertising 3\AD3.MP4` | A commercial song with lyrics from 1 s to the end; no speech found | −18.3 LUFS |
+| 4 Jeuveau | `F-437304_Mobile Aesthetics_J2.mp4` | The manufacturer's music; no speech found in two reads | −11.2 LUFS |
+| 5 Team film | `New Pics\team.MOV` | A pop song with its lyric; the track /about has played since 2026-08-25 | −19.3 LUFS |
+
+**A correction.** The 2026-09-27 entry for films two and three says
+"Both films have Amy speaking on their audio." That was read off the
+picture and is wrong: the promo is sung and the reel is a song.
+
+**Flags shown (once).**
+1. **Music licences.** The promo, the reel and the team film carry
+   commercial songs. The project's position (2026-09-03 and 2026-09-25)
+   is that a commercial song needs a licence for a business website and
+   that a platform's licence does not travel; the van film's two songs
+   were removed for that reason. No licence is on record for these
+   three.
+2. **The promo's words.** Its song names the location's other
+   providers by first name, makes an outcome promise with a time frame,
+   and speaks as a collective, in a re-working of a well-known song's
+   lyric. Constraint 2 forbids the first (the eighth exception's terms
+   said the film's label, caption file and comments name nobody),
+   constraint 3 the second, the voice rule the third. One line the
+   machine could not make out; it may name products.
+3. **Captions become required** (WCAG 2.2 AA 1.2.2) once the films have
+   sound, and a caption file is site text in a public repository.
+4. **The Evolysse film.** CLAUDE.md said unmuting it requires the human
+   operator; the 2026-09-25 entry rejected a sound button because the
+   voiceover "would still go unheard by default".
+
+The recommendation was sound for the two Evolus films only, with Amy's
+three films silent until the music question is settled.
+
+**Decisions** (operator, AskUserQuestion, 2026-09-30).
+1. **The reel's and the team film's songs: "Play both: accept the
+   risk."** An override of the music position, for these carousel films.
+2. **The promo's sound: "Play it as-is (override)."**
+3. **The controls: "Labelled Sound button."**
+4. **The promo's captions: "The sung words."** The accessible choice and
+   the van film's precedent; a description only, and a plain music cue,
+   were offered. The operator or Amy confirms the exact words by ear
+   before the change merges; that confirmation is the record.
+5. **The Evolysse film** plays its own sound when the visitor turns
+   Sound on: the request is the operator's direction. It still starts
+   muted and its captions stay off by default. Its spoken risk
+   statement, heard nowhere before, is now one tap away.
+
+**The five sound renditions.** New objects beside the silent ones, never
+in place (the edge caches a film for a day).
+- **Picture:** each file's video stream is the served silent file's,
+  copied bit for bit (stream checksums compared, all five identical), so
+  no frame changed and nothing was re-screened. The posters stay.
+- **Sound:** from the master, AAC-LC 128k, one plain volume offset per
+  film. No compression and no limiting. The target is −18 LUFS, the van
+  film's level, capped so that no film peaks above −1 dBFS. As
+  delivered the Jeuveau spot is 10.8 LU louder than the Evolysse film.
+- **The promo has three offsets,** one per section of its own mix,
+  switched inside its own silences at 14.83 s and 28 s. Its opening is
+  22 dB below its roll-call.
+
+| Object | Offset | Result | Peak | Bytes | sha256 |
+|---|---|---|---|---|---|
+| `commercial-evolysse-sound.mp4` | +1.5 dB (the peak cap) | −20.6 LUFS | −1.1 dBFS | 10,360,603 | `d18949925242b80257e14bf1bc56fe2587b9f520e7dc8ea4ad503fd552a9342e` |
+| `commercial-van-promo-sound.mp4` | +16.5 / −4.1 / −10.1 dB | −19.4 / −18.0 / −18.0 (whole −18.6) | −1.3 | 7,715,942 | `134c6e2fa671febba76632dd07b3fbd4be5a9f69dddae42a923713e12cedc3c4` |
+| `commercial-billboard-sound.mp4` | +0.3 dB | −18.1 | −5.7 | 6,453,086 | `d19da597872069e52e9c9c2183ca6b77f9d03574b1671179c32bf5d46089377a` |
+| `commercial-j2-sound.mp4` | −6.8 dB | −18.1 | −6.9 | 8,721,149 | `b46a0bcb6a2ce6e98098529caae90b691a46ee47f1632b2b579a0bd3d1f5b725` |
+| `commercial-team-sound.mp4` | +1.3 dB | −18.1 | −4.4 | 6,795,532 | `1774130248a2915190ee975c1c2902ea68ebad150d98cb89b958031dff11ac10` |
+
+  Frame counts as before (915, 993, 941, 1024, 416); index before media.
+  Together 40.05 MB against the silent files' 37.67 MB.
+- **The command:**
+  `ffmpeg -i <served>.mp4 -i <master> -map 0:v:0 -map 1:a:0 -c:v copy -af "volume=<N>dB" -c:a aac -b:a 128k -movflags +faststart <name>-sound.mp4`.
+  The promo's filter is
+  `asetnsamples=n=256,volume='if(lt(t,14.83),6.683,if(lt(t,28),0.6237,0.3126))':eval=frame:precision=float`.
+
+**The player.**
+- **Two toggle buttons** join the pause button: Sound (a speaker and the
+  word) and CC. On, they fill pink: noir on pink-500, 5.95:1.
+- **Sound stays on** from film to film and when the stage scrolls away
+  and back. It is never on at load and is not stored, so a reload starts
+  muted.
+- **iPhones.** WebKit lets a player start with sound only if that one
+  player was made, or unmuted, inside a tap (its source,
+  `HTMLMediaElement.cpp`, read 2026-09-30). The carousel builds a player
+  per film, so the Sound tap makes all five and unmutes each inside that
+  tap; those not yet needed are made with preload "none" and fetch
+  nothing until their turn.
+- **A refusal falls back:** a film the browser will not start with sound
+  plays muted and the button shows off.
+- **One soundtrack at a time:** turning Sound on mutes any other film on
+  the page, and unmuting another film turns the carousel's sound off.
+  The van film sits at least 1,475 px below the stage.
+- **A hidden tab pauses the films.** A pause is respected: turning Sound
+  on never starts a paused film.
+- **CC** shows each film's captions track. Until it is pressed the
+  button follows the device; after, the visitor's choice holds.
+- **Layout:** the three controls are one group and wrap under the bars
+  wherever the two groups do not fit a row, which is every phone. The
+  section is 44 px taller there.
+- **The script** is 10,460 B (3,781 B compressed), up from 6,331, and
+  does not assume the two buttons exist: the page and the script are
+  cached apart, five minutes each.
+
+**The caption files.** Each is faithful to the sound (RUNBOOK's rule
+for a sounded film). The Evolysse file's cues were already its
+voiceover with its on-screen text. The Jeuveau file gains a music note
+on its first cue. The reel's and the team film's carry two bounded
+music cues each; a song's words are not written out. The promo's
+carries its sung words; its note says the first-person plural, the
+promise and the names are the song's, written there and nowhere else
+in the site's text. Every note calls the place the medspa. The caption
+URLs go to `?v=3`.
+
+**Alternatives rejected.**
+- Sound for the two Evolus films only: recommended, declined.
+- A description, or a plain music cue, for the promo's captions.
+- Sound on by default: a browser will not start a film with sound.
+- Storing the choice: the site sets no cookie and keeps no storage.
+- One shared player for all five films: it would end the crossfade.
+- Replacing the five objects in place: a day of stale copies at the
+  edge, and open PRs #201 and #210 still load three of them.
+- One offset for the promo: its opening would be close to inaudible.
+- A limiter, to bring the Evolysse film up the last 2.5 LU.
+- No level matching: a jump of up to 10.8 LU at a hand-over.
+
+**Consequences.**
+- CLAUDE.md: constraint 2's second and eighth exceptions, constraint 3's
+  Evolysse clause, a new clause for the promo's sound and the three
+  songs, a scoped note on the voice convention, and the script list's
+  first consumer. BUILD_SPEC §6, §8, §9 and §13 follow. The plan's
+  approval authorized the governing-doc edits.
+- The rule against autoplaying a narrated film muted lives in
+  `TreatmentVideo.astro`'s header. The carousel is a different player;
+  the header now says that it starts every film muted with sound one tap
+  away.
+- The five silent objects stay until nothing open loads them.
+- **Not part of this change, flagged once:** five other films on the
+  site carry music, by their own caption files, with no licence on
+  record (the /about team film, the two biostimulators reels, the
+  body-contouring reel, the training reel).
+- **Open:** the music licences; the promo's confirmed words.
+
+**Verification.**
+- **Before any repository change,** a copy of `phase-c` at `1112663`
+  was exported to a scratch folder, edited, built beside an unchanged
+  copy and run through the project's own gates. The repository's build
+  then came out byte-identical to that copy, all 311 files.
+- **The full chain** ended with exit 0 on the branch before this
+  paragraph was written: build, type check 0/0/0, claims, voice,
+  practice links (25 pages, 62 links), pa11y 25 of 25, Lighthouse on 8
+  pages. With this paragraph the fast gates passed again and the build
+  was byte-identical to the one the chain ran on.
+- **Against the baseline build:** 12 of 311 files differ: the home page
+  (+672 B), its /styleguide/concept mirror, the carousel script, the
+  five caption files, the one scoped stylesheet (6,739 to 7,969 B,
+  renamed by its hash) and two styleguide pages that change only by
+  that name. The main stylesheet is byte-identical, records included.
+
+| Home row | Before | After | Budget |
+|---|---|---|---|
+| Total | 347,002 B | 348,792 B | 358,400 B |
+| Script | 72,085 B | 73,504 B | 81,920 B |
+| Image | 218,625 B | 218,625 B | 245,760 B |
+| Largest paint, median of 3 | 2,171 ms | 2,170 ms | 2,500 ms |
+
+- **The five objects** answer 206 as `video/mp4` with one video and one
+  audio stream each and the frame counts above; each served file's
+  sha256 is the built file's.
+- **Chrome** (headless, the strict autoplay policy, test code carrying
+  no user gesture), on the real build and the real media origin: the
+  film autoplays muted with no input; a scripted click with no gesture
+  is refused sound, and the film carries on muted with the button off;
+  a real click turns sound on; the three players not yet needed exist
+  and have fetched nothing; all five hand-overs play on with sound,
+  the promo's (whose sound track is shorter than its picture) and the
+  team film's back to film one included; a jump to film four plays
+  with sound; a scroll away pauses and a scroll back resumes with
+  sound; CC shows cues and carries to the next film; Sound off mutes
+  without pausing; Sound on while paused stays paused; a hidden tab
+  (simulated) pauses and resumes; unmuting the van film turns the
+  carousel's sound off, and the carousel's Sound mutes the van film. No
+  console or CSP errors.
+- **Firefox 157:** the same run, less the no-gesture step (every test
+  call there carries a gesture). All passed.
+- **An old page with the new script:** the films autoplay, hand over
+  and pause; no errors.
+- **Layout** at thirteen widths from 320 to 1920: two rows at 320 to
+  390 and at 601 to 632, one row elsewhere; the section is 44 px taller
+  where there are two. The page's sideways overflow is identical
+  before and after at every width. At 320 px the pause button, squeezed
+  to 20 px wide before, is 44 px again.
+- **Not testable from the build machine:** an iPhone (the hand-over
+  follows WebKit's source; the operator's phone on the preview is the
+  test), a phone with captions switched on, and how the films sound.
+
+**On the preview (PR #227, 2026-09-30).**
+- **The preview** passed its checks and answered correctly on three
+  clean rounds of probes in a row, then ten of ten. The browser runs
+  above passed again against the preview itself, in Chrome and in
+  Firefox.
+- **The operator's phone:** "I tried the iPhone in 'Low Power' Mode on
+  and didn't notice any difference in sound quality", and "The videos
+  look fine on both a desktop and iPhone."
+- **The promo's words, confirmed by ear.** The draft shipped with two
+  placeholders. Two more machine reads agreed with each other but not
+  with the ear: the operator heard the product line as "Jeuveau, Versa,
+  Radiesse" ("I think she actually says…"), and spelled the six first
+  names. The caption file carries both exactly as typed ("Put it as I
+  typed it"; "Just spell it out like I did"). The names are in that
+  file and are not printed in this log.
+- **No competitor's brand is written.** The machine's draft of that
+  line was nonsense, and the guess made from it put a competitor's
+  brand first; the ear corrected it. All three products are ones the
+  site's own pages already name.
+- **The roll-call is sung twice,** so it has two cues. The other five
+  lines are the machine's reading, shown on the preview and not
+  disputed.
+- **Caption URLs go to `?v=4`:** the preview had served the draft under
+  `?v=3`. The full chain ran again on the corrected captions and ended
+  with exit 0; the home row's total is 348,794 B (two bytes more, the
+  five caption URLs) and its largest paint 2,175 ms, median of 3.
+- **CLAUDE.md:** the eleventh pixel-level override now says that two of
+  the sung product names are also printed on the film's cartons, and
+  that the caption cues carry them as the song's words.
+- **The iPhone hand-over, confirmed.** Asked whether, with Sound on,
+  the sound kept playing when one film ended and the next started, the
+  operator answered "Yes, it kept playing". No iPhone can be driven
+  from the build machine, so that answer is the test.
+- **The levels, heard.** Asked how the five films' levels seemed, the
+  operator answered "They sound right".
+- **Still unconfirmed:** a phone with captions switched on, and Amy's
+  own reading of the promo's captions.
+
+**Merged (2026-09-30), on the operator's word ("Merge and refresh").**
+PR #227, once its checks had passed on the corrected captions. The
+standing demo (#97) and the review preview (#149) are refreshed from
+phase-c after the merge.
+
+**After the merge (2026-09-30).**
+- **The merge:** PR #227 merged at 15:56 UTC as `474319e`, at the head
+  `03a0932`. Both of its check runs had finished green, the first
+  push's and the corrected captions', and nothing was still deploying.
+- **The standing demo (#97)** was refreshed to `76e5bf7` and **the
+  review preview (#149)** to `cf5de84`, both by clean merges that carry
+  exactly this change (18 files).
+- **Both refreshes passed their checks,** and both previews served the
+  change on three clean rounds in a row. Each round was three passes
+  reading the home page (five sound files, caption URLs at `?v=4`, the
+  two buttons), the script and the five caption files with their cue
+  counts, cache-busted. On both previews every film-to-film hand-over
+  played on with sound in Chrome.
+- **Environments:** the PR's own was removed when it closed, and its
+  host answers 404. The list holds default, 97, 149, 201 and 210, so
+  nothing is stray.
+- **The media origin** holds 29 objects. The promo's and the
+  billboard-day reel's silent files are now loaded by nothing open;
+  the other three silent files, `commercial-j1.mp4` and
+  `commercial-studio.mp4` are still loaded by PRs #201 and #210. None
+  was deleted.
+- **These facts** go in as a records-only change. No page changed.
+
+**Closing (2026-09-30).**
+- **The records-only change** was PR #228, merged at 16:09 UTC as
+  `35a7776` on the operator's word ("Merge and refresh"). It started
+  only the guard check.
+- **Both previews were refreshed again** to carry it, #97 to `85a5048`
+  and #149 to `0f39cc3`, by clean merges of three record files. Both
+  runs passed and both previews still serve the change.
+- **The main checkout** was fast-forwarded to `35a7776` on the
+  operator's word.
+- **The silent files, 2026-09-30 (the operator: "delete the old silent
+  film files").** Every open branch's carousel was read first:
+  `phase-c`, #97, #149 and #229 load only the sound files, and #201
+  and #210 still load the silent Evolysse, Jeuveau and team files with
+  `commercial-j1.mp4` and `commercial-studio.mp4`; `main` has no
+  carousel. No live preview's page named the promo's or the billboard
+  reel's silent file.
+  - **Deleted:** `commercial-van-promo.mp4` and
+    `commercial-billboard.mp4`. Both now answer 404 at the media
+    address; their sound files still serve. The storage has no soft
+    delete, so byte-identical copies of all five silent files are kept
+    in `C:\Amy\carousel-sound\silent\` first, and that folder's
+    `build.sh` now reads its pictures from there (it reproduced the five
+    published sound files byte for byte).
+  - **Kept, on the operator's choice ("Wait for #201 and #210"):** the
+    other five, until those two PRs are merged, closed or updated from
+    `phase-c`. Deleting them now would stop the films in those two
+    previews' carousels.
+- **Outside the repo,** `C:\Amy\carousel-sound\` now holds the five
+  sound files as published, the script that rebuilds them and the
+  browser tests, with a README. The scratch copies go when the session
+  is deleted. RUNBOOK points to the folder.
+- **The follow-up records** (the RUNBOOK pointer and the facts above)
+  were PR #230, merged at 16:39 UTC as `caa2dfe` on the operator's word
+  ("Merge, refresh, update"). #97 was refreshed to `9ced3e2` and #149 to
+  `41b67c6`; both runs passed. The main checkout was fast-forwarded to
+  `caa2dfe`.
+- **The silent-file records** were PR #231, merged at 17:08 UTC as
+  `655d0bb` on the same words. `phase-c` was merged into it first:
+  PR #229 had recounted the media row before the deletion, and #231
+  corrected it to twenty-nine objects. #97 was refreshed to `d570062`
+  and #149 to `f057122`; both runs passed, and both previews served the
+  five sound files, the script and the five caption files on ten checks
+  in a row. The environments were default, 97, 149, 201 and 210. The
+  main checkout was fast-forwarded to `655d0bb`.
+- **Then PR #232** (the hero film's records, another session) merged at
+  17:15 UTC as `d773b9f`. That session refreshed both previews again,
+  #97 to `3f32c51` and #149 to `47d2443`, on top of the refreshes above;
+  both runs passed. The main checkout was fast-forwarded to `d773b9f` on
+  the operator's word ("update the main checkout").
+- **The merge of these closing lines,** and of any later records-only
+  change to this entry, is in `git log`, not here.
+
+## 2026-09-30 — The home hero film rests on the portrait as a still, and the pink-scrubs photo comes alive (v9; Amy's request; the operator's decisions after the flags)
+
+**Context.** Amy does not like the film's closing shot, in which the
+portrait comes alive, turns to the camera and smiles. The operator
+(2026-09-30): "Amy doesn't like it. We are going to have to change that
+and remove the movement and the smile, just leave it as a still photo. I
+would like to add a second motion in the film." The second motion was to
+come from another photo of her, and to be flattering.
+- **What leaves the film:** the portrait take of 2026-09-17, its turn
+  (the founders' finish since 2026-09-18) and its smile (2026-09-25, and
+  the two 2026-09-26 addenda: v6, v7 and v8, 818.25 credits).
+- **The lesson those rounds left:** the client turned down three
+  AI-made versions of her own face. The model redraws her face in every
+  take, and a prompt cannot keep the photograph's.
+
+**The search.**
+- **Pictures:** all 158 in `C:\Amy\pics` and `C:\Amy\New Pics`. Four
+  are iPhone files: two photos of a laptop screen, each saved twice.
+- **Videos:** 25 files, 17 distinct, across those folders and
+  `C:\Amy\Videos`. None has two and a half seconds of Amy alone that is
+  steady, sharp and free of text or products. So no real footage could
+  do the job.
+- **Seven candidate photos** were screened at three to four times their
+  size and then judged three ways: by the rules, as the client might,
+  and as an editor.
+
+| Candidate | Why it was or was not used |
+|---|---|
+| Pink scrubs (`amy-in-pink-scrubs.jpg`) | **Used.** Published, Amy alone, no product or device in frame, her own smile to the camera, a new look for the film |
+| Pink dress on the counter | Cartons and a jar of vials that no crop removes; both hands rest against them; approved for the /about slot only |
+| Black scrubs, the stool | Already in the film as stills; the stool is the hair shot's suit |
+| Neon sign | A syringe in a vial in gloved hands, under lettering her hair touches |
+| Chin on hands | Not published now; a close-up of her face |
+| White vest at the window | A laser handpiece in her hand in every usable crop |
+
+**Decisions (operator, 2026-09-30).**
+1. **The photo:** the pink scrubs.
+2. **The movement:** her face untouched; only her hair and shoulders
+   move. Offered and declined: natural movement as in the hair shot, and
+   both versions side by side.
+3. **The ending:** the still portrait under a slow camera drift. A
+   completely still hold was offered and declined.
+4. **Credits:** up to 450.
+5. **Sharpness:** the pink scrubs is kept and its softer picture
+   accepted as an exception (the flag below). Switching to the stool
+   photo was offered and declined.
+6. **The stool shot** moves from fifth to third.
+7. **The draft:** "Draft 2 is the best", of the first three shown.
+8. **The version:** the living one, over the same film with the pink
+   scrubs as a plain still.
+
+**The photo screen** (RUNBOOK "Replacing site photography", step 1).
+- **The file:** `src/assets/photos/amy-in-pink-scrubs.jpg`, 1067×896,
+  on the Peptide Therapy page since 2026-07-21. It is rows 0 to 895 of
+  frame 8K0A9734 (mean difference 0.86, a re-save). The rest of that
+  frame was never published: cartons, a syringe tray, vials, brochures
+  and a printed picture of another person.
+- **The film's crop:** columns 220 to 864, full height, 48 columns left
+  of centre so that her hair clears the hero's fade on desktops and her
+  elbow (column 839) stays in frame.
+- **In frame:** Amy alone. No product, package, syringe or device.
+- **Lettering:** the two lines of embroidery on her scrubs, with a lock
+  of hair across the middle of both. At film size "NP" can be read and
+  the practice's name is a word shape, as in the black-scrubs shot. A
+  grey garment tag and a teal one are marks, not words.
+- **Also in frame:** her rings, bracelet and earring, the red
+  drawstring, a corner of the bare marble top under her hand.
+
+**Flags (once), and what the operator decided.**
+- **The founders' request is reversed.** On 2026-09-18 the founders
+  asked that the film finish on the portrait turning and that
+  "Everything else can stay the same". The turn goes on Amy's word, and
+  the stool shot moves on the operator's. The records do not show the
+  founders being told. Approved.
+- **The sharpness rule** (BUILD_SPEC §5: a source holds twice its
+  displayed size). The crop is 644 px wide and is enlarged 1.68 times to
+  fill the 1080 frame, with a plain resize and no AI upscaler.
+
+  | Screen | Space the film fills | Pink scrubs, 644 px | The 1067 px stills |
+  |---|---|---|---|
+  | 390 phone | 390 px | 1.65× | 2.7× |
+  | 1280 desktop | 717 px | 0.90× | 1.49× |
+  | 1920 desktop | 1075 px | 0.60× | 0.99× |
+
+  The closing portrait comes from a 642 px picture under the 2026-08-14
+  exception. The shot ships under a sharpness-rule exception, the
+  operator's of this date, recorded here and in REDESIGN. The
+  photographer's full-size file of this frame would lift it.
+- **The hair shot's face is AI-made too.** It stays. If Amy's objection
+  reaches it, that is a separate change.
+- **Her face does not blink** in the new shot. The film's other stills
+  do not either.
+- **The film's written description** is not read out by screen readers
+  (the wrapper is hidden from them; DECISIONS 2026-09-20). Unchanged.
+
+**The cut** (`assemble.cjs` in the working folder; `assemble-v8.cjs`
+is the v8 cut).
+
+| # | Shot | Length | Into the next |
+|---|---|---|---|
+| 1 | Hair shot, lavender suit (generated, 2026-09-17), unchanged | 3.2 s | white flash, 0.25 s |
+| 2 | Black scrubs, a still, unchanged | 1.3 s | slide left, 0.3 s |
+| 3 | The stool, a still; fifth through v8 | 1.3 s | fade, 0.25 s |
+| 4 | Neon sign, a still, unchanged | 1.6 s | fade, 0.25 s |
+| 5 | Pink light (generated), unchanged | 0.9 s | fade, 0.3 s |
+| 6 | **Pink scrubs, living** | 3.0 s | fade, 0.5 s |
+| 7 | **The portrait, a still** drifting from 1.00 to 1.03 | 2.8 s | to white, the loop |
+
+- **The opening is v8's:** frames 0 to 72 are bit-identical, so the
+  page's fade-in and its 0.2 s wait stand.
+- **The loop** stays inside the white flash; the file's first and last
+  frames are flat white.
+- **The drift** is code (`render-move.cjs`, smootherstep, anchored at
+  600,420 as v8's push was). The photograph is within two pixels of its
+  own size when the fade into it ends. Nothing in the picture moves.
+- **The pink light** now dissolves straight into the pink scrubs.
+
+**The living shot.**
+- **The one file sent to Higgsfield:** the published photo cropped to
+  columns 206 to 878 and resized to 1128×1504 (`PS-up.png`). Its middle
+  1080×1502 is the film frame (`PS-ref.png`), and the fit, the paste and
+  every check use it.
+- **The drafts.** Six Seedance 2.5 drafts at 12 credits each.
+  - Drafts 1 to 3 asked for a fan or a draught. Drafts 1 and 3 gave
+    the photograph as the first frame only: her hair flew out on both
+    sides, and in draft 3 her head swayed about two pixels each way.
+  - **Draft 2** also gave the photograph as the LAST frame. Only the
+    hair on the left lifts, in one arc, and settles back; her head
+    stayed within about a pixel. The operator picked it.
+  - Drafts 4 to 6 asked for a light breeze: a few strands lift for a
+    second. Shown for comparison and not used.
+- **The take:** draft 2 finished at 1080p (48 credits), which repeated
+  the draft's movement. 97 frames at 1248×1664.
+- **What the model did to her.** It kept her pose. It redrew her face
+  (smoother and paler), and it greyed her skin, hair and scrubs in the
+  middle of the take. It uncovered her right ear, which the photograph
+  hides under hair, and drew a stud earring on it to match the other
+  ear.
+- **The edit** (new scripts `ps-*.cjs`):
+  1. each frame is fitted to the photograph on the edges of the wall
+     and cabinets only (scale 0.984 to 0.986, shift within 0.8 px), and
+     its tone matched there;
+  2. a colour map per frame, fitted where nothing moves, puts the
+     take's colour back on the photograph's;
+  3. ONE mask for the whole shot covers everywhere the moving hair
+     goes, with a soft margin. Inside it the pixels are the take's, wall
+     included, so no ghost of the old hair shows. Outside it they are
+     the photograph's;
+  4. her face (her skin only, feathered inward), both hands and the
+     lettering with the lock of hair across it are always the
+     photograph's;
+  5. the camera push (1.00 to 1.04) and the grade go on afterwards in
+     code.
+- **Measured on the 72 frames used** (take frames 6 to 77):
+  - her face, the lettering and both hands differ from the photograph
+    by 0;
+  - at most 18.3% of a frame is the take's;
+  - across the whole take her head sat within 1.8 px of the
+    photograph's and tilted under 0.2°.
+- **The grade:** the wall made neutral, the blacks lifted, the
+  saturation at 0.82. The photo's saturation was 0.29 against 0.07 to
+  0.13 for the film's other shots; graded it is 0.21. Under the page's
+  own filter 0.03% of it clips.
+
+**The generative rules (2026-09-17).**
+- **Inputs:** a crop of a still already published here, Amy alone.
+- **Never generated:** no generated pixel shows a treatment, a client,
+  a product, packaging or text. The lettering is the photograph's.
+- **Generated:** her hair on the left, the wall behind it, and the ear
+  with its earring that the lifted hair uncovers. An earring the photo
+  does not show was accepted and noted in the first cut (2026-09-17);
+  this one is named to the operator, who chose the living version after
+  it.
+- **No override** of the rules was needed.
+- **The plan** is still the ultra plan the 2026-09-17 commercial-use
+  confirmation rests on.
+
+**The file built:** `hero-living-portrait-v9.mp4` (media origin;
+4,199,096 B; SHA-256
+a4c41d3fb39a1eb2a4df6f9b42b2bcfb75dc71dcb8c7445e751a676795259fa1;
+1080×1502, 24fps, 295 frames / 12.29s, no audio), encoded as v8 was.
+
+**Credits:** 120 of the 450 approved: six drafts and one full take
+(749.87 → 629.87).
+
+**Alternatives rejected.**
+- Real footage: none exists (above).
+- The pink dress, the stool and the other candidates (the table above).
+- A film with the pink scrubs as a plain still: built with no credits,
+  shown to the operator, and kept as the fallback.
+- Following a swaying head with the photograph's face: written, and not
+  needed for this take.
+
+**Verification (the film).**
+- **The seam:** frame 0 reads 233..237 and frame 294 reads 232..238.
+- **Against v8:** frames 0 to 72 identical; frames 73 to 93 within 1.6
+  of 255, which is x264's choices.
+- **The joins:** the two new fades change 12.7 to 15.0 per frame (the
+  pink light into the pink scrubs) and 2.8 to 3.1 (into the portrait).
+  The shot itself changes 1.1 to 1.5 per frame (2.2 at one keyframe),
+  with no jump.
+- **The screen:** every fourth frame of the shot near hero size, and
+  the joins at full size: no seam found at the hairline, the sleeve or
+  the cabinet lines.
+
+**Consequences.**
+- **Amy's sign-off** on her generated likeness now covers this shot and
+  no longer covers the portrait take (CLINICIAN-SIGN-OFF). It gates
+  production as before.
+- **Disclosure:** the component comment and the caption file's note
+  name the two shots and what is generated in each.
+- **v8** stays on the media origin, unreferenced.
+- **A lesson for the next film:** give the photograph as the first AND
+  the last frame and the model keeps her in place; then lay her own
+  face back in the edit (RUNBOOK).
+
+## 2026-09-30 — Addendum: the hair movement is withdrawn before merge; the pink-scrubs portrait joins the film as a still (v10)
+
+**Context.** The entry above was built and its film (v9) uploaded: the
+pink-scrubs portrait with her hair lifting, only the hair generated.
+PR #229 was open and unmerged, and Amy had not seen it. The operator,
+the same day: "The hair blowing has been nixxed. I've been told to not
+do that. We will still keep the picture in the rotation of the film,
+but we'll stop the motion."
+
+**Decision (operator, 2026-09-30).**
+- **The pink-scrubs shot is the photograph under a camera push,** as
+  the film's other portraits are. Nothing in it is generated.
+- **It holds 1.8 seconds,** like the other portraits. Three seconds,
+  the length it had with the moving hair, was offered and declined.
+- **Everything else in the entry above stands:** the still ending under
+  a slow drift, the stool shot third, the crop, the grade, the
+  sharpness exception and the flags.
+
+**What was built.**
+- **The shot:** `PS-ref.png` pushed from 1.00 to 1.05 (cubic ease-out,
+  anchored on her face), then graded: 43 frames.
+- **The cut:** the entry's table with row 6 a still of 1.8 s. Nominal
+  length 11.05 s.
+- **The file:** `hero-living-portrait-v10.mp4` (media origin;
+  3,697,841 B; SHA-256
+  802f94ea4e9b2314102aa3e4e7e746f1fe6f36d63a862020ed6776759aaa9c44;
+  1080×1502, 24fps, 267 frames / 11.13s, no audio), encoded as v8 was.
+- **v9** stays on the media origin, unreferenced and never merged, as
+  v6 does. No file was overwritten.
+
+**What this changes in the entry above.**
+- **Generated footage in the film** is now the opening hair shot and
+  the light insert, both from 2026-09-17. This change adds none.
+- **Amy's sign-off** on her generated likeness covers the hair shot
+  only. The portrait take it used to cover is gone, and the pink-scrubs
+  shot needs none.
+- **The disclosure** in the component comment and the caption file says
+  so, and the film's description ends "then a quick run of her
+  portraits, and the film rests on her portrait."
+- **The credits** were spent on footage that does not ship: 120 of the
+  450 approved (749.87 → 629.87). No more were spent.
+- **The working folder** keeps the take, the scripts and the method
+  (its README; RUNBOOK has the lesson).
+
+**Verification (the film).**
+- **The seam:** frame 0 reads 233..237 and frame 266 reads 232..238.
+- **Against v8:** frames 0 to 72 identical; frames 73 to 93 within 1.6.
+- **The joins:** the pink light into the pink scrubs changes 12.6 to
+  15.1 per frame, the shot 1.9 falling to 0.3 as its push settles, and
+  the fade into the portrait 2.4 to 3.1.
+- **The pink-scrubs frames** are the photograph, resized, pushed and
+  graded in code. No frame of the take is in the film.
+
+**Consequences.**
+- One generated performance is left in the film, where v8 had two.
+- The hero media shows nothing that a model made on 2026-09-30.
+
+**The site change (PR #229).**
+- **Two files:** `src/components/ConceptHome.astro` (the file name, the
+  caption file's `?v=6`, the description, the comment) and the caption
+  file (both notes, no cues).
+- **`npm run verify` exit 0** on the tree that holds the change and the
+  records: `astro check` 0 errors; lint:claims, lint:voice and
+  lint:practice-link green (25 pages, 62 links); pa11y 25/25; every
+  Lighthouse assertion on 8 URLs × 3 runs.
+- **Against a build of phase-c (`35a7776`):** 3 of 311 files differ,
+  the home page, its style-guide mirror and the caption file. Both
+  pages are identical but for the file name, the caption version and
+  the description. Every stylesheet is byte-identical, after the
+  records too.
+- **The home page, median of 3,** beside that build run the same way:
+
+  | Check | Before | After | Limit |
+  |---|---|---|---|
+  | Largest paint | 2,172 ms | 2,174 ms | 2,500 ms |
+  | Performance | 0.99 | 0.99 | 0.95 |
+  | Total | 348,794 B | 348,792 B | 358,400 B |
+  | Media | 0 | 0 | — |
+
+  The film is not fetched during that test.
+- **phase-c moved under the PR** (PR #230, records only). It was
+  brought into the branch with both sides of the one conflict kept, in
+  this file. The fast gates passed on the result, and its build is
+  byte-identical to the one the full chain passed on.
+- **The PR's run passed** at `d3ffdb9`, and its preview served the
+  change on three clean passes in a row, each of twelve requests, plain
+  and cache-busted.
+- **On the running preview,** at 1280 and at 390 wide: the page names
+  v10 and `?v=6` and makes one request for the film; the fade-in
+  starts at film time 0.21 s, after the white frames; 23.9 frames a
+  second with 0 paused samples of 500; the loop wraps in 92 and 67 ms.
+- **The media origin** holds 31 objects after the upload; a range
+  request for v10 answers 206 with `video/mp4`, and the served hash
+  matches.
+- **Still unconfirmed:** the loop on a real iPhone, and Amy's look.
+
+**Merged (2026-09-30), on the operator's word ("Merge now").** The
+operator had watched both still versions as files and chosen the
+1.8 second one, and was given the preview link and pictures from the
+running preview. PR #229, once its last check run had passed. The
+standing demo (#97) and the review preview (#149) are refreshed from
+phase-c after the merge; both trial merges were clean. Amy's look and
+the iPhone loop check are still to come.
+
+## 2026-09-30 — Addendum: after the merge of PR #229 (the hero film, v10)
+
+- **The merge:** PR #229 merged at 17:03 UTC as `843277a`, at the head
+  `b71dad9`, whose check runs had passed and finished. Nothing was
+  still deploying.
+- **The standing demo (#97)** was refreshed to `a80e30c` and **the
+  review preview (#149)** to `d7fa6b4`, both by clean merges made with
+  `merge-tree` and `commit-tree`, since both branches are checked out
+  in other worktrees. Both runs passed.
+- **Both previews served the new film** on three clean passes in a
+  row, each pass of twelve requests, plain and cache-busted: the home
+  page names `hero-living-portrait-v10.mp4` and `?v=6` with the new
+  description, the style-guide mirror names the file, and the caption
+  file carries the new notes. So the link Amy keeps shows it.
+- **Environments:** the PR's own was removed when it closed, and its
+  host answers 404. The list holds default, 97, 149, 201 and 210, so
+  nothing is stray.
+- **The media origin** held 31 objects after the v10 upload; another
+  session then deleted two old silent carousel files (PR #231), and
+  REDESIGN's row carries that recount. `hero-living-portrait-v9.mp4`
+  stays there, unreferenced.
+- **The main checkout** is on the newest phase-c.
+- **Still to come:** Amy's look on the standing demo, and the loop on a
+  real iPhone.
+- **These facts** go in as a records-only change. No page changed.
+
+## 2026-09-30 — The practice's name above the home hero's place line
+
+- **Context:** the operator asked for "MOBILE AESTHETICS" on the home
+  page, directly above "Harrisburg, NC · By appointment" (a marked-up
+  screenshot).
+- **Decision:** the hero's eyebrow becomes one paragraph with two
+  lines: the practice's name, then the place line. The name is the
+  practice link (PracticeLink), as constraint 2's seventh exception
+  requires of new visible mentions; its terms are unchanged (the name
+  as link text, the one screened address, a new tab). One paragraph,
+  not two, because the home motion layer fades the first eyebrow in
+  on its own and would stagger a second one with the rest of the copy.
+- **Rejected:** the name as plain text (the practice-link gate fails
+  it); a second eyebrow paragraph (the split fade above).
+- **Consequences:** one more link to the practice site on `/` and its
+  style-guide mirror; CLAUDE.md's list of chosen mentions gains it.
+
+## 2026-09-30 — Vitamin B12 is priced: $25 per shot (the operator's price)
+
+- **Context:** when /services/iv-therapy was built (2026-07-22), the
+  Vitamin B12 card was the one card left without a price, rather than
+  invent one; that entry recorded it as the page's open blank. The
+  operator has now supplied it: a Vitamin B12 shot is $25.
+- **Decision:** the card's price line reads "$25 per shot", the same
+  string as the Glutathione card beside it, the page's other shot.
+- **Rejected:** a bare "$25", which would read differently from the
+  Glutathione card next to it.
+- **Consequences:** every card on the page now carries a price, and the
+  2026-07-22 blank is closed. A plain-dollar string, so no allowlist
+  entry is needed; no structured data carries the card prices. The
+  page's `clinicianApproved` stays false, and the sign-off sheet asks
+  Amy to confirm the price.
+
+## 2026-09-30 — /visit: where Amy sees people
+
+- **Context:** the operator's new lead for /visit, in his words:
+  "Amy's main medspa is in Harrisburg, NC but she also sees people in
+  Waxhaw, Ballantyne, Concord, and Charlotte locations along with
+  mobile parties in North and South Carolina", replacing the lead that
+  had stood since 2026-08-04 ("Amy sees clients in Harrisburg, North
+  Carolina, just northeast of Charlotte. Directions and contact are
+  below.").
+- **Decision (operator, four choices, 2026-09-30):** the sentence as
+  typed with a period and a comma before "but"; the old second
+  sentence dropped; "mobile parties" linking to /tox-together, the
+  party page, in the house inline-link idiom (PracticeLink's); the
+  page's search description left alone. Nothing else on the page
+  changes: the heading, the eyebrow, the location card with the one
+  Harrisburg address, the closing band.
+- **Checked:** the sentence trips none of the banned patterns and none
+  of the voice tokens; it says "medspa", the house word; the About and
+  Training pages, which call Harrisburg her medspa, still agree with
+  "main medspa"; neither standing preview branch touches the
+  paragraph.
+- **Flagged once, then built on the operator's word:** the sentence
+  advertises Amy's services in South Carolina, where a nurse
+  practitioner needs that state's own licence. The site cannot check
+  it and does not claim it; the operator carries the fact. **Closed
+  the same day, after the merge of PR #235:** the operator confirmed
+  that Amy is licensed in South Carolina. The sentence stands.
+- **Rejected:** the description updated to name the other places
+  (offered for local search; the operator kept the address-only
+  description); the sentence exactly as typed, without the period.
+- **Consequences:** the other places have no address on the site, and
+  the card keeps the one they can drive to. The pages' JSON-LD still
+  carries the Harrisburg address only.
+
+## 2026-09-30 — Regenerative card: the PRP photo gets a colour grade (operator direction)
+
+- **Context:** the operator found the /services "04 Regenerative
+  Treatments" card photo (`prp-treatment.jpg`) washed out, the client
+  most of all, and asked for a little warmth on him and on Amy and a
+  lighter grey wall.
+- **Decision:** a local colour grade, no generated pixels, derived in
+  one generation from the master (`prp01.png`, its top 895x796, the
+  same window as before) per the RUNBOOK's tone-fix rule. The client's skin is warmed and slightly
+  deepened; Amy's arms take a lighter version of the same; the grey
+  wall (the neon-lit part included) is lifted about 30% of the way
+  toward white, sparing highlights. Amy's face keeps the photo's own
+  colour and brightness, untouched. Masks were drawn from
+  colour plus traced outlines of both heads, so the hair, the gloves,
+  the scrubs, his shirt and the chair are untouched. Recipe: the sharp
+  script `C:\Amy\photo-grades\prp-treatment\grade.cjs`, run as
+  `node grade.cjs M 0.55 0.3 0.4 0` (client skin warmth 0.55, wall
+  lift 0.3, Amy's arms 0.4, her face and hair 0); JPEG q92 at 4:4:4.
+  It reproduces the committed file byte for byte; the folder's README
+  explains the masks.
+- **Rejected, on sight:** a stronger grade (the operator chose the
+  gentle one); Amy's face matched to her extended arm (too yellow),
+  and her face lightened (too pale), so her face is exactly the
+  photo's.
+- **Consequences:** only the card changes (the /services menu and the
+  style guide, which renders it); no copy or alt text changes, and
+  nothing new is shown. The pre-grade file stays in git history.
+
+## 2026-09-30 — Biostimulators card: a new photo of Amy (operator direction)
+
+- **Context:** the operator supplied a new picture for the /services "03
+  Biostimulators" card (`C:\Amy\pics\button03.jpg`, 3683x2978, an iPhone
+  frame): Amy at a tabletop display with product cartons, two jars of
+  used vials and a labelled syringe tray.
+- **Screening (full resolution):** the full frame carries a per-vial
+  quantity legible on the used neuromodulator vials in the jar and on
+  their cartons, and injection-area labels on the tray: the dosing and
+  prep-workflow classes that have needed an override every time they
+  appeared (card 01, the training reel). Three 4:5 crops were shown
+  with that flag: the left crop as shot (override needed), the same
+  with the jar softened, and a crop centred on Amy.
+- **Decision:** the crop centred on Amy (x 640, y 25, 1380x1725 from the
+  master; sharp extract, JPEG q92, metadata stripped), committed as
+  `amy-syringe-raised-neon.jpg`. It shows Amy holding up a syringe, part
+  of the neon sign (not legible as the practice's name), her Evolus
+  scrubs, the top of a Radiesse carton and the top of a filler carton
+  whose lot sticker is upside down and unreadable. No quantity, label
+  or claim text is legible. Only Amy is pictured. No exception needed.
+- **Rejected:** the left crop (it needed an override for the vial
+  quantity) and the softened jar (the blur showed).
+- **Consequences:** `radiesse-syringes.jpg` has no other consumer and is
+  deleted (git history keeps it). The card's photo is decorative, so no
+  alt text changes; no page copy changes.
+
+## 2026-09-30 — IV card gets a new photo; Hormone card brightened (operator direction)
+
+- **Context:** the operator supplied a new picture for the /services "11
+  IV Therapy & Vitamin Support" card (`C:\Amy\pics\button11.heic`,
+  an iPhone HEIC, 5712x4284 with a -90 degree display rotation) and asked
+  for the "12 Hormone Optimization" card to be brighter.
+- **Card 11 screening (full resolution):** three women having IV drips in
+  the medspa's lounge; Amy is not pictured. The operator confirmed all
+  three are clients with website releases on file (the woman in blue
+  scrubs is a client, not staff). The shelf in the doorway carries two
+  Radiesse posters whose sales lines are legible, and a PRP sign.
+- **Decision (11):** a 4:5 crop on the three women that leaves the
+  posters and the sign out (decoded with ffmpeg 9, which reads the HEIC
+  tile grid and applies the rotation; sharp here reads AVIF only; then
+  x 450, y 1950, 2880x3600, resized to 1200x1500, JPEG q92), committed
+  as `iv-drips-three-clients.jpg`. What remains legible: a footwear
+  brand on two slides. The IV bag labels and the shelf's jars are not
+  readable. No exception needed.
+- **Decision (12):** re-derived from the master (`B12.jpg`, single
+  generation) at sharp `modulate({ brightness: 1.6, saturation: 1.05 })`,
+  JPEG q92, same content name (zero code change); up from the 1.28 lift
+  of the earlier entry. Chosen from 1.45 / 1.6 / 1.75 on a side-by-side
+  sheet. The banner was already legible and ships under its recorded
+  constraint-3 override; the lift changes exposure, not what the frame
+  discloses.
+- **Rejected:** the whole-room crop for 11 (the posters' headline stays
+  readable on the card); 1.75 for 12 (the banner and scale go flat white).
+- **Consequences:** `iv-drip-neon.jpg` has no other consumer and is
+  deleted (git history keeps it). Both photos are decorative, so no alt
+  text or copy changes.
+
+## 2026-10-02 — IV lounge film replaces "Individualized, with Amy" (operator direction)
+
+- **Context:** the operator asked for the closing section of
+  /services/iv-therapy — the "Individualized, with Amy" heading, its
+  paragraph and its photo (`iv-male-client.jpg`, Amy tending a male
+  client's arm; DECISIONS 2026-08-25) — to come out, and for a new film
+  to take its place: `C:\Amy\Videos\IV-Video.mp4`, and to judge whether
+  it needs upscaling (Higgsfield credits were offered).
+- **Source, probed first-hand:** 1080×1920 (9:16) HEVC Main, yuv420p,
+  SDR bt709, 30fps, 9.18s, AAC-LC stereo 44.1kHz, 8,168,708 bytes,
+  ~7.1Mbps. A handheld phone clip in the medspa's lounge.
+- **Screening (contact sheet at 1fps plus full-resolution crops):**
+  - *People:* Amy, in black scrubs, adjusting the drips at the IV poles
+    (operator-identified); staff in black in the background (the
+    operator: staff, not providers); clients in the yellow chairs, two
+    identifiable, whose website-use releases are confirmed on file
+    (operator, same date). No constraint-2 exception is needed.
+  - *Signage:* in the first ~2s, a Mobile Aesthetics sign above the
+    left shelf, legible at full resolution — the practice's name, its
+    phone number and photos of two women (the operator: Amy and a
+    non-provider). The doorway shelf — the one the 2026-09-30 IV-card
+    crop left out — is in about half the film: a model portrait, the
+    Radiesse posters (sales lines blurred but partly readable) and
+    brochures. At the end, a skincare display with jars and a poster.
+    The IV bag labels are not readable. No dosing is legible.
+  - *Sound:* a commercial song, with the people in the room under it
+    (the operator: speech plus a commercial song). A machine transcript
+    on the build machine (Whisper large-v3-turbo q5 through ffmpeg's
+    own filter; nothing uploaded) reads sung words from 0 to 5.9s —
+    "Big boom in the room / Hard go, kaboom, kaboom" — then music. The
+    operator confirmed the words by ear (same date; that is the record)
+    and found no spoken words to caption. Nothing said or
+    sung names a provider, a product or an outcome. Loudness −22.3 LUFS
+    integrated, peak −9.4dBFS.
+- **Decisions (operator, after the flags):**
+  1. The signage is carried as-is — CLAUDE.md constraint 3's twelfth
+     pixel-level override. This knowingly departs, for this film only,
+     from the 2026-09-30 IV-card decision that cropped the posters out:
+     a handheld pan cannot be cropped, and a tracked blur was declined.
+  2. The sound is kept as-is, song included, under the operator's
+     override of the music position (no licence on record) — the route
+     the three carousel songs took; CLAUDE.md records it.
+  3. Sound, so no autoplay: the film plays when the viewer starts it,
+     with its sound and captions (the sung words as cues, ♪-marked).
+  4. The section goes whole — heading, paragraph and photo. The page's
+     "individualized → CTA" beat stays carried by "Two ways it's given"
+     ("Amy places the line herself"), "What a visit looks like" ("Amy
+     is the one who places the line and the one who stays with you")
+     and "Booked directly", with its book link.
+- **No upscale:** the film sits standalone in a 24rem column, so 2×
+  needs 768px; the 1080 source already exceeds it, and the house rule
+  for a 1080 source into a 24rem slot is the 810 downscale. Its soft
+  frames are motion blur from the pans, which an upscaler cannot
+  remove. No Higgsfield credits spent. The real fix is the codec: HEVC
+  does not play in Firefox or in many Chrome setups.
+- **Mechanics:**
+  - Rendition (the RUNBOOK treatment-film recipe, 24rem slot):
+    `ffmpeg -i IV-Video.mp4 -vf scale=810:1440 -c:v libx264 -crf 20
+    -preset medium -pix_fmt yuv420p -c:a copy -movflags +faststart
+    iv-lounge.mp4` → 810×1440 H.264 High, 30fps, 9.20s, AAC copied,
+    5,574,485 bytes at 4.85Mbps, moov first, md5
+    `08e33b5a2feaf1fad7f6c3db0072d466`. Uploaded as `iv-lounge.mp4` —
+    a new name, so no purge.
+  - Poster: the rendition's frame at 2.4s (Amy at the pole with the
+    drip, the sign already out of frame), `-q:v 2`, 810×1440, committed
+    as `src/assets/photos/iv-lounge-poster.jpg`.
+  - Captions: `public/media/iv-lounge.vtt` — the house NOTE blocks, the
+    sung words as cues, then `[Music]`; no text from the signage.
+  - Player: `TreatmentVideo` standalone in `mx-auto max-w-sm` (the
+    regenerative PRP film's pattern), default mat frame, no `autoplay`.
+- **Rejected:** a Higgsfield upscale (see above); a tracked blur of the
+  posters or a trim of the sign's opening (the operator chose as-is);
+  dropping the audio (offered as the licence-safe path; the operator
+  kept the sound); muted autoplay (a film with speech would need a
+  third autoplay exception); `frame="bare"` (that frame is for a film
+  inside a media row).
+- **Consequences:** `iv-male-client.jpg` has no other consumer and is
+  deleted (git history keeps it). iv-therapy's flag stays
+  `clinicianApproved: false`; CLINICIAN-SIGN-OFF carries the change for
+  Amy, in its row and in the presentation record.
+
+## 2026-10-02 — Biote film above "What Amy offers" on /services/hormone-optimization (operator direction)
+
+- **Context:** the operator asked for `C:\Amy\Videos\Biote.mp4` to go on
+  /services/hormone-optimization, directly above "What Amy offers", and
+  later in the same session for the off-camera "go ahead" at its start to
+  be cut and the picture brightened.
+- **Source, probed first-hand:** an iPhone file recorded 2026-09-28
+  (sha256 `300620a1…bb170`): H.264 High 1280×720 with a −90° display
+  rotation (720×1280 portrait as shown), SDR bt709, 30fps, 50.67s, AAC
+  stereo 44.1kHz, 15,649,068 bytes. Its metadata carries 14 Apple
+  QuickTime keys, the recording location among them, and the device name.
+- **Screening (contact sheet every 2s, first and last frames, full-size
+  crops):**
+  - *People:* Amy alone, in scrubs, speaking to camera. The two faces on
+    the wall poster and the one on the banner are printed stock models.
+    No release is needed; no constraint-2 exception.
+  - *Pixels:* the Biote roll-up banner beside her, legible from the
+    first frame to the last: the logo, "Age healthier & live happier",
+    "It can start with a simple test", an energy/sleep/weight/libido
+    improvement line, and four "Patients tell us they experience" outcome
+    lines. On the wall, Biote's "Do you experience any of these symptoms?"
+    poster, its list legible at full resolution. No dosing, no product
+    quantity, no other provider.
+  - *Sound:* Amy's speech throughout, no music; −29.4 LUFS, true peak
+    −12.0dBFS. A local machine transcript (Whisper through ffmpeg's own
+    filter; nothing uploaded), with the opening transcribed in separate
+    pieces, put the off-camera prompt at 1.03–1.2s and Amy's first word
+    at ~1.97s. She says why she chose Biote: 18 years of ER/ICU trauma
+    work writing research-based protocols, then "There's a full panel, a
+    very detailed hormone check… then we put it into the computer, and it
+    gives you the results that you need, based on your symptoms, based on
+    your history… it is what works for you." Two words await the
+    operator's ear: "chose" (heard as "choose") and "Code Cool".
+- **Decisions (operator, after the flags):**
+  1. The banner, the wall poster and Amy's spoken lines are carried
+     as-is: CLAUDE.md constraint 3's claims bullet gains this film (its
+     outcome-promise pixels and spoken lines), fixed to this film and its
+     poster on this page. A blur of the banner's claim lines was offered
+     as the compliant path and declined (the 2026-08-18 card photo's
+     ship-as-is precedent, same banner).
+  2. The caption file keeps Amy's "we" word for word: the voice rule's
+     second caption-file exception (the van promo's is the first).
+  3. Muted autoplay in view with sound one tap away: the third scoped
+     exception to the speech-film autoplay rule (after the ICON film and
+     the van-trip film). Click-to-play was offered as the in-contract
+     choice and declined.
+  4. `{{BIOTE_PERMISSION}}` is RESOLVED: the operator states Amy has
+     Biote's OK to show its banner and logo. BUILD_SPEC §7.8's text-only
+     rule ends; this also covers the 2026-08-18 card photo, which had
+     shipped the banner without the token being addressed.
+  5. The sound is raised to the house level (RUNBOOK's level rule) rather
+     than copied as the treatment-film recipe says: +11dB, one plain
+     offset, no compression.
+  6. The off-camera prompt is cut: the film starts at 1.85s.
+  7. Brightened at gamma 1.60, saturation 1.05: draft D of five on a
+     side-by-side sheet (A–D at gamma 1.15/1.30/1.45/1.60). Average luma
+     138 → 170, the brightest tenth 206 → 223 of 235; no clipping, and
+     the banner's whites hold. The hormone card's 2026-09-30 brightening
+     is the precedent.
+- **Mechanics:**
+  - Rendition (recipe in `C:\Amy\biote-film\build.sh`): trim and grade by
+    filter (`trim`/`atrim` at 1.85s, `eq=gamma=1.60:saturation=1.05`,
+    `volume=11dB`), libx264 CRF 20, yuv420p tagged bt709, AAC 128k,
+    `-map_metadata -1`, faststart → 720×1280, 48.8s, 13,744,951 bytes,
+    ~2.1Mbps, −18.5 LUFS, peak −1.0dBFS, md5
+    `efb5787105ca23839a3f0f6b2ced97f6`. A byte scan finds no Apple
+    metadata, device name or location. Its opening transcribes as "So
+    people always ask…". Uploaded as `biote-why.mp4`, a new name, so
+    no purge.
+  - A copy-mode cut (`-ss` with `-c:v copy`) was tried first and
+    rejected: it can only cut at a keyframe (0.967s), which falls before
+    the prompt.
+  - Poster: the rendition's frame at 15.15s (hands clasped), `-q:v 2`,
+    720×1280, 129,369 bytes, committed as
+    `src/assets/photos/biote-why-poster.jpg`; served as a 62KB WebP.
+  - Captions: `public/media/biote-why.vtt`, Amy's words as 12 cues timed
+    from the rendition's own transcript, with the house NOTE blocks.
+  - Placement: a new optional `film` frontmatter field (TreatmentVideo's
+    props; the collection schema takes the function form for `image()`).
+    The services route passes it, and TreatmentLayout renders it after
+    the intro slot, before the products block. The MDX body renders
+    below "What Amy offers", so the in-body pattern of the other films
+    could not reach that spot. Operator-approved schema change.
+- **Gates (real build, `npm run verify` exit 0):** pa11y 25/25; Lighthouse
+  every assertion on 8 URLs × 3. On the hormone page, median of three
+  against a phase-c build: performance 1.00 (unchanged); LCP 1886ms (was
+  1506; the poster is fetched at parse, the /mobile 2026-09-02 lesson);
+  image 99KB of 240; total 159KB of 350; script 2KB; media 0 and
+  third-party 0 (the film does not load inside the Lighthouse trace).
+- **Browsers:**
+  - *Chrome 1280×800:* the film's top sits at 688px, so it autoplays
+    muted at load. It is 362×644, captions show, and an unmute holds
+    and is remembered.
+  - *Chrome 390px:* it starts muted when scrolled to; 320×569.
+  - *Firefox 157:* plays muted in view and loads all 12 cues (a missing
+    track as the negative control reports an error).
+- **Consequences:**
+  - The layout's import inlines TreatmentVideo's scoped style on every
+    treatment page and the three styleguide pages; they render the same,
+    and the shared stylesheets are byte-identical.
+  - Desktop visitors start the film at load, so each can stream up to
+    13.7MB from Front Door: metered egress on Amy's bill, as with the
+    other autoplay films.
+  - hormone-optimization stays `clinicianApproved: false`; the
+    CLINICIAN-SIGN-OFF row carries the change for Amy.
+  - Fixed terms: this film and its poster, on this page. No text from
+    the banner or the wall poster, and none of Amy's spoken claims or her
+    "we", is ever restated in site text: copy, the label, comments,
+    meta, OG, JSON-LD. Her words are written in the caption cues and
+    nowhere else. Moving the film, adding another, or changing any of it
+    requires the human operator.
+- **Addendum, same day (operator direction):** the printed caption under the
+  frame ("Why Amy chose Biote — sound on.") is removed; the frontmatter
+  sets no `caption`. The native controls carry the tap-for-sound, and the
+  default-on captions still carry her words.
+- **Second addendum, same day (operator direction):** the white paper mat
+  around the frame is removed: the film takes the player's bare frame (no
+  mat, padding or shadow; a magenta hairline and 12px corners), through a
+  new optional `frame` on the treatment `film` field. The bare frame was
+  written for films inside a media row; this standalone use is the
+  operator's choice. The site's other standalone films keep the mat.
+- **Correction, same day:** "the site's other standalone films keep the
+  mat" was already untrue when the second addendum merged: PR #244 (the
+  IV lounge film addendum, merged first) had moved the standalone IV
+  lounge film to the bare frame too. Checked in source after both
+  merges: three films keep the mat (the regenerative PRP-visit reel, the
+  /injector-training reel and the /about ICON film); every other
+  TreatmentVideo is bare.
+
+## 2026-10-02 — laser-treatments: Amy's film of a client's IPL session plays beside "Photo-rejuvenation" (whole, with its sound; operator overrides after the compliance flags)
+
+**Context.** The operator asked (2026-10-02) for `C:\Amy\Videos\Laser.mp4`
+on /services/laser-treatments, to the left of "Photo-rejuvenation". The
+work was planned first: the film screened, its sound read on this
+machine, the change built in a scratch copy of `phase-c` at `652f8b8`
+and run through `npm run verify` (exit 0), and the plan put to three
+reviewers told to refute it before the operator saw it (48 findings;
+four became questions to the operator, the rest corrections).
+
+**The master, probed.** HEVC Main, stored 1280×720 with a −90 rotation
+(upright 720×1280), 30 fps, 756 frames, 25.2 s; AAC-LC stereo, −30.7
+LUFS, peak −13.9 dBFS; 8,762,407 B; sha256
+`f2e0444df5019d559c393d36279b62d98b1f672dd3fc7a4fcba3050da0c6838e`;
+creation tag 2026-09-28, no location tag. Its hash matches no other
+film in the operator's archive, and no earlier record names it.
+
+**Screening record** (timed sheets at 2 and 5 frames a second,
+full-size frames, 4× crops; the sound by level map, spectrum and a
+local transcript):
+- **0 to 17.5 s.** Amy films herself in laser glasses and speaks.
+  Behind her a second woman runs the handpiece over a client's upper
+  chest; the Venus Versa Pro console stands beside them. From about
+  10.8 to 13.4 s the camera turns to the treatment, and the client's
+  face shows under eye shields.
+- **17.5 s to the end.** A plain cut, then close shots of the client's
+  shoulder and chest; from about 21 s the camera rises to her face,
+  eyes closed, smiling.
+- **No burned-in text and no music.** The sound is speech over the
+  device's hum (the operator's ear is the record).
+- **Names.** Neither the second woman nor the client wears a name tag
+  or lettering.
+- **Mirrored text.** The footage is a selfie camera's, so the
+  practice's neon and a wall plaque read backwards. Flipped and
+  enlarged four times, the plaque is the manufacturer's recognition
+  plaque: "THIS PRACTICE IS RECOGNIZED AS", the tier "EVOLUX DIAMOND",
+  "2026", and a line with the practice's name and Amy's. In the served
+  file at its own 720px the large word is recognisable backwards and
+  the smaller lines are not. The poster frame does not show it.
+- **Not readable at any size:** the console's screen, the client's
+  watch.
+- **Light pulses.** Eight single-frame flashes (1.57, 3.30, 5.47, 7.37,
+  10.93, 13.63, 15.47 and 17.37 s; three of them weak), the closest
+  pair 1.73 s apart, then the cut at 17.53 s to a brighter shot. Never
+  three in one second (WCAG 2.3.1).
+- **The words.** A machine transcript (ffmpeg's `whisper` filter with
+  `ggml-large-v3-turbo-q5_0.bin`, nothing uploaded), read whole and in
+  halves. The passes disagreed at 11 to 13.5 s: one short line, or two
+  short answers by two voices; the camera is off Amy there. The
+  operator played the film against the draft and confirmed it, and
+  that confirmation is the record. The words are in
+  `public/media/ipl-visit.vtt` and are not repeated here. By class: an
+  invitation to schedule, tied to a season; what the treatment is for,
+  unhedged, one of the concerns being one the page's IPL copy does not
+  name; the practice's name; first-person plural; and, over the close
+  shots, a results statement that names one treatment and what follows
+  it. None of the 52 banned patterns matches them, so no gate would
+  have caught any of it.
+
+**Flags raised, and the operator's decisions** (three AskUserQuestion
+rounds; flag once, then execute cleanly):
+1. **The second woman works for Amy.** She is not one of the
+   location's other providers. It is recorded as constraint 2's ninth
+   scoped exception all the same: a second person doing the hands-on
+   treatment is on camera with her face in frame.
+2. **Permissions: all on file.** The client's website release, her
+   HIPAA marketing authorization, and the staff member's consent. The
+   operator's answer is the record.
+3. **The film: whole, with its sound.** Recommended and declined: the
+   first 17 seconds with sound, which ends before the close shots and
+   the results statement. Also offered: the whole film with no sound,
+   and the first 17 seconds with no sound (no claims exception at all).
+4. **The start: by itself, muted, sound one tap away** (recommended).
+   The house rule for a film with speech is a press, so this is the
+   speech-free rule's fourth scoped exception, after the ICON film, the
+   van film and the Biote film (PR #242, merged the same day; this was
+   the third when the operator chose it).
+5. **Captions: showing from the start** (recommended; the player's
+   standing behaviour). "Off until asked for", the van film's choice,
+   would have needed a switch on the player. So every visitor reads the
+   words; they are not only heard.
+6. **The words:** confirmed by ear, as above.
+7. **The page's two who-performs lines change, with no supervision
+   clause.** "working under her direction" was drafted and withdrawn:
+   the 2026-09-19 addendum took "under clinician supervision" off the
+   site because it can read as a supervising physician.
+8. **The /services lead and one /about sentence say Amy plans every
+   service.** Both said she performs every one, the laser line
+   included. Both dated from those pages' builds (2026-07-19 and
+   2026-08-03); neither was the client's wording.
+9. **A framing sentence beside the film: added.** Consent, every plan
+   individual, and the consultation route: the framing the weight-loss
+   pairs carry (2026-08-21, round 2).
+
+**Flagged once more in the plan and approved with it:**
+- **A concern the page does not give IPL.** The film names one that the
+  page gives to the other two applicators. Whether Amy offers IPL for
+  it is hers to confirm at sign-off; BUILD_SPEC §8.5 is the rule it
+  would touch.
+- **A seasonal opening line** that plays all year.
+- **The staff wording states how the medspa works.** That a member of
+  Amy's staff performs treatments is the operator's and Amy's fact. Who
+  may operate the device in North Carolina is a licensing matter this
+  log cannot check. It is the first time the site's own words mention
+  staff.
+- **Lines left as they are:** the home page's "One clinician, every
+  appointment"; /about's "every plan, every appointment — Amy herself"
+  and its description; eight other treatment pages' "Every appointment
+  is with Amy herself"; seven treatment pages' own lines that Amy does
+  the treatment herself. In the film Amy is in the room.
+- **The plaque:** recognition-tier text in pixels, mirrored
+  (superiority class, BUILD_SPEC §8.4). The film is not changed for it,
+  and its wording is never restated in site text.
+- **Sound and motion.** Sound, once on, repeats with the loop every 25
+  seconds and is remembered for the next in-view start. The film plays
+  under reduced motion, light pulses included (the 2026-09-03 policy).
+
+**Decision (the film).** Built by `C:\Amy\laser-film\build.sh`:
+```
+ffmpeg -nostdin -y -i Laser.mp4 -c:v libx264 -crf 20 -preset medium
+  -pix_fmt yuv420p -af "volume=12.7dB" -c:a aac -b:a 128k
+  -movflags +faststart ipl-visit.mp4
+ffmpeg -nostdin -y -ss 14.0 -i ipl-visit.mp4 -frames:v 1 -q:v 2
+  ipl-visit-poster.jpg
+```
+- **The rendition:** H.264 High, 720×1280 upright with no rotation tag,
+  756 frames, nothing cut or cropped; 9,506,179 B at 3.0 Mbit/s; the
+  index at the front; sha256
+  `b83b9da35228bec4fb232136051ca45a7f9586cdd5ad00f3ee628f58be88417d`.
+  A second encode from the master gave a byte-identical file.
+- **Sound: one plain volume change of 12.7 dB,** no compression and no
+  limiting: −18.0 LUFS, peak −1.4 dBFS (the carousel's level rule). The
+  treatment-film rule is `-c:a copy`; this film departs from it because
+  its speech, at −30.7 LUFS, is too quiet to follow.
+- **Poster:** the frame at 14.0 s (Amy smiling, the treatment behind
+  her), 720×1280, 102,959 B, `ipl-visit-poster.jpg`.
+- **Name:** `ipl-visit.mp4`, content-named in the radiesse-visit and
+  prp-visit family; a new name, so no purge. Uploaded after this entry
+  was committed (the written rule).
+- **Sharpness:** 720 wide against a widest slot of 288, so 2.5×.
+
+**Decision (the page).**
+- "Photo-rejuvenation" and its paragraph move, unchanged, into a
+  `media-row` with the film on the left: `TreatmentVideo` with
+  `frame="bare"` and `autoplay="inview"`, the Biostimulators pattern.
+  No layout code changes. On phones the film sits above the heading, as
+  the page's photos do.
+- The framing sentence follows the paragraph: "The film is shown with
+  the client's consent. Every plan is individual, and whether this
+  treatment suits your skin is decided with Amy at a consultation."
+- The film's label, in the van film's form: "Amy films a client's IPL
+  session at her Harrisburg medspa and speaks to the camera. It starts
+  muted; turn on the sound to hear her." It names nobody but Amy and
+  does not say who does the hands-on work.
+- "Who performs the treatment?" now answers: "Amy Palacios, FNP, a
+  licensed family nurse practitioner, plans every treatment. The
+  treatment itself is performed by Amy or by a member of her own
+  staff."
+- "Individualized, with Amy" now reads: "Amy Palacios, FNP, plans every
+  treatment herself at her Harrisburg medspa in the greater Charlotte
+  area. The treatment is performed by Amy or by a member of her own
+  staff. It starts with hitting book."
+- /services: "Every service below is planned by Amy Palacios, FNP."
+  /about: "…and Amy plans every one of them."
+- `clinicianApproved` stays `false` (false on this page since
+  2026-08-21).
+
+**Decision (the captions).** `public/media/ipl-visit.vtt`: eight cues,
+0.9 to 24.8 s, split at the measured pauses; the spoken words and
+nothing else; no speaker named. Its notes carry what the film shows,
+this entry's date, the permissions, and the operator's confirmation.
+
+**Measured in the scratch copy** (the same change, before any repo
+edit):
+- `npm run verify` exit 0: 25 pages built, the type check, the claims,
+  voice and practice-link gates, pa11y on 25 pages with 0 errors,
+  Lighthouse on 8 pages.
+- Against the unchanged build, six files differ: the laser, /services
+  and /about pages, the poster's two files, the caption file. The three
+  stylesheet files are byte-identical.
+- With no user gesture at all: the film starts muted in view with its
+  captions showing, wraps at its end, and pauses off screen. The
+  captions load when the file is sent as `application/octet-stream`
+  with `nosniff`, as the host sends `.vtt` files today.
+- The film is 275×488 beside the copy at 768 and wider, 224×397 at
+  640, and 288×510 above the heading under 640. No sideways scroll at
+  nine widths from 360 to 1510.
+
+**Records in the same pull request.** CLAUDE.md: constraint 2's ninth
+exception; under constraint 3 the film's clause in the claims bullet, a
+pointer in the dosing bullet, a second exception under the
+"is this right for me" bullet and a second under the voice convention;
+and the laser page in the script list. BUILD_SPEC §1, §7 (the opening
+note and the laser brief), §8.3, §8.7, §8.9, §9 and §13 (whose list had
+also been missing /services/regenerative). RUNBOOK, compliance/README,
+REDESIGN, RELAUNCH, CLINICIAN-SIGN-OFF, CHANGELOG, and the player's
+header.
+
+**Alternatives rejected.** The first 17 seconds (recommended); a
+rendition with no sound; a press to start (the house rule); captions
+off until asked for; "working under her direction"; leaving the
+/services and /about lines; no framing sentence; a printed caption
+under the film (the Biostimulators review found one read as noise);
+hanging the film in the page's left margin outside the text column
+(the operator's arrow pointed there: the margin is 128px at a 1024
+screen, so it would need a second layout for most screens, and the
+page's row pattern already puts a film left of its text).
+
+**Consequences.**
+- The site's seventh page that loads the film script and its ninth
+  self-starting player, counting the Biote film on
+  /services/hormone-optimization (PR #242), which merged the same day,
+  first. (The IV lounge film, PR #241, also the same day, waits for a
+  press and is not on that list.)
+- Amy's sign-off on this page now covers the film, its words and the
+  staff wording; the flag gates production as before.
+- The departures from the statement of work grow: the embedded-video
+  wording (divergence #4); the claim overrides (a results statement
+  and after-treatment shots); the Amy-only line (a staff member on
+  camera and in copy); and the collective voice in a caption file.
+- Egress: 9.5 MB per full play.
+- Open: the operator's check on a real iPhone, and Amy's look at the
+  preview. If Amy declines the film, the object is deleted from the
+  media storage and purged at the edge; it is public at its address
+  from the upload until then.
+
+**The pull request and its preview (added before the merge).**
+- PR #243 into `phase-c`. `phase-c` moved twice while this was in
+  work: PR #241 (the IV lounge film) and PR #242 (the Biote film). Both
+  are merged in, their entries first in the records. The Biote film
+  took the speech-free rule's third exception and the voice rule's
+  second caption exception, so this film is the fourth and the third;
+  nine players now start by themselves, on seven pages.
+- `npm run verify` exit 0 on the final tree. Against unchanged
+  `phase-c` at `daae0f2`, six built files differ (the three pages,
+  the poster's two files, the caption file) and the three stylesheet
+  files are byte-identical.
+- The upload followed this entry's first commit (`c3d658d`). A range
+  request answers 206 `video/mp4` with `Content-Range: bytes
+  0-1023/9506179`, a plain request shows `Accept-Ranges: bytes`, and
+  the downloaded file is byte-identical to the built one. The media
+  storage holds thirty-two objects, seventeen of them referenced.
+- On the preview of the branch before the second merge (`fc68f90`):
+  the probe converged, the edge then answered 404 for about two
+  minutes, and it converged again (the known split state of a fresh
+  environment). With no user gesture, at 1280 and 390 wide, the film
+  starts muted in view with its eight cues showing, wraps at its end
+  and pauses off screen; the media host answers its requests 206; the
+  caption file is served as `application/octet-stream` and loads. The
+  preview is probed and played again after the second merge, before
+  the operator and Amy look.
+
+## 2026-10-02 — IV lounge film addendum: it autoplays, and is smaller (operator direction)
+
+- **Context:** on the merged page (PR #241) the operator found the film
+  too big ("It's huge") and asked that it autoplay like every other
+  film on the site: start muted, with a way to turn the sound on while
+  it plays.
+- **Decisions:**
+  1. `autoplay="inview"` — muted when about a third of it is on screen,
+     looping in view, paused off screen; the native controls' speaker
+     is the sound toggle, and an unmute is remembered
+     (`public/js/treatment-video.js`, unchanged). The film carries a
+     song with sung words, so this is the speech-free autoplay rule's
+     **fifth scoped exception** (after ICON, the van-trip film, the
+     Biote film and the laser IPL film), recorded in the component header and CLAUDE.md. No printed caption
+     under the frame: one was tried ("The IV lounge — sound on.", then
+     "Sound on.") and removed at the operator's direction the same day;
+     its sung words stay in the default-on captions.
+  2. The column drops from `max-w-sm` (24rem; 384×683 with the mat at
+     desktop) to `max-w-64` (16rem; about 256×455). The 810×1440
+     rendition is kept (no re-encode, no re-upload): above 2× for the
+     new slot, so still sharp on 3× phones.
+  3. The caption file's NOTE now says it autoplays; `captionsSrc` takes
+     `?v=2` per the RUNBOOK's bump rule.
+  4. No white frame: `frame="bare"` (no paper mat — only the bare
+     variant's magenta hairline and 12px corners), at the operator's
+     direction the same day. A departure from the FRAME note's
+     "mat for standalone films", for this film only.
+- **Rejected:** a custom sound button (the native control is the
+  site-wide sound toggle on every treatment film); a new smaller
+  rendition (the bytes saved do not justify a second upload for a 9s
+  film).
+
+## 2026-10-02 — peptide-therapy: a tenth card, KLOW; GLOW and KLOW read "$265 for six weeks" (operator direction; the time span is the operator's exception after the compliance flag)
+
+- **Context:** the operator asked for a new peptide blend, KLOW, on
+  /services/peptide-therapy, priced by Amy at $265 for six weeks, and
+  said GLOW is $265 for six weeks as well. GLOW has shown "$265" since
+  it first appeared on the page (`3fed7f3`, 2026-07-21), so no figure
+  changes; the words "for six weeks" are what is new. The operator
+  supplied a screenshot of KLOW's product sheet. It is a
+  hard-constraint-8 document, the same kind as the nine peptide sheets
+  of 2026-07-21: view-only, never committed, never quoted. Only the
+  four ingredient names were taken from it. Its amounts, its mixing
+  line, its schedule, its cycle and its "Uses" wording were not, and
+  this entry does not describe them. Amy's Vagaro menu lists neither
+  blend (read 2026-10-02), so the operator's word is the record for the
+  price and for the six weeks.
+- **Decisions (operator, 2026-10-02):**
+  1. **The card.** "KLOW (KPV / GHK-Cu / BPC-157 / TB-500)", placed
+     right after GLOW, in the sheet's name order and the page's
+     spelling of each peptide. Its text says what the blend is and
+     nothing about what it does: "A blend of four peptides: KPV,
+     GHK-Cu, BPC-157, and TB-500. KPV is a tripeptide (lysine, proline,
+     and valine)." That is BUILD_SPEC §7's rule for this page. The
+     2026-08-01 override covers the nine card sentences as shipped and
+     was not extended. That KPV is that tripeptide was checked against
+     published sources.
+  2. **The price line** on the GLOW card and the KLOW card:
+     "$265 for six weeks". Flagged before the operator chose: the
+     rulebook bans duration wording (BUILD_SPEC §8, rule 1); the
+     2026-07-21 entry left the peptide sheets' duration column out as
+     a cycling protocol; and the 2026-07-22 ruling that admitted "a
+     course of six" as a unit of sale did so because it carries no
+     frequency and no interval. A span of weeks is not a count, so that
+     ruling does not reach it. It ships as the operator's scoped
+     exception, written into CLAUDE.md's dosing bullet and BUILD_SPEC
+     §8: the exact wording, those two price lines, no amount, no
+     frequency, no cycle, no other time span anywhere, never restated
+     in other site text. It trips no pattern, so it is not an
+     `allowedStrings` entry, and a green linter never authorizes it.
+  3. **"What it is"** names both blends: "**Copper peptides**: GHK-Cu,
+     and two blends that include it, GLOW and KLOW."
+- **Changed after the plan's review, before the operator approved it:**
+  the operator first saw the card as "A blend built around GHK-Cu,
+  paired with the KPV, BPC-157, and TB-500 peptides." A reviewer showed
+  that "built around", said of KLOW, could only rest on the sheet's
+  amounts, which are prohibited input. So the card and the body
+  sentence say only what the names say. The GLOW card keeps its own
+  wording. The same review moved the price line from a reading of the
+  unit-of-sale ruling to the scoped exception above. The operator
+  approved the plan with both changes stated at its top.
+- **Rejected:** a bare "$265" on both cards (offered as the strict
+  reading; the operator chose the time span); the sheet's "Uses"
+  wording on the card (one of its words is gate-blocked and the rest
+  is the benefit language §7's peptide brief bans; offered as a new
+  override and declined); holding the card until Amy writes a line of
+  her own (if she does, it returns to the operator as a new override,
+  as on 2026-08-01).
+- **Consequences:**
+  - Ten cards. `{{PEPTIDES_PUBLIC_LIST}}` is the ten-item list
+    (BUILD_SPEC §17). At 640px and wider the cards sit in five even
+    rows of two; the last card no longer takes a full row.
+  - Three cards now say what the price buys (the two blends, and
+    Glutathione's "per shot"); seven show a bare price. A time span on
+    any of those would widen the exception and needs the operator.
+  - The page's 2026-07-21 no-disclosure decision for compounded
+    peptides now covers a tenth name. "The ones Amy offers are
+    prescription treatments" and "plans and gives every peptide
+    treatment herself" now cover KLOW too; both lines are unchanged and
+    are on the sign-off sheet for Amy to confirm, with the name, the
+    two sentences, the price and the six weeks. The six weeks is the
+    operator's figure.
+  - No structured data, page description or share text carries the
+    card names or prices. `clinicianApproved` stays false.
+  - Measured on the final tree: `npm run verify` exit 0; against an
+    unchanged build of `phase-c` at `a64b2b6` one built file differs,
+    the peptide page, and the three stylesheet files are
+    byte-identical; no sideways scroll at eight widths from 360 to
+    1510.
+  - Two code comments (the card component's header and the content
+    schema's note on product cards) say a price line must be an
+    allowlist string and a card's text one sentence. Both were already
+    out of date and are left for a separate change.
+
+## 2026-10-04 — Home: the van film plays its two songs again (operator override of the music position after the flag; the 2026-09-25 "Amy's voice only" choice superseded)
+
+**Context.** The operator, 2026-10-04: "Originally, we had the music
+muted and no sound until Amy gets out of the van. We've decided to
+change that." The video is to keep autoplaying muted, visitors are to
+be able to turn the sound on, and the website version is to play the
+music "as it was originally setup to do". The film is the home band's
+van-trip film (the 2026-09-25 entry). Its sound until now was the
+2026-09-25 addendum's: Amy's own voice at 2:01–2:17 and silence
+elsewhere, the clip's two songs removed for want of a licence.
+
+**The clip's sound, measured again** on the supplied copy
+(`VID_20260923_081757.mp4`, sha256 `23a76a9c…602655`):
+
+| Time | Sound | Loudness |
+|---|---|---|
+| 0:00–1:00.0 | Song one, "Check Out (What I Got)", Danger Twins | −14.72 LUFS |
+| 1:00.7–2:01.2 | Song two, "I'll Never Let You Go" (feat. 9ver), BCD Studio | −14.75 LUFS |
+| 2:01.2–2:17.3 | Amy's words to camera | −34.5 LUFS |
+| 2:17.3–2:38 | Faint room sound | −41.6 LUFS |
+| 2:38–2:50 | Digital silence | |
+
+The two songs together read −14.78 LUFS with a true peak of −1.82 dBFS,
+and a 0.7 s dip separates them. The music ends at 2:01.2: none plays
+under Amy's words or after them, so "the music as the clip was made" is
+the first two minutes.
+
+**The songs, read by machine** (Whisper large-v3-turbo through ffmpeg's
+own filter, on the build machine; nothing was uploaded; a draft, not a
+record). Each song's title line is heard, which agrees with the
+operator's 2026-09-25 identification. A watch-list screen of the
+reading found no profanity, no treatment or outcome word, no name and
+no first-person plural; its one hit, "best", sits in a lifestyle phrase
+and is not a ranking. A reading of Amy's part found nothing beyond her
+four caption cues. The operator's ear on the preview is the record.
+
+**Flag shown (once).** Neither song has a licence on record for a
+business website. The position (2026-09-03 and 2026-09-25) is that a
+commercial song needs one and that a platform's licence does not
+travel; these two songs were removed on 2026-09-25 for that reason.
+What is known about each:
+- **Song one.** The 2026-09-25 record: listed for sync licensing
+  through peermusic's catalog. Checked 2026-10-04: it is on peermusic's
+  Syncsite, so a paid route exists.
+- **Song two.** The 2026-09-25 record: marketed as "no-copyright
+  sounds" for TikTok, with no written licence for a website. Checked
+  2026-10-04: it is on the commercial streaming services, and no
+  licence terms for it were found. The two descriptions differ, and
+  neither is a licence.
+
+Three routes were offered: play now and settle the licences before
+relaunch, with a request drafted for each song (recommended); play now
+and accept the risk; hold until both songs are licensed.
+
+**Decision** (operator, AskUserQuestion, 2026-10-04): **"Play now,
+accept the risk."** Both songs play under the operator's override of
+the music position, with no licence sought: the route the three
+carousel songs (2026-09-30) and the IV lounge film's song (2026-10-02)
+took. It supersedes decision 1 of the 2026-09-25 addendum ("Amy's voice
+only"), which stands above as written. The operator's request also
+settles two things:
+- **Autoplay stays** ("Still keep the video set to autoplay"). The film
+  was already the speech-free autoplay rule's second scoped exception,
+  for Amy's voice. Its terms widen to songs with sung words, the class
+  the IV lounge film's addendum counted as an exception of its own. No
+  exception is renumbered.
+- **Sound is the visitor's choice.** The film starts muted, and the
+  native speaker control turns the sound on, as before.
+
+**Choices made in the plan** (the operator approved it 2026-10-04; each
+was listed there as one the operator could change):
+1. **Amy's voice stays lifted.** In the clip she is 20 dB below the
+   songs. Her part is built by the 2026-09-25 recipe, unchanged.
+2. **Silence after 2:17.3,** as before. The clip has no music there,
+   and its room sound was never screened by ear.
+3. **Captions: two bounded `[Music]` cues,** one as each song begins
+   (0:01–0:04 and 1:01–1:04). That is the form RUNBOOK gives for music,
+   and the one the billboard-day reel and the team film carry. The
+   songs' words are not written out: they are the songwriters' text,
+   and written out they would be site text under the claim rules. (The
+   promo and the IV lounge film carry sung words by the operator's
+   choices of 2026-09-30 and 2026-10-02.) Amy's four cues are
+   unchanged. The track stays off by default (the 2026-09-25 decision);
+   a phone with captions switched on shows "[Music]" for three seconds
+   as each song begins.
+4. **The voice-only file stays on the media origin** as the off-ramp.
+   RUNBOOK deletes a file once nothing references it; this one is kept
+   on purpose.
+
+**The music rendition** (`C:\Amy\van-film\music.sh`, new; `sound.sh` is
+unchanged and still builds the voice-only file).
+- **One filter graph on the source's sound, two branches, summed**
+  (`amix`, its inputs not scaled):
+  - **The songs:** one plain volume offset, −3.2 dB, with no compression
+    and no limiting. The branch fades out over 80 ms at 2:01.2, where
+    song two has ended on its own.
+  - **Amy's part:** the 2026-09-25 chain as it stands in `sound.sh`.
+    From 121.30 s the new WAV and the 2026-09-25 WAV are the same,
+    sample for sample (md5 `077989af…` for both).
+- **The level rule.** RUNBOOK's rule (2026-09-30) is one plain offset
+  per film, with no compression and no limiting. This film as a whole
+  departs from it: Amy's part keeps a compressor and a limiter, a chain
+  that predates the rule. The promo's three offsets, one per section of
+  its own mix, are the nearest precedent.
+- **Muxing:** the picture is `van-trip.mp4`'s stream, copied bit for bit
+  (packet md5 `840bff6f…` for the silent file, the voice-only file and
+  the new one), so no frame changed, nothing was re-screened and the
+  poster stays. The sound is AAC-LC 128k, the carousel films' rate (the
+  voice-only file's was 96k).
+- **The file:** `van-trip-music.mp4`, 36,978,295 B, sha256
+  `6446abcb8c78371fbfbe1e83ddf936eafaf5bcff6a8dd6591ef789ba8e2c9e23`;
+  5,100 frames, 170.02 s; index before media. It is a new object beside
+  the old one, never a replacement in place.
+
+| | Songs | Amy's part | Whole film | True peak |
+|---|---|---|---|---|
+| The clip | −14.78 LUFS | −34.5 | −14.7 | −1.82 dBFS |
+| `van-trip-sound.mp4` | silent | −18.15 | | −2.13 |
+| `van-trip-music.mp4` | −18.02 | −18.17 | −18.01 | −1.65 |
+
+After 137.4 s the new file is digital silence.
+
+**Page and player.**
+- **`ConceptHome.astro`:** the band's figure names the new file and
+  `van-trip.vtt?v=3`. The label's last sentence reads "It starts muted;
+  turn on the sound to hear the music and Amy." The label's recorded
+  terms (the 2026-09-25 entry: it names nothing beyond the van, the
+  drive, Amy speaking and the event) widen to say that the film has
+  music.
+- **`band-film.js`:** its header comment only. Nothing it does changes:
+  it builds the player on approach after a real input, plays muted, and
+  remembers an unmute.
+- **`TreatmentVideo.astro`'s header,** the autoplay rule's home, records
+  the widened exception.
+- **One soundtrack at a time** still holds: `video-carousel.js` mutes
+  this film when the carousel's Sound is turned on, and turns the
+  carousel's sound off when this film is unmuted (2026-09-30).
+
+**Cost and the statement of work.**
+- A full view is 37.0 MB, up 2.0 MB (5.7%). Blob and Front Door egress
+  grow with plays, outside the SOW's $45–55 (divergence #10, as
+  recorded 2026-09-25). The film still loads only after a visitor's
+  input near the band.
+- The embedded-video wording (divergence #4) is unchanged in kind.
+- Two more songs play without a licence.
+- **The off-ramp:** revert this change's commits, which puts
+  `van-trip-sound.mp4` back without an upload (move the caption address
+  on to `?v=4`); then delete the music file and purge its path.
+
+**Alternatives rejected.**
+- Play now and settle the licences before relaunch: recommended,
+  declined.
+- Hold until both songs are licensed.
+- The clip's sound whole, by one offset: Amy would sit 20 dB under the
+  songs.
+- Music carried on to the end of the film: the clip has none there.
+- The clip's room sound after 2:17.3: never screened by ear.
+- The songs' words as captions (above).
+- Replacing `van-trip-sound.mp4` in place: a day of stale copies at the
+  edge, and the standing previews still load it.
+
+**Consequences.**
+- **CLAUDE.md:** constraint 3's songs clause gains these two songs, and
+  the script list's fifth consumer names the new rendition and the
+  widened exception. BUILD_SPEC §6's home row and §13's autoplay
+  paragraph follow. The plan's approval authorized the
+  governing-document edits.
+- **Other records:** RUNBOOK ("The van band's film"), RELAUNCH's probe,
+  HOME-CONCEPT §4, REDESIGN (the media row, the home row and the open
+  music-licence item, which also gains the IV lounge film's song,
+  missing from it until now), CLINICIAN-SIGN-OFF's pending row and
+  compliance/README.
+- **The media origin** holds thirty-three objects, seventeen of them
+  referenced.
+- **Not treatment content,** so no `clinicianApproved` flag. Amy has not
+  heard it.
+- **Open:** the music licences.
+
+**Verification.**
+- **Before any repository change,** a copy of `phase-c` at `d72022d`
+  was exported to a scratch folder, edited, built beside an unchanged
+  copy and run through the project's own gates, and the film was built
+  there too. The film built afterwards in `C:\Amy\van-film` is that
+  build, byte for byte.
+- **The player with the new film,** on that scratch build served under
+  the generated headers (CSP included), in headless Chrome (the strict
+  autoplay policy, test code carrying no user gesture) and Firefox 157:
+  - nothing is built or fetched at load, or in view without input;
+  - after a wheel tick the film plays muted, its audio track decoding;
+  - after a real click and an unmute it plays with sound from the first
+    second;
+  - scrolling away pauses it, and scrolling back resumes with sound;
+  - the loop returns to the start with sound still on;
+  - a visitor's pause holds;
+  - the track is off by default and holds 6 cues, each showing at its
+    time;
+  - no console or CSP errors.
+- **The same test against a deployed site** ran clean in Chrome on the
+  standing demo (#97) with the voice-only film, before this change.
+- **Two refuting reviews of the plan** (facts and steps; rules and
+  records) made 22 findings before the operator saw it. Among them: the
+  label's recorded terms, the open music-licence item, the level rule
+  and the order of the storage recount.
+- **The full chain on the branch** ended with exit 0 before this
+  paragraph was written: build, type check 0/0/0, claims, voice,
+  practice links (25 pages, 64 links), pa11y 25 of 25, and Lighthouse
+  passing every assertion on 8 pages × 3 runs. With this paragraph the
+  fast gates passed again, and the build was byte-identical to the one
+  the chain ran on.
+- **Against the baseline build** (`d72022d`), 4 of 316 files differ: the
+  home page (+14 B), its /styleguide/concept mirror (+14 B),
+  `band-film.js` (5,644 → 5,753 B; 2,251 → 2,306 B compressed) and the
+  caption file (1,672 → 2,155 B). The stylesheets keep their names,
+  records included. Those four files are the scratch build's, byte for
+  byte.
+
+| Home row | This change | Budget |
+|---|---|---|
+| Total | 348,882 B | 358,400 B |
+| Script | 73,549 B | 81,920 B |
+| Image | 218,625 B | 245,760 B |
+| Media | 0; no request for the film | |
+| Largest paint, median of 3 | 2,171 ms | 2,500 ms |
+
+**On the preview (PR #250).**
+- **The served film** (uploaded 2026-10-05 00:14 UTC, the evening of
+  2026-10-04 here): a range request answers 206 as `video/mp4` with a
+  total of 36,978,295, and the downloaded file's sha256 is the built
+  file's. The container was recounted: thirty-three objects.
+  `van-trip-sound.mp4` still serves.
+- **The preview environment was unsteady for about 45 minutes.** It
+  served the change on three clean rounds of probes at 6 to 8 minutes,
+  then answered the host's own 404 on most requests, in runs of one or
+  two clean rounds. A browser test in that window was served the 404
+  page. The standing demo (#97) answered 6 of 6 in the same minutes, so
+  the fault was this new environment's. The preview run was run again,
+  and about 19 minutes later the environment held: six clean rounds
+  (each fetching the home page plain and cache-busted), then 12 of 12
+  and 6 of 6 on later checks. The probe now asks for six rounds.
+- **The browser runs passed again against the preview itself,** in
+  Chrome (no user gesture) and Firefox 157: every step listed above,
+  with the film from the media origin. The carousel's own test passed
+  there too, in both browsers: unmuting this film turns the carousel's
+  sound off, and the carousel's Sound button mutes this film. No
+  console or CSP errors. The same runs passed on the branch's build
+  served locally with the film from the media origin.
+- **The operator's check** (AskUserQuestion, 2026-10-05), on a desktop:
+  - the two songs, the hand-over to Amy's voice and the levels:
+    "Sounds right";
+  - by ear, whether anything sung names a provider, a product or a
+    treatment result, or speaks as "we" for the practice: "Nothing like
+    that". That answer is the record for the songs' words.
+- **Not checked:** an iPhone ("No iPhone check", the operator's choice;
+  the player's code did not change), a phone with captions switched
+  on, and Amy's own listen.
+- **The merge word:** "Yes, merge when checks pass", for this pull
+  request once these lines are in the records and their run has
+  finished.
+- **The scripts** are kept outside the repo, in
+  `C:\Amy\van-film\tests\`.
+
+**Merged (2026-10-05), on the operator's word ("Yes, merge when checks
+pass").** PR #250 merged at 13:59 UTC as `7172a08`, at the head
+`9c9a5b9`. Both of that head's check runs had finished green, and
+nothing was still deploying. `phase-c` had not moved since the plan
+(`d72022d`).
+
+**After the merge (2026-10-05).**
+- **The pull request's environment** was removed when it closed, and
+  its host answers 404. The list holds default, 97, 149, 201, 210 and
+  249, so nothing is stray.
+- **The standing demo (#97) and the review preview (#149)** were
+  refreshed on the operator's word ("Refresh both and update"): #97 to
+  `a268f6c` and #149 to `bf89405`, by clean merges that carry exactly
+  this change (14 files). Both runs passed. Both previews served the
+  change on six clean rounds in a row and again on a later check of
+  six. On the demo the player's test passed in Chrome and in Firefox.
+- **The main checkout** was fast-forwarded to `7172a08` on the same
+  word.
+- **The operator, after the refresh:** "the music plays correctly on the
+  'Tox Together Party' section."
+- **The voice-only file** is no longer loaded by `phase-c` or by either
+  standing preview. The open previews of #210 and #249 still load it.
+  It stays on the media origin as the off-ramp.
+- **Still not checked:** an iPhone, a phone with captions switched on,
+  and Amy's own listen.
+- **One incident on the build machine, at the plan stage.** A helper in
+  a scratch command had been given the name of a shell command and ran
+  by mistake, with the supplied copy's path where ffmpeg takes its
+  output. ffmpeg stopped while reading its options and wrote nothing.
+  The copy's sha256 was read again and is unchanged
+  (`23a76a9c…602655`). `music.sh` runs ffmpeg so that it cannot
+  overwrite a file.
+- **The preview lesson** (three clean rounds are not proof) is in
+  RUNBOOK's troubleshooting entry on preview environments.
+- **The merge of these closing lines** is in `git log`, not here.
+
+## 2026-10-05 — wrinkle-relaxers: "Who they're generally for" closes "with the procedure following" (operator wording, after the flag)
+
+**Context.** The operator asked that the section's last sentence end
+"…is a clinical decision made with Amy in a consultation with the
+procedure following." It ended at "consultation." The purpose was not
+stated. The working reading is that the consultation and the treatment
+belong to one visit, which agrees with the page's own FAQ answer ("A
+consultation is never required…").
+
+**The flag, raised once, before the edit.** The added clause carries no
+condition, so the sentence can be read as saying that a procedure
+follows whichever way Amy's decision goes. That sits close to CLAUDE.md
+constraint 3 ("never answer 'is this right for me'") and BUILD_SPEC
+§8.7. It is milder than the laser booking answer (2026-09-19): here the
+decision is still Amy's, made in a consultation, ahead of the
+procedure. Three wordings were offered (AskUserQuestion):
+"…in a consultation, and the procedure can follow." (recommended; the
+"can be performed" shape of the biostimulators and regenerative booking
+answers); the dictated clause with a comma before "with"; and the
+dictated clause word for word.
+
+**Decision.** The operator chose the dictated clause with the comma. The
+sentence reads: "Whether it fits you, and which product suits your
+anatomy and goals, is a clinical decision made with Amy in a
+consultation, with the procedure following."
+
+**Consequences.**
+- One sentence in `src/content/treatments/wrinkle-relaxers.mdx`, in its
+  own commit. `clinicianApproved` was already false, so nothing reset;
+  the flags stay 0 true / 12 false. It is a new line for Amy to read on
+  the sign-off sheet.
+- It is NOT a new scoped exception in CLAUDE.md. The sentence still
+  hands the fit question to Amy in a consultation, which is what the
+  rule asks for. It trips no `lint:claims` pattern, and a green linter
+  is not its authorization: this entry is. The operator was told of
+  this reading with the flag.
+- **Coupling.** The first half of the sentence and the layout-injected
+  disclaimer are what carry §8.7 routing in this page's body copy (its
+  FAQ already says no consultation is needed before booking). Trimming
+  either one is a fresh flag, not a tidy.
+- **The trend note (2026-08-24), brought current.** The site now has
+  four same-visit wordings: biostimulators' and regenerative's booking
+  answers say the procedure "can be performed"; laser's (under its
+  override) and this one state that it follows.
+
+## 2026-10-05 — /injector-training: a "Message Amy on Instagram" button beside Call; the paragraph's link gets its underline (operator direction)
+
+**Context.** The operator asked for an Instagram icon or link to Amy's
+page near the intro's Call button, "which we have at the bottom
+(footer) of every page". Exploration found that the page already
+linked there: the word "Instagram" in the intro's last sentence has
+been an anchor since the page was made (2026-08-04), but it carried
+none of the house inline-link styling, so it read as plain text. A
+link nobody can see is also an accessibility defect (the 2026-07-23
+rule: on the ombre canvas a link is told apart by its underline).
+
+**Decision.** Two looks were shown on a mock sheet made from the built
+page (laptop and phone): **A**, a second brand-chip button with the
+Instagram mark and the words "Message Amy on Instagram"; **B**, the
+mark alone in a square chip. The operator chose A (AskUserQuestion).
+The paragraph's word takes the inline-link idiom (underline and the
+link token, as on the booking links) with either choice.
+
+**How it is built.**
+- One file, `src/pages/injector-training.astro`. The button is a
+  hand-written anchor wearing the shared chip, the shape of the home
+  page's "Follow Amy on Instagram" anchor: `siteConfig.social.instagram`,
+  a new tab, `noopener`, the hidden new-tab note, and no analytics
+  event (there is none for Instagram, and adding one is a BUILD_SPEC
+  §11 change nobody asked for).
+- The mark is the footer's own glyph, copied by hand from
+  `Footer.astro`. Two uses did not earn a shared component.
+- The label says "Message", not "Follow": the sentence above it says
+  how training dates are set, and the page's contact rule is
+  phone or Instagram. It is not "Book with Amy", "appointment" or
+  "consultation", which that rule reserves.
+- The button row wraps. Measured on the local build: side by side at
+  1280px; stacked from 768px down; no sideways scroll at 320px, where
+  the label takes two lines.
+
+**Alternatives rejected.** The icon alone (B): quieter, but nothing says
+what it is for. Underline only: fixes the hidden link but does not give
+the operator the visible control that was asked for. A second button in
+the closing band: not asked for.
+
+**Consequences.** Privacy constraint 5 is untouched: a link-out, no
+embed, no script. The page is outside the treatments collection, so no
+`clinicianApproved` flag is involved; the sign-off sheet's
+/injector-training section gains the item for Amy. The chip's consumer
+lists in `CTAButton.astro` and `tokens.css` name the new wearer.
+
+## 2026-10-05 — Home: no sideways scroll on phones (the hero and the Instagram print's section clip x; PR #210's fix, carried into the relaunch)
+
+**Context.** Two motion-layer moves put a box past the screen's right
+edge, and below 900px nothing clipped either, so the home page itself
+grew wider and could be dragged sideways on phones. The fix was written
+and verified on 2026-09-26 (PR #210) and never merged; the branch went
+stale under later merges. Found again while preparing the relaunch and
+measured on the standing demo (`phase-c` `a02dde4`, the repo's
+puppeteer in phone emulation, stepping the whole page 100px at a time):
+the page was 15 / 19 / 21 / 37 px too wide at 320 / 390 / 430 / 768.
+- **The hero's exit swell** (home-motion.js step 3, scrubbed) scales
+  the hero's media box to 1.12 from 60% 40%, 4.8% of the width past the
+  edge; from 900px the hero already clipped it.
+- **The Instagram print's reveal** (step 6). The print's photo waits at
+  1.18, unseen, until the reveal plays, and inside the tilted print that
+  box reached past the edge at about 420–640px wide.
+
+Reduced motion runs neither move.
+
+**Decision.** PR #210's three hunks, unchanged apart from the date in
+their two comments: `overflow-x: clip` in the hero's base rule, outside
+the media query, and on the print's section, which takes a new class.
+From 900px the hero's existing `overflow: hidden` still wins, so desktop
+is unchanged. Operator, 2026-10-05, asked whether to fix it before the
+relaunch or after: "Fix it first".
+
+**The relaunch rule this touches.** RELAUNCH precondition 3 wants Amy's
+presentation approval to be newer than the last merged visual change,
+and this fix merges after her review of the same day. The operator's
+decision, asked directly: he checks the fix on the PR preview himself
+("No, I'll check it myself"), and it is recorded as his override of that
+rule for a fix that changes nothing a visitor sees. The measurements
+above and below are the evidence.
+
+**Alternatives rejected.** An x clip on html or body: it can break
+`position: sticky`, and the statement band's panel is sticky from
+900px. `hidden`: a scroll container, for no gain. Clipping both axes:
+on a fast scroll back to the top the lagging swell rises past the hero's
+top edge for a moment, and a y clip would cut it. Smaller or re-anchored
+moves: a different look. Launching with the bug and fixing it on the
+live site: offered and declined.
+
+**Consequences.** A few bytes in the stylesheet the home page shares
+with the styleguide pages, and the home page gains the section's class;
+nothing else in the build changes. Safari before 16 ignores `clip` and
+keeps the old pan (no regression). Not treatment content; no
+`clinicianApproved` flag. PR #210 is closed as superseded once this
+merges; its fuller 2026-09-26 verification (16 widths, Firefox, frame
+comparisons) stays on that PR.
+
+**Verification.** With the hunks on today's tree, served from a local
+build: 0 px over at 320, 390, 430 and 768, with the motion layer
+running. `npm run verify` exit 0 on the tree that carries this fix and
+the same day's search-text edits. The PR preview's result is in the
+shipped record.
+
+## 2026-10-05 — Search text: twelve titles and descriptions say Charlotte and fit a results page; the business data gains an image (operator direction, before the relaunch)
+
+**Context.** The operator asked, on the day of the relaunch, whether the
+site was search-optimized. An audit of the production build of all 22
+pages found the pages sound: one H1 each, unique titles and
+descriptions, correct canonicals, every share tag, no image without an
+alt attribute, valid JSON-LD, no page that nothing links to, no
+`noindex`, a 21-URL sitemap. It also found three things in the text
+search engines read:
+- eleven descriptions ran past 160 characters (up to 201), so results
+  pages cut them off;
+- the home page's title and description never said Charlotte, and nor
+  did eleven of the twelve treatment descriptions, though the treatment
+  titles do;
+- the sitewide business entry had no `image`.
+
+Offered the choice of doing the edits after the relaunch (recommended,
+so that nothing new could hold the launch) or before it, the operator
+chose "Do them now, before launch", with Amy's OK on the new lines
+before his approval flip.
+
+**Decision.** Thirteen exact replacements in twelve files, none of them
+text a visitor sees on a page:
+- **Home** (`ConceptHome.astro`): the title tag reads "Needle Girlie |
+  Medical Aesthetics in Harrisburg & Charlotte, NC" (it read "…in
+  Harrisburg, NC"; the share title of 2026-09-27 is unchanged), and the
+  description reads "Needle Girlie — medical aesthetics in Harrisburg,
+  NC, near Charlotte. Injectables, skin, body, and wellness, every
+  appointment with Amy Palacios, FNP."
+- **/services, /about, /injector-training**: descriptions shortened to
+  154, 145 and 157 characters. /services and /injector-training now say
+  "near Charlotte, NC".
+- **Seven treatment files** (dermal-fillers, hormone-optimization,
+  iv-therapy, laser-treatments, skincare, weight-loss-glp-1,
+  wrinkle-relaxers), in their own commit: `seo.description` shortened to
+  144–156 characters, each saying "in Harrisburg, NC, near Charlotte"
+  (skincare: "at her Harrisburg, NC medspa near Charlotte"). The old and
+  new lines are in the sign-off sheet.
+- **`schema.ts`**: the business entry gains `image`, the link-share
+  card's address.
+
+The rule applied to every line: 160 characters or fewer, say Charlotte,
+add no claim. Each line was read against CLAUDE.md's scoped exceptions
+whose terms forbid restating them in meta descriptions; none restates
+one. Weight loss keeps "medically supervised", wording left for the
+operator's separate call since 2026-09-19.
+
+**Alternatives rejected.**
+- *FAQ structured data.* Several FAQ answers are operator exceptions
+  that may never be restated in JSON-LD (the laser booking answer among
+  them), and search engines show FAQ results for few sites now.
+- *Map coordinates, a price range, opening hours* in the business entry:
+  the first two are facts not on record, and hours are left off by
+  Amy's decision of 2026-08-04. Nothing was invented.
+- *Visible copy.* The home page's text says Harrisburg seven times and
+  Charlotte never; changing what visitors read was not part of this.
+- *The other five treatment descriptions and every other title*: already
+  within length, left as they are. The laser title keeps "Laser Hair
+  Removal" whole and so has no room for Charlotte.
+- *A `logo` property*: still Phase D (BRAND-ASSETS).
+
+**Consequences.** All twelve treatment flags were already `false`, so no
+flag resets; Amy reads the seven new lines on a before-and-after sheet
+and the operator's flip follows her OK. The home description is also the
+text some apps show under a shared link. The `image` address must follow
+the share card's filename when the card is re-made (RUNBOOK, "Changing
+the link-share card"). RELAUNCH's launch-day checklist quotes the new
+home title. The round-close record counts this and the phone fix as the
+last two items before the freeze.
+
+**What the pages cannot do.** Search engines have to be told the site
+is back: Search Console verification and a sitemap submission need the
+operator's Google account, and whether a Google Business Profile links
+here is the operator's to settle (BUILD_SPEC §10, `{{GBP_STATUS}}`).
+With analytics off (the next entry), Search Console is also the only
+source of search numbers.
+
+**Verification.** The edit script writes nothing unless each old string
+is found exactly once: 13 of 13. On the edited tree the production
+build, `astro check`, `lint:claims`, `lint:voice` and
+`lint:practice-link` pass; no description runs past 160 characters;
+Lighthouse scores SEO, accessibility and best practices at 1.0 on /,
+/services, /about and /services/wrinkle-relaxers of that build. The
+two-step relaunch merge, rehearsed with these edits in, conflicts in the
+same three files as before.
+
+## 2026-10-05 — Analytics stays off at the relaunch (operator decision; supersedes the 2026-08-17 "Plausible at relaunch")
+
+**Context.** On 2026-08-17 the operator decided that Plausible would be
+switched on at relaunch, and the wiring was built to ship dark until
+then. RELAUNCH listed the flip as precondition 4. Asked on the day
+whether the Plausible account was ready, the operator asked what the
+feature was, and with that explained chose "No, launch without it".
+
+**Decision.** The relaunch goes out with `siteConfig.analytics` at
+`enabled: false`, `provider: 'none'`. Precondition 4 does not apply to
+this relaunch. The wiring stays in the repo, dormant: the self-hosted
+tracker file, the privacy page's conditional wording, the CSP sniff in
+`generate-swa-config.mjs`. Turning it on later is the same two-value
+edit, on the operator's word, by the RUNBOOK procedure.
+
+**Alternatives rejected.** Switching it on at launch as planned: needs
+an account only the operator can create, and he declined. Removing the
+dormant wiring: it costs nothing while dark and the decision may be
+revisited.
+
+**Consequences.** No visitor numbers from day one; Front Door's request
+reports and, once set up, Search Console are what there is. The privacy
+page keeps its launch wording, which is true ("It currently runs no
+analytics"). BUILD_SPEC §16's analytics line stays satisfied the way it
+was on 2026-08-04, by the recorded no-provider decision. Azure run-rate
+is unchanged and no Plausible charge starts. Five places said the flip
+would happen at relaunch and are corrected with this entry: CLAUDE.md's
+list of sanctioned scripts (one phrase, on the operator's approval of
+the launch plan), BUILD_SPEC §11 and its §17 registry row, RUNBOOK
+"Turning on analytics", RELAUNCH precondition 4 with its checklist
+line, and the comment above the values in `siteConfig.ts`.
+
+**One thing to do when it is switched on.** The privacy page promises
+that a changed policy is "posted on this page with an updated effective
+date", and the date is one line in `LegalLayout.astro`, shared by the
+three legal pages. The flip needs the privacy page's date changed in
+the same PR (rehearsed 2026-10-05: an optional `effective` prop on the
+layout, set by the privacy page when analytics is on). The preview
+environments would also report into the production site's numbers
+unless the account's hostname list admits needlegirlie.com only.
+
+## 2026-10-05 — The relaunch: Amy's sign-off logged, the round closed, and the two-step merge that takes the site live
+
+**Context.** Production has served the Under Construction page since the
+2026-08-05 takedown. On 2026-10-05 the operator said the sign-offs were
+in and asked for the site to go live "without any hiccups". RELAUNCH
+names four preconditions. This entry records how each was met, the
+operator's answers word for word, and how the relaunch was prepared.
+
+**The operator's answers (asked one question at a time, quoted).**
+- *What should the record say Amy approved, and when?* "Everything,
+  today (Oct 5)": she reviewed the standing demo that day, after the
+  morning's update, and approved all twelve treatment pages, how the
+  whole site looks, /injector-training, and /tox-together with its party
+  terms. The demo had been rebuilt 11:44–11:51 EDT from `phase-c`
+  `a02dde4` (PR preview run 37335248220).
+- *Does she know the home film's opening hair shot is generated from her
+  photos and the van film is AI-sharpened, and has she OK'd both?* "Yes,
+  she knows and OK'd both". This is the informed OK of her generated
+  likeness that REDESIGN and the 2026-09-17 and 2026-09-30 entries name
+  as gating production.
+- *The items the sign-off sheet marks as hers to confirm by name* (the
+  laser booking answer and its film's spoken words, "$265 for six
+  weeks", the "$618 value" sentence, the Tox Together host credit and
+  whether it fits her professional guidance, "top of class" on /about,
+  the promo's sung words, and the rest): "She already confirmed them".
+- *The round close* (REDESIGN's three slots, which only the operator
+  fills): "Frozen today, all seven pass".
+- *Analytics*: "No, launch without it" (its own entry, this date).
+- *The phone fix and the rule that her approval be newer than the last
+  visible change*: "No, I'll check it myself" (the phone-fix entry, this
+  date).
+- *The search-text edits*: "Do them now, before launch" (their own
+  entry). Amy's OK on the twelve lines, read from a before-and-after
+  sheet, was relayed by the operator before the flip, at 17:22 UTC:
+  "Amy OK'd the twelve lines".
+- *The phone check, when PR #253's preview would not serve reliably*
+  (it answered 404 in bursts for its first minutes and again after two
+  clean passes, the fresh-preview fault of RUNBOOK's troubleshooting
+  list): "Merge now, I check later". PR #253 merged on that word with
+  the assistant's measurement as the evidence (0 px too wide at 320,
+  390, 430 and 768 on that preview), and the operator's own phone check
+  moves to the relaunch PR's preview, the build that goes live, before
+  the go-live question is asked.
+
+These are the operator's statements and they are the record; nothing
+here was observed by the assistant.
+
+**How each precondition was met.**
+1. *Round close*: REDESIGN's slots filled from the answer above. The
+   change list is frozen as of 2026-10-05, after that day's two
+   operator-directed items, the phone fix and the search text. Anything
+   raised later is change-order or retainer scope.
+2. *Copy approval*: the operator ran the flip himself, in his own
+   terminal, on a fresh branch cut from `phase-c` after PR #253 merged
+   (commit `0363603`, alone on `content/clinician-approval-relaunch`),
+   the form of the 2026-08-05 sign-off (`ad8fbde`, PR #93).
+   `check:approvals` passes on twelve files. The assistant supplied the
+   command and checked the result: twelve files, twelve lines, the flag
+   and no other byte, the operator as author. The command is PowerShell
+   and reads and writes each file whole; the loop printed in the
+   sign-off sheet rewrites every line ending, and a `sed` command, the
+   first plan, does not exist in the operator's terminal.
+3. *Presentation approval*: the sign-off sheet's row is dated 2026-10-05
+   with the answers above. One change to the built pages is newer than
+   her review, the phone fix, and it is the operator's recorded override.
+4. *Analytics flip*: does not apply to this relaunch.
+
+**Decision: how the relaunch is carried out.** RELAUNCH's two-step,
+unchanged, with what a rehearsal in a throwaway clone showed:
+- On a branch from `main`: revert `e57a4448`. It conflicts in exactly
+  `src/layouts/BaseLayout.astro` and `src/pages/index.astro`; the
+  launch-tree side is taken and each file is checked equal to its blob
+  in `e57a4448^`.
+- Merge `phase-c`. It conflicts in exactly `src/components/SeoHead.astro`,
+  one line; the `phase-c` side is taken and checked equal.
+- Delete `src/assets/photos/studio-counter-portrait.jpg`.
+- **The test before anything is pushed: the branch's tree hash must
+  equal `phase-c`'s.** This is stronger than the guard's comparison,
+  which looks for missing files and not for changed ones. Rehearsed
+  twice (the second time with the day's fix and search text in): equal
+  both times.
+- The guard workflow stays in the relaunch PR and retires in a follow-up
+  the same day (RELAUNCH step 4).
+- The merge into `main` is a merge commit on the operator's yes; never a
+  squash or a rebase, which would break the ancestry the two-step
+  repairs.
+
+The git work for the relaunch branch is done in its own worktree, so the
+main checkout, where the operator's terminal sits, never holds the
+placeholder tree. Because the tree is byte-identical to `phase-c`'s, the
+production build and `npm run verify` are run on the `phase-c` tip in
+the main checkout and their results are results for the release branch;
+the PR's pipeline then runs the whole suite again on the merge.
+
+**Alternatives rejected.** A plain `phase-c` into `main` merge: it drops
+the launched files silently, which is what the guard exists to refuse.
+Pointing `main` at `phase-c`'s tree in one hand-made commit: the same
+result as the two-step, but RELAUNCH says to use its script and not
+re-derive. Putting the flip on the launch-prep branch with the other
+commits: the first plan, corrected in review, because the documented
+procedure and the August precedent keep the flip alone on a fresh
+branch.
+
+**Corrections to the records, made with this entry.** RELAUNCH's
+launch-day checklist called the IV lounge film click-to-play and counted
+nine autoplay players on seven pages; it has been autoplay since the
+2026-10-02 addendum, and the build has ten players on eight pages.
+RUNBOOK, BUILD_SPEC §14 and OPERATOR-SETUP still said the guard retires
+in the relaunch PR, which RELAUNCH step 4 and the workflow's own header
+corrected on 2026-08-24/25. RUNBOOK's "never close PR #95" passages and
+RELAUNCH's bookkeeping now say what happens to that PR when its commits
+land in `main`. The sign-off sheet's closing checklist said "Merge PR
+#5".
+
+**Consequences.** Every merge to `main` ships from here on, and an
+unapproved treatment edit blocks every deploy until the operator flips
+it in the same PR. Carried open, as before, and not gates: counsel
+review of the legal pages, attorney wording for Retatrutide, the manual
+keyboard and screen-reader pass, and the commercial songs with no
+licence on record. Emergency return to the placeholder, on the
+operator's word only: re-run the deploy job of the 2026-09-27
+placeholder release (`gh run rerun 36325267925 --job 108636946730`,
+valid until 2026-10-27); the durable route is RUNBOOK's revert. The
+shipped record, with run numbers and probe results, follows the
+relaunch.

@@ -1,54 +1,249 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 /**
- * Service-line card ("serious glamour" anatomy): flat blush card on the
- * paper ambient, NO drop shadow, hairline border with a 1px magenta edge
- * rule (left), body-sans title, hover/focus = edge-rule thickens +
- * background deepens toward pink (card-hover token). No scale/shadow
- * transforms. The link text is the treatment title (descriptive link
- * text, §10).
+ * Service-line card — the editorial-menu anatomy (client direction
+ * 2026-07-23, supersedes the body-sans anatomy): brand-pink plate on the
+ * ombre canvas, hairline border with a 1px ink-pink edge rule (left),
+ * oversized Playfair index numeral, Playfair title, sans summary,
+ * "More information ›" microline pinned to the card foot
+ * (client wording 2026-07-23, over the drafted "See the line").
+ * PHOTO VARIANT (client direction 2026-08-18, from her own mockup): an
+ * optional arch-framed photo above the numeral — the door anatomy
+ * (nc-door) merged into this card. The photo is decorative to the
+ * labeled link exactly as on the doors (alt="", aria-hidden figure;
+ * the title is the link text), server-cropped 4:5 like the doors so
+ * the arch reads as architecture. Derivative widths are capped at the
+ * photo's own 4:5 crop area — sharp upscales on fit=cover, and an
+ * upscaled derivative would break the retina rule silently.
+ * RAISED since 2026-07-27 (client direction): the plate wears .ng-lift
+ * — see global.css for the mechanism and tokens.css ELEVATION for why
+ * it is arithmetic rather than taste (card and canvas cross equal
+ * luminance at 19.6% of the document, bottoming at 1.001:1). This
+ * SUPERSEDES the "flat plate, NO drop shadow, no scale/shadow
+ * transforms" rule this comment carried from 2026-07-23.
+ * Hover/focus = plate deepens (card-hover token) + a 2px ink-pink ring on
+ * all four sides + title in ink-pink + a 2px ink-pink rule draws across
+ * the card top (the ng-trace signature at card scale) + the lift rises;
+ * :active settles it. The link text is the treatment title (descriptive link
+ * text, §10); the numeral is decorative (aria-hidden) but still passes
+ * large-text contrast (ink-pink 4.60:1 on card-rest, house bar 3.2).
+ * The microline is ink-900, NOT ink-pink: at 13px it is body-size text,
+ * and ink-pink holds only 3.81:1 on the #efb1d5 hover plate (4.5 hard
+ * bar); ink-900 holds 9.77:1 there (tokens.css CLIENT CARD PINKS table).
  */
 interface Props {
   title: string;
   summary: string;
   href: string;
+  /** 1-based menu position; renders as the 01–12 numeral when present. */
+  index?: number;
   featured?: boolean;
+  /** Arch-framed photo above the numeral (the door anatomy). */
+  photo?: ImageMetadata;
+  /** sharp gravity/strategy token for the 4:5 cover crop (door pattern). */
+  photoPosition?: string;
   /** Extra classes (e.g. ng-rise from ServiceLineGrid). */
   class?: string;
 }
 
-const { title, summary, href, featured = false, class: className } = Astro.props;
+const {
+  title,
+  summary,
+  href,
+  index,
+  featured = false,
+  photo,
+  photoPosition = 'attention',
+  class: className,
+} = Astro.props;
+const numeral = index === undefined ? undefined : String(index).padStart(2, '0');
+// Width of the source area a 4:5 cover crop actually has: derivatives
+// above it would be upscales, so the srcset stops there (retina rule).
+// Tiers per delivery band (2026-08-18 rev 2): 400 covers the LH-CI
+// pick, 640 covers phones (DPR3 tiles need ≤~430) and desktop
+// (DPR2 needs ~448), 880 covers the 640–1023 two-across band whose
+// DPR2 tablets need up to ~878 — without it they'd get 0.73×.
+const cropWidth = photo ? Math.min(photo.width, Math.round(photo.height * 0.8)) : 0;
+const photoWidths = photo ? [400, 640, 880].filter((w) => w <= cropWidth) : [];
 ---
 
-<article class:list={['treatment-card', featured && 'treatment-card--featured', className]}>
-  <h3 class="heading-4">
-    <a href={href} class="treatment-card__link">
-      {title}
-      <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
-    </a>
+<article
+  class:list={[
+    'treatment-card',
+    'ng-lift',
+    featured && 'treatment-card--featured',
+    photo && 'treatment-card--photo',
+    className,
+  ]}
+>
+  {photo && (
+    <figure class="treatment-card__arch ng-arch" aria-hidden="true">
+      <Image
+        src={photo}
+        alt=""
+        width={640}
+        height={800}
+        fit="cover"
+        position={photoPosition}
+        quality={62}
+        widths={photoWidths}
+        sizes="(min-width: 1280px) 225px, (min-width: 1024px) 20vw, (min-width: 640px) 44vw, 35vw"
+        loading="lazy"
+      />
+    </figure>
+  )}
+  {numeral && (
+    <span class="treatment-card__num" aria-hidden="true">
+      {numeral}
+    </span>
+  )}
+  <h3 class="treatment-card__title">
+    <a href={href} class="treatment-card__link">{title}</a>
   </h3>
-  <p class="mt-2">{summary}</p>
+  <p class="treatment-card__summary">{summary}</p>
+  <p class="treatment-card__more">
+    More information
+    <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
+  </p>
 </article>
 
 <style is:global>
   .treatment-card {
     position: relative;
-    background: var(--ng-card);
+    display: flex;
+    flex-direction: column;
+    background: var(--ng-card-rest);
     border: 1px solid var(--ng-hairline);
-    border-left: 1px solid var(--ng-magenta-600);
-    padding: 1.5rem;
-    transition: background-color 150ms ease;
+    border-left: 1px solid var(--ng-ink-pink);
+    padding: 2rem;
+    /* elevation + the state transition live in .ng-lift (global.css) */
+  }
+  /* The drawn top rule — ng-trace's draw-in, replayed at card scale on
+   * pointer instead of scroll. Empty non-text pseudo (same class of thing
+   * as the link overlay below — safe for the axe gate). */
+  .treatment-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--ng-ink-pink);
+    scale: 0 1;
+    transform-origin: left center;
+    transition: scale 250ms ease;
   }
   .treatment-card:hover,
   .treatment-card:focus-within {
     background: var(--ng-card-hover);
-    /* thicken the edge without layout shift */
-    box-shadow: inset 3px 0 0 var(--ng-magenta-600);
+    /* client pick 2026-07-22 (round 4, back to the round-1 berry):
+     * ink-pink ring + title letters — 3.81:1 on the #efb1d5 highlight
+     * bg, passes AA (3.0 non-text / 3.2 house large-text). See the
+     * tokens.css header table. */
+    border-color: var(--ng-ink-pink);
+    /* The 2px ring (border flip + 1px inset, no layout shift) is drawn
+     * by .ng-lift's --lift-ring so it composes with the lift instead of
+     * overwriting it — box-shadow is a single property. */
+  }
+  .treatment-card:hover::before,
+  .treatment-card:focus-within::before {
+    scale: 1 1;
+  }
+  /* COMPACT TILES (operator scale correction, 2026-08-18 rev 2 — the
+   * mockup-literal cards read huge): photo cards are dense menu tiles,
+   * 2-across on phones / 4-across desktop, so every measure below is
+   * scoped to the --photo variant; text-only cards keep the editorial
+   * 2rem anatomy untouched. */
+  .treatment-card--photo {
+    padding: 0.875rem;
+  }
+  @media (min-width: 640px) {
+    .treatment-card--photo {
+      padding: 1.25rem;
+    }
+  }
+  /* Frame shape + border live in .ng-arch (global.css) — same split as
+   * nc-door__arch, the pattern this variant is merged from. */
+  .treatment-card__arch {
+    margin: 0 0 0.75rem;
+  }
+  @media (min-width: 640px) {
+    .treatment-card__arch {
+      margin-bottom: 1rem;
+    }
+  }
+  .treatment-card__arch img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  /* Summary spacing lives here (was a Tailwind mt-3 on the element) so
+   * the photo variant can compact and hide it without touching the
+   * text-only anatomy. */
+  .treatment-card__summary {
+    margin-top: 0.75rem;
+  }
+  .treatment-card--photo .treatment-card__num {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+  }
+  .treatment-card--photo .treatment-card__title {
+    margin-top: 0.375rem;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+  }
+  .treatment-card--photo .treatment-card__summary {
+    margin-top: 0.375rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  /* Phone tiles drop the summary (operator decision 2026-08-18): arch +
+   * numeral + title + microline. It returns from 640px up, where the
+   * two-across cards are 350–480px wide. */
+  @media (max-width: 639px) {
+    .treatment-card--photo .treatment-card__summary {
+      display: none;
+    }
+  }
+  .treatment-card--photo .treatment-card__more {
+    padding-top: 0.75rem;
+    font-size: 0.6875rem;
+    /* The editorial 0.18em tracking wraps inside compact tiles; the
+     * phone step below renders single-line from ~375px viewports
+     * (screenshot-checked). At the 344px Z Fold cover (~114px of
+     * line width) Playfair's wide caps stack it onto two lines — a
+     * composed, accepted edge reading; shrinking below 10px to force
+     * one line would cost more than the stack does. */
+    letter-spacing: 0.08em;
+  }
+  @media (max-width: 639px) {
+    .treatment-card--photo .treatment-card__more {
+      font-size: 0.625rem;
+      letter-spacing: 0.06em;
+    }
+  }
+  .treatment-card__num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3rem);
+    font-weight: 500;
+    line-height: 1;
+    font-variant-numeric: lining-nums;
+    color: var(--ng-ink-pink);
+  }
+  .treatment-card__title {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.5625rem, 2.5vw, 1.9375rem);
+    font-weight: 500;
+    line-height: 1.2;
   }
   .treatment-card__link {
     color: var(--ng-ink-900);
     text-decoration: none;
   }
   .treatment-card__link:hover {
+    /* same passing pair as the ring above */
     color: var(--ng-ink-pink);
     text-decoration: underline;
     text-underline-offset: 4px;
@@ -58,6 +253,23 @@ const { title, summary, href, featured = false, class: className } = Astro.props
     content: '';
     position: absolute;
     inset: 0;
+  }
+  .treatment-card__more {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ng-ink-900);
+  }
+  .treatment-card__more .chev-nudge {
+    color: var(--ng-ink-pink);
+    /* sized so the glyph's visual height matches the label's cap height
+     * (client direction 2026-07-23) */
+    font-size: 1.7em;
+    line-height: 1;
+    vertical-align: -0.16em;
   }
   .treatment-card--featured {
     grid-column: span 2;

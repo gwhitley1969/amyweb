@@ -26,10 +26,42 @@ One-time configuration the pipeline expects. Names must match exactly.
 
 ## Azure portal (SWA Standard)
 
-- Set the **preview environment password**: Static Web App → Environments →
-  password-protect non-production environments. Share the password with Amy
-  for her reviews.
+- **No preview password to set.** Password protection is off and preview
+  environments are public + noindexed (DECISIONS 2026-07-21). Preview URLs go
+  to Amy as-is, once the deploy run finishes. Do not turn Password protection
+  back on in Portal → `stapp-needlegirlie` → Configuration: the basicAuth
+  cookie looped in Chrome for Windows and locked her out, which is why it
+  was removed.
 - The deployment token above is the only coupling between GitHub and SWA.
+
+## GitHub branch protection (added 2026-08-17 — takedown-era guard)
+
+Both branches carry required status checks (the repo's first branch
+protection), created via `gh api` after PR #114: `phase-c` requires
+`takedown-revert-guard`; `main` requires `gutted-merge-guard`. They
+enforce the two-step relaunch topology (RUNBOOK "Relaunching after
+the takedown"). Inspect with
+`gh api repos/gwhitley1969/amyweb/branches/<branch>/protection`.
+Rules: never add `verify-and-deploy` as required (its docs
+paths-ignore would deadlock docs-only PRs on a check that never
+reports), and the protection contexts retire WITH the guard workflow
+in a follow-up PR right after the relaunch, never in the relaunch PR
+itself (DECISIONS 2026-08-17, corrected 2026-08-24; this line still
+said "in the relaunch PR" until 2026-10-05). The order: remove the two
+required checks first (`gh api -X DELETE
+repos/gwhitley1969/amyweb/branches/<branch>/protection/required_status_checks`,
+which leaves the force-push and deletion protection in place), then
+merge the PR that deletes the workflow.
+
+## Media origin (added 2026-08-17)
+
+The films live in Blob, not the repo: storage account
+`stngmediag2g4stj5m2gts` (rg-needlegirlie-web), container `media`,
+served only as `https://media.needlegirlie.com` through the existing
+Front Door profile. Publishing/replacing a film is an `az storage
+blob upload` + a caption PR — the full procedure is RUNBOOK
+"Publishing a film". Nothing here needs GitHub secrets; uploads use
+your `az` login.
 
 ## OIDC federated credential (no publish-profile secrets)
 

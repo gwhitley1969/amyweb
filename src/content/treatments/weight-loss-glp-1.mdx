@@ -1,0 +1,155 @@
+---
+title: Weight Loss & GLP-1 Therapy
+line: weight-loss-glp-1
+summary: "Prescription weight-management medications, anchored by GLP-1 therapy, within a medically supervised program."
+deck: "Weight management, practiced as medicine: prescription therapy, a real plan, and supervision from the first conversation."
+products:
+  - "Semaglutide"
+  - "Tirzepatide"
+  - "Phentermine"
+  - "Retatrutide"
+# priceLines: operator-authorized allowlist strings ONLY (2026-07-20
+# override — see compliance/banned-patterns.json and docs/DECISIONS.md).
+productDetails:
+  - name: "Semaglutide"
+    detail: "A first-generation GLP-1 medication: a single-receptor agonist, the one that introduced the class."
+    priceLines: ["20mg vial: $675"]
+  - name: "Tirzepatide"
+    detail: "A dual agonist, acting on GLP-1 and GIP receptor pathways."
+    priceLines: ["30mg vial: $575", "60mg vial: $825"]
+  - name: "Phentermine"
+    detail: "An oral prescription medication for short-term use in a supervised weight-management plan."
+  - name: "Retatrutide"
+    detail: "A triple agonist: GLP-1, GIP, and glucagon receptor pathways."
+    priceLines: ["24mg vial: $600", "50mg vial: $850"]
+ctaType: book
+investigational: true
+investigationalProduct: "Retatrutide"
+# The page's single disclosure line (operator-approved consolidation,
+# 2026-07-21 — DECISIONS). Must keep "not FDA-approved" intact on one line.
+investigationalNote: "Retatrutide is an investigational medication and is not FDA-approved — Amy covers what that means during your consultation."
+pricingDisplay: consult
+clinicianApproved: true
+draft: false
+faq:
+  - q: "What's the difference between Semaglutide, Tirzepatide, and Retatrutide?"
+    a: "How many receptor pathways they act on. Semaglutide is a single agonist, Tirzepatide is a dual agonist (GLP-1 and GIP), and Retatrutide is a triple agonist (GLP-1, GIP, and glucagon). Which one belongs in your plan is decided in consultation."
+  - q: "Can I book GLP-1 therapy directly?"
+    a: "Yes. [Book](cta:book) online with Amy anytime, or call. A free consultation is always available first if you'd like to talk things through, and every program still begins the same way: your history, your goals, and a clinical assessment with Amy."
+  - q: "Who supervises the program?"
+    a: "Amy Palacios, FNP, a licensed family nurse practitioner. Every visit is with Amy herself."
+seo:
+  title: "Weight Loss & GLP-1 Therapy in Harrisburg & Charlotte, NC | Needle Girlie"
+  description: "Medically supervised weight management anchored by GLP-1 therapy, with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte. Start with a free consultation."
+---
+
+import { Image } from 'astro:assets';
+import BookLink from '../../components/BookLink.astro';
+import inbodyWeighInRear from '../../assets/photos/inbody-weigh-in-rear.jpg';
+import amyPortrait from '../../assets/photos/amy-palacios-fnp.jpg';
+import clientPairCouple from '../../assets/photos/client-pair-couple.png';
+import clientPairFriends from '../../assets/photos/client-pair-friends.png';
+import clientPairPortrait from '../../assets/photos/client-pair-portrait.png';
+
+## What it is
+
+GLP-1 therapy (Semaglutide, Tirzepatide, and Retatrutide) anchors the
+program, and Phentermine is also offered where it fits a plan. Every
+one of these is a prescription medication, and every one belongs
+inside a supervised plan, never on its own.
+
+<section class="media-row media-row--flip">
+  <div class="media-copy">
+
+## Who it's generally for
+
+Adults considering medical support for weight management. Prescription
+care is never one-size-fits-all: whether any of these medications
+belongs in your plan, and which one, is a clinical decision Amy makes
+with you in consultation, with your history in front of her.
+
+  </div>
+  <figure class="media-figure">
+    <Image
+      src={amyPortrait}
+      alt="Amy Palacios, FNP, in her embroidered clinic scrubs, arms crossed and smiling."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+</section>
+
+<section class="media-row">
+  <figure class="media-figure">
+    {/* Operator's pick (23a), photo round 2026-08-21 — the InBody client
+      * from behind, release on file (2026-08-18 record). Derived upright
+      * from the EXIF-rotated master at the shoot-file class. The wall
+      * sign's text is legible in the served file and ships under the
+      * operator's override after the compliance flag (DECISIONS same
+      * date, CLAUDE.md constraint 3). The layout's per-image 3:4 knob
+      * shows the full frame — head and feet on the scale. */}
+    <Image
+      src={inbodyWeighInRear}
+      alt="A client stands on the InBody body-composition scale at the medspa, seen from behind, with the treatment lounge beyond."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+  <div class="media-copy">
+
+## Individualized, with Amy
+
+Amy Palacios, FNP, plans and supervises every program individually at
+her Harrisburg medspa, minutes from Charlotte. <BookLink>Book</BookLink> directly, or ask
+for a free consultation first, whichever you prefer.
+
+  </div>
+</section>
+
+{/* Client-supplied side-by-side photo pairs (client direction 2026-08-21),
+  * shipped under the operator's override after the compliance flag —
+  * the record and the releases (website-use release + HIPAA marketing
+  * authorization confirmed on file for all five pictured people,
+  * operator 2026-08-21) are in DECISIONS same date and CLAUDE.md
+  * constraint 3. Heading + intro are the operator's round-2 choice
+  * (same day): the intro carries the clients' consent and
+  * every-plan-is-individual in copy and routes to a consultation. The
+  * heading carries no banned phrase; the banned pairing of the two
+  * time words must still never appear in this file — alts and
+  * comments say "pair". Alts describe the pixels only: no numbers,
+  * dates, or names. Full frames, never cropped or arched
+  * (TreatmentLayout .pair-gallery). */}
+
+## They showed up for themselves
+
+Two photos, one story — and each of these is a client who chose to
+share theirs. Different starting points, different plans, the same
+decision to begin. Every plan Amy writes is for one person, so no two
+of these look alike. Where yours would start is a consultation.
+
+<div class="pair-gallery">
+  <figure>
+    <Image
+      src={clientPairCouple}
+      alt="Two photos of a couple, shared with their permission: on the left, standing by a truck on a wooded lane; on the right, on a brick porch in summer clothes."
+      widths={[480, 960]}
+      sizes="(max-width: 34rem) 92vw, 30rem"
+    />
+  </figure>
+  <figure>
+    <Image
+      src={clientPairFriends}
+      alt="Two photos of two women, shared with their permission: on the left, dressed for a wedding; on the right, in a backyard in summer clothes."
+      widths={[480, 960]}
+      sizes="(max-width: 34rem) 92vw, 30rem"
+    />
+  </figure>
+  <figure>
+    <Image
+      src={clientPairPortrait}
+      alt="Two photos of a woman, shared with her permission: on the left, at a restaurant table wearing mouse ears; on the right, a close portrait in glasses."
+      widths={[480, 960]}
+      sizes="(max-width: 34rem) 92vw, 30rem"
+    />
+  </figure>
+</div>

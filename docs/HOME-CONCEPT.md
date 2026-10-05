@@ -1,0 +1,379 @@
+# The home concept branch — what is on `feat/home-scale-rhythm` (PR #179)
+
+> **Adopted 2026-09-04** — merged into `phase-c` on the operator's word
+> ("go ahead and merge #179 and refresh the previews"). The rule lifts
+> below are standing decisions now (DECISIONS 2026-09-03, the home
+> entry's adoption paragraph; CLAUDE.md's fourth sanctioned consumer;
+> the Lighthouse home row; the global.css motion header). This file
+> stays as the home page's working record — the map of what the page
+> does, the knobs, and how it was verified; the *why* of every step is
+> in `docs/DECISIONS.md`. Written 2026-09-03 at the operator's request
+> as a branch-scoped record; the standing demos (#97, #149) carry the
+> home since the merge; production stays dark.
+
+## In one paragraph
+
+The operator called the site boring. A page-by-page critique against
+audiusa.com and five med-spa sites found the gap to be scale, rhythm,
+and asset quality rather than animation; an in-browser mock of the
+home's first screens was approved and built as a CSS-only round (Tier
+1 composition + Tier 2 transform-only moves). On the preview the
+operator lifted the zero-JS rule **for this branch as a concept test**
+and asked for real movement: the page gained a self-hosted GSAP +
+Lenis choreography ("the neon comes on") and Amy's own studio reel in
+the hero. The preview workflow gates before it deploys, so the lift
+had to reach the gate as a home-only script row. Three tweaks
+followed on the operator's reaction (the reel held on each scene and
+ran two passes to the portrait — both withdrawn 2026-09-04: it now runs
+continuously with a portrait beat each cycle; the film band's order
+went back to Jeuveau first). A phone report ("the carousel doesn't
+autoplay") was fixed on its own branch into `phase-c` (PR #180) and
+merged here; the hero reel takes the same policy.
+
+**Since 2026-09-17** the hero reel is gone: the founders found it
+choppy, and after four rounds (a pixel-locked cinemagraph — "boring";
+the fast cut with AI living moments — "That looks great!!!"; a hop at
+the handoff; the head turn's speed; the eyes) the hero plays
+`hero-living-portrait-v10.mp4`, one purpose-made looping film —
+AI-assisted and disclosed (DECISIONS 2026-09-17, the entry and its
+addenda; merged in PR #190). Through v4 it opened and ended on the
+portrait; since 2026-09-18, at the founders' request, the same shots
+run in a new order: the hair shot opens, the portrait comes alive,
+turns and laughs at the finish, and the loop point sits inside a white
+flash (DECISIONS 2026-09-18); since 2026-09-25, at Amy's request, she
+smiled rather than laughed (a new generated take, DECISIONS same date);
+since 2026-09-30, at Amy's request, the turn and the smile are gone:
+the film rests on the portrait as a still, and her pink-scrubs portrait
+joins the stills before it (DECISIONS 2026-09-30, the hero film entry
+and its addendum).
+Everything
+below about the reel, its passages, and its knobs is that round's
+record.
+
+## Previews
+
+| What | Where |
+|---|---|
+| This branch (PR #179 into `phase-c`) | https://polite-flower-0a41b770f-179.eastus2.7.azurestaticapps.net |
+| The carousel phone fix alone (PR #180 into `phase-c`) | https://polite-flower-0a41b770f-180.eastus2.7.azurestaticapps.net |
+| Standing client demo (#97) and review preview (#149) | untouched by this branch |
+
+## The commits, oldest first
+
+| Commit | Time | What |
+|---|---|---|
+| `e119b87` | 09:30 | **design: home — scale, rhythm, and four new moves** (the critique's Tier 1 + 2; CSS only) |
+| `288e710` | 11:53 | **concept: the neon comes on** — GSAP + Lenis choreography, the studio reel in the hero (zero-JS lifted for this branch) |
+| `d6be1bd` | 12:03 | **gate(branch): home-only script budget 80KB** so the concept can preview |
+| `f68c12a` | 13:21 | **concept: the hero film rests on each passage** before dissolving (tweak 1) |
+| `81ea49c` | 13:27 | **concept: the hero film runs two passes, then rests on the portrait** (tweak 2) |
+| `e2fc986` | 13:35 | **design: carousel order back to the Aug 14 sequence, Jeuveau first** (tweak 3) |
+| `ee384b8` | 14:51 | **fix: carousel autoplays on phones** — authored on `fix/carousel-phone-autoplay` (PR #180 into `phase-c`) |
+| `1179506` | 14:55 | Merge of that fix into this branch |
+| `f9cce30` | 14:58 | **concept: the hero reel takes the carousel's phone policy** |
+| `94917b4` | 2026-09-04 | **concept: the hero reel runs continuously — freeze-frame dissolves, no rests, a portrait beat each cycle** (tweaks 4 + 5) |
+| `f11493b` | 2026-09-04 | **design: the film band back to phase-c's composition** (tweak 6 — "look like what we have in PR #149") |
+| `a03cdc2` | 2026-09-04 | Merge of `phase-c` (#180–#183) — the PR had gone CONFLICTING and ran no workflow until this |
+| `4586aac` | 2026-09-04 | **concept: the portrait opens the page** — `data-first="5"` (tweak 5, second part) |
+| `6de13ab` | 2026-09-04 | **docs: the concept is adopted** — the lifts become standing decisions (CLAUDE.md, lighthouserc, global.css, BUILD_SPEC, this file) |
+| `17132bf` | 2026-09-04 | **Merge pull request #179 into `phase-c`** — the operator's "go ahead and merge #179 and refresh the previews" |
+| `dcd223a` | 2026-09-17 | **feat(home): the hero film is remade as a living-portrait film** — PR #190 (`feat/hero-living-portrait`); the three reel passages retire, `hero-living-portrait-v4.mp4` loops natively; AI-assisted, disclosed (DECISIONS 2026-09-17) |
+| `7aa832c` | 2026-09-18 | **feat(home): the hero film re-ordered** — PR #191 (`feat/hero-film-reorder`), the founders' request: the hair shot opens, the turn and the laugh finish; same footage, `hero-living-portrait-v5.mp4`; the loop point inside a white flash, the fade-in waits 0.2s (DECISIONS 2026-09-18) |
+| `13f1614` | 2026-09-25 | **feat(home): the hero film ends on a smile, not a laugh** — PR #207 (`feat/hero-film-smile`), Amy's request: a new Seedance 2.5 take spliced in after the turn, her eyes open; `hero-living-portrait-v6.mp4` (DECISIONS 2026-09-25) |
+| `97ed407` | 2026-09-26 | **feat(home): the hero film's smile re-made to look like Amy's own** — PR #207 (`feat/hero-film-smile`), the operator on v6: "doesn't look good at all"; a Seedance 2.5 take generated into a still of her smile (Nano Banana Pro, guided by her published photos); `hero-living-portrait-v7.mp4` (DECISIONS 2026-09-26 addendum) |
+| `a22c3b1` | 2026-09-26 | **feat(home): the hero film's smile made warmer (v8)** — PR #208 (`feat/hero-film-warm-smile`), the client on v7: "meh"; a Seedance 2.5 take generated into a warmer still (a Nano Banana Pro whole-face edit, guided by her published photos, its mouth corners lifted 3px in code); `hero-living-portrait-v8.mp4` (DECISIONS 2026-09-26, second addendum) |
+| `163afbb` | 2026-09-26 | **feat(home): the statement band becomes Tox To Go** — PR #209 (`feat/home-tox-to-go`), the operator's document as written beside the van-trip film: the $600 hostess credit and its requirements; "Tox" allowed in this band by the operator; "Book your Tox To Go party" calls Amy; the film panel holds in view at >=900px (DECISIONS 2026-09-26, the Tox To Go entry) — superseded on the same PR by the page commit, the row below, before anything merged |
+| `b105ecf` + `cfdc865` | 2026-09-26 | **feat: Tox To Go becomes its own page, replacing /mobile; the home band is its door** — PR #209 (`feat/home-tox-to-go`), the operator: the offer moves off the band onto /tox-to-go (no photo, no film — the /mobile media declined); the band keeps the van-trip film and becomes a short door — the name, the tagline, one sentence, the call button with the number, "See the hostess perk ›"; the nav item reads "Tox To Go"; "How a party works ›" is gone. Two commits by a staging slip: the four deletions, then the page and the rest (DECISIONS 2026-09-26, the Tox To Go page entry) |
+| `d38c96b` | 2026-09-27 | **content: Tox To Go is renamed Tox Together; the page moves to /tox-together** — PR #217 (`feat/tox-together`), the operator's rename: the band's heading reads "Tox Together Party", its sentence "With Tox Together…", its button "Book your Tox Together party", and "See the hostess perk ›" leads to /tox-together; the film and the band's layout are unchanged (DECISIONS 2026-09-27, the Tox Together entry) |
+| `d40d258` | 2026-09-30 | **feat(home): the hero film rests on the portrait as a still; the pink-scrubs portrait joins the stills (v10)** — PR #229 (`feat/hero-film-v9`), Amy's request relayed by the operator: the closing turn and smile are gone, the portrait is a still under a slow camera drift, the stool shot moves from fifth to third, and her pink-scrubs portrait joins the run of stills; a version with her hair moving (v9, commit `0293437`) was built and withdrawn before merge on the operator's word (DECISIONS 2026-09-30, the hero film entry and its addendum) |
+
+Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
+`VideoCarousel.astro`, `global.css`, `public/js/home-motion.js`,
+`public/js/video-carousel.js`, `lighthouserc.json`, and the docs.
+
+## What the home page does now, by area
+
+### 1. The hero
+
+- **Composition (≥900px).** The portrait bleeds toward the copy: the
+  media box runs from 44% of the width to the right edge and is masked
+  in over its first 30%; the copy column caps at `min(40rem, 43vw)`
+  with a 4vw left pad, so every glyph sits on solid noir — measured at
+  900/1024/1280/1440/1920; the Phase C text-over-photo rule holds
+  without an exception. Headline `clamp(2.75rem, 7.2vw, 7.25rem)`. The
+  lead is one sentence: *"One clinician, every appointment. Amy
+  Palacios, FNP, in medical aesthetics since 2017."* Below 900px the
+  hero is the phase-c stack.
+- **The film since 2026-09-17.** The reel described in the next item
+  is history: the hero now plays `hero-living-portrait-v10.mp4`, one
+  purpose-made 11.1s film (24fps, native loop, 3.7MB) that needs no
+  ranges, joins, or rest — AI-assisted and disclosed (DECISIONS
+  2026-09-17). Since 2026-09-18 it opens on the hair shot; since
+  2026-09-30, at Amy's request, it rests on the portrait as a still
+  under a slow camera drift, and her pink-scrubs portrait joins the
+  stills; the hair shot is its one generated performance; its loop
+  point is a white flash, and the fade-in waits 0.2s so the flash never shows on
+  a first visit. `data-first` 5 and the 1.6s fade-in are all that
+  remain of the knobs below.
+- **The reel (2026-09-03 to 2026-09-17).** A film facade: the portrait `<Image>` is what ships
+  and paints (it is the LCP element); 2.5s after `load`, `home-motion`
+  attaches Amy's studio reel — the carousel's muted rendition at the
+  recorded 0.5× — and fades it in over the portrait. `data-ranges`
+  trims it to its three treatment passages (seconds of the master:
+  `10.4–11.72`, `2.5–3.15`, `6.15–6.78` — the second window's end
+  corrected from 3.25 on 2026-09-04, when a 10fps edge strip showed the
+  car selfie's first frame inside it). **Since 2026-09-04 the film runs
+  continuously** (tweaks 4 + 5): at a passage's last in-window frame
+  the frame is painted onto a canvas above the player, the player seeks
+  to the next passage and plays beneath it, and the canvas dissolves
+  away over `data-xfade` (0.8s) — no rest, no visible seek, no frame
+  outside a window. At the end of every pass the reel dissolves away
+  (1.2s) to **Amy's portrait beneath it, rests there `data-still`
+  seconds (5)**, and dissolves back in (1.6s) at the first passage.
+  The portrait also opens the page: the reel is attached `data-first`
+  seconds (5) after load, not 2.5.
+  Measured on the built page: an 11.2s cycle — the three passages
+  ~5.5s with three dissolves, the portrait 5.3s — zero frames outside a
+  window, no visible pause, one 8.3MB fetch of the reel. Off-screen
+  time does not count (the film pauses when the hero leaves the
+  viewport and resumes in place, the still included). The 3.5s rests
+  and the two-pass ending are withdrawn; `data-plays` still ends the
+  film on the portrait if set.
+- **The neon comes on (choreography).** The wordmark flickers on and
+  settles into its breath; the headline rises word by word (blur →
+  sharp); "made personal." switches on like a tube (the CSS shimmer
+  is held off during the flicker, then released); lead, CTAs, chips,
+  and a four-chevron scroll cue follow (the MA mark, pointing down,
+  pulsing in sequence — CSS). Leaving the hero, the copy lifts away
+  and the media swells (scrubbed).
+
+### 2. The film band ("Mobile Aesthetics. On screen.")
+
+- **Composition: phase-c's** (since 2026-09-04). The concept had
+  composed the band at ≥900px — the heading as two display-1 lines and
+  the controls in a left column beside the film — and the operator
+  withdrew it on the preview: "I want that part to look like what we
+  have in PR #149." `VideoCarousel.astro` is phase-c's file again:
+  the heading centered over the stage, the bars beneath.
+- **Order:** since 2026-09-27, Evolysse → Amy's promo → her
+  billboard-day reel → Jeuveau → team (DECISIONS 2026-09-25 and
+  2026-09-27). The concept round kept J1 → studio → J2 → team, the
+  recorded 2026-08-14 sequence. (It put Amy's films first for a few
+  hours; the operator reversed it: "I want the Jeuveau commercial to
+  play first.") The Evolysse film went first on 2026-09-25, and on
+  2026-09-27 Amy's two films replaced J1 and the studio reel.
+- **Crossfade settle:** withdrawn with the composition (it lived in
+  the same file); the crossfade is phase-c's plain one.
+- **Phones (PR #180, merged here):** the films autoplay under
+  `prefers-reduced-motion` too (operator decision — content with a
+  pause control; only the crossfade stands down); a refused `play()`
+  retries inside the first touch or key press (a touch-scroll's
+  `touchend` counts); the built `<video>` carries `muted`,
+  `playsinline`, `webkit-playsinline` attributes beside the properties.
+
+### 3. Openers, decks, doors
+
+- "Your plan, your pace." at `md:display-0`, "What Amy offers" at
+  `md:display-1`, "Unhurried, explained…" at `md:display-2` (display-0
+  is no longer "home hero only"). One-sentence decks; the §6
+  credentials stay as a compact line under the intro deck.
+- Choreography: every section opener rises word by word as it enters
+  (since 2026-09-27 an opener that holds a link rises whole — the
+  carousel's heading, whose first two words link to the practice site;
+  a word split would drop the link's line under the text and hide its
+  name from screen readers; DECISIONS same date);
+  decks settle; the three doors are dealt one after another; photos
+  rise into their arches and settle; arched photos in whole-card links
+  grow 3% on hover (CSS — this reaches the twelve /services cards too).
+
+### 4. The van band
+
+A new noir section between the doors and the visit beat: the van
+interior (`van-treatment-interior.jpg`, the /mobile hero's screened
+crop — no people, no packaging) bleeds from the left edge across
+`min(60%, 48rem)` (2× of the 1536px source); *"Amy comes to you."* +
+one sentence + "How a party works ›" sits on noir to its right. It
+gave /mobile its first door on the home page (that page retired
+2026-09-26; the band is the party page's door since). Full-bleed backdrop →
+the fifth arch exemption. The photo drifts against the scroll (CSS
+`ng-drift`; GSAP parallax under the concept). *Rejected first pick,
+on the record: Amy holding her neon sign — at band size the Evolysse
+carton on the table reads, and Amy retired Evolysse content
+2026-08-21.*
+
+**Since 2026-09-25** (DECISIONS same date) the photo is gone: the band
+plays Amy's van-trip film — the whole 2:50 clip, muted and looping, with
+its own sound one tap away (Amy's voice at 2:01–2:17; since 2026-10-04
+the clip's two songs before it, back under the operator's override —
+DECISIONS same date; they were removed 2026-09-25) —
+whole in a 9:16 panel at the viewfinder film's 24rem width (that film
+retired with /mobile 2026-09-26; the width stands) and bare film
+frame (centred above the statement on phones; at >=900px in the left
+half, against the statement). `/js/band-film.js` builds the player on
+approach, only after a real user input. The drift and the GSAP
+parallax are retired; the film stage is exempt from the arch like every
+film stage. The film is AI-upscaled (Topaz, via Higgsfield) and
+disclosed, with the source's own pixels wherever the upscale drew
+lettering of its own and for its whole prep shot.
+
+**Since 2026-09-26** (DECISIONS same date, the Tox To Go page entry) the
+band is the door to the party page, which replaced /mobile and carries
+the operator's offer in full. **The names below are the 2026-09-27
+ones** (DECISIONS same date): the operator renamed the offer Tox
+Together and moved the page to /tox-together; for the day before, every
+"Tox Together" here read "Tox To Go" and the page sat at /tox-to-go.
+Beside the film: the
+heading "Tox Together Party" ("Party" is the operator's direction on the
+preview), its tagline "Your place. Your people. Your
+glow.",
+one sentence from the document, the button "Book your Tox Together party"
+(it calls Amy's phone, her number under it) and "See the hostess perk ›"
+to /tox-together. The copy is short again, so the panel and the words are
+centred against each other as before; the film, its player and its
+overrides are unchanged. Phones are unchanged: the film first, then the
+words. (For a day on the same PR the band carried the whole offer — the
+$600 hostess credit, the requirements, the closing tagline and "How a
+party works ›" to /mobile; the operator moved it to its own page before
+anything merged.)
+
+### 5. The motion layer (files)
+
+| File | Bytes | Role |
+|---|---|---|
+| `public/js/vendor/gsap.min.js` | 72,927 | GSAP 3.15.0 core (GSAP standard license — free since 3.13) |
+| `public/js/vendor/ScrollTrigger.min.js` | 44,575 | scroll choreography |
+| `public/js/vendor/SplitText.min.js` | 7,732 | word splitting (`aria: "auto"` — headings keep their text for assistive tech) |
+| `public/js/vendor/lenis.min.js` | 18,722 | Lenis 1.3.26 (MIT) — weighted scroll, pointer devices only, anchors kept |
+| `public/js/motion-flag.js` | 743 | sync, in the head: sets `html.motion` before first paint; self-cancels in 4s if the choreography never reports in |
+| `public/js/home-motion.js` | ~15.5K | the choreography, the reel facade, the cursor light |
+| `public/js/video-carousel.js` | 10,460 | the film band (phase-c file; the #180 fix; 6,331 until the 2026-09-30 Sound and captions buttons) |
+
+All static same-origin files: `script-src 'self'` is untouched. GSAP
+and Lenis are also devDependencies, so the copies are reproducible.
+`BaseLayout.astro` gained a `head` slot; `ConceptHome.astro` feeds the
+six tags through it (nothing else uses the slot).
+
+**Under `prefers-reduced-motion`:** the flag is never set, every
+decorative move is guarded off, the CSS reveals/settle/drift are off
+— but the **films play** (the operator's 2026-09-03 decision: films
+are content): the hero film over the portrait (since 2026-09-17 one
+looping file; before that the reel with its dissolves and holds), and
+the carousel. **If any script fails:** the flag
+self-cancels and the page is the CSS-only home from commit `e119b87`.
+
+### 6. Tier 2, the CSS moves (in `global.css`, independent of the engines)
+
+`ng-settle` (hero still 1.04 → 1 over 14s), `ng-drift` (band photo
+±24px on the scroll timeline; no consumer since 2026-09-25), `ng-rise-2/-3` (staggered rise for a
+row), hover-scale (`.ng-lift:hover .ng-arch img` → 1.03) — and, until
+2026-09-04, the carousel's slide settle (withdrawn with the band's
+composition). Under the concept flag the GSAP versions run and these
+stand down, so nothing animates twice.
+
+### 7. Phones
+
+Below 900px the composition is the phase-c stack plus the van band.
+Lenis and the cursor light are pointer-only. The reel plays in the
+hero (portrait, so it fits) and ends on the portrait like desktop.
+The film band autoplays on phones per #180. Measured on a 390px
+emulation at a throttled 6 Mbps: the band starts within half a second
+of scrolling into view even with the reel downloading.
+
+## The rules this branch lifted — standing since the 2026-09-04 adoption
+
+The "if the concept closes" column is history: each lift became a
+standing decision at the merge (DECISIONS, the home entry's adoption
+paragraph). The table is kept as the map of where each rule lives.
+
+| Rule | Where it lives | What this branch does | If the concept closes (historical) |
+|---|---|---|---|
+| Zero client-side JS by default; ≤30KB total script | CLAUDE.md locked decisions; BUILD_SPEC §9/§13; `lighthouserc.json` | The home page carries ~150KB raw / ~66KB gzipped of script. `lighthouserc.json` has a **third assertMatrix row for the home URL alone** with the script budget at 81,920 B; every other budget and page keeps the house row | Delete the third row and restore the first row's pattern (`d6be1bd`); delete `public/js/vendor/`, `home-motion.js`, `motion-flag.js`; remove the head-slot block from `ConceptHome.astro`; drop the two devDependencies |
+| "Never apply reveals to the hero, page H1s, or the lockup" | `global.css` motion header | The headline's word-by-word rise and the wordmark's switch-on are the concept's opening | Goes with the concept |
+| Motion vocabulary is a closed list | `global.css` motion header; BUILD_SPEC §5 | +4 transform-only CSS moves (Tier 2, standing if merged) and the GSAP choreography (concept) | Tier 2 is the operator's call per tier; the choreography goes with the concept |
+| Arch on every photo | REDESIGN settled decisions | Fifth exemption: the van band's full-bleed backdrop (Tier 1; the backdrop became a film panel 2026-09-25 — film stages are exempt anyway) | Tier 1 is the operator's call |
+| Carousel: nothing autoplays under reduced motion | `VideoCarousel.astro` contract (2026-08-14) | Films autoplay; only the crossfade stands down — **this one is PR #180 into `phase-c`, not branch-scoped** | Stands if #180 merges |
+| Carousel slide order | DECISIONS 2026-08-14 | Briefly Amy's films first; restored the same day | Nothing to revert |
+
+## The knobs (one number each)
+
+| Knob | Where | Now | Effect |
+|---|---|---|---|
+| `data-rate` | hero media, `ConceptHome.astro` | `1` since 2026-09-17 (`0.5` for the reel) | film tempo (0.5 is the engines' floor) |
+| `data-ranges` | same | absent since 2026-09-17 (the living-portrait film needs no trim; with it go `data-xfade`, `data-still`, `data-plays`) — was `10.4-11.72,2.5-3.15,6.15-6.78` | the three passages, seconds of the master (the second end corrected 2026-09-04) |
+| `data-xfade` | same | `0.8` | the dissolve at each join, seconds (a cut under reduced motion) — 2026-09-04 |
+| `data-still` | same | `5` | seconds the film rests on the portrait at the end of every pass (`0` = passes run straight on) — 2026-09-04 |
+| `data-first` | same | `5` | seconds the portrait opens the page alone before the reel first fades in (2.5 before 2026-09-04) |
+| `data-plays` | same | `0` | passes before the film ends on the portrait for good (`0` = loop forever — the default since 2026-09-04) |
+| ~~`data-hold`~~ | — | retired 2026-09-04 | the 3.5s rest on each passage's last frame WAS the stall the operator saw; a leftover value is ignored |
+| attach delay | `data-first` (default 2.5 in `home-motion.js`) | 5 s after `load` | keeps the film out of the Lighthouse trace |
+| dissolves | `home-motion.js` | 1.6s fade-in after a 0.2s wait (since 2026-09-18 — the film's from-white opening frames pass unseen); with ranges set: 0.8s joins, 1.2s out / 1.6s in round the rest | the film's arrival; the trim machinery's joins |
+| Lenis `lerp` | `home-motion.js` | `0.09` | scroll weight (higher = snappier) |
+| hero settle | `global.css` / `home-motion.js` | 14s / 2.4s | the still's one-shot scale |
+| slide order | `VideoCarousel.astro` slides array | Evolysse → Amy's promo → her billboard-day reel → Jeuveau → team (since 2026-09-27; J1 → studio → J2 → team until 2026-09-25, when the Evolysse film went first) | the band |
+
+## What is pending
+
+- **Amy's review** — now on the standing demo (#97), phone first: the
+  hero film and her sign-off on her own generated likeness in it
+  (2026-09-17, re-ordered 2026-09-18; since 2026-09-30 the portrait is
+  a still, so the hair shot is the only generated one left; the reel
+  and its
+  two-pass ending are history), the van
+  band, the display sizes, the
+  new lead and intro deck wording, and her pick among three headline
+  candidates — keep "Medical Aesthetics, made personal." / "One
+  clinician. Every appointment." / "Every appointment is with Amy."
+- **Others' feedback** — the operator is collecting it before more
+  tweaks.
+- **Tier 3 assets (Amy):** a 16:9 hero film or her full-res hero
+  original; 16:9 Jeuveau renditions from Evolus; a re-grade or
+  re-shoot of the four /services snapshot cards.
+- **Deferred to their own rounds:** the treatment pages' "one big
+  picture" (after PR #143); display-size openers on the other pages;
+  whether `treatment-video.js` takes the same reduced-motion policy;
+  lower-bitrate phone renditions (the films are 6.3–7.9MB each —
+  heavy, but measured not to be the phone blocker).
+
+## How to look at it
+
+- **Desktop:** reload, sound off, stay on the hero for ~40 seconds
+  (the reel runs twice and ends on the portrait), then scroll.
+- **Phone:** the same; the smooth scroll and cursor light are off
+  there by design.
+- **Reduce Motion on (phone or OS):** the choreography is off, the
+  reel and the film band still play.
+- **A phone that refuses autoplay** (Low Power Mode, data saver):
+  the films start on the first scroll or tap.
+
+## How it was verified
+
+`npm run verify` on every commit: build + `astro check` 0/0/0,
+lint:claims and lint:voice, pa11y 25/25, Lighthouse CI 8 URLs × 3.
+Home strict row on the concept build: perf 0.99, LCP ~2.07s, CLS 0,
+TBT ≤15ms, total 306KB, image 187KB, script ~66KB (the branch-only
+row), media 0, third-party 0. Phone behaviours verified with
+Playwright at 390px: reduced-motion emulation, a `play()` stub that
+refuses until a gesture, a synthetic touch-scroll, the reel's window
+cadence and its two-pass ending. What cannot be verified from here: a
+real iPhone or Android — the reporting phone is the confirmation.
+
+## Adopted (2026-09-04)
+
+Done at the merge: the home page's script exception and its budget row
+(CLAUDE.md's fourth sanctioned consumer; the Lighthouse home row's
+`$comment`), GSAP/Lenis as sanctioned self-hosted dependencies on the
+home URL only, the hero H1 exception (the global.css motion header),
+the films policy (standing via #180/#182/#183), the hero film on the
+autoplay-film list (the reel until 2026-09-17, the living-portrait film
+since). This file is kept as the home's working record
+rather than folded into REDESIGN.md — the knobs and the verification
+are more useful as a map than as a settled row.
+
+## Records index
+
+DECISIONS 2026-09-03: the critique/Tier 1+2 entry with its addenda
+(concept layer, gate row, three tweaks, hero policy) and the carousel
+autoplay entry. CHANGELOG 2026-09-03 (two sections). REDESIGN settled
+row + deferred items. BUILD_SPEC §5 motion sentence. CLAUDE.md carousel
+consumer line (#180). CLINICIAN-SIGN-OFF presentation row. PR #179
+comments (gate numbers per commit); PR #180 body and comment.

@@ -1,0 +1,127 @@
+---
+title: Skincare
+line: skincare
+summary: "Medical-grade skincare from Skinbetter Science: the complete line, available through Amy's practice storefront."
+deck: "Medical-grade skincare, chosen with a clinician's eye."
+productDetails:
+  - name: "Cleanse"
+    tag: "Cleansers"
+    detail: "Daily cleansers that start the routine and ready the skin for the steps that follow."
+  - name: "Correct"
+    tag: "Serums"
+    detail: "Corrective serums designed for the appearance of uneven tone and discoloration."
+  - name: "Renew"
+    tag: "Retinoids"
+    detail: "Retinoid formulas designed for the appearance of fine lines and uneven texture."
+  - name: "Moisturize"
+    tag: "Moisturizers"
+    detail: "Hydrating creams and treatments, from lightweight daily formulas to richer overnight ones."
+  - name: "Eye"
+    tag: "Eye care"
+    detail: "Creams and treatments made specifically for the skin around the eyes."
+  - name: "Protect"
+    tag: "SPF"
+    detail: "Mineral, broad-spectrum sunscreens that close out the morning routine."
+ctaType: shop
+pricingDisplay: none
+clinicianApproved: true
+draft: false
+faq:
+  - q: "Where do skincare purchases happen?"
+    a: "In the medspa at any time, or online through the Skinbetter Science storefront. The shop button on this page opens it. A first online order creates a Skinbetter account tied to Amy's practice; after that it's ordinary online shopping, shipped to your door."
+  - q: "Does Amy carry the full Skinbetter Science line?"
+    a: "Yes. As an authorized provider, Amy can supply any product in the line. The storefront carries the complete range; the medspa shelf holds a rotating selection to browse in person."
+  - q: "Why does the storefront say Mobile Aesthetics?"
+    a: "[Mobile Aesthetics](site:practice) is Amy's own practice: the storefront runs under the practice name. A purchase there is a purchase with Amy."
+  - q: "How do I know which products suit my skin?"
+    a: "That's a conversation with Amy: ask at any appointment, or request a free consultation."
+seo:
+  title: "Medical-Grade Skincare in Harrisburg & Charlotte, NC | Needle Girlie"
+  description: "Medical-grade skincare from the complete Skinbetter Science line, through Amy Palacios, FNP, at her Harrisburg, NC medspa near Charlotte or her storefront."
+---
+
+import { Image } from 'astro:assets';
+import StorefrontCallout from '../../components/StorefrontCallout.astro';
+import PracticeLink from '../../components/PracticeLink.astro';
+import amyHoldingSkinbetter from '../../assets/photos/amy-holding-skinbetter.jpg';
+import skinbetterOverCards from '../../assets/photos/skinbetter-over-cards.jpg';
+
+<section class="media-row">
+  {/* Photo adjusted 2026-08-25 (operator direction; DECISIONS same date):
+      the outgoing frame cut Amy's head at the neck — this one, 27.jpg from
+      the same shoot, keeps her chin in frame. Baked 4:5 crop (1108x1385
+      window at x=246 from the 1600x1385 master, which stays outside the
+      repo) chosen to keep both franchises the copy names — sunbetter whole,
+      AlphaRet readable at the edge. Amy alone in frame (operator-identified)
+      — no release needed; product labels are manufacturer trade dress as
+      sold. */}
+  <figure class="media-figure">
+    <Image
+      src={amyHoldingSkinbetter}
+      alt="Amy holding six Skinbetter Science products out toward the camera."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+  <div class="media-copy">
+
+## What it is
+
+Skinbetter Science is a medical-grade skincare line sold only through
+authorized practices: not drugstores, not marketplaces. Amy is an
+authorized provider, and the complete line is available through her
+practice storefront: every step shown above, from AlphaRet, Skinbetter's
+patented retinoid technology, to the sunbetter line of SPF. The medspa
+shelf rotates with what Amy stocks; the storefront carries the full
+range.
+
+  </div>
+</section>
+
+## How buying works
+
+There are two routes, and both run through Amy's practice.
+
+**At the medspa**: pick products up at any appointment, and talk through
+what you're taking home with Amy while you're in the chair.
+
+**Online**: the shop button on this page opens the Skinbetter Science
+storefront. It runs under **<PracticeLink>Mobile Aesthetics</PracticeLink>**, Amy's own practice,
+so that's the name you'll see when it opens. A first order creates a
+Skinbetter account tied to the practice, and orders ship directly to
+your door.
+
+<StorefrontCallout />
+
+## Which products suit your skin
+
+That isn't a question a webpage should answer — and this one won't try.
+Which formulas fit your skin, and in what order, is a conversation with
+Amy: ask at any appointment, or request a free consultation.
+
+<section class="media-row media-row--flip">
+  <div class="media-copy">
+
+## Individualized, with Amy
+
+Skincare guidance here comes from the same clinician who knows your
+treatment plan: Amy Palacios, FNP, at her Harrisburg medspa in the
+greater Charlotte area.
+
+  </div>
+  {/* Photo round page 9 (operator direction, 2026-08-25 — DECISIONS same
+      date): her pick 28.jpg, baked 4:5 crop (854x1067 window at x=480 from
+      the 1600x1067 master, which stays outside the repo). Screened at full
+      resolution: product labels are manufacturer trade dress as sold, the
+      cards are Amy's own marketing, and the two capped syringes among the
+      cards were accepted as-is by the operator (screening note). No client
+      in frame — no release needed. */}
+  <figure class="media-figure">
+    <Image
+      src={skinbetterOverCards}
+      alt="Skinbetter Science products standing on a table above a spread of Amy's business cards."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+</section>

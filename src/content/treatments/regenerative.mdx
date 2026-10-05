@@ -1,0 +1,137 @@
+---
+title: Regenerative Treatments
+line: regenerative
+# The lead is the client's wording, verbatim, under operator override
+# after the compliance flag (DECISIONS 2026-09-19): it states outcomes,
+# which BUILD_SPEC 7.6 bars beyond the two 2026-08-01 card sentences.
+# It renders ONLY as the visible lead — schemaDescription below keeps the
+# structured-data description factual. Never restate its outcome wording
+# in the SEO description, alt text, or anywhere else.
+summary: "PRP (Platelet-Rich Plasma) treatments prepared from your blood can be used by themselves or combined with microneedling to stimulate hair re-growth and reduce the signs of skin aging."
+schemaDescription: "PRP treatments prepared from a small sample of your own blood: on their own, or combined with microneedling."
+deck: "Drawn from your own biology: precise, considered, personal by definition."
+productDetails:
+  - name: "PRP"
+    tag: "Hair"
+    detail: "A medical treatment that uses a high concentration of your own blood platelets for stimulating hair growth."
+    priceLines: ["$600"]
+  - name: "PRP with Microneedling"
+    tag: "Skin"
+    detail: "Combines tiny skin punctures with your own blood's platelet-rich plasma to boost collagen, smooth scars, and improve skin tone."
+    priceLines: ["$900"]
+ctaType: consult
+pricingDisplay: consult
+clinicianApproved: true
+draft: false
+faq:
+  - q: "Can I book a regenerative treatment directly?"
+    a: "Yes. This line starts with a consultation so that Amy can explain each option plainly. The procedure can be performed immediately."
+  - q: "Who performs the treatment?"
+    a: "Amy Palacios, FNP, a licensed family nurse practitioner. Every appointment is with Amy herself."
+seo:
+  title: "Regenerative Treatments in Harrisburg & Charlotte, NC | Needle Girlie"
+  description: "PRP and PRP with microneedling with Amy Palacios, FNP, in Harrisburg, NC. Consultation comes first for this line."
+---
+
+import { Image } from 'astro:assets';
+import deviceFacialSession from '../../assets/photos/device-facial-session.jpg';
+import prpBloodDraw from '../../assets/photos/prp-blood-draw.jpg';
+import prpSyringes from '../../assets/photos/prp-syringes.jpg';
+import TreatmentVideo from '../../components/TreatmentVideo.astro';
+import prpVisitPoster from '../../assets/photos/prp-visit-poster.jpg';
+
+{/* The page's opening media moment at band scale (definition first,
+  * then the treatment itself); the 2026-08-25 round added the two rows
+  * and the film below, so the band now leads a full rhythm instead of
+  * standing alone. Since 2026-09-27 (operator direction) the band and
+  * the /services card swapped photos: the band carries the device
+  * session, the card the PRP visit. The source is a tall portrait, so
+  * the 9:8 window is anchored on the device and the client's face —
+  * see the device-facial-session knob in TreatmentLayout. */}
+<section class="media-band media-band--tall">
+  <div class="media-copy">
+
+## What they are
+
+PRP (platelet-rich plasma) is prepared from a small sample of your
+own blood. Amy offers it two ways: PRP on its own, and PRP combined
+with microneedling. What each visit involves is explained plainly
+before anything is scheduled.
+
+  </div>
+  <figure class="media-figure">
+    <Image
+      src={deviceFacialSession}
+      alt="A pink-gloved hand guides a handheld device across a reclined client's face while the other steadies her jaw, at Amy's Harrisburg medspa."
+      widths={[448, 672, 744]}
+      sizes="(max-width: 48rem) 92vw, 45rem"
+    />
+  </figure>
+</section>
+
+<section class="media-row">
+  <figure class="media-figure">
+    {/* The client's pick (PRP01), media round 2026-08-25 — the blood
+      * draw that starts a PRP visit. The arm is Amy's own
+      * (operator-identified); no other person in frame. Screening
+      * record: DECISIONS 2026-08-25. */}
+    <Image
+      src={prpBloodDraw}
+      alt="An arm rests on a draped table after the blood draw that starts a PRP visit, beside a rack of collection tubes at Amy's Harrisburg medspa."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+  <div class="media-copy">
+
+## Who they're generally for
+
+People usually come to this category curious about hair growth, or
+about skin texture and tone. This line begins with a conversation: what a given treatment
+involves, and whether it makes sense for you, is decided with Amy in a
+consultation.
+
+  </div>
+</section>
+
+<section class="media-row media-row--flip">
+  <div class="media-copy">
+
+## Individualized, with Amy
+
+Amy Palacios, FNP, plans every treatment individually at her Harrisburg
+medspa, minutes from Charlotte.
+
+  </div>
+  <figure class="media-figure">
+    {/* The client's pick (PRP02), media round 2026-08-25 — ships as-is
+      * under the operator's override after the compliance flag
+      * (DECISIONS 2026-08-25; CLAUDE.md constraint 3). The alt
+      * describes the scene and never repeats what the packaging in
+      * frame prints. */}
+    <Image
+      src={prpSyringes}
+      alt="Four prepared PRP syringes, filled with golden plasma, laid out on a towel beside gauze and supplies at Amy's Harrisburg medspa."
+      widths={[340, 540, 680]}
+      sizes="(max-width: 40rem) 90vw, 17rem"
+    />
+  </figure>
+</section>
+
+{/* Amy's own reel (media round 2026-08-25): Amy receives her own PRP
+  * hairline treatment, filmed at the studio. One of the location's
+  * other providers is on camera doing the injection, face mostly out
+  * of frame and never named — carried under the operator's override
+  * with their consent on file (DECISIONS 2026-08-25; CLAUDE.md
+  * constraint 2). The label and captions never attribute the hands-on
+  * treatment to anyone. autoplay="inview" is in-class: her own film,
+  * no speech (the operator's confirmation is the record). */}
+<div class="mx-auto max-w-sm">
+  <TreatmentVideo
+    src="/media/prp-visit.mp4"
+    poster={prpVisitPoster}
+    captionsSrc="/media/prp-visit.vtt"
+    label="From Amy's own reel — Amy receives a PRP hairline treatment at her Harrisburg medspa"
+    autoplay="inview"
+  />
+</div>

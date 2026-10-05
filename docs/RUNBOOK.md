@@ -756,7 +756,11 @@ Aesthetics · Harrisburg, NC" for a day). The two spaces inside the
 halves, after "Mobile" and after "Harrisburg,", are no-break spaces,
 written in the source as ` `: the line can only break between the
 practice and the town. Keep them when the wording changes. The title tag
-is separate: it is what search shows, and it keeps the brand.
+is separate: it is what search shows, and it keeps the brand. Since
+2026-10-05 it names the practice as well ("Needle Girlie | Mobile
+Aesthetics in Harrisburg & Charlotte, NC"; DECISIONS same date, the
+home-title entry). A search engine shows the new title only after it
+next reads the page.
 
 **The bar under the picture in Messages is Apple's, and the picture sets
 its colour** (DECISIONS 2026-09-27 has the steps, read from Apple's

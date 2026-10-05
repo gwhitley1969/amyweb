@@ -1219,8 +1219,12 @@ action.
   2026-09-26 `og:title` and `twitter:title` may differ from `<title>`
   through the head's share title, set on the home page only: "Mobile
   Aesthetics Harrisburg, NC" since 2026-09-27, its halves held by
-  no-break spaces; the home `<title>` keeps its search wording —
-  DECISIONS 2026-09-26, the link-share card entry, and 2026-09-27.)*
+  no-break spaces; the home `<title>` kept its search wording —
+  DECISIONS 2026-09-26, the link-share card entry, and 2026-09-27 —
+  until 2026-10-05, when it took the practice's name at the operator's
+  direction: "Needle Girlie | Mobile Aesthetics in Harrisburg &
+  Charlotte, NC" (DECISIONS same date, the home-title entry; the
+  service phrase stays in the description and the H1).)*
 - `sitemap.xml` (@astrojs/sitemap), `robots.txt` (allow all in production;
   previews are noindexed via meta).
 - Semantic heading hierarchy; one `h1` per page; descriptive internal link text.

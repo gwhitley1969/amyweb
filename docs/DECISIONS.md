@@ -15669,3 +15669,60 @@ into `phase-c` and reaches `main` with the next release.
 `allow_squash_merge: true`, `allow_rebase_merge: false`,
 `allow_auto_merge: false`. Branch protection on `main` and `phase-c`:
 no required status checks, force pushes blocked, deletions blocked.
+
+## 2026-10-05 — Home: the search title names the practice ("Needle Girlie | Mobile Aesthetics in Harrisburg & Charlotte, NC"; operator direction after the relaunch)
+
+**Context.** An hour after the relaunch the operator searched for the
+site and sent the result: Google's stored copy of the Under Construction
+page, titled "Needle Girlie | Medical Aesthetics in Harrisburg, NC". He
+asked whether the title could say "Mobile Aesthetics", which Amy would
+want, or whether it would change by itself as the new site is read.
+
+It would not. Google shows a page's title tag, and the home page's said
+"Medical Aesthetics" on purpose. On 2026-09-26, offered both, the
+operator chose "only the share title" over changing the page title too,
+"so search keeps its wording": the share title has read "Mobile
+Aesthetics Harrisburg, NC" since then, and the title tag kept the brand
+and the service phrase (it gained "& Charlotte" in this morning's
+search-text edits). What changes by itself on Google's next visit is the
+stored page: today's title and description replace the placeholder's.
+
+**Decision.** The operator, given three wordings and the trade-off:
+"Let's go with option A". The home page's title tag reads **"Needle
+Girlie | Mobile Aesthetics in Harrisburg & Charlotte, NC"** (63
+characters). One line in `ConceptHome.astro`; the share title, the
+description and the H1 are unchanged. This reverses the 2026-09-26
+choice for the title tag.
+
+**The trade-off, as put to him.** For: it is the name Amy's clients know
+the practice by, and it matches her Google Maps listing, which the same
+search showed as "Mobile Aesthetics"; matching names help local search.
+Against: the home title no longer holds "medical aesthetics", the
+strongest single place on the page for that phrase. The cost is judged
+small: the phrase stays in the home description and in the H1
+("Medical Aesthetics, made personal."), and the treatment pages' titles
+carry the terms people search for.
+
+**Alternatives rejected.** "Mobile Aesthetics | Needle Girlie |
+Harrisburg & Charlotte, NC" (the practice first): offered, not chosen.
+Keeping this morning's title: offered. Both phrases in one title: it
+runs past what a results page displays.
+
+**Rules.** A page's title tag is one of the two places the practice may
+be named as plain text; `lint:practice-link` says so in its header and
+passes. Constraint 2's seventh exception concerns visible text and its
+link; a title can hold no link, and names nobody but the practice. The
+home page has no approval flag. The wording is Amy's to confirm: the
+operator relays her preference, and the sign-off sheet lists it.
+
+**Scope.** Raised after the round was frozen (REDESIGN "Round close",
+this date), so by that record it is change-order or retainer scope; the
+classification is the operator's. It is the second change made the
+two-stage way: into `phase-c` with a preview, then a release into
+`main`.
+
+**Consequences.** RELAUNCH's launch-day checklist, BUILD_SPEC §10 and
+RUNBOOK's share-card section quoted or described the old title and are
+corrected. The launch probe outside the repo expects the new title.
+Google's result changes when it next reads the page; Search Console's
+"Request indexing" shortens the wait and is the operator's to do.

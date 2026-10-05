@@ -367,6 +367,16 @@ title now ends "…in Harrisburg & Charlotte, NC" and its description
 says "near Charlotte", and the /services, /about and /injector-training
 descriptions were shortened. Those five lines are on the same sheet.
 
+**NEW 2026-10-05, after the relaunch — the home page's search title
+says "Mobile Aesthetics".** The line a search engine shows as the home
+page's name now reads "Needle Girlie | Mobile Aesthetics in Harrisburg
+& Charlotte, NC". On the sheet she OK'd that morning it read "Needle
+Girlie | Medical Aesthetics in Harrisburg & Charlotte, NC". The
+operator's direction, relaying what she will want: the practice's own
+name. It is hers to confirm. Nothing on the page itself changed, and a
+search result shows it only after the search engine next reads the site
+(DECISIONS 2026-10-05, the home-title entry).
+
 **NEW 2026-09-30 — one word on all twelve pages (her own direction,
 relayed by the operator):** every page's "studio" now reads "medspa".
 Each page has the sentence "…at her Harrisburg medspa…" near its end.

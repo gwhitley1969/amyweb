@@ -113,8 +113,11 @@ Ordinary work never goes straight into `main`.
    the Front Door cache. Live in about 15 minutes end to end (measured
    2026-10-05: gates about 6, deploy about 9, most of it the purge);
    the pages change about 8 minutes in. Run nothing else into `main`
-   while a Production run is in flight. After a release the two
-   branches are level.
+   while a Production run is in flight. After a release, fast-forward
+   `phase-c` to `main` (`git push origin origin/main:refs/heads/phase-c`):
+   the release's merge commit exists only on `main`, so without that
+   step `phase-c` sits one commit behind with an identical tree. The
+   push starts no pipeline.
 5. **If something has to go straight into `main`** (an urgent fix):
    branch from `main`, PR into `main`, and afterwards fast-forward
    `phase-c` to `main` (`git push origin origin/main:refs/heads/phase-c`)

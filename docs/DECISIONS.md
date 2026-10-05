@@ -15854,3 +15854,55 @@ sign-off sheet and compliance/README are corrected. No cost change, no
 new dependency, no script, no security-header change. The `book_click`
 event keeps its name, so a later visitor-counting baseline is not
 broken by the move.
+
+## 2026-10-05 — Addendum to the booking entry: the wrinkle-relaxers "How do I book?" answer drops "through Vagaro" (Amy's OK relayed the same evening; the operator's flip in the same PR; sent straight into `main` as an urgent fix)
+
+**Context.** The booking entry left one sentence for a second change.
+On /services/wrinkle-relaxers, "How do I book?" answered: Online
+through Vagaro with the "Book with Amy" button, or by phone at
+704-579-7108. Once the button opened the Aesthetic Record page the
+sentence was wrong, and it sat on a page Amy had approved that day.
+After the first release it was the one place the live site still said
+"Vagaro" to a visitor.
+
+**Decision.** The answer reads: Online with the "Book with Amy" button,
+or by phone at 704-579-7108. Two words come off; the link and the phone
+clause are unchanged. It is the wording the IV page's same answer took
+on 2026-09-19, and it names no vendor, so the next move does not touch
+it. The edit reset the page's flag in its own commit (`e5cf6a4`,
+constraint 4).
+
+**Approval.** The operator put the before-and-after lines to Amy and
+relayed her answer at about 21:25 UTC, before the first change had
+merged: "Amy OK'd the sentence". As with the twelve search lines that
+morning, she read the lines, not a preview. The operator then flipped
+the flag with the operator's own command on this change's branch
+(commit `81f0d41`, one line), the form RUNBOOK's banner describes ("in
+the same PR"). The sign-off sheet's older text asked for a fresh branch
+off `phase-c`; it now says a single page's re-approval may be flipped
+on the branch of the PR that edited it, which keeps an unapproved flag
+off `phase-c`, where it would hold every release.
+
+**Route.** After the first release went live the operator wrote: "I
+cannot have ANY part of this website in production saying Vagaro", and
+asked for the fix as soon as possible. It therefore went straight into
+`main` from its own branch, RUNBOOK's urgent-fix route (working
+procedure, step 5), with `phase-c` fast-forwarded to `main` afterwards.
+That saves one pipeline, about eight minutes, against a second release
+through `phase-c`. The branch was cut from the first change's last
+commit, which `main` already held.
+
+**Verification.** `verify` exit 0 on the edited tree. The built pages
+hold no "Vagaro" in any form, and the 108 booking links are unchanged.
+`check:approvals` failed on this page before the flip and passes after
+it. The file differs from the version Amy approved that morning by the
+one sentence.
+
+**Alternatives rejected.** Naming Aesthetic Record in the answer: it
+would need editing again at the next move. Leaving the sentence for a
+later round: it told visitors something untrue. A second release
+through `phase-c`: slower, with nothing gained for a one-sentence fix.
+
+**Consequences.** The site no longer names Vagaro to a visitor
+anywhere. Source comments and these records still use the name where
+they tell the history.

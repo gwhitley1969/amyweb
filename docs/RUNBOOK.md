@@ -526,11 +526,12 @@ loop point, and one fetch of the file. A desktop browser loops cleanly
 where a phone may not: look at the loop point on a real iPhone too.
 
 **The van band's film** (since 2026-09-25, DECISIONS same date) is
-`van-trip-sound.mp4` on the media origin, played by `public/js/band-film.js`
+`van-trip-music.mp4` on the media origin (since 2026-10-04, DECISIONS
+same date; `van-trip-sound.mp4` before), played by `public/js/band-film.js`
 in the home statement band ("Amy comes to you." until 2026-09-26, the
 party page's door since — the offer itself is on /tox-together). The player is
 built on approach,
-only after a real user input, which is what keeps the 35MB film out
+only after a real user input, which is what keeps the 37MB film out
 of the page load and the Lighthouse trace. The settings are data
 attributes on the band's `[data-band-film]` figure in
 `ConceptHome.astro`: `data-file`, `data-vtt` and `data-label`. To
@@ -538,9 +539,18 @@ rebuild the film, use `C:\Amy\van-film\` (outside the repo; its
 README has the steps). The master is an AI upscale of the supplied
 copy. `patches.json` lists every spot where the source's own pixels
 replace lettering the upscaler drew, plus the prep shot whole, and
-`render.sh` builds the silent web file, `van-trip.mp4`. `sound.sh` adds
-Amy's own voice (2:01–2:17 only; the clip's two songs stay out, because
-they aren't licensed for the website) to make `van-trip-sound.mp4`.
+`render.sh` builds the silent web file, `van-trip.mp4`. `music.sh` adds
+the clip's own sound to make `van-trip-music.mp4`: its two songs to
+2:01, by one plain volume offset to −18 LUFS, then Amy's own voice
+(2:01–2:17), then silence. The songs play under the operator's
+override of the music position, with no licence on record (DECISIONS
+2026-10-04). Her part keeps its 2026-09-25 chain, a compressor and a
+limiter, so this film departs from the one-plain-offset level rule
+above, which that chain predates. `sound.sh` still builds the
+voice-only `van-trip-sound.mp4`. That file stays on the media origin
+on purpose, as the off-ramp: a revert of the 2026-10-04 change puts it
+back without an upload. The folder's `tests\` holds the edit scripts
+and the browser tests of this player.
 Publish any new cut under a NEW
 filename ("Publishing a film"), and take the poster from the new
 file's frame 0. Since 2026-09-30 this film shares the page with the

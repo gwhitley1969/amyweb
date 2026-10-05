@@ -154,8 +154,9 @@ check will refuse it. On a branch off `main`:
   and 2026-09-30 with its addendum).
   Also the van band's film (2026-09-25, DECISIONS same date):
   `/js/band-film.js` (200, `text/javascript`), and the band's
-  `data-band-film` element points at `van-trip-sound.mp4` on the media
-  origin (206 on a range request, `video/mp4`).
+  `data-band-film` element points at `van-trip-music.mp4` on the media
+  origin (206 on a range request, `video/mp4`): the rendition with the
+  clip's two songs, since 2026-10-04 (DECISIONS same date).
   Also the carousel's sound (2026-09-30, DECISIONS same date):
   `/js/video-carousel.js` (200, `text/javascript`); the five slides'
   `data-file` values end in `-sound.mp4` and their `data-vtt` values in

@@ -14794,3 +14794,227 @@ page's row pattern already puts a film left of its text).
     schema's note on product cards) say a price line must be an
     allowlist string and a card's text one sentence. Both were already
     out of date and are left for a separate change.
+
+## 2026-10-04 — Home: the van film plays its two songs again (operator override of the music position after the flag; the 2026-09-25 "Amy's voice only" choice superseded)
+
+**Context.** The operator, 2026-10-04: "Originally, we had the music
+muted and no sound until Amy gets out of the van. We've decided to
+change that." The video is to keep autoplaying muted, visitors are to
+be able to turn the sound on, and the website version is to play the
+music "as it was originally setup to do". The film is the home band's
+van-trip film (the 2026-09-25 entry). Its sound until now was the
+2026-09-25 addendum's: Amy's own voice at 2:01–2:17 and silence
+elsewhere, the clip's two songs removed for want of a licence.
+
+**The clip's sound, measured again** on the supplied copy
+(`VID_20260923_081757.mp4`, sha256 `23a76a9c…602655`):
+
+| Time | Sound | Loudness |
+|---|---|---|
+| 0:00–1:00.0 | Song one, "Check Out (What I Got)", Danger Twins | −14.72 LUFS |
+| 1:00.7–2:01.2 | Song two, "I'll Never Let You Go" (feat. 9ver), BCD Studio | −14.75 LUFS |
+| 2:01.2–2:17.3 | Amy's words to camera | −34.5 LUFS |
+| 2:17.3–2:38 | Faint room sound | −41.6 LUFS |
+| 2:38–2:50 | Digital silence | |
+
+The two songs together read −14.78 LUFS with a true peak of −1.82 dBFS,
+and a 0.7 s dip separates them. The music ends at 2:01.2: none plays
+under Amy's words or after them, so "the music as the clip was made" is
+the first two minutes.
+
+**The songs, read by machine** (Whisper large-v3-turbo through ffmpeg's
+own filter, on the build machine; nothing was uploaded; a draft, not a
+record). Each song's title line is heard, which agrees with the
+operator's 2026-09-25 identification. A watch-list screen of the
+reading found no profanity, no treatment or outcome word, no name and
+no first-person plural; its one hit, "best", sits in a lifestyle phrase
+and is not a ranking. A reading of Amy's part found nothing beyond her
+four caption cues. The operator's ear on the preview is the record.
+
+**Flag shown (once).** Neither song has a licence on record for a
+business website. The position (2026-09-03 and 2026-09-25) is that a
+commercial song needs one and that a platform's licence does not
+travel; these two songs were removed on 2026-09-25 for that reason.
+What is known about each:
+- **Song one.** The 2026-09-25 record: listed for sync licensing
+  through peermusic's catalog. Checked 2026-10-04: it is on peermusic's
+  Syncsite, so a paid route exists.
+- **Song two.** The 2026-09-25 record: marketed as "no-copyright
+  sounds" for TikTok, with no written licence for a website. Checked
+  2026-10-04: it is on the commercial streaming services, and no
+  licence terms for it were found. The two descriptions differ, and
+  neither is a licence.
+
+Three routes were offered: play now and settle the licences before
+relaunch, with a request drafted for each song (recommended); play now
+and accept the risk; hold until both songs are licensed.
+
+**Decision** (operator, AskUserQuestion, 2026-10-04): **"Play now,
+accept the risk."** Both songs play under the operator's override of
+the music position, with no licence sought: the route the three
+carousel songs (2026-09-30) and the IV lounge film's song (2026-10-02)
+took. It supersedes decision 1 of the 2026-09-25 addendum ("Amy's voice
+only"), which stands above as written. The operator's request also
+settles two things:
+- **Autoplay stays** ("Still keep the video set to autoplay"). The film
+  was already the speech-free autoplay rule's second scoped exception,
+  for Amy's voice. Its terms widen to songs with sung words, the class
+  the IV lounge film's addendum counted as an exception of its own. No
+  exception is renumbered.
+- **Sound is the visitor's choice.** The film starts muted, and the
+  native speaker control turns the sound on, as before.
+
+**Choices made in the plan** (the operator approved it 2026-10-04; each
+was listed there as one the operator could change):
+1. **Amy's voice stays lifted.** In the clip she is 20 dB below the
+   songs. Her part is built by the 2026-09-25 recipe, unchanged.
+2. **Silence after 2:17.3,** as before. The clip has no music there,
+   and its room sound was never screened by ear.
+3. **Captions: two bounded `[Music]` cues,** one as each song begins
+   (0:01–0:04 and 1:01–1:04). That is the form RUNBOOK gives for music,
+   and the one the billboard-day reel and the team film carry. The
+   songs' words are not written out: they are the songwriters' text,
+   and written out they would be site text under the claim rules. (The
+   promo and the IV lounge film carry sung words by the operator's
+   choices of 2026-09-30 and 2026-10-02.) Amy's four cues are
+   unchanged. The track stays off by default (the 2026-09-25 decision);
+   a phone with captions switched on shows "[Music]" for three seconds
+   as each song begins.
+4. **The voice-only file stays on the media origin** as the off-ramp.
+   RUNBOOK deletes a file once nothing references it; this one is kept
+   on purpose.
+
+**The music rendition** (`C:\Amy\van-film\music.sh`, new; `sound.sh` is
+unchanged and still builds the voice-only file).
+- **One filter graph on the source's sound, two branches, summed**
+  (`amix`, its inputs not scaled):
+  - **The songs:** one plain volume offset, −3.2 dB, with no compression
+    and no limiting. The branch fades out over 80 ms at 2:01.2, where
+    song two has ended on its own.
+  - **Amy's part:** the 2026-09-25 chain as it stands in `sound.sh`.
+    From 121.30 s the new WAV and the 2026-09-25 WAV are the same,
+    sample for sample (md5 `077989af…` for both).
+- **The level rule.** RUNBOOK's rule (2026-09-30) is one plain offset
+  per film, with no compression and no limiting. This film as a whole
+  departs from it: Amy's part keeps a compressor and a limiter, a chain
+  that predates the rule. The promo's three offsets, one per section of
+  its own mix, are the nearest precedent.
+- **Muxing:** the picture is `van-trip.mp4`'s stream, copied bit for bit
+  (packet md5 `840bff6f…` for the silent file, the voice-only file and
+  the new one), so no frame changed, nothing was re-screened and the
+  poster stays. The sound is AAC-LC 128k, the carousel films' rate (the
+  voice-only file's was 96k).
+- **The file:** `van-trip-music.mp4`, 36,978,295 B, sha256
+  `6446abcb8c78371fbfbe1e83ddf936eafaf5bcff6a8dd6591ef789ba8e2c9e23`;
+  5,100 frames, 170.02 s; index before media. It is a new object beside
+  the old one, never a replacement in place.
+
+| | Songs | Amy's part | Whole film | True peak |
+|---|---|---|---|---|
+| The clip | −14.78 LUFS | −34.5 | −14.7 | −1.82 dBFS |
+| `van-trip-sound.mp4` | silent | −18.15 | | −2.13 |
+| `van-trip-music.mp4` | −18.02 | −18.17 | −18.01 | −1.65 |
+
+After 137.4 s the new file is digital silence.
+
+**Page and player.**
+- **`ConceptHome.astro`:** the band's figure names the new file and
+  `van-trip.vtt?v=3`. The label's last sentence reads "It starts muted;
+  turn on the sound to hear the music and Amy." The label's recorded
+  terms (the 2026-09-25 entry: it names nothing beyond the van, the
+  drive, Amy speaking and the event) widen to say that the film has
+  music.
+- **`band-film.js`:** its header comment only. Nothing it does changes:
+  it builds the player on approach after a real input, plays muted, and
+  remembers an unmute.
+- **`TreatmentVideo.astro`'s header,** the autoplay rule's home, records
+  the widened exception.
+- **One soundtrack at a time** still holds: `video-carousel.js` mutes
+  this film when the carousel's Sound is turned on, and turns the
+  carousel's sound off when this film is unmuted (2026-09-30).
+
+**Cost and the statement of work.**
+- A full view is 37.0 MB, up 2.0 MB (5.7%). Blob and Front Door egress
+  grow with plays, outside the SOW's $45–55 (divergence #10, as
+  recorded 2026-09-25). The film still loads only after a visitor's
+  input near the band.
+- The embedded-video wording (divergence #4) is unchanged in kind.
+- Two more songs play without a licence.
+- **The off-ramp:** revert this change's commits, which puts
+  `van-trip-sound.mp4` back without an upload (move the caption address
+  on to `?v=4`); then delete the music file and purge its path.
+
+**Alternatives rejected.**
+- Play now and settle the licences before relaunch: recommended,
+  declined.
+- Hold until both songs are licensed.
+- The clip's sound whole, by one offset: Amy would sit 20 dB under the
+  songs.
+- Music carried on to the end of the film: the clip has none there.
+- The clip's room sound after 2:17.3: never screened by ear.
+- The songs' words as captions (above).
+- Replacing `van-trip-sound.mp4` in place: a day of stale copies at the
+  edge, and the standing previews still load it.
+
+**Consequences.**
+- **CLAUDE.md:** constraint 3's songs clause gains these two songs, and
+  the script list's fifth consumer names the new rendition and the
+  widened exception. BUILD_SPEC §6's home row and §13's autoplay
+  paragraph follow. The plan's approval authorized the
+  governing-document edits.
+- **Other records:** RUNBOOK ("The van band's film"), RELAUNCH's probe,
+  HOME-CONCEPT §4, REDESIGN (the media row, the home row and the open
+  music-licence item, which also gains the IV lounge film's song,
+  missing from it until now), CLINICIAN-SIGN-OFF's pending row and
+  compliance/README.
+- **The media origin** holds thirty-three objects, seventeen of them
+  referenced.
+- **Not treatment content,** so no `clinicianApproved` flag. Amy has not
+  heard it.
+- **Open:** the music licences.
+
+**Verification.**
+- **Before any repository change,** a copy of `phase-c` at `d72022d`
+  was exported to a scratch folder, edited, built beside an unchanged
+  copy and run through the project's own gates, and the film was built
+  there too. The film built afterwards in `C:\Amy\van-film` is that
+  build, byte for byte.
+- **The player with the new film,** on that scratch build served under
+  the generated headers (CSP included), in headless Chrome (the strict
+  autoplay policy, test code carrying no user gesture) and Firefox 157:
+  - nothing is built or fetched at load, or in view without input;
+  - after a wheel tick the film plays muted, its audio track decoding;
+  - after a real click and an unmute it plays with sound from the first
+    second;
+  - scrolling away pauses it, and scrolling back resumes with sound;
+  - the loop returns to the start with sound still on;
+  - a visitor's pause holds;
+  - the track is off by default and holds 6 cues, each showing at its
+    time;
+  - no console or CSP errors.
+- **The same test against a deployed site** ran clean in Chrome on the
+  standing demo (#97) with the voice-only film, before this change.
+- **Two refuting reviews of the plan** (facts and steps; rules and
+  records) made 22 findings before the operator saw it. Among them: the
+  label's recorded terms, the open music-licence item, the level rule
+  and the order of the storage recount.
+- **The full chain on the branch** ended with exit 0 before this
+  paragraph was written: build, type check 0/0/0, claims, voice,
+  practice links (25 pages, 64 links), pa11y 25 of 25, and Lighthouse
+  passing every assertion on 8 pages × 3 runs. With this paragraph the
+  fast gates passed again, and the build was byte-identical to the one
+  the chain ran on.
+- **Against the baseline build** (`d72022d`), 4 of 316 files differ: the
+  home page (+14 B), its /styleguide/concept mirror (+14 B),
+  `band-film.js` (5,644 → 5,753 B; 2,251 → 2,306 B compressed) and the
+  caption file (1,672 → 2,155 B). The stylesheets keep their names,
+  records included. Those four files are the scratch build's, byte for
+  byte.
+
+| Home row | This change | Budget |
+|---|---|---|
+| Total | 348,882 B | 358,400 B |
+| Script | 73,549 B | 81,920 B |
+| Image | 218,625 B | 245,760 B |
+| Media | 0; no request for the film | |
+| Largest paint, median of 3 | 2,171 ms | 2,500 ms |

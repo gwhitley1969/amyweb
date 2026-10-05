@@ -434,7 +434,12 @@ silently following it. Known superseded points from earlier briefs:
      2026-10-02, by that route (DECISIONS same date): the song on the
      /services/iv-therapy lounge film (`iv-lounge`), which autoplays
      muted in view, sound one tap away; its sung words live in its caption
-     cues and nowhere else.
+     cues and nowhere else. Two more since 2026-10-04, by that route
+     (DECISIONS same date): the two songs of the home band's van-trip
+     film (`van-trip-music`), removed 2026-09-25 for want of a licence
+     and restored at the operator's direction; the film still starts
+     muted, sound one tap away; its caption file marks the songs with
+     bounded `[Music]` cues and never writes out their words.
      And six photos (operator overrides after the compliance flags —
      DECISIONS 2026-08-18, 2026-08-21, 2026-08-25, and 2026-09-25): the /services hormone-optimization menu
      card's photo (`biote-banner-scale.jpg`), in which the Biote
@@ -830,12 +835,18 @@ silently following it. Known superseded points from earlier briefs:
   Lighthouse's full-page pass) never fetches the film; muted, looping in
   view, native controls as the pause mechanism, autoplaying under
   reduced motion by the films policy. Since the same day's sound
-  addendum the rendition (`van-trip-sound.mp4`) carries Amy's own voice
-  at 2:01–2:17 and silence elsewhere (the clip's two songs removed — not
-  licensed for the website), so it is the speech-free autoplay rule's
-  second scoped exception after the ICON film (operator override after
-  the flag; the rule lives in TreatmentVideo.astro's header): sound one
-  tap away, a person's unmute remembered, captions off by default.
+  addendum the rendition carries Amy's own voice at 2:01–2:17, so it
+  is the speech-free autoplay rule's second scoped exception after the
+  ICON film (operator override after the flag; the rule lives in
+  TreatmentVideo.astro's header): sound one tap away, a person's unmute
+  remembered, captions off by default. Until 2026-10-04 the rest of
+  that rendition (`van-trip-sound.mp4`) was silent, the clip's two
+  songs removed for want of a licence. Since that date (operator
+  override of the music position after the flag — DECISIONS same date)
+  the rendition is `van-trip-music.mp4`: the two songs play to 2:01, as
+  the clip was made, then her voice, then silence; the exception now
+  covers songs with sung words as well, at the operator's direction,
+  and the captions mark the songs with bounded `[Music]` cues.
   Widening it to another page requires the human operator.
   The 30KB budget stands for every page but the home URL.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2

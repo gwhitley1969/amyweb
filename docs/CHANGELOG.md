@@ -6,6 +6,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-10-05 — /services/wrinkle-relaxers: "Who they're generally for" says the procedure follows the consultation
+
+- The section's last sentence now ends "…is a clinical decision made
+  with Amy in a consultation, with the procedure following." It ended
+  at "consultation." The wording is the operator's, with one comma
+  added.
+- Flagged once before the edit: the new clause has no condition, so it
+  can read as a procedure following whatever Amy decides. A "can
+  follow" wording was offered and the operator kept theirs.
+  `clinicianApproved` stays false. DECISIONS 2026-10-05; PR #252.
+
 ### 2026-10-04 — Home: the van video plays its music again
 
 - In the "Tox Together Party" section, Amy's van video now carries the

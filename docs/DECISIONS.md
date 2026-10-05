@@ -15091,3 +15091,48 @@ nothing was still deploying. `phase-c` had not moved since the plan
 - **The preview lesson** (three clean rounds are not proof) is in
   RUNBOOK's troubleshooting entry on preview environments.
 - **The merge of these closing lines** is in `git log`, not here.
+
+## 2026-10-05 — wrinkle-relaxers: "Who they're generally for" closes "with the procedure following" (operator wording, after the flag)
+
+**Context.** The operator asked that the section's last sentence end
+"…is a clinical decision made with Amy in a consultation with the
+procedure following." It ended at "consultation." The purpose was not
+stated. The working reading is that the consultation and the treatment
+belong to one visit, which agrees with the page's own FAQ answer ("A
+consultation is never required…").
+
+**The flag, raised once, before the edit.** The added clause carries no
+condition, so the sentence can be read as saying that a procedure
+follows whichever way Amy's decision goes. That sits close to CLAUDE.md
+constraint 3 ("never answer 'is this right for me'") and BUILD_SPEC
+§8.7. It is milder than the laser booking answer (2026-09-19): here the
+decision is still Amy's, made in a consultation, ahead of the
+procedure. Three wordings were offered (AskUserQuestion):
+"…in a consultation, and the procedure can follow." (recommended; the
+"can be performed" shape of the biostimulators and regenerative booking
+answers); the dictated clause with a comma before "with"; and the
+dictated clause word for word.
+
+**Decision.** The operator chose the dictated clause with the comma. The
+sentence reads: "Whether it fits you, and which product suits your
+anatomy and goals, is a clinical decision made with Amy in a
+consultation, with the procedure following."
+
+**Consequences.**
+- One sentence in `src/content/treatments/wrinkle-relaxers.mdx`, in its
+  own commit. `clinicianApproved` was already false, so nothing reset;
+  the flags stay 0 true / 12 false. It is a new line for Amy to read on
+  the sign-off sheet.
+- It is NOT a new scoped exception in CLAUDE.md. The sentence still
+  hands the fit question to Amy in a consultation, which is what the
+  rule asks for. It trips no `lint:claims` pattern, and a green linter
+  is not its authorization: this entry is. The operator was told of
+  this reading with the flag.
+- **Coupling.** The first half of the sentence and the layout-injected
+  disclaimer are what carry §8.7 routing in this page's body copy (its
+  FAQ already says no consultation is needed before booking). Trimming
+  either one is a fresh flag, not a tidy.
+- **The trend note (2026-08-24), brought current.** The site now has
+  four same-visit wordings: biostimulators' and regenerative's booking
+  answers say the procedure "can be performed"; laser's (under its
+  override) and this one state that it follows.

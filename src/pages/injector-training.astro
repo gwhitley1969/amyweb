@@ -36,6 +36,12 @@ import ReviewNumber from '../components/ReviewNumber.astro';
  * - Contact is phone/Instagram. Not "Book with Amy" (reserved for
  *   Vagaro buttons), not "appointment" (client booking), not
  *   "consultation" (clinical routing) — training is none of those.
+ *   Since 2026-10-05 (operator; DECISIONS same date) the intro shows
+ *   both: Call, and "Message Amy on Instagram" beside it. The word
+ *   "Instagram" in the paragraph above them wears the house
+ *   inline-link idiom (underline + the link token — BookLink's);
+ *   the anchor had carried no link styling of its own since the
+ *   page was made, so it read as plain text.
  * - The portrait is the dedicated training photo the 2026-08-04 entry
  *   recorded as the upgrade path, taken 2026-08-25 (DECISIONS same
  *   date): amy-evolysse-cart.jpg ships under its own pixel-level
@@ -109,14 +115,31 @@ const jsonLd = [
             Training dates are set directly with Amy: call or text, or
             send her a message on <a
               href={siteConfig.social.instagram}
+              class="underline underline-offset-4"
+              style="color: var(--ng-link)"
               target="_blank"
               rel="noopener"
               >Instagram<span class="sr-only"> (opens in new tab)</span></a
             >.
           </p>
         </div>
-        <div class="mt-8">
+        {/* The Instagram button (operator, 2026-10-05 — DECISIONS same
+          * date): the page's second way to reach Amy, beside Call. The
+          * home page's "Follow Amy on Instagram" anchor is the pattern
+          * (hand-written, the brand chip, no data-event); the mark is
+          * the footer's own glyph, hand-copied from Footer.astro. */}
+        <div class="mt-8 flex flex-wrap items-center gap-4">
           <CTAButton variant="call" emphasis="chip" />
+          <a href={siteConfig.social.instagram} target="_blank" rel="noopener" class="cta cta--chip">
+            <svg class="shrink-0" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.8" />
+              <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
+              <circle cx="17.3" cy="6.7" r="1.3" fill="currentColor" />
+            </svg>
+            Message Amy on Instagram
+            <span class="chev-nudge" aria-hidden="true">&rsaquo;</span>
+            <span class="sr-only">(opens in new tab)</span>
+          </a>
         </div>
       </div>
       <figure class="training-portrait ng-arch">

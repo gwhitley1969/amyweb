@@ -104,7 +104,10 @@ caption file carries the sung words, the one place they are written;
 the promo's, the billboard-day reel's and the team film's songs play
 under the operator's override of the music-licence position; the
 reel's and the team film's caption files carry bounded `[Music]`
-cues, never a song's words. So do the site-authored, sounded films: the
+cues, never a song's words. Since 2026-10-04 the home band's van-trip
+film plays its two songs under the same override (DECISIONS same
+date), and its caption file marks them with bounded `[Music]` cues
+beside Amy's own words. So do the site-authored, sounded films: the
 two on /services/biostimulators (2026-08-21 — Amy's own reels:
 constraint-3 and constraint-2 overrides for the Radiesse-visit film,
 a retina-rule override for the 480p reel), the body-contouring Evolve

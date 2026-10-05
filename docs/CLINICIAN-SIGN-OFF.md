@@ -324,6 +324,30 @@ is also not flag-gated and has its own review section below the table.
 
 ## The twelve pages
 
+**NEW 2026-10-05 — the search descriptions of seven pages (the
+operator's direction, before the relaunch).** This is the sentence a
+search engine shows under a page's title. It is not on the page itself,
+so the preview does not show it: this list and the before-and-after
+sheet the operator sends are what put the words in front of her. Each
+was too long for a results page and is now shorter, and each now says
+"near Charlotte". No flag moved: all twelve were already unapproved
+(DECISIONS 2026-10-05, the search-text entry).
+
+| Page | It read | It now reads |
+|---|---|---|
+| Wrinkle relaxers | Jeuveau, Xeomin, and Daxxify with Amy Palacios, FNP, in Harrisburg, NC: prescription wrinkle relaxers, planned one face at a time. Book online, or start with a free consultation. | Jeuveau, Xeomin, and Daxxify wrinkle relaxers with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte. Book online, or start with a free consultation. |
+| Dermal fillers | Dermal fillers with Amy Palacios, FNP, in Harrisburg, NC: Evolysse Smooth and Form, and Revanesse Versa+ and Lips+. Book online, or start with a free consultation. | Evolysse and Revanesse dermal fillers with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte. Book online, or start with a free consultation. |
+| Hormone optimization | Bioidentical hormone replacement therapy with Amy Palacios, FNP, a Biote-certified provider in Harrisburg, NC. Pellets for women and men, and it starts with a lab draw. | Bioidentical hormone replacement therapy with Amy Palacios, FNP, a Biote-certified provider in Harrisburg, NC, near Charlotte. It starts with a lab draw. |
+| IV therapy | IV infusions and vitamin shots with Amy Palacios, FNP, in Harrisburg, NC: Myers' Cocktail, Immunity IV, NAD IV, Glutathione, and B12. Book an appointment directly. | IV infusions and vitamin shots with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte: Myers' Cocktail, Immunity IV, NAD IV, Glutathione, and B12. |
+| Laser treatments | Venus Versa Pro treatments and Venus Epileve laser hair removal with Amy Palacios, FNP, in Harrisburg, NC: intense pulsed light, radiofrequency energy, and laser hair removal, priced by treatment area. | Venus Epileve laser hair removal and Venus Versa Pro light and radiofrequency treatments with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte. |
+| Skincare | Medical-grade skincare from the complete Skinbetter Science line, through Amy Palacios, FNP, in the Harrisburg, NC medspa or her practice storefront, serving the Charlotte area. | Medical-grade skincare from the complete Skinbetter Science line, through Amy Palacios, FNP, at her Harrisburg, NC medspa near Charlotte or her storefront. |
+| Weight loss | A medically supervised weight-management program anchored by GLP-1 therapy. Amy Palacios, FNP, in Harrisburg, NC. Book online, or start with a free consultation. | Medically supervised weight management anchored by GLP-1 therapy, with Amy Palacios, FNP, in Harrisburg, NC, near Charlotte. Start with a free consultation. |
+
+The same day, on pages with no approval flag: the home page's search
+title now ends "…in Harrisburg & Charlotte, NC" and its description
+says "near Charlotte", and the /services, /about and /injector-training
+descriptions were shortened. Those five lines are on the same sheet.
+
 **NEW 2026-09-30 — one word on all twelve pages (her own direction,
 relayed by the operator):** every page's "studio" now reads "medspa".
 Each page has the sentence "…at her Harrisburg medspa…" near its end.

@@ -15182,3 +15182,186 @@ embed, no script. The page is outside the treatments collection, so no
 `clinicianApproved` flag is involved; the sign-off sheet's
 /injector-training section gains the item for Amy. The chip's consumer
 lists in `CTAButton.astro` and `tokens.css` name the new wearer.
+
+## 2026-10-05 — Home: no sideways scroll on phones (the hero and the Instagram print's section clip x; PR #210's fix, carried into the relaunch)
+
+**Context.** Two motion-layer moves put a box past the screen's right
+edge, and below 900px nothing clipped either, so the home page itself
+grew wider and could be dragged sideways on phones. The fix was written
+and verified on 2026-09-26 (PR #210) and never merged; the branch went
+stale under later merges. Found again while preparing the relaunch and
+measured on the standing demo (`phase-c` `a02dde4`, the repo's
+puppeteer in phone emulation, stepping the whole page 100px at a time):
+the page was 15 / 19 / 21 / 37 px too wide at 320 / 390 / 430 / 768.
+- **The hero's exit swell** (home-motion.js step 3, scrubbed) scales
+  the hero's media box to 1.12 from 60% 40%, 4.8% of the width past the
+  edge; from 900px the hero already clipped it.
+- **The Instagram print's reveal** (step 6). The print's photo waits at
+  1.18, unseen, until the reveal plays, and inside the tilted print that
+  box reached past the edge at about 420–640px wide.
+
+Reduced motion runs neither move.
+
+**Decision.** PR #210's three hunks, unchanged apart from the date in
+their two comments: `overflow-x: clip` in the hero's base rule, outside
+the media query, and on the print's section, which takes a new class.
+From 900px the hero's existing `overflow: hidden` still wins, so desktop
+is unchanged. Operator, 2026-10-05, asked whether to fix it before the
+relaunch or after: "Fix it first".
+
+**The relaunch rule this touches.** RELAUNCH precondition 3 wants Amy's
+presentation approval to be newer than the last merged visual change,
+and this fix merges after her review of the same day. The operator's
+decision, asked directly: he checks the fix on the PR preview himself
+("No, I'll check it myself"), and it is recorded as his override of that
+rule for a fix that changes nothing a visitor sees. The measurements
+above and below are the evidence.
+
+**Alternatives rejected.** An x clip on html or body: it can break
+`position: sticky`, and the statement band's panel is sticky from
+900px. `hidden`: a scroll container, for no gain. Clipping both axes:
+on a fast scroll back to the top the lagging swell rises past the hero's
+top edge for a moment, and a y clip would cut it. Smaller or re-anchored
+moves: a different look. Launching with the bug and fixing it on the
+live site: offered and declined.
+
+**Consequences.** A few bytes in the stylesheet the home page shares
+with the styleguide pages, and the home page gains the section's class;
+nothing else in the build changes. Safari before 16 ignores `clip` and
+keeps the old pan (no regression). Not treatment content; no
+`clinicianApproved` flag. PR #210 is closed as superseded once this
+merges; its fuller 2026-09-26 verification (16 widths, Firefox, frame
+comparisons) stays on that PR.
+
+**Verification.** With the hunks on today's tree, served from a local
+build: 0 px over at 320, 390, 430 and 768, with the motion layer
+running. `npm run verify` exit 0 on the tree that carries this fix and
+the same day's search-text edits. The PR preview's result is in the
+shipped record.
+
+## 2026-10-05 — Search text: twelve titles and descriptions say Charlotte and fit a results page; the business data gains an image (operator direction, before the relaunch)
+
+**Context.** The operator asked, on the day of the relaunch, whether the
+site was search-optimized. An audit of the production build of all 22
+pages found the pages sound: one H1 each, unique titles and
+descriptions, correct canonicals, every share tag, no image without an
+alt attribute, valid JSON-LD, no page that nothing links to, no
+`noindex`, a 21-URL sitemap. It also found three things in the text
+search engines read:
+- eleven descriptions ran past 160 characters (up to 201), so results
+  pages cut them off;
+- the home page's title and description never said Charlotte, and nor
+  did eleven of the twelve treatment descriptions, though the treatment
+  titles do;
+- the sitewide business entry had no `image`.
+
+Offered the choice of doing the edits after the relaunch (recommended,
+so that nothing new could hold the launch) or before it, the operator
+chose "Do them now, before launch", with Amy's OK on the new lines
+before his approval flip.
+
+**Decision.** Thirteen exact replacements in twelve files, none of them
+text a visitor sees on a page:
+- **Home** (`ConceptHome.astro`): the title tag reads "Needle Girlie |
+  Medical Aesthetics in Harrisburg & Charlotte, NC" (it read "…in
+  Harrisburg, NC"; the share title of 2026-09-27 is unchanged), and the
+  description reads "Needle Girlie — medical aesthetics in Harrisburg,
+  NC, near Charlotte. Injectables, skin, body, and wellness, every
+  appointment with Amy Palacios, FNP."
+- **/services, /about, /injector-training**: descriptions shortened to
+  154, 145 and 157 characters. /services and /injector-training now say
+  "near Charlotte, NC".
+- **Seven treatment files** (dermal-fillers, hormone-optimization,
+  iv-therapy, laser-treatments, skincare, weight-loss-glp-1,
+  wrinkle-relaxers), in their own commit: `seo.description` shortened to
+  144–156 characters, each saying "in Harrisburg, NC, near Charlotte"
+  (skincare: "at her Harrisburg, NC medspa near Charlotte"). The old and
+  new lines are in the sign-off sheet.
+- **`schema.ts`**: the business entry gains `image`, the link-share
+  card's address.
+
+The rule applied to every line: 160 characters or fewer, say Charlotte,
+add no claim. Each line was read against CLAUDE.md's scoped exceptions
+whose terms forbid restating them in meta descriptions; none restates
+one. Weight loss keeps "medically supervised", wording left for the
+operator's separate call since 2026-09-19.
+
+**Alternatives rejected.**
+- *FAQ structured data.* Several FAQ answers are operator exceptions
+  that may never be restated in JSON-LD (the laser booking answer among
+  them), and search engines show FAQ results for few sites now.
+- *Map coordinates, a price range, opening hours* in the business entry:
+  the first two are facts not on record, and hours are left off by
+  Amy's decision of 2026-08-04. Nothing was invented.
+- *Visible copy.* The home page's text says Harrisburg seven times and
+  Charlotte never; changing what visitors read was not part of this.
+- *The other five treatment descriptions and every other title*: already
+  within length, left as they are. The laser title keeps "Laser Hair
+  Removal" whole and so has no room for Charlotte.
+- *A `logo` property*: still Phase D (BRAND-ASSETS).
+
+**Consequences.** All twelve treatment flags were already `false`, so no
+flag resets; Amy reads the seven new lines on a before-and-after sheet
+and the operator's flip follows her OK. The home description is also the
+text some apps show under a shared link. The `image` address must follow
+the share card's filename when the card is re-made (RUNBOOK, "Changing
+the link-share card"). RELAUNCH's launch-day checklist quotes the new
+home title. The round-close record counts this and the phone fix as the
+last two items before the freeze.
+
+**What the pages cannot do.** Search engines have to be told the site
+is back: Search Console verification and a sitemap submission need the
+operator's Google account, and whether a Google Business Profile links
+here is the operator's to settle (BUILD_SPEC §10, `{{GBP_STATUS}}`).
+With analytics off (the next entry), Search Console is also the only
+source of search numbers.
+
+**Verification.** The edit script writes nothing unless each old string
+is found exactly once: 13 of 13. On the edited tree the production
+build, `astro check`, `lint:claims`, `lint:voice` and
+`lint:practice-link` pass; no description runs past 160 characters;
+Lighthouse scores SEO, accessibility and best practices at 1.0 on /,
+/services, /about and /services/wrinkle-relaxers of that build. The
+two-step relaunch merge, rehearsed with these edits in, conflicts in the
+same three files as before.
+
+## 2026-10-05 — Analytics stays off at the relaunch (operator decision; supersedes the 2026-08-17 "Plausible at relaunch")
+
+**Context.** On 2026-08-17 the operator decided that Plausible would be
+switched on at relaunch, and the wiring was built to ship dark until
+then. RELAUNCH listed the flip as precondition 4. Asked on the day
+whether the Plausible account was ready, the operator asked what the
+feature was, and with that explained chose "No, launch without it".
+
+**Decision.** The relaunch goes out with `siteConfig.analytics` at
+`enabled: false`, `provider: 'none'`. Precondition 4 does not apply to
+this relaunch. The wiring stays in the repo, dormant: the self-hosted
+tracker file, the privacy page's conditional wording, the CSP sniff in
+`generate-swa-config.mjs`. Turning it on later is the same two-value
+edit, on the operator's word, by the RUNBOOK procedure.
+
+**Alternatives rejected.** Switching it on at launch as planned: needs
+an account only the operator can create, and he declined. Removing the
+dormant wiring: it costs nothing while dark and the decision may be
+revisited.
+
+**Consequences.** No visitor numbers from day one; Front Door's request
+reports and, once set up, Search Console are what there is. The privacy
+page keeps its launch wording, which is true ("It currently runs no
+analytics"). BUILD_SPEC §16's analytics line stays satisfied the way it
+was on 2026-08-04, by the recorded no-provider decision. Azure run-rate
+is unchanged and no Plausible charge starts. Five places said the flip
+would happen at relaunch and are corrected with this entry: CLAUDE.md's
+list of sanctioned scripts (one phrase, on the operator's approval of
+the launch plan), BUILD_SPEC §11 and its §17 registry row, RUNBOOK
+"Turning on analytics", RELAUNCH precondition 4 with its checklist
+line, and the comment above the values in `siteConfig.ts`.
+
+**One thing to do when it is switched on.** The privacy page promises
+that a changed policy is "posted on this page with an updated effective
+date", and the date is one line in `LegalLayout.astro`, shared by the
+three legal pages. The flip needs the privacy page's date changed in
+the same PR (rehearsed 2026-10-05: an optional `effective` prop on the
+layout, set by the privacy page when analytics is on). The preview
+environments would also report into the production site's numbers
+unless the account's hostname list admits needlegirlie.com only.

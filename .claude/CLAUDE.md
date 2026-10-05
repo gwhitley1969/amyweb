@@ -763,7 +763,7 @@ silently following it. Known superseded points from earlier briefs:
   to start with sound plays muted. Second sanctioned
   consumer (2026-08-17, operator-directed, SHIPS DARK): the self-hosted
   Plausible tracker (~3.6KB, `public/js/plausible.js`) — renders only
-  after the operator's relaunch-day flip (BUILD_SPEC §11). Third
+  after the operator's flip (BUILD_SPEC §11). Third
   sanctioned consumer (2026-08-21, operator-directed): the treatment-film
   autoplay-in-view script (~3KB, `public/js/treatment-video.js`) —
   rendered only on pages whose `TreatmentVideo` players opt in with

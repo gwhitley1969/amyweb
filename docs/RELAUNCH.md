@@ -29,6 +29,11 @@ already merged.
    relaunch): account created, then the two-value siteConfig edit per
    RUNBOOK "Turning on analytics" — ships in the relaunch PR or just
    before it, so the baseline starts day one.
+   **NOT AT THIS RELAUNCH (operator, 2026-10-05):** asked on the day,
+   the operator chose to launch without analytics. The switch stays
+   off and this precondition does not apply; the flip is a later
+   change on the operator's word (DECISIONS 2026-10-05, the analytics
+   entry).
 
 ## The relaunch PR itself (two-step — NEVER a plain merge)
 
@@ -169,8 +174,11 @@ check will refuse it. On a branch off `main`:
   2026-09-26, the Tox To Go page entry). Nor is `/tox-to-go`: the
   page moved to `/tox-together` 2026-09-27 before production ever
   served it, so a 404 there is correct too (DECISIONS 2026-09-27).
-- Plausible: `/api/event` returns 202 from the production page;
-  dashboard shows the first pageviews.
+- ~~Plausible: `/api/event` returns 202 from the production page;
+  dashboard shows the first pageviews.~~ Not at the 2026-10-05
+  relaunch (the analytics switch stays off, precondition 4). The check
+  instead: no page carries the `/js/plausible.js` tag, and the CSP has
+  no `connect-src`.
 - The favicon set serves: `/favicon.ico` (200, `image/x-icon` or
   `image/vnd.microsoft.icon`) and `/icons/apple-touch-icon.png` (200,
   `image/png`) — the 2026-09-15 logo-derived set.
@@ -179,9 +187,11 @@ check will refuse it. On a branch off `main`:
   `og:image` and `twitter:image` with a `summary_large_image` card. The
   home page's `og:title` and `twitter:title` read "Mobile Aesthetics
   Harrisburg, NC", with a no-break space after "Mobile" and after
-  "Harrisburg,", while its title tag keeps "Needle Girlie | Medical
-  Aesthetics in Harrisburg, NC" (DECISIONS 2026-09-25, 2026-09-26 and
-  2026-09-27). The live placeholder carries the same file and tags since
+  "Harrisburg,", while its title tag reads "Needle Girlie | Medical
+  Aesthetics in Harrisburg & Charlotte, NC" since 2026-10-05 (it kept
+  "…in Harrisburg, NC" until then; DECISIONS 2026-09-25, 2026-09-26,
+  2026-09-27 and 2026-10-05, the search-text entry). The live
+  placeholder carries the same file and share tags since
   2026-09-27, so a relaunch that dropped them would show as a changed
   preview. The two earlier cards, `/og/needle-girlie-share.jpg` and
   `/og/needle-girlie-share-2026-09-26.jpg`, still serve (200) for

@@ -561,8 +561,15 @@ above.
 
 Everything is wired and gated behind `siteConfig.analytics`
 (src/lib/siteConfig.ts); while it ships dark the site is byte-identical
-to the no-analytics build. The flip is the operator's act, intended
-for relaunch day so the baseline starts at day one:
+to the no-analytics build. The flip is the operator's act. It was
+intended for relaunch day; the 2026-10-05 relaunch went out with
+analytics off at the operator's decision (DECISIONS same date), so the
+baseline starts on whatever day the flip is made. When it is made, the
+privacy page's effective date has to change in the same PR (that page
+promises an updated date; the date is one line in `LegalLayout.astro`,
+shared by the three legal pages), and the Plausible account's hostname
+list should admit needlegirlie.com only, or the preview environments
+report into the site's numbers. The steps:
 
 1. Create the Plausible account (plausible.io, ~$9/mo — client
    pass-through) and add the site `needlegirlie.com`.
@@ -666,7 +673,9 @@ the default `og:image` and `twitter:image` that
    output is named by its render date. Then run `node predict-bar.cjs`
    on the output: it must pass (see the bar, below).
 2. Commit it under that NEW filename and point `SeoHead`'s default at
-   it. Apps cache previews by image URL, so a file replaced in place
+   it, and point the business entry's `image` in `src/lib/schema.ts` at
+   the same file (since 2026-10-05 the structured data names the card;
+   DECISIONS same date). Apps cache previews by image URL, so a file replaced in place
    leaves old previews stale. Keep the previous card's file until
    relaunch: nothing references it, but an app that stored its address
    still asks for it. While `main` is still the placeholder, ship the

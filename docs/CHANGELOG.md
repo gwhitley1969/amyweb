@@ -6,6 +6,44 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-10-05 — Search text says Charlotte and fits a results page
+
+- What search engines show for the site was tidied before the relaunch,
+  at the operator's direction. Nothing a visitor reads on a page
+  changed.
+- The home page's search title now reads "Needle Girlie | Medical
+  Aesthetics in Harrisburg & Charlotte, NC", and its description says
+  "near Charlotte".
+- Eleven descriptions that ran too long for a results page were
+  shortened: /services, /about, /injector-training and seven treatment
+  pages (dermal fillers, hormone optimization, IV therapy, laser
+  treatments, skincare, weight loss, wrinkle relaxers). The treatment
+  ones now say "in Harrisburg, NC, near Charlotte".
+- The business details search engines read gained a picture, the
+  link-share card.
+- Amy reads the seven treatment lines on a before-and-after sheet before
+  the operator's approval. DECISIONS 2026-10-05.
+
+### 2026-10-05 — The home page no longer shifts sideways on phones
+
+- Once you scrolled past the top of the home page on a phone or small
+  tablet, the whole page could be nudged sideways: 19px on a typical
+  iPhone, 15 to 37px across the widths measured. The hero photo's
+  gentle swell as you scroll away was spilling past the right edge of
+  the screen, and further down the Instagram post's photo did the same
+  while it waited to fade in.
+- Both are now trimmed at the screen's edge, so the page stays put.
+  Everything looks exactly as before, and wider screens are unchanged.
+- The fix was first written on 2026-09-26 (PR #210) and never merged;
+  it went in with the relaunch preparation. DECISIONS 2026-10-05.
+
+### 2026-10-05 — Analytics stays off at the relaunch
+
+- The site goes live without visitor counting, the operator's decision
+  on the day; the 2026-08-17 plan had been to switch Plausible on at
+  relaunch. No page changed: the switch was already off, and the wiring
+  stays in place for a later day. DECISIONS 2026-10-05.
+
 ### 2026-10-05 — /injector-training: a "Message Amy on Instagram" button beside Call
 
 - The top of the page has a second button, right of "Call

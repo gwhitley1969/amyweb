@@ -15784,6 +15784,64 @@ corrected. The launch probe outside the repo expects the new title.
 Google's result changes when it next reads the page; Search Console's
 "Request indexing" shortens the wait and is the operator's to do.
 
+## 2026-10-05 — Shipped: the first release made the two-stage way (the home title and the branch-model records); a GitHub Actions fault on the way
+
+**What shipped.** Release PR #259, `phase-c` into `main`, merged with a
+merge commit (`8c24b43`) at 20:30 UTC on the operator's word: "Merge and
+release to the live site". It carried the two changes made into
+`phase-c` after the relaunch, both merged there at 20:00 UTC: PR #257
+(the branch-model records, `7f45500`) and PR #258 (the home page's
+search title, `f0db4c8`). After the merge `main`'s tree was identical to
+`phase-c`'s. Production run 37370127874 put it live on its second
+attempt: gates and the approval check 20:46 to 20:53, deploy 20:53 to
+21:01. The pages changed at about 20:54, when the deploy step finished;
+the rest was the cache purge.
+
+**Checked on the live site.** The launch probe, expecting the new title,
+ran six clean passes in a row over all 21 pages, each fetched plain and
+cache-busted. Its one-time checks were clean too: the 17 film files, the
+carousel's five sound files, the redirects and the origin lock. The home
+page's title tag reads "Needle Girlie | Mobile Aesthetics in Harrisburg
+& Charlotte, NC".
+
+**GitHub's fault on the way.** GitHub's status page showed an open
+incident with Actions for the whole release (opened 19:11 UTC, still
+open at 21:14). Runs failed with "The job was not acquired by Runner of
+type hosted even after multiple attempts": each waited about 15 minutes
+for a machine, got none, and ran no step.
+
+1. *The release PR's pipeline*, first attempt (run 37367118143). It was
+   re-run and went green at 20:29; the release was merged only then.
+2. *The Production run*, first attempt, 20:30 to 20:45. Nothing was
+   built or deployed, and the live site kept the morning's title and
+   answered normally. Re-run at 20:45, green at 21:01.
+3. *The preview clean-up jobs* of PR #258 and PR #259 (runs 37367072336
+   and 37370128159), twice each. With no clean-up, the two merged PRs'
+   previews stayed up. The third attempt got machines at 21:13 and
+   removed both. The environment list then showed production and five
+   previews: 97, 149, 201, 249 and the known leftover 210.
+
+**Confirmed on this release.** The auto-delete setting leaves `phase-c`
+alone, which the branch-model entry had left to be confirmed: after the
+release merged, `phase-c` was still on GitHub and the five open PRs
+still had it as their base. GitHub did delete the two merged work
+branches of PR #257 and PR #258, as the setting intends. `phase-c` was
+then fast-forwarded to `8c24b43` (RUNBOOK "Everyday changes", step 4),
+so the two branches are the same commit again.
+
+**Alternatives rejected.** Merging the release while its pipeline was
+red, on the grounds that the failure was GitHub's: not done; a red
+pipeline had checked nothing, and the live site was healthy, so nothing
+was urgent. The re-run cost about half an hour.
+
+**Consequences.** A release during a GitHub fault takes longer and needs
+its runs read one by one; it does not put the live site at risk, because
+a job that gets no machine does nothing. RUNBOOK "Troubleshooting" now
+has the message, what it means and what to re-run, the preview clean-up
+case included. The end-to-end time of a release that gets its machines
+was again about 15 minutes (this one: 14 minutes 49 seconds from the
+second attempt's first job starting to green).
+
 ## 2026-10-05 — Booking moves from Vagaro to Aesthetic Record: every Book link opens the practice's new booking page (operator decision after the compliance flag; constraint 2's tenth scoped exception)
 
 **Context.** The operator, after the relaunch: "Amy is leaving Vagaro,
@@ -16039,5 +16097,6 @@ the site's "free consultation" against the booking page's $75 deposit;
 the booking menu's differences from the site; the places outside the
 site that may still point at Vagaro. Search engines keep their stored
 copy of a page until they next read it. Another session's records PR
-(#260) conflicts with the record files these changes edited and needs
-a hand merge by its owner.
+(#260) conflicted with the record files these changes edited. It was
+merged by hand the same evening at the operator's direction, with both
+sides' entries kept.

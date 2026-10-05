@@ -207,7 +207,11 @@ check will refuse it. On a branch off `main`:
   "Harrisburg,", while its title tag reads "Needle Girlie | Medical
   Aesthetics in Harrisburg & Charlotte, NC" since 2026-10-05 (it kept
   "…in Harrisburg, NC" until then; DECISIONS 2026-09-25, 2026-09-26,
-  2026-09-27 and 2026-10-05, the search-text entry). The live
+  2026-09-27 and 2026-10-05, the search-text entry). *That is the title
+  the site launched with. Later the same day, after the relaunch, it
+  became "Needle Girlie | Mobile Aesthetics in Harrisburg & Charlotte,
+  NC" (DECISIONS 2026-10-05, the home-title entry); a probe of the live
+  site expects that one from its release on.* The live
   placeholder carries the same file and share tags since
   2026-09-27, so a relaunch that dropped them would show as a changed
   preview. The two earlier cards, `/og/needle-girlie-share.jpg` and

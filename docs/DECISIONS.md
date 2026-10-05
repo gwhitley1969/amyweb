@@ -15726,3 +15726,131 @@ RUNBOOK's share-card section quoted or described the old title and are
 corrected. The launch probe outside the repo expects the new title.
 Google's result changes when it next reads the page; Search Console's
 "Request indexing" shortens the wait and is the operator's to do.
+
+## 2026-10-05 — Booking moves from Vagaro to Aesthetic Record: every Book link opens the practice's new booking page (operator decision after the compliance flag; constraint 2's tenth scoped exception)
+
+**Context.** The operator, after the relaunch: "Amy is leaving Vagaro,
+so we need to change the URL that all of the Book or Book with Amy
+links point to", with the new address,
+`https://mobileaesthetics.myaestheticrecord.com/online-booking`. One
+value held the old address (the Vagaro handle supplied 2026-07-18) and
+four files read it: the header's Book, both "Book with Amy" button
+variants, the link inside a sentence, and the /services intro's bold
+"BOOK". A build holds 108 such links on 25 pages; the live site, which
+has no styleguide, holds 96 on 22. Three places named Vagaro in words a
+visitor reads: /privacy, /terms, and the wrinkle-relaxers answer to
+"How do I book?".
+
+**The destination, screened 2026-10-05** (compliance/README: a new
+outbound destination is screened before it ships). In a browser, the
+page is live and headed "Mobile Aesthetics PLLC, Book an Appointment";
+the vendor is Aesthetic Record. Its own service and provider lists were
+read. Nothing was entered, and the walk stopped before the details
+step.
+
+- 22 bookable services in 10 categories. Amy is offered on all 22.
+- On the six laser and device services the provider step also offers
+  three other people by name, two titled Licensed Esthetician and one
+  Licensed Aesthetician. Two of the three are among the people the
+  2026-08-15 screening of the practice site recorded as the location's
+  other providers. On the other 16 services Amy is the only provider
+  offered.
+- The flow has a details step and a payment step, and takes a deposit
+  at booking ($75 to $150 on the services opened).
+- The page's own text prints amounts and per-dose prices for its
+  weight-loss services. That text is the booking page's, outside this
+  site's rules and its linter. The site restates none of it.
+- Like Vagaro, it answers 403 to a non-browser client.
+
+**The flag, and the decision.** Constraint 2 bans linking to a page
+that names the location's other providers. The 2026-07-23 ownership
+fact settled whose booking page it is, not who is on it ("sole owner ≠
+sole provider"), and an already-screened destination carries no
+authorization to a new one. The operator was given two paths: link the
+page as it is, or keep the Book links on Vagaro until Aesthetic Record
+supplies a link that offers only Amy (or the three come off those
+services). **The operator chose "Link it as it is."** It is recorded as
+constraint 2's tenth scoped exception: that one address, never a link
+to a single service or to the provider step; the labels the booking
+links already carry; the site's text never names the three and never
+says they can be booked. The page is screened again when its content is
+known to have changed. A link that offers only Amy, if one is supplied,
+replaces this one, and that is a one-line change.
+
+**What changed.**
+
+- The config key is vendor-neutral now, `siteConfig.booking.url`, so
+  the next move is one line. The four consumers read it. Labels, styles,
+  the `book_click` event and the new-tab attributes are untouched.
+- /privacy reads "Booking happens on Aesthetic Record, a third-party
+  scheduling service." /terms makes the same swap, twice, under
+  "Booking happens elsewhere".
+- The legal pages' effective date is per page. /privacy and /terms
+  carry the day this version went live, because the privacy page
+  promises an updated date when it changes. The medical disclaimer's
+  text did not change and it keeps August 4, 2026. Before this the date
+  was one line shared by all three.
+- Comments that say what a button does today say "the booking page".
+  Dated history ("the 2026-07-19 Vagaro alignment") stays as written,
+  and so do the `{{VAGARO_URL}}` tokens, marked superseded in
+  BUILD_SPEC §17.
+
+**Two releases, the operator's choice.** The wrinkle-relaxers FAQ
+sentence is on a page Amy approved this day, so editing it resets that
+page's flag and holds every release until she has OK'd it and the
+operator has flipped the flag. Offered one release after her OK, or the
+links first, **the operator chose "Links first, sentence after."** This
+change touches no treatment file and resets no flag. Until the second
+change ships, that one answer says "through Vagaro" above a button that
+opens the new page. The new sentence drops those two words, as the IV
+page's same answer did on 2026-09-19.
+
+**Alternatives rejected.** Holding for an Amy-only link: offered, not
+chosen; it stays the off-ramp. Keeping the key's old name: it would
+name one company and point at another. Moving all three legal pages'
+dates together, as RUNBOOK's earlier note assumed: the medical
+disclaimer would show a new date over unchanged text. Naming the vendor
+in the FAQ answer: it would need editing again at the next move.
+
+**Verification.** `verify` exit 0. In the built pages: no `vagaro.com`;
+108 links to the new address on 25 pages, each with the event and both
+new-tab attributes; "Vagaro" once, in the FAQ answer that follows; the
+two legal pages dated, the third unchanged. The link count is the check
+that would catch a wrong key, since the site's own address sits one
+token away and the type check would accept it. The stylesheets are
+byte-identical to the previous build's.
+
+**Raised with the operator, not part of this change.**
+
+- *"Free consultation".* The site's source says a consultation is free
+  in about 23 places. The booking page's "Consultation (In Person)"
+  takes a $75.00 deposit at booking, and its "Peptide Consult" reads
+  "Free Consult, your Deposit goes towards your service." It is Amy's
+  to settle, on her booking page or in the site's wording.
+- *The booking menu and the site differ.* Its tox service lists Jeuveau
+  and Daxxify, not Xeomin. Its filler service lists a brand the site
+  does not carry. Its weight-loss services carry a price tier the site
+  does not, and none names retatrutide. It has no PRP or chemical-peel
+  service. The site was aligned to Vagaro's menu on 2026-07-19. An
+  alignment pass is the operator's to ask for; treatment copy is Amy's
+  to approve.
+- *Counsel.* The legal pages are still provider-drafted, with counsel
+  review a standing post-launch item. "A third-party scheduling
+  service" now describes a page that also takes payment and has a
+  patient-portal login.
+- *Other places.* The Google Business Profile, the Instagram and
+  Facebook Book buttons, Yelp and the practice site are outside this
+  repository and may still point at Vagaro. They are Amy's to change.
+- *Scope.* The SOW (§4) names Vagaro for the Book buttons; this is a
+  client-directed change. It was raised after the round was frozen
+  (REDESIGN "Round close", this date), so by that record it is
+  change-order or retainer scope; the classification is the operator's.
+
+**Consequences.** CLAUDE.md constraint 2 gains the tenth exception and
+counts ten, and its goals line says "online-booking handoff".
+BUILD_SPEC §1, §5, §6, §9, §16 and §17, RUNBOOK (the re-screening rule
+and the effective-date note), RELAUNCH's launch-day checklist, the
+sign-off sheet and compliance/README are corrected. No cost change, no
+new dependency, no script, no security-header change. The `book_click`
+event keeps its name, so a later visitor-counting baseline is not
+broken by the move.

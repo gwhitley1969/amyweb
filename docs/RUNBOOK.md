@@ -62,7 +62,13 @@ design: `allowedForwardedHosts` only admits the real hostnames.
 
 ## Everyday changes (content/code)
 
-1. Branch → edit → `npm run verify` (must be green; never weaken a gate).
+**Two stages (the operator's decision after the relaunch, DECISIONS
+2026-10-05, the branch-model entry).** Work goes into `phase-c` first,
+where it gets a preview to look over; a separate release PR carries
+`phase-c` into `main`, and that is the moment the live site changes.
+Ordinary work never goes straight into `main`.
+
+1. Branch off `phase-c` → edit → `npm run verify` (must be green; never weaken a gate).
    *Before changing copy on a page that carries a pixel override, read that
    override's stated premise in CLAUDE.md, not just its verdict.* Several are
    conditioned on what the page's own text does or does not say, and nothing
@@ -75,7 +81,7 @@ design: `allowedForwardedHosts` only admits the real hostnames.
    non-compliant while tripping no pattern, in which case the override lives
    in DECISIONS and NOT in `allowedStrings` (compliance/README
    "Authorizations the registry does not hold").
-2. Open a PR. CI runs the fast gates (build, `check`, `lint:claims`,
+2. Open a PR **into `phase-c`**. CI runs the fast gates (build, `check`, `lint:claims`,
    `lint:voice`, and since 2026-09-27 `lint:practice-link` — about 20
    seconds together), deploys a **preview
    environment**, and only then runs the slow gates (pa11y, Lighthouse).
@@ -91,9 +97,37 @@ design: `allowedForwardedHosts` only admits the real hostnames.
    *Documentation-only PRs run nothing and get no preview* — `paths-ignore`
    covers `docs/**`, `**/*.md`, `.gitignore` (DECISIONS 2026-07-26). Touch
    one source file and the full suite runs as usual.
-3. Merge to `main`. The production workflow re-verifies, runs the
-   **clinician-approval gate**, deploys, and purges the Front Door cache.
-   Live in ~5–10 minutes end to end.
+3. Merge into `phase-c` on the operator's word, with a merge commit.
+   Nothing ships: pushes to `phase-c` deploy nowhere. Refresh the
+   standing previews (the paragraph below).
+4. **Release, when the operator wants `phase-c` live.** Open a PR from
+   `phase-c` into `main`. Before it can ship, every treatment page
+   edited since its approval needs Amy's OK and the operator's own flip
+   of its flag, on `phase-c`: the production workflow's
+   **clinician-approval gate** refuses the deploy otherwise. Merge on
+   the operator's word **with a merge commit, never a squash**: a
+   squashed release leaves `phase-c` out of `main`'s history and the
+   next release conflicts with itself (rebase merging is switched off in
+   the repository settings for the same reason). The production
+   workflow re-verifies, runs the approval gate, deploys, and purges
+   the Front Door cache. Live in about 15 minutes end to end (measured
+   2026-10-05: gates about 6, deploy about 9, most of it the purge);
+   the pages change about 8 minutes in. Run nothing else into `main`
+   while a Production run is in flight. After a release, fast-forward
+   `phase-c` to `main` (`git push origin origin/main:refs/heads/phase-c`):
+   the release's merge commit exists only on `main`, so without that
+   step `phase-c` sits one commit behind with an identical tree. The
+   push starts no pipeline.
+5. **If something has to go straight into `main`** (an urgent fix):
+   branch from `main`, PR into `main`, and afterwards fast-forward
+   `phase-c` to `main` (`git push origin origin/main:refs/heads/phase-c`)
+   so the branches stay one history.
+
+Since 2026-10-05 GitHub deletes a merged PR's branch by itself
+("Automatically delete head branches"; the merged PR keeps a "Restore
+branch" button). `main` and `phase-c` are protected against deletion,
+so a release does not delete `phase-c`. Branches and worktrees on the
+operator's machine are not touched by this and are kept.
 
 **After every merge into `phase-c`, refresh the standing previews.** Pushes to
 `phase-c` deploy nowhere (see "Where `phase-c` is visible"), and GitHub does not

@@ -15136,3 +15136,49 @@ consultation, with the procedure following."
   four same-visit wordings: biostimulators' and regenerative's booking
   answers say the procedure "can be performed"; laser's (under its
   override) and this one state that it follows.
+
+## 2026-10-05 — /injector-training: a "Message Amy on Instagram" button beside Call; the paragraph's link gets its underline (operator direction)
+
+**Context.** The operator asked for an Instagram icon or link to Amy's
+page near the intro's Call button, "which we have at the bottom
+(footer) of every page". Exploration found that the page already
+linked there: the word "Instagram" in the intro's last sentence has
+been an anchor since the page was made (2026-08-04), but it carried
+none of the house inline-link styling, so it read as plain text. A
+link nobody can see is also an accessibility defect (the 2026-07-23
+rule: on the ombre canvas a link is told apart by its underline).
+
+**Decision.** Two looks were shown on a mock sheet made from the built
+page (laptop and phone): **A**, a second brand-chip button with the
+Instagram mark and the words "Message Amy on Instagram"; **B**, the
+mark alone in a square chip. The operator chose A (AskUserQuestion).
+The paragraph's word takes the inline-link idiom (underline and the
+link token, as on the booking links) with either choice.
+
+**How it is built.**
+- One file, `src/pages/injector-training.astro`. The button is a
+  hand-written anchor wearing the shared chip, the shape of the home
+  page's "Follow Amy on Instagram" anchor: `siteConfig.social.instagram`,
+  a new tab, `noopener`, the hidden new-tab note, and no analytics
+  event (there is none for Instagram, and adding one is a BUILD_SPEC
+  §11 change nobody asked for).
+- The mark is the footer's own glyph, copied by hand from
+  `Footer.astro`. Two uses did not earn a shared component.
+- The label says "Message", not "Follow": the sentence above it says
+  how training dates are set, and the page's contact rule is
+  phone or Instagram. It is not "Book with Amy", "appointment" or
+  "consultation", which that rule reserves.
+- The button row wraps. Measured on the local build: side by side at
+  1280px; stacked from 768px down; no sideways scroll at 320px, where
+  the label takes two lines.
+
+**Alternatives rejected.** The icon alone (B): quieter, but nothing says
+what it is for. Underline only: fixes the hidden link but does not give
+the operator the visible control that was asked for. A second button in
+the closing band: not asked for.
+
+**Consequences.** Privacy constraint 5 is untouched: a link-out, no
+embed, no script. The page is outside the treatments collection, so no
+`clinicianApproved` flag is involved; the sign-off sheet's
+/injector-training section gains the item for Amy. The chip's consumer
+lists in `CTAButton.astro` and `tokens.css` name the new wearer.

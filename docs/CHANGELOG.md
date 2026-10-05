@@ -6,6 +6,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## Post-launch revision round (`phase-c`)
 
+### 2026-10-05 — /injector-training: a "Message Amy on Instagram" button beside Call
+
+- The top of the page has a second button, right of "Call
+  704-579-7108" on wide screens and under it on phones: the Instagram
+  icon and "Message Amy on Instagram". It opens Amy's Instagram page
+  in a new tab, the address the footer's icon uses. The operator's
+  request; of the two looks shown, the operator chose the button with
+  words over the icon alone.
+- The word "Instagram" in the sentence above the buttons is now
+  underlined. It has been a link since the page was made, but it
+  carried no link styling and read as plain text.
+- No new script, no tracking and no new dependency. The closing band
+  keeps its one Call button. DECISIONS 2026-10-05; PR #252.
+
 ### 2026-10-05 — /services/wrinkle-relaxers: "Who they're generally for" says the procedure follows the consultation
 
 - The section's last sentence now ends "…is a clinical decision made

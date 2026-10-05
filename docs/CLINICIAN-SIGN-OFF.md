@@ -371,6 +371,12 @@ verify before launch:
   heading — autoplaying muted, looping, tap for sound — both shipped
   at her direction with the releases and overrides on the operator's
   record (DECISIONS 2026-08-25).
+- Since 2026-10-05 (the operator's direction): a "Message Amy on
+  Instagram" button beside the Call button at the top of the page. It
+  opens her Instagram page, the same address the footer's icon uses.
+  The word "Instagram" in the sentence above the buttons is now
+  underlined; it was already a link, but it looked like plain text
+  (DECISIONS 2026-10-05). She has not seen it.
 
 **Round reviewed 2026-08-25** (relayed by the operator, same day the
 round merged): Amy reviewed the shipped portrait + reel on the

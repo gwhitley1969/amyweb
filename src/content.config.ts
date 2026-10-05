@@ -1,7 +1,10 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// The 9 service lines (BUILD_SPEC §6/§7). Slugs match the /services/* routes.
+// The 12 service lines (BUILD_SPEC §6/§7; skin-rejuvenation and
+// body-contouring added in the 2026-07-19 Vagaro alignment,
+// laser-treatments added 2026-07-22 — operator approved). Slugs match
+// the /services/* routes.
 export const SERVICE_LINES = [
   'weight-loss-glp-1',
   'peptide-therapy',
@@ -9,6 +12,9 @@ export const SERVICE_LINES = [
   'dermal-fillers',
   'biostimulators',
   'regenerative',
+  'skin-rejuvenation',
+  'body-contouring',
+  'laser-treatments',
   'iv-therapy',
   'hormone-optimization',
   'skincare',
@@ -22,11 +28,51 @@ const treatments = defineCollection({
     title: z.string(),
     line: z.enum(SERVICE_LINES),
     summary: z.string(),
+    // Optional editorial standfirst (2026-07-20 — replaced the AtAGlance
+    // fact card at operator direction): one short, claims-clean display
+    // line rendered as the blush statement card under the lead. §8
+    // applies to it like any other string.
+    deck: z.string().optional(),
     products: z.array(z.string()).default([]),
+    // Optional per-product cards (2026-07-20 GLP-1 alignment — operator-
+    // approved schema change): upgrades the products bullet list in the
+    // layout. `detail` is one factual, claim-free sentence (§7/§8);
+    // `priceLines` holds operator-supplied price strings only. A string
+    // that would trip a banned category (mg-keyed, per-unit, …)
+    // additionally requires an exact allowlist entry in
+    // compliance/banned-patterns.json — operator-only. (Comment aligned
+    // with merged practice 2026-07-22: plain-dollar strings like
+    // "$900 per syringe" ship without allowlisting.)
+    productDetails: z
+      .array(
+        z.object({
+          name: z.string(),
+          detail: z.string(),
+          tag: z.string().optional(),
+          priceLines: z.array(z.string()).default([]),
+        }),
+      )
+      .default([]),
     ctaType: z.enum(['book', 'consult', 'shop']),
     investigational: z.boolean().default(false),
+    // Names the compound inside InvestigationalNotice so the disclosure
+    // is unambiguous on pages that list several products (added in the
+    // 2026-07-19 Vagaro alignment — operator-approved schema change).
+    investigationalProduct: z.string().optional(),
+    // Page-supplied wording for InvestigationalNotice (2026-07-21 —
+    // operator-approved consolidation to a single calm disclosure line).
+    // The sentence must still state the compound is investigational and
+    // not FDA-approved; lint:claims' inverse check enforces that on this
+    // file's own text, so the wording lives here in the audit trail.
+    investigationalNote: z.string().optional(),
     bioteDisclaimer: z.boolean().default(false),
     pricingDisplay: z.enum(['none', 'consult', 'startingAt']).default('consult'),
+    // Editorial Q&A only (§7): process, logistics, credentials. Suitability
+    // questions always answer "that's decided in a consultation". Compliance
+    // text NEVER goes in an accordion. Rides the clinician-approval gate
+    // with the rest of the page. (Field added in C2 — operator-approved
+    // schema change, flagged in the PR.)
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
     // Only the human operator ever sets this to true (CLAUDE.md hard constraint 4).
     clinicianApproved: z.boolean().default(false),
     draft: z.boolean().default(false),

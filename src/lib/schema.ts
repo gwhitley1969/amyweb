@@ -42,7 +42,8 @@ export function localBusiness() {
         postalCode: '28075',
         addressCountry: 'US',
       },
-      openingHours: siteConfig.hours,
+      // No openingHours: Amy does not list hours anywhere on the site
+      // (decision 2026-08-04 — {{HOURS}} closed, not pending).
       // social values are literal types now — no widening predicate needed
       sameAs: Object.values(siteConfig.social).filter((v) => isResolved(v)),
     }),

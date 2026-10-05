@@ -36,6 +36,16 @@ const categories = registry.categories.map((cat) => ({
   patterns: cat.patterns,
 }));
 
+// Operator-authorized allowlist (see $allowlistComment in the registry and
+// docs/DECISIONS.md 2026-07-20): EXACT strings stripped from a line before
+// the banned categories run. The boundary guards keep partial overlaps
+// scannable — "120mg vial: $675" is NOT stripped by "20mg vial: $675".
+// Changing the list requires the human operator.
+const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const allowedStringPatterns = (registry.allowedStrings ?? []).map(
+  (s) => new RegExp(`(?<![\\d.])${escapeRegExp(s)}(?!\\d)`, 'g'),
+);
+
 const SYMPTOM_LANGUAGE =
   /\b(?:fatigue|low\s+energy|night\s+sweats|hot\s+flashes|brain\s+fog|libido|mood\s+swings|trouble\s+sleeping|poor\s+sleep|weight\s+gain)\b/iu;
 const INVESTIGATIONAL_FLAG = /^\s*investigational:\s*true\s*$/m;
@@ -61,6 +71,9 @@ function scanText(text) {
   const violations = [];
   const lines = text.split(/\r?\n/);
   lines.forEach((lineText, i) => {
+    for (const allowed of allowedStringPatterns) {
+      lineText = lineText.replace(allowed, '');
+    }
     for (const cat of categories) {
       for (const re of cat.regexes) {
         const m = lineText.match(re);
@@ -130,7 +143,7 @@ function runSelfTest() {
   // Known-bad samples per category, assembled from fragments (see header).
   const j = (...parts) => parts.join('');
   const badSamples = {
-    dosing: [j('take 1', '0 m', 'g every week'), j('reconstitu', 'tion steps'), j('weekly injec', 'tions every month')],
+    dosing: [j('take 1', '0 m', 'g every week'), j('reconstitu', 'tion steps'), j('weekly injec', 'tions every month'), j('$12 / un', 'it special'), j('priced per un', 'it')],
     'disease-claims': [j('this trea', 'ts wrinkles'), j('supports patients with Alzhei', "mer's"), j('preven', 'ts illness')],
     'outcome-promises': [j('results guaran', 'teed'), j('pro', 'ven results'), j('see the before and af', 'ter')],
     superiority: [j('the #', '1 provider'), j('the be', 'st injector in town'), j('top-ra', 'ted med spa')],
@@ -187,6 +200,24 @@ function runSelfTest() {
   if (inverseChecks(compliantBiote).length !== 0) {
     console.error('self-test: biote check false positive on compliant file');
     failed = true;
+  }
+
+  // Allowlist carve-out: every enumerated string must pass, and a near-miss
+  // variant (digit-prefixed, so the boundary guard blocks the strip) must
+  // still be caught by SOME banned category — proves the exception is exact.
+  // Generalized from dosing-only 2026-07-21 when the third authorization
+  // added the first superiority-class string (its variant trips superiority,
+  // not dosing); price-string variants still trip dosing as before.
+  const rawAllowed = registry.allowedStrings ?? [];
+  for (const sample of rawAllowed) {
+    if (scanText(`priceLines: ["${sample}"]`).length !== 0) {
+      console.error(`self-test: allowlisted string "${sample}" was flagged`);
+      failed = true;
+    }
+    if (scanText(`1${sample}`).length === 0) {
+      console.error(`self-test: near-miss variant "1${sample}" was NOT flagged — the allowlist is too loose`);
+      failed = true;
+    }
   }
 
   if (failed) {

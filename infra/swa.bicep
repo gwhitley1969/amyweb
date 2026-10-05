@@ -2,10 +2,6 @@
 // Deployed from GitHub Actions via deployment token; no repo link here.
 param location string
 
-@secure()
-@description('Password protecting non-production (preview) environments — SWA Standard feature. Share with Amy for reviews.')
-param previewPassword string
-
 resource swa 'Microsoft.Web/staticSites@2023-12-01' = {
   name: 'stapp-needlegirlie'
   location: location
@@ -20,16 +16,12 @@ resource swa 'Microsoft.Web/staticSites@2023-12-01' = {
   }
 }
 
-// Password-protect preview environments only; production stays open (it is
-// locked to Front Door by the generated SWA config instead).
-resource basicAuth 'Microsoft.Web/staticSites/basicAuth@2023-12-01' = {
-  parent: swa
-  name: 'default'
-  properties: {
-    applicableEnvironmentsMode: 'StagingEnvironments'
-    password: previewPassword
-  }
-}
+// Preview environments are deliberately PUBLIC (operator decision,
+// DECISIONS 2026-07-21 — the SWA basicAuth cookie looped constantly in
+// Chrome and blocked client reviews). Drafts are kept out of search by
+// the X-Robots-Tag header in config/swa/preview.json. Do not re-add a
+// basicAuth resource here without the operator. Production stays locked
+// to Front Door by the generated SWA config.
 
 output defaultHostname string = swa.properties.defaultHostname
 output swaId string = swa.id

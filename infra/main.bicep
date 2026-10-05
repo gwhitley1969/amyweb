@@ -1,15 +1,12 @@
 // Orchestrates the needlegirlie.com website infrastructure (BUILD_SPEC §15).
 // Deploy:  az deployment sub create --location <region> --template-file infra/main.bicep \
-//            --parameters previewPassword=<secret> budgetStartDate=yyyy-MM-01
+//            --parameters budgetStartDate=yyyy-MM-01
 // Region note: {{AZURE_REGION}} was unset at first deploy; eastus2 chosen as
 // the closest SWA region to the Charlotte market (see docs/DECISIONS.md).
 targetScope = 'subscription'
 
 param location string = 'eastus2'
 param dnsZoneResourceGroup string = 'rg-corp'
-
-@secure()
-param previewPassword string
 
 param budgetContactEmails array = ['genewhitley2017@gmail.com']
 param budgetStartDate string
@@ -24,7 +21,6 @@ module swa 'swa.bicep' = {
   name: 'swa'
   params: {
     location: location
-    previewPassword: previewPassword
   }
 }
 

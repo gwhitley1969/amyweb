@@ -42,6 +42,7 @@
   line-height: 1.05;
   font-weight: 500;
   letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 @utility display-2 {
   font-family: var(--font-display);
@@ -49,28 +50,33 @@
   line-height: 1.1;
   font-weight: 500;
   letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 @utility heading-2 {
   font-family: var(--font-display);
   font-size: 2.4375rem; /* 39px */
   line-height: 1.15;
   font-weight: 600;
+  text-wrap: balance;
 }
 @utility heading-3 {
   font-family: var(--font-body);
   font-size: 1.9375rem; /* 31px */
   line-height: 1.25;
   font-weight: 600;
+  text-wrap: balance;
 }
 @utility heading-4 {
   font-family: var(--font-body);
   font-size: 1.5625rem; /* 25px */
   line-height: 1.3;
   font-weight: 600;
+  text-wrap: balance;
 }
 @utility lead {
   font-size: 1.25rem; /* 20px */
   line-height: 1.6;
+  text-wrap: pretty;
 }
 /* Two-tone display headlines: wrap the accented phrase in a span.
  * ONLY inside display-1/display-2/heading-2 (>= 39px — large-text contrast
@@ -80,24 +86,28 @@
   color: var(--ng-display-accent);
 }
 /* Editorial eyebrow/kicker — the section-opener label. Body-size text on
- * --ng-link: ink-pink 6.71:1 on light, pink-300 11.58:1 on noir. */
+ * --ng-kicker (defaults to --ng-link): ink-pink 6.71:1 on light,
+ * pink-300 11.58:1 on noir, ink-900 on the ombre canvas (tokens.css
+ * OMBRE CANVAS — ink-pink washes out mid-ramp). */
 @utility eyebrow {
   font-family: var(--font-body);
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ng-link);
+  color: var(--ng-kicker);
 }
 /* Hairline + accent rules (decorative — --ng-hairline is never text). */
 @utility rule-hairline {
   border-top: 1px solid var(--ng-hairline);
 }
 /* The jeweled short rule: pairs with `eyebrow` (and ng-trace) as the
- * section-opener signature on light interiors. */
+ * section-opener signature on light interiors. Color rides
+ * --ng-rule-accent (defaults to magenta-600; ink-900 on the ombre
+ * canvas where magenta washes out — tokens.css OMBRE CANVAS). */
 @utility rule-accent {
   width: 3.5rem;
-  border-top: 2px solid var(--ng-magenta-600);
+  border-top: 2px solid var(--ng-rule-accent);
 }
 
 /* Paints the current surface tokens; pair with data-surface="noir" on the
@@ -112,6 +122,56 @@ body {
   color: var(--ng-text);
   font-family: var(--font-body);
   line-height: 1.6;
+}
+
+/* Orphan control (taste audit 2026-07-25): headings/leads carry
+ * text-wrap balance/pretty in their utilities above; prose paragraphs
+ * get the pretty hint here. Both are progressive — browsers without
+ * support simply ignore the declaration. */
+p {
+  text-wrap: pretty;
+}
+
+/* Ombre page canvas — SITE-WIDE since 2026-07-23 (client approved the
+ * /services trial the same day: every light-surface page now wears the
+ * ramp; noir-bodied pages — the construction home and /404 — keep
+ * their flat black via the :not() guard).
+ * Longhands, not the shorthand: the base body rule above stays the
+ * fallback and the noir path; only what changes is overridden.
+ * - The ramp reaches full depth at 80% of the document and holds — on
+ *   pages with a closing noir band the whole sweep sits in the visible
+ *   canvas; on pages without one (legal trio) the held brand pink is
+ *   itself visible above the footer.
+ * - background-color paints the canvas beyond the ramp, so rubber-band
+ *   overscroll shows the light start at both edges; no-repeat stops
+ *   the dark end tiling above the top edge.
+ * - The custom-property re-inks keep every canvas-level element
+ *   legible at full ramp depth (ink-900 holds 4.88 on pink-500 —
+ *   tokens.css OMBRE CANVAS): openers, accent rules, the focus ring,
+ *   and — site-wide addition — links/outline CTAs via --ng-link, since
+ *   ink-pink fails mid-ramp (2.33). Links stay distinguishable by
+ *   underline/border. In boxes this lifts the 2026-07-22 in-box 4.60
+ *   exception to a clean 11.80. Noir bands re-scope their own values,
+ *   so header, footer, and CTA bands are unaffected.
+ * - A11y: axe cannot compute contrast against a gradient backdrop and
+ *   files canvas-level text as needs-review; every ombre page's entry
+ *   in .pa11yci.json caps that class to warnings — per-URL, an
+ *   auditable list (operator decisions 2026-07-23, DECISIONS same
+ *   date — real violations still fail at zero tolerance everywhere).
+ *   The recorded OMBRE CANVAS pairs in tokens.css are the review those
+ *   items need. Do NOT re-engineer this as a body pseudo-element
+ *   layer: axe flags background-bearing pseudos on an ancestor for
+ *   every text element on the page, including the solid noir
+ *   header/footer (tried 2026-07-23, failed 23/23-wide). */
+body:not([data-surface='noir']) {
+  --ng-kicker: var(--ng-ink-900);
+  --ng-rule-accent: var(--ng-ink-900);
+  --ng-focus-ring: var(--ng-ink-900);
+  --ng-link: var(--ng-ink-900);
+  --ng-display-accent: var(--ng-ink-900);
+  background-color: var(--ng-ombre-start);
+  background-image: linear-gradient(to bottom, var(--ng-ombre-start), var(--ng-ombre-end) 80%);
+  background-repeat: no-repeat;
 }
 
 /* Surface-scoped focus (tokens.css switches --ng-focus-ring per surface). */
@@ -244,6 +304,85 @@ body {
   translate: 3px 0;
 }
 
+/* ---- Elevation: the raised plate (client direction 2026-07-27) ----
+ * Worn ONLY by whole-card links — the 12 /services cards and the three
+ * concept-home category doors. Elevation here MEANS "this is
+ * clickable", which is why static boxes (deck, router card, location
+ * card, product cards) and every compliance block stay flat: a raised
+ * disclaimer implies a press target that does not exist.
+ *
+ * Why it exists: the ombre canvas and the card fill cross equal
+ * luminance at 19.6% of the document, and card-vs-canvas stays under
+ * 1.2:1 across an 8-32% band, bottoming at 1.001:1 — the plate is
+ * arithmetically invisible there and the hairline goes with it
+ * (1.12:1 vs the canvas). The shadow is the only cue that stays darker
+ * than the canvas at every depth. Measured pairs + the ink-pink ban:
+ * tokens.css ELEVATION.
+ *
+ * Shared rather than per-component because the duplication already
+ * happened once — .nc-door is a hand-copy of the card anatomy, and a
+ * third copy was the likely next step.
+ *
+ * SHAPE, settled by the operator 2026-07-27 so it is not "tidied" later:
+ * plates keep radius 0, and the 2px on .cta stays the CONTROLS' alone.
+ * The two now look alike enough to invite unifying them — do not. A
+ * plate is a printed object (which is where its shadow came from); a
+ * button is a control. At card scale 2px is invisible anyway.
+ *
+ * THREE THINGS THAT LOOK ARBITRARY AND ARE NOT:
+ * 1. `transform`, never `translate`. ng-rise animates the independent
+ *    `translate` property with `both` fill and is applied to every card
+ *    AND every door, so its forwards fill would permanently override a
+ *    hover `translate:` — it works in dev, then silently dies once the
+ *    element has scrolled past. `transform` is untouched by every house
+ *    animation and composes with `translate` cleanly.
+ * 2. The rest ring is `inset` with zero spread, same color as the hover
+ *    ring. Shadows differing in the `inset` keyword are NOT
+ *    interpolable and snap discretely; matching inset-ness and color
+ *    means only the spread animates.
+ * 3. The ring rides a custom property instead of being redeclared.
+ *    box-shadow is a single property, so a hover rule setting it
+ *    outright would wipe the lift underneath.
+ *
+ * Motion note: this is a STATE style, not an addition to the sanctioned
+ * motion vocabulary. It diverges from the 2026-07-25 CTA pressed state
+ * in two ways, both forced rather than chosen — that one uses
+ * `translate` (available to it; CTAs carry no ng-rise) and carries no
+ * transition, while the card already transitions its hover properties
+ * at 150ms. Reduced motion needs no new code: the global block below
+ * collapses transition-duration, so lift and press become instant while
+ * the static elevation correctly persists. */
+.ng-lift {
+  --lift-ring: inset 0 0 0 0 var(--ng-ink-pink); /* zero spread = invisible */
+  --lift-shadow:
+    0 1px 2px -1px var(--ng-lift-contact), 0 10px 20px -12px var(--ng-lift-body);
+  box-shadow: var(--lift-ring), inset 0 1px 0 var(--ng-lift-facet), var(--lift-shadow);
+  /* Owns the plate's WHOLE state transition, including background and
+   * border, which both consumers previously declared themselves.
+   * `transition` is one property: if the component also set it, the two
+   * class rules (equal specificity) would race on source order and one
+   * set of transitions would silently vanish. One owner, no race. */
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+}
+.ng-lift:hover,
+.ng-lift:focus-within {
+  --lift-ring: inset 0 0 0 1px var(--ng-ink-pink);
+  --lift-shadow:
+    0 2px 4px -1px var(--ng-lift-contact), 0 18px 32px -14px var(--ng-lift-body);
+  transform: translateY(-2px);
+}
+/* Settles under the press. :active propagates from the stretched link
+ * overlay to its ancestor card, so this fires on the plate itself. */
+.ng-lift:active {
+  --lift-shadow:
+    0 1px 1px -1px var(--ng-lift-contact), 0 4px 8px -6px var(--ng-lift-body);
+  transform: translateY(1px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -259,46 +398,5 @@ body {
   .ng-rise,
   .ng-trace {
     animation: none !important;
-  }
-}
-
-/* ======================================================================
- * LEGACY — construction placeholder ONLY (src/pages/index.astro's
- * .construction-sign). NOT part of the sanctioned vocabulary above.
- * Delete this whole fence when index.astro is rebuilt as the real home
- * page (Phase C, sub-PR C8) — these keyframes have no other consumer.
- * The client-approved placeholder ships unchanged until then
- * (DECISIONS 2026-07-18).
- * ====================================================================== */
-@keyframes ng-ignite {
-  0% {
-    opacity: 0.35;
-  }
-  10% {
-    opacity: 1;
-  }
-  16% {
-    opacity: 0.45;
-  }
-  26% {
-    opacity: 1;
-  }
-  38% {
-    opacity: 0.6;
-  }
-  52%,
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes ng-hum {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 2px color-mix(in srgb, var(--ng-neon-500) 40%, transparent))
-      brightness(1);
-  }
-  50% {
-    filter: drop-shadow(0 0 26px color-mix(in srgb, var(--ng-neon-500) 70%, transparent))
-      brightness(1.09);
   }
 }

@@ -1,13 +1,19 @@
 ---
 /**
- * Visible marker for unapproved treatment content (BUILD_SPEC §7).
+ * Visible marker for unapproved content (BUILD_SPEC §7).
  * TreatmentLayout renders this whenever clinicianApproved is false; the
  * production deploy separately fails via scripts/check-approvals.mjs, so
- * this banner should only ever be seen on previews.
+ * this banner should only ever be seen on previews. LegalLayout passes
+ * its own label (counsel review, C7) — the default stays the clinician
+ * wording.
  */
+interface Props {
+  label?: string;
+}
+const { label = 'Draft — pending clinician review' } = Astro.props;
 ---
 
-<div class="draft-banner" role="status">Draft — pending clinician review</div>
+<div class="draft-banner" role="status">{label}</div>
 
 <style is:global>
   .draft-banner {

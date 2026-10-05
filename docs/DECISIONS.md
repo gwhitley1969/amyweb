@@ -16040,5 +16040,6 @@ the site's "free consultation" against the booking page's $75 deposit;
 the booking menu's differences from the site; the places outside the
 site that may still point at Vagaro. Search engines keep their stored
 copy of a page until they next read it. Another session's records PR
-(#260) conflicts with the record files these changes edited and needs
-a hand merge by its owner.
+(#260) conflicted with the record files these changes edited. It was
+merged by hand the same evening at the operator's direction, with both
+sides' entries kept.

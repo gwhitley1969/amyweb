@@ -889,6 +889,18 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
   can need several minutes to converge). Probe with `curl -sL`
   (trailing-slash 301s fake failures) and never share a link before
   probes converge.
+  Three passes are a floor, not proof. On 2026-10-04 (PR #250) a new
+  environment served three clean rounds, then answered the platform
+  404 on most requests for about 25 minutes, in runs of one or two
+  clean rounds. A browser test run in that window failed on a missing
+  element: it had been served the 404 page, which looks like a fault
+  in the change. The standing demo answered 6 of 6 in the same
+  minutes. Re-running the preview workflow cleared it about 19 minutes
+  later. So for a new environment ask for six clean rounds, and check
+  what the host answers again just before a browser test or a link.
+  When a preview test fails on a missing element, check the host
+  before reading the code. `C:\Amy\van-film\tests\probe.sh` and
+  `edge-check.sh` (outside the repo) do both.
 - **pa11y contrast failure that appears/disappears with unrelated copy
   changes:** before 2026-08-17 the audit ran with animations live, so
   scroll-driven entrance blocks (`ng-rise`) froze at whatever partial

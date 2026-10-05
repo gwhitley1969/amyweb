@@ -8,8 +8,8 @@
  *
  * TWO targets exist, and only these two:
  *
- * - `cta:book` — the consumer renders it with BookLink (Amy's Vagaro
- *   page — siteConfig.booking.vagaroUrl).
+ * - `cta:book` — the consumer renders it with BookLink (Amy's booking
+ *   page — siteConfig.booking.url).
  * - `site:practice` — the consumer renders it with PracticeLink (Amy's
  *   practice site — siteConfig.mobileAestheticsUrl). Added 2026-09-27
  *   when the operator had every visible "Mobile Aesthetics" linked

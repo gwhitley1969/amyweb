@@ -4,7 +4,9 @@ import { siteConfig } from '../lib/siteConfig';
 /**
  * Conversion CTA (BUILD_SPEC §5/§6/§9). Labels are unified to "Book with
  * Amy" (operator, 2026-07-20) and so are destinations (operator,
- * 2026-07-21): book and consult both open the Vagaro page directly —
+ * 2026-07-21): book and consult both open the booking page directly
+ * (siteConfig.booking.url — Aesthetic Record since the 2026-10-05
+ * decision, Vagaro before) —
  * the /book double-hop is retired; consult keeps the outline emphasis
  * by default (placements may opt into the brand chip via `emphasis`).
  * The §6 language convention ("appointment" = booking, "consultation" =
@@ -40,20 +42,20 @@ const defaults: Record<
      * singular. The §6 convention still governs prose: "appointment" =
      * booking contexts, "consultation" = clinical routing. */
     label: 'Book with Amy',
-    href: siteConfig.booking.vagaroUrl,
+    href: siteConfig.booking.url,
     event: 'book_click',
     style: 'solid',
   },
   consult: {
     /* One label AND one destination (operator, 2026-07-21): a button
-     * reading "Book with Amy" always opens the Vagaro page — the
+     * reading "Book with Amy" always opens the booking page — the
      * /book hop was retired after the operator saw it on the preview.
      * "consultation" remains the word prose uses for clinical
      * routing (§6); the outline style keeps this the secondary
      * emphasis next to the solid book button (default — /about's
      * placements wear the brand chip via `emphasis`). */
     label: 'Book with Amy',
-    href: siteConfig.booking.vagaroUrl,
+    href: siteConfig.booking.url,
     event: 'book_click',
     style: 'outline',
   },

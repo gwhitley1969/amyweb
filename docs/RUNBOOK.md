@@ -4,7 +4,28 @@ Everything needed to run, change, and fix the site. Written for the operator;
 assumes `az` and `gh` CLIs authenticated against the client tenant
 (`needlegirlie.onmicrosoft.com`) and the GitHub repo (`gwhitley1969/amyweb`).
 
-> **STATUS 2026-08-05: production is OFFLINE — serving the Under
+> **STATUS 2026-10-05: production is LIVE.** needlegirlie.com serves
+> the site again, relaunched that day by the two-step PR #255 (merge
+> commit `fdf19db`, Production run 37356241933; DECISIONS 2026-10-05,
+> the relaunch entry and its shipped record). **Every merge to `main`
+> ships**, and an unapproved treatment edit blocks every deploy until
+> the operator flips its flag in the same PR. The takedown era
+> (2026-08-05 to 2026-10-05) is over. Its rules (never merge `main`
+> into `phase-c`, never close PR #95, the two-step relaunch, the
+> relaunch guard) are history: the guard workflow and its two required
+> checks retired the same day, and `phase-c` was fast-forwarded to
+> `main`, so the two branches share one history again. The sections
+> below that describe the takedown ("Hotfixing production during the
+> takedown era", "Where `phase-c` is visible", "Relaunching after the
+> takedown") are kept as the record of how the repo got here; where
+> they give instructions, read them as past tense. Emergency return to
+> the placeholder, on the operator's word only and valid until
+> 2026-10-27: `gh run rerun 36325267925 --job 108636946730` (the deploy
+> job of the last placeholder release); the durable route is
+> "Rollback" below.
+
+> **HISTORY — the status from 2026-08-05 to 2026-10-05: production was
+> OFFLINE — serving the Under
 > Construction placeholder** (since the same evening with Amy's studio
 > photo in the window — the caricature is retired at her word, PR #99).
 > The launch merge was reverted at operator
@@ -41,7 +62,13 @@ design: `allowedForwardedHosts` only admits the real hostnames.
 
 ## Everyday changes (content/code)
 
-1. Branch → edit → `npm run verify` (must be green; never weaken a gate).
+**Two stages (the operator's decision after the relaunch, DECISIONS
+2026-10-05, the branch-model entry).** Work goes into `phase-c` first,
+where it gets a preview to look over; a separate release PR carries
+`phase-c` into `main`, and that is the moment the live site changes.
+Ordinary work never goes straight into `main`.
+
+1. Branch off `phase-c` → edit → `npm run verify` (must be green; never weaken a gate).
    *Before changing copy on a page that carries a pixel override, read that
    override's stated premise in CLAUDE.md, not just its verdict.* Several are
    conditioned on what the page's own text does or does not say, and nothing
@@ -54,7 +81,7 @@ design: `allowedForwardedHosts` only admits the real hostnames.
    non-compliant while tripping no pattern, in which case the override lives
    in DECISIONS and NOT in `allowedStrings` (compliance/README
    "Authorizations the registry does not hold").
-2. Open a PR. CI runs the fast gates (build, `check`, `lint:claims`,
+2. Open a PR **into `phase-c`**. CI runs the fast gates (build, `check`, `lint:claims`,
    `lint:voice`, and since 2026-09-27 `lint:practice-link` — about 20
    seconds together), deploys a **preview
    environment**, and only then runs the slow gates (pa11y, Lighthouse).
@@ -70,9 +97,37 @@ design: `allowedForwardedHosts` only admits the real hostnames.
    *Documentation-only PRs run nothing and get no preview* — `paths-ignore`
    covers `docs/**`, `**/*.md`, `.gitignore` (DECISIONS 2026-07-26). Touch
    one source file and the full suite runs as usual.
-3. Merge to `main`. The production workflow re-verifies, runs the
-   **clinician-approval gate**, deploys, and purges the Front Door cache.
-   Live in ~5–10 minutes end to end.
+3. Merge into `phase-c` on the operator's word, with a merge commit.
+   Nothing ships: pushes to `phase-c` deploy nowhere. Refresh the
+   standing previews (the paragraph below).
+4. **Release, when the operator wants `phase-c` live.** Open a PR from
+   `phase-c` into `main`. Before it can ship, every treatment page
+   edited since its approval needs Amy's OK and the operator's own flip
+   of its flag, on `phase-c`: the production workflow's
+   **clinician-approval gate** refuses the deploy otherwise. Merge on
+   the operator's word **with a merge commit, never a squash**: a
+   squashed release leaves `phase-c` out of `main`'s history and the
+   next release conflicts with itself (rebase merging is switched off in
+   the repository settings for the same reason). The production
+   workflow re-verifies, runs the approval gate, deploys, and purges
+   the Front Door cache. Live in about 15 minutes end to end (measured
+   2026-10-05: gates about 6, deploy about 9, most of it the purge);
+   the pages change about 8 minutes in. Run nothing else into `main`
+   while a Production run is in flight. After a release, fast-forward
+   `phase-c` to `main` (`git push origin origin/main:refs/heads/phase-c`):
+   the release's merge commit exists only on `main`, so without that
+   step `phase-c` sits one commit behind with an identical tree. The
+   push starts no pipeline.
+5. **If something has to go straight into `main`** (an urgent fix):
+   branch from `main`, PR into `main`, and afterwards fast-forward
+   `phase-c` to `main` (`git push origin origin/main:refs/heads/phase-c`)
+   so the branches stay one history.
+
+Since 2026-10-05 GitHub deletes a merged PR's branch by itself
+("Automatically delete head branches"; the merged PR keeps a "Restore
+branch" button). `main` and `phase-c` are protected against deletion,
+so a release does not delete `phase-c`. Branches and worktrees on the
+operator's machine are not touched by this and are kept.
 
 **After every merge into `phase-c`, refresh the standing previews.** Pushes to
 `phase-c` deploy nowhere (see "Where `phase-c` is visible"), and GitHub does not
@@ -135,6 +190,15 @@ are. The gate reads this repo's pages and never the practice site
 itself, so screen the destination again when its content is known to
 have changed.
 
+**The booking page is the same kind of destination.** Since the
+2026-10-05 decision every booking link opens the Aesthetic Record page
+in `siteConfig.booking.url`, under constraint 2's tenth scoped
+exception: its provider step offers three other people by name on six
+laser and device services. No gate reads that page. Screen it again
+when its content is known to have changed (new staff, new services),
+and take anything beyond that one address to the operator first. It
+answers 403 to `curl`, so look at it in a browser.
+
 **The place is "the medspa".** Since 2026-09-30, at Amy's direction,
 copy calls the place where she works the medspa: one word, never
 "studio" (DECISIONS same date). That covers page text, photo
@@ -171,6 +235,9 @@ mergeable again.
 
 Do not wait on a `…-95…` environment, and do **not** close PR #95 to "fix"
 it — closing it would not create a preview, and the relaunch depends on it.
+(At the relaunch itself the question answers itself: once the relaunch
+PR merges, #95's commits are all in `main` and GitHub is expected to
+mark it merged. See RELAUNCH, "Standing PR bookkeeping".)
 
 **Where to look at `phase-c` meanwhile:** the demo environment below,
 refreshed by merging `phase-c` into `chore/monday-demo-preview`. PR #97
@@ -561,8 +628,16 @@ above.
 
 Everything is wired and gated behind `siteConfig.analytics`
 (src/lib/siteConfig.ts); while it ships dark the site is byte-identical
-to the no-analytics build. The flip is the operator's act, intended
-for relaunch day so the baseline starts at day one:
+to the no-analytics build. The flip is the operator's act. It was
+intended for relaunch day; the 2026-10-05 relaunch went out with
+analytics off at the operator's decision (DECISIONS same date), so the
+baseline starts on whatever day the flip is made. When it is made, the
+privacy page's effective date has to change in the same PR (that page
+promises an updated date; since the 2026-10-05 booking change each
+legal page passes its own date to `LegalLayout.astro`, so it is one
+value in `privacy.astro`), and the Plausible account's hostname
+list should admit needlegirlie.com only, or the preview environments
+report into the site's numbers. The steps:
 
 1. Create the Plausible account (plausible.io, ~$9/mo — client
    pass-through) and add the site `needlegirlie.com`.
@@ -666,7 +741,9 @@ the default `og:image` and `twitter:image` that
    output is named by its render date. Then run `node predict-bar.cjs`
    on the output: it must pass (see the bar, below).
 2. Commit it under that NEW filename and point `SeoHead`'s default at
-   it. Apps cache previews by image URL, so a file replaced in place
+   it, and point the business entry's `image` in `src/lib/schema.ts` at
+   the same file (since 2026-10-05 the structured data names the card;
+   DECISIONS same date). Apps cache previews by image URL, so a file replaced in place
    leaves old previews stale. Keep the previous card's file until
    relaunch: nothing references it, but an app that stored its address
    still asks for it. While `main` is still the placeholder, ship the
@@ -692,7 +769,11 @@ Aesthetics · Harrisburg, NC" for a day). The two spaces inside the
 halves, after "Mobile" and after "Harrisburg,", are no-break spaces,
 written in the source as ` `: the line can only break between the
 practice and the town. Keep them when the wording changes. The title tag
-is separate: it is what search shows, and it keeps the brand.
+is separate: it is what search shows, and it keeps the brand. Since
+2026-10-05 it names the practice as well ("Needle Girlie | Mobile
+Aesthetics in Harrisburg & Charlotte, NC"; DECISIONS same date, the
+home-title entry). A search engine shows the new title only after it
+next reads the page.
 
 **The bar under the picture in Messages is Apple's, and the picture sets
 its colour** (DECISIONS 2026-09-27 has the steps, read from Apple's
@@ -771,7 +852,8 @@ the launch-day checklist — lives in **docs/RELAUNCH.md** (prepared
 
 During the takedown: never merge `main` into `phase-c`, never press
 "Update branch" on PR #95, never close PR #95 (the standing-PR pattern
-survives for relaunch). Interim previews come from sub-PRs into
+survives for relaunch; these three rules end when the relaunch PR
+merges, at which point #95 is expected to show as merged by itself). Interim previews come from sub-PRs into
 `phase-c` — PR #97 is the standing full-site demo (comment-only diff,
 never merges; close it without merging when no longer needed).
 
@@ -787,8 +869,14 @@ treatment MDX pages, both treatment films, every photo) with no
 conflict on any of them, and the build still passes. A conflicted PR
 runs no workflows, but it also cannot merge; the guard fires exactly
 when someone hand-resolves PR #95's conflicts and the merge ref
-becomes computable. **The relaunch PR retires this workflow** (with
-a DECISIONS entry): after the two-step re-sync the revert is a
+becomes computable. **A follow-up PR right after the relaunch retires
+this workflow — NOT the relaunch PR itself** (corrected 2026-10-05 to
+match RELAUNCH step 4 and the workflow's own header, which were fixed
+on 2026-08-24/25; this paragraph still said "the relaunch PR retires
+this workflow"). The relaunch PR needs the guard intact, because the
+guard is what proves its tree complete. The follow-up removes the two
+required checks from branch protection first, then deletes the file,
+with a DECISIONS entry: after the two-step re-sync the revert is a
 harmless ancestor everywhere and the first job would fail every PR
 forever.
 

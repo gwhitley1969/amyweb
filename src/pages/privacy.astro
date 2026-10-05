@@ -14,6 +14,10 @@ import { siteConfig } from '../lib/siteConfig';
  * the Plausible disclosure in the SAME build that ships the script —
  * which is exactly the "this page will be updated first" promise the
  * launch wording makes, kept atomically.
+ *
+ * 2026-10-05 (DECISIONS same date): the booking bullet names Aesthetic
+ * Record — Amy left Vagaro — and the page carries its own effective
+ * date, the day that version went live.
  */
 const analyticsOn = siteConfig.analytics.enabled && siteConfig.analytics.provider === 'plausible';
 ---
@@ -22,6 +26,7 @@ const analyticsOn = siteConfig.analytics.enabled && siteConfig.analytics.provide
   heading="Privacy"
   title="Privacy | Needle Girlie"
   description="How needlegirlie.com handles privacy: no cookies, no forms, no tracking, no health information collected."
+  effective="October 5, 2026"
 >
   <p>
     Needle Girlie respects the privacy of every visitor, and this website
@@ -86,7 +91,7 @@ const analyticsOn = siteConfig.analytics.enabled && siteConfig.analytics.provide
     practices apply there, not this policy:
   </p>
   <ul>
-    <li>Booking happens on Vagaro, a third-party scheduling service.</li>
+    <li>Booking happens on Aesthetic Record, a third-party scheduling service.</li>
     <li>Skincare purchases happen on the Skinbetter Science storefront.</li>
     <li>Social links open Facebook, Instagram, and Yelp.</li>
     <li>"Get directions" opens your map provider.</li>

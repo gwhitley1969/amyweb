@@ -23,12 +23,20 @@ export const siteConfig = {
   // {{HOURS}} CLOSED 2026-08-04: Amy's decision — hours are NOT listed on
   // the website, anywhere (not a pending value; no hours field exists).
   booking: {
-    // {{VAGARO_URL}} supplied by operator 2026-07-18. The handle is the
-    // practice's own: Mobile Aesthetics is Amy's business (sole owner —
-    // operator 2026-07-23, recorded in DECISIONS); the 2026-07-18
-    // shared-location flag is resolved. Reachability still gets checked
-    // at the §16 launch checklist.
-    vagaroUrl: 'https://www.vagaro.com/mobileaestheticshealthandbeautyassociates',
+    // The one address every booking link opens: the Aesthetic Record
+    // booking page of Amy's own practice (operator, decided 2026-10-05,
+    // when Amy left Vagaro — DECISIONS same date). It replaces the
+    // Vagaro handle the operator supplied 2026-07-18 ({{VAGARO_URL}}),
+    // and the key is vendor-neutral so the next move is this one line.
+    // Destination screened 2026-10-05: Amy is offered on every service,
+    // and on the six laser and device services the provider step also
+    // offers three other people by name — every link to it is an
+    // OPERATOR DECISION scoped in CLAUDE.md constraint 2 (the tenth
+    // exception): this address only, never a link to one service or to
+    // the provider step. Screen the page again when its content is
+    // known to have changed. It answers 403 to non-browser clients, as
+    // Vagaro did, so reachability is checked in a browser.
+    url: 'https://mobileaesthetics.myaestheticrecord.com/online-booking',
   },
   // {{SKINBETTER_URL}} resolved by operator 2026-07-23 (DECISIONS same
   // date). Canonical form of the QR on Amy's Skinbetter counter card
@@ -75,9 +83,12 @@ export const siteConfig = {
     // swaps its analytics section, and the generated CSP admits
     // plausible.io — all in the same build, nothing else to edit.
     // Procedure (account creation first, ~$9/mo): docs/RUNBOOK.md
-    // "Turning on analytics". The flip is the OPERATOR'S act, at
-    // relaunch. (The wide types keep the dark-state literals from
-    // making the flip a type error.)
+    // "Turning on analytics". The flip is the OPERATOR'S act. It was
+    // planned for relaunch and did NOT happen then: the 2026-10-05
+    // relaunch went out with analytics off (operator decision,
+    // DECISIONS same date). It stays this two-value edit, on the
+    // operator's word. (The wide types keep the dark-state literals
+    // from making the flip a type error.)
     enabled: false as boolean,
     provider: 'none' as 'none' | 'plausible',
   },

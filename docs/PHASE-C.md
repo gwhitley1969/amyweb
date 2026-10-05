@@ -1,5 +1,12 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-10-05 — RELAUNCHED.** needlegirlie.com is live
+> again with the redesign round's site: the two-step relaunch PR #255
+> merged on the operator's word, Production run 37356241933 was green,
+> and the launch-day checks passed (DECISIONS 2026-10-05, the shipped
+> record). Amy's sign-off of that day is the operator's commit
+> `0363603`. The takedown notes below are history.
+
 > **2026-08-14: the post-launch redesign round is underway — tracked in
 > docs/REDESIGN.md, not here.** This file is the historical Phase C
 > record (complete; launched 2026-08-05, production taken down the same

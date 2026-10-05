@@ -8,6 +8,12 @@
 > docs/DECISIONS.md (2026-08-14 entries onward). Production remains on
 > the Under Construction placeholder throughout (takedown 2026-08-05;
 > relaunch is two-step — docs/RUNBOOK.md).
+>
+> **The round closed and the site relaunched on 2026-10-05** (the
+> "Round close" section below; DECISIONS same date, the relaunch entry
+> and its shipped record). Production no longer serves the
+> placeholder. What this file lists as open is carried into the next
+> round as change-order or retainer scope.
 
 ## The yardstick (operator-confirmed diagnosis, 2026-08-14)
 
@@ -271,18 +277,28 @@ filled and satisfied — the operator fills them, nobody else. Anything
 raised after the freeze is recorded as change-order or retainer
 scope, never silently absorbed (fixed-fee discipline).
 
-1. **Frozen change list** (dated when frozen): _pending — the
-   operator's "A LOT more" list, frozen as of ____._
-2. **Relaunch target date:** _pending._
+1. **Frozen change list** (dated when frozen): **frozen as of
+   2026-10-05.** The operator's answer, asked how the round should be
+   closed: "Frozen today, all seven pass". The list is everything
+   merged into `phase-c` through that day, ending with its two
+   operator-directed items, the phone sideways-scroll fix and the
+   search-text edits (PR #253). Anything raised after is change-order
+   or retainer scope.
+2. **Relaunch target date:** **2026-10-05** (the operator, the same
+   answer).
 3. **The seven gaps as pass/fail acceptance checks** (fill with
-   Amy/operator verdicts, not vibes): cinematic video ☐ · enormous
-   type, few words ☐ · one idea per screen ☐ · noir as cinematic
-   stage ☐ · flawless assets only ☐ · choreographed restrained
-   motion ☐ · mobile-first ☐.
+   Amy/operator verdicts, not vibes): cinematic video ☑ · enormous
+   type, few words ☑ · one idea per screen ☑ · noir as cinematic
+   stage ☑ · flawless assets only ☑ · choreographed restrained
+   motion ☑ · mobile-first ☑. The operator's verdict, 2026-10-05: all
+   seven pass. The slots are his to fill; they are written here from
+   his answer, quoted above.
 
 When all three are filled: execute **docs/RELAUNCH.md** (the
 preconditions there — copy approval, presentation approval, analytics
-flip — are hard gates).
+flip — are hard gates). *All three were filled on 2026-10-05. The
+analytics flip was not a gate for that relaunch: the operator chose to
+launch with analytics off (DECISIONS 2026-10-05, the analytics entry).*
 
 ## Working agreement for the round
 

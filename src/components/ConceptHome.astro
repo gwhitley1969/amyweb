@@ -121,11 +121,14 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
     an expression because each half is held together by a no-break space
     ( , after "Mobile" and after "Harrisburg,"): a phone can then
     break the line only between the practice and the town. The title tag
-    keeps its search wording. */}
+    is separate: it keeps the brand and, since 2026-10-05 (operator,
+    DECISIONS same date, the home-title entry), names the practice where
+    it said "Medical Aesthetics". The service phrase stays in the
+    description below and in the H1. */}
 <BaseLayout
-  title="Needle Girlie | Medical Aesthetics in Harrisburg, NC"
+  title="Needle Girlie | Mobile Aesthetics in Harrisburg & Charlotte, NC"
   shareTitle={'Mobile Aesthetics Harrisburg, NC'}
-  description="Needle Girlie — the medical-aesthetics practice of Amy Palacios, FNP, in Harrisburg, NC. Injectables, skin, body, and wellness, every appointment with Amy."
+  description="Needle Girlie — medical aesthetics in Harrisburg, NC, near Charlotte. Injectables, skin, body, and wellness, every appointment with Amy Palacios, FNP."
 >
   <Header slot="header" />
 
@@ -408,8 +411,8 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
       operator's direction on the preview, 2026-09-26), its lead, one
       sentence, the call button ("Book your Tox Together party", the call
       variant wearing the document's line, her number under it for
-      screens that cannot place a call — "Book with Amy" stays
-      Vagaro-only) and "See the hostess perk ›". The offer, the $600
+      screens that cannot place a call — "Book with Amy" stays the
+      booking page's alone) and "See the hostess perk ›". The offer, the $600
       hostess credit, the three requirements and the closing tagline
       live on the page; they sat here for one round the same day, before
       the operator asked for the page (it replaces /mobile).
@@ -490,7 +493,7 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
       own published wording, riding her ownership of the post. Her
       on-record caption sign-off is a C8 prerequisite; the slot is
       post-agnostic if she prefers a different post. ---- */}
-  <section>
+  <section class="nc-voice">
     <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 md:grid-cols-[6fr_5fr] md:gap-16">
       <div class="nc-post ng-rise">
         <Image
@@ -583,9 +586,17 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
     mix-blend-mode: screen;
   }
 
-  /* HERO — split editorial: type left, photo right; stacked on mobile. */
+  /* HERO — split editorial: type left, photo right; stacked on mobile.
+   * x is clipped at every width (2026-10-05, DECISIONS same date): the
+   * exit swell (home-motion step 3, scale 1.12 from 60% 40%) pushes the
+   * media's box about 5% of the width past the right edge, and below
+   * 900px nothing else clipped it, so the whole page panned sideways and
+   * mobile Chrome widened its layout viewport. clip, not hidden: no
+   * scroll container, and y stays visible, so nothing on screen changes.
+   * The >=900px overflow: hidden below still governs desktop. */
   .nc-hero {
     display: grid;
+    overflow-x: clip;
   }
   .nc-hero__img {
     width: 100%;
@@ -754,6 +765,15 @@ const reviewPageTag = reviewTag(Astro.url.pathname);
     display: block;
     width: 100%;
     height: auto;
+  }
+  /* The print's section clips x (2026-10-05, DECISIONS same date): the
+   * motion layer holds the print's photo at 1.18, unseen, until its
+   * reveal plays (home-motion step 6). Inside the tilted print that box
+   * reached past the right edge at about 420-640px wide from the moment
+   * the lazy photo loaded, so the page scrolled sideways there. clip,
+   * not hidden: no scroll container, and y stays visible. */
+  .nc-voice {
+    overflow-x: clip;
   }
 
   /* ---- 2026-09-03 additions (scale-and-rhythm round) ---- */

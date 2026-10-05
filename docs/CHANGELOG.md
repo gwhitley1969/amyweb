@@ -4,7 +4,126 @@ Human-readable record of what shipped, newest first. The *why* behind each
 change lives in `docs/DECISIONS.md`; design specs live in
 `docs/superpowers/specs/`. Commit hashes are the audit trail.
 
+## Relaunch (`main`)
+
+### 2026-10-05 — needlegirlie.com is live again
+
+- The site that took the place of the Under Construction page is the
+  redesign round's: the new home page with its films, the twelve
+  treatment pages Amy approved that day, /about, /services, /visit,
+  /injector-training, /tox-together and the legal pages.
+- It went live at 18:36 UTC through the two-step relaunch PR #255,
+  merged on the operator's word, and Production run 37356241933. The
+  tree that shipped is byte-identical to the one Amy's approval and the
+  gates covered.
+- Checked on the live site before it was called live: six clean probe
+  passes over all 21 pages; all 17 film files; the home film, the
+  carousel and the ten treatment-page players playing muted, the laser
+  film with its captions; no console errors; the home page no longer
+  drags sideways on phones; the redirects and the origin lock; and
+  Lighthouse at 1.00 in all four categories on the home page.
+- The site launched without visitor counting, the operator's decision.
+- The relaunch guard, whose job ended with this release, retired the
+  same day, and `phase-c` was levelled with `main`. From here every
+  merge to `main` ships. DECISIONS 2026-10-05.
+
+## After the relaunch (`phase-c`, then released into `main`)
+
+### 2026-10-05 — Booking moves to Aesthetic Record
+
+- Amy left Vagaro. Every Book button and every linked "book" now opens
+  her practice's booking page on Aesthetic Record. The buttons look and
+  read as they did.
+- /privacy and /terms name Aesthetic Record where they named Vagaro,
+  and each shows the day this version took effect. The medical
+  disclaimer is unchanged.
+- The new booking page offers three other people on its laser and
+  device services. Linking to it is the operator's decision after that
+  was flagged, recorded as constraint 2's tenth scoped exception.
+- One sentence still names Vagaro, in the wrinkle-relaxers answer to
+  "How do I book?". It is on an approved page, so it follows in its own
+  change once Amy has read it.
+  DECISIONS 2026-10-05, the booking entry.
+
+### 2026-10-05 — The home page's search title says "Mobile Aesthetics"
+
+- In a search result the home page is now named "Needle Girlie | Mobile
+  Aesthetics in Harrisburg & Charlotte, NC". It said "Medical
+  Aesthetics" where it now carries the practice's own name, the
+  operator's direction on Amy's behalf.
+- Nothing on the page changed. "Medical aesthetics" is still in the
+  page's description and its main heading.
+- A search engine shows the new title after it next reads the site;
+  until then it may still show the old Under Construction page.
+  DECISIONS 2026-10-05, the home-title entry.
+
+### 2026-10-05 — How work reaches the live site from here
+
+- Changes go into `phase-c` first, with a preview to look over, and a
+  separate release carries `phase-c` into `main`, which is the live
+  site: the operator's decision after the relaunch. On GitHub a merged
+  branch now deletes itself, and rebase merging is switched off.
+  DECISIONS 2026-10-05, the branch-model entry.
+
 ## Post-launch revision round (`phase-c`)
+
+### 2026-10-05 — Amy's sign-off is logged and the round is closed; the relaunch follows
+
+- Amy approved all twelve treatment pages, how the site looks,
+  /injector-training and /tox-together, on the operator's statement of
+  that day, and OK'd the day's twelve search lines from a
+  before-and-after sheet. The operator flipped the twelve approval
+  flags himself (commit `0363603`), so the production pipeline's
+  approval gate passes again for the first time since the revision
+  round began.
+- The redesign round is closed: the change list is frozen as of
+  2026-10-05 and the operator's verdict on the seven yardsticks is
+  that all pass. Anything raised from here is change-order or retainer
+  scope.
+- The relaunch records were corrected where they had gone stale: the
+  launch-day checklist's film count (ten autoplay players on eight
+  pages, the IV lounge film among them), three places that still said
+  the relaunch guard retires in the relaunch PR, and what happens to
+  the standing PR #95.
+- No page changed. DECISIONS 2026-10-05, the relaunch entry.
+
+### 2026-10-05 — Search text says Charlotte and fits a results page
+
+- What search engines show for the site was tidied before the relaunch,
+  at the operator's direction. Nothing a visitor reads on a page
+  changed.
+- The home page's search title now reads "Needle Girlie | Medical
+  Aesthetics in Harrisburg & Charlotte, NC", and its description says
+  "near Charlotte".
+- Eleven descriptions that ran too long for a results page were
+  shortened: /services, /about, /injector-training and seven treatment
+  pages (dermal fillers, hormone optimization, IV therapy, laser
+  treatments, skincare, weight loss, wrinkle relaxers). The treatment
+  ones now say "in Harrisburg, NC, near Charlotte".
+- The business details search engines read gained a picture, the
+  link-share card.
+- Amy reads the seven treatment lines on a before-and-after sheet before
+  the operator's approval. DECISIONS 2026-10-05.
+
+### 2026-10-05 — The home page no longer shifts sideways on phones
+
+- Once you scrolled past the top of the home page on a phone or small
+  tablet, the whole page could be nudged sideways: 19px on a typical
+  iPhone, 15 to 37px across the widths measured. The hero photo's
+  gentle swell as you scroll away was spilling past the right edge of
+  the screen, and further down the Instagram post's photo did the same
+  while it waited to fade in.
+- Both are now trimmed at the screen's edge, so the page stays put.
+  Everything looks exactly as before, and wider screens are unchanged.
+- The fix was first written on 2026-09-26 (PR #210) and never merged;
+  it went in with the relaunch preparation. DECISIONS 2026-10-05.
+
+### 2026-10-05 — Analytics stays off at the relaunch
+
+- The site goes live without visitor counting, the operator's decision
+  on the day; the 2026-08-17 plan had been to switch Plausible on at
+  relaunch. No page changed: the switch was already off, and the wiring
+  stays in place for a later day. DECISIONS 2026-10-05.
 
 ### 2026-10-05 — /injector-training: a "Message Amy on Instagram" button beside Call
 

@@ -196,6 +196,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
   even rows on wide screens. `clinicianApproved` stays false.
   DECISIONS 2026-10-02; PR #248.
 
+### 2026-10-02 — Two stale code comments corrected (product cards)
+
+- The product-card component's header comment said a card's price lines
+  could hold nothing but the strings on the compliance allowlist.
+  Plain-dollar prices have shipped without an allowlist entry since
+  2026-07-21; the comment now gives the rule the schema's comment
+  already gave.
+- Both comments described a card's text as a single claim-free
+  sentence. Many cards have several, and the peptide and regenerative
+  cards carry the client's own definitions under the recorded
+  2026-08-01 overrides; both comments now say so.
+- Comments only: the built site is byte-identical, and no treatment
+  page, gate or approval flag is involved.
+
 ### 2026-10-02 — /services/hormone-optimization: the Biote film loses its caption line and white frame
 
 - No text under the film (the "Why Amy chose Biote — sound on." line is
@@ -210,7 +224,7 @@ change lives in `docs/DECISIONS.md`; design specs live in
   speaker button turns the song on. No text under it. It is two-thirds
   of its former width (16rem, was 24rem), and the white frame around
   it is gone.
-  DECISIONS 2026-10-02, the addendum.
+  DECISIONS 2026-10-02, the addendum; PR #244.
 
 ### 2026-10-02 — /services/laser-treatments: Amy's IPL film beside "Photo-rejuvenation"
 
@@ -247,12 +261,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
   its paragraph and the photo of Amy tending a male client's arm — is
   gone. In its place: a short handheld film of Amy at the IV poles and
   clients in the lounge, with its own song. It plays when the viewer
-  starts it, with captions.
+  starts it, with captions (since PR #244 it autoplays muted; see the
+  entry above).
 - Transcoded from the HEVC master to H.264 at 810×1440, so it plays in
   every browser. Not upscaled: the source already covers the slot at 2×.
 - Its signage and its song are carried under recorded operator
   overrides (CLAUDE.md constraint 3). `iv-male-client.jpg` is removed.
-  DECISIONS 2026-10-02.
+  DECISIONS 2026-10-02; PR #241.
 
 ### 2026-09-30 — /services: new IV card photo, brighter Hormone card
 

@@ -210,7 +210,7 @@ change lives in `docs/DECISIONS.md`; design specs live in
   speaker button turns the song on. No text under it. It is two-thirds
   of its former width (16rem, was 24rem), and the white frame around
   it is gone.
-  DECISIONS 2026-10-02, the addendum.
+  DECISIONS 2026-10-02, the addendum; PR #244.
 
 ### 2026-10-02 — /services/laser-treatments: Amy's IPL film beside "Photo-rejuvenation"
 
@@ -247,12 +247,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
   its paragraph and the photo of Amy tending a male client's arm — is
   gone. In its place: a short handheld film of Amy at the IV poles and
   clients in the lounge, with its own song. It plays when the viewer
-  starts it, with captions.
+  starts it, with captions (since PR #244 it autoplays muted; see the
+  entry above).
 - Transcoded from the HEVC master to H.264 at 810×1440, so it plays in
   every browser. Not upscaled: the source already covers the slot at 2×.
 - Its signage and its song are carried under recorded operator
   overrides (CLAUDE.md constraint 3). `iv-male-client.jpg` is removed.
-  DECISIONS 2026-10-02.
+  DECISIONS 2026-10-02; PR #241.
 
 ### 2026-09-30 — /services: new IV card photo, brighter Hormone card
 

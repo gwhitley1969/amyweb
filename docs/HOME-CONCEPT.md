@@ -203,7 +203,9 @@ carton on the table reads, and Amy retired Evolysse content
 
 **Since 2026-09-25** (DECISIONS same date) the photo is gone: the band
 plays Amy's van-trip film — the whole 2:50 clip, muted and looping, with
-Amy's own voice one tap away (2:01–2:17; the songs removed) —
+its own sound one tap away (Amy's voice at 2:01–2:17; since 2026-10-04
+the clip's two songs before it, back under the operator's override —
+DECISIONS same date; they were removed 2026-09-25) —
 whole in a 9:16 panel at the viewfinder film's 24rem width (that film
 retired with /mobile 2026-09-26; the width stands) and bare film
 frame (centred above the statement on phones; at >=900px in the left

@@ -1,5 +1,12 @@
 # Phase C — Pages & content drafts (working checklist)
 
+> **STATUS UPDATE 2026-10-05 — RELAUNCHED.** needlegirlie.com is live
+> again with the redesign round's site: the two-step relaunch PR #255
+> merged on the operator's word, Production run 37356241933 was green,
+> and the launch-day checks passed (DECISIONS 2026-10-05, the shipped
+> record). Amy's sign-off of that day is the operator's commit
+> `0363603`. The takedown notes below are history.
+
 > **2026-08-14: the post-launch redesign round is underway — tracked in
 > docs/REDESIGN.md, not here.** This file is the historical Phase C
 > record (complete; launched 2026-08-05, production taken down the same
@@ -540,7 +547,10 @@ currently through the clinician gate):
       upgraded 2026-08-01 to the client's wording near-verbatim under
       a recorded override of the no-benefit-claims rule; gate-blocked
       vocabulary (anti-aging, healing, libido) excluded — DECISIONS
-      2026-08-01. ctaType: book (since 2026-07-21).
+      2026-08-01. ctaType: book (since 2026-07-21). A tenth card,
+      KLOW, added 2026-10-02 at the operator's direction, saying only
+      what it is; GLOW and KLOW read "$265 for six weeks" under a
+      scoped exception — DECISIONS 2026-10-02.
 - [x] `wrinkle-relaxers` — `{{NEUROMOD_LIST}}`; treatment areas factually
       (forehead, frown lines, crow's feet). ctaType: book/consult.
 - [x] `dermal-fillers` — approved 2026-07-21 (the first page ever

@@ -12,7 +12,7 @@ client** under a signed engagement. This is a **static Astro site** deployed
 to **Azure Static Web Apps (Standard)** behind **Azure Front Door (Standard)**
 in the client's Azure subscription (needlegirlie.onmicrosoft.com tenant).
 Goals: premium + glamorous brand presence, conversion to consultations and
-bookings (Vagaro handoff), local SEO, WCAG 2.2 AA, fast.
+bookings (online-booking handoff), local SEO, WCAG 2.2 AA, fast.
 
 ## How to operate
 
@@ -54,6 +54,11 @@ silently following it. Known superseded points from earlier briefs:
 - The neuromodulator product list is **resolved** (2026-07-19, from the
   live Vagaro menu, operator-confirmed): **Jeuveau, Xeomin, Daxxify** —
   the older Jeuveau/Daxxify-only brief is superseded.
+- Booking is on **Aesthetic Record**, not Vagaro (operator, 2026-10-05,
+  when Amy left Vagaro): every booking link opens
+  `siteConfig.booking.url` under constraint 2's tenth scoped exception,
+  and the site's visible text names no booking vendor outside /privacy
+  and /terms. The older briefs' Vagaro handoff is superseded.
 
 ## Hard constraints — never violate, never work around
 
@@ -199,10 +204,26 @@ silently following it. Known superseded points from earlier briefs:
    that Amy plans every service, and say nothing of staff). Another
    placement, naming her, or staff wording anywhere else requires the
    human operator.*
-   *Outside these nine exceptions the other providers are still never
+   *Tenth scoped exception (operator decision after the compliance
+   flag — DECISIONS 2026-10-05): the booking destination. Since Amy
+   left Vagaro, the site's booking links (the header's Book, every
+   "Book with Amy" button, and the "book" links inside sentences) open
+   `siteConfig.booking.url`, the Aesthetic Record booking page of
+   Amy's own practice. Screened that day: 22 services, Amy offered on
+   every one; on the six laser and device services the provider step
+   also offers three other people by name, two of whom the 2026-08-15
+   screening recorded among the location's other providers. Fixed
+   terms: that one address, never a link to a single service or to the
+   provider step; the labels the booking links already carry; the
+   site's text never names the three and never says they can be
+   booked — copy, alt text, comments, meta, OG, JSON-LD. The page is
+   screened again when its content is known to have changed, and a
+   link that offers only Amy, if one is supplied, replaces this one.
+   Any other use requires the human operator.*
+   *Outside these ten exceptions the other providers are still never
    named or implied in any needlegirlie.com text, and adding any
-   further film or mention, or any link outside the seventh
-   exception's terms, requires the human operator.*
+   further film or mention, or any link outside the seventh and tenth
+   exceptions' terms, requires the human operator.*
 
 3. **Medical-marketing claim discipline.** A licensed clinician is advertising
    medical treatments. The full rulebook is BUILD_SPEC §8. Core rules:
@@ -337,6 +358,19 @@ silently following it. Known superseded points from earlier briefs:
      treatments, which BUILD_SPEC §7.12 treats as protocol-class; that
      override is the claims bullet's clause for the film — DECISIONS
      2026-10-02.)*
+     *A further scoped exception, which is not an allowlist entry
+     (operator decision after the compliance flag — DECISIONS
+     2026-10-02): the exact price line "$265 for six weeks" on the GLOW
+     card and the KLOW card of /services/peptide-therapy. A time span
+     beside a price is duration-class (BUILD_SPEC §8, rule 1). It
+     states no amount, no frequency and no cycle, and it trips no
+     pattern, so the authorization lives here and in DECISIONS, never
+     in `allowedStrings` — a green linter never authorizes it. The
+     wording is exact and the scope is those two price lines: no other
+     time span on that page or any other, and it is never restated in
+     body copy, FAQ answers, alt text, comments, meta descriptions, OG
+     tags, or JSON-LD. Changing the wording or the scope requires the
+     human operator.*
      Nothing else; changing that list
      requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
@@ -421,7 +455,12 @@ silently following it. Known superseded points from earlier briefs:
      2026-10-02, by that route (DECISIONS same date): the song on the
      /services/iv-therapy lounge film (`iv-lounge`), which autoplays
      muted in view, sound one tap away; its sung words live in its caption
-     cues and nowhere else.
+     cues and nowhere else. Two more since 2026-10-04, by that route
+     (DECISIONS same date): the two songs of the home band's van-trip
+     film (`van-trip-music`), removed 2026-09-25 for want of a licence
+     and restored at the operator's direction; the film still starts
+     muted, sound one tap away; its caption file marks the songs with
+     bounded `[Music]` cues and never writes out their words.
      And six photos (operator overrides after the compliance flags —
      DECISIONS 2026-08-18, 2026-08-21, 2026-08-25, and 2026-09-25): the /services hormone-optimization menu
      card's photo (`biote-banner-scale.jpg`), in which the Biote
@@ -745,7 +784,7 @@ silently following it. Known superseded points from earlier briefs:
   to start with sound plays muted. Second sanctioned
   consumer (2026-08-17, operator-directed, SHIPS DARK): the self-hosted
   Plausible tracker (~3.6KB, `public/js/plausible.js`) — renders only
-  after the operator's relaunch-day flip (BUILD_SPEC §11). Third
+  after the operator's flip (BUILD_SPEC §11). Third
   sanctioned consumer (2026-08-21, operator-directed): the treatment-film
   autoplay-in-view script (~3KB, `public/js/treatment-video.js`) —
   rendered only on pages whose `TreatmentVideo` players opt in with
@@ -817,12 +856,18 @@ silently following it. Known superseded points from earlier briefs:
   Lighthouse's full-page pass) never fetches the film; muted, looping in
   view, native controls as the pause mechanism, autoplaying under
   reduced motion by the films policy. Since the same day's sound
-  addendum the rendition (`van-trip-sound.mp4`) carries Amy's own voice
-  at 2:01–2:17 and silence elsewhere (the clip's two songs removed — not
-  licensed for the website), so it is the speech-free autoplay rule's
-  second scoped exception after the ICON film (operator override after
-  the flag; the rule lives in TreatmentVideo.astro's header): sound one
-  tap away, a person's unmute remembered, captions off by default.
+  addendum the rendition carries Amy's own voice at 2:01–2:17, so it
+  is the speech-free autoplay rule's second scoped exception after the
+  ICON film (operator override after the flag; the rule lives in
+  TreatmentVideo.astro's header): sound one tap away, a person's unmute
+  remembered, captions off by default. Until 2026-10-04 the rest of
+  that rendition (`van-trip-sound.mp4`) was silent, the clip's two
+  songs removed for want of a licence. Since that date (operator
+  override of the music position after the flag — DECISIONS same date)
+  the rendition is `van-trip-music.mp4`: the two songs play to 2:01, as
+  the clip was made, then her voice, then silence; the exception now
+  covers songs with sung words as well, at the operator's direction,
+  and the captions mark the songs with bounded `[Music]` cues.
   Widening it to another page requires the human operator.
   The 30KB budget stands for every page but the home URL.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2

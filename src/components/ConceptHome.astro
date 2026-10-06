@@ -114,11 +114,14 @@ const CHEVRONS = [
     an expression because each half is held together by a no-break space
     ( , after "Mobile" and after "Harrisburg,"): a phone can then
     break the line only between the practice and the town. The title tag
-    keeps its search wording. */}
+    is separate: it keeps the brand and, since 2026-10-05 (operator,
+    DECISIONS same date, the home-title entry), names the practice where
+    it said "Medical Aesthetics". The service phrase stays in the
+    description below and in the H1. */}
 <BaseLayout
-  title="Needle Girlie | Medical Aesthetics in Harrisburg, NC"
+  title="Needle Girlie | Mobile Aesthetics in Harrisburg & Charlotte, NC"
   shareTitle={'Mobile Aesthetics Harrisburg, NC'}
-  description="Needle Girlie — the medical-aesthetics practice of Amy Palacios, FNP, in Harrisburg, NC. Injectables, skin, body, and wellness, every appointment with Amy."
+  description="Needle Girlie — medical aesthetics in Harrisburg, NC, near Charlotte. Injectables, skin, body, and wellness, every appointment with Amy Palacios, FNP."
 >
   <Header slot="header" />
 
@@ -347,14 +350,19 @@ const CHEVRONS = [
       SINCE 2026-09-25 (operator direction; DECISIONS same date) the
       media is AMY'S VAN-TRIP FILM, the whole 2:50 clip the operator
       supplied, looping: the van, its cabin, the drive, and a holiday
-      event. SOUND (the same day's sound addendum): the rendition carries
-      Amy's own voice only — her words to camera at the destination,
-      2:01–2:17, brought up to a speaking level; the clip's two songs are
-      removed (not licensed for the website) and the rest is silent. It
+      event. SOUND: the rendition carries the clip's own sound. Its two
+      songs play to 2:01, as the clip was made (since 2026-10-04, under
+      the operator's override of the music position after the flag: no
+      licence for either song is on record; DECISIONS same date). Then
+      come Amy's words to camera at the destination, 2:01–2:17, brought
+      up to a speaking level (the 2026-09-25 sound addendum, under which
+      the songs were removed and only her words played until
+      2026-10-04); the rest is silent. It
       autoplays muted with the sound one tap away — the speech-free
       autoplay rule's second scoped exception, after the ICON film
-      (operator override after the flag); captions of her words ship
-      off by default. The person she names is confirmed by the operator
+      (operator override after the flag); the captions ship off by
+      default: her words, and bounded music cues that never write out a
+      song's words. The person she names is confirmed by the operator
       to have a website release and a HIPAA marketing authorization on
       file; the name is never restated in site text outside the captions
       file. It shows WHOLE
@@ -375,8 +383,8 @@ const CHEVRONS = [
       location's providers), the van's driver, and an eight-second prep
       passage (CLAUDE.md constraint 3 — no label or packaging text from
       it is ever restated in site text, this comment included). The
-      label names nothing beyond the van, the drive, Amy speaking, and
-      the event. The
+      label names nothing beyond the van, the drive, Amy speaking, the
+      event and, since 2026-10-04, that the film has music. The
       band's photo until that date — the van interior, the former /mobile
       hero's frame — drifted against the scroll; the film panel does
       not. (The first pick for this slot in 2026-09, Amy holding her neon
@@ -390,8 +398,8 @@ const CHEVRONS = [
       operator's direction on the preview, 2026-09-26), its lead, one
       sentence, the call button ("Book your Tox Together party", the call
       variant wearing the document's line, her number under it for
-      screens that cannot place a call — "Book with Amy" stays
-      Vagaro-only) and "See the hostess perk ›". The offer, the $600
+      screens that cannot place a call — "Book with Amy" stays the
+      booking page's alone) and "See the hostess perk ›". The offer, the $600
       hostess credit, the three requirements and the closing tagline
       live on the page; they sat here for one round the same day, before
       the operator asked for the page (it replaces /mobile).
@@ -405,9 +413,9 @@ const CHEVRONS = [
     <figure
       class="nc-band__media"
       data-band-film
-      data-file={`${siteConfig.mediaBase}/van-trip-sound.mp4`}
-      data-vtt="/media/van-trip.vtt?v=2"
-      data-label="Amy's trip in the Mobile Aesthetics van: the van and its cabin, the drive over a bridge, Amy speaking to camera at the destination, and a holiday event. It starts muted; turn on the sound to hear her."
+      data-file={`${siteConfig.mediaBase}/van-trip-music.mp4`}
+      data-vtt="/media/van-trip.vtt?v=3"
+      data-label="Amy's trip in the Mobile Aesthetics van: the van and its cabin, the drive over a bridge, Amy speaking to camera at the destination, and a holiday event. It starts muted; turn on the sound to hear the music and Amy."
     >
       <Image
         src={vanTripPoster}
@@ -472,7 +480,7 @@ const CHEVRONS = [
       own published wording, riding her ownership of the post. Her
       on-record caption sign-off is a C8 prerequisite; the slot is
       post-agnostic if she prefers a different post. ---- */}
-  <section>
+  <section class="nc-voice">
     <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 md:grid-cols-[6fr_5fr] md:gap-16">
       <div class="nc-post ng-rise">
         <Image
@@ -565,9 +573,17 @@ const CHEVRONS = [
     mix-blend-mode: screen;
   }
 
-  /* HERO — split editorial: type left, photo right; stacked on mobile. */
+  /* HERO — split editorial: type left, photo right; stacked on mobile.
+   * x is clipped at every width (2026-10-05, DECISIONS same date): the
+   * exit swell (home-motion step 3, scale 1.12 from 60% 40%) pushes the
+   * media's box about 5% of the width past the right edge, and below
+   * 900px nothing else clipped it, so the whole page panned sideways and
+   * mobile Chrome widened its layout viewport. clip, not hidden: no
+   * scroll container, and y stays visible, so nothing on screen changes.
+   * The >=900px overflow: hidden below still governs desktop. */
   .nc-hero {
     display: grid;
+    overflow-x: clip;
   }
   .nc-hero__img {
     width: 100%;
@@ -736,6 +752,15 @@ const CHEVRONS = [
     display: block;
     width: 100%;
     height: auto;
+  }
+  /* The print's section clips x (2026-10-05, DECISIONS same date): the
+   * motion layer holds the print's photo at 1.18, unseen, until its
+   * reveal plays (home-motion step 6). Inside the tilted print that box
+   * reached past the right edge at about 420-640px wide from the moment
+   * the lazy photo loaded, so the page scrolled sideways there. clip,
+   * not hidden: no scroll container, and y stays visible. */
+  .nc-voice {
+    overflow-x: clip;
   }
 
   /* ---- 2026-09-03 additions (scale-and-rhythm round) ---- */

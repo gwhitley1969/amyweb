@@ -14769,6 +14769,27 @@ page's row pattern already puts a film left of its text).
   site-wide sound toggle on every treatment film); a new smaller
   rendition (the bytes saved do not justify a second upload for a 9s
   film).
+- **Shipped (the pull requests and the previews):**
+  - PR #241 (the film, click-to-play in a 24rem mat frame) merged into
+    `phase-c` as `dc29b53`. Its preview was checked in a browser at 390
+    and 1440: it played from the media origin, the sung-word cues
+    showed in time, it seeked, and nothing scrolled sideways. The
+    standing previews #97 and #149 were then refreshed (no checkout,
+    the RUNBOOK's merge-tree route, since other worktrees hold those
+    branches) and probed.
+  - PR #244 (this addendum: autoplay, 16rem, no printed caption, bare)
+    collided with PR #243, the laser IPL film, which merged first and
+    took the fourth autoplay exception; the merge kept both records,
+    and this film became the **fifth**, as the component header and
+    CLAUDE.md now read. It merged as `26a5f70` after its checks passed
+    and its preview showed the film autoplaying muted at 256×454, with
+    no mat and no caption. #97 and #149 were refreshed again (`4ded030`,
+    `a0cadb1`) and probed: the bare frame, the autoplay attribute, and
+    no "sound on" text.
+  - The printed caption was tried twice on the PR preview before
+    merge ("The IV lounge — sound on.", which wrapped onto two lines
+    at 16rem, then "Sound on.") and removed at the operator's
+    direction; neither reached `phase-c`.
 
 ## 2026-10-02 — peptide-therapy: a tenth card, KLOW; GLOW and KLOW read "$265 for six weeks" (operator direction; the time span is the operator's exception after the compliance flag)
 

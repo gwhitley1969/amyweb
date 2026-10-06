@@ -15,16 +15,28 @@ website-use release is confirmed on file (the operator's confirmation
 is the record).
 
 NOTE
-SOUND: the web rendition (van-trip-sound.mp4) carries Amy's own voice
-only: her words to camera at the destination, 2:01 to 2:17, brought up
-to a speaking level. The clip's two songs are removed (not licensed for
-the website), so the rest of the film is silent and carries no cues.
-The person she names has a website release and a HIPAA marketing
-authorization on file (the operator's confirmation is the record). This
-track ships off by default (operator decision); the description is the
-player's label (ConceptHome.astro, data-label). Her first words fall
-under the end of the second song, so the audible part begins
+SOUND: since 2026-10-04 the web rendition (van-trip-music.mp4) carries
+the clip's own sound (docs/DECISIONS.md, same date). Its two songs play
+from the start to 2:01, as the clip was made, under the operator's
+override of the music position: no licence for either song is on
+record. Their cues are bounded "[Music]" cues, one as each song begins,
+the house form: a cue as long as a song would sit over a minute of the
+film, and a song's words are not written out. Then come Amy's own words
+to camera at the destination, 2:01 to 2:17, brought up to a speaking
+level; after them the film is silent and carries no cues. From
+2026-09-25 until that date the rendition (van-trip-sound.mp4) carried
+her words only. The person she names has a website release and a HIPAA
+marketing authorization on file (the operator's confirmation is the
+record). This track ships off by default (operator decision); the
+description is the player's label (ConceptHome.astro, data-label). Her
+first words fall under the end of the second song, so her cues begin
 mid-sentence.
+
+00:01.000 --> 00:04.000
+[Music]
+
+01:01.000 --> 01:04.000
+[Music]
 
 02:01.200 --> 02:02.400
 …in Holden Beach

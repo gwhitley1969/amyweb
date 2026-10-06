@@ -4,7 +4,205 @@ Human-readable record of what shipped, newest first. The *why* behind each
 change lives in `docs/DECISIONS.md`; design specs live in
 `docs/superpowers/specs/`. Commit hashes are the audit trail.
 
+## Relaunch (`main`)
+
+### 2026-10-05 — needlegirlie.com is live again
+
+- The site that took the place of the Under Construction page is the
+  redesign round's: the new home page with its films, the twelve
+  treatment pages Amy approved that day, /about, /services, /visit,
+  /injector-training, /tox-together and the legal pages.
+- It went live at 18:36 UTC through the two-step relaunch PR #255,
+  merged on the operator's word, and Production run 37356241933. The
+  tree that shipped is byte-identical to the one Amy's approval and the
+  gates covered.
+- Checked on the live site before it was called live: six clean probe
+  passes over all 21 pages; all 17 film files; the home film, the
+  carousel and the ten treatment-page players playing muted, the laser
+  film with its captions; no console errors; the home page no longer
+  drags sideways on phones; the redirects and the origin lock; and
+  Lighthouse at 1.00 in all four categories on the home page.
+- The site launched without visitor counting, the operator's decision.
+- The relaunch guard, whose job ended with this release, retired the
+  same day, and `phase-c` was levelled with `main`. From here every
+  merge to `main` ships. DECISIONS 2026-10-05.
+
+## After the relaunch (`phase-c`, then released into `main`)
+
+### 2026-10-05 — The wrinkle-relaxers booking answer no longer names Vagaro
+
+- "How do I book?" on /services/wrinkle-relaxers now answers: Online
+  with the "Book with Amy" button, or by phone at 704-579-7108. The
+  words "through Vagaro" came off; nothing else in the answer moved.
+- It was the last place the site named Vagaro to a visitor.
+- The edit reset the page's approval flag. Amy OK'd the sentence the
+  same evening and the operator flipped the flag in the same PR.
+  DECISIONS 2026-10-05, the booking entry's addendum.
+- Live at 22:48 UTC (PR #263, straight into `main` as an urgent fix).
+  Checked on the live site: the word "Vagaro" appears on no page.
+  DECISIONS 2026-10-05, the shipped record.
+
+### 2026-10-05 — Booking moves to Aesthetic Record
+
+- Amy left Vagaro. Every Book button and every linked "book" now opens
+  her practice's booking page on Aesthetic Record. The buttons look and
+  read as they did.
+- /privacy and /terms name Aesthetic Record where they named Vagaro,
+  and each shows the day this version took effect. The medical
+  disclaimer is unchanged.
+- The new booking page offers three other people on its laser and
+  device services. Linking to it is the operator's decision after that
+  was flagged, recorded as constraint 2's tenth scoped exception.
+- One sentence still names Vagaro, in the wrinkle-relaxers answer to
+  "How do I book?". It is on an approved page, so it follows in its own
+  change once Amy has read it.
+  DECISIONS 2026-10-05, the booking entry.
+- Live at 22:10 UTC (PR #261, release #262). Checked on the live site:
+  all 96 booking links open the new page, and none opens Vagaro.
+
+### 2026-10-05 — The home page's search title says "Mobile Aesthetics"
+
+- In a search result the home page is now named "Needle Girlie | Mobile
+  Aesthetics in Harrisburg & Charlotte, NC". It said "Medical
+  Aesthetics" where it now carries the practice's own name, the
+  operator's direction on Amy's behalf.
+- Nothing on the page changed. "Medical aesthetics" is still in the
+  page's description and its main heading.
+- A search engine shows the new title after it next reads the site;
+  until then it may still show the old Under Construction page.
+  DECISIONS 2026-10-05, the home-title entry.
+- Released to the live site the same day, at about 20:54 UTC: release
+  PR #259 and Production run 37370127874. It was the first release made
+  the two-stage way. A fault at GitHub delayed it by about half an hour
+  and never touched the live site. DECISIONS 2026-10-05, the shipped
+  record of that release.
+
+### 2026-10-05 — How work reaches the live site from here
+
+- Changes go into `phase-c` first, with a preview to look over, and a
+  separate release carries `phase-c` into `main`, which is the live
+  site: the operator's decision after the relaunch. On GitHub a merged
+  branch now deletes itself, and rebase merging is switched off.
+  DECISIONS 2026-10-05, the branch-model entry.
+
 ## Post-launch revision round (`phase-c`)
+
+### 2026-10-05 — Amy's sign-off is logged and the round is closed; the relaunch follows
+
+- Amy approved all twelve treatment pages, how the site looks,
+  /injector-training and /tox-together, on the operator's statement of
+  that day, and OK'd the day's twelve search lines from a
+  before-and-after sheet. The operator flipped the twelve approval
+  flags himself (commit `0363603`), so the production pipeline's
+  approval gate passes again for the first time since the revision
+  round began.
+- The redesign round is closed: the change list is frozen as of
+  2026-10-05 and the operator's verdict on the seven yardsticks is
+  that all pass. Anything raised from here is change-order or retainer
+  scope.
+- The relaunch records were corrected where they had gone stale: the
+  launch-day checklist's film count (ten autoplay players on eight
+  pages, the IV lounge film among them), three places that still said
+  the relaunch guard retires in the relaunch PR, and what happens to
+  the standing PR #95.
+- No page changed. DECISIONS 2026-10-05, the relaunch entry.
+
+### 2026-10-05 — Search text says Charlotte and fits a results page
+
+- What search engines show for the site was tidied before the relaunch,
+  at the operator's direction. Nothing a visitor reads on a page
+  changed.
+- The home page's search title now reads "Needle Girlie | Medical
+  Aesthetics in Harrisburg & Charlotte, NC", and its description says
+  "near Charlotte".
+- Eleven descriptions that ran too long for a results page were
+  shortened: /services, /about, /injector-training and seven treatment
+  pages (dermal fillers, hormone optimization, IV therapy, laser
+  treatments, skincare, weight loss, wrinkle relaxers). The treatment
+  ones now say "in Harrisburg, NC, near Charlotte".
+- The business details search engines read gained a picture, the
+  link-share card.
+- Amy reads the seven treatment lines on a before-and-after sheet before
+  the operator's approval. DECISIONS 2026-10-05.
+
+### 2026-10-05 — The home page no longer shifts sideways on phones
+
+- Once you scrolled past the top of the home page on a phone or small
+  tablet, the whole page could be nudged sideways: 19px on a typical
+  iPhone, 15 to 37px across the widths measured. The hero photo's
+  gentle swell as you scroll away was spilling past the right edge of
+  the screen, and further down the Instagram post's photo did the same
+  while it waited to fade in.
+- Both are now trimmed at the screen's edge, so the page stays put.
+  Everything looks exactly as before, and wider screens are unchanged.
+- The fix was first written on 2026-09-26 (PR #210) and never merged;
+  it went in with the relaunch preparation. DECISIONS 2026-10-05.
+
+### 2026-10-05 — Analytics stays off at the relaunch
+
+- The site goes live without visitor counting, the operator's decision
+  on the day; the 2026-08-17 plan had been to switch Plausible on at
+  relaunch. No page changed: the switch was already off, and the wiring
+  stays in place for a later day. DECISIONS 2026-10-05.
+
+### 2026-10-05 — /injector-training: a "Message Amy on Instagram" button beside Call
+
+- The top of the page has a second button, right of "Call
+  704-579-7108" on wide screens and under it on phones: the Instagram
+  icon and "Message Amy on Instagram". It opens Amy's Instagram page
+  in a new tab, the address the footer's icon uses. The operator's
+  request; of the two looks shown, the operator chose the button with
+  words over the icon alone.
+- The word "Instagram" in the sentence above the buttons is now
+  underlined. It has been a link since the page was made, but it
+  carried no link styling and read as plain text.
+- No new script, no tracking and no new dependency. The closing band
+  keeps its one Call button. DECISIONS 2026-10-05; PR #252.
+
+### 2026-10-05 — /services/wrinkle-relaxers: "Who they're generally for" says the procedure follows the consultation
+
+- The section's last sentence now ends "…is a clinical decision made
+  with Amy in a consultation, with the procedure following." It ended
+  at "consultation." The wording is the operator's, with one comma
+  added.
+- Flagged once before the edit: the new clause has no condition, so it
+  can read as a procedure following whatever Amy decides. A "can
+  follow" wording was offered and the operator kept theirs.
+  `clinicianApproved` stays false. DECISIONS 2026-10-05; PR #252.
+
+### 2026-10-04 — Home: the van video plays its music again
+
+- In the "Tox Together Party" section, Amy's van video now carries the
+  clip's own soundtrack: two songs from the start to 2:01, then her
+  words at the destination as before, then silence. It still starts
+  muted, and the speaker button turns the sound on.
+- Neither song has a licence on record. They play under the operator's
+  override of the music position ("Play now, accept the risk"), which
+  reverses the 2026-09-25 choice to remove them. The voice-only file
+  stays on the media host as the way back.
+- Captions stay off by default and gain two short `[Music]` markers.
+  The songs' words are not written out. The picture is unchanged.
+  DECISIONS 2026-10-04; PR #250.
+
+### 2026-10-02 — /services/peptide-therapy: a tenth card, KLOW; both blends read "$265 for six weeks"
+
+- A new card right after GLOW: KLOW (KPV / GHK-Cu / BPC-157 / TB-500).
+  It says what the blend is and nothing about what it does.
+- The GLOW and KLOW price lines read "$265 for six weeks". GLOW's
+  figure is unchanged; the words "for six weeks" are new. They ship
+  under the operator's exception to the dosing rule, recorded in
+  CLAUDE.md and BUILD_SPEC §8.
+- "What it is" names both blends. The page now has ten cards, in five
+  even rows on wide screens. `clinicianApproved` stays false.
+  DECISIONS 2026-10-02; PR #248.
+
+### 2026-10-02 — /services/hormone-optimization: the Biote film loses its caption line and white frame
+
+- No text under the film (the "Why Amy chose Biote — sound on." line is
+  gone), and the white frame around it is replaced by a thin pink
+  hairline with rounded corners. Her captions and the sound button are
+  unchanged. The treatment `film` field gains an optional `frame`.
+  DECISIONS 2026-10-02, the Biote film addenda; PR #245.
 
 ### 2026-10-02 — /services/iv-therapy: the IV lounge film autoplays, smaller
 

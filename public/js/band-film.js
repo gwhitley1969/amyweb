@@ -16,8 +16,10 @@
 //    The native controls are the pause mechanism (WCAG 2.2.2) and the
 //    tap-for-sound, so it runs under prefers-reduced-motion too: the films
 //    policy (CLAUDE.md constraint 6).
-//  - Since 2026-09-25 (the sound addendum) the rendition carries Amy's own
-//    voice at 2:01–2:17 and silence elsewhere (the songs are removed). A
+//  - The rendition has sound: the clip's two songs to 2:01 (back since
+//    2026-10-04, the operator's override of the music position; DECISIONS
+//    same date), then Amy's own voice at 2:01–2:17 (the 2026-09-25 sound
+//    addendum), and silence after. A
 //    person's unmute is remembered, so the film restarts with sound when
 //    it scrolls back into view (the treatment-video.js pattern); if the
 //    browser refuses sound, it falls back to muted.

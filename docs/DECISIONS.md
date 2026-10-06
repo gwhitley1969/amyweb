@@ -14421,6 +14421,13 @@ the iPhone loop check are still to come.
   new optional `frame` on the treatment `film` field. The bare frame was
   written for films inside a media row; this standalone use is the
   operator's choice. The site's other standalone films keep the mat.
+- **Correction, same day:** "the site's other standalone films keep the
+  mat" was already untrue when the second addendum merged: PR #244 (the
+  IV lounge film addendum, merged first) had moved the standalone IV
+  lounge film to the bare frame too. Checked in source after both
+  merges: three films keep the mat (the regenerative PRP-visit reel, the
+  /injector-training reel and the /about ICON film); every other
+  TreatmentVideo is bare.
 
 ## 2026-10-02 — laser-treatments: Amy's film of a client's IPL session plays beside "Photo-rejuvenation" (whole, with its sound; operator overrides after the compliance flags)
 
@@ -14726,3 +14733,1334 @@ page's row pattern already puts a film left of its text).
     merge ("The IV lounge — sound on.", which wrapped onto two lines
     at 16rem, then "Sound on.") and removed at the operator's
     direction; neither reached `phase-c`.
+
+## 2026-10-02 — peptide-therapy: a tenth card, KLOW; GLOW and KLOW read "$265 for six weeks" (operator direction; the time span is the operator's exception after the compliance flag)
+
+- **Context:** the operator asked for a new peptide blend, KLOW, on
+  /services/peptide-therapy, priced by Amy at $265 for six weeks, and
+  said GLOW is $265 for six weeks as well. GLOW has shown "$265" since
+  it first appeared on the page (`3fed7f3`, 2026-07-21), so no figure
+  changes; the words "for six weeks" are what is new. The operator
+  supplied a screenshot of KLOW's product sheet. It is a
+  hard-constraint-8 document, the same kind as the nine peptide sheets
+  of 2026-07-21: view-only, never committed, never quoted. Only the
+  four ingredient names were taken from it. Its amounts, its mixing
+  line, its schedule, its cycle and its "Uses" wording were not, and
+  this entry does not describe them. Amy's Vagaro menu lists neither
+  blend (read 2026-10-02), so the operator's word is the record for the
+  price and for the six weeks.
+- **Decisions (operator, 2026-10-02):**
+  1. **The card.** "KLOW (KPV / GHK-Cu / BPC-157 / TB-500)", placed
+     right after GLOW, in the sheet's name order and the page's
+     spelling of each peptide. Its text says what the blend is and
+     nothing about what it does: "A blend of four peptides: KPV,
+     GHK-Cu, BPC-157, and TB-500. KPV is a tripeptide (lysine, proline,
+     and valine)." That is BUILD_SPEC §7's rule for this page. The
+     2026-08-01 override covers the nine card sentences as shipped and
+     was not extended. That KPV is that tripeptide was checked against
+     published sources.
+  2. **The price line** on the GLOW card and the KLOW card:
+     "$265 for six weeks". Flagged before the operator chose: the
+     rulebook bans duration wording (BUILD_SPEC §8, rule 1); the
+     2026-07-21 entry left the peptide sheets' duration column out as
+     a cycling protocol; and the 2026-07-22 ruling that admitted "a
+     course of six" as a unit of sale did so because it carries no
+     frequency and no interval. A span of weeks is not a count, so that
+     ruling does not reach it. It ships as the operator's scoped
+     exception, written into CLAUDE.md's dosing bullet and BUILD_SPEC
+     §8: the exact wording, those two price lines, no amount, no
+     frequency, no cycle, no other time span anywhere, never restated
+     in other site text. It trips no pattern, so it is not an
+     `allowedStrings` entry, and a green linter never authorizes it.
+  3. **"What it is"** names both blends: "**Copper peptides**: GHK-Cu,
+     and two blends that include it, GLOW and KLOW."
+- **Changed after the plan's review, before the operator approved it:**
+  the operator first saw the card as "A blend built around GHK-Cu,
+  paired with the KPV, BPC-157, and TB-500 peptides." A reviewer showed
+  that "built around", said of KLOW, could only rest on the sheet's
+  amounts, which are prohibited input. So the card and the body
+  sentence say only what the names say. The GLOW card keeps its own
+  wording. The same review moved the price line from a reading of the
+  unit-of-sale ruling to the scoped exception above. The operator
+  approved the plan with both changes stated at its top.
+- **Rejected:** a bare "$265" on both cards (offered as the strict
+  reading; the operator chose the time span); the sheet's "Uses"
+  wording on the card (one of its words is gate-blocked and the rest
+  is the benefit language §7's peptide brief bans; offered as a new
+  override and declined); holding the card until Amy writes a line of
+  her own (if she does, it returns to the operator as a new override,
+  as on 2026-08-01).
+- **Consequences:**
+  - Ten cards. `{{PEPTIDES_PUBLIC_LIST}}` is the ten-item list
+    (BUILD_SPEC §17). At 640px and wider the cards sit in five even
+    rows of two; the last card no longer takes a full row.
+  - Three cards now say what the price buys (the two blends, and
+    Glutathione's "per shot"); seven show a bare price. A time span on
+    any of those would widen the exception and needs the operator.
+  - The page's 2026-07-21 no-disclosure decision for compounded
+    peptides now covers a tenth name. "The ones Amy offers are
+    prescription treatments" and "plans and gives every peptide
+    treatment herself" now cover KLOW too; both lines are unchanged and
+    are on the sign-off sheet for Amy to confirm, with the name, the
+    two sentences, the price and the six weeks. The six weeks is the
+    operator's figure.
+  - No structured data, page description or share text carries the
+    card names or prices. `clinicianApproved` stays false.
+  - Measured on the final tree: `npm run verify` exit 0; against an
+    unchanged build of `phase-c` at `a64b2b6` one built file differs,
+    the peptide page, and the three stylesheet files are
+    byte-identical; no sideways scroll at eight widths from 360 to
+    1510.
+  - Two code comments (the card component's header and the content
+    schema's note on product cards) say a price line must be an
+    allowlist string and a card's text one sentence. Both were already
+    out of date and are left for a separate change.
+
+## 2026-10-04 — Home: the van film plays its two songs again (operator override of the music position after the flag; the 2026-09-25 "Amy's voice only" choice superseded)
+
+**Context.** The operator, 2026-10-04: "Originally, we had the music
+muted and no sound until Amy gets out of the van. We've decided to
+change that." The video is to keep autoplaying muted, visitors are to
+be able to turn the sound on, and the website version is to play the
+music "as it was originally setup to do". The film is the home band's
+van-trip film (the 2026-09-25 entry). Its sound until now was the
+2026-09-25 addendum's: Amy's own voice at 2:01–2:17 and silence
+elsewhere, the clip's two songs removed for want of a licence.
+
+**The clip's sound, measured again** on the supplied copy
+(`VID_20260923_081757.mp4`, sha256 `23a76a9c…602655`):
+
+| Time | Sound | Loudness |
+|---|---|---|
+| 0:00–1:00.0 | Song one, "Check Out (What I Got)", Danger Twins | −14.72 LUFS |
+| 1:00.7–2:01.2 | Song two, "I'll Never Let You Go" (feat. 9ver), BCD Studio | −14.75 LUFS |
+| 2:01.2–2:17.3 | Amy's words to camera | −34.5 LUFS |
+| 2:17.3–2:38 | Faint room sound | −41.6 LUFS |
+| 2:38–2:50 | Digital silence | |
+
+The two songs together read −14.78 LUFS with a true peak of −1.82 dBFS,
+and a 0.7 s dip separates them. The music ends at 2:01.2: none plays
+under Amy's words or after them, so "the music as the clip was made" is
+the first two minutes.
+
+**The songs, read by machine** (Whisper large-v3-turbo through ffmpeg's
+own filter, on the build machine; nothing was uploaded; a draft, not a
+record). Each song's title line is heard, which agrees with the
+operator's 2026-09-25 identification. A watch-list screen of the
+reading found no profanity, no treatment or outcome word, no name and
+no first-person plural; its one hit, "best", sits in a lifestyle phrase
+and is not a ranking. A reading of Amy's part found nothing beyond her
+four caption cues. The operator's ear on the preview is the record.
+
+**Flag shown (once).** Neither song has a licence on record for a
+business website. The position (2026-09-03 and 2026-09-25) is that a
+commercial song needs one and that a platform's licence does not
+travel; these two songs were removed on 2026-09-25 for that reason.
+What is known about each:
+- **Song one.** The 2026-09-25 record: listed for sync licensing
+  through peermusic's catalog. Checked 2026-10-04: it is on peermusic's
+  Syncsite, so a paid route exists.
+- **Song two.** The 2026-09-25 record: marketed as "no-copyright
+  sounds" for TikTok, with no written licence for a website. Checked
+  2026-10-04: it is on the commercial streaming services, and no
+  licence terms for it were found. The two descriptions differ, and
+  neither is a licence.
+
+Three routes were offered: play now and settle the licences before
+relaunch, with a request drafted for each song (recommended); play now
+and accept the risk; hold until both songs are licensed.
+
+**Decision** (operator, AskUserQuestion, 2026-10-04): **"Play now,
+accept the risk."** Both songs play under the operator's override of
+the music position, with no licence sought: the route the three
+carousel songs (2026-09-30) and the IV lounge film's song (2026-10-02)
+took. It supersedes decision 1 of the 2026-09-25 addendum ("Amy's voice
+only"), which stands above as written. The operator's request also
+settles two things:
+- **Autoplay stays** ("Still keep the video set to autoplay"). The film
+  was already the speech-free autoplay rule's second scoped exception,
+  for Amy's voice. Its terms widen to songs with sung words, the class
+  the IV lounge film's addendum counted as an exception of its own. No
+  exception is renumbered.
+- **Sound is the visitor's choice.** The film starts muted, and the
+  native speaker control turns the sound on, as before.
+
+**Choices made in the plan** (the operator approved it 2026-10-04; each
+was listed there as one the operator could change):
+1. **Amy's voice stays lifted.** In the clip she is 20 dB below the
+   songs. Her part is built by the 2026-09-25 recipe, unchanged.
+2. **Silence after 2:17.3,** as before. The clip has no music there,
+   and its room sound was never screened by ear.
+3. **Captions: two bounded `[Music]` cues,** one as each song begins
+   (0:01–0:04 and 1:01–1:04). That is the form RUNBOOK gives for music,
+   and the one the billboard-day reel and the team film carry. The
+   songs' words are not written out: they are the songwriters' text,
+   and written out they would be site text under the claim rules. (The
+   promo and the IV lounge film carry sung words by the operator's
+   choices of 2026-09-30 and 2026-10-02.) Amy's four cues are
+   unchanged. The track stays off by default (the 2026-09-25 decision);
+   a phone with captions switched on shows "[Music]" for three seconds
+   as each song begins.
+4. **The voice-only file stays on the media origin** as the off-ramp.
+   RUNBOOK deletes a file once nothing references it; this one is kept
+   on purpose.
+
+**The music rendition** (`C:\Amy\van-film\music.sh`, new; `sound.sh` is
+unchanged and still builds the voice-only file).
+- **One filter graph on the source's sound, two branches, summed**
+  (`amix`, its inputs not scaled):
+  - **The songs:** one plain volume offset, −3.2 dB, with no compression
+    and no limiting. The branch fades out over 80 ms at 2:01.2, where
+    song two has ended on its own.
+  - **Amy's part:** the 2026-09-25 chain as it stands in `sound.sh`.
+    From 121.30 s the new WAV and the 2026-09-25 WAV are the same,
+    sample for sample (md5 `077989af…` for both).
+- **The level rule.** RUNBOOK's rule (2026-09-30) is one plain offset
+  per film, with no compression and no limiting. This film as a whole
+  departs from it: Amy's part keeps a compressor and a limiter, a chain
+  that predates the rule. The promo's three offsets, one per section of
+  its own mix, are the nearest precedent.
+- **Muxing:** the picture is `van-trip.mp4`'s stream, copied bit for bit
+  (packet md5 `840bff6f…` for the silent file, the voice-only file and
+  the new one), so no frame changed, nothing was re-screened and the
+  poster stays. The sound is AAC-LC 128k, the carousel films' rate (the
+  voice-only file's was 96k).
+- **The file:** `van-trip-music.mp4`, 36,978,295 B, sha256
+  `6446abcb8c78371fbfbe1e83ddf936eafaf5bcff6a8dd6591ef789ba8e2c9e23`;
+  5,100 frames, 170.02 s; index before media. It is a new object beside
+  the old one, never a replacement in place.
+
+| | Songs | Amy's part | Whole film | True peak |
+|---|---|---|---|---|
+| The clip | −14.78 LUFS | −34.5 | −14.7 | −1.82 dBFS |
+| `van-trip-sound.mp4` | silent | −18.15 | | −2.13 |
+| `van-trip-music.mp4` | −18.02 | −18.17 | −18.01 | −1.65 |
+
+After 137.4 s the new file is digital silence.
+
+**Page and player.**
+- **`ConceptHome.astro`:** the band's figure names the new file and
+  `van-trip.vtt?v=3`. The label's last sentence reads "It starts muted;
+  turn on the sound to hear the music and Amy." The label's recorded
+  terms (the 2026-09-25 entry: it names nothing beyond the van, the
+  drive, Amy speaking and the event) widen to say that the film has
+  music.
+- **`band-film.js`:** its header comment only. Nothing it does changes:
+  it builds the player on approach after a real input, plays muted, and
+  remembers an unmute.
+- **`TreatmentVideo.astro`'s header,** the autoplay rule's home, records
+  the widened exception.
+- **One soundtrack at a time** still holds: `video-carousel.js` mutes
+  this film when the carousel's Sound is turned on, and turns the
+  carousel's sound off when this film is unmuted (2026-09-30).
+
+**Cost and the statement of work.**
+- A full view is 37.0 MB, up 2.0 MB (5.7%). Blob and Front Door egress
+  grow with plays, outside the SOW's $45–55 (divergence #10, as
+  recorded 2026-09-25). The film still loads only after a visitor's
+  input near the band.
+- The embedded-video wording (divergence #4) is unchanged in kind.
+- Two more songs play without a licence.
+- **The off-ramp:** revert this change's commits, which puts
+  `van-trip-sound.mp4` back without an upload (move the caption address
+  on to `?v=4`); then delete the music file and purge its path.
+
+**Alternatives rejected.**
+- Play now and settle the licences before relaunch: recommended,
+  declined.
+- Hold until both songs are licensed.
+- The clip's sound whole, by one offset: Amy would sit 20 dB under the
+  songs.
+- Music carried on to the end of the film: the clip has none there.
+- The clip's room sound after 2:17.3: never screened by ear.
+- The songs' words as captions (above).
+- Replacing `van-trip-sound.mp4` in place: a day of stale copies at the
+  edge, and the standing previews still load it.
+
+**Consequences.**
+- **CLAUDE.md:** constraint 3's songs clause gains these two songs, and
+  the script list's fifth consumer names the new rendition and the
+  widened exception. BUILD_SPEC §6's home row and §13's autoplay
+  paragraph follow. The plan's approval authorized the
+  governing-document edits.
+- **Other records:** RUNBOOK ("The van band's film"), RELAUNCH's probe,
+  HOME-CONCEPT §4, REDESIGN (the media row, the home row and the open
+  music-licence item, which also gains the IV lounge film's song,
+  missing from it until now), CLINICIAN-SIGN-OFF's pending row and
+  compliance/README.
+- **The media origin** holds thirty-three objects, seventeen of them
+  referenced.
+- **Not treatment content,** so no `clinicianApproved` flag. Amy has not
+  heard it.
+- **Open:** the music licences.
+
+**Verification.**
+- **Before any repository change,** a copy of `phase-c` at `d72022d`
+  was exported to a scratch folder, edited, built beside an unchanged
+  copy and run through the project's own gates, and the film was built
+  there too. The film built afterwards in `C:\Amy\van-film` is that
+  build, byte for byte.
+- **The player with the new film,** on that scratch build served under
+  the generated headers (CSP included), in headless Chrome (the strict
+  autoplay policy, test code carrying no user gesture) and Firefox 157:
+  - nothing is built or fetched at load, or in view without input;
+  - after a wheel tick the film plays muted, its audio track decoding;
+  - after a real click and an unmute it plays with sound from the first
+    second;
+  - scrolling away pauses it, and scrolling back resumes with sound;
+  - the loop returns to the start with sound still on;
+  - a visitor's pause holds;
+  - the track is off by default and holds 6 cues, each showing at its
+    time;
+  - no console or CSP errors.
+- **The same test against a deployed site** ran clean in Chrome on the
+  standing demo (#97) with the voice-only film, before this change.
+- **Two refuting reviews of the plan** (facts and steps; rules and
+  records) made 22 findings before the operator saw it. Among them: the
+  label's recorded terms, the open music-licence item, the level rule
+  and the order of the storage recount.
+- **The full chain on the branch** ended with exit 0 before this
+  paragraph was written: build, type check 0/0/0, claims, voice,
+  practice links (25 pages, 64 links), pa11y 25 of 25, and Lighthouse
+  passing every assertion on 8 pages × 3 runs. With this paragraph the
+  fast gates passed again, and the build was byte-identical to the one
+  the chain ran on.
+- **Against the baseline build** (`d72022d`), 4 of 316 files differ: the
+  home page (+14 B), its /styleguide/concept mirror (+14 B),
+  `band-film.js` (5,644 → 5,753 B; 2,251 → 2,306 B compressed) and the
+  caption file (1,672 → 2,155 B). The stylesheets keep their names,
+  records included. Those four files are the scratch build's, byte for
+  byte.
+
+| Home row | This change | Budget |
+|---|---|---|
+| Total | 348,882 B | 358,400 B |
+| Script | 73,549 B | 81,920 B |
+| Image | 218,625 B | 245,760 B |
+| Media | 0; no request for the film | |
+| Largest paint, median of 3 | 2,171 ms | 2,500 ms |
+
+**On the preview (PR #250).**
+- **The served film** (uploaded 2026-10-05 00:14 UTC, the evening of
+  2026-10-04 here): a range request answers 206 as `video/mp4` with a
+  total of 36,978,295, and the downloaded file's sha256 is the built
+  file's. The container was recounted: thirty-three objects.
+  `van-trip-sound.mp4` still serves.
+- **The preview environment was unsteady for about 45 minutes.** It
+  served the change on three clean rounds of probes at 6 to 8 minutes,
+  then answered the host's own 404 on most requests, in runs of one or
+  two clean rounds. A browser test in that window was served the 404
+  page. The standing demo (#97) answered 6 of 6 in the same minutes, so
+  the fault was this new environment's. The preview run was run again,
+  and about 19 minutes later the environment held: six clean rounds
+  (each fetching the home page plain and cache-busted), then 12 of 12
+  and 6 of 6 on later checks. The probe now asks for six rounds.
+- **The browser runs passed again against the preview itself,** in
+  Chrome (no user gesture) and Firefox 157: every step listed above,
+  with the film from the media origin. The carousel's own test passed
+  there too, in both browsers: unmuting this film turns the carousel's
+  sound off, and the carousel's Sound button mutes this film. No
+  console or CSP errors. The same runs passed on the branch's build
+  served locally with the film from the media origin.
+- **The operator's check** (AskUserQuestion, 2026-10-05), on a desktop:
+  - the two songs, the hand-over to Amy's voice and the levels:
+    "Sounds right";
+  - by ear, whether anything sung names a provider, a product or a
+    treatment result, or speaks as "we" for the practice: "Nothing like
+    that". That answer is the record for the songs' words.
+- **Not checked:** an iPhone ("No iPhone check", the operator's choice;
+  the player's code did not change), a phone with captions switched
+  on, and Amy's own listen.
+- **The merge word:** "Yes, merge when checks pass", for this pull
+  request once these lines are in the records and their run has
+  finished.
+- **The scripts** are kept outside the repo, in
+  `C:\Amy\van-film\tests\`.
+
+**Merged (2026-10-05), on the operator's word ("Yes, merge when checks
+pass").** PR #250 merged at 13:59 UTC as `7172a08`, at the head
+`9c9a5b9`. Both of that head's check runs had finished green, and
+nothing was still deploying. `phase-c` had not moved since the plan
+(`d72022d`).
+
+**After the merge (2026-10-05).**
+- **The pull request's environment** was removed when it closed, and
+  its host answers 404. The list holds default, 97, 149, 201, 210 and
+  249, so nothing is stray.
+- **The standing demo (#97) and the review preview (#149)** were
+  refreshed on the operator's word ("Refresh both and update"): #97 to
+  `a268f6c` and #149 to `bf89405`, by clean merges that carry exactly
+  this change (14 files). Both runs passed. Both previews served the
+  change on six clean rounds in a row and again on a later check of
+  six. On the demo the player's test passed in Chrome and in Firefox.
+- **The main checkout** was fast-forwarded to `7172a08` on the same
+  word.
+- **The operator, after the refresh:** "the music plays correctly on the
+  'Tox Together Party' section."
+- **The voice-only file** is no longer loaded by `phase-c` or by either
+  standing preview. The open previews of #210 and #249 still load it.
+  It stays on the media origin as the off-ramp.
+- **Still not checked:** an iPhone, a phone with captions switched on,
+  and Amy's own listen.
+- **One incident on the build machine, at the plan stage.** A helper in
+  a scratch command had been given the name of a shell command and ran
+  by mistake, with the supplied copy's path where ffmpeg takes its
+  output. ffmpeg stopped while reading its options and wrote nothing.
+  The copy's sha256 was read again and is unchanged
+  (`23a76a9c…602655`). `music.sh` runs ffmpeg so that it cannot
+  overwrite a file.
+- **The preview lesson** (three clean rounds are not proof) is in
+  RUNBOOK's troubleshooting entry on preview environments.
+- **The merge of these closing lines** is in `git log`, not here.
+
+## 2026-10-05 — wrinkle-relaxers: "Who they're generally for" closes "with the procedure following" (operator wording, after the flag)
+
+**Context.** The operator asked that the section's last sentence end
+"…is a clinical decision made with Amy in a consultation with the
+procedure following." It ended at "consultation." The purpose was not
+stated. The working reading is that the consultation and the treatment
+belong to one visit, which agrees with the page's own FAQ answer ("A
+consultation is never required…").
+
+**The flag, raised once, before the edit.** The added clause carries no
+condition, so the sentence can be read as saying that a procedure
+follows whichever way Amy's decision goes. That sits close to CLAUDE.md
+constraint 3 ("never answer 'is this right for me'") and BUILD_SPEC
+§8.7. It is milder than the laser booking answer (2026-09-19): here the
+decision is still Amy's, made in a consultation, ahead of the
+procedure. Three wordings were offered (AskUserQuestion):
+"…in a consultation, and the procedure can follow." (recommended; the
+"can be performed" shape of the biostimulators and regenerative booking
+answers); the dictated clause with a comma before "with"; and the
+dictated clause word for word.
+
+**Decision.** The operator chose the dictated clause with the comma. The
+sentence reads: "Whether it fits you, and which product suits your
+anatomy and goals, is a clinical decision made with Amy in a
+consultation, with the procedure following."
+
+**Consequences.**
+- One sentence in `src/content/treatments/wrinkle-relaxers.mdx`, in its
+  own commit. `clinicianApproved` was already false, so nothing reset;
+  the flags stay 0 true / 12 false. It is a new line for Amy to read on
+  the sign-off sheet.
+- It is NOT a new scoped exception in CLAUDE.md. The sentence still
+  hands the fit question to Amy in a consultation, which is what the
+  rule asks for. It trips no `lint:claims` pattern, and a green linter
+  is not its authorization: this entry is. The operator was told of
+  this reading with the flag.
+- **Coupling.** The first half of the sentence and the layout-injected
+  disclaimer are what carry §8.7 routing in this page's body copy (its
+  FAQ already says no consultation is needed before booking). Trimming
+  either one is a fresh flag, not a tidy.
+- **The trend note (2026-08-24), brought current.** The site now has
+  four same-visit wordings: biostimulators' and regenerative's booking
+  answers say the procedure "can be performed"; laser's (under its
+  override) and this one state that it follows.
+
+## 2026-10-05 — /injector-training: a "Message Amy on Instagram" button beside Call; the paragraph's link gets its underline (operator direction)
+
+**Context.** The operator asked for an Instagram icon or link to Amy's
+page near the intro's Call button, "which we have at the bottom
+(footer) of every page". Exploration found that the page already
+linked there: the word "Instagram" in the intro's last sentence has
+been an anchor since the page was made (2026-08-04), but it carried
+none of the house inline-link styling, so it read as plain text. A
+link nobody can see is also an accessibility defect (the 2026-07-23
+rule: on the ombre canvas a link is told apart by its underline).
+
+**Decision.** Two looks were shown on a mock sheet made from the built
+page (laptop and phone): **A**, a second brand-chip button with the
+Instagram mark and the words "Message Amy on Instagram"; **B**, the
+mark alone in a square chip. The operator chose A (AskUserQuestion).
+The paragraph's word takes the inline-link idiom (underline and the
+link token, as on the booking links) with either choice.
+
+**How it is built.**
+- One file, `src/pages/injector-training.astro`. The button is a
+  hand-written anchor wearing the shared chip, the shape of the home
+  page's "Follow Amy on Instagram" anchor: `siteConfig.social.instagram`,
+  a new tab, `noopener`, the hidden new-tab note, and no analytics
+  event (there is none for Instagram, and adding one is a BUILD_SPEC
+  §11 change nobody asked for).
+- The mark is the footer's own glyph, copied by hand from
+  `Footer.astro`. Two uses did not earn a shared component.
+- The label says "Message", not "Follow": the sentence above it says
+  how training dates are set, and the page's contact rule is
+  phone or Instagram. It is not "Book with Amy", "appointment" or
+  "consultation", which that rule reserves.
+- The button row wraps. Measured on the local build: side by side at
+  1280px; stacked from 768px down; no sideways scroll at 320px, where
+  the label takes two lines.
+
+**Alternatives rejected.** The icon alone (B): quieter, but nothing says
+what it is for. Underline only: fixes the hidden link but does not give
+the operator the visible control that was asked for. A second button in
+the closing band: not asked for.
+
+**Consequences.** Privacy constraint 5 is untouched: a link-out, no
+embed, no script. The page is outside the treatments collection, so no
+`clinicianApproved` flag is involved; the sign-off sheet's
+/injector-training section gains the item for Amy. The chip's consumer
+lists in `CTAButton.astro` and `tokens.css` name the new wearer.
+
+## 2026-10-05 — Home: no sideways scroll on phones (the hero and the Instagram print's section clip x; PR #210's fix, carried into the relaunch)
+
+**Context.** Two motion-layer moves put a box past the screen's right
+edge, and below 900px nothing clipped either, so the home page itself
+grew wider and could be dragged sideways on phones. The fix was written
+and verified on 2026-09-26 (PR #210) and never merged; the branch went
+stale under later merges. Found again while preparing the relaunch and
+measured on the standing demo (`phase-c` `a02dde4`, the repo's
+puppeteer in phone emulation, stepping the whole page 100px at a time):
+the page was 15 / 19 / 21 / 37 px too wide at 320 / 390 / 430 / 768.
+- **The hero's exit swell** (home-motion.js step 3, scrubbed) scales
+  the hero's media box to 1.12 from 60% 40%, 4.8% of the width past the
+  edge; from 900px the hero already clipped it.
+- **The Instagram print's reveal** (step 6). The print's photo waits at
+  1.18, unseen, until the reveal plays, and inside the tilted print that
+  box reached past the edge at about 420–640px wide.
+
+Reduced motion runs neither move.
+
+**Decision.** PR #210's three hunks, unchanged apart from the date in
+their two comments: `overflow-x: clip` in the hero's base rule, outside
+the media query, and on the print's section, which takes a new class.
+From 900px the hero's existing `overflow: hidden` still wins, so desktop
+is unchanged. Operator, 2026-10-05, asked whether to fix it before the
+relaunch or after: "Fix it first".
+
+**The relaunch rule this touches.** RELAUNCH precondition 3 wants Amy's
+presentation approval to be newer than the last merged visual change,
+and this fix merges after her review of the same day. The operator's
+decision, asked directly: he checks the fix on the PR preview himself
+("No, I'll check it myself"), and it is recorded as his override of that
+rule for a fix that changes nothing a visitor sees. The measurements
+above and below are the evidence.
+
+**Alternatives rejected.** An x clip on html or body: it can break
+`position: sticky`, and the statement band's panel is sticky from
+900px. `hidden`: a scroll container, for no gain. Clipping both axes:
+on a fast scroll back to the top the lagging swell rises past the hero's
+top edge for a moment, and a y clip would cut it. Smaller or re-anchored
+moves: a different look. Launching with the bug and fixing it on the
+live site: offered and declined.
+
+**Consequences.** A few bytes in the stylesheet the home page shares
+with the styleguide pages, and the home page gains the section's class;
+nothing else in the build changes. Safari before 16 ignores `clip` and
+keeps the old pan (no regression). Not treatment content; no
+`clinicianApproved` flag. PR #210 is closed as superseded once this
+merges; its fuller 2026-09-26 verification (16 widths, Firefox, frame
+comparisons) stays on that PR.
+
+**Verification.** With the hunks on today's tree, served from a local
+build: 0 px over at 320, 390, 430 and 768, with the motion layer
+running. `npm run verify` exit 0 on the tree that carries this fix and
+the same day's search-text edits. The PR preview's result is in the
+shipped record.
+
+## 2026-10-05 — Search text: twelve titles and descriptions say Charlotte and fit a results page; the business data gains an image (operator direction, before the relaunch)
+
+**Context.** The operator asked, on the day of the relaunch, whether the
+site was search-optimized. An audit of the production build of all 22
+pages found the pages sound: one H1 each, unique titles and
+descriptions, correct canonicals, every share tag, no image without an
+alt attribute, valid JSON-LD, no page that nothing links to, no
+`noindex`, a 21-URL sitemap. It also found three things in the text
+search engines read:
+- eleven descriptions ran past 160 characters (up to 201), so results
+  pages cut them off;
+- the home page's title and description never said Charlotte, and nor
+  did eleven of the twelve treatment descriptions, though the treatment
+  titles do;
+- the sitewide business entry had no `image`.
+
+Offered the choice of doing the edits after the relaunch (recommended,
+so that nothing new could hold the launch) or before it, the operator
+chose "Do them now, before launch", with Amy's OK on the new lines
+before his approval flip.
+
+**Decision.** Thirteen exact replacements in twelve files, none of them
+text a visitor sees on a page:
+- **Home** (`ConceptHome.astro`): the title tag reads "Needle Girlie |
+  Medical Aesthetics in Harrisburg & Charlotte, NC" (it read "…in
+  Harrisburg, NC"; the share title of 2026-09-27 is unchanged), and the
+  description reads "Needle Girlie — medical aesthetics in Harrisburg,
+  NC, near Charlotte. Injectables, skin, body, and wellness, every
+  appointment with Amy Palacios, FNP."
+- **/services, /about, /injector-training**: descriptions shortened to
+  154, 145 and 157 characters. /services and /injector-training now say
+  "near Charlotte, NC".
+- **Seven treatment files** (dermal-fillers, hormone-optimization,
+  iv-therapy, laser-treatments, skincare, weight-loss-glp-1,
+  wrinkle-relaxers), in their own commit: `seo.description` shortened to
+  144–156 characters, each saying "in Harrisburg, NC, near Charlotte"
+  (skincare: "at her Harrisburg, NC medspa near Charlotte"). The old and
+  new lines are in the sign-off sheet.
+- **`schema.ts`**: the business entry gains `image`, the link-share
+  card's address.
+
+The rule applied to every line: 160 characters or fewer, say Charlotte,
+add no claim. Each line was read against CLAUDE.md's scoped exceptions
+whose terms forbid restating them in meta descriptions; none restates
+one. Weight loss keeps "medically supervised", wording left for the
+operator's separate call since 2026-09-19.
+
+**Alternatives rejected.**
+- *FAQ structured data.* Several FAQ answers are operator exceptions
+  that may never be restated in JSON-LD (the laser booking answer among
+  them), and search engines show FAQ results for few sites now.
+- *Map coordinates, a price range, opening hours* in the business entry:
+  the first two are facts not on record, and hours are left off by
+  Amy's decision of 2026-08-04. Nothing was invented.
+- *Visible copy.* The home page's text says Harrisburg seven times and
+  Charlotte never; changing what visitors read was not part of this.
+- *The other five treatment descriptions and every other title*: already
+  within length, left as they are. The laser title keeps "Laser Hair
+  Removal" whole and so has no room for Charlotte.
+- *A `logo` property*: still Phase D (BRAND-ASSETS).
+
+**Consequences.** All twelve treatment flags were already `false`, so no
+flag resets; Amy reads the seven new lines on a before-and-after sheet
+and the operator's flip follows her OK. The home description is also the
+text some apps show under a shared link. The `image` address must follow
+the share card's filename when the card is re-made (RUNBOOK, "Changing
+the link-share card"). RELAUNCH's launch-day checklist quotes the new
+home title. The round-close record counts this and the phone fix as the
+last two items before the freeze.
+
+**What the pages cannot do.** Search engines have to be told the site
+is back: Search Console verification and a sitemap submission need the
+operator's Google account, and whether a Google Business Profile links
+here is the operator's to settle (BUILD_SPEC §10, `{{GBP_STATUS}}`).
+With analytics off (the next entry), Search Console is also the only
+source of search numbers.
+
+**Verification.** The edit script writes nothing unless each old string
+is found exactly once: 13 of 13. On the edited tree the production
+build, `astro check`, `lint:claims`, `lint:voice` and
+`lint:practice-link` pass; no description runs past 160 characters;
+Lighthouse scores SEO, accessibility and best practices at 1.0 on /,
+/services, /about and /services/wrinkle-relaxers of that build. The
+two-step relaunch merge, rehearsed with these edits in, conflicts in the
+same three files as before.
+
+## 2026-10-05 — Analytics stays off at the relaunch (operator decision; supersedes the 2026-08-17 "Plausible at relaunch")
+
+**Context.** On 2026-08-17 the operator decided that Plausible would be
+switched on at relaunch, and the wiring was built to ship dark until
+then. RELAUNCH listed the flip as precondition 4. Asked on the day
+whether the Plausible account was ready, the operator asked what the
+feature was, and with that explained chose "No, launch without it".
+
+**Decision.** The relaunch goes out with `siteConfig.analytics` at
+`enabled: false`, `provider: 'none'`. Precondition 4 does not apply to
+this relaunch. The wiring stays in the repo, dormant: the self-hosted
+tracker file, the privacy page's conditional wording, the CSP sniff in
+`generate-swa-config.mjs`. Turning it on later is the same two-value
+edit, on the operator's word, by the RUNBOOK procedure.
+
+**Alternatives rejected.** Switching it on at launch as planned: needs
+an account only the operator can create, and he declined. Removing the
+dormant wiring: it costs nothing while dark and the decision may be
+revisited.
+
+**Consequences.** No visitor numbers from day one; Front Door's request
+reports and, once set up, Search Console are what there is. The privacy
+page keeps its launch wording, which is true ("It currently runs no
+analytics"). BUILD_SPEC §16's analytics line stays satisfied the way it
+was on 2026-08-04, by the recorded no-provider decision. Azure run-rate
+is unchanged and no Plausible charge starts. Five places said the flip
+would happen at relaunch and are corrected with this entry: CLAUDE.md's
+list of sanctioned scripts (one phrase, on the operator's approval of
+the launch plan), BUILD_SPEC §11 and its §17 registry row, RUNBOOK
+"Turning on analytics", RELAUNCH precondition 4 with its checklist
+line, and the comment above the values in `siteConfig.ts`.
+
+**One thing to do when it is switched on.** The privacy page promises
+that a changed policy is "posted on this page with an updated effective
+date", and the date is one line in `LegalLayout.astro`, shared by the
+three legal pages. The flip needs the privacy page's date changed in
+the same PR (rehearsed 2026-10-05: an optional `effective` prop on the
+layout, set by the privacy page when analytics is on). The preview
+environments would also report into the production site's numbers
+unless the account's hostname list admits needlegirlie.com only.
+
+## 2026-10-05 — The relaunch: Amy's sign-off logged, the round closed, and the two-step merge that takes the site live
+
+**Context.** Production has served the Under Construction page since the
+2026-08-05 takedown. On 2026-10-05 the operator said the sign-offs were
+in and asked for the site to go live "without any hiccups". RELAUNCH
+names four preconditions. This entry records how each was met, the
+operator's answers word for word, and how the relaunch was prepared.
+
+**The operator's answers (asked one question at a time, quoted).**
+- *What should the record say Amy approved, and when?* "Everything,
+  today (Oct 5)": she reviewed the standing demo that day, after the
+  morning's update, and approved all twelve treatment pages, how the
+  whole site looks, /injector-training, and /tox-together with its party
+  terms. The demo had been rebuilt 11:44–11:51 EDT from `phase-c`
+  `a02dde4` (PR preview run 37335248220).
+- *Does she know the home film's opening hair shot is generated from her
+  photos and the van film is AI-sharpened, and has she OK'd both?* "Yes,
+  she knows and OK'd both". This is the informed OK of her generated
+  likeness that REDESIGN and the 2026-09-17 and 2026-09-30 entries name
+  as gating production.
+- *The items the sign-off sheet marks as hers to confirm by name* (the
+  laser booking answer and its film's spoken words, "$265 for six
+  weeks", the "$618 value" sentence, the Tox Together host credit and
+  whether it fits her professional guidance, "top of class" on /about,
+  the promo's sung words, and the rest): "She already confirmed them".
+- *The round close* (REDESIGN's three slots, which only the operator
+  fills): "Frozen today, all seven pass".
+- *Analytics*: "No, launch without it" (its own entry, this date).
+- *The phone fix and the rule that her approval be newer than the last
+  visible change*: "No, I'll check it myself" (the phone-fix entry, this
+  date).
+- *The search-text edits*: "Do them now, before launch" (their own
+  entry). Amy's OK on the twelve lines, read from a before-and-after
+  sheet, was relayed by the operator before the flip, at 17:22 UTC:
+  "Amy OK'd the twelve lines".
+- *The phone check, when PR #253's preview would not serve reliably*
+  (it answered 404 in bursts for its first minutes and again after two
+  clean passes, the fresh-preview fault of RUNBOOK's troubleshooting
+  list): "Merge now, I check later". PR #253 merged on that word with
+  the assistant's measurement as the evidence (0 px too wide at 320,
+  390, 430 and 768 on that preview), and the operator's own phone check
+  moves to the relaunch PR's preview, the build that goes live, before
+  the go-live question is asked.
+
+These are the operator's statements and they are the record; nothing
+here was observed by the assistant.
+
+**How each precondition was met.**
+1. *Round close*: REDESIGN's slots filled from the answer above. The
+   change list is frozen as of 2026-10-05, after that day's two
+   operator-directed items, the phone fix and the search text. Anything
+   raised later is change-order or retainer scope.
+2. *Copy approval*: the operator ran the flip himself, in his own
+   terminal, on a fresh branch cut from `phase-c` after PR #253 merged
+   (commit `0363603`, alone on `content/clinician-approval-relaunch`),
+   the form of the 2026-08-05 sign-off (`ad8fbde`, PR #93).
+   `check:approvals` passes on twelve files. The assistant supplied the
+   command and checked the result: twelve files, twelve lines, the flag
+   and no other byte, the operator as author. The command is PowerShell
+   and reads and writes each file whole; the loop printed in the
+   sign-off sheet rewrites every line ending, and a `sed` command, the
+   first plan, does not exist in the operator's terminal.
+3. *Presentation approval*: the sign-off sheet's row is dated 2026-10-05
+   with the answers above. One change to the built pages is newer than
+   her review, the phone fix, and it is the operator's recorded override.
+4. *Analytics flip*: does not apply to this relaunch.
+
+**Decision: how the relaunch is carried out.** RELAUNCH's two-step,
+unchanged, with what a rehearsal in a throwaway clone showed:
+- On a branch from `main`: revert `e57a4448`. It conflicts in exactly
+  `src/layouts/BaseLayout.astro` and `src/pages/index.astro`; the
+  launch-tree side is taken and each file is checked equal to its blob
+  in `e57a4448^`.
+- Merge `phase-c`. It conflicts in exactly `src/components/SeoHead.astro`,
+  one line; the `phase-c` side is taken and checked equal.
+- Delete `src/assets/photos/studio-counter-portrait.jpg`.
+- **The test before anything is pushed: the branch's tree hash must
+  equal `phase-c`'s.** This is stronger than the guard's comparison,
+  which looks for missing files and not for changed ones. Rehearsed
+  twice (the second time with the day's fix and search text in): equal
+  both times.
+- The guard workflow stays in the relaunch PR and retires in a follow-up
+  the same day (RELAUNCH step 4).
+- The merge into `main` is a merge commit on the operator's yes; never a
+  squash or a rebase, which would break the ancestry the two-step
+  repairs.
+
+The git work for the relaunch branch is done in its own worktree, so the
+main checkout, where the operator's terminal sits, never holds the
+placeholder tree. Because the tree is byte-identical to `phase-c`'s, the
+production build and `npm run verify` are run on the `phase-c` tip in
+the main checkout and their results are results for the release branch;
+the PR's pipeline then runs the whole suite again on the merge.
+
+**Alternatives rejected.** A plain `phase-c` into `main` merge: it drops
+the launched files silently, which is what the guard exists to refuse.
+Pointing `main` at `phase-c`'s tree in one hand-made commit: the same
+result as the two-step, but RELAUNCH says to use its script and not
+re-derive. Putting the flip on the launch-prep branch with the other
+commits: the first plan, corrected in review, because the documented
+procedure and the August precedent keep the flip alone on a fresh
+branch.
+
+**Corrections to the records, made with this entry.** RELAUNCH's
+launch-day checklist called the IV lounge film click-to-play and counted
+nine autoplay players on seven pages; it has been autoplay since the
+2026-10-02 addendum, and the build has ten players on eight pages.
+RUNBOOK, BUILD_SPEC §14 and OPERATOR-SETUP still said the guard retires
+in the relaunch PR, which RELAUNCH step 4 and the workflow's own header
+corrected on 2026-08-24/25. RUNBOOK's "never close PR #95" passages and
+RELAUNCH's bookkeeping now say what happens to that PR when its commits
+land in `main`. The sign-off sheet's closing checklist said "Merge PR
+#5".
+
+**Consequences.** Every merge to `main` ships from here on, and an
+unapproved treatment edit blocks every deploy until the operator flips
+it in the same PR. Carried open, as before, and not gates: counsel
+review of the legal pages, attorney wording for Retatrutide, the manual
+keyboard and screen-reader pass, and the commercial songs with no
+licence on record. Emergency return to the placeholder, on the
+operator's word only: re-run the deploy job of the 2026-09-27
+placeholder release (`gh run rerun 36325267925 --job 108636946730`,
+valid until 2026-10-27); the durable route is RUNBOOK's revert. The
+shipped record, with run numbers and probe results, follows the
+relaunch.
+
+## 2026-10-05 — Shipped: needlegirlie.com is live again (the relaunch record)
+
+**What ran.**
+- PR #253 (`dc0496c`, into `phase-c`): the phone sideways-scroll fix, the
+  search text, the analytics comment and their records. Pipeline green.
+  Its fresh preview answered 404 in bursts (two clean probe passes, then
+  20 of 20 requests refused), the fault in RUNBOOK's troubleshooting
+  list; the operator chose to merge on the assistant's measurement and
+  to do his own phone check on the relaunch PR's preview.
+- PR #254 (`4e2527d`, into `phase-c`): the operator's approval flip
+  `0363603`, alone as the first commit of a fresh branch, and the
+  sign-off and go-live records. Pipeline green.
+- PR #255 (`fdf19db`, into `main`): the two-step, built by
+  `C:\Amy\launch\relaunch-branch.sh` in its own worktree. The revert of
+  `e57a4448` conflicted in `BaseLayout.astro` and `index.astro` and
+  nowhere else; the merge of `phase-c` conflicted in `SeoHead.astro`
+  and nowhere else; each resolved file was checked equal to the
+  expected blob. After the placeholder's photo was deleted the branch's
+  tree hash was `f3149e0c817aaf07d26e0c93fd44bd80ac11af02`, identical
+  to `phase-c`'s, and checked a second time from the main repo before
+  the push. `gutted-merge-guard`: green, "Tree complete: every phase-c
+  file survives this merge" (run 37350639328). The PR pipeline: green.
+  Its preview had the same fresh-environment fault for 27 minutes (9
+  clean passes in 34, never more than two in a row; every failure was
+  the platform's own 404 page, never wrong content). A re-run of the
+  preview workflow cleared it: six clean passes in a row, and 0 px of
+  sideways overflow at four widths. The standing demo (#97) was
+  refreshed with the day's `phase-c` at the same time, as the fallback,
+  and also converged.
+- Asked "merge PR #255 and take needlegirlie.com live?", the option
+  reading "You checked the preview on your phone and the page no longer
+  drags sideways", the operator answered: "Yes, merge and go live".
+  Merged with a merge commit at 18:28:25 UTC. `main`'s tree was then
+  `f3149e0`, and `phase-c` an ancestor of `main`.
+- Production run 37356241933, 18:28:44 to 18:43:40 UTC, every step
+  green: the gates 5 min 48 s, `check:approvals` on twelve files, the
+  production build, the Static Web Apps deploy 40 s (the site changed
+  at 18:36:30 UTC), the Front Door purge 6 min 43 s.
+
+**What was checked on production before it was called live.**
+- `launch-probe.sh https://needlegirlie.com production off 6`: six
+  clean passes in a row, no failure line in the whole run. Each pass
+  fetched the 21 routes plain and cache-busted and checked status, the
+  canonical, no "under construction", no `noindex`, the home search
+  title and share title, no analytics tag, ten autoplay players on
+  eight pages, the hero's file and settings, the band film and its
+  link, five carousel sound films with captions at `?v=4`, the share
+  card, the branded 404 on `/mobile`, `/tox-to-go`, `/styleguide` and a
+  random path, nine scripts, the favicons, three share cards, robots,
+  the 21-URL sitemap, and the CSP and HSTS headers. Once per run: 17
+  film objects `206 video/mp4`, one video and one audio stream in each
+  carousel film, www and needlegirl.com to the apex (301), http to
+  https (307), and the Static Web App's own hostname refused (403).
+- The carousel probe (three passes) and the van-film browser test: no
+  errors.
+- In headless Chrome on the live site: the home film attached and
+  playing; the carousel's first film playing muted, the Sound and CC
+  buttons present; all ten treatment-page players playing muted when
+  scrolled into view, each with its caption track, the laser film's
+  showing by default; no console error and no failed or refused
+  request on nine pages.
+- Sideways overflow of the home page: 0 px at 320, 390, 430 and 768.
+- Lighthouse, live, mobile: home 1.00 / 1.00 / 1.00 / 1.00 (LCP
+  1732 ms, CLS 0); /services/wrinkle-relaxers 0.99 / 1.00 / 1.00 / 1.00
+  (LCP 1224 ms); both crawlable.
+
+**Standing PR #95.** GitHub marked it merged at 18:28:27 UTC, two
+seconds after the relaunch merge, because its commits were then in
+`main`. Nothing was deployed by it.
+
+**The operator's own checks.** After the deploy: "I tested
+needlegirlie.com and it is working correctly". Still his, and listed
+for him: an iPhone on cellular data (the carousel's sound carrying from
+film to film, its captions, the laser film's captions), the two
+share-cache refreshes that need his logins, and telling Amy.
+
+**Left over.** The preview environment of PR #210 was not torn down
+when that PR was closed as superseded: a conflicted PR runs no
+workflows, its teardown included. It is reported to the operator, who
+deletes it or not. Search Console and the Business Profile question
+(the search-text entry) are the operator's next steps.
+
+## 2026-10-05 — The relaunch guard retires (follow-up to the relaunch; RELAUNCH step 4)
+
+**Context.** `.github/workflows/relaunch-guard.yml` (2026-08-17) guarded
+the takedown-era topology with two required status checks:
+`takedown-revert-guard` on `phase-c` and `gutted-merge-guard` on `main`.
+RELAUNCH step 4 kept it in the relaunch PR, where `gutted-merge-guard`
+proved the release tree complete, and required its retirement in a
+follow-up: once the two-step has merged, the takedown revert is a
+harmless ancestor of `main`, and the first job would fail every PR into
+`phase-c` from the moment `phase-c` is brought level with `main`.
+
+**Decision.** In this order:
+1. The operator removes the required status checks from both branches'
+   protection himself (`gh api -X DELETE
+   …/branches/<branch>/protection/required_status_checks`), because
+   branch protection is a security setting. The PR that carries this
+   entry cannot merge until he has: it deletes the workflow, so the
+   check `main` requires could never report on it. The rest of each
+   protection stays: no force pushes, no deletions.
+2. That PR deletes the workflow from `main`.
+3. `phase-c` is fast-forwarded to `main`, so the two branches are
+   identical and neither carries the workflow.
+
+**Alternatives rejected.** Deleting it in the relaunch PR: that PR would
+have failed its own required check twice over (RELAUNCH step 4).
+Leaving it in place: it would block every PR into `phase-c` after the
+branches are levelled. Deleting the whole branch protection: it would
+have put GitHub's "Delete branch" button on `phase-c`, which other open
+PRs are based on. Merging past the required check with an
+administrator's override: possible, and not how this repo changes a
+gate.
+
+**Consequences.** No required status check remains on either branch.
+Nothing now stops a plain merge between the branches, and nothing needs
+to: they share one history again. RUNBOOK's first screen says the site
+is live, and its takedown-era sections are marked as history; RELAUNCH
+is marked executed; BUILD_SPEC §14 and §16, OPERATOR-SETUP, PHASE-C and
+REDESIGN say the same. If a takedown is ever needed again, RUNBOOK's
+"Rollback" section and this guard's history are the reference. Whether
+work continues through `phase-c` or goes straight into `main` is the
+operator's decision and is not made here: every merge to `main` now
+ships either way.
+
+## 2026-10-05 — After the relaunch: work keeps going through `phase-c`, and releases go from `phase-c` into `main` (operator decision); merged branches delete themselves on GitHub; rebase merging is off
+
+**Context.** With the relaunch merged and the guard retired, `main` and
+`phase-c` were levelled the same day (both at `aa20944`), so either way
+of working was open: keep the two stages the repo has used since July,
+or send each change straight into `main`, where every merge now ships.
+The guard's retirement entry left the choice to the operator. Asked,
+with both options laid out, he answered: "I really like the fact that we
+have phase-c and can create previews to look over, vs. going direct to
+main. I think it's a better systems approach."
+
+**Decision.**
+1. **Two stages.** Ordinary work branches from `phase-c` and merges into
+   `phase-c` through a PR, which builds a preview. A release is a
+   separate PR from `phase-c` into `main`, merged with a merge commit on
+   the operator's word. An urgent fix may go straight into `main`;
+   `phase-c` is then fast-forwarded to `main`. RUNBOOK "Everyday
+   changes" has the steps.
+2. **Merged branches leave GitHub by themselves.** The operator switched
+   on "Automatically delete head branches" in the repository settings.
+   A merged PR keeps a "Restore branch" button. GitHub's documentation
+   says branch protection can prevent automatic deletion, and both
+   `main` and `phase-c` have deletion blocked, so a release does not
+   delete `phase-c`; to be confirmed on the first release. Branches and
+   worktrees on the operator's machine are untouched and stay, as he
+   asked on 2026-09-25.
+3. **Rebase merging is off** (the operator, the same sitting). Squash
+   merging is left on and is never used for a release.
+
+**Alternatives rejected.** Straight into `main`: one step fewer, but
+each change would need Amy's review on its own preview and the
+operator's approval flip inside that same PR before it could merge, and
+changes could not be gathered for her to see together. Deleting merged
+branches by hand, or not at all: clutter with no gain; the setting does
+it and loses nothing. Switching squash off as well: offered, left to the
+operator.
+
+**Consequences.** `main` is always the tree that is live and is only
+ever changed by a release or an urgent fix. Treatment-page edits can
+sit unapproved on `phase-c` while Amy reviews them; the approval gate
+bites at the release, so the operator's flip has to be on `phase-c`
+before the release PR merges. The standing demo (PR #97) stays the
+stable place to look at `phase-c`. A successor to the old standing PR
+#95 is not kept open: a release PR is opened when there is something to
+release. This entry itself is the first change made this way: it merged
+into `phase-c` and reaches `main` with the next release.
+
+**Settings read back** (`gh api repos/gwhitley1969/amyweb`):
+`delete_branch_on_merge: true`, `allow_merge_commit: true`,
+`allow_squash_merge: true`, `allow_rebase_merge: false`,
+`allow_auto_merge: false`. Branch protection on `main` and `phase-c`:
+no required status checks, force pushes blocked, deletions blocked.
+
+## 2026-10-05 — Home: the search title names the practice ("Needle Girlie | Mobile Aesthetics in Harrisburg & Charlotte, NC"; operator direction after the relaunch)
+
+**Context.** An hour after the relaunch the operator searched for the
+site and sent the result: Google's stored copy of the Under Construction
+page, titled "Needle Girlie | Medical Aesthetics in Harrisburg, NC". He
+asked whether the title could say "Mobile Aesthetics", which Amy would
+want, or whether it would change by itself as the new site is read.
+
+It would not. Google shows a page's title tag, and the home page's said
+"Medical Aesthetics" on purpose. On 2026-09-26, offered both, the
+operator chose "only the share title" over changing the page title too,
+"so search keeps its wording": the share title has read "Mobile
+Aesthetics Harrisburg, NC" since then, and the title tag kept the brand
+and the service phrase (it gained "& Charlotte" in this morning's
+search-text edits). What changes by itself on Google's next visit is the
+stored page: today's title and description replace the placeholder's.
+
+**Decision.** The operator, given three wordings and the trade-off:
+"Let's go with option A". The home page's title tag reads **"Needle
+Girlie | Mobile Aesthetics in Harrisburg & Charlotte, NC"** (63
+characters). One line in `ConceptHome.astro`; the share title, the
+description and the H1 are unchanged. This reverses the 2026-09-26
+choice for the title tag.
+
+**The trade-off, as put to him.** For: it is the name Amy's clients know
+the practice by, and it matches her Google Maps listing, which the same
+search showed as "Mobile Aesthetics"; matching names help local search.
+Against: the home title no longer holds "medical aesthetics", the
+strongest single place on the page for that phrase. The cost is judged
+small: the phrase stays in the home description and in the H1
+("Medical Aesthetics, made personal."), and the treatment pages' titles
+carry the terms people search for.
+
+**Alternatives rejected.** "Mobile Aesthetics | Needle Girlie |
+Harrisburg & Charlotte, NC" (the practice first): offered, not chosen.
+Keeping this morning's title: offered. Both phrases in one title: it
+runs past what a results page displays.
+
+**Rules.** A page's title tag is one of the two places the practice may
+be named as plain text; `lint:practice-link` says so in its header and
+passes. Constraint 2's seventh exception concerns visible text and its
+link; a title can hold no link, and names nobody but the practice. The
+home page has no approval flag. The wording is Amy's to confirm: the
+operator relays her preference, and the sign-off sheet lists it.
+
+**Scope.** Raised after the round was frozen (REDESIGN "Round close",
+this date), so by that record it is change-order or retainer scope; the
+classification is the operator's. It is the second change made the
+two-stage way: into `phase-c` with a preview, then a release into
+`main`.
+
+**Consequences.** RELAUNCH's launch-day checklist, BUILD_SPEC §10 and
+RUNBOOK's share-card section quoted or described the old title and are
+corrected. The launch probe outside the repo expects the new title.
+Google's result changes when it next reads the page; Search Console's
+"Request indexing" shortens the wait and is the operator's to do.
+
+## 2026-10-05 — Shipped: the first release made the two-stage way (the home title and the branch-model records); a GitHub Actions fault on the way
+
+**What shipped.** Release PR #259, `phase-c` into `main`, merged with a
+merge commit (`8c24b43`) at 20:30 UTC on the operator's word: "Merge and
+release to the live site". It carried the two changes made into
+`phase-c` after the relaunch, both merged there at 20:00 UTC: PR #257
+(the branch-model records, `7f45500`) and PR #258 (the home page's
+search title, `f0db4c8`). After the merge `main`'s tree was identical to
+`phase-c`'s. Production run 37370127874 put it live on its second
+attempt: gates and the approval check 20:46 to 20:53, deploy 20:53 to
+21:01. The pages changed at about 20:54, when the deploy step finished;
+the rest was the cache purge.
+
+**Checked on the live site.** The launch probe, expecting the new title,
+ran six clean passes in a row over all 21 pages, each fetched plain and
+cache-busted. Its one-time checks were clean too: the 17 film files, the
+carousel's five sound files, the redirects and the origin lock. The home
+page's title tag reads "Needle Girlie | Mobile Aesthetics in Harrisburg
+& Charlotte, NC".
+
+**GitHub's fault on the way.** GitHub's status page showed an open
+incident with Actions for the whole release (opened 19:11 UTC, still
+open at 21:14). Runs failed with "The job was not acquired by Runner of
+type hosted even after multiple attempts": each waited about 15 minutes
+for a machine, got none, and ran no step.
+
+1. *The release PR's pipeline*, first attempt (run 37367118143). It was
+   re-run and went green at 20:29; the release was merged only then.
+2. *The Production run*, first attempt, 20:30 to 20:45. Nothing was
+   built or deployed, and the live site kept the morning's title and
+   answered normally. Re-run at 20:45, green at 21:01.
+3. *The preview clean-up jobs* of PR #258 and PR #259 (runs 37367072336
+   and 37370128159), twice each. With no clean-up, the two merged PRs'
+   previews stayed up. The third attempt got machines at 21:13 and
+   removed both. The environment list then showed production and five
+   previews: 97, 149, 201, 249 and the known leftover 210.
+
+**Confirmed on this release.** The auto-delete setting leaves `phase-c`
+alone, which the branch-model entry had left to be confirmed: after the
+release merged, `phase-c` was still on GitHub and the five open PRs
+still had it as their base. GitHub did delete the two merged work
+branches of PR #257 and PR #258, as the setting intends. `phase-c` was
+then fast-forwarded to `8c24b43` (RUNBOOK "Everyday changes", step 4),
+so the two branches are the same commit again.
+
+**Alternatives rejected.** Merging the release while its pipeline was
+red, on the grounds that the failure was GitHub's: not done; a red
+pipeline had checked nothing, and the live site was healthy, so nothing
+was urgent. The re-run cost about half an hour.
+
+**Consequences.** A release during a GitHub fault takes longer and needs
+its runs read one by one; it does not put the live site at risk, because
+a job that gets no machine does nothing. RUNBOOK "Troubleshooting" now
+has the message, what it means and what to re-run, the preview clean-up
+case included. The end-to-end time of a release that gets its machines
+was again about 15 minutes (this one: 14 minutes 49 seconds from the
+second attempt's first job starting to green).
+
+## 2026-10-05 — Booking moves from Vagaro to Aesthetic Record: every Book link opens the practice's new booking page (operator decision after the compliance flag; constraint 2's tenth scoped exception)
+
+**Context.** The operator, after the relaunch: "Amy is leaving Vagaro,
+so we need to change the URL that all of the Book or Book with Amy
+links point to", with the new address,
+`https://mobileaesthetics.myaestheticrecord.com/online-booking`. One
+value held the old address (the Vagaro handle supplied 2026-07-18) and
+four files read it: the header's Book, both "Book with Amy" button
+variants, the link inside a sentence, and the /services intro's bold
+"BOOK". A build holds 108 such links on 25 pages; the live site, which
+has no styleguide, holds 96 on 22. Three places named Vagaro in words a
+visitor reads: /privacy, /terms, and the wrinkle-relaxers answer to
+"How do I book?".
+
+**The destination, screened 2026-10-05** (compliance/README: a new
+outbound destination is screened before it ships). In a browser, the
+page is live and headed "Mobile Aesthetics PLLC, Book an Appointment";
+the vendor is Aesthetic Record. Its own service and provider lists were
+read. Nothing was entered, and the walk stopped before the details
+step.
+
+- 22 bookable services in 10 categories. Amy is offered on all 22.
+- On the six laser and device services the provider step also offers
+  three other people by name, two titled Licensed Esthetician and one
+  Licensed Aesthetician. Two of the three are among the people the
+  2026-08-15 screening of the practice site recorded as the location's
+  other providers. On the other 16 services Amy is the only provider
+  offered.
+- The flow has a details step and a payment step, and takes a deposit
+  at booking ($75 to $150 on the services opened).
+- The page's own text prints amounts and per-dose prices for its
+  weight-loss services. That text is the booking page's, outside this
+  site's rules and its linter. The site restates none of it.
+- Like Vagaro, it answers 403 to a non-browser client.
+
+**The flag, and the decision.** Constraint 2 bans linking to a page
+that names the location's other providers. The 2026-07-23 ownership
+fact settled whose booking page it is, not who is on it ("sole owner ≠
+sole provider"), and an already-screened destination carries no
+authorization to a new one. The operator was given two paths: link the
+page as it is, or keep the Book links on Vagaro until Aesthetic Record
+supplies a link that offers only Amy (or the three come off those
+services). **The operator chose "Link it as it is."** It is recorded as
+constraint 2's tenth scoped exception: that one address, never a link
+to a single service or to the provider step; the labels the booking
+links already carry; the site's text never names the three and never
+says they can be booked. The page is screened again when its content is
+known to have changed. A link that offers only Amy, if one is supplied,
+replaces this one, and that is a one-line change.
+
+**What changed.**
+
+- The config key is vendor-neutral now, `siteConfig.booking.url`, so
+  the next move is one line. The four consumers read it. Labels, styles,
+  the `book_click` event and the new-tab attributes are untouched.
+- /privacy reads "Booking happens on Aesthetic Record, a third-party
+  scheduling service." /terms makes the same swap, twice, under
+  "Booking happens elsewhere".
+- The legal pages' effective date is per page. /privacy and /terms
+  carry the day this version went live, because the privacy page
+  promises an updated date when it changes. The medical disclaimer's
+  text did not change and it keeps August 4, 2026. Before this the date
+  was one line shared by all three.
+- Comments that say what a button does today say "the booking page".
+  Dated history ("the 2026-07-19 Vagaro alignment") stays as written,
+  and so do the `{{VAGARO_URL}}` tokens, marked superseded in
+  BUILD_SPEC §17.
+
+**Two releases, the operator's choice.** The wrinkle-relaxers FAQ
+sentence is on a page Amy approved this day, so editing it resets that
+page's flag and holds every release until she has OK'd it and the
+operator has flipped the flag. Offered one release after her OK, or the
+links first, **the operator chose "Links first, sentence after."** This
+change touches no treatment file and resets no flag. Until the second
+change ships, that one answer says "through Vagaro" above a button that
+opens the new page. The new sentence drops those two words, as the IV
+page's same answer did on 2026-09-19.
+
+**Alternatives rejected.** Holding for an Amy-only link: offered, not
+chosen; it stays the off-ramp. Keeping the key's old name: it would
+name one company and point at another. Moving all three legal pages'
+dates together, as RUNBOOK's earlier note assumed: the medical
+disclaimer would show a new date over unchanged text. Naming the vendor
+in the FAQ answer: it would need editing again at the next move.
+
+**Verification.** `verify` exit 0. In the built pages: no `vagaro.com`;
+108 links to the new address on 25 pages, each with the event and both
+new-tab attributes; "Vagaro" once, in the FAQ answer that follows; the
+two legal pages dated, the third unchanged. The link count is the check
+that would catch a wrong key, since the site's own address sits one
+token away and the type check would accept it. The stylesheets are
+byte-identical to the previous build's.
+
+**Raised with the operator, not part of this change.**
+
+- *"Free consultation".* The site's source says a consultation is free
+  in about 23 places. The booking page's "Consultation (In Person)"
+  takes a $75.00 deposit at booking, and its "Peptide Consult" reads
+  "Free Consult, your Deposit goes towards your service." It is Amy's
+  to settle, on her booking page or in the site's wording.
+- *The booking menu and the site differ.* Its tox service lists Jeuveau
+  and Daxxify, not Xeomin. Its filler service lists a brand the site
+  does not carry. Its weight-loss services carry a price tier the site
+  does not, and none names retatrutide. It has no PRP or chemical-peel
+  service. The site was aligned to Vagaro's menu on 2026-07-19. An
+  alignment pass is the operator's to ask for; treatment copy is Amy's
+  to approve.
+- *Counsel.* The legal pages are still provider-drafted, with counsel
+  review a standing post-launch item. "A third-party scheduling
+  service" now describes a page that also takes payment and has a
+  patient-portal login.
+- *Other places.* The Google Business Profile, the Instagram and
+  Facebook Book buttons, Yelp and the practice site are outside this
+  repository and may still point at Vagaro. They are Amy's to change.
+- *Scope.* The SOW (§4) names Vagaro for the Book buttons; this is a
+  client-directed change. It was raised after the round was frozen
+  (REDESIGN "Round close", this date), so by that record it is
+  change-order or retainer scope; the classification is the operator's.
+
+**Consequences.** CLAUDE.md constraint 2 gains the tenth exception and
+counts ten, and its goals line says "online-booking handoff".
+BUILD_SPEC §1, §5, §6, §9, §16 and §17, RUNBOOK (the re-screening rule
+and the effective-date note), RELAUNCH's launch-day checklist, the
+sign-off sheet and compliance/README are corrected. No cost change, no
+new dependency, no script, no security-header change. The `book_click`
+event keeps its name, so a later visitor-counting baseline is not
+broken by the move.
+
+## 2026-10-05 — Addendum to the booking entry: the wrinkle-relaxers "How do I book?" answer drops "through Vagaro" (Amy's OK relayed the same evening; the operator's flip in the same PR; sent straight into `main` as an urgent fix)
+
+**Context.** The booking entry left one sentence for a second change.
+On /services/wrinkle-relaxers, "How do I book?" answered: Online
+through Vagaro with the "Book with Amy" button, or by phone at
+704-579-7108. Once the button opened the Aesthetic Record page the
+sentence was wrong, and it sat on a page Amy had approved that day.
+After the first release it was the one place the live site still said
+"Vagaro" to a visitor.
+
+**Decision.** The answer reads: Online with the "Book with Amy" button,
+or by phone at 704-579-7108. Two words come off; the link and the phone
+clause are unchanged. It is the wording the IV page's same answer took
+on 2026-09-19, and it names no vendor, so the next move does not touch
+it. The edit reset the page's flag in its own commit (`e5cf6a4`,
+constraint 4).
+
+**Approval.** The operator put the before-and-after lines to Amy and
+relayed her answer at about 21:25 UTC, before the first change had
+merged: "Amy OK'd the sentence". As with the twelve search lines that
+morning, she read the lines, not a preview. The operator then flipped
+the flag with the operator's own command on this change's branch
+(commit `81f0d41`, one line), the form RUNBOOK's banner describes ("in
+the same PR"). The sign-off sheet's older text asked for a fresh branch
+off `phase-c`; it now says a single page's re-approval may be flipped
+on the branch of the PR that edited it, which keeps an unapproved flag
+off `phase-c`, where it would hold every release.
+
+**Route.** After the first release went live the operator wrote: "I
+cannot have ANY part of this website in production saying Vagaro", and
+asked for the fix as soon as possible. It therefore went straight into
+`main` from its own branch, RUNBOOK's urgent-fix route (working
+procedure, step 5), with `phase-c` fast-forwarded to `main` afterwards.
+That saves one pipeline, about eight minutes, against a second release
+through `phase-c`. The branch was cut from the first change's last
+commit, which `main` already held.
+
+**Verification.** `verify` exit 0 on the edited tree. The built pages
+hold no "Vagaro" in any form, and the 108 booking links are unchanged.
+`check:approvals` failed on this page before the flip and passes after
+it. The file differs from the version Amy approved that morning by the
+one sentence.
+
+**Alternatives rejected.** Naming Aesthetic Record in the answer: it
+would need editing again at the next move. Leaving the sentence for a
+later round: it told visitors something untrue. A second release
+through `phase-c`: slower, with nothing gained for a one-sentence fix.
+
+**Consequences.** The site no longer names Vagaro to a visitor
+anywhere. Source comments and these records still use the name where
+they tell the history.
+
+## 2026-10-05 — Shipped: booking is on Aesthetic Record, and the live site no longer names Vagaro (the record of the two changes)
+
+**What ran.**
+
+- PR #261 (`678921c`, into `phase-c`): the booking links, the two legal
+  pages and their records (`1045f4e`, `4577fd3`). `verify` exit 0
+  before the push; pipeline green (run 37375577983).
+  Its fresh preview had the fresh-environment fault in RUNBOOK's
+  troubleshooting list: three clean probe passes, then the platform's
+  404 on most requests, while the standing demo answered 6 of 6. A
+  re-run of the preview workflow finished green and ten minutes later
+  the environment was still flapping (40 probe passes, never more than
+  three clean in a row). The click test was therefore run on a local
+  copy of the same commit (`astro preview` on the worktree's build):
+  the header's Book, a "Book with Amy" button and a linked "book"
+  inside a sentence each opened the Aesthetic Record page. The operator
+  was told plainly that the preview could not be shown and was asked
+  how to ship; the answer was "Merge and release now". Merged with a
+  merge commit at 21:49:12 UTC. The merged tree's hash equalled the PR
+  head's.
+- Release PR #262 (`93190a5`, `phase-c` into `main`): only #261 rode
+  it. `check:approvals` passed on that tree, 12 files; pipeline green
+  (run 37378465569). Merged with a merge commit at 21:57:40 UTC, on the
+  same word.
+- Production run 37379337736, 21:57:43 to 22:10:47 UTC, every step
+  green.
+- The second change. The operator relayed Amy's OK of the sentence at
+  about 21:25 UTC. The flip is the operator's own commit `81f0d41`
+  (22:24 UTC, one line). PR #263 (`70b255e`, straight into `main`, the
+  urgent-fix route): the sentence and the flag reset (`e5cf6a4`), the
+  flip, and the records (`5cd3ef1`). `verify` exit 0, on a build
+  byte-identical to the one that passed pa11y and Lighthouse; pipeline
+  green (run 37382521632). Asked whether to merge as soon as the checks
+  were green, the operator answered "Yes, merge when green". Merged
+  with a merge commit pinned to the checked head at 22:33:37 UTC.
+- Production run 37383248006, 22:33:40 to 22:48:09 UTC, every step
+  green.
+
+**Checked on the live site.**
+
+- After the first release: six clean passes over the 21 routes and the
+  404 page, plain and cache-busted: 96 links to the new address, no
+  `vagaro.com`, the word "Vagaro" once (the FAQ answer). In a browser,
+  the three kinds of booking link each opened the Aesthetic Record
+  page. /privacy and /terms read as written and show "Effective October
+  5, 2026"; the medical disclaimer shows August 4, 2026.
+- After the second: six clean passes, 96 links, the word "Vagaro" zero
+  times in any spelling. The wrinkle-relaxers answer reads: Online with
+  the "Book with Amy" button, or by phone at 704-579-7108.
+- Not checked: a phone, and the booking flow past its provider step
+  (nothing was ever entered on the booking page).
+
+**Housekeeping.** After each merge into `main`, `phase-c` was
+fast-forwarded to it (`93190a5`, then `70b255e`). The standing demo
+(#97) was refreshed twice and merged clean both times. The page-numbers
+preview (#149) needed one hand merge the first time, in
+`LegalLayout.astro`, where its review tag and the new per-page date
+touched the same lines; both were kept. The environment list afterwards
+held default, 97, 149, 201, 210 and 249: no 261, 262 or 263.
+
+**What went wrong.** The flip commands were first given as three
+commands in the middle of a long status message, and the operator did
+not see them. The request for them came about 45 minutes later, after
+the first release was live: "I cannot have ANY part of this website in
+production saying Vagaro". One pasteable line, alone at the top of its
+own message, was run within minutes. Handed over that way the first
+time, the sentence might have gone out with the first release. The
+sign-off sheet's flip section now carries the one-line form and says
+how to hand it over.
+
+**Left open** (REDESIGN, "Open items", the three 2026-10-05 entries):
+the site's "free consultation" against the booking page's $75 deposit;
+the booking menu's differences from the site; the places outside the
+site that may still point at Vagaro. Search engines keep their stored
+copy of a page until they next read it. Another session's records PR
+(#260) conflicted with the record files these changes edited. It was
+merged by hand the same evening at the operator's direction, with both
+sides' entries kept.

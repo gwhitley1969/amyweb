@@ -104,7 +104,10 @@ caption file carries the sung words, the one place they are written;
 the promo's, the billboard-day reel's and the team film's songs play
 under the operator's override of the music-licence position; the
 reel's and the team film's caption files carry bounded `[Music]`
-cues, never a song's words. So do the site-authored, sounded films: the
+cues, never a song's words. Since 2026-10-04 the home band's van-trip
+film plays its two songs under the same override (DECISIONS same
+date), and its caption file marks them with bounded `[Music]` cues
+beside Amy's own words. So do the site-authored, sounded films: the
 two on /services/biostimulators (2026-08-21 — Amy's own reels:
 constraint-3 and constraint-2 overrides for the Radiesse-visit film,
 a retina-rule override for the 480p reel), the body-contouring Evolve
@@ -200,6 +203,17 @@ so a change on the practice site is only ever seen by a person. And a
 green gate authorizes nothing outside the exception: any other link
 text, any other destination, and any mention of the other providers
 still go to the operator.
+
+The booking destination is a further screened case (2026-10-05). When
+Amy left Vagaro the booking links moved to her practice's Aesthetic
+Record page. It was screened that day: Amy is offered on all 22
+services, and the provider step of the six laser and device services
+also offers three other people by name. It was flagged, and it ships
+as constraint 2's tenth scoped exception on the operator's decision
+(DECISIONS same date): that one address, the labels the links already
+carry, nobody named in the site's text. No gate reads the booking
+page, so a change there is only ever seen by a person; it is screened
+again when its content is known to have changed.
 
 **QR codes are both blindness classes at once** (first instance: the
 storefront QR on /services/skincare, 2026-08-25): the encoded URL is

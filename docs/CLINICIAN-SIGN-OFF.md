@@ -508,6 +508,39 @@ the film is off the site, its file kept in storage). The Tox Together page
 states its own terms; if the operator wants any of those asked again,
 they come back as their own item.
 
+## Also for Amy's review (not flag-gated): the eight ad landing pages (/go/…)
+
+New 2026-10-12, on their PR preview first (PR #267) and on the standing
+demo once merged. They answer the "Landing pages" line of her text of
+2026-10-12 (DECISIONS same date, the landing-pages entry; spec
+docs/superpowers/specs/2026-10-12-landing-pages-design.md). Each page is
+built for one ad and one action: the service's name, its lead, Book and
+Call under it, her counter portrait in the arch, the price cards, the
+visit steps, the FAQ, the medical disclaimer, and on a phone a Book/Call
+bar pinned to the bottom of the screen. No menu, no other pages to tap
+through to. Every sentence on them is a sentence she has already approved
+on the matching treatment page, so no flag moves and nothing new is hers
+to read; what is hers is the look, on her phone. The eight: wrinkle
+relaxers, dermal fillers, biostimulators, laser treatments, skin
+rejuvenation, body contouring, skincare, IV therapy. Not built, and why
+(the operator's call on Google's own rules, DECISIONS 2026-10-12, the
+search-presence entry): weight loss, hormones and peptides may be refused
+by Google without a certification she does not hold, and PRP cannot be
+advertised on Google at all. The pages are hidden from search engines by
+design: they exist for ads, Instagram, texts and QR codes, and until an ad
+points at one it has no visitors.
+
+- **The two injectable pages carry the Evolus plaque** ("The Top Evolus
+  Injector in Charlotte." / "And among the Top 50 in the United States."),
+  the operator's extension of its page scope (CLAUDE.md constraint 3).
+- **The laser page's "Can I book a laser treatment directly?" answer is
+  not on its landing page**, by rule: that answer is authorized on the
+  laser treatment page only.
+- **Nothing from the treatment pages' bodies is on them**: no decks, no
+  photos, no films. The one photo is her counter portrait, the home page's.
+- **She has not seen them.** Her look on the PR preview, or on the
+  standing demo after the merge, is the record.
+
 ## Operator: flipping the flags (your own hands only)
 
 After Amy approves, on a fresh branch off `phase-c`, run — for **each

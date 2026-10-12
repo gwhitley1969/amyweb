@@ -14712,6 +14712,27 @@ page's row pattern already puts a film left of its text).
   site-wide sound toggle on every treatment film); a new smaller
   rendition (the bytes saved do not justify a second upload for a 9s
   film).
+- **Shipped (the pull requests and the previews):**
+  - PR #241 (the film, click-to-play in a 24rem mat frame) merged into
+    `phase-c` as `dc29b53`. Its preview was checked in a browser at 390
+    and 1440: it played from the media origin, the sung-word cues
+    showed in time, it seeked, and nothing scrolled sideways. The
+    standing previews #97 and #149 were then refreshed (no checkout,
+    the RUNBOOK's merge-tree route, since other worktrees hold those
+    branches) and probed.
+  - PR #244 (this addendum: autoplay, 16rem, no printed caption, bare)
+    collided with PR #243, the laser IPL film, which merged first and
+    took the fourth autoplay exception; the merge kept both records,
+    and this film became the **fifth**, as the component header and
+    CLAUDE.md now read. It merged as `26a5f70` after its checks passed
+    and its preview showed the film autoplaying muted at 256×454, with
+    no mat and no caption. #97 and #149 were refreshed again (`4ded030`,
+    `a0cadb1`) and probed: the bare frame, the autoplay attribute, and
+    no "sound on" text.
+  - The printed caption was tried twice on the PR preview before
+    merge ("The IV lounge — sound on.", which wrapped onto two lines
+    at 16rem, then "Sound on.") and removed at the operator's
+    direction; neither reached `phase-c`.
 
 ## 2026-10-02 — peptide-therapy: a tenth card, KLOW; GLOW and KLOW read "$265 for six weeks" (operator direction; the time span is the operator's exception after the compliance flag)
 
@@ -16043,3 +16064,1168 @@ copy of a page until they next read it. Another session's records PR
 (#260) conflicted with the record files these changes edited. It was
 merged by hand the same evening at the operator's direction, with both
 sides' entries kept.
+
+## 2026-10-12 — Search presence: Search Console, Bing and the Business Profile get a procedure and an ownership model; Amy's "SEO set up / Landing pages / Google search ads" read into the record (operator question)
+
+**Context.** Amy texted the operator three lines on 2026-10-12: "SEO
+set up", "Landing pages", "Google search ads". It is a vendor's menu;
+the source and any quote are unknown. The operator asked what the
+three mean, what is already done, and who "the operator" in these
+records is (answer: the operator is the human directing this
+engagement for Xtend-AI, the person asking). On the record: the
+2026-10-05 audit found the pages sound and the sitemap live (21 URLs;
+checked again today, `/sitemap-index.xml` and `/robots.txt` answer
+200 on production); analytics is off by decision; Search Console was
+never verified and no sitemap was ever submitted; Bing has no
+property; `{{GBP_STATUS}}` is open, and the only Google listings seen
+(2026-09-02) are Mobile Aesthetics' 283-review listing and a
+logo-only second one. Google's own pages were read today: Search
+Console verification (a Domain property verifies by DNS only; TXT at
+host `@`; a hand-added record may take two or three days; the record
+must stay), the Business Profile guidelines (a public-facing
+practitioner at a multi-practitioner location may have a profile
+named with the practitioner's name only; a second brand profile at
+one address only if the brand operates independently), and the ads
+policies: Restricted drug terms (for US campaigns prescription drug
+names may be used in ad text and on landing pages without
+certification, but keyword-targeting them requires certification),
+and Speculative and experimental treatments, cell and gene therapies
+(platelet rich plasma is named; promotion is allowed only by the
+holder of an FDA licence or approval). The site carries no pixel and
+no form by constraint 5, so Google's conversion tag cannot be placed
+on it without a change to that constraint and to the privacy page.
+
+**Decision.**
+
+1. RUNBOOK gains "Telling the search engines the site exists
+   (Search Console, Bing, the Business Profile)", between "Turning on
+   analytics" and "Replacing site photography": the Domain-property
+   verification by a TXT record at the apex of the `rg-corp` zone,
+   the sitemap submission, the Bing import, the Business Profile
+   route, and what the section excludes.
+2. Ownership model: the operator verifies Search Console (the
+   operator holds DNS) and adds Amy's Google account as a second
+   Owner; the Business Profile is owned by Amy's account with the
+   operator as Manager. The property and the listing both survive a
+   change of vendor.
+3. The verification record is a TXT at `@`. `infra/dns.bicep`
+   declares no apex TXT (its tokens live under `_dnsauth`), so a
+   redeploy will not remove a hand-added record. It is to be declared
+   in Bicep as a parameter-driven resource once the token exists (the
+   RUNBOOK carries the snippet), and from then on every apex TXT
+   value lives in that one resource, because a Bicep TXT record set
+   replaces the live set wholesale.
+4. Recommended Business Profile route, Amy's to settle: a practitioner
+   profile in her own name, "Amy Palacios, FNP", at the Mobile
+   Aesthetics address, website needlegirlie.com; the practice's
+   listing keeps pointing at the practice's site; the logo-only
+   second listing is reported or merged if it is a duplicate; no
+   hours (the 2026-08-04 decision); listing text reuses approved site
+   copy under BUILD_SPEC §8. When it exists, `{{GBP_STATUS}}` is
+   resolved and the URL joins `siteConfig.social` (emitted as
+   `sameAs`), a normal PR.
+5. Landing pages: none built until ads are decided. For organic
+   search the treatment pages are the landing pages already. An ad
+   landing page here is a one-treatment page with the price, the
+   plaque, the Book link and the phone number and no navigation; it
+   goes through the claims linter and Amy's approval like any page,
+   and carries no form (constraint 5).
+6. Google Ads: not started. Prerequisites recorded: Amy's monthly
+   budget and service list; any proposal she received; Google's rules
+   above (drug names in ad text allowed for US campaigns,
+   keyword-targeting them certified only; /services/regenerative
+   cannot be advertised; before-and-after imagery is out of ads;
+   compounded GLP-1, peptides and Biote pellets UNVERIFIED and to be
+   checked before a campaign names them); and the measurement
+   question: with no conversion tag, results are calls (a Google
+   forwarding number inside the ad) and bookings. Changing constraint
+   5 for the tag is the operator's call and was not made.
+7. A one-page brief for Amy, in the operator's voice, written outside
+   the repo (the operator's `C:\Amy` folder, Markdown and a printable
+   HTML copy). It is not site text and restates no site exception;
+   the operator reviews it before sending.
+
+**Alternatives rejected.**
+
+- A URL-prefix property verified by HTML tag or file: a code change
+  to the site, and each covers only one host form.
+- Verifying with Amy's account first: she holds no DNS; adding her as
+  Owner afterwards is equivalent and keeps her in control.
+- A "Needle Girlie" brand profile at the same address: allowed by the
+  guideline only if the brand operates independently, which is
+  UNVERIFIED; the practitioner profile is squarely allowed.
+- Adding the `googleSiteVerification` parameter to `dns.bicep` today:
+  no token exists yet and a placeholder would deploy a bogus record.
+- Turning analytics on "to see search traffic": Search Console gives
+  the search queries without a script; the 2026-10-05 analytics
+  decision stands.
+- Google's conversion tag on the site: constraint 5; the operator's
+  call, not made.
+- A CHANGELOG entry: nothing shipped to the site.
+
+**Consequences.** Two free properties and one listing become the
+operator's and Amy's next actions, outside the repo. The repo changes
+only when the Business Profile URL joins `siteConfig.social` and the
+TXT parameter lands in Bicep, each a normal PR. Until the Bicep
+parameter lands, the apex TXT record set is live state that the IaC
+does not describe (the RUNBOOK says so). BUILD_SPEC §17
+`{{GBP_STATUS}}` stays open until Amy's listing exists. Search
+Console becomes the site's only source of search numbers, as the
+2026-10-05 analytics entry foresaw.
+
+**Verification.** Today: production answers 200 for
+`/sitemap-index.xml` and `/robots.txt`; `sitemap-0.xml` lists 21
+URLs. `infra/dns.bicep` read: TXT resources at `_dnsauth`,
+`_dnsauth.www`, the media and the api names; none at `@`. Google's
+pages read as cited above. Not verified: whether a Needle Girlie
+listing already exists under any account; whether Aesthetic Record's
+booking page can carry a conversion tag; LegitScript's cost; Local
+Services Ads eligibility for med spas; the agency-reported cost
+ranges quoted to the operator ($4 to ## 2026-10-12 — Search presence: Search Console, Bing and the Business Profile get a procedure and an ownership model; Amy's "SEO set up / Landing pages / Google search ads" read into the record (operator question)
+
+**Context.** Amy texted the operator three lines on 2026-10-12: "SEO
+set up", "Landing pages", "Google search ads". It is a vendor's menu;
+the source and any quote are unknown. The operator asked what the
+three mean, what is already done, and who "the operator" in these
+records is (answer: the operator is the human directing this
+engagement for Xtend-AI, the person asking). On the record: the
+2026-10-05 audit found the pages sound and the sitemap live (21 URLs;
+checked again today, `/sitemap-index.xml` and `/robots.txt` answer
+200 on production); analytics is off by decision; Search Console was
+never verified and no sitemap was ever submitted; Bing has no
+property; `{{GBP_STATUS}}` is open, and the only Google listings seen
+(2026-09-02) are Mobile Aesthetics' 283-review listing and a
+logo-only second one. Google's own pages were read today: Search
+Console verification (a Domain property verifies by DNS only; TXT at
+host `@`; a hand-added record may take two or three days; the record
+must stay), the Business Profile guidelines (a public-facing
+practitioner at a multi-practitioner location may have a profile
+named with the practitioner's name only; a second brand profile at
+one address only if the brand operates independently), and the ads
+policies: Restricted drug terms (for US campaigns prescription drug
+names may be used in ad text and on landing pages without
+certification, but keyword-targeting them requires certification),
+and Speculative and experimental treatments, cell and gene therapies
+(platelet rich plasma is named; promotion is allowed only by the
+holder of an FDA licence or approval). The site carries no pixel and
+no form by constraint 5, so Google's conversion tag cannot be placed
+on it without a change to that constraint and to the privacy page.
+
+**Decision.**
+
+1. RUNBOOK gains "Telling the search engines the site exists
+   (Search Console, Bing, the Business Profile)", between "Turning on
+   analytics" and "Replacing site photography": the Domain-property
+   verification by a TXT record at the apex of the `rg-corp` zone,
+   the sitemap submission, the Bing import, the Business Profile
+   route, and what the section excludes.
+2. Ownership model: the operator verifies Search Console (the
+   operator holds DNS) and adds Amy's Google account as a second
+   Owner; the Business Profile is owned by Amy's account with the
+   operator as Manager. The property and the listing both survive a
+   change of vendor.
+3. The verification record is a TXT at `@`. `infra/dns.bicep`
+   declares no apex TXT (its tokens live under `_dnsauth`), so a
+   redeploy will not remove a hand-added record. It is to be declared
+   in Bicep as a parameter-driven resource once the token exists (the
+   RUNBOOK carries the snippet), and from then on every apex TXT
+   value lives in that one resource, because a Bicep TXT record set
+   replaces the live set wholesale.
+4. Recommended Business Profile route, Amy's to settle: a practitioner
+   profile in her own name, "Amy Palacios, FNP", at the Mobile
+   Aesthetics address, website needlegirlie.com; the practice's
+   listing keeps pointing at the practice's site; the logo-only
+   second listing is reported or merged if it is a duplicate; no
+   hours (the 2026-08-04 decision); listing text reuses approved site
+   copy under BUILD_SPEC §8. When it exists, `{{GBP_STATUS}}` is
+   resolved and the URL joins `siteConfig.social` (emitted as
+   `sameAs`), a normal PR.
+5. Landing pages: none built until ads are decided. For organic
+   search the treatment pages are the landing pages already. An ad
+   landing page here is a one-treatment page with the price, the
+   plaque, the Book link and the phone number and no navigation; it
+   goes through the claims linter and Amy's approval like any page,
+   and carries no form (constraint 5).
+6. Google Ads: not started. Prerequisites recorded: Amy's monthly
+   budget and service list; any proposal she received; Google's rules
+   above (drug names in ad text allowed for US campaigns,
+   keyword-targeting them certified only; /services/regenerative
+   cannot be advertised; before-and-after imagery is out of ads;
+   compounded GLP-1, peptides and Biote pellets UNVERIFIED and to be
+   checked before a campaign names them); and the measurement
+   question: with no conversion tag, results are calls (a Google
+   forwarding number inside the ad) and bookings. Changing constraint
+   5 for the tag is the operator's call and was not made.
+7. A one-page brief for Amy, in the operator's voice, written outside
+   the repo (the operator's `C:\Amy` folder, Markdown and a printable
+   HTML copy). It is not site text and restates no site exception;
+   the operator reviews it before sending.
+
+**Alternatives rejected.**
+
+- A URL-prefix property verified by HTML tag or file: a code change
+  to the site, and each covers only one host form.
+- Verifying with Amy's account first: she holds no DNS; adding her as
+  Owner afterwards is equivalent and keeps her in control.
+- A "Needle Girlie" brand profile at the same address: allowed by the
+  guideline only if the brand operates independently, which is
+  UNVERIFIED; the practitioner profile is squarely allowed.
+- Adding the `googleSiteVerification` parameter to `dns.bicep` today:
+  no token exists yet and a placeholder would deploy a bogus record.
+- Turning analytics on "to see search traffic": Search Console gives
+  the search queries without a script; the 2026-10-05 analytics
+  decision stands.
+- Google's conversion tag on the site: constraint 5; the operator's
+  call, not made.
+- A CHANGELOG entry: nothing shipped to the site.
+
+**Consequences.** Two free properties and one listing become the
+operator's and Amy's next actions, outside the repo. The repo changes
+only when the Business Profile URL joins `siteConfig.social` and the
+TXT parameter lands in Bicep, each a normal PR. Until the Bicep
+parameter lands, the apex TXT record set is live state that the IaC
+does not describe (the RUNBOOK says so). BUILD_SPEC §17
+`{{GBP_STATUS}}` stays open until Amy's listing exists. Search
+Console becomes the site's only source of search numbers, as the
+2026-10-05 analytics entry foresaw.
+
+**Verification.** Today: production answers 200 for
+`/sitemap-index.xml` and `/robots.txt`; `sitemap-0.xml` lists 21
+URLs. `infra/dns.bicep` read: TXT resources at `_dnsauth`,
+`_dnsauth.www`, the media and the api names; none at `@`. Google's
+pages read as cited above. Not verified: whether a Needle Girlie
+listing already exists under any account; whether Aesthetic Record's
+booking page can carry a conversion tag; LegitScript's cost; Local
+Services Ads eligibility for med spas; the agency-reported cost
+ranges quoted to the operator ($4 to $28 per click on injectable
+terms, $2,000 to $5,000 a month for a one-location med spa), which
+are vendors' numbers.
+
+## 2026-10-12 — Addendum to the search-presence entry: Search Console verified, the sitemap submitted, Amy an Owner, Bing imported (the operator, the same afternoon)
+
+**What was done.** The operator verified the Domain property
+`needlegirlie.com` in Google Search Console (DNS TXT at the apex of the
+rg-corp zone), submitted `https://needlegirlie.com/sitemap-index.xml`
+(a Domain property refuses a relative path; the RUNBOOK step was
+corrected the same hour), added Amy's Google account as an Owner, and
+imported the property into Bing Webmaster Tools from Search Console.
+
+**What the report showed, and why it is not a fault.** The sitemap row
+read "Couldn't fetch" at submission and then "Sitemap could not be
+read" with the day's date. Checked from here as Googlebot: both sitemap
+files answer 200 as text/xml, uncompressed, no byte-order mark, no
+redirect on the submitted address; http:// and www. redirect once to it;
+robots.txt allows all and names the sitemap; the edge has no firewall.
+The operator then ran URL Inspection, Test live URL, on the sitemap
+address: "URL is available to Google", page fetch successful, 2:48 PM.
+The report row lags the real fetch and is expected to read Success with
+21 discovered pages within a day; nothing was resubmitted.
+
+**Left open.** The Business Profile for Amy (the 30-minute call; the
+practitioner-profile route recommended above; `{{GBP_STATUS}}` stays open
+until it exists). Whether the verification TXT has been declared in
+`infra/dns.bicep` as the RUNBOOK asks, so the record is in the IaC: the
+operator's to confirm. These RUNBOOK and DECISIONS changes are still
+uncommitted on the `phase-c` working tree and will collide at this
+file's tail with the landing-pages entry on `feat/landing-pages` (PR
+#267); both are kept.
+
+## 2026-10-12 — Ad landing pages: eight `/go/<slug>` pages built from the treatment entries' approved strings (operator decisions 1–6; the first page, then the seven; PR #267)
+
+**Context.** The search-presence entry above records Amy's three-line
+text and what "landing pages" means in a vendor's mouth. The operator
+judged that "the treatment pages already serve as landing pages", though
+true, would not land with the client, and chose purpose-built ad pages.
+The scope went "one per service", then, after the Google verification
+recorded in that entry, the eight lines Google will take ads for today;
+the operator confirmed the eight and locked the design decisions in the
+brainstorm (spec:
+`docs/superpowers/specs/2026-10-12-landing-pages-design.md`):
+
+1. Eight lines: wrinkle-relaxers, dermal-fillers, biostimulators,
+   laser-treatments, skin-rejuvenation, body-contouring, skincare and
+   iv-therapy (IV therapy added after the verification found nothing in
+   Google's text against it). Deferred: weight-loss-glp-1,
+   hormone-optimization, peptide-therapy (may be refused without a
+   certification Amy does not hold; the weight-loss page's investigational
+   card is a second reason) and regenerative (PRP is named on Google's
+   cell-therapy prohibition).
+2. `/go/<slug>`; `noindex, nofollow` in every build by meta tag and by an
+   `X-Robots-Tag` route; out of the sitemap; robots.txt untouched so the
+   tag can be read; canonical self.
+3. Zero new treatment copy: the H1 is the entry's title, the place line
+   is the locality fact, the lead is `schemaDescription ?? summary`, the
+   cards and FAQ are the approved ones. No approval flag moves; Amy reviews
+   the look on the preview. Ad-tuned headlines are a later content round.
+4. Two page-scoped overrides: the Evolus plaque extended to
+   `/go/wrinkle-relaxers` and `/go/dermal-fillers` (CLAUDE.md constraint 3
+   amended); the laser page's §8.7 FAQ answer kept on its own page and
+   omitted from `/go/laser-treatments` by rule. Everything else page-scoped
+   never reaches a landing page because the layout renders no deck, body,
+   film or entry photo. The "$265 for six weeks" lines are NOT extended:
+   the peptide page is deferred.
+5. A sticky Book/Call bar on phones, and the home hero portrait once, in
+   the arch.
+6. Spec → in-browser mock (the live treatment page restyled, JPEGs at 390
+   and 1280, the operator's critique) → worktree branch → PR with the
+   first page → the seven → the records, all in one PR.
+
+**Decision.** Built on `feat/landing-pages` (worktree off `phase-c`,
+which was six commits ahead of `main`), PR #267 into `phase-c`.
+
+- `src/lib/landing.ts`: the enable list and the per-page rules (`laurel`
+  on the two injectable slugs; `faqExclude` by exact question text, with a
+  build-time assertion that the question still exists, so a rule cannot
+  rot). `src/pages/go/[slug].astro` renders the enabled slugs; a slug with
+  no non-draft entry fails the build.
+- `LandingLayout.astro`: eyebrow, H1, factual lead, chip Book + chip Call
+  (no outline CTA on the light canvas), the portrait, the plaque by rule,
+  the product cards, the flag-driven notices adjacent to them, the visit
+  steps, the FAQ, the router card, DisclaimerBlock (unconditional), the
+  closing band, the landing footer, the sticky bar. `LandingHeader.astro`
+  (wordmark as an image, not a link; one Call, short on phones) and
+  `StickyActions.astro` (solid Book or Shop + outline Call, hidden from
+  768px) are new. `Footer.astro` gains a `landing` variant (address block
+  + legal links; no social marks, no app block). `SeoHead`/`BaseLayout`
+  gain a `noindex` prop.
+- `RouterCard.astro`: the treatment pages' router card moved out of
+  `TreatmentLayout` so both layouts render one card. Markup and styles
+  unchanged; the built treatment pages were diffed against a baseline
+  build of the same tree: the only differences are Astro's CSS chunking
+  (which component styles are inlined vs linked, now that a new page
+  shares some components) and one space of indentation at the card.
+- Plumbing: `astro.config.mjs` sitemap filter; the `/go/*` header route in
+  both SWA templates; `.pa11yci.json` +8 URLs (33); `lighthouserc.json`
+  +1 URL under the house row; `EvolusLaurel.astro`'s comment lists the two
+  placements.
+- Records: BUILD_SPEC §6 (a `/go/[slug]` row) and §10 (the noindex
+  family); CLAUDE.md constraint 3 (the plaque paragraph and a note on the
+  laser exception); RUNBOOK "Everyday changes" (adding or removing a
+  landing page); CLINICIAN-SIGN-OFF (a not-flag-gated section: Amy reviews
+  the eight on the preview); CHANGELOG when shipped.
+
+**Alternatives rejected.**
+- Ads pointed at the treatment pages with no new pages: accurate and free,
+  judged unsellable to the client (the operator, same day).
+- A frontmatter field for ad headlines: a schema change, twelve content
+  edits, twelve flag resets and a sign-off round for copy nobody has
+  asked for. Deferred.
+- Hand-written landing files: copies of approved text that would drift
+  from their sources; the collection route makes drift impossible.
+- `Disallow: /go/` in robots.txt: hides the noindex tag from Google.
+- A cross-canonical to the treatment page: contradicts noindex.
+- Twelve pages: four cannot be ad destinations today.
+- Hiding the sticky bar with Tailwind's `md:hidden`: the utility sits in
+  a cascade layer, and the bar's own unlayered `display: flex` beat it at
+  every width (found at 1280px on the first build). The hide-on-wide rule
+  lives in the component's CSS. A standing lesson for any component that
+  sets its own `display`.
+
+**Consequences.** Eight new routes; 33 pages built. Nothing changes on
+the twelve treatment pages or in any content file. The pages have no
+visitors until an ad, a post, a text or a QR code points at one. Google's
+conversion tag stays off the site (constraint 5); measurement is calls
+and bookings, as the search-presence entry says. Enabling a deferred line
+is a list edit plus a pa11y line, after the operator settles its Google
+question (and, for peptides, the price-line extension). This entry and
+the search-presence entry were written the same day on different trees
+(this one on the branch, that one uncommitted on `phase-c`); when both
+land, the append-only file collides at its tail and both entries are
+kept.
+
+**Verification.** The eight-page tree: `npm run build` 33 pages;
+`astro check` 0 errors, 0 warnings, 0 hints; `lint:claims`, `lint:voice`
+and `lint:practice-link` (33 pages, 73 practice links) green. The
+acceptance script on `dist/` for all eight slugs: the noindex meta, the
+title and H1 equal to the treatment page's, one H1, no breadcrumbs, nav,
+badge, deck, body or film, the plaque exactly once on the two injectable
+pages and nowhere else, the laser FAQ item absent, the products block,
+DisclaimerBlock, the router card, the sticky bar, the closing band, the
+trimmed footer, tel and booking links, no client scripts, no second
+`Service` node; the sitemap without `/go/`; the `/go/*` header route in
+the generated config. Playwright on the local build of the first page:
+at 390 the bar shows and the footer's last line sits five pixels above
+it; at 1280 the bar and its spacer are `display: none` and the header
+shows the full Call; console clean but for the font-preload warning the
+treatment pages also emit. Lighthouse on `/go/wrinkle-relaxers` (first
+build): 1.0 in all four categories, LCP 1.5 s, CLS 0, TBT 0, 0 B script,
+39 KB image, 92 KB total. The eight-page tree's slow gates, the same day: pa11y 33 of 33 URLs, Lighthouse assertions on 9 URLs, both green (exit 0).
+8 per click on injectable
+terms, ## 2026-10-12 — Search presence: Search Console, Bing and the Business Profile get a procedure and an ownership model; Amy's "SEO set up / Landing pages / Google search ads" read into the record (operator question)
+
+**Context.** Amy texted the operator three lines on 2026-10-12: "SEO
+set up", "Landing pages", "Google search ads". It is a vendor's menu;
+the source and any quote are unknown. The operator asked what the
+three mean, what is already done, and who "the operator" in these
+records is (answer: the operator is the human directing this
+engagement for Xtend-AI, the person asking). On the record: the
+2026-10-05 audit found the pages sound and the sitemap live (21 URLs;
+checked again today, `/sitemap-index.xml` and `/robots.txt` answer
+200 on production); analytics is off by decision; Search Console was
+never verified and no sitemap was ever submitted; Bing has no
+property; `{{GBP_STATUS}}` is open, and the only Google listings seen
+(2026-09-02) are Mobile Aesthetics' 283-review listing and a
+logo-only second one. Google's own pages were read today: Search
+Console verification (a Domain property verifies by DNS only; TXT at
+host `@`; a hand-added record may take two or three days; the record
+must stay), the Business Profile guidelines (a public-facing
+practitioner at a multi-practitioner location may have a profile
+named with the practitioner's name only; a second brand profile at
+one address only if the brand operates independently), and the ads
+policies: Restricted drug terms (for US campaigns prescription drug
+names may be used in ad text and on landing pages without
+certification, but keyword-targeting them requires certification),
+and Speculative and experimental treatments, cell and gene therapies
+(platelet rich plasma is named; promotion is allowed only by the
+holder of an FDA licence or approval). The site carries no pixel and
+no form by constraint 5, so Google's conversion tag cannot be placed
+on it without a change to that constraint and to the privacy page.
+
+**Decision.**
+
+1. RUNBOOK gains "Telling the search engines the site exists
+   (Search Console, Bing, the Business Profile)", between "Turning on
+   analytics" and "Replacing site photography": the Domain-property
+   verification by a TXT record at the apex of the `rg-corp` zone,
+   the sitemap submission, the Bing import, the Business Profile
+   route, and what the section excludes.
+2. Ownership model: the operator verifies Search Console (the
+   operator holds DNS) and adds Amy's Google account as a second
+   Owner; the Business Profile is owned by Amy's account with the
+   operator as Manager. The property and the listing both survive a
+   change of vendor.
+3. The verification record is a TXT at `@`. `infra/dns.bicep`
+   declares no apex TXT (its tokens live under `_dnsauth`), so a
+   redeploy will not remove a hand-added record. It is to be declared
+   in Bicep as a parameter-driven resource once the token exists (the
+   RUNBOOK carries the snippet), and from then on every apex TXT
+   value lives in that one resource, because a Bicep TXT record set
+   replaces the live set wholesale.
+4. Recommended Business Profile route, Amy's to settle: a practitioner
+   profile in her own name, "Amy Palacios, FNP", at the Mobile
+   Aesthetics address, website needlegirlie.com; the practice's
+   listing keeps pointing at the practice's site; the logo-only
+   second listing is reported or merged if it is a duplicate; no
+   hours (the 2026-08-04 decision); listing text reuses approved site
+   copy under BUILD_SPEC §8. When it exists, `{{GBP_STATUS}}` is
+   resolved and the URL joins `siteConfig.social` (emitted as
+   `sameAs`), a normal PR.
+5. Landing pages: none built until ads are decided. For organic
+   search the treatment pages are the landing pages already. An ad
+   landing page here is a one-treatment page with the price, the
+   plaque, the Book link and the phone number and no navigation; it
+   goes through the claims linter and Amy's approval like any page,
+   and carries no form (constraint 5).
+6. Google Ads: not started. Prerequisites recorded: Amy's monthly
+   budget and service list; any proposal she received; Google's rules
+   above (drug names in ad text allowed for US campaigns,
+   keyword-targeting them certified only; /services/regenerative
+   cannot be advertised; before-and-after imagery is out of ads;
+   compounded GLP-1, peptides and Biote pellets UNVERIFIED and to be
+   checked before a campaign names them); and the measurement
+   question: with no conversion tag, results are calls (a Google
+   forwarding number inside the ad) and bookings. Changing constraint
+   5 for the tag is the operator's call and was not made.
+7. A one-page brief for Amy, in the operator's voice, written outside
+   the repo (the operator's `C:\Amy` folder, Markdown and a printable
+   HTML copy). It is not site text and restates no site exception;
+   the operator reviews it before sending.
+
+**Alternatives rejected.**
+
+- A URL-prefix property verified by HTML tag or file: a code change
+  to the site, and each covers only one host form.
+- Verifying with Amy's account first: she holds no DNS; adding her as
+  Owner afterwards is equivalent and keeps her in control.
+- A "Needle Girlie" brand profile at the same address: allowed by the
+  guideline only if the brand operates independently, which is
+  UNVERIFIED; the practitioner profile is squarely allowed.
+- Adding the `googleSiteVerification` parameter to `dns.bicep` today:
+  no token exists yet and a placeholder would deploy a bogus record.
+- Turning analytics on "to see search traffic": Search Console gives
+  the search queries without a script; the 2026-10-05 analytics
+  decision stands.
+- Google's conversion tag on the site: constraint 5; the operator's
+  call, not made.
+- A CHANGELOG entry: nothing shipped to the site.
+
+**Consequences.** Two free properties and one listing become the
+operator's and Amy's next actions, outside the repo. The repo changes
+only when the Business Profile URL joins `siteConfig.social` and the
+TXT parameter lands in Bicep, each a normal PR. Until the Bicep
+parameter lands, the apex TXT record set is live state that the IaC
+does not describe (the RUNBOOK says so). BUILD_SPEC §17
+`{{GBP_STATUS}}` stays open until Amy's listing exists. Search
+Console becomes the site's only source of search numbers, as the
+2026-10-05 analytics entry foresaw.
+
+**Verification.** Today: production answers 200 for
+`/sitemap-index.xml` and `/robots.txt`; `sitemap-0.xml` lists 21
+URLs. `infra/dns.bicep` read: TXT resources at `_dnsauth`,
+`_dnsauth.www`, the media and the api names; none at `@`. Google's
+pages read as cited above. Not verified: whether a Needle Girlie
+listing already exists under any account; whether Aesthetic Record's
+booking page can carry a conversion tag; LegitScript's cost; Local
+Services Ads eligibility for med spas; the agency-reported cost
+ranges quoted to the operator ($4 to $28 per click on injectable
+terms, $2,000 to $5,000 a month for a one-location med spa), which
+are vendors' numbers.
+
+## 2026-10-12 — Addendum to the search-presence entry: Search Console verified, the sitemap submitted, Amy an Owner, Bing imported (the operator, the same afternoon)
+
+**What was done.** The operator verified the Domain property
+`needlegirlie.com` in Google Search Console (DNS TXT at the apex of the
+rg-corp zone), submitted `https://needlegirlie.com/sitemap-index.xml`
+(a Domain property refuses a relative path; the RUNBOOK step was
+corrected the same hour), added Amy's Google account as an Owner, and
+imported the property into Bing Webmaster Tools from Search Console.
+
+**What the report showed, and why it is not a fault.** The sitemap row
+read "Couldn't fetch" at submission and then "Sitemap could not be
+read" with the day's date. Checked from here as Googlebot: both sitemap
+files answer 200 as text/xml, uncompressed, no byte-order mark, no
+redirect on the submitted address; http:// and www. redirect once to it;
+robots.txt allows all and names the sitemap; the edge has no firewall.
+The operator then ran URL Inspection, Test live URL, on the sitemap
+address: "URL is available to Google", page fetch successful, 2:48 PM.
+The report row lags the real fetch and is expected to read Success with
+21 discovered pages within a day; nothing was resubmitted.
+
+**Left open.** The Business Profile for Amy (the 30-minute call; the
+practitioner-profile route recommended above; `{{GBP_STATUS}}` stays open
+until it exists). Whether the verification TXT has been declared in
+`infra/dns.bicep` as the RUNBOOK asks, so the record is in the IaC: the
+operator's to confirm. These RUNBOOK and DECISIONS changes are still
+uncommitted on the `phase-c` working tree and will collide at this
+file's tail with the landing-pages entry on `feat/landing-pages` (PR
+#267); both are kept.
+
+## 2026-10-12 — Ad landing pages: eight `/go/<slug>` pages built from the treatment entries' approved strings (operator decisions 1–6; the first page, then the seven; PR #267)
+
+**Context.** The search-presence entry above records Amy's three-line
+text and what "landing pages" means in a vendor's mouth. The operator
+judged that "the treatment pages already serve as landing pages", though
+true, would not land with the client, and chose purpose-built ad pages.
+The scope went "one per service", then, after the Google verification
+recorded in that entry, the eight lines Google will take ads for today;
+the operator confirmed the eight and locked the design decisions in the
+brainstorm (spec:
+`docs/superpowers/specs/2026-10-12-landing-pages-design.md`):
+
+1. Eight lines: wrinkle-relaxers, dermal-fillers, biostimulators,
+   laser-treatments, skin-rejuvenation, body-contouring, skincare and
+   iv-therapy (IV therapy added after the verification found nothing in
+   Google's text against it). Deferred: weight-loss-glp-1,
+   hormone-optimization, peptide-therapy (may be refused without a
+   certification Amy does not hold; the weight-loss page's investigational
+   card is a second reason) and regenerative (PRP is named on Google's
+   cell-therapy prohibition).
+2. `/go/<slug>`; `noindex, nofollow` in every build by meta tag and by an
+   `X-Robots-Tag` route; out of the sitemap; robots.txt untouched so the
+   tag can be read; canonical self.
+3. Zero new treatment copy: the H1 is the entry's title, the place line
+   is the locality fact, the lead is `schemaDescription ?? summary`, the
+   cards and FAQ are the approved ones. No approval flag moves; Amy reviews
+   the look on the preview. Ad-tuned headlines are a later content round.
+4. Two page-scoped overrides: the Evolus plaque extended to
+   `/go/wrinkle-relaxers` and `/go/dermal-fillers` (CLAUDE.md constraint 3
+   amended); the laser page's §8.7 FAQ answer kept on its own page and
+   omitted from `/go/laser-treatments` by rule. Everything else page-scoped
+   never reaches a landing page because the layout renders no deck, body,
+   film or entry photo. The "$265 for six weeks" lines are NOT extended:
+   the peptide page is deferred.
+5. A sticky Book/Call bar on phones, and the home hero portrait once, in
+   the arch.
+6. Spec → in-browser mock (the live treatment page restyled, JPEGs at 390
+   and 1280, the operator's critique) → worktree branch → PR with the
+   first page → the seven → the records, all in one PR.
+
+**Decision.** Built on `feat/landing-pages` (worktree off `phase-c`,
+which was six commits ahead of `main`), PR #267 into `phase-c`.
+
+- `src/lib/landing.ts`: the enable list and the per-page rules (`laurel`
+  on the two injectable slugs; `faqExclude` by exact question text, with a
+  build-time assertion that the question still exists, so a rule cannot
+  rot). `src/pages/go/[slug].astro` renders the enabled slugs; a slug with
+  no non-draft entry fails the build.
+- `LandingLayout.astro`: eyebrow, H1, factual lead, chip Book + chip Call
+  (no outline CTA on the light canvas), the portrait, the plaque by rule,
+  the product cards, the flag-driven notices adjacent to them, the visit
+  steps, the FAQ, the router card, DisclaimerBlock (unconditional), the
+  closing band, the landing footer, the sticky bar. `LandingHeader.astro`
+  (wordmark as an image, not a link; one Call, short on phones) and
+  `StickyActions.astro` (solid Book or Shop + outline Call, hidden from
+  768px) are new. `Footer.astro` gains a `landing` variant (address block
+  + legal links; no social marks, no app block). `SeoHead`/`BaseLayout`
+  gain a `noindex` prop.
+- `RouterCard.astro`: the treatment pages' router card moved out of
+  `TreatmentLayout` so both layouts render one card. Markup and styles
+  unchanged; the built treatment pages were diffed against a baseline
+  build of the same tree: the only differences are Astro's CSS chunking
+  (which component styles are inlined vs linked, now that a new page
+  shares some components) and one space of indentation at the card.
+- Plumbing: `astro.config.mjs` sitemap filter; the `/go/*` header route in
+  both SWA templates; `.pa11yci.json` +8 URLs (33); `lighthouserc.json`
+  +1 URL under the house row; `EvolusLaurel.astro`'s comment lists the two
+  placements.
+- Records: BUILD_SPEC §6 (a `/go/[slug]` row) and §10 (the noindex
+  family); CLAUDE.md constraint 3 (the plaque paragraph and a note on the
+  laser exception); RUNBOOK "Everyday changes" (adding or removing a
+  landing page); CLINICIAN-SIGN-OFF (a not-flag-gated section: Amy reviews
+  the eight on the preview); CHANGELOG when shipped.
+
+**Alternatives rejected.**
+- Ads pointed at the treatment pages with no new pages: accurate and free,
+  judged unsellable to the client (the operator, same day).
+- A frontmatter field for ad headlines: a schema change, twelve content
+  edits, twelve flag resets and a sign-off round for copy nobody has
+  asked for. Deferred.
+- Hand-written landing files: copies of approved text that would drift
+  from their sources; the collection route makes drift impossible.
+- `Disallow: /go/` in robots.txt: hides the noindex tag from Google.
+- A cross-canonical to the treatment page: contradicts noindex.
+- Twelve pages: four cannot be ad destinations today.
+- Hiding the sticky bar with Tailwind's `md:hidden`: the utility sits in
+  a cascade layer, and the bar's own unlayered `display: flex` beat it at
+  every width (found at 1280px on the first build). The hide-on-wide rule
+  lives in the component's CSS. A standing lesson for any component that
+  sets its own `display`.
+
+**Consequences.** Eight new routes; 33 pages built. Nothing changes on
+the twelve treatment pages or in any content file. The pages have no
+visitors until an ad, a post, a text or a QR code points at one. Google's
+conversion tag stays off the site (constraint 5); measurement is calls
+and bookings, as the search-presence entry says. Enabling a deferred line
+is a list edit plus a pa11y line, after the operator settles its Google
+question (and, for peptides, the price-line extension). This entry and
+the search-presence entry were written the same day on different trees
+(this one on the branch, that one uncommitted on `phase-c`); when both
+land, the append-only file collides at its tail and both entries are
+kept.
+
+**Verification.** The eight-page tree: `npm run build` 33 pages;
+`astro check` 0 errors, 0 warnings, 0 hints; `lint:claims`, `lint:voice`
+and `lint:practice-link` (33 pages, 73 practice links) green. The
+acceptance script on `dist/` for all eight slugs: the noindex meta, the
+title and H1 equal to the treatment page's, one H1, no breadcrumbs, nav,
+badge, deck, body or film, the plaque exactly once on the two injectable
+pages and nowhere else, the laser FAQ item absent, the products block,
+DisclaimerBlock, the router card, the sticky bar, the closing band, the
+trimmed footer, tel and booking links, no client scripts, no second
+`Service` node; the sitemap without `/go/`; the `/go/*` header route in
+the generated config. Playwright on the local build of the first page:
+at 390 the bar shows and the footer's last line sits five pixels above
+it; at 1280 the bar and its spacer are `display: none` and the header
+shows the full Call; console clean but for the font-preload warning the
+treatment pages also emit. Lighthouse on `/go/wrinkle-relaxers` (first
+build): 1.0 in all four categories, LCP 1.5 s, CLS 0, TBT 0, 0 B script,
+39 KB image, 92 KB total. The eight-page tree's slow gates, the same day: pa11y 33 of 33 URLs, Lighthouse assertions on 9 URLs, both green (exit 0).
+,000 to $5,000 a month for a one-location med spa), which
+are vendors' numbers.
+
+## 2026-10-12 — Addendum to the search-presence entry: Search Console verified, the sitemap submitted, Amy an Owner, Bing imported (the operator, the same afternoon)
+
+**What was done.** The operator verified the Domain property
+`needlegirlie.com` in Google Search Console (DNS TXT at the apex of the
+rg-corp zone), submitted `https://needlegirlie.com/sitemap-index.xml`
+(a Domain property refuses a relative path; the RUNBOOK step was
+corrected the same hour), added Amy's Google account as an Owner, and
+imported the property into Bing Webmaster Tools from Search Console.
+
+**What the report showed, and why it is not a fault.** The sitemap row
+read "Couldn't fetch" at submission and then "Sitemap could not be
+read" with the day's date. Checked from here as Googlebot: both sitemap
+files answer 200 as text/xml, uncompressed, no byte-order mark, no
+redirect on the submitted address; http:// and www. redirect once to it;
+robots.txt allows all and names the sitemap; the edge has no firewall.
+The operator then ran URL Inspection, Test live URL, on the sitemap
+address: "URL is available to Google", page fetch successful, 2:48 PM.
+The report row lags the real fetch and is expected to read Success with
+21 discovered pages within a day; nothing was resubmitted.
+
+**Left open.** The Business Profile for Amy (the 30-minute call; the
+practitioner-profile route recommended above; `{{GBP_STATUS}}` stays open
+until it exists). Whether the verification TXT has been declared in
+`infra/dns.bicep` as the RUNBOOK asks, so the record is in the IaC: the
+operator's to confirm. These RUNBOOK and DECISIONS changes are still
+uncommitted on the `phase-c` working tree and will collide at this
+file's tail with the landing-pages entry on `feat/landing-pages` (PR
+#267); both are kept.
+
+## 2026-10-12 — Ad landing pages: eight `/go/<slug>` pages built from the treatment entries' approved strings (operator decisions 1–6; the first page, then the seven; PR #267)
+
+**Context.** The search-presence entry above records Amy's three-line
+text and what "landing pages" means in a vendor's mouth. The operator
+judged that "the treatment pages already serve as landing pages", though
+true, would not land with the client, and chose purpose-built ad pages.
+The scope went "one per service", then, after the Google verification
+recorded in that entry, the eight lines Google will take ads for today;
+the operator confirmed the eight and locked the design decisions in the
+brainstorm (spec:
+`docs/superpowers/specs/2026-10-12-landing-pages-design.md`):
+
+1. Eight lines: wrinkle-relaxers, dermal-fillers, biostimulators,
+   laser-treatments, skin-rejuvenation, body-contouring, skincare and
+   iv-therapy (IV therapy added after the verification found nothing in
+   Google's text against it). Deferred: weight-loss-glp-1,
+   hormone-optimization, peptide-therapy (may be refused without a
+   certification Amy does not hold; the weight-loss page's investigational
+   card is a second reason) and regenerative (PRP is named on Google's
+   cell-therapy prohibition).
+2. `/go/<slug>`; `noindex, nofollow` in every build by meta tag and by an
+   `X-Robots-Tag` route; out of the sitemap; robots.txt untouched so the
+   tag can be read; canonical self.
+3. Zero new treatment copy: the H1 is the entry's title, the place line
+   is the locality fact, the lead is `schemaDescription ?? summary`, the
+   cards and FAQ are the approved ones. No approval flag moves; Amy reviews
+   the look on the preview. Ad-tuned headlines are a later content round.
+4. Two page-scoped overrides: the Evolus plaque extended to
+   `/go/wrinkle-relaxers` and `/go/dermal-fillers` (CLAUDE.md constraint 3
+   amended); the laser page's §8.7 FAQ answer kept on its own page and
+   omitted from `/go/laser-treatments` by rule. Everything else page-scoped
+   never reaches a landing page because the layout renders no deck, body,
+   film or entry photo. The "## 2026-10-12 — Search presence: Search Console, Bing and the Business Profile get a procedure and an ownership model; Amy's "SEO set up / Landing pages / Google search ads" read into the record (operator question)
+
+**Context.** Amy texted the operator three lines on 2026-10-12: "SEO
+set up", "Landing pages", "Google search ads". It is a vendor's menu;
+the source and any quote are unknown. The operator asked what the
+three mean, what is already done, and who "the operator" in these
+records is (answer: the operator is the human directing this
+engagement for Xtend-AI, the person asking). On the record: the
+2026-10-05 audit found the pages sound and the sitemap live (21 URLs;
+checked again today, `/sitemap-index.xml` and `/robots.txt` answer
+200 on production); analytics is off by decision; Search Console was
+never verified and no sitemap was ever submitted; Bing has no
+property; `{{GBP_STATUS}}` is open, and the only Google listings seen
+(2026-09-02) are Mobile Aesthetics' 283-review listing and a
+logo-only second one. Google's own pages were read today: Search
+Console verification (a Domain property verifies by DNS only; TXT at
+host `@`; a hand-added record may take two or three days; the record
+must stay), the Business Profile guidelines (a public-facing
+practitioner at a multi-practitioner location may have a profile
+named with the practitioner's name only; a second brand profile at
+one address only if the brand operates independently), and the ads
+policies: Restricted drug terms (for US campaigns prescription drug
+names may be used in ad text and on landing pages without
+certification, but keyword-targeting them requires certification),
+and Speculative and experimental treatments, cell and gene therapies
+(platelet rich plasma is named; promotion is allowed only by the
+holder of an FDA licence or approval). The site carries no pixel and
+no form by constraint 5, so Google's conversion tag cannot be placed
+on it without a change to that constraint and to the privacy page.
+
+**Decision.**
+
+1. RUNBOOK gains "Telling the search engines the site exists
+   (Search Console, Bing, the Business Profile)", between "Turning on
+   analytics" and "Replacing site photography": the Domain-property
+   verification by a TXT record at the apex of the `rg-corp` zone,
+   the sitemap submission, the Bing import, the Business Profile
+   route, and what the section excludes.
+2. Ownership model: the operator verifies Search Console (the
+   operator holds DNS) and adds Amy's Google account as a second
+   Owner; the Business Profile is owned by Amy's account with the
+   operator as Manager. The property and the listing both survive a
+   change of vendor.
+3. The verification record is a TXT at `@`. `infra/dns.bicep`
+   declares no apex TXT (its tokens live under `_dnsauth`), so a
+   redeploy will not remove a hand-added record. It is to be declared
+   in Bicep as a parameter-driven resource once the token exists (the
+   RUNBOOK carries the snippet), and from then on every apex TXT
+   value lives in that one resource, because a Bicep TXT record set
+   replaces the live set wholesale.
+4. Recommended Business Profile route, Amy's to settle: a practitioner
+   profile in her own name, "Amy Palacios, FNP", at the Mobile
+   Aesthetics address, website needlegirlie.com; the practice's
+   listing keeps pointing at the practice's site; the logo-only
+   second listing is reported or merged if it is a duplicate; no
+   hours (the 2026-08-04 decision); listing text reuses approved site
+   copy under BUILD_SPEC §8. When it exists, `{{GBP_STATUS}}` is
+   resolved and the URL joins `siteConfig.social` (emitted as
+   `sameAs`), a normal PR.
+5. Landing pages: none built until ads are decided. For organic
+   search the treatment pages are the landing pages already. An ad
+   landing page here is a one-treatment page with the price, the
+   plaque, the Book link and the phone number and no navigation; it
+   goes through the claims linter and Amy's approval like any page,
+   and carries no form (constraint 5).
+6. Google Ads: not started. Prerequisites recorded: Amy's monthly
+   budget and service list; any proposal she received; Google's rules
+   above (drug names in ad text allowed for US campaigns,
+   keyword-targeting them certified only; /services/regenerative
+   cannot be advertised; before-and-after imagery is out of ads;
+   compounded GLP-1, peptides and Biote pellets UNVERIFIED and to be
+   checked before a campaign names them); and the measurement
+   question: with no conversion tag, results are calls (a Google
+   forwarding number inside the ad) and bookings. Changing constraint
+   5 for the tag is the operator's call and was not made.
+7. A one-page brief for Amy, in the operator's voice, written outside
+   the repo (the operator's `C:\Amy` folder, Markdown and a printable
+   HTML copy). It is not site text and restates no site exception;
+   the operator reviews it before sending.
+
+**Alternatives rejected.**
+
+- A URL-prefix property verified by HTML tag or file: a code change
+  to the site, and each covers only one host form.
+- Verifying with Amy's account first: she holds no DNS; adding her as
+  Owner afterwards is equivalent and keeps her in control.
+- A "Needle Girlie" brand profile at the same address: allowed by the
+  guideline only if the brand operates independently, which is
+  UNVERIFIED; the practitioner profile is squarely allowed.
+- Adding the `googleSiteVerification` parameter to `dns.bicep` today:
+  no token exists yet and a placeholder would deploy a bogus record.
+- Turning analytics on "to see search traffic": Search Console gives
+  the search queries without a script; the 2026-10-05 analytics
+  decision stands.
+- Google's conversion tag on the site: constraint 5; the operator's
+  call, not made.
+- A CHANGELOG entry: nothing shipped to the site.
+
+**Consequences.** Two free properties and one listing become the
+operator's and Amy's next actions, outside the repo. The repo changes
+only when the Business Profile URL joins `siteConfig.social` and the
+TXT parameter lands in Bicep, each a normal PR. Until the Bicep
+parameter lands, the apex TXT record set is live state that the IaC
+does not describe (the RUNBOOK says so). BUILD_SPEC §17
+`{{GBP_STATUS}}` stays open until Amy's listing exists. Search
+Console becomes the site's only source of search numbers, as the
+2026-10-05 analytics entry foresaw.
+
+**Verification.** Today: production answers 200 for
+`/sitemap-index.xml` and `/robots.txt`; `sitemap-0.xml` lists 21
+URLs. `infra/dns.bicep` read: TXT resources at `_dnsauth`,
+`_dnsauth.www`, the media and the api names; none at `@`. Google's
+pages read as cited above. Not verified: whether a Needle Girlie
+listing already exists under any account; whether Aesthetic Record's
+booking page can carry a conversion tag; LegitScript's cost; Local
+Services Ads eligibility for med spas; the agency-reported cost
+ranges quoted to the operator ($4 to $28 per click on injectable
+terms, $2,000 to $5,000 a month for a one-location med spa), which
+are vendors' numbers.
+
+## 2026-10-12 — Addendum to the search-presence entry: Search Console verified, the sitemap submitted, Amy an Owner, Bing imported (the operator, the same afternoon)
+
+**What was done.** The operator verified the Domain property
+`needlegirlie.com` in Google Search Console (DNS TXT at the apex of the
+rg-corp zone), submitted `https://needlegirlie.com/sitemap-index.xml`
+(a Domain property refuses a relative path; the RUNBOOK step was
+corrected the same hour), added Amy's Google account as an Owner, and
+imported the property into Bing Webmaster Tools from Search Console.
+
+**What the report showed, and why it is not a fault.** The sitemap row
+read "Couldn't fetch" at submission and then "Sitemap could not be
+read" with the day's date. Checked from here as Googlebot: both sitemap
+files answer 200 as text/xml, uncompressed, no byte-order mark, no
+redirect on the submitted address; http:// and www. redirect once to it;
+robots.txt allows all and names the sitemap; the edge has no firewall.
+The operator then ran URL Inspection, Test live URL, on the sitemap
+address: "URL is available to Google", page fetch successful, 2:48 PM.
+The report row lags the real fetch and is expected to read Success with
+21 discovered pages within a day; nothing was resubmitted.
+
+**Left open.** The Business Profile for Amy (the 30-minute call; the
+practitioner-profile route recommended above; `{{GBP_STATUS}}` stays open
+until it exists). Whether the verification TXT has been declared in
+`infra/dns.bicep` as the RUNBOOK asks, so the record is in the IaC: the
+operator's to confirm. These RUNBOOK and DECISIONS changes are still
+uncommitted on the `phase-c` working tree and will collide at this
+file's tail with the landing-pages entry on `feat/landing-pages` (PR
+#267); both are kept.
+
+## 2026-10-12 — Ad landing pages: eight `/go/<slug>` pages built from the treatment entries' approved strings (operator decisions 1–6; the first page, then the seven; PR #267)
+
+**Context.** The search-presence entry above records Amy's three-line
+text and what "landing pages" means in a vendor's mouth. The operator
+judged that "the treatment pages already serve as landing pages", though
+true, would not land with the client, and chose purpose-built ad pages.
+The scope went "one per service", then, after the Google verification
+recorded in that entry, the eight lines Google will take ads for today;
+the operator confirmed the eight and locked the design decisions in the
+brainstorm (spec:
+`docs/superpowers/specs/2026-10-12-landing-pages-design.md`):
+
+1. Eight lines: wrinkle-relaxers, dermal-fillers, biostimulators,
+   laser-treatments, skin-rejuvenation, body-contouring, skincare and
+   iv-therapy (IV therapy added after the verification found nothing in
+   Google's text against it). Deferred: weight-loss-glp-1,
+   hormone-optimization, peptide-therapy (may be refused without a
+   certification Amy does not hold; the weight-loss page's investigational
+   card is a second reason) and regenerative (PRP is named on Google's
+   cell-therapy prohibition).
+2. `/go/<slug>`; `noindex, nofollow` in every build by meta tag and by an
+   `X-Robots-Tag` route; out of the sitemap; robots.txt untouched so the
+   tag can be read; canonical self.
+3. Zero new treatment copy: the H1 is the entry's title, the place line
+   is the locality fact, the lead is `schemaDescription ?? summary`, the
+   cards and FAQ are the approved ones. No approval flag moves; Amy reviews
+   the look on the preview. Ad-tuned headlines are a later content round.
+4. Two page-scoped overrides: the Evolus plaque extended to
+   `/go/wrinkle-relaxers` and `/go/dermal-fillers` (CLAUDE.md constraint 3
+   amended); the laser page's §8.7 FAQ answer kept on its own page and
+   omitted from `/go/laser-treatments` by rule. Everything else page-scoped
+   never reaches a landing page because the layout renders no deck, body,
+   film or entry photo. The "$265 for six weeks" lines are NOT extended:
+   the peptide page is deferred.
+5. A sticky Book/Call bar on phones, and the home hero portrait once, in
+   the arch.
+6. Spec → in-browser mock (the live treatment page restyled, JPEGs at 390
+   and 1280, the operator's critique) → worktree branch → PR with the
+   first page → the seven → the records, all in one PR.
+
+**Decision.** Built on `feat/landing-pages` (worktree off `phase-c`,
+which was six commits ahead of `main`), PR #267 into `phase-c`.
+
+- `src/lib/landing.ts`: the enable list and the per-page rules (`laurel`
+  on the two injectable slugs; `faqExclude` by exact question text, with a
+  build-time assertion that the question still exists, so a rule cannot
+  rot). `src/pages/go/[slug].astro` renders the enabled slugs; a slug with
+  no non-draft entry fails the build.
+- `LandingLayout.astro`: eyebrow, H1, factual lead, chip Book + chip Call
+  (no outline CTA on the light canvas), the portrait, the plaque by rule,
+  the product cards, the flag-driven notices adjacent to them, the visit
+  steps, the FAQ, the router card, DisclaimerBlock (unconditional), the
+  closing band, the landing footer, the sticky bar. `LandingHeader.astro`
+  (wordmark as an image, not a link; one Call, short on phones) and
+  `StickyActions.astro` (solid Book or Shop + outline Call, hidden from
+  768px) are new. `Footer.astro` gains a `landing` variant (address block
+  + legal links; no social marks, no app block). `SeoHead`/`BaseLayout`
+  gain a `noindex` prop.
+- `RouterCard.astro`: the treatment pages' router card moved out of
+  `TreatmentLayout` so both layouts render one card. Markup and styles
+  unchanged; the built treatment pages were diffed against a baseline
+  build of the same tree: the only differences are Astro's CSS chunking
+  (which component styles are inlined vs linked, now that a new page
+  shares some components) and one space of indentation at the card.
+- Plumbing: `astro.config.mjs` sitemap filter; the `/go/*` header route in
+  both SWA templates; `.pa11yci.json` +8 URLs (33); `lighthouserc.json`
+  +1 URL under the house row; `EvolusLaurel.astro`'s comment lists the two
+  placements.
+- Records: BUILD_SPEC §6 (a `/go/[slug]` row) and §10 (the noindex
+  family); CLAUDE.md constraint 3 (the plaque paragraph and a note on the
+  laser exception); RUNBOOK "Everyday changes" (adding or removing a
+  landing page); CLINICIAN-SIGN-OFF (a not-flag-gated section: Amy reviews
+  the eight on the preview); CHANGELOG when shipped.
+
+**Alternatives rejected.**
+- Ads pointed at the treatment pages with no new pages: accurate and free,
+  judged unsellable to the client (the operator, same day).
+- A frontmatter field for ad headlines: a schema change, twelve content
+  edits, twelve flag resets and a sign-off round for copy nobody has
+  asked for. Deferred.
+- Hand-written landing files: copies of approved text that would drift
+  from their sources; the collection route makes drift impossible.
+- `Disallow: /go/` in robots.txt: hides the noindex tag from Google.
+- A cross-canonical to the treatment page: contradicts noindex.
+- Twelve pages: four cannot be ad destinations today.
+- Hiding the sticky bar with Tailwind's `md:hidden`: the utility sits in
+  a cascade layer, and the bar's own unlayered `display: flex` beat it at
+  every width (found at 1280px on the first build). The hide-on-wide rule
+  lives in the component's CSS. A standing lesson for any component that
+  sets its own `display`.
+
+**Consequences.** Eight new routes; 33 pages built. Nothing changes on
+the twelve treatment pages or in any content file. The pages have no
+visitors until an ad, a post, a text or a QR code points at one. Google's
+conversion tag stays off the site (constraint 5); measurement is calls
+and bookings, as the search-presence entry says. Enabling a deferred line
+is a list edit plus a pa11y line, after the operator settles its Google
+question (and, for peptides, the price-line extension). This entry and
+the search-presence entry were written the same day on different trees
+(this one on the branch, that one uncommitted on `phase-c`); when both
+land, the append-only file collides at its tail and both entries are
+kept.
+
+**Verification.** The eight-page tree: `npm run build` 33 pages;
+`astro check` 0 errors, 0 warnings, 0 hints; `lint:claims`, `lint:voice`
+and `lint:practice-link` (33 pages, 73 practice links) green. The
+acceptance script on `dist/` for all eight slugs: the noindex meta, the
+title and H1 equal to the treatment page's, one H1, no breadcrumbs, nav,
+badge, deck, body or film, the plaque exactly once on the two injectable
+pages and nowhere else, the laser FAQ item absent, the products block,
+DisclaimerBlock, the router card, the sticky bar, the closing band, the
+trimmed footer, tel and booking links, no client scripts, no second
+`Service` node; the sitemap without `/go/`; the `/go/*` header route in
+the generated config. Playwright on the local build of the first page:
+at 390 the bar shows and the footer's last line sits five pixels above
+it; at 1280 the bar and its spacer are `display: none` and the header
+shows the full Call; console clean but for the font-preload warning the
+treatment pages also emit. Lighthouse on `/go/wrinkle-relaxers` (first
+build): 1.0 in all four categories, LCP 1.5 s, CLS 0, TBT 0, 0 B script,
+39 KB image, 92 KB total. The eight-page tree's slow gates, the same day: pa11y 33 of 33 URLs, Lighthouse assertions on 9 URLs, both green (exit 0).
+65 for six weeks" lines are NOT extended:
+   the peptide page is deferred.
+5. A sticky Book/Call bar on phones, and the home hero portrait once, in
+   the arch.
+6. Spec → in-browser mock (the live treatment page restyled, JPEGs at 390
+   and 1280, the operator's critique) → worktree branch → PR with the
+   first page → the seven → the records, all in one PR.
+
+**Decision.** Built on `feat/landing-pages` (worktree off `phase-c`,
+which was six commits ahead of `main`), PR #267 into `phase-c`.
+
+- `src/lib/landing.ts`: the enable list and the per-page rules (`laurel`
+  on the two injectable slugs; `faqExclude` by exact question text, with a
+  build-time assertion that the question still exists, so a rule cannot
+  rot). `src/pages/go/[slug].astro` renders the enabled slugs; a slug with
+  no non-draft entry fails the build.
+- `LandingLayout.astro`: eyebrow, H1, factual lead, chip Book + chip Call
+  (no outline CTA on the light canvas), the portrait, the plaque by rule,
+  the product cards, the flag-driven notices adjacent to them, the visit
+  steps, the FAQ, the router card, DisclaimerBlock (unconditional), the
+  closing band, the landing footer, the sticky bar. `LandingHeader.astro`
+  (wordmark as an image, not a link; one Call, short on phones) and
+  `StickyActions.astro` (solid Book or Shop + outline Call, hidden from
+  768px) are new. `Footer.astro` gains a `landing` variant (address block
+  + legal links; no social marks, no app block). `SeoHead`/`BaseLayout`
+  gain a `noindex` prop.
+- `RouterCard.astro`: the treatment pages' router card moved out of
+  `TreatmentLayout` so both layouts render one card. Markup and styles
+  unchanged; the built treatment pages were diffed against a baseline
+  build of the same tree: the only differences are Astro's CSS chunking
+  (which component styles are inlined vs linked, now that a new page
+  shares some components) and one space of indentation at the card.
+- Plumbing: `astro.config.mjs` sitemap filter; the `/go/*` header route in
+  both SWA templates; `.pa11yci.json` +8 URLs (33); `lighthouserc.json`
+  +1 URL under the house row; `EvolusLaurel.astro`'s comment lists the two
+  placements.
+- Records: BUILD_SPEC §6 (a `/go/[slug]` row) and §10 (the noindex
+  family); CLAUDE.md constraint 3 (the plaque paragraph and a note on the
+  laser exception); RUNBOOK "Everyday changes" (adding or removing a
+  landing page); CLINICIAN-SIGN-OFF (a not-flag-gated section: Amy reviews
+  the eight on the preview); CHANGELOG when shipped.
+
+**Alternatives rejected.**
+- Ads pointed at the treatment pages with no new pages: accurate and free,
+  judged unsellable to the client (the operator, same day).
+- A frontmatter field for ad headlines: a schema change, twelve content
+  edits, twelve flag resets and a sign-off round for copy nobody has
+  asked for. Deferred.
+- Hand-written landing files: copies of approved text that would drift
+  from their sources; the collection route makes drift impossible.
+- `Disallow: /go/` in robots.txt: hides the noindex tag from Google.
+- A cross-canonical to the treatment page: contradicts noindex.
+- Twelve pages: four cannot be ad destinations today.
+- Hiding the sticky bar with Tailwind's `md:hidden`: the utility sits in
+  a cascade layer, and the bar's own unlayered `display: flex` beat it at
+  every width (found at 1280px on the first build). The hide-on-wide rule
+  lives in the component's CSS. A standing lesson for any component that
+  sets its own `display`.
+
+**Consequences.** Eight new routes; 33 pages built. Nothing changes on
+the twelve treatment pages or in any content file. The pages have no
+visitors until an ad, a post, a text or a QR code points at one. Google's
+conversion tag stays off the site (constraint 5); measurement is calls
+and bookings, as the search-presence entry says. Enabling a deferred line
+is a list edit plus a pa11y line, after the operator settles its Google
+question (and, for peptides, the price-line extension). This entry and
+the search-presence entry were written the same day on different trees
+(this one on the branch, that one uncommitted on `phase-c`); when both
+land, the append-only file collides at its tail and both entries are
+kept.
+
+**Verification.** The eight-page tree: `npm run build` 33 pages;
+`astro check` 0 errors, 0 warnings, 0 hints; `lint:claims`, `lint:voice`
+and `lint:practice-link` (33 pages, 73 practice links) green. The
+acceptance script on `dist/` for all eight slugs: the noindex meta, the
+title and H1 equal to the treatment page's, one H1, no breadcrumbs, nav,
+badge, deck, body or film, the plaque exactly once on the two injectable
+pages and nowhere else, the laser FAQ item absent, the products block,
+DisclaimerBlock, the router card, the sticky bar, the closing band, the
+trimmed footer, tel and booking links, no client scripts, no second
+`Service` node; the sitemap without `/go/`; the `/go/*` header route in
+the generated config. Playwright on the local build of the first page:
+at 390 the bar shows and the footer's last line sits five pixels above
+it; at 1280 the bar and its spacer are `display: none` and the header
+shows the full Call; console clean but for the font-preload warning the
+treatment pages also emit. Lighthouse on `/go/wrinkle-relaxers` (first
+build): 1.0 in all four categories, LCP 1.5 s, CLS 0, TBT 0, 0 B script,
+39 KB image, 92 KB total. The eight-page tree's slow gates, the same day: pa11y 33 of 33 URLs, Lighthouse assertions on 9 URLs, both green (exit 0).
+
+## 2026-10-12 — Site search: Pagefind indexes the built site; /search shows titles and descriptions only (operator decisions after the flags)
+
+**Context.** The operator asked for search on the website. The site has
+21 pages; search is not in the signed SOW (a divergence, and a possible
+change order). The site is static, its CSP allowed only same-origin
+scripts with no WebAssembly, and every page but home has a 30 KB script
+budget.
+
+**Decision.** Pagefind 1.5.2 (devDependency, exact) runs after
+`astro build` and indexes only `<main>` of every page except /search,
+/404, /styleguide and /go/. The ad landing pages at /go/ (merged into
+`phase-c` the same day, PR #267) are out of the index because they
+duplicate the treatment pages. A result's title and description come from the
+page's SEO title and meta description, captured from `<head>`. /search
+(noindex, out of the sitemap) loads `public/js/site-search.js`, which
+imports Pagefind's runtime on the first focus or keystroke and shows
+each match as its title (the " | Needle Girlie" suffix dropped, and any
+title part naming the practice dropped, so home reads "Needle Girlie")
+and its description, never an excerpt. Where a description names the
+practice (/about's), the name renders as PracticeLink beside the title
+link, never inside it. Both CSP templates gain `'wasm-unsafe-eval'` in
+`script-src`. A magnifier link to /search sits left of Book in the
+header (the operator's placement, chosen from renders over "between
+Book and the menu" and "inside the menu").
+
+**Operator decisions on record.** Pagefind over the recommended
+hand-written search (new dependency and the CSP change, both flagged).
+Pagefind's native program was blocked by Smart App Control on the
+operator's PC; the operator turned Smart App Control off for the
+machine after the flag that it has no per-program exception. Results
+show titles and descriptions only.
+
+**Alternatives rejected.** A hand-written index and script (recommended;
+no dependency, no CSP change) — declined. Pagefind's default UI — 29.7
+KB gzip and it shows excerpts. Excerpts — they would print, on /search,
+sentences whose exceptions say "never restated elsewhere" (the
+EvolusLaurel ranking lines, the GLOW/KLOW price line, the
+wrinkle-relaxers deck, the regenerative summary, "top of class", the
+Girl Team unit, the laser who-performs lines, the allowlisted strings).
+Google site search — a third party receives the query.
+
+**Consequences.** Two new gates: `check:search-index` (in verify:fast:
+the indexed pages equal the built pages minus the exclusions, and no
+caption cue line of six words or more is in the index; it names files
+and cue numbers, never the words) and `test:search` (in verify:slow:
+serves dist/ with the generated SWA headers and runs search in headless
+Chrome — local previews send no CSP, so nothing else would catch a CSP
+break; `--firefox` runs it in Firefox by hand). Measured: /search loads
+2,942 B of script (Lighthouse, budget
+30,720), performance and accessibility 1.00, pa11y 0 errors empty and
+with results. A search fetches pagefind.js (12.8 KB gzip), its worker
+(11.9 KB) and the 72 KB WebAssembly file, plus small index chunks. The
+test harness found that puppeteer's request interception stalls
+Pagefind's worker requests at random, so it blocks paths at its own
+server instead. Run-rate cost $0. If SWA turns out not to serve
+Pagefind's file types, `mimeTypes` entries go into both templates (the
+PR preview is the check). Spec and plan:
+`docs/superpowers/specs/2026-10-12-site-search-design.md`,
+`docs/superpowers/plans/2026-10-12-site-search.md`.
+
+**Addendum, same day — the whole-branch review.** A fresh reviewer found
+no critical issue. Fixed, each with a test that failed first: a long
+query scrolled /search sideways (the status line now wraps); the
+practice-name match was the exact string, narrower than
+lint:practice-link's `/mobile\s+aesthetics/iu` (the text rules moved to
+`public/js/site-search-text.js`, which the test imports); the caption
+tripwire compared single lines only (it now also compares each cue's
+lines joined); and the browser test gained Enter-to-open and a Firefox
+run (Firefox 157 and Chrome 155 green). Its report of sideways scroll at
+320px from the header icon did not reproduce: the house overflow probe
+and the new 320px check read 0px over on this branch and on the live
+site. Left as minor: a failed engine start is retried only on reload;
+the WebAssembly allowance is sitewide (SWA route headers could scope it
+to /search and /pagefind/*); Pagefind's unused UI files ship; "Searching…"
+is re-announced per keystroke; the sitemap filter would drop any future
+route ending in /search. A crafted `?q=` link can show its text inside
+the fixed "No pages match …" sentence on this noindex page.
+
+**Addendum, same day — the preview, and the hold.** The PR #266 preview
+answered 200 for every Pagefind file type in six probe rounds and in real
+searches (`.pf_meta`, `.pf_index`, `.pf_fragment`, the WebAssembly file;
+all `application/octet-stream`), so no `mimeTypes` entries were needed.
+The operator is holding the merge: the feature is to be demonstrated to
+Amy first, and merged only after she says yes. Docs brought in line on
+the branch: README and CLAUDE.md command lists, RUNBOOK (the gate lists,
+two troubleshooting entries), BUILD_SPEC §13 and §14, compliance/README
+(the search results' two rules).

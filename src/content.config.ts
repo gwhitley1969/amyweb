@@ -53,13 +53,17 @@ const treatments = defineCollection({
     products: z.array(z.string()).default([]),
     // Optional per-product cards (2026-07-20 GLP-1 alignment — operator-
     // approved schema change): upgrades the products bullet list in the
-    // layout. `detail` is one factual, claim-free sentence (§7/§8);
+    // layout. `detail` is short factual text — a sentence or a few —
+    // claim-free by rule (§7/§8); the peptide and regenerative cards
+    // carry the client's own definitions under recorded operator
+    // overrides (DECISIONS 2026-08-01).
     // `priceLines` holds operator-supplied price strings only. A string
     // that would trip a banned category (mg-keyed, per-unit, …)
     // additionally requires an exact allowlist entry in
     // compliance/banned-patterns.json — operator-only. (Comment aligned
     // with merged practice 2026-07-22: plain-dollar strings like
-    // "$900 per syringe" ship without allowlisting.)
+    // "$900 per syringe" ship without allowlisting; the `detail` wording
+    // aligned the same way 2026-10-02.)
     productDetails: z
       .array(
         z.object({

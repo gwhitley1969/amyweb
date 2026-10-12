@@ -3,9 +3,15 @@
  * Per-product detail cards — upgrades the "What Amy offers" bullet list on
  * treatment pages whose frontmatter provides productDetails (added
  * 2026-07-20 for the GLP-1 alignment; reusable by later lines). Copy rules
- * are BUILD_SPEC §7/§8: `detail` is factual and claim-free; `priceLines`
- * may contain ONLY the operator-authorized allowlist strings in
- * compliance/banned-patterns.json. Zero JS; light surfaces only.
+ * are BUILD_SPEC §7/§8: `detail` is short factual text, claim-free by
+ * rule; the peptide and regenerative cards carry the client's own
+ * definitions under recorded operator overrides (DECISIONS 2026-08-01).
+ * `priceLines` holds operator-supplied price strings only. A string that
+ * would trip a banned category (mg-keyed, per-unit, …) additionally
+ * requires an exact allowlist entry in compliance/banned-patterns.json —
+ * operator-only; plain-dollar strings ship without one. The schema
+ * comment above `productDetails` in src/content.config.ts states the same
+ * rule. Zero JS; light surfaces only.
  */
 interface Props {
   items: readonly {

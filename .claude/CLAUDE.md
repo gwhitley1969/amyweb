@@ -516,7 +516,11 @@ silently following it. Known superseded points from earlier briefs:
      the retired "#1" plate's spot — DECISIONS same date); and since
      2026-08-25 at the operator's direction, /about (the same
      plate-for-plaque swap, retiring the "#1" sentence sitewide —
-     DECISIONS same date) — nowhere
+     DECISIONS same date); and since 2026-10-12 at the operator's
+     direction, the two ad landing pages of the same lines,
+     /go/wrinkle-relaxers and /go/dermal-fillers (once per page, placed
+     by `src/lib/landing.ts`; DECISIONS 2026-10-12, the landing-pages
+     entry) — nowhere
      else (operator authorization — DECISIONS 2026-08-19; substantiation = the operator's
      verification with Evolus, which also covers the national
      standing): "The Top Evolus Injector in Charlotte." and "And
@@ -664,7 +668,10 @@ silently following it. Known superseded points from earlier briefs:
      never in `allowedStrings` — a green linter never authorizes it. The
      wording is exact and the scope is that one answer on that one page;
      it is never restated anywhere else — body copy, other FAQ answers,
-     alt text, comments, meta descriptions, OG tags, or JSON-LD. Coupling:
+     alt text, comments, meta descriptions, OG tags, or JSON-LD. The ad
+     landing page /go/laser-treatments omits that one FAQ item by rule
+     (`src/lib/landing.ts`, asserted at build; DECISIONS 2026-10-12).
+     Coupling:
      that page's "Three tools, one conversation" section and its
      skin-types FAQ answer still route suitability to a consultation; with
      the layout-injected disclaimer they are what keeps this rule
@@ -869,6 +876,17 @@ silently following it. Known superseded points from earlier briefs:
   covers songs with sung words as well, at the operator's direction,
   and the captions mark the songs with bounded `[Music]` cues.
   Widening it to another page requires the human operator.
+  Sixth sanctioned consumer (2026-10-12, operator-directed — DECISIONS
+  same date): site search on /search ONLY — `public/js/site-search.js`
+  (~3KB on load with its text rules, `public/js/site-search-text.js`),
+  which imports Pagefind's runtime
+  (`/pagefind/pagefind.js`, its worker and WebAssembly, built by
+  `pagefind --site dist` in `npm run build`) on the first keystroke; the
+  CSP's script-src carries `'wasm-unsafe-eval'` for it. Results show
+  titles and meta descriptions only, never excerpts (an excerpt would
+  restate scoped-exception text on /search). Gates: `check:search-index`
+  and `test:search`. Widening it to another page requires the human
+  operator.
   The 30KB budget stands for every page but the home URL.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.
@@ -906,6 +924,10 @@ silently following it. Known superseded points from earlier briefs:
 - `npm run lint:claims` — compliance linter over all of `src/` (content,
   pages, components, layouts, lib, styles — comments included)
 - `npm run test:a11y` — accessibility checks against the built site
+- `npm run check:search-index` — the site-search index holds exactly the
+  searchable pages and no caption text (runs in `verify:fast`)
+- `npm run test:search` — site search in headless Chrome under the
+  generated SWA headers, CSP included (runs in `verify:slow`)
 - `npm run verify` — everything above, in order (CI parity)
 
 ## Repo map

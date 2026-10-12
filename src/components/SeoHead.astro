@@ -17,9 +17,14 @@ interface Props {
    *  the default link-share card below. */
   ogImage?: string | undefined;
   ogType?: 'website' | 'article';
+  /** Hide the page from search engines in EVERY build: the ad landing
+   *  pages, /go/*, and /search, which has no content of its own
+   *  (DECISIONS 2026-10-12). Non-production builds are noindexed
+   *  regardless (below). */
+  noindex?: boolean;
 }
 
-const { title, shareTitle, description, ogImage, ogType = 'website' } = Astro.props;
+const { title, shareTitle, description, ogImage, ogType = 'website', noindex = false } = Astro.props;
 const ogTitle = shareTitle ?? title;
 
 // Preview/local builds are never indexable (BUILD_SPEC §4). Only a build
@@ -61,9 +66,9 @@ const share: ShareImage = ogImage
     };
 ---
 
-<title>{title}</title>
-<meta name="description" content={description} />
-{!isProduction && <meta name="robots" content="noindex, nofollow" />}
+<title data-pagefind-meta="title">{title}</title>
+<meta name="description" data-pagefind-meta="description[content]" content={description} />
+{(!isProduction || noindex) && <meta name="robots" content="noindex, nofollow" />}
 <link rel="canonical" href={canonical} />
 
 <meta property="og:site_name" content={siteConfig.name} />

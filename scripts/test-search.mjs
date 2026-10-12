@@ -13,8 +13,8 @@ import { createRequire } from 'node:module';
 import { join, resolve, extname, normalize } from 'node:path';
 import { findChrome } from './lib/chrome.mjs';
 
-const require = createRequire(import.meta.url);
-const puppeteer = require('puppeteer');
+const nodeRequire = createRequire(import.meta.url);
+const puppeteer = nodeRequire('puppeteer');
 const root = resolve(import.meta.dirname, '..');
 const dist = resolve(root, 'dist');
 const PORT = 4326;

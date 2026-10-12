@@ -161,6 +161,23 @@ relaunch two-step merges them clean; the record for both PRs lives in the
 `phase-c` DECISIONS entry, never on `main` (the append-only docs would
 collide at relaunch).
 
+**Adding or removing an ad landing page (`/go/<slug>`, since 2026-10-12).**
+The page is the treatment entry's approved frontmatter rendered through
+`LandingLayout` (spec: docs/superpowers/specs/2026-10-12-landing-pages-design.md;
+DECISIONS 2026-10-12, the landing-pages entry). To enable a line: add its
+slug to `LANDING_SLUGS` in `src/lib/landing.ts` and its URL to the `/go/`
+block of `.pa11yci.json`; nothing else. The build fails for a slug with no
+non-draft entry. Before enabling one of the four lines left out
+(weight-loss-glp-1, hormone-optimization, peptide-therapy, regenerative),
+read the spec's §12: Google's ad rules, not the site, are why they are out,
+and the peptide page's "$265 for six weeks" lines would need the operator's
+extension first. A page-scoped FAQ exception is kept off a landing page by
+`faqExclude` (the exact question text; the build asserts it still exists);
+the Evolus plaque renders only where the rule says `laurel: true`. The pages
+are noindex and out of the sitemap by construction; an ad's final URL is
+simply the page. Removing a line is the reverse edit. No treatment file
+changes either way, so no approval flag moves.
+
 ## Naming the practice in copy
 
 Since 2026-09-27 the practice's name, "Mobile Aesthetics", is a link to

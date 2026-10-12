@@ -82,9 +82,10 @@ Ordinary work never goes straight into `main`.
    in DECISIONS and NOT in `allowedStrings` (compliance/README
    "Authorizations the registry does not hold").
 2. Open a PR **into `phase-c`**. CI runs the fast gates (build, `check`, `lint:claims`,
-   `lint:voice`, and since 2026-09-27 `lint:practice-link` — about 20
-   seconds together), deploys a **preview
-   environment**, and only then runs the slow gates (pa11y, Lighthouse).
+   `lint:voice`, since 2026-09-27 `lint:practice-link`, and since
+   2026-10-12 `check:search-index` — about 20 seconds together), deploys
+   a **preview environment**, and only then runs the slow gates (pa11y,
+   Lighthouse, and since 2026-10-12 `test:search`).
    Previews are **public and noindexed** — no password (DECISIONS
    2026-07-21) — so the URL can go straight to Amy, but only **once the
    `Deploy preview to Azure Static Web Apps` step has finished**: sent
@@ -692,6 +693,145 @@ src/lib/analytics.ts is wired but has no callers — the site ships no
 client-side component code; wiring the first event is a normal PR
 when a consumer exists.
 
+## Telling the search engines the site exists (Search Console, Bing, the Business Profile)
+
+Context: DECISIONS 2026-10-12. The pages are built for search and the
+sitemap is live (`/sitemap-index.xml`, 21 URLs), but nothing outside
+the repo has been told the site is back: no Search Console property,
+no sitemap submission, no Bing property, and no Business Profile that
+points at needlegirlie.com. Every step below is a human's act inside
+a Google or Microsoft account. None of it is a code change, and none
+of it adds a script, a cookie or a pixel to the site (constraint 5:
+Google's conversion tag, Google Analytics and Tag Manager stay out;
+Search Console reads Google's own index and needs nothing on the
+page).
+
+**Ownership model.** The operator verifies Search Console, because
+the operator holds the DNS zone; Amy's Google account is then added
+as a second Owner so the property survives a change of vendor. The
+Business Profile is the reverse: Amy's account is the primary owner
+and the operator a Manager.
+
+### Google Search Console (operator, about 20 minutes)
+
+1. search.google.com/search-console, signed in as the operator. Add
+   property, choose **Domain**, enter `needlegirlie.com`. Not
+   URL-prefix: the Domain property covers http, https and www in one,
+   and its only verification route is DNS, the one route that needs
+   no code change. Google shows a TXT value beginning
+   `google-site-verification=`.
+2. Add the record to the zone in `rg-corp` (the zone is referenced,
+   never created, by `infra/dns.bicep`):
+
+   ```
+   az network dns record-set txt add-record -g rg-corp -z needlegirlie.com -n "@" -v "google-site-verification=TOKEN"
+   ```
+
+   Or in the portal: DNS zone needlegirlie.com, + Record set, type
+   TXT, name `@`, TTL 3600, value the token. `infra/dns.bicep`
+   declares no TXT at the apex name (its Front Door validation tokens
+   live under `_dnsauth`), so a redeploy leaves this record alone.
+   Put it in the IaC anyway, as a parameter, so the record is on the
+   record:
+
+   ```bicep
+   param googleSiteVerification string = ''
+
+   resource googleVerify 'Microsoft.Network/dnsZones/TXT@2018-05-01' = if (!empty(googleSiteVerification)) {
+     parent: zone
+     name: '@'
+     properties: {
+       TTL: 3600
+       TXTRecords: [ { value: [ googleSiteVerification ] } ]
+     }
+   }
+   ```
+
+   and pass `googleSiteVerification` through `infra/main.bicep` to
+   the dns module. From then on EVERY apex TXT value (an SPF record
+   for mail, another vendor's verification) must be listed in that
+   one resource: a Bicep TXT record set replaces the live set
+   wholesale on deploy, so a value added by hand alone is lost at the
+   next `az deployment`.
+3. Back in Search Console, click Verify. Usually within minutes;
+   Google's page allows up to two or three days for a hand-added
+   record. Confirm the record is served with
+   `nslookup -type=TXT needlegirlie.com`. Never delete the record
+   afterwards: verification lapses with it.
+4. Sitemaps: enter the FULL address, `https://needlegirlie.com/sitemap-index.xml`,
+   and Submit. A Domain property covers every protocol and subdomain, so
+   it refuses a relative path ("Invalid sitemap address", seen
+   2026-10-12). Status should read Success with 21 discovered URLs within
+   a day or two. Optional:
+   URL inspection on `https://needlegirlie.com/`, Request indexing,
+   to bring the first crawl forward.
+5. Settings, Users and permissions, Add user: Amy's Google account,
+   permission **Owner**.
+6. What to read, and when. Pages: the indexed count should climb to
+   21; the redirect hosts (www., needlegirl.com) are expected to show
+   as redirects, anything else "Excluded" is worth a look.
+   Performance: the actual search queries, by page. With analytics
+   off this is the site's only search data, and the seed list for
+   any ads keywords. Enhancements: Google's reading of the JSON-LD
+   from `src/lib/schema.ts`. Front Door's request reports stay the
+   only traffic numbers.
+
+### Bing Webmaster Tools (operator, about 10 minutes)
+
+bing.com/webmasters, sign in with a Microsoft account (the operator's
+tenant account works), choose **Import from Google Search Console**,
+authorize, select needlegirlie.com. Bing copies the verification and
+the sitemap. Bing's index also feeds DuckDuckGo and Yahoo.
+
+### Google Business Profile (Amy with the operator, one 30-minute call)
+
+The decision and Google's guideline are in DECISIONS 2026-10-12. In
+short:
+
+- The 283-review listing is Mobile Aesthetics, Amy's practice; it
+  keeps pointing at yourmobileaesthetics.com. A second "Mobile
+  Aesthetics" medical-spa listing carrying only the logo was seen on
+  2026-09-02; if it is a duplicate, Amy reports or merges it from the
+  account that owns the first.
+- Needle Girlie's listing is a **practitioner profile** in Amy's own
+  name, "Amy Palacios, FNP" (Google's guideline: a public-facing
+  practitioner at a multi-practitioner location may have a profile,
+  named with the practitioner's name only), website
+  `https://needlegirlie.com`, the Mobile Aesthetics address and
+  phone, and the closest category Google offers ("Medical spa"
+  exists). A "Needle Girlie" brand profile at the same address is
+  allowed by the guideline only if the brand operates independently
+  (its own phone, its own bookings); not the recommended route.
+- Steps: business.google.com, signed in as the account that manages
+  the Mobile Aesthetics listing. Add business, the practitioner
+  route, the details above. Google picks the verification method
+  (video, phone or postcard). Once verified: Managers, add the
+  operator; the booking link is `siteConfig.booking.url` (Aesthetic
+  Record); photos from the site's approved set only; the services
+  list from /services; **no hours** (Amy's 2026-08-04 decision: leave
+  them blank or "by appointment"); copy the review link from "Ask for
+  reviews" for Amy to text clients.
+- Listing text is marketing text in the client's eyes and in
+  Google's: the claims rulebook (BUILD_SPEC §8) applies to the
+  listing's description, posts and service descriptions as much as
+  to the site. Reuse approved site copy; write nothing new there.
+- When the listing exists: resolve `{{GBP_STATUS}}` in BUILD_SPEC
+  §17 with its URL, add that URL to `siteConfig.social` (it is
+  emitted as `sameAs` in the business JSON-LD; a normal PR), and
+  record the date in DECISIONS.
+
+### What this section does NOT include
+
+- No Google Analytics, no Google Ads conversion tag, no Tag Manager:
+  all three are pixels or trackers barred by constraint 5. The
+  analytics decision is the section above ("Turning on analytics").
+- No URL-prefix verification by HTML tag or file: both are code
+  changes to the site and each covers only one host form.
+- Google Ads itself: a separate decision with its own prerequisites
+  (DECISIONS 2026-10-12 lists them: Amy's budget and service list,
+  the drug-term keyword certification, PRP's exclusion from Google
+  Ads, and the measurement question constraint 5 raises).
+
 ## Replacing site photography
 
 The per-pic workflow (established over the 2026-08-17 photo round —
@@ -1088,6 +1228,25 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
   apart across several routes before sharing the URL — single green probes
   lie; the bursts have appeared ~100s in. Advise Ctrl+F5 locally afterward.
   (2026-08-01 incident, PR #79 — DECISIONS.)
+
+- **/search says "Search isn't available right now":** the page's own
+  script ran but Pagefind did not start. Check, in order: the browser
+  console for a CSP error naming `wasm-unsafe-eval` (both SWA templates
+  must carry it in `script-src`); that `/pagefind/pagefind.js`,
+  `/pagefind/pagefind-entry.json` and `/pagefind/wasm.en.pagefind` answer
+  200 (a build that skipped the `pagefind --site dist` step ships no
+  `/pagefind/`); and that a search's `.pf_meta`, `.pf_index` and
+  `.pf_fragment` requests answer 200 (all did on the 2026-10-12 preview
+  with no `mimeTypes` entries; if SWA ever refuses one, add
+  `application/octet-stream` for it to both templates). `npm run
+  test:search` reproduces all of this locally under the real headers.
+  (DECISIONS 2026-10-12.)
+
+- **`npm run build` fails at the pagefind step with "An Application
+  Control policy has blocked this file":** Windows Smart App Control is
+  on and refuses Pagefind's unsigned program. It has no per-program
+  exception; the operator turned it off on their PC on 2026-10-12. CI
+  (Linux) is unaffected. Not a repo problem.
 
 - **A scripted feature works on a local server but is dead on the
   preview/production host:** the CSP (`script-src 'self'`, no

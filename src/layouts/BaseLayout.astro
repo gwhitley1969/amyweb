@@ -33,8 +33,8 @@ interface Props {
   /** Page-specific JSON-LD objects (§10) rendered after the sitewide
    * LocalBusiness — built only via src/lib/schema.ts builders. */
   jsonLd?: object[];
-  /** Pass-through to SeoHead: noindex in every build (the /go/ ad
-   * landing pages — DECISIONS 2026-10-12). */
+  /** Pass-through to SeoHead: noindex in every build (/search and the
+   * /go/ ad landing pages — DECISIONS 2026-10-12). */
   noindex?: boolean;
 }
 
@@ -48,6 +48,20 @@ const {
   noindex = false,
 } = Astro.props;
 const jsonLd = JSON.stringify(localBusiness());
+/* Site search (DECISIONS 2026-10-12): Pagefind indexes only <main> of
+ * pages carrying data-pagefind-body. /search, /404, the preview-only
+ * styleguide (its treatment mirrors included) and the /go/ ad landing
+ * pages (they duplicate the treatment pages) stay out of the index;
+ * scripts/check-search-index.mjs holds the same list and fails the build
+ * if the two disagree. */
+const pagePath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const searchable = !(
+  pagePath === '/search' ||
+  pagePath === '/404' ||
+  pagePath === '/styleguide' ||
+  pagePath.startsWith('/styleguide/') ||
+  pagePath.startsWith('/go/')
+);
 ---
 
 <!doctype html>
@@ -103,7 +117,7 @@ const jsonLd = JSON.stringify(localBusiness());
     <header>
       <slot name="header" />
     </header>
-    <main id="main">
+    <main id="main" data-pagefind-body={searchable ? '' : undefined}>
       <slot />
     </main>
     <footer>

@@ -29,6 +29,50 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-10-12 — Site search
+
+- A new /search page finds the site's pages by word. Each match shows
+  the page's title and its search description, never a passage from
+  the page. A magnifier icon left of Book in the header links to it on
+  every page.
+- Nothing about a search leaves the browser: no form, no cookies, no
+  third party, no counting. The index (Pagefind) is built with the site.
+- /search loads about 3 KB of script; the search engine (about 25 KB of
+  script and a 72 KB WebAssembly file) arrives only when someone types.
+  The site's security policy now allows WebAssembly for it.
+- Two new build checks: the index holds exactly the site's 21 pages and
+  no caption line, and search is tested in a browser under the site's
+  real security headers. DECISIONS 2026-10-12.
+
+### 2026-10-12 — Eight ad landing pages at /go/<slug> (merged into `phase-c`; not yet released)
+
+- Eight new pages built for ads, one per service line Google will take
+  ads for today: wrinkle relaxers, dermal fillers, biostimulators, laser
+  treatments, skin rejuvenation, body contouring, skincare, IV therapy.
+  Each is its treatment page's approved words with the editorial tissue
+  removed: the service name, the lead, Book and Call under it, Amy's
+  counter portrait in the arch, the price cards, the visit steps, the
+  FAQ, the medical disclaimer, the noir close, and on a phone a Book/Call
+  bar pinned to the bottom of the screen. No menu, no decks, no body
+  sections, no films, no other photos.
+- The Evolus plaque is on the two injectable pages only (the operator's
+  extension of its scope); the laser page's "Can I book a laser treatment
+  directly?" answer stays on its treatment page and is not on its landing
+  page.
+- The pages are hidden from search engines by design (noindex in every
+  build, out of the sitemap). They exist for ads, Instagram, texts and QR
+  codes, and have no visitors until something points at them.
+- Not built, by Google's ad rules: weight loss, hormones, peptides, PRP.
+  DECISIONS 2026-10-12, the landing-pages entry; the spec is
+  docs/superpowers/specs/2026-10-12-landing-pages-design.md.
+- Nothing a visitor sees on the twelve treatment pages changed; the
+  router card's code moved to a shared component so both layouts render
+  one card.
+- Merged into `phase-c` on the operator's word after his and Amy's look
+  at the preview (PR #267, merge `51715d5`, 19:16 UTC). Not released to
+  `main`. The standing previews #97 and #149 were refreshed the same
+  evening.
+
 ### 2026-10-05 — The wrinkle-relaxers booking answer no longer names Vagaro
 
 - "How do I book?" on /services/wrinkle-relaxers now answers: Online

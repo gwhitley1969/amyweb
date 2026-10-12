@@ -204,6 +204,20 @@ green gate authorizes nothing outside the exception: any other link
 text, any other destination, and any mention of the other providers
 still go to the operator.
 
+A third limit since 2026-10-12: /search builds its results in the
+browser, so no linter reads them. Two rules hold there instead
+(DECISIONS 2026-10-12). A result shows only the page's title and meta
+description, never a passage of the page, because a passage could
+restate on /search a sentence whose exception says it is never restated
+elsewhere. And the practice's name in a result is matched the way this
+gate matches it (`/mobile\s+aesthetics/iu`, in
+`public/js/site-search-text.js`): in a description it becomes the same
+link, cloned from the page's own server-rendered `PracticeLink`; in a
+title, which is itself the result's link, that part of the title is
+dropped. `npm run test:search` checks both rules in a browser, and
+`npm run check:search-index` fails the build if any caption cue's text
+reaches the search index.
+
 The booking destination is a further screened case (2026-10-05). When
 Amy left Vagaro the booking links moved to her practice's Aesthetic
 Record page. It was screened that day: Amy is offered on all 22

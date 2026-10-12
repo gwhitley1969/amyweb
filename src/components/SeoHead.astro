@@ -17,7 +17,10 @@ interface Props {
    *  the default link-share card below. */
   ogImage?: string | undefined;
   ogType?: 'website' | 'article';
-  /** Always noindex (e.g. /search, which has no content of its own). */
+  /** Hide the page from search engines in EVERY build: the ad landing
+   *  pages, /go/*, and /search, which has no content of its own
+   *  (DECISIONS 2026-10-12). Non-production builds are noindexed
+   *  regardless (below). */
   noindex?: boolean;
 }
 

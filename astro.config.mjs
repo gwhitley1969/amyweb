@@ -10,8 +10,12 @@ export default defineConfig({
   site: 'https://needlegirlie.com',
   output: 'static',
   trailingSlash: 'never',
-  // /search is noindex and has no content of its own (DECISIONS 2026-10-12).
-  integrations: [mdx(), sitemap({ filter: (page) => !/\/search\/?$/.test(page) })],
+  integrations: [
+    mdx(),
+    // /search (no content of its own) and the ad landing pages (/go/*) are
+    // noindex in every build and stay out of the sitemap (DECISIONS 2026-10-12).
+    sitemap({ filter: (page) => !page.includes('/go/') && !/\/search\/?$/.test(page) }),
+  ],
   vite: {
     plugins: [
       tailwindcss(),

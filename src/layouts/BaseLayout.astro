@@ -33,7 +33,8 @@ interface Props {
   /** Page-specific JSON-LD objects (§10) rendered after the sitewide
    * LocalBusiness — built only via src/lib/schema.ts builders. */
   jsonLd?: object[];
-  /** Forwarded to SeoHead: noindex even in production (/search). */
+  /** Pass-through to SeoHead: noindex in every build (/search and the
+   * /go/ ad landing pages — DECISIONS 2026-10-12). */
   noindex?: boolean;
 }
 
@@ -48,8 +49,9 @@ const {
 } = Astro.props;
 const jsonLd = JSON.stringify(localBusiness());
 /* Site search (DECISIONS 2026-10-12): Pagefind indexes only <main> of
- * pages carrying data-pagefind-body. /search, /404 and the preview-only
- * styleguide (its treatment mirrors included) stay out of the index;
+ * pages carrying data-pagefind-body. /search, /404, the preview-only
+ * styleguide (its treatment mirrors included) and the /go/ ad landing
+ * pages (they duplicate the treatment pages) stay out of the index;
  * scripts/check-search-index.mjs holds the same list and fails the build
  * if the two disagree. */
 const pagePath = Astro.url.pathname.replace(/\/+$/, '') || '/';
@@ -57,7 +59,8 @@ const searchable = !(
   pagePath === '/search' ||
   pagePath === '/404' ||
   pagePath === '/styleguide' ||
-  pagePath.startsWith('/styleguide/')
+  pagePath.startsWith('/styleguide/') ||
+  pagePath.startsWith('/go/')
 );
 ---
 
@@ -66,7 +69,13 @@ const searchable = !(
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <SeoHead title={title} shareTitle={shareTitle} description={description} ogImage={ogImage} noindex={noindex} />
+    <SeoHead
+      title={title}
+      shareTitle={shareTitle}
+      description={description}
+      ogImage={ogImage}
+      noindex={noindex}
+    />
     {/* Favicons derived from the logo (scripts/derive-logo.mjs, 2026-09-15):
         the ICO carries 16/32/48; iOS takes the 180px tile. */}
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />

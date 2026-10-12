@@ -516,7 +516,11 @@ silently following it. Known superseded points from earlier briefs:
      the retired "#1" plate's spot — DECISIONS same date); and since
      2026-08-25 at the operator's direction, /about (the same
      plate-for-plaque swap, retiring the "#1" sentence sitewide —
-     DECISIONS same date) — nowhere
+     DECISIONS same date); and since 2026-10-12 at the operator's
+     direction, the two ad landing pages of the same lines,
+     /go/wrinkle-relaxers and /go/dermal-fillers (once per page, placed
+     by `src/lib/landing.ts`; DECISIONS 2026-10-12, the landing-pages
+     entry) — nowhere
      else (operator authorization — DECISIONS 2026-08-19; substantiation = the operator's
      verification with Evolus, which also covers the national
      standing): "The Top Evolus Injector in Charlotte." and "And
@@ -664,7 +668,10 @@ silently following it. Known superseded points from earlier briefs:
      never in `allowedStrings` — a green linter never authorizes it. The
      wording is exact and the scope is that one answer on that one page;
      it is never restated anywhere else — body copy, other FAQ answers,
-     alt text, comments, meta descriptions, OG tags, or JSON-LD. Coupling:
+     alt text, comments, meta descriptions, OG tags, or JSON-LD. The ad
+     landing page /go/laser-treatments omits that one FAQ item by rule
+     (`src/lib/landing.ts`, asserted at build; DECISIONS 2026-10-12).
+     Coupling:
      that page's "Three tools, one conversation" section and its
      skin-types FAQ answer still route suitability to a consultation; with
      the layout-injected disclaimer they are what keeps this rule

@@ -4,7 +4,8 @@
  * Pagefind indexes the BUILT site after `astro build`; this gate reads the
  * index it wrote (dist/pagefind/fragment/*.pf_fragment) and fails when:
  *  (a) the set of indexed pages is not exactly every built page minus the
- *      excluded ones (/search, /404, /styleguide and below), or
+ *      excluded ones (/search, /404, /styleguide and below, the /go/ ad
+ *      landing pages), or
  *  (b) any caption cue line (six words or more) from a .vtt file under
  *      public/ appears in an indexed page's text. Caption cues are the one
  *      place some words are allowed to live (CLAUDE.md constraint 2, eighth
@@ -24,7 +25,11 @@ const publicDir = resolve(root, 'public');
 const MIN_CUE_WORDS = 6;
 
 export const isExcluded = (url) =>
-  url === '/search' || url === '/404' || url === '/styleguide' || url.startsWith('/styleguide/');
+  url === '/search' ||
+  url === '/404' ||
+  url === '/styleguide' ||
+  url.startsWith('/styleguide/') ||
+  url.startsWith('/go/');
 
 /** `/about/` -> `/about`; `/` stays `/`. */
 export const normalizeUrl = (url) => url.replace(/\/index\.html$/, '/').replace(/\/+$/, '') || '/';
@@ -117,7 +122,9 @@ function selfTest() {
     normalizeUrl('/about/') === '/about' &&
     normalizeUrl('/') === '/' &&
     isExcluded('/styleguide/concept') &&
+    isExcluded('/go/wrinkle-relaxers') &&
     !isExcluded('/services') &&
+    !isExcluded('/gold') &&
     JSON.stringify(
       cuesFromVtt(
         'WEBVTT\n\nNOTE an editor note that runs on\nfor two long lines of words here\n\n1\n00:00.000 --> 00:01.000\nthe first cue has six words\n\n2\n00:01.000 --> 00:02.000\ntoo short\n',

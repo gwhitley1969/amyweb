@@ -876,6 +876,17 @@ silently following it. Known superseded points from earlier briefs:
   covers songs with sung words as well, at the operator's direction,
   and the captions mark the songs with bounded `[Music]` cues.
   Widening it to another page requires the human operator.
+  Sixth sanctioned consumer (2026-10-12, operator-directed — DECISIONS
+  same date): site search on /search ONLY — `public/js/site-search.js`
+  (~3KB on load with its text rules, `public/js/site-search-text.js`),
+  which imports Pagefind's runtime
+  (`/pagefind/pagefind.js`, its worker and WebAssembly, built by
+  `pagefind --site dist` in `npm run build`) on the first keystroke; the
+  CSP's script-src carries `'wasm-unsafe-eval'` for it. Results show
+  titles and meta descriptions only, never excerpts (an excerpt would
+  restate scoped-exception text on /search). Gates: `check:search-index`
+  and `test:search`. Widening it to another page requires the human
+  operator.
   The 30KB budget stands for every page but the home URL.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.
@@ -913,6 +924,10 @@ silently following it. Known superseded points from earlier briefs:
 - `npm run lint:claims` — compliance linter over all of `src/` (content,
   pages, components, layouts, lib, styles — comments included)
 - `npm run test:a11y` — accessibility checks against the built site
+- `npm run check:search-index` — the site-search index holds exactly the
+  searchable pages and no caption text (runs in `verify:fast`)
+- `npm run test:search` — site search in headless Chrome under the
+  generated SWA headers, CSP included (runs in `verify:slow`)
 - `npm run verify` — everything above, in order (CI parity)
 
 ## Repo map

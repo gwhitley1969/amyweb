@@ -125,6 +125,20 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
       </a>
     </div>
     <nav aria-label="Primary" class="site-nav">
+      {/* Site search (DECISIONS 2026-10-12): a plain link to /search — no
+          script on any page but /search itself. Left of Book (operator's
+          placement, 2026-10-12, chosen from renders). */}
+      <a
+        href="/search"
+        class="site-search-link"
+        aria-current={Astro.url.pathname.replace(/\/+$/, '') === '/search' ? 'page' : undefined}
+      >
+        <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+          <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="2"></circle>
+          <path d="M15.5 15.5 20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+        <span class="sr-only">Search</span>
+      </a>
       {/* The persistent conversion action — visible at every width,
           never inside the menu (hybrid nav, operator 2026-08-15). */}
       <a
@@ -386,7 +400,9 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
       font-size: 0.9375rem;
     }
   }
-  .site-nav-toggle {
+  /* The search link (2026-10-12) shares the menu button's 44px tap target. */
+  .site-nav-toggle,
+  .site-search-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -396,12 +412,17 @@ const currentFor = (item: (typeof nav)[number]): 'page' | 'true' | undefined => 
     background: none;
     border: none;
     cursor: pointer;
+    text-decoration: none;
   }
   /* icon sized up per operator review 2026-08-15 */
   @media (min-width: 1024px) {
     .site-nav-toggle svg {
       width: 34px;
       height: 34px;
+    }
+    .site-search-link svg {
+      width: 30px;
+      height: 30px;
     }
   }
   .site-nav-popover {

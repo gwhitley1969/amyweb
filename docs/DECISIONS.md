@@ -16064,3 +16064,124 @@ copy of a page until they next read it. Another session's records PR
 (#260) conflicted with the record files these changes edited. It was
 merged by hand the same evening at the operator's direction, with both
 sides' entries kept.
+
+## 2026-10-12 — Ad landing pages: eight `/go/<slug>` pages built from the treatment entries' approved strings (operator decisions 1–6; the first page, then the seven; PR #267)
+
+**Context.** The search-presence entry above records Amy's three-line
+text and what "landing pages" means in a vendor's mouth. The operator
+judged that "the treatment pages already serve as landing pages", though
+true, would not land with the client, and chose purpose-built ad pages.
+The scope went "one per service", then, after the Google verification
+recorded in that entry, the eight lines Google will take ads for today;
+the operator confirmed the eight and locked the design decisions in the
+brainstorm (spec:
+`docs/superpowers/specs/2026-10-12-landing-pages-design.md`):
+
+1. Eight lines: wrinkle-relaxers, dermal-fillers, biostimulators,
+   laser-treatments, skin-rejuvenation, body-contouring, skincare and
+   iv-therapy (IV therapy added after the verification found nothing in
+   Google's text against it). Deferred: weight-loss-glp-1,
+   hormone-optimization, peptide-therapy (may be refused without a
+   certification Amy does not hold; the weight-loss page's investigational
+   card is a second reason) and regenerative (PRP is named on Google's
+   cell-therapy prohibition).
+2. `/go/<slug>`; `noindex, nofollow` in every build by meta tag and by an
+   `X-Robots-Tag` route; out of the sitemap; robots.txt untouched so the
+   tag can be read; canonical self.
+3. Zero new treatment copy: the H1 is the entry's title, the place line
+   is the locality fact, the lead is `schemaDescription ?? summary`, the
+   cards and FAQ are the approved ones. No approval flag moves; Amy reviews
+   the look on the preview. Ad-tuned headlines are a later content round.
+4. Two page-scoped overrides: the Evolus plaque extended to
+   `/go/wrinkle-relaxers` and `/go/dermal-fillers` (CLAUDE.md constraint 3
+   amended); the laser page's §8.7 FAQ answer kept on its own page and
+   omitted from `/go/laser-treatments` by rule. Everything else page-scoped
+   never reaches a landing page because the layout renders no deck, body,
+   film or entry photo. The "$265 for six weeks" lines are NOT extended:
+   the peptide page is deferred.
+5. A sticky Book/Call bar on phones, and the home hero portrait once, in
+   the arch.
+6. Spec → in-browser mock (the live treatment page restyled, JPEGs at 390
+   and 1280, the operator's critique) → worktree branch → PR with the
+   first page → the seven → the records, all in one PR.
+
+**Decision.** Built on `feat/landing-pages` (worktree off `phase-c`,
+which was six commits ahead of `main`), PR #267 into `phase-c`.
+
+- `src/lib/landing.ts`: the enable list and the per-page rules (`laurel`
+  on the two injectable slugs; `faqExclude` by exact question text, with a
+  build-time assertion that the question still exists, so a rule cannot
+  rot). `src/pages/go/[slug].astro` renders the enabled slugs; a slug with
+  no non-draft entry fails the build.
+- `LandingLayout.astro`: eyebrow, H1, factual lead, chip Book + chip Call
+  (no outline CTA on the light canvas), the portrait, the plaque by rule,
+  the product cards, the flag-driven notices adjacent to them, the visit
+  steps, the FAQ, the router card, DisclaimerBlock (unconditional), the
+  closing band, the landing footer, the sticky bar. `LandingHeader.astro`
+  (wordmark as an image, not a link; one Call, short on phones) and
+  `StickyActions.astro` (solid Book or Shop + outline Call, hidden from
+  768px) are new. `Footer.astro` gains a `landing` variant (address block
+  + legal links; no social marks, no app block). `SeoHead`/`BaseLayout`
+  gain a `noindex` prop.
+- `RouterCard.astro`: the treatment pages' router card moved out of
+  `TreatmentLayout` so both layouts render one card. Markup and styles
+  unchanged; the built treatment pages were diffed against a baseline
+  build of the same tree: the only differences are Astro's CSS chunking
+  (which component styles are inlined vs linked, now that a new page
+  shares some components) and one space of indentation at the card.
+- Plumbing: `astro.config.mjs` sitemap filter; the `/go/*` header route in
+  both SWA templates; `.pa11yci.json` +8 URLs (33); `lighthouserc.json`
+  +1 URL under the house row; `EvolusLaurel.astro`'s comment lists the two
+  placements.
+- Records: BUILD_SPEC §6 (a `/go/[slug]` row) and §10 (the noindex
+  family); CLAUDE.md constraint 3 (the plaque paragraph and a note on the
+  laser exception); RUNBOOK "Everyday changes" (adding or removing a
+  landing page); CLINICIAN-SIGN-OFF (a not-flag-gated section: Amy reviews
+  the eight on the preview); CHANGELOG when shipped.
+
+**Alternatives rejected.**
+- Ads pointed at the treatment pages with no new pages: accurate and free,
+  judged unsellable to the client (the operator, same day).
+- A frontmatter field for ad headlines: a schema change, twelve content
+  edits, twelve flag resets and a sign-off round for copy nobody has
+  asked for. Deferred.
+- Hand-written landing files: copies of approved text that would drift
+  from their sources; the collection route makes drift impossible.
+- `Disallow: /go/` in robots.txt: hides the noindex tag from Google.
+- A cross-canonical to the treatment page: contradicts noindex.
+- Twelve pages: four cannot be ad destinations today.
+- Hiding the sticky bar with Tailwind's `md:hidden`: the utility sits in
+  a cascade layer, and the bar's own unlayered `display: flex` beat it at
+  every width (found at 1280px on the first build). The hide-on-wide rule
+  lives in the component's CSS. A standing lesson for any component that
+  sets its own `display`.
+
+**Consequences.** Eight new routes; 33 pages built. Nothing changes on
+the twelve treatment pages or in any content file. The pages have no
+visitors until an ad, a post, a text or a QR code points at one. Google's
+conversion tag stays off the site (constraint 5); measurement is calls
+and bookings, as the search-presence entry says. Enabling a deferred line
+is a list edit plus a pa11y line, after the operator settles its Google
+question (and, for peptides, the price-line extension). This entry and
+the search-presence entry were written the same day on different trees
+(this one on the branch, that one uncommitted on `phase-c`); when both
+land, the append-only file collides at its tail and both entries are
+kept.
+
+**Verification.** The eight-page tree: `npm run build` 33 pages;
+`astro check` 0 errors, 0 warnings, 0 hints; `lint:claims`, `lint:voice`
+and `lint:practice-link` (33 pages, 73 practice links) green. The
+acceptance script on `dist/` for all eight slugs: the noindex meta, the
+title and H1 equal to the treatment page's, one H1, no breadcrumbs, nav,
+badge, deck, body or film, the plaque exactly once on the two injectable
+pages and nowhere else, the laser FAQ item absent, the products block,
+DisclaimerBlock, the router card, the sticky bar, the closing band, the
+trimmed footer, tel and booking links, no client scripts, no second
+`Service` node; the sitemap without `/go/`; the `/go/*` header route in
+the generated config. Playwright on the local build of the first page:
+at 390 the bar shows and the footer's last line sits five pixels above
+it; at 1280 the bar and its spacer are `display: none` and the header
+shows the full Call; console clean but for the font-preload warning the
+treatment pages also emit. Lighthouse on `/go/wrinkle-relaxers` (first
+build): 1.0 in all four categories, LCP 1.5 s, CLS 0, TBT 0, 0 B script,
+39 KB image, 92 KB total. The eight-page tree's slow gates, the same day: pa11y 33 of 33 URLs, Lighthouse assertions on 9 URLs, both green (exit 0).

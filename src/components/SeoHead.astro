@@ -61,8 +61,8 @@ const share: ShareImage = ogImage
     };
 ---
 
-<title>{title}</title>
-<meta name="description" content={description} />
+<title data-pagefind-meta="title">{title}</title>
+<meta name="description" data-pagefind-meta="description[content]" content={description} />
 {!isProduction && <meta name="robots" content="noindex, nofollow" />}
 <link rel="canonical" href={canonical} />
 

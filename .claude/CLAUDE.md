@@ -917,6 +917,10 @@ silently following it. Known superseded points from earlier briefs:
 - `npm run lint:claims` — compliance linter over all of `src/` (content,
   pages, components, layouts, lib, styles — comments included)
 - `npm run test:a11y` — accessibility checks against the built site
+- `npm run check:search-index` — the site-search index holds exactly the
+  searchable pages and no caption text (runs in `verify:fast`)
+- `npm run test:search` — site search in headless Chrome under the
+  generated SWA headers, CSP included (runs in `verify:slow`)
 - `npm run verify` — everything above, in order (CI parity)
 
 ## Repo map

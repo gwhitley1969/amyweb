@@ -16140,3 +16140,13 @@ to /search and /pagefind/*); Pagefind's unused UI files ship; "Searching…"
 is re-announced per keystroke; the sitemap filter would drop any future
 route ending in /search. A crafted `?q=` link can show its text inside
 the fixed "No pages match …" sentence on this noindex page.
+
+**Addendum, same day — the preview, and the hold.** The PR #266 preview
+answered 200 for every Pagefind file type in six probe rounds and in real
+searches (`.pf_meta`, `.pf_index`, `.pf_fragment`, the WebAssembly file;
+all `application/octet-stream`), so no `mimeTypes` entries were needed.
+The operator is holding the merge: the feature is to be demonstrated to
+Amy first, and merged only after she says yes. Docs brought in line on
+the branch: README and CLAUDE.md command lists, RUNBOOK (the gate lists,
+two troubleshooting entries), BUILD_SPEC §13 and §14, compliance/README
+(the search results' two rules).

@@ -82,9 +82,10 @@ Ordinary work never goes straight into `main`.
    in DECISIONS and NOT in `allowedStrings` (compliance/README
    "Authorizations the registry does not hold").
 2. Open a PR **into `phase-c`**. CI runs the fast gates (build, `check`, `lint:claims`,
-   `lint:voice`, and since 2026-09-27 `lint:practice-link` — about 20
-   seconds together), deploys a **preview
-   environment**, and only then runs the slow gates (pa11y, Lighthouse).
+   `lint:voice`, since 2026-09-27 `lint:practice-link`, and since
+   2026-10-12 `check:search-index` — about 20 seconds together), deploys
+   a **preview environment**, and only then runs the slow gates (pa11y,
+   Lighthouse, and since 2026-10-12 `test:search`).
    Previews are **public and noindexed** — no password (DECISIONS
    2026-07-21) — so the URL can go straight to Amy, but only **once the
    `Deploy preview to Azure Static Web Apps` step has finished**: sent
@@ -1071,6 +1072,25 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
   apart across several routes before sharing the URL — single green probes
   lie; the bursts have appeared ~100s in. Advise Ctrl+F5 locally afterward.
   (2026-08-01 incident, PR #79 — DECISIONS.)
+
+- **/search says "Search isn't available right now":** the page's own
+  script ran but Pagefind did not start. Check, in order: the browser
+  console for a CSP error naming `wasm-unsafe-eval` (both SWA templates
+  must carry it in `script-src`); that `/pagefind/pagefind.js`,
+  `/pagefind/pagefind-entry.json` and `/pagefind/wasm.en.pagefind` answer
+  200 (a build that skipped the `pagefind --site dist` step ships no
+  `/pagefind/`); and that a search's `.pf_meta`, `.pf_index` and
+  `.pf_fragment` requests answer 200 (all did on the 2026-10-12 preview
+  with no `mimeTypes` entries; if SWA ever refuses one, add
+  `application/octet-stream` for it to both templates). `npm run
+  test:search` reproduces all of this locally under the real headers.
+  (DECISIONS 2026-10-12.)
+
+- **`npm run build` fails at the pagefind step with "An Application
+  Control policy has blocked this file":** Windows Smart App Control is
+  on and refuses Pagefind's unsigned program. It has no per-program
+  exception; the operator turned it off on their PC on 2026-10-12. CI
+  (Linux) is unaffected. Not a repo problem.
 
 - **A scripted feature works on a local server but is dead on the
   preview/production host:** the CSP (`script-src 'self'`, no

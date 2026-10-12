@@ -233,6 +233,24 @@ try {
     check(focused, 'Tab from the search box lands in the results');
     await page.close();
   }
+
+  // Check 7: the header's search link — every page; current on /search.
+  for (const [path, current] of [
+    ['/', null],
+    ['/services/laser-treatments', null],
+    ['/search', 'page'],
+  ]) {
+    const { page } = await openPage(path);
+    const link = await page.$eval('nav.site-nav a[href="/search"]', (a) => ({
+      name: a.textContent.trim(),
+      current: a.getAttribute('aria-current'),
+    })).catch(() => null);
+    check(
+      link?.name === 'Search' && link.current === current,
+      `header search link on ${path} (${JSON.stringify(link)})`,
+    );
+    await page.close();
+  }
 } catch (e) {
   check(false, `test threw: ${e?.message ?? e}`);
 } finally {

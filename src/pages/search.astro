@@ -40,7 +40,9 @@ import PracticeLink from '../components/PracticeLink.astro';
       Search needs JavaScript. Every page is in the menu, or
       <a href="/services" class="underline underline-offset-4" style="color: var(--ng-link)">browse all of Amy's services</a>.
     </p>
-    <p id="site-search-status" role="status" class="mt-6" data-state="idle"></p>
+    {/* wrap-anywhere: the status echoes the query, which may be one long
+        unbroken word; it must wrap, never scroll the page sideways. */}
+    <p id="site-search-status" role="status" class="mt-6 wrap-anywhere" data-state="idle"></p>
     <ol id="site-search-results" class="mt-6 space-y-8" role="list"></ol>
     <template id="site-search-practice-link"><PracticeLink /></template>
   </section>

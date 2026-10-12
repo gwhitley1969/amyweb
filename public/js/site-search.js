@@ -5,13 +5,14 @@
  * " | Needle Girlie" suffix) and META DESCRIPTION only — never an excerpt
  * (see src/pages/search.astro). Everything is built with DOM nodes and
  * textContent; a query is never parsed as HTML. No storage, no analytics,
- * no requests beyond this site.
+ * no requests beyond this site. The text rules live in site-search-text.js.
  */
+import { cleanUrl, cleanTitle, splitPractice } from '/js/site-search-text.js';
+
 const input = document.getElementById('site-search-input');
 const status = document.getElementById('site-search-status');
 const list = document.getElementById('site-search-results');
 const practiceTpl = document.getElementById('site-search-practice-link');
-const PRACTICE = 'Mobile Aesthetics';
 const MAX_RESULTS = 10;
 
 if (input && status && list && practiceTpl) {
@@ -29,19 +30,10 @@ if (input && status && list && practiceTpl) {
     status.textContent = text;
     status.dataset.state = state;
   };
-  const cleanUrl = (url) => url.replace(/\/+$/, '') || '/';
-  // The title is the result's link text, and a link cannot hold the
-  // PracticeLink, so a title part that names the practice is dropped (the
-  // home page's "Needle Girlie | Mobile Aesthetics in …" shows "Needle Girlie").
-  const cleanTitle = (title) => {
-    const parts = (title ?? '').replace(/\s*\|\s*Needle Girlie\s*$/, '').split(/\s*\|\s*/);
-    return parts.filter((part) => !part.includes(PRACTICE)).join(' | ') || 'Needle Girlie';
-  };
-
   function description(text) {
     const p = document.createElement('p');
     p.className = 'mt-2';
-    const parts = (text ?? '').split(PRACTICE);
+    const parts = splitPractice(text);
     parts.forEach((part, i) => {
       p.append(part);
       if (i < parts.length - 1) p.append(practiceTpl.content.cloneNode(true));

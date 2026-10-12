@@ -68,9 +68,10 @@ export function cuesFromVtt(source, file) {
     .flatMap((block, i) => {
       const lines = block.split(/\r?\n/);
       const timing = lines.findIndex((l) => l.includes('-->'));
-      return lines
-        .slice(timing + 1)
-        .map((l) => squash(l.replace(/<[^>]+>/g, ' ')))
+      const textLines = lines.slice(timing + 1).map((l) => squash(l.replace(/<[^>]+>/g, ' ')));
+      // Each line, and the cue's lines joined (a cue is often two short lines).
+      const texts = [...new Set([...textLines, textLines.join(' ')])];
+      return texts
         .filter((text) => text.split(' ').length >= MIN_CUE_WORDS)
         .map((text) => ({ file, cue: i + 1, text }));
     });
@@ -122,7 +123,13 @@ function selfTest() {
         'WEBVTT\n\nNOTE an editor note that runs on\nfor two long lines of words here\n\n1\n00:00.000 --> 00:01.000\nthe first cue has six words\n\n2\n00:01.000 --> 00:02.000\ntoo short\n',
         't.vtt',
       ),
-    ) === JSON.stringify([{ file: 't.vtt', cue: 1, text: 'the first cue has six words' }]);
+    ) === JSON.stringify([{ file: 't.vtt', cue: 1, text: 'the first cue has six words' }]) &&
+    // A cue's text split over two short lines is still caught, joined.
+    findViolations({
+      indexed: [{ url: '/a', content: 'x one two three four five six y' }],
+      expected: ['/a'],
+      cues: cuesFromVtt('WEBVTT\n\n1\n00:00.000 --> 00:01.000\none two three\nfour five six\n', 't.vtt'),
+    }).length === 1;
   console.log(
     ok ? 'check-search-index self-test: ok' : `check-search-index self-test FAILED: ${JSON.stringify({ dirty, clean })}`,
   );

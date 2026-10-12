@@ -5,7 +5,10 @@
  * dist/ with the headers SWA will send (dist/staticwebapp.config.json's
  * globalHeaders, as generated for this build) and runs search in headless
  * Chrome. `--csp "<policy>"` overrides the policy (used to try the Plausible
- * variant). Requires `npm run build` first.
+ * variant). `--firefox` runs the same checks in the installed Firefox
+ * (puppeteer over WebDriver BiDi; FIREFOX_PATH overrides the path) — run by
+ * hand, not in verify (CI runners carry no Firefox). Requires `npm run build`
+ * first.
  */
 import { createServer } from 'node:http';
 import { readFileSync, existsSync, statSync } from 'node:fs';
@@ -67,7 +70,15 @@ const server = createServer((req, res) => {
 });
 await new Promise((r) => server.listen(PORT, r));
 
-const browser = await puppeteer.launch({ executablePath: findChrome(), headless: true, args: ['--no-sandbox'] });
+const firefox = process.argv.includes('--firefox');
+const browser = firefox
+  ? await puppeteer.launch({
+      browser: 'firefox',
+      executablePath: process.env.FIREFOX_PATH ?? 'C:\\Program Files\\Mozilla Firefox\\firefox.exe',
+      headless: true,
+    })
+  : await puppeteer.launch({ executablePath: findChrome(), headless: true, args: ['--no-sandbox'] });
+console.log(`browser: ${await browser.version()}`);
 const failures = [];
 const check = (ok, msg) => {
   if (!ok) failures.push(msg);
@@ -116,8 +127,13 @@ try {
     await page.close();
   }
 
+  // Select the box's text in script, then Backspace: a triple-click does not
+  // select in Firefox over BiDi (seen 2026-10-12: "peptide" appended to "laser").
   const typeSlowly = async (page, text) => {
-    await page.click('#site-search-input', { clickCount: 3 });
+    await page.$eval('#site-search-input', (el) => {
+      el.focus();
+      el.select();
+    });
     await page.keyboard.press('Backspace');
     for (const ch of text) await page.keyboard.type(ch, { delay: 30 });
   };
@@ -169,7 +185,7 @@ try {
     check(
       pep.some((x) => x.href === '/services/peptide-therapy') &&
         !pep.some((x) => x.href === '/services/laser-treatments'),
-      `after retyping, results are "peptide"'s, not "laser"'s (${pep.map((x) => x.href)})`,
+      `after retyping, results are "peptide"'s, not "laser"'s (box "${await page.$eval('#site-search-input', (el) => el.value)}": ${pep.map((x) => x.href)})`,
     );
     await page.close();
   }
@@ -231,6 +247,54 @@ try {
     await page.keyboard.press('Tab');
     const focused = await page.evaluate(() => document.activeElement?.closest('#site-search-results') !== null);
     check(focused, 'Tab from the search box lands in the results');
+    await page.close();
+  }
+
+  // Check 8: no sideways scroll — the header at 320px on any page, and a
+  // long query echoed on /search (WCAG 1.4.10 Reflow).
+  for (const [path, width] of [
+    ['/', 320],
+    ['/services/laser-treatments', 320],
+    ['/search?q=laser', 320],
+    [`/search?q=${'x'.repeat(120)}`, 375],
+  ]) {
+    const { page } = await openPage(path);
+    await page.setViewport({ width, height: 800 });
+    if (path.startsWith('/search')) await settled(page);
+    const over = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    );
+    check(over <= 0, `no sideways scroll at ${width}px on ${path.slice(0, 40)} (${over}px over)`);
+    await page.close();
+  }
+
+  // Check 9: keyboard only — Enter on the first result opens that page.
+  {
+    const { page } = await openPage('/search?q=laser');
+    await settled(page);
+    await page.focus('#site-search-results li a');
+    await Promise.all([page.waitForNavigation({ waitUntil: 'load' }), page.keyboard.press('Enter')]);
+    const path = new URL(page.url()).pathname;
+    check(path === '/services/laser-treatments', `Enter on the first result opens it (${path})`);
+    await page.close();
+  }
+
+  // Check 10: the practice-name rule matches the lint's (/mobile\s+aesthetics/iu):
+  // any casing or spacing becomes one PracticeLink, and leaves a title link.
+  {
+    const { page } = await openPage('/search');
+    const out = await page.evaluate(async () => {
+      const t = await import('/js/site-search-text.js');
+      return {
+        title: t.cleanTitle('Needle Girlie | MOBILE  AESTHETICS in Town | Needle Girlie'),
+        parts: t.splitPractice('owner of Mobile\nAesthetics, and of mobile aesthetics too'),
+      };
+    });
+    check(out.title === 'Needle Girlie', `title drops any spelling of the practice (${out.title})`);
+    check(
+      JSON.stringify(out.parts) === JSON.stringify(['owner of ', ', and of ', ' too']),
+      `description splits on any spelling of the practice (${JSON.stringify(out.parts)})`,
+    );
     await page.close();
   }
 

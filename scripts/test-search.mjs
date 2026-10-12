@@ -48,8 +48,15 @@ function resolveFile(urlPath) {
   return null;
 }
 
+// A path the server answers 404 for while a check runs (the "Pagefind
+// unavailable" case). Done here, not with puppeteer's request interception:
+// interception stalls requests from Pagefind's worker at random (seen
+// 2026-10-12: 4 hangs in 9 runs with it on, 0 in 24 without).
+let blockedPath = null;
+
 const server = createServer((req, res) => {
-  const file = resolveFile(new URL(req.url, BASE).pathname);
+  const pathname = new URL(req.url, BASE).pathname;
+  const file = pathname === blockedPath ? null : resolveFile(pathname);
   if (!file) {
     res.writeHead(404, headers);
     res.end('not found');
@@ -67,7 +74,9 @@ const check = (ok, msg) => {
   console.log(`${ok ? 'ok  ' : 'FAIL'} ${msg}`);
 };
 
+/** `block`: a pathname the server answers 404 for until the next openPage. */
 async function openPage(path, { block } = {}) {
+  blockedPath = block ?? null;
   const page = await browser.newPage();
   const errors = [];
   const foreign = [];
@@ -75,11 +84,8 @@ async function openPage(path, { block } = {}) {
     if (m.type() === 'error') errors.push(m.text());
   });
   page.on('pageerror', (e) => errors.push(String(e)));
-  await page.setRequestInterception(true);
   page.on('request', (r) => {
     if (!r.url().startsWith(BASE)) foreign.push(r.url());
-    if (block && r.url().includes(block)) r.abort();
-    else r.continue();
   });
   await page.goto(BASE + path, { waitUntil: 'load' });
   return { page, errors, foreign };

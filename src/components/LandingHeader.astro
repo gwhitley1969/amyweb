@@ -1,0 +1,79 @@
+---
+import { Picture } from 'astro:assets';
+import CTAButton from './CTAButton.astro';
+/* The same wordmark crop the sitewide header carries (docs/BRAND-ASSETS.md). */
+import wordmark from '../assets/brand/needle-girlie-wordmark-metallic-alpha.png';
+
+/**
+ * The ad landing pages' header (LandingLayout; DECISIONS 2026-10-12):
+ * a noir bar with the wordmark and ONE action, Call. No navigation, no
+ * home link, no practice badge: a paid click has nothing to tap through
+ * to except the page's own two actions. The wordmark is an image, not a
+ * link, for the same reason.
+ *
+ * Call renders twice and shows once: the short "Call" on phones, the
+ * number from 640px up (display: none keeps the hidden one out of the
+ * accessibility tree). Both are CTAButton's call variant, so the tel:
+ * destination and the declarative call_click event are the house ones.
+ */
+---
+
+<div class="surface landing-header" data-surface="noir">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 sm:py-4">
+    <div class="landing-brand">
+      <Picture
+        src={wordmark}
+        alt="Needle Girlie"
+        formats={['avif']}
+        fallbackFormat="webp"
+        quality={50}
+        width={600}
+        widths={[440, 600, 900]}
+        sizes="(max-width: 639px) 56vw, 300px"
+        class="landing-wordmark h-auto"
+      />
+      <span class="landing-brand-credit">Amy Palacios, FNP</span>
+    </div>
+    <div class="landing-header-call">
+      <span class="sm:hidden"><CTAButton variant="call" label="Call" /></span>
+      <span class="hidden sm:inline-flex"><CTAButton variant="call" /></span>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .landing-header {
+    border-bottom: 1px solid var(--ng-hairline);
+  }
+  .landing-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.375rem;
+    min-width: 0;
+  }
+  .landing-wordmark {
+    width: clamp(170px, 56vw, 300px);
+  }
+  /* The sitewide header's credential line, unchanged: pink-500 small text
+   * is legal on noir only (tokens.css, the 5.95:1 pair). */
+  .landing-brand-credit {
+    color: var(--ng-pink-500);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  @media (min-width: 640px) {
+    .landing-brand-credit {
+      font-size: 0.875rem;
+    }
+  }
+  /* A compact Call: the .cta geometry at header scale, still a 44px target. */
+  .landing-header-call .cta {
+    min-height: 2.75rem;
+    padding: 0.6rem 1rem;
+    white-space: nowrap;
+  }
+</style>

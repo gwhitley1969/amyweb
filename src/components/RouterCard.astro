@@ -1,0 +1,39 @@
+---
+import CTAButton from './CTAButton.astro';
+
+/**
+ * The consult router card: the light card above DisclaimerBlock on every
+ * treatment page, and since 2026-10-12 on the ad landing pages too
+ * (LandingLayout). Moved out of TreatmentLayout that day so both layouts
+ * render ONE card; markup, copy and styles are unchanged (the built
+ * treatment pages were diffed byte for byte).
+ *
+ * The 2026-08-24 notes on this card (its deleted pricing line; why its
+ * prose no longer says "consultation" and why that is compliant:
+ * DisclaimerBlock, directly below it wherever it renders, carries the
+ * BUILD_SPEC §8.7 routing) live in TreatmentLayout's header comment.
+ */
+---
+
+<div class="router-card mt-10">
+  <h2 class="heading-4">The right fit is just a conversation away.</h2>
+  <p class="mt-2">Every plan is personalized, decided between you and Amy.</p>
+  {/* Brand chip (operator direction 2026-08-27, second pass — the
+    * round that narrowed the same day's /services freeze to exactly
+    * this button ×12 plus the laser mid-page book; the closing band
+    * below stays outline/solid). */}
+  <div class="mt-4">
+    <CTAButton variant="consult" emphasis="chip" />
+  </div>
+</div>
+
+<style is:global>
+  .router-card {
+    background: var(--ng-card);
+    border: 1px solid var(--ng-hairline);
+    /* ink-pink edges on all boxes since 2026-07-22 (tokens.css
+     * SITE-WIDE BOXES — magenta-600 is margin-thin on the card pink) */
+    border-left: 1px solid var(--ng-ink-pink);
+    padding: 1.5rem;
+  }
+</style>

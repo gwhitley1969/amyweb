@@ -1,0 +1,61 @@
+---
+import CTAButton from './CTAButton.astro';
+
+/**
+ * The ad landing pages' sticky action bar (LandingLayout; DECISIONS
+ * 2026-10-12): on phones, the page's two actions pinned to the bottom of
+ * the screen, so they are in reach at every scroll position. Hidden from
+ * 768px up, where the CTA row and the closing band are always near.
+ *
+ * CSS only: position: fixed on the noir surface, the closing band's own
+ * pairing (solid Book, outline Call), labels kept to one line. The
+ * spacer above it keeps the page's last lines (the footer's legal links)
+ * clear of the bar. The links are CTAButton's, so the destinations and
+ * the declarative events are the house ones. The shop line's primary is
+ * its storefront link, as on its page; every other line's is the booking
+ * page, in the solid style here whatever its page's closing emphasis.
+ *
+ * The hide-on-wide rule lives in this stylesheet, not in a `md:hidden`
+ * utility: Tailwind's utilities sit in a cascade layer, and the bar's
+ * own unlayered `display: flex` would beat the utility at every width.
+ */
+interface Props {
+  ctaType: 'book' | 'consult' | 'shop';
+}
+const { ctaType } = Astro.props;
+const primary = ctaType === 'shop' ? 'shop' : 'book';
+---
+
+<div class="sticky-actions-spacer" aria-hidden="true"></div>
+<div class="surface sticky-actions" data-surface="noir">
+  <CTAButton variant={primary} />
+  <CTAButton variant="call" label="Call" />
+</div>
+
+<style is:global>
+  .sticky-actions {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 40;
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--ng-hairline);
+  }
+  .sticky-actions .cta {
+    flex: 1 1 0;
+    justify-content: center;
+    padding-inline: 0.75rem;
+    white-space: nowrap;
+  }
+  .sticky-actions-spacer {
+    height: 5.25rem;
+  }
+  /* From 768px the CTA row and the closing band are always near. */
+  @media (min-width: 48rem) {
+    .sticky-actions,
+    .sticky-actions-spacer {
+      display: none;
+    }
+  }
+</style>

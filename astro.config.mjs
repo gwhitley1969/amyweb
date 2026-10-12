@@ -12,9 +12,9 @@ export default defineConfig({
   trailingSlash: 'never',
   integrations: [
     mdx(),
-    // The ad landing pages (/go/*) are noindex in every build and stay
-    // out of the sitemap (DECISIONS 2026-10-12).
-    sitemap({ filter: (page) => !page.includes('/go/') }),
+    // /search (no content of its own) and the ad landing pages (/go/*) are
+    // noindex in every build and stay out of the sitemap (DECISIONS 2026-10-12).
+    sitemap({ filter: (page) => !page.includes('/go/') && !/\/search\/?$/.test(page) }),
   ],
   vite: {
     plugins: [

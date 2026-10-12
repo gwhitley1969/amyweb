@@ -131,6 +131,11 @@ Both variants set:
     analytics script origin (§11), `frame-src https://www.youtube-nocookie.com`
     (only if video embeds ship in v1); no `unsafe-inline` scripts (Astro
     inline styles may require `style-src 'unsafe-inline'` — minimize).
+    *Since 2026-10-12 (operator decision after the flag — DECISIONS same
+    date): `script-src` also carries `'wasm-unsafe-eval'`, for site
+    search's WebAssembly engine (Pagefind). It allows compiling
+    WebAssembly only; script sources stay `'self'` and inline scripts
+    stay refused.*
     *Consequence, learned 2026-08-14 (DECISIONS): Astro inlines component
     scripts under 4KB into the HTML, which this CSP silently kills on the
     host while header-less local servers pass them. Site scripts therefore
@@ -1329,7 +1334,11 @@ action.
   the home entry): the home page's motion layer, self-hosted GSAP 3.15
   + Lenis 1.3 + public/js/home-motion.js, ~69KB gzipped, on the home
   URL only, with an 80KB script row in the Lighthouse matrix for that
-  URL; every other page keeps this 30KB budget.)*
+  URL; every other page keeps this 30KB budget. Site search, 2026-10-12
+  (DECISIONS same date): /search alone loads public/js/site-search.js and
+  public/js/site-search-text.js (2,942 B by Lighthouse, inside the house
+  30KB row); Pagefind's runtime, its worker and its WebAssembly file
+  load only after the first keystroke.)*
 - Hero image: optimized, `fetchpriority="high"`, explicit dimensions;
   everything below fold lazy.
 - Fonts: 1 family (Playfair Display — since 2026-08-15), subsetted

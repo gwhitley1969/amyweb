@@ -37,7 +37,7 @@ change lives in `docs/DECISIONS.md`; design specs live in
   every page.
 - Nothing about a search leaves the browser: no form, no cookies, no
   third party, no counting. The index (Pagefind) is built with the site.
-- /search loads about 2 KB of script; the search engine (about 25 KB of
+- /search loads about 3 KB of script; the search engine (about 25 KB of
   script and a 72 KB WebAssembly file) arrives only when someone types.
   The site's security policy now allows WebAssembly for it.
 - Two new build checks: the index holds exactly the site's 21 pages and

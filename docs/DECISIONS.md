@@ -16110,7 +16110,8 @@ caption cue line of six words or more is in the index; it names files
 and cue numbers, never the words) and `test:search` (in verify:slow:
 serves dist/ with the generated SWA headers and runs search in headless
 Chrome — local previews send no CSP, so nothing else would catch a CSP
-break). Measured: /search loads 2,054 B of script (Lighthouse, budget
+break; `--firefox` runs it in Firefox by hand). Measured: /search loads
+2,942 B of script (Lighthouse, budget
 30,720), performance and accessibility 1.00, pa11y 0 errors empty and
 with results. A search fetches pagefind.js (12.8 KB gzip), its worker
 (11.9 KB) and the 72 KB WebAssembly file, plus small index chunks. The
@@ -16121,3 +16122,21 @@ Pagefind's file types, `mimeTypes` entries go into both templates (the
 PR preview is the check). Spec and plan:
 `docs/superpowers/specs/2026-10-12-site-search-design.md`,
 `docs/superpowers/plans/2026-10-12-site-search.md`.
+
+**Addendum, same day — the whole-branch review.** A fresh reviewer found
+no critical issue. Fixed, each with a test that failed first: a long
+query scrolled /search sideways (the status line now wraps); the
+practice-name match was the exact string, narrower than
+lint:practice-link's `/mobile\s+aesthetics/iu` (the text rules moved to
+`public/js/site-search-text.js`, which the test imports); the caption
+tripwire compared single lines only (it now also compares each cue's
+lines joined); and the browser test gained Enter-to-open and a Firefox
+run (Firefox 157 and Chrome 155 green). Its report of sideways scroll at
+320px from the header icon did not reproduce: the house overflow probe
+and the new 320px check read 0px over on this branch and on the live
+site. Left as minor: a failed engine start is retried only on reload;
+the WebAssembly allowance is sitewide (SWA route headers could scope it
+to /search and /pagefind/*); Pagefind's unused UI files ship; "Searching…"
+is re-announced per keystroke; the sitemap filter would drop any future
+route ending in /search. A crafted `?q=` link can show its text inside
+the fixed "No pages match …" sentence on this noindex page.

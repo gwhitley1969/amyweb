@@ -871,7 +871,8 @@ silently following it. Known superseded points from earlier briefs:
   Widening it to another page requires the human operator.
   Sixth sanctioned consumer (2026-10-12, operator-directed — DECISIONS
   same date): site search on /search ONLY — `public/js/site-search.js`
-  (~2KB on load), which imports Pagefind's runtime
+  (~3KB on load with its text rules, `public/js/site-search-text.js`),
+  which imports Pagefind's runtime
   (`/pagefind/pagefind.js`, its worker and WebAssembly, built by
   `pagefind --site dist` in `npm run build`) on the first keystroke; the
   CSP's script-src carries `'wasm-unsafe-eval'` for it. Results show

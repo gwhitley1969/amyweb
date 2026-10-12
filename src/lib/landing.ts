@@ -15,7 +15,16 @@
  * Google's cell-therapy prohibition). The spec's §12 carries the record;
  * enabling any of them is an operator decision.
  */
-export const LANDING_SLUGS = ['wrinkle-relaxers'] as const;
+export const LANDING_SLUGS = [
+  'wrinkle-relaxers',
+  'dermal-fillers',
+  'biostimulators',
+  'laser-treatments',
+  'skin-rejuvenation',
+  'body-contouring',
+  'skincare',
+  'iv-therapy',
+] as const;
 export type LandingSlug = (typeof LANDING_SLUGS)[number];
 
 export interface LandingRules {

@@ -77,7 +77,11 @@ const check = (ok, msg) => {
 /** `block`: a pathname the server answers 404 for until the next openPage. */
 async function openPage(path, { block } = {}) {
   blockedPath = block ?? null;
-  const page = await browser.newPage();
+  // A fresh context per check: its own HTTP cache, so a blocked path is
+  // really fetched (and blocked), not served from an earlier check's cache.
+  const context = await browser.createBrowserContext();
+  const page = await context.newPage();
+  page.once('close', () => context.close().catch(() => {}));
   const errors = [];
   const foreign = [];
   page.on('console', (m) => {
@@ -112,7 +116,123 @@ try {
     await page.close();
   }
 
-  /* TASK-3-CHECKS */
+  const typeSlowly = async (page, text) => {
+    await page.click('#site-search-input', { clickCount: 3 });
+    await page.keyboard.press('Backspace');
+    for (const ch of text) await page.keyboard.type(ch, { delay: 30 });
+  };
+  const settled = (page) =>
+    page.waitForFunction(() => document.getElementById('site-search-status')?.dataset.state === 'done', {
+      timeout: 15000,
+    });
+  const readResults = (page) =>
+    page.$$eval('#site-search-results > li', (lis) =>
+      lis.map((li) => ({
+        href: li.querySelector('h2 a')?.getAttribute('href'),
+        title: li.querySelector('h2 a')?.textContent,
+        desc: li.querySelector('p')?.textContent,
+        nestedLink: !!li.querySelector('h2 a a'),
+        practiceLinks: li.querySelectorAll('p a[data-event="ma_site_click"]').length,
+        marks: li.querySelectorAll('mark').length,
+      })),
+    );
+
+  // Check 2: typing finds the laser page; clean links; no excerpts; nothing foreign.
+  {
+    const { page, errors, foreign } = await openPage('/search');
+    check((await page.$('#site-search-nojs')) === null, 'no-JS notice removed when the script runs');
+    await typeSlowly(page, 'laser');
+    await settled(page);
+    const r = await readResults(page);
+    check(
+      r.some((x) => x.href === '/services/laser-treatments'),
+      `"laser" finds /services/laser-treatments (${r.map((x) => x.href)})`,
+    );
+    check(r.every((x) => x.href === '/' || !x.href.endsWith('/')), 'no result link ends in a slash (Review Focus 1)');
+    check(r.every((x) => !/\|\s*Needle Girlie$/.test(x.title)), 'titles drop the " | Needle Girlie" suffix');
+    check(r.every((x) => x.marks === 0), 'no highlighted excerpts');
+    // The home page's <title> names the practice; a link can't hold the
+    // PracticeLink, so the title link drops that part (constraint 2, 7th exception).
+    check(
+      r.some((x) => x.href === '/') && r.every((x) => !x.title.includes('Mobile Aesthetics')),
+      `no title link names the practice (${r.map((x) => x.title).join(' / ')})`,
+    );
+    const status = await page.$eval('#site-search-status', (el) => el.textContent);
+    check(/^\d+ pages? match/.test(status), `status announces the count ("${status}")`);
+    check(foreign.length === 0, `no requests leave the site (${foreign.join(', ')})`);
+    check(errors.length === 0, `no console errors (${errors.join(' | ')})`);
+    // Review Focus 3: the final list belongs to the final query.
+    // (The laser page never says "peptide" — checked 2026-10-12.)
+    await typeSlowly(page, 'peptide');
+    await settled(page);
+    const pep = await readResults(page);
+    check(
+      pep.some((x) => x.href === '/services/peptide-therapy') &&
+        !pep.some((x) => x.href === '/services/laser-treatments'),
+      `after retyping, results are "peptide"'s, not "laser"'s (${pep.map((x) => x.href)})`,
+    );
+    await page.close();
+  }
+
+  // Check 3: /about's description names the practice -> PracticeLink, separate from the title link.
+  {
+    const { page } = await openPage('/search?q=owner');
+    await settled(page);
+    const r = await readResults(page);
+    const about = r.find((x) => x.href === '/about');
+    check(!!about, `"owner" (via ?q=) finds /about (${r.map((x) => x.href)})`);
+    const one = await page.$eval('#site-search-status', (el) => el.textContent);
+    check(r.length !== 1 || one.startsWith('1 page matches'), `singular grammar ("${one}")`);
+    check(
+      about && about.practiceLinks === 1 && !about.nestedLink,
+      'practice name is one PracticeLink, not nested in the title link',
+    );
+    const attrs = await page.$eval('#site-search-results p a[data-event="ma_site_click"]', (a) =>
+      [a.target, a.rel, a.querySelector('.sr-only')?.textContent].join('|'),
+    );
+    check(attrs === '_blank|noopener| (opens in new tab)', `PracticeLink markup intact (${attrs})`);
+    await page.close();
+  }
+
+  // Check 4: no match, markup-looking input, empty input.
+  {
+    const { page } = await openPage('/search');
+    await typeSlowly(page, 'zzqxv');
+    await settled(page);
+    check(
+      (await page.$eval('#site-search-status', (el) => el.textContent)).startsWith('No pages match'),
+      'no-match message',
+    );
+    await typeSlowly(page, '<img src=x onerror=alert(1)>');
+    await settled(page);
+    check((await page.$('#site-search-status img')) === null, 'query is echoed as text, never parsed (Review Focus 5)');
+    await typeSlowly(page, '');
+    await page.keyboard.press('Backspace');
+    await page.waitForFunction(() => document.querySelectorAll('#site-search-results > li').length === 0);
+    check(true, 'clearing the box clears the results');
+    await page.close();
+  }
+
+  // Check 5: Pagefind unavailable -> plain message (Review Focus 2).
+  {
+    const { page } = await openPage('/search', { block: '/pagefind/pagefind.js' });
+    await typeSlowly(page, 'laser');
+    await settled(page);
+    const status = await page.$eval('#site-search-status', (el) => el.textContent);
+    check(status.startsWith("Search isn't available right now"), `unavailable message ("${status}")`);
+    await page.close();
+  }
+
+  // Check 6: keyboard only — Tab from the box reaches the first result link.
+  {
+    const { page } = await openPage('/search?q=laser');
+    await settled(page);
+    await page.focus('#site-search-input');
+    await page.keyboard.press('Tab');
+    const focused = await page.evaluate(() => document.activeElement?.closest('#site-search-results') !== null);
+    check(focused, 'Tab from the search box lands in the results');
+    await page.close();
+  }
 } catch (e) {
   check(false, `test threw: ${e?.message ?? e}`);
 } finally {

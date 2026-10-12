@@ -10,7 +10,8 @@ export default defineConfig({
   site: 'https://needlegirlie.com',
   output: 'static',
   trailingSlash: 'never',
-  integrations: [mdx(), sitemap()],
+  // /search is noindex and has no content of its own (DECISIONS 2026-10-12).
+  integrations: [mdx(), sitemap({ filter: (page) => !/\/search\/?$/.test(page) })],
   vite: {
     plugins: [
       tailwindcss(),

@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PracticeLink from '../components/PracticeLink.astro';
+
+/**
+ * /search — site search (DECISIONS 2026-10-12; spec
+ * docs/superpowers/specs/2026-10-12-site-search-design.md). Pagefind's
+ * index is built after astro build; public/js/site-search.js loads its
+ * runtime on the first keystroke. A result shows the page's title and
+ * meta description ONLY — never an excerpt: an excerpt could print, here,
+ * sentences whose exceptions say "never restated elsewhere" (CLAUDE.md
+ * constraint 3). The practice name in a description renders as
+ * PracticeLink, cloned from the template below (constraint 2, seventh
+ * exception), beside the title link, never inside it. No <form>
+ * (constraint 5); nothing about a query leaves the browser. noindex and
+ * out of the sitemap: a search page has no content of its own.
+ */
+---
+
+<BaseLayout
+  title="Search | Needle Girlie"
+  description="Search needlegirlie.com for Amy Palacios, FNP's services and pages."
+  noindex
+>
+  <Header slot="header" />
+
+  <section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    <h1 class="display-2">Search</h1>
+    <label for="site-search-input" class="mt-8 block font-semibold">Search the site</label>
+    <input
+      id="site-search-input"
+      type="search"
+      autocomplete="off"
+      spellcheck="false"
+      class="mt-2 w-full border border-current bg-transparent px-4 py-3"
+    />
+    <p id="site-search-nojs" class="mt-4">
+      Search needs JavaScript. Every page is in the menu, or
+      <a href="/services" class="underline underline-offset-4" style="color: var(--ng-link)">browse all of Amy's services</a>.
+    </p>
+    <p id="site-search-status" role="status" class="mt-6" data-state="idle"></p>
+    <ol id="site-search-results" class="mt-6 space-y-8" role="list"></ol>
+    <template id="site-search-practice-link"><PracticeLink /></template>
+  </section>
+
+  <Footer slot="footer" />
+  {/* Static file, not a component script: the CSP is script-src 'self'
+      with no inline code (the TreatmentVideo.astro:156 form). */}
+  <script type="module" src="/js/site-search.js" is:inline></script>
+</BaseLayout>

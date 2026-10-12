@@ -12,6 +12,7 @@ import EvolusLaurel from '../components/EvolusLaurel.astro';
 import VisitSteps from '../components/VisitSteps.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import TrustChips from '../components/TrustChips.astro';
+import RouterCard from '../components/RouterCard.astro';
 import ReviewNumber from '../components/ReviewNumber.astro';
 import { lineNumber } from '../lib/serviceLines';
 import TreatmentVideo from '../components/TreatmentVideo.astro';
@@ -201,17 +202,9 @@ const reviewNum = lineNumber(Astro.url.pathname.split('/').pop() ?? '');
       )
     }
 
-    <div class="router-card mt-10">
-      <h2 class="heading-4">The right fit is just a conversation away.</h2>
-      <p class="mt-2">Every plan is personalized, decided between you and Amy.</p>
-      {/* Brand chip (operator direction 2026-08-27, second pass — the
-        * round that narrowed the same day's /services freeze to exactly
-        * this button ×12 plus the laser mid-page book; the closing band
-        * below stays outline/solid). */}
-      <div class="mt-4">
-        <CTAButton variant="consult" emphasis="chip" />
-      </div>
-    </div>
+    {/* The router card's markup, copy and styles live in RouterCard.astro
+      * since 2026-10-12 (shared with LandingLayout; unchanged here). */}
+    <RouterCard />
 
     <DisclaimerBlock />
   </article>
@@ -245,14 +238,7 @@ const reviewNum = lineNumber(Astro.url.pathname.split('/').pop() ?? '');
 </BaseLayout>
 
 <style is:global>
-  .router-card {
-    background: var(--ng-card);
-    border: 1px solid var(--ng-hairline);
-    /* ink-pink edges on all boxes since 2026-07-22 (tokens.css
-     * SITE-WIDE BOXES — magenta-600 is margin-thin on the card pink) */
-    border-left: 1px solid var(--ng-ink-pink);
-    padding: 1.5rem;
-  }
+  /* .router-card: see components/RouterCard.astro (moved 2026-10-12). */
   /* Editorial standfirst: the "jewelry" card carrying one display
    * line — replaced the AtAGlance fact table (2026-07-20). Upright
    * Playfair only (no italic face is loaded — keeps the font budget

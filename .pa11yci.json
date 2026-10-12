@@ -91,6 +91,38 @@
       "levelCapWhenNeedsReview": "warning"
     },
     {
+      "url": "http://localhost:4325/go/wrinkle-relaxers",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/go/dermal-fillers",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/go/biostimulators",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/go/laser-treatments",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/go/skin-rejuvenation",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/go/body-contouring",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/go/skincare",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/go/iv-therapy",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
       "url": "http://localhost:4325/injector-training",
       "levelCapWhenNeedsReview": "warning"
     },

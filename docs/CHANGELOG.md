@@ -29,6 +29,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-10-12 — Site search
+
+- A new /search page finds the site's pages by word. Each match shows
+  the page's title and its search description, never a passage from
+  the page. A magnifier icon left of Book in the header links to it on
+  every page.
+- Nothing about a search leaves the browser: no form, no cookies, no
+  third party, no counting. The index (Pagefind) is built with the site.
+- /search loads about 2 KB of script; the search engine (about 25 KB of
+  script and a 72 KB WebAssembly file) arrives only when someone types.
+  The site's security policy now allows WebAssembly for it.
+- Two new build checks: the index holds exactly the site's 21 pages and
+  no caption line, and search is tested in a browser under the site's
+  real security headers. DECISIONS 2026-10-12.
+
 ### 2026-10-05 — The wrinkle-relaxers booking answer no longer names Vagaro
 
 - "How do I book?" on /services/wrinkle-relaxers now answers: Online

@@ -869,6 +869,16 @@ silently following it. Known superseded points from earlier briefs:
   covers songs with sung words as well, at the operator's direction,
   and the captions mark the songs with bounded `[Music]` cues.
   Widening it to another page requires the human operator.
+  Sixth sanctioned consumer (2026-10-12, operator-directed — DECISIONS
+  same date): site search on /search ONLY — `public/js/site-search.js`
+  (~2KB on load), which imports Pagefind's runtime
+  (`/pagefind/pagefind.js`, its worker and WebAssembly, built by
+  `pagefind --site dist` in `npm run build`) on the first keystroke; the
+  CSP's script-src carries `'wasm-unsafe-eval'` for it. Results show
+  titles and meta descriptions only, never excerpts (an excerpt would
+  restate scoped-exception text on /search). Gates: `check:search-index`
+  and `test:search`. Widening it to another page requires the human
+  operator.
   The 30KB budget stands for every page but the home URL.
 - **Self-hosted fonts** (@fontsource, WOFF2, `font-display: swap`), max 2
   families.

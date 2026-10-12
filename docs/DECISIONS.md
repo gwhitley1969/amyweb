@@ -16064,3 +16064,60 @@ copy of a page until they next read it. Another session's records PR
 (#260) conflicted with the record files these changes edited. It was
 merged by hand the same evening at the operator's direction, with both
 sides' entries kept.
+
+## 2026-10-12 — Site search: Pagefind indexes the built site; /search shows titles and descriptions only (operator decisions after the flags)
+
+**Context.** The operator asked for search on the website. The site has
+21 pages; search is not in the signed SOW (a divergence, and a possible
+change order). The site is static, its CSP allowed only same-origin
+scripts with no WebAssembly, and every page but home has a 30 KB script
+budget.
+
+**Decision.** Pagefind 1.5.2 (devDependency, exact) runs after
+`astro build` and indexes only `<main>` of every page except /search,
+/404 and /styleguide. A result's title and description come from the
+page's SEO title and meta description, captured from `<head>`. /search
+(noindex, out of the sitemap) loads `public/js/site-search.js`, which
+imports Pagefind's runtime on the first focus or keystroke and shows
+each match as its title (the " | Needle Girlie" suffix dropped, and any
+title part naming the practice dropped, so home reads "Needle Girlie")
+and its description, never an excerpt. Where a description names the
+practice (/about's), the name renders as PracticeLink beside the title
+link, never inside it. Both CSP templates gain `'wasm-unsafe-eval'` in
+`script-src`. A magnifier link to /search sits left of Book in the
+header (the operator's placement, chosen from renders over "between
+Book and the menu" and "inside the menu").
+
+**Operator decisions on record.** Pagefind over the recommended
+hand-written search (new dependency and the CSP change, both flagged).
+Pagefind's native program was blocked by Smart App Control on the
+operator's PC; the operator turned Smart App Control off for the
+machine after the flag that it has no per-program exception. Results
+show titles and descriptions only.
+
+**Alternatives rejected.** A hand-written index and script (recommended;
+no dependency, no CSP change) — declined. Pagefind's default UI — 29.7
+KB gzip and it shows excerpts. Excerpts — they would print, on /search,
+sentences whose exceptions say "never restated elsewhere" (the
+EvolusLaurel ranking lines, the GLOW/KLOW price line, the
+wrinkle-relaxers deck, the regenerative summary, "top of class", the
+Girl Team unit, the laser who-performs lines, the allowlisted strings).
+Google site search — a third party receives the query.
+
+**Consequences.** Two new gates: `check:search-index` (in verify:fast:
+the indexed pages equal the built pages minus the exclusions, and no
+caption cue line of six words or more is in the index; it names files
+and cue numbers, never the words) and `test:search` (in verify:slow:
+serves dist/ with the generated SWA headers and runs search in headless
+Chrome — local previews send no CSP, so nothing else would catch a CSP
+break). Measured: /search loads 2,054 B of script (Lighthouse, budget
+30,720), performance and accessibility 1.00, pa11y 0 errors empty and
+with results. A search fetches pagefind.js (12.8 KB gzip), its worker
+(11.9 KB) and the 72 KB WebAssembly file, plus small index chunks. The
+test harness found that puppeteer's request interception stalls
+Pagefind's worker requests at random, so it blocks paths at its own
+server instead. Run-rate cost $0. If SWA turns out not to serve
+Pagefind's file types, `mimeTypes` entries go into both templates (the
+PR preview is the check). Spec and plan:
+`docs/superpowers/specs/2026-10-12-site-search-design.md`,
+`docs/superpowers/plans/2026-10-12-site-search.md`.

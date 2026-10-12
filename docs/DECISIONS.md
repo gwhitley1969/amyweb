@@ -16065,6 +16065,155 @@ copy of a page until they next read it. Another session's records PR
 merged by hand the same evening at the operator's direction, with both
 sides' entries kept.
 
+## 2026-10-12 — Search presence: Search Console, Bing and the Business Profile get a procedure and an ownership model; Amy's "SEO set up / Landing pages / Google search ads" read into the record (operator question)
+
+**Context.** Amy texted the operator three lines on 2026-10-12: "SEO
+set up", "Landing pages", "Google search ads". It is a vendor's menu;
+the source and any quote are unknown. The operator asked what the
+three mean, what is already done, and who "the operator" in these
+records is (answer: the operator is the human directing this
+engagement for Xtend-AI, the person asking). On the record: the
+2026-10-05 audit found the pages sound and the sitemap live (21 URLs;
+checked again today, `/sitemap-index.xml` and `/robots.txt` answer
+200 on production); analytics is off by decision; Search Console was
+never verified and no sitemap was ever submitted; Bing has no
+property; `{{GBP_STATUS}}` is open, and the only Google listings seen
+(2026-09-02) are Mobile Aesthetics' 283-review listing and a
+logo-only second one. Google's own pages were read today: Search
+Console verification (a Domain property verifies by DNS only; TXT at
+host `@`; a hand-added record may take two or three days; the record
+must stay), the Business Profile guidelines (a public-facing
+practitioner at a multi-practitioner location may have a profile
+named with the practitioner's name only; a second brand profile at
+one address only if the brand operates independently), and the ads
+policies: Restricted drug terms (for US campaigns prescription drug
+names may be used in ad text and on landing pages without
+certification, but keyword-targeting them requires certification),
+and Speculative and experimental treatments, cell and gene therapies
+(platelet rich plasma is named; promotion is allowed only by the
+holder of an FDA licence or approval). The site carries no pixel and
+no form by constraint 5, so Google's conversion tag cannot be placed
+on it without a change to that constraint and to the privacy page.
+
+**Decision.**
+
+1. RUNBOOK gains "Telling the search engines the site exists
+   (Search Console, Bing, the Business Profile)", between "Turning on
+   analytics" and "Replacing site photography": the Domain-property
+   verification by a TXT record at the apex of the `rg-corp` zone,
+   the sitemap submission, the Bing import, the Business Profile
+   route, and what the section excludes.
+2. Ownership model: the operator verifies Search Console (the
+   operator holds DNS) and adds Amy's Google account as a second
+   Owner; the Business Profile is owned by Amy's account with the
+   operator as Manager. The property and the listing both survive a
+   change of vendor.
+3. The verification record is a TXT at `@`. `infra/dns.bicep`
+   declares no apex TXT (its tokens live under `_dnsauth`), so a
+   redeploy will not remove a hand-added record. It is to be declared
+   in Bicep as a parameter-driven resource once the token exists (the
+   RUNBOOK carries the snippet), and from then on every apex TXT
+   value lives in that one resource, because a Bicep TXT record set
+   replaces the live set wholesale.
+4. Recommended Business Profile route, Amy's to settle: a practitioner
+   profile in her own name, "Amy Palacios, FNP", at the Mobile
+   Aesthetics address, website needlegirlie.com; the practice's
+   listing keeps pointing at the practice's site; the logo-only
+   second listing is reported or merged if it is a duplicate; no
+   hours (the 2026-08-04 decision); listing text reuses approved site
+   copy under BUILD_SPEC §8. When it exists, `{{GBP_STATUS}}` is
+   resolved and the URL joins `siteConfig.social` (emitted as
+   `sameAs`), a normal PR.
+5. Landing pages: none built until ads are decided. For organic
+   search the treatment pages are the landing pages already. An ad
+   landing page here is a one-treatment page with the price, the
+   plaque, the Book link and the phone number and no navigation; it
+   goes through the claims linter and Amy's approval like any page,
+   and carries no form (constraint 5).
+6. Google Ads: not started. Prerequisites recorded: Amy's monthly
+   budget and service list; any proposal she received; Google's rules
+   above (drug names in ad text allowed for US campaigns,
+   keyword-targeting them certified only; /services/regenerative
+   cannot be advertised; before-and-after imagery is out of ads;
+   compounded GLP-1, peptides and Biote pellets UNVERIFIED and to be
+   checked before a campaign names them); and the measurement
+   question: with no conversion tag, results are calls (a Google
+   forwarding number inside the ad) and bookings. Changing constraint
+   5 for the tag is the operator's call and was not made.
+7. A one-page brief for Amy, in the operator's voice, written outside
+   the repo (the operator's `C:\Amy` folder, Markdown and a printable
+   HTML copy). It is not site text and restates no site exception;
+   the operator reviews it before sending.
+
+**Alternatives rejected.**
+
+- A URL-prefix property verified by HTML tag or file: a code change
+  to the site, and each covers only one host form.
+- Verifying with Amy's account first: she holds no DNS; adding her as
+  Owner afterwards is equivalent and keeps her in control.
+- A "Needle Girlie" brand profile at the same address: allowed by the
+  guideline only if the brand operates independently, which is
+  UNVERIFIED; the practitioner profile is squarely allowed.
+- Adding the `googleSiteVerification` parameter to `dns.bicep` today:
+  no token exists yet and a placeholder would deploy a bogus record.
+- Turning analytics on "to see search traffic": Search Console gives
+  the search queries without a script; the 2026-10-05 analytics
+  decision stands.
+- Google's conversion tag on the site: constraint 5; the operator's
+  call, not made.
+- A CHANGELOG entry: nothing shipped to the site.
+
+**Consequences.** Two free properties and one listing become the
+operator's and Amy's next actions, outside the repo. The repo changes
+only when the Business Profile URL joins `siteConfig.social` and the
+TXT parameter lands in Bicep, each a normal PR. Until the Bicep
+parameter lands, the apex TXT record set is live state that the IaC
+does not describe (the RUNBOOK says so). BUILD_SPEC §17
+`{{GBP_STATUS}}` stays open until Amy's listing exists. Search
+Console becomes the site's only source of search numbers, as the
+2026-10-05 analytics entry foresaw.
+
+**Verification.** Today: production answers 200 for
+`/sitemap-index.xml` and `/robots.txt`; `sitemap-0.xml` lists 21
+URLs. `infra/dns.bicep` read: TXT resources at `_dnsauth`,
+`_dnsauth.www`, the media and the api names; none at `@`. Google's
+pages read as cited above. Not verified: whether a Needle Girlie
+listing already exists under any account; whether Aesthetic Record's
+booking page can carry a conversion tag; LegitScript's cost; Local
+Services Ads eligibility for med spas; the agency-reported cost
+ranges quoted to the operator ($4 to $28 per click on injectable
+terms, $2,000 to $5,000 a month for a one-location med spa), which
+are vendors' numbers.
+
+## 2026-10-12 — Addendum to the search-presence entry: Search Console verified, the sitemap submitted, Amy an Owner, Bing imported (the operator, the same afternoon)
+
+**What was done.** The operator verified the Domain property
+`needlegirlie.com` in Google Search Console (DNS TXT at the apex of the
+rg-corp zone), submitted `https://needlegirlie.com/sitemap-index.xml`
+(a Domain property refuses a relative path; the RUNBOOK step was
+corrected the same hour), added Amy's Google account as an Owner, and
+imported the property into Bing Webmaster Tools from Search Console.
+
+**What the report showed, and why it is not a fault.** The sitemap row
+read "Couldn't fetch" at submission and then "Sitemap could not be
+read" with the day's date. Checked from here as Googlebot: both sitemap
+files answer 200 as text/xml, uncompressed, no byte-order mark, no
+redirect on the submitted address; http:// and www. redirect once to it;
+robots.txt allows all and names the sitemap; the edge has no firewall.
+The operator then ran URL Inspection, Test live URL, on the sitemap
+address: "URL is available to Google", page fetch successful, 2:48 PM.
+The report row lags the real fetch and is expected to read Success with
+21 discovered pages within a day; nothing was resubmitted.
+
+**Left open.** The Business Profile for Amy (the 30-minute call; the
+practitioner-profile route recommended above; `{{GBP_STATUS}}` stays open
+until it exists). Whether the verification TXT has been declared in
+`infra/dns.bicep` as the RUNBOOK asks, so the record is in the IaC: the
+operator's to confirm. These RUNBOOK and DECISIONS changes are still
+uncommitted on the `phase-c` working tree and will collide at this
+file's tail with the landing-pages entry on `feat/landing-pages` (PR
+#267); both are kept.
+
 ## 2026-10-12 — Ad landing pages: eight `/go/<slug>` pages built from the treatment entries' approved strings (operator decisions 1–6; the first page, then the seven; PR #267)
 
 **Context.** The search-presence entry above records Amy's three-line

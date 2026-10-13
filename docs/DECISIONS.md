@@ -16446,3 +16446,155 @@ entry three extra times, and that copy shipped to `main` with the
 release. The records-only PR that carries this addendum restores the log
 to `phase-c`'s pre-merge text plus this entry; no rendered page was
 affected.
+
+## 2026-10-13 — Ad landing pages: the four deferred lines enabled at Amy's request, PRP included; three scope decisions (operator)
+
+**Context.** The 2026-10-12 landing-pages entry built eight of the
+twelve lines and deferred four on Google's ad rules. On 2026-10-13 Amy
+asked, through the operator, for landing pages for the remaining four —
+regenerative, weight-loss-glp-1, peptide-therapy, hormone-optimization —
+and said she would deal with Google herself. Google's healthcare policies
+were re-read verbatim the same day (support.google.com/adspolicy/answer/…)
+and are unchanged: the cell- and gene-therapy section lists "Platelet
+rich plasma, also referred to as PRP therapies" among the treatments
+that may not be promoted, the only exception being a US advertiser that
+holds the FDA licence or approval for the product (15596627); for US
+campaigns, prescription drug terms may be used in ads and on landing
+pages without certification, but keyword-targeting them requires it, and
+certification is required for business types such as online pharmacies
+and telemedicine providers (15595717); services related to the online
+prescribing, dispensing and sale of prescription drugs are restricted,
+the examples being online pharmacies and telemedicine, and Google says it
+errs on the side of caution in applying that rule (15598647); the US
+location block names LegitScript's Healthcare Merchant Certification
+Program as the accreditation for telemedicine providers, after which the
+advertiser must also be certified with Google (176031); the
+non-exhaustive unapproved-substances list names hCG in relation to
+weight loss and DHEA outside the US (15595718) — the site names neither.
+LegitScript's own site describes its healthcare certification as being
+for pharmacies, telehealth providers and other healthcare companies, and
+says it has certified weight-loss and longevity clinics; whether an
+in-person medspa is accepted, and whether Google then certifies it, is
+unverified. Amy holds no certification. None of this stops the pages
+being built: they are noindex, and they serve posts, texts and QR codes
+as well as ads.
+
+A content survey of the four entries found that the `/go/` mechanism
+(prefix-based noindex, sitemap filter, header route, search-index
+exclusion) needs no change, and that three of the four carry a
+page-scoped exception in a field the landing layout renders. Each was
+put to the operator with a recommendation and settled the same day.
+
+**Decision.**
+
+1. **Peptides.** The "$265 for six weeks" lines on the GLOW and KLOW cards
+   (CLAUDE.md constraint 3; the 2026-10-02 exception) are extended to
+   `/go/peptide-therapy`, which renders the same two cards. CLAUDE.md's
+   paragraph names both pages; the wording is unchanged and still never
+   restated elsewhere. Recommended and chosen.
+2. **Weight loss.** Retatrutide is not on `/go/weight-loss-glp-1` at
+   all. The operator's first choice (the recommendation) had been to keep
+   the card with its investigational notice, as on the treatment page;
+   when the first build showed the notice, Amy's direction, relayed the
+   same morning, was that she did not want it on the landing page. The
+   notice is mandatory wherever Retatrutide is published (constraint 3),
+   so — after that flag — the product leaves the page whole: a
+   `productExclude` rule in `src/lib/landing.ts` drops the card (exact
+   name, asserted at build) and withholds the InvestigationalNotice when
+   the excluded card is the entry's `investigationalProduct`, and a
+   `faqExclude` entry drops the one FAQ item that names it. The three
+   other cards and two other FAQ items render as approved; the treatment
+   page is unchanged.
+3. **Regenerative.** The landing lead is the entry's `summary` — the
+   operator-override sentence that is the visible lead of
+   `/services/regenerative` (DECISIONS 2026-09-19, the addendum) — not
+   the factual `schemaDescription` the template's default would pick.
+   The operator chose this over the recommended factual lead. A `lead`
+   rule in `src/lib/landing.ts` (`'factual' | 'summary'`) does it; the
+   route fails the build if a `summary` rule names an entry with no
+   `schemaDescription`, so the rule cannot sit inert. The landing page's
+   meta description and OG text stay the factual `seo.description`, and
+   it emits no JSON-LD, so the override's never-restated terms hold on
+   both pages. CLAUDE.md's paragraph now names both pages.
+4. **Hormones**, no decision needed: the ten-term symptom vocabulary the
+   linter guards lives only in the entry's MDX body (two passages), which
+   no landing page renders; `/go/hormone-optimization` carries none of
+   it, so the exact-path exemption is not widened, and it carries no FDA
+   box because `bioteDisclaimer: false` (the clinician's 2026-09-19
+   direction), which the layout already honours. Also needing nothing:
+   `ctaType: consult` on regenerative and hormones (the layout and the
+   sticky bar already handle it; the band reads "Book with Amy");
+   `pricingDisplay: consult` on all four (inert on both layouts since
+   2026-08-24, so every price shows on both pages); the mg-keyed GLP-1
+   tiers (global `allowedStrings`; the route adds no text to `src/`).
+5. Flagged once, no action: the regenerative FAQ answer "Can I book a
+   regenerative treatment directly?" says yes and that the procedure can
+   follow the consultation at once. It is approved treatment copy with no
+   recorded exception; it is consult-first, so it is not the laser
+   answer's class, and it stays on both pages. The hormone lab card's
+   "$618 value" comparison is an existing open item (its basis
+   unverified) and carries over as approved copy.
+6. Built on `feat/landing-pages-four` (the landing-pages worktree, off
+   `phase-c` = `main` + the #270 records) as a PR into `phase-c`:
+   `landing.ts` (the four slugs; the `lead` rule; the header's
+   "deliberately absent" paragraph replaced by this record), the route
+   (the lead by rule, asserted), `.pa11yci.json` +4 (37), the spec's §13
+   addendum; records in CLAUDE.md (the four paragraphs above), BUILD_SPEC
+   §6, RUNBOOK, CLINICIAN-SIGN-OFF (the twelve; what Amy should look at
+   on the four), this entry. No content file, layout or component
+   changes; no approval flag moves; Lighthouse unchanged (the house row
+   matches `/go/`).
+
+**Alternatives rejected.**
+- Omitting the GLOW and KLOW cards by rule: keeps the exception's scope
+  but shows Amy a shorter menu than her treatment page; deferring the
+  peptide page again.
+- Removing the investigational notice and keeping the Retatrutide card:
+  a hard-constraint violation, not offered. Keeping the card with its
+  notice (the recommendation, and the operator's first choice): replaced
+  by Amy's direction.
+- The factual lead on `/go/regenerative` (the template's default and the
+  recommendation): the operator chose the treatment page's sentence.
+- Not building the regenerative page because Google will refuse it: the
+  page has other uses, and the refusal is Amy's to hear.
+
+**Consequences.** Twelve landing routes; 38 pages built (the eight's 33,
+/search, and these four). Nothing on the twelve treatment pages changes:
+the branch touches no layout, component or content file. Two
+constraint-3 exceptions now span two pages each (the peptide price lines,
+the regenerative lead); changing either wording or scope still requires
+the human operator. Google will refuse `/go/regenerative` as an ad
+destination, and the three prescription lines may need certification
+before their drug names can be bought as keywords — Amy's workstream, not
+the site's. The `productExclude` rule makes the weight-loss landing page
+the first to show fewer cards than its treatment page; the sign-off sheet
+says so for Amy. Measurement is unchanged (constraint 5).
+
+**Verification.** On the twelve-page tree, twice (before and after the
+Retatrutide rule): `npm run verify:fast` exit 0 — 38 pages built; `astro
+check` 0 errors, 0 warnings, 0 hints; `lint:claims`, `lint:voice`,
+`lint:practice-link` (38 pages, 80 practice links) and
+`check:search-index` green. The acceptance script over all twelve slugs:
+every 2026-10-12 check (the noindex meta; the title, meta description and
+H1 equal to the treatment page's; one H1; no breadcrumbs, nav, badge,
+deck, body or film; the plaque exactly once on the two injectable pages
+and nowhere else; the laser FAQ item absent; the products block,
+DisclaimerBlock, the router card, the sticky bar, the closing band, the
+trimmed footer, tel links; no client scripts; no second Service node; the
+sitemap without `/go/`; the `/go/*` header route) plus the four's: the
+regenerative lead is the override sentence and no meta tag restates it;
+on the weight-loss page no "Retatrutide" anywhere, no investigational
+notice, the three other cards and two other FAQ items present, the
+photo-pairs section absent; the six-week price line exactly twice on the
+peptide page; no FDA box and none of the ten symptom terms on the hormone
+page; "Book with Amy" on the two consult lines — all pass. `npm run
+verify:slow` exit 0 on the first tree (pa11y 39 of 39 URLs; Lighthouse
+assertions on 10 URLs, 30 runs; `test:search` ok), and pa11y 39 of 39
+again after the rule (Lighthouse's collect list has no weight-loss landing
+URL, so its result is unchanged). Playwright on the local build:
+`/go/regenerative` and `/go/weight-loss-glp-1` at 390, and the latter at
+1280, before and after the rule — the pages render as the eight do, the
+sticky bar on phones and none at 1280; console clean but for the
+font-preload warning the treatment pages also emit. The treatment pages
+are unchanged by construction: the branch touches no layout, component
+or content file.

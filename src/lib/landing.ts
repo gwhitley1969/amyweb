@@ -45,6 +45,14 @@ export interface LandingRules {
    * on its own page. The route fails the build if a listed question no
    * longer exists in the entry, so a rule cannot rot silently. */
   faqExclude: readonly string[];
+  /** Product cards NOT rendered on the landing page, by exact card name
+   * (and the same name dropped from the plain `products` list). When the
+   * excluded card is the entry's `investigationalProduct`, the
+   * InvestigationalNotice is not rendered either: the disclosure
+   * qualifies a card that is not on the page, and a product that is not
+   * published needs none (CLAUDE.md constraint 3). The route fails the
+   * build if a listed name no longer exists in the entry's cards. */
+  productExclude: readonly string[];
   /** Which entry field is the lead under the H1. `factual` (the default)
    * is `schemaDescription ?? summary`: the factual description wherever
    * a page has one. `summary` renders the entry's summary even though a
@@ -68,10 +76,16 @@ const RULES: Readonly<Record<string, Partial<LandingRules>>> = {
   // this landing page's lead (DECISIONS same date). The page's meta
   // description stays the factual seo.description.
   regenerative: { lead: 'summary' },
-  // weight-loss-glp-1: no rule. The Retatrutide card and its
-  // investigational notice render by the entry's flag, the operator's
-  // choice on 2026-10-13: the page mirrors the approved page, and
-  // Google's view of an unapproved medicine is Amy's to handle.
+  // Retatrutide is not on this landing page at all, at Amy's direction
+  // (2026-10-13; DECISIONS same date): she did not want the
+  // investigational notice on the page, and the notice is mandatory
+  // wherever Retatrutide is published (CLAUDE.md constraint 3), so the
+  // card, the notice and the one FAQ item that names it all stay on the
+  // treatment page only. The three other cards render as approved.
+  'weight-loss-glp-1': {
+    productExclude: ['Retatrutide'],
+    faqExclude: ["What's the difference between Semaglutide, Tirzepatide, and Retatrutide?"],
+  },
   // peptide-therapy: no rule. The time-span price lines on the GLOW and
   // KLOW cards render as approved; the operator extended that
   // exception's scope to /go/peptide-therapy on 2026-10-13 (CLAUDE.md
@@ -83,5 +97,10 @@ const RULES: Readonly<Record<string, Partial<LandingRules>>> = {
 
 export function landingRules(slug: string): LandingRules {
   const r = RULES[slug] ?? {};
-  return { laurel: r.laurel ?? false, faqExclude: r.faqExclude ?? [], lead: r.lead ?? 'factual' };
+  return {
+    laurel: r.laurel ?? false,
+    faqExclude: r.faqExclude ?? [],
+    productExclude: r.productExclude ?? [],
+    lead: r.lead ?? 'factual',
+  };
 }

@@ -304,11 +304,19 @@ operator the same day:
    approved. CLAUDE.md constraint 3 and DECISIONS record the wider scope.
    Rejected: omitting the two cards by rule (a shorter menu than the
    treatment page shows); deferring the page again.
-2. **Weight loss.** The Retatrutide card and its investigational notice
-   render by the entry's flag, as on the treatment page. Rejected: a
-   card-exclusion rule, which would raise the page's odds with Google at
-   the cost of a page that no longer mirrors the approved one; Amy owns
-   that trade.
+2. **Weight loss.** Retatrutide is not on `/go/weight-loss-glp-1` at
+   all: Amy did not want the investigational notice on the page, and the
+   notice is mandatory wherever Retatrutide is published (CLAUDE.md
+   constraint 3), so the card, the notice and the one FAQ item that names
+   it stay on the treatment page only. A `productExclude` rule (exact
+   card name, asserted at build, the notice withheld when the excluded
+   card is the entry's `investigationalProduct`) plus a `faqExclude`
+   entry do it. The three other cards and the two other FAQ items render
+   as approved. Decided after the first build showed the notice: the
+   operator's first choice had been to keep the card with its notice;
+   Amy's direction, relayed the same morning, replaced it. Rejected:
+   removing the notice and keeping the card (a hard-constraint
+   violation, not offered).
 3. **Regenerative.** The lead is the entry's `summary`, the operator-
    override sentence that is the visible lead of `/services/regenerative`,
    not the factual `schemaDescription` §4 would pick. A `lead` rule in

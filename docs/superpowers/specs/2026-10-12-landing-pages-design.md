@@ -7,6 +7,8 @@
 will accept ads for today. The other four lines are deferred (see §12).
 **Status:** decisions 1–6 locked by the operator on 2026-10-12 (DECISIONS
 same date, the landing-pages entry, written when the branch opens).
+**Addendum:** §13 (2026-10-13) — the four deferred lines enabled at Amy's
+request; twelve pages.
 
 ## 1. Context
 
@@ -277,3 +279,55 @@ budgets unchanged. The page shares the site's single stylesheet.
 - Measurement: unchanged; constraint 5 is the operator's to revisit.
 - The Google Ads account, its campaigns and the call asset: the ads
   workstream, not this spec.
+
+## 13. Addendum, 2026-10-13 — the four deferred lines enabled
+
+Amy asked for landing pages for the remaining four lines, PRP included,
+and will take the Google question herself (the operator, 2026-10-13).
+Google's rules were re-read verbatim that day and are unchanged: PRP is
+named on the cell-therapy prohibition (adspolicy answer 15596627); drug
+names on a landing page need no certification, but keyword-targeting them
+does (15595717); a business that prescribes or dispenses prescription
+drugs may be treated as a prescription drug service (15598647);
+Retatrutide is unapproved, which sits under the speculative-treatment
+rule. The pages are built anyway: they also serve posts, texts and QR
+codes, and they are noindex.
+
+Enabled: `/go/regenerative`, `/go/weight-loss-glp-1`,
+`/go/peptide-therapy`, `/go/hormone-optimization` — twelve pages, 37 in
+the build. The mechanism of §3–§6 is unchanged. The content survey found
+three page-scoped exceptions in fields the layout renders, settled by the
+operator the same day:
+
+1. **Peptides.** The "$265 for six weeks" lines on the GLOW and KLOW cards
+   (§8) are extended to `/go/peptide-therapy`: the cards render as
+   approved. CLAUDE.md constraint 3 and DECISIONS record the wider scope.
+   Rejected: omitting the two cards by rule (a shorter menu than the
+   treatment page shows); deferring the page again.
+2. **Weight loss.** The Retatrutide card and its investigational notice
+   render by the entry's flag, as on the treatment page. Rejected: a
+   card-exclusion rule, which would raise the page's odds with Google at
+   the cost of a page that no longer mirrors the approved one; Amy owns
+   that trade.
+3. **Regenerative.** The lead is the entry's `summary`, the operator-
+   override sentence that is the visible lead of `/services/regenerative`,
+   not the factual `schemaDescription` §4 would pick. A `lead` rule in
+   `src/lib/landing.ts` does it, asserted at build (an entry with no
+   `schemaDescription` cannot carry the rule). The page's meta description
+   and OG text stay `seo.description`, which is factual, and the page
+   emits no JSON-LD, so the override's never-restated terms hold.
+   Rejected: the factual lead, the template's default.
+
+Needing no decision: the hormone page's symptom vocabulary lives in the
+MDX body only, which no landing page renders, so the linter's exact-path
+exemption is not widened, and `/go/hormone-optimization` carries no FDA
+box because the entry's flag is false (the clinician's direction);
+`ctaType: consult` (regenerative, hormones) was already handled by the
+layout and the sticky bar; `pricingDisplay: consult` is inert on both
+layouts, so every price shows on both pages; the mg-keyed GLP-1 tiers are
+global allowed strings. Flagged once, no action: the regenerative FAQ
+answer "Can I book a regenerative treatment directly?" says yes and that
+the procedure can follow the consultation at once — approved treatment
+copy with no recorded exception, and consult-first, so it stays on both
+pages. Gates: `.pa11yci.json` +4 (37 URLs); Lighthouse unchanged (the
+house row matches `/go/`).

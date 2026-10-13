@@ -5,12 +5,13 @@ import { LANDING_SLUGS, landingRules } from '../../lib/landing';
 
 /**
  * Ad landing pages — /go/<slug> (spec:
- * docs/superpowers/specs/2026-10-12-landing-pages-design.md; DECISIONS
- * 2026-10-12). One page per slug in src/lib/landing.ts, each rendering
- * its treatment entry's approved frontmatter through LandingLayout. The
- * MDX body is never rendered here. Pages are noindex in every build and
- * absent from the sitemap; adding a line is a list edit plus its
- * .pa11yci.json line.
+ * docs/superpowers/specs/2026-10-12-landing-pages-design.md and its §13;
+ * DECISIONS 2026-10-12 and 2026-10-13). One page per slug in
+ * src/lib/landing.ts, each rendering its treatment entry's approved
+ * frontmatter through LandingLayout under that file's per-page rules
+ * (the plaque, FAQ exclusions, which field is the lead). The MDX body is
+ * never rendered here. Pages are noindex in every build and absent from
+ * the sitemap; adding a line is a list edit plus its .pa11yci.json line.
  */
 export async function getStaticPaths() {
   const treatments = await getCollection('treatments', ({ data }) => !data.draft);
@@ -32,11 +33,20 @@ for (const q of rules.faqExclude) {
   }
 }
 const faq = entry.data.faq.filter((item) => !rules.faqExclude.includes(item.q));
+
+// A `summary` lead rule only means something where a schemaDescription
+// exists (without one the default already renders the summary); a stale
+// rule fails the build rather than sitting there inert.
+if (rules.lead === 'summary' && !entry.data.schemaDescription) {
+  throw new Error(`landing: "${entry.id}" has a summary-lead rule but no schemaDescription`);
+}
+const lead =
+  rules.lead === 'summary' ? entry.data.summary : (entry.data.schemaDescription ?? entry.data.summary);
 ---
 
 <LandingLayout
   title={entry.data.title}
-  lead={entry.data.schemaDescription ?? entry.data.summary}
+  lead={lead}
   laurel={rules.laurel}
   products={[...entry.data.products]}
   productDetails={entry.data.productDetails}

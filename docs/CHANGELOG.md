@@ -43,8 +43,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - Two new build checks: the index holds exactly the site's 21 pages and
   no caption line, and search is tested in a browser under the site's
   real security headers. DECISIONS 2026-10-12.
+- Amy approved it after a demo on its preview. Merged into `phase-c`
+  on the operator's word (PR #266, merge `6790da5`) and released the
+  same evening with the landing pages below (release PR #269, merge
+  `8467397`): live at 20:47 UTC, the Front Door cache purged by 20:54.
+  Checked on the live site: a search for "laser" lists three pages,
+  every search file answers, and no browser error shows.
+  DECISIONS 2026-10-12, the shipped record.
 
-### 2026-10-12 — Eight ad landing pages at /go/<slug> (merged into `phase-c`; not yet released)
+### 2026-10-12 — Eight ad landing pages at /go/<slug>
 
 - Eight new pages built for ads, one per service line Google will take
   ads for today: wrinkle relaxers, dermal fillers, biostimulators, laser
@@ -69,9 +76,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   router card's code moved to a shared component so both layouts render
   one card.
 - Merged into `phase-c` on the operator's word after his and Amy's look
-  at the preview (PR #267, merge `51715d5`, 19:16 UTC). Not released to
-  `main`. The standing previews #97 and #149 were refreshed the same
-  evening.
+  at the preview (PR #267, merge `51715d5`, 19:16 UTC). The standing
+  previews #97 and #149 were refreshed the same evening.
+- Live at 20:47 UTC with site search (release PR #269). Checked on the
+  live site: /go/wrinkle-relaxers answers and carries noindex, and the
+  sitemap lists no /go/ page. DECISIONS 2026-10-12, the shipped record.
 
 ### 2026-10-05 — The wrinkle-relaxers booking answer no longer names Vagaro
 

@@ -168,13 +168,21 @@ The page is the treatment entry's approved frontmatter rendered through
 DECISIONS 2026-10-12, the landing-pages entry). To enable a line: add its
 slug to `LANDING_SLUGS` in `src/lib/landing.ts` and its URL to the `/go/`
 block of `.pa11yci.json`; nothing else. The build fails for a slug with no
-non-draft entry. Before enabling one of the four lines left out
-(weight-loss-glp-1, hormone-optimization, peptide-therapy, regenerative),
-read the spec's §12: Google's ad rules, not the site, are why they are out,
-and the peptide page's "$265 for six weeks" lines would need the operator's
-extension first. A page-scoped FAQ exception is kept off a landing page by
-`faqExclude` (the exact question text; the build asserts it still exists);
-the Evolus plaque renders only where the rule says `laurel: true`. The pages
+non-draft entry. All twelve lines are enabled: the first eight 2026-10-12,
+the other four 2026-10-13 at Amy's request (DECISIONS same date, which
+also carries Google's position on PRP and the prescription lines; the
+spec's §13). The per-page rules in `landing.ts`: a page-scoped FAQ
+exception is kept off a landing page by `faqExclude` (the exact question
+text; the build asserts it still exists); a product card is kept off by
+`productExclude` (the exact card name, asserted likewise; an excluded
+card that is the entry's `investigationalProduct` takes its notice with
+it — weight-loss, Retatrutide, at Amy's direction); the Evolus plaque
+renders only where the rule says `laurel: true`; `lead: 'summary'` renders the entry's
+summary instead of the factual description (regenerative, a constraint-3
+extension; the build fails if the entry has no `schemaDescription`).
+Enabling a line whose rendered fields carry a page-scoped exception needs
+the operator's extension of that exception first, recorded in CLAUDE.md
+and DECISIONS. The pages
 are noindex and out of the sitemap by construction; an ad's final URL is
 simply the page. Removing a line is the reverse edit. No treatment file
 changes either way, so no approval flag moves.

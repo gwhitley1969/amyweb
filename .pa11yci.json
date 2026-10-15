@@ -132,6 +132,22 @@
       "levelCapWhenNeedsReview": "warning"
     },
     {
+      "url": "http://localhost:4325/go/regenerative",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/go/weight-loss-glp-1",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/go/peptide-therapy",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
+      "url": "http://localhost:4325/go/hormone-optimization",
+      "levelCapWhenNeedsReview": "warning"
+    },
+    {
       "url": "http://localhost:4325/injector-training",
       "levelCapWhenNeedsReview": "warning"
     },

@@ -16598,3 +16598,25 @@ sticky bar on phones and none at 1280; console clean but for the
 font-preload warning the treatment pages also emit. The treatment pages
 are unchanged by construction: the branch touches no layout, component
 or content file.
+
+**Addendum, 2026-10-15 — the shipped record.** PR #271's
+`verify-and-deploy` check went green after the operator's 10-13 word
+to merge once it had; the merge was made on 2026-10-15 at 13:17 UTC
+(`6d711c8`; the tree identical to the one the check verified). The
+standing previews #97 and #149 were refreshed by `merge-tree` the same
+minute. The operator asked for the pages in production and gave the
+merge word on the release PR #272 (`phase-c` into `main`, carrying this
+work and the #270 records); merged at 13:20 UTC (`a6d67a6`) while the
+PR's own preview check was still running, the tree being byte-identical
+to #271's verified tree and the Production workflow re-running every
+gate before deploying. Production run 38741797365: verify green at
+13:28, deploy and Front Door purge done at 13:37 UTC. Checked on the
+live site at 13:40: all twelve `/go/` pages answer 200 with
+`x-robots-tag: noindex, nofollow`; the sitemap lists 21 URLs and no
+`/go/`; `/go/weight-loss-glp-1` carries no "Retatrutide" while
+`/services/weight-loss-glp-1` still carries it four times;
+`/go/regenerative` opens with the summary sentence; the peptide page's
+six-week price line appears exactly twice; the hormone page carries no
+FDA box. `phase-c` was fast-forwarded to `main` after the release. The
+CHANGELOG item and this addendum travel in a records-only PR into
+`phase-c`, the #270 pattern.

@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CTAButton from '../components/CTAButton.astro';
+import ReviewNumber from '../components/ReviewNumber.astro';
+import { reviewTag } from '../lib/reviewTags';
 import { siteConfig } from '../lib/siteConfig';
 import { service } from '../lib/schema';
 
@@ -69,6 +71,9 @@ const pageTitle = 'Tox Together: Private Tox Parties at Home | Needle Girlie';
 const pageDescription =
   'Host a private Tox Party at home with Amy Palacios, FNP, around Charlotte, NC. When your Tox Together party qualifies, you receive a $600 service credit.';
 
+// REVIEW SCAFFOLDING (ReviewNumber.astro) — letter tag for this route.
+const reviewPageTag = reviewTag(Astro.url.pathname);
+
 const jsonLd = [
   service(
     'Tox Together',
@@ -86,6 +91,7 @@ const jsonLd = [
       needs none of /mobile's LCP tuning. The h1 takes the larger
       display size from md: three short words carry it. ---- */}
   <section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    {reviewPageTag && <ReviewNumber n={reviewPageTag} />}
     <p class="eyebrow">Private parties</p>
     <hr class="rule-accent mt-4" aria-hidden="true" />
     <h1 class="display-2 md:display-1 mt-6">Tox Together Party</h1>

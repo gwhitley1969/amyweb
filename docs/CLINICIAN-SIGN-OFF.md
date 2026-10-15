@@ -508,11 +508,13 @@ the film is off the site, its file kept in storage). The Tox Together page
 states its own terms; if the operator wants any of those asked again,
 they come back as their own item.
 
-## Also for Amy's review (not flag-gated): the eight ad landing pages (/go/…)
+## Also for Amy's review (not flag-gated): the twelve ad landing pages (/go/…)
 
-New 2026-10-12, on their PR preview first (PR #267) and on the standing
-demo once merged. They answer the "Landing pages" line of her text of
-2026-10-12 (DECISIONS same date, the landing-pages entry; spec
+The first eight new 2026-10-12, on their PR preview first (PR #267) and
+on the standing demo once merged; the other four 2026-10-13, at her
+request, on their own PR preview first. They answer the "Landing pages"
+line of her text of 2026-10-12 (DECISIONS same date, the landing-pages
+entry, and 2026-10-13; spec
 docs/superpowers/specs/2026-10-12-landing-pages-design.md). Each page is
 built for one ad and one action: the service's name, its lead, Book and
 Call under it, her counter portrait in the arch, the price cards, the
@@ -520,14 +522,16 @@ visit steps, the FAQ, the medical disclaimer, and on a phone a Book/Call
 bar pinned to the bottom of the screen. No menu, no other pages to tap
 through to. Every sentence on them is a sentence she has already approved
 on the matching treatment page, so no flag moves and nothing new is hers
-to read; what is hers is the look, on her phone. The eight: wrinkle
-relaxers, dermal fillers, biostimulators, laser treatments, skin
-rejuvenation, body contouring, skincare, IV therapy. Not built, and why
-(the operator's call on Google's own rules, DECISIONS 2026-10-12, the
-search-presence entry): weight loss, hormones and peptides may be refused
-by Google without a certification she does not hold, and PRP cannot be
-advertised on Google at all. The pages are hidden from search engines by
-design: they exist for ads, Instagram, texts and QR codes, and until an ad
+to read; what is hers is the look, on her phone. The eight of 2026-10-12:
+wrinkle relaxers, dermal fillers, biostimulators, laser treatments, skin
+rejuvenation, body contouring, skincare, IV therapy. The four of
+2026-10-13, built at her request: regenerative treatments, weight loss
+and GLP-1 therapy, peptide therapy, hormone optimization. Google's rules
+are unchanged and hers to handle (DECISIONS 2026-10-13): Google does not
+take PRP ads at all, and the other three may be refused without a
+certification she does not hold; the pages serve posts, texts and QR
+codes regardless. The pages are hidden from search engines by design:
+they exist for ads, Instagram, texts and QR codes, and until something
 points at one it has no visitors.
 
 - **The two injectable pages carry the Evolus plaque** ("The Top Evolus
@@ -536,10 +540,25 @@ points at one it has no visitors.
 - **The laser page's "Can I book a laser treatment directly?" answer is
   not on its landing page**, by rule: that answer is authorized on the
   laser treatment page only.
+- **The regenerative page opens with her PRP sentence**, the one the
+  treatment page's lead carries, by the operator's extension of that
+  sentence's scope (CLAUDE.md constraint 3, 2026-10-13).
+- **The weight-loss page has no Retatrutide on it**, at her direction:
+  she did not want the not-FDA-approved notice on the page, and that
+  notice has to go wherever Retatrutide does, so the card, the notice and
+  the FAQ item naming it stay on the treatment page only. Semaglutide,
+  Tirzepatide and Phentermine show as approved.
+- **The peptide page shows the GLOW and KLOW cards with their price lines
+  as approved**, by the operator's extension of those lines' scope
+  (CLAUDE.md constraint 3, 2026-10-13).
+- **The hormone page carries no FDA box**, as the treatment page does not
+  at her direction; none of that page's symptom-awareness language is on
+  it.
 - **Nothing from the treatment pages' bodies is on them**: no decks, no
   photos, no films. The one photo is her counter portrait, the home page's.
-- **She has not seen them.** Her look on the PR preview, or on the
-  standing demo after the merge, is the record.
+- **Her look is the record.** The eight were merged after her and the
+  operator's look at the PR #267 preview (2026-10-12); the four are hers
+  to look at on their PR preview, or on the standing demo after the merge.
 
 ## Operator: flipping the flags (your own hands only)
 

@@ -5,12 +5,14 @@ import { LANDING_SLUGS, landingRules } from '../../lib/landing';
 
 /**
  * Ad landing pages — /go/<slug> (spec:
- * docs/superpowers/specs/2026-10-12-landing-pages-design.md; DECISIONS
- * 2026-10-12). One page per slug in src/lib/landing.ts, each rendering
- * its treatment entry's approved frontmatter through LandingLayout. The
- * MDX body is never rendered here. Pages are noindex in every build and
- * absent from the sitemap; adding a line is a list edit plus its
- * .pa11yci.json line.
+ * docs/superpowers/specs/2026-10-12-landing-pages-design.md and its §13;
+ * DECISIONS 2026-10-12 and 2026-10-13). One page per slug in
+ * src/lib/landing.ts, each rendering its treatment entry's approved
+ * frontmatter through LandingLayout under that file's per-page rules
+ * (the plaque, FAQ and product-card exclusions, which field is the
+ * lead). The MDX body is
+ * never rendered here. Pages are noindex in every build and absent from
+ * the sitemap; adding a line is a list edit plus its .pa11yci.json line.
  */
 export async function getStaticPaths() {
   const treatments = await getCollection('treatments', ({ data }) => !data.draft);
@@ -32,16 +34,40 @@ for (const q of rules.faqExclude) {
   }
 }
 const faq = entry.data.faq.filter((item) => !rules.faqExclude.includes(item.q));
+
+// Same discipline for excluded product cards: a name that no longer
+// matches a card fails the build. An excluded card that is the entry's
+// investigationalProduct takes its notice with it — the disclosure
+// qualifies a card that is not on this page.
+for (const name of rules.productExclude) {
+  if (!entry.data.productDetails.some((item) => item.name === name)) {
+    throw new Error(`landing: "${entry.id}" has no product card "${name}" to exclude`);
+  }
+}
+const productDetails = entry.data.productDetails.filter((item) => !rules.productExclude.includes(item.name));
+const products = entry.data.products.filter((p) => !rules.productExclude.includes(p));
+const investigational =
+  entry.data.investigational &&
+  !(entry.data.investigationalProduct && rules.productExclude.includes(entry.data.investigationalProduct));
+
+// A `summary` lead rule only means something where a schemaDescription
+// exists (without one the default already renders the summary); a stale
+// rule fails the build rather than sitting there inert.
+if (rules.lead === 'summary' && !entry.data.schemaDescription) {
+  throw new Error(`landing: "${entry.id}" has a summary-lead rule but no schemaDescription`);
+}
+const lead =
+  rules.lead === 'summary' ? entry.data.summary : (entry.data.schemaDescription ?? entry.data.summary);
 ---
 
 <LandingLayout
   title={entry.data.title}
-  lead={entry.data.schemaDescription ?? entry.data.summary}
+  lead={lead}
   laurel={rules.laurel}
-  products={[...entry.data.products]}
-  productDetails={entry.data.productDetails}
+  products={products}
+  productDetails={productDetails}
   ctaType={entry.data.ctaType}
-  investigational={entry.data.investigational}
+  investigational={investigational}
   investigationalProduct={entry.data.investigationalProduct}
   investigationalNote={entry.data.investigationalNote}
   bioteDisclaimer={entry.data.bioteDisclaimer}

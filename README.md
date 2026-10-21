@@ -19,6 +19,8 @@ govern every string in this repo and are enforced by CI.
 | `npm run check:approvals` | clinician-approval gate (production-only in CI) |
 | `npm run test:a11y` | axe/WCAG checks against the built site |
 | `npm run test:perf` | Lighthouse budgets against the built site |
+| `npm run check:search-index` | site-search index gate: the indexed pages and no caption text (self-test, then scan) |
+| `npm run test:search` | site search in headless Chrome under the real SWA headers (`-- --firefox` for Firefox, by hand) |
 | `npm run verify` | all of the above except approvals — CI parity |
 
 `verify` must pass for every unit of work. Never weaken a gate to make it

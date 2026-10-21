@@ -41,8 +41,10 @@ profile carries two hostnames for the app (§2, §4.5).
 **The visitor's browser** is the only client. It receives HTML, CSS, one
 font family, images, a handful of static scripts and, from a second
 hostname, the films. It sends nothing back to this system: no form posts,
-no cookies, no analytics beacons while Plausible stays dark (§4.6).
-Everything a visitor *does* is a link-out that leaves the site — booking
+no cookies, no analytics beacons while Plausible stays dark (§4.6). Site
+search is the same: `/search` runs Pagefind in the browser over an index
+written at build time and fetched from this origin, so a query never
+leaves the page (§4.7). Everything a visitor *does* is a link-out that leaves the site — booking
 on Aesthetic Record (`siteConfig.booking.url`; that page answers 403 to
 non-browser clients, so its reachability is checked in a browser), a phone
 call (`tel:`), the skinbetter storefront, Amy's practice site, social
@@ -105,7 +107,14 @@ id, and shares no state beyond DNS and the edge (DECISIONS 2026-09-07).
 
 **Search engines** read `robots.txt` (allow all, names the sitemap) and
 `sitemap-index.xml` from production; previews carry `X-Robots-Tag: noindex,
-nofollow` and a `noindex` meta so drafts never index. Google Search Console
+nofollow` and a `noindex` meta so drafts never index. Two kinds of page are
+`noindex, nofollow` in every build and absent from the sitemap: the ad
+landing pages under `/go/` (the meta plus an `X-Robots-Tag` route in both
+SWA templates; not disallowed in `robots.txt`, which would hide the tag
+from Google) and `/search`, which has no content of its own (DECISIONS
+2026-10-12; *verified 2026-10-21*: the live sitemap lists 21 URLs and none
+under `/go/` or `/search`, and `/go/wrinkle-relaxers` answers with the
+header). Google Search Console
 is verified as a Domain property by a TXT record at the zone apex, and Bing
 imports from it (DECISIONS 2026-10-12); neither needs anything on a page.
 
@@ -196,9 +205,12 @@ fractions of a cent for storage; egress a few dollars at today's traffic.
 
 **GitHub Actions.** Responsibility: every build, every gate, every site
 deploy, and the cache purge. Technology: two workflows (§4.3, §4.4), Node
-22 from `.nvmrc`, `npm ci`, the gates in `package.json` (`verify:fast` =
-build, `astro check`, the claims, voice and practice-link linters;
-`verify:slow` = pa11y and the Lighthouse budgets), and
+22 from `.nvmrc`, `npm ci`, the gates in `package.json` (`build` = `astro
+build`, then `pagefind --site dist` to write the search index into the
+output, then the SWA config generator; `verify:fast` = build, `astro
+check`, the claims, voice and practice-link linters, and the search-index
+gate; `verify:slow` = pa11y, the Lighthouse budgets and a headless search
+under the generated headers), and
 `Azure/static-web-apps-deploy@v1` with `skip_app_build: true` so the action
 can never build on its own and bypass the gates. Scaling: not applicable.
 Cost: GitHub's included Actions minutes.
@@ -240,16 +252,19 @@ Observed on 2026-10-21: `http://needlegirlie.com/` → 307 to `https://`;
 max-age=300`, HSTS for two years with `includeSubDomains; preload`,
 `nosniff`, `strict-origin-when-cross-origin`, the Permissions-Policy
 denials, and a CSP of `default-src 'self'` with no third-party script,
-frame or connect origin and `form-action 'self'`. Two headers the templates
-do not declare are present on every response — `X-XSS-Protection: 1;
-mode=block` and `X-DNS-Prefetch-Control: off` — and `script-src` reads
-`'self' 'wasm-unsafe-eval'` where `config/swa/*.json` say `'self'`. They
-appear identically on a preview environment, and `main` and `phase-c`
-carry the same templates, so they come from the Static Web Apps platform,
-not from this repo (the platform's reason for the addition is UNVERIFIED
-against Microsoft's documentation; the observation is what the record
-carries). `'wasm-unsafe-eval'` admits WebAssembly compilation only and no
-script origin; it does not weaken the policy the templates state.
+frame or connect origin and `form-action 'self'`. `script-src` reads `'self'
+'wasm-unsafe-eval'`: the allowance is in both `config/swa/*.json` since
+2026-10-12 for Pagefind's WebAssembly engine, the site's own search (§4.7;
+DECISIONS 2026-10-12, the site-search entry; BUILD_SPEC §4). It admits
+WebAssembly compilation only — script sources stay `'self'` and inline
+scripts stay refused — and it is sitewide though only `/search` uses it
+(an SWA route header could scope it; left as minor in that entry). Two
+headers the templates do not declare are present on every response,
+`X-XSS-Protection: 1; mode=block` and `X-DNS-Prefetch-Control: off`; they
+appear identically on a preview environment and in no template on any
+branch, so they are the Static Web Apps platform's (its reason is
+UNVERIFIED against Microsoft's documentation; both are legacy headers
+that neither widen nor narrow the policy above).
 
 Step 4 is why a release purges: HTML is edge-cached for five minutes, so
 without `az afd endpoint purge --content-paths '/*'` a visitor could see the
@@ -301,9 +316,9 @@ procedure prefers a new filename (RUNBOOK "Publishing a film").
   Developer      PR → phase-c          Preview env        Release PR → main        Production
      │               │                      │                     │                     │
 (1)  │ branch off phase-c; npm run verify green
-(2)  ├──────────────►│ pr-preview.yml: verify:fast (build, check, three linters, ~20 s)
+(2)  ├──────────────►│ pr-preview.yml: verify:fast (build + search index, check, three linters, index gate)
 (3)  │               ├─────────────────────►│ deploy dist/ as-is (PUBLIC_ENV=preview → preview.json)
-(4)  │               │ verify:slow (pa11y, Lighthouse) — a red run leaves the preview up
+(4)  │               │ verify:slow (pa11y, Lighthouse, headless search) — a red run leaves the preview up
 (5)  │ Amy reviews the preview URL; a treatment edit needs her OK and the operator's
      │   flag flip ON phase-c before any release can pass the approvals gate
 (6)  │ merge into phase-c on the operator's word (merge commit); pushes to phase-c deploy nowhere
@@ -426,6 +441,32 @@ operator's decision, and the flip is the operator's act (RUNBOOK "Turning
 on analytics"). Until then Front Door's edge reports and Search Console
 are the site's only numbers.
 
+### 4.7 A site search
+
+```
+  Browser (/search)                                  Static Web App (same origin)
+    │
+(1) ├─ GET /search → the page and ~3 KB of site script (site-search.js + its text rules)
+(2) │ first focus or keystroke → import /pagefind/pagefind.js, its worker and its
+    │   WebAssembly engine (the CSP's 'wasm-unsafe-eval'), then small index chunks
+(3) │ the query is matched in the browser; nothing is sent anywhere
+(4) │ results: each page's title and meta description, never an excerpt
+```
+
+The index is written at build time by `pagefind --site dist` over `<main>`
+of every page except `/search`, `/404`, `/styleguide` and `/go/`, with each
+page's SEO title and description captured from `<head>`.
+`scripts/check-search-index.mjs` holds the same exclusion list and fails
+the build if the two disagree, and fails it too if any caption cue line of
+six words or more has entered the index. Results are titles and
+descriptions only, because excerpts would print on `/search` sentences
+whose scoped exceptions say "never restated elsewhere" (DECISIONS
+2026-10-12, the site-search entry). `test:search` serves `dist/` under the
+generated SWA headers and runs a search in headless Chrome, because a local
+preview sends no CSP and nothing else would catch a CSP break. Run-rate
+cost: none. *Verified 2026-10-21*: `/search` and `/pagefind/pagefind.js`
+answer 200 on production.
+
 ## 5. Data
 
 There is no database, no session, no user record and no form. What the
@@ -435,7 +476,7 @@ system holds, by where it lives:
 |---|---|---|---|
 | Git (`gwhitley1969/amyweb`) | every page and component; the treatment collection (`src/content/treatments/*.mdx`) with its `clinicianApproved` flags; `compliance/banned-patterns.json` and its `allowedStrings`; the caption files in `public/media/`; the Bicep; the SWA config templates; the records in `docs/` | PRs, merged on the operator's word | the audit trail — treatment edits get their own commits for clinician review |
 | Blob `media` | the `.mp4` renditions (about 53 MB at the 2026-08-17 move; 17 films at the relaunch) | the operator's `az` login, after a compliance screen and a DECISIONS entry | serving infrastructure, not the archive — masters stay in the operator's folders |
-| Static Web App | the built `dist/` per environment, with the generated `staticwebapp.config.json` inside it | the workflows, by deployment token | derived; rebuilt from git on every deploy |
+| Static Web App | the built `dist/` per environment, with the Pagefind index under `/pagefind/` and the generated `staticwebapp.config.json` inside it | the workflows, by deployment token | derived; rebuilt from git on every deploy |
 | Front Door | the edge cache; the request reports the operator reads in the portal | the platform | no body of any kind |
 | Azure DNS | the records in §2, plus records this repo does not declare | Bicep for its own; by hand for the rest | see below |
 | GitHub secrets and variables | `AZURE_STATIC_WEB_APPS_API_TOKEN`, `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`; `FRONT_DOOR_ID`, `AZURE_RESOURCE_GROUP`, `FRONT_DOOR_PROFILE`, `FRONT_DOOR_ENDPOINT` | the operator (`docs/OPERATOR-SETUP.md`) | the only secrets anywhere; none in the repo, ever |
@@ -521,8 +562,9 @@ nofollow` is the control that keeps unapproved drafts out of search; the
 clinician-approval gate is the control that keeps them out of production.
 
 **What the browser is told.** The response headers are the site's
-client-side policy: `default-src 'self'`; `script-src 'self'` (plus the
-platform's `'wasm-unsafe-eval'`, §4.1); `style-src 'self' 'unsafe-inline'`
+client-side policy: `default-src 'self'`; `script-src 'self'
+'wasm-unsafe-eval'` (the allowance is for the site's own search engine,
+§4.7); `style-src 'self' 'unsafe-inline'`
 — the one concession, for Astro's inlined page CSS, which stays inlined
 because un-inlining it (`assetsInlineLimit: 0`) regressed LCP sitewide
 (DECISIONS 2026-08-14); `img-src
@@ -541,8 +583,9 @@ under the generated headers (DECISIONS 2026-08-14).
 **Content trust.** Every string in `src/` — copy, headings, alt text, meta,
 JSON-LD, comments — passes `lint:claims` against
 `compliance/banned-patterns.json`, `lint:voice` (the site speaks as Amy,
-never as a collective) and `lint:practice-link` before a preview exists;
-the banned list only ever grows; a green linter is a floor, not an
+never as a collective) and `lint:practice-link` before a preview exists,
+and the search-index gate keeps caption text and the excluded pages out of
+what `/search` can show; the banned list only ever grows; a green linter is a floor, not an
 authorization, and the overrides no pattern can see live in CLAUDE.md and
 DECISIONS (RUNBOOK "Everyday changes"). Pixels and the caption files are
 outside the linter and are screened per item.
@@ -663,6 +706,11 @@ nothing else. The knobs that exist are small and recorded:
   the scoped answer (DECISIONS 2026-08-14).
 - **Publish-profile secrets for the purge** — an OIDC federated identity
   with one role at one scope instead (DECISIONS 2026-07-07).
+- **A hosted search, or Pagefind's default UI** — Google site search would
+  hand the query to a third party, and the default UI shows excerpts that
+  would restate scoped-exception sentences; a hand-written index was
+  recommended and declined in favour of Pagefind showing titles and
+  descriptions only (DECISIONS 2026-10-12).
 - **A staging subscription** — a second fixed cost for a one-person
   project; PR previews are the staging.
 
@@ -694,9 +742,15 @@ found for the operator to call:
 - `production.yml`'s deploy job has no branch condition under
   `workflow_dispatch`; the app repo's `if: github.ref == 'refs/heads/main'`
   is the pattern to mirror if wanted (§4.3).
-- The live CSP carries `'wasm-unsafe-eval'` and two extra headers the
-  templates do not declare, on production and previews alike — the
-  platform's addition, not this repo's (§4.1).
+- The live responses carry two headers no template declares,
+  `X-XSS-Protection` and `X-DNS-Prefetch-Control`, on production and
+  previews alike — the platform's addition, not this repo's (§4.1). A
+  first draft of this file also credited the platform with the CSP's
+  `'wasm-unsafe-eval'`; that was wrong — it is this repo's own allowance
+  for site search, added 2026-10-12 — and was corrected before this file
+  merged. The draft had been checked against a local `phase-c` that was
+  behind the 2026-10-12/13 merges (site search, the `/go/` landing pages,
+  PRs #266–#273); fetch before comparing templates.
 
 Also recorded: the apex TXT record set is live with two values and
 undeclared in Bicep (§5), as DECISIONS 2026-10-12 foresaw.

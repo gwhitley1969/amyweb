@@ -16105,10 +16105,14 @@ Apps" note. (2) The default `*.azurefd.net` hostname serves the site
 404; the `default` route is `linkToDefaultDomain: 'Enabled'`. (3)
 `production.yml`'s deploy job carries no branch condition under
 `workflow_dispatch`; a manual run from another ref would deploy it (the
-OIDC purge alone would fail). (4) The live CSP carries
-`'wasm-unsafe-eval'` plus `X-XSS-Protection` and
-`X-DNS-Prefetch-Control`, on production and previews alike, from the
-SWA platform, not the templates. Also: the apex TXT record set is live
+OIDC purge alone would fail). (4) The live responses carry
+`X-XSS-Protection` and `X-DNS-Prefetch-Control`, which no template
+declares, on production and previews alike — the SWA platform's. The
+CSP's `'wasm-unsafe-eval'` is this repo's own site-search allowance of
+2026-10-12; a first draft of the file credited it to the platform,
+because the local `phase-c` it was checked against was behind the
+2026-10-12/13 merges (#266–#273). Corrected before the merge; the file
+now carries site search (§4.7) and the `/go/` noindex plumbing. Also: the apex TXT record set is live
 with two values (`MS=…` and the Google token) and undeclared in Bicep,
 as the 2026-10-12 entry foresaw.
 
@@ -16123,6 +16127,7 @@ pipeline does not run. A CHANGELOG entry (nothing shipped).
 record, not a reconstruction. Three follow-ups wait on the operator:
 amend BUILD_SPEC §2's bracket; decide `linkToDefaultDomain` on the
 `default` route and correct the RUNBOOK line; decide the branch guard on
-the production deploy job. This entry's tail will collide with the
-uncommitted search-presence entries on the `phase-c` working tree and
-with PR #267's; keep every side, as before.
+the production deploy job. The branch merged `phase-c` (2978a06) before
+the PR merged, so this entry follows the 2026-10-12/13 entries; the
+search-presence entries that were uncommitted on the `phase-c` working
+tree when this was drafted had reached `phase-c` by then (#268).

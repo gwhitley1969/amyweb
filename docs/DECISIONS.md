@@ -16064,3 +16064,65 @@ copy of a page until they next read it. Another session's records PR
 (#260) conflicted with the record files these changes edited. It was
 merged by hand the same evening at the operator's direction, with both
 sides' entries kept.
+
+## 2026-10-21 — docs/ARCHITECTURE.md: the website gets its standing architecture record, checked against the live estate (operator's standing rule)
+
+**Context.** The operator's rule is that every repo carries
+`docs/ARCHITECTURE.md` — context, containers, flows, data, trust
+boundaries, naming, rejected alternatives — kept current with every
+architecture change. The app repo has had one since Phase 0; this repo
+never did. On 2026-10-21 a PHP2Shell security advisory (server-side code
+execution) had to be assessed by reconstructing the hosting from
+`infra/`, `config/swa/` and the workflows, because no record existed;
+the answer was that it does not apply to a static site with no server
+code (CLAUDE.md constraint 1).
+
+**Decision.** `docs/ARCHITECTURE.md` is added in the app record's
+section structure, citing BUILD_SPEC §2/§4/§11/§14/§15, CLAUDE.md,
+DECISIONS and RUNBOOK rather than restating them, and is updated in the
+same commit as any change to those BUILD_SPEC sections, `infra/`,
+`config/swa/` or the workflows. Every live statement in it was read the
+same day with `az` (ng-website: the Front Door profile, routes, custom
+domains, origin groups, origins, security policies, rule set; the SWA
+and its environments; the storage account; both DNS zones; the budget;
+role assignments on the profile and the SWA — ng-app: the Function App,
+its plan, access restrictions, hostname bindings and the two Front Door
+app settings) and `curl` (the apex, www, http, the legacy domain, the
+SWA hostname, the default endpoint, a preview, the media host with a
+range request, api `/healthz` through Front Door and direct), and is
+marked *verified 2026-10-21* where it carries weight; the few readings
+that rest on memory of Microsoft's documentation are marked UNVERIFIED.
+RUNBOOK "Reference docs" gains the pointer. No CHANGELOG entry: nothing
+shipped to the site.
+
+Four things the check found are recorded in the file and left as found:
+(1) `api.needlegirlie.com` is this profile's route and the Function App
+admits only this profile's `X-Azure-FDID` — both repos' records already
+say so; the reported disagreement between them did not reproduce, and
+the one stale line is BUILD_SPEC §2's bracketed "`/api/*` → Container
+Apps" note. (2) The default `*.azurefd.net` hostname serves the site
+(200, canonical to the apex) where RUNBOOK "The system at a glance" says
+404; the `default` route is `linkToDefaultDomain: 'Enabled'`. (3)
+`production.yml`'s deploy job carries no branch condition under
+`workflow_dispatch`; a manual run from another ref would deploy it (the
+OIDC purge alone would fail). (4) The live CSP carries
+`'wasm-unsafe-eval'` plus `X-XSS-Protection` and
+`X-DNS-Prefetch-Control`, on production and previews alike, from the
+SWA platform, not the templates. Also: the apex TXT record set is live
+with two values (`MS=…` and the Google token) and undeclared in Bicep,
+as the 2026-10-12 entry foresaw.
+
+**Alternatives rejected.** Restating BUILD_SPEC in the new file (two
+sources drift; the app record's citing style is the exemplar). Fixing
+(1)–(3) in the same PR: each is a governing-doc amendment, a Bicep
+change or a workflow change, which are the operator's to call after
+seeing the flag, and this PR is documentation only so the preview
+pipeline does not run. A CHANGELOG entry (nothing shipped).
+
+**Consequences.** The next security advisory is answered from the
+record, not a reconstruction. Three follow-ups wait on the operator:
+amend BUILD_SPEC §2's bracket; decide `linkToDefaultDomain` on the
+`default` route and correct the RUNBOOK line; decide the branch guard on
+the production deploy job. This entry's tail will collide with the
+uncommitted search-presence entries on the `phase-c` working tree and
+with PR #267's; keep every side, as before.

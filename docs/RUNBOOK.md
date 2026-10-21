@@ -1273,6 +1273,9 @@ Secrets/variables are documented in `OPERATOR-SETUP.md` (all configured
 ## Reference docs
 
 - `DECISIONS.md` — why things are the way they are (append-only).
+- `ARCHITECTURE.md` — the standing architecture record: context, containers,
+  flows, data, trust boundaries, naming, rejected alternatives; every live
+  statement checked against the Azure estate on 2026-10-21.
 - `OPERATOR-SETUP.md` — GitHub/Azure wiring details.
 - `BRAND-ASSETS.md` — logo sources and the export pipeline.
 - `.claude/BUILD_SPEC.md` — the specification; §16 is the launch checklist.

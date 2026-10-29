@@ -353,6 +353,20 @@ silently following it. Known superseded points from earlier briefs:
      posters, the brochures or the products is ever restated in site
      text — copy, the label, the captions file, comments, meta, OG,
      JSON-LD; changing any of it requires the human operator.*
+     *Thirteenth pixel-level override, the tenth under this bullet
+     (operator override after the compliance flag — DECISIONS
+     2026-10-29): the home carousel's fourth film (`commercial-attiva`),
+     Amy's own reel announcing the ATTIVA device, carried whole. The
+     device's screen — in the opening shot and on the film's poster —
+     shows a thermal image with power, time and temperature readouts,
+     and the maker's brochure page later in the film carries a second
+     thermal readout with temperature, time and energy values: the
+     console-readout class of the PiXel8 and Epileve frames. Fixed
+     terms: this film and its poster, in the carousel; no value from
+     either readout is ever restated in site text — copy, the slide's
+     label, the captions file, comments, meta, OG, JSON-LD; changing
+     any of it requires the human operator. (Its claims content is the
+     claims bullet's clause for this film.)*
      *(A pointer, not a further entry: the spoken words of the
      IPL-session film on /services/laser-treatments name a count of
      treatments, which BUILD_SPEC §7.12 treats as protocol-class; that
@@ -463,7 +477,12 @@ silently following it. Known superseded points from earlier briefs:
      film (`van-trip-music`), removed 2026-09-25 for want of a licence
      and restored at the operator's direction; the film still starts
      muted, sound one tap away; its caption file marks the songs with
-     bounded `[Music]` cues and never writes out their words.
+     bounded `[Music]` cues and never writes out their words. One more
+     since 2026-10-29, by that route (DECISIONS same date): the
+     Instagram-library song on the carousel's ATTIVA film
+     (`commercial-attiva`), which starts muted like every carousel
+     film, sound one tap away; its caption file marks it with bounded
+     `[Music]` cues and never writes out any words.
      And six photos (operator overrides after the compliance flags —
      DECISIONS 2026-08-18, 2026-08-21, 2026-08-25, and 2026-09-25): the /services hormone-optimization menu
      card's photo (`biote-banner-scale.jpg`), in which the Biote
@@ -650,6 +669,33 @@ silently following it. Known superseded points from earlier briefs:
      (Its on-camera staff member is constraint 2's ninth exception; its
      invitation to schedule, the next bullet's second exception; its
      collective voice, the voice convention's third.)
+     And Amy's own reel announcing the ATTIVA device, the home
+     carousel's fourth film since 2026-10-29 (`commercial-attiva`;
+     operator overrides after the compliance flags — DECISIONS same
+     date; cutting the maker's material at 0:04–0:20 was recommended
+     and declined), carried WHOLE: three of the maker's slides, each a
+     results-comparison photo pair labelled as taken immediately after a
+     treatment — eyes, neck, and a body area photographed in a thong —
+     with bullets that include a recovery claim; and a phone screenshot
+     of the maker's provider brochure, whose mechanism and efficacy
+     claims and practice-growth sales lines are legible at the film's
+     720px. That is before/after content (BUILD_SPEC §1, §8.3, §8.9),
+     the class the weight-loss pairs, the Evolysse film's segment, the
+     Radiesse-visit cut and the IPL film already carry, but these are
+     the maker's patients and model: their consent is the maker's and
+     is not on this site's record. The device's regulatory status could
+     not be confirmed from a primary source that day; the film states
+     none, and no site text ever states one. The two guests on camera
+     with Amy are released and are not providers at the location
+     (operator, same date). Its burned-in heading says the device is
+     coming to the practice; once it has arrived the film is out of
+     date, and swapping or retiring it is the operator's call. Its song
+     plays under the music override above. Fixed terms: this film and
+     its poster, in the carousel; no text from the slides, the brochure
+     or the device's screens is ever restated in site text — copy, the
+     slide's label, the captions file, comments, meta, OG, JSON-LD;
+     changing any of it requires the human operator. (Its readouts are
+     the dosing bullet's thirteenth pixel-level override.)
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing
@@ -802,8 +848,8 @@ silently following it. Known superseded points from earlier briefs:
   are content with a pause control; only the crossfade stands down) and a
   refused play() retries inside the person's first gesture on phones
   (DECISIONS 2026-09-03); since 2026-09-30 (Amy's request — DECISIONS
-  same date) the five films carry their own sound and still start
-  muted, with a Sound button and a captions (CC) button beside pause:
+  same date) the films — five then, six since 2026-10-29 — carry their
+  own sound and still start muted, with a Sound button and a captions (CC) button beside pause:
   sound stays on from film to film until the visitor turns it off, is
   never on at load and is never stored, and a film the browser refuses
   to start with sound plays muted. Second sanctioned

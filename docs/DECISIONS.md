@@ -16956,3 +16956,14 @@ which changes with it.
 - BUILD_SPEC §7.10's price sentence and the sign-off sheet's row are
   updated.
 - Pricing figures are the operator's, from Amy's flyer.
+
+**Addendum, 2026-10-29 — Amy's OK and the flip.**
+- Amy reviewed the card on PR #279's preview and OK'd it (relayed by
+  the operator the same afternoon).
+- The operator then flipped the page's flag in the same PR, with the
+  CLINICIAN-SIGN-OFF one-line PowerShell command (commit `c261975`: one
+  line, `clinicianApproved: true`, Amy's approval in the message).
+- The command took three tries to reach the app's Terminal panel. The
+  branch was checked after each "done", because only the commit counts.
+- The PR merges into `phase-c` with the flag true, so no unapproved
+  page reaches `phase-c`.

@@ -17041,3 +17041,10 @@ H1.
   - the H1 and titles on both /go/ pages;
   - both /services cards;
   - no built page still carries the old names or the old search titles.
+
+**Addendum, 2026-10-29 — Amy's OK and the flip.**
+- Amy reviewed both renamed pages on PR #282's preview and OK'd them
+  (relayed by the operator the same evening).
+- The operator flipped both pages' flags in the same PR with one
+  PowerShell line covering both files (commit `68791d7`: one line each,
+  `clinicianApproved: true`, Amy's approval in the message).

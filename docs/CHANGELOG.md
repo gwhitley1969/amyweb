@@ -38,7 +38,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - The names also change on the two ad landing pages and in each page's
   search-result title.
 - The page addresses stay the same.
-- Amy's wording, via the operator. DECISIONS 2026-10-29, the title entry.
+- Amy's wording, via the operator. She OK'd it on its preview, and the
+  operator flipped both pages' approval flags in the same PR. DECISIONS
+  2026-10-29, the title entry.
 
 ### 2026-10-29 — /services/skin-rejuvenation: PiXel8-RF per session or a package of three
 

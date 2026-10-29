@@ -40,7 +40,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - The same card on the ad landing page /go/skin-rejuvenation changes with
   it. From Amy's flyer.
 - Amy OK'd it on its preview, and the operator flipped the page's
-  approval flag in the same PR. DECISIONS 2026-10-29, the PiXel8 entry.
+  approval flag in the same PR.
+- Live at 19:20 UTC (PR #279, release #280, merge `ce7baaa`). Checked on
+  the live site: both pages show the new card. DECISIONS 2026-10-29, the
+  PiXel8 entry and its shipped record.
 
 ### 2026-10-29 — Home carousel: Amy's ATTIVA reel is the fourth film
 

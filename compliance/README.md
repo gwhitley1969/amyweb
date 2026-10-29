@@ -93,18 +93,22 @@ the other providers on camera, the printed practice-site address, and
 the studio segment's tray and cartons — and her billboard-day reel —
 a constraint-3 override for the billboard's headline, a
 competitor-brand wall poster, and the manufacturer's boxes; neither
-caption file carries that text) ship under
-exactly this regime. Since 2026-09-30 the five carousel films carry
-their own SOUND, one tap away on the carousel's Sound button
+caption file carries that text; and, since 2026-10-29, her ATTIVA reel
+— constraint-3 overrides for the maker's results-comparison slides, a
+page of its provider brochure, and the device's screen readouts, none
+of which its caption file carries) ship under
+exactly this regime. Since 2026-09-30 the carousel films (five then;
+six since 2026-10-29) carry their own SOUND, one tap away on the carousel's Sound button
 (DECISIONS same date), so the regime covers what is heard as well:
 the two Evolus films' sound is the manufacturer's, carried as-is; the
 promo's re-worded song names the other providers and makes a promise
 (operator overrides of constraints 2 and 3 after the flags), and its
 caption file carries the sung words, the one place they are written;
 the promo's, the billboard-day reel's and the team film's songs play
-under the operator's override of the music-licence position; the
-reel's and the team film's caption files carry bounded `[Music]`
-cues, never a song's words. Since 2026-10-04 the home band's van-trip
+under the operator's override of the music-licence position, and since
+2026-10-29 the ATTIVA reel's song does too; the billboard-day reel's,
+the ATTIVA reel's and the team film's caption files carry bounded
+`[Music]` cues, never a song's words. Since 2026-10-04 the home band's van-trip
 film plays its two songs under the same override (DECISIONS same
 date), and its caption file marks them with bounded `[Music]` cues
 beside Amy's own words. So do the site-authored, sounded films: the

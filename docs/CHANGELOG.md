@@ -29,6 +29,49 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-10-29 — Home carousel: Amy's ATTIVA reel is the fourth film
+
+- The film band under the hero ("Mobile Aesthetics. On screen.") plays
+  six films now. Amy's reel announcing the ATTIVA device plays fourth,
+  after her billboard-day reel; the Jeuveau spot and the team film move
+  to fifth and sixth.
+- The reel is carried whole with its song, at the operator's direction
+  after the compliance flags: the maker's slides with photos taken
+  before and after a treatment, a page of the maker's brochure, and the
+  device's screen readouts. Its two guests are released. It starts muted
+  like every film there, and its captions mark the music.
+- The film says the device is coming, so it needs swapping or retiring
+  once ATTIVA has arrived.
+- DECISIONS 2026-10-29.
+
+### 2026-10-15 — The four remaining ad landing pages at /go/<slug>
+
+- Four more pages built for ads, at Amy's request: regenerative
+  treatments, weight loss and GLP-1 therapy, peptide therapy, hormone
+  optimization. Twelve landing pages now, one per service line. Each is
+  its treatment page's approved words in the same stripped-down
+  template as the first eight.
+- What differs from the treatment pages, by rule: the regenerative page
+  opens with Amy's own PRP sentence; the weight-loss page has no
+  Retatrutide on it at all (Amy did not want the not-FDA-approved notice
+  there, and that notice has to go wherever the product does); the
+  peptide page keeps its two six-week price lines. The hormone page
+  carries no FDA box, as its treatment page does not.
+- Google's rules are unchanged and Amy's to handle: Google does not
+  take PRP ads, and the other three lines may need certification before
+  their drug names can be bought as keywords. The pages serve posts,
+  texts and QR codes regardless, and stay hidden from search engines.
+- Built on 2026-10-13 and merged into `phase-c` on the operator's word
+  after his and Amy's look at the preview (PR #271, merge `6d711c8`,
+  2026-10-15 13:17 UTC). Released the same morning on his word (release
+  PR #272, merge `a6d67a6`; Production run 38741797365 green): live at
+  13:37 UTC with the Front Door cache purged. Checked on the live site:
+  all twelve /go/ pages answer 200 with the noindex header, the sitemap
+  still lists none of them, the weight-loss landing page has no
+  Retatrutide while its treatment page still does, and the regenerative
+  page opens with Amy's sentence. DECISIONS 2026-10-13, the shipped
+  record.
+
 ### 2026-10-12 — Site search
 
 - A new /search page finds the site's pages by word. Each match shows

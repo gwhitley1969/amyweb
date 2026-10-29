@@ -5,13 +5,14 @@ import { siteConfig } from '../lib/siteConfig';
 import evolyssePoster from '../assets/photos/commercial-evolysse-poster.jpg';
 import vanPromoPoster from '../assets/photos/commercial-van-promo-poster.jpg';
 import billboardPoster from '../assets/photos/commercial-billboard-poster.jpg';
+import attivaPoster from '../assets/photos/commercial-attiva-poster.jpg';
 import j2Poster from '../assets/photos/commercial-j2-poster.jpg';
 import teamPoster from '../assets/photos/commercial-team-poster.jpg';
 
 /**
  * HOME VIDEO CAROUSEL — the cinematic noir stage (operator direction
  * 2026-08-14, DECISIONS same date: "the way Audi presents video").
- * Five films crossfade on a full-bleed black stage: no player
+ * Six films crossfade on a full-bleed black stage: no player
  * chrome, thin progress bars, and three small controls — pause, and
  * since 2026-09-30 Sound and captions (Amy's request, DECISIONS same
  * date).
@@ -24,8 +25,8 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  * contains zero media elements and zero video bytes.
  *
  * The films (J2 cleared 2026-08-14; team cleared 2026-08-17; Evolysse
- * 2026-09-25; the promo and the billboard-day reel 2026-09-27 —
- * DECISIONS, each date):
+ * 2026-09-25; the promo and the billboard-day reel 2026-09-27; Amy's
+ * ATTIVA reel 2026-10-29 — DECISIONS, each date):
  *  - commercial-evolysse — the Evolus-produced Evolysse spot
  *    (US-EVY-2600017), FIRST in the rotation (operator direction
  *    2026-09-25). OPERATOR OVERRIDE after the compliance flag, carried
@@ -70,6 +71,22 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *    recorded exception until Amy's original arrives. Plays at 1×.
  *    Its sound is a commercial song, start to finish (operator
  *    override of the music-licence position, 2026-09-30).
+ *  - commercial-attiva — Amy's own reel announcing the ATTIVA device
+ *    as coming to the medspa, fourth since 2026-10-29. OPERATOR
+ *    OVERRIDES after the compliance flags, carried WHOLE (constraint
+ *    3): the maker's results-comparison slides (three photo pairs, one
+ *    of a body area) with their bullets, a page of the maker's provider
+ *    brochure whose claims are legible, and the device's screen
+ *    readouts (on the poster too). The two guests on camera with Amy
+ *    are released and are not providers at the location (operator,
+ *    same date). No text from the slides, the brochure or the screens
+ *    is ever restated — label, captions, these comments — and no site
+ *    text says anything of the device's regulatory status. Its heading
+ *    says the device is coming: once it has arrived, the film is the
+ *    operator's to swap or retire. 720px wide, so 1.78× at the height
+ *    cap — the promo's recorded exception. Plays at 1×. Its sound is a
+ *    song from Instagram's library, no speech (the music-licence
+ *    override, extended to this film 2026-10-29).
  *  - commercial-j2 — the Evolus co-op Jeuveau spot (US-JUV-2600126)
  *    carried AS-IS, manufacturer safety text intact. NEVER trim or crop
  *    it: object-fit stays `contain` so the burned-in safety screens
@@ -93,7 +110,9 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *  SOUND (2026-09-30, Amy's request — DECISIONS same date). Every
  *  rendition carries its film's own sound; each is the `video` name
  *  below, a new object beside the silent one it replaced (the picture
- *  stream is that file's, copied bit for bit). The films still START
+ *  stream is that file's, copied bit for bit). The ATTIVA reel, added
+ *  later, never had a silent file: its rendition was encoded from
+ *  Amy's master with its sound (DECISIONS 2026-10-29). The films still START
  *  muted; the Sound button turns sound on for the film playing and
  *  every film after it. One plain volume offset per film (no
  *  compression, no limiting) brings them to a common level — figures
@@ -105,8 +124,8 @@ import teamPoster from '../assets/photos/commercial-team-poster.jpg';
  *  switched on. With sound, each file is faithful to the sound: the
  *  Evolysse file is its voiceover with its on-screen text; the Jeuveau
  *  file its on-screen text, safety information included, with a music
- *  note; the billboard-day reel and the team film carry bounded
- *  [Music] cues (a film-long cue would sit over the whole play); the
+ *  note; the billboard-day reel, the ATTIVA reel and the team film
+ *  carry bounded [Music] cues (a film-long cue would sit over the whole play); the
  *  promo's carries its sung words. A film with NO audio track would
  *  still ship a track with no cues (the 2026-09-20 rule). The ?v= on
  *  data-vtt is a cache-bust (the files serve with a one-day max-age)
@@ -174,6 +193,12 @@ const slides: {
     poster: billboardPoster,
   },
   {
+    file: 'commercial-attiva',
+    video: 'commercial-attiva',
+    label: "ATTIVA is coming to Amy's medspa",
+    poster: attivaPoster,
+  },
+  {
     file: 'commercial-j2',
     video: 'commercial-j2-sound',
     label: 'Jeuveau commercial — Mobile Aesthetics with Evolus',
@@ -219,10 +244,16 @@ const slides: {
           data-label={s.label}
           data-rate={s.rate}
         >
+          {/* Only the first film's poster is ever seen at rest; the others
+              show only if a film is slow to start at its turn. All six
+              download with the page (the stage sits inside the browser's
+              lazy-load distance), so films 2–6 take a 480px poster: it
+              kept the home page inside its 350 KB budget when the sixth
+              film joined (measured, DECISIONS 2026-10-29). */}
           <Image
             src={s.poster}
             alt=""
-            widths={[480, 720]}
+            widths={i === 0 ? [480, 720] : [480]}
             sizes="(max-width: 900px) 100vw, 40rem"
             quality={55}
             loading="lazy"
@@ -355,16 +386,17 @@ const slides: {
     background: transparent;
     cursor: pointer;
   }
-  /* Five bars at 64px + four 8px gaps = 352px — wider than a 390px
-   * phone's 342px content box (and the 344px fold cover's 296px). 40px
-   * bars make the group 232px; the 40×32 button stays above the 24px
-   * WCAG target. (Four films ran 48px bars, 2026-08-17.) Since
-   * 2026-09-30 the controls are their own group (three buttons, 213px
-   * as measured) and wrap under the bars wherever the two do not fit
-   * one row: every phone, and windows 601–632px wide, where the bars
-   * are already at 64px. So the bars no longer share their row on a
-   * phone, and a sixth film's bars (280px) would fit the fold cover
-   * too. */
+  /* Six bars since 2026-10-29: at 64px + five 8px gaps they make 424px —
+   * wider than a 390px phone's 342px content box (and the 344px fold
+   * cover's 296px). 40px bars make the group 280px; the 40×32 button
+   * stays above the 24px WCAG target. (Four films ran 48px bars,
+   * 2026-08-17; five ran 232px here.) The controls are their own group
+   * (three buttons, 213px as measured, since 2026-09-30) and wrap under
+   * the bars wherever the two do not fit one row — measured 2026-10-29:
+   * every window up to 560px wide, and 601–704px, where the bars are
+   * already at 64px. At 320px the 280px group overhangs the 272px
+   * content box by 4px a side, inside the section's padding; nothing
+   * scrolls sideways. */
   @media (max-width: 600px) {
     .vc-bar {
       width: 40px;

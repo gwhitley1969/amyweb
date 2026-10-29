@@ -16598,3 +16598,265 @@ sticky bar on phones and none at 1280; console clean but for the
 font-preload warning the treatment pages also emit. The treatment pages
 are unchanged by construction: the branch touches no layout, component
 or content file.
+
+**Addendum, 2026-10-15 — the shipped record.** PR #271's
+`verify-and-deploy` check went green after the operator's 10-13 word
+to merge once it had; the merge was made on 2026-10-15 at 13:17 UTC
+(`6d711c8`; the tree identical to the one the check verified). The
+standing previews #97 and #149 were refreshed by `merge-tree` the same
+minute. The operator asked for the pages in production and gave the
+merge word on the release PR #272 (`phase-c` into `main`, carrying this
+work and the #270 records); merged at 13:20 UTC (`a6d67a6`) while the
+PR's own preview check was still running, the tree being byte-identical
+to #271's verified tree and the Production workflow re-running every
+gate before deploying. Production run 38741797365: verify green at
+13:28, deploy and Front Door purge done at 13:37 UTC. Checked on the
+live site at 13:40: all twelve `/go/` pages answer 200 with
+`x-robots-tag: noindex, nofollow`; the sitemap lists 21 URLs and no
+`/go/`; `/go/weight-loss-glp-1` carries no "Retatrutide" while
+`/services/weight-loss-glp-1` still carries it four times;
+`/go/regenerative` opens with the summary sentence; the peptide page's
+six-week price line appears exactly twice; the hormone page carries no
+FDA box. `phase-c` was fast-forwarded to `main` after the release. The
+CHANGELOG item and this addendum travel in a records-only PR into
+`phase-c`, the #270 pattern.
+
+## 2026-10-21 — docs/ARCHITECTURE.md: the website gets its standing architecture record, checked against the live estate (operator's standing rule)
+
+**Context.** The operator's rule is that every repo carries
+`docs/ARCHITECTURE.md` — context, containers, flows, data, trust
+boundaries, naming, rejected alternatives — kept current with every
+architecture change. The app repo has had one since Phase 0; this repo
+never did. On 2026-10-21 a PHP2Shell security advisory (server-side code
+execution) had to be assessed by reconstructing the hosting from
+`infra/`, `config/swa/` and the workflows, because no record existed;
+the answer was that it does not apply to a static site with no server
+code (CLAUDE.md constraint 1).
+
+**Decision.** `docs/ARCHITECTURE.md` is added in the app record's
+section structure, citing BUILD_SPEC §2/§4/§11/§14/§15, CLAUDE.md,
+DECISIONS and RUNBOOK rather than restating them, and is updated in the
+same commit as any change to those BUILD_SPEC sections, `infra/`,
+`config/swa/` or the workflows. Every live statement in it was read the
+same day with `az` (ng-website: the Front Door profile, routes, custom
+domains, origin groups, origins, security policies, rule set; the SWA
+and its environments; the storage account; both DNS zones; the budget;
+role assignments on the profile and the SWA — ng-app: the Function App,
+its plan, access restrictions, hostname bindings and the two Front Door
+app settings) and `curl` (the apex, www, http, the legacy domain, the
+SWA hostname, the default endpoint, a preview, the media host with a
+range request, api `/healthz` through Front Door and direct), and is
+marked *verified 2026-10-21* where it carries weight; the few readings
+that rest on memory of Microsoft's documentation are marked UNVERIFIED.
+RUNBOOK "Reference docs" gains the pointer. No CHANGELOG entry: nothing
+shipped to the site.
+
+Four things the check found are recorded in the file and left as found:
+(1) `api.needlegirlie.com` is this profile's route and the Function App
+admits only this profile's `X-Azure-FDID` — both repos' records already
+say so; the reported disagreement between them did not reproduce, and
+the one stale line is BUILD_SPEC §2's bracketed "`/api/*` → Container
+Apps" note. (2) The default `*.azurefd.net` hostname serves the site
+(200, canonical to the apex) where RUNBOOK "The system at a glance" says
+404; the `default` route is `linkToDefaultDomain: 'Enabled'`. (3)
+`production.yml`'s deploy job carries no branch condition under
+`workflow_dispatch`; a manual run from another ref would deploy it (the
+OIDC purge alone would fail). (4) The live responses carry
+`X-XSS-Protection` and `X-DNS-Prefetch-Control`, which no template
+declares, on production and previews alike — the SWA platform's. The
+CSP's `'wasm-unsafe-eval'` is this repo's own site-search allowance of
+2026-10-12; a first draft of the file credited it to the platform,
+because the local `phase-c` it was checked against was behind the
+2026-10-12/13 merges (#266–#273). Corrected before the merge; the file
+now carries site search (§4.7) and the `/go/` noindex plumbing. Also: the apex TXT record set is live
+with two values (`MS=…` and the Google token) and undeclared in Bicep,
+as the 2026-10-12 entry foresaw.
+
+**Alternatives rejected.** Restating BUILD_SPEC in the new file (two
+sources drift; the app record's citing style is the exemplar). Fixing
+(1)–(3) in the same PR: each is a governing-doc amendment, a Bicep
+change or a workflow change, which are the operator's to call after
+seeing the flag, and this PR is documentation only so the preview
+pipeline does not run. A CHANGELOG entry (nothing shipped).
+
+**Consequences.** The next security advisory is answered from the
+record, not a reconstruction. Three follow-ups wait on the operator:
+amend BUILD_SPEC §2's bracket; decide `linkToDefaultDomain` on the
+`default` route and correct the RUNBOOK line; decide the branch guard on
+the production deploy job. The branch merged `phase-c` (2978a06) before
+the PR merged, so this entry follows the 2026-10-12/13 entries; the
+search-presence entries that were uncommitted on the `phase-c` working
+tree when this was drafted had reached `phase-c` by then (#268).
+
+## 2026-10-29 — Home carousel: Amy's ATTIVA reel becomes the fourth film (operator overrides after the compliance flags)
+
+**Context.** Amy asked, through the operator, for a new film in the home
+carousel, played fourth. Two files arrived in
+`C:\Amy\web-update-10-29-2026\videos\`, outside the usual `C:\Amy\Videos`
+archive. The first, `Re-Q.mp4`, was dropped the same morning: the screen
+found another person's Instagram handle on every frame, and a skincare
+product the site names nowhere. The operator then chose `ATTIVA.mp4`
+(sha256 `81d2bb2e2042a69b1fe6ff5915cc1040887e9ff1878ec74dc8055333610b3584`).
+It is Amy's own Instagram reel: 32.2 s, 720×1280, HEVC, with no location
+tags. The burned-in heading "Coming to Mobile Aesthetics" runs on every
+frame, beside her own handle, the profile `siteConfig` already links.
+
+The screen found the following:
+- 0:00–0:04: the ATTIVA device on white. Its screen shows a thermal image
+  with power, time and temperature readouts.
+- 0:04–0:16: three of the maker's slides. Each is a results-comparison
+  photo pair labelled as taken immediately after a treatment: eyes, neck,
+  and a body area photographed in a thong. The slides carry bullets that
+  include a recovery claim.
+- 0:16–0:20: a phone screenshot of the maker's provider brochure. Its
+  mechanism and efficacy claims, its practice-growth sales lines and a
+  second thermal readout are legible at 720px.
+- 0:20–0:28: Amy with two guests under the practice's neon sign.
+- 0:28–0:32: a closing card with her Instagram handle.
+- Sound: a song from Instagram's library, credited on screen, playing
+  throughout. A machine transcript made on the build machine found no
+  words (ffmpeg's whisper filter; it returned only its usual filler over
+  music, whole and in halves). The operator's ear is the record.
+- The device's regulatory status could not be confirmed from a primary
+  source. The distributor's announcement of 2026-09-16 names none; only
+  clinic sites claim one.
+
+**Decision.** Four questions were put to the operator with a
+recommendation each. He answered:
+1. **People:** neither guest is a provider at the location, and both
+   releases are on file. So constraint 2 is not engaged. The practice's
+   name in the film's pixels is no link and names no provider.
+2. **The film is carried whole.** Cutting the maker's material at
+   0:04–0:20 was recommended and declined. The before/after content, the
+   recovery claim, the brochure's claims and the readouts are recorded in
+   CLAUDE.md constraint 3:
+   - the claims bullet's paragraph for this film;
+   - the dosing bullet's thirteenth pixel-level override, the tenth under
+     that bullet;
+   - BUILD_SPEC §1, §8 rules 1, 3 and 9, and the carousel section.
+
+   The pictured patients and model are the maker's: their consent is the
+   maker's and is not on this site's record.
+3. **The song stays.** A silent copy was recommended and declined. It
+   plays under the music override, the seventh unlicensed song on the
+   site and the fourth in the carousel.
+4. **It goes up now, as an announcement.** Holding it until ATTIVA is
+   bookable was recommended and declined.
+
+What was built:
+- The slide is inserted at index 3:
+  `file: 'commercial-attiva', video: 'commercial-attiva', label: "ATTIVA is coming to Amy's medspa"`.
+- The rotation is now Evolysse → promo → billboard-day reel → ATTIVA →
+  Jeuveau → team. The first three keep their places; the Jeuveau spot
+  becomes fifth and the team film sixth.
+- `public/js/video-carousel.js` is unchanged (10,460 B): it loops over
+  whatever slides exist, and the bars read "film N of {slides.length}".
+- **The rendition** is `commercial-attiva.mp4` (sha256
+  `d480ce9d38946a9ffc5d183a6cbe6d920d484c4f602067d844088f71542b4027`,
+  2,936,503 B):
+  - encoded from the master by RUNBOOK step 2 with one offset,
+    −4.3 dB, to −18.0 LUFS (peak −4.1 dBFS);
+  - H.264 High, 720×1280, 30 fps, 32.2 s;
+  - metadata stripped;
+  - `-crf 18` rather than 23, because a reel of mostly still slides came
+    out at 1.96 MB at 23 and its slide text needed the bits;
+  - no `-sound` suffix: there was never a silent file;
+  - `C:\Amy\carousel-sound\attiva\build-attiva.sh` rebuilds it.
+- **The poster** (`commercial-attiva-poster.jpg`, sha256
+  `055bcc60086e9c5ad50d824a449b4c99e3538adc21a7a8da59508e9c9d47798d`,
+  67,899 B) is the frame at 0.2 s: the heading over the device. It
+  matches the film's opening, and its readout is inside the pixel
+  override.
+- **The captions** (`public/media/commercial-attiva.vtt`) are two bounded
+  `[Music]` cues. Their NOTEs describe the maker's material without
+  restating it.
+- At 720px wide the film plays at 1.78× of the 2× sharpness rule at the
+  stage's height cap: the promo's recorded exception.
+
+**Alternatives rejected.**
+- The 16-second cut without the maker's slides and brochure.
+- A silent rendition.
+- Waiting until the device is bookable.
+- CRF 23 (the RUNBOOK default), for the reason above.
+- A frame of Amy and her guests as the poster: it would flash before the
+  film's opening shot.
+
+**Consequences.**
+- Six films; the bars and the measurements follow.
+- The seventh unlicensed song.
+- The film is time-bound: its heading says the device is coming. Once it
+  has arrived the film is out of date, and swapping or retiring it is
+  the operator's call. An ATTIVA service page or menu entry would be
+  separate copy, drafted from a brief and approved by Amy.
+- A full view of the carousel pulls about 3 MB more from the media
+  origin.
+- The home page now carries manufacturer before/after and claims content,
+  a further departure from the SOW's deferral of before/after (the
+  operator's document to amend).
+- No approval flag moves: the home page has none. Amy's OK on the preview
+  is recorded here when given.
+- Six bars at 40px make 280px on phones and 424px above 600px. The
+  controls wrap under the bars at 560px wide and under and at 601–704px
+  (measured at eighteen widths with `C:\Amy\carousel-sound\layout.cjs`;
+  one row at 561–600px and from 705px). At 320px the 280px group
+  overhangs the 272px content box by 4px a side, inside the section's
+  padding, and nothing scrolls sideways. The bar widths were left as the
+  plan fixed them, and the overhang was reported to the operator.
+
+**The home page's weight budget, and the posters.** With the sixth slide
+the home page failed one Lighthouse budget: `resource-summary` total size
+was 372,104 B against 358,400 B, 13.7 KB over. All six posters download
+with the page, because the stage sits inside the browser's lazy-load
+distance. The five earlier posters already took about 110 KB, leaving
+about 9 KB of room, and ATTIVA's took 22.9 KB. The gate was not touched.
+Measured with the build's own encoder (sharp, WebP quality 55), no single
+frame of the film was light enough: the dark closing card is 12.5 KB at
+720px. Three options were put to the operator:
+- films 2–6 at a 480px poster (recommended);
+- ATTIVA's poster alone as its closing card at 480px, leaving about 1.8 KB
+  of room;
+- no posters on films 2–6.
+
+The operator asked whether a film should be retired instead. Retiring one
+would also fit, except the Jeuveau spot, whose 14.0 KB poster would leave
+0.3 KB. But that is a content decision for Amy, not a fix for the budget.
+He chose the first option. `VideoCarousel.astro` gives the first slide its
+480 and 720px posters as before and slides 2–6 a 480px poster only, which
+shows only if a film is slow to start at its turn. Result: the home page
+loads 334,824 B (images 204,275 B of 245,760 B), about 23 KB under the
+total. Two questions stay open for Amy, the operator's to raise:
+retiring a film, or moving ATTIVA earlier (at fourth it starts about
+95 s into a loop of about 2:55).
+
+**Verification** (branch `feat/carousel-attiva`, local build):
+- `npm run verify` exit 0:
+  - `astro check` 0 errors;
+  - `lint:claims`, `lint:voice`, `lint:practice-link` (38 pages, 80 links)
+    and `check:search-index` green;
+  - pa11y 39 of 39 URLs;
+  - Lighthouse assertions on 10 URLs (30 runs) passed, the home page at
+    performance 0.99 and LCP about 2.1–2.2 s;
+  - `test:search` ok.
+- The built stylesheets are byte-identical to `phase-c`'s, so these
+  records add no CSS.
+- The carousel's own tests (`C:\Amy\carousel-sound`), updated to count
+  the slides:
+  - `handover-all.cjs`: all six hand-overs with Sound on, 6 → 1 included,
+    no errors;
+  - `sound-test.cjs` in Chrome and Firefox: muted autoplay; the
+    gesture-less click refused sound (Chrome); a jump to film 4 with Sound
+    on plays; CC carries over; one soundtrack at a time with the van film;
+    no errors.
+- `C:\Amy\launch\overflow-probe.mjs`: no sideways scroll at 320, 390, 430
+  or 768px.
+- The media object answers 206 with `video/mp4` and a `Content-Range`
+  total of 2,936,503. The downloaded copy's sha256 matches.
+
+Records changed: CLAUDE.md (constraint 3, both bullets; the music
+paragraph; the carousel's sanctioned-consumer line), BUILD_SPEC (§1, §5,
+the §6 home row, §8 rules 1, 3 and 9, the carousel section),
+compliance/README, RUNBOOK ("Adding or replacing a homepage commercial"),
+HOME-CONCEPT (slide order), the component headers of `VideoCarousel.astro`
+and `TreatmentVideo.astro`, and the carousel-sound README.
+REDESIGN.md's round list, CLINICIAN-SIGN-OFF's 2026-10-05 statement and
+ARCHITECTURE.md's dated figures are history and are left as they are.

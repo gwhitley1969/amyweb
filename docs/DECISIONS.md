@@ -16899,3 +16899,60 @@ plan to live in one day.
 Two questions stay open for Amy: whether to retire a film, and whether to
 move ATTIVA earlier. This addendum also changed two sentences above to
 name "the operator" in place of a pronoun.
+
+## 2026-10-29 — skin-rejuvenation: PiXel8-RF priced per session and as a package of three, and what a session covers (operator direction, from Amy's flyer)
+
+**Context.** Amy's update round. The operator asked for the PiXel8-RF
+card's price to read "$1,500 per session" and "$3,900 for a package of
+3 sessions", then shared her flyer (a view-only source, never committed,
+like the 2026-08 flyers). The flyer adds three things:
+- a $1,500 session covers ONE area combination: face, neck and chest;
+  buttocks and legs; or stomach and arms;
+- "Save $600" under the package (the arithmetic holds: 3 × $1,500 −
+  $3,900);
+- benefit lines the site's rules do not allow, such as firmer-looking
+  skin, tightening and stimulating collagen.
+
+BUILD_SPEC §7.10 had recorded the price as a bare $1,500 "no
+per-treatment/per-series basis" (operator decision 2026-07-22).
+
+**Decision.** The operator took the four recommendations ("Go with your
+picks"):
+1. Two price lines: **"$1,500 per session"** and **"$3,900 for a package
+   of three sessions"**. The count is written as a word, the house form
+   of "a course of six sessions" and "a series of three".
+2. The card's `detail` gains **"A session covers one area combination:
+   face, neck and chest; buttocks and legs; or stomach and arms."** It
+   is a pricing fact, so a visitor does not read $1,500 as every area.
+3. The "How many treatments will I need?" answer gains the laser page's
+   sentence, adapted: **"The package is a way to buy, not a
+   prescription: whether a single session or a package suits you is
+   decided with Amy."** A package of three could otherwise read as a
+   prescribed count.
+4. No "Save $600". The Epileve flyer's comparison arithmetic was left
+   off the same way (2026-08-21). The flyer's benefit lines are not
+   used; the card keeps its hedged mechanism sentence.
+
+A package priced by its count is a **unit of sale, not a protocol**: it
+carries no frequency and no interval (the 2026-07-22 body-contouring
+ruling, and §7.12's carve-out of 2026-08-21). So no exception is needed,
+and no pattern matches; `compliance/banned-patterns.json` is untouched.
+The same card renders on the ad landing page /go/skin-rejuvenation,
+which changes with it.
+
+**Alternatives rejected.**
+- "3 sessions" in figures.
+- Showing "Save $600".
+- Leaving the FAQ unchanged.
+- Leaving the session's coverage unstated: a $1,500 price with no basis
+  invites the reading that it covers every area.
+
+**Consequences.**
+- The edit resets `clinicianApproved` to `false` in the content commit
+  (constraint 4).
+- Amy's OK on the preview and the operator's own flip go in the same PR
+  before it merges, or the next release's approval gate refuses to
+  deploy.
+- BUILD_SPEC §7.10's price sentence and the sign-off sheet's row are
+  updated.
+- Pricing figures are the operator's, from Amy's flyer.

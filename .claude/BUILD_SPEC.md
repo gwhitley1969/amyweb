@@ -752,9 +752,14 @@ DECISIONS 2026-10-02.)*
     appearance-hedged (appearance of skin laxity/crepiness, uneven tone and
     texture, acne scarring, stretch marks; face, neck, and body); "designed
     for all skin types and tones" permitted as a manufacturer design fact
-    (never "safe and effective"). Price shows as bare **$1,500** (operator
-    decision 2026-07-22 — no per-treatment/per-series basis; explained at
-    consultation). **Medical-grade chemical peels** (clinician-applied
+    (never "safe and effective"). Price shows as **$1,500 per session**
+    and **$3,900 for a package of three sessions**, and the card says a
+    session covers one area combination (face, neck and chest; buttocks
+    and legs; or stomach and arms) — from Amy's flyer, operator direction
+    2026-10-29, superseding the bare $1,500 of 2026-07-22. The package is
+    a unit of sale (the §7.11 reading); the "How many treatments" answer
+    says it is a way to buy, not a prescription. The flyer's "save"
+    arithmetic and its benefit lines are not used. **Medical-grade chemical peels** (clinician-applied
     exfoliating solutions) — **starting at $180**; the peel section is a
     compliant placeholder until `{{CHEMICAL_PEELS_MENU}}` resolves.
     Line-specific exclusions: no needle depths/pin counts/tip specs

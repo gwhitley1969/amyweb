@@ -16687,3 +16687,176 @@ the production deploy job. The branch merged `phase-c` (2978a06) before
 the PR merged, so this entry follows the 2026-10-12/13 entries; the
 search-presence entries that were uncommitted on the `phase-c` working
 tree when this was drafted had reached `phase-c` by then (#268).
+
+## 2026-10-29 — Home carousel: Amy's ATTIVA reel becomes the fourth film (operator overrides after the compliance flags)
+
+**Context.** Amy asked, through the operator, for a new film in the home
+carousel, played fourth. Two files arrived in
+`C:\Amy\web-update-10-29-2026\videos\`, outside the usual `C:\Amy\Videos`
+archive. The first, `Re-Q.mp4`, was dropped the same morning: the screen
+found another person's Instagram handle on every frame, and a skincare
+product the site names nowhere. The operator then chose `ATTIVA.mp4`
+(sha256 `81d2bb2e2042a69b1fe6ff5915cc1040887e9ff1878ec74dc8055333610b3584`).
+It is Amy's own Instagram reel: 32.2 s, 720×1280, HEVC, with no location
+tags. The burned-in heading "Coming to Mobile Aesthetics" runs on every
+frame, beside her own handle, the profile `siteConfig` already links.
+
+The screen found the following:
+- 0:00–0:04: the ATTIVA device on white. Its screen shows a thermal image
+  with power, time and temperature readouts.
+- 0:04–0:16: three of the maker's slides. Each is a results-comparison
+  photo pair labelled as taken immediately after a treatment: eyes, neck,
+  and a body area photographed in a thong. The slides carry bullets that
+  include a recovery claim.
+- 0:16–0:20: a phone screenshot of the maker's provider brochure. Its
+  mechanism and efficacy claims, its practice-growth sales lines and a
+  second thermal readout are legible at 720px.
+- 0:20–0:28: Amy with two guests under the practice's neon sign.
+- 0:28–0:32: a closing card with her Instagram handle.
+- Sound: a song from Instagram's library, credited on screen, playing
+  throughout. A machine transcript made on the build machine found no
+  words (ffmpeg's whisper filter; it returned only its usual filler over
+  music, whole and in halves). The operator's ear is the record.
+- The device's regulatory status could not be confirmed from a primary
+  source. The distributor's announcement of 2026-09-16 names none; only
+  clinic sites claim one.
+
+**Decision.** Four questions were put to the operator with a
+recommendation each. He answered:
+1. **People:** neither guest is a provider at the location, and both
+   releases are on file. So constraint 2 is not engaged. The practice's
+   name in the film's pixels is no link and names no provider.
+2. **The film is carried whole.** Cutting the maker's material at
+   0:04–0:20 was recommended and declined. The before/after content, the
+   recovery claim, the brochure's claims and the readouts are recorded in
+   CLAUDE.md constraint 3:
+   - the claims bullet's paragraph for this film;
+   - the dosing bullet's thirteenth pixel-level override, the tenth under
+     that bullet;
+   - BUILD_SPEC §1, §8 rules 1, 3 and 9, and the carousel section.
+
+   The pictured patients and model are the maker's: their consent is the
+   maker's and is not on this site's record.
+3. **The song stays.** A silent copy was recommended and declined. It
+   plays under the music override, the seventh unlicensed song on the
+   site and the fourth in the carousel.
+4. **It goes up now, as an announcement.** Holding it until ATTIVA is
+   bookable was recommended and declined.
+
+What was built:
+- The slide is inserted at index 3:
+  `file: 'commercial-attiva', video: 'commercial-attiva', label: "ATTIVA is coming to Amy's medspa"`.
+- The rotation is now Evolysse → promo → billboard-day reel → ATTIVA →
+  Jeuveau → team. The first three keep their places; the Jeuveau spot
+  becomes fifth and the team film sixth.
+- `public/js/video-carousel.js` is unchanged (10,460 B): it loops over
+  whatever slides exist, and the bars read "film N of {slides.length}".
+- **The rendition** is `commercial-attiva.mp4` (sha256
+  `d480ce9d38946a9ffc5d183a6cbe6d920d484c4f602067d844088f71542b4027`,
+  2,936,503 B):
+  - encoded from the master by RUNBOOK step 2 with one offset,
+    −4.3 dB, to −18.0 LUFS (peak −4.1 dBFS);
+  - H.264 High, 720×1280, 30 fps, 32.2 s;
+  - metadata stripped;
+  - `-crf 18` rather than 23, because a reel of mostly still slides came
+    out at 1.96 MB at 23 and its slide text needed the bits;
+  - no `-sound` suffix: there was never a silent file;
+  - `C:\Amy\carousel-sound\attiva\build-attiva.sh` rebuilds it.
+- **The poster** (`commercial-attiva-poster.jpg`, sha256
+  `055bcc60086e9c5ad50d824a449b4c99e3538adc21a7a8da59508e9c9d47798d`,
+  67,899 B) is the frame at 0.2 s: the heading over the device. It
+  matches the film's opening, and its readout is inside the pixel
+  override.
+- **The captions** (`public/media/commercial-attiva.vtt`) are two bounded
+  `[Music]` cues. Their NOTEs describe the maker's material without
+  restating it.
+- At 720px wide the film plays at 1.78× of the 2× sharpness rule at the
+  stage's height cap: the promo's recorded exception.
+
+**Alternatives rejected.**
+- The 16-second cut without the maker's slides and brochure.
+- A silent rendition.
+- Waiting until the device is bookable.
+- CRF 23 (the RUNBOOK default), for the reason above.
+- A frame of Amy and her guests as the poster: it would flash before the
+  film's opening shot.
+
+**Consequences.**
+- Six films; the bars and the measurements follow.
+- The seventh unlicensed song.
+- The film is time-bound: its heading says the device is coming. Once it
+  has arrived the film is out of date, and swapping or retiring it is
+  the operator's call. An ATTIVA service page or menu entry would be
+  separate copy, drafted from a brief and approved by Amy.
+- A full view of the carousel pulls about 3 MB more from the media
+  origin.
+- The home page now carries manufacturer before/after and claims content,
+  a further departure from the SOW's deferral of before/after (the
+  operator's document to amend).
+- No approval flag moves: the home page has none. Amy's OK on the preview
+  is recorded here when given.
+- Six bars at 40px make 280px on phones and 424px above 600px. The
+  controls wrap under the bars at 560px wide and under and at 601–704px
+  (measured at eighteen widths with `C:\Amy\carousel-sound\layout.cjs`;
+  one row at 561–600px and from 705px). At 320px the 280px group
+  overhangs the 272px content box by 4px a side, inside the section's
+  padding, and nothing scrolls sideways. The bar widths were left as the
+  plan fixed them, and the overhang was reported to the operator.
+
+**The home page's weight budget, and the posters.** With the sixth slide
+the home page failed one Lighthouse budget: `resource-summary` total size
+was 372,104 B against 358,400 B, 13.7 KB over. All six posters download
+with the page, because the stage sits inside the browser's lazy-load
+distance. The five earlier posters already took about 110 KB, leaving
+about 9 KB of room, and ATTIVA's took 22.9 KB. The gate was not touched.
+Measured with the build's own encoder (sharp, WebP quality 55), no single
+frame of the film was light enough: the dark closing card is 12.5 KB at
+720px. Three options were put to the operator:
+- films 2–6 at a 480px poster (recommended);
+- ATTIVA's poster alone as its closing card at 480px, leaving about 1.8 KB
+  of room;
+- no posters on films 2–6.
+
+The operator asked whether a film should be retired instead. Retiring one
+would also fit, except the Jeuveau spot, whose 14.0 KB poster would leave
+0.3 KB. But that is a content decision for Amy, not a fix for the budget.
+He chose the first option. `VideoCarousel.astro` gives the first slide its
+480 and 720px posters as before and slides 2–6 a 480px poster only, which
+shows only if a film is slow to start at its turn. Result: the home page
+loads 334,824 B (images 204,275 B of 245,760 B), about 23 KB under the
+total. Two questions stay open for Amy, the operator's to raise:
+retiring a film, or moving ATTIVA earlier (at fourth it starts about
+95 s into a loop of about 2:55).
+
+**Verification** (branch `feat/carousel-attiva`, local build):
+- `npm run verify` exit 0:
+  - `astro check` 0 errors;
+  - `lint:claims`, `lint:voice`, `lint:practice-link` (38 pages, 80 links)
+    and `check:search-index` green;
+  - pa11y 39 of 39 URLs;
+  - Lighthouse assertions on 10 URLs (30 runs) passed, the home page at
+    performance 0.99 and LCP about 2.1–2.2 s;
+  - `test:search` ok.
+- The built stylesheets are byte-identical to `phase-c`'s, so these
+  records add no CSS.
+- The carousel's own tests (`C:\Amy\carousel-sound`), updated to count
+  the slides:
+  - `handover-all.cjs`: all six hand-overs with Sound on, 6 → 1 included,
+    no errors;
+  - `sound-test.cjs` in Chrome and Firefox: muted autoplay; the
+    gesture-less click refused sound (Chrome); a jump to film 4 with Sound
+    on plays; CC carries over; one soundtrack at a time with the van film;
+    no errors.
+- `C:\Amy\launch\overflow-probe.mjs`: no sideways scroll at 320, 390, 430
+  or 768px.
+- The media object answers 206 with `video/mp4` and a `Content-Range`
+  total of 2,936,503. The downloaded copy's sha256 matches.
+
+Records changed: CLAUDE.md (constraint 3, both bullets; the music
+paragraph; the carousel's sanctioned-consumer line), BUILD_SPEC (§1, §5,
+the §6 home row, §8 rules 1, 3 and 9, the carousel section),
+compliance/README, RUNBOOK ("Adding or replacing a homepage commercial"),
+HOME-CONCEPT (slide order), the component headers of `VideoCarousel.astro`
+and `TreatmentVideo.astro`, and the carousel-sound README.
+REDESIGN.md's round list, CLINICIAN-SIGN-OFF's 2026-10-05 statement and
+ARCHITECTURE.md's dated figures are history and are left as they are.

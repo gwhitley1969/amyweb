@@ -346,8 +346,13 @@ To add or swap a film:
    one plain volume offset per film, no compression and no limiting,
    to bring it to −18 LUFS, the other films' level — but never so far
    that its peak passes −1 dBFS (the Evolysse film stops at −20.6 LUFS
-   for that reason). The five films in the carousel today were made
-   another way, because their silent files were already published:
+   for that reason). The ATTIVA reel (2026-10-29,
+   `commercial-attiva.mp4`) is the first film made by this step
+   itself: −4.3 dB to −18.0 LUFS, at `-crf 18` rather than 23, because
+   a reel of mostly still slides came out at 1.96 MB and its slide text
+   needed the bits (2.9 MB at 18; DECISIONS same date). The five films
+   in the carousel on 2026-09-30 were made another way, because their
+   silent files were already published:
    each `commercial-<name>-sound.mp4` is the silent file's picture
    copied bit for bit (`-c:v copy`) with the master's sound beside it;
    the promo has three offsets, one per section of its own mix
@@ -355,6 +360,12 @@ To add or swap a film:
 3. **Poster frame:** `ffmpeg -ss <t> -i rendition.mp4 -frames:v 1
    -q:v 2 src/assets/photos/commercial-<name>-poster.jpg` (pick a
    visually simple frame — posters count toward the / image budget).
+   All the posters download with the page, because the stage sits
+   inside the browser's lazy-load distance. So since 2026-10-29 only
+   the first slide serves a 720px poster, and the rest serve 480px.
+   With six films the home page loads about 335 KB of its 350 KB
+   budget (DECISIONS same date). A seventh film's poster, or a heavier
+   first one, needs measuring with `npm run test:perf`.
 4. **Captions:** `public/media/commercial-<name>.vtt` (the a11y gate
    requires a track on every built video; VTT files are outside
    lint:claims scope — the per-film override entry is the control).
@@ -383,13 +394,16 @@ To add or swap a film:
    2026-08-15). Amy's own films ONLY — manufacturer
    films always play at 1×, their presentation is carried as-is.
    0.5 is the floor (engines clamp below); slower means re-editing.
-   Bars-row width: at five films (since 2026-09-25) the progress bars
-   run 40px at 600px wide and under (64px above), 232px in all. Since
-   2026-09-30 the three controls are their own group and wrap under
-   the bars on every phone, so the bars have the row to themselves
-   there: a sixth film's bars (280px) would still fit the 344px fold
-   cover's 296px content box (the math lives in the component's bars
-   comment). The stage is
+   Bars-row width: at six films (since 2026-10-29) the progress bars
+   run 40px at 600px wide and under (64px above), 280px in all (424px
+   above 600px). The three controls are their own group (since
+   2026-09-30) and wrap under the bars at 560px wide and under and at
+   601–704px, measured 2026-10-29, so on a phone the bars have the row
+   to themselves: 280px fits the 344px fold cover's 296px content box,
+   and at 320px it overhangs the 272px box by 4px a side, inside the
+   section's padding, with nothing scrolling sideways. A seventh film
+   (328px) would overhang the fold cover too; measure before adding one
+   (the math lives in the component's bars comment). The stage is
    full-width (`width: 100%`, 2026-09-25): a widescreen film presents
    large on desktop while portrait films keep their size.
 6. `npm run verify` green → PR → preview → Amy's word → merge.
@@ -397,14 +411,15 @@ To add or swap a film:
 **The carousel's sound files and tests** live outside the repo, in
 `C:\Amy\carousel-sound\` (its README has the steps): the five
 `commercial-<name>-sound.mp4` files as published, `build.sh`, which
-rebuilds them from the masters, and the browser tests of the Sound and
-CC buttons. Two things those tests rely on. Test code must carry no
+rebuilds them from the masters, `attiva\` with the ATTIVA reel's
+`commercial-attiva.mp4`, its poster and `build-attiva.sh` (since
+2026-10-29), and the browser tests of the Sound and CC buttons. Two things those tests rely on. Test code must carry no
 user gesture, or a browser's refusal to start sound cannot be seen
 (Puppeteer's `page.evaluate` grants one; the Chrome runs use a CDP
 `Runtime.evaluate` with `userGesture: false`). And no iPhone can be
 driven from the build machine: WebKit lets a player start with sound
 only if that one player was made or unmuted inside a tap, which is why
-the Sound tap makes and unmutes all five players, and why the
+the Sound tap makes and unmutes every film's player, and why the
 operator's phone on the preview is the test (confirmed 2026-09-30).
 
 **One soundtrack at a time on the home page.** The carousel and the

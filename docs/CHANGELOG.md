@@ -39,8 +39,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   search-result title.
 - The page addresses stay the same.
 - Amy's wording, via the operator. She OK'd it on its preview, and the
-  operator flipped both pages' approval flags in the same PR. DECISIONS
-  2026-10-29, the title entry.
+  operator flipped both pages' approval flags in the same PR.
+- Live at 20:23 UTC (PR #282, release #283, merge `b456734`). Checked on
+  the live site: both pages, both landing pages and the menu show the new
+  names. DECISIONS 2026-10-29, the title entry and its shipped record.
 
 ### 2026-10-29 — /services/skin-rejuvenation: PiXel8-RF per session or a package of three
 

@@ -17048,3 +17048,23 @@ H1.
 - The operator flipped both pages' flags in the same PR with one
   PowerShell line covering both files (commit `68791d7`: one line each,
   `clinicianApproved: true`, Amy's approval in the message).
+
+**Addendum, 2026-10-29 — the shipped record.**
+- PR #282 merged into `phase-c` once its pipeline was green on the
+  flipped head (`e998a73`), as `174dda9`. The standing previews were
+  refreshed by `merge-tree` (#97 `79ba61b`, #149 `2eebe0c`), and #282's
+  preview environment was torn down.
+- Release PR #283 merged once its own pipeline was green, as `b456734`.
+  It also carried #281's records. Production run 40946277768 ran verify
+  with the approval check at 20:08–20:16 UTC, and the deploy and Front
+  Door purge at 20:16–20:23 UTC.
+- Checked on the live site:
+  - all 21 sitemap pages answer 200;
+  - plain and cache-busted, /services/wrinkle-relaxers and
+    /go/wrinkle-relaxers carry "Neurotoxins (Tox)" and the new title
+    tag, and /services/laser-treatments and /go/laser-treatments carry
+    "Laser Treatments & Hair Removal" and theirs;
+  - /services shows both cards;
+  - no page checked carries an old name;
+  - the home page still plays six films.
+- `phase-c` was fast-forwarded to `main`.

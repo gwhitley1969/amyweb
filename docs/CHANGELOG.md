@@ -29,6 +29,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-10-29 — /services/skin-rejuvenation: PiXel8-RF per session or a package of three
+
+- The PiXel8-RF card reads "$1,500 per session" and "$3,900 for a package
+  of three sessions" (it said "$1,500").
+- It also says what a session covers: one area combination (face, neck
+  and chest; buttocks and legs; or stomach and arms).
+- "How many treatments will I need?" adds that the package is a way to
+  buy, not a prescription.
+- The same card on the ad landing page /go/skin-rejuvenation changes with
+  it. From Amy's flyer.
+- Amy OK'd it on its preview, and the operator flipped the page's
+  approval flag in the same PR. DECISIONS 2026-10-29, the PiXel8 entry.
+
 ### 2026-10-29 — Home carousel: Amy's ATTIVA reel is the fourth film
 
 - The film band under the hero ("Mobile Aesthetics. On screen.") plays

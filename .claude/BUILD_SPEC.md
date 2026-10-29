@@ -426,13 +426,13 @@ constraint 6, DECISIONS 2026-09-03), no layout shift from fonts or images.
 | `/services` | Services index | Short factual intro per line, linking to the 12 detail pages | Per-line → detail |
 | `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Book / Consult (2026-07-21, operator — was consult-routed) |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |
-| `/services/wrinkle-relaxers` | Neurotoxins - Wrinkle Relaxers (client wording 2026-08-19; seo.title keeps the search phrasing) | §7 brief | Book / Consult |
+| `/services/wrinkle-relaxers` | Neurotoxins (Tox) (client wording 2026-10-29, replacing "Neurotoxins - Wrinkle Relaxers" of 2026-08-19; the menu card and, at the operator's direction, seo.title carry the same name) | §7 brief | Book / Consult |
 | `/services/dermal-fillers` | Dermal Fillers | §7 brief | Book / Consult |
 | `/services/biostimulators` | Biostimulators | §7 brief | Request a consultation |
 | `/services/regenerative` | Regenerative Treatments | §7 brief | Request a consultation |
 | `/services/skin-rejuvenation` | Skin Rejuvenation | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
 | `/services/body-contouring` | Body Contouring | §7 brief (added 2026-07-19, Vagaro alignment) | Request a consultation |
-| `/services/laser-treatments` | Laser Treatments | §7 brief (added 2026-07-22, Venus Versa; renamed Venus Versa Pro 2026-08-04; priced + Venus Epileve laser hair removal added 2026-08-21) | Request a consultation (hair removal: Book with Amy) *(copy amended 2026-09-19, operator override: the page's booking FAQ now says all services can be booked — the §8.7 scoped exception; DECISIONS same date)* |
+| `/services/laser-treatments` | Laser Treatments & Hair Removal (client wording 2026-10-29; the menu card and seo.title carry the same name) | §7 brief (added 2026-07-22, Venus Versa; renamed Venus Versa Pro 2026-08-04; priced + Venus Epileve laser hair removal added 2026-08-21) | Request a consultation (hair removal: Book with Amy) *(copy amended 2026-09-19, operator override: the page's booking FAQ now says all services can be booked — the §8.7 scoped exception; DECISIONS same date)* |
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |

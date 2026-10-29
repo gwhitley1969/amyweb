@@ -16598,3 +16598,92 @@ sticky bar on phones and none at 1280; console clean but for the
 font-preload warning the treatment pages also emit. The treatment pages
 are unchanged by construction: the branch touches no layout, component
 or content file.
+
+**Addendum, 2026-10-15 — the shipped record.** PR #271's
+`verify-and-deploy` check went green after the operator's 10-13 word
+to merge once it had; the merge was made on 2026-10-15 at 13:17 UTC
+(`6d711c8`; the tree identical to the one the check verified). The
+standing previews #97 and #149 were refreshed by `merge-tree` the same
+minute. The operator asked for the pages in production and gave the
+merge word on the release PR #272 (`phase-c` into `main`, carrying this
+work and the #270 records); merged at 13:20 UTC (`a6d67a6`) while the
+PR's own preview check was still running, the tree being byte-identical
+to #271's verified tree and the Production workflow re-running every
+gate before deploying. Production run 38741797365: verify green at
+13:28, deploy and Front Door purge done at 13:37 UTC. Checked on the
+live site at 13:40: all twelve `/go/` pages answer 200 with
+`x-robots-tag: noindex, nofollow`; the sitemap lists 21 URLs and no
+`/go/`; `/go/weight-loss-glp-1` carries no "Retatrutide" while
+`/services/weight-loss-glp-1` still carries it four times;
+`/go/regenerative` opens with the summary sentence; the peptide page's
+six-week price line appears exactly twice; the hormone page carries no
+FDA box. `phase-c` was fast-forwarded to `main` after the release. The
+CHANGELOG item and this addendum travel in a records-only PR into
+`phase-c`, the #270 pattern.
+
+## 2026-10-21 — docs/ARCHITECTURE.md: the website gets its standing architecture record, checked against the live estate (operator's standing rule)
+
+**Context.** The operator's rule is that every repo carries
+`docs/ARCHITECTURE.md` — context, containers, flows, data, trust
+boundaries, naming, rejected alternatives — kept current with every
+architecture change. The app repo has had one since Phase 0; this repo
+never did. On 2026-10-21 a PHP2Shell security advisory (server-side code
+execution) had to be assessed by reconstructing the hosting from
+`infra/`, `config/swa/` and the workflows, because no record existed;
+the answer was that it does not apply to a static site with no server
+code (CLAUDE.md constraint 1).
+
+**Decision.** `docs/ARCHITECTURE.md` is added in the app record's
+section structure, citing BUILD_SPEC §2/§4/§11/§14/§15, CLAUDE.md,
+DECISIONS and RUNBOOK rather than restating them, and is updated in the
+same commit as any change to those BUILD_SPEC sections, `infra/`,
+`config/swa/` or the workflows. Every live statement in it was read the
+same day with `az` (ng-website: the Front Door profile, routes, custom
+domains, origin groups, origins, security policies, rule set; the SWA
+and its environments; the storage account; both DNS zones; the budget;
+role assignments on the profile and the SWA — ng-app: the Function App,
+its plan, access restrictions, hostname bindings and the two Front Door
+app settings) and `curl` (the apex, www, http, the legacy domain, the
+SWA hostname, the default endpoint, a preview, the media host with a
+range request, api `/healthz` through Front Door and direct), and is
+marked *verified 2026-10-21* where it carries weight; the few readings
+that rest on memory of Microsoft's documentation are marked UNVERIFIED.
+RUNBOOK "Reference docs" gains the pointer. No CHANGELOG entry: nothing
+shipped to the site.
+
+Four things the check found are recorded in the file and left as found:
+(1) `api.needlegirlie.com` is this profile's route and the Function App
+admits only this profile's `X-Azure-FDID` — both repos' records already
+say so; the reported disagreement between them did not reproduce, and
+the one stale line is BUILD_SPEC §2's bracketed "`/api/*` → Container
+Apps" note. (2) The default `*.azurefd.net` hostname serves the site
+(200, canonical to the apex) where RUNBOOK "The system at a glance" says
+404; the `default` route is `linkToDefaultDomain: 'Enabled'`. (3)
+`production.yml`'s deploy job carries no branch condition under
+`workflow_dispatch`; a manual run from another ref would deploy it (the
+OIDC purge alone would fail). (4) The live responses carry
+`X-XSS-Protection` and `X-DNS-Prefetch-Control`, which no template
+declares, on production and previews alike — the SWA platform's. The
+CSP's `'wasm-unsafe-eval'` is this repo's own site-search allowance of
+2026-10-12; a first draft of the file credited it to the platform,
+because the local `phase-c` it was checked against was behind the
+2026-10-12/13 merges (#266–#273). Corrected before the merge; the file
+now carries site search (§4.7) and the `/go/` noindex plumbing. Also: the apex TXT record set is live
+with two values (`MS=…` and the Google token) and undeclared in Bicep,
+as the 2026-10-12 entry foresaw.
+
+**Alternatives rejected.** Restating BUILD_SPEC in the new file (two
+sources drift; the app record's citing style is the exemplar). Fixing
+(1)–(3) in the same PR: each is a governing-doc amendment, a Bicep
+change or a workflow change, which are the operator's to call after
+seeing the flag, and this PR is documentation only so the preview
+pipeline does not run. A CHANGELOG entry (nothing shipped).
+
+**Consequences.** The next security advisory is answered from the
+record, not a reconstruction. Three follow-ups wait on the operator:
+amend BUILD_SPEC §2's bracket; decide `linkToDefaultDomain` on the
+`default` route and correct the RUNBOOK line; decide the branch guard on
+the production deploy job. The branch merged `phase-c` (2978a06) before
+the PR merged, so this entry follows the 2026-10-12/13 entries; the
+search-presence entries that were uncommitted on the `phase-c` working
+tree when this was drafted had reached `phase-c` by then (#268).

@@ -16722,7 +16722,7 @@ The screen found the following:
   clinic sites claim one.
 
 **Decision.** Four questions were put to the operator with a
-recommendation each. He answered:
+recommendation each. The operator answered:
 1. **People:** neither guest is a provider at the location, and both
    releases are on file. So constraint 2 is not engaged. The practice's
    name in the film's pixels is no link and names no provider.
@@ -16820,7 +16820,7 @@ frame of the film was light enough: the dark closing card is 12.5 KB at
 The operator asked whether a film should be retired instead. Retiring one
 would also fit, except the Jeuveau spot, whose 14.0 KB poster would leave
 0.3 KB. But that is a content decision for Amy, not a fix for the budget.
-He chose the first option. `VideoCarousel.astro` gives the first slide its
+The operator chose the first option. `VideoCarousel.astro` gives the first slide its
 480 and 720px posters as before and slides 2–6 a 480px poster only, which
 shows only if a film is slow to start at its turn. Result: the home page
 loads 334,824 B (images 204,275 B of 245,760 B), about 23 KB under the
@@ -16860,3 +16860,42 @@ HOME-CONCEPT (slide order), the component headers of `VideoCarousel.astro`
 and `TreatmentVideo.astro`, and the carousel-sound README.
 REDESIGN.md's round list, CLINICIAN-SIGN-OFF's 2026-10-05 statement and
 ARCHITECTURE.md's dated figures are history and are left as they are.
+
+**Addendum, 2026-10-29 — the shipped record.** The whole film went from
+plan to live in one day.
+- **PR #276 into `phase-c`:**
+  - Its pipeline was green in 8m20s.
+  - Its preview converged: six probe passes, and 12 edge rounds plain and
+    cache-busted.
+  - The carousel's `-url` tests passed on the preview: all six hand-overs,
+    and the Sound and CC tests in Chrome and Firefox.
+  - It merged on the operator's word as `6266605`, a tree identical to
+    the head the preview verified.
+- **Standing previews:** #97 and #149 were refreshed by `merge-tree` the
+  same minute (`b80c8b3`, `a876b9f`), with no conflicts.
+- **Release PR #277** (`phase-c` into `main`):
+  - Opened on the operator's word, "Release it".
+  - Merged once its own pipeline was green, so no preview environment
+    could be re-created after teardown: `27cf32e`, a tree identical to
+    `phase-c`'s.
+  - Production run 40924338636: verify 17:45–17:53 UTC, deploy and Front
+    Door purge 17:53–18:00 UTC.
+- **Checked on the live site:**
+  - All 21 sitemap pages answer 200, as do `/search` and
+    `/go/wrinkle-relaxers`.
+  - The home page names "Play film 4 of 6: ATTIVA is coming to Amy's
+    medspa" and loads `commercial-attiva.mp4`. Six cache-busted probe
+    passes and three plain requests agreed.
+  - The film answers 206 with a total of 2,936,503, and its caption file
+    answers 200.
+- **Afterwards:**
+  - `phase-c` was fast-forwarded to `main`.
+  - The environment list is production, 97 and 149 only.
+- **Confirmed by the operator after the release:**
+  - Amy OK'd the film.
+  - The operator's listen found no words in the song. That confirms the
+    caption file's bounded `[Music]` cues and its NOTE ("no speech").
+
+Two questions stay open for Amy: whether to retire a film, and whether to
+move ATTIVA earlier. This addendum also changed two sentences above to
+name "the operator" in place of a pronoun.

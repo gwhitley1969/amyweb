@@ -42,7 +42,17 @@ change lives in `docs/DECISIONS.md`; design specs live in
   like every film there, and its captions mark the music.
 - The film says the device is coming, so it needs swapping or retiring
   once ATTIVA has arrived.
-- DECISIONS 2026-10-29.
+- Films 2–6 now load a smaller still while they wait, which keeps the
+  home page inside its weight budget. Nothing a visitor sees changes
+  once a film plays.
+- Amy OK'd it on its preview.
+- The operator merged it into `phase-c` (PR #276, merge `6266605`) and
+  released it the same afternoon (release PR #277, merge `27cf32e`;
+  Production run 40924338636). It went live at 18:00 UTC with the Front
+  Door cache purged.
+- Checked on the live site: all 21 pages answer, the home page plays six
+  films with ATTIVA fourth, and the film and its captions load.
+- DECISIONS 2026-10-29 and its shipped record.
 
 ### 2026-10-15 — The four remaining ad landing pages at /go/<slug>
 

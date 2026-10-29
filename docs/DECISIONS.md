@@ -16967,3 +16967,20 @@ which changes with it.
   branch was checked after each "done", because only the commit counts.
 - The PR merges into `phase-c` with the flag true, so no unapproved
   page reaches `phase-c`.
+
+**Addendum, 2026-10-29 — the shipped record.**
+- PR #279 merged into `phase-c` once its pipeline was green on the
+  flipped head (`055d63a`), as `3cc6f8f`. The standing previews were
+  refreshed by `merge-tree` (#97 `fe958cc`, #149 `1752bc4`).
+- Release PR #280 (`phase-c` into `main`, on the operator's word
+  "Release it") merged once its own pipeline was green, as `ce7baaa`. It
+  also carried #278's records. Production run 40936716945 ran verify
+  with the approval check at 19:04–19:12 UTC, and the deploy and Front
+  Door purge at 19:12–19:20 UTC.
+- Checked on the live site: all 21 sitemap pages answer 200. Plain and
+  cache-busted requests to /services/skin-rejuvenation and
+  /go/skin-rejuvenation carry both price lines, the session-coverage
+  sentence and the FAQ line. The home page still plays six films.
+- `phase-c` was fast-forwarded to `main`. The environments are
+  production, 97 and 149 only.
+- The operator confirmed the update on the live site.

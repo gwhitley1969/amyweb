@@ -29,6 +29,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-10-29 — Home carousel: Amy's ATTIVA reel is the fourth film
+
+- The film band under the hero ("Mobile Aesthetics. On screen.") plays
+  six films now. Amy's reel announcing the ATTIVA device plays fourth,
+  after her billboard-day reel; the Jeuveau spot and the team film move
+  to fifth and sixth.
+- The reel is carried whole with its song, at the operator's direction
+  after the compliance flags: the maker's slides with photos taken
+  before and after a treatment, a page of the maker's brochure, and the
+  device's screen readouts. Its two guests are released. It starts muted
+  like every film there, and its captions mark the music.
+- The film says the device is coming, so it needs swapping or retiring
+  once ATTIVA has arrived.
+- DECISIONS 2026-10-29.
+
 ### 2026-10-15 — The four remaining ad landing pages at /go/<slug>
 
 - Four more pages built for ads, at Amy's request: regenerative

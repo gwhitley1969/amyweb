@@ -29,6 +29,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-10-29 — Two services renamed: "Neurotoxins (Tox)" and "Laser Treatments & Hair Removal"
+
+- /services card 01 and /services/wrinkle-relaxers are now "Neurotoxins
+  (Tox)" (was "Neurotoxins - Wrinkle Relaxers").
+- Card 07 and /services/laser-treatments are now "Laser Treatments & Hair
+  Removal" (was "Laser Treatments").
+- The names also change on the two ad landing pages and in each page's
+  search-result title.
+- The page addresses stay the same.
+- Amy's wording, via the operator. She OK'd it on its preview, and the
+  operator flipped both pages' approval flags in the same PR. DECISIONS
+  2026-10-29, the title entry.
+
 ### 2026-10-29 — /services/skin-rejuvenation: PiXel8-RF per session or a package of three
 
 - The PiXel8-RF card reads "$1,500 per session" and "$3,900 for a package
@@ -40,7 +53,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - The same card on the ad landing page /go/skin-rejuvenation changes with
   it. From Amy's flyer.
 - Amy OK'd it on its preview, and the operator flipped the page's
-  approval flag in the same PR. DECISIONS 2026-10-29, the PiXel8 entry.
+  approval flag in the same PR.
+- Live at 19:20 UTC (PR #279, release #280, merge `ce7baaa`). Checked on
+  the live site: both pages show the new card. DECISIONS 2026-10-29, the
+  PiXel8 entry and its shipped record.
 
 ### 2026-10-29 — Home carousel: Amy's ATTIVA reel is the fourth film
 

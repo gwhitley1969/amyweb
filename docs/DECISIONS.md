@@ -16967,3 +16967,84 @@ which changes with it.
   branch was checked after each "done", because only the commit counts.
 - The PR merges into `phase-c` with the flag true, so no unapproved
   page reaches `phase-c`.
+
+**Addendum, 2026-10-29 — the shipped record.**
+- PR #279 merged into `phase-c` once its pipeline was green on the
+  flipped head (`055d63a`), as `3cc6f8f`. The standing previews were
+  refreshed by `merge-tree` (#97 `fe958cc`, #149 `1752bc4`).
+- Release PR #280 (`phase-c` into `main`, on the operator's word
+  "Release it") merged once its own pipeline was green, as `ce7baaa`. It
+  also carried #278's records. Production run 40936716945 ran verify
+  with the approval check at 19:04–19:12 UTC, and the deploy and Front
+  Door purge at 19:12–19:20 UTC.
+- Checked on the live site: all 21 sitemap pages answer 200. Plain and
+  cache-busted requests to /services/skin-rejuvenation and
+  /go/skin-rejuvenation carry both price lines, the session-coverage
+  sentence and the FAQ line. The home page still plays six films.
+- `phase-c` was fast-forwarded to `main`. The environments are
+  production, 97 and 149 only.
+- The operator confirmed the update on the live site.
+
+## 2026-10-29 — Two service lines renamed: "Neurotoxins (Tox)" and "Laser Treatments & Hair Removal", search titles included (operator direction, Amy's wording)
+
+**Context.** The operator, for Amy, asked for two lines to be renamed:
+- /services card 01 and /services/wrinkle-relaxers: "Neurotoxins -
+  Wrinkle Relaxers" (client wording 2026-08-18/19) becomes
+  **"Neurotoxins (Tox)"**;
+- card 07 and /services/laser-treatments: "Laser Treatments" becomes
+  **"Laser Treatments & Hair Removal"**.
+
+Each name lives in two places: `src/lib/serviceLines.ts` (the menu card)
+and the treatment entry's `title`. The entry's title feeds the page's H1,
+the breadcrumbs, the Service JSON-LD name, and the /go/ landing page's
+H1.
+
+**Decision.**
+1. Both names change in both places, exactly as worded. Both pass
+   `lint:claims` ("Tox" is the house word already, as in /tox-together).
+2. **The search titles change too.** Keeping them was recommended:
+   the 2026-08-19 rename deliberately left "Wrinkle Relaxers in
+   Harrisburg & Charlotte, NC" in search results, the phrase people
+   search for. The operator chose to change them. They now read:
+   - "Neurotoxins (Tox) in Harrisburg & Charlotte, NC | Needle Girlie"
+     (63 characters);
+   - "Laser Treatments & Hair Removal in Harrisburg, NC | Needle Girlie"
+     (65, shorter than the 71 it replaces; "& Charlotte" would have made
+     77).
+
+   The wrinkle-relaxers meta description keeps "wrinkle relaxers" in
+   its text, so the phrase stays on the results page.
+3. **The page addresses do not change** (`/services/wrinkle-relaxers`,
+   `/services/laser-treatments`, `/go/wrinkle-relaxers`,
+   `/go/laser-treatments`), so links, ads and QR codes keep working.
+4. The /go/ landing pages need no edit: they take the H1, title and
+   description from the entry, and the build asserts they match.
+
+**Alternatives rejected.**
+- Keeping the search titles (recommended; declined).
+- New slugs to match the names: that would break every existing link
+  and ad.
+
+**Consequences.**
+- Both pages' `clinicianApproved` flags reset in the content commit
+  (constraint 4). Amy's OK on the preview and the operator's flip of
+  both flags go in the same PR before it merges.
+- Google shows the new titles after it next reads the pages. Search
+  Console's "Request indexing" shortens that wait, and is the operator's
+  to do.
+- Ad headlines or posts that say "Wrinkle Relaxers" live in Amy's own
+  accounts and are hers to change.
+- Recorded: BUILD_SPEC's page-table rows, the sign-off sheet's two rows,
+  CHANGELOG, and the comments in both entries and `serviceLines.ts`.
+- **Verified on the build:**
+  - the H1, the og:title and the Service JSON-LD name on both pages;
+  - the H1 and titles on both /go/ pages;
+  - both /services cards;
+  - no built page still carries the old names or the old search titles.
+
+**Addendum, 2026-10-29 — Amy's OK and the flip.**
+- Amy reviewed both renamed pages on PR #282's preview and OK'd them
+  (relayed by the operator the same evening).
+- The operator flipped both pages' flags in the same PR with one
+  PowerShell line covering both files (commit `68791d7`: one line each,
+  `clinicianApproved: true`, Amy's approval in the message).

@@ -31,8 +31,9 @@ export const CATEGORIES: ReadonlyArray<{ key: LineCategory; label: string }> = [
 export const serviceLines: ServiceLine[] = [
   {
     slug: 'wrinkle-relaxers',
-    // Client wording 2026-08-18 (via operator), verbatim incl. the hyphen.
-    title: 'Neurotoxins - Wrinkle Relaxers',
+    // Client wording 2026-10-29 (via operator), replacing "Neurotoxins -
+    // Wrinkle Relaxers" (2026-08-18); the page title matches.
+    title: 'Neurotoxins (Tox)',
     summary: 'Prescription injectable treatments that soften dynamic lines.',
     href: '/services/wrinkle-relaxers',
     category: 'injectables',
@@ -74,7 +75,8 @@ export const serviceLines: ServiceLine[] = [
   },
   {
     slug: 'laser-treatments',
-    title: 'Laser Treatments',
+    // Client wording 2026-10-29 (via operator); the page title matches.
+    title: 'Laser Treatments & Hair Removal',
     summary: 'Venus Versa Pro treatments using intense pulsed light and radiofrequency energy, plus Venus Epileve laser hair removal.',
     href: '/services/laser-treatments',
     category: 'skin-body',

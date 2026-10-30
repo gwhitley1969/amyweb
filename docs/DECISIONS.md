@@ -17171,3 +17171,21 @@ record's terms change. Everything else on the cards was liked as built.
   "if any" removed (relayed by the operator).
 - The operator flipped the page's flag in the same PR (commit `7fd9261`:
   one line, `clinicianApproved: true`, Amy's approval in the message).
+
+**Addendum, 2026-10-30 — the shipped record.**
+- PR #286 merged into `phase-c` once its pipeline was green on the
+  flipped head (`8b58aaa`), as `7ff246b`. The standing previews were
+  refreshed by `merge-tree` (#97 `da72b9c`, #149 `06bc814`), and #286's
+  preview environment was torn down.
+- Release PR #287 merged once its own pipeline was green, as `ec35727`.
+  Production run 41080473663 ran verify with the approval check at
+  15:24–15:32 UTC, and the deploy and Front Door purge at 15:32–15:39
+  UTC.
+- Checked on the live site:
+  - all 21 sitemap pages answer 200;
+  - plain and cache-busted, /services/skin-rejuvenation carries the three
+    peel cards, the composition and indication lines, and the routing
+    sentence without "if any", and still says peels start at $180;
+  - /go/skin-rejuvenation carries no peel card, as intended;
+  - the home page still plays six films.
+- `phase-c` was fast-forwarded to `main`.

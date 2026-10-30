@@ -42,16 +42,20 @@ const { items } = Astro.props;
           {item.tag && <span class="eyebrow product-tag">{item.tag}</span>}
         </div>
         {item.detail && <p class="mt-2">{item.detail}</p>}
-        {item.lists && item.lists.map((list) => (
-          <div class="card-list mt-3">
-            <h4 class="eyebrow card-list-heading">{list.heading}</h4>
-            <ul class="card-list-items mt-1">
-              {list.items.map((line) => (
-                <li>{line}</li>
-              ))}
-            </ul>
+        {item.lists && item.lists.length > 0 && (
+          <div class="card-lists mt-3">
+            {item.lists.map((list) => (
+              <div class="card-list">
+                <h4 class="eyebrow card-list-heading">{list.heading}</h4>
+                <ul class="card-list-items mt-1">
+                  {list.items.map((line) => (
+                    <li>{line}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
         {item.priceLines && item.priceLines.length > 0 && (
           <ul role="list" class="price-lines mt-3">
             {item.priceLines.map((line) => (
@@ -108,7 +112,14 @@ const { items } = Astro.props;
     margin-top: 0.25rem;
   }
   /* Headed bullet lists (2026-10-30): the heading takes the tag's
-   * eyebrow size; the bullets keep the card's body size. */
+   * eyebrow size; the bullets keep the card's body size. The lists sit
+   * side by side when the card is wide enough (the full-row last card),
+   * and stack in a half-width card or on a phone. */
+  .card-lists {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 0.75rem 1.5rem;
+  }
   .card-list-heading {
     font-size: 0.6875rem;
   }

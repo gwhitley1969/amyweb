@@ -17068,3 +17068,106 @@ H1.
   - no page checked carries an old name;
   - the home page still plays six films.
 - `phase-c` was fast-forwarded to `main`.
+
+## 2026-10-30 — skin-rejuvenation: three peel cards with composition and indications (operator overrides after the compliance flags; constraint 8's first exception)
+
+**Context.** For the "Chemical peels" section, Amy supplied photos of the
+maker's three laminated peel reference cards (`C:\Amy\Pics Update
+10-29-2026\`: Activa & Mela Peel Forte, Crystal Peel, Milk Peel). They
+are clinician-facing protocol sheets, the class CLAUDE.md constraint 8
+names: classification, indications, composition with acid percentages,
+pH, kit volumes, step-by-step protocol, and, on two of them, a
+recommended course at intervals. The product names match the Toskani
+professional peel line, as far as can be told; Amy has not confirmed it,
+and no brand is named on the page. The operator chose what customers
+should see: each peel's composition and its indications, and nothing
+else.
+
+**Flagged before the choice:**
+- **Percentages:** a concentration is a peel's strength, a quantity
+  under BUILD_SPEC §8 rule 1. Ingredient names only was recommended.
+- **Indications:** condition names in benefit context are §8 rule 2's
+  class. The skin-rejuvenation brief excluded "PIH claims", and the
+  laser brief "indication lists". The site had never named acne, melasma
+  or the like; its house form is appearance wording ("the appearance of
+  sun damage, brown spots…"). Appearance wording was recommended, with a
+  Crystal Peel preview shown both ways.
+- Neither item trips a `lint:claims` pattern (checked against all six
+  categories), so the authorization cannot come from a green linter.
+
+**Decision.** The operator chose the percentages and the medical terms
+"as on the sheets".
+- **Three cards** under "Chemical peels": Crystal Peel, Milk Peel, then
+  Activa & Mela Peel Forte, the full-row last card.
+- **Each card** carries "Composition" and "Indications" bullet lists.
+  Activa & Mela carries one composition list per product.
+- **The exact strings** are enumerated in CLAUDE.md constraint 3. They
+  carry four normalizations, stated in the plan the operator approved:
+  - consistent "Acid" capitals;
+  - "Mild acne" and "Keratosis pilaris" in sentence case;
+  - "PIH (post-inflammatory hyperpigmentation)" spelled out;
+  - the Milk Peel sheet's "50% Glycolic Acid*" with its "*Solution"
+    footnote written "50% Glycolic Acid (solution)".
+- **The intro** now ends "Amy offers three:". A sentence after the cards
+  routes suitability: "Which peel suits your skin, if any, and whether a
+  peel or PiXel8-RF fits it better, is decided with Amy at a
+  consultation." It replaces the intro's earlier routing sentence, so the
+  routing follows the condition lists.
+- **The cards** reuse `ProductDetailCards`, which gained optional `lists`
+  and an optional `detail`. Lists sit side by side in a wide card and
+  stack in half-width cards and on phones.
+- **Records:**
+  - CLAUDE.md: a second non-allowlist exception under the dosing bullet,
+    an exception in the claims bullet, and constraint 8's first scoped
+    exception (only these two fields transfer, and the photos are never
+    committed);
+  - BUILD_SPEC: §7.10 (the brief's PIH exclusion carved out for these
+    cards), §8 rules 1 and 2, and §17 (`{{CHEMICAL_PEELS_MENU}}` partly
+    resolved; per-peel pricing open).
+
+**Never used:** the protocols, amounts, timings, pH, kit volumes and
+applications per kit, the classifications (peel depth, device class,
+skin phototypes) and the recommended courses. The Activa & Mela sheet
+limits that system to certain skin phototypes; the page does not say
+so, and the routing sentence sends suitability to Amy.
+
+**Alternatives rejected:**
+- Ingredient names without percentages.
+- Appearance-hedged concerns in place of the indications.
+- A new card component: the existing cards are reused, so the peels look
+  like "What Amy offers".
+
+**Consequences:**
+- The site now names medical conditions as what a treatment is for, and
+  publishes product concentrations. Both are recorded overrides, scoped
+  to these cards. The banned list gains nothing, so no gate keeps these
+  words off other pages: the record does.
+- `clinicianApproved` resets on the page. Amy should read the indication
+  lists as the clinician; her OK and the operator's flip go in the same
+  PR.
+- /go/skin-rejuvenation renders no body section and is unchanged.
+
+**Verification** (local build):
+- `npm run verify:fast` exit 0, with `astro check` at 0 errors and the
+  three linters and the search-index gate green.
+- A visible-text diff of all 38 built pages against `phase-c` shows only
+  /services/skin-rejuvenation changed. The component alone, and its
+  list-layout follow-up, changed no page's text.
+- In the browser pane at 1280px: two half-width cards and the full-row
+  Activa & Mela card with three list columns. At 375px: all three cards
+  stacked and lists in one column. No sideways scroll at either width.
+
+**Addendum, 2026-10-30 — the routing sentence.** After their look at
+PR #286's preview, the operator and Amy asked for "if any" to come out
+of the sentence after the cards. It now reads: "Which peel suits your
+skin, and whether a peel or PiXel8-RF fits it better, is decided with
+Amy at a consultation." It still routes suitability to a consultation,
+the coupling CLAUDE.md's claims exception for these cards names, so no
+record's terms change. Everything else on the cards was liked as built.
+
+**Addendum, 2026-10-30 — Amy's OK and the flip.**
+- Amy reviewed the three peel cards, the indication lists included, and
+  the routing sentence on PR #286's preview. She approved them with
+  "if any" removed (relayed by the operator).
+- The operator flipped the page's flag in the same PR (commit `7fd9261`:
+  one line, `clinicianApproved: true`, Amy's approval in the message).

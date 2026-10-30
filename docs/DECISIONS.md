@@ -17164,3 +17164,10 @@ skin, and whether a peel or PiXel8-RF fits it better, is decided with
 Amy at a consultation." It still routes suitability to a consultation,
 the coupling CLAUDE.md's claims exception for these cards names, so no
 record's terms change. Everything else on the cards was liked as built.
+
+**Addendum, 2026-10-30 — Amy's OK and the flip.**
+- Amy reviewed the three peel cards, the indication lists included, and
+  the routing sentence on PR #286's preview. She approved them with
+  "if any" removed (relayed by the operator).
+- The operator flipped the page's flag in the same PR (commit `7fd9261`:
+  one line, `clinicianApproved: true`, Amy's approval in the message).

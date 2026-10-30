@@ -39,8 +39,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   cards is used.
 - A sentence after the cards says which peel suits your skin is decided
   with Amy at a consultation.
-- Prices are unchanged: peels start at 80.
-- DECISIONS 2026-10-30.
+- Prices are unchanged: peels start at $180.
+- Amy OK'd it on its preview, and the operator flipped the page's approval
+  flag in the same PR. DECISIONS 2026-10-30.
 
 ### 2026-10-29 — Two services renamed: "Neurotoxins (Tox)" and "Laser Treatments & Hair Removal"
 

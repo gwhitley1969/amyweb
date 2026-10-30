@@ -760,8 +760,14 @@ DECISIONS 2026-10-02.)*
     a unit of sale (the §7.11 reading); the "How many treatments" answer
     says it is a way to buy, not a prescription. The flyer's "save"
     arithmetic and its benefit lines are not used. **Medical-grade chemical peels** (clinician-applied
-    exfoliating solutions) — **starting at $180**; the peel section is a
-    compliant placeholder until `{{CHEMICAL_PEELS_MENU}}` resolves.
+    exfoliating solutions) — **starting at $180**. Since 2026-10-30 the
+    "Chemical peels" section shows three peel cards: Crystal Peel, Milk
+    Peel, and Activa & Mela Peel Forte. Each shows its composition (acid
+    percentages) and its indications, verbatim from the maker's peel
+    reference cards, under the operator's overrides after the compliance
+    flags (§8 rules 1 and 2; CLAUDE.md constraints 3 and 8; DECISIONS
+    same date). Nothing else from those cards is used, and per-peel
+    pricing is still `{{CHEMICAL_PEELS_MENU}}`.
     Line-specific exclusions: no needle depths/pin counts/tip specs
     (dosing-class — one pixel-scoped carve-out, operator override after
     the compliance flag, DECISIONS 2026-08-21: the page's cart photo
@@ -770,7 +776,9 @@ DECISIONS 2026-10-02.)*
     the page's other photo is the handpiece-in-hand menu-card frame,
     reused), no session counts or scheduling intervals
     (protocol-class), no results timelines or downtime promises, no PIH
-    claims, no "first and only"/MHz comparisons (superiority), no
+    claims (one carve-out, the operator's override after the flag,
+    DECISIONS 2026-10-30: the peel cards' indication lists name PIH
+    verbatim, those cards only), no "first and only"/MHz comparisons (superiority), no
     third-party med-spa names from the brochure. Factual device/procedure
     descriptions only; no resurfacing/anti-aging outcome claims; consult
     routing.
@@ -924,9 +932,22 @@ DECISIONS 2026-10-02.)*
    price, duration-class under this rule. It states no amount, no
    frequency and no cycle; the wording is exact, the scope is those
    two price lines, it is never restated elsewhere, and no other time
-   span appears on that page or any other. Nothing else.*
+   span appears on that page or any other. And the composition lines of
+   the three peel cards on /services/skin-rejuvenation (operator
+   decision after the compliance flag — DECISIONS 2026-10-30), acid
+   percentages included, the exact strings enumerated in CLAUDE.md
+   constraint 3. A concentration is a quantity under this rule, and no
+   other concentration appears anywhere. Nothing else.*
 2. Disease claims: treat / cure / prevent / diagnose; disease names in benefit
    context (Alzheimer's, Parkinson's, cancer/chemotherapy, diabetes, etc.).
+   *Scoped exception (operator decision after the compliance flag —
+   DECISIONS 2026-10-30): the indication lists of the three peel cards
+   on /services/skin-rejuvenation, verbatim from the maker's peel
+   reference cards (melasma, solar and senile lentigines, PIH, mild acne,
+   hyperkeratosis, keratosis pilaris, superficial pigmented lesions, fine
+   lines, dull complexion, loss of tone; the exact lists are in CLAUDE.md
+   constraint 3). A consultation-routing sentence follows the cards.
+   These names are never restated anywhere else. Nothing else.*
 3. Efficacy/outcome promises: guarantees, specific results, numbers,
    before/after implications, "powerful results", "proven results".
    *Scoped exception (operator override — DECISIONS 2026-07-21): the
@@ -1522,7 +1543,7 @@ Use these tokens verbatim in code/content. Never invent values for them.
 | `{{PEPTIDES_PUBLIC_LIST}}` | Which peptides appear publicly | RESOLVED 2026-07-21 (operator — Amy's nine-item injectable menu: BPC-157/TB-500, GHK-Cu, GLOW, Glutathione, Ipamorelin, MOTS-c, NAD+, Sermorelin, Tesamorelin; DECISIONS 2026-07-21. Registry status flip operator-authorized 2026-08-01. KLOW added 2026-10-02, operator — ten items; DECISIONS 2026-10-02) |
 | `{{NEUROMOD_LIST}}` | Confirmed neuromodulator products | RESOLVED 2026-07-19 (live Vagaro menu, operator-confirmed: Jeuveau, Xeomin, Daxxify) |
 | `{{PRICING_DISPLAY_MODE}}` | none / consult / startingAt (default: consult) | Open decision |
-| `{{CHEMICAL_PEELS_MENU}}` | Peel menu from Amy (brands, tiers, per-peel pricing beyond the $180 start) | Open — page carries a compliant placeholder (2026-07-22) |
+| `{{CHEMICAL_PEELS_MENU}}` | Peel menu from Amy (brands, tiers, per-peel pricing beyond the $180 start) | Partly resolved 2026-10-30: three peels (Crystal Peel, Milk Peel, Activa & Mela Peel Forte) with composition and indications on the page (DECISIONS same date). Per-peel pricing still open; the page keeps "Peels start at $180" |
 | `{{VENUS_VERSA_MENU}}` | Laser-treatments menu from Amy (which Venus Versa applications are priced, and how) | **Resolved 2026-08-21** — the two Mobile Aesthetics pricing flyers (view-only); all four cards priced, Epileve laser hair removal added (§7.12) |
 | `{{EVOLUS_CLAIM}}` | "#1 Evolus provider" substantiation outcome | RESOLVED 2026-07-21 (operator override — exact sentence in `allowedStrings`, two Evolus product pages; §8.4). RETIRED 2026-08-25 — the sentence's last consumer swapped for the EvolusLaurel plaque; entry withdrawn (§8.4) |
 | `{{BIOTE_FDA_DISCLAIMER}}` | Biote's exact required FDA wording, rendered by `BioteDisclaimer` | RESOLVED 2026-07-22 (operator-authorized — Biote's own printed brochure wording; exact sentence in `allowedStrings`, fourth authorization. Had been shipping as a *visible placeholder token* on the hormone page; §7.8) |

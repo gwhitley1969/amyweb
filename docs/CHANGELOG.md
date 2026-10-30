@@ -29,6 +29,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-10-30 — /services/skin-rejuvenation: three chemical peels, each with its own card
+
+- Under "Chemical peels", Crystal Peel, Milk Peel and Activa & Mela Peel
+  Forte each have a card listing the peel's composition (its acids, with
+  percentages) and its indications.
+- The information comes from the peels' reference cards Amy supplied, as
+  the operator chose after the compliance flags. Nothing else from those
+  cards is used.
+- A sentence after the cards says which peel suits your skin is decided
+  with Amy at a consultation.
+- Prices are unchanged: peels start at 80.
+- DECISIONS 2026-10-30.
+
 ### 2026-10-29 — Two services renamed: "Neurotoxins (Tox)" and "Laser Treatments & Hair Removal"
 
 - /services card 01 and /services/wrinkle-relaxers are now "Neurotoxins

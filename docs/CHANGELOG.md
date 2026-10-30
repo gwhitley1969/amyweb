@@ -41,7 +41,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   with Amy at a consultation.
 - Prices are unchanged: peels start at $180.
 - Amy OK'd it on its preview, and the operator flipped the page's approval
-  flag in the same PR. DECISIONS 2026-10-30.
+  flag in the same PR.
+- Live at 15:39 UTC (PR #286, release #287, merge `ec35727`). Checked on
+  the live site: the three cards, their lines and the routing sentence.
+  DECISIONS 2026-10-30, the peel-cards entry and its shipped record.
 
 ### 2026-10-29 — Two services renamed: "Neurotoxins (Tox)" and "Laser Treatments & Hair Removal"
 

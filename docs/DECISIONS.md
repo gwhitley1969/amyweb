@@ -17156,3 +17156,11 @@ so, and the routing sentence sends suitability to Amy.
 - In the browser pane at 1280px: two half-width cards and the full-row
   Activa & Mela card with three list columns. At 375px: all three cards
   stacked and lists in one column. No sideways scroll at either width.
+
+**Addendum, 2026-10-30 — the routing sentence.** After their look at
+PR #286's preview, the operator and Amy asked for "if any" to come out
+of the sentence after the cards. It now reads: "Which peel suits your
+skin, and whether a peel or PiXel8-RF fits it better, is decided with
+Amy at a consultation." It still routes suitability to a consultation,
+the coupling CLAUDE.md's claims exception for these cards names, so no
+record's terms change. Everything else on the cards was liked as built.

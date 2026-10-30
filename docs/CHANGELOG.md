@@ -29,6 +29,20 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-10-30 — /services/skin-rejuvenation: three chemical peels, each with its own card
+
+- Under "Chemical peels", Crystal Peel, Milk Peel and Activa & Mela Peel
+  Forte each have a card listing the peel's composition (its acids, with
+  percentages) and its indications.
+- The information comes from the peels' reference cards Amy supplied, as
+  the operator chose after the compliance flags. Nothing else from those
+  cards is used.
+- A sentence after the cards says which peel suits your skin is decided
+  with Amy at a consultation.
+- Prices are unchanged: peels start at $180.
+- Amy OK'd it on its preview, and the operator flipped the page's approval
+  flag in the same PR. DECISIONS 2026-10-30.
+
 ### 2026-10-29 — Two services renamed: "Neurotoxins (Tox)" and "Laser Treatments & Hair Removal"
 
 - /services card 01 and /services/wrinkle-relaxers are now "Neurotoxins
@@ -39,8 +53,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   search-result title.
 - The page addresses stay the same.
 - Amy's wording, via the operator. She OK'd it on its preview, and the
-  operator flipped both pages' approval flags in the same PR. DECISIONS
-  2026-10-29, the title entry.
+  operator flipped both pages' approval flags in the same PR.
+- Live at 20:23 UTC (PR #282, release #283, merge `b456734`). Checked on
+  the live site: both pages, both landing pages and the menu show the new
+  names. DECISIONS 2026-10-29, the title entry and its shipped record.
 
 ### 2026-10-29 — /services/skin-rejuvenation: PiXel8-RF per session or a package of three
 

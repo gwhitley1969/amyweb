@@ -388,6 +388,25 @@ silently following it. Known superseded points from earlier briefs:
      body copy, FAQ answers, alt text, comments, meta descriptions, OG
      tags, or JSON-LD. Changing the wording or the scope requires the
      human operator.*
+     *A second further scoped exception, also not an allowlist entry
+     (operator decision after the compliance flag — DECISIONS
+     2026-10-30; ingredient names without percentages were recommended
+     and declined): the composition lines of the three peel cards under
+     "Chemical peels" on /services/skin-rejuvenation, acid percentages
+     included, exactly: Crystal Peel — "20% Salicylic Acid", "5%
+     Mandelic Acid", "5% Citric Acid"; Milk Peel — "50% Glycolic Acid
+     (solution)", "9% Lactic Acid", "4% Salicylic Acid"; Activa & Mela
+     Peel Forte — Activa Peel Forte "20% Salicylic Acid", "10% Azelaic
+     Acid", "10% Ferulic Acid", "5% Citric Acid", "2.5% Phytic Acid" and
+     Mela Peel Forte "10% Resorcinol", "9% Lactic Acid", "5% Citric
+     Acid", "4% Kojic Acid", "2.5% Phytic Acid". A peel's concentration
+     is its strength, a quantity under BUILD_SPEC §8 rule 1. No pattern
+     sees a percentage, so a green linter never authorizes these. Fixed
+     terms: those strings, those cards, that page; never restated in
+     body copy, FAQ answers, alt text, comments, meta descriptions, OG
+     tags, JSON-LD, or the /go/ landing page (which renders no body);
+     no other concentration anywhere. Changing any of it requires the
+     human operator.*
      Nothing else; changing that list
      requires the human operator.
    - **Never** make disease claims (treat/cure/prevent/diagnose), efficacy or
@@ -696,6 +715,26 @@ silently following it. Known superseded points from earlier briefs:
      slide's label, the captions file, comments, meta, OG, JSON-LD;
      changing any of it requires the human operator. (Its readouts are
      the dosing bullet's thirteenth pixel-level override.)
+     And the indication lists of the three peel cards under "Chemical
+     peels" on /services/skin-rejuvenation (operator decision after the
+     compliance flag — DECISIONS 2026-10-30; appearance wording was
+     recommended and declined), verbatim from the maker's peel
+     reference cards: Crystal Peel — "Melasma", "Solar & senile
+     lentigines", "PIH (post-inflammatory hyperpigmentation)", "Mild
+     acne", "Hyperkeratosis"; Milk Peel — "Mild acne", "Keratosis
+     pilaris", "Superficial pigmented lesions", "Fine lines", "Dull
+     complexion", "Loss of tone"; Activa & Mela Peel Forte — "Melasma",
+     "Solar & senile lentigines", "PIH (post-inflammatory
+     hyperpigmentation)". Condition names in benefit context are the
+     disease-claim class (BUILD_SPEC §8 rule 2), and the page's own brief
+     excluded PIH claims; this supersedes that exclusion for these cards
+     only. No pattern sees these names, so a green linter never
+     authorizes them. A sentence after the cards routes suitability to a
+     consultation; trimming it requires the human operator. Fixed
+     terms: those lists, those cards, that page; never restated in body
+     copy, FAQ answers, alt text, comments, meta descriptions, OG tags,
+     JSON-LD, or the /go/ landing page; changing any of it requires the
+     human operator.
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing
@@ -832,6 +871,16 @@ silently following it. Known superseded points from earlier briefs:
    dosing and non-compliant claims. Do not request them, paste them, or
    commit them. Treatment copy is drafted only from the per-line briefs in
    BUILD_SPEC §7.
+   *One scoped exception (operator decision after the flag — DECISIONS
+   2026-10-30): from the three peel reference cards Amy supplied
+   (Activa & Mela Peel Forte, Crystal Peel, Milk Peel; photos in
+   `C:\Amy\Pics Update 10-29-2026\`, never committed), exactly two
+   fields transfer: the composition lines and the indications, as
+   enumerated under constraint 3, onto the peel cards of
+   /services/skin-rejuvenation. Their protocols, amounts, timings, pH,
+   kits, classifications and recommended courses never enter the repo.
+   Any other transfer from these or any other product card requires
+   the human operator.*
 
 ## Locked technical decisions (do not revisit without asking)
 

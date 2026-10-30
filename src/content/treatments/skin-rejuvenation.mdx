@@ -42,6 +42,7 @@ seo:
 import { Image } from 'astro:assets';
 import amyPixel8Cart from '../../assets/photos/amy-pixel8-cart.jpg';
 import pixel8InHand from '../../assets/photos/pixel8-in-hand.jpg';
+import ProductDetailCards from '../../components/ProductDetailCards.astro';
 
 ## What they are
 
@@ -93,10 +94,58 @@ conversation.
 A chemical peel is the traditional idea, refined: a clinician-applied solution
 that exfoliates the outer layer of the skin, applied and monitored by Amy
 in the medspa. Peels start at $180, and they differ: in depth, in
-ingredients, in what they ask of your calendar afterward. Which peel, and
-whether a peel or PiXel8-RF fits your skin better, is a consultation
-conversation, and the full peel menu is something Amy walks through in
-person.
+ingredients, in what they ask of your calendar afterward. Amy offers three:
+
+{/* The three peel cards (2026-10-30): composition and indications from
+  * the maker's peel reference cards, which are never committed, at the
+  * operator's direction after the compliance flags. These exact strings
+  * are scoped overrides recorded in CLAUDE.md constraints 3 and 8 and
+  * DECISIONS 2026-10-30, for these cards on this page only. Nothing else
+  * from those cards enters the repo. */}
+<ProductDetailCards
+  items={[
+    {
+      name: 'Crystal Peel',
+      lists: [
+        { heading: 'Composition', items: ['20% Salicylic Acid', '5% Mandelic Acid', '5% Citric Acid'] },
+        {
+          heading: 'Indications',
+          items: ['Melasma', 'Solar & senile lentigines', 'PIH (post-inflammatory hyperpigmentation)', 'Mild acne', 'Hyperkeratosis'],
+        },
+      ],
+    },
+    {
+      name: 'Milk Peel',
+      lists: [
+        { heading: 'Composition', items: ['50% Glycolic Acid (solution)', '9% Lactic Acid', '4% Salicylic Acid'] },
+        {
+          heading: 'Indications',
+          items: ['Mild acne', 'Keratosis pilaris', 'Superficial pigmented lesions', 'Fine lines', 'Dull complexion', 'Loss of tone'],
+        },
+      ],
+    },
+    {
+      name: 'Activa & Mela Peel Forte',
+      lists: [
+        {
+          heading: 'Composition: Activa Peel Forte',
+          items: ['20% Salicylic Acid', '10% Azelaic Acid', '10% Ferulic Acid', '5% Citric Acid', '2.5% Phytic Acid'],
+        },
+        {
+          heading: 'Composition: Mela Peel Forte',
+          items: ['10% Resorcinol', '9% Lactic Acid', '5% Citric Acid', '4% Kojic Acid', '2.5% Phytic Acid'],
+        },
+        {
+          heading: 'Indications',
+          items: ['Melasma', 'Solar & senile lentigines', 'PIH (post-inflammatory hyperpigmentation)'],
+        },
+      ],
+    },
+  ]}
+/>
+
+Which peel suits your skin, and whether a peel or PiXel8-RF fits it
+better, is decided with Amy at a consultation.
 
 <section class="media-row media-row--flip">
   <div class="media-copy">

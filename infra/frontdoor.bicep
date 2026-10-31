@@ -10,10 +10,14 @@
 // app (a different repo and subscription, ng-app): api.needlegirlie.com
 // -> the app's Function App, and login.needlegirlie.com -> the app's
 // External ID custom URL domain — see docs/DECISIONS.md.
+// Since 2026-10-31 also answers for needlegirly.com and its www, a
+// misspelling Amy bought: both 301 to the apex like the legacy pair
+// (DECISIONS 2026-10-31).
 param swaDefaultHostname string
 param mediaOriginHostname string
 param apiOriginHostname string // func-needlegirlie-api.azurewebsites.net (the app repo, Phase A)
 param loginOriginHostname string = 'needlegirlieapp.ciamlogin.com' // the external tenant's default host (DECISIONS 17 of the app)
+param needlegirlyZoneId string // the needlegirly.com zone in rg-corp, which its two domains link to
 
 var apexHost = 'needlegirlie.com'
 var wwwHost = 'www.needlegirlie.com'
@@ -24,6 +28,10 @@ var loginHost = 'login.needlegirlie.com'
 // (BUILD_SPEC §2).
 var legacyWwwHost = 'www.needlegirl.com'
 var legacyApexHost = 'needlegirl.com'
+// Misspelling Amy bought (2026-10-31); both hosts redirect to the canonical
+// apex the same way.
+var needlegirlyWwwHost = 'www.needlegirly.com'
+var needlegirlyApexHost = 'needlegirly.com'
 
 resource profile 'Microsoft.Cdn/profiles@2024-02-01' = {
   name: 'afd-needlegirlie'
@@ -111,6 +119,40 @@ resource legacyApexDomain 'Microsoft.Cdn/profiles/customDomains@2024-02-01' = {
   name: 'apex-needlegirl-com'
   properties: {
     hostName: legacyApexHost
+    tlsSettings: {
+      certificateType: 'ManagedCertificate'
+      minimumTlsVersion: 'TLS12'
+    }
+  }
+}
+
+// The www domain was added in the portal, which named it with a suffix. The
+// name is kept so a redeploy adopts the live domain instead of making a
+// second one. Both domains link to their Azure DNS zone, as the portal
+// links them.
+resource needlegirlyWwwDomain 'Microsoft.Cdn/profiles/customDomains@2024-02-01' = {
+  parent: profile
+  name: 'www-needlegirly-com-35c6'
+  properties: {
+    hostName: needlegirlyWwwHost
+    azureDnsZone: {
+      id: needlegirlyZoneId
+    }
+    tlsSettings: {
+      certificateType: 'ManagedCertificate'
+      minimumTlsVersion: 'TLS12'
+    }
+  }
+}
+
+resource needlegirlyApexDomain 'Microsoft.Cdn/profiles/customDomains@2024-02-01' = {
+  parent: profile
+  name: 'apex-needlegirly-com'
+  properties: {
+    hostName: needlegirlyApexHost
+    azureDnsZone: {
+      id: needlegirlyZoneId
+    }
     tlsSettings: {
       certificateType: 'ManagedCertificate'
       minimumTlsVersion: 'TLS12'
@@ -355,6 +397,38 @@ resource legacyWwwToApex 'Microsoft.Cdn/profiles/ruleSets/rules@2024-02-01' = {
   }
 }
 
+resource needlegirlyToApex 'Microsoft.Cdn/profiles/ruleSets/rules@2024-02-01' = {
+  parent: ruleSet
+  name: 'needlegirlytoapex'
+  dependsOn: [legacyWwwToApex] // rules in a set must be created serially
+  properties: {
+    order: 3
+    matchProcessingBehavior: 'Stop'
+    conditions: [
+      {
+        name: 'HostName'
+        parameters: {
+          typeName: 'DeliveryRuleHostNameConditionParameters'
+          operator: 'Equal'
+          matchValues: [needlegirlyWwwHost, needlegirlyApexHost]
+          transforms: ['Lowercase']
+        }
+      }
+    ]
+    actions: [
+      {
+        name: 'UrlRedirect'
+        parameters: {
+          typeName: 'DeliveryRuleUrlRedirectActionParameters'
+          redirectType: 'Moved'
+          destinationProtocol: 'Https'
+          customHostname: apexHost
+        }
+      }
+    ]
+  }
+}
+
 resource route 'Microsoft.Cdn/profiles/afdEndpoints/routes@2024-02-01' = {
   parent: endpoint
   name: 'default'
@@ -373,6 +447,8 @@ resource route 'Microsoft.Cdn/profiles/afdEndpoints/routes@2024-02-01' = {
       { id: wwwDomain.id }
       { id: legacyWwwDomain.id }
       { id: legacyApexDomain.id }
+      { id: needlegirlyWwwDomain.id }
+      { id: needlegirlyApexDomain.id }
     ]
     ruleSets: [
       { id: ruleSet.id }
@@ -439,6 +515,8 @@ output apexValidationToken string = apexDomain.properties.validationProperties.v
 output wwwValidationToken string = wwwDomain.properties.validationProperties.validationToken
 output legacyWwwValidationToken string = legacyWwwDomain.properties.validationProperties.validationToken
 output legacyApexValidationToken string = legacyApexDomain.properties.validationProperties.validationToken
+output needlegirlyWwwValidationToken string = needlegirlyWwwDomain.properties.validationProperties.validationToken
+output needlegirlyApexValidationToken string = needlegirlyApexDomain.properties.validationProperties.validationToken
 output mediaValidationToken string = mediaDomain.properties.validationProperties.validationToken
 output apiValidationToken string = apiDomain.properties.validationProperties.validationToken
 output loginValidationToken string = loginDomain.properties.validationProperties.validationToken

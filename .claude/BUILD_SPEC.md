@@ -62,6 +62,9 @@ GitHub repo ── Astro 5 static site, content in Markdown/MDX
 Facts already true: DNS for needlegirlie.com is hosted in Azure DNS in the
 client's subscription (`needlegirlie.onmicrosoft.com` tenant). The domain is
 registered. `needlegirl.com` is owned but is **not** used in v1 (there will be a redirect in DNS on Azure, where www.needlegirl.com will point to www.needlegirlie.com).
+`needlegirly.com`, a misspelling Amy bought on 2026-10-31, is redirect-only
+in the same way: it and its www 301 to the apex at Front Door (DECISIONS
+2026-10-31).
 
 Canonicalization: **apex `needlegirlie.com` is canonical**; `www` 301-redirects
 to apex at Front Door (Azure DNS alias record supports apex → Front Door).

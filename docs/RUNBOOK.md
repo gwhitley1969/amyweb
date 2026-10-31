@@ -50,7 +50,7 @@ assumes `az` and `gh` CLIs authenticated against the client tenant
 | Piece | Value |
 |---|---|
 | Production | https://needlegirlie.com (canonical apex) |
-| Redirecting hosts | www.needlegirlie.com, needlegirl.com, www.needlegirl.com → 301 to apex |
+| Redirecting hosts | www.needlegirlie.com, needlegirl.com, www.needlegirl.com, needlegirly.com, www.needlegirly.com → 301 to apex |
 | Front Door | profile `afd-needlegirlie`, endpoint `needlegirlie` (`needlegirlie-b9bbeadqaucyd7af.z03.azurefd.net`), ID `ee68a15a-55e1-4220-8016-3052e33d4988` |
 | Static Web App | `stapp-needlegirlie` (`polite-flower-0a41b770f.7.azurestaticapps.net`) — direct hits are **refused by design** (locked to Front Door; the config is the documented 403 form, but the platform was observed answering 404 with zero site content at launch, 2026-08-05 — either way, blocked) |
 | Resource group | `rg-needlegirlie-web` (eastus2); DNS zones live in `rg-corp` |

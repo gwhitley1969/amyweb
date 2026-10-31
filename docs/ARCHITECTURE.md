@@ -52,17 +52,18 @@ profiles and map links — all enumerated in `src/lib/siteConfig.ts` under
 the scoped exceptions CLAUDE.md records. BUILD_SPEC §9: every integration
 is outbound; no data is exchanged.
 
-**Azure DNS** holds two zones in `rg-corp` (subscription `ng-website`):
-`needlegirlie.com` and the legacy `needlegirl.com`. Both apexes are alias A
+**Azure DNS** holds three zones in `rg-corp` (subscription `ng-website`):
+`needlegirlie.com`, the legacy `needlegirl.com`, and `needlegirly.com`, a
+misspelling Amy bought on 2026-10-31. All three apexes are alias A
 records to the Front Door endpoint; `www`, `media`, `api` and `login` are
 CNAMEs to the endpoint hostname; the `_dnsauth.*` TXT records carry Front
 Door's managed-certificate validation tokens (`infra/dns.bicep`,
-`infra/dns-needlegirl.bicep`). The zones also carry records this repo does
-not declare (§5).
+`infra/dns-needlegirl.bicep`, `infra/dns-needlegirly.bicep`). The zones
+also carry records this repo does not declare (§5).
 
 **Azure Front Door Standard** (`afd-needlegirlie`, endpoint
 `needlegirlie`, `needlegirlie-b9bbeadqaucyd7af.z03.azurefd.net`) is the
-single public edge. It terminates TLS with managed certificates on seven
+single public edge. It terminates TLS with managed certificates on nine
 custom domains, redirects HTTP to HTTPS and the `www` and legacy hosts to
 the canonical apex, caches and compresses, and forwards to one of four
 origins by hostname: the Static Web App for the pages, Blob Storage for the
@@ -135,11 +136,11 @@ She holds no Azure or GitHub access; the operator holds both.
 Visitor (mobile-first)              Search engines           Amy (reviews previews)
    │ HTTPS                               │                          │
    ▼                                     ▼                          ▼
-Azure DNS (rg-corp, ng-website)  needlegirlie.com · needlegirl.com
+Azure DNS (rg-corp, ng-website)  needlegirlie.com · needlegirl.com · needlegirly.com
    │ apex alias A + www/media/api/login CNAMEs → the one Front Door endpoint
    ▼
 Azure Front Door Standard  afd-needlegirlie / endpoint needlegirlie  (no WAF)
-   ├─ route default  needlegirlie.com · www · needlegirl.com · www.needlegirl.com → og-swa
+   ├─ route default  needlegirlie.com · needlegirl.com · needlegirly.com, each + www → og-swa
    │     HTTP→HTTPS · www + legacy hosts 301 → apex · edge cache · compression
    ├─ route media    media.needlegirlie.com  (originPath /media)                → og-media
    ├─ route api      api.needlegirlie.com    (HTTPS only, no cache, no redirect) → og-api   ┐ the app's,
@@ -237,7 +238,7 @@ and nothing behind them.
     │               │                 │                                   │
 (1) ├──────────────►│ needlegirlie.com → alias A → the endpoint
 (2) ├────────────────────────────────►│ TLS (managed cert); http:// → 307 to https://
-(3) │                                 │ host www / needlegirl.com → 301 https://needlegirlie.com/…
+(3) │                                 │ host www / needlegirl.com / needlegirly.com → 301 https://needlegirlie.com/…
 (4) │                                 │ cache hit? → serve (HTML max-age=300; /_astro/* immutable)
 (5) │                                 ├──────────────────────────────────►│ Host: polite-flower…; X-Azure-FDID: ee68a15a-…
 (6) │                                 │                                   │ allowedIpRanges + requiredHeaders pass →
@@ -501,7 +502,8 @@ caveat: a Bicep TXT record set replaces the live set wholesale, so the day
 the apex TXT is declared as the RUNBOOK's `googleSiteVerification`
 parameter asks, **both** values must be listed in that one resource or the
 Microsoft proof is lost (DECISIONS 2026-10-12; RUNBOOK "Telling the search
-engines the site exists").
+engines the site exists"). `needlegirly.com` (*verified 2026-10-31*)
+carries nothing beyond `infra/dns-needlegirly.bicep`'s four records.
 
 **Retention.** Git is append-only in spirit: `docs/DECISIONS.md` and
 `docs/CHANGELOG.md` are never rewritten, `main` is never force-pushed

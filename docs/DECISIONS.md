@@ -17189,3 +17189,62 @@ record's terms change. Everything else on the cards was liked as built.
   - /go/skin-rejuvenation carries no peel card, as intended;
   - the home page still plays six films.
 - `phase-c` was fast-forwarded to `main`.
+
+## 2026-10-31 — needlegirly.com, a misspelling Amy bought, 301s to the apex like needlegirl.com
+
+**Context.** Amy bought `needlegirly.com` and asked that typing it lands on
+`https://needlegirlie.com`. The operator moved its nameservers from
+GoDaddy to a new Azure DNS zone in `rg-corp` and, in the portal, added
+`www.needlegirly.com` to Front Door (domain `www-needlegirly-com-35c6`,
+its CNAME and `_dnsauth.www` TXT, on the `default` route). It did not
+work, for three reasons found that day:
+- the apex had no Front Door domain, no alias A record and no `_dnsauth`
+  TXT, so `needlegirly.com` resolved to nothing;
+- the `redirects` rule set had no rule for the new hosts, so
+  `https://www.needlegirly.com/` served the whole site under that name
+  (200; its canonical tag still named needlegirlie.com);
+- the operator's home network still held GoDaddy's cached answers (its
+  parking addresses, which answer HTTPS for the name with a failed
+  handshake), so tests from there failed whatever Azure did.
+
+**Decision.** The `needlegirl.com` pattern (2026-07-07): both hosts are
+Front Door domains with managed certificates on the `default` route, and
+one rule, `needlegirlytoapex` (order 3), 301s both to
+`https://needlegirlie.com`, path and query kept. Applied live the same day
+through the ARM API (the rule, the apex domain, its `_dnsauth` TXT and `@`
+alias A, the route's domain list), then declared in `infra/frontdoor.bicep`
+and the new `infra/dns-needlegirly.bicep`, wired in `infra/main.bicep`.
+The portal's name for the www domain is kept, and both domains keep the
+link to their zone that the portal makes, so the Bicep adopts the live
+resources instead of replacing them.
+
+**Why declare it.** A what-if of the Bicep as it stood showed a redeploy
+would drop both needlegirly domains from the `default` route. With the
+change, the route, the rule and the apex record show no change, and
+nothing is created or deleted; the rest of that what-if is the noise the
+baseline run shows too (values that come from module outputs, read-only
+fields).
+
+**Rejected.** A DNS-only redirect (DNS cannot redirect or carry a
+certificate, the 2026-07-07 reasoning); GoDaddy's forwarding (it needs
+GoDaddy's DNS back, and its addresses were the ones failing HTTPS that
+day); a rule set or route of its own (one more rule in the existing set is
+the precedent).
+
+**Cost.** None added: Front Door Standard includes the first 100 custom
+domains, managed certificates and the rules engine. The zone the operator
+created costs about $0.50 a month.
+
+**Verified, 2026-10-31.**
+- The rule reached every edge about 13 minutes after it was saved (17:35
+  UTC). The apex validated within 10 minutes; its DigiCert certificate
+  (valid to 2027-04-30) was on every edge by 17:48 UTC.
+- Six clean passes from 17:48 UTC, each on all five Front Door addresses
+  the public resolvers hand out: apex and www, http and https, with a
+  deep link, end on `https://needlegirlie.com/…` with the path and query
+  kept (https in one 301; http in a 307 to https, then the 301, as the
+  legacy domain does). `needlegirlie.com`, its www and `needlegirl.com`
+  answered as before. Followed through Google's resolver, all four forms
+  land on the home page.
+- `npm run build` and `npm run check` pass, and the built site is
+  byte-identical to `origin/phase-c`'s build.

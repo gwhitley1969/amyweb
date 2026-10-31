@@ -29,6 +29,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-10-31 — needlegirly.com leads to needlegirlie.com
+
+- `needlegirly.com` and `www.needlegirly.com`, a misspelling Amy bought,
+  now 301 to `https://needlegirlie.com`, over http and https, path kept.
+- A Front Door and DNS change, live the same day; the site itself did not
+  change. DECISIONS 2026-10-31.
+
 ### 2026-10-30 — /services/skin-rejuvenation: three chemical peels, each with its own card
 
 - Under "Chemical peels", Crystal Peel, Milk Peel and Activa & Mela Peel

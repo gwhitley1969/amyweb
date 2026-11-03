@@ -29,6 +29,21 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-11-03 — Home carousel: a Re-Q Health reel is the fourth film
+
+- The film band under the hero ("Mobile Aesthetics. On screen.") plays
+  seven films now. A Re-Q Health reel of its skincare plays fourth,
+  after Amy's billboard-day reel; the ATTIVA reel, the Jeuveau spot and
+  the team film move to fifth, sixth and seventh.
+- Amy sells Re-Q Health at the medspa. The reel came with a Re-Q rep's
+  Instagram handle on it; Amy's handle replaces it, by a local edit with
+  no AI, and the maker's OK is on record. It carries its music at the
+  operator's direction after the compliance flags, starts muted like
+  every film there, and its captions mark the music.
+- On phones the progress bars under the films are a little shorter, so
+  seven fit the narrowest screens without the page sliding sideways.
+- DECISIONS 2026-11-03.
+
 ### 2026-10-31 — needlegirly.com leads to needlegirlie.com
 
 - `needlegirly.com` and `www.needlegirly.com`, a misspelling Amy bought,

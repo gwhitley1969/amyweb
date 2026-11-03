@@ -325,7 +325,9 @@ To add or swap a film:
    sheet via `ffmpeg -i in.mp4 -vf "fps=1/2,scale=480:-1,tile=5x4"
    -frames:v 1 sheet.png`, vet every legible word/brand; on-camera
    clients need releases confirmed on the record; manufacturer films
-   carry as-is or not at all (never trim safety screens); each film
+   carry as-is or not at all (never trim safety screens; one recorded
+   exception: the Re-Q reel's Instagram handle, replaced with Amy's on
+   2026-11-03 with the maker's OK on record — DECISIONS same date); each film
    gets its DECISIONS entry before it ships. **Screen the sound too**
    (since 2026-09-30 the carousel plays it): what is said or sung is
    held to the same rules as what is shown, and a commercial song
@@ -350,7 +352,12 @@ To add or swap a film:
    `commercial-attiva.mp4`) is the first film made by this step
    itself: −4.3 dB to −18.0 LUFS, at `-crf 18` rather than 23, because
    a reel of mostly still slides came out at 1.96 MB and its slide text
-   needed the bits (2.9 MB at 18; DECISIONS same date). The five films
+   needed the bits (2.9 MB at 18; DECISIONS same date). The Re-Q reel
+   (2026-11-03, `commercial-req.mp4`) skips the picture encode: its
+   master, the approved edit, is already H.264 High, yuv420p, BT.709 and
+   faststart, so its picture is copied bit for bit (`-c:v copy`) and only
+   the sound is re-encoded, −5.3 dB to −18.1 LUFS (DECISIONS same date).
+   The five films
    in the carousel on 2026-09-30 were made another way, because their
    silent files were already published:
    each `commercial-<name>-sound.mp4` is the silent file's picture
@@ -363,9 +370,10 @@ To add or swap a film:
    All the posters download with the page, because the stage sits
    inside the browser's lazy-load distance. So since 2026-10-29 only
    the first slide serves a 720px poster, and the rest serve 480px.
-   With six films the home page loads about 335 KB of its 350 KB
-   budget (DECISIONS same date). A seventh film's poster, or a heavier
-   first one, needs measuring with `npm run test:perf`.
+   With seven films (since 2026-11-03; the seventh poster serves at
+   8.9 KB) the home page loads 344,105 B of its 358,400 B (350 KB) budget
+   (DECISIONS same date). An eighth film's poster, or a heavier first
+   one, needs measuring with `npm run test:perf`.
 4. **Captions:** `public/media/commercial-<name>.vtt` (the a11y gate
    requires a track on every built video; VTT files are outside
    lint:claims scope — the per-film override entry is the control).
@@ -392,18 +400,20 @@ To add or swap a film:
    per-slide playback tempo (no film sets one now; the studio reel ran
    at 0.5× until it retired 2026-09-27 — tuning ladder in DECISIONS
    2026-08-15). Amy's own films ONLY — manufacturer
-   films always play at 1×, their presentation is carried as-is.
+   films always play at 1×, their presentation is carried as-is (one
+   recorded edit, the Re-Q reel's handle — DECISIONS 2026-11-03).
    0.5 is the floor (engines clamp below); slower means re-editing.
-   Bars-row width: at six films (since 2026-10-29) the progress bars
-   run 40px at 600px wide and under (64px above), 280px in all (424px
-   above 600px). The three controls are their own group (since
-   2026-09-30) and wrap under the bars at 560px wide and under and at
-   601–704px, measured 2026-10-29, so on a phone the bars have the row
-   to themselves: 280px fits the 344px fold cover's 296px content box,
-   and at 320px it overhangs the 272px box by 4px a side, inside the
-   section's padding, with nothing scrolling sideways. A seventh film
-   (328px) would overhang the fold cover too; measure before adding one
-   (the math lives in the component's bars comment). The stage is
+   Bars-row width: at seven films (since 2026-11-03) the progress bars
+   run 36px at 600px wide and under (64px above), 300px in all (496px
+   above 600px); at 40px seven would make 328px and run 4px past each
+   edge of a 320px screen. The three controls are their own group
+   (since 2026-09-30) and wrap under the bars at 580px wide and
+   under and at 601–776px, measured 2026-11-03, so on a phone the bars
+   have the row to themselves: at 320px the 300px group reaches 14px
+   into each side of the section's 24px padding, and 2px at the 344px
+   fold cover, with nothing scrolling sideways. An eighth film would
+   need narrower bars again; measure before adding one (the math lives
+   in the component's bars comment). The stage is
    full-width (`width: 100%`, 2026-09-25): a widescreen film presents
    large on desktop while portrait films keep their size.
 6. `npm run verify` green → PR → preview → Amy's word → merge.
@@ -413,7 +423,8 @@ To add or swap a film:
 `commercial-<name>-sound.mp4` files as published, `build.sh`, which
 rebuilds them from the masters, `attiva\` with the ATTIVA reel's
 `commercial-attiva.mp4`, its poster and `build-attiva.sh` (since
-2026-10-29), and the browser tests of the Sound and CC buttons. Two things those tests rely on. Test code must carry no
+2026-10-29), `req\` with the Re-Q reel's `commercial-req.mp4`, its poster
+and `build-req.sh` (since 2026-11-03), and the browser tests of the Sound and CC buttons. Two things those tests rely on. Test code must carry no
 user gesture, or a browser's refusal to start sound cannot be seen
 (Puppeteer's `page.evaluate` grants one; the Chrome runs use a CDP
 `Runtime.evaluate` with `userGesture: false`). And no iPhone can be
@@ -503,11 +514,17 @@ entry).
 1. Upload (after the compliance screen and DECISIONS entry):
 
    ```
-   az storage blob upload --account-name <account> -c media \
+   az storage blob upload --subscription ng-website \
+     --account-name <account> -c media \
      -f commercial-<name>.mp4 -n commercial-<name>.mp4 \
      --content-type video/mp4 \
      --content-cache-control "public, max-age=86400" --auth-mode key
    ```
+
+   Name the subscription: the build machine's az default is another
+   one, and without the flag the command fails to find the account
+   (measured 2026-11-03). In Git Bash, put `MSYS_NO_PATHCONV=1` before
+   the command.
 
 2. Verify before linking: `curl -sI -r 0-1023
    https://media.needlegirlie.com/commercial-<name>.mp4` → expect

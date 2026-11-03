@@ -155,9 +155,11 @@ Twenty files against `phase-c`; the substance is in `ConceptHome.astro`,
   withdrew it on the preview: "I want that part to look like what we
   have in PR #149." `VideoCarousel.astro` is phase-c's file again:
   the heading centered over the stage, the bars beneath.
-- **Order:** since 2026-09-27, Evolysse → Amy's promo → her
-  billboard-day reel → Jeuveau → team (DECISIONS 2026-09-25 and
-  2026-09-27). The concept round kept J1 → studio → J2 → team, the
+- **Order:** since 2026-11-03, Evolysse → Amy's promo → her
+  billboard-day reel → the Re-Q Health reel → her ATTIVA reel → Jeuveau
+  → team (DECISIONS 2026-11-03; the ATTIVA reel joined fourth
+  2026-10-29; before that, from 2026-09-27, the same list without the
+  two — DECISIONS 2026-09-25 and 2026-09-27). The concept round kept J1 → studio → J2 → team, the
   recorded 2026-08-14 sequence. (It put Amy's films first for a few
   hours; the operator reversed it: "I want the Jeuveau commercial to
   play first.") The Evolysse film went first on 2026-09-25, and on
@@ -309,7 +311,7 @@ paragraph). The table is kept as the map of where each rule lives.
 | dissolves | `home-motion.js` | 1.6s fade-in after a 0.2s wait (since 2026-09-18 — the film's from-white opening frames pass unseen); with ranges set: 0.8s joins, 1.2s out / 1.6s in round the rest | the film's arrival; the trim machinery's joins |
 | Lenis `lerp` | `home-motion.js` | `0.09` | scroll weight (higher = snappier) |
 | hero settle | `global.css` / `home-motion.js` | 14s / 2.4s | the still's one-shot scale |
-| slide order | `VideoCarousel.astro` slides array | Evolysse → Amy's promo → her billboard-day reel → her ATTIVA reel → Jeuveau → team (since 2026-10-29, when the ATTIVA reel joined fourth; the same five without it from 2026-09-27; J1 → studio → J2 → team until 2026-09-25, when the Evolysse film went first) | the band |
+| slide order | `VideoCarousel.astro` slides array | Evolysse → Amy's promo → her billboard-day reel → the Re-Q Health reel → her ATTIVA reel → Jeuveau → team (since 2026-11-03, when the Re-Q reel joined fourth; the ATTIVA reel was fourth from 2026-10-29; the same five without either from 2026-09-27; J1 → studio → J2 → team until 2026-09-25, when the Evolysse film went first) | the band |
 
 ## What is pending
 

@@ -62,6 +62,9 @@ GitHub repo ── Astro 5 static site, content in Markdown/MDX
 Facts already true: DNS for needlegirlie.com is hosted in Azure DNS in the
 client's subscription (`needlegirlie.onmicrosoft.com` tenant). The domain is
 registered. `needlegirl.com` is owned but is **not** used in v1 (there will be a redirect in DNS on Azure, where www.needlegirl.com will point to www.needlegirlie.com).
+`needlegirly.com`, a misspelling Amy bought on 2026-10-31, is redirect-only
+in the same way: it and its www 301 to the apex at Front Door (DECISIONS
+2026-10-31).
 
 Canonicalization: **apex `needlegirlie.com` is canonical**; `www` 301-redirects
 to apex at Front Door (Azure DNS alias record supports apex → Front Door).
@@ -236,11 +239,12 @@ one scripted exception to the closed CSS vocabulary (the global.css motion heade
 CLAUDE.md's fourth consumer; DECISIONS 2026-09-03, the home entry's adoption
 paragraph).
 Since 2026-08-14 the noir shell includes
-the home's cinematic video stage — six films crossfading
+the home's cinematic video stage — seven films crossfading
 chromeless on full-bleed noir (the operator's "Audi treatment";
 DECISIONS 2026-08-14; the fourth film joined 2026-08-17, the fifth —
 the Evolysse film, played first — 2026-09-25, the sixth — Amy's ATTIVA
-reel, played fourth — 2026-10-29; the
+reel, played fourth — 2026-10-29, the seventh — a Re-Q Health reel,
+played fourth, ATTIVA moving to fifth — 2026-11-03; the
 stage-surface question, noir vs
 arch-on-ombre, is an open client call — docs/REDESIGN.md). Playfulness is retired from
 the design language; personality lives in the type, the photography, and
@@ -422,7 +426,7 @@ constraint 6, DECISIONS 2026-09-03), no layout shift from fonts or images.
 
 | Route | Page | Purpose / key content | Primary CTA |
 |---|---|---|---|
-| `/` | Home | Hero (brand thesis — see below; since 2026-08-14 the hero photo is Amy's studio-counter portrait; since 2026-09-04 — the adopted home concept, DECISIONS 2026-09-03 and its tweaks — the hero is a film facade over that portrait: the portrait paints (the LCP element, unchanged) and holds the hero alone for `data-first` 5s, then the hero film fades in and loops — since 2026-09-17 the purpose-made living-portrait film (`hero-living-portrait-v10.mp4`, about 11s, 24fps, native loop; since 2026-09-18, at the founders' request, it opens on the hair shot; since 2026-09-30, at Amy's request, the closing portrait is a still under a slow camera drift, the turn and the smile gone, and her pink-scrubs portrait joins the stills — with its loop point inside a white flash; AI-assisted and disclosed, DECISIONS 2026-09-17, its 2026-09-18 addendum and 2026-09-30 with its addendum — it replaced the studio reel's three screened passages at 0.5×, their freeze-frame dissolves, and the `data-still` portrait beat); the headline rises word by word and the wordmark switches on (GSAP, the home URL only — the fourth sanctioned script consumer, §13; the CSS-only home is the fallback if the scripts fail); the lead is one sentence ("One clinician, every appointment. Amy Palacios, FNP, in medical aesthetics since 2017."); the section openers step up to display sizes over one-sentence decks; and a noir statement band — "Amy comes to you." until 2026-09-26, since then the party page's door (Tox Together since the 2026-09-27 rename; it read Tox To Go for a day): the name, its tagline, one sentence, "Book your Tox Together party" calling Amy's phone, and "See the hostess perk ›" to /tox-together, the page that carries the offer ("Tox" allowed in this band by operator decision — DECISIONS 2026-09-26, the band entry, then the page entry; for a day on the same PR the band carried the whole offer with "How a party works ›" to /mobile, superseded before anything merged); beside the van interior photo until 2026-09-25 (the fifth arch exemption), since then beside Amy's van-trip film in a 9:16 panel (the whole 2:50 clip looping, muted, with its own sound one tap away: Amy's own voice and, back since 2026-10-04 under the operator's override of the music position, the clip's two songs — DECISIONS 2026-10-04; AI-upscaled and disclosed; DECISIONS 2026-09-25) — sits between the doors and the visit beat; docs/HOME-CONCEPT.md is the working record and carries the knobs); **video carousel** directly below the hero (2026-08-14, fourth film added 2026-08-17, the Evolysse film added FIRST 2026-09-25, films two and three replaced 2026-09-27 by Amy's promo and her billboard-day reel, and Amy's ATTIVA reel added fourth 2026-10-29: six films on a cinematic noir stage — autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, facade-loaded; since 2026-09-30 the films carry their own sound, one tap away on a Sound button, with a captions (CC) button beside it; DECISIONS each date); "Meet Amy" trust block (FNP, since 2017, Biote-certified); **three category doors** routing to /services (amended 2026-07-25: the home ROUTES, it does not reprint the 12-card menu — DECISIONS same date); location strip; Get-the-App slot — satisfied by the sitewide footer block, not a home section | Book an appointment |
+| `/` | Home | Hero (brand thesis — see below; since 2026-08-14 the hero photo is Amy's studio-counter portrait; since 2026-09-04 — the adopted home concept, DECISIONS 2026-09-03 and its tweaks — the hero is a film facade over that portrait: the portrait paints (the LCP element, unchanged) and holds the hero alone for `data-first` 5s, then the hero film fades in and loops — since 2026-09-17 the purpose-made living-portrait film (`hero-living-portrait-v10.mp4`, about 11s, 24fps, native loop; since 2026-09-18, at the founders' request, it opens on the hair shot; since 2026-09-30, at Amy's request, the closing portrait is a still under a slow camera drift, the turn and the smile gone, and her pink-scrubs portrait joins the stills — with its loop point inside a white flash; AI-assisted and disclosed, DECISIONS 2026-09-17, its 2026-09-18 addendum and 2026-09-30 with its addendum — it replaced the studio reel's three screened passages at 0.5×, their freeze-frame dissolves, and the `data-still` portrait beat); the headline rises word by word and the wordmark switches on (GSAP, the home URL only — the fourth sanctioned script consumer, §13; the CSS-only home is the fallback if the scripts fail); the lead is one sentence ("One clinician, every appointment. Amy Palacios, FNP, in medical aesthetics since 2017."); the section openers step up to display sizes over one-sentence decks; and a noir statement band — "Amy comes to you." until 2026-09-26, since then the party page's door (Tox Together since the 2026-09-27 rename; it read Tox To Go for a day): the name, its tagline, one sentence, "Book your Tox Together party" calling Amy's phone, and "See the hostess perk ›" to /tox-together, the page that carries the offer ("Tox" allowed in this band by operator decision — DECISIONS 2026-09-26, the band entry, then the page entry; for a day on the same PR the band carried the whole offer with "How a party works ›" to /mobile, superseded before anything merged); beside the van interior photo until 2026-09-25 (the fifth arch exemption), since then beside Amy's van-trip film in a 9:16 panel (the whole 2:50 clip looping, muted, with its own sound one tap away: Amy's own voice and, back since 2026-10-04 under the operator's override of the music position, the clip's two songs — DECISIONS 2026-10-04; AI-upscaled and disclosed; DECISIONS 2026-09-25) — sits between the doors and the visit beat; docs/HOME-CONCEPT.md is the working record and carries the knobs); **video carousel** directly below the hero (2026-08-14, fourth film added 2026-08-17, the Evolysse film added FIRST 2026-09-25, films two and three replaced 2026-09-27 by Amy's promo and her billboard-day reel, Amy's ATTIVA reel added fourth 2026-10-29, and a Re-Q Health reel added fourth 2026-11-03: seven films on a cinematic noir stage — autoplay muted on visibility, crossfade rotation, WCAG 2.2.2 pause, facade-loaded; since 2026-09-30 the films carry their own sound, one tap away on a Sound button, with a captions (CC) button beside it; DECISIONS each date); "Meet Amy" trust block (FNP, since 2017, Biote-certified); **three category doors** routing to /services (amended 2026-07-25: the home ROUTES, it does not reprint the 12-card menu — DECISIONS same date); location strip; Get-the-App slot — satisfied by the sitewide footer block, not a home section | Book an appointment |
 | `/services` | Services index | Short factual intro per line, linking to the 12 detail pages | Per-line → detail |
 | `/services/weight-loss-glp-1` | Weight Loss & GLP-1 Therapy | §7 brief | Book / Consult (2026-07-21, operator — was consult-routed) |
 | `/services/peptide-therapy` | Peptide Therapy | §7 brief — public list is `{{PEPTIDES_PUBLIC_LIST}}` | Request a consultation |
@@ -919,14 +923,20 @@ DECISIONS 2026-10-02.)*
    prep-workflow and product-box classes the 2026-07-23 rubric
    excluded); no label or packaging text from it is ever restated in
    site text, the slide's label and the captions file included; same
-   terms. And the home carousel's fourth film (`commercial-attiva`,
+   terms. And the home carousel's fourth film from 2026-10-29, fifth
+   since 2026-11-03 (`commercial-attiva`,
    DECISIONS 2026-10-29), Amy's ATTIVA reel, carried whole: the
    device's screen (in the opening shot and on the poster) and the
    maker's brochure page show thermal readouts with power, time,
    temperature and energy values (the console-readout class of the
    PiXel8 and Epileve frames); no value from them is ever restated in
    site text, the slide's label and the captions file included; same
-   terms. And one price line (operator decision after the compliance
+   terms. And the home carousel's fourth film since 2026-11-03
+   (`commercial-req`, DECISIONS same date), a Re-Q Health reel carried
+   as edited: the bottle's net-contents line is legible (package size,
+   not a dose, filed with the quantity classes as the Evolysse cartons'
+   fill volume was); the value is never restated in site text, the
+   slide's label and the captions file included; same terms. And one price line (operator decision after the compliance
    flag — DECISIONS 2026-10-02): "$265 for six weeks" on the GLOW and
    KLOW cards of /services/peptide-therapy only — a time span beside a
    price, duration-class under this rule. It states no amount, no
@@ -999,7 +1009,8 @@ DECISIONS 2026-10-02.)*
    in its caption cues, which show by default, and are restated nowhere
    else in site text.
    And Amy's own reel announcing the ATTIVA device, the home carousel's
-   fourth film since 2026-10-29 (`commercial-attiva`; operator overrides
+   fourth film from 2026-10-29 and fifth since 2026-11-03
+   (`commercial-attiva`; operator overrides
    after the compliance flags, DECISIONS same date; cutting the maker's
    material was recommended and declined), carried whole: three of the
    maker's slides, each a results-comparison photo pair labelled as
@@ -1012,6 +1023,15 @@ DECISIONS 2026-10-02.)*
    two guests on camera are released and are not providers at the
    location; no text from the slides, the brochure or the device's
    screens is ever restated in site text.
+   And a Re-Q Health reel of its skincare, the home carousel's fourth
+   film since 2026-11-03 (`commercial-req`; operator overrides after the
+   compliance flags, DECISIONS same date), carried as edited (the
+   maker's rep's Instagram handle replaced with Amy's by a local edit
+   with no AI; Re-Q's or its rep's OK on record): the maker's packaging,
+   whose product name implies a result, and a brand the site's copy had
+   never named. Amy sells it at the medspa, so the slide's label names
+   the brand, and no other site text does; no other text from the
+   bottle, the product's name included, is ever restated in site text.
    And — operator override after the compliance flag,
    DECISIONS 2026-08-21 — the client photo-pairs section ("They showed
    up for themselves") on /services/weight-loss-glp-1: three
@@ -1178,7 +1198,7 @@ action.
 - **Video (only if `{{MEDIA_SCOPE}}` includes it):** `youtube-nocookie.com`
   embeds, lazy-loaded facade pattern (thumbnail + click-to-load) to protect
   CWV and privacy.
-- **Home video carousel (2026-08-14, DECISIONS same date):** six
+- **Home video carousel (2026-08-14, DECISIONS same date):** seven
   self-hosted films on the media origin (`media.needlegirlie.com`,
   §2 — in `public/media/` until 2026-08-17). In order since
   2026-09-27: the Evolus-produced Evolysse film, played FIRST since
@@ -1191,7 +1211,13 @@ action.
   constraint 3's eleventh pixel-level override) and her billboard-day
   reel (§8), both since 2026-09-27 under operator overrides after the
   compliance flags, with releases confirmed for everyone on camera
-  (DECISIONS same date); Amy's ATTIVA reel, fourth since 2026-10-29,
+  (DECISIONS same date); a Re-Q Health reel, fourth since 2026-11-03,
+  carried as edited under operator overrides after the compliance flags
+  (the maker's rep's handle replaced with Amy's by a local edit with no
+  AI, the one exception to the carried-as-is posture; its packaging and
+  a brand the site's copy had never named — §8; no people — DECISIONS
+  same date); Amy's ATTIVA reel, fourth from 2026-10-29 and fifth since
+  2026-11-03,
   carried whole under operator overrides after the compliance flags
   (the maker's slides and brochure page and the device's screen
   readouts — §8; its two guests released and not providers at the
@@ -1205,8 +1231,8 @@ action.
   reel, which ran from 2026-08-14; both new films sit below the 2×
   sharpness rule at
   the stage's largest size (a recorded exception, DECISIONS
-  2026-09-27), and so does the 720px ATTIVA reel (the promo's
-  exception, DECISIONS 2026-10-29). The stage is
+  2026-09-27), and so do the 720px ATTIVA and Re-Q reels (the promo's
+  exception, DECISIONS 2026-10-29 and 2026-11-03). The stage is
   full-width (`width: 100%`) so that 16:9 film presents large while
   the portrait films keep their size. Facade-loaded per the pattern above: zero video
   elements and zero video bytes until the stage scrolls into view.
@@ -1214,19 +1240,22 @@ action.
   renditions carry each film's own sound (`commercial-<name>-sound.mp4`;
   the picture is the earlier silent file's, copied bit for bit; the
   ATTIVA reel's `commercial-attiva.mp4`, added 2026-10-29, never had a
-  silent file and is encoded from its master with its sound; one
+  silent file and is encoded from its master with its sound; the Re-Q
+  reel's `commercial-req.mp4`, added 2026-11-03, never had one either:
+  its picture is the approved edit's, copied bit for bit; one
   plain volume offset per film brings them to a common level) and
   still START muted; a Sound button beside pause turns sound on for
   the film playing and every film after it, never at load and never
   stored; a film the browser refuses to start with sound plays muted.
-  Four of the films carry commercial songs (operator override of the
-  music position; the fourth, the ATTIVA reel's, since 2026-10-29) and the promo's song carries words the site's own
+  Five of the films carry music with no licence on record (operator
+  override of the music position; the fourth, the ATTIVA reel's, since
+  2026-10-29; the fifth, the Re-Q reel's, since 2026-11-03) and the promo's song carries words the site's own
   copy may not (operator override — §8 and CLAUDE.md constraints 2
   and 3). CAPTIONS: a CC button shows each film's track (not
   `default`); each file is faithful to the sound — the Evolysse file
   its voiceover with its on-screen text, the Jeuveau file its
   on-screen text with a music note, the billboard-day reel's, the
-  ATTIVA reel's and the team film's bounded `[Music]` cues, the promo's its sung words; a
+  Re-Q reel's, the ATTIVA reel's and the team film's bounded `[Music]` cues, the promo's its sung words; a
   film with NO audio track would still ship a track with no cues (the
   2026-09-20 rule, DECISIONS same date)
   (public/media/*.vtt — outside lint scope, controlled by the per-film
@@ -1273,7 +1302,8 @@ action.
   2026-09-27 (operator/Amy tuning 2026-08-15 — DECISIONS same date; the
   master file untouched, captions track media time). Rates are for Amy's
   own films ONLY — the manufacturer films always play at 1×; their
-  presentation is part of the carried-as-is posture.
+  presentation is part of the carried-as-is posture (one recorded edit:
+  the Re-Q reel's handle, DECISIONS 2026-11-03).
   Add/replace procedure: docs/RUNBOOK.md ("Adding or replacing a
   homepage commercial" + "Publishing a film"). The Blob media origin
   (§2) is BUILT — films upload to Blob, captions ship by PR.

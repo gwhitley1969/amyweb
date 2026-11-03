@@ -17171,3 +17171,287 @@ record's terms change. Everything else on the cards was liked as built.
   "if any" removed (relayed by the operator).
 - The operator flipped the page's flag in the same PR (commit `7fd9261`:
   one line, `clinicianApproved: true`, Amy's approval in the message).
+
+**Addendum, 2026-10-30 — the shipped record.**
+- PR #286 merged into `phase-c` once its pipeline was green on the
+  flipped head (`8b58aaa`), as `7ff246b`. The standing previews were
+  refreshed by `merge-tree` (#97 `da72b9c`, #149 `06bc814`), and #286's
+  preview environment was torn down.
+- Release PR #287 merged once its own pipeline was green, as `ec35727`.
+  Production run 41080473663 ran verify with the approval check at
+  15:24–15:32 UTC, and the deploy and Front Door purge at 15:32–15:39
+  UTC.
+- Checked on the live site:
+  - all 21 sitemap pages answer 200;
+  - plain and cache-busted, /services/skin-rejuvenation carries the three
+    peel cards, the composition and indication lines, and the routing
+    sentence without "if any", and still says peels start at $180;
+  - /go/skin-rejuvenation carries no peel card, as intended;
+  - the home page still plays six films.
+- `phase-c` was fast-forwarded to `main`.
+
+## 2026-10-31 — needlegirly.com, a misspelling Amy bought, 301s to the apex like needlegirl.com
+
+**Context.** Amy bought `needlegirly.com` and asked that typing it lands on
+`https://needlegirlie.com`. The operator moved its nameservers from
+GoDaddy to a new Azure DNS zone in `rg-corp` and, in the portal, added
+`www.needlegirly.com` to Front Door (domain `www-needlegirly-com-35c6`,
+its CNAME and `_dnsauth.www` TXT, on the `default` route). It did not
+work, for three reasons found that day:
+- the apex had no Front Door domain, no alias A record and no `_dnsauth`
+  TXT, so `needlegirly.com` resolved to nothing;
+- the `redirects` rule set had no rule for the new hosts, so
+  `https://www.needlegirly.com/` served the whole site under that name
+  (200; its canonical tag still named needlegirlie.com);
+- the operator's home network still held GoDaddy's cached answers (its
+  parking addresses, which answer HTTPS for the name with a failed
+  handshake), so tests from there failed whatever Azure did.
+
+**Decision.** The `needlegirl.com` pattern (2026-07-07): both hosts are
+Front Door domains with managed certificates on the `default` route, and
+one rule, `needlegirlytoapex` (order 3), 301s both to
+`https://needlegirlie.com`, path and query kept. Applied live the same day
+through the ARM API (the rule, the apex domain, its `_dnsauth` TXT and `@`
+alias A, the route's domain list), then declared in `infra/frontdoor.bicep`
+and the new `infra/dns-needlegirly.bicep`, wired in `infra/main.bicep`.
+The portal's name for the www domain is kept, and both domains keep the
+link to their zone that the portal makes, so the Bicep adopts the live
+resources instead of replacing them.
+
+**Why declare it.** A what-if of the Bicep as it stood showed a redeploy
+would drop both needlegirly domains from the `default` route. With the
+change, the route, the rule and the apex record show no change, and
+nothing is created or deleted; the rest of that what-if is the noise the
+baseline run shows too (values that come from module outputs, read-only
+fields).
+
+**Rejected.** A DNS-only redirect (DNS cannot redirect or carry a
+certificate, the 2026-07-07 reasoning); GoDaddy's forwarding (it needs
+GoDaddy's DNS back, and its addresses were the ones failing HTTPS that
+day); a rule set or route of its own (one more rule in the existing set is
+the precedent).
+
+**Cost.** None added: Front Door Standard includes the first 100 custom
+domains, managed certificates and the rules engine. The zone the operator
+created costs about $0.50 a month.
+
+**Verified, 2026-10-31.**
+- The rule reached every edge about 13 minutes after it was saved (17:35
+  UTC). The apex validated within 10 minutes; its DigiCert certificate
+  (valid to 2027-04-30) was on every edge by 17:48 UTC.
+- Six clean passes from 17:48 UTC, each on all five Front Door addresses
+  the public resolvers hand out: apex and www, http and https, with a
+  deep link, end on `https://needlegirlie.com/…` with the path and query
+  kept (https in one 301; http in a 307 to https, then the 301, as the
+  legacy domain does). `needlegirlie.com`, its www and `needlegirl.com`
+  answered as before. Followed through Google's resolver, all four forms
+  land on the home page.
+- `npm run build` and `npm run check` pass, and the built site is
+  byte-identical to `origin/phase-c`'s build.
+
+## 2026-11-03 — Home carousel: the Re-Q Health reel, re-tagged with Amy's handle, becomes the fourth film (operator overrides after the compliance flags)
+
+**Context.** The operator asked for the Re-Q Health reel as the home
+carousel's fourth film, with every film from fourth on moving down one
+place. The file arrived on 2026-10-29 with the ATTIVA reel, in
+`C:\Amy\web-update-10-29-2026\videos\`, and was dropped as a candidate
+that morning for two reasons: another person's Instagram handle on every
+frame, and a skincare product the site names nowhere (the 2026-10-29
+entry). Earlier the same day as this entry, at the operator's request,
+the handle was replaced with Amy's, `@AMYPALACIOSNP.MOBILEAESTHETICS` (the
+profile `siteConfig` links), by a local edit with ffmpeg and sharp: no AI,
+nothing uploaded anywhere. The operator approved the draft ("Looks good").
+The edit's working folder is `C:\Amy\re-q-film`; its README has the
+measurements, the scripts and the checks.
+- Source: `Re-Q.mp4`, sha256
+  `f5e6c79b3f77fcf7ba4de36c3a8fac8d3e78a28dab04d0fc8c3bfc1324105ae1`:
+  720×1280 HEVC, 30 fps, 345 frames, 11.5 s, with 9.65 s of AAC sound.
+  Never written to.
+- Approved draft: `Re-Q-amy-handle-v2.mp4`, sha256
+  `e89269d59f04136d82b80c04aacf6f2e316a248d49e81758ccc9fcedebfda3c8`:
+  H.264 High, CRF 15, BT.709-tagged, the source's sound stream-copied.
+  The operator's copy in the web-update folder is the same file.
+
+**The edit, in three parts.** It is disclosed here, in the component
+comment and in the caption file's NOTE.
+1. **The corner tag** (frames 17–223; it fades in over 17–24). The old
+   letters were masked (the pixels that are text in every frame, widened
+   by 2 px) and filled frame by frame from the pixels around them. Those
+   pixels are interpolated, not recovered: the footage under them moves.
+2. **The end card** (frames 230–344). Its background is a still from frame
+   225, and frame 229 shows it before the text appears, so the text area
+   (x 233–485, y 703–757) carries frame 229's own pixels.
+3. **The new handle** is set in Barlow Condensed (Regular, emboldened by
+   0.5 px): a near match, not the original face. It is right-aligned on
+   the old corner text's right edge and centred on the end card, with the
+   old text's fade and bounce copied frame by frame.
+
+Outside those two areas the draft matches the source within rounding.
+Compared in YUV: Y drift +0.014, mean absolute difference 0.28, Y PSNR
+52.3 dB. The sound decodes bit-identical. The first draft came out about
+one Y level darker everywhere, because ffmpeg's default YUV↔RGB
+conversion truncates; the approved draft uses accurate rounding both
+ways.
+
+**The screen found the following** (every frame at full size, and the
+sound):
+- **0:00–7.47:** the maker's bottle in water and bubbles. Tilted
+  close-ups with bokeh at 0–1 s and 4–5 s; overhead shots at 1–2 s,
+  3–4 s and 6–7.47 s; label close-ups at 2–3 s and 5–6 s.
+- **Legible text:**
+  - the brand, "Re-Q HEALTH", in every shot;
+  - the product's name, a word that implies a result, in the close-ups
+    and the overhead shots;
+  - a net-contents line, legible in the overhead shots and in part in the
+    tilted shots and on the poster frame.
+- **Top right, 0–7.47 s:** an animated Instagram logo, with Amy's handle
+  under it from 0.57 s.
+- **7.47 s:** one black frame. **7.5–11.5 s:** an end card, the overhead
+  shot darkened, with a large animated Instagram logo and Amy's handle
+  from 7.67 s.
+- **No people.** So constraint 2 is not engaged. The practice's name
+  appears only inside Amy's handle: no link, and no provider named (the
+  ATTIVA precedent).
+- **Sound:** music at 0–7.20 s and 7.84–9.18 s, then nothing. The picture
+  runs on to 11.5 s. A machine transcript made on the build machine
+  (ffmpeg's whisper filter, whole and in halves) returned only its usual
+  filler. The operator's ear is the record.
+- **Sharpness:** the film is 720 px wide, so it plays at 1.78× at the
+  stage's height cap, below the 2× rule. That is the promo's recorded
+  exception, as for the ATTIVA reel.
+- Nothing in the film is AI-made, so the 2026-09-17 generative rules do
+  not apply.
+
+**Decision.** Four questions were put to the operator. Two were questions
+of fact, and two came with a recommendation:
+1. **Does Amy sell Re-Q Health skincare at the medspa?** "Yes, she sells
+   it." The slide's label names the brand: the site's first mention of
+   it. Skinbetter Science stays the skincare page's brand.
+2. **Is the maker's OK on record?** "Yes, it's on record" (asked as Re-Q's
+   or Nicole's). Recorded as: Re-Q's (or its rep's) OK for needlegirlie.com
+   use of the edited film is on record (operator, 2026-11-03). Site text
+   says "the maker's rep", never a name. This is the one recorded
+   exception to RUNBOOK's rule that maker films carry as-is or not at
+   all.
+3. **The music, with no licence on record.** A silent copy was
+   recommended. Declined: "Play the music." It is the eighth unlicensed
+   song on the site and the fifth in the carousel, under the music
+   override.
+4. **The net-contents line.** Keeping it, recorded, was recommended, and
+   the operator agreed. It is CLAUDE.md constraint 3's fourteenth
+   pixel-level override, the eleventh under the dosing bullet. A
+   net-contents line is package size, not a dose. It is filed with the
+   quantity classes because the Evolysse cartons' fill volume was.
+
+A fifth flag went into the approved plan rather than a question: the
+product's name implies a result. It is packaging text. The label does not
+repeat it, and CLAUDE.md records it as never restated.
+
+What was built:
+- **The slide** is inserted at index 3:
+  `file: 'commercial-req', video: 'commercial-req', label: "Re-Q Health skincare at Amy's medspa"`.
+  The rotation is now Evolysse → promo → billboard-day reel → Re-Q →
+  ATTIVA → Jeuveau → team.
+- `public/js/video-carousel.js` is unchanged (10,460 B).
+- **The rendition** is `commercial-req.mp4` (sha256
+  `5e46fa252323fa6043aa7584ed3335fa406bce7d12a3107a0db37f89149ebeba`,
+  3,447,110 B):
+  - the draft's picture stream, copied bit for bit (its packets' MD5
+    equals the draft's): H.264 High 3.1, 720×1280, 30 fps, 345 frames,
+    2.28 Mb/s;
+  - the sound by one plain offset, −5.3 dB, to −18.1 LUFS (peak
+    −5.2 dBFS), AAC 128k;
+  - no source metadata;
+  - no `-sound` suffix: there was never a silent file;
+  - `C:\Amy\carousel-sound\req\build-req.sh` rebuilds it.
+- **The poster** (`commercial-req-poster.jpg`, sha256
+  `2fcf481fdd121734633a291e736910feb598cf923589c00cad31c266c7261b1a`,
+  48,195 B) is the frame at 0.2 s: the opening shot, before the handle
+  fades in. It serves at 480 px as 8,892 B.
+- **The captions** (`public/media/commercial-req.vtt`) are two bounded
+  `[Music]` cues. The NOTEs carry the provenance, the edit and the sound.
+- **The phone bars** go from 40 px to 36 px. Seven bars make 300 px at
+  36 px; at 40 px they would make 328 px, which runs 4 px past each edge
+  of a 320 px screen, and nothing around the carousel clips sideways.
+
+**Alternatives rejected.**
+- A silent copy.
+- A CRF 18 re-encode: a third generation that changes the approved
+  pixels, to save about 0.7 MB.
+- A label naming the product.
+- 40 px bars (sideways scroll at 320 px), and 32 px bars (they fit
+  exactly, but are shorter than they need to be).
+
+**Consequences.**
+- Seven films: ATTIVA fifth, Jeuveau sixth, the team film seventh. ATTIVA
+  now starts about 106 s into a loop of about 3:07 (95 s into about 2:55
+  before), the other way from Amy's open question about moving it
+  earlier.
+- A second skincare brand on the home page, a departure from the SOW,
+  whose skincare line is Skinbetter Science (the operator's document to
+  amend).
+- If Amy stops carrying Re-Q, the label and the film are the operator's to
+  change.
+- The eighth unlicensed song.
+- A full view of the carousel pulls about 3.4 MB more from the media
+  origin.
+- No approval flag moves: the home page has none. Amy's OK on the preview
+  is recorded here when given.
+
+**Verification** (branch `feat/carousel-req`, local build):
+- `npm run verify` exit 0:
+  - `astro check` 0 errors;
+  - `lint:claims`, `lint:voice`, `lint:practice-link` (38 pages, 80 links)
+    and `check:search-index` green;
+  - pa11y 39 of 39 URLs;
+  - Lighthouse assertions on 10 URLs (30 runs) passed;
+  - `test:search` ok.
+- **The home page's weight:** 344,105 B of its 358,400 B total budget
+  (images 213,471 of 245,760 B), 14.3 KB under. Performance 0.99, LCP
+  about 2.17 s, no layout shift.
+- **The built CSS** differs from `phase-c`'s by one rule: the phone bars'
+  width, 40 px to 36 px. Rebuilt after these records, the stylesheet
+  hashes are unchanged, so the records add no CSS.
+- **The carousel's own tests** (`C:\Amy\carousel-sound`):
+  - `sound-test.cjs` in Chrome and Firefox: muted autoplay; the
+    gesture-less click refused sound (Chrome); a jump to film 4, now the
+    Re-Q reel, plays with Sound on; CC carries over, and the Re-Q track
+    shows "[Music]"; one soundtrack at a time with the van film; no
+    errors.
+  - `handover-all.cjs`: all seven hand-overs with Sound on, 7 → 1
+    included, no errors. The films run 30.50, 33.10, 31.37, 11.50,
+    32.20, 34.13 and 13.87 s: a loop of 186.67 s.
+  - `layout.cjs` at 24 widths: the controls wrap under the bars at
+    580 px wide and under and at 601–776 px, and sit in one row at
+    581–600 px and from 777 px. The 300 px group spans 10–310 px at
+    320 px and 22–322 px at 344 px. The page is never wider than the
+    window.
+- `C:\Amy\launch\overflow-probe.mjs` on a local `astro preview`: no
+  sideways scroll at 320, 390, 430 or 768 px.
+- **The media object** answers 206 with `video/mp4`,
+  `Cache-Control: public, max-age=86400` and a `Content-Range` total of
+  3,447,110. The downloaded copy's sha256 matches.
+
+Records changed:
+- **CLAUDE.md**, constraint 3: the claims bullet's clause for this film,
+  the dosing bullet's fourteenth pixel-level override, the music
+  paragraph and ATTIVA's two ordinals. Also the carousel's
+  sanctioned-consumer line.
+- **BUILD_SPEC**: the §5 noir-shell paragraph, the §6 home row, §8 rules
+  1 and 3 (with ATTIVA's ordinals) and the §9 carousel section.
+- **compliance/README.**
+- **RUNBOOK**, "Adding or replacing a homepage commercial": the as-is
+  rule's exception, the rendition, the poster budget, the 1× line, the
+  bars and the working folder. "Publishing a film": the subscription
+  flag.
+- **HOME-CONCEPT**: the slide order, including its Order line, which had
+  missed the ATTIVA reel.
+- **REDESIGN**: the open "Music licences" item, which also gains the
+  ATTIVA reel's song.
+- The component headers of `VideoCarousel.astro` and
+  `TreatmentVideo.astro`, and the carousel-sound README.
+
+Left as they are, history as the 2026-10-29 entry left them:
+REDESIGN.md's round list and its dated carousel record,
+CLINICIAN-SIGN-OFF's 2026-10-05 statement, and ARCHITECTURE.md's dated
+figures.

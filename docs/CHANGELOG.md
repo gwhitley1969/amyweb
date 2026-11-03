@@ -29,6 +29,28 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-11-03 — Home carousel: a Re-Q Health reel is the fourth film
+
+- The film band under the hero ("Mobile Aesthetics. On screen.") plays
+  seven films now. A Re-Q Health reel of its skincare plays fourth,
+  after Amy's billboard-day reel; the ATTIVA reel, the Jeuveau spot and
+  the team film move to fifth, sixth and seventh.
+- Amy sells Re-Q Health at the medspa. The reel came with a Re-Q rep's
+  Instagram handle on it; Amy's handle replaces it, by a local edit with
+  no AI, and the maker's OK is on record. It carries its music at the
+  operator's direction after the compliance flags, starts muted like
+  every film there, and its captions mark the music.
+- On phones the progress bars under the films are a little shorter, so
+  seven fit the narrowest screens without the page sliding sideways.
+- DECISIONS 2026-11-03.
+
+### 2026-10-31 — needlegirly.com leads to needlegirlie.com
+
+- `needlegirly.com` and `www.needlegirly.com`, a misspelling Amy bought,
+  now 301 to `https://needlegirlie.com`, over http and https, path kept.
+- A Front Door and DNS change, live the same day; the site itself did not
+  change. DECISIONS 2026-10-31.
+
 ### 2026-10-30 — /services/skin-rejuvenation: three chemical peels, each with its own card
 
 - Under "Chemical peels", Crystal Peel, Milk Peel and Activa & Mela Peel
@@ -41,7 +63,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   with Amy at a consultation.
 - Prices are unchanged: peels start at $180.
 - Amy OK'd it on its preview, and the operator flipped the page's approval
-  flag in the same PR. DECISIONS 2026-10-30.
+  flag in the same PR.
+- Live at 15:39 UTC (PR #286, release #287, merge `ec35727`). Checked on
+  the live site: the three cards, their lines and the routing sentence.
+  DECISIONS 2026-10-30, the peel-cards entry and its shipped record.
 
 ### 2026-10-29 — Two services renamed: "Neurotoxins (Tox)" and "Laser Treatments & Hair Removal"
 

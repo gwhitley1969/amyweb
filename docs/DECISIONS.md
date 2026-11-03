@@ -17493,5 +17493,5 @@ handle swap to live in one day.
   found no words in the music ("the music has no words", 2026-11-03).
   That confirms the caption file's bounded `[Music]` cues and its NOTE
   ("music with no words").
-- **Still to record when given:** Amy's OK. The operator chose to write
-  this record before it.
+- **Amy's OK:** Amy OK'd the film, as the operator relayed it ("She's good
+  with it.", 2026-11-03). Nothing is left to record for this film.

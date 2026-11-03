@@ -50,7 +50,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   seven films with the Re-Q reel fourth, and the film and its captions
   load.
 - The operator's listen found no words in the music, as its captions
-  say. Still to record: Amy's OK.
+  say.
+- Amy OK'd it.
 - DECISIONS 2026-11-03 and its shipped record.
 
 ### 2026-10-31 — needlegirly.com leads to needlegirlie.com

@@ -42,7 +42,15 @@ change lives in `docs/DECISIONS.md`; design specs live in
   every film there, and its captions mark the music.
 - On phones the progress bars under the films are a little shorter, so
   seven fit the narrowest screens without the page sliding sideways.
-- DECISIONS 2026-11-03.
+- The operator merged it into `phase-c` (PR #290, merge `59f6dd9`) and
+  released it the same afternoon (release PR #291, merge `65011df`;
+  Production run 41730259897). It went live at 22:37 UTC with the Front
+  Door cache purged.
+- Checked on the live site: all 21 pages answer, the home page plays
+  seven films with the Re-Q reel fourth, and the film and its captions
+  load.
+- Still to record: the operator's listen to the music, and Amy's OK.
+- DECISIONS 2026-11-03 and its shipped record.
 
 ### 2026-10-31 — needlegirly.com leads to needlegirlie.com
 

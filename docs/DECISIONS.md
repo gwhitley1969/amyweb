@@ -17455,3 +17455,43 @@ Left as they are, history as the 2026-10-29 entry left them:
 REDESIGN.md's round list and its dated carousel record,
 CLINICIAN-SIGN-OFF's 2026-10-05 statement, and ARCHITECTURE.md's dated
 figures.
+
+**Addendum, 2026-11-03 — the shipped record.** The film went from the
+handle swap to live in one day.
+- **PR #290 into `phase-c`:**
+  - Its pipeline was green in 8m21s.
+  - Its preview converged: six probe passes, and 12 edge rounds plain and
+    cache-busted.
+  - The carousel's `-url` tests passed on the preview: all seven
+    hand-overs, and the Sound and CC tests in Chrome and Firefox.
+  - It merged on the operator's word ("Merge it") as `59f6dd9`, a tree
+    identical to the head the preview verified.
+- **Standing previews:** #97 and #149 were refreshed by `merge-tree` the
+  same minute (`cd85ce3`, `d3025ff`), with no conflicts, and both
+  pipelines went green.
+- **Release PR #291** (`phase-c` into `main`):
+  - Opened on the operator's word, "Release it". It also carried #288
+    (docs) and #289 (the needlegirly.com Bicep, which no workflow
+    deploys).
+  - Merged once its own pipeline was green (8m23s): `65011df`, a tree
+    identical to `phase-c`'s.
+  - Production run 41730259897: verify 22:22–22:30 UTC, deploy and Front
+    Door purge 22:30–22:37 UTC.
+- **Checked on the live site** (22:34–22:36 UTC, as the purge step
+  finished):
+  - All 21 sitemap pages answer 200, as do `/search` and
+    `/go/wrinkle-relaxers`.
+  - The home page names "Play film 4 of 7: Re-Q Health skincare at
+    Amy's medspa" and loads `commercial-req.mp4`. Six cache-busted probe
+    passes and three plain requests agreed.
+  - The film answers 206 with a total of 3,447,110, and its caption file
+    answers 200.
+- **Afterwards:**
+  - `phase-c` was fast-forwarded to `main` (`65011df`).
+  - The environment list is production, 97 and 149 only.
+- **Still to record when given:**
+  - the operator's listen confirming the music has no words (the caption
+    file's bounded `[Music]` cues and its NOTE assume it);
+  - Amy's OK.
+
+  The operator chose to write this record before either.

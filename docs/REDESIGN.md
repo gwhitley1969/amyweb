@@ -229,7 +229,10 @@ pink."** Seven gaps, each a test every design decision must move:
   override, with no licence on record; so do the IV lounge film's song
   (the 2026-10-02 override) and, since 2026-10-04, the two songs of the
   home band's van-trip film ("Play now, accept the risk"; DECISIONS
-  same date); five other sounded films (the
+  same date), the carousel's ATTIVA reel's Instagram-library song (the
+  2026-10-29 override) and, since 2026-11-03, the carousel's Re-Q reel's
+  music (a silent copy recommended and declined; DECISIONS same date);
+  five other sounded films (the
   /about team film, the two biostimulators reels, the body-contouring
   reel, the training reel) carry music on a no-speech confirmation
   alone. The position in DECISIONS 2026-09-03 and 2026-09-25 is that

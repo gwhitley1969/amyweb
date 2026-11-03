@@ -355,7 +355,8 @@ silently following it. Known superseded points from earlier briefs:
      JSON-LD; changing any of it requires the human operator.*
      *Thirteenth pixel-level override, the tenth under this bullet
      (operator override after the compliance flag — DECISIONS
-     2026-10-29): the home carousel's fourth film (`commercial-attiva`),
+     2026-10-29): the home carousel's fourth film from 2026-10-29 and
+     fifth since 2026-11-03 (`commercial-attiva`),
      Amy's own reel announcing the ATTIVA device, carried whole. The
      device's screen — in the opening shot and on the film's poster —
      shows a thermal image with power, time and temperature readouts,
@@ -367,6 +368,19 @@ silently following it. Known superseded points from earlier briefs:
      label, the captions file, comments, meta, OG, JSON-LD; changing
      any of it requires the human operator. (Its claims content is the
      claims bullet's clause for this film.)*
+     *Fourteenth pixel-level override, the eleventh under this bullet
+     (operator decision after the compliance flag — DECISIONS
+     2026-11-03; keeping it, recorded, was the recommendation): the
+     home carousel's fourth film since 2026-11-03 (`commercial-req`), a
+     Re-Q Health reel of its skincare, carried as edited. The bottle's
+     net-contents line is legible in the overhead shots, and in part in
+     the tilted shots and on the film's poster: package size, not a
+     dose, filed with the quantity classes as the Evolysse cartons'
+     fill volume was. Fixed terms: this film and its poster, in the
+     carousel; the value is never restated in site text — copy, the
+     slide's label, the captions file, comments, meta, OG, JSON-LD;
+     changing any of it requires the human operator. (Its claims
+     content is the claims bullet's clause for this film.)*
      *(A pointer, not a further entry: the spoken words of the
      IPL-session film on /services/laser-treatments name a count of
      treatments, which BUILD_SPEC §7.12 treats as protocol-class; that
@@ -501,7 +515,12 @@ silently following it. Known superseded points from earlier briefs:
      Instagram-library song on the carousel's ATTIVA film
      (`commercial-attiva`), which starts muted like every carousel
      film, sound one tap away; its caption file marks it with bounded
-     `[Music]` cues and never writes out any words.
+     `[Music]` cues and never writes out any words. One more since
+     2026-11-03, by that route (DECISIONS same date; a silent copy was
+     recommended and declined): the music on the carousel's Re-Q film
+     (`commercial-req`), with no words, which starts muted like every
+     carousel film, sound one tap away; its caption file marks it with
+     bounded `[Music]` cues.
      And six photos (operator overrides after the compliance flags —
      DECISIONS 2026-08-18, 2026-08-21, 2026-08-25, and 2026-09-25): the /services hormone-optimization menu
      card's photo (`biote-banner-scale.jpg`), in which the Biote
@@ -689,7 +708,8 @@ silently following it. Known superseded points from earlier briefs:
      invitation to schedule, the next bullet's second exception; its
      collective voice, the voice convention's third.)
      And Amy's own reel announcing the ATTIVA device, the home
-     carousel's fourth film since 2026-10-29 (`commercial-attiva`;
+     carousel's fourth film from 2026-10-29 and fifth since 2026-11-03
+     (`commercial-attiva`;
      operator overrides after the compliance flags — DECISIONS same
      date; cutting the maker's material at 0:04–0:20 was recommended
      and declined), carried WHOLE: three of the maker's slides, each a
@@ -715,6 +735,34 @@ silently following it. Known superseded points from earlier briefs:
      slide's label, the captions file, comments, meta, OG, JSON-LD;
      changing any of it requires the human operator. (Its readouts are
      the dosing bullet's thirteenth pixel-level override.)
+     And a Re-Q Health reel of its skincare, the home carousel's fourth
+     film since 2026-11-03 (`commercial-req`; operator overrides after
+     the compliance flags — DECISIONS same date), carried AS EDITED: the
+     maker's rep's Instagram handle was replaced with Amy's by a local
+     edit with no AI (the corner tag's old letters filled from the
+     pixels around them, the end card's text area carrying an earlier
+     frame's own pixels, the new handle set in a near-match typeface),
+     the one recorded exception to the rule that maker films carry
+     as-is or not at all. Re-Q's (or its rep's) OK for needlegirlie.com
+     use of the edited film is on record (operator, same date). The
+     film is packaging-central (the product-box class the 2026-07-23
+     photo rubric excluded): the bottle's brand, its product name — a
+     word that implies a result — and its net-contents line are legible.
+     It names a brand the site's copy had never named: Amy sells Re-Q
+     Health skincare at the medspa (operator, same date), so the slide's
+     label names the brand; Skinbetter Science stays the skincare page's
+     brand. No people are on camera. Its music plays under the music
+     override above. Fixed terms: this film and its poster, in the
+     carousel; the brand's name appears only in this slide's label, the
+     component comment, the caption file's NOTE and the records, and
+     naming it anywhere else — the skincare page, any other copy, meta,
+     OG, JSON-LD — requires the human operator; no other text from the
+     bottle, the product's name included, is ever restated in site text
+     — copy, the slide's label, the captions file, comments, meta, OG,
+     JSON-LD; if Amy stops carrying the brand, the label and the film
+     are the operator's to change; changing any of it requires the
+     human operator. (Its net-contents line is the dosing bullet's
+     fourteenth pixel-level override.)
      And the indication lists of the three peel cards under "Chemical
      peels" on /services/skin-rejuvenation (operator decision after the
      compliance flag — DECISIONS 2026-10-30; appearance wording was
@@ -897,7 +945,8 @@ silently following it. Known superseded points from earlier briefs:
   are content with a pause control; only the crossfade stands down) and a
   refused play() retries inside the person's first gesture on phones
   (DECISIONS 2026-09-03); since 2026-09-30 (Amy's request — DECISIONS
-  same date) the films — five then, six since 2026-10-29 — carry their
+  same date) the films — five then, six since 2026-10-29, seven since
+  2026-11-03 — carry their
   own sound and still start muted, with a Sound button and a captions (CC) button beside pause:
   sound stays on from film to film until the visitor turns it off, is
   never on at load and is never stored, and a film the browser refuses

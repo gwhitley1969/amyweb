@@ -36,6 +36,12 @@ module storage 'storage.bicep' = {
   }
 }
 
+// The needlegirly.com zone (2026-10-31): its two Front Door domains link to it.
+resource needlegirlyZone 'Microsoft.Network/dnsZones@2018-05-01' existing = {
+  scope: resourceGroup(dnsZoneResourceGroup)
+  name: 'needlegirly.com'
+}
+
 module frontdoor 'frontdoor.bicep' = {
   scope: rg
   name: 'frontdoor'
@@ -43,6 +49,7 @@ module frontdoor 'frontdoor.bicep' = {
     swaDefaultHostname: swa.outputs.defaultHostname
     mediaOriginHostname: storage.outputs.blobHostname
     apiOriginHostname: apiOriginHostname
+    needlegirlyZoneId: needlegirlyZone.id
   }
 }
 
@@ -68,6 +75,17 @@ module dnsNeedlegirl 'dns-needlegirl.bicep' = {
     endpointHostname: frontdoor.outputs.endpointHostname
     wwwValidationToken: frontdoor.outputs.legacyWwwValidationToken
     apexValidationToken: frontdoor.outputs.legacyApexValidationToken
+  }
+}
+
+module dnsNeedlegirly 'dns-needlegirly.bicep' = {
+  scope: resourceGroup(dnsZoneResourceGroup)
+  name: 'dns-needlegirly'
+  params: {
+    endpointId: frontdoor.outputs.endpointId
+    endpointHostname: frontdoor.outputs.endpointHostname
+    wwwValidationToken: frontdoor.outputs.needlegirlyWwwValidationToken
+    apexValidationToken: frontdoor.outputs.needlegirlyApexValidationToken
   }
 }
 

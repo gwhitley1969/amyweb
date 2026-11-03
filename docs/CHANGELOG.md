@@ -49,7 +49,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - Checked on the live site: all 21 pages answer, the home page plays
   seven films with the Re-Q reel fourth, and the film and its captions
   load.
-- Still to record: the operator's listen to the music, and Amy's OK.
+- The operator's listen found no words in the music, as its captions
+  say. Still to record: Amy's OK.
 - DECISIONS 2026-11-03 and its shipped record.
 
 ### 2026-10-31 — needlegirly.com leads to needlegirlie.com

@@ -62,7 +62,7 @@ export const serviceLines: ServiceLine[] = [
   {
     slug: 'skin-rejuvenation',
     title: 'Skin Rejuvenation',
-    summary: 'PiXel8-RF microneedling and medical-grade chemical peels.',
+    summary: 'PiXel8-RF microneedling, medical-grade chemical peels and EXO|E facials.',
     href: '/services/skin-rejuvenation',
     category: 'skin-body',
   },

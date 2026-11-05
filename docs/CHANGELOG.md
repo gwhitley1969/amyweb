@@ -29,6 +29,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-11-05 — Regenerative treatments: DE|RIVE's price, one line off
+
+- The DE|RIVE card on /services/regenerative, and its copy on
+  /go/regenerative, now shows "$800 per treatment", the operator's price
+  ("$800.00", written in the site's format).
+- The DE|RIVE section no longer ends with "Whether it suits you is
+  decided with Amy at a consultation." (the operator's direction). The
+  paragraph above the section still routes suitability to a
+  consultation.
+- The page's approval flag reset with the edit, so it waits for Amy's OK
+  on the preview.
+- DECISIONS 2026-11-05 (DE|RIVE), the price addendum.
+
 ### 2026-11-05 — Regenerative treatments: DE|RIVE, with AMP's award graphic
 
 - /services/regenerative gains a third offering, DE|RIVE, AMP's

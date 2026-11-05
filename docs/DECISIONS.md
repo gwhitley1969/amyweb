@@ -18053,3 +18053,32 @@ supplied graphic to live in one day.
   - `phase-c` was fast-forwarded to `main` (`4c6debe`).
   - The environment list is production, 97 and 149 only.
 - Nothing is left to record for this section.
+
+**Addendum, 2026-11-05 (evening) — the price, and the routing line removed.**
+- The operator supplied the DE|RIVE price after the release: "$800.00".
+  They first wrote "for a session", then corrected it to "a treatment".
+- The card's `priceLines` is now `["$800 per treatment"]`, in the site's
+  format (no cents, as every other price; "per", as the PiXel8-RF
+  card's "per session"). It shows on /services/regenerative and, being
+  frontmatter, on /go/regenerative.
+- It is a plain-dollar string, so it needs no allowlist entry, and it
+  states no amount, frequency or course.
+- The plan's "no price on the card" call (none had been supplied) ends
+  here. BUILD_SPEC §7.6, the sign-off sheet and the CHANGELOG are
+  updated.
+- **The routing line.** At the operator's direction ("We don't need
+  that"), the section's last line, "Whether it suits you is decided
+  with Amy at a consultation.", comes off.
+  - Noted with the change: it was the mitigation the text's entry in
+    CLAUDE.md named (constraint 3's "route to a consultation" rule
+    against the text's effect claims).
+  - The page still carries that route. "Who they're generally for",
+    directly above the section, says "whether it makes sense for you,
+    is decided with Amy in a consultation", and the layout injects the
+    disclaimer.
+  - CLAUDE.md and BUILD_SPEC §8.2 now name that paragraph as the
+    coupling: trimming it requires the human operator.
+  - The EXO|E section's own line on skin rejuvenation is untouched.
+- The edits reset regenerative's `clinicianApproved` (constraint 4).
+  Amy reads them on the PR preview, and the operator flips the flag in
+  the same PR before it merges.

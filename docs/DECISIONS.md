@@ -18016,3 +18016,40 @@ asked when the preview link goes out.
 - **The operator flipped the page's flag in the same PR** (commit
   `f04fc94`: one line, `clinicianApproved: true`, Amy's approval in the
   message).
+
+**Addendum, 2026-11-05 — the shipped record.** The section went from the
+supplied graphic to live in one day.
+- **PR #299 into `phase-c`:**
+  - It merged on the operator's word ("Merge it") at 22:23 UTC as
+    `18e67f5`, a tree identical to its flipped and recorded head
+    (`dbc899c`). It waited for that head's preview deploy step to
+    finish, so no late deploy could re-create the torn-down environment
+    (the operator chose waiting over cancelling the run).
+  - The head's whole pipeline (run 42120363347) finished green.
+  - Its preview environment was torn down; the old address answers 404.
+- **Standing previews:** #97 and #149 were refreshed by `merge-tree`
+  (`f6c2195`, `68b7160`), with no conflicts.
+- **Release PR #300** (`phase-c` into `main`):
+  - Opened on the operator's word, "Release it". It also carried #298
+    (the EXO|E shipped record, docs only).
+  - Merged once its own pipeline was green (run 42121376666): `4c6debe`,
+    a tree identical to `phase-c`'s.
+  - Production run 42122704969: verify with the approval check
+    22:35–22:42 UTC, deploy and Front Door purge 22:42–22:49 UTC.
+- **Checked on the live site** (23:10 UTC):
+  - All 21 sitemap pages answer 200, as do `/search`,
+    `/go/wrinkle-relaxers`, `/go/regenerative` and
+    `/go/skin-rejuvenation`.
+  - Six probe passes, three plain and three cache-busted, agreed:
+    - /services/regenerative carries the heading, both paragraphs, the
+      routing sentence, the intro line, the card, the graphic with its
+      alt, the structured-data sentence and the new search line;
+    - /go/regenerative shows the card and the graphic;
+    - /services shows the menu line;
+    - skin rejuvenation still carries the EXO|E section.
+  - The graphic's 680 w webp answers 200 `image/webp`.
+  - The home page still plays seven films.
+- **Afterwards:**
+  - `phase-c` was fast-forwarded to `main` (`4c6debe`).
+  - The environment list is production, 97 and 149 only.
+- Nothing is left to record for this section.

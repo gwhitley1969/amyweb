@@ -57,6 +57,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
   the PR #299 preview, and the operator flipped the flag in the same PR.
 - The page's image weight, already a little over the house budget and
   higher with the graphic, was accepted by the operator.
+- The operator merged it into `phase-c` (PR #299, merge `18e67f5`) and
+  released it the same day (release PR #300, merge `4c6debe`;
+  Production run 42122704969). It went live at 22:49 UTC with the Front
+  Door cache purged.
+- Checked on the live site: all 21 pages answer, and the section, the
+  card, the graphic with its alt, the landing card and graphic and the
+  menu line show on six passes.
 - DECISIONS 2026-11-05 (DE|RIVE).
 
 ### 2026-11-05 — Skin rejuvenation: Amy's EXO|E facial, with EXO|E's film

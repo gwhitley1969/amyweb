@@ -29,6 +29,19 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-11-05 — Regenerative treatments: DE|RIVE's price, one line off
+
+- The DE|RIVE card on /services/regenerative, and its copy on
+  /go/regenerative, now shows "$800 per treatment", the operator's price
+  ("$800.00", written in the site's format).
+- The DE|RIVE section no longer ends with "Whether it suits you is
+  decided with Amy at a consultation." (the operator's direction). The
+  paragraph above the section still routes suitability to a
+  consultation.
+- The page's approval flag reset with the edit. Amy OK'd the page on
+  the PR #302 preview, and the operator flipped the flag in the same PR.
+- DECISIONS 2026-11-05 (DE|RIVE), the price addendum.
+
 ### 2026-11-05 — Regenerative treatments: DE|RIVE, with AMP's award graphic
 
 - /services/regenerative gains a third offering, DE|RIVE, AMP's
@@ -57,6 +70,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
   the PR #299 preview, and the operator flipped the flag in the same PR.
 - The page's image weight, already a little over the house budget and
   higher with the graphic, was accepted by the operator.
+- The operator merged it into `phase-c` (PR #299, merge `18e67f5`) and
+  released it the same day (release PR #300, merge `4c6debe`;
+  Production run 42122704969). It went live at 22:49 UTC with the Front
+  Door cache purged.
+- Checked on the live site: all 21 pages answer, and the section, the
+  card, the graphic with its alt, the landing card and graphic and the
+  menu line show on six passes.
 - DECISIONS 2026-11-05 (DE|RIVE).
 
 ### 2026-11-05 — Skin rejuvenation: Amy's EXO|E facial, with EXO|E's film

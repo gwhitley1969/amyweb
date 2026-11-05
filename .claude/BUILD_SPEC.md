@@ -717,7 +717,8 @@ DECISIONS 2026-10-02.)*
    a third offering, **DE|RIVE** — AMP's plant-derived scalp and hair
    system — with Amy's own text word for word in a section between
    "Who they're generally for" and "Individualized, with Amy", a third
-   card (her first sentence, no price supplied) on the page and on
+   card (her first sentence; "$800 per treatment" since the same
+   evening, the operator's price) on the page and on
    /go/regenerative, and AMP's award graphic beside the text and under
    the landing card, carried as-is. The text's effect claims and the
    graphic's superiority line and package size are recorded overrides;
@@ -996,8 +997,10 @@ DECISIONS 2026-10-02.)*
    CLAUDE.md constraint 3. And Amy's DE|RIVE paragraph on
    /services/regenerative (operator decision after the compliance
    flags — DECISIONS 2026-11-05, DE|RIVE): "calm inflammation" names a
-   condition in benefit context, in that section only. A
-   consultation-routing sentence follows it. Exact text and scope are in
+   condition in benefit context, in that section only. The page's "Who
+   they're generally for" paragraph, directly above, routes suitability
+   to a consultation (the section's own routing sentence came off at the
+   operator's direction the same evening). Exact text and scope are in
    CLAUDE.md constraint 3. Nothing else.*
 3. Efficacy/outcome promises: guarantees, specific results, numbers,
    before/after implications, "powerful results", "proven results".

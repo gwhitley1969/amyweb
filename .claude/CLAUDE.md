@@ -886,8 +886,13 @@ silently following it. Known superseded points from earlier briefs:
      to the rule) and §7's bar on mechanism hype; and the website
      contract's promise to describe treatments without promising
      specific results. No pattern sees any of it, so a green linter never
-     authorizes it. A sentence after the text routes suitability to a
-     consultation; trimming it requires the human operator. Fixed terms:
+     authorizes it. No sentence follows the text: the one that routed
+     suitability to a consultation came off the same evening at the
+     operator's direction. The page's "Who they're generally for"
+     paragraph, directly above the section ("whether it makes sense for
+     you, is decided with Amy in a consultation"), and the
+     layout-injected disclaimer now carry that route; trimming either
+     requires the human operator. Fixed terms:
      the name as the section's heading and the "What Amy offers" card's
      name, on that page and on the /go/regenerative landing page's card;
      the sentence in the section and as the card's line on both pages;

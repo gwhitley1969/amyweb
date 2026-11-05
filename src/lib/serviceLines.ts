@@ -55,7 +55,7 @@ export const serviceLines: ServiceLine[] = [
   {
     slug: 'regenerative',
     title: 'Regenerative Treatments',
-    summary: 'PRP treatments: on their own, or combined with microneedling.',
+    summary: 'PRP treatments, on their own or with microneedling, and DE|RIVE scalp care.',
     href: '/services/regenerative',
     category: 'injectables',
   },

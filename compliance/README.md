@@ -83,6 +83,13 @@ skin-rejuvenation cart frame and the laser-treatments Epileve frame,
 each with its device-console readout, and the weight-loss weigh-in
 frame with its aftercare sign, all
 enumerated in CLAUDE.md constraint 3 with their DECISIONS entries).
+Since 2026-11-05 the list includes AMP's DE|RIVE award graphic on
+/services/regenerative and /go/regenerative (`src/assets/photos/derive-award.png`
+through `DeriveAward`), a maker's graphic carried as-is. Its pixels
+carry an award line with a superiority word and a three-year streak, and
+the bottle's package size. Its alt text reads the award out: the one
+place those words are written in site text, through the eighth
+`allowedStrings` entry (DECISIONS 2026-11-05, DE|RIVE).
 The home-carousel films and their caption files (three cleared
 2026-08-14, of which two — the first Jeuveau spot and Amy's studio
 reel — retired 2026-09-27; the team film 2026-08-17, constraint-2
@@ -307,6 +314,16 @@ Current members of that class:
   promises, and unhedged concern words. None of it trips a pattern.
   Exact strings and scope are in CLAUDE.md, and a green `lint:claims`
   never authorizes them.
+- Amy's DE|RIVE text on /services/regenerative: the section's heading,
+  its two paragraphs and the "What Amy offers" card, whose name and line
+  also render on /go/regenerative (operator decision after the
+  compliance flags, DECISIONS 2026-11-05, DE|RIVE; CLAUDE.md constraint
+  3; BUILD_SPEC §7.6, §8.2–8.3). It contains effect claims ("calm
+  inflammation", which means the same as the banned "anti-inflammatory",
+  "increase blood flow", "stimulate cell activity (such as
+  Cytokeratin-15 production)") and free-from claims ("hormone-free",
+  "chemical-free"). None of it trips a pattern. Exact strings and scope
+  are in CLAUDE.md, and a green `lint:claims` never authorizes them.
 
 The practical consequence, and the reason this section exists: **a green
 `lint:claims` is not evidence that a string is authorized, and an empty

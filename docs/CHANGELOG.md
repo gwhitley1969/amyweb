@@ -29,6 +29,36 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-11-05 — Regenerative treatments: DE|RIVE, with AMP's award graphic
+
+- /services/regenerative gains a third offering, DE|RIVE, AMP's
+  plant-derived scalp and hair system. A section between "Who they're
+  generally for" and "Individualized, with Amy" holds Amy's own text
+  beside AMP's award graphic. A third "What Amy offers" card (no price
+  supplied) also shows on /go/regenerative, with the graphic under it.
+  The intro, the search description, the page's structured data and the
+  /services menu line now name "DE|RIVE".
+- The text is Amy's, word for word, at the operator's direction after
+  the compliance flags: effects on the body (calming inflammation, blood
+  flow, cell activity with Cytokeratin-15 named), "hormone-free" and
+  "chemical-free". A consultation sentence follows it.
+- The graphic is the maker's, carried as-is (the maker's OK on record).
+  Its award line and three-year streak rest on the maker's own release,
+  and the bottle's package size is legible, both under recorded
+  overrides. It shows whole, not cropped into the site's arch. Its alt
+  text reads the award out for screen readers, through one exact linter
+  exception the operator authorized.
+- On /go/regenerative it is the first treatment-page photo a landing
+  page shows, by a new landing rule that fails the build if its card is
+  missing.
+- "Individualized, with Amy" now has its photo on the left, so the rows
+  keep alternating.
+- The page's approval flag reset with the edit. Amy OK'd the page on
+  the PR #299 preview, and the operator flipped the flag in the same PR.
+- The page's image weight, already a little over the house budget and
+  higher with the graphic, was accepted by the operator.
+- DECISIONS 2026-11-05 (DE|RIVE).
+
 ### 2026-11-05 — Skin rejuvenation: Amy's EXO|E facial, with EXO|E's film
 
 - /services/skin-rejuvenation gains a third treatment, the Stem-Cell
@@ -49,6 +79,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
   words) and starts muted when scrolled into view, sound one tap away.
 - The page's approval flag reset with the edit. Amy OK'd the page on
   the PR #296 preview, and the operator flipped the flag in the same PR.
+- The operator merged it into `phase-c` (PR #296, merge `1330e8b`) and
+  released it the same day (release PR #297, merge `8e08636`;
+  Production run 42068944838). It went live at 17:07 UTC with the Front
+  Door cache purged.
+- Checked on the live site: all 21 pages answer, the section, the card,
+  the ad-page card and the menu line show on six passes, and the film
+  starts muted in view with its captions.
 - DECISIONS 2026-11-05.
 
 ### 2026-11-03 — Home carousel: a Re-Q Health reel is the fourth film

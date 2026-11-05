@@ -73,8 +73,8 @@ safety screens — and the WebVTT caption files in `public/media/` are
 outside `SCAN_DIRS` entirely. §8 still governs them; the control is
 per-item human screening plus a recorded DECISIONS entry (frame-level
 vets for photos and video contact sheets; operator overrides for
-manufacturer films carried as-is (one carried as edited, the Re-Q reel,
-2026-11-03) and for Amy's own published content,
+manufacturer films carried as-is (two carried as edited: the Re-Q reel,
+2026-11-03, and EXO|E's reel, 2026-11-05) and for Amy's own published content,
 and — since 2026-08-18 — for photo frames whose pixels carry text the
 site's own copy could not say: three /services and wrinkle-relaxers
 frames with legible banner/sign text (see the caveat below — the
@@ -157,7 +157,14 @@ treatment (the constraint-3 clause; the client's release and HIPAA
 marketing authorization on file); a recognition plaque in the room,
 mirrored. Its caption file carries the spoken words, confirmed by the
 operator's ear (the voice rule's third caption-file exception), and the
-track shows by default. Since 2026-08-17 the film FILES live outside the
+track shows by default. And, since 2026-11-05, EXO|E's reel
+`exoie-reel` on /services/skin-rejuvenation, the maker's film carried as
+edited, with the maker's OK on record: its closing card was rebuilt with
+Amy's photo and handle. Its burned-in outcome, natural-ingredient,
+formulation and health claims and its heading addressed to practices
+fall under one constraint-3 clause, fixed to the film and its poster on
+that page. Its music plays, and its caption cues are `[Music]` only
+(`public/media/exoie-reel.vtt`). Since 2026-08-17 the film FILES live outside the
 repo entirely (Blob, served as media.needlegirlie.com — RUNBOOK
 "Publishing a film"): the frame-level screen and DECISIONS entry
 happen BEFORE the upload, and the caption .vtt stays in-repo precisely
@@ -291,6 +298,15 @@ Current members of that class:
   2026-10-02; CLAUDE.md constraint 3 and the voice convention). Spoken
   words that match no pattern, in a file no gate reads: caption files
   are outside every linter's scope.
+- Amy's EXO|E text on /services/skin-rejuvenation: the section's
+  heading, its two paragraphs and the "What Amy offers" card, whose name
+  and line also render on /go/skin-rejuvenation (operator decision after
+  the compliance flags, DECISIONS 2026-11-05; CLAUDE.md constraint 3;
+  BUILD_SPEC §8.2–8.4). It contains the stem-cell name, "patented", a
+  mechanism claim, a bare collagen claim, downtime and recovery
+  promises, and unhedged concern words. None of it trips a pattern.
+  Exact strings and scope are in CLAUDE.md, and a green `lint:claims`
+  never authorizes them.
 
 The practical consequence, and the reason this section exists: **a green
 `lint:claims` is not evidence that a string is authorized, and an empty

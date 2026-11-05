@@ -17741,3 +17741,41 @@ build).
   the message).
 - The film stays on the media host; nothing in the records above
   changes.
+
+**Addendum, 2026-11-05 — the shipped record.** The section went from
+the edited film to live in one day.
+- **PR #296 into `phase-c`:**
+  - It merged on the operator's word ("Merge it") at 16:39 UTC as
+    `1330e8b`, a tree identical to its flipped and recorded head
+    (`a6f5e4a`). It waited for that head's preview deploy step to
+    finish, so no late deploy could re-create the torn-down
+    environment. That head's whole
+    pipeline (run 42066122419) finished green at 16:44 UTC.
+  - Its preview environment was torn down; the old preview address
+    answers 404.
+- **Standing previews:** #97 and #149 were refreshed by `merge-tree`
+  (`3f3204b`, `378ddca`), with no conflicts, and both pipelines went
+  green.
+- **Release PR #297** (`phase-c` into `main`):
+  - Opened on the operator's word, "Release it". It carried #296 only.
+  - Merged once its own pipeline was green (8m48s, run 42067261363):
+    `8e08636`, a tree identical to `phase-c`'s.
+  - Production run 42068944838: verify with the approval check
+    16:52–17:00 UTC, deploy and Front Door purge 17:00–17:07 UTC.
+- **Checked on the live site** (17:24–17:26 UTC):
+  - All 21 sitemap pages answer 200, as do `/search`,
+    `/go/wrinkle-relaxers` and `/go/skin-rejuvenation`.
+  - Six probe passes, three plain and three cache-busted, agreed:
+    /services/skin-rejuvenation carries the section's heading, the
+    intro line, the new meta description, the player (`inview`, the
+    media-host source, the caption track) and both $450 lines, and the
+    peel cards are still there; /go/skin-rejuvenation shows the card;
+    /services shows the new menu line.
+  - The film answers 206 with a total of 6,644,468, and its caption
+    file answers 200. With no tap, the film started muted and looping
+    when scrolled to, its two cues loaded.
+  - The home page still plays seven films.
+- **Afterwards:**
+  - `phase-c` was fast-forwarded to `main` (`8e08636`).
+  - The environment list is production, 97 and 149 only.
+- Nothing is left to record for this section.

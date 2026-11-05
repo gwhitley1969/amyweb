@@ -1,0 +1,58 @@
+---
+/**
+ * DE|RIVE's award graphic — AMP's (Aesthetic Management Partners') own
+ * marketing graphic for its DE|RIVE scalp and hair system, carried as-is
+ * (only the screenshot frame around it was trimmed, losslessly; the
+ * working folder is C:\Amy\derive-graphic). Rendered on
+ * /services/regenerative, in the DE|RIVE section, and on
+ * /go/regenerative after the cards (the `awardCard` rule in
+ * src/lib/landing.ts): the one treatment-page graphic a landing page
+ * shows. The maker's OK is on record (operator, 2026-11-05).
+ *
+ * Its pixels carry legible claims and a package size, under the
+ * operator's overrides after the compliance flags (CLAUDE.md
+ * constraint 3: its claims bullet, and its fifteenth pixel-level
+ * override for the package size; DECISIONS 2026-11-05). The alt text reads the
+ * award out (constraint 6, the operator's choice): it is the ONE place
+ * the graphic's words are written in site text, through one exact
+ * allowedStrings entry in compliance/banned-patterns.json, so the alt
+ * stays on ONE source line exactly as registered. No other text from
+ * the graphic or its bottle is ever restated — copy, comments, meta, OG,
+ * JSON-LD.
+ *
+ * Not a .media-figure: an image of text stays whole, so neither the arch
+ * nor the 4:5 crop of TreatmentLayout reaches it (the lip-style-guide
+ * precedent); the frame is the pair gallery's bare recipe.
+ *
+ * CONSTRAINT 4: this file and its PNG are part of the regenerative
+ * page's approved content, but check-approvals reads treatment files
+ * only. Any edit to either resets clinicianApproved in
+ * src/content/treatments/regenerative.mdx in the same commit.
+ */
+import { Image } from 'astro:assets';
+import award from '../assets/photos/derive-award.png';
+---
+
+<figure class="award-figure">
+  <Image
+    src={award}
+    alt="The Aesthetic Awards winner: Best in Industry, Nonsurgical Innovation, three years running. A DE|RIVE serum bottle and syringe over dark hair."
+    widths={[340, 540, 680]}
+    sizes="(max-width: 40rem) 90vw, 18rem"
+  />
+</figure>
+
+<style>
+  .award-figure {
+    justify-self: center;
+    width: min(18rem, 100%);
+    margin: 0 auto;
+  }
+  .award-figure :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--ng-magenta-600);
+    border-radius: 12px;
+  }
+</style>

@@ -11,13 +11,16 @@ import InvestigationalNotice from '../components/InvestigationalNotice.astro';
 import BioteDisclaimer from '../components/BioteDisclaimer.astro';
 import ProductDetailCards from '../components/ProductDetailCards.astro';
 import EvolusLaurel from '../components/EvolusLaurel.astro';
+import DeriveAward from '../components/DeriveAward.astro';
 import VisitSteps from '../components/VisitSteps.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import RouterCard from '../components/RouterCard.astro';
 import TrustChips from '../components/TrustChips.astro';
 import { siteConfig } from '../lib/siteConfig';
 /* The home hero's portrait: Amy on her medspa counter, the one photo
- * approved for every page (the share card is made from it). */
+ * approved for every page (the share card is made from it). The only
+ * other image a landing page shows is DE|RIVE's award graphic, on
+ * /go/regenerative only (the awardCard rule; DECISIONS 2026-11-05). */
 import portrait from '../assets/photos/needlegirlie-hero.jpg';
 
 /**
@@ -25,21 +28,28 @@ import portrait from '../assets/photos/needlegirlie-hero.jpg';
  * docs/superpowers/specs/2026-10-12-landing-pages-design.md; DECISIONS
  * 2026-10-12). The treatment page with its editorial tissue removed and
  * its two actions placed where a paid click expects them. Every string
- * here is the treatment entry's approved text, a siteConfig fact, or a
- * layout string TreatmentLayout already renders. The order is FIXED, as
- * it is there (CLAUDE.md hard constraint 3):
+ * here is the treatment entry's approved text, a siteConfig fact, a
+ * layout string TreatmentLayout already renders, or (on
+ * /go/regenerative) the alt of DE|RIVE's award graphic, which renders
+ * from the treatment page's own approved component. The order is FIXED,
+ * as it is there (CLAUDE.md hard constraint 3):
  *   eyebrow (place) -> H1 -> lead -> CTA row (chip Book + chip Call) ->
  *   portrait in the arch -> Evolus laurel (landing.ts rule) ->
  *   products -> flag-driven notices ADJACENT to products ->
+ *   DE|RIVE's award graphic (landing.ts awardCard rule) ->
  *   visit steps -> FAQ (landing.ts exclusions applied by the route) ->
  *   router card -> DisclaimerBlock (NEVER collapsed) ->
  *   noir CTA band + trust chips -> landing footer -> sticky bar (phones).
  * NOT rendered, by design: the deck, the MDX body, films, the entry's
  * photos, breadcrumbs, the primary nav, the practice badge. That is what
- * keeps every page-scoped operator override on its own page.
+ * keeps every page-scoped operator override on its own page. The one
+ * exception is DE|RIVE's award graphic on /go/regenerative, at the
+ * operator's direction after the compliance flag (CLAUDE.md
+ * constraint 3; DECISIONS 2026-11-05).
  * The page is noindex in every build (BaseLayout -> SeoHead) and out of
  * the sitemap (astro.config.mjs); the SWA templates add the header.
- * Zero client JS; one responsive image.
+ * Zero client JS; one responsive image (two on /go/regenerative, the
+ * second lazy-loaded below the cards).
  */
 type Treatment = CollectionEntry<'treatments'>['data'];
 
@@ -48,6 +58,8 @@ interface Props {
   /** The factual lead: `schemaDescription ?? summary` (the route decides). */
   lead: string;
   laurel: boolean;
+  /** Render DE|RIVE's award graphic after the cards (the awardCard rule). */
+  awardGraphic: boolean;
   products: string[];
   productDetails: Treatment['productDetails'];
   ctaType: Treatment['ctaType'];
@@ -63,6 +75,7 @@ const {
   title,
   lead,
   laurel,
+  awardGraphic,
   products,
   productDetails,
   ctaType,
@@ -135,6 +148,14 @@ const primary = ctaType === 'shop' ? 'shop' : 'consult';
     {/* Disclosures sit ADJACENT to the products they qualify — never below the fold of the copy. */}
     {investigational && <InvestigationalNotice productName={investigationalProduct} note={investigationalNote} />}
     {bioteDisclaimer && <BioteDisclaimer />}
+
+    {
+      awardGraphic && (
+        <div class="mt-10">
+          <DeriveAward />
+        </div>
+      )
+    }
 
     <div class="mt-12">
       <VisitSteps />

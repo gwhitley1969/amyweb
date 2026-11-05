@@ -5,12 +5,12 @@ import { LANDING_SLUGS, landingRules } from '../../lib/landing';
 
 /**
  * Ad landing pages — /go/<slug> (spec:
- * docs/superpowers/specs/2026-10-12-landing-pages-design.md and its §13;
- * DECISIONS 2026-10-12 and 2026-10-13). One page per slug in
- * src/lib/landing.ts, each rendering its treatment entry's approved
- * frontmatter through LandingLayout under that file's per-page rules
- * (the plaque, FAQ and product-card exclusions, which field is the
- * lead). The MDX body is
+ * docs/superpowers/specs/2026-10-12-landing-pages-design.md and its §13
+ * and §14; DECISIONS 2026-10-12, 2026-10-13 and 2026-11-05). One page per
+ * slug in src/lib/landing.ts, each rendering its treatment entry's
+ * approved frontmatter through LandingLayout under that file's per-page
+ * rules (the plaque, FAQ and product-card exclusions, which field is the
+ * lead, and the card DE|RIVE's award graphic belongs to). The MDX body is
  * never rendered here. Pages are noindex in every build and absent from
  * the sitemap; adding a line is a list edit plus its .pa11yci.json line.
  */
@@ -58,12 +58,20 @@ if (rules.lead === 'summary' && !entry.data.schemaDescription) {
 }
 const lead =
   rules.lead === 'summary' ? entry.data.summary : (entry.data.schemaDescription ?? entry.data.summary);
+
+// DE|RIVE's award graphic renders only under its own card: a rule that
+// names a card not on this page (renamed, removed or excluded) fails the
+// build instead of showing the graphic alone.
+if (rules.awardCard !== null && !productDetails.some((item) => item.name === rules.awardCard)) {
+  throw new Error(`landing: "${entry.id}" has an award-graphic rule for card "${rules.awardCard}", which is not on the page`);
+}
 ---
 
 <LandingLayout
   title={entry.data.title}
   lead={lead}
   laurel={rules.laurel}
+  awardGraphic={rules.awardCard !== null}
   products={products}
   productDetails={productDetails}
   ctaType={entry.data.ctaType}

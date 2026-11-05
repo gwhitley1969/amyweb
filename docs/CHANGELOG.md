@@ -38,8 +38,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   decided with Amy at a consultation." (the operator's direction). The
   paragraph above the section still routes suitability to a
   consultation.
-- The page's approval flag reset with the edit, so it waits for Amy's OK
-  on the preview.
+- The page's approval flag reset with the edit. Amy OK'd the page on
+  the PR #302 preview, and the operator flipped the flag in the same PR.
 - DECISIONS 2026-11-05 (DE|RIVE), the price addendum.
 
 ### 2026-11-05 — Regenerative treatments: DE|RIVE, with AMP's award graphic

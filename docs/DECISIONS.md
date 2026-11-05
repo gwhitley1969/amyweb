@@ -18082,3 +18082,13 @@ supplied graphic to live in one day.
 - The edits reset regenerative's `clinicianApproved` (constraint 4).
   Amy reads them on the PR preview, and the operator flips the flag in
   the same PR before it merges.
+- **The PR #302 preview** (`6669e30`) passed six clean probes (three
+  plain, three cache-busted):
+  - "$800 per treatment" once on each regenerative page;
+  - the routing line gone, and "Who they're generally for" still routing
+    to a consultation;
+  - the DE|RIVE section and the graphic unchanged.
+- **Amy reviewed the change on that preview and approved it.** The
+  operator relayed her OK the same evening and flipped the page's flag
+  in the same PR (commit `9bb6aa8`: one line, `clinicianApproved:
+  true`, Amy's approval in the message).

@@ -90,6 +90,11 @@ const RULES: Readonly<Record<string, Partial<LandingRules>>> = {
   // KLOW cards render as approved; the operator extended that
   // exception's scope to /go/peptide-therapy on 2026-10-13 (CLAUDE.md
   // constraint 3; DECISIONS same date).
+  // skin-rejuvenation: no rule. The EXO|E card's name and line render
+  // here as approved: the operator set that scope after the compliance
+  // flags, the card on this landing page as on the treatment page
+  // (CLAUDE.md constraint 3; DECISIONS 2026-11-05). The section's other
+  // text lives in the MDX body, which no landing page renders.
   // hormone-optimization: no rule. The vocabulary the linter's symptom
   // check guards lives in the MDX body, which no landing page renders;
   // bioteDisclaimer stays false by the entry's flag, as on its page.

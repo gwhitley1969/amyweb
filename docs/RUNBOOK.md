@@ -179,7 +179,13 @@ card that is the entry's `investigationalProduct` takes its notice with
 it — weight-loss, Retatrutide, at Amy's direction); the Evolus plaque
 renders only where the rule says `laurel: true`; `lead: 'summary'` renders the entry's
 summary instead of the factual description (regenerative, a constraint-3
-extension; the build fails if the entry has no `schemaDescription`).
+extension; the build fails if the entry has no `schemaDescription`);
+`awardCard` names the card DE|RIVE's award graphic belongs to and renders
+that graphic after the cards (regenerative only, since 2026-11-05, the
+one treatment-page photo a landing page shows; the build fails if the
+named card is not on the page; the spec's §14). The graphic is the
+treatment page's own `DeriveAward` component: an edit to it or its PNG
+resets regenerative's approval flag in the same commit.
 Enabling a line whose rendered fields carry a page-scoped exception needs
 the operator's extension of that exception first, recorded in CLAUDE.md
 and DECISIONS. The pages

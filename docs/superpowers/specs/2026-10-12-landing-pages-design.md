@@ -8,7 +8,8 @@ will accept ads for today. The other four lines are deferred (see §12).
 **Status:** decisions 1–6 locked by the operator on 2026-10-12 (DECISIONS
 same date, the landing-pages entry, written when the branch opens).
 **Addendum:** §13 (2026-10-13) — the four deferred lines enabled at Amy's
-request; twelve pages.
+request; twelve pages. §14 (2026-11-05) — DE|RIVE's award graphic on
+`/go/regenerative`, the one treatment-page photo a landing page shows.
 
 ## 1. Context
 
@@ -339,3 +340,40 @@ the procedure can follow the consultation at once — approved treatment
 copy with no recorded exception, and consult-first, so it stays on both
 pages. Gates: `.pa11yci.json` +4 (37 URLs); Lighthouse unchanged (the
 house row matches `/go/`).
+
+## 14. Addendum, 2026-11-05 — DE|RIVE's award graphic on `/go/regenerative`
+
+Amy added DE|RIVE (AMP's plant-derived scalp and hair system) to
+`/services/regenerative`: a section with her text beside AMP's award
+graphic, and a third card. The operator asked for the information on the
+landing page as well. The card needed nothing new: it is frontmatter, and
+it renders as on the treatment page. The graphic is the first exception to
+§2's non-goal and §4's "Not rendered … any photo from the entry". It was
+recommended to keep it on the treatment page, after the flag that its award
+line and the bottle's package size would sit on the page ads point to; the
+operator chose the landing page too (CLAUDE.md constraint 3; DECISIONS
+2026-11-05, DE|RIVE). Google does not take `/go/regenerative` as an ad
+destination (§13), so the page serves posts, texts and QR codes.
+
+Mechanism:
+
+- `LandingRules.awardCard: string | null`, the card the graphic belongs
+  to; `regenerative` sets `'DE|RIVE'`, every other line defaults to
+  `null`.
+- The route asserts that the named card is on the page after
+  `productExclude`, so the graphic never shows without its card and a
+  stale rule fails the build, like the other rules.
+- `LandingLayout` renders `DeriveAward` (the treatment page's own
+  component, approved with that page) after the cards and the flag-driven
+  notices and before the visit steps, so disclosures stay adjacent to the
+  products.
+- The component's alt reads the award out through one exact
+  `allowedStrings` entry. That is the one string on a landing page that
+  is not frontmatter or layout text, and it renders from the approved
+  component.
+
+Budget, measured with the house row's limits (Lighthouse, median of three
+runs, full-page scroll): `/go/regenerative` images 77,772 B against
+245,760 B, total 130,330 B against 358,400 B. The graphic's 680 w webp is
+38,281 B and lazy-loads below the cards. The matrix is unchanged: the URL
+is not in the collect list, as before.

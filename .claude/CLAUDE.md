@@ -381,6 +381,18 @@ silently following it. Known superseded points from earlier briefs:
      slide's label, the captions file, comments, meta, OG, JSON-LD;
      changing any of it requires the human operator. (Its claims
      content is the claims bullet's clause for this film.)*
+     *Fifteenth pixel-level override, the twelfth under this bullet
+     (operator decision after the compliance flag — DECISIONS
+     2026-11-05, DE|RIVE): AMP's DE|RIVE award graphic
+     (`derive-award.png`, rendered by `DeriveAward`) on
+     /services/regenerative and /go/regenerative. The bottle's
+     package-size line is legible: package size, not a dose, filed with
+     the quantity classes as the Evolysse cartons' fill volume and
+     Re-Q's net contents were. Fixed terms: this graphic, on those two
+     pages; the value is never restated in site text — copy, the alt,
+     comments, meta, OG, JSON-LD; changing any of it requires the human
+     operator. (Its claims content is the claims bullet's clause for
+     this graphic.)*
      *(A pointer, not a further entry: the spoken words of the
      IPL-session film on /services/laser-treatments name a count of
      treatments, which BUILD_SPEC §7.12 treats as protocol-class; that
@@ -848,6 +860,76 @@ silently following it. Known superseded points from earlier briefs:
      none of its burned-in text is ever restated in site text — copy,
      the label, the captions file, comments, meta, OG, JSON-LD; changing
      any of it requires the human operator.
+     And Amy's DE|RIVE text on /services/regenerative (operator decision
+     after the compliance flags — DECISIONS 2026-11-05, DE|RIVE; a
+     version without "chemical-free" and with only the cosmetic part of
+     the effects line was offered and declined), her own words carried
+     word for word for AMP's plant-derived scalp and hair system: the
+     name "DE|RIVE"; the sentence "A plant-based biomimetic wellness
+     system that uses natural secretory factors and plant-derived
+     exosomes."; and the paragraph "Plant-based, hormone-free, and
+     chemical-free system designed for scalp health and hair support.
+     Delivers proprietary plant-derived exosomes and growth factors to
+     the scalp to calm inflammation, increase blood flow, remove dead
+     skin cells around follicles, and stimulate cell activity (such as
+     Cytokeratin-15 production)." What was flagged: "chemical-free" (no
+     product is free of chemicals; regulators read the phrase as
+     misleading) and "hormone-free" (the same free-from class);
+     "proprietary"; "calm inflammation", the meaning of the banned
+     "anti-inflammatory"; "increase blood flow", "remove dead skin cells
+     around follicles" and "stimulate cell activity (such as
+     Cytokeratin-15 production)" — effects on the body that make a
+     cosmetic read as a drug (BUILD_SPEC §8.5's class), CK15 implying
+     regrowth on the maker's own lab work; "plant-derived exosomes", the
+     class of the FDA's exosome notice (the EXO|E entry above); BUILD_SPEC
+     §7.6 ("no healing/repair outcome claims"; anything further reverts
+     to the rule) and §7's bar on mechanism hype; and the website
+     contract's promise to describe treatments without promising
+     specific results. No pattern sees any of it, so a green linter never
+     authorizes it. A sentence after the text routes suitability to a
+     consultation; trimming it requires the human operator. Fixed terms:
+     the name as the section's heading and the "What Amy offers" card's
+     name, on that page and on the /go/regenerative landing page's card;
+     the sentence in the section and as the card's line on both pages;
+     the paragraph in the section only. Elsewhere the product is named
+     only plainly — "DE|RIVE", "DE|RIVE scalp care" or "a plant-based
+     system for the scalp" — in the page's intro, schemaDescription and
+     search description, the /services menu line, the graphic's alt,
+     comments and the records. No site text says how DE|RIVE is applied
+     or states a regulatory status for it. None of the three strings is
+     ever restated in other body copy, FAQ answers, alt text, comments,
+     meta descriptions, OG tags or JSON-LD; changing any of it requires
+     the human operator.
+     And AMP's DE|RIVE award graphic beside that text (`derive-award.png`
+     through `DeriveAward`; operator decisions after the compliance flags
+     — DECISIONS 2026-11-05, DE|RIVE; the treatment page only, and an alt
+     describing only the picture, were recommended or offered and
+     declined), the maker's own graphic carried as-is: only the
+     screenshot frame around the operator's file was trimmed, losslessly.
+     The maker's OK for its needlegirlie.com use is on record (operator,
+     same date). Its pixels carry "THE AESTHETIC AWARDS", "WINNER" and a
+     superiority-class line with a three-year streak (BUILD_SPEC §8.4).
+     The streak rests on the maker's own release of 2026-09-30; The
+     Aesthetic Guide's 2024 list names DE|RIVE in a different category.
+     It is packaging-central (the product-box class the 2026-07-23 photo
+     rubric excluded): the bottle's brand, a partly hidden French label
+     line and its package size are legible (the dosing bullet's
+     fifteenth pixel-level override). It shows a DE|RIVE syringe-style
+     applicator, no needle in frame. The hair across its lower half is a
+     person's, and that consent is the maker's, not on this site's record.
+     No face, URL, phone number, QR code, before/after content or
+     regulatory status. Its alt reads the award out, the operator's
+     choice for accessibility (constraint 6): the one place the
+     graphic's words are written in site text, through the one exact
+     `allowedStrings` entry that lets "best" pass there. On
+     /go/regenerative it renders after the cards, the landing design's
+     first and only treatment-page photo (the `awardCard` rule in
+     `src/lib/landing.ts`). Fixed terms: this graphic, on those two pages;
+     no other text from the graphic or its bottle is ever restated in
+     site text — copy, comments, meta, OG, JSON-LD; check-approvals reads
+     treatment files only, so any edit to `DeriveAward` or the PNG resets
+     regenerative's `clinicianApproved` in the same commit (constraint
+     4); changing any of it requires the human operator.
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing

@@ -49,6 +49,13 @@ change lives in `docs/DECISIONS.md`; design specs live in
   words) and starts muted when scrolled into view, sound one tap away.
 - The page's approval flag reset with the edit. Amy OK'd the page on
   the PR #296 preview, and the operator flipped the flag in the same PR.
+- The operator merged it into `phase-c` (PR #296, merge `1330e8b`) and
+  released it the same day (release PR #297, merge `8e08636`;
+  Production run 42068944838). It went live at 17:07 UTC with the Front
+  Door cache purged.
+- Checked on the live site: all 21 pages answer, the section, the card,
+  the ad-page card and the menu line show on six passes, and the film
+  starts muted in view with its captions.
 - DECISIONS 2026-11-05.
 
 ### 2026-11-03 — Home carousel: a Re-Q Health reel is the fourth film

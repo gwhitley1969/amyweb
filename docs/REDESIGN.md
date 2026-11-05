@@ -231,7 +231,10 @@ pink."** Seven gaps, each a test every design decision must move:
   home band's van-trip film ("Play now, accept the risk"; DECISIONS
   same date), the carousel's ATTIVA reel's Instagram-library song (the
   2026-10-29 override) and, since 2026-11-03, the carousel's Re-Q reel's
-  music (a silent copy recommended and declined; DECISIONS same date);
+  music (a silent copy recommended and declined; DECISIONS same date)
+  and, since 2026-11-05, the music of EXO|E's reel on
+  /services/skin-rejuvenation (a silent, tap-to-play copy recommended
+  and declined; DECISIONS same date);
   five other sounded films (the
   /about team film, the two biostimulators reels, the body-contouring
   reel, the training reel) carry music on a no-speech confirmation

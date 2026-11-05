@@ -17495,3 +17495,249 @@ handle swap to live in one day.
   ("music with no words").
 - **Amy's OK:** Amy OK'd the film, as the operator relayed it ("She's good
   with it.", 2026-11-03). Nothing is left to record for this film.
+
+## 2026-11-05 — skin-rejuvenation: Amy's EXO|E facial beside EXO|E's reel, carried as edited (operator overrides after the compliance flags)
+
+**Context.** Amy has started offering EXO|E, the plant-derived exosome
+serum system made by Aesthetic Management Partners (operator,
+2026-11-05).
+- **The reel and its edit.** EXO|E authorized the download of its
+  15 s Instagram reel (posted 2026-10-18 from its rep's account). The
+  same day it was edited in `C:\Amy\exoie-reel` (outside the repo). The
+  rep's closing card (his photo, his web address, his handle) was
+  replaced with Amy's published black-scrubs portrait
+  (`amy-palacios-fnp.jpg`, cut out with Higgsfield's background remover,
+  which keeps her pixels exactly) and her Instagram handle. A crisp
+  circle opening on a beat in the music, 12.2–12.6 s, replaced the
+  rep's own "bubble". The operator approved the draft ("Looks good").
+- **The request.** A section on /services/skin-rejuvenation with that
+  film and this text, supplied in chat:
+  - Title: "Stem-Cell Facial with EXO|E Exosomes $450".
+  - First paragraph: "An advanced, plant-based skin rejuvenation
+    treatment using a patented plant derived system of secretory
+    factors, peptides, liposomes to signal cellular communication."
+  - Second paragraph: "Often paired with microneedling to boost
+    collagen, elastin, and hydration while reducing down-time. Targets
+    fine lines, uneven skin texture, pigmentation, and overall radiance
+    while speeding up post-procedure recovery".
+
+**Flagged before the choices, once each.** No `lint:claims` pattern
+matches any of the text (all 52 were tested), so none of this can be
+authorized by a green linter:
+- **"Stem-Cell".** The product is plant-derived. The FDA's public safety
+  notification on exosome products (2019,
+  https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/public-safety-notification-exosome-products)
+  says no exosome product is FDA-approved, and its companion alert
+  covers stem-cell and exosome marketing. Separately, Google Ads'
+  policy on speculative and experimental treatments
+  (https://support.google.com/adspolicy/answer/15596627) names
+  stem-cell therapy, and PRP too.
+- **"Patented".** Sellers' listings disagree: some say patent-pending
+  (e.g. https://store.medshift.com/exo-e-system-annual-subscription/),
+  and no patent record was found.
+- **"To signal cellular communication".** A mechanism claim (§7: no
+  mechanism-of-action hype).
+- **"To boost collagen, elastin, and hydration".** A result stated as
+  fact; the page's house form is design intent.
+- **"Reducing down-time" and "speeding up post-procedure recovery".**
+  §7.10 bans downtime promises, and recovery claims are override-only.
+- **"Targets fine lines, uneven skin texture, pigmentation…".** Concern
+  words without the appearance hedge (§8 rule 2). The peel cards'
+  exception covers those cards only.
+- **The website contract (SOW §5).** It promises treatments are
+  described "without promising specific results".
+- **The film.** Its burned-in bullets carry an outcome claim, a
+  natural-ingredient claim, a dermatologist-formulation claim and a
+  health claim, under a heading addressed to practices ("… to Your
+  Practice"). Its music has no licence on record, and the autoplay rule
+  bars maker films.
+
+**Screening of the film** (the approved edit, v3):
+- **Frames.** Every 15th frame was checked, plus full-size crops of the
+  carton and the bullet panel. The only changes between sampled frames
+  are bullets fading in, the carton rising, the circle and the closing
+  card's motion.
+- **Text:** the brand logo; "Healthy Skin Is In!"; the heading to
+  practices; six bullets (the four claim classes above, plus
+  in-office/take-home use and "can be combined with most aesthetic
+  procedures"); the carton's brand, a product-description line and a
+  formulation line, with no quantity legible anywhere; and the closing
+  card's sales headline and Amy's handle.
+- **People:** the maker's model in the opening shots (her consent is the
+  maker's, not on this site's record) and Amy on the closing card.
+- **Nothing else:** no before/after content, URL, phone number or QR
+  code, and no statement of regulatory status. A small blurred tag near
+  the foot of the main frames is unreadable.
+- **Sound:** music. The operator's listen is the record: "No words, just
+  music".
+- **AI:** none generative. The cutout is a background removal of a
+  published, Amy-only still, the class the 2026-09-17 rules allow to go
+  to Higgsfield.
+
+**Decision.** Ten questions were put to the operator:
+1. **The text.** Choices: my house-style rewrite (recommended), Amy's
+   text with four fixes, or Amy's text exactly. Answer: **Amy's text,
+   exactly.** Only a double space and a missing final period were
+   normalized. The consultation sentence after it was in all three
+   previews.
+2. **The film's on-screen claims.** Answer: **carry it as-is** (the edit
+   is the closing card only).
+3. **Sound and autoplay.** Silent and tap-to-play was recommended.
+   Answer: **with its music, playing when seen**: muted in view, sound
+   one tap away.
+4. **Placement.** Answer: **after Chemical peels, plus a top card** in
+   "What Amy offers".
+5. **The card on /go/skin-rejuvenation.** Keeping it off by the existing
+   `productExclude` rule was recommended, because of the Google Ads
+   policy. Answer: **show it on /go/ too.**
+6. **Does the music have sung words?** Answer: **"No words, just
+   music".**
+7. **Where did the text come from?** Answer: **"Amy wrote it"**, so
+   constraint 8 is not engaged.
+8. **Is the maker's OK for the edited film on record?** Answer: **"Yes,
+   they OK'd the edit"** (the Re-Q question of 2026-11-03).
+9. **The card's line.** A short line made from her words was recommended.
+   Answer: **Amy's first sentence.**
+10. **The page's two-treatment wording.** Answer: **mention EXO|E
+    everywhere** (recommended), in plain words only.
+
+**What was built** (branch `content/skin-rejuvenation-exoie`).
+- **`skin-rejuvenation.mdx`, frontmatter:**
+  - `products` and `productDetails` gain the card: name "Stem-Cell Facial
+    with EXO|E Exosomes", tag "Facial" (my call), Amy's first sentence as
+    its line, price "$450".
+  - `summary` (the visible lead, the JSON-LD description and the /go/
+    lead) and `seo.description` now name "EXO|E facials".
+  - `clinicianApproved` resets to false (constraint 4).
+- **`skin-rejuvenation.mdx`, body:**
+  - The intro gains "Amy also offers a plant-based facial with EXO|E."
+  - A new two-column row sits between the peel routing sentence and "A
+    longer view": the film, then the heading, a bold "$450" line (my
+    call), both paragraphs and "Whether it suits your skin is decided
+    with Amy at a consultation."
+- **The /services menu line** (`serviceLines.ts`) names "EXO|E facials".
+- **The film** autoplays in view in the player's default mat. Maker film
+  stages stay unmasked, so no corner rounding.
+  - Rendition `exoie-reel.mp4` (6,644,468 B; sha256
+    `90c0d6bbfc05c91275a77a9d8ef266f70d3dd54bc6ff21ee54da59e0c294e878`):
+    the approved edit's picture copied bit for bit (1080×1920, 60 fps
+    H.264; picture stream sha256 `58d93483…d76a`, the same as v3's).
+  - The sound got one `volume=-4dB` (−14.0 → −18.1 LUFS, peak
+    −5.3 dBFS) and was re-encoded as AAC 128k. Metadata was stripped,
+    and moov sits before mdat.
+- **The poster** (`exoie-reel-poster.jpg`) is the rendition's frame at
+  0.2 s, so poster to film is seamless.
+- **The captions** (`public/media/exoie-reel.vtt`) are two bounded
+  `[Music]` cues, 0–3 s and 6–9 s, so no cue covers the closing card.
+  There is no on-screen cue (the training-reel, ATTIVA and Re-Q
+  precedent). The NOTE records provenance, the edit and the operator's
+  ear.
+- **Code comments only:** the player's header (the second film carried as
+  edited; the autoplay rule's sixth scoped exception) and `landing.ts`
+  (the card renders on /go/ by the operator's scope decision).
+
+**Alternatives rejected.**
+- The rewrite and the four-fix version (point 1).
+- Silent, tap-to-play (point 3).
+- Keeping the card off /go/ (point 5).
+- A short card line (point 9).
+- The 810 px re-encode first planned: it would have made a third
+  generation of the approved pixels (the Re-Q precedent).
+- `frame="bare"`: the header keeps maker films unmasked.
+
+**Consequences.**
+- **No gate keeps this vocabulary off other pages.** CLAUDE.md and this
+  record do. The banned list gains nothing.
+- **The page's approval flag is reset.** Amy reads the section and the
+  film on the PR preview, and the operator flips the flag in the same PR
+  before it merges. `phase-c` never holds the page unapproved.
+- **The ad page carries the stem-cell name.** Ads that point at
+  /go/skin-rejuvenation may be refused under Google's policy. That is
+  the operator's accepted risk, and the page still serves posts, texts
+  and QR codes.
+- **Music.** The music is the ninth unlicensed song on the site.
+- **Consent.** The model's consent is the maker's.
+- **The film went public at upload.** It is public at
+  media.needlegirlie.com/exoie-reel.mp4 from the upload, unlinked until
+  this PR ships. If Amy declines it, the object is deleted and purged at
+  the edge.
+- **The regulatory statement.** No site text states one for this
+  product, and none may (the ATTIVA term).
+
+**Records changed.**
+- **CLAUDE.md, constraint 3:**
+  - two claims-bullet entries: the exact strings with their scopes, and
+    the film;
+  - the music clause;
+  - the opted-in pages list;
+  - the Re-Q entry's "one recorded exception", now "first".
+- **BUILD_SPEC:**
+  - §7.10;
+  - §8 rules 2, 3 and 4;
+  - the §9 autoplay list and the script-page list, each also gaining the
+    IV lounge film they lacked (record repair);
+  - the carousel's carried-as-is line;
+  - the /go/ row.
+- **RUNBOOK:**
+  - the screening rule (two recorded exceptions);
+  - the autoplay override list, which also gains the IV lounge film it
+    lacked.
+- **compliance/README:**
+  - the film paragraph;
+  - the "two carried as edited" line;
+  - the list of strings no pattern sees.
+- **REDESIGN:** the music-licences item.
+- **RELAUNCH:** the film list, the probe page list and the player count
+  (eleven on nine pages).
+- **CHANGELOG.**
+- **CLINICIAN-SIGN-OFF:** the skin-rejuvenation row and the /go/ list.
+
+**Left as they are.**
+- **REDESIGN's dated media-object count**, as ATTIVA and Re-Q left it.
+- **The carousel-rate lines** in VideoCarousel, BUILD_SPEC and RUNBOOK
+  still say "one recorded edit". They speak of carousel films, and the
+  carousel's only edit is still Re-Q's.
+- **The page's deck and FAQ.**
+
+**Verification** (branch `content/skin-rejuvenation-exoie`, local
+build).
+- `lint:claims` passes (no pattern matches, as tested).
+- **Built HTML:**
+  - The page carries the section, the exact strings, the card and the
+    player: `data-autoplay="inview"`, `loop`, the source at
+    https://media.needlegirlie.com/exoie-reel.mp4, the vtt track and a
+    webp poster.
+  - The JSON-LD description and the meta description are the new
+    factual lines.
+  - /go/skin-rejuvenation shows the card (its name, the sentence and
+    $450) and the new lead, and no body text.
+- **Screenshots** at 1280 and 390: the film sits left of the text on
+  desktop and above it on phones. The third card spans the full width.
+- **Stylesheets:** identical to `phase-c`'s, both after the content
+  commit and after the records (Tailwind scans docs/).
+- **`npm run verify`** exits 0:
+  - `astro check`, `lint:claims`, `lint:voice`;
+  - `lint:practice-link` (38 pages, 80 links);
+  - `check:search-index`;
+  - a11y, 39 of 39 URLs passing with 0 errors, both pages included;
+  - `test:perf`;
+  - `test:search`.
+- **A text and metadata diff** of all 38 built pages against a build of
+  `phase-c` (a18b9fa) changes four:
+  - /services/skin-rejuvenation (text, meta, JSON-LD);
+  - /go/skin-rejuvenation (text, meta, JSON-LD);
+  - /services and /styleguide (the menu line, text only).
+
+**Addendum, 2026-11-05 — Amy's OK and the flip.**
+- The PR #296 preview served the section, the card and the film on six
+  clean passes of /services/skin-rejuvenation, /go/skin-rejuvenation
+  and /services. With no tap, the film started muted and looping when
+  scrolled to, its two caption cues loaded.
+- Amy reviewed the page on that preview and approved it as built:
+  the section, the card (on the page and on /go/skin-rejuvenation) and
+  the film. The operator relayed her OK the same day.
+- The operator flipped the page's flag in the same PR (commit
+  `68aaa02`: one line, `clinicianApproved: true`, Amy's approval in
+  the message).
+- The film stays on the media host; nothing in the records above
+  changes.

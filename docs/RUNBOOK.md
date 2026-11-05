@@ -325,9 +325,11 @@ To add or swap a film:
    sheet via `ffmpeg -i in.mp4 -vf "fps=1/2,scale=480:-1,tile=5x4"
    -frames:v 1 sheet.png`, vet every legible word/brand; on-camera
    clients need releases confirmed on the record; manufacturer films
-   carry as-is or not at all (never trim safety screens; one recorded
-   exception: the Re-Q reel's Instagram handle, replaced with Amy's on
-   2026-11-03 with the maker's OK on record — DECISIONS same date); each film
+   carry as-is or not at all (never trim safety screens; two recorded
+   exceptions: the Re-Q reel's Instagram handle, replaced with Amy's on
+   2026-11-03, and EXO|E's reel on /services/skin-rejuvenation, its
+   closing card rebuilt with Amy's photo and handle on 2026-11-05, each
+   with the maker's OK on record — DECISIONS those dates); each film
    gets its DECISIONS entry before it ships. **Screen the sound too**
    (since 2026-09-30 the carousel plays it): what is said or sung is
    held to the same rules as what is shown, and a commercial song
@@ -481,12 +483,16 @@ of it is on screen, via the static `public/js/treatment-video.js`
 2026-09-03 the films play under reduced motion too and a refused
 play() retries inside the first gesture — the carousel's phone policy,
 DECISIONS same date) — opt in ONLY for Amy's own speech-free films,
-never a manufacturer film or one with narration (three scoped operator
+never a manufacturer film or one with narration (five scoped operator
 overrides: the ICON film on /about — DECISIONS 2026-08-25 — Amy's
 Biote film on /services/hormone-optimization, which speaks throughout,
 and her IPL-session film on /services/laser-treatments, a film with
 speech whose captions show while it plays muted — both DECISIONS
-2026-10-02; the /about team film needs no override, being
+2026-10-02 — the IV lounge film on /services/iv-therapy, a song with
+sung words (DECISIONS 2026-10-02, its addendum; added to this list
+2026-11-05), and EXO|E's reel on /services/skin-rejuvenation, a maker
+film carried as edited, with music and no words — DECISIONS
+2026-11-05; the /about team film needs no override, being
 site-authored and speech-free). A film can sit directly above "What
 Amy offers" through the treatment frontmatter's optional `film` field
 (TreatmentVideo's props; the layout renders it), since 2026-10-02; a

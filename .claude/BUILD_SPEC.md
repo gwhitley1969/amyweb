@@ -440,7 +440,7 @@ constraint 6, DECISIONS 2026-09-03), no layout shift from fonts or images.
 | `/services/iv-therapy` | IV Therapy & Vitamin Support | §7 brief | Book an appointment |
 | `/services/hormone-optimization` | Hormone Optimization (Biote) | §7 brief — FDA disclaimer required | Request a consultation |
 | `/services/skincare` | Skincare (Skinbetter Science) | Overview + storefront link-out | Shop (link-out) |
-| `/go/[slug]` | Ad landing pages (2026-10-12, operator-directed; DECISIONS same date; spec docs/superpowers/specs/2026-10-12-landing-pages-design.md and its §13 addendum of 2026-10-13) | One page per slug enabled in `src/lib/landing.ts`, rendering the treatment entry's approved frontmatter through `LandingLayout`: place line, title, the lead (`schemaDescription ?? summary`, or the summary where a `lead` rule says so — regenerative, the constraint-3 extension of 2026-10-13), chip Book + chip Call, the home hero portrait in the arch, the Evolus plaque on wrinkle-relaxers and dermal-fillers only (the constraint-3 extension), the product cards, the flag-driven notices, the visit steps, the FAQ minus page-scoped exceptions (the laser booking answer, by rule), the router card, the disclaimer, the noir close, a landing footer (address block + legal links) and a sticky Book/Call bar on phones. No deck, MDX body, film, entry photo, breadcrumbs, nav or badge, so page-scoped overrides stay on their pages. `noindex, nofollow` in every build (meta + `X-Robots-Tag` on `/go/*`), out of the sitemap, robots.txt untouched; zero JS. Enabled: all twelve lines — wrinkle-relaxers, dermal-fillers, biostimulators, laser-treatments, skin-rejuvenation, body-contouring, skincare, iv-therapy (2026-10-12), then regenerative, weight-loss-glp-1, peptide-therapy, hormone-optimization (2026-10-13, at Amy's request; DECISIONS same date). Google's ad rules are unchanged and Amy's to settle: PRP is not an ad destination on Google, and the other three carry the prescription-drug certification question (Amy holds no LegitScript certification). The peptide page's time-span price lines and the regenerative lead are constraint-3 extensions of 2026-10-13; the weight-loss page publishes no Retatrutide (card, notice and FAQ item kept off by rule at Amy's direction, the notice being mandatory wherever the product is published) | The entry's own CTA (Book / Shop / consult) + Call |
+| `/go/[slug]` | Ad landing pages (2026-10-12, operator-directed; DECISIONS same date; spec docs/superpowers/specs/2026-10-12-landing-pages-design.md and its §13 addendum of 2026-10-13) | One page per slug enabled in `src/lib/landing.ts`, rendering the treatment entry's approved frontmatter through `LandingLayout`: place line, title, the lead (`schemaDescription ?? summary`, or the summary where a `lead` rule says so — regenerative, the constraint-3 extension of 2026-10-13), chip Book + chip Call, the home hero portrait in the arch, the Evolus plaque on wrinkle-relaxers and dermal-fillers only (the constraint-3 extension), the product cards, the flag-driven notices, the visit steps, the FAQ minus page-scoped exceptions (the laser booking answer, by rule), the router card, the disclaimer, the noir close, a landing footer (address block + legal links) and a sticky Book/Call bar on phones. No deck, MDX body, film, entry photo, breadcrumbs, nav or badge, so page-scoped overrides stay on their pages. `noindex, nofollow` in every build (meta + `X-Robots-Tag` on `/go/*`), out of the sitemap, robots.txt untouched; zero JS. Enabled: all twelve lines — wrinkle-relaxers, dermal-fillers, biostimulators, laser-treatments, skin-rejuvenation, body-contouring, skincare, iv-therapy (2026-10-12), then regenerative, weight-loss-glp-1, peptide-therapy, hormone-optimization (2026-10-13, at Amy's request; DECISIONS same date). Google's ad rules are unchanged and Amy's to settle: PRP is not an ad destination on Google, and the other three carry the prescription-drug certification question (Amy holds no LegitScript certification). The peptide page's time-span price lines and the regenerative lead are constraint-3 extensions of 2026-10-13; the skin-rejuvenation page's EXO|E card (the stem-cell name and Amy's first sentence) is a constraint-3 scope of 2026-11-05, kept on the landing page after the flag that Google's experimental-treatment ad policy names stem-cell therapy; the weight-loss page publishes no Retatrutide (card, notice and FAQ item kept off by rule at Amy's direction, the notice being mandatory wherever the product is published) | The entry's own CTA (Book / Shop / consult) + Call |
 | `/about` | About / Credentials | Amy's story + credentials (facts from `{{AMY_BIO}}`); the opening section's two pictures since 2026-09-27 (operator direction; DECISIONS same date) — the lead portrait of Amy on her studio counter to the right of the text, shown whole, and her family portrait (client-requested 2026-07-23) at two-thirds of its old size under the section's last paragraph, above the Book button; on phones the lead portrait follows the opening line; factual note that she practices within a multi-provider location; the EvolusLaurel ranking plaque + the ICON film (the film and the old recognition plate moved from wrinkle-relaxers at the client's direction 2026-08-18, superseding the 2026-07-21 ranking-free placement; the plate gave way to the Laurel 2026-08-25 — the same swap dermal-fillers made 2026-08-21 — retiring the resolved `{{EVOLUS_CLAIM}}` sentence sitewide, its `allowedStrings` entry withdrawn; §8.4); the Girl Team still + "Girl Team!" keystone plate (the site's first text-over-photo) + the "Visit Mobile Aesthetics" button — the second sanctioned yourmobileaesthetics.com link (constraint-2 fourth scoped exception, direct from Amy 2026-08-25; DECISIONS same date); below the button, the Mobile Aesthetics team film in a sounded rendition (`girl-team-film-wide.mp4` since 2026-08-26 — a 16:9 center crop of the master at operator direction, replacing the portrait `girl-team-film.mp4`; the carousel team film's constraint-2 second exception widened to this placement 2026-08-25; site-authored and speech-free, so its `autoplay="inview"` is in-contract, unlike the ICON film's override; DECISIONS both dates) | Request a consultation |
 | `/injector-training` | Private Injector Training | Professional-audience page (added 2026-08-04, operator-directed; DECISIONS same date): four hands-on, one-on-one courses for licensed medical professionals, prices flyer-verbatim (three at $5,000, Radiesse $7,500; three hours each, product included); curriculum topics under the fifth `allowedStrings` authorization (§8.1); outside the treatments collection and the clinician flag gate — Amy reviews via the sign-off doc's non-gated section; "Training" nav item. Since 2026-08-25 (DECISIONS same date): the dedicated hero portrait `amy-evolysse-cart.jpg` — a second Jeuveau-banner frame, headline/indication/partial ISI legible, its own pixel override — and Amy's training reel (`training-reel`, 19.8s, music bed) under the "Four courses" heading, carried as-is under operator override (burned-in curriculum cards + a legible per-vial quantity + the on-screen practice-site URL, constraint-2 fifth exception; all on-camera releases confirmed), autoplay in-class | Call (phone/Instagram routed — neither booking nor consultation language) |
 | `/tox-together` | Tox Together | The private-party page (added 2026-09-26, operator-directed, replacing /mobile, as `/tox-to-go`, "Tox To Go"; renamed and moved 2026-09-27, the operator again — DECISIONS both dates): the operator's party document as written, under the new name — host a private Tox Party at your place and Amy brings the Tox experience to you; a $600 hostess service credit when the party meets three requirements (a minimum of 7 guests, an average service purchase of $300 per guest, the services provided during the scheduled party — "a minimum of $2,100 in services among your guests"); "Book your Tox Together party" calls Amy's phone, her number printed under it. No photo and no film (the /mobile media were offered and declined): the page is type on its surfaces — the opening on the canvas, the offer on a noir band with the credit in the accent and the requirements as numbered plates, "Gather your people" as a two-column split, the noir close. "Tox" is allowed on this page and in the home band (operator decision 2026-09-26 — the scoped exception to the 2026-07-19 shorthand rule); the name "Tox Together" reaches the page title, the meta description (and so the OG tags), the JSON-LD Service name and the nav item, and nothing else on the site says it; the competitor brand name the shorthand stands in for never appears. "Party" stays allowed (2026-09-02). Outside the treatments collection and the clinician flag gate — Amy confirms the terms via the sign-off doc's non-gated section; "Tox Together" nav item after Visit Amy | Call — "Book your Tox Together party" dials Amy (the one Book-worded button that calls; party booking is by phone, not the booking page) |
@@ -771,7 +771,21 @@ DECISIONS 2026-10-02.)*
     reference cards, under the operator's overrides after the compliance
     flags (§8 rules 1 and 2; CLAUDE.md constraints 3 and 8; DECISIONS
     same date). Nothing else from those cards is used, and per-peel
-    pricing is still `{{CHEMICAL_PEELS_MENU}}`.
+    pricing is still `{{CHEMICAL_PEELS_MENU}}`. **Stem-Cell Facial with
+    EXO|E Exosomes** (since 2026-11-05) — **$450**: a facial with EXO|E,
+    the plant-derived exosome serum system from Aesthetic Management
+    Partners. Its section after the peels, its "What Amy offers" card
+    (also on /go/skin-rejuvenation) and its name carry Amy's own text
+    word for word, under the operator's decision after the compliance
+    flags: the stem-cell name, "patented", a mechanism claim, a bare
+    collagen claim, downtime and recovery promises, and concern words
+    without the appearance hedge (§8 rules 2–4; CLAUDE.md constraint 3;
+    DECISIONS same date). A consultation sentence follows it. Beside it
+    sits EXO|E's own reel, carried as edited (its closing card rebuilt
+    with Amy's photo and handle; the maker's OK on record), with its
+    music, autoplaying muted in view. Everywhere else the treatment is
+    named plainly ("EXO|E facials"), and no site text states its
+    regulatory status. The maker's treatment protocol is never used.
     Line-specific exclusions: no needle depths/pin counts/tip specs
     (dosing-class — one pixel-scoped carve-out, operator override after
     the compliance flag, DECISIONS 2026-08-21: the page's cart photo
@@ -957,7 +971,14 @@ DECISIONS 2026-10-02.)*
    hyperkeratosis, keratosis pilaris, superficial pigmented lesions, fine
    lines, dull complexion, loss of tone; the exact lists are in CLAUDE.md
    constraint 3). A consultation-routing sentence follows the cards.
-   These names are never restated anywhere else. Nothing else.*
+   These names are never restated anywhere else. And Amy's EXO|E
+   paragraph on the same page (operator decision after the compliance
+   flag — DECISIONS 2026-11-05), her own words: its concern words (fine
+   lines, uneven skin texture, pigmentation, overall radiance) stand
+   without the appearance hedge, in that section only. "Fine lines"
+   there stands on this exception, not the peel cards'. A
+   consultation-routing sentence follows it. Exact text and scope are in
+   CLAUDE.md constraint 3. Nothing else.*
 3. Efficacy/outcome promises: guarantees, specific results, numbers,
    before/after implications, "powerful results", "proven results".
    *Scoped exception (operator override — DECISIONS 2026-07-21): the
@@ -1070,6 +1091,16 @@ DECISIONS 2026-10-02.)*
    in the film's caption cues only; nothing from the banner, the poster
    or her spoken claims is ever restated in site text. Scope: this film
    and its poster, on this page.
+   And — operator decision after the compliance flags, DECISIONS
+   2026-11-05 — Amy's own EXO|E text on /services/skin-rejuvenation,
+   word for word. It includes a bare collagen claim, downtime and
+   recovery promises, a mechanism claim and the stem-cell name; the
+   name and its first sentence also appear on the /go/skin-rejuvenation
+   card. EXO|E's reel beside it is carried as edited (its closing card
+   rebuilt with Amy's photo and handle; the maker's OK on record). Its
+   burned-in outcome, natural-ingredient, formulation and health claims
+   are never restated in site text. Exact strings and scope are in
+   CLAUDE.md constraint 3.
    Nothing else.*
 4. Unsubstantiated superiority: "#1", "best", "top-rated" — banned.
    *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator
@@ -1108,6 +1139,12 @@ DECISIONS 2026-10-02.)*
    ranking phrase as client wording, verbatim. Exact sentence and scope
    in CLAUDE.md constraint 3; DECISIONS 2026-09-19, the /about
    addendum.)*
+   *(Fourth, 2026-11-05 — operator decision after the compliance flag:
+   "patented" in Amy's EXO|E sentence on /services/skin-rejuvenation
+   and its /go/ card, unsourced, since sellers' listings disagree and
+   some say patent-pending. It contains no token the patterns can see.
+   Exact sentence and scope are in CLAUDE.md constraint 3; DECISIONS
+   2026-11-05.)*
 5. Off-label promotion (e.g., positioning any product for an unapproved use).
 6. Presenting investigational compounds as approved, safe, or effective.
 7. Medical advice or suitability answers — "is this right for me" always
@@ -1214,7 +1251,8 @@ action.
   (DECISIONS same date); a Re-Q Health reel, fourth since 2026-11-03,
   carried as edited under operator overrides after the compliance flags
   (the maker's rep's handle replaced with Amy's by a local edit with no
-  AI, the one exception to the carried-as-is posture; its packaging and
+  AI, the first exception to the carried-as-is posture, EXO|E's reel on
+  /services/skin-rejuvenation the second, 2026-11-05; its packaging and
   a brand the site's copy had never named — §8; no people — DECISIONS
   same date); Amy's ATTIVA reel, fourth from 2026-10-29 and fifth since
   2026-11-03,
@@ -1289,7 +1327,16 @@ action.
   DECISIONS 2026-10-02): Amy's own film of a client's IPL session on
   /services/laser-treatments, a film with speech, autoplays muted with
   its captions showing, sound one tap away (the rule's fourth
-  exception, counting the van-trip film).
+  exception, counting the van-trip film). A fourth on this player
+  (operator direction — DECISIONS 2026-10-02, the IV lounge film
+  addendum; recorded here 2026-11-05 as record repair): the IV lounge
+  film on /services/iv-therapy, its song with sung words, autoplays
+  muted, sound one tap away (the rule's fifth). A fifth on this player
+  (operator override after the flag — DECISIONS 2026-11-05): EXO|E's
+  reel on /services/skin-rejuvenation, a manufacturer film carried as
+  edited, with music and no words or speech, autoplays muted, sound one
+  tap away (the rule's sixth, and the first maker film without
+  narration on this list).
   The rule stands for every other film. In-contract consumers added
   2026-08-25: the team film's sounded rendition on /about
   (`girl-team-film-wide.mp4` since the 2026-08-26 widescreen re-render
@@ -1416,9 +1463,12 @@ action.
   same date, the Girl Team unit's team film, in-contract),
   /injector-training (the training reel, 2026-08-25, in-class),
   /services/regenerative (the PRP-visit reel, 2026-08-25, in-class),
-  /services/hormone-optimization (the Biote film, 2026-10-02) and
+  /services/hormone-optimization (the Biote film, 2026-10-02),
   /services/laser-treatments (the IPL-session film, 2026-10-02) — two
-  films with speech, the §9 exceptions; the
+  films with speech, the §9 exceptions — /services/iv-therapy (the IV
+  lounge film, 2026-10-02, a song with sung words; added to this list
+  2026-11-05 as record repair) and /services/skin-rejuvenation (EXO|E's
+  reel, 2026-11-05, a maker film with music — both §9 exceptions); the
   second consumer is the dark Plausible tracker, §11. Fourth consumer,
   2026-09-04 — the operator-adopted home concept (DECISIONS 2026-09-03,
   the home entry): the home page's motion layer, self-hosted GSAP 3.15

@@ -17727,3 +17727,17 @@ build).
   - /services/skin-rejuvenation (text, meta, JSON-LD);
   - /go/skin-rejuvenation (text, meta, JSON-LD);
   - /services and /styleguide (the menu line, text only).
+
+**Addendum, 2026-11-05 — Amy's OK and the flip.**
+- The PR #296 preview served the section, the card and the film on six
+  clean passes of /services/skin-rejuvenation, /go/skin-rejuvenation
+  and /services. With no tap, the film started muted and looping when
+  scrolled to, its two caption cues loaded.
+- Amy reviewed the page on that preview and approved it as built:
+  the section, the card (on the page and on /go/skin-rejuvenation) and
+  the film. The operator relayed her OK the same day.
+- The operator flipped the page's flag in the same PR (commit
+  `68aaa02`: one line, `clinicianApproved: true`, Amy's approval in
+  the message).
+- The film stays on the media host; nothing in the records above
+  changes.

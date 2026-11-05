@@ -47,8 +47,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
   handle. Its on-screen claims ship under a recorded override. It plays
   its music (no licence on record; the operator's listen found no
   words) and starts muted when scrolled into view, sound one tap away.
-- The page's approval flag reset with the edit, so it waits for Amy's
-  OK on the preview.
+- The page's approval flag reset with the edit. Amy OK'd the page on
+  the PR #296 preview, and the operator flipped the flag in the same PR.
 - DECISIONS 2026-11-05.
 
 ### 2026-11-03 — Home carousel: a Re-Q Health reel is the fourth film

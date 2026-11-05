@@ -17779,3 +17779,220 @@ the edited film to live in one day.
   - `phase-c` was fast-forwarded to `main` (`8e08636`).
   - The environment list is production, 97 and 149 only.
 - Nothing is left to record for this section.
+
+## 2026-11-05 — regenerative: Amy's DE|RIVE text beside AMP's award graphic, the graphic on /go/regenerative too (operator overrides after the compliance flags)
+
+**Context.** Amy offers DE|RIVE, the plant-derived scalp and hair system
+from Aesthetic Management Partners (AMP), which also makes EXO|E (the
+entry above). The operator supplied Amy's text and AMP's award graphic,
+and asked for both on a treatment page "and the landing page as well".
+
+- **The graphic:** "THE AESTHETIC AWARDS / WINNER / Best in Industry /
+  Nonsurgical Innovation / THREE YEARS RUNNING", over a DE|RIVE bottle
+  and a DE|RIVE syringe-style applicator.
+- **The source:** the operator's own lossless PNG,
+  `C:\Amy\DERIVE\derive.png` (969×1209, sha256 `701eeff0…8026`). The
+  chat attachment was a lossy WebP copy of the same picture and was not
+  used.
+- **How it is sold** (the maker's distributor listing and press, e.g.
+  https://store.medshift.com/products/de-rive-hair-support-serum-syringe-60ml-bottles):
+  an in-office scalp treatment, given with microneedling or ultrasound,
+  plus a take-home serum. The maker's own release calls it a cosmetic
+  hair and scalp system.
+
+**Flagged** (once each, before the build):
+1. **The page.** DE|RIVE is a hair product, and the site's hair
+   treatment (PRP, its "Hair" card) is on /services/regenerative. Skin
+   rejuvenation's title, summary and menu line are about skin.
+2. **The text.**
+   - "Chemical-free": nothing is free of chemicals, and regulators read
+     the phrase as misleading.
+   - "Calm inflammation", "increase blood flow" and "stimulate cell
+     activity (such as Cytokeratin-15 production)": effects on the body,
+     which make a cosmetic read as a drug (BUILD_SPEC §8.5's class).
+   - Cytokeratin-15 is a follicle marker, so the line implies regrowth,
+     which rests on the maker's own lab work.
+   - Also recorded: "calm inflammation" means the same as the banned
+     "anti-inflammatory"; "hormone-free" is the same free-from class;
+     "proprietary"; "remove dead skin cells around follicles", an
+     effect claim; "plant-derived exosomes", the class of the FDA's
+     exosome notice (the EXO|E entry above); BUILD_SPEC §7.6 ("no
+     healing/repair outcome claims") and §7's bar on mechanism hype; SOW
+     §5.
+3. **The graphic.**
+   - "Best in Industry" is superiority-class (§8.4).
+   - The three-year streak rests on AMP's own release of 2026-09-30
+     (PR Newswire, mirrored at https://www.webull.com/news/15667422953079808:
+     "Best Non-Surgical Innovation … presented by The Aesthetic Guide",
+     "third consecutive year", no years named). The Aesthetic Guide's
+     2024 winners page lists DE|RIVE under a different category, and its
+     2025 page under "Best in Industry – Nonsurgical Innovation".
+   - "2oz/60mL" is a package size, the quantity class.
+   - The syringe may read as an injected product.
+   - The landing design shows no treatment-page photo (its spec §2 and
+     §4), and the graphic would put the award claim on the page ads point
+     to.
+4. **The alt text.** Reading the award out is the accessible choice
+   (constraint 6), but it puts the claim in page text, which search
+   engines read, and "best" fails lint:claims, so it needs an exact
+   `allowedStrings` entry.
+
+**Decision** (the operator's answers):
+1. **Page:** /services/regenerative, beside PRP (my recommendation).
+2. **Text:** exactly as written. A version without "chemical-free" and
+   with only the effects line's cosmetic part was recommended and
+   declined.
+3. **Graphic:** on the treatment page and on /go/regenerative. Treatment
+   page only was recommended and declined; leaving it out was offered.
+4. **Rights:** the maker OK'd the graphic, and Amy wrote the text, so
+   constraint 8 is not engaged.
+5. **Alt:** "The Aesthetic Awards winner: Best in Industry, Nonsurgical
+   Innovation, three years running. A DE|RIVE serum bottle and syringe
+   over dark hair." (my recommendation). An alt describing only the
+   picture was the alternative. The operator authorized the
+   `allowedStrings` entry for the first sentence.
+
+**My calls, stated in the approved plan:**
+- The card goes on /go/regenerative as well: the operator asked for the
+  information there, and BUILD_SPEC's /go/ row records that Google does
+  not take PRP ads, so the page serves posts, texts and QR codes.
+- No price on the card: none was supplied, so none is invented.
+- The product is named plainly ("DE|RIVE", "DE|RIVE scalp care", "a
+  plant-based system for the scalp") in the intro, `schemaDescription`,
+  `seo.description` and the menu line. `summary`, the visible lead and an
+  exact-wording override, is untouched, and so is the /go/ lead that
+  renders it. The new search line follows the 2026-10-05 rule (149
+  characters, says Charlotte, no claim).
+- No site text says how DE|RIVE is applied.
+- The section sits between "Who they're generally for" and
+  "Individualized, with Amy", keeping §7's what → who → individualized
+  order, and away from the PRP film, whose injection would frame the
+  syringe.
+- "Individualized, with Amy" runs photo-first so the rows keep
+  alternating; its words are unchanged.
+
+**Screening** (the full picture and 2–3× crops; working folder
+`C:\Amy\derive-graphic`, README there):
+- **Legible text:** the award text; the "DE|RIVE™" marks on the bottle
+  and the applicator; the bottle's partly hidden French label line; its
+  package size.
+- **Picture:** a pump bottle; a syringe-style applicator with a luer cap
+  and no needle in frame; close-up dark hair (a person's: the maker's
+  model or stock, so consent is the maker's); a blurred salon.
+- **Absent:** faces, URLs, phone numbers, QR codes, before/after
+  content, a regulatory statement, any other provider.
+
+**What was built** (branch `content/regenerative-derive`):
+- **The asset.** A screenshot frame surrounded the 960×1200, exactly
+  4:5, picture: a dark band plus a 2 px line of exactly 54,54,54.
+  `crop.cjs` proves it per pixel, cuts x 6–965 / y 5–1204, drops the
+  opaque alpha and checks every output pixel against the source. The
+  result is `src/assets/photos/derive-award.png`, 685,952 B, sha256
+  `5d39e953…f036b`. No generation is added.
+- **`DeriveAward.astro`.**
+  - The figure renders the image whole in the pair gallery's bare frame
+    (magenta hairline, 12 px corners). It is not a `.media-figure`, so
+    the arch and 4:5 crop never reach it, and an image of text stays
+    whole (the lip-style-guide precedent). The arch selector is
+    untouched.
+  - The alt sits on one source line.
+  - Its header carries the terms, including that an edit to it or the
+    PNG resets regenerative's flag (check-approvals reads treatment files
+    only).
+- **`banned-patterns.json`:** the eighth authorization, the alt's exact
+  first sentence. The banned word sits mid-string, so the self-test's
+  digit-prefix near-miss proof re-trips it.
+- **regenerative.mdx:**
+  - the section (`## DE|RIVE`, P1, P2, the routing sentence, then the
+    graphic, as a flipped row);
+  - the third card ("Scalp", P1, no price);
+  - the intro line, `schemaDescription`, `seo.description`;
+  - `clinicianApproved: false`.
+- **serviceLines.ts:** the regenerative menu line.
+- **The landing pages:**
+  - `LandingRules.awardCard` (regenerative: 'DE|RIVE');
+  - the route's assertion that the named card is on the page;
+  - LandingLayout renders `DeriveAward` after the cards and their
+    notices, before the visit steps.
+
+**Alternatives rejected:**
+- skin rejuvenation;
+- the fixed text;
+- treatment page only;
+- no graphic;
+- the picture-only alt;
+- arching or cropping the graphic;
+- the chat attachment's WebP;
+- placing the section after the PRP film.
+
+**Consequences.**
+- **No gate guards this vocabulary** beyond the one alt sentence;
+  CLAUDE.md and this record do.
+- **The approval flag is reset.** Amy reads the section, the card and
+  the graphic on the PR preview, and the operator flips the flag in the
+  same PR before it merges.
+- **The award claim is in page text** (the alt), on two pages, one of
+  them a landing page.
+- **The landing design gains its first treatment-page photo.**
+- **DeriveAward sits outside the treatment file**, so its reset rule is
+  a written term, not a gate.
+- **Image weight.** /services/regenerative was already above the house
+  row's image budget on `phase-c` (249,916 B against 245,760 B,
+  unenforced: the page is not in the Lighthouse collect list). The
+  graphic's 680 w webp (38,281 B) takes it to 288,197 B. Its total,
+  346,885 B, stays under 358,400 B, and /go/regenerative stays inside
+  both (77,772 B and 130,330 B). Left for the operator (below).
+
+**Records changed.**
+- **CLAUDE.md constraint 3:** the dosing bullet's fifteenth pixel-level
+  override, and two claims-bullet entries (the text, the graphic).
+- **BUILD_SPEC:** §7.6, §8.1, §8.2, §8.3, §8.4 and the /go/ row.
+- **The landing spec:** its header and §14.
+- **RUNBOOK:** the landing rules.
+- **compliance/README:** the media-text paragraph and the list of
+  strings no pattern sees.
+- **CHANGELOG.**
+- **CLINICIAN-SIGN-OFF:** the regenerative row and the landing notes.
+
+**Verification** (local build of the branch; the base is a build of
+`phase-c` `82e4ea9`):
+- `npm run verify` exits 0 with these records in place:
+  - the build, and `astro check` with 0 errors;
+  - `lint:claims` with its self-test (the new entry's near-miss
+    re-trips), `lint:voice`, and `lint:practice-link` (38 pages, 80
+    links);
+  - `check:search-index`;
+  - a11y, 39 of 39 URLs with 0 errors, both regenerative pages included;
+  - `test:perf`;
+  - `test:search`.
+
+  The stylesheets are unchanged after the records (Tailwind scans
+  docs/).
+- **Built HTML:**
+  - /services/regenerative carries the intro line, the heading, both
+    paragraphs, the routing sentence, the third card and one `<img>`
+    with the alt, a webp srcset of 340/540/680 w and `loading="lazy"`.
+  - Its JSON-LD carries the new `schemaDescription`, its meta the new
+    line, and its visible lead is unchanged.
+  - /go/regenerative carries the card, the same `<img>` and the
+    unchanged lead, with no body text and no `schemaDescription`.
+  - No other page carries the alt or the PNG.
+- **A text and metadata diff** of all 38 pages against the base changes
+  four: /services/regenerative and /go/regenerative (text, meta),
+  /services and /styleguide (the menu line).
+- **Styles:** the external stylesheets are identical. Inline styles gain
+  only the two `.award-figure` rules, on the twelve /go/ pages (the
+  layout imports the component) and /services/regenerative.
+- **Browser, at 1280 and 390:**
+  - The graphic is whole: 12 px corners, natural aspect, 275–288 px
+    wide.
+  - The page's three arches still read 999 px.
+  - The rows alternate (photo left, text then graphic, photo left).
+  - The DE|RIVE card spans its row on desktop.
+  - On /go/ the graphic follows the cards and precedes "Your visit, step
+    by step".
+
+**Open: the image budget.** Accept /services/regenerative at 288,197 B
+of images, or trim it. Dropping the 680 w derivative would put the
+graphic under the retina rule on 2× screens. That is the operator's call,
+asked when the preview link goes out.

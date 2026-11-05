@@ -29,6 +29,34 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-11-05 — Regenerative treatments: DE|RIVE, with AMP's award graphic
+
+- /services/regenerative gains a third offering, DE|RIVE, AMP's
+  plant-derived scalp and hair system. A section between "Who they're
+  generally for" and "Individualized, with Amy" holds Amy's own text
+  beside AMP's award graphic. A third "What Amy offers" card (no price
+  supplied) also shows on /go/regenerative, with the graphic under it.
+  The intro, the search description, the page's structured data and the
+  /services menu line now name "DE|RIVE".
+- The text is Amy's, word for word, at the operator's direction after
+  the compliance flags: effects on the body (calming inflammation, blood
+  flow, cell activity with Cytokeratin-15 named), "hormone-free" and
+  "chemical-free". A consultation sentence follows it.
+- The graphic is the maker's, carried as-is (the maker's OK on record).
+  Its award line and three-year streak rest on the maker's own release,
+  and the bottle's package size is legible, both under recorded
+  overrides. It shows whole, not cropped into the site's arch. Its alt
+  text reads the award out for screen readers, through one exact linter
+  exception the operator authorized.
+- On /go/regenerative it is the first treatment-page photo a landing
+  page shows, by a new landing rule that fails the build if its card is
+  missing.
+- "Individualized, with Amy" now has its photo on the left, so the rows
+  keep alternating.
+- The page's approval flag reset with the edit, so it waits for Amy's OK
+  on the preview.
+- DECISIONS 2026-11-05 (DE|RIVE).
+
 ### 2026-11-05 — Skin rejuvenation: Amy's EXO|E facial, with EXO|E's film
 
 - /services/skin-rejuvenation gains a third treatment, the Stem-Cell

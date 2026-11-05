@@ -29,6 +29,28 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-11-05 — Skin rejuvenation: Amy's EXO|E facial, with EXO|E's film
+
+- /services/skin-rejuvenation gains a third treatment, the Stem-Cell
+  Facial with EXO|E Exosomes at $450. It gets a section after the
+  chemical peels, with Amy's own text beside EXO|E's short film, and a
+  third "What Amy offers" card, which also shows on the
+  /go/skin-rejuvenation ad page. The intro, the summary, the search
+  description and the /services menu line now name "EXO|E facials".
+- The text is Amy's, word for word, at the operator's direction after
+  the compliance flags. The flags were the stem-cell name, "patented",
+  a mechanism claim, a collagen claim stated as a result, down-time and
+  recovery promises, unhedged concern words, and the contract's
+  no-promised-results line. A consultation sentence follows it.
+- The film is EXO|E's own reel, carried as edited with the maker's OK.
+  Its rep's closing card was rebuilt with Amy's photo and her Instagram
+  handle. Its on-screen claims ship under a recorded override. It plays
+  its music (no licence on record; the operator's listen found no
+  words) and starts muted when scrolled into view, sound one tap away.
+- The page's approval flag reset with the edit, so it waits for Amy's
+  OK on the preview.
+- DECISIONS 2026-11-05.
+
 ### 2026-11-03 — Home carousel: a Re-Q Health reel is the fourth film
 
 - The film band under the hero ("Mobile Aesthetics. On screen.") plays

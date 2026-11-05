@@ -520,7 +520,12 @@ silently following it. Known superseded points from earlier briefs:
      recommended and declined): the music on the carousel's Re-Q film
      (`commercial-req`), with no words, which starts muted like every
      carousel film, sound one tap away; its caption file marks it with
-     bounded `[Music]` cues.
+     bounded `[Music]` cues. One more since 2026-11-05, by that route
+     (DECISIONS same date; a silent, tap-to-play copy was recommended
+     and declined): the music of EXO|E's reel (`exoie-reel`) on
+     /services/skin-rejuvenation, with no words (the operator's ear),
+     which autoplays muted in view, sound one tap away; its caption file
+     marks it with two bounded `[Music]` cues.
      And six photos (operator overrides after the compliance flags —
      DECISIONS 2026-08-18, 2026-08-21, 2026-08-25, and 2026-09-25): the /services hormone-optimization menu
      card's photo (`biote-banner-scale.jpg`), in which the Biote
@@ -742,8 +747,8 @@ silently following it. Known superseded points from earlier briefs:
      edit with no AI (the corner tag's old letters filled from the
      pixels around them, the end card's text area carrying an earlier
      frame's own pixels, the new handle set in a near-match typeface),
-     the one recorded exception to the rule that maker films carry
-     as-is or not at all. Re-Q's (or its rep's) OK for needlegirlie.com
+     the first recorded exception to the rule that maker films carry
+     as-is or not at all (EXO|E's reel is the second, 2026-11-05). Re-Q's (or its rep's) OK for needlegirlie.com
      use of the edited film is on record (operator, same date). The
      film is packaging-central (the product-box class the 2026-07-23
      photo rubric excluded): the bottle's brand, its product name — a
@@ -783,6 +788,66 @@ silently following it. Known superseded points from earlier briefs:
      copy, FAQ answers, alt text, comments, meta descriptions, OG tags,
      JSON-LD, or the /go/ landing page; changing any of it requires the
      human operator.
+     And Amy's EXO|E text on /services/skin-rejuvenation (operator
+     decision after the compliance flags — DECISIONS 2026-11-05; a
+     house-style rewrite and a four-fix version were offered and
+     declined), her own words carried word for word: the name "Stem-Cell
+     Facial with EXO|E Exosomes"; the sentence "An advanced, plant-based
+     skin rejuvenation treatment using a patented plant derived system of
+     secretory factors, peptides, liposomes to signal cellular
+     communication."; and the paragraph "Often paired with microneedling
+     to boost collagen, elastin, and hydration while reducing down-time.
+     Targets fine lines, uneven skin texture, pigmentation, and overall
+     radiance while speeding up post-procedure recovery." What was
+     flagged: "Stem-Cell" (a plant-derived product, in a class whose
+     stem-cell and exosome marketing the FDA has warned about; no site
+     text ever states a regulatory status for it), "patented" (sellers'
+     listings disagree; some say patent-pending), a mechanism claim, a
+     bare biological-effect claim, downtime and recovery promises
+     (BUILD_SPEC §7.10 bans downtime promises), concern words without
+     the appearance hedge (§8 rule 2 — "fine lines" and "pigmentation"
+     here stand on this entry, not on the peel cards'), and the website
+     contract's promise to describe treatments without promising
+     specific results. No pattern sees any of it, so a green linter never
+     authorizes it. A sentence after the text routes suitability to a
+     consultation; trimming it requires the human operator. Fixed terms:
+     the name as the section's heading, the "What Amy offers" card's
+     name and an entry in the page's products list, on that page and on
+     the /go/skin-rejuvenation landing page's card (that scope after the
+     flag that Google Ads' policy on experimental treatments names
+     stem-cell therapy); the sentence in the section and as the card's
+     line on both pages; the paragraph in the section only. Elsewhere
+     the treatment is named only plainly — "EXO|E facials" or "a
+     plant-based facial with EXO|E" — in the page's intro, summary and
+     search description and the /services menu line, and in the film's
+     label, its caption file's NOTE, comments and the records. None of
+     the three strings is ever restated in other body copy, FAQ answers,
+     alt text, comments, meta descriptions, OG tags or JSON-LD; changing
+     any of it requires the human operator.
+     And EXO|E's reel (`exoie-reel`) beside that text (operator overrides
+     after the compliance flags — DECISIONS 2026-11-05), the maker's own
+     film (Aesthetic Management Partners), carried AS EDITED: its closing
+     card — the maker's rep, his web address and his handle — was rebuilt
+     by a local edit on 2026-11-05 with Amy's published black-scrubs
+     portrait and her Instagram handle (her photo cut out with
+     Higgsfield's background remover, which keeps her own pixels; no
+     generative AI), the second recorded exception to the rule that
+     maker films carry as-is or not at all. The maker's OK for the
+     edited film and its needlegirlie.com use is on record (operator,
+     same date). Its burned-in text carries an outcome claim, a
+     natural-ingredient claim, a dermatologist-formulation claim and a
+     health claim under a heading addressed to practices rather than
+     clients, and its closing card keeps the rep's sales headline above
+     Amy's photo; its carton shows the brand and a formulation line, no
+     quantity legible. The woman in its opening shots is the maker's
+     model: her consent is the maker's and is not on this site's record.
+     No before/after content, no URL, phone number or QR code, and no
+     regulatory status. Its music plays under the music override above,
+     and it autoplays muted in view (the autoplay rule's sixth scoped
+     exception). Fixed terms: this film and its poster, on this page;
+     none of its burned-in text is ever restated in site text — copy,
+     the label, the captions file, comments, meta, OG, JSON-LD; changing
+     any of it requires the human operator.
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing
@@ -986,7 +1051,10 @@ silently following it. Known superseded points from earlier briefs:
   /services/iv-therapy (2026-10-02, the IV lounge film, its song with
   sung words — the fifth scoped override of that rule, at the
   operator's direction, with no printed caption under it; DECISIONS
-  same date). /mobile was on this list from
+  same date), and /services/skin-rejuvenation (2026-11-05, EXO|E's
+  reel, a manufacturer film carried as edited, with music and no
+  speech — the autoplay rule's sixth scoped exception, after the flag;
+  muted in view, sound one tap away; DECISIONS same date). /mobile was on this list from
   2026-09-02 (Amy's own van clip in a MUTED rendition — no audio track,
   so in-contract, no exception; DECISIONS same date, the film entry)
   until 2026-09-26, when the page and its film retired, replaced by

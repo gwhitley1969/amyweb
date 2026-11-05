@@ -53,8 +53,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
   missing.
 - "Individualized, with Amy" now has its photo on the left, so the rows
   keep alternating.
-- The page's approval flag reset with the edit, so it waits for Amy's OK
-  on the preview.
+- The page's approval flag reset with the edit. Amy OK'd the page on
+  the PR #299 preview, and the operator flipped the flag in the same PR.
+- The page's image weight, already a little over the house budget and
+  higher with the graphic, was accepted by the operator.
 - DECISIONS 2026-11-05 (DE|RIVE).
 
 ### 2026-11-05 — Skin rejuvenation: Amy's EXO|E facial, with EXO|E's film

@@ -17996,3 +17996,23 @@ and asked for both on a treatment page "and the landing page as well".
 of images, or trim it. Dropping the 680 w derivative would put the
 graphic under the retina rule on 2× screens. That is the operator's call,
 asked when the preview link goes out.
+
+**Addendum, 2026-11-05 — the image budget, the preview, Amy's OK and the flip.**
+- **The image budget:** accepted by the operator ("Accept it"). The
+  page keeps the graphic's 680 w derivative, and the Lighthouse matrix is
+  unchanged.
+- **The PR #299 preview** (`ec41870`) served the section, the card, the
+  graphic with its alt, the intro line and the structured-data sentence
+  on /services/regenerative, the card and the graphic on
+  /go/regenerative, and the menu line on /services, on six clean passes
+  (three plain, three cache-busted). The graphic's 680 w webp answered
+  200 `image/webp`. No other landing page carries it.
+- **In a browser on the preview,** at 1280 and 390: the graphic is whole
+  (12 px corners, natural aspect), the three arches read 999 px, the rows
+  alternate, and on /go/ the graphic follows the cards.
+- **Amy reviewed the page on that preview and approved it as built**:
+  the section, the card on both pages, the graphic and its alt. The
+  operator relayed her OK the same day.
+- **The operator flipped the page's flag in the same PR** (commit
+  `f04fc94`: one line, `clinicianApproved: true`, Amy's approval in the
+  message).

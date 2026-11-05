@@ -1,12 +1,15 @@
 /**
  * Ad landing pages — /go/<slug>
  * (docs/superpowers/specs/2026-10-12-landing-pages-design.md and its §13
- * addendum; DECISIONS 2026-10-12, the landing-pages entry, and
- * 2026-10-13, the four remaining lines).
+ * and §14 addenda; DECISIONS 2026-10-12, the landing-pages entry,
+ * 2026-10-13, the four remaining lines, and 2026-11-05, DE|RIVE).
  *
  * A landing page re-renders its treatment entry's approved strings
  * through LandingLayout: nothing is written twice, and the treatment
- * files are untouched, so no approval flag resets. Enabling a line is a
+ * files are untouched, so no approval flag resets. The one graphic a
+ * landing page shows besides the portrait, DE|RIVE's award graphic on
+ * /go/regenerative (the `awardCard` rule), is the treatment page's own
+ * component, approved with that page. Enabling a line is a
  * slug here plus its URL in .pa11yci.json; the route fails the build for
  * a slug with no non-draft entry.
  *
@@ -61,6 +64,14 @@ export interface LandingRules {
    * fails the build if a `summary` rule names an entry with no
    * schemaDescription, because the rule would then change nothing. */
   lead: 'factual' | 'summary';
+  /** The product card DE|RIVE's award graphic belongs to: when set, the
+   * graphic (src/components/DeriveAward.astro, the treatment page's own)
+   * renders after the cards and their notices. The landing design shows
+   * no treatment-page photo; this is its one exception, the operator's
+   * decision after the compliance flag (CLAUDE.md constraint 3;
+   * DECISIONS 2026-11-05). The route fails the build if the named card
+   * is not on the page, so the graphic never shows without its card. */
+  awardCard: string | null;
 }
 
 const RULES: Readonly<Record<string, Partial<LandingRules>>> = {
@@ -74,8 +85,12 @@ const RULES: Readonly<Record<string, Partial<LandingRules>>> = {
   // constraint 3; DECISIONS 2026-09-19) that renders as the visible lead
   // of /services/regenerative; on 2026-10-13 the operator extended it to
   // this landing page's lead (DECISIONS same date). The page's meta
-  // description stays the factual seo.description.
-  regenerative: { lead: 'summary' },
+  // description stays the factual seo.description. Since 2026-11-05 the
+  // page also shows DE|RIVE's award graphic under the DE|RIVE card, at
+  // the operator's direction after the compliance flag (CLAUDE.md
+  // constraint 3; DECISIONS 2026-11-05); the card's name and line render
+  // as approved on the treatment page.
+  regenerative: { lead: 'summary', awardCard: 'DE|RIVE' },
   // Retatrutide is not on this landing page at all, at Amy's direction
   // (2026-10-13; DECISIONS same date): she did not want the
   // investigational notice on the page, and the notice is mandatory
@@ -107,5 +122,6 @@ export function landingRules(slug: string): LandingRules {
     faqExclude: r.faqExclude ?? [],
     productExclude: r.productExclude ?? [],
     lead: r.lead ?? 'factual',
+    awardCard: r.awardCard ?? null,
   };
 }

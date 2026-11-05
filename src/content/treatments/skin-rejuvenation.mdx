@@ -1,11 +1,12 @@
 ---
 title: Skin Rejuvenation
 line: skin-rejuvenation
-summary: "Clinician-performed skin treatments: PiXel8-RF radiofrequency microneedling and medical-grade chemical peels."
+summary: "Clinician-performed skin treatments: PiXel8-RF radiofrequency microneedling, medical-grade chemical peels and EXO|E facials."
 deck: "Texture, tone, and firmness, approached through your skin's own collagen."
 products:
   - "PiXel8-RF microneedling"
   - "Medical-grade chemical peels"
+  - "Stem-Cell Facial with EXO|E Exosomes"
 productDetails:
   - name: "PiXel8-RF Microneedling"
     tag: "RF microneedling"
@@ -15,9 +16,13 @@ productDetails:
     tag: "Peels"
     detail: "Clinician-applied solutions that exfoliate the outer layer of skin. Each peel is customized to suit your skin's specific needs."
     priceLines: ["Starting at $180"]
+  - name: "Stem-Cell Facial with EXO|E Exosomes"
+    tag: "Facial"
+    detail: "An advanced, plant-based skin rejuvenation treatment using a patented plant derived system of secretory factors, peptides, liposomes to signal cellular communication."
+    priceLines: ["$450"]
 ctaType: consult
 pricingDisplay: consult
-clinicianApproved: true
+clinicianApproved: false
 draft: false
 faq:
   - q: "What is RF microneedling?"
@@ -36,13 +41,15 @@ faq:
     a: "Amy Palacios, FNP, a licensed family nurse practitioner. Every appointment is with Amy herself."
 seo:
   title: "Skin Rejuvenation in Harrisburg & Charlotte, NC | Needle Girlie"
-  description: "PiXel8-RF radiofrequency microneedling and medical-grade chemical peels with Amy Palacios, FNP, in Harrisburg, NC. Consultation comes first for this line."
+  description: "PiXel8-RF radiofrequency microneedling, medical-grade chemical peels and EXO|E facials with Amy Palacios, FNP, in Harrisburg, NC. Consultation comes first for this line."
 ---
 
 import { Image } from 'astro:assets';
 import amyPixel8Cart from '../../assets/photos/amy-pixel8-cart.jpg';
 import pixel8InHand from '../../assets/photos/pixel8-in-hand.jpg';
 import ProductDetailCards from '../../components/ProductDetailCards.astro';
+import TreatmentVideo from '../../components/TreatmentVideo.astro';
+import exoieReelPoster from '../../assets/photos/exoie-reel-poster.jpg';
 
 ## What they are
 
@@ -52,6 +59,8 @@ energy in a single treatment. **Medical-grade chemical peels** are
 clinician-applied solutions that exfoliate the outer layer of the skin.
 Different tools, same idea: rather than covering anything up, both are
 designed to work with the skin's own renewal.
+
+Amy also offers a plant-based facial with EXO|E.
 
 <section class="media-row">
   <figure class="media-figure">
@@ -146,6 +155,38 @@ ingredients, in what they ask of your calendar afterward. Amy offers three:
 
 Which peel suits your skin, and whether a peel or PiXel8-RF fits it
 better, is decided with Amy at a consultation.
+
+<section class="media-row">
+  {/* The EXO|E section (2026-11-05). Amy's own text, carried word for
+    * word as scoped overrides at the operator's direction after the
+    * compliance flags; the card's name and line above are the same
+    * strings. The film is the maker's reel as edited (its closing card
+    * rebuilt with Amy's photo and handle; the maker OK'd the edit), with
+    * its music, autoplaying muted in view: CLAUDE.md constraints 3 and 4
+    * and the autoplay rule's sixth scoped exception, DECISIONS
+    * 2026-11-05. None of the film's on-screen text is restated in site
+    * text. */}
+  <TreatmentVideo
+    autoplay="inview"
+    src="/media/exoie-reel.mp4"
+    poster={exoieReelPoster}
+    captionsSrc="/media/exoie-reel.vtt"
+    label="EXO|E's short film about its serums, with music and no words, ending on Amy Palacios, FNP, and her Instagram handle."
+  />
+  <div class="media-copy">
+
+## Stem-Cell Facial with EXO|E Exosomes
+
+**$450**
+
+An advanced, plant-based skin rejuvenation treatment using a patented plant derived system of secretory factors, peptides, liposomes to signal cellular communication.
+
+Often paired with microneedling to boost collagen, elastin, and hydration while reducing down-time. Targets fine lines, uneven skin texture, pigmentation, and overall radiance while speeding up post-procedure recovery.
+
+Whether it suits your skin is decided with Amy at a consultation.
+
+  </div>
+</section>
 
 <section class="media-row media-row--flip">
   <div class="media-copy">

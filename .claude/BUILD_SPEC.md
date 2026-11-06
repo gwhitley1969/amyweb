@@ -36,7 +36,8 @@ pairs under operator override — §8.3/§8.9; and, 2026-10-02, the laser
 page's IPL-session film, whose closing shots show a client's skin after
 a treatment — operator override, same sections; and, 2026-10-29, the home
 carousel's ATTIVA reel, which carries the device maker's three
-results-comparison photo pairs — operator override, same sections),
+results-comparison photo pairs — operator override, same sections; since
+2026-11-06 the same film also plays on /services/body-contouring),
 testimonials, contact
 forms, any other provider's services.
 
@@ -819,6 +820,35 @@ DECISIONS 2026-10-02.)*
     site-authored film in the session row (bare frame, autoplay-muted
     opt-in; screening record DECISIONS same date) — which replaced the
     2026-08-04 Reel-screenshot photo.
+    **ATTIVA** *(added 2026-11-06, operator direction — DECISIONS same
+    date)*: its own section after the Evolve sections, described by
+    intended design in the operator's sentence, verbatim: "ATTIVA is a
+    minimally invasive, non-surgical radiofrequency (RF) skin-tightening
+    and rejuvenation treatment." A second paragraph, the operator's
+    description of the device in the house form chosen after the flag
+    (the same addendum): "ATTIVA uses a tiny, flexible micro-cannula to
+    deliver controlled radiofrequency energy directly beneath the skin.
+    The heat is designed to tighten existing collagen and to support the
+    skin's own production of new collagen and elastin." Design intent
+    only: never an immediate result, a time frame, or fibroblast
+    activity. A line above it reads "Coming soon to Mobile Aesthetics."
+    (not yet bookable, operator, same date; the practice's name linked
+    through `PracticeLink`, constraint 2's seventh exception), and no
+    booking link sits in the section. Beside it, the home carousel's
+    ATTIVA reel (constraint 3's overrides, extended to this page). Under
+    it, a price table per treatment by area, each price the top of the
+    operator's proposed range: seven areas from the under-eye area to
+    the body; the two eye-area rows carry an asterisk whose note routes
+    them to Amy's suitability assessment at a consultation. No
+    regulatory status is ever stated for the device (none could be
+    confirmed, DECISIONS 2026-10-29); no session counts, intervals,
+    downtime or results timelines. Four of the seven areas are on the
+    face or around the eyes, on a page named for the body: the
+    operator's placement, recorded after the flag. The Evolve lines
+    that had spoken for the whole page were scoped to Evolve: the deck
+    opens "Evolve:", and "means one thing" became "starts with". The
+    lead, search description, /services menu line and /go/ page stay
+    Evolve-only.
 12. **Laser Treatments** *(added 2026-07-22, from the operator-supplied
     Venus Versa brochures — a constraint-8-class view-only source, never
     committed)* — **Venus Versa Pro** (Venus Concept), a device platform
@@ -955,8 +985,10 @@ DECISIONS 2026-10-02.)*
    maker's brochure page show thermal readouts with power, time,
    temperature and energy values (the console-readout class of the
    PiXel8 and Epileve frames); no value from them is ever restated in
-   site text, the slide's label and the captions file included; same
-   terms. And the home carousel's fourth film since 2026-11-03
+   site text, the slide's label, the player's label and the captions
+   file included; same terms; since 2026-11-06 the same film and poster
+   also play in the ATTIVA section of /services/body-contouring under
+   these terms (DECISIONS same date). And the home carousel's fourth film since 2026-11-03
    (`commercial-req`, DECISIONS same date), a Re-Q Health reel carried
    as edited: the bottle's net-contents line is legible (package size,
    not a dose, filed with the quantity classes as the Evolysse cartons'
@@ -1068,7 +1100,12 @@ DECISIONS 2026-10-02.)*
    regulatory status is unconfirmed and no site text states one; the
    two guests on camera are released and are not providers at the
    location; no text from the slides, the brochure or the device's
-   screens is ever restated in site text.
+   screens is ever restated in site text. Since 2026-11-06 (operator
+   decisions after the compliance flags, DECISIONS same date; the cut
+   was recommended again for this page and declined) the same film
+   also plays, whole, in the ATTIVA section of /services/body-contouring,
+   directly above that page's ATTIVA price table, so the maker's
+   results-comparison slides play beside prices; same terms.
    And a Re-Q Health reel of its skincare, the home carousel's fourth
    film since 2026-11-03 (`commercial-req`; operator overrides after the
    compliance flags, DECISIONS same date), carried as edited (the
@@ -1211,7 +1248,8 @@ DECISIONS 2026-10-02.)*
    IPL-session film, whose closing shots show a client's skin after a
    treatment (2026-10-02), and the home carousel's ATTIVA reel, which
    carries the device maker's three results-comparison photo pairs
-   (2026-10-29). Two films carried as-is also hold content of
+   (2026-10-29; since 2026-11-06 also on /services/body-contouring,
+   beside that page's ATTIVA prices). Two films carried as-is also hold content of
    this class: the Evolysse film's segment and the Radiesse-visit
    film's cut (§8.3). The SOW deferral itself is the operator's
    document to amend.*
@@ -1303,7 +1341,9 @@ action.
   carried whole under operator overrides after the compliance flags
   (the maker's slides and brochure page and the device's screen
   readouts — §8; its two guests released and not providers at the
-  location — DECISIONS same date); an Evolus co-op Jeuveau spot carried AS-IS
+  location — DECISIONS same date; since 2026-11-06 the same rendition,
+  poster and caption file also play on /services/body-contouring,
+  DECISIONS same date); an Evolus co-op Jeuveau spot carried AS-IS
   with complete FDA safety information (never trimmed or cropped;
   `object-fit: contain` is a compliance requirement); and the Mobile
   Aesthetics team film (2026-08-17: constraint-2 operator override

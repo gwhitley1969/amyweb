@@ -18315,3 +18315,40 @@ readout and claims passages, §8.9, the carousel section),
 compliance/README, the sign-off sheet's body-contouring row, CHANGELOG,
 REDESIGN (the music list), RELAUNCH (probe targets and the player
 count), the caption file's NOTE and the `VideoCarousel.astro` header.
+
+**Addendum, 2026-11-06 — the device description, in house form
+(operator decision after the compliance flag).** The operator then
+supplied two more sentences: "ATTIVA uses a tiny, flexible micro-cannula
+to deliver controlled radiofrequency energy directly beneath the skin.
+Causing collagen and elastin stimulation, the internal heat causes an
+immediate contraction of existing collagen fibers while triggering
+fibroblast activity to stimulate new collagen and elastin production
+over time."
+- The first sentence describes how the device works and backs up
+  "minimally invasive"; it is carried word for word.
+- The second was flagged. No linter pattern sees any of it.
+  - "An immediate contraction of existing collagen fibers" is a result
+    with a timing (no results-timeline promises; §8 rule 3).
+  - "Triggering fibroblast activity to stimulate new collagen and
+    elastin production over time" is a mechanism-of-action and outcome
+    claim with a time frame (§7: no mechanism hype, no outcomes).
+  - "Causing collagen and elastin stimulation" repeats the effect claim
+    and leaves the sentence's grammar tangled.
+  - It would sit beside the maker's before/after slides and a price
+    table, for a device whose regulatory status could not be confirmed.
+- Three versions were offered: the house form (recommended, the form
+  the operator chose for the Re-Q section the same day), the operator's
+  words with the repeated opening clause dropped, and the words exactly,
+  the latter two as recorded overrides. The operator chose **the house
+  form**, now a second paragraph after the first sentence: "ATTIVA uses
+  a tiny, flexible micro-cannula to deliver controlled radiofrequency
+  energy directly beneath the skin. The heat is designed to tighten
+  existing collagen and to support the skin's own production of new
+  collagen and elastin."
+- Design-intent wording within the page's brief (BUILD_SPEC §7.11), so
+  it needs no claims entry in CLAUDE.md. The flagged wording is not on
+  the page, and it is never restated in site text.
+- The flag was already false from the section's first commit; Amy reads
+  both paragraphs on the PR #307 preview.
+- Records changed: BUILD_SPEC §7.11, the sign-off sheet's body-contouring
+  row and the CHANGELOG entry.

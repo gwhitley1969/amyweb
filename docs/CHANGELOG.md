@@ -35,6 +35,11 @@ change lives in `docs/DECISIONS.md`; design specs live in
   to book it": "Coming soon to the medspa." and the operator's sentence,
   beside the same ATTIVA film the home carousel plays fifth, muted when
   scrolled to, with its song one tap away.
+- A second paragraph describes the device: a micro-cannula delivering
+  radiofrequency energy beneath the skin, the heat "designed to tighten
+  existing collagen and to support the skin's own production of new
+  collagen and elastin" (the operator's text in the site's usual form,
+  chosen after the flag).
 - Under it, the site's first table: ATTIVA prices per treatment for
   seven areas, from $2,000 (under-eye area) to $6,500 (body), each the
   top of the proposed range, with an eye-area note that routes those

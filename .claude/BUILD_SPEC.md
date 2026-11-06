@@ -824,7 +824,14 @@ DECISIONS 2026-10-02.)*
     date)*: its own section after the Evolve sections, described by
     intended design in the operator's sentence, verbatim: "ATTIVA is a
     minimally invasive, non-surgical radiofrequency (RF) skin-tightening
-    and rejuvenation treatment." A line above it says it is coming soon
+    and rejuvenation treatment." A second paragraph, the operator's
+    description of the device in the house form chosen after the flag
+    (the same addendum): "ATTIVA uses a tiny, flexible micro-cannula to
+    deliver controlled radiofrequency energy directly beneath the skin.
+    The heat is designed to tighten existing collagen and to support the
+    skin's own production of new collagen and elastin." Design intent
+    only: never an immediate result, a time frame, or fibroblast
+    activity. A line above it says it is coming soon
     to the medspa (not yet bookable, operator, same date), and no
     booking link sits in the section. Beside it, the home carousel's
     ATTIVA reel (constraint 3's overrides, extended to this page). Under

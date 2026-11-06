@@ -29,6 +29,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-11-05 — Skin rejuvenation: the EXO|E section's consultation line off
+
+- The EXO|E section on /services/skin-rejuvenation no longer ends with
+  "Whether it suits your skin is decided with Amy at a consultation."
+  (the operator's direction). The peel cards' sentence directly above
+  the section still routes suitability to a consultation.
+- The page's approval flag reset with the edit. Amy OK'd the page on
+  the PR #305 preview, and the operator flipped the flag in the same PR.
+- DECISIONS 2026-11-05, the EXO|E line entry and its addendum.
+
 ### 2026-11-05 — Regenerative treatments: DE|RIVE's price, one line off
 
 - The DE|RIVE card on /services/regenerative, and its copy on
@@ -40,7 +50,14 @@ change lives in `docs/DECISIONS.md`; design specs live in
   consultation.
 - The page's approval flag reset with the edit. Amy OK'd the page on
   the PR #302 preview, and the operator flipped the flag in the same PR.
-- DECISIONS 2026-11-05 (DE|RIVE), the price addendum.
+- The operator merged it into `phase-c` (PR #302, merge `b4f1b3c`) and
+  released it the same evening (release PR #303, merge `bd8039d`;
+  Production run 42133264891). It went live at 00:12 UTC on 2026-11-06
+  with the Front Door cache purged.
+- Checked on the live site: all 21 pages answer, and six passes show
+  the price on both regenerative pages with the line gone.
+- DECISIONS 2026-11-05 (DE|RIVE), the price addendum and its shipped
+  record.
 
 ### 2026-11-05 — Regenerative treatments: DE|RIVE, with AMP's award graphic
 

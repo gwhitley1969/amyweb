@@ -2,7 +2,7 @@
 title: Body Contouring
 line: body-contouring
 summary: "Evolve, a non-invasive, device-based treatment that uses two kinds of energy: radiofrequency for the skin, and muscle stimulation for the muscle beneath it."
-deck: "Two kinds of energy, no needles. Planned as a course, not a single visit."
+deck: "Evolve: two kinds of energy, no needles. Planned as a course, not a single visit."
 products:
   - "Evolve"
 productDetails:
@@ -16,7 +16,7 @@ productDetails:
     priceLines: ["$275 per single session"]
 ctaType: consult
 pricingDisplay: consult
-clinicianApproved: true
+clinicianApproved: false
 draft: false
 faq:
   - q: "What does an Evolve session feel like?"
@@ -38,10 +38,11 @@ seo:
 
 import TreatmentVideo from '../../components/TreatmentVideo.astro';
 import evolveReelPoster from '../../assets/photos/evolve-reel-poster.jpg';
+import attivaPoster from '../../assets/photos/commercial-attiva-poster.jpg';
 
 ## What it is
 
-Body contouring here means one thing: **Evolve**, a non-invasive treatment
+Body contouring here starts with **Evolve**, a non-invasive treatment
 delivered by a device rather than a needle. Amy lists it on her menu exactly as
 it works: *tighten and tone*.
 
@@ -112,6 +113,79 @@ before anything begins.
 Evolve is priced two ways: a single session, or a course of six. Amy walks
 through both structures honestly, including what she would not recommend, and
 neither one is the default.
+
+<section class="media-row media-row--flip">
+  <div class="media-copy">
+
+## ATTIVA
+
+Coming soon to the medspa.
+
+ATTIVA is a minimally invasive, non-surgical radiofrequency (RF)
+skin-tightening and rejuvenation treatment.
+
+  </div>
+  {/* The ATTIVA section (2026-11-06). The home carousel's ATTIVA reel,
+    * Amy's own, in the same rendition, poster and caption file, carried
+    * whole. Placed here at the operator's direction after the compliance
+    * flags (the maker's material on a page with a price list, and the
+    * film's song in a second placement): CLAUDE.md constraint 3,
+    * DECISIONS 2026-11-06. Amy's own film with music and no speech, so
+    * the in-view autoplay is in-class. Its burned-in heading says the
+    * device is coming, as the line beside it does; once ATTIVA arrives
+    * both are out of date. No text from the film is restated in site
+    * text. Copy left, film right. */}
+  <TreatmentVideo
+    frame="bare"
+    autoplay="inview"
+    src="/media/commercial-attiva.mp4"
+    poster={attivaPoster}
+    captionsSrc="/media/commercial-attiva.vtt"
+    label="Amy's reel announcing ATTIVA as coming to the medspa: the device, the maker's slides and a page of its brochure, and Amy with two guests under the medspa's neon sign, with music and no words."
+  />
+</section>
+
+<table class="price-table">
+  <caption>ATTIVA prices: per treatment, with the exact area defined at your consultation.</caption>
+  <thead>
+    <tr>
+      <th scope="col">Treatment area</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Under-eye area\*</th>
+      <td>$2,000</td>
+    </tr>
+    <tr>
+      <th scope="row">Brow / upper-eye area\*</th>
+      <td>$2,500</td>
+    </tr>
+    <tr>
+      <th scope="row">Jawline / jowls</th>
+      <td>$2,750</td>
+    </tr>
+    <tr>
+      <th scope="row">Jawline + neck</th>
+      <td>$3,750</td>
+    </tr>
+    <tr>
+      <th scope="row">Face, excluding eyelids and neck</th>
+      <td>$4,500</td>
+    </tr>
+    <tr>
+      <th scope="row">Face + neck, excluding eyelids</th>
+      <td>$5,500</td>
+    </tr>
+    <tr>
+      <th scope="row">Body, based on area and extent</th>
+      <td>$6,500</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="price-table-note">\*Eye-area treatments are offered only after Amy's suitability assessment at a consultation.</p>
 
 ## Individualized, with Amy
 

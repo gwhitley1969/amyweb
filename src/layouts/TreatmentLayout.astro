@@ -455,4 +455,58 @@ const crumbs = [
     border: 1px solid var(--ng-magenta-600);
     border-radius: 12px;
   }
+  /* Price tables in MDX bodies (body-contouring's ATTIVA prices,
+   * 2026-11-06 — operator direction, DECISIONS same date). The site's
+   * first table: real table markup (a caption, column headers, a row
+   * header per area) so a screen reader reads each price with its area.
+   * The look is the product cards': the card pink, the hairline, the
+   * ink-pink left edge, tabular figures. The header row is ink on paper
+   * reversed (16:1); body text is ink on the card pink. Prices never
+   * wrap; long area names do, so the table fits a 320px phone without
+   * scrolling sideways. Cells carry top rules only, so zero spacing in
+   * the default border model draws each rule once (the collapse
+   * property's name would also mint a sitewide utility — Tailwind scans
+   * this file). */
+  .treatment-body .price-table {
+    width: 100%;
+    max-width: 40rem;
+    margin-top: 1.5rem;
+    border-spacing: 0;
+    background: var(--ng-card);
+    border: 1px solid var(--ng-hairline);
+    border-left: 1px solid var(--ng-ink-pink);
+    font-variant-numeric: tabular-nums;
+  }
+  .treatment-body .price-table caption {
+    caption-side: top;
+    text-align: left;
+    padding-bottom: 0.75rem;
+  }
+  .treatment-body .price-table th,
+  .treatment-body .price-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid var(--ng-hairline);
+  }
+  .treatment-body .price-table thead th {
+    background: var(--ng-ink-900);
+    color: var(--ng-paper);
+    font-weight: 600;
+    border-top: 0;
+  }
+  .treatment-body .price-table tbody th {
+    font-weight: 400;
+  }
+  .treatment-body .price-table td,
+  .treatment-body .price-table thead th:last-child {
+    text-align: right;
+    white-space: nowrap;
+  }
+  .treatment-body .price-table td {
+    font-weight: 500;
+  }
+  .treatment-body .price-table-note {
+    font-size: 0.9375rem;
+  }
 </style>

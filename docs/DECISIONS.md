@@ -18173,3 +18173,10 @@ same PR before it merges.
 
 **Records changed.** CLAUDE.md (the EXO|E text entry), BUILD_SPEC
 §8.2, the sign-off sheet's skin-rejuvenation row and the CHANGELOG.
+
+**Addendum, 2026-11-06 — Amy's OK and the flip.** Amy read the page on
+the PR #305 preview and OK'd it, relayed by the operator that morning.
+The operator flipped `clinicianApproved` in the same PR (`8b84632`,
+constraint 4). Before the OK, six converged passes of the preview showed
+the line gone and the section and the peel cards' routing sentence
+present.

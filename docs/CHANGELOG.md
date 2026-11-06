@@ -35,9 +35,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
   "Whether it suits your skin is decided with Amy at a consultation."
   (the operator's direction). The peel cards' sentence directly above
   the section still routes suitability to a consultation.
-- The page's approval flag reset with the edit, so it waits for Amy's OK
-  on the preview.
-- DECISIONS 2026-11-05, the EXO|E line entry.
+- The page's approval flag reset with the edit. Amy OK'd the page on
+  the PR #305 preview, and the operator flipped the flag in the same PR.
+- DECISIONS 2026-11-05, the EXO|E line entry and its addendum.
 
 ### 2026-11-05 — Regenerative treatments: DE|RIVE's price, one line off
 

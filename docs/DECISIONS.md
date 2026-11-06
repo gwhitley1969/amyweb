@@ -18180,3 +18180,138 @@ The operator flipped `clinicianApproved` in the same PR (`8b84632`,
 constraint 4). Before the OK, six converged passes of the preview showed
 the line gone and the section and the peel cards' routing sentence
 present.
+
+## 2026-11-06 — body-contouring: an ATTIVA section with the carousel's ATTIVA reel and a price table (operator decisions after the compliance flags)
+
+**Context.** The operator asked for ATTIVA on /services/body-contouring:
+the home carousel's ATTIVA reel (its fifth film, the 2026-10-29 entry),
+the sentence "ATTIVA is a minimally invasive, non-surgical
+radiofrequency (RF) skin-tightening and rejuvenation treatment", and a
+price table modelled on a slide of a proposed ATTIVA menu (seven areas,
+each with a proposed range, and an eye-area footnote). Each price is
+the top of its range, at the operator's direction: under-eye area\*
+$2,000; brow / upper-eye area\* $2,500; jawline / jowls $2,750; jawline
++ neck $3,750; face, excluding eyelids and neck $4,500; face + neck,
+excluding eyelids $5,500; body, based on area and extent $6,500.
+
+**What was checked before the plan.**
+- No word of the sentence trips `lint:claims`. "Skin-tightening" fits
+  the page's brief (BUILD_SPEC §7.11: describe by intended design, skin
+  tightening among the examples, never as outcomes), and the sentence
+  states no regulatory status, which no site text may (none could be
+  confirmed, the 2026-10-29 entry).
+- The prices are product pricing per treatment by area: no count,
+  interval, amount or duration, so no dosing-class content.
+- The film is Amy's own reel with music and no speech (the operator's
+  listen, the 2026-10-29 addendum), so the treatment player's in-view
+  autoplay is in-class: no new exception to the autoplay rule.
+- Two sentences on the page spoke for the whole page and would stop
+  being true: the deck ("Two kinds of energy, no needles.", while
+  "minimally invasive" says ATTIVA is not needle-free) and "Body
+  contouring here means one thing: Evolve".
+
+**Flags put to the operator, and the answers.**
+1. **Availability.** The film's heading, "Coming to Mobile Aesthetics",
+   is burned into every frame. Asked whether ATTIVA can be booked now,
+   the operator answered **still coming soon**. The section says
+   "Coming soon to the medspa." and carries no booking link.
+2. **The film on this page.** It carries the maker's three
+   results-comparison slides (eyes, neck, and a body area photographed
+   in a thong; the patients' consent is the maker's, not on this site's
+   record) and a page of its provider brochure; here they would sit
+   directly above a price list. The 16-second cut without that material
+   (device shot, Amy with her guests, the closing card) was recommended
+   for this page and **declined: the full film, as in the carousel**.
+3. **The song.** The Instagram-library song has no licence on record;
+   this is its second placement. Kept, as the 2026-10-29 decision did
+   for the carousel and the Re-Q film's second placement did the same
+   day; the plan said so and the operator approved it.
+4. **The footnote.** The slide's "Eye-area treatments require clinician
+   suitability assessment and appropriate training. Proposed fees." was
+   offered beside a wording centred on Amy; the operator chose
+   "\*Eye-area treatments are offered only after Amy's suitability
+   assessment at a consultation." ("Appropriate training" on her own
+   site could read as a remark on her training; "Proposed fees" no
+   longer applies.)
+5. **Page fit.** Four of the seven areas are on the face or around the
+   eyes, on a page named for the body. Raised once as a note; the
+   operator's placement stands.
+6. **Branch.** The Re-Q section for /services/skincare was committed
+   locally that morning, unpushed, on the same records. The operator
+   chose to start fresh from `phase-c`; whichever of the two merges
+   second resolves the record conflicts (keep both; renumber counts).
+
+**Decision and what was built** (`body-contouring.mdx`, one content
+commit):
+- A flipped media row after "Two ways to book it": copy left (the
+  heading "ATTIVA", "Coming soon to the medspa.", the operator's
+  sentence verbatim), film right through `TreatmentVideo` with
+  `frame="bare"` and `autoplay="inview"`, the carousel's own rendition
+  (`commercial-attiva.mp4`), poster and caption file. Nothing new was
+  encoded or uploaded. Its label: "Amy's reel announcing ATTIVA as
+  coming to the medspa: the device, the maker's slides and a page of
+  its brochure, and Amy with two guests under the medspa's neon sign,
+  with music and no words." It restates no text from the film. The
+  track shows by default in this player (two bounded `[Music]` cues).
+- Under the row, the site's first table, in real table markup: the
+  caption "ATTIVA prices: per treatment, with the exact area defined at
+  your consultation.", column headers "Treatment area" and "Price", a
+  row header per area, then the footnote. Styled in TreatmentLayout's
+  body rules after the product cards: the card pink, the hairline, the
+  ink-pink left edge, tabular figures, an ink header row with paper
+  text. Prices never wrap; area names do.
+- The deck now opens "Evolve:" and the first sentence of "What it is"
+  reads "Body contouring here starts with **Evolve**". The lead, search
+  description, products list, /services menu line and
+  /go/body-contouring stay Evolve-only (the /go/ page renders no body
+  and no film).
+- `clinicianApproved` resets to false (constraint 4).
+
+**Alternatives rejected.**
+- The 16-second cut for this page (recommended, declined).
+- A silent rendition for this placement.
+- The slide's footnote wording.
+- Seven ATTIVA product cards in "What Amy offers": they would also have
+  rendered on /go/body-contouring, and the operator asked for a table.
+- A markdown pipe table: no caption and no row headers.
+
+**Consequences.**
+- The maker's before/after slides now play beside prices on a treatment
+  page, a further departure from the SOW's deferral of before/after
+  (the operator's document to amend).
+- No new unlicensed song: a second placement of this one, still with no
+  licence on record.
+- Two in-view players on body-contouring; twelve on nine pages.
+- Time-bound: the line and the film's heading say ATTIVA is coming.
+  Once it arrives both are out of date; the line, the table and the
+  film are the operator's to change, and a booking route would be new
+  copy.
+- A change to the rendition, poster or caption file changes both
+  placements.
+- The two shared stylesheets are byte-identical to `phase-c`'s; the
+  new rules ride in the treatment pages' inline styles. The first draft
+  named the collapsing border model's property in TreatmentLayout,
+  which minted a sitewide utility; the rules use zero border spacing
+  instead (cells carry top rules only).
+- Amy reads the section on the PR preview; the operator flips the flag.
+
+**Verification** (branch `content/body-contouring-attiva`, local build):
+- `npm run verify` exit 0: `astro check` 0 errors; `lint:claims`,
+  `lint:voice`, `lint:practice-link` (38 pages, 80 links) and
+  `check:search-index` green; pa11y 39 of 39 URLs; Lighthouse assertions
+  on 10 URLs (30 runs) passed; `test:search` ok.
+- Both shared stylesheets byte-identical to `phase-c`'s, records
+  included.
+- Headless Chrome at 320, 390 and 1280px: the page is never wider than
+  the window; at 320px the table is 272px wide and its prices stay on
+  one line. Twelve `data-autoplay="inview"` players on nine pages, two
+  on body-contouring.
+- `check:approvals` fails on body-contouring, as it must until the flip.
+
+**Records changed.** CLAUDE.md (constraint 3: the ATTIVA claims
+paragraph, the thirteenth pixel-level override, the music paragraph;
+the treatment-video opted-in pages), BUILD_SPEC (§1, §7.11, §8's
+readout and claims passages, §8.9, the carousel section),
+compliance/README, the sign-off sheet's body-contouring row, CHANGELOG,
+REDESIGN (the music list), RELAUNCH (probe targets and the player
+count), the caption file's NOTE and the `VideoCarousel.astro` header.

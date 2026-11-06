@@ -104,7 +104,11 @@ competitor-brand wall poster, and the manufacturer's boxes; neither
 caption file carries that text; and, since 2026-10-29, her ATTIVA reel
 — constraint-3 overrides for the maker's results-comparison slides, a
 page of its provider brochure, and the device's screen readouts, none
-of which its caption file carries; and, since 2026-11-03, a Re-Q Health
+of which its caption file carries (since 2026-11-06 the same rendition,
+poster and caption file also play in the ATTIVA section of
+/services/body-contouring, beside that page's ATTIVA prices, the film's
+second placement, under the same overrides — DECISIONS same date); and,
+since 2026-11-03, a Re-Q Health
 reel carried as edited — the maker's rep's handle replaced with Amy's,
 and constraint-3 overrides for its packaging, a brand the site's copy
 had never named and its net-contents line, none of which its caption

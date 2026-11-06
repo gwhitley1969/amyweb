@@ -29,6 +29,25 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-11-06 — Body contouring: an ATTIVA section with the ATTIVA film and prices
+
+- /services/body-contouring has a new "ATTIVA" section after "Two ways
+  to book it": "Coming soon to the medspa." and the operator's sentence,
+  beside the same ATTIVA film the home carousel plays fifth, muted when
+  scrolled to, with its song one tap away.
+- Under it, the site's first table: ATTIVA prices per treatment for
+  seven areas, from $2,000 (under-eye area) to $6,500 (body), each the
+  top of the proposed range, with an eye-area note that routes those
+  two rows to Amy's assessment at a consultation.
+- Two Evolve lines were scoped to Evolve so they stay true: the line
+  under the page title and the first sentence of "What it is".
+- The page's lead, search description, /services menu line and
+  /go/body-contouring are unchanged. The film, its poster and its
+  captions are the carousel's own files; nothing new was uploaded.
+- The page's approval flag reset with the edit. Amy reads the section
+  on the PR preview before the operator flips it.
+- DECISIONS 2026-11-06.
+
 ### 2026-11-05 — Skin rejuvenation: the EXO|E section's consultation line off
 
 - The EXO|E section on /services/skin-rejuvenation no longer ends with

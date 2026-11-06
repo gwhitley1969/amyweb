@@ -32,7 +32,8 @@ change lives in `docs/DECISIONS.md`; design specs live in
 ### 2026-11-06 — Body contouring: an ATTIVA section with the ATTIVA film and prices
 
 - /services/body-contouring has a new "ATTIVA" section after "Two ways
-  to book it": "Coming soon to the medspa." and the operator's sentence,
+  to book it": "Coming soon to Mobile Aesthetics." (the practice's name
+  linked to its site, as everywhere else) and the operator's sentence,
   beside the same ATTIVA film the home carousel plays fifth, muted when
   scrolled to, with its song one tap away.
 - A second paragraph describes the device: a micro-cannula delivering

@@ -18352,3 +18352,25 @@ over time."
   both paragraphs on the PR #307 preview.
 - Records changed: BUILD_SPEC §7.11, the sign-off sheet's body-contouring
   row and the CHANGELOG entry.
+
+**Addendum, 2026-11-06 — "Coming soon to Mobile Aesthetics."
+(operator direction).** The operator changed the section's line from
+"Coming soon to the medspa." to "Coming soon to Mobile Aesthetics.",
+the wording of the film's own burned-in heading.
+- Because visible text now names the practice, the name links through
+  `PracticeLink` under constraint 2's seventh exception: the link text
+  is the name alone, the one destination, a new tab, `noopener`, the
+  `ma_site_click` event and the hidden new-tab note. That exception
+  admits new mentions on those terms, and `lint:practice-link` requires
+  the link (38 pages, now 81 links). CLAUDE.md's list of the visible
+  mentions gains this line.
+- The place-name convention is unaffected: it bars "studio", not the
+  practice's name. The film's label still says "the medspa".
+- The line says where the device is coming, not who performs it; the
+  page's "Amy … plans and performs every treatment herself" stands, and
+  no text says another provider offers ATTIVA (constraint 2's tenth
+  exception).
+- Records changed: CLAUDE.md (constraint 2's seventh exception, the
+  list of mentions), BUILD_SPEC §7.11, the sign-off row and the
+  CHANGELOG entry. The entry above keeps the line's first wording as
+  history.

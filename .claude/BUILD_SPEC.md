@@ -831,8 +831,9 @@ DECISIONS 2026-10-02.)*
     The heat is designed to tighten existing collagen and to support the
     skin's own production of new collagen and elastin." Design intent
     only: never an immediate result, a time frame, or fibroblast
-    activity. A line above it says it is coming soon
-    to the medspa (not yet bookable, operator, same date), and no
+    activity. A line above it reads "Coming soon to Mobile Aesthetics."
+    (not yet bookable, operator, same date; the practice's name linked
+    through `PracticeLink`, constraint 2's seventh exception), and no
     booking link sits in the section. Beside it, the home carousel's
     ATTIVA reel (constraint 3's overrides, extended to this page). Under
     it, a price table per treatment by area, each price the top of the

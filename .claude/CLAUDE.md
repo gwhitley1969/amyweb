@@ -140,8 +140,10 @@ silently following it. Known superseded points from earlier briefs:
    operator chose every visible mention: the address block of every
    page's footer and of the location card, three sentences on /about,
    one sentence and one FAQ answer on /services/skincare, the
-   home carousel's heading, and (2026-09-30) the line above the home
-   hero's "Harrisburg, NC · By appointment". The destination was screened again that
+   home carousel's heading, (2026-09-30) the line above the home
+   hero's "Harrisburg, NC · By appointment", and (2026-11-06) the
+   ATTIVA section's "Coming soon to Mobile Aesthetics." line on
+   /services/body-contouring. The destination was screened again that
    day and still lists the location's other providers. Fixed terms:
    the link text is the practice's name and nothing else; the
    destination is that one address; a new tab, `noopener`, the

@@ -18374,3 +18374,13 @@ the wording of the film's own burned-in heading.
   list of mentions), BUILD_SPEC §7.11, the sign-off row and the
   CHANGELOG entry. The entry above keeps the line's first wording as
   history.
+
+**Addendum, 2026-11-06 — Amy's OK and the flip.** Amy read the page on
+the PR #307 preview and OK'd it, relayed by the operator the same
+afternoon. Before the OK, six consecutive passes of the preview served
+the final page ("Coming soon to Mobile Aesthetics." linked, and the
+micro-cannula paragraph). The operator flipped `clinicianApproved` in
+the same PR (`5bd5c23`, constraint 4) with a one-line command tested
+beforehand on a scratch copy with a stand-in word. The commit changes
+that one line and keeps the file's LF endings; `check:approvals` passes
+with 12 treatment files.

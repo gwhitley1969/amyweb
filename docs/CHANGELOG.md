@@ -50,9 +50,9 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - The page's lead, search description, /services menu line and
   /go/body-contouring are unchanged. The film, its poster and its
   captions are the carousel's own files; nothing new was uploaded.
-- The page's approval flag reset with the edit. Amy reads the section
-  on the PR preview before the operator flips it.
-- DECISIONS 2026-11-06.
+- The page's approval flag reset with the edit. Amy OK'd the page on
+  the PR #307 preview, and the operator flipped the flag in the same PR.
+- DECISIONS 2026-11-06, the ATTIVA entry and its addenda.
 
 ### 2026-11-05 — Skin rejuvenation: the EXO|E section's consultation line off
 

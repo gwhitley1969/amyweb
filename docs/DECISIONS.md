@@ -18092,3 +18092,52 @@ supplied graphic to live in one day.
   operator relayed her OK the same evening and flipped the page's flag
   in the same PR (commit `9bb6aa8`: one line, `clinicianApproved:
   true`, Amy's approval in the message).
+
+**Addendum, 2026-11-06 — the price's shipped record.** The price went
+from the operator's message (about 23:12 UTC) to live (00:12 UTC) in
+about an hour.
+- **PR #302 into `phase-c`:**
+  - It merged on the operator's word ("Merge it") at 23:51 UTC as
+    `b4f1b3c`, a tree identical to its flipped and recorded head
+    (`7035b3e`). It waited for that head's preview deploy step to
+    finish. The branch sat on #301's commit, so #301 (the DE|RIVE
+    shipped record) merged with it.
+  - Its preview environment was torn down.
+- **Standing previews:** #97 and #149 were refreshed by `merge-tree`
+  (`02ceb66`, `39228f6`), with no conflicts.
+- **Release PR #303** (`phase-c` into `main`), opened on the
+  operator's word, "Release it":
+  - It merged at 23:57 UTC as `bd8039d`, a tree identical to
+    `phase-c`'s, before its own pipeline finished: the first release
+    under the faster routine the operator chose that evening (see
+    below). Its preview deploy had finished, and its pipeline (run
+    42132679030) then finished green.
+  - Production run 42133264891: verify with the approval check
+    23:57–00:05 UTC, deploy and Front Door purge 00:05–00:12 UTC.
+- **Checked on the live site** (00:11 UTC):
+  - All 21 sitemap pages answer 200, as do `/search`,
+    `/go/regenerative` and `/go/skin-rejuvenation`.
+  - Six probe passes, three plain and three cache-busted, agreed:
+    "$800 per treatment" once on /services/regenerative and once on
+    /go/regenerative; the routing line gone; "Who they're generally for"
+    still routing to a consultation; the section and the graphic with
+    its alt unchanged.
+- **Afterwards:**
+  - `phase-c` was fast-forwarded to `main` (`bd8039d`).
+  - The environment list is production, 97 and 149 only.
+- **The faster routine** (the operator, 2026-11-05: "We really need to
+  get this process done a bit faster"). The $800 change took about an
+  hour from request to live, so the operator chose four changes:
+  - the full local verify once per change, with quick checks for
+    records-only and flip-only commits;
+  - merging without waiting for the preview deploy, deleting any
+    re-created preview environment afterwards;
+  - merging a release PR without waiting for its own pipeline, because
+    the Production workflow re-runs every gate and the approval check
+    before deploying;
+  - shipped records in the next change's PR.
+
+  Declined: small edits straight into `main`, and flipping before the
+  preview when Amy wrote the change. Amy's review on a preview, the
+  operator's flip, and `phase-c` with a release PR are unchanged.
+- Nothing is left to record for this section.

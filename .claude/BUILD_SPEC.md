@@ -992,8 +992,10 @@ DECISIONS 2026-10-02.)*
    flag — DECISIONS 2026-11-05), her own words: its concern words (fine
    lines, uneven skin texture, pigmentation, overall radiance) stand
    without the appearance hedge, in that section only. "Fine lines"
-   there stands on this exception, not the peel cards'. A
-   consultation-routing sentence follows it. Exact text and scope are in
+   there stands on this exception, not the peel cards'. The peel cards'
+   routing sentence, directly above the section, routes suitability to
+   a consultation (the section's own routing sentence came off at the
+   operator's direction the same evening). Exact text and scope are in
    CLAUDE.md constraint 3. And Amy's DE|RIVE paragraph on
    /services/regenerative (operator decision after the compliance
    flags — DECISIONS 2026-11-05, DE|RIVE): "calm inflammation" names a

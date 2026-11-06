@@ -29,6 +29,16 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-11-05 — Skin rejuvenation: the EXO|E section's consultation line off
+
+- The EXO|E section on /services/skin-rejuvenation no longer ends with
+  "Whether it suits your skin is decided with Amy at a consultation."
+  (the operator's direction). The peel cards' sentence directly above
+  the section still routes suitability to a consultation.
+- The page's approval flag reset with the edit, so it waits for Amy's OK
+  on the preview.
+- DECISIONS 2026-11-05, the EXO|E line entry.
+
 ### 2026-11-05 — Regenerative treatments: DE|RIVE's price, one line off
 
 - The DE|RIVE card on /services/regenerative, and its copy on

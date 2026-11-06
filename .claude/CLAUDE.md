@@ -821,8 +821,14 @@ silently following it. Known superseded points from earlier briefs:
      here stand on this entry, not on the peel cards'), and the website
      contract's promise to describe treatments without promising
      specific results. No pattern sees any of it, so a green linter never
-     authorizes it. A sentence after the text routes suitability to a
-     consultation; trimming it requires the human operator. Fixed terms:
+     authorizes it. No sentence follows the text: the one that routed
+     suitability to a consultation came off the same evening at the
+     operator's direction. The peel cards' routing sentence, directly
+     above the section ("Which peel suits your skin, and whether a peel
+     or PiXel8-RF fits it better, is decided with Amy at a
+     consultation."), the PiXel8-RF paragraph and the layout-injected
+     disclaimer now carry that route; trimming any of them requires the
+     human operator. Fixed terms:
      the name as the section's heading, the "What Amy offers" card's
      name and an entry in the page's products list, on that page and on
      the /go/skin-rejuvenation landing page's card (that scope after the

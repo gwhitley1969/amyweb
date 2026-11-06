@@ -18141,3 +18141,35 @@ about an hour.
   preview when Amy wrote the change. Amy's review on a preview, the
   operator's flip, and `phase-c` with a release PR are unchanged.
 - Nothing is left to record for this section.
+
+## 2026-11-05 — skin-rejuvenation: the EXO|E section's consultation line removed (operator direction)
+
+**Context.** The operator asked, the same evening as the DE|RIVE
+section's line came off, for the matching line on skin rejuvenation to
+go: "Whether it suits your skin is decided with Amy at a consultation.",
+the last line of the EXO|E section (the 2026-11-05 EXO|E entry above).
+
+**Noted with the change.** It was the mitigation the EXO|E text's entry
+in CLAUDE.md named: constraint 3's "route to a consultation" rule
+against the text's claims (the stem-cell name, collagen, downtime and
+recovery wording). The page still carries the route:
+- the peel cards' routing sentence, directly above the section ("Which
+  peel suits your skin, and whether a peel or PiXel8-RF fits it better,
+  is decided with Amy at a consultation."), already the peel cards'
+  named coupling;
+- the PiXel8-RF paragraph ("Whether it's the right tool for *your* skin
+  is a consultation conversation.");
+- the layout-injected disclaimer.
+
+**Decision.** The line is removed (the operator's direction). CLAUDE.md
+constraint 3's EXO|E text entry and BUILD_SPEC §8.2 now name those
+passages as the coupling; trimming any of them requires the human
+operator. Nothing else on the page changes. The /go/ page renders no
+body text, so it is unaffected.
+
+**Consequences.** `clinicianApproved` resets (constraint 4). Amy reads
+the change on the PR preview, and the operator flips the flag in the
+same PR before it merges.
+
+**Records changed.** CLAUDE.md (the EXO|E text entry), BUILD_SPEC
+§8.2, the sign-off sheet's skin-rejuvenation row and the CHANGELOG.

@@ -18384,3 +18384,173 @@ the same PR (`5bd5c23`, constraint 4) with a one-line command tested
 beforehand on a scratch copy with a stand-in word. The commit changes
 that one line and keeps the file's LF endings; `check:approvals` passes
 with 12 treatment files.
+
+## 2026-11-11 — regenerative: two more PRP cards, under the eyes and full face and neck (operator decisions after the compliance flags)
+
+**Context.** The operator asked for two more "What Amy offers" cards on
+/services/regenerative: PRP under the eyes at $600, and PRP full face
+and neck at $900. The wording supplied said what each treatment does.
+Under the eyes: "It's used to improve skin quality, fine lines, crepay
+texture, and mild dark circles." Full face and neck: "On the face, it
+helps reduce fine lines, improve skin tone, and minimize pore size. On
+the neck, it helps address creeping skin, texture issues, and early
+signs of aging or sun damage."
+
+**Flagged** (before the build, in two rounds):
+1. **Result wording.** BUILD_SPEC §7.6 says "Describe what the
+   treatments are; no healing/repair outcome claims", and each recorded
+   exception on the page ends "anything further reverts to the rule".
+   The supplied wording and every draft pass `lint:claims` (0 hits
+   against the registry's 52 patterns), so the gate decides nothing
+   here.
+2. **My first description of the house form was wrong.** In round one I
+   offered "designed to improve the appearance of…" sentences as needing
+   no record, and the operator picked them. Two reviewers of the plan
+   (Explore agents: facts and steps; rules and records) then found that
+   the form is granted brief by brief. §7.10 ("appearance-hedged") and
+   §7.12 ("all appearance-hedged, mechanism as design intent") grant it
+   for devices, §7.11 grants "intended design", and the ATTIVA addendum
+   of 2026-11-06 rests on §7.11 by name. §7.6 grants neither, and the
+   nearest "what it is" precedent, the KLOW card of 2026-10-02, went the
+   other way ("nothing about what it does"). The 2026-08-01 entry treats
+   only the verbatim choice as the override, so the record was split.
+   The reviewers also found that "designed to" claims a maker's design,
+   which PRP does not have; that the second draft line never said what
+   the treatment is; and that "improve skin quality" sat outside the
+   appearance wording.
+3. **"Early signs of aging."** Not flagged in round one. The 2026-09-19
+   addendum reads "reduce the signs of skin aging" as the anti-aging
+   angle the registry bans by name and passes only because its pattern
+   wants the literal compound; the page's lead carries it as a scoped
+   exception.
+4. **Where the wording came from** (the EXO|E entry's question).
+5. **Also noted:**
+   - BUILD_SPEC §8 rule 5 (positioning a product for an unapproved
+     use). PRP's status for cosmetic use was not confirmed from an FDA
+     page that day; secondary sources say the preparation kits are
+     cleared for other uses. The page's 2026-08-01 cards are in the
+     same position.
+   - Google's ads policy page, read the same day
+     (https://support.google.com/adspolicy/answer/15596627), still lists
+     PRP among the therapies it takes no ads for, as recorded on
+     2026-10-13.
+   - The website contract's §5 promises treatments described "without
+     promising specific results" and Amy's approval of every word.
+
+**Decision** (the operator's answers):
+1. **A separate service.** PRP full face and neck is not "PRP with
+   Microneedling", which is also $900. Five cards.
+2. **Both pages.** The cards also show on /go/regenerative. Keeping
+   them off it (a `productExclude` rule) was offered.
+3. **Wording.** In round two: "used to improve the appearance of…",
+   each line opening with what the treatment is. A plain wording (what
+   it is, which concerns it is used for, no result verb), which fits
+   §7's pattern "what it is → who it's generally for", was recommended
+   and declined. The supplied wording as written was offered in both
+   rounds.
+4. **The aging phrase stays.** Leaving it out was recommended and
+   declined.
+5. **Source:** "My own research." The concerns are the operator's, not
+   Amy's wording. No product card is involved, so constraint 8 is not
+   engaged. Amy's read of both cards on the preview is the clinical
+   control. The two services and their prices are the operator's word.
+
+The lines as built:
+- PRP Under the Eyes, tagged "Eyes", $600: "PRP for the under-eye
+  area, used to improve the appearance of skin quality, fine lines,
+  crepey texture, and mild dark circles."
+- PRP Full Face and Neck, tagged "Face & Neck", $900: "PRP for the
+  full face and neck. On the face, used to improve the appearance of
+  fine lines, skin tone, and pore size. On the neck, the appearance of
+  crepey skin, uneven texture, and early signs of aging or sun damage."
+
+**How it is recorded.** The appearance wording is authorized for those
+two exact lines by a dated note in BUILD_SPEC §7.6. The aging phrase is
+a scoped exception in CLAUDE.md constraint 3, which quotes both lines
+and sets their scope: the two cards, on the two pages. BUILD_SPEC §8.3
+and compliance/README point to it. There is no `allowedStrings` entry,
+because nothing trips a pattern.
+
+**My calls, stated in the approved plan:**
+- Names and tags as above; "crepay" and "creeping" spelled "crepey";
+  "texture issues" as "uneven texture".
+- Prices bare, like the two 2026-08-01 cards. No "per treatment" was
+  supplied.
+- The cards go before DE|RIVE, so the landing page's award graphic
+  stays directly under its card (`awardCard`).
+- Nothing else on the page changes. "What they are" still says PRP is
+  offered two ways, which stays true. The lead, `schemaDescription`,
+  `seo.description`, the menu line and the FAQ are untouched.
+- Suitability stays routed by "Who they're generally for" and the
+  layout's disclaimer. The cards answer no "is this right for me". The
+  one eye-area precedent, ATTIVA's price note of 2026-11-06, routes its
+  rows to a consultation in so many words; this card carries no such
+  note.
+- No site text states a regulatory status for PRP.
+
+**Measured before the build.** Two cards with these names and tags were
+added to the live pages in a browser tab, nothing saved. At 1280 px:
+two cards per row, DE|RIVE on its own full row. At 390 and 375 px: one
+per row. At 375 px the "Face & Neck" tag drops under its card's name.
+No sideways scroll at any of the three. On /go/regenerative the graphic
+follows the cards.
+
+**Alternatives rejected:** the plain wording; the supplied wording as
+written; leaving the aging phrase out; the treatment page only; cards
+with headed lists (a schema change for two sentences); renaming or
+re-ordering the three earlier cards.
+
+**Consequences.**
+- Recorded exposure on result wording for PRP under a brief that bars
+  it, and on the anti-aging angle, scoped to two lines. Anything further
+  reverts to the rule.
+- `clinicianApproved` reset to false with the content commit
+  (constraint 4). Amy reads both lines by name on the PR preview and
+  confirms the prices; the operator flips the flag in the same PR.
+- Records changed: CLAUDE.md constraint 3, BUILD_SPEC §7.6 and §8.3,
+  compliance/README, the sign-off sheet's regenerative row and its
+  landing-pages list, the CHANGELOG entry, and the comment above the
+  regenerative rule in `src/lib/landing.ts`.
+- The Re-Q skincare branch, still unpushed, edits the same record files
+  in other places. CHANGELOG and this log need a keep-both merge when
+  the second of the two changes merges.
+
+**Addendum, 2026-11-11 — the DE|RIVE card's price line (Amy's wording,
+relayed by the operator).** While PR #309's preview was building, the
+operator relayed Amy's request: the DE|RIVE card's price line reads
+"$800 per treatment with post care kit" in place of "$800 per
+treatment".
+- Her wording is carried exactly, "post care" unhyphenated. The site's
+  own word elsewhere is "aftercare" (the visit steps); this line is
+  hers.
+- It says what the price includes and nothing about how DE|RIVE is
+  applied, so the DE|RIVE terms in CLAUDE.md constraint 3 stand. The
+  kit is not named or described anywhere in site text.
+- A plain-dollar string: no pattern sees it (0 hits) and it needs no
+  `allowedStrings` entry.
+- It renders on /go/regenerative as well, where the card's price line
+  is the entry's own.
+- Same PR, its own content commit. The flag was already false from the
+  PRP cards' commit, so Amy's one read of the preview covers all three
+  cards, and one flip follows.
+- Records changed: BUILD_SPEC §7.6 (the DE|RIVE note's price), the
+  sign-off sheet's regenerative row and landing-pages list, and the
+  CHANGELOG entry. The 2026-11-05 entries keep the earlier price line
+  as history.
+
+**Addendum, 2026-11-11 — Amy's OK and the flip.** Amy read the three
+cards on the PR #309 preview and OK'd them, prices included, relayed by
+the operator the same afternoon ("Amy OK'd it").
+- The preview links first went to the operator one minute after the
+  deploy finished, on six single-request passes. The new environment
+  was still flapping: the operator got Azure's own 404 on the landing
+  page, and 13 of 100 requests then failed at random across both pages
+  and the home page, while the standing demo (#97) served 20 of 20. It
+  settled by itself about ten minutes after the deploy. Before the
+  links went out again, both pages had answered 240 requests in a row
+  with the final content.
+- The operator flipped `clinicianApproved` in the same PR (`0acb8e8`,
+  constraint 4) with the sign-off sheet's one-line command, run
+  beforehand against a scratch copy of the file in a throwaway repo.
+  The commit changes that one line and keeps the file's LF endings;
+  `check:approvals` passes with 12 treatment files.

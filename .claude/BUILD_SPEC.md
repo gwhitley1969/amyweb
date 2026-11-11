@@ -719,12 +719,26 @@ DECISIONS 2026-10-02.)*
    system — with Amy's own text word for word in a section between
    "Who they're generally for" and "Individualized, with Amy", a third
    card (her first sentence; "$800 per treatment" since the same
-   evening, the operator's price) on the page and on
+   evening, the operator's price; "$800 per treatment with post care
+   kit" since 2026-11-11, Amy's wording) on the page and on
    /go/regenerative, and AMP's award graphic beside the text and under
    the landing card, carried as-is. The text's effect claims and the
    graphic's superiority line and package size are recorded overrides;
    the product is named plainly elsewhere; no site text says how it is
    applied. CLAUDE.md constraint 3; DECISIONS 2026-11-05, DE|RIVE.)*
+   *(Amended 2026-11-11, operator decisions after the compliance flags:
+   two more PRP offerings on the operator's word, **PRP Under the Eyes**
+   ($600) and **PRP Full Face and Neck** ($900), as the third and
+   fourth cards on the page and on /go/regenerative. Each line says
+   what the treatment is and what it is used to improve the appearance
+   of. This brief carries no appearance-wording permission, so that
+   wording is authorized here for those two exact lines only; a plain
+   wording (what it is, which concerns it is used for) was recommended
+   and declined. The second line's "early signs of aging" is the
+   anti-aging angle, a scoped exception. The concerns listed are the
+   operator's own research; Amy's read of both cards on the preview is
+   the control. Anything further reverts to the rule. Exact strings and
+   scope: CLAUDE.md constraint 3; DECISIONS 2026-11-11.)*
 7. **IV Therapy & Vitamin Support** — Myers' Cocktail, Immunity IV, vitamin
    shots, Glutathione, B12, NAD IV. **Glutathione: absolutely no disease
    claims** (no neuroprotective / Alzheimer's / Parkinson's / chemotherapy
@@ -1173,6 +1187,14 @@ DECISIONS 2026-10-02.)*
    /go/regenerative card. AMP's award graphic beside it is carried
    as-is (the maker's OK on record). Exact strings and scope are in
    CLAUDE.md constraint 3.
+   And — operator decisions after the compliance flags, DECISIONS
+   2026-11-11 — the lines of the two PRP area cards on
+   /services/regenerative and /go/regenerative ("PRP Under the Eyes",
+   "PRP Full Face and Neck"): each says what the treatment is used to
+   improve the appearance of, wording that page's brief (§7.6) does not
+   otherwise allow, and the second ends on the anti-aging angle. The
+   concerns are the operator's own research. Exact strings and scope
+   are in CLAUDE.md constraint 3.
    Nothing else.*
 4. Unsubstantiated superiority: "#1", "best", "top-rated" — banned.
    *Scoped exception ({{EVOLUS_CLAIM}} resolved 2026-07-21, operator

@@ -719,7 +719,8 @@ DECISIONS 2026-10-02.)*
    system — with Amy's own text word for word in a section between
    "Who they're generally for" and "Individualized, with Amy", a third
    card (her first sentence; "$800 per treatment" since the same
-   evening, the operator's price) on the page and on
+   evening, the operator's price; "$800 per treatment with post care
+   kit" since 2026-11-11, Amy's wording) on the page and on
    /go/regenerative, and AMP's award graphic beside the text and under
    the landing card, carried as-is. The text's effect claims and the
    graphic's superiority line and package size are recorded overrides;

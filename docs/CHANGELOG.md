@@ -29,7 +29,7 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
-### 2026-11-11 — Regenerative treatments: PRP under the eyes, and PRP full face and neck
+### 2026-11-11 — Regenerative treatments: PRP under the eyes, PRP full face and neck, and DE|RIVE's price line
 
 - /services/regenerative has two more "What Amy offers" cards, between
   "PRP with Microneedling" and "DE|RIVE": "PRP Under the Eyes" ($600)
@@ -41,9 +41,12 @@ change lives in `docs/DECISIONS.md`; design specs live in
   phrase were flagged and ship at the operator's direction, recorded in
   the page's brief and as a scoped exception; the concerns listed are
   the operator's own research.
-- The services and their prices are the operator's word. Nothing else
-  on the page changed: the three earlier cards, the lead, the search
-  description, the /services menu line and the FAQ are as they were.
+- The services and their prices are the operator's word.
+- The DE|RIVE card's price line now reads "$800 per treatment with post
+  care kit" (was "$800 per treatment"), Amy's wording, on both pages.
+- Nothing else on the page changed: the two PRP cards from 2026-08-01,
+  the lead, the search description, the /services menu line and the FAQ
+  are as they were.
 - The page's approval flag reset with the edit. It goes live after Amy
   has read both cards on the preview and the operator has flipped the
   flag.

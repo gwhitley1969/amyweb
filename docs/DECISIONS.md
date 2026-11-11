@@ -18514,3 +18514,26 @@ re-ordering the three earlier cards.
 - The Re-Q skincare branch, still unpushed, edits the same record files
   in other places. CHANGELOG and this log need a keep-both merge when
   the second of the two changes merges.
+
+**Addendum, 2026-11-11 — the DE|RIVE card's price line (Amy's wording,
+relayed by the operator).** While PR #309's preview was building, the
+operator relayed Amy's request: the DE|RIVE card's price line reads
+"$800 per treatment with post care kit" in place of "$800 per
+treatment".
+- Her wording is carried exactly, "post care" unhyphenated. The site's
+  own word elsewhere is "aftercare" (the visit steps); this line is
+  hers.
+- It says what the price includes and nothing about how DE|RIVE is
+  applied, so the DE|RIVE terms in CLAUDE.md constraint 3 stand. The
+  kit is not named or described anywhere in site text.
+- A plain-dollar string: no pattern sees it (0 hits) and it needs no
+  `allowedStrings` entry.
+- It renders on /go/regenerative as well, where the card's price line
+  is the entry's own.
+- Same PR, its own content commit. The flag was already false from the
+  PRP cards' commit, so Amy's one read of the preview covers all three
+  cards, and one flip follows.
+- Records changed: BUILD_SPEC §7.6 (the DE|RIVE note's price), the
+  sign-off sheet's regenerative row and landing-pages list, and the
+  CHANGELOG entry. The 2026-11-05 entries keep the earlier price line
+  as history.

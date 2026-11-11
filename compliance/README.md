@@ -104,7 +104,11 @@ competitor-brand wall poster, and the manufacturer's boxes; neither
 caption file carries that text; and, since 2026-10-29, her ATTIVA reel
 — constraint-3 overrides for the maker's results-comparison slides, a
 page of its provider brochure, and the device's screen readouts, none
-of which its caption file carries; and, since 2026-11-03, a Re-Q Health
+of which its caption file carries (since 2026-11-06 the same rendition,
+poster and caption file also play in the ATTIVA section of
+/services/body-contouring, beside that page's ATTIVA prices, the film's
+second placement, under the same overrides — DECISIONS same date); and,
+since 2026-11-03, a Re-Q Health
 reel carried as edited — the maker's rep's handle replaced with Amy's,
 and constraint-3 overrides for its packaging, a brand the site's copy
 had never named and its net-contents line, none of which its caption
@@ -323,6 +327,15 @@ Current members of that class:
   "increase blood flow", "stimulate cell activity (such as
   Cytokeratin-15 production)") and free-from claims ("hormone-free",
   "chemical-free"). None of it trips a pattern. Exact strings and scope
+  are in CLAUDE.md, and a green `lint:claims` never authorizes them.
+- The two PRP area cards on /services/regenerative, "PRP Under the Eyes"
+  and "PRP Full Face and Neck", whose lines also render on
+  /go/regenerative (operator decisions after the compliance flags,
+  DECISIONS 2026-11-11; CLAUDE.md constraint 3; BUILD_SPEC §7.6, §8.3).
+  Each line says what the treatment is used to improve the appearance
+  of, wording that page's brief does not otherwise allow, and the second
+  ends on the anti-aging angle in words the literal `anti-aging` pattern
+  does not match. None of it trips a pattern. Exact strings and scope
   are in CLAUDE.md, and a green `lint:claims` never authorizes them.
 
 The practical consequence, and the reason this section exists: **a green

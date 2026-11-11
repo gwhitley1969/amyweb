@@ -137,7 +137,11 @@ check will refuse it. On a branch off `main`:
   addendum, not click-to-play as this line said until 2026-10-05) + the
   hormone-optimization Biote film `biote-why.mp4` (2026-10-02) + the
   laser page's IPL-session film `ipl-visit.mp4` (2026-10-02) + the
-  skin-rejuvenation page's EXO|E reel `exoie-reel.mp4` (2026-11-05) — the viewfinder film
+  skin-rejuvenation page's EXO|E reel `exoie-reel.mp4` (2026-11-05) + the
+  body-contouring page's ATTIVA reel `commercial-attiva.mp4` (2026-11-06;
+  the carousel's own ATTIVA rendition, in a second placement — the
+  carousel list above was not brought up to date for the ATTIVA film,
+  and stays as it is) — the viewfinder film
   `van-viewfinder-treatment-trim.mp4` (2026-09-03) retired with /mobile
   on 2026-09-26 and its Blob object stays, unreferenced, so it is not a
   probe target, nor is `van-chair-treatment.mp4`, which it had replaced
@@ -151,10 +155,13 @@ check will refuse it. On a branch off `main`:
   /services/laser-treatments, /services/iv-therapy, and
   /services/skin-rejuvenation also probe
   `/js/treatment-video.js` (200, `text/javascript`) and confirm the
-  eleven players on those nine pages carry `data-autoplay="inview"`
-  (counted on the build 2026-11-05; ten on eight pages from 2026-10-05,
+  twelve players on those nine pages carry `data-autoplay="inview"`
+  (counted on the build 2026-11-06; eleven on nine pages from 2026-11-05,
+  ten on eight pages from 2026-10-05,
   and nine on seven before that, missing the IV lounge film: two on biostimulators,
-  one on body-contouring, two on /about: the ICON film — its scoped
+  two on body-contouring: the Evolve reel and, since 2026-11-06, the
+  carousel's ATTIVA reel in its second placement, Amy's own film with
+  music and no speech, in-class — DECISIONS 2026-11-06; two on /about: the ICON film — its scoped
   override, DECISIONS 2026-08-25 — and the team film; one on
   /injector-training, the training reel; one on
   /services/regenerative, the PRP-visit reel; one on

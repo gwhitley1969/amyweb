@@ -328,6 +328,15 @@ Current members of that class:
   Cytokeratin-15 production)") and free-from claims ("hormone-free",
   "chemical-free"). None of it trips a pattern. Exact strings and scope
   are in CLAUDE.md, and a green `lint:claims` never authorizes them.
+- The two PRP area cards on /services/regenerative, "PRP Under the Eyes"
+  and "PRP Full Face and Neck", whose lines also render on
+  /go/regenerative (operator decisions after the compliance flags,
+  DECISIONS 2026-11-11; CLAUDE.md constraint 3; BUILD_SPEC §7.6, §8.3).
+  Each line says what the treatment is used to improve the appearance
+  of, wording that page's brief does not otherwise allow, and the second
+  ends on the anti-aging angle in words the literal `anti-aging` pattern
+  does not match. None of it trips a pattern. Exact strings and scope
+  are in CLAUDE.md, and a green `lint:claims` never authorizes them.
 
 The practical consequence, and the reason this section exists: **a green
 `lint:claims` is not evidence that a string is authorized, and an empty

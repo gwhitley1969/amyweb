@@ -47,10 +47,10 @@ change lives in `docs/DECISIONS.md`; design specs live in
 - Nothing else on the page changed: the two PRP cards from 2026-08-01,
   the lead, the search description, the /services menu line and the FAQ
   are as they were.
-- The page's approval flag reset with the edit. It goes live after Amy
-  has read both cards on the preview and the operator has flipped the
-  flag.
-- DECISIONS 2026-11-11.
+- The page's approval flag reset with the edit. Amy OK'd the three
+  cards, prices included, on the PR #309 preview, and the operator
+  flipped the flag in the same PR.
+- DECISIONS 2026-11-11 and its addenda.
 
 ### 2026-11-06 — Body contouring: an ATTIVA section with the ATTIVA film and prices
 

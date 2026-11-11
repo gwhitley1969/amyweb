@@ -18537,3 +18537,20 @@ treatment".
   sign-off sheet's regenerative row and landing-pages list, and the
   CHANGELOG entry. The 2026-11-05 entries keep the earlier price line
   as history.
+
+**Addendum, 2026-11-11 — Amy's OK and the flip.** Amy read the three
+cards on the PR #309 preview and OK'd them, prices included, relayed by
+the operator the same afternoon ("Amy OK'd it").
+- The preview links first went to the operator one minute after the
+  deploy finished, on six single-request passes. The new environment
+  was still flapping: the operator got Azure's own 404 on the landing
+  page, and 13 of 100 requests then failed at random across both pages
+  and the home page, while the standing demo (#97) served 20 of 20. It
+  settled by itself about ten minutes after the deploy. Before the
+  links went out again, both pages had answered 240 requests in a row
+  with the final content.
+- The operator flipped `clinicianApproved` in the same PR (`0acb8e8`,
+  constraint 4) with the sign-off sheet's one-line command, run
+  beforehand against a scratch copy of the file in a throwaway repo.
+  The commit changes that one line and keeps the file's LF endings;
+  `check:approvals` passes with 12 treatment files.

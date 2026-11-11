@@ -230,7 +230,10 @@ pink."** Seven gaps, each a test every design decision must move:
   (the 2026-10-02 override) and, since 2026-10-04, the two songs of the
   home band's van-trip film ("Play now, accept the risk"; DECISIONS
   same date), the carousel's ATTIVA reel's Instagram-library song (the
-  2026-10-29 override) and, since 2026-11-03, the carousel's Re-Q reel's
+  2026-10-29 override; since 2026-11-06 the same song in a second
+  placement, the ATTIVA section of /services/body-contouring,
+  autoplaying muted in view — DECISIONS same date) and, since
+  2026-11-03, the carousel's Re-Q reel's
   music (a silent copy recommended and declined; DECISIONS same date)
   and, since 2026-11-05, the music of EXO|E's reel on
   /services/skin-rejuvenation (a silent, tap-to-play copy recommended

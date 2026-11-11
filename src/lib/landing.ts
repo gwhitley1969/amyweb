@@ -89,7 +89,10 @@ const RULES: Readonly<Record<string, Partial<LandingRules>>> = {
   // page also shows DE|RIVE's award graphic under the DE|RIVE card, at
   // the operator's direction after the compliance flag (CLAUDE.md
   // constraint 3; DECISIONS 2026-11-05); the card's name and line render
-  // as approved on the treatment page.
+  // as approved on the treatment page. Since 2026-11-11 the two PRP area
+  // cards render here as well, as approved on the treatment page: the
+  // operator set their lines' scope to both pages (CLAUDE.md constraint
+  // 3; DECISIONS 2026-11-11).
   regenerative: { lead: 'summary', awardCard: 'DE|RIVE' },
   // Retatrutide is not on this landing page at all, at Amy's direction
   // (2026-10-13; DECISIONS same date): she did not want the

@@ -140,8 +140,10 @@ silently following it. Known superseded points from earlier briefs:
    operator chose every visible mention: the address block of every
    page's footer and of the location card, three sentences on /about,
    one sentence and one FAQ answer on /services/skincare, the
-   home carousel's heading, and (2026-09-30) the line above the home
-   hero's "Harrisburg, NC · By appointment". The destination was screened again that
+   home carousel's heading, (2026-09-30) the line above the home
+   hero's "Harrisburg, NC · By appointment", and (2026-11-06) the
+   ATTIVA section's "Coming soon to Mobile Aesthetics." line on
+   /services/body-contouring. The destination was screened again that
    day and still lists the location's other providers. Fixed terms:
    the link text is the practice's name and nothing else; the
    destination is that one address; a new tab, `noopener`, the
@@ -363,8 +365,11 @@ silently following it. Known superseded points from earlier briefs:
      and the maker's brochure page later in the film carries a second
      thermal readout with temperature, time and energy values: the
      console-readout class of the PiXel8 and Epileve frames. Fixed
-     terms: this film and its poster, in the carousel; no value from
-     either readout is ever restated in site text — copy, the slide's
+     terms: this film and its poster, in the carousel and, since
+     2026-11-06 (operator decision after the flag — DECISIONS same
+     date), in the ATTIVA section of /services/body-contouring; no
+     value from either readout is ever restated in site text — copy,
+     the player's label, the slide's
      label, the captions file, comments, meta, OG, JSON-LD; changing
      any of it requires the human operator. (Its claims content is the
      claims bullet's clause for this film.)*
@@ -527,7 +532,11 @@ silently following it. Known superseded points from earlier briefs:
      Instagram-library song on the carousel's ATTIVA film
      (`commercial-attiva`), which starts muted like every carousel
      film, sound one tap away; its caption file marks it with bounded
-     `[Music]` cues and never writes out any words. One more since
+     `[Music]` cues and never writes out any words. Since 2026-11-06,
+     by that route (DECISIONS same date), the same rendition and its
+     song play in a second placement, the ATTIVA section of
+     /services/body-contouring, autoplaying muted in view, sound one
+     tap away: no new song, a second placement of this one. One more since
      2026-11-03, by that route (DECISIONS same date; a silent copy was
      recommended and declined): the music on the carousel's Re-Q film
      (`commercial-req`), with no words, which starts muted like every
@@ -746,12 +755,25 @@ silently following it. Known superseded points from earlier briefs:
      (operator, same date). Its burned-in heading says the device is
      coming to the practice; once it has arrived the film is out of
      date, and swapping or retiring it is the operator's call. Its song
-     plays under the music override above. Fixed terms: this film and
-     its poster, in the carousel; no text from the slides, the brochure
-     or the device's screens is ever restated in site text — copy, the
-     slide's label, the captions file, comments, meta, OG, JSON-LD;
-     changing any of it requires the human operator. (Its readouts are
-     the dosing bullet's thirteenth pixel-level override.)
+     plays under the music override above. Since 2026-11-06 (operator
+     decisions after the compliance flags — DECISIONS same date; the
+     16-second cut without the maker's slides and brochure was
+     recommended again for this page and declined) the same rendition,
+     poster and caption file also play in a second placement, the
+     ATTIVA section of /services/body-contouring, autoplaying muted in
+     view, sound one tap away (in-class for the autoplay rule: Amy's
+     own film, music with no speech), with its captions showing. That
+     section sits directly above the page's ATTIVA price table, so the
+     maker's results-comparison slides now play beside prices. The
+     section's line says ATTIVA is coming soon, as the film's heading
+     does; once it has arrived both are out of date, and the line, the
+     table and the film are the operator's to change. Fixed terms: this
+     film and its poster, in the carousel and in that section; no text
+     from the slides, the brochure or the device's screens is ever
+     restated in site text — copy, the slide's label, the player's
+     label, the captions file, comments, meta, OG, JSON-LD; changing
+     any of it requires the human operator. (Its readouts are the
+     dosing bullet's thirteenth pixel-level override.)
      And a Re-Q Health reel of its skincare, the home carousel's fourth
      film since 2026-11-03 (`commercial-req`; operator overrides after
      the compliance flags — DECISIONS same date), carried AS EDITED: the
@@ -941,6 +963,36 @@ silently following it. Known superseded points from earlier briefs:
      treatment files only, so any edit to `DeriveAward` or the PNG resets
      regenerative's `clinicianApproved` in the same commit (constraint
      4); changing any of it requires the human operator.
+     And the lines of the two PRP area cards on /services/regenerative,
+     "PRP Under the Eyes" and "PRP Full Face and Neck" (operator
+     decisions after the compliance flags — DECISIONS 2026-11-11; a
+     plain wording that fits the page's brief, and leaving the aging
+     phrase out, were each recommended and declined), exactly: `PRP for
+     the under-eye area, used to improve the appearance of skin quality,
+     fine lines, crepey texture, and mild dark circles.` and `PRP for
+     the full face and neck. On the face, used to improve the appearance
+     of fine lines, skin tone, and pore size. On the neck, the
+     appearance of crepey skin, uneven texture, and early signs of aging
+     or sun damage.` Two things were flagged. The appearance wording:
+     that page's brief (BUILD_SPEC §7 item 6) says to describe what the
+     treatments are and carries no appearance-wording permission of its
+     own, unlike the laser and skin-rejuvenation briefs; it is
+     authorized for these two lines by that brief's dated note. And
+     "early signs of aging" in the second line, the anti-aging angle the
+     registry bans by name and passes only because its pattern looks for
+     the literal compound (the 2026-09-19 reading of the page's lead):
+     that phrase is this exception. The concerns the lines list are the
+     operator's own research, not Amy's wording; her read of both cards
+     on the preview is the clinical control, and the prices are the
+     operator's word. No pattern sees any of it, so a green linter never
+     authorizes it. Fixed terms: those two strings as the two cards'
+     lines, on that page and on the /go/regenerative landing page's
+     cards (the operator's choice of scope); neither is ever restated in
+     other body copy, FAQ answers, alt text, comments, meta
+     descriptions, OG tags or JSON-LD; the lead's own terms are
+     unchanged, and the phrase is not a restatement of it; no site text
+     states a regulatory status for PRP; changing any of it requires the
+     human operator.
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing
@@ -1123,7 +1175,9 @@ silently following it. Known superseded points from earlier briefs:
   2026-09-03). Opted-in pages today:
   /services/biostimulators and /services/body-contouring (both
   2026-08-21, Amy's own speech-free reels — the film class the opt-in
-  was written for), /about (2026-08-25, the ICON film — a scoped
+  was written for; body-contouring's second player since 2026-11-06,
+  the carousel's ATTIVA reel in its second placement, Amy's own film
+  with music and no speech, is in-class too — DECISIONS same date), /about (2026-08-25, the ICON film — a scoped
   operator override of the never-autoplay-a-narrated-manufacturer-film
   rule, DECISIONS same date; the component header carries both the
   rule and the exception — and, same date, the Girl Team unit's team

@@ -29,6 +29,54 @@ change lives in `docs/DECISIONS.md`; design specs live in
 
 ## After the relaunch (`phase-c`, then released into `main`)
 
+### 2026-11-11 — Regenerative treatments: PRP under the eyes, PRP full face and neck, and DE|RIVE's price line
+
+- /services/regenerative has two more "What Amy offers" cards, between
+  "PRP with Microneedling" and "DE|RIVE": "PRP Under the Eyes" ($600)
+  and "PRP Full Face and Neck" ($900). The page now shows five cards,
+  and /go/regenerative shows the same five, the DE|RIVE award graphic
+  still directly under them.
+- Each card's line says what the treatment is and what it is used to
+  improve the appearance of. That wording and the neck line's closing
+  phrase were flagged and ship at the operator's direction, recorded in
+  the page's brief and as a scoped exception; the concerns listed are
+  the operator's own research.
+- The services and their prices are the operator's word.
+- The DE|RIVE card's price line now reads "$800 per treatment with post
+  care kit" (was "$800 per treatment"), Amy's wording, on both pages.
+- Nothing else on the page changed: the two PRP cards from 2026-08-01,
+  the lead, the search description, the /services menu line and the FAQ
+  are as they were.
+- The page's approval flag reset with the edit. Amy OK'd the three
+  cards, prices included, on the PR #309 preview, and the operator
+  flipped the flag in the same PR.
+- DECISIONS 2026-11-11 and its addenda.
+
+### 2026-11-06 — Body contouring: an ATTIVA section with the ATTIVA film and prices
+
+- /services/body-contouring has a new "ATTIVA" section after "Two ways
+  to book it": "Coming soon to Mobile Aesthetics." (the practice's name
+  linked to its site, as everywhere else) and the operator's sentence,
+  beside the same ATTIVA film the home carousel plays fifth, muted when
+  scrolled to, with its song one tap away.
+- A second paragraph describes the device: a micro-cannula delivering
+  radiofrequency energy beneath the skin, the heat "designed to tighten
+  existing collagen and to support the skin's own production of new
+  collagen and elastin" (the operator's text in the site's usual form,
+  chosen after the flag).
+- Under it, the site's first table: ATTIVA prices per treatment for
+  seven areas, from $2,000 (under-eye area) to $6,500 (body), each the
+  top of the proposed range, with an eye-area note that routes those
+  two rows to Amy's assessment at a consultation.
+- Two Evolve lines were scoped to Evolve so they stay true: the line
+  under the page title and the first sentence of "What it is".
+- The page's lead, search description, /services menu line and
+  /go/body-contouring are unchanged. The film, its poster and its
+  captions are the carousel's own files; nothing new was uploaded.
+- The page's approval flag reset with the edit. Amy OK'd the page on
+  the PR #307 preview, and the operator flipped the flag in the same PR.
+- DECISIONS 2026-11-06, the ATTIVA entry and its addenda.
+
 ### 2026-11-05 — Skin rejuvenation: the EXO|E section's consultation line off
 
 - The EXO|E section on /services/skin-rejuvenation no longer ends with

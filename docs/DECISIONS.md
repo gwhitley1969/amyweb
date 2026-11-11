@@ -18237,3 +18237,377 @@ The operator flipped `clinicianApproved` in the same PR (`8b84632`,
 constraint 4). Before the OK, six converged passes of the preview showed
 the line gone and the section and the peel cards' routing sentence
 present.
+
+## 2026-11-06 — body-contouring: an ATTIVA section with the carousel's ATTIVA reel and a price table (operator decisions after the compliance flags)
+
+**Context.** The operator asked for ATTIVA on /services/body-contouring:
+the home carousel's ATTIVA reel (its fifth film, the 2026-10-29 entry),
+the sentence "ATTIVA is a minimally invasive, non-surgical
+radiofrequency (RF) skin-tightening and rejuvenation treatment", and a
+price table modelled on a slide of a proposed ATTIVA menu (seven areas,
+each with a proposed range, and an eye-area footnote). Each price is
+the top of its range, at the operator's direction: under-eye area\*
+$2,000; brow / upper-eye area\* $2,500; jawline / jowls $2,750; jawline
++ neck $3,750; face, excluding eyelids and neck $4,500; face + neck,
+excluding eyelids $5,500; body, based on area and extent $6,500.
+
+**What was checked before the plan.**
+- No word of the sentence trips `lint:claims`. "Skin-tightening" fits
+  the page's brief (BUILD_SPEC §7.11: describe by intended design, skin
+  tightening among the examples, never as outcomes), and the sentence
+  states no regulatory status, which no site text may (none could be
+  confirmed, the 2026-10-29 entry).
+- The prices are product pricing per treatment by area: no count,
+  interval, amount or duration, so no dosing-class content.
+- The film is Amy's own reel with music and no speech (the operator's
+  listen, the 2026-10-29 addendum), so the treatment player's in-view
+  autoplay is in-class: no new exception to the autoplay rule.
+- Two sentences on the page spoke for the whole page and would stop
+  being true: the deck ("Two kinds of energy, no needles.", while
+  "minimally invasive" says ATTIVA is not needle-free) and "Body
+  contouring here means one thing: Evolve".
+
+**Flags put to the operator, and the answers.**
+1. **Availability.** The film's heading, "Coming to Mobile Aesthetics",
+   is burned into every frame. Asked whether ATTIVA can be booked now,
+   the operator answered **still coming soon**. The section says
+   "Coming soon to the medspa." and carries no booking link.
+2. **The film on this page.** It carries the maker's three
+   results-comparison slides (eyes, neck, and a body area photographed
+   in a thong; the patients' consent is the maker's, not on this site's
+   record) and a page of its provider brochure; here they would sit
+   directly above a price list. The 16-second cut without that material
+   (device shot, Amy with her guests, the closing card) was recommended
+   for this page and **declined: the full film, as in the carousel**.
+3. **The song.** The Instagram-library song has no licence on record;
+   this is its second placement. Kept, as the 2026-10-29 decision did
+   for the carousel and the Re-Q film's second placement did the same
+   day; the plan said so and the operator approved it.
+4. **The footnote.** The slide's "Eye-area treatments require clinician
+   suitability assessment and appropriate training. Proposed fees." was
+   offered beside a wording centred on Amy; the operator chose
+   "\*Eye-area treatments are offered only after Amy's suitability
+   assessment at a consultation." ("Appropriate training" on her own
+   site could read as a remark on her training; "Proposed fees" no
+   longer applies.)
+5. **Page fit.** Four of the seven areas are on the face or around the
+   eyes, on a page named for the body. Raised once as a note; the
+   operator's placement stands.
+6. **Branch.** The Re-Q section for /services/skincare was committed
+   locally that morning, unpushed, on the same records. The operator
+   chose to start fresh from `phase-c`; whichever of the two merges
+   second resolves the record conflicts (keep both; renumber counts).
+
+**Decision and what was built** (`body-contouring.mdx`, one content
+commit):
+- A flipped media row after "Two ways to book it": copy left (the
+  heading "ATTIVA", "Coming soon to the medspa.", the operator's
+  sentence verbatim), film right through `TreatmentVideo` with
+  `frame="bare"` and `autoplay="inview"`, the carousel's own rendition
+  (`commercial-attiva.mp4`), poster and caption file. Nothing new was
+  encoded or uploaded. Its label: "Amy's reel announcing ATTIVA as
+  coming to the medspa: the device, the maker's slides and a page of
+  its brochure, and Amy with two guests under the medspa's neon sign,
+  with music and no words." It restates no text from the film. The
+  track shows by default in this player (two bounded `[Music]` cues).
+- Under the row, the site's first table, in real table markup: the
+  caption "ATTIVA prices: per treatment, with the exact area defined at
+  your consultation.", column headers "Treatment area" and "Price", a
+  row header per area, then the footnote. Styled in TreatmentLayout's
+  body rules after the product cards: the card pink, the hairline, the
+  ink-pink left edge, tabular figures, an ink header row with paper
+  text. Prices never wrap; area names do.
+- The deck now opens "Evolve:" and the first sentence of "What it is"
+  reads "Body contouring here starts with **Evolve**". The lead, search
+  description, products list, /services menu line and
+  /go/body-contouring stay Evolve-only (the /go/ page renders no body
+  and no film).
+- `clinicianApproved` resets to false (constraint 4).
+
+**Alternatives rejected.**
+- The 16-second cut for this page (recommended, declined).
+- A silent rendition for this placement.
+- The slide's footnote wording.
+- Seven ATTIVA product cards in "What Amy offers": they would also have
+  rendered on /go/body-contouring, and the operator asked for a table.
+- A markdown pipe table: no caption and no row headers.
+
+**Consequences.**
+- The maker's before/after slides now play beside prices on a treatment
+  page, a further departure from the SOW's deferral of before/after
+  (the operator's document to amend).
+- No new unlicensed song: a second placement of this one, still with no
+  licence on record.
+- Two in-view players on body-contouring; twelve on nine pages.
+- Time-bound: the line and the film's heading say ATTIVA is coming.
+  Once it arrives both are out of date; the line, the table and the
+  film are the operator's to change, and a booking route would be new
+  copy.
+- A change to the rendition, poster or caption file changes both
+  placements.
+- The two shared stylesheets are byte-identical to `phase-c`'s; the
+  new rules ride in the treatment pages' inline styles. The first draft
+  named the collapsing border model's property in TreatmentLayout,
+  which minted a sitewide utility; the rules use zero border spacing
+  instead (cells carry top rules only).
+- Amy reads the section on the PR preview; the operator flips the flag.
+
+**Verification** (branch `content/body-contouring-attiva`, local build):
+- `npm run verify` exit 0: `astro check` 0 errors; `lint:claims`,
+  `lint:voice`, `lint:practice-link` (38 pages, 80 links) and
+  `check:search-index` green; pa11y 39 of 39 URLs; Lighthouse assertions
+  on 10 URLs (30 runs) passed; `test:search` ok.
+- Both shared stylesheets byte-identical to `phase-c`'s, records
+  included.
+- Headless Chrome at 320, 390 and 1280px: the page is never wider than
+  the window; at 320px the table is 272px wide and its prices stay on
+  one line. Twelve `data-autoplay="inview"` players on nine pages, two
+  on body-contouring.
+- `check:approvals` fails on body-contouring, as it must until the flip.
+
+**Records changed.** CLAUDE.md (constraint 3: the ATTIVA claims
+paragraph, the thirteenth pixel-level override, the music paragraph;
+the treatment-video opted-in pages), BUILD_SPEC (§1, §7.11, §8's
+readout and claims passages, §8.9, the carousel section),
+compliance/README, the sign-off sheet's body-contouring row, CHANGELOG,
+REDESIGN (the music list), RELAUNCH (probe targets and the player
+count), the caption file's NOTE and the `VideoCarousel.astro` header.
+
+**Addendum, 2026-11-06 — the device description, in house form
+(operator decision after the compliance flag).** The operator then
+supplied two more sentences: "ATTIVA uses a tiny, flexible micro-cannula
+to deliver controlled radiofrequency energy directly beneath the skin.
+Causing collagen and elastin stimulation, the internal heat causes an
+immediate contraction of existing collagen fibers while triggering
+fibroblast activity to stimulate new collagen and elastin production
+over time."
+- The first sentence describes how the device works and backs up
+  "minimally invasive"; it is carried word for word.
+- The second was flagged. No linter pattern sees any of it.
+  - "An immediate contraction of existing collagen fibers" is a result
+    with a timing (no results-timeline promises; §8 rule 3).
+  - "Triggering fibroblast activity to stimulate new collagen and
+    elastin production over time" is a mechanism-of-action and outcome
+    claim with a time frame (§7: no mechanism hype, no outcomes).
+  - "Causing collagen and elastin stimulation" repeats the effect claim
+    and leaves the sentence's grammar tangled.
+  - It would sit beside the maker's before/after slides and a price
+    table, for a device whose regulatory status could not be confirmed.
+- Three versions were offered: the house form (recommended, the form
+  the operator chose for the Re-Q section the same day), the operator's
+  words with the repeated opening clause dropped, and the words exactly,
+  the latter two as recorded overrides. The operator chose **the house
+  form**, now a second paragraph after the first sentence: "ATTIVA uses
+  a tiny, flexible micro-cannula to deliver controlled radiofrequency
+  energy directly beneath the skin. The heat is designed to tighten
+  existing collagen and to support the skin's own production of new
+  collagen and elastin."
+- Design-intent wording within the page's brief (BUILD_SPEC §7.11), so
+  it needs no claims entry in CLAUDE.md. The flagged wording is not on
+  the page, and it is never restated in site text.
+- The flag was already false from the section's first commit; Amy reads
+  both paragraphs on the PR #307 preview.
+- Records changed: BUILD_SPEC §7.11, the sign-off sheet's body-contouring
+  row and the CHANGELOG entry.
+
+**Addendum, 2026-11-06 — "Coming soon to Mobile Aesthetics."
+(operator direction).** The operator changed the section's line from
+"Coming soon to the medspa." to "Coming soon to Mobile Aesthetics.",
+the wording of the film's own burned-in heading.
+- Because visible text now names the practice, the name links through
+  `PracticeLink` under constraint 2's seventh exception: the link text
+  is the name alone, the one destination, a new tab, `noopener`, the
+  `ma_site_click` event and the hidden new-tab note. That exception
+  admits new mentions on those terms, and `lint:practice-link` requires
+  the link (38 pages, now 81 links). CLAUDE.md's list of the visible
+  mentions gains this line.
+- The place-name convention is unaffected: it bars "studio", not the
+  practice's name. The film's label still says "the medspa".
+- The line says where the device is coming, not who performs it; the
+  page's "Amy … plans and performs every treatment herself" stands, and
+  no text says another provider offers ATTIVA (constraint 2's tenth
+  exception).
+- Records changed: CLAUDE.md (constraint 2's seventh exception, the
+  list of mentions), BUILD_SPEC §7.11, the sign-off row and the
+  CHANGELOG entry. The entry above keeps the line's first wording as
+  history.
+
+**Addendum, 2026-11-06 — Amy's OK and the flip.** Amy read the page on
+the PR #307 preview and OK'd it, relayed by the operator the same
+afternoon. Before the OK, six consecutive passes of the preview served
+the final page ("Coming soon to Mobile Aesthetics." linked, and the
+micro-cannula paragraph). The operator flipped `clinicianApproved` in
+the same PR (`5bd5c23`, constraint 4) with a one-line command tested
+beforehand on a scratch copy with a stand-in word. The commit changes
+that one line and keeps the file's LF endings; `check:approvals` passes
+with 12 treatment files.
+
+## 2026-11-11 — regenerative: two more PRP cards, under the eyes and full face and neck (operator decisions after the compliance flags)
+
+**Context.** The operator asked for two more "What Amy offers" cards on
+/services/regenerative: PRP under the eyes at $600, and PRP full face
+and neck at $900. The wording supplied said what each treatment does.
+Under the eyes: "It's used to improve skin quality, fine lines, crepay
+texture, and mild dark circles." Full face and neck: "On the face, it
+helps reduce fine lines, improve skin tone, and minimize pore size. On
+the neck, it helps address creeping skin, texture issues, and early
+signs of aging or sun damage."
+
+**Flagged** (before the build, in two rounds):
+1. **Result wording.** BUILD_SPEC §7.6 says "Describe what the
+   treatments are; no healing/repair outcome claims", and each recorded
+   exception on the page ends "anything further reverts to the rule".
+   The supplied wording and every draft pass `lint:claims` (0 hits
+   against the registry's 52 patterns), so the gate decides nothing
+   here.
+2. **My first description of the house form was wrong.** In round one I
+   offered "designed to improve the appearance of…" sentences as needing
+   no record, and the operator picked them. Two reviewers of the plan
+   (Explore agents: facts and steps; rules and records) then found that
+   the form is granted brief by brief. §7.10 ("appearance-hedged") and
+   §7.12 ("all appearance-hedged, mechanism as design intent") grant it
+   for devices, §7.11 grants "intended design", and the ATTIVA addendum
+   of 2026-11-06 rests on §7.11 by name. §7.6 grants neither, and the
+   nearest "what it is" precedent, the KLOW card of 2026-10-02, went the
+   other way ("nothing about what it does"). The 2026-08-01 entry treats
+   only the verbatim choice as the override, so the record was split.
+   The reviewers also found that "designed to" claims a maker's design,
+   which PRP does not have; that the second draft line never said what
+   the treatment is; and that "improve skin quality" sat outside the
+   appearance wording.
+3. **"Early signs of aging."** Not flagged in round one. The 2026-09-19
+   addendum reads "reduce the signs of skin aging" as the anti-aging
+   angle the registry bans by name and passes only because its pattern
+   wants the literal compound; the page's lead carries it as a scoped
+   exception.
+4. **Where the wording came from** (the EXO|E entry's question).
+5. **Also noted:**
+   - BUILD_SPEC §8 rule 5 (positioning a product for an unapproved
+     use). PRP's status for cosmetic use was not confirmed from an FDA
+     page that day; secondary sources say the preparation kits are
+     cleared for other uses. The page's 2026-08-01 cards are in the
+     same position.
+   - Google's ads policy page, read the same day
+     (https://support.google.com/adspolicy/answer/15596627), still lists
+     PRP among the therapies it takes no ads for, as recorded on
+     2026-10-13.
+   - The website contract's §5 promises treatments described "without
+     promising specific results" and Amy's approval of every word.
+
+**Decision** (the operator's answers):
+1. **A separate service.** PRP full face and neck is not "PRP with
+   Microneedling", which is also $900. Five cards.
+2. **Both pages.** The cards also show on /go/regenerative. Keeping
+   them off it (a `productExclude` rule) was offered.
+3. **Wording.** In round two: "used to improve the appearance of…",
+   each line opening with what the treatment is. A plain wording (what
+   it is, which concerns it is used for, no result verb), which fits
+   §7's pattern "what it is → who it's generally for", was recommended
+   and declined. The supplied wording as written was offered in both
+   rounds.
+4. **The aging phrase stays.** Leaving it out was recommended and
+   declined.
+5. **Source:** "My own research." The concerns are the operator's, not
+   Amy's wording. No product card is involved, so constraint 8 is not
+   engaged. Amy's read of both cards on the preview is the clinical
+   control. The two services and their prices are the operator's word.
+
+The lines as built:
+- PRP Under the Eyes, tagged "Eyes", $600: "PRP for the under-eye
+  area, used to improve the appearance of skin quality, fine lines,
+  crepey texture, and mild dark circles."
+- PRP Full Face and Neck, tagged "Face & Neck", $900: "PRP for the
+  full face and neck. On the face, used to improve the appearance of
+  fine lines, skin tone, and pore size. On the neck, the appearance of
+  crepey skin, uneven texture, and early signs of aging or sun damage."
+
+**How it is recorded.** The appearance wording is authorized for those
+two exact lines by a dated note in BUILD_SPEC §7.6. The aging phrase is
+a scoped exception in CLAUDE.md constraint 3, which quotes both lines
+and sets their scope: the two cards, on the two pages. BUILD_SPEC §8.3
+and compliance/README point to it. There is no `allowedStrings` entry,
+because nothing trips a pattern.
+
+**My calls, stated in the approved plan:**
+- Names and tags as above; "crepay" and "creeping" spelled "crepey";
+  "texture issues" as "uneven texture".
+- Prices bare, like the two 2026-08-01 cards. No "per treatment" was
+  supplied.
+- The cards go before DE|RIVE, so the landing page's award graphic
+  stays directly under its card (`awardCard`).
+- Nothing else on the page changes. "What they are" still says PRP is
+  offered two ways, which stays true. The lead, `schemaDescription`,
+  `seo.description`, the menu line and the FAQ are untouched.
+- Suitability stays routed by "Who they're generally for" and the
+  layout's disclaimer. The cards answer no "is this right for me". The
+  one eye-area precedent, ATTIVA's price note of 2026-11-06, routes its
+  rows to a consultation in so many words; this card carries no such
+  note.
+- No site text states a regulatory status for PRP.
+
+**Measured before the build.** Two cards with these names and tags were
+added to the live pages in a browser tab, nothing saved. At 1280 px:
+two cards per row, DE|RIVE on its own full row. At 390 and 375 px: one
+per row. At 375 px the "Face & Neck" tag drops under its card's name.
+No sideways scroll at any of the three. On /go/regenerative the graphic
+follows the cards.
+
+**Alternatives rejected:** the plain wording; the supplied wording as
+written; leaving the aging phrase out; the treatment page only; cards
+with headed lists (a schema change for two sentences); renaming or
+re-ordering the three earlier cards.
+
+**Consequences.**
+- Recorded exposure on result wording for PRP under a brief that bars
+  it, and on the anti-aging angle, scoped to two lines. Anything further
+  reverts to the rule.
+- `clinicianApproved` reset to false with the content commit
+  (constraint 4). Amy reads both lines by name on the PR preview and
+  confirms the prices; the operator flips the flag in the same PR.
+- Records changed: CLAUDE.md constraint 3, BUILD_SPEC §7.6 and §8.3,
+  compliance/README, the sign-off sheet's regenerative row and its
+  landing-pages list, the CHANGELOG entry, and the comment above the
+  regenerative rule in `src/lib/landing.ts`.
+- The Re-Q skincare branch, still unpushed, edits the same record files
+  in other places. CHANGELOG and this log need a keep-both merge when
+  the second of the two changes merges.
+
+**Addendum, 2026-11-11 — the DE|RIVE card's price line (Amy's wording,
+relayed by the operator).** While PR #309's preview was building, the
+operator relayed Amy's request: the DE|RIVE card's price line reads
+"$800 per treatment with post care kit" in place of "$800 per
+treatment".
+- Her wording is carried exactly, "post care" unhyphenated. The site's
+  own word elsewhere is "aftercare" (the visit steps); this line is
+  hers.
+- It says what the price includes and nothing about how DE|RIVE is
+  applied, so the DE|RIVE terms in CLAUDE.md constraint 3 stand. The
+  kit is not named or described anywhere in site text.
+- A plain-dollar string: no pattern sees it (0 hits) and it needs no
+  `allowedStrings` entry.
+- It renders on /go/regenerative as well, where the card's price line
+  is the entry's own.
+- Same PR, its own content commit. The flag was already false from the
+  PRP cards' commit, so Amy's one read of the preview covers all three
+  cards, and one flip follows.
+- Records changed: BUILD_SPEC §7.6 (the DE|RIVE note's price), the
+  sign-off sheet's regenerative row and landing-pages list, and the
+  CHANGELOG entry. The 2026-11-05 entries keep the earlier price line
+  as history.
+
+**Addendum, 2026-11-11 — Amy's OK and the flip.** Amy read the three
+cards on the PR #309 preview and OK'd them, prices included, relayed by
+the operator the same afternoon ("Amy OK'd it").
+- The preview links first went to the operator one minute after the
+  deploy finished, on six single-request passes. The new environment
+  was still flapping: the operator got Azure's own 404 on the landing
+  page, and 13 of 100 requests then failed at random across both pages
+  and the home page, while the standing demo (#97) served 20 of 20. It
+  settled by itself about ten minutes after the deploy. Before the
+  links went out again, both pages had answered 240 requests in a row
+  with the final content.
+- The operator flipped `clinicianApproved` in the same PR (`0acb8e8`,
+  constraint 4) with the sign-off sheet's one-line command, run
+  beforehand against a scratch copy of the file in a throwaway repo.
+  The commit changes that one line and keeps the file's LF endings;
+  `check:approvals` passes with 12 treatment files.

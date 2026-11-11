@@ -963,6 +963,36 @@ silently following it. Known superseded points from earlier briefs:
      treatment files only, so any edit to `DeriveAward` or the PNG resets
      regenerative's `clinicianApproved` in the same commit (constraint
      4); changing any of it requires the human operator.
+     And the lines of the two PRP area cards on /services/regenerative,
+     "PRP Under the Eyes" and "PRP Full Face and Neck" (operator
+     decisions after the compliance flags — DECISIONS 2026-11-11; a
+     plain wording that fits the page's brief, and leaving the aging
+     phrase out, were each recommended and declined), exactly: `PRP for
+     the under-eye area, used to improve the appearance of skin quality,
+     fine lines, crepey texture, and mild dark circles.` and `PRP for
+     the full face and neck. On the face, used to improve the appearance
+     of fine lines, skin tone, and pore size. On the neck, the
+     appearance of crepey skin, uneven texture, and early signs of aging
+     or sun damage.` Two things were flagged. The appearance wording:
+     that page's brief (BUILD_SPEC §7 item 6) says to describe what the
+     treatments are and carries no appearance-wording permission of its
+     own, unlike the laser and skin-rejuvenation briefs; it is
+     authorized for these two lines by that brief's dated note. And
+     "early signs of aging" in the second line, the anti-aging angle the
+     registry bans by name and passes only because its pattern looks for
+     the literal compound (the 2026-09-19 reading of the page's lead):
+     that phrase is this exception. The concerns the lines list are the
+     operator's own research, not Amy's wording; her read of both cards
+     on the preview is the clinical control, and the prices are the
+     operator's word. No pattern sees any of it, so a green linter never
+     authorizes it. Fixed terms: those two strings as the two cards'
+     lines, on that page and on the /go/regenerative landing page's
+     cards (the operator's choice of scope); neither is ever restated in
+     other body copy, FAQ answers, alt text, comments, meta
+     descriptions, OG tags or JSON-LD; the lead's own terms are
+     unchanged, and the phrase is not a restatement of it; no site text
+     states a regulatory status for PRP; changing any of it requires the
+     human operator.
      Nothing else; extending any of these requires the human
      operator.*
      *Fourth scoped exception, and the only one that is not marketing
